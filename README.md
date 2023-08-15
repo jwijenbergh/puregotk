@@ -53,7 +53,7 @@ func main() {
 	}
 }
 
-func activate(app gtk.Application) {
+func activate(app *gtk.Application) {
 	var window gtk.ApplicationWindow
 	gtk.NewApplicationWindow(app).Cast(&window)
 	window.SetTitle("purego")
