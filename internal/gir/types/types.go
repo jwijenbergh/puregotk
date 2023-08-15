@@ -1,5 +1,5 @@
 // package types implements types as found in gir XML files
-// NOTE: This was copied largely from (the type definitions) from
+// NOTE: This was copied largely from (the type definitions) from https://github.com/diamondburned/gotk4
 package types
 
 import (
