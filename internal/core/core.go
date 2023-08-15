@@ -71,7 +71,7 @@ func findSo(path string, name string) string {
 		fn := filepath.Join(path, n)
 		for _, s := range suffixes {
 			if _, err := os.Stat(fn + s); err == nil {
-				return fn
+				return fn+s
 			}
 		}
 	}
