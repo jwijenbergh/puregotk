@@ -75,19 +75,19 @@ func (x *PrintJob) GetNUpLayout() NumberUpLayout {
 
 }
 
-var xPrintJobGetNumCopies func(uintptr) int32
+var xPrintJobGetNumCopies func(uintptr) int
 
 // Gets the number of copies of this job.
-func (x *PrintJob) GetNumCopies() int32 {
+func (x *PrintJob) GetNumCopies() int {
 
 	return xPrintJobGetNumCopies(x.GoPointer())
 
 }
 
-var xPrintJobGetPageRanges func(uintptr, int32) uintptr
+var xPrintJobGetPageRanges func(uintptr, int) uintptr
 
 // Gets the page ranges for this job.
-func (x *PrintJob) GetPageRanges(NRangesVar int32) uintptr {
+func (x *PrintJob) GetPageRanges(NRangesVar int) uintptr {
 
 	return xPrintJobGetPageRanges(x.GoPointer(), NRangesVar)
 
@@ -249,19 +249,19 @@ func (x *PrintJob) SetNUpLayout(LayoutVar NumberUpLayout) {
 
 }
 
-var xPrintJobSetNumCopies func(uintptr, int32)
+var xPrintJobSetNumCopies func(uintptr, int)
 
 // Sets the number of copies for this job.
-func (x *PrintJob) SetNumCopies(NumCopiesVar int32) {
+func (x *PrintJob) SetNumCopies(NumCopiesVar int) {
 
 	xPrintJobSetNumCopies(x.GoPointer(), NumCopiesVar)
 
 }
 
-var xPrintJobSetPageRanges func(uintptr, uintptr, int32)
+var xPrintJobSetPageRanges func(uintptr, uintptr, int)
 
 // Sets the page ranges for this job.
-func (x *PrintJob) SetPageRanges(RangesVar uintptr, NRangesVar int32) {
+func (x *PrintJob) SetPageRanges(RangesVar uintptr, NRangesVar int) {
 
 	xPrintJobSetPageRanges(x.GoPointer(), RangesVar, NRangesVar)
 
@@ -314,7 +314,7 @@ func (x *PrintJob) SetScale(ScaleVar float64) {
 
 }
 
-var xPrintJobSetSourceFd func(uintptr, int32) bool
+var xPrintJobSetSourceFd func(uintptr, int) bool
 
 // Make the `GtkPrintJob` send an existing document to the
 // printing system.
@@ -327,7 +327,7 @@ var xPrintJobSetSourceFd func(uintptr, int32) bool
 // This is similar to [method@Gtk.PrintJob.set_source_file],
 // but takes expects an open file descriptor for the file,
 // instead of a filename.
-func (x *PrintJob) SetSourceFd(FdVar int32) bool {
+func (x *PrintJob) SetSourceFd(FdVar int) bool {
 
 	return xPrintJobSetSourceFd(x.GoPointer(), FdVar)
 

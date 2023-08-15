@@ -16,7 +16,7 @@ import (
 // operation.
 type ContentDeserializeFunc func(uintptr)
 
-var xContentDeserializeAsync func(uintptr, string, []interface{}, int32, uintptr, uintptr, uintptr)
+var xContentDeserializeAsync func(uintptr, string, []interface{}, int, uintptr, uintptr, uintptr)
 
 // Read content from the given input stream and deserialize it, asynchronously.
 //
@@ -25,7 +25,7 @@ var xContentDeserializeAsync func(uintptr, string, []interface{}, int32, uintptr
 //
 // When the operation is finished, @callback will be called. You must then
 // call [func@Gdk.content_deserialize_finish] to get the result of the operation.
-func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar []interface{}, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentDeserializeAsync(StreamVar.GoPointer(), MimeTypeVar, TypeVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -128,12 +128,12 @@ func (x *ContentDeserializer) GetMimeType() string {
 
 }
 
-var xContentDeserializerGetPriority func(uintptr) int32
+var xContentDeserializerGetPriority func(uintptr) int
 
 // Gets the I/O priority for the current operation.
 //
 // This is the priority that was passed to [func@Gdk.content_deserialize_async].
-func (x *ContentDeserializer) GetPriority() int32 {
+func (x *ContentDeserializer) GetPriority() int {
 
 	return xContentDeserializerGetPriority(x.GoPointer())
 

@@ -387,7 +387,7 @@ func (x *Application) AddAction(ActionVar gio.Action) {
 //	}
 //
 // ]|
-func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int32, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
 
 	gio.XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 

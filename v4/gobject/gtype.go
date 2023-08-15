@@ -380,9 +380,9 @@ func TypeAddClassPrivate(ClassTypeVar []interface{}, PrivateSizeVar uint) {
 
 }
 
-var xTypeAddInstancePrivate func([]interface{}, uint) int32
+var xTypeAddInstancePrivate func([]interface{}, uint) int
 
-func TypeAddInstancePrivate(ClassTypeVar []interface{}, PrivateSizeVar uint) int32 {
+func TypeAddInstancePrivate(ClassTypeVar []interface{}, PrivateSizeVar uint) int {
 
 	return xTypeAddInstancePrivate(ClassTypeVar, PrivateSizeVar)
 
@@ -511,9 +511,9 @@ func TypeChildren(TypeVar []interface{}, NChildrenVar uint) uintptr {
 
 }
 
-var xTypeClassAdjustPrivateOffset func(uintptr, int32)
+var xTypeClassAdjustPrivateOffset func(uintptr, int)
 
-func TypeClassAdjustPrivateOffset(GClassVar uintptr, PrivateSizeOrOffsetVar int32) {
+func TypeClassAdjustPrivateOffset(GClassVar uintptr, PrivateSizeOrOffsetVar int) {
 
 	xTypeClassAdjustPrivateOffset(GClassVar, PrivateSizeOrOffsetVar)
 
@@ -695,13 +695,13 @@ func TypeFundamentalNext() []interface{} {
 
 }
 
-var xTypeGetInstanceCount func([]interface{}) int32
+var xTypeGetInstanceCount func([]interface{}) int
 
 // Returns the number of instances allocated of the particular type;
 // this is only available if GLib is built with debugging support and
 // the instance_count debug flag is set (by setting the GOBJECT_DEBUG
 // variable to include instance-count).
-func TypeGetInstanceCount(TypeVar []interface{}) int32 {
+func TypeGetInstanceCount(TypeVar []interface{}) int {
 
 	return xTypeGetInstanceCount(TypeVar)
 

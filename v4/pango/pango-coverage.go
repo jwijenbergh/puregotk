@@ -82,10 +82,10 @@ func (x *Coverage) Copy() *Coverage {
 
 }
 
-var xCoverageGet func(uintptr, int32) CoverageLevel
+var xCoverageGet func(uintptr, int) CoverageLevel
 
 // Determine whether a particular index is covered by @coverage.
-func (x *Coverage) Get(IndexVar int32) CoverageLevel {
+func (x *Coverage) Get(IndexVar int) CoverageLevel {
 
 	return xCoverageGet(x.GoPointer(), IndexVar)
 
@@ -118,19 +118,19 @@ func (x *Coverage) Ref() *Coverage {
 
 }
 
-var xCoverageSet func(uintptr, int32, CoverageLevel)
+var xCoverageSet func(uintptr, int, CoverageLevel)
 
 // Modify a particular index within @coverage
-func (x *Coverage) Set(IndexVar int32, LevelVar CoverageLevel) {
+func (x *Coverage) Set(IndexVar int, LevelVar CoverageLevel) {
 
 	xCoverageSet(x.GoPointer(), IndexVar, LevelVar)
 
 }
 
-var xCoverageToBytes func(uintptr, uintptr, int32)
+var xCoverageToBytes func(uintptr, uintptr, int)
 
 // Convert a `PangoCoverage` structure into a flat binary format.
-func (x *Coverage) ToBytes(BytesVar uintptr, NBytesVar int32) {
+func (x *Coverage) ToBytes(BytesVar uintptr, NBytesVar int) {
 
 	xCoverageToBytes(x.GoPointer(), BytesVar, NBytesVar)
 

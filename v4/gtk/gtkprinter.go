@@ -116,10 +116,10 @@ func (x *Printer) AcceptsPs() bool {
 
 }
 
-var xPrinterCompare func(uintptr, uintptr) int32
+var xPrinterCompare func(uintptr, uintptr) int
 
 // Compares two printers.
-func (x *Printer) Compare(BVar *Printer) int32 {
+func (x *Printer) Compare(BVar *Printer) int {
 
 	return xPrinterCompare(x.GoPointer(), BVar.GoPointer())
 
@@ -217,10 +217,10 @@ func (x *Printer) GetIconName() string {
 
 }
 
-var xPrinterGetJobCount func(uintptr) int32
+var xPrinterGetJobCount func(uintptr) int
 
 // Gets the number of jobs currently queued on the printer.
-func (x *Printer) GetJobCount() int32 {
+func (x *Printer) GetJobCount() int {
 
 	return xPrinterGetJobCount(x.GoPointer())
 

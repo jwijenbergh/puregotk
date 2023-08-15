@@ -197,7 +197,7 @@ func (x *PreferencesRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty,
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *PreferencesRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -233,7 +233,7 @@ func (x *PreferencesRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation,
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *PreferencesRow) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -266,7 +266,7 @@ func (x *PreferencesRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs 
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *PreferencesRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

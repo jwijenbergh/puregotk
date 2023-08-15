@@ -107,10 +107,10 @@ func (x *FontMap) GetSerial() uint {
 
 }
 
-var xFontMapListFamilies func(uintptr, uintptr, int32)
+var xFontMapListFamilies func(uintptr, uintptr, int)
 
 // List all families for a fontmap.
-func (x *FontMap) ListFamilies(FamiliesVar uintptr, NFamiliesVar int32) {
+func (x *FontMap) ListFamilies(FamiliesVar uintptr, NFamiliesVar int) {
 
 	xFontMapListFamilies(x.GoPointer(), FamiliesVar, NFamiliesVar)
 

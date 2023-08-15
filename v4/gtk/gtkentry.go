@@ -232,11 +232,11 @@ func (x *Entry) GetCompletion() *EntryCompletion {
 
 }
 
-var xEntryGetCurrentIconDragSource func(uintptr) int32
+var xEntryGetCurrentIconDragSource func(uintptr) int
 
 // Returns the index of the icon which is the source of the
 // current  DND operation, or -1.
-func (x *Entry) GetCurrentIconDragSource() int32 {
+func (x *Entry) GetCurrentIconDragSource() int {
 
 	return xEntryGetCurrentIconDragSource(x.GoPointer())
 
@@ -295,7 +295,7 @@ func (x *Entry) GetIconArea(IconPosVar EntryIconPosition, IconAreaVar *gdk.Recta
 
 }
 
-var xEntryGetIconAtPos func(uintptr, int32, int32) int32
+var xEntryGetIconAtPos func(uintptr, int, int) int
 
 // Finds the icon at the given position and return its index.
 //
@@ -304,7 +304,7 @@ var xEntryGetIconAtPos func(uintptr, int32, int32) int32
 // -1 is returned. This function is intended for use in a
 //
 //	[signal@Gtk.Widget::query-tooltip] signal handler.
-func (x *Entry) GetIconAtPos(XVar int32, YVar int32) int32 {
+func (x *Entry) GetIconAtPos(XVar int, YVar int) int {
 
 	return xEntryGetIconAtPos(x.GoPointer(), XVar, YVar)
 
@@ -433,12 +433,12 @@ func (x *Entry) GetInvisibleChar() uint32 {
 
 }
 
-var xEntryGetMaxLength func(uintptr) int32
+var xEntryGetMaxLength func(uintptr) int
 
 // Retrieves the maximum allowed length of the text in @entry.
 //
 // See [method@Gtk.Entry.set_max_length].
-func (x *Entry) GetMaxLength() int32 {
+func (x *Entry) GetMaxLength() int {
 
 	return xEntryGetMaxLength(x.GoPointer())
 
@@ -798,7 +798,7 @@ func (x *Entry) SetInvisibleChar(ChVar uint32) {
 
 }
 
-var xEntrySetMaxLength func(uintptr, int32)
+var xEntrySetMaxLength func(uintptr, int)
 
 // Sets the maximum allowed length of the contents of the widget.
 //
@@ -807,7 +807,7 @@ var xEntrySetMaxLength func(uintptr, int32)
 //
 // This is equivalent to getting @entry's `GtkEntryBuffer` and
 // calling [method@Gtk.EntryBuffer.set_max_length] on it.
-func (x *Entry) SetMaxLength(MaxVar int32) {
+func (x *Entry) SetMaxLength(MaxVar int) {
 
 	xEntrySetMaxLength(x.GoPointer(), MaxVar)
 
@@ -1007,7 +1007,7 @@ func (x *Entry) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Entry) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Entry) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1043,7 +1043,7 @@ func (x *Entry) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Entry) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Entry) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1076,7 +1076,7 @@ func (x *Entry) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Entry) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Entry) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1139,7 +1139,7 @@ func (x *Entry) DeleteSelection() {
 // the end of the text.
 //
 // Note that the positions are specified in characters, not bytes.
-func (x *Entry) DeleteText(StartPosVar int32, EndPosVar int32) {
+func (x *Entry) DeleteText(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableDeleteText(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -1163,7 +1163,7 @@ func (x *Entry) FinishDelegate() {
 // the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *Entry) GetChars(StartPosVar int32, EndPosVar int32) string {
+func (x *Entry) GetChars(StartPosVar int, EndPosVar int) string {
 
 	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -1203,7 +1203,7 @@ func (x *Entry) GetEnableUndo() bool {
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
-func (x *Entry) GetMaxWidthChars() int32 {
+func (x *Entry) GetMaxWidthChars() int {
 
 	return XGtkEditableGetMaxWidthChars(x.GoPointer())
 
@@ -1213,7 +1213,7 @@ func (x *Entry) GetMaxWidthChars() int32 {
 // to the start of the content of the editable.
 //
 // Note that this position is in characters, not in bytes.
-func (x *Entry) GetPosition() int32 {
+func (x *Entry) GetPosition() int {
 
 	return XGtkEditableGetPosition(x.GoPointer())
 
@@ -1226,7 +1226,7 @@ func (x *Entry) GetPosition() int32 {
 // and %FALSE will be returned.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *Entry) GetSelectionBounds(StartPosVar int32, EndPosVar int32) bool {
+func (x *Entry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
 	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -1243,7 +1243,7 @@ func (x *Entry) GetText() string {
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
-func (x *Entry) GetWidthChars() int32 {
+func (x *Entry) GetWidthChars() int {
 
 	return XGtkEditableGetWidthChars(x.GoPointer())
 
@@ -1268,7 +1268,7 @@ func (x *Entry) InitDelegate() {
 // Note that the position is in characters, not in bytes.
 // The function updates @position to point after the newly
 // inserted text.
-func (x *Entry) InsertText(TextVar string, LengthVar int32, PositionVar int32) {
+func (x *Entry) InsertText(TextVar string, LengthVar int, PositionVar int) {
 
 	XGtkEditableInsertText(x.GoPointer(), TextVar, LengthVar, PositionVar)
 
@@ -1282,7 +1282,7 @@ func (x *Entry) InsertText(TextVar string, LengthVar int32, PositionVar int32) {
 // @start_pos to  the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *Entry) SelectRegion(StartPosVar int32, EndPosVar int32) {
+func (x *Entry) SelectRegion(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableSelectRegion(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -1308,7 +1308,7 @@ func (x *Entry) SetEnableUndo(EnableUndoVar bool) {
 }
 
 // Sets the desired maximum width in characters of @editable.
-func (x *Entry) SetMaxWidthChars(NCharsVar int32) {
+func (x *Entry) SetMaxWidthChars(NCharsVar int) {
 
 	XGtkEditableSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -1321,7 +1321,7 @@ func (x *Entry) SetMaxWidthChars(NCharsVar int32) {
 // or equal to the number of characters in the editable. A value of -1
 // indicates that the position should be set after the last character
 // of the editable. Note that @position is in characters, not in bytes.
-func (x *Entry) SetPosition(PositionVar int32) {
+func (x *Entry) SetPosition(PositionVar int) {
 
 	XGtkEditableSetPosition(x.GoPointer(), PositionVar)
 
@@ -1342,7 +1342,7 @@ func (x *Entry) SetText(TextVar string) {
 // Note that it changes the size request, the size can still
 // be affected by how you pack the widget into containers.
 // If @n_chars is -1, the size reverts to the default size.
-func (x *Entry) SetWidthChars(NCharsVar int32) {
+func (x *Entry) SetWidthChars(NCharsVar int) {
 
 	XGtkEditableSetWidthChars(x.GoPointer(), NCharsVar)
 

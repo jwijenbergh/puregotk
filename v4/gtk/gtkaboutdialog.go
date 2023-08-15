@@ -577,7 +577,7 @@ func (x *AboutDialog) UpdateProperty(FirstPropertyVar AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -613,7 +613,7 @@ func (x *AboutDialog) UpdateRelation(FirstRelationVar AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -646,7 +646,7 @@ func (x *AboutDialog) UpdateState(FirstStateVar AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

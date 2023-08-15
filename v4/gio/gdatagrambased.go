@@ -69,8 +69,8 @@ type DatagramBased interface {
 	ConditionCheck(ConditionVar glib.IOCondition) glib.IOCondition
 	ConditionWait(ConditionVar glib.IOCondition, TimeoutVar int64, CancellableVar *Cancellable) bool
 	CreateSource(ConditionVar glib.IOCondition, CancellableVar *Cancellable) *glib.Source
-	ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, TimeoutVar int64, CancellableVar *Cancellable) int32
-	SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, TimeoutVar int64, CancellableVar *Cancellable) int32
+	ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int
+	SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int
 }
 type DatagramBasedBase struct {
 	Ptr uintptr
@@ -208,7 +208,7 @@ func (x *DatagramBasedBase) CreateSource(ConditionVar glib.IOCondition, Cancella
 // messages successfully received before the error will be returned. If
 // @cancellable is cancelled, %G_IO_ERROR_CANCELLED is returned as with any
 // other error.
-func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, TimeoutVar int64, CancellableVar *Cancellable) int32 {
+func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int {
 
 	return XGDatagramBasedReceiveMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer())
 
@@ -255,7 +255,7 @@ func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar 
 // be returned if zero messages could be sent; otherwise the number of messages
 // successfully sent before the error will be returned. If @cancellable is
 // cancelled, %G_IO_ERROR_CANCELLED is returned as with any other error.
-func (x *DatagramBasedBase) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, TimeoutVar int64, CancellableVar *Cancellable) int32 {
+func (x *DatagramBasedBase) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int {
 
 	return XGDatagramBasedSendMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer())
 
@@ -264,8 +264,8 @@ func (x *DatagramBasedBase) SendMessages(MessagesVar uintptr, NumMessagesVar uin
 var XGDatagramBasedConditionCheck func(uintptr, glib.IOCondition) glib.IOCondition
 var XGDatagramBasedConditionWait func(uintptr, glib.IOCondition, int64, uintptr) bool
 var XGDatagramBasedCreateSource func(uintptr, glib.IOCondition, uintptr) *glib.Source
-var XGDatagramBasedReceiveMessages func(uintptr, uintptr, uint, int32, int64, uintptr) int32
-var XGDatagramBasedSendMessages func(uintptr, uintptr, uint, int32, int64, uintptr) int32
+var XGDatagramBasedReceiveMessages func(uintptr, uintptr, uint, int, int64, uintptr) int
+var XGDatagramBasedSendMessages func(uintptr, uintptr, uint, int, int64, uintptr) int
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

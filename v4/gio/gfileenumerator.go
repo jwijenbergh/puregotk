@@ -65,7 +65,7 @@ func (x *FileEnumerator) Close(CancellableVar *Cancellable) bool {
 
 }
 
-var xFileEnumeratorCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var xFileEnumeratorCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Asynchronously closes the file enumerator.
 //
@@ -73,7 +73,7 @@ var xFileEnumeratorCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned in
 // g_file_enumerator_close_finish().
-func (x *FileEnumerator) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileEnumerator) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileEnumeratorCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -238,7 +238,7 @@ func (x *FileEnumerator) NextFile(CancellableVar *Cancellable) *FileInfo {
 
 }
 
-var xFileEnumeratorNextFilesAsync func(uintptr, int32, int32, uintptr, uintptr, uintptr)
+var xFileEnumeratorNextFilesAsync func(uintptr, int, int, uintptr, uintptr, uintptr)
 
 // Request information for a number of files from the enumerator asynchronously.
 // When all i/o for the operation is finished the @callback will be called with
@@ -259,7 +259,7 @@ var xFileEnumeratorNextFilesAsync func(uintptr, int32, int32, uintptr, uintptr, 
 // Any outstanding i/o request with higher priority (lower numerical value) will
 // be executed before an outstanding request with lower priority. Default
 // priority is %G_PRIORITY_DEFAULT.
-func (x *FileEnumerator) NextFilesAsync(NumFilesVar int32, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileEnumerator) NextFilesAsync(NumFilesVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileEnumeratorNextFilesAsync(x.GoPointer(), NumFilesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

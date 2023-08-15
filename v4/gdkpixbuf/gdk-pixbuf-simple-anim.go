@@ -20,10 +20,10 @@ func PixbufSimpleAnimNewFromInternalPtr(ptr uintptr) *PixbufSimpleAnim {
 	return cls
 }
 
-var xNewPixbufSimpleAnim func(int32, int32, float32) uintptr
+var xNewPixbufSimpleAnim func(int, int, float32) uintptr
 
 // Creates a new, empty animation.
-func NewPixbufSimpleAnim(WidthVar int32, HeightVar int32, RateVar float32) *PixbufSimpleAnim {
+func NewPixbufSimpleAnim(WidthVar int, HeightVar int, RateVar float32) *PixbufSimpleAnim {
 	NewPixbufSimpleAnimPtr := xNewPixbufSimpleAnim(WidthVar, HeightVar, RateVar)
 	if NewPixbufSimpleAnimPtr == 0 {
 		return nil

@@ -71,11 +71,11 @@ func (x *FileMonitor) IsCancelled() bool {
 
 }
 
-var xFileMonitorSetRateLimit func(uintptr, int32)
+var xFileMonitorSetRateLimit func(uintptr, int)
 
 // Sets the rate limit to which the @monitor will report
 // consecutive change events to the same file.
-func (x *FileMonitor) SetRateLimit(LimitMsecsVar int32) {
+func (x *FileMonitor) SetRateLimit(LimitMsecsVar int) {
 
 	xFileMonitorSetRateLimit(x.GoPointer(), LimitMsecsVar)
 

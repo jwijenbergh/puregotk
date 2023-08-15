@@ -371,7 +371,7 @@ func (x *TabBar) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabBar) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *TabBar) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -407,7 +407,7 @@ func (x *TabBar) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabBar) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *TabBar) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -440,7 +440,7 @@ func (x *TabBar) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...inter
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabBar) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *TabBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

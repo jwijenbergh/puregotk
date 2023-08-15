@@ -32,7 +32,7 @@ type TreeViewRowSeparatorFunc func(uintptr, *TreeIter, uintptr) bool
 // a search key string entered by the user. Note the return value
 // is reversed from what you would normally expect, though it
 // has some similarity to strcmp() returning 0 for equal strings.
-type TreeViewSearchEqualFunc func(uintptr, int32, string, *TreeIter, uintptr) bool
+type TreeViewSearchEqualFunc func(uintptr, int, string, *TreeIter, uintptr) bool
 
 type TreeViewClass struct {
 	ParentClass uintptr
@@ -185,12 +185,12 @@ func NewWithModelTreeView(ModelVar TreeModel) *Widget {
 	return NewWithModelTreeViewCls
 }
 
-var xTreeViewAppendColumn func(uintptr, uintptr) int32
+var xTreeViewAppendColumn func(uintptr, uintptr) int
 
 // Appends @column to the list of columns. If @tree_view has “fixed_height”
 // mode enabled, then @column must have its “sizing” property set to be
 // GTK_TREE_VIEW_COLUMN_FIXED.
-func (x *TreeView) AppendColumn(ColumnVar *TreeViewColumn) int32 {
+func (x *TreeView) AppendColumn(ColumnVar *TreeViewColumn) int {
 
 	return xTreeViewAppendColumn(x.GoPointer(), ColumnVar.GoPointer())
 
@@ -224,59 +224,59 @@ func (x *TreeView) ColumnsAutosize() {
 
 }
 
-var xTreeViewConvertBinWindowToTreeCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertBinWindowToTreeCoords func(uintptr, int, int, int, int)
 
 // Converts bin_window coordinates to coordinates for the
 // tree (the full scrollable area of the tree).
-func (x *TreeView) ConvertBinWindowToTreeCoords(BxVar int32, ByVar int32, TxVar int32, TyVar int32) {
+func (x *TreeView) ConvertBinWindowToTreeCoords(BxVar int, ByVar int, TxVar int, TyVar int) {
 
 	xTreeViewConvertBinWindowToTreeCoords(x.GoPointer(), BxVar, ByVar, TxVar, TyVar)
 
 }
 
-var xTreeViewConvertBinWindowToWidgetCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertBinWindowToWidgetCoords func(uintptr, int, int, int, int)
 
 // Converts bin_window coordinates to widget relative coordinates.
-func (x *TreeView) ConvertBinWindowToWidgetCoords(BxVar int32, ByVar int32, WxVar int32, WyVar int32) {
+func (x *TreeView) ConvertBinWindowToWidgetCoords(BxVar int, ByVar int, WxVar int, WyVar int) {
 
 	xTreeViewConvertBinWindowToWidgetCoords(x.GoPointer(), BxVar, ByVar, WxVar, WyVar)
 
 }
 
-var xTreeViewConvertTreeToBinWindowCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertTreeToBinWindowCoords func(uintptr, int, int, int, int)
 
 // Converts tree coordinates (coordinates in full scrollable area of the tree)
 // to bin_window coordinates.
-func (x *TreeView) ConvertTreeToBinWindowCoords(TxVar int32, TyVar int32, BxVar int32, ByVar int32) {
+func (x *TreeView) ConvertTreeToBinWindowCoords(TxVar int, TyVar int, BxVar int, ByVar int) {
 
 	xTreeViewConvertTreeToBinWindowCoords(x.GoPointer(), TxVar, TyVar, BxVar, ByVar)
 
 }
 
-var xTreeViewConvertTreeToWidgetCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertTreeToWidgetCoords func(uintptr, int, int, int, int)
 
 // Converts tree coordinates (coordinates in full scrollable area of the tree)
 // to widget coordinates.
-func (x *TreeView) ConvertTreeToWidgetCoords(TxVar int32, TyVar int32, WxVar int32, WyVar int32) {
+func (x *TreeView) ConvertTreeToWidgetCoords(TxVar int, TyVar int, WxVar int, WyVar int) {
 
 	xTreeViewConvertTreeToWidgetCoords(x.GoPointer(), TxVar, TyVar, WxVar, WyVar)
 
 }
 
-var xTreeViewConvertWidgetToBinWindowCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertWidgetToBinWindowCoords func(uintptr, int, int, int, int)
 
 // Converts widget coordinates to coordinates for the bin_window.
-func (x *TreeView) ConvertWidgetToBinWindowCoords(WxVar int32, WyVar int32, BxVar int32, ByVar int32) {
+func (x *TreeView) ConvertWidgetToBinWindowCoords(WxVar int, WyVar int, BxVar int, ByVar int) {
 
 	xTreeViewConvertWidgetToBinWindowCoords(x.GoPointer(), WxVar, WyVar, BxVar, ByVar)
 
 }
 
-var xTreeViewConvertWidgetToTreeCoords func(uintptr, int32, int32, int32, int32)
+var xTreeViewConvertWidgetToTreeCoords func(uintptr, int, int, int, int)
 
 // Converts widget coordinates to coordinates for the
 // tree (the full scrollable area of the tree).
-func (x *TreeView) ConvertWidgetToTreeCoords(WxVar int32, WyVar int32, TxVar int32, TyVar int32) {
+func (x *TreeView) ConvertWidgetToTreeCoords(WxVar int, WyVar int, TxVar int, TyVar int) {
 
 	xTreeViewConvertWidgetToTreeCoords(x.GoPointer(), WxVar, WyVar, TxVar, TyVar)
 
@@ -390,10 +390,10 @@ func (x *TreeView) GetCellArea(PathVar *TreePath, ColumnVar *TreeViewColumn, Rec
 
 }
 
-var xTreeViewGetColumn func(uintptr, int32) uintptr
+var xTreeViewGetColumn func(uintptr, int) uintptr
 
 // Gets the `GtkTreeViewColumn` at the given position in the #tree_view.
-func (x *TreeView) GetColumn(NVar int32) *TreeViewColumn {
+func (x *TreeView) GetColumn(NVar int) *TreeViewColumn {
 
 	GetColumnPtr := xTreeViewGetColumn(x.GoPointer(), NVar)
 	if GetColumnPtr == 0 {
@@ -432,13 +432,13 @@ func (x *TreeView) GetCursor(PathVar **TreePath, FocusColumnVar **TreeViewColumn
 
 }
 
-var xTreeViewGetDestRowAtPos func(uintptr, int32, int32, **TreePath, *TreeViewDropPosition) bool
+var xTreeViewGetDestRowAtPos func(uintptr, int, int, **TreePath, *TreeViewDropPosition) bool
 
 // Determines the destination row for a given position.  @drag_x and
 // @drag_y are expected to be in widget coordinates.  This function is only
 // meaningful if @tree_view is realized.  Therefore this function will always
 // return %FALSE if @tree_view is not realized or does not have a model.
-func (x *TreeView) GetDestRowAtPos(DragXVar int32, DragYVar int32, PathVar **TreePath, PosVar *TreeViewDropPosition) bool {
+func (x *TreeView) GetDestRowAtPos(DragXVar int, DragYVar int, PathVar **TreePath, PosVar *TreeViewDropPosition) bool {
 
 	return xTreeViewGetDestRowAtPos(x.GoPointer(), DragXVar, DragYVar, PathVar, PosVar)
 
@@ -546,11 +546,11 @@ func (x *TreeView) GetHoverSelection() bool {
 
 }
 
-var xTreeViewGetLevelIndentation func(uintptr) int32
+var xTreeViewGetLevelIndentation func(uintptr) int
 
 // Returns the amount, in pixels, of extra indentation for child levels
 // in @tree_view.
-func (x *TreeView) GetLevelIndentation() int32 {
+func (x *TreeView) GetLevelIndentation() int {
 
 	return xTreeViewGetLevelIndentation(x.GoPointer())
 
@@ -584,7 +584,7 @@ func (x *TreeView) GetNColumns() uint {
 
 }
 
-var xTreeViewGetPathAtPos func(uintptr, int32, int32, **TreePath, *uintptr, int32, int32) bool
+var xTreeViewGetPathAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int) bool
 
 // Finds the path at the point (@x, @y), relative to bin_window coordinates.
 // That is, @x and @y are relative to an events coordinates. Widget-relative
@@ -602,7 +602,7 @@ var xTreeViewGetPathAtPos func(uintptr, int32, int32, **TreePath, *uintptr, int3
 // For converting widget coordinates (eg. the ones you get from
 // GtkWidget::query-tooltip), please see
 // gtk_tree_view_convert_widget_to_bin_window_coords().
-func (x *TreeView) GetPathAtPos(XVar int32, YVar int32, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int32, CellYVar int32) bool {
+func (x *TreeView) GetPathAtPos(XVar int, YVar int, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int, CellYVar int) bool {
 
 	return xTreeViewGetPathAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
 
@@ -638,10 +638,10 @@ func (x *TreeView) GetRubberBanding() bool {
 
 }
 
-var xTreeViewGetSearchColumn func(uintptr) int32
+var xTreeViewGetSearchColumn func(uintptr) int
 
 // Gets the column searched on by the interactive search code.
-func (x *TreeView) GetSearchColumn() int32 {
+func (x *TreeView) GetSearchColumn() int {
 
 	return xTreeViewGetSearchColumn(x.GoPointer())
 
@@ -703,17 +703,17 @@ func (x *TreeView) GetShowExpanders() bool {
 
 }
 
-var xTreeViewGetTooltipColumn func(uintptr) int32
+var xTreeViewGetTooltipColumn func(uintptr) int
 
 // Returns the column of @tree_view’s model which is being used for
 // displaying tooltips on @tree_view’s rows.
-func (x *TreeView) GetTooltipColumn() int32 {
+func (x *TreeView) GetTooltipColumn() int {
 
 	return xTreeViewGetTooltipColumn(x.GoPointer())
 
 }
 
-var xTreeViewGetTooltipContext func(uintptr, int32, int32, bool, *uintptr, **TreePath, *TreeIter) bool
+var xTreeViewGetTooltipContext func(uintptr, int, int, bool, *uintptr, **TreePath, *TreeIter) bool
 
 // This function is supposed to be used in a ::query-tooltip
 // signal handler for `GtkTreeView`. The @x, @y and @keyboard_tip values
@@ -726,7 +726,7 @@ var xTreeViewGetTooltipContext func(uintptr, int32, int32, bool, *uintptr, **Tre
 // @model, @path and @iter which have been provided will be set to point to
 // that row and the corresponding model. @x and @y will always be converted
 // to be relative to @tree_view’s bin_window if @keyboard_tooltip is %FALSE.
-func (x *TreeView) GetTooltipContext(XVar int32, YVar int32, KeyboardTipVar bool, ModelVar *TreeModel, PathVar **TreePath, IterVar *TreeIter) bool {
+func (x *TreeView) GetTooltipContext(XVar int, YVar int, KeyboardTipVar bool, ModelVar *TreeModel, PathVar **TreePath, IterVar *TreeIter) bool {
 
 	return xTreeViewGetTooltipContext(x.GoPointer(), XVar, YVar, KeyboardTipVar, gobject.ConvertPtr(ModelVar), PathVar, IterVar)
 
@@ -757,32 +757,32 @@ func (x *TreeView) GetVisibleRect(VisibleRectVar *gdk.Rectangle) {
 
 }
 
-var xTreeViewInsertColumn func(uintptr, uintptr, int32) int32
+var xTreeViewInsertColumn func(uintptr, uintptr, int) int
 
 // This inserts the @column into the @tree_view at @position.  If @position is
 // -1, then the column is inserted at the end. If @tree_view has
 // “fixed_height” mode enabled, then @column must have its “sizing” property
 // set to be GTK_TREE_VIEW_COLUMN_FIXED.
-func (x *TreeView) InsertColumn(ColumnVar *TreeViewColumn, PositionVar int32) int32 {
+func (x *TreeView) InsertColumn(ColumnVar *TreeViewColumn, PositionVar int) int {
 
 	return xTreeViewInsertColumn(x.GoPointer(), ColumnVar.GoPointer(), PositionVar)
 
 }
 
-var xTreeViewInsertColumnWithAttributes func(uintptr, int32, string, uintptr, ...interface{}) int32
+var xTreeViewInsertColumnWithAttributes func(uintptr, int, string, uintptr, ...interface{}) int
 
 // Creates a new `GtkTreeViewColumn` and inserts it into the @tree_view at
 // @position.  If @position is -1, then the newly created column is inserted at
 // the end.  The column is initialized with the attributes given. If @tree_view
 // has “fixed_height” mode enabled, then the new column will have its sizing
 // property set to be GTK_TREE_VIEW_COLUMN_FIXED.
-func (x *TreeView) InsertColumnWithAttributes(PositionVar int32, TitleVar string, CellVar *CellRenderer, varArgs ...interface{}) int32 {
+func (x *TreeView) InsertColumnWithAttributes(PositionVar int, TitleVar string, CellVar *CellRenderer, varArgs ...interface{}) int {
 
 	return xTreeViewInsertColumnWithAttributes(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), varArgs...)
 
 }
 
-var xTreeViewInsertColumnWithDataFunc func(uintptr, int32, string, uintptr, uintptr, uintptr, uintptr) int32
+var xTreeViewInsertColumnWithDataFunc func(uintptr, int, string, uintptr, uintptr, uintptr, uintptr) int
 
 // Convenience function that inserts a new column into the `GtkTreeView`
 // with the given cell renderer and a `GtkTreeCellDataFunc` to set cell renderer
@@ -790,13 +790,13 @@ var xTreeViewInsertColumnWithDataFunc func(uintptr, int32, string, uintptr, uint
 // gtk_tree_view_column_set_cell_data_func(), gtk_tree_view_column_pack_start().
 // If @tree_view has “fixed_height” mode enabled, then the new column will have its
 // “sizing” property set to be GTK_TREE_VIEW_COLUMN_FIXED.
-func (x *TreeView) InsertColumnWithDataFunc(PositionVar int32, TitleVar string, CellVar *CellRenderer, FuncVar TreeCellDataFunc, DataVar uintptr, DnotifyVar glib.DestroyNotify) int32 {
+func (x *TreeView) InsertColumnWithDataFunc(PositionVar int, TitleVar string, CellVar *CellRenderer, FuncVar TreeCellDataFunc, DataVar uintptr, DnotifyVar glib.DestroyNotify) int {
 
 	return xTreeViewInsertColumnWithDataFunc(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DnotifyVar))
 
 }
 
-var xTreeViewIsBlankAtPos func(uintptr, int32, int32, **TreePath, *uintptr, int32, int32) bool
+var xTreeViewIsBlankAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int) bool
 
 // Determine whether the point (@x, @y) in @tree_view is blank, that is no
 // cell content nor an expander arrow is drawn at the location. If so, the
@@ -815,7 +815,7 @@ var xTreeViewIsBlankAtPos func(uintptr, int32, int32, **TreePath, *uintptr, int3
 // The @path, @column, @cell_x and @cell_y arguments will be filled in
 // likewise as for gtk_tree_view_get_path_at_pos().  Please see
 // gtk_tree_view_get_path_at_pos() for more information.
-func (x *TreeView) IsBlankAtPos(XVar int32, YVar int32, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int32, CellYVar int32) bool {
+func (x *TreeView) IsBlankAtPos(XVar int, YVar int, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int, CellYVar int) bool {
 
 	return xTreeViewIsBlankAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
 
@@ -850,10 +850,10 @@ func (x *TreeView) MoveColumnAfter(ColumnVar *TreeViewColumn, BaseColumnVar *Tre
 
 }
 
-var xTreeViewRemoveColumn func(uintptr, uintptr) int32
+var xTreeViewRemoveColumn func(uintptr, uintptr) int
 
 // Removes @column from @tree_view.
-func (x *TreeView) RemoveColumn(ColumnVar *TreeViewColumn) int32 {
+func (x *TreeView) RemoveColumn(ColumnVar *TreeViewColumn) int {
 
 	return xTreeViewRemoveColumn(x.GoPointer(), ColumnVar.GoPointer())
 
@@ -901,7 +901,7 @@ func (x *TreeView) ScrollToCell(PathVar *TreePath, ColumnVar *TreeViewColumn, Us
 
 }
 
-var xTreeViewScrollToPoint func(uintptr, int32, int32)
+var xTreeViewScrollToPoint func(uintptr, int, int)
 
 // Scrolls the tree view such that the top-left corner of the visible
 // area is @tree_x, @tree_y, where @tree_x and @tree_y are specified
@@ -910,7 +910,7 @@ var xTreeViewScrollToPoint func(uintptr, int32, int32)
 // using gtk_tree_view_scroll_to_cell().
 //
 // If either @tree_x or @tree_y are -1, then that direction isn’t scrolled.
-func (x *TreeView) ScrollToPoint(TreeXVar int32, TreeYVar int32) {
+func (x *TreeView) ScrollToPoint(TreeXVar int, TreeYVar int) {
 
 	xTreeViewScrollToPoint(x.GoPointer(), TreeXVar, TreeYVar)
 
@@ -1094,14 +1094,14 @@ func (x *TreeView) SetHoverSelection(HoverVar bool) {
 
 }
 
-var xTreeViewSetLevelIndentation func(uintptr, int32)
+var xTreeViewSetLevelIndentation func(uintptr, int)
 
 // Sets the amount of extra indentation for child levels to use in @tree_view
 // in addition to the default indentation.  The value should be specified in
 // pixels, a value of 0 disables this feature and in this case only the default
 // indentation will be used.
 // This does not have any visible effects for lists.
-func (x *TreeView) SetLevelIndentation(IndentationVar int32) {
+func (x *TreeView) SetLevelIndentation(IndentationVar int) {
 
 	xTreeViewSetLevelIndentation(x.GoPointer(), IndentationVar)
 
@@ -1162,7 +1162,7 @@ func (x *TreeView) SetRubberBanding(EnableVar bool) {
 
 }
 
-var xTreeViewSetSearchColumn func(uintptr, int32)
+var xTreeViewSetSearchColumn func(uintptr, int)
 
 // Sets @column as the column where the interactive search code should
 // search in for the current model.
@@ -1173,7 +1173,7 @@ var xTreeViewSetSearchColumn func(uintptr, int32)
 //
 // Note that @column refers to a column of the current model. The search
 // column is reset to -1 when the model is changed.
-func (x *TreeView) SetSearchColumn(ColumnVar int32) {
+func (x *TreeView) SetSearchColumn(ColumnVar int) {
 
 	xTreeViewSetSearchColumn(x.GoPointer(), ColumnVar)
 
@@ -1237,7 +1237,7 @@ func (x *TreeView) SetTooltipCell(TooltipVar *Tooltip, PathVar *TreePath, Column
 
 }
 
-var xTreeViewSetTooltipColumn func(uintptr, int32)
+var xTreeViewSetTooltipColumn func(uintptr, int)
 
 // If you only plan to have simple (text-only) tooltips on full rows, you
 // can use this function to have `GtkTreeView` handle these automatically
@@ -1249,7 +1249,7 @@ var xTreeViewSetTooltipColumn func(uintptr, int32)
 //
 // Note that the signal handler sets the text with gtk_tooltip_set_markup(),
 // so &amp;, &lt;, etc have to be escaped in the text.
-func (x *TreeView) SetTooltipColumn(ColumnVar int32) {
+func (x *TreeView) SetTooltipColumn(ColumnVar int) {
 
 	xTreeViewSetTooltipColumn(x.GoPointer(), ColumnVar)
 
@@ -1340,8 +1340,8 @@ func (x *TreeView) ConnectExpandCollapseCursorRow(cb func(TreeView, bool, bool, 
 // programmatically. In contrast to gtk_tree_view_set_cursor() and
 // gtk_tree_view_set_cursor_on_cell() when moving horizontally
 // `GtkTreeView`::move-cursor does not reset the current selection.
-func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int32, bool, bool) bool) {
-	fcb := func(clsPtr uintptr, StepVarp MovementStep, DirectionVarp int32, ExtendVarp bool, ModifyVarp bool) bool {
+func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int, bool, bool) bool) {
+	fcb := func(clsPtr uintptr, StepVarp MovementStep, DirectionVarp int, ExtendVarp bool, ModifyVarp bool) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
 
@@ -1550,7 +1550,7 @@ func (x *TreeView) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TreeView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *TreeView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1586,7 +1586,7 @@ func (x *TreeView) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TreeView) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *TreeView) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1619,7 +1619,7 @@ func (x *TreeView) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TreeView) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *TreeView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

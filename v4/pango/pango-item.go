@@ -34,16 +34,16 @@ type Analysis struct {
 // You typically obtain `PangoItems` by itemizing a piece of text
 // with [func@itemize].
 type Item struct {
-	Offset int32
+	Offset int
 
-	Length int32
+	Length int
 
-	NumChars int32
+	NumChars int
 
 	Analysis uintptr
 }
 
-var xItemize func(uintptr, string, int32, int32, *AttrList, *AttrIterator) *glib.List
+var xItemize func(uintptr, string, int, int, *AttrList, *AttrIterator) *glib.List
 
 // Breaks a piece of text into segments with consistent directional
 // level and font.
@@ -57,20 +57,20 @@ var xItemize func(uintptr, string, int32, int32, *AttrList, *AttrIterator) *glib
 // advanced to the range covering the position just after
 // @start_index + @length. (i.e. if itemizing in a loop, just keep passing
 // in the same @cached_iter).
-func Itemize(ContextVar *Context, TextVar string, StartIndexVar int32, LengthVar int32, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
+func Itemize(ContextVar *Context, TextVar string, StartIndexVar int, LengthVar int, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
 
 	return xItemize(ContextVar.GoPointer(), TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
 
 }
 
-var xItemizeWithBaseDir func(uintptr, Direction, string, int32, int32, *AttrList, *AttrIterator) *glib.List
+var xItemizeWithBaseDir func(uintptr, Direction, string, int, int, *AttrList, *AttrIterator) *glib.List
 
 // Like `pango_itemize()`, but with an explicitly specified base direction.
 //
 // The base direction is used when computing bidirectional levels.
 // [func@itemize] gets the base direction from the `PangoContext`
 // (see [method@Pango.Context.set_base_dir]).
-func ItemizeWithBaseDir(ContextVar *Context, BaseDirVar Direction, TextVar string, StartIndexVar int32, LengthVar int32, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
+func ItemizeWithBaseDir(ContextVar *Context, BaseDirVar Direction, TextVar string, StartIndexVar int, LengthVar int, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
 
 	return xItemizeWithBaseDir(ContextVar.GoPointer(), BaseDirVar, TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
 

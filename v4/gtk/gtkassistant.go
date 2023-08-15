@@ -17,7 +17,7 @@ import (
 // “forward” button and for handling the behavior of the “last” button.
 //
 // See [method@Gtk.Assistant.set_forward_page_func].
-type AssistantPageFunc func(int32, uintptr) int32
+type AssistantPageFunc func(int, uintptr) int
 
 // Determines the page role inside a `GtkAssistant`.
 //
@@ -127,10 +127,10 @@ func (x *Assistant) AddActionWidget(ChildVar *Widget) {
 
 }
 
-var xAssistantAppendPage func(uintptr, uintptr) int32
+var xAssistantAppendPage func(uintptr, uintptr) int
 
 // Appends a page to the @assistant.
-func (x *Assistant) AppendPage(PageVar *Widget) int32 {
+func (x *Assistant) AppendPage(PageVar *Widget) int {
 
 	return xAssistantAppendPage(x.GoPointer(), PageVar.GoPointer())
 
@@ -154,28 +154,28 @@ func (x *Assistant) Commit() {
 
 }
 
-var xAssistantGetCurrentPage func(uintptr) int32
+var xAssistantGetCurrentPage func(uintptr) int
 
 // Returns the page number of the current page.
-func (x *Assistant) GetCurrentPage() int32 {
+func (x *Assistant) GetCurrentPage() int {
 
 	return xAssistantGetCurrentPage(x.GoPointer())
 
 }
 
-var xAssistantGetNPages func(uintptr) int32
+var xAssistantGetNPages func(uintptr) int
 
 // Returns the number of pages in the @assistant
-func (x *Assistant) GetNPages() int32 {
+func (x *Assistant) GetNPages() int {
 
 	return xAssistantGetNPages(x.GoPointer())
 
 }
 
-var xAssistantGetNthPage func(uintptr, int32) uintptr
+var xAssistantGetNthPage func(uintptr, int) uintptr
 
 // Returns the child widget contained in page number @page_num.
-func (x *Assistant) GetNthPage(PageNumVar int32) *Widget {
+func (x *Assistant) GetNthPage(PageNumVar int) *Widget {
 
 	GetNthPagePtr := xAssistantGetNthPage(x.GoPointer(), PageNumVar)
 	if GetNthPagePtr == 0 {
@@ -251,10 +251,10 @@ func (x *Assistant) GetPages() *gio.ListModelBase {
 
 }
 
-var xAssistantInsertPage func(uintptr, uintptr, int32) int32
+var xAssistantInsertPage func(uintptr, uintptr, int) int
 
 // Inserts a page in the @assistant at a given position.
-func (x *Assistant) InsertPage(PageVar *Widget, PositionVar int32) int32 {
+func (x *Assistant) InsertPage(PageVar *Widget, PositionVar int) int {
 
 	return xAssistantInsertPage(x.GoPointer(), PageVar.GoPointer(), PositionVar)
 
@@ -275,10 +275,10 @@ func (x *Assistant) NextPage() {
 
 }
 
-var xAssistantPrependPage func(uintptr, uintptr) int32
+var xAssistantPrependPage func(uintptr, uintptr) int
 
 // Prepends a page to the @assistant.
-func (x *Assistant) PrependPage(PageVar *Widget) int32 {
+func (x *Assistant) PrependPage(PageVar *Widget) int {
 
 	return xAssistantPrependPage(x.GoPointer(), PageVar.GoPointer())
 
@@ -308,23 +308,23 @@ func (x *Assistant) RemoveActionWidget(ChildVar *Widget) {
 
 }
 
-var xAssistantRemovePage func(uintptr, int32)
+var xAssistantRemovePage func(uintptr, int)
 
 // Removes the @page_num’s page from @assistant.
-func (x *Assistant) RemovePage(PageNumVar int32) {
+func (x *Assistant) RemovePage(PageNumVar int) {
 
 	xAssistantRemovePage(x.GoPointer(), PageNumVar)
 
 }
 
-var xAssistantSetCurrentPage func(uintptr, int32)
+var xAssistantSetCurrentPage func(uintptr, int)
 
 // Switches the page to @page_num.
 //
 // Note that this will only be necessary in custom buttons,
 // as the @assistant flow can be set with
 // gtk_assistant_set_forward_page_func().
-func (x *Assistant) SetCurrentPage(PageNumVar int32) {
+func (x *Assistant) SetCurrentPage(PageNumVar int) {
 
 	xAssistantSetCurrentPage(x.GoPointer(), PageNumVar)
 
@@ -539,7 +539,7 @@ func (x *Assistant) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Assistant) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Assistant) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -575,7 +575,7 @@ func (x *Assistant) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Assistant) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Assistant) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -608,7 +608,7 @@ func (x *Assistant) UpdateState(FirstStateVar AccessibleState, varArgs ...interf
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Assistant) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Assistant) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

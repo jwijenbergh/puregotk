@@ -12,9 +12,9 @@ import (
 type PadActionEntry struct {
 	Type PadActionType
 
-	Index int32
+	Index int
 
-	Mode int32
+	Mode int
 
 	Label string
 
@@ -122,7 +122,7 @@ func NewPadController(GroupVar gio.ActionGroup, PadVar *gdk.Device) *PadControll
 	return NewPadControllerCls
 }
 
-var xPadControllerSetAction func(uintptr, PadActionType, int32, int32, string, string)
+var xPadControllerSetAction func(uintptr, PadActionType, int, int, string, string)
 
 // Adds an individual action to @controller.
 //
@@ -133,19 +133,19 @@ var xPadControllerSetAction func(uintptr, PadActionType, int32, int32, string, s
 // The given @label should be considered user-visible, so internationalization
 // rules apply. Some windowing systems may be able to use those for user
 // feedback.
-func (x *PadController) SetAction(TypeVar PadActionType, IndexVar int32, ModeVar int32, LabelVar string, ActionNameVar string) {
+func (x *PadController) SetAction(TypeVar PadActionType, IndexVar int, ModeVar int, LabelVar string, ActionNameVar string) {
 
 	xPadControllerSetAction(x.GoPointer(), TypeVar, IndexVar, ModeVar, LabelVar, ActionNameVar)
 
 }
 
-var xPadControllerSetActionEntries func(uintptr, uintptr, int32)
+var xPadControllerSetActionEntries func(uintptr, uintptr, int)
 
 // A convenience function to add a group of action entries on
 // @controller.
 //
 // See [struct@Gtk.PadActionEntry] and [method@Gtk.PadController.set_action].
-func (x *PadController) SetActionEntries(EntriesVar uintptr, NEntriesVar int32) {
+func (x *PadController) SetActionEntries(EntriesVar uintptr, NEntriesVar int) {
 
 	xPadControllerSetActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 

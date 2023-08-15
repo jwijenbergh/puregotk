@@ -104,24 +104,24 @@ func PropagatePrefixedError(DestVar **Error, SrcVar *Error, FormatVar string, va
 
 }
 
-var xSetError func(**Error, Quark, int32, string, ...interface{})
+var xSetError func(**Error, Quark, int, string, ...interface{})
 
 // Does nothing if @err is %NULL; if @err is non-%NULL, then *@err
 // must be %NULL. A new #GError is created and assigned to *@err.
-func SetError(ErrVar **Error, DomainVar Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
+func SetError(ErrVar **Error, DomainVar Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
 
 	xSetError(ErrVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xSetErrorLiteral func(**Error, Quark, int32, string)
+var xSetErrorLiteral func(**Error, Quark, int, string)
 
 // Does nothing if @err is %NULL; if @err is non-%NULL, then *@err
 // must be %NULL. A new #GError is created and assigned to *@err.
 // Unlike g_set_error(), @message is not a printf()-style format string.
 // Use this function if @message contains text you don't have control over,
 // that could include printf() escape sequences.
-func SetErrorLiteral(ErrVar **Error, DomainVar Quark, CodeVar int32, MessageVar string) {
+func SetErrorLiteral(ErrVar **Error, DomainVar Quark, CodeVar int, MessageVar string) {
 
 	xSetErrorLiteral(ErrVar, DomainVar, CodeVar, MessageVar)
 

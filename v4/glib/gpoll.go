@@ -8,7 +8,7 @@ import (
 
 // Specifies the type of function passed to g_main_context_set_poll_func().
 // The semantics of the function should match those of the poll() system call.
-type PollFunc func(*PollFD, uint, int32) int32
+type PollFunc func(*PollFD, uint, int) int
 
 // Represents a file descriptor, which events to poll for, and which events
 // occurred.
@@ -20,7 +20,7 @@ type PollFD struct {
 	Revents uint16
 }
 
-var xPoll func(*PollFD, uint, int32) int32
+var xPoll func(*PollFD, uint, int) int
 
 // Polls @fds, as with the poll() system call, but portably. (On
 // systems that don't have poll(), it is emulated using select().)
@@ -39,7 +39,7 @@ var xPoll func(*PollFD, uint, int32) int32
 // Windows. If you need to use g_poll() in code that has to run on
 // Windows, the easiest solution is to construct all of your
 // #GPollFDs with g_io_channel_win32_make_pollfd().
-func Poll(FdsVar *PollFD, NfdsVar uint, TimeoutVar int32) int32 {
+func Poll(FdsVar *PollFD, NfdsVar uint, TimeoutVar int) int {
 
 	return xPoll(FdsVar, NfdsVar, TimeoutVar)
 

@@ -53,10 +53,10 @@ func NewCellAreaBox() *CellArea {
 	return NewCellAreaBoxCls
 }
 
-var xCellAreaBoxGetSpacing func(uintptr) int32
+var xCellAreaBoxGetSpacing func(uintptr) int
 
 // Gets the spacing added between cell renderers.
-func (x *CellAreaBox) GetSpacing() int32 {
+func (x *CellAreaBox) GetSpacing() int {
 
 	return xCellAreaBoxGetSpacing(x.GoPointer())
 
@@ -86,10 +86,10 @@ func (x *CellAreaBox) PackStart(RendererVar *CellRenderer, ExpandVar bool, Align
 
 }
 
-var xCellAreaBoxSetSpacing func(uintptr, int32)
+var xCellAreaBoxSetSpacing func(uintptr, int)
 
 // Sets the spacing to add between cell renderers in @box.
-func (x *CellAreaBox) SetSpacing(SpacingVar int32) {
+func (x *CellAreaBox) SetSpacing(SpacingVar int) {
 
 	xCellAreaBoxSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -120,7 +120,7 @@ func (x *CellAreaBox) GetBuildableId() string {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *CellAreaBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *CellAreaBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -171,7 +171,7 @@ func (x *CellAreaBox) GetCells() *glib.List {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *CellAreaBox) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *CellAreaBox) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

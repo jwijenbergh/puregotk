@@ -376,7 +376,7 @@ func (x *HeaderBar) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varA
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *HeaderBar) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *HeaderBar) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -412,7 +412,7 @@ func (x *HeaderBar) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varA
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *HeaderBar) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *HeaderBar) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -445,7 +445,7 @@ func (x *HeaderBar) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...in
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *HeaderBar) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *HeaderBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

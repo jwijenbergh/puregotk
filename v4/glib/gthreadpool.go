@@ -31,10 +31,10 @@ func ThreadPoolGetMaxIdleTime() uint {
 
 }
 
-var xThreadPoolGetMaxUnusedThreads func() int32
+var xThreadPoolGetMaxUnusedThreads func() int
 
 // Returns the maximal allowed number of unused threads.
-func ThreadPoolGetMaxUnusedThreads() int32 {
+func ThreadPoolGetMaxUnusedThreads() int {
 
 	return xThreadPoolGetMaxUnusedThreads()
 
@@ -66,14 +66,14 @@ func ThreadPoolSetMaxIdleTime(IntervalVar uint) {
 
 }
 
-var xThreadPoolSetMaxUnusedThreads func(int32)
+var xThreadPoolSetMaxUnusedThreads func(int)
 
 // Sets the maximal number of unused threads to @max_threads.
 // If @max_threads is -1, no limit is imposed on the number
 // of unused threads.
 //
 // The default value is 2.
-func ThreadPoolSetMaxUnusedThreads(MaxThreadsVar int32) {
+func ThreadPoolSetMaxUnusedThreads(MaxThreadsVar int) {
 
 	xThreadPoolSetMaxUnusedThreads(MaxThreadsVar)
 

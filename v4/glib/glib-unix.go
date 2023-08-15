@@ -8,9 +8,9 @@ import (
 
 // The type of functions to be called when a UNIX fd watch source
 // triggers.
-type UnixFDSourceFunc func(int32, IOCondition, uintptr) bool
+type UnixFDSourceFunc func(int, IOCondition, uintptr) bool
 
-var xUnixFdAdd func(int32, IOCondition, uintptr, uintptr) uint
+var xUnixFdAdd func(int, IOCondition, uintptr, uintptr) uint
 
 // Sets a function to be called when the IO condition, as specified by
 // @condition becomes true for @fd.
@@ -25,13 +25,13 @@ var xUnixFdAdd func(int32, IOCondition, uintptr, uintptr) uint
 // to cancel the watch at any time that it exists.
 //
 // The source will never close the fd -- you must do it yourself.
-func UnixFdAdd(FdVar int32, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr) uint {
+func UnixFdAdd(FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr) uint {
 
 	return xUnixFdAdd(FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar)
 
 }
 
-var xUnixFdAddFull func(int32, int32, IOCondition, uintptr, uintptr, uintptr) uint
+var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
 
 // Sets a function to be called when the IO condition, as specified by
 // @condition becomes true for @fd.
@@ -39,19 +39,19 @@ var xUnixFdAddFull func(int32, int32, IOCondition, uintptr, uintptr, uintptr) ui
 // This is the same as g_unix_fd_add(), except that it allows you to
 // specify a non-default priority and a provide a #GDestroyNotify for
 // @user_data.
-func UnixFdAddFull(PriorityVar int32, FdVar int32, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
+func UnixFdAddFull(PriorityVar int, FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar, purego.NewCallback(NotifyVar))
 
 }
 
-var xUnixFdSourceNew func(int32, IOCondition) *Source
+var xUnixFdSourceNew func(int, IOCondition) *Source
 
 // Creates a #GSource to watch for a particular IO condition on a file
 // descriptor.
 //
 // The source will never close the fd -- you must do it yourself.
-func UnixFdSourceNew(FdVar int32, ConditionVar IOCondition) *Source {
+func UnixFdSourceNew(FdVar int, ConditionVar IOCondition) *Source {
 
 	return xUnixFdSourceNew(FdVar, ConditionVar)
 
@@ -76,7 +76,7 @@ func UnixGetPasswdEntry(UserNameVar string) uintptr {
 
 }
 
-var xUnixOpenPipe func(int32, int32) bool
+var xUnixOpenPipe func(int, int) bool
 
 // Similar to the UNIX pipe() call, but on modern systems like Linux
 // uses the pipe2() system call, which atomically creates a pipe with
@@ -86,46 +86,46 @@ var xUnixOpenPipe func(int32, int32) bool
 //
 // This function does not take %O_CLOEXEC, it takes %FD_CLOEXEC as if
 // for fcntl(); these are different on Linux/glibc.
-func UnixOpenPipe(FdsVar int32, FlagsVar int32) bool {
+func UnixOpenPipe(FdsVar int, FlagsVar int) bool {
 
 	return xUnixOpenPipe(FdsVar, FlagsVar)
 
 }
 
-var xUnixSetFdNonblocking func(int32, bool) bool
+var xUnixSetFdNonblocking func(int, bool) bool
 
 // Control the non-blocking state of the given file descriptor,
 // according to @nonblock. On most systems this uses %O_NONBLOCK, but
 // on some older ones may use %O_NDELAY.
-func UnixSetFdNonblocking(FdVar int32, NonblockVar bool) bool {
+func UnixSetFdNonblocking(FdVar int, NonblockVar bool) bool {
 
 	return xUnixSetFdNonblocking(FdVar, NonblockVar)
 
 }
 
-var xUnixSignalAdd func(int32, uintptr, uintptr) uint
+var xUnixSignalAdd func(int, uintptr, uintptr) uint
 
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAdd(SignumVar int32, HandlerVar SourceFunc, UserDataVar uintptr) uint {
+func UnixSignalAdd(SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr) uint {
 
 	return xUnixSignalAdd(SignumVar, purego.NewCallback(HandlerVar), UserDataVar)
 
 }
 
-var xUnixSignalAddFull func(int32, int32, uintptr, uintptr, uintptr) uint
+var xUnixSignalAddFull func(int, int, uintptr, uintptr, uintptr) uint
 
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAddFull(PriorityVar int32, SignumVar int32, HandlerVar SourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
+func UnixSignalAddFull(PriorityVar int, SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xUnixSignalAddFull(PriorityVar, SignumVar, purego.NewCallback(HandlerVar), UserDataVar, purego.NewCallback(NotifyVar))
 
 }
 
-var xUnixSignalSourceNew func(int32) *Source
+var xUnixSignalSourceNew func(int) *Source
 
 // Create a #GSource that will be dispatched upon delivery of the UNIX
 // signal @signum.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,
@@ -150,7 +150,7 @@ var xUnixSignalSourceNew func(int32) *Source
 // The source will not initially be associated with any #GMainContext
 // and must be added to one with g_source_attach() before it will be
 // executed.
-func UnixSignalSourceNew(SignumVar int32) *Source {
+func UnixSignalSourceNew(SignumVar int) *Source {
 
 	return xUnixSignalSourceNew(SignumVar)
 

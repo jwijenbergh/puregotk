@@ -51,8 +51,8 @@ func (c *GestureClick) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a button or touch press happens.
-func (x *GestureClick) ConnectPressed(cb func(GestureClick, int32, float64, float64)) {
-	fcb := func(clsPtr uintptr, NPressVarp int32, XVarp float64, YVarp float64) {
+func (x *GestureClick) ConnectPressed(cb func(GestureClick, int, float64, float64)) {
+	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
 
@@ -68,8 +68,8 @@ func (x *GestureClick) ConnectPressed(cb func(GestureClick, int32, float64, floa
 // this event, note that [signal@Gtk.GestureClick::stopped] may
 // have been emitted between the press and its release, @n_press
 // will only start over at the next press.
-func (x *GestureClick) ConnectReleased(cb func(GestureClick, int32, float64, float64)) {
-	fcb := func(clsPtr uintptr, NPressVarp int32, XVarp float64, YVarp float64) {
+func (x *GestureClick) ConnectReleased(cb func(GestureClick, int, float64, float64)) {
+	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
 

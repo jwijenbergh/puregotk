@@ -6,81 +6,81 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xAtomicRefCountCompare func(int32, int32) bool
+var xAtomicRefCountCompare func(int, int) bool
 
 // Atomically compares the current value of @arc with @val.
-func AtomicRefCountCompare(ArcVar int32, ValVar int32) bool {
+func AtomicRefCountCompare(ArcVar int, ValVar int) bool {
 
 	return xAtomicRefCountCompare(ArcVar, ValVar)
 
 }
 
-var xAtomicRefCountDec func(int32) bool
+var xAtomicRefCountDec func(int) bool
 
 // Atomically decreases the reference count.
 //
 // If %TRUE is returned, the reference count reached 0. After this point, @arc
 // is an undefined state and must be reinitialized with
 // g_atomic_ref_count_init() to be used again.
-func AtomicRefCountDec(ArcVar int32) bool {
+func AtomicRefCountDec(ArcVar int) bool {
 
 	return xAtomicRefCountDec(ArcVar)
 
 }
 
-var xAtomicRefCountInc func(int32)
+var xAtomicRefCountInc func(int)
 
 // Atomically increases the reference count.
-func AtomicRefCountInc(ArcVar int32) {
+func AtomicRefCountInc(ArcVar int) {
 
 	xAtomicRefCountInc(ArcVar)
 
 }
 
-var xAtomicRefCountInit func(int32)
+var xAtomicRefCountInit func(int)
 
 // Initializes a reference count variable to 1.
-func AtomicRefCountInit(ArcVar int32) {
+func AtomicRefCountInit(ArcVar int) {
 
 	xAtomicRefCountInit(ArcVar)
 
 }
 
-var xRefCountCompare func(int32, int32) bool
+var xRefCountCompare func(int, int) bool
 
 // Compares the current value of @rc with @val.
-func RefCountCompare(RcVar int32, ValVar int32) bool {
+func RefCountCompare(RcVar int, ValVar int) bool {
 
 	return xRefCountCompare(RcVar, ValVar)
 
 }
 
-var xRefCountDec func(int32) bool
+var xRefCountDec func(int) bool
 
 // Decreases the reference count.
 //
 // If %TRUE is returned, the reference count reached 0. After this point, @rc
 // is an undefined state and must be reinitialized with
 // g_ref_count_init() to be used again.
-func RefCountDec(RcVar int32) bool {
+func RefCountDec(RcVar int) bool {
 
 	return xRefCountDec(RcVar)
 
 }
 
-var xRefCountInc func(int32)
+var xRefCountInc func(int)
 
 // Increases the reference count.
-func RefCountInc(RcVar int32) {
+func RefCountInc(RcVar int) {
 
 	xRefCountInc(RcVar)
 
 }
 
-var xRefCountInit func(int32)
+var xRefCountInit func(int)
 
 // Initializes a reference count variable to 1.
-func RefCountInit(RcVar int32) {
+func RefCountInit(RcVar int) {
 
 	xRefCountInit(RcVar)
 

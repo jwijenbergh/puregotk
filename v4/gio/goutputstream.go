@@ -82,7 +82,7 @@ func (x *OutputStream) Close(CancellableVar *Cancellable) bool {
 
 }
 
-var xOutputStreamCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var xOutputStreamCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Requests an asynchronous close of the stream, releasing resources
 // related to it. When the operation is finished @callback will be
@@ -94,7 +94,7 @@ var xOutputStreamCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 // The asynchronous methods have a default fallback that uses threads
 // to implement asynchronicity, so they are optional for inheriting
 // classes. However, if you override one you must override all.
-func (x *OutputStream) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -126,7 +126,7 @@ func (x *OutputStream) Flush(CancellableVar *Cancellable) bool {
 
 }
 
-var xOutputStreamFlushAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var xOutputStreamFlushAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Forces an asynchronous write of all user-space buffered data for
 // the given @stream.
@@ -135,7 +135,7 @@ var xOutputStreamFlushAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 // When the operation is finished @callback will be
 // called. You can then call g_output_stream_flush_finish() to get the
 // result of the operation.
-func (x *OutputStream) FlushAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) FlushAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamFlushAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -220,7 +220,7 @@ func (x *OutputStream) Splice(SourceVar *InputStream, FlagsVar OutputStreamSplic
 
 }
 
-var xOutputStreamSpliceAsync func(uintptr, uintptr, OutputStreamSpliceFlags, int32, uintptr, uintptr, uintptr)
+var xOutputStreamSpliceAsync func(uintptr, uintptr, OutputStreamSpliceFlags, int, uintptr, uintptr, uintptr)
 
 // Splices a stream asynchronously.
 // When the operation is finished @callback will be called.
@@ -229,7 +229,7 @@ var xOutputStreamSpliceAsync func(uintptr, uintptr, OutputStreamSpliceFlags, int
 //
 // For the synchronous, blocking version of this function, see
 // g_output_stream_splice().
-func (x *OutputStream) SpliceAsync(SourceVar *InputStream, FlagsVar OutputStreamSpliceFlags, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) SpliceAsync(SourceVar *InputStream, FlagsVar OutputStreamSpliceFlags, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamSpliceAsync(x.GoPointer(), SourceVar.GoPointer(), FlagsVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -319,7 +319,7 @@ func (x *OutputStream) WriteAll(BufferVar uintptr, CountVar uint, BytesWrittenVa
 
 }
 
-var xOutputStreamWriteAllAsync func(uintptr, uintptr, uint, int32, uintptr, uintptr, uintptr)
+var xOutputStreamWriteAllAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous write of @count bytes from @buffer into
 // the stream. When the operation is finished @callback will be called.
@@ -336,7 +336,7 @@ var xOutputStreamWriteAllAsync func(uintptr, uintptr, uint, int32, uintptr, uint
 //
 // Note that no copy of @buffer will be made, so it must stay valid
 // until @callback is called.
-func (x *OutputStream) WriteAllAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) WriteAllAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamWriteAllAsync(x.GoPointer(), BufferVar, CountVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -360,7 +360,7 @@ func (x *OutputStream) WriteAllFinish(ResultVar AsyncResult, BytesWrittenVar uin
 
 }
 
-var xOutputStreamWriteAsync func(uintptr, uintptr, uint, int32, uintptr, uintptr, uintptr)
+var xOutputStreamWriteAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous write of @count bytes from @buffer into
 // the stream. When the operation is finished @callback will be called.
@@ -397,7 +397,7 @@ var xOutputStreamWriteAsync func(uintptr, uintptr, uint, int32, uintptr, uintptr
 // until @callback is called. See g_output_stream_write_bytes_async()
 // for a #GBytes version that will automatically hold a reference to
 // the contents (without copying) for the duration of the call.
-func (x *OutputStream) WriteAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) WriteAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamWriteAsync(x.GoPointer(), BufferVar, CountVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -422,7 +422,7 @@ func (x *OutputStream) WriteBytes(BytesVar *glib.Bytes, CancellableVar *Cancella
 
 }
 
-var xOutputStreamWriteBytesAsync func(uintptr, *glib.Bytes, int32, uintptr, uintptr, uintptr)
+var xOutputStreamWriteBytesAsync func(uintptr, *glib.Bytes, int, uintptr, uintptr, uintptr)
 
 // This function is similar to g_output_stream_write_async(), but
 // takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
@@ -437,7 +437,7 @@ var xOutputStreamWriteBytesAsync func(uintptr, *glib.Bytes, int32, uintptr, uint
 //
 // For the synchronous, blocking version of this function, see
 // g_output_stream_write_bytes().
-func (x *OutputStream) WriteBytesAsync(BytesVar *glib.Bytes, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) WriteBytesAsync(BytesVar *glib.Bytes, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamWriteBytesAsync(x.GoPointer(), BytesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -522,7 +522,7 @@ func (x *OutputStream) WritevAll(VectorsVar uintptr, NVectorsVar uint, BytesWrit
 
 }
 
-var xOutputStreamWritevAllAsync func(uintptr, uintptr, uint, int32, uintptr, uintptr, uintptr)
+var xOutputStreamWritevAllAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous write of the bytes contained in the @n_vectors @vectors into
 // the stream. When the operation is finished @callback will be called.
@@ -540,7 +540,7 @@ var xOutputStreamWritevAllAsync func(uintptr, uintptr, uint, int32, uintptr, uin
 // Note that no copy of @vectors will be made, so it must stay valid
 // until @callback is called. The content of the individual elements
 // of @vectors might be changed by this function.
-func (x *OutputStream) WritevAllAsync(VectorsVar uintptr, NVectorsVar uint, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) WritevAllAsync(VectorsVar uintptr, NVectorsVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamWritevAllAsync(x.GoPointer(), VectorsVar, NVectorsVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -564,7 +564,7 @@ func (x *OutputStream) WritevAllFinish(ResultVar AsyncResult, BytesWrittenVar ui
 
 }
 
-var xOutputStreamWritevAsync func(uintptr, uintptr, uint, int32, uintptr, uintptr, uintptr)
+var xOutputStreamWritevAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous write of the bytes contained in @n_vectors @vectors into
 // the stream. When the operation is finished @callback will be called.
@@ -596,7 +596,7 @@ var xOutputStreamWritevAsync func(uintptr, uintptr, uint, int32, uintptr, uintpt
 //
 // Note that no copy of @vectors will be made, so it must stay valid
 // until @callback is called.
-func (x *OutputStream) WritevAsync(VectorsVar uintptr, NVectorsVar uint, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *OutputStream) WritevAsync(VectorsVar uintptr, NVectorsVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xOutputStreamWritevAsync(x.GoPointer(), VectorsVar, NVectorsVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

@@ -221,25 +221,25 @@ func (x *ExpanderRow) SetSubtitle(SubtitleVar string) {
 
 }
 
-var xExpanderRowSetSubtitleLines func(uintptr, int32)
+var xExpanderRowSetSubtitleLines func(uintptr, int)
 
 // Sets the number of lines at the end of which the subtitle label will be
 // ellipsized.
 //
 // If the value is 0, the number of lines won't be limited.
-func (x *ExpanderRow) SetSubtitleLines(SubtitleLinesVar int32) {
+func (x *ExpanderRow) SetSubtitleLines(SubtitleLinesVar int) {
 
 	xExpanderRowSetSubtitleLines(x.GoPointer(), SubtitleLinesVar)
 
 }
 
-var xExpanderRowSetTitleLines func(uintptr, int32)
+var xExpanderRowSetTitleLines func(uintptr, int)
 
 // Sets the number of lines at the end of which the title label will be
 // ellipsized.
 //
 // If the value is 0, the number of lines won't be limited.
-func (x *ExpanderRow) SetTitleLines(TitleLinesVar int32) {
+func (x *ExpanderRow) SetTitleLines(TitleLinesVar int) {
 
 	xExpanderRowSetTitleLines(x.GoPointer(), TitleLinesVar)
 
@@ -311,7 +311,7 @@ func (x *ExpanderRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ExpanderRow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ExpanderRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -347,7 +347,7 @@ func (x *ExpanderRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ExpanderRow) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ExpanderRow) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -380,7 +380,7 @@ func (x *ExpanderRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ExpanderRow) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ExpanderRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

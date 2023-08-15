@@ -220,12 +220,12 @@ func (x *GLArea) GetHasStencilBuffer() bool {
 
 }
 
-var xGLAreaGetRequiredVersion func(uintptr, int32, int32)
+var xGLAreaGetRequiredVersion func(uintptr, int, int)
 
 // Retrieves the required version of OpenGL.
 //
 // See [method@Gtk.GLArea.set_required_version].
-func (x *GLArea) GetRequiredVersion(MajorVar int32, MinorVar int32) {
+func (x *GLArea) GetRequiredVersion(MajorVar int, MinorVar int) {
 
 	xGLAreaGetRequiredVersion(x.GoPointer(), MajorVar, MinorVar)
 
@@ -331,13 +331,13 @@ func (x *GLArea) SetHasStencilBuffer(HasStencilBufferVar bool) {
 
 }
 
-var xGLAreaSetRequiredVersion func(uintptr, int32, int32)
+var xGLAreaSetRequiredVersion func(uintptr, int, int)
 
 // Sets the required version of OpenGL to be used when creating
 // the context for the widget.
 //
 // This function must be called before the area has been realized.
-func (x *GLArea) SetRequiredVersion(MajorVar int32, MinorVar int32) {
+func (x *GLArea) SetRequiredVersion(MajorVar int, MinorVar int) {
 
 	xGLAreaSetRequiredVersion(x.GoPointer(), MajorVar, MinorVar)
 
@@ -410,8 +410,8 @@ func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) {
 // is emitted.
 //
 // The default handler sets up the GL viewport.
-func (x *GLArea) ConnectResize(cb func(GLArea, int32, int32)) {
-	fcb := func(clsPtr uintptr, WidthVarp int32, HeightVarp int32) {
+func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) {
+	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
 
@@ -479,7 +479,7 @@ func (x *GLArea) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *GLArea) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *GLArea) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -515,7 +515,7 @@ func (x *GLArea) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *GLArea) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *GLArea) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -548,7 +548,7 @@ func (x *GLArea) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *GLArea) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *GLArea) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

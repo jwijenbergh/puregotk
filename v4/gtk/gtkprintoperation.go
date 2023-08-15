@@ -323,7 +323,7 @@ func (x *PrintOperation) GetHasSelection() bool {
 
 }
 
-var xPrintOperationGetNPagesToPrint func(uintptr) int32
+var xPrintOperationGetNPagesToPrint func(uintptr) int
 
 // Returns the number of pages that will be printed.
 //
@@ -335,7 +335,7 @@ var xPrintOperationGetNPagesToPrint func(uintptr) int32
 // print status is %GTK_PRINT_STATUS_GENERATING_DATA.
 //
 // This is typically used to track the progress of print operation.
-func (x *PrintOperation) GetNPagesToPrint() int32 {
+func (x *PrintOperation) GetNPagesToPrint() int {
 
 	return xPrintOperationGetNPagesToPrint(x.GoPointer())
 
@@ -504,7 +504,7 @@ func (x *PrintOperation) SetAllowAsync(AllowAsyncVar bool) {
 
 }
 
-var xPrintOperationSetCurrentPage func(uintptr, int32)
+var xPrintOperationSetCurrentPage func(uintptr, int)
 
 // Sets the current page.
 //
@@ -512,7 +512,7 @@ var xPrintOperationSetCurrentPage func(uintptr, int32)
 // the user will be able to select to print only the current page.
 //
 // Note that this only makes sense for pre-paginated documents.
-func (x *PrintOperation) SetCurrentPage(CurrentPageVar int32) {
+func (x *PrintOperation) SetCurrentPage(CurrentPageVar int) {
 
 	xPrintOperationSetCurrentPage(x.GoPointer(), CurrentPageVar)
 
@@ -612,7 +612,7 @@ func (x *PrintOperation) SetJobName(JobNameVar string) {
 
 }
 
-var xPrintOperationSetNPages func(uintptr, int32)
+var xPrintOperationSetNPages func(uintptr, int)
 
 // Sets the number of pages in the document.
 //
@@ -625,7 +625,7 @@ var xPrintOperationSetNPages func(uintptr, int32)
 // and [signal@Gtk.PrintOperation::draw-page] signals are 0-based, i.e.
 // if the user chooses to print all pages, the last ::draw-page signal
 // will be for page @n_pages - 1.
-func (x *PrintOperation) SetNPages(NPagesVar int32) {
+func (x *PrintOperation) SetNPages(NPagesVar int) {
 
 	xPrintOperationSetNPages(x.GoPointer(), NPagesVar)
 
@@ -845,8 +845,8 @@ func (x *PrintOperation) ConnectDone(cb func(PrintOperation, PrintOperationResul
 // [method@Gtk.PrintOperation.set_unit] before starting the print
 // operation to set up the transformation of the cairo context
 // according to your needs.
-func (x *PrintOperation) ConnectDrawPage(cb func(PrintOperation, uintptr, int32)) {
-	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int32) {
+func (x *PrintOperation) ConnectDrawPage(cb func(PrintOperation, uintptr, int)) {
+	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int) {
 		fa := PrintOperation{}
 		fa.Ptr = clsPtr
 
@@ -929,8 +929,8 @@ func (x *PrintOperation) ConnectPreview(cb func(PrintOperation, uintptr, uintptr
 // This gives the application a chance to modify the page setup.
 // Any changes done to @setup will be in force only for printing
 // this page.
-func (x *PrintOperation) ConnectRequestPageSetup(cb func(PrintOperation, uintptr, int32, uintptr)) {
-	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int32, SetupVarp uintptr) {
+func (x *PrintOperation) ConnectRequestPageSetup(cb func(PrintOperation, uintptr, int, uintptr)) {
+	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int, SetupVarp uintptr) {
 		fa := PrintOperation{}
 		fa.Ptr = clsPtr
 
@@ -982,7 +982,7 @@ func (x *PrintOperation) EndPreview() {
 
 // Returns whether the given page is included in the set of pages that
 // have been selected for printing.
-func (x *PrintOperation) IsSelected(PageNrVar int32) bool {
+func (x *PrintOperation) IsSelected(PageNrVar int) bool {
 
 	return XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
 
@@ -999,7 +999,7 @@ func (x *PrintOperation) IsSelected(PageNrVar int32) bool {
 //
 // Note that this function requires a suitable cairo context to
 // be associated with the print context.
-func (x *PrintOperation) RenderPage(PageNrVar int32) {
+func (x *PrintOperation) RenderPage(PageNrVar int) {
 
 	XGtkPrintOperationPreviewRenderPage(x.GoPointer(), PageNrVar)
 

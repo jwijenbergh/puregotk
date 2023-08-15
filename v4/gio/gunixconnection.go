@@ -100,7 +100,7 @@ func (x *UnixConnection) ReceiveCredentialsFinish(ResultVar AsyncResult) *Creden
 
 }
 
-var xUnixConnectionReceiveFd func(uintptr, uintptr) int32
+var xUnixConnectionReceiveFd func(uintptr, uintptr) int
 
 // Receives a file descriptor from the sending end of the connection.
 // The sending end has to call g_unix_connection_send_fd() for this
@@ -109,7 +109,7 @@ var xUnixConnectionReceiveFd func(uintptr, uintptr) int32
 // As well as reading the fd this also reads a single byte from the
 // stream, as this is required for fd passing to work on some
 // implementations.
-func (x *UnixConnection) ReceiveFd(CancellableVar *Cancellable) int32 {
+func (x *UnixConnection) ReceiveFd(CancellableVar *Cancellable) int {
 
 	return xUnixConnectionReceiveFd(x.GoPointer(), CancellableVar.GoPointer())
 
@@ -167,7 +167,7 @@ func (x *UnixConnection) SendCredentialsFinish(ResultVar AsyncResult) bool {
 
 }
 
-var xUnixConnectionSendFd func(uintptr, int32, uintptr) bool
+var xUnixConnectionSendFd func(uintptr, int, uintptr) bool
 
 // Passes a file descriptor to the receiving side of the
 // connection. The receiving end has to call g_unix_connection_receive_fd()
@@ -176,7 +176,7 @@ var xUnixConnectionSendFd func(uintptr, int32, uintptr) bool
 // As well as sending the fd this also writes a single byte to the
 // stream, as this is required for fd passing to work on some
 // implementations.
-func (x *UnixConnection) SendFd(FdVar int32, CancellableVar *Cancellable) bool {
+func (x *UnixConnection) SendFd(FdVar int, CancellableVar *Cancellable) bool {
 
 	return xUnixConnectionSendFd(x.GoPointer(), FdVar, CancellableVar.GoPointer())
 

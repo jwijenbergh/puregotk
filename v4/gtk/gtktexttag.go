@@ -71,16 +71,16 @@ func (x *TextTag) Changed(SizeChangedVar bool) {
 
 }
 
-var xTextTagGetPriority func(uintptr) int32
+var xTextTagGetPriority func(uintptr) int
 
 // Get the tag priority.
-func (x *TextTag) GetPriority() int32 {
+func (x *TextTag) GetPriority() int {
 
 	return xTextTagGetPriority(x.GoPointer())
 
 }
 
-var xTextTagSetPriority func(uintptr, int32)
+var xTextTagSetPriority func(uintptr, int)
 
 // Sets the priority of a `GtkTextTag`.
 //
@@ -96,7 +96,7 @@ var xTextTagSetPriority func(uintptr, int32)
 // precedence of a set of tags is the order in which they were added
 // to the table, or created with [method@Gtk.TextBuffer.create_tag],
 // which adds the tag to the buffer’s table automatically.
-func (x *TextTag) SetPriority(PriorityVar int32) {
+func (x *TextTag) SetPriority(PriorityVar int) {
 
 	xTextTagSetPriority(x.GoPointer(), PriorityVar)
 

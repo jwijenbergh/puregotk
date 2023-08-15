@@ -102,7 +102,7 @@ func NewSocket(FamilyVar SocketFamily, TypeVar SocketType, ProtocolVar SocketPro
 	return NewSocketCls
 }
 
-var xNewFromFdSocket func(int32) uintptr
+var xNewFromFdSocket func(int) uintptr
 
 // Creates a new #GSocket from a native file descriptor
 // or winsock SOCKET handle.
@@ -117,7 +117,7 @@ var xNewFromFdSocket func(int32) uintptr
 //
 // Since GLib 2.46, it is no longer a fatal error to call this on a non-socket
 // descriptor.  Instead, a GError will be set with code %G_IO_ERROR_FAILED
-func NewFromFdSocket(FdVar int32) *Socket {
+func NewFromFdSocket(FdVar int) *Socket {
 	NewFromFdSocketPtr := xNewFromFdSocket(FdVar)
 	if NewFromFdSocketPtr == 0 {
 		return nil
@@ -453,14 +453,14 @@ func (x *Socket) GetFamily() SocketFamily {
 
 }
 
-var xSocketGetFd func(uintptr) int32
+var xSocketGetFd func(uintptr) int
 
 // Returns the underlying OS socket object. On unix this
 // is a socket file descriptor, and on Windows this is
 // a Winsock2 SOCKET handle. This may be useful for
 // doing platform specific or otherwise unusual operations
 // on the socket.
-func (x *Socket) GetFd() int32 {
+func (x *Socket) GetFd() int {
 
 	return xSocketGetFd(x.GoPointer())
 
@@ -476,11 +476,11 @@ func (x *Socket) GetKeepalive() bool {
 
 }
 
-var xSocketGetListenBacklog func(uintptr) int32
+var xSocketGetListenBacklog func(uintptr) int
 
 // Gets the listen backlog setting of the socket. For details on this,
 // see g_socket_set_listen_backlog().
-func (x *Socket) GetListenBacklog() int32 {
+func (x *Socket) GetListenBacklog() int {
 
 	return xSocketGetListenBacklog(x.GoPointer())
 
@@ -525,7 +525,7 @@ func (x *Socket) GetMulticastTtl() uint {
 
 }
 
-var xSocketGetOption func(uintptr, int32, int32, int32) bool
+var xSocketGetOption func(uintptr, int, int, int) bool
 
 // Gets the value of an integer-valued option on @socket, as with
 // getsockopt(). (If you need to fetch a  non-integer-valued option,
@@ -540,7 +540,7 @@ var xSocketGetOption func(uintptr, int32, int32, int32) bool
 // Note that even for socket options that are a single byte in size,
 // @value is still a pointer to a #gint variable, not a #guchar;
 // g_socket_get_option() will handle the conversion internally.
-func (x *Socket) GetOption(LevelVar int32, OptnameVar int32, ValueVar int32) bool {
+func (x *Socket) GetOption(LevelVar int, OptnameVar int, ValueVar int) bool {
 
 	return xSocketGetOption(x.GoPointer(), LevelVar, OptnameVar, ValueVar)
 
@@ -764,7 +764,7 @@ func (x *Socket) ReceiveFrom(AddressVar **SocketAddress, BufferVar uintptr, Size
 
 }
 
-var xSocketReceiveMessage func(uintptr, *uintptr, uintptr, int32, uintptr, int32, int32, uintptr) int
+var xSocketReceiveMessage func(uintptr, *uintptr, uintptr, int, uintptr, int, int, uintptr) int
 
 // Receive data from a socket.  For receiving multiple messages, see
 // g_socket_receive_messages(); for easier use, see
@@ -825,13 +825,13 @@ var xSocketReceiveMessage func(uintptr, *uintptr, uintptr, int32, uintptr, int32
 // %G_IO_IN condition.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *Socket) ReceiveMessage(AddressVar **SocketAddress, VectorsVar uintptr, NumVectorsVar int32, MessagesVar uintptr, NumMessagesVar int32, FlagsVar int32, CancellableVar *Cancellable) int {
+func (x *Socket) ReceiveMessage(AddressVar **SocketAddress, VectorsVar uintptr, NumVectorsVar int, MessagesVar uintptr, NumMessagesVar int, FlagsVar int, CancellableVar *Cancellable) int {
 
 	return xSocketReceiveMessage(x.GoPointer(), gobject.ConvertPtr(AddressVar), VectorsVar, NumVectorsVar, MessagesVar, NumMessagesVar, FlagsVar, CancellableVar.GoPointer())
 
 }
 
-var xSocketReceiveMessages func(uintptr, uintptr, uint, int32, uintptr) int32
+var xSocketReceiveMessages func(uintptr, uintptr, uint, int, uintptr) int
 
 // Receive multiple data messages from @socket in one go.  This is the most
 // complicated and fully-featured version of this call. For easier use, see
@@ -881,7 +881,7 @@ var xSocketReceiveMessages func(uintptr, uintptr, uint, int32, uintptr) int32
 // On error -1 is returned and @error is set accordingly. An error will only
 // be returned if zero messages could be received; otherwise the number of
 // messages successfully received before the error will be returned.
-func (x *Socket) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, CancellableVar *Cancellable) int32 {
+func (x *Socket) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, CancellableVar *Cancellable) int {
 
 	return xSocketReceiveMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, CancellableVar.GoPointer())
 
@@ -920,7 +920,7 @@ func (x *Socket) Send(BufferVar uintptr, SizeVar uint, CancellableVar *Cancellab
 
 }
 
-var xSocketSendMessage func(uintptr, uintptr, uintptr, int32, uintptr, int32, int32, uintptr) int
+var xSocketSendMessage func(uintptr, uintptr, uintptr, int, uintptr, int, int, uintptr) int
 
 // Send data to @address on @socket.  For sending multiple messages see
 // g_socket_send_messages(); for easier use, see
@@ -964,13 +964,13 @@ var xSocketSendMessage func(uintptr, uintptr, uintptr, int32, uintptr, int32, in
 // function.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *Socket) SendMessage(AddressVar *SocketAddress, VectorsVar uintptr, NumVectorsVar int32, MessagesVar uintptr, NumMessagesVar int32, FlagsVar int32, CancellableVar *Cancellable) int {
+func (x *Socket) SendMessage(AddressVar *SocketAddress, VectorsVar uintptr, NumVectorsVar int, MessagesVar uintptr, NumMessagesVar int, FlagsVar int, CancellableVar *Cancellable) int {
 
 	return xSocketSendMessage(x.GoPointer(), AddressVar.GoPointer(), VectorsVar, NumVectorsVar, MessagesVar, NumMessagesVar, FlagsVar, CancellableVar.GoPointer())
 
 }
 
-var xSocketSendMessageWithTimeout func(uintptr, uintptr, uintptr, int32, uintptr, int32, int32, int64, uint, uintptr) PollableReturn
+var xSocketSendMessageWithTimeout func(uintptr, uintptr, uintptr, int, uintptr, int, int, int64, uint, uintptr) PollableReturn
 
 // This behaves exactly the same as g_socket_send_message(), except that
 // the choice of timeout behavior is determined by the @timeout_us argument
@@ -979,13 +979,13 @@ var xSocketSendMessageWithTimeout func(uintptr, uintptr, uintptr, int32, uintptr
 // On error %G_POLLABLE_RETURN_FAILED is returned and @error is set accordingly, or
 // if the socket is currently not writable %G_POLLABLE_RETURN_WOULD_BLOCK is
 // returned. @bytes_written will contain 0 in both cases.
-func (x *Socket) SendMessageWithTimeout(AddressVar *SocketAddress, VectorsVar uintptr, NumVectorsVar int32, MessagesVar uintptr, NumMessagesVar int32, FlagsVar int32, TimeoutUsVar int64, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn {
+func (x *Socket) SendMessageWithTimeout(AddressVar *SocketAddress, VectorsVar uintptr, NumVectorsVar int, MessagesVar uintptr, NumMessagesVar int, FlagsVar int, TimeoutUsVar int64, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn {
 
 	return xSocketSendMessageWithTimeout(x.GoPointer(), AddressVar.GoPointer(), VectorsVar, NumVectorsVar, MessagesVar, NumMessagesVar, FlagsVar, TimeoutUsVar, BytesWrittenVar, CancellableVar.GoPointer())
 
 }
 
-var xSocketSendMessages func(uintptr, uintptr, uint, int32, uintptr) int32
+var xSocketSendMessages func(uintptr, uintptr, uint, int, uintptr) int
 
 // Send multiple data messages from @socket in one go.  This is the most
 // complicated and fully-featured version of this call. For easier use, see
@@ -1021,7 +1021,7 @@ var xSocketSendMessages func(uintptr, uintptr, uint, int32, uintptr) int32
 // On error -1 is returned and @error is set accordingly. An error will only
 // be returned if zero messages could be sent; otherwise the number of messages
 // successfully sent before the error will be returned.
-func (x *Socket) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int32, CancellableVar *Cancellable) int32 {
+func (x *Socket) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, CancellableVar *Cancellable) int {
 
 	return xSocketSendMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, CancellableVar.GoPointer())
 
@@ -1101,7 +1101,7 @@ func (x *Socket) SetKeepalive(KeepaliveVar bool) {
 
 }
 
-var xSocketSetListenBacklog func(uintptr, int32)
+var xSocketSetListenBacklog func(uintptr, int)
 
 // Sets the maximum number of outstanding connections allowed
 // when listening on this socket. If more clients than this are
@@ -1110,7 +1110,7 @@ var xSocketSetListenBacklog func(uintptr, int32)
 //
 // Note that this must be called before g_socket_listen() and has no
 // effect if called after that.
-func (x *Socket) SetListenBacklog(BacklogVar int32) {
+func (x *Socket) SetListenBacklog(BacklogVar int) {
 
 	xSocketSetListenBacklog(x.GoPointer(), BacklogVar)
 
@@ -1138,7 +1138,7 @@ func (x *Socket) SetMulticastTtl(TtlVar uint) {
 
 }
 
-var xSocketSetOption func(uintptr, int32, int32, int32) bool
+var xSocketSetOption func(uintptr, int, int, int) bool
 
 // Sets the value of an integer-valued option on @socket, as with
 // setsockopt(). (If you need to set a non-integer-valued option,
@@ -1149,7 +1149,7 @@ var xSocketSetOption func(uintptr, int32, int32, int32) bool
 // standard/portable socket options. For unusual socket protocols or
 // platform-dependent options, you may need to include additional
 // headers.
-func (x *Socket) SetOption(LevelVar int32, OptnameVar int32, ValueVar int32) bool {
+func (x *Socket) SetOption(LevelVar int, OptnameVar int, ValueVar int) bool {
 
 	return xSocketSetOption(x.GoPointer(), LevelVar, OptnameVar, ValueVar)
 

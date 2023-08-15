@@ -12,11 +12,11 @@ type GlyphItem struct {
 
 	Glyphs *GlyphString
 
-	YOffset int32
+	YOffset int
 
-	StartXOffset int32
+	StartXOffset int
 
-	EndXOffset int32
+	EndXOffset int
 }
 
 // A `PangoGlyphItemIter` is an iterator over the clusters in a
@@ -67,15 +67,15 @@ type GlyphItemIter struct {
 
 	Text string
 
-	StartGlyph int32
+	StartGlyph int
 
-	StartIndex int32
+	StartIndex int
 
-	StartChar int32
+	StartChar int
 
-	EndGlyph int32
+	EndGlyph int
 
-	EndIndex int32
+	EndIndex int
 
-	EndChar int32
+	EndChar int
 }

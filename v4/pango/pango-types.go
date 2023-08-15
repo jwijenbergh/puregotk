@@ -20,13 +20,13 @@ type Language struct {
 // extents of a single glyph or section of text. (See, for instance,
 // [method@Pango.Font.get_glyph_extents].)
 type Rectangle struct {
-	X int32
+	X int
 
-	Y int32
+	Y int
 
-	Width int32
+	Width int
 
-	Height int32
+	Height int
 }
 
 // A `PangoGlyph` represents a single glyph in the output form of a string.
@@ -57,24 +57,24 @@ func ExtentsToPixels(InclusiveVar *Rectangle, NearestVar *Rectangle) {
 
 }
 
-var xUnitsFromDouble func(float64) int32
+var xUnitsFromDouble func(float64) int
 
 // Converts a floating-point number to Pango units.
 //
 // The conversion is done by multiplying @d by %PANGO_SCALE and
 // rounding the result to nearest integer.
-func UnitsFromDouble(DVar float64) int32 {
+func UnitsFromDouble(DVar float64) int {
 
 	return xUnitsFromDouble(DVar)
 
 }
 
-var xUnitsToDouble func(int32) float64
+var xUnitsToDouble func(int) float64
 
 // Converts a number in Pango units to floating-point.
 //
 // The conversion is done by dividing @i by %PANGO_SCALE.
-func UnitsToDouble(IVar int32) float64 {
+func UnitsToDouble(IVar int) float64 {
 
 	return xUnitsToDouble(IVar)
 

@@ -92,7 +92,7 @@ func (x *Renderer) Deactivate() {
 
 }
 
-var xRendererDrawErrorUnderline func(uintptr, int32, int32, int32, int32)
+var xRendererDrawErrorUnderline func(uintptr, int, int, int, int)
 
 // Draw a squiggly line that approximately covers the given rectangle
 // in the style of an underline used to indicate a spelling error.
@@ -103,7 +103,7 @@ var xRendererDrawErrorUnderline func(uintptr, int32, int32, int32, int32)
 //
 // This should be called while @renderer is already active.
 // Use [method@Pango.Renderer.activate] to activate a renderer.
-func (x *Renderer) DrawErrorUnderline(XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
+func (x *Renderer) DrawErrorUnderline(XVar int, YVar int, WidthVar int, HeightVar int) {
 
 	xRendererDrawErrorUnderline(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 
@@ -118,7 +118,7 @@ func (x *Renderer) DrawGlyph(FontVar *Font, GlyphVar Glyph, XVar float64, YVar f
 
 }
 
-var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int32, int32)
+var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int, int)
 
 // Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
 // embedding the text associated with the glyphs in the output if the
@@ -138,54 +138,54 @@ var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int32, int32)
 //
 // The default implementation of this method simply falls back to
 // [method@Pango.Renderer.draw_glyphs].
-func (x *Renderer) DrawGlyphItem(TextVar string, GlyphItemVar *GlyphItem, XVar int32, YVar int32) {
+func (x *Renderer) DrawGlyphItem(TextVar string, GlyphItemVar *GlyphItem, XVar int, YVar int) {
 
 	xRendererDrawGlyphItem(x.GoPointer(), TextVar, GlyphItemVar, XVar, YVar)
 
 }
 
-var xRendererDrawGlyphs func(uintptr, uintptr, *GlyphString, int32, int32)
+var xRendererDrawGlyphs func(uintptr, uintptr, *GlyphString, int, int)
 
 // Draws the glyphs in @glyphs with the specified `PangoRenderer`.
-func (x *Renderer) DrawGlyphs(FontVar *Font, GlyphsVar *GlyphString, XVar int32, YVar int32) {
+func (x *Renderer) DrawGlyphs(FontVar *Font, GlyphsVar *GlyphString, XVar int, YVar int) {
 
 	xRendererDrawGlyphs(x.GoPointer(), FontVar.GoPointer(), GlyphsVar, XVar, YVar)
 
 }
 
-var xRendererDrawLayout func(uintptr, uintptr, int32, int32)
+var xRendererDrawLayout func(uintptr, uintptr, int, int)
 
 // Draws @layout with the specified `PangoRenderer`.
 //
 // This is equivalent to drawing the lines of the layout, at their
 // respective positions relative to @x, @y.
-func (x *Renderer) DrawLayout(LayoutVar *Layout, XVar int32, YVar int32) {
+func (x *Renderer) DrawLayout(LayoutVar *Layout, XVar int, YVar int) {
 
 	xRendererDrawLayout(x.GoPointer(), LayoutVar.GoPointer(), XVar, YVar)
 
 }
 
-var xRendererDrawLayoutLine func(uintptr, *LayoutLine, int32, int32)
+var xRendererDrawLayoutLine func(uintptr, *LayoutLine, int, int)
 
 // Draws @line with the specified `PangoRenderer`.
 //
 // This draws the glyph items that make up the line, as well as
 // shapes, backgrounds and lines that are specified by the attributes
 // of those items.
-func (x *Renderer) DrawLayoutLine(LineVar *LayoutLine, XVar int32, YVar int32) {
+func (x *Renderer) DrawLayoutLine(LineVar *LayoutLine, XVar int, YVar int) {
 
 	xRendererDrawLayoutLine(x.GoPointer(), LineVar, XVar, YVar)
 
 }
 
-var xRendererDrawRectangle func(uintptr, RenderPart, int32, int32, int32, int32)
+var xRendererDrawRectangle func(uintptr, RenderPart, int, int, int, int)
 
 // Draws an axis-aligned rectangle in user space coordinates with the
 // specified `PangoRenderer`.
 //
 // This should be called while @renderer is already active.
 // Use [method@Pango.Renderer.activate] to activate a renderer.
-func (x *Renderer) DrawRectangle(PartVar RenderPart, XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
+func (x *Renderer) DrawRectangle(PartVar RenderPart, XVar int, YVar int, WidthVar int, HeightVar int) {
 
 	xRendererDrawRectangle(x.GoPointer(), PartVar, XVar, YVar, WidthVar, HeightVar)
 

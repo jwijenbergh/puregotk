@@ -91,14 +91,14 @@ func DbusErrorNewForDbusError(DbusErrorNameVar string, DbusErrorMessageVar strin
 
 }
 
-var xDbusErrorRegisterError func(glib.Quark, int32, string) bool
+var xDbusErrorRegisterError func(glib.Quark, int, string) bool
 
 // Creates an association to map between @dbus_error_name and
 // #GErrors specified by @error_domain and @error_code.
 //
 // This is typically done in the routine that returns the #GQuark for
 // an error domain.
-func DbusErrorRegisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int32, DbusErrorNameVar string) bool {
+func DbusErrorRegisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
 
 	return xDbusErrorRegisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
 
@@ -130,10 +130,10 @@ func DbusErrorStripRemoteError(ErrorVar *glib.Error) bool {
 
 }
 
-var xDbusErrorUnregisterError func(glib.Quark, int32, string) bool
+var xDbusErrorUnregisterError func(glib.Quark, int, string) bool
 
 // Destroys an association previously set up with g_dbus_error_register_error().
-func DbusErrorUnregisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int32, DbusErrorNameVar string) bool {
+func DbusErrorUnregisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
 
 	return xDbusErrorUnregisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
 

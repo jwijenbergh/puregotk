@@ -141,20 +141,20 @@ func NewNotebook() *Widget {
 	return NewNotebookCls
 }
 
-var xNotebookAppendPage func(uintptr, uintptr, uintptr) int32
+var xNotebookAppendPage func(uintptr, uintptr, uintptr) int
 
 // Appends a page to @notebook.
-func (x *Notebook) AppendPage(ChildVar *Widget, TabLabelVar *Widget) int32 {
+func (x *Notebook) AppendPage(ChildVar *Widget, TabLabelVar *Widget) int {
 
 	return xNotebookAppendPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
 
 }
 
-var xNotebookAppendPageMenu func(uintptr, uintptr, uintptr, uintptr) int32
+var xNotebookAppendPageMenu func(uintptr, uintptr, uintptr, uintptr) int
 
 // Appends a page to @notebook, specifying the widget to use as the
 // label in the popup menu.
-func (x *Notebook) AppendPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int32 {
+func (x *Notebook) AppendPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int {
 
 	return xNotebookAppendPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
 
@@ -194,10 +194,10 @@ func (x *Notebook) GetActionWidget(PackTypeVar PackType) *Widget {
 
 }
 
-var xNotebookGetCurrentPage func(uintptr) int32
+var xNotebookGetCurrentPage func(uintptr) int
 
 // Returns the page number of the current page.
-func (x *Notebook) GetCurrentPage() int32 {
+func (x *Notebook) GetCurrentPage() int {
 
 	return xNotebookGetCurrentPage(x.GoPointer())
 
@@ -240,19 +240,19 @@ func (x *Notebook) GetMenuLabelText(ChildVar *Widget) string {
 
 }
 
-var xNotebookGetNPages func(uintptr) int32
+var xNotebookGetNPages func(uintptr) int
 
 // Gets the number of pages in a notebook.
-func (x *Notebook) GetNPages() int32 {
+func (x *Notebook) GetNPages() int {
 
 	return xNotebookGetNPages(x.GoPointer())
 
 }
 
-var xNotebookGetNthPage func(uintptr, int32) uintptr
+var xNotebookGetNthPage func(uintptr, int) uintptr
 
 // Returns the child widget contained in page number @page_num.
-func (x *Notebook) GetNthPage(PageNumVar int32) *Widget {
+func (x *Notebook) GetNthPage(PageNumVar int) *Widget {
 
 	GetNthPagePtr := xNotebookGetNthPage(x.GoPointer(), PageNumVar)
 	if GetNthPagePtr == 0 {
@@ -390,20 +390,20 @@ func (x *Notebook) GetTabReorderable(ChildVar *Widget) bool {
 
 }
 
-var xNotebookInsertPage func(uintptr, uintptr, uintptr, int32) int32
+var xNotebookInsertPage func(uintptr, uintptr, uintptr, int) int
 
 // Insert a page into @notebook at the given position.
-func (x *Notebook) InsertPage(ChildVar *Widget, TabLabelVar *Widget, PositionVar int32) int32 {
+func (x *Notebook) InsertPage(ChildVar *Widget, TabLabelVar *Widget, PositionVar int) int {
 
 	return xNotebookInsertPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), PositionVar)
 
 }
 
-var xNotebookInsertPageMenu func(uintptr, uintptr, uintptr, uintptr, int32) int32
+var xNotebookInsertPageMenu func(uintptr, uintptr, uintptr, uintptr, int) int
 
 // Insert a page into @notebook at the given position, specifying
 // the widget to use as the label in the popup menu.
-func (x *Notebook) InsertPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget, PositionVar int32) int32 {
+func (x *Notebook) InsertPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget, PositionVar int) int {
 
 	return xNotebookInsertPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer(), PositionVar)
 
@@ -420,11 +420,11 @@ func (x *Notebook) NextPage() {
 
 }
 
-var xNotebookPageNum func(uintptr, uintptr) int32
+var xNotebookPageNum func(uintptr, uintptr) int
 
 // Finds the index of the page which contains the given child
 // widget.
-func (x *Notebook) PageNum(ChildVar *Widget) int32 {
+func (x *Notebook) PageNum(ChildVar *Widget) int {
 
 	return xNotebookPageNum(x.GoPointer(), ChildVar.GoPointer())
 
@@ -451,20 +451,20 @@ func (x *Notebook) PopupEnable() {
 
 }
 
-var xNotebookPrependPage func(uintptr, uintptr, uintptr) int32
+var xNotebookPrependPage func(uintptr, uintptr, uintptr) int
 
 // Prepends a page to @notebook.
-func (x *Notebook) PrependPage(ChildVar *Widget, TabLabelVar *Widget) int32 {
+func (x *Notebook) PrependPage(ChildVar *Widget, TabLabelVar *Widget) int {
 
 	return xNotebookPrependPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
 
 }
 
-var xNotebookPrependPageMenu func(uintptr, uintptr, uintptr, uintptr) int32
+var xNotebookPrependPageMenu func(uintptr, uintptr, uintptr, uintptr) int
 
 // Prepends a page to @notebook, specifying the widget to use as the
 // label in the popup menu.
-func (x *Notebook) PrependPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int32 {
+func (x *Notebook) PrependPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int {
 
 	return xNotebookPrependPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
 
@@ -481,24 +481,24 @@ func (x *Notebook) PrevPage() {
 
 }
 
-var xNotebookRemovePage func(uintptr, int32)
+var xNotebookRemovePage func(uintptr, int)
 
 // Removes a page from the notebook given its index
 // in the notebook.
-func (x *Notebook) RemovePage(PageNumVar int32) {
+func (x *Notebook) RemovePage(PageNumVar int) {
 
 	xNotebookRemovePage(x.GoPointer(), PageNumVar)
 
 }
 
-var xNotebookReorderChild func(uintptr, uintptr, int32)
+var xNotebookReorderChild func(uintptr, uintptr, int)
 
 // Reorders the page containing @child, so that it appears in position
 // @position.
 //
 // If @position is greater than or equal to the number of children in
 // the list or negative, @child will be moved to the end of the list.
-func (x *Notebook) ReorderChild(ChildVar *Widget, PositionVar int32) {
+func (x *Notebook) ReorderChild(ChildVar *Widget, PositionVar int) {
 
 	xNotebookReorderChild(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -517,7 +517,7 @@ func (x *Notebook) SetActionWidget(WidgetVar *Widget, PackTypeVar PackType) {
 
 }
 
-var xNotebookSetCurrentPage func(uintptr, int32)
+var xNotebookSetCurrentPage func(uintptr, int)
 
 // Switches to the page number @page_num.
 //
@@ -525,7 +525,7 @@ var xNotebookSetCurrentPage func(uintptr, int32)
 // to switch to a page unless the child widget is visible.
 // Therefore, it is recommended to show child widgets before
 // adding them to a notebook.
-func (x *Notebook) SetCurrentPage(PageNumVar int32) {
+func (x *Notebook) SetCurrentPage(PageNumVar int) {
 
 	xNotebookSetCurrentPage(x.GoPointer(), PageNumVar)
 
@@ -696,8 +696,8 @@ func (c *Notebook) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int32) bool) {
-	fcb := func(clsPtr uintptr, ObjectVarp int32) bool {
+func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int) bool) {
+	fcb := func(clsPtr uintptr, ObjectVarp int) bool {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
 
@@ -880,7 +880,7 @@ func (x *Notebook) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Notebook) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Notebook) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -916,7 +916,7 @@ func (x *Notebook) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Notebook) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Notebook) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -949,7 +949,7 @@ func (x *Notebook) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Notebook) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Notebook) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -87,7 +87,7 @@ func (x *FileIOStream) QueryInfo(AttributesVar string, CancellableVar *Cancellab
 
 }
 
-var xFileIOStreamQueryInfoAsync func(uintptr, string, int32, uintptr, uintptr, uintptr)
+var xFileIOStreamQueryInfoAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
 
 // Asynchronously queries the @stream for a #GFileInfo. When completed,
 // @callback will be called with a #GAsyncResult which can be used to
@@ -95,7 +95,7 @@ var xFileIOStreamQueryInfoAsync func(uintptr, string, int32, uintptr, uintptr, u
 //
 // For the synchronous version of this function, see
 // g_file_io_stream_query_info().
-func (x *FileIOStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileIOStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileIOStreamQueryInfoAsync(x.GoPointer(), AttributesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

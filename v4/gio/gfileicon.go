@@ -105,7 +105,7 @@ func (x *FileIcon) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *FileIcon) Load(SizeVar int32, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *FileIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
 
 	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -121,7 +121,7 @@ func (x *FileIcon) Load(SizeVar int32, TypeVar string, CancellableVar *Cancellab
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *FileIcon) LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

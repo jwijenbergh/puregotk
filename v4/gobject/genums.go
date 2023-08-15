@@ -83,10 +83,10 @@ func EnumCompleteTypeInfo(GEnumTypeVar []interface{}, InfoVar *TypeInfo, ConstVa
 
 }
 
-var xEnumGetValue func(*EnumClass, int32) *EnumValue
+var xEnumGetValue func(*EnumClass, int) *EnumValue
 
 // Returns the #GEnumValue for a value.
-func EnumGetValue(EnumClassVar *EnumClass, ValueVar int32) *EnumValue {
+func EnumGetValue(EnumClassVar *EnumClass, ValueVar int) *EnumValue {
 
 	return xEnumGetValue(EnumClassVar, ValueVar)
 
@@ -123,13 +123,13 @@ func EnumRegisterStatic(NameVar string, ConstStaticValuesVar *EnumValue) []inter
 
 }
 
-var xEnumToString func([]interface{}, int32) string
+var xEnumToString func([]interface{}, int) string
 
 // Pretty-prints @value in the form of the enum’s name.
 //
 // This is intended to be used for debugging purposes. The format of the output
 // may change in the future.
-func EnumToString(GEnumTypeVar []interface{}, ValueVar int32) string {
+func EnumToString(GEnumTypeVar []interface{}, ValueVar int) string {
 
 	return xEnumToString(GEnumTypeVar, ValueVar)
 

@@ -33,13 +33,13 @@ func UnixInputStreamNewFromInternalPtr(ptr uintptr) *UnixInputStream {
 	return cls
 }
 
-var xNewUnixInputStream func(int32, bool) uintptr
+var xNewUnixInputStream func(int, bool) uintptr
 
 // Creates a new #GUnixInputStream for the given @fd.
 //
 // If @close_fd is %TRUE, the file descriptor will be closed
 // when the stream is closed.
-func NewUnixInputStream(FdVar int32, CloseFdVar bool) *InputStream {
+func NewUnixInputStream(FdVar int, CloseFdVar bool) *InputStream {
 	NewUnixInputStreamPtr := xNewUnixInputStream(FdVar, CloseFdVar)
 	if NewUnixInputStreamPtr == 0 {
 		return nil
@@ -60,10 +60,10 @@ func (x *UnixInputStream) GetCloseFd() bool {
 
 }
 
-var xUnixInputStreamGetFd func(uintptr) int32
+var xUnixInputStreamGetFd func(uintptr) int
 
 // Return the UNIX file descriptor that the stream reads from.
-func (x *UnixInputStream) GetFd() int32 {
+func (x *UnixInputStream) GetFd() int {
 
 	return xUnixInputStreamGetFd(x.GoPointer())
 

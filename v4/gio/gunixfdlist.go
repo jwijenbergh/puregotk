@@ -48,7 +48,7 @@ func NewUnixFDList() *UnixFDList {
 	return NewUnixFDListCls
 }
 
-var xNewFromArrayUnixFDList func(uintptr, int32) uintptr
+var xNewFromArrayUnixFDList func(uintptr, int) uintptr
 
 // Creates a new #GUnixFDList containing the file descriptors given in
 // @fds.  The file descriptors become the property of the new list and
@@ -58,7 +58,7 @@ var xNewFromArrayUnixFDList func(uintptr, int32) uintptr
 // Each file descriptor in the array should be set to close-on-exec.
 //
 // If @n_fds is -1 then @fds must be terminated with -1.
-func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int32) *UnixFDList {
+func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int) *UnixFDList {
 	NewFromArrayUnixFDListPtr := xNewFromArrayUnixFDList(FdsVar, NFdsVar)
 	if NewFromArrayUnixFDListPtr == 0 {
 		return nil
@@ -69,7 +69,7 @@ func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int32) *UnixFDList {
 	return NewFromArrayUnixFDListCls
 }
 
-var xUnixFDListAppend func(uintptr, int32) int32
+var xUnixFDListAppend func(uintptr, int) int
 
 // Adds a file descriptor to @list.
 //
@@ -83,13 +83,13 @@ var xUnixFDListAppend func(uintptr, int32) int32
 // The index of the file descriptor in the list is returned.  If you use
 // this index with g_unix_fd_list_get() then you will receive back a
 // duplicated copy of the same file descriptor.
-func (x *UnixFDList) Append(FdVar int32) int32 {
+func (x *UnixFDList) Append(FdVar int) int {
 
 	return xUnixFDListAppend(x.GoPointer(), FdVar)
 
 }
 
-var xUnixFDListGet func(uintptr, int32) int32
+var xUnixFDListGet func(uintptr, int) int
 
 // Gets a file descriptor out of @list.
 //
@@ -103,23 +103,23 @@ var xUnixFDListGet func(uintptr, int32) int32
 //
 // A possible cause of failure is exceeding the per-process or
 // system-wide file descriptor limit.
-func (x *UnixFDList) Get(IndexVar int32) int32 {
+func (x *UnixFDList) Get(IndexVar int) int {
 
 	return xUnixFDListGet(x.GoPointer(), IndexVar)
 
 }
 
-var xUnixFDListGetLength func(uintptr) int32
+var xUnixFDListGetLength func(uintptr) int
 
 // Gets the length of @list (ie: the number of file descriptors
 // contained within).
-func (x *UnixFDList) GetLength() int32 {
+func (x *UnixFDList) GetLength() int {
 
 	return xUnixFDListGetLength(x.GoPointer())
 
 }
 
-var xUnixFDListPeekFds func(uintptr, int32) uintptr
+var xUnixFDListPeekFds func(uintptr, int) uintptr
 
 // Returns the array of file descriptors that is contained in this
 // object.
@@ -134,13 +134,13 @@ var xUnixFDListPeekFds func(uintptr, int32) uintptr
 //
 // This function never returns %NULL. In case there are no file
 // descriptors contained in @list, an empty array is returned.
-func (x *UnixFDList) PeekFds(LengthVar int32) uintptr {
+func (x *UnixFDList) PeekFds(LengthVar int) uintptr {
 
 	return xUnixFDListPeekFds(x.GoPointer(), LengthVar)
 
 }
 
-var xUnixFDListStealFds func(uintptr, int32) uintptr
+var xUnixFDListStealFds func(uintptr, int) uintptr
 
 // Returns the array of file descriptors that is contained in this
 // object.
@@ -160,7 +160,7 @@ var xUnixFDListStealFds func(uintptr, int32) uintptr
 //
 // This function never returns %NULL. In case there are no file
 // descriptors contained in @list, an empty array is returned.
-func (x *UnixFDList) StealFds(LengthVar int32) uintptr {
+func (x *UnixFDList) StealFds(LengthVar int) uintptr {
 
 	return xUnixFDListStealFds(x.GoPointer(), LengthVar)
 

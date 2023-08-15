@@ -47,18 +47,18 @@ const (
 	GNumberParserErrorOutOfBoundsValue NumberParserError = 1
 )
 
-var xAsciiDigitValue func(byte) int32
+var xAsciiDigitValue func(byte) int
 
 // Determines the numeric value of a character as a decimal digit.
 // Differs from g_unichar_digit_value() because it takes a char, so
 // there's no worry about sign extension if characters are signed.
-func AsciiDigitValue(CVar byte) int32 {
+func AsciiDigitValue(CVar byte) int {
 
 	return xAsciiDigitValue(CVar)
 
 }
 
-var xAsciiDtostr func(string, int32, float64) string
+var xAsciiDtostr func(string, int, float64) string
 
 // Converts a #gdouble to a string, using the '.' as
 // decimal point.
@@ -69,13 +69,13 @@ var xAsciiDtostr func(string, int32, float64) string
 // guaranteed that the size of the resulting string will never
 // be larger than %G_ASCII_DTOSTR_BUF_SIZE bytes, including the terminating
 // nul character, which is always added.
-func AsciiDtostr(BufferVar string, BufLenVar int32, DVar float64) string {
+func AsciiDtostr(BufferVar string, BufLenVar int, DVar float64) string {
 
 	return xAsciiDtostr(BufferVar, BufLenVar, DVar)
 
 }
 
-var xAsciiFormatd func(string, int32, string, float64) string
+var xAsciiFormatd func(string, int, string, float64) string
 
 // Converts a #gdouble to a string, using the '.' as
 // decimal point. To format the number you pass in
@@ -89,13 +89,13 @@ var xAsciiFormatd func(string, int32, string, float64) string
 //
 // If you just want to want to serialize the value into a
 // string, use g_ascii_dtostr().
-func AsciiFormatd(BufferVar string, BufLenVar int32, FormatVar string, DVar float64) string {
+func AsciiFormatd(BufferVar string, BufLenVar int, FormatVar string, DVar float64) string {
 
 	return xAsciiFormatd(BufferVar, BufLenVar, FormatVar, DVar)
 
 }
 
-var xAsciiStrcasecmp func(string, string) int32
+var xAsciiStrcasecmp func(string, string) int
 
 // Compare two strings, ignoring the case of ASCII characters.
 //
@@ -112,7 +112,7 @@ var xAsciiStrcasecmp func(string, string) int32
 // strings using this function, you will get false matches.
 //
 // Both @s1 and @s2 must be non-%NULL.
-func AsciiStrcasecmp(S1Var string, S2Var string) int32 {
+func AsciiStrcasecmp(S1Var string, S2Var string) int {
 
 	return xAsciiStrcasecmp(S1Var, S2Var)
 
@@ -186,7 +186,7 @@ func AsciiStringToUnsigned(StrVar string, BaseVar uint, MinVar uint64, MaxVar ui
 
 }
 
-var xAsciiStrncasecmp func(string, string, uint) int32
+var xAsciiStrncasecmp func(string, string, uint) int
 
 // Compare @s1 and @s2, ignoring the case of ASCII characters and any
 // characters after the first @n in each string. If either string is
@@ -200,7 +200,7 @@ var xAsciiStrncasecmp func(string, string, uint) int32
 // The same warning as in g_ascii_strcasecmp() applies: Use this
 // function only on strings known to be in encodings where bytes
 // corresponding to ASCII letters always represent themselves.
-func AsciiStrncasecmp(S1Var string, S2Var string, NVar uint) int32 {
+func AsciiStrncasecmp(S1Var string, S2Var string, NVar uint) int {
 
 	return xAsciiStrncasecmp(S1Var, S2Var, NVar)
 
@@ -335,13 +335,13 @@ func AsciiToupper(CVar byte) byte {
 
 }
 
-var xAsciiXdigitValue func(byte) int32
+var xAsciiXdigitValue func(byte) int
 
 // Determines the numeric value of a character as a hexadecimal
 // digit. Differs from g_unichar_xdigit_value() because it takes
 // a char, so there's no worry about sign extension if characters
 // are signed.
-func AsciiXdigitValue(CVar byte) int32 {
+func AsciiXdigitValue(CVar byte) int {
 
 	return xAsciiXdigitValue(CVar)
 
@@ -518,11 +518,11 @@ func Strcanon(StringVar string, ValidCharsVar string, SubstitutorVar byte) strin
 
 }
 
-var xStrcasecmp func(string, string) int32
+var xStrcasecmp func(string, string) int
 
 // A case-insensitive string comparison, corresponding to the standard
 // strcasecmp() function on platforms which support it.
-func Strcasecmp(S1Var string, S2Var string) int32 {
+func Strcasecmp(S1Var string, S2Var string) int {
 
 	return xStrcasecmp(S1Var, S2Var)
 
@@ -689,7 +689,7 @@ func Strdupv(StrArrayVar string) uintptr {
 
 }
 
-var xStrerror func(int32) string
+var xStrerror func(int) string
 
 // Returns a string corresponding to the given error code, e.g. "no
 // such process". Unlike strerror(), this always returns a string in
@@ -711,7 +711,7 @@ var xStrerror func(int32) string
 //	g_strerror (saved_errno);
 //
 // ]|
-func Strerror(ErrnumVar int32) string {
+func Strerror(ErrnumVar int) string {
 
 	return xStrerror(ErrnumVar)
 
@@ -814,13 +814,13 @@ func Strlcpy(DestVar string, SrcVar string, DestSizeVar uint) uint {
 
 }
 
-var xStrncasecmp func(string, string, uint) int32
+var xStrncasecmp func(string, string, uint) int
 
 // A case-insensitive string comparison, corresponding to the standard
 // strncasecmp() function on platforms which support it. It is similar
 // to g_strcasecmp() except it only compares the first @n characters of
 // the strings.
-func Strncasecmp(S1Var string, S2Var string, NVar uint) int32 {
+func Strncasecmp(S1Var string, S2Var string, NVar uint) int {
 
 	return xStrncasecmp(S1Var, S2Var, NVar)
 
@@ -887,19 +887,19 @@ func StrrstrLen(HaystackVar string, HaystackLenVar int, NeedleVar string) string
 
 }
 
-var xStrsignal func(int32) string
+var xStrsignal func(int) string
 
 // Returns a string describing the given signal, e.g. "Segmentation fault".
 // You should use this function in preference to strsignal(), because it
 // returns a string in UTF-8 encoding, and since not all platforms support
 // the strsignal() function.
-func Strsignal(SignumVar int32) string {
+func Strsignal(SignumVar int) string {
 
 	return xStrsignal(SignumVar)
 
 }
 
-var xStrsplit func(string, string, int32) uintptr
+var xStrsplit func(string, string, int) uintptr
 
 // Splits a string into a maximum of @max_tokens pieces, using the given
 // @delimiter. If @max_tokens is reached, the remainder of @string is
@@ -915,13 +915,13 @@ var xStrsplit func(string, string, int32) uintptr
 // more useful than consistent handling of empty elements. If you do need
 // to represent empty elements, you'll need to check for the empty string
 // before calling g_strsplit().
-func Strsplit(StringVar string, DelimiterVar string, MaxTokensVar int32) uintptr {
+func Strsplit(StringVar string, DelimiterVar string, MaxTokensVar int) uintptr {
 
 	return xStrsplit(StringVar, DelimiterVar, MaxTokensVar)
 
 }
 
-var xStrsplitSet func(string, string, int32) uintptr
+var xStrsplitSet func(string, string, int) uintptr
 
 // Splits @string into a number of tokens not containing any of the characters
 // in @delimiter. A token is the (possibly empty) longest string that does not
@@ -944,7 +944,7 @@ var xStrsplitSet func(string, string, int32) uintptr
 //
 // Note that this function works on bytes not characters, so it can't be used
 // to delimit UTF-8 strings for anything but ASCII characters.
-func StrsplitSet(StringVar string, DelimitersVar string, MaxTokensVar int32) uintptr {
+func StrsplitSet(StringVar string, DelimitersVar string, MaxTokensVar int) uintptr {
 
 	return xStrsplitSet(StringVar, DelimitersVar, MaxTokensVar)
 

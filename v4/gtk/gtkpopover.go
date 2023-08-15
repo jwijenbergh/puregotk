@@ -179,10 +179,10 @@ func (x *Popover) GetMnemonicsVisible() bool {
 
 }
 
-var xPopoverGetOffset func(uintptr, int32, int32)
+var xPopoverGetOffset func(uintptr, int, int)
 
 // Gets the offset previous set with gtk_popover_set_offset().
-func (x *Popover) GetOffset(XOffsetVar int32, YOffsetVar int32) {
+func (x *Popover) GetOffset(XOffsetVar int, YOffsetVar int) {
 
 	xPopoverGetOffset(x.GoPointer(), XOffsetVar, YOffsetVar)
 
@@ -311,14 +311,14 @@ func (x *Popover) SetMnemonicsVisible(MnemonicsVisibleVar bool) {
 
 }
 
-var xPopoverSetOffset func(uintptr, int32, int32)
+var xPopoverSetOffset func(uintptr, int, int)
 
 // Sets the offset to use when calculating the position
 // of the popover.
 //
 // These values are used when preparing the [struct@Gdk.PopupLayout]
 // for positioning the popover.
-func (x *Popover) SetOffset(XOffsetVar int32, YOffsetVar int32) {
+func (x *Popover) SetOffset(XOffsetVar int, YOffsetVar int) {
 
 	xPopoverSetOffset(x.GoPointer(), XOffsetVar, YOffsetVar)
 
@@ -443,7 +443,7 @@ func (x *Popover) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ..
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Popover) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Popover) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -479,7 +479,7 @@ func (x *Popover) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ..
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Popover) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Popover) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -512,7 +512,7 @@ func (x *Popover) UpdateState(FirstStateVar AccessibleState, varArgs ...interfac
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Popover) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Popover) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

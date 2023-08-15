@@ -14,7 +14,7 @@ type DragSurfaceInterface struct {
 type DragSurface interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	Present(WidthVar int32, HeightVar int32) bool
+	Present(WidthVar int, HeightVar int) bool
 }
 type DragSurfaceBase struct {
 	Ptr uintptr
@@ -29,13 +29,13 @@ func (x *DragSurfaceBase) SetGoPointer(ptr uintptr) {
 }
 
 // Present @drag_surface.
-func (x *DragSurfaceBase) Present(WidthVar int32, HeightVar int32) bool {
+func (x *DragSurfaceBase) Present(WidthVar int, HeightVar int) bool {
 
 	return XGdkDragSurfacePresent(x.GoPointer(), WidthVar, HeightVar)
 
 }
 
-var XGdkDragSurfacePresent func(uintptr, int32, int32) bool
+var XGdkDragSurfacePresent func(uintptr, int, int) bool
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

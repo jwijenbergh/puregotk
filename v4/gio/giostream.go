@@ -120,7 +120,7 @@ func (x *IOStream) Close(CancellableVar *Cancellable) bool {
 
 }
 
-var xIOStreamCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var xIOStreamCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Requests an asynchronous close of the stream, releasing resources
 // related to it. When the operation is finished @callback will be
@@ -132,7 +132,7 @@ var xIOStreamCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 // The asynchronous methods have a default fallback that uses threads
 // to implement asynchronicity, so they are optional for inheriting
 // classes. However, if you override one you must override all.
-func (x *IOStream) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *IOStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xIOStreamCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -214,7 +214,7 @@ func (x *IOStream) SetPending() bool {
 
 }
 
-var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int32, uintptr, uintptr, uintptr)
+var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int, uintptr, uintptr, uintptr)
 
 // Asynchronously splice the output stream of @stream1 to the input stream of
 // @stream2, and splice the output stream of @stream2 to the input stream of
@@ -223,7 +223,7 @@ var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int32, uint
 // When the operation is finished @callback will be called.
 // You can then call g_io_stream_splice_finish() to get the
 // result of the operation.
-func (x *IOStream) SpliceAsync(Stream2Var *IOStream, FlagsVar IOStreamSpliceFlags, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *IOStream) SpliceAsync(Stream2Var *IOStream, FlagsVar IOStreamSpliceFlags, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xIOStreamSpliceAsync(x.GoPointer(), Stream2Var.GoPointer(), FlagsVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

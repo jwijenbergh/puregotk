@@ -311,7 +311,7 @@ func (x *Display) ListSeats() *glib.List {
 
 }
 
-var xDisplayMapKeycode func(uintptr, uint, uintptr, uintptr, int32) bool
+var xDisplayMapKeycode func(uintptr, uint, uintptr, uintptr, int) bool
 
 // Returns the keyvals bound to @keycode.
 //
@@ -322,13 +322,13 @@ var xDisplayMapKeycode func(uintptr, uint, uintptr, uintptr, int32) bool
 // keyboard group and level.
 //
 // Free the returned arrays with g_free().
-func (x *Display) MapKeycode(KeycodeVar uint, KeysVar uintptr, KeyvalsVar uintptr, NEntriesVar int32) bool {
+func (x *Display) MapKeycode(KeycodeVar uint, KeysVar uintptr, KeyvalsVar uintptr, NEntriesVar int) bool {
 
 	return xDisplayMapKeycode(x.GoPointer(), KeycodeVar, KeysVar, KeyvalsVar, NEntriesVar)
 
 }
 
-var xDisplayMapKeyval func(uintptr, uint, uintptr, int32) bool
+var xDisplayMapKeyval func(uintptr, uint, uintptr, int) bool
 
 // Obtains a list of keycode/group/level combinations that will
 // generate @keyval.
@@ -345,7 +345,7 @@ var xDisplayMapKeyval func(uintptr, uint, uintptr, int32) bool
 // keyboard group. The level is computed from the modifier mask.
 //
 // The returned array should be freed with g_free().
-func (x *Display) MapKeyval(KeyvalVar uint, KeysVar uintptr, NKeysVar int32) bool {
+func (x *Display) MapKeyval(KeyvalVar uint, KeysVar uintptr, NKeysVar int) bool {
 
 	return xDisplayMapKeyval(x.GoPointer(), KeyvalVar, KeysVar, NKeysVar)
 
@@ -433,7 +433,7 @@ func (x *Display) Sync() {
 
 }
 
-var xDisplayTranslateKey func(uintptr, uint, ModifierType, int32, uint, int32, int32, *ModifierType) bool
+var xDisplayTranslateKey func(uintptr, uint, ModifierType, int, uint, int, int, *ModifierType) bool
 
 // Translates the contents of a `GdkEventKey` into a keyval, effective group,
 // and level.
@@ -454,7 +454,7 @@ var xDisplayTranslateKey func(uintptr, uint, ModifierType, int32, uint, int32, i
 // This function should rarely be needed, since `GdkEventKey` already
 // contains the translated keyval. It is exported for the benefit of
 // virtualized test environments.
-func (x *Display) TranslateKey(KeycodeVar uint, StateVar ModifierType, GroupVar int32, KeyvalVar uint, EffectiveGroupVar int32, LevelVar int32, ConsumedVar *ModifierType) bool {
+func (x *Display) TranslateKey(KeycodeVar uint, StateVar ModifierType, GroupVar int, KeyvalVar uint, EffectiveGroupVar int, LevelVar int, ConsumedVar *ModifierType) bool {
 
 	return xDisplayTranslateKey(x.GoPointer(), KeycodeVar, StateVar, GroupVar, KeyvalVar, EffectiveGroupVar, LevelVar, ConsumedVar)
 

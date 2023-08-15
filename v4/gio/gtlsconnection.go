@@ -268,11 +268,11 @@ func (x *TlsConnection) Handshake(CancellableVar *Cancellable) bool {
 
 }
 
-var xTlsConnectionHandshakeAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var xTlsConnectionHandshakeAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Asynchronously performs a TLS handshake on @conn. See
 // g_tls_connection_handshake() for more information.
-func (x *TlsConnection) HandshakeAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsConnection) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xTlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

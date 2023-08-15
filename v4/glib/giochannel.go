@@ -179,7 +179,7 @@ func IoAddWatch(ChannelVar *IOChannel, ConditionVar IOCondition, FuncVar IOFunc,
 
 }
 
-var xIoAddWatchFull func(*IOChannel, int32, IOCondition, uintptr, uintptr, uintptr) uint
+var xIoAddWatchFull func(*IOChannel, int, IOCondition, uintptr, uintptr, uintptr) uint
 
 // Adds the #GIOChannel into the default main loop context
 // with the given priority.
@@ -187,16 +187,16 @@ var xIoAddWatchFull func(*IOChannel, int32, IOCondition, uintptr, uintptr, uintp
 // This internally creates a main loop source using g_io_create_watch()
 // and attaches it to the main loop context with g_source_attach().
 // You can do these steps manually if you need greater control.
-func IoAddWatchFull(ChannelVar *IOChannel, PriorityVar int32, ConditionVar IOCondition, FuncVar IOFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
+func IoAddWatchFull(ChannelVar *IOChannel, PriorityVar int, ConditionVar IOCondition, FuncVar IOFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xIoAddWatchFull(ChannelVar, PriorityVar, ConditionVar, purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(NotifyVar))
 
 }
 
-var xIoChannelErrorFromErrno func(int32) IOChannelError
+var xIoChannelErrorFromErrno func(int) IOChannelError
 
 // Converts an `errno` error number to a #GIOChannelError.
-func IoChannelErrorFromErrno(EnVar int32) IOChannelError {
+func IoChannelErrorFromErrno(EnVar int) IOChannelError {
 
 	return xIoChannelErrorFromErrno(EnVar)
 

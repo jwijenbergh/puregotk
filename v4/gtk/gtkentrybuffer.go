@@ -31,12 +31,12 @@ func EntryBufferNewFromInternalPtr(ptr uintptr) *EntryBuffer {
 	return cls
 }
 
-var xNewEntryBuffer func(string, int32) uintptr
+var xNewEntryBuffer func(string, int) uintptr
 
 // Create a new `GtkEntryBuffer` object.
 //
 // Optionally, specify initial text to set in the buffer.
-func NewEntryBuffer(InitialCharsVar string, NInitialCharsVar int32) *EntryBuffer {
+func NewEntryBuffer(InitialCharsVar string, NInitialCharsVar int) *EntryBuffer {
 	NewEntryBufferPtr := xNewEntryBuffer(InitialCharsVar, NInitialCharsVar)
 	if NewEntryBufferPtr == 0 {
 		return nil
@@ -47,7 +47,7 @@ func NewEntryBuffer(InitialCharsVar string, NInitialCharsVar int32) *EntryBuffer
 	return NewEntryBufferCls
 }
 
-var xEntryBufferDeleteText func(uintptr, uint, int32) uint
+var xEntryBufferDeleteText func(uintptr, uint, int) uint
 
 // Deletes a sequence of characters from the buffer.
 //
@@ -60,7 +60,7 @@ var xEntryBufferDeleteText func(uintptr, uint, int32) uint
 //
 // Note that the positions are specified in characters,
 // not bytes.
-func (x *EntryBuffer) DeleteText(PositionVar uint, NCharsVar int32) uint {
+func (x *EntryBuffer) DeleteText(PositionVar uint, NCharsVar int) uint {
 
 	return xEntryBufferDeleteText(x.GoPointer(), PositionVar, NCharsVar)
 
@@ -104,10 +104,10 @@ func (x *EntryBuffer) GetLength() uint {
 
 }
 
-var xEntryBufferGetMaxLength func(uintptr) int32
+var xEntryBufferGetMaxLength func(uintptr) int
 
 // Retrieves the maximum allowed length of the text in @buffer.
-func (x *EntryBuffer) GetMaxLength() int32 {
+func (x *EntryBuffer) GetMaxLength() int {
 
 	return xEntryBufferGetMaxLength(x.GoPointer())
 
@@ -125,7 +125,7 @@ func (x *EntryBuffer) GetText() string {
 
 }
 
-var xEntryBufferInsertText func(uintptr, uint, string, int32) uint
+var xEntryBufferInsertText func(uintptr, uint, string, int) uint
 
 // Inserts @n_chars characters of @chars into the contents of the
 // buffer, at position @position.
@@ -136,25 +136,25 @@ var xEntryBufferInsertText func(uintptr, uint, string, int32) uint
 // coerced to sane values.
 //
 // Note that the position and length are in characters, not in bytes.
-func (x *EntryBuffer) InsertText(PositionVar uint, CharsVar string, NCharsVar int32) uint {
+func (x *EntryBuffer) InsertText(PositionVar uint, CharsVar string, NCharsVar int) uint {
 
 	return xEntryBufferInsertText(x.GoPointer(), PositionVar, CharsVar, NCharsVar)
 
 }
 
-var xEntryBufferSetMaxLength func(uintptr, int32)
+var xEntryBufferSetMaxLength func(uintptr, int)
 
 // Sets the maximum allowed length of the contents of the buffer.
 //
 // If the current contents are longer than the given length, then
 // they will be truncated to fit.
-func (x *EntryBuffer) SetMaxLength(MaxLengthVar int32) {
+func (x *EntryBuffer) SetMaxLength(MaxLengthVar int) {
 
 	xEntryBufferSetMaxLength(x.GoPointer(), MaxLengthVar)
 
 }
 
-var xEntryBufferSetText func(uintptr, string, int32)
+var xEntryBufferSetText func(uintptr, string, int)
 
 // Sets the text in the buffer.
 //
@@ -163,7 +163,7 @@ var xEntryBufferSetText func(uintptr, string, int32)
 // [method@Gtk.EntryBuffer.insert_text].
 //
 // Note that @n_chars is in characters, not in bytes.
-func (x *EntryBuffer) SetText(CharsVar string, NCharsVar int32) {
+func (x *EntryBuffer) SetText(CharsVar string, NCharsVar int) {
 
 	xEntryBufferSetText(x.GoPointer(), CharsVar, NCharsVar)
 

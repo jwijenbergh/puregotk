@@ -15,5 +15,5 @@ type FileAttributeInfo struct {
 type FileAttributeInfoList struct {
 	Infos *FileAttributeInfo
 
-	NInfos int32
+	NInfos int
 }

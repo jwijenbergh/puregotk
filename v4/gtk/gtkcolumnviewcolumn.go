@@ -107,10 +107,10 @@ func (x *ColumnViewColumn) GetFactory() *ListItemFactory {
 
 }
 
-var xColumnViewColumnGetFixedWidth func(uintptr) int32
+var xColumnViewColumnGetFixedWidth func(uintptr) int
 
 // Gets the fixed width of the column.
-func (x *ColumnViewColumn) GetFixedWidth() int32 {
+func (x *ColumnViewColumn) GetFixedWidth() int {
 
 	return xColumnViewColumnGetFixedWidth(x.GoPointer())
 
@@ -202,14 +202,14 @@ func (x *ColumnViewColumn) SetFactory(FactoryVar *ListItemFactory) {
 
 }
 
-var xColumnViewColumnSetFixedWidth func(uintptr, int32)
+var xColumnViewColumnSetFixedWidth func(uintptr, int)
 
 // If @fixed_width is not -1, sets the fixed width of @column;
 // otherwise unsets it.
 //
 // Setting a fixed width overrides the automatically calculated
 // width. Interactive resizing also sets the “fixed-width” property.
-func (x *ColumnViewColumn) SetFixedWidth(FixedWidthVar int32) {
+func (x *ColumnViewColumn) SetFixedWidth(FixedWidthVar int) {
 
 	xColumnViewColumnSetFixedWidth(x.GoPointer(), FixedWidthVar)
 

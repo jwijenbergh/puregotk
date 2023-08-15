@@ -13,7 +13,7 @@ import (
 // for g_spawn_check_wait_status(). In particular,
 // on Unix platforms, note that it is usually not equal
 // to the integer passed to `exit()` or returned from `main()`.
-type ChildWatchFunc func(Pid, int32, uintptr)
+type ChildWatchFunc func(Pid, int, uintptr)
 
 // Specifies the type of function passed to g_clear_handle_id().
 // The implementation is expected to free the resource identified
@@ -157,7 +157,7 @@ func ChildWatchAdd(PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr) uint
 
 }
 
-var xChildWatchAddFull func(int32, Pid, uintptr, uintptr, uintptr) uint
+var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
 
 // Sets a function to be called when the child indicated by @pid
 // exits, at the priority @priority.
@@ -183,7 +183,7 @@ var xChildWatchAddFull func(int32, Pid, uintptr, uintptr, uintptr) uint
 // g_child_watch_source_new() and attaches it to the main loop context
 // using g_source_attach(). You can do these steps manually if you
 // need greater control.
-func ChildWatchAddFull(PriorityVar int32, PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func ChildWatchAddFull(PriorityVar int, PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xChildWatchAddFull(PriorityVar, PidVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
 
@@ -315,7 +315,7 @@ func IdleAdd(FunctionVar SourceFunc, DataVar uintptr) uint {
 
 }
 
-var xIdleAddFull func(int32, uintptr, uintptr, uintptr) uint
+var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
 
 // Adds a function to be called whenever there are no higher priority
 // events pending.
@@ -331,7 +331,7 @@ var xIdleAddFull func(int32, uintptr, uintptr, uintptr) uint
 // the callback will be invoked in whichever thread is running that main
 // context. You can do these steps manually if you need greater control or to
 // use a custom main context.
-func IdleAddFull(PriorityVar int32, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func IdleAddFull(PriorityVar int, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xIdleAddFull(PriorityVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
 
@@ -415,7 +415,7 @@ func MainCurrentSource() *Source {
 
 }
 
-var xMainDepth func() int32
+var xMainDepth func() int
 
 // Returns the depth of the stack of calls to
 // g_main_context_dispatch() on any #GMainContext in the current thread.
@@ -527,7 +527,7 @@ var xMainDepth func() int32
 //     arbitrary  callbacks. Instead, structure your code so that you
 //     simply return to the main loop and then get called again when
 //     there is more work to do.
-func MainDepth() int32 {
+func MainDepth() int {
 
 	return xMainDepth()
 
@@ -646,7 +646,7 @@ func TimeoutAdd(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr) uint 
 
 }
 
-var xTimeoutAddFull func(int32, uint, uintptr, uintptr, uintptr) uint
+var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
 
 // Sets a function to be called at regular intervals, with the given
 // priority.  The function is called repeatedly until it returns
@@ -672,7 +672,7 @@ var xTimeoutAddFull func(int32, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock time.
 // See g_get_monotonic_time().
-func TimeoutAddFull(PriorityVar int32, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func TimeoutAddFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xTimeoutAddFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
 
@@ -709,7 +709,7 @@ func TimeoutAddSeconds(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr
 
 }
 
-var xTimeoutAddSecondsFull func(int32, uint, uintptr, uintptr, uintptr) uint
+var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
 
 // Sets a function to be called at regular intervals, with @priority.
 //
@@ -750,7 +750,7 @@ var xTimeoutAddSecondsFull func(int32, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time.  See g_get_monotonic_time().
-func TimeoutAddSecondsFull(PriorityVar int32, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func TimeoutAddSecondsFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
 	return xTimeoutAddSecondsFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
 

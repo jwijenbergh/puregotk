@@ -39,11 +39,11 @@ func ThreadedSocketServiceNewFromInternalPtr(ptr uintptr) *ThreadedSocketService
 	return cls
 }
 
-var xNewThreadedSocketService func(int32) uintptr
+var xNewThreadedSocketService func(int) uintptr
 
 // Creates a new #GThreadedSocketService with no listeners. Listeners
 // must be added with one of the #GSocketListener "add" methods.
-func NewThreadedSocketService(MaxThreadsVar int32) *SocketService {
+func NewThreadedSocketService(MaxThreadsVar int) *SocketService {
 	NewThreadedSocketServicePtr := xNewThreadedSocketService(MaxThreadsVar)
 	if NewThreadedSocketServicePtr == 0 {
 		return nil

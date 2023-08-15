@@ -226,7 +226,7 @@ func (x *PixbufLoader) GetPixbuf() *Pixbuf {
 
 }
 
-var xPixbufLoaderSetSize func(uintptr, int32, int32)
+var xPixbufLoaderSetSize func(uintptr, int, int)
 
 // Causes the image to be scaled while it is loaded.
 //
@@ -236,7 +236,7 @@ var xPixbufLoaderSetSize func(uintptr, int32, int32)
 //
 // Attempts to set the desired image size  are ignored after the
 // emission of the ::size-prepared signal.
-func (x *PixbufLoader) SetSize(WidthVar int32, HeightVar int32) {
+func (x *PixbufLoader) SetSize(WidthVar int, HeightVar int) {
 
 	xPixbufLoaderSetSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -293,8 +293,8 @@ func (x *PixbufLoader) ConnectAreaPrepared(cb func(PixbufLoader)) {
 //
 // Applications can use this signal to know when to repaint
 // areas of an image that is being loaded.
-func (x *PixbufLoader) ConnectAreaUpdated(cb func(PixbufLoader, int32, int32, int32, int32)) {
-	fcb := func(clsPtr uintptr, XVarp int32, YVarp int32, WidthVarp int32, HeightVarp int32) {
+func (x *PixbufLoader) ConnectAreaUpdated(cb func(PixbufLoader, int, int, int, int)) {
+	fcb := func(clsPtr uintptr, XVarp int, YVarp int, WidthVarp int, HeightVarp int) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
 
@@ -327,8 +327,8 @@ func (x *PixbufLoader) ConnectClosed(cb func(PixbufLoader)) {
 // Applications can call gdk_pixbuf_loader_set_size() in response
 // to this signal to set the desired size to which the image
 // should be scaled.
-func (x *PixbufLoader) ConnectSizePrepared(cb func(PixbufLoader, int32, int32)) {
-	fcb := func(clsPtr uintptr, WidthVarp int32, HeightVarp int32) {
+func (x *PixbufLoader) ConnectSizePrepared(cb func(PixbufLoader, int, int)) {
+	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
 

@@ -71,8 +71,8 @@ type Paintable interface {
 	GetCurrentImage() *PaintableBase
 	GetFlags() PaintableFlags
 	GetIntrinsicAspectRatio() float64
-	GetIntrinsicHeight() int32
-	GetIntrinsicWidth() int32
+	GetIntrinsicHeight() int
+	GetIntrinsicWidth() int
 	InvalidateContents()
 	InvalidateSize()
 	Snapshot(SnapshotVar *Snapshot, WidthVar float64, HeightVar float64)
@@ -168,7 +168,7 @@ func (x *PaintableBase) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *PaintableBase) GetIntrinsicHeight() int32 {
+func (x *PaintableBase) GetIntrinsicHeight() int {
 
 	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 
@@ -184,7 +184,7 @@ func (x *PaintableBase) GetIntrinsicHeight() int32 {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *PaintableBase) GetIntrinsicWidth() int32 {
+func (x *PaintableBase) GetIntrinsicWidth() int {
 
 	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 
@@ -237,8 +237,8 @@ var XGdkPaintableComputeConcreteSize func(uintptr, float64, float64, float64, fl
 var XGdkPaintableGetCurrentImage func(uintptr) uintptr
 var XGdkPaintableGetFlags func(uintptr) PaintableFlags
 var XGdkPaintableGetIntrinsicAspectRatio func(uintptr) float64
-var XGdkPaintableGetIntrinsicHeight func(uintptr) int32
-var XGdkPaintableGetIntrinsicWidth func(uintptr) int32
+var XGdkPaintableGetIntrinsicHeight func(uintptr) int
+var XGdkPaintableGetIntrinsicWidth func(uintptr) int
 var XGdkPaintableInvalidateContents func(uintptr)
 var XGdkPaintableInvalidateSize func(uintptr)
 var XGdkPaintableSnapshot func(uintptr, uintptr, float64, float64)
@@ -260,7 +260,7 @@ const (
 	PaintableStaticContentsValue PaintableFlags = 2
 )
 
-var xPaintableNewEmpty func(int32, int32) uintptr
+var xPaintableNewEmpty func(int, int) uintptr
 
 // Returns a paintable that has the given intrinsic size and draws nothing.
 //
@@ -268,7 +268,7 @@ var xPaintableNewEmpty func(int32, int32) uintptr
 // [vfunc@Gdk.Paintable.get_current_image] virtual function
 // when the paintable is in an incomplete state (like a
 // [class@Gtk.MediaStream] before receiving the first frame).
-func PaintableNewEmpty(IntrinsicWidthVar int32, IntrinsicHeightVar int32) *PaintableBase {
+func PaintableNewEmpty(IntrinsicWidthVar int, IntrinsicHeightVar int) *PaintableBase {
 
 	PaintableNewEmptyPtr := xPaintableNewEmpty(IntrinsicWidthVar, IntrinsicHeightVar)
 	if PaintableNewEmptyPtr == 0 {

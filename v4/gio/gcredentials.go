@@ -87,7 +87,7 @@ func (x *Credentials) GetNative(NativeTypeVar CredentialsType) uintptr {
 
 }
 
-var xCredentialsGetUnixPid func(uintptr) int32
+var xCredentialsGetUnixPid func(uintptr) int
 
 // Tries to get the UNIX process identifier from @credentials. This
 // method is only available on UNIX platforms.
@@ -95,7 +95,7 @@ var xCredentialsGetUnixPid func(uintptr) int32
 // This operation can fail if #GCredentials is not supported on the
 // OS or if the native credentials type does not contain information
 // about the UNIX process ID.
-func (x *Credentials) GetUnixPid() int32 {
+func (x *Credentials) GetUnixPid() int {
 
 	return xCredentialsGetUnixPid(x.GoPointer())
 

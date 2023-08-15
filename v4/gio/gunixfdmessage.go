@@ -66,7 +66,7 @@ func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *SocketControlMessage {
 	return NewWithFdListUnixFDMessageCls
 }
 
-var xUnixFDMessageAppendFd func(uintptr, int32) bool
+var xUnixFDMessageAppendFd func(uintptr, int) bool
 
 // Adds a file descriptor to @message.
 //
@@ -76,7 +76,7 @@ var xUnixFDMessageAppendFd func(uintptr, int32) bool
 //
 // A possible cause of failure is exceeding the per-process or
 // system-wide file descriptor limit.
-func (x *UnixFDMessage) AppendFd(FdVar int32) bool {
+func (x *UnixFDMessage) AppendFd(FdVar int) bool {
 
 	return xUnixFDMessageAppendFd(x.GoPointer(), FdVar)
 
@@ -102,7 +102,7 @@ func (x *UnixFDMessage) GetFdList() *UnixFDList {
 
 }
 
-var xUnixFDMessageStealFds func(uintptr, int32) uintptr
+var xUnixFDMessageStealFds func(uintptr, int) uintptr
 
 // Returns the array of file descriptors that is contained in this
 // object.
@@ -121,7 +121,7 @@ var xUnixFDMessageStealFds func(uintptr, int32) uintptr
 //
 // This function never returns %NULL. In case there are no file
 // descriptors contained in @message, an empty array is returned.
-func (x *UnixFDMessage) StealFds(LengthVar int32) uintptr {
+func (x *UnixFDMessage) StealFds(LengthVar int) uintptr {
 
 	return xUnixFDMessageStealFds(x.GoPointer(), LengthVar)
 

@@ -79,12 +79,12 @@ func LayoutManagerNewFromInternalPtr(ptr uintptr) *LayoutManager {
 	return cls
 }
 
-var xLayoutManagerAllocate func(uintptr, uintptr, int32, int32, int32)
+var xLayoutManagerAllocate func(uintptr, uintptr, int, int, int)
 
 // Assigns the given @width, @height, and @baseline to
 // a @widget, and computes the position and sizes of the children of
 // the @widget using the layout management policy of @manager.
-func (x *LayoutManager) Allocate(WidgetVar *Widget, WidthVar int32, HeightVar int32, BaselineVar int32) {
+func (x *LayoutManager) Allocate(WidgetVar *Widget, WidthVar int, HeightVar int, BaselineVar int) {
 
 	xLayoutManagerAllocate(x.GoPointer(), WidgetVar.GoPointer(), WidthVar, HeightVar, BaselineVar)
 
@@ -154,14 +154,14 @@ func (x *LayoutManager) LayoutChanged() {
 
 }
 
-var xLayoutManagerMeasure func(uintptr, uintptr, Orientation, int32, int32, int32, int32, int32)
+var xLayoutManagerMeasure func(uintptr, uintptr, Orientation, int, int, int, int, int)
 
 // Measures the size of the @widget using @manager, for the
 // given @orientation and size.
 //
 // See the [class@Gtk.Widget] documentation on layout management for
 // more details.
-func (x *LayoutManager) Measure(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int32, MinimumVar int32, NaturalVar int32, MinimumBaselineVar int32, NaturalBaselineVar int32) {
+func (x *LayoutManager) Measure(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int, MinimumVar int, NaturalVar int, MinimumBaselineVar int, NaturalBaselineVar int) {
 
 	xLayoutManagerMeasure(x.GoPointer(), WidgetVar.GoPointer(), OrientationVar, ForSizeVar, MinimumVar, NaturalVar, MinimumBaselineVar, NaturalBaselineVar)
 

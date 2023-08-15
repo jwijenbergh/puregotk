@@ -8,7 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdkpixbuf"
 )
 
-var xCairoDrawFromGl func(*cairo.Context, uintptr, int32, int32, int32, int32, int32, int32, int32)
+var xCairoDrawFromGl func(*cairo.Context, uintptr, int, int, int, int, int, int, int)
 
 // The main way to not draw GL content in GTK.
 //
@@ -28,7 +28,7 @@ var xCairoDrawFromGl func(*cairo.Context, uintptr, int32, int32, int32, int32, i
 // with alpha components, so make sure you use GL_TEXTURE if using alpha.
 //
 // Calling this may change the current GL context.
-func CairoDrawFromGl(CrVar *cairo.Context, SurfaceVar *Surface, SourceVar int32, SourceTypeVar int32, BufferScaleVar int32, XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
+func CairoDrawFromGl(CrVar *cairo.Context, SurfaceVar *Surface, SourceVar int, SourceTypeVar int, BufferScaleVar int, XVar int, YVar int, WidthVar int, HeightVar int) {
 
 	xCairoDrawFromGl(CrVar, SurfaceVar.GoPointer(), SourceVar, SourceTypeVar, BufferScaleVar, XVar, YVar, WidthVar, HeightVar)
 

@@ -159,7 +159,7 @@ func (x *ContentProvider) RefStorableFormats() *ContentFormats {
 
 }
 
-var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int32, uintptr, uintptr, uintptr)
+var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int, uintptr, uintptr, uintptr)
 
 // Asynchronously writes the contents of @provider to @stream in the given
 // @mime_type.
@@ -173,7 +173,7 @@ var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int32, uin
 // not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
 //
 // The given @stream will not be closed.
-func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentProviderWriteMimeTypeAsync(x.GoPointer(), MimeTypeVar, StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

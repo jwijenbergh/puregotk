@@ -35,7 +35,7 @@ type DtlsConnection interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	Close(CancellableVar *Cancellable) bool
-	CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
 	CloseFinish(ResultVar AsyncResult) bool
 	EmitAcceptCertificate(PeerCertVar *TlsCertificate, ErrorsVar TlsCertificateFlags) bool
 	GetCertificate() *TlsCertificate
@@ -50,7 +50,7 @@ type DtlsConnection interface {
 	GetRehandshakeMode() TlsRehandshakeMode
 	GetRequireCloseNotify() bool
 	Handshake(CancellableVar *Cancellable) bool
-	HandshakeAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
 	HandshakeFinish(ResultVar AsyncResult) bool
 	SetAdvertisedProtocols(ProtocolsVar uintptr)
 	SetCertificate(CertificateVar *TlsCertificate)
@@ -59,7 +59,7 @@ type DtlsConnection interface {
 	SetRehandshakeMode(ModeVar TlsRehandshakeMode)
 	SetRequireCloseNotify(RequireCloseNotifyVar bool)
 	Shutdown(ShutdownReadVar bool, ShutdownWriteVar bool, CancellableVar *Cancellable) bool
-	ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
 	ShutdownFinish(ResultVar AsyncResult) bool
 }
 type DtlsConnectionBase struct {
@@ -101,7 +101,7 @@ func (x *DtlsConnectionBase) Close(CancellableVar *Cancellable) bool {
 
 // Asynchronously close the DTLS connection. See g_dtls_connection_close() for
 // more information.
-func (x *DtlsConnectionBase) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGDtlsConnectionCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -309,7 +309,7 @@ func (x *DtlsConnectionBase) Handshake(CancellableVar *Cancellable) bool {
 
 // Asynchronously performs a TLS handshake on @conn. See
 // g_dtls_connection_handshake() for more information.
-func (x *DtlsConnectionBase) HandshakeAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGDtlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -457,7 +457,7 @@ func (x *DtlsConnectionBase) Shutdown(ShutdownReadVar bool, ShutdownWriteVar boo
 
 // Asynchronously shut down part or all of the DTLS connection. See
 // g_dtls_connection_shutdown() for more information.
-func (x *DtlsConnectionBase) ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGDtlsConnectionShutdownAsync(x.GoPointer(), ShutdownReadVar, ShutdownWriteVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -472,7 +472,7 @@ func (x *DtlsConnectionBase) ShutdownFinish(ResultVar AsyncResult) bool {
 }
 
 var XGDtlsConnectionClose func(uintptr, uintptr) bool
-var XGDtlsConnectionCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var XGDtlsConnectionCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGDtlsConnectionCloseFinish func(uintptr, uintptr) bool
 var XGDtlsConnectionEmitAcceptCertificate func(uintptr, uintptr, TlsCertificateFlags) bool
 var XGDtlsConnectionGetCertificate func(uintptr) uintptr
@@ -487,7 +487,7 @@ var XGDtlsConnectionGetProtocolVersion func(uintptr) TlsProtocolVersion
 var XGDtlsConnectionGetRehandshakeMode func(uintptr) TlsRehandshakeMode
 var XGDtlsConnectionGetRequireCloseNotify func(uintptr) bool
 var XGDtlsConnectionHandshake func(uintptr, uintptr) bool
-var XGDtlsConnectionHandshakeAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var XGDtlsConnectionHandshakeAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGDtlsConnectionHandshakeFinish func(uintptr, uintptr) bool
 var XGDtlsConnectionSetAdvertisedProtocols func(uintptr, uintptr)
 var XGDtlsConnectionSetCertificate func(uintptr, uintptr)
@@ -496,7 +496,7 @@ var XGDtlsConnectionSetInteraction func(uintptr, uintptr)
 var XGDtlsConnectionSetRehandshakeMode func(uintptr, TlsRehandshakeMode)
 var XGDtlsConnectionSetRequireCloseNotify func(uintptr, bool)
 var XGDtlsConnectionShutdown func(uintptr, bool, bool, uintptr) bool
-var XGDtlsConnectionShutdownAsync func(uintptr, bool, bool, int32, uintptr, uintptr, uintptr)
+var XGDtlsConnectionShutdownAsync func(uintptr, bool, bool, int, uintptr, uintptr, uintptr)
 var XGDtlsConnectionShutdownFinish func(uintptr, uintptr) bool
 
 func init() {

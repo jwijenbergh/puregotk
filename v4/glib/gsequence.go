@@ -9,7 +9,7 @@ import (
 // A #GSequenceIterCompareFunc is a function used to compare iterators.
 // It must return zero if the iterators compare equal, a negative value
 // if @a comes before @b, and a positive value if @b comes before @a.
-type SequenceIterCompareFunc func(*SequenceIter, *SequenceIter, uintptr) int32
+type SequenceIterCompareFunc func(*SequenceIter, *SequenceIter, uintptr) int
 
 // The #GSequence struct is an opaque data type representing a
 // [sequence][glib-Sequences] data type.

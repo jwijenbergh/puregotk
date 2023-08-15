@@ -140,11 +140,11 @@ func (x *ActionRow) GetSubtitle() string {
 
 }
 
-var xActionRowGetSubtitleLines func(uintptr) int32
+var xActionRowGetSubtitleLines func(uintptr) int
 
 // Gets the number of lines at the end of which the subtitle label will be
 // ellipsized.
-func (x *ActionRow) GetSubtitleLines() int32 {
+func (x *ActionRow) GetSubtitleLines() int {
 
 	return xActionRowGetSubtitleLines(x.GoPointer())
 
@@ -159,11 +159,11 @@ func (x *ActionRow) GetSubtitleSelectable() bool {
 
 }
 
-var xActionRowGetTitleLines func(uintptr) int32
+var xActionRowGetTitleLines func(uintptr) int
 
 // Gets the number of lines at the end of which the title label will be
 // ellipsized.
-func (x *ActionRow) GetTitleLines() int32 {
+func (x *ActionRow) GetTitleLines() int {
 
 	return xActionRowGetTitleLines(x.GoPointer())
 
@@ -215,13 +215,13 @@ func (x *ActionRow) SetSubtitle(SubtitleVar string) {
 
 }
 
-var xActionRowSetSubtitleLines func(uintptr, int32)
+var xActionRowSetSubtitleLines func(uintptr, int)
 
 // Sets the number of lines at the end of which the subtitle label will be
 // ellipsized.
 //
 // If the value is 0, the number of lines won't be limited.
-func (x *ActionRow) SetSubtitleLines(SubtitleLinesVar int32) {
+func (x *ActionRow) SetSubtitleLines(SubtitleLinesVar int) {
 
 	xActionRowSetSubtitleLines(x.GoPointer(), SubtitleLinesVar)
 
@@ -238,13 +238,13 @@ func (x *ActionRow) SetSubtitleSelectable(SubtitleSelectableVar bool) {
 
 }
 
-var xActionRowSetTitleLines func(uintptr, int32)
+var xActionRowSetTitleLines func(uintptr, int)
 
 // Sets the number of lines at the end of which the title label will be
 // ellipsized.
 //
 // If the value is 0, the number of lines won't be limited.
-func (x *ActionRow) SetTitleLines(TitleLinesVar int32) {
+func (x *ActionRow) SetTitleLines(TitleLinesVar int) {
 
 	xActionRowSetTitleLines(x.GoPointer(), TitleLinesVar)
 
@@ -328,7 +328,7 @@ func (x *ActionRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varA
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ActionRow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ActionRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -364,7 +364,7 @@ func (x *ActionRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varA
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ActionRow) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ActionRow) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -397,7 +397,7 @@ func (x *ActionRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...in
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ActionRow) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ActionRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

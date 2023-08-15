@@ -23,10 +23,10 @@ func ZlibCompressorNewFromInternalPtr(ptr uintptr) *ZlibCompressor {
 	return cls
 }
 
-var xNewZlibCompressor func(ZlibCompressorFormat, int32) uintptr
+var xNewZlibCompressor func(ZlibCompressorFormat, int) uintptr
 
 // Creates a new #GZlibCompressor.
-func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int32) *ZlibCompressor {
+func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int) *ZlibCompressor {
 	NewZlibCompressorPtr := xNewZlibCompressor(FormatVar, LevelVar)
 	if NewZlibCompressorPtr == 0 {
 		return nil

@@ -40,9 +40,9 @@ type ContentFormats struct {
 type KeymapKey struct {
 	Keycode uint
 
-	Group int32
+	Group int
 
-	Level int32
+	Level int
 }
 
 // A `GdkRectangle` data type for representing rectangles.
@@ -61,11 +61,11 @@ type KeymapKey struct {
 // The Graphene library has a number of other data types for regions and
 // volumes in 2D and 3D.
 type Rectangle struct {
-	X int32
+	X int
 
-	Y int32
+	Y int
 
-	Width int32
+	Width int
 
-	Height int32
+	Height int
 }

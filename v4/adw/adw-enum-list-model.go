@@ -45,10 +45,10 @@ func (x *EnumListItem) GetNick() string {
 
 }
 
-var xEnumListItemGetValue func(uintptr) int32
+var xEnumListItemGetValue func(uintptr) int
 
 // Gets the enum value.
-func (x *EnumListItem) GetValue() int32 {
+func (x *EnumListItem) GetValue() int {
 
 	return xEnumListItemGetValue(x.GoPointer())
 
@@ -89,10 +89,10 @@ func NewEnumListModel(EnumTypeVar []interface{}) *EnumListModel {
 	return NewEnumListModelCls
 }
 
-var xEnumListModelFindPosition func(uintptr, int32) uint
+var xEnumListModelFindPosition func(uintptr, int) uint
 
 // Finds the position of a given enum value in @self.
-func (x *EnumListModel) FindPosition(ValueVar int32) uint {
+func (x *EnumListModel) FindPosition(ValueVar int) uint {
 
 	return xEnumListModelFindPosition(x.GoPointer(), ValueVar)
 

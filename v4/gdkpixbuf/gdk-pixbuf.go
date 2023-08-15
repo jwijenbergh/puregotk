@@ -157,7 +157,7 @@ func PixbufNewFromInternalPtr(ptr uintptr) *Pixbuf {
 	return cls
 }
 
-var xNewPixbuf func(Colorspace, bool, int32, int32, int32) uintptr
+var xNewPixbuf func(Colorspace, bool, int, int, int) uintptr
 
 // Creates a new `GdkPixbuf` structure and allocates a buffer for it.
 //
@@ -165,7 +165,7 @@ var xNewPixbuf func(Colorspace, bool, int32, int32, int32) uintptr
 //
 // The buffer has an optimal rowstride. Note that the buffer is not cleared;
 // you will have to fill it completely yourself.
-func NewPixbuf(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int32, WidthVar int32, HeightVar int32) *Pixbuf {
+func NewPixbuf(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int) *Pixbuf {
 	NewPixbufPtr := xNewPixbuf(ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar)
 	if NewPixbufPtr == 0 {
 		return nil
@@ -176,7 +176,7 @@ func NewPixbuf(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int3
 	return NewPixbufCls
 }
 
-var xNewFromBytesPixbuf func(*glib.Bytes, Colorspace, bool, int32, int32, int32, int32) uintptr
+var xNewFromBytesPixbuf func(*glib.Bytes, Colorspace, bool, int, int, int, int) uintptr
 
 // Creates a new #GdkPixbuf out of in-memory readonly image data.
 //
@@ -184,7 +184,7 @@ var xNewFromBytesPixbuf func(*glib.Bytes, Colorspace, bool, int32, int32, int32,
 //
 // This is the `GBytes` variant of gdk_pixbuf_new_from_data(), useful
 // for language bindings.
-func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int32, WidthVar int32, HeightVar int32, RowstrideVar int32) *Pixbuf {
+func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int) *Pixbuf {
 	NewFromBytesPixbufPtr := xNewFromBytesPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar)
 	if NewFromBytesPixbufPtr == 0 {
 		return nil
@@ -195,7 +195,7 @@ func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaV
 	return NewFromBytesPixbufCls
 }
 
-var xNewFromDataPixbuf func(uintptr, Colorspace, bool, int32, int32, int32, int32, uintptr, uintptr) uintptr
+var xNewFromDataPixbuf func(uintptr, Colorspace, bool, int, int, int, int, uintptr, uintptr) uintptr
 
 // Creates a new #GdkPixbuf out of in-memory image data.
 //
@@ -208,7 +208,7 @@ var xNewFromDataPixbuf func(uintptr, Colorspace, bool, int32, int32, int32, int3
 // it is its responsibility to free the pixel array.
 //
 // See also: [ctor@GdkPixbuf.Pixbuf.new_from_bytes]
-func NewFromDataPixbuf(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int32, WidthVar int32, HeightVar int32, RowstrideVar int32, DestroyFnVar PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
+func NewFromDataPixbuf(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
 	NewFromDataPixbufPtr := xNewFromDataPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, purego.NewCallback(DestroyFnVar), DestroyFnDataVar)
 	if NewFromDataPixbufPtr == 0 {
 		return nil
@@ -244,7 +244,7 @@ func NewFromFilePixbuf(FilenameVar string) *Pixbuf {
 	return NewFromFilePixbufCls
 }
 
-var xNewFromFileAtScalePixbuf func(string, int32, int32, bool) uintptr
+var xNewFromFileAtScalePixbuf func(string, int, int, bool) uintptr
 
 // Creates a new pixbuf by loading an image from a file.
 //
@@ -268,7 +268,7 @@ var xNewFromFileAtScalePixbuf func(string, int32, int32, bool) uintptr
 // aspect ratio, a `width` or `height` of -1 means to not scale the image
 // at all in that dimension. Negative values for `width` and `height` are
 // allowed since 2.8.
-func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int32, HeightVar int32, PreserveAspectRatioVar bool) *Pixbuf {
+func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) *Pixbuf {
 	NewFromFileAtScalePixbufPtr := xNewFromFileAtScalePixbuf(FilenameVar, WidthVar, HeightVar, PreserveAspectRatioVar)
 	if NewFromFileAtScalePixbufPtr == 0 {
 		return nil
@@ -279,7 +279,7 @@ func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int32, HeightVar int3
 	return NewFromFileAtScalePixbufCls
 }
 
-var xNewFromFileAtSizePixbuf func(string, int32, int32) uintptr
+var xNewFromFileAtSizePixbuf func(string, int, int) uintptr
 
 // Creates a new pixbuf by loading an image from a file.
 //
@@ -299,7 +299,7 @@ var xNewFromFileAtSizePixbuf func(string, int32, int32) uintptr
 // than `width` x `height`, if the aspect ratio requires it. To load
 // and image at the requested size, regardless of aspect ratio, use
 // [ctor@GdkPixbuf.Pixbuf.new_from_file_at_scale].
-func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int32, HeightVar int32) *Pixbuf {
+func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int, HeightVar int) *Pixbuf {
 	NewFromFileAtSizePixbufPtr := xNewFromFileAtSizePixbuf(FilenameVar, WidthVar, HeightVar)
 	if NewFromFileAtSizePixbufPtr == 0 {
 		return nil
@@ -310,7 +310,7 @@ func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int32, HeightVar int32
 	return NewFromFileAtSizePixbufCls
 }
 
-var xNewFromInlinePixbuf func(int32, uintptr, bool) uintptr
+var xNewFromInlinePixbuf func(int, uintptr, bool) uintptr
 
 // Creates a `GdkPixbuf` from a flat representation that is suitable for
 // storing as inline data in a program.
@@ -345,7 +345,7 @@ var xNewFromInlinePixbuf func(int32, uintptr, bool) uintptr
 // For non-const inline data, you could get out of memory. For untrusted
 // inline data located at runtime, you could have corrupt inline data in
 // addition.
-func NewFromInlinePixbuf(DataLengthVar int32, DataVar uintptr, CopyPixelsVar bool) *Pixbuf {
+func NewFromInlinePixbuf(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool) *Pixbuf {
 	NewFromInlinePixbufPtr := xNewFromInlinePixbuf(DataLengthVar, DataVar, CopyPixelsVar)
 	if NewFromInlinePixbufPtr == 0 {
 		return nil
@@ -373,7 +373,7 @@ func NewFromResourcePixbuf(ResourcePathVar string) *Pixbuf {
 	return NewFromResourcePixbufCls
 }
 
-var xNewFromResourceAtScalePixbuf func(string, int32, int32, bool) uintptr
+var xNewFromResourceAtScalePixbuf func(string, int, int, bool) uintptr
 
 // Creates a new pixbuf by loading an image from an resource.
 //
@@ -388,7 +388,7 @@ var xNewFromResourceAtScalePixbuf func(string, int32, int32, bool) uintptr
 // @height of -1 means to not scale the image at all in that dimension.
 //
 // The stream is not closed.
-func NewFromResourceAtScalePixbuf(ResourcePathVar string, WidthVar int32, HeightVar int32, PreserveAspectRatioVar bool) *Pixbuf {
+func NewFromResourceAtScalePixbuf(ResourcePathVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) *Pixbuf {
 	NewFromResourceAtScalePixbufPtr := xNewFromResourceAtScalePixbuf(ResourcePathVar, WidthVar, HeightVar, PreserveAspectRatioVar)
 	if NewFromResourceAtScalePixbufPtr == 0 {
 		return nil
@@ -424,7 +424,7 @@ func NewFromStreamPixbuf(StreamVar *gio.InputStream, CancellableVar *gio.Cancell
 	return NewFromStreamPixbufCls
 }
 
-var xNewFromStreamAtScalePixbuf func(uintptr, int32, int32, bool, uintptr) uintptr
+var xNewFromStreamAtScalePixbuf func(uintptr, int, int, bool, uintptr) uintptr
 
 // Creates a new pixbuf by loading an image from an input stream.
 //
@@ -447,7 +447,7 @@ var xNewFromStreamAtScalePixbuf func(uintptr, int32, int32, bool, uintptr) uintp
 // scale the image at all in that dimension.
 //
 // The stream is not closed.
-func NewFromStreamAtScalePixbuf(StreamVar *gio.InputStream, WidthVar int32, HeightVar int32, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable) *Pixbuf {
+func NewFromStreamAtScalePixbuf(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable) *Pixbuf {
 	NewFromStreamAtScalePixbufPtr := xNewFromStreamAtScalePixbuf(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer())
 	if NewFromStreamAtScalePixbufPtr == 0 {
 		return nil
@@ -543,7 +543,7 @@ func (x *Pixbuf) ApplyEmbeddedOrientation() *Pixbuf {
 
 }
 
-var xPixbufComposite func(uintptr, uintptr, int32, int32, int32, int32, float64, float64, float64, float64, InterpType, int32)
+var xPixbufComposite func(uintptr, uintptr, int, int, int, int, float64, float64, float64, float64, InterpType, int)
 
 // Creates a transformation of the source image @src by scaling by
 // @scale_x and @scale_y then translating by @offset_x and @offset_y.
@@ -558,13 +558,13 @@ var xPixbufComposite func(uintptr, uintptr, int32, int32, int32, int32, float64,
 // to infinity.
 //
 // ![](composite.png)
-func (x *Pixbuf) Composite(DestVar *Pixbuf, DestXVar int32, DestYVar int32, DestWidthVar int32, DestHeightVar int32, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType, OverallAlphaVar int32) {
+func (x *Pixbuf) Composite(DestVar *Pixbuf, DestXVar int, DestYVar int, DestWidthVar int, DestHeightVar int, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType, OverallAlphaVar int) {
 
 	xPixbufComposite(x.GoPointer(), DestVar.GoPointer(), DestXVar, DestYVar, DestWidthVar, DestHeightVar, OffsetXVar, OffsetYVar, ScaleXVar, ScaleYVar, InterpTypeVar, OverallAlphaVar)
 
 }
 
-var xPixbufCompositeColor func(uintptr, uintptr, int32, int32, int32, int32, float64, float64, float64, float64, InterpType, int32, int32, int32, int32, uint32, uint32)
+var xPixbufCompositeColor func(uintptr, uintptr, int, int, int, int, float64, float64, float64, float64, InterpType, int, int, int, int, uint32, uint32)
 
 // Creates a transformation of the source image @src by scaling by
 // @scale_x and @scale_y then translating by @offset_x and @offset_y,
@@ -578,18 +578,18 @@ var xPixbufCompositeColor func(uintptr, uintptr, int32, int32, int32, int32, flo
 //
 // See gdk_pixbuf_composite_color_simple() for a simpler variant of this
 // function suitable for many tasks.
-func (x *Pixbuf) CompositeColor(DestVar *Pixbuf, DestXVar int32, DestYVar int32, DestWidthVar int32, DestHeightVar int32, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType, OverallAlphaVar int32, CheckXVar int32, CheckYVar int32, CheckSizeVar int32, Color1Var uint32, Color2Var uint32) {
+func (x *Pixbuf) CompositeColor(DestVar *Pixbuf, DestXVar int, DestYVar int, DestWidthVar int, DestHeightVar int, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType, OverallAlphaVar int, CheckXVar int, CheckYVar int, CheckSizeVar int, Color1Var uint32, Color2Var uint32) {
 
 	xPixbufCompositeColor(x.GoPointer(), DestVar.GoPointer(), DestXVar, DestYVar, DestWidthVar, DestHeightVar, OffsetXVar, OffsetYVar, ScaleXVar, ScaleYVar, InterpTypeVar, OverallAlphaVar, CheckXVar, CheckYVar, CheckSizeVar, Color1Var, Color2Var)
 
 }
 
-var xPixbufCompositeColorSimple func(uintptr, int32, int32, InterpType, int32, int32, uint32, uint32) uintptr
+var xPixbufCompositeColorSimple func(uintptr, int, int, InterpType, int, int, uint32, uint32) uintptr
 
 // Creates a new pixbuf by scaling `src` to `dest_width` x `dest_height`
 // and alpha blending the result with a checkboard of colors `color1`
 // and `color2`.
-func (x *Pixbuf) CompositeColorSimple(DestWidthVar int32, DestHeightVar int32, InterpTypeVar InterpType, OverallAlphaVar int32, CheckSizeVar int32, Color1Var uint32, Color2Var uint32) *Pixbuf {
+func (x *Pixbuf) CompositeColorSimple(DestWidthVar int, DestHeightVar int, InterpTypeVar InterpType, OverallAlphaVar int, CheckSizeVar int, Color1Var uint32, Color2Var uint32) *Pixbuf {
 
 	CompositeColorSimplePtr := xPixbufCompositeColorSimple(x.GoPointer(), DestWidthVar, DestHeightVar, InterpTypeVar, OverallAlphaVar, CheckSizeVar, Color1Var, Color2Var)
 	if CompositeColorSimplePtr == 0 {
@@ -622,7 +622,7 @@ func (x *Pixbuf) Copy() *Pixbuf {
 
 }
 
-var xPixbufCopyArea func(uintptr, int32, int32, int32, int32, uintptr, int32, int32)
+var xPixbufCopyArea func(uintptr, int, int, int, int, uintptr, int, int)
 
 // Copies a rectangular area from `src_pixbuf` to `dest_pixbuf`.
 //
@@ -631,7 +631,7 @@ var xPixbufCopyArea func(uintptr, int32, int32, int32, int32, uintptr, int32, in
 // If the source rectangle overlaps the destination rectangle on the
 // same pixbuf, it will be overwritten during the copy operation.
 // Therefore, you can not use this function to scroll a pixbuf.
-func (x *Pixbuf) CopyArea(SrcXVar int32, SrcYVar int32, WidthVar int32, HeightVar int32, DestPixbufVar *Pixbuf, DestXVar int32, DestYVar int32) {
+func (x *Pixbuf) CopyArea(SrcXVar int, SrcYVar int, WidthVar int, HeightVar int, DestPixbufVar *Pixbuf, DestXVar int, DestYVar int) {
 
 	xPixbufCopyArea(x.GoPointer(), SrcXVar, SrcYVar, WidthVar, HeightVar, DestPixbufVar.GoPointer(), DestXVar, DestYVar)
 
@@ -681,10 +681,10 @@ func (x *Pixbuf) Flip(HorizontalVar bool) *Pixbuf {
 
 }
 
-var xPixbufGetBitsPerSample func(uintptr) int32
+var xPixbufGetBitsPerSample func(uintptr) int
 
 // Queries the number of bits per color sample in a pixbuf.
-func (x *Pixbuf) GetBitsPerSample() int32 {
+func (x *Pixbuf) GetBitsPerSample() int {
 
 	return xPixbufGetBitsPerSample(x.GoPointer())
 
@@ -717,19 +717,19 @@ func (x *Pixbuf) GetHasAlpha() bool {
 
 }
 
-var xPixbufGetHeight func(uintptr) int32
+var xPixbufGetHeight func(uintptr) int
 
 // Queries the height of a pixbuf.
-func (x *Pixbuf) GetHeight() int32 {
+func (x *Pixbuf) GetHeight() int {
 
 	return xPixbufGetHeight(x.GoPointer())
 
 }
 
-var xPixbufGetNChannels func(uintptr) int32
+var xPixbufGetNChannels func(uintptr) int
 
 // Queries the number of channels of a pixbuf.
-func (x *Pixbuf) GetNChannels() int32 {
+func (x *Pixbuf) GetNChannels() int {
 
 	return xPixbufGetNChannels(x.GoPointer())
 
@@ -799,26 +799,26 @@ func (x *Pixbuf) GetPixelsWithLength(LengthVar uint) uintptr {
 
 }
 
-var xPixbufGetRowstride func(uintptr) int32
+var xPixbufGetRowstride func(uintptr) int
 
 // Queries the rowstride of a pixbuf, which is the number of bytes between
 // the start of a row and the start of the next row.
-func (x *Pixbuf) GetRowstride() int32 {
+func (x *Pixbuf) GetRowstride() int {
 
 	return xPixbufGetRowstride(x.GoPointer())
 
 }
 
-var xPixbufGetWidth func(uintptr) int32
+var xPixbufGetWidth func(uintptr) int
 
 // Queries the width of a pixbuf.
-func (x *Pixbuf) GetWidth() int32 {
+func (x *Pixbuf) GetWidth() int {
 
 	return xPixbufGetWidth(x.GoPointer())
 
 }
 
-var xPixbufNewSubpixbuf func(uintptr, int32, int32, int32, int32) uintptr
+var xPixbufNewSubpixbuf func(uintptr, int, int, int, int) uintptr
 
 // Creates a new pixbuf which represents a sub-region of `src_pixbuf`.
 //
@@ -829,7 +829,7 @@ var xPixbufNewSubpixbuf func(uintptr, int32, int32, int32, int32) uintptr
 //
 // Note that if `src_pixbuf` is read-only, this function will force it
 // to be mutable.
-func (x *Pixbuf) NewSubpixbuf(SrcXVar int32, SrcYVar int32, WidthVar int32, HeightVar int32) *Pixbuf {
+func (x *Pixbuf) NewSubpixbuf(SrcXVar int, SrcYVar int, WidthVar int, HeightVar int) *Pixbuf {
 
 	NewSubpixbufPtr := xPixbufNewSubpixbuf(x.GoPointer(), SrcXVar, SrcYVar, WidthVar, HeightVar)
 	if NewSubpixbufPtr == 0 {
@@ -1166,7 +1166,7 @@ func (x *Pixbuf) Savev(FilenameVar string, TypeVar string, OptionKeysVar []strin
 
 }
 
-var xPixbufScale func(uintptr, uintptr, int32, int32, int32, int32, float64, float64, float64, float64, InterpType)
+var xPixbufScale func(uintptr, uintptr, int, int, int, int, float64, float64, float64, float64, InterpType)
 
 // Creates a transformation of the source image @src by scaling by
 // @scale_x and @scale_y then translating by @offset_x and @offset_y,
@@ -1181,13 +1181,13 @@ var xPixbufScale func(uintptr, uintptr, int32, int32, int32, int32, float64, flo
 // If the source rectangle overlaps the destination rectangle on the
 // same pixbuf, it will be overwritten during the scaling which
 // results in rendering artifacts.
-func (x *Pixbuf) Scale(DestVar *Pixbuf, DestXVar int32, DestYVar int32, DestWidthVar int32, DestHeightVar int32, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType) {
+func (x *Pixbuf) Scale(DestVar *Pixbuf, DestXVar int, DestYVar int, DestWidthVar int, DestHeightVar int, OffsetXVar float64, OffsetYVar float64, ScaleXVar float64, ScaleYVar float64, InterpTypeVar InterpType) {
 
 	xPixbufScale(x.GoPointer(), DestVar.GoPointer(), DestXVar, DestYVar, DestWidthVar, DestHeightVar, OffsetXVar, OffsetYVar, ScaleXVar, ScaleYVar, InterpTypeVar)
 
 }
 
-var xPixbufScaleSimple func(uintptr, int32, int32, InterpType) uintptr
+var xPixbufScaleSimple func(uintptr, int, int, InterpType) uintptr
 
 // Create a new pixbuf containing a copy of `src` scaled to
 // `dest_width` x `dest_height`.
@@ -1207,7 +1207,7 @@ var xPixbufScaleSimple func(uintptr, int32, int32, InterpType) uintptr
 //
 // For more complicated scaling/alpha blending see [method@GdkPixbuf.Pixbuf.scale]
 // and [method@GdkPixbuf.Pixbuf.composite].
-func (x *Pixbuf) ScaleSimple(DestWidthVar int32, DestHeightVar int32, InterpTypeVar InterpType) *Pixbuf {
+func (x *Pixbuf) ScaleSimple(DestWidthVar int, DestHeightVar int, InterpTypeVar InterpType) *Pixbuf {
 
 	ScaleSimplePtr := xPixbufScaleSimple(x.GoPointer(), DestWidthVar, DestHeightVar, InterpTypeVar)
 	if ScaleSimplePtr == 0 {
@@ -1291,7 +1291,7 @@ func (x *Pixbuf) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *Pixbuf) Load(SizeVar int32, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
+func (x *Pixbuf) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
 
 	LoadPtr := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -1307,7 +1307,7 @@ func (x *Pixbuf) Load(SizeVar int32, TypeVar string, CancellableVar *gio.Cancell
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *Pixbuf) LoadAsync(SizeVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Pixbuf) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

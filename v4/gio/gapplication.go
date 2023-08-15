@@ -476,7 +476,7 @@ func (x *Application) MarkBusy() {
 
 }
 
-var xApplicationOpen func(uintptr, uintptr, int32, string)
+var xApplicationOpen func(uintptr, uintptr, int, string)
 
 // Opens the given files.
 //
@@ -492,7 +492,7 @@ var xApplicationOpen func(uintptr, uintptr, int32, string)
 //
 // The application must be registered before calling this function
 // and it must have the %G_APPLICATION_HANDLES_OPEN flag set.
-func (x *Application) Open(FilesVar uintptr, NFilesVar int32, HintVar string) {
+func (x *Application) Open(FilesVar uintptr, NFilesVar int, HintVar string) {
 
 	xApplicationOpen(x.GoPointer(), FilesVar, NFilesVar, HintVar)
 
@@ -571,7 +571,7 @@ func (x *Application) Release() {
 
 }
 
-var xApplicationRun func(uintptr, int32, []string) int32
+var xApplicationRun func(uintptr, int, []string) int
 
 // Runs the application.
 //
@@ -648,7 +648,7 @@ var xApplicationRun func(uintptr, int32, []string) int32
 // should not be used from applications like editors that need precise
 // control over when processes invoked via the commandline will exit and
 // what their exit status will be.
-func (x *Application) Run(ArgcVar int32, ArgvVar []string) int32 {
+func (x *Application) Run(ArgcVar int, ArgvVar []string) int {
 
 	return xApplicationRun(x.GoPointer(), ArgcVar, ArgvVar)
 
@@ -905,8 +905,8 @@ func (x *Application) ConnectActivate(cb func(Application)) {
 // The ::command-line signal is emitted on the primary instance when
 // a commandline is not handled locally. See g_application_run() and
 // the #GApplicationCommandLine documentation for more information.
-func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int32) {
-	fcb := func(clsPtr uintptr, CommandLineVarp uintptr) int32 {
+func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int) {
+	fcb := func(clsPtr uintptr, CommandLineVarp uintptr) int {
 		fa := Application{}
 		fa.Ptr = clsPtr
 
@@ -957,8 +957,8 @@ func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int32) {
 // You can override local_command_line() if you need more powerful
 // capabilities than what is provided here, but this should not
 // normally be required.
-func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) int32) {
-	fcb := func(clsPtr uintptr, OptionsVarp uintptr) int32 {
+func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) int) {
+	fcb := func(clsPtr uintptr, OptionsVarp uintptr) int {
 		fa := Application{}
 		fa.Ptr = clsPtr
 
@@ -986,8 +986,8 @@ func (x *Application) ConnectNameLost(cb func(Application) bool) {
 
 // The ::open signal is emitted on the primary instance when there are
 // files to open. See g_application_open() for more information.
-func (x *Application) ConnectOpen(cb func(Application, uintptr, int32, string)) {
-	fcb := func(clsPtr uintptr, FilesVarp uintptr, NFilesVarp int32, HintVarp string) {
+func (x *Application) ConnectOpen(cb func(Application, uintptr, int, string)) {
+	fcb := func(clsPtr uintptr, FilesVarp uintptr, NFilesVarp int, HintVarp string) {
 		fa := Application{}
 		fa.Ptr = clsPtr
 
@@ -1309,7 +1309,7 @@ func (x *Application) AddAction(ActionVar Action) {
 //	}
 //
 // ]|
-func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int32, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 

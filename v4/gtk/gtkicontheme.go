@@ -49,12 +49,12 @@ func IconPaintableNewFromInternalPtr(ptr uintptr) *IconPaintable {
 	return cls
 }
 
-var xNewForFileIconPaintable func(uintptr, int32, int32) uintptr
+var xNewForFileIconPaintable func(uintptr, int, int) uintptr
 
 // Creates a `GtkIconPaintable` for a file with a given size and scale.
 //
 // The icon can then be rendered by using it as a `GdkPaintable`.
-func NewForFileIconPaintable(FileVar gio.File, SizeVar int32, ScaleVar int32) *IconPaintable {
+func NewForFileIconPaintable(FileVar gio.File, SizeVar int, ScaleVar int) *IconPaintable {
 	NewForFileIconPaintablePtr := xNewForFileIconPaintable(FileVar.GoPointer(), SizeVar, ScaleVar)
 	if NewForFileIconPaintablePtr == 0 {
 		return nil
@@ -202,7 +202,7 @@ func (x *IconPaintable) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *IconPaintable) GetIntrinsicHeight() int32 {
+func (x *IconPaintable) GetIntrinsicHeight() int {
 
 	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 
@@ -218,7 +218,7 @@ func (x *IconPaintable) GetIntrinsicHeight() int32 {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *IconPaintable) GetIntrinsicWidth() int32 {
+func (x *IconPaintable) GetIntrinsicWidth() int {
 
 	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 
@@ -460,13 +460,13 @@ func (x *IconTheme) HasIcon(IconNameVar string) bool {
 
 }
 
-var xIconThemeLookupByGicon func(uintptr, uintptr, int32, int32, TextDirection, IconLookupFlags) uintptr
+var xIconThemeLookupByGicon func(uintptr, uintptr, int, int, TextDirection, IconLookupFlags) uintptr
 
 // Looks up a icon for a desired size and window scale.
 //
 // The icon can then be rendered by using it as a `GdkPaintable`,
 // or you can get information such as the filename and size.
-func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int32, ScaleVar int32, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
+func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
 
 	LookupByGiconPtr := xIconThemeLookupByGicon(x.GoPointer(), IconVar.GoPointer(), SizeVar, ScaleVar, DirectionVar, FlagsVar)
 	if LookupByGiconPtr == 0 {
@@ -479,7 +479,7 @@ func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int32, ScaleVar int3
 
 }
 
-var xIconThemeLookupIcon func(uintptr, string, uintptr, int32, int32, TextDirection, IconLookupFlags) uintptr
+var xIconThemeLookupIcon func(uintptr, string, uintptr, int, int, TextDirection, IconLookupFlags) uintptr
 
 // Looks up a named icon for a desired size and window scale,
 // returning a `GtkIconPaintable`.
@@ -497,7 +497,7 @@ var xIconThemeLookupIcon func(uintptr, string, uintptr, int32, int32, TextDirect
 // Note that you probably want to listen for icon theme changes and
 // update the icon. This is usually done by overriding the
 // GtkWidgetClass.css-changed() function.
-func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar uintptr, SizeVar int32, ScaleVar int32, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
+func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar uintptr, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
 
 	LookupIconPtr := xIconThemeLookupIcon(x.GoPointer(), IconNameVar, FallbacksVar, SizeVar, ScaleVar, DirectionVar, FlagsVar)
 	if LookupIconPtr == 0 {

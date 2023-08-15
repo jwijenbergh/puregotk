@@ -586,10 +586,10 @@ func UnicharBreakType(CVar uint32) UnicodeBreakType {
 
 }
 
-var xUnicharCombiningClass func(uint32) int32
+var xUnicharCombiningClass func(uint32) int
 
 // Determines the canonical combining class of a Unicode character.
-func UnicharCombiningClass(UcVar uint32) int32 {
+func UnicharCombiningClass(UcVar uint32) int {
 
 	return xUnicharCombiningClass(UcVar)
 
@@ -650,11 +650,11 @@ func UnicharDecompose(ChVar uint32, AVar uint32, BVar uint32) bool {
 
 }
 
-var xUnicharDigitValue func(uint32) int32
+var xUnicharDigitValue func(uint32) int
 
 // Determines the numeric value of a character as a decimal
 // digit.
-func UnicharDigitValue(CVar uint32) int32 {
+func UnicharDigitValue(CVar uint32) int {
 
 	return xUnicharDigitValue(CVar)
 
@@ -929,10 +929,10 @@ func UnicharIszerowidth(CVar uint32) bool {
 
 }
 
-var xUnicharToUtf8 func(uint32, string) int32
+var xUnicharToUtf8 func(uint32, string) int
 
 // Converts a single character to UTF-8.
-func UnicharToUtf8(CVar uint32, OutbufVar string) int32 {
+func UnicharToUtf8(CVar uint32, OutbufVar string) int {
 
 	return xUnicharToUtf8(CVar, OutbufVar)
 
@@ -985,11 +985,11 @@ func UnicharValidate(ChVar uint32) bool {
 
 }
 
-var xUnicharXdigitValue func(uint32) int32
+var xUnicharXdigitValue func(uint32) int
 
 // Determines the numeric value of a character as a hexadecimal
 // digit.
-func UnicharXdigitValue(CVar uint32) int32 {
+func UnicharXdigitValue(CVar uint32) int {
 
 	return xUnicharXdigitValue(CVar)
 
@@ -1100,7 +1100,7 @@ func Utf8Casefold(StrVar string, LenVar int) string {
 
 }
 
-var xUtf8Collate func(string, string) int32
+var xUtf8Collate func(string, string) int
 
 // Compares two strings for ordering using the linguistically
 // correct rules for the [current locale][setlocale].
@@ -1112,7 +1112,7 @@ var xUtf8Collate func(string, string) int32
 // If the two strings are not comparable due to being in different collation
 // sequences, the result is undefined. This can happen if the strings are in
 // different language scripts, for example.
-func Utf8Collate(Str1Var string, Str2Var string) int32 {
+func Utf8Collate(Str1Var string, Str2Var string) int {
 
 	return xUtf8Collate(Str1Var, Str2Var)
 

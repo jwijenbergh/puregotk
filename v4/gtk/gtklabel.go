@@ -357,7 +357,7 @@ func (x *Label) GetLayout() *pango.Layout {
 
 }
 
-var xLabelGetLayoutOffsets func(uintptr, int32, int32)
+var xLabelGetLayoutOffsets func(uintptr, int, int)
 
 // Obtains the coordinates where the label will draw its `PangoLayout`.
 //
@@ -366,30 +366,30 @@ var xLabelGetLayoutOffsets func(uintptr, int32, int32)
 // of the label is clicked. Remember when using the [class@Pango.Layout]
 // functions you need to convert to and from pixels using PANGO_PIXELS()
 // or [const@Pango.SCALE].
-func (x *Label) GetLayoutOffsets(XVar int32, YVar int32) {
+func (x *Label) GetLayoutOffsets(XVar int, YVar int) {
 
 	xLabelGetLayoutOffsets(x.GoPointer(), XVar, YVar)
 
 }
 
-var xLabelGetLines func(uintptr) int32
+var xLabelGetLines func(uintptr) int
 
 // Gets the number of lines to which an ellipsized, wrapping
 // label should be limited.
 //
 // See [method@Gtk.Label.set_lines].
-func (x *Label) GetLines() int32 {
+func (x *Label) GetLines() int {
 
 	return xLabelGetLines(x.GoPointer())
 
 }
 
-var xLabelGetMaxWidthChars func(uintptr) int32
+var xLabelGetMaxWidthChars func(uintptr) int
 
 // Retrieves the desired maximum width of @label, in characters.
 //
 // See [method@Gtk.Label.set_width_chars].
-func (x *Label) GetMaxWidthChars() int32 {
+func (x *Label) GetMaxWidthChars() int {
 
 	return xLabelGetMaxWidthChars(x.GoPointer())
 
@@ -449,10 +449,10 @@ func (x *Label) GetSelectable() bool {
 
 }
 
-var xLabelGetSelectionBounds func(uintptr, int32, int32) bool
+var xLabelGetSelectionBounds func(uintptr, int, int) bool
 
 // Gets the selected range of characters in the label.
-func (x *Label) GetSelectionBounds(StartVar int32, EndVar int32) bool {
+func (x *Label) GetSelectionBounds(StartVar int, EndVar int) bool {
 
 	return xLabelGetSelectionBounds(x.GoPointer(), StartVar, EndVar)
 
@@ -514,12 +514,12 @@ func (x *Label) GetUseUnderline() bool {
 
 }
 
-var xLabelGetWidthChars func(uintptr) int32
+var xLabelGetWidthChars func(uintptr) int
 
 // Retrieves the desired width of @label, in characters.
 //
 // See [method@Gtk.Label.set_width_chars].
-func (x *Label) GetWidthChars() int32 {
+func (x *Label) GetWidthChars() int {
 
 	return xLabelGetWidthChars(x.GoPointer())
 
@@ -569,14 +569,14 @@ func (x *Label) GetYalign() float32 {
 
 }
 
-var xLabelSelectRegion func(uintptr, int32, int32)
+var xLabelSelectRegion func(uintptr, int, int)
 
 // Selects a range of characters in the label, if the label is selectable.
 //
 // See [method@Gtk.Label.set_selectable]. If the label is not selectable,
 // this function has no effect. If @start_offset or
 // @end_offset are -1, then the end of the label will be substituted.
-func (x *Label) SelectRegion(StartOffsetVar int32, EndOffsetVar int32) {
+func (x *Label) SelectRegion(StartOffsetVar int, EndOffsetVar int) {
 
 	xLabelSelectRegion(x.GoPointer(), StartOffsetVar, EndOffsetVar)
 
@@ -649,14 +649,14 @@ func (x *Label) SetLabel(StrVar string) {
 
 }
 
-var xLabelSetLines func(uintptr, int32)
+var xLabelSetLines func(uintptr, int)
 
 // Sets the number of lines to which an ellipsized, wrapping label
 // should be limited.
 //
 // This has no effect if the label is not wrapping or ellipsized.
 // Set this to -1 if you don’t want to limit the number of lines.
-func (x *Label) SetLines(LinesVar int32) {
+func (x *Label) SetLines(LinesVar int) {
 
 	xLabelSetLines(x.GoPointer(), LinesVar)
 
@@ -714,10 +714,10 @@ func (x *Label) SetMarkupWithMnemonic(StrVar string) {
 
 }
 
-var xLabelSetMaxWidthChars func(uintptr, int32)
+var xLabelSetMaxWidthChars func(uintptr, int)
 
 // Sets the desired maximum width in characters of @label to @n_chars.
-func (x *Label) SetMaxWidthChars(NCharsVar int32) {
+func (x *Label) SetMaxWidthChars(NCharsVar int) {
 
 	xLabelSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -844,10 +844,10 @@ func (x *Label) SetUseUnderline(SettingVar bool) {
 
 }
 
-var xLabelSetWidthChars func(uintptr, int32)
+var xLabelSetWidthChars func(uintptr, int)
 
 // Sets the desired width in characters of @label to @n_chars.
-func (x *Label) SetWidthChars(NCharsVar int32) {
+func (x *Label) SetWidthChars(NCharsVar int) {
 
 	xLabelSetWidthChars(x.GoPointer(), NCharsVar)
 
@@ -985,8 +985,8 @@ func (x *Label) ConnectCopyClipboard(cb func(Label)) {
 // - Arrow keys move by individual characters/lines
 // - Ctrl-arrow key combinations move by words/paragraphs
 // - Home/End keys move to the ends of the buffer
-func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int32, bool)) {
-	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int32, ExtendSelectionVarp bool) {
+func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int, bool)) {
+	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendSelectionVarp bool) {
 		fa := Label{}
 		fa.Ptr = clsPtr
 
@@ -1054,7 +1054,7 @@ func (x *Label) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Label) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1090,7 +1090,7 @@ func (x *Label) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Label) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1123,7 +1123,7 @@ func (x *Label) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Label) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

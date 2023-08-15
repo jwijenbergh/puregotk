@@ -6,7 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xIoErrorFromErrno func(int32) IOErrorEnum
+var xIoErrorFromErrno func(int) IOErrorEnum
 
 // Converts errno.h error codes into GIO error codes. The fallback
 // value %G_IO_ERROR_FAILED is returned for error codes not currently
@@ -15,7 +15,7 @@ var xIoErrorFromErrno func(int32) IOErrorEnum
 //
 // As %errno is global and may be modified by intermediate function
 // calls, you should save its value as soon as the call which sets it
-func IoErrorFromErrno(ErrNoVar int32) IOErrorEnum {
+func IoErrorFromErrno(ErrNoVar int) IOErrorEnum {
 
 	return xIoErrorFromErrno(ErrNoVar)
 

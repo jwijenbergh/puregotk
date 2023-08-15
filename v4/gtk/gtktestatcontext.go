@@ -6,9 +6,9 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xTestAccessibleAssertionMessageRole func(string, string, int32, string, string, uintptr, AccessibleRole, AccessibleRole)
+var xTestAccessibleAssertionMessageRole func(string, string, int, string, string, uintptr, AccessibleRole, AccessibleRole)
 
-func TestAccessibleAssertionMessageRole(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, AccessibleVar Accessible, ExpectedRoleVar AccessibleRole, ActualRoleVar AccessibleRole) {
+func TestAccessibleAssertionMessageRole(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, AccessibleVar Accessible, ExpectedRoleVar AccessibleRole, ActualRoleVar AccessibleRole) {
 
 	xTestAccessibleAssertionMessageRole(DomainVar, FileVar, LineVar, FuncVar, ExprVar, AccessibleVar.GoPointer(), ExpectedRoleVar, ActualRoleVar)
 

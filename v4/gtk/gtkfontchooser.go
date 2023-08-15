@@ -36,7 +36,7 @@ type FontChooser interface {
 	GetFontFamily() *pango.FontFamily
 	GetFontFeatures() string
 	GetFontMap() *pango.FontMap
-	GetFontSize() int32
+	GetFontSize() int
 	GetLanguage() string
 	GetLevel() FontChooserLevel
 	GetPreviewText() string
@@ -160,7 +160,7 @@ func (x *FontChooserBase) GetFontMap() *pango.FontMap {
 }
 
 // The selected font size.
-func (x *FontChooserBase) GetFontSize() int32 {
+func (x *FontChooserBase) GetFontSize() int {
 
 	return XGtkFontChooserGetFontSize(x.GoPointer())
 
@@ -283,7 +283,7 @@ var XGtkFontChooserGetFontFace func(uintptr) uintptr
 var XGtkFontChooserGetFontFamily func(uintptr) uintptr
 var XGtkFontChooserGetFontFeatures func(uintptr) string
 var XGtkFontChooserGetFontMap func(uintptr) uintptr
-var XGtkFontChooserGetFontSize func(uintptr) int32
+var XGtkFontChooserGetFontSize func(uintptr) int
 var XGtkFontChooserGetLanguage func(uintptr) string
 var XGtkFontChooserGetLevel func(uintptr) FontChooserLevel
 var XGtkFontChooserGetPreviewText func(uintptr) string

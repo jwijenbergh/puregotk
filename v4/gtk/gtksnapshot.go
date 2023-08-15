@@ -450,10 +450,10 @@ func (x *Snapshot) RenderFrame(ContextVar *StyleContext, XVar float64, YVar floa
 
 }
 
-var xSnapshotRenderInsertionCursor func(uintptr, uintptr, float64, float64, uintptr, int32, pango.Direction)
+var xSnapshotRenderInsertionCursor func(uintptr, uintptr, float64, float64, uintptr, int, pango.Direction)
 
 // Draws a text caret using @snapshot at the specified index of @layout.
-func (x *Snapshot) RenderInsertionCursor(ContextVar *StyleContext, XVar float64, YVar float64, LayoutVar *pango.Layout, IndexVar int32, DirectionVar pango.Direction) {
+func (x *Snapshot) RenderInsertionCursor(ContextVar *StyleContext, XVar float64, YVar float64, LayoutVar *pango.Layout, IndexVar int, DirectionVar pango.Direction) {
 
 	xSnapshotRenderInsertionCursor(x.GoPointer(), ContextVar.GoPointer(), XVar, YVar, LayoutVar.GoPointer(), IndexVar, DirectionVar)
 

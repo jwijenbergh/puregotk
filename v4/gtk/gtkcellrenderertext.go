@@ -53,7 +53,7 @@ func NewCellRendererText() *CellRenderer {
 	return NewCellRendererTextCls
 }
 
-var xCellRendererTextSetFixedHeightFromFont func(uintptr, int32)
+var xCellRendererTextSetFixedHeightFromFont func(uintptr, int)
 
 // Sets the height of a renderer to explicitly be determined by the “font” and
 // “y_pad” property set on it.  Further changes in these properties do not
@@ -62,7 +62,7 @@ var xCellRendererTextSetFixedHeightFromFont func(uintptr, int32)
 // if calculating the size of a cell is too slow (ie, a massive number of cells
 // displayed).  If @number_of_rows is -1, then the fixed height is unset, and
 // the height is determined by the properties again.
-func (x *CellRendererText) SetFixedHeightFromFont(NumberOfRowsVar int32) {
+func (x *CellRendererText) SetFixedHeightFromFont(NumberOfRowsVar int) {
 
 	xCellRendererTextSetFixedHeightFromFont(x.GoPointer(), NumberOfRowsVar)
 

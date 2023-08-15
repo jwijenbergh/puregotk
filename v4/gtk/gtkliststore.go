@@ -171,7 +171,7 @@ func ListStoreNewFromInternalPtr(ptr uintptr) *ListStore {
 	return cls
 }
 
-var xNewListStore func(int32, ...interface{}) uintptr
+var xNewListStore func(int, ...interface{}) uintptr
 
 // Creates a new list store as with @n_columns columns each of the types passed
 // in.  Note that only types derived from standard GObject fundamental types
@@ -180,7 +180,7 @@ var xNewListStore func(int32, ...interface{}) uintptr
 // As an example, `gtk_list_store_new (3, G_TYPE_INT, G_TYPE_STRING,
 // GDK_TYPE_TEXTURE);` will create a new `GtkListStore` with three columns, of type
 // int, string and `GdkTexture`, respectively.
-func NewListStore(NColumnsVar int32, varArgs ...interface{}) *ListStore {
+func NewListStore(NColumnsVar int, varArgs ...interface{}) *ListStore {
 	NewListStorePtr := xNewListStore(NColumnsVar, varArgs...)
 	if NewListStorePtr == 0 {
 		return nil
@@ -191,10 +191,10 @@ func NewListStore(NColumnsVar int32, varArgs ...interface{}) *ListStore {
 	return NewListStoreCls
 }
 
-var xNewvListStore func(int32, uintptr) uintptr
+var xNewvListStore func(int, uintptr) uintptr
 
 // Non-vararg creation function.  Used primarily by language bindings.
-func NewvListStore(NColumnsVar int32, TypesVar uintptr) *ListStore {
+func NewvListStore(NColumnsVar int, TypesVar uintptr) *ListStore {
 	NewvListStorePtr := xNewvListStore(NColumnsVar, TypesVar)
 	if NewvListStorePtr == 0 {
 		return nil
@@ -225,14 +225,14 @@ func (x *ListStore) Clear() {
 
 }
 
-var xListStoreInsert func(uintptr, *TreeIter, int32)
+var xListStoreInsert func(uintptr, *TreeIter, int)
 
 // Creates a new row at @position.  @iter will be changed to point to this new
 // row.  If @position is -1 or is larger than the number of rows on the list,
 // then the new row will be appended to the list. The row will be empty after
 // this function is called.  To fill in values, you need to call
 // gtk_list_store_set() or gtk_list_store_set_value().
-func (x *ListStore) Insert(IterVar *TreeIter, PositionVar int32) {
+func (x *ListStore) Insert(IterVar *TreeIter, PositionVar int) {
 
 	xListStoreInsert(x.GoPointer(), IterVar, PositionVar)
 
@@ -262,7 +262,7 @@ func (x *ListStore) InsertBefore(IterVar *TreeIter, SiblingVar *TreeIter) {
 
 }
 
-var xListStoreInsertWithValues func(uintptr, *TreeIter, int32, ...interface{})
+var xListStoreInsertWithValues func(uintptr, *TreeIter, int, ...interface{})
 
 // Creates a new row at @position. @iter will be changed to point to this new
 // row. If @position is -1, or larger than the number of rows in the list, then
@@ -298,20 +298,20 @@ var xListStoreInsertWithValues func(uintptr, *TreeIter, int32, ...interface{})
 // Since emitting the `GtkTreeModel::rows-reordered` signal repeatedly can
 // affect the performance of the program, gtk_list_store_insert_with_values()
 // should generally be preferred when inserting rows in a sorted list store.
-func (x *ListStore) InsertWithValues(IterVar *TreeIter, PositionVar int32, varArgs ...interface{}) {
+func (x *ListStore) InsertWithValues(IterVar *TreeIter, PositionVar int, varArgs ...interface{}) {
 
 	xListStoreInsertWithValues(x.GoPointer(), IterVar, PositionVar, varArgs...)
 
 }
 
-var xListStoreInsertWithValuesv func(uintptr, *TreeIter, int32, uintptr, uintptr, int32)
+var xListStoreInsertWithValuesv func(uintptr, *TreeIter, int, uintptr, uintptr, int)
 
 // A variant of gtk_list_store_insert_with_values() which
 // takes the columns and values as two arrays, instead of
 // varargs.
 //
 // This function is mainly intended for language-bindings.
-func (x *ListStore) InsertWithValuesv(IterVar *TreeIter, PositionVar int32, ColumnsVar uintptr, ValuesVar uintptr, NValuesVar int32) {
+func (x *ListStore) InsertWithValuesv(IterVar *TreeIter, PositionVar int, ColumnsVar uintptr, ValuesVar uintptr, NValuesVar int) {
 
 	xListStoreInsertWithValuesv(x.GoPointer(), IterVar, PositionVar, ColumnsVar, ValuesVar, NValuesVar)
 
@@ -400,13 +400,13 @@ func (x *ListStore) Set(IterVar *TreeIter, varArgs ...interface{}) {
 
 }
 
-var xListStoreSetColumnTypes func(uintptr, int32, uintptr)
+var xListStoreSetColumnTypes func(uintptr, int, uintptr)
 
 // This function is meant primarily for `GObject`s that inherit from `GtkListStore`,
 // and should only be used when constructing a new `GtkListStore`.  It will not
 // function after a row has been added, or a method on the `GtkTreeModel`
 // interface is called.
-func (x *ListStore) SetColumnTypes(NColumnsVar int32, TypesVar uintptr) {
+func (x *ListStore) SetColumnTypes(NColumnsVar int, TypesVar uintptr) {
 
 	xListStoreSetColumnTypes(x.GoPointer(), NColumnsVar, TypesVar)
 
@@ -422,25 +422,25 @@ func (x *ListStore) SetValist(IterVar *TreeIter, VarArgsVar []interface{}) {
 
 }
 
-var xListStoreSetValue func(uintptr, *TreeIter, int32, *gobject.Value)
+var xListStoreSetValue func(uintptr, *TreeIter, int, *gobject.Value)
 
 // Sets the data in the cell specified by @iter and @column.
 // The type of @value must be convertible to the type of the
 // column.
-func (x *ListStore) SetValue(IterVar *TreeIter, ColumnVar int32, ValueVar *gobject.Value) {
+func (x *ListStore) SetValue(IterVar *TreeIter, ColumnVar int, ValueVar *gobject.Value) {
 
 	xListStoreSetValue(x.GoPointer(), IterVar, ColumnVar, ValueVar)
 
 }
 
-var xListStoreSetValuesv func(uintptr, *TreeIter, uintptr, uintptr, int32)
+var xListStoreSetValuesv func(uintptr, *TreeIter, uintptr, uintptr, int)
 
 // A variant of gtk_list_store_set_valist() which
 // takes the columns and values as two arrays, instead of
 // varargs. This function is mainly intended for
 // language-bindings and in case the number of columns to
 // change is not known until run-time.
-func (x *ListStore) SetValuesv(IterVar *TreeIter, ColumnsVar uintptr, ValuesVar uintptr, NValuesVar int32) {
+func (x *ListStore) SetValuesv(IterVar *TreeIter, ColumnsVar uintptr, ValuesVar uintptr, NValuesVar int) {
 
 	xListStoreSetValuesv(x.GoPointer(), IterVar, ColumnsVar, ValuesVar, NValuesVar)
 
@@ -578,7 +578,7 @@ func (x *ListStore) Get(IterVar *TreeIter, varArgs ...interface{}) {
 }
 
 // Returns the type of the column.
-func (x *ListStore) GetColumnType(IndexVar int32) []interface{} {
+func (x *ListStore) GetColumnType(IndexVar int) []interface{} {
 
 	return XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
 
@@ -626,7 +626,7 @@ func (x *ListStore) GetIterFromString(IterVar *TreeIter, PathStringVar string) b
 }
 
 // Returns the number of columns supported by @tree_model.
-func (x *ListStore) GetNColumns() int32 {
+func (x *ListStore) GetNColumns() int {
 
 	return XGtkTreeModelGetNColumns(x.GoPointer())
 
@@ -666,7 +666,7 @@ func (x *ListStore) GetValist(IterVar *TreeIter, VarArgsVar []interface{}) {
 //
 // When done with @value, g_value_unset() needs to be called
 // to free any allocated memory.
-func (x *ListStore) GetValue(IterVar *TreeIter, ColumnVar int32, ValueVar *gobject.Value) {
+func (x *ListStore) GetValue(IterVar *TreeIter, ColumnVar int, ValueVar *gobject.Value) {
 
 	XGtkTreeModelGetValue(x.GoPointer(), IterVar, ColumnVar, ValueVar)
 
@@ -697,7 +697,7 @@ func (x *ListStore) IterHasChild(IterVar *TreeIter) bool {
 //
 // As a special case, if @iter is %NULL, then the number
 // of toplevel nodes is returned.
-func (x *ListStore) IterNChildren(IterVar *TreeIter) int32 {
+func (x *ListStore) IterNChildren(IterVar *TreeIter) int {
 
 	return XGtkTreeModelIterNChildren(x.GoPointer(), IterVar)
 
@@ -720,7 +720,7 @@ func (x *ListStore) IterNext(IterVar *TreeIter) bool {
 // will remain a valid node after this function has been called. As a
 // special case, if @parent is %NULL, then the @n-th root node
 // is set.
-func (x *ListStore) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, NVar int32) bool {
+func (x *ListStore) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, NVar int) bool {
 
 	return XGtkTreeModelIterNthChild(x.GoPointer(), IterVar, ParentVar, NVar)
 
@@ -826,7 +826,7 @@ func (x *ListStore) RowInserted(PathVar *TreePath, IterVar *TreeIter) {
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *ListStore) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrderVar int32) {
+func (x *ListStore) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrderVar int) {
 
 	XGtkTreeModelRowsReordered(x.GoPointer(), PathVar, IterVar, NewOrderVar)
 
@@ -838,7 +838,7 @@ func (x *ListStore) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrder
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *ListStore) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr, LengthVar int32) {
+func (x *ListStore) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr, LengthVar int) {
 
 	XGtkTreeModelRowsReorderedWithLength(x.GoPointer(), PathVar, IterVar, NewOrderVar, LengthVar)
 
@@ -862,7 +862,7 @@ func (x *ListStore) UnrefNode(IterVar *TreeIter) {
 // order. It returns %TRUE unless the @sort_column_id is
 // %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or
 // %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
-func (x *ListStore) GetSortColumnId(SortColumnIdVar int32, OrderVar *SortType) bool {
+func (x *ListStore) GetSortColumnId(SortColumnIdVar int, OrderVar *SortType) bool {
 
 	return XGtkTreeSortableGetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 
@@ -901,7 +901,7 @@ func (x *ListStore) SetDefaultSortFunc(SortFuncVar TreeIterCompareFunc, UserData
 //     will be used, if it is set
 //
 // - %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: no sorting will occur
-func (x *ListStore) SetSortColumnId(SortColumnIdVar int32, OrderVar SortType) {
+func (x *ListStore) SetSortColumnId(SortColumnIdVar int, OrderVar SortType) {
 
 	XGtkTreeSortableSetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 
@@ -910,7 +910,7 @@ func (x *ListStore) SetSortColumnId(SortColumnIdVar int32, OrderVar SortType) {
 // Sets the comparison function used when sorting to be @sort_func. If the
 // current sort column id of @sortable is the same as @sort_column_id, then
 // the model will sort using this function.
-func (x *ListStore) SetSortFunc(SortColumnIdVar int32, SortFuncVar TreeIterCompareFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ListStore) SetSortFunc(SortColumnIdVar int, SortFuncVar TreeIterCompareFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
 
 	XGtkTreeSortableSetSortFunc(x.GoPointer(), SortColumnIdVar, purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
 

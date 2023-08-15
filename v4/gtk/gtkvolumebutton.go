@@ -107,7 +107,7 @@ func (x *VolumeButton) UpdateProperty(FirstPropertyVar AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *VolumeButton) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *VolumeButton) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -143,7 +143,7 @@ func (x *VolumeButton) UpdateRelation(FirstRelationVar AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *VolumeButton) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *VolumeButton) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -176,7 +176,7 @@ func (x *VolumeButton) UpdateState(FirstStateVar AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *VolumeButton) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *VolumeButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

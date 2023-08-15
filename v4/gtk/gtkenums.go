@@ -1492,11 +1492,11 @@ const (
 	WrapWordCharValue WrapMode = 3
 )
 
-var xOrderingFromCmpfunc func(int32) Ordering
+var xOrderingFromCmpfunc func(int) Ordering
 
 // Converts the result of a `GCompareFunc` like strcmp() to a
 // `GtkOrdering` value.
-func OrderingFromCmpfunc(CmpfuncResultVar int32) Ordering {
+func OrderingFromCmpfunc(CmpfuncResultVar int) Ordering {
 
 	return xOrderingFromCmpfunc(CmpfuncResultVar)
 

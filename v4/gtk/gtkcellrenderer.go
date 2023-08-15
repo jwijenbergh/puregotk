@@ -135,10 +135,10 @@ func (x *CellRenderer) GetAlignment(XalignVar float32, YalignVar float32) {
 
 }
 
-var xCellRendererGetFixedSize func(uintptr, int32, int32)
+var xCellRendererGetFixedSize func(uintptr, int, int)
 
 // Fills in @width and @height with the appropriate size of @cell.
-func (x *CellRenderer) GetFixedSize(WidthVar int32, HeightVar int32) {
+func (x *CellRenderer) GetFixedSize(WidthVar int, HeightVar int) {
 
 	xCellRendererGetFixedSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -162,29 +162,29 @@ func (x *CellRenderer) GetIsExpander() bool {
 
 }
 
-var xCellRendererGetPadding func(uintptr, int32, int32)
+var xCellRendererGetPadding func(uintptr, int, int)
 
 // Fills in @xpad and @ypad with the appropriate values of @cell.
-func (x *CellRenderer) GetPadding(XpadVar int32, YpadVar int32) {
+func (x *CellRenderer) GetPadding(XpadVar int, YpadVar int) {
 
 	xCellRendererGetPadding(x.GoPointer(), XpadVar, YpadVar)
 
 }
 
-var xCellRendererGetPreferredHeight func(uintptr, uintptr, int32, int32)
+var xCellRendererGetPreferredHeight func(uintptr, uintptr, int, int)
 
 // Retrieves a renderer’s natural size when rendered to @widget.
-func (x *CellRenderer) GetPreferredHeight(WidgetVar *Widget, MinimumSizeVar int32, NaturalSizeVar int32) {
+func (x *CellRenderer) GetPreferredHeight(WidgetVar *Widget, MinimumSizeVar int, NaturalSizeVar int) {
 
 	xCellRendererGetPreferredHeight(x.GoPointer(), WidgetVar.GoPointer(), MinimumSizeVar, NaturalSizeVar)
 
 }
 
-var xCellRendererGetPreferredHeightForWidth func(uintptr, uintptr, int32, int32, int32)
+var xCellRendererGetPreferredHeightForWidth func(uintptr, uintptr, int, int, int)
 
 // Retrieves a cell renderers’s minimum and natural height if it were rendered to
 // @widget with the specified @width.
-func (x *CellRenderer) GetPreferredHeightForWidth(WidgetVar *Widget, WidthVar int32, MinimumHeightVar int32, NaturalHeightVar int32) {
+func (x *CellRenderer) GetPreferredHeightForWidth(WidgetVar *Widget, WidthVar int, MinimumHeightVar int, NaturalHeightVar int) {
 
 	xCellRendererGetPreferredHeightForWidth(x.GoPointer(), WidgetVar.GoPointer(), WidthVar, MinimumHeightVar, NaturalHeightVar)
 
@@ -200,20 +200,20 @@ func (x *CellRenderer) GetPreferredSize(WidgetVar *Widget, MinimumSizeVar *Requi
 
 }
 
-var xCellRendererGetPreferredWidth func(uintptr, uintptr, int32, int32)
+var xCellRendererGetPreferredWidth func(uintptr, uintptr, int, int)
 
 // Retrieves a renderer’s natural size when rendered to @widget.
-func (x *CellRenderer) GetPreferredWidth(WidgetVar *Widget, MinimumSizeVar int32, NaturalSizeVar int32) {
+func (x *CellRenderer) GetPreferredWidth(WidgetVar *Widget, MinimumSizeVar int, NaturalSizeVar int) {
 
 	xCellRendererGetPreferredWidth(x.GoPointer(), WidgetVar.GoPointer(), MinimumSizeVar, NaturalSizeVar)
 
 }
 
-var xCellRendererGetPreferredWidthForHeight func(uintptr, uintptr, int32, int32, int32)
+var xCellRendererGetPreferredWidthForHeight func(uintptr, uintptr, int, int, int)
 
 // Retrieves a cell renderers’s minimum and natural width if it were rendered to
 // @widget with the specified @height.
-func (x *CellRenderer) GetPreferredWidthForHeight(WidgetVar *Widget, HeightVar int32, MinimumWidthVar int32, NaturalWidthVar int32) {
+func (x *CellRenderer) GetPreferredWidthForHeight(WidgetVar *Widget, HeightVar int, MinimumWidthVar int, NaturalWidthVar int) {
 
 	xCellRendererGetPreferredWidthForHeight(x.GoPointer(), WidgetVar.GoPointer(), HeightVar, MinimumWidthVar, NaturalWidthVar)
 
@@ -276,10 +276,10 @@ func (x *CellRenderer) SetAlignment(XalignVar float32, YalignVar float32) {
 
 }
 
-var xCellRendererSetFixedSize func(uintptr, int32, int32)
+var xCellRendererSetFixedSize func(uintptr, int, int)
 
 // Sets the renderer size to be explicit, independent of the properties set.
-func (x *CellRenderer) SetFixedSize(WidthVar int32, HeightVar int32) {
+func (x *CellRenderer) SetFixedSize(WidthVar int, HeightVar int) {
 
 	xCellRendererSetFixedSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -303,10 +303,10 @@ func (x *CellRenderer) SetIsExpander(IsExpanderVar bool) {
 
 }
 
-var xCellRendererSetPadding func(uintptr, int32, int32)
+var xCellRendererSetPadding func(uintptr, int, int)
 
 // Sets the renderer’s padding.
-func (x *CellRenderer) SetPadding(XpadVar int32, YpadVar int32) {
+func (x *CellRenderer) SetPadding(XpadVar int, YpadVar int) {
 
 	xCellRendererSetPadding(x.GoPointer(), XpadVar, YpadVar)
 

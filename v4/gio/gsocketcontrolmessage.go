@@ -45,21 +45,21 @@ func SocketControlMessageNewFromInternalPtr(ptr uintptr) *SocketControlMessage {
 	return cls
 }
 
-var xSocketControlMessageGetLevel func(uintptr) int32
+var xSocketControlMessageGetLevel func(uintptr) int
 
 // Returns the "level" (i.e. the originating protocol) of the control message.
 // This is often SOL_SOCKET.
-func (x *SocketControlMessage) GetLevel() int32 {
+func (x *SocketControlMessage) GetLevel() int {
 
 	return xSocketControlMessageGetLevel(x.GoPointer())
 
 }
 
-var xSocketControlMessageGetMsgType func(uintptr) int32
+var xSocketControlMessageGetMsgType func(uintptr) int
 
 // Returns the protocol specific type of the control message.
 // For instance, for UNIX fd passing this would be SCM_RIGHTS.
-func (x *SocketControlMessage) GetMsgType() int32 {
+func (x *SocketControlMessage) GetMsgType() int {
 
 	return xSocketControlMessageGetMsgType(x.GoPointer())
 

@@ -110,7 +110,7 @@ func (x *Surface) CreateGlContext() *GLContext {
 
 }
 
-var xSurfaceCreateSimilarSurface func(uintptr, cairo.Content, int32, int32) *cairo.Surface
+var xSurfaceCreateSimilarSurface func(uintptr, cairo.Content, int, int) *cairo.Surface
 
 // Create a new Cairo surface that is as compatible as possible with the
 // given @surface.
@@ -127,7 +127,7 @@ var xSurfaceCreateSimilarSurface func(uintptr, cairo.Content, int32, int32) *cai
 // This function always returns a valid pointer, but it will return a
 // pointer to a “nil” surface if @other is already in an error state
 // or any other error occurs.
-func (x *Surface) CreateSimilarSurface(ContentVar cairo.Content, WidthVar int32, HeightVar int32) *cairo.Surface {
+func (x *Surface) CreateSimilarSurface(ContentVar cairo.Content, WidthVar int, HeightVar int) *cairo.Surface {
 
 	return xSurfaceCreateSimilarSurface(x.GoPointer(), ContentVar, WidthVar, HeightVar)
 
@@ -267,13 +267,13 @@ func (x *Surface) GetFrameClock() *FrameClock {
 
 }
 
-var xSurfaceGetHeight func(uintptr) int32
+var xSurfaceGetHeight func(uintptr) int
 
 // Returns the height of the given @surface.
 //
 // Surface size is reported in ”application pixels”, not
 // ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
-func (x *Surface) GetHeight() int32 {
+func (x *Surface) GetHeight() int {
 
 	return xSurfaceGetHeight(x.GoPointer())
 
@@ -291,7 +291,7 @@ func (x *Surface) GetMapped() bool {
 
 }
 
-var xSurfaceGetScaleFactor func(uintptr) int32
+var xSurfaceGetScaleFactor func(uintptr) int
 
 // Returns the internal scale factor that maps from surface coordinates
 // to the actual device pixels.
@@ -304,19 +304,19 @@ var xSurfaceGetScaleFactor func(uintptr) int32
 // use a pixel resource with higher resolution data.
 //
 // The scale of a surface may change during runtime.
-func (x *Surface) GetScaleFactor() int32 {
+func (x *Surface) GetScaleFactor() int {
 
 	return xSurfaceGetScaleFactor(x.GoPointer())
 
 }
 
-var xSurfaceGetWidth func(uintptr) int32
+var xSurfaceGetWidth func(uintptr) int
 
 // Returns the width of the given @surface.
 //
 // Surface size is reported in ”application pixels”, not
 // ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
-func (x *Surface) GetWidth() int32 {
+func (x *Surface) GetWidth() int {
 
 	return xSurfaceGetWidth(x.GoPointer())
 
@@ -494,8 +494,8 @@ func (x *Surface) ConnectEvent(cb func(Surface, *Event) bool) {
 //
 // Surface size is reported in ”application pixels”, not
 // ”device pixels” (see gdk_surface_get_scale_factor()).
-func (x *Surface) ConnectLayout(cb func(Surface, int32, int32)) {
-	fcb := func(clsPtr uintptr, WidthVarp int32, HeightVarp int32) {
+func (x *Surface) ConnectLayout(cb func(Surface, int, int)) {
+	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := Surface{}
 		fa.Ptr = clsPtr
 

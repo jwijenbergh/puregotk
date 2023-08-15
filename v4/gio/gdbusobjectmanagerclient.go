@@ -302,7 +302,7 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObject
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *DBusObjectManagerClient) InitAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusObjectManagerClient) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

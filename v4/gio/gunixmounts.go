@@ -79,10 +79,10 @@ func UnixMountAt(MountPathVar string, TimeReadVar uint64) *UnixMountEntry {
 
 }
 
-var xUnixMountCompare func(*UnixMountEntry, *UnixMountEntry) int32
+var xUnixMountCompare func(*UnixMountEntry, *UnixMountEntry) int
 
 // Compares two unix mounts.
-func UnixMountCompare(Mount1Var *UnixMountEntry, Mount2Var *UnixMountEntry) int32 {
+func UnixMountCompare(Mount1Var *UnixMountEntry, Mount2Var *UnixMountEntry) int {
 
 	return xUnixMountCompare(Mount1Var, Mount2Var)
 
@@ -344,7 +344,7 @@ func NewUnixMountMonitor() *UnixMountMonitor {
 	return NewUnixMountMonitorCls
 }
 
-var xUnixMountMonitorSetRateLimit func(uintptr, int32)
+var xUnixMountMonitorSetRateLimit func(uintptr, int)
 
 // This function does nothing.
 //
@@ -353,7 +353,7 @@ var xUnixMountMonitorSetRateLimit func(uintptr, int32)
 // circumstances.  Since @mount_monitor is a singleton, it also meant
 // that calling this function would have side effects for other users of
 // the monitor.
-func (x *UnixMountMonitor) SetRateLimit(LimitMsecVar int32) {
+func (x *UnixMountMonitor) SetRateLimit(LimitMsecVar int) {
 
 	xUnixMountMonitorSetRateLimit(x.GoPointer(), LimitMsecVar)
 

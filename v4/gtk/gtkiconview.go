@@ -174,19 +174,19 @@ func (x *IconView) GetCellRect(PathVar *TreePath, CellVar *CellRenderer, RectVar
 
 }
 
-var xIconViewGetColumnSpacing func(uintptr) int32
+var xIconViewGetColumnSpacing func(uintptr) int
 
 // Returns the value of the ::column-spacing property.
-func (x *IconView) GetColumnSpacing() int32 {
+func (x *IconView) GetColumnSpacing() int {
 
 	return xIconViewGetColumnSpacing(x.GoPointer())
 
 }
 
-var xIconViewGetColumns func(uintptr) int32
+var xIconViewGetColumns func(uintptr) int
 
 // Returns the value of the ::columns property.
-func (x *IconView) GetColumns() int32 {
+func (x *IconView) GetColumns() int {
 
 	return xIconViewGetColumns(x.GoPointer())
 
@@ -205,10 +205,10 @@ func (x *IconView) GetCursor(PathVar **TreePath, CellVar **CellRenderer) bool {
 
 }
 
-var xIconViewGetDestItemAtPos func(uintptr, int32, int32, **TreePath, *IconViewDropPosition) bool
+var xIconViewGetDestItemAtPos func(uintptr, int, int, **TreePath, *IconViewDropPosition) bool
 
 // Determines the destination item for a given position.
-func (x *IconView) GetDestItemAtPos(DragXVar int32, DragYVar int32, PathVar **TreePath, PosVar *IconViewDropPosition) bool {
+func (x *IconView) GetDestItemAtPos(DragXVar int, DragYVar int, PathVar **TreePath, PosVar *IconViewDropPosition) bool {
 
 	return xIconViewGetDestItemAtPos(x.GoPointer(), DragXVar, DragYVar, PathVar, PosVar)
 
@@ -223,20 +223,20 @@ func (x *IconView) GetDragDestItem(PathVar **TreePath, PosVar *IconViewDropPosit
 
 }
 
-var xIconViewGetItemAtPos func(uintptr, int32, int32, **TreePath, *uintptr) bool
+var xIconViewGetItemAtPos func(uintptr, int, int, **TreePath, *uintptr) bool
 
 // Gets the path and cell for the icon at the given position.
-func (x *IconView) GetItemAtPos(XVar int32, YVar int32, PathVar **TreePath, CellVar **CellRenderer) bool {
+func (x *IconView) GetItemAtPos(XVar int, YVar int, PathVar **TreePath, CellVar **CellRenderer) bool {
 
 	return xIconViewGetItemAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(CellVar))
 
 }
 
-var xIconViewGetItemColumn func(uintptr, *TreePath) int32
+var xIconViewGetItemColumn func(uintptr, *TreePath) int
 
 // Gets the column in which the item @path is currently
 // displayed. Column numbers start at 0.
-func (x *IconView) GetItemColumn(PathVar *TreePath) int32 {
+func (x *IconView) GetItemColumn(PathVar *TreePath) int {
 
 	return xIconViewGetItemColumn(x.GoPointer(), PathVar)
 
@@ -252,47 +252,47 @@ func (x *IconView) GetItemOrientation() Orientation {
 
 }
 
-var xIconViewGetItemPadding func(uintptr) int32
+var xIconViewGetItemPadding func(uintptr) int
 
 // Returns the value of the ::item-padding property.
-func (x *IconView) GetItemPadding() int32 {
+func (x *IconView) GetItemPadding() int {
 
 	return xIconViewGetItemPadding(x.GoPointer())
 
 }
 
-var xIconViewGetItemRow func(uintptr, *TreePath) int32
+var xIconViewGetItemRow func(uintptr, *TreePath) int
 
 // Gets the row in which the item @path is currently
 // displayed. Row numbers start at 0.
-func (x *IconView) GetItemRow(PathVar *TreePath) int32 {
+func (x *IconView) GetItemRow(PathVar *TreePath) int {
 
 	return xIconViewGetItemRow(x.GoPointer(), PathVar)
 
 }
 
-var xIconViewGetItemWidth func(uintptr) int32
+var xIconViewGetItemWidth func(uintptr) int
 
 // Returns the value of the ::item-width property.
-func (x *IconView) GetItemWidth() int32 {
+func (x *IconView) GetItemWidth() int {
 
 	return xIconViewGetItemWidth(x.GoPointer())
 
 }
 
-var xIconViewGetMargin func(uintptr) int32
+var xIconViewGetMargin func(uintptr) int
 
 // Returns the value of the ::margin property.
-func (x *IconView) GetMargin() int32 {
+func (x *IconView) GetMargin() int {
 
 	return xIconViewGetMargin(x.GoPointer())
 
 }
 
-var xIconViewGetMarkupColumn func(uintptr) int32
+var xIconViewGetMarkupColumn func(uintptr) int
 
 // Returns the column with markup text for @icon_view.
-func (x *IconView) GetMarkupColumn() int32 {
+func (x *IconView) GetMarkupColumn() int {
 
 	return xIconViewGetMarkupColumn(x.GoPointer())
 
@@ -317,19 +317,19 @@ func (x *IconView) GetModel() *TreeModelBase {
 
 }
 
-var xIconViewGetPathAtPos func(uintptr, int32, int32) *TreePath
+var xIconViewGetPathAtPos func(uintptr, int, int) *TreePath
 
 // Gets the path for the icon at the given position.
-func (x *IconView) GetPathAtPos(XVar int32, YVar int32) *TreePath {
+func (x *IconView) GetPathAtPos(XVar int, YVar int) *TreePath {
 
 	return xIconViewGetPathAtPos(x.GoPointer(), XVar, YVar)
 
 }
 
-var xIconViewGetPixbufColumn func(uintptr) int32
+var xIconViewGetPixbufColumn func(uintptr) int
 
 // Returns the column with pixbufs for @icon_view.
-func (x *IconView) GetPixbufColumn() int32 {
+func (x *IconView) GetPixbufColumn() int {
 
 	return xIconViewGetPixbufColumn(x.GoPointer())
 
@@ -345,10 +345,10 @@ func (x *IconView) GetReorderable() bool {
 
 }
 
-var xIconViewGetRowSpacing func(uintptr) int32
+var xIconViewGetRowSpacing func(uintptr) int
 
 // Returns the value of the ::row-spacing property.
-func (x *IconView) GetRowSpacing() int32 {
+func (x *IconView) GetRowSpacing() int {
 
 	return xIconViewGetRowSpacing(x.GoPointer())
 
@@ -387,35 +387,35 @@ func (x *IconView) GetSelectionMode() SelectionMode {
 
 }
 
-var xIconViewGetSpacing func(uintptr) int32
+var xIconViewGetSpacing func(uintptr) int
 
 // Returns the value of the ::spacing property.
-func (x *IconView) GetSpacing() int32 {
+func (x *IconView) GetSpacing() int {
 
 	return xIconViewGetSpacing(x.GoPointer())
 
 }
 
-var xIconViewGetTextColumn func(uintptr) int32
+var xIconViewGetTextColumn func(uintptr) int
 
 // Returns the column with text for @icon_view.
-func (x *IconView) GetTextColumn() int32 {
+func (x *IconView) GetTextColumn() int {
 
 	return xIconViewGetTextColumn(x.GoPointer())
 
 }
 
-var xIconViewGetTooltipColumn func(uintptr) int32
+var xIconViewGetTooltipColumn func(uintptr) int
 
 // Returns the column of @icon_view’s model which is being used for
 // displaying tooltips on @icon_view’s rows.
-func (x *IconView) GetTooltipColumn() int32 {
+func (x *IconView) GetTooltipColumn() int {
 
 	return xIconViewGetTooltipColumn(x.GoPointer())
 
 }
 
-var xIconViewGetTooltipContext func(uintptr, int32, int32, bool, *uintptr, **TreePath, *TreeIter) bool
+var xIconViewGetTooltipContext func(uintptr, int, int, bool, *uintptr, **TreePath, *TreeIter) bool
 
 // This function is supposed to be used in a `GtkWidget::query-tooltip`
 // signal handler for `GtkIconView`. The @x, @y and @keyboard_tip values
@@ -427,7 +427,7 @@ var xIconViewGetTooltipContext func(uintptr, int32, int32, bool, *uintptr, **Tre
 // tooltips the item returned will be the cursor item. When %TRUE, then any of
 // @model, @path and @iter which have been provided will be set to point to
 // that row and the corresponding model.
-func (x *IconView) GetTooltipContext(XVar int32, YVar int32, KeyboardTipVar bool, ModelVar *TreeModel, PathVar **TreePath, IterVar *TreeIter) bool {
+func (x *IconView) GetTooltipContext(XVar int, YVar int, KeyboardTipVar bool, ModelVar *TreeModel, PathVar **TreePath, IterVar *TreeIter) bool {
 
 	return xIconViewGetTooltipContext(x.GoPointer(), XVar, YVar, KeyboardTipVar, gobject.ConvertPtr(ModelVar), PathVar, IterVar)
 
@@ -525,23 +525,23 @@ func (x *IconView) SetActivateOnSingleClick(SingleVar bool) {
 
 }
 
-var xIconViewSetColumnSpacing func(uintptr, int32)
+var xIconViewSetColumnSpacing func(uintptr, int)
 
 // Sets the ::column-spacing property which specifies the space
 // which is inserted between the columns of the icon view.
-func (x *IconView) SetColumnSpacing(ColumnSpacingVar int32) {
+func (x *IconView) SetColumnSpacing(ColumnSpacingVar int) {
 
 	xIconViewSetColumnSpacing(x.GoPointer(), ColumnSpacingVar)
 
 }
 
-var xIconViewSetColumns func(uintptr, int32)
+var xIconViewSetColumns func(uintptr, int)
 
 // Sets the ::columns property which determines in how
 // many columns the icons are arranged. If @columns is
 // -1, the number of columns will be chosen automatically
 // to fill the available area.
-func (x *IconView) SetColumns(ColumnsVar int32) {
+func (x *IconView) SetColumns(ColumnsVar int) {
 
 	xIconViewSetColumns(x.GoPointer(), ColumnsVar)
 
@@ -583,45 +583,45 @@ func (x *IconView) SetItemOrientation(OrientationVar Orientation) {
 
 }
 
-var xIconViewSetItemPadding func(uintptr, int32)
+var xIconViewSetItemPadding func(uintptr, int)
 
 // Sets the `GtkIconView`:item-padding property which specifies the padding
 // around each of the icon view’s items.
-func (x *IconView) SetItemPadding(ItemPaddingVar int32) {
+func (x *IconView) SetItemPadding(ItemPaddingVar int) {
 
 	xIconViewSetItemPadding(x.GoPointer(), ItemPaddingVar)
 
 }
 
-var xIconViewSetItemWidth func(uintptr, int32)
+var xIconViewSetItemWidth func(uintptr, int)
 
 // Sets the ::item-width property which specifies the width
 // to use for each item. If it is set to -1, the icon view will
 // automatically determine a suitable item size.
-func (x *IconView) SetItemWidth(ItemWidthVar int32) {
+func (x *IconView) SetItemWidth(ItemWidthVar int) {
 
 	xIconViewSetItemWidth(x.GoPointer(), ItemWidthVar)
 
 }
 
-var xIconViewSetMargin func(uintptr, int32)
+var xIconViewSetMargin func(uintptr, int)
 
 // Sets the ::margin property which specifies the space
 // which is inserted at the top, bottom, left and right
 // of the icon view.
-func (x *IconView) SetMargin(MarginVar int32) {
+func (x *IconView) SetMargin(MarginVar int) {
 
 	xIconViewSetMargin(x.GoPointer(), MarginVar)
 
 }
 
-var xIconViewSetMarkupColumn func(uintptr, int32)
+var xIconViewSetMarkupColumn func(uintptr, int)
 
 // Sets the column with markup information for @icon_view to be
 // @column. The markup column must be of type `G_TYPE_STRING`.
 // If the markup column is set to something, it overrides
 // the text column set by gtk_icon_view_set_text_column().
-func (x *IconView) SetMarkupColumn(ColumnVar int32) {
+func (x *IconView) SetMarkupColumn(ColumnVar int) {
 
 	xIconViewSetMarkupColumn(x.GoPointer(), ColumnVar)
 
@@ -639,11 +639,11 @@ func (x *IconView) SetModel(ModelVar TreeModel) {
 
 }
 
-var xIconViewSetPixbufColumn func(uintptr, int32)
+var xIconViewSetPixbufColumn func(uintptr, int)
 
 // Sets the column with pixbufs for @icon_view to be @column. The pixbuf
 // column must be of type `GDK_TYPE_PIXBUF`
-func (x *IconView) SetPixbufColumn(ColumnVar int32) {
+func (x *IconView) SetPixbufColumn(ColumnVar int) {
 
 	xIconViewSetPixbufColumn(x.GoPointer(), ColumnVar)
 
@@ -669,11 +669,11 @@ func (x *IconView) SetReorderable(ReorderableVar bool) {
 
 }
 
-var xIconViewSetRowSpacing func(uintptr, int32)
+var xIconViewSetRowSpacing func(uintptr, int)
 
 // Sets the ::row-spacing property which specifies the space
 // which is inserted between the rows of the icon view.
-func (x *IconView) SetRowSpacing(RowSpacingVar int32) {
+func (x *IconView) SetRowSpacing(RowSpacingVar int) {
 
 	xIconViewSetRowSpacing(x.GoPointer(), RowSpacingVar)
 
@@ -688,22 +688,22 @@ func (x *IconView) SetSelectionMode(ModeVar SelectionMode) {
 
 }
 
-var xIconViewSetSpacing func(uintptr, int32)
+var xIconViewSetSpacing func(uintptr, int)
 
 // Sets the ::spacing property which specifies the space
 // which is inserted between the cells (i.e. the icon and
 // the text) of an item.
-func (x *IconView) SetSpacing(SpacingVar int32) {
+func (x *IconView) SetSpacing(SpacingVar int) {
 
 	xIconViewSetSpacing(x.GoPointer(), SpacingVar)
 
 }
 
-var xIconViewSetTextColumn func(uintptr, int32)
+var xIconViewSetTextColumn func(uintptr, int)
 
 // Sets the column with text for @icon_view to be @column. The text
 // column must be of type `G_TYPE_STRING`.
-func (x *IconView) SetTextColumn(ColumnVar int32) {
+func (x *IconView) SetTextColumn(ColumnVar int) {
 
 	xIconViewSetTextColumn(x.GoPointer(), ColumnVar)
 
@@ -721,7 +721,7 @@ func (x *IconView) SetTooltipCell(TooltipVar *Tooltip, PathVar *TreePath, CellVa
 
 }
 
-var xIconViewSetTooltipColumn func(uintptr, int32)
+var xIconViewSetTooltipColumn func(uintptr, int)
 
 // If you only plan to have simple (text-only) tooltips on full items, you
 // can use this function to have `GtkIconView` handle these automatically
@@ -733,7 +733,7 @@ var xIconViewSetTooltipColumn func(uintptr, int32)
 //
 // Note that the signal handler sets the text with gtk_tooltip_set_markup(),
 // so &amp;, &lt;, etc have to be escaped in the text.
-func (x *IconView) SetTooltipColumn(ColumnVar int32) {
+func (x *IconView) SetTooltipColumn(ColumnVar int) {
 
 	xIconViewSetTooltipColumn(x.GoPointer(), ColumnVar)
 
@@ -848,8 +848,8 @@ func (x *IconView) ConnectItemActivated(cb func(IconView, uintptr)) {
 // - PageUp/PageDown which move by "pages"
 // All of these will extend the selection when combined with
 // the Shift modifier.
-func (x *IconView) ConnectMoveCursor(cb func(IconView, MovementStep, int32, bool, bool) bool) {
-	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int32, ExtendVarp bool, ModifyVarp bool) bool {
+func (x *IconView) ConnectMoveCursor(cb func(IconView, MovementStep, int, bool, bool) bool) {
+	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendVarp bool, ModifyVarp bool) bool {
 		fa := IconView{}
 		fa.Ptr = clsPtr
 
@@ -1009,7 +1009,7 @@ func (x *IconView) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *IconView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *IconView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1045,7 +1045,7 @@ func (x *IconView) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *IconView) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *IconView) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1078,7 +1078,7 @@ func (x *IconView) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *IconView) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *IconView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1101,7 +1101,7 @@ func (x *IconView) GetBuildableId() string {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *IconView) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *IconView) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -1174,7 +1174,7 @@ func (x *IconView) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *IconView) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *IconView) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

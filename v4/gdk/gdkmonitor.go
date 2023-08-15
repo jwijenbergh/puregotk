@@ -87,10 +87,10 @@ func (x *Monitor) GetGeometry(GeometryVar *Rectangle) {
 
 }
 
-var xMonitorGetHeightMm func(uintptr) int32
+var xMonitorGetHeightMm func(uintptr) int
 
 // Gets the height in millimeters of the monitor.
-func (x *Monitor) GetHeightMm() int32 {
+func (x *Monitor) GetHeightMm() int {
 
 	return xMonitorGetHeightMm(x.GoPointer())
 
@@ -120,19 +120,19 @@ func (x *Monitor) GetModel() string {
 
 }
 
-var xMonitorGetRefreshRate func(uintptr) int32
+var xMonitorGetRefreshRate func(uintptr) int
 
 // Gets the refresh rate of the monitor, if available.
 //
 // The value is in milli-Hertz, so a refresh rate of 60Hz
 // is returned as 60000.
-func (x *Monitor) GetRefreshRate() int32 {
+func (x *Monitor) GetRefreshRate() int {
 
 	return xMonitorGetRefreshRate(x.GoPointer())
 
 }
 
-var xMonitorGetScaleFactor func(uintptr) int32
+var xMonitorGetScaleFactor func(uintptr) int
 
 // Gets the internal scale factor that maps from monitor coordinates
 // to device pixels.
@@ -143,7 +143,7 @@ var xMonitorGetScaleFactor func(uintptr) int32
 // This can be used if you want to create pixel based data for a
 // particular monitor, but most of the time you’re drawing to a surface
 // where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
-func (x *Monitor) GetScaleFactor() int32 {
+func (x *Monitor) GetScaleFactor() int {
 
 	return xMonitorGetScaleFactor(x.GoPointer())
 
@@ -159,10 +159,10 @@ func (x *Monitor) GetSubpixelLayout() SubpixelLayout {
 
 }
 
-var xMonitorGetWidthMm func(uintptr) int32
+var xMonitorGetWidthMm func(uintptr) int
 
 // Gets the width in millimeters of the monitor.
-func (x *Monitor) GetWidthMm() int32 {
+func (x *Monitor) GetWidthMm() int {
 
 	return xMonitorGetWidthMm(x.GoPointer())
 

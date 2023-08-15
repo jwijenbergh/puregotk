@@ -12,12 +12,12 @@ import (
 type RequestedSize struct {
 	Data uintptr
 
-	MinimumSize int32
+	MinimumSize int
 
-	NaturalSize int32
+	NaturalSize int
 }
 
-var xDistributeNaturalAllocation func(int32, uint, uintptr) int32
+var xDistributeNaturalAllocation func(int, uint, uintptr) int
 
 // Distributes @extra_space to child @sizes by bringing smaller
 // children up to natural size first.
@@ -25,7 +25,7 @@ var xDistributeNaturalAllocation func(int32, uint, uintptr) int32
 // The remaining space will be added to the @minimum_size member of the
 // `GtkRequestedSize` struct. If all sizes reach their natural size then
 // the remaining space is returned.
-func DistributeNaturalAllocation(ExtraSpaceVar int32, NRequestedSizesVar uint, SizesVar uintptr) int32 {
+func DistributeNaturalAllocation(ExtraSpaceVar int, NRequestedSizesVar uint, SizesVar uintptr) int {
 
 	return xDistributeNaturalAllocation(ExtraSpaceVar, NRequestedSizesVar, SizesVar)
 

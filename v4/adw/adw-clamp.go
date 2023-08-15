@@ -86,19 +86,19 @@ func (x *Clamp) GetChild() *gtk.Widget {
 
 }
 
-var xClampGetMaximumSize func(uintptr) int32
+var xClampGetMaximumSize func(uintptr) int
 
 // Gets the maximum size allocated to the child.
-func (x *Clamp) GetMaximumSize() int32 {
+func (x *Clamp) GetMaximumSize() int {
 
 	return xClampGetMaximumSize(x.GoPointer())
 
 }
 
-var xClampGetTighteningThreshold func(uintptr) int32
+var xClampGetTighteningThreshold func(uintptr) int
 
 // Gets the size above which the child is clamped.
-func (x *Clamp) GetTighteningThreshold() int32 {
+func (x *Clamp) GetTighteningThreshold() int {
 
 	return xClampGetTighteningThreshold(x.GoPointer())
 
@@ -113,18 +113,18 @@ func (x *Clamp) SetChild(ChildVar *gtk.Widget) {
 
 }
 
-var xClampSetMaximumSize func(uintptr, int32)
+var xClampSetMaximumSize func(uintptr, int)
 
 // Sets the maximum size allocated to the child.
 //
 // It is the width if the clamp is horizontal, or the height if it is vertical.
-func (x *Clamp) SetMaximumSize(MaximumSizeVar int32) {
+func (x *Clamp) SetMaximumSize(MaximumSizeVar int) {
 
 	xClampSetMaximumSize(x.GoPointer(), MaximumSizeVar)
 
 }
 
-var xClampSetTighteningThreshold func(uintptr, int32)
+var xClampSetTighteningThreshold func(uintptr, int)
 
 // Sets the size above which the child is clamped.
 //
@@ -140,7 +140,7 @@ var xClampSetTighteningThreshold func(uintptr, int32)
 //
 // Effectively, tightening the grip on the child before it reaches its maximum
 // size makes transitions to and from the maximum size smoother when resizing.
-func (x *Clamp) SetTighteningThreshold(TighteningThresholdVar int32) {
+func (x *Clamp) SetTighteningThreshold(TighteningThresholdVar int) {
 
 	xClampSetTighteningThreshold(x.GoPointer(), TighteningThresholdVar)
 
@@ -212,7 +212,7 @@ func (x *Clamp) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Clamp) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Clamp) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -248,7 +248,7 @@ func (x *Clamp) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Clamp) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Clamp) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -281,7 +281,7 @@ func (x *Clamp) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interf
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Clamp) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Clamp) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

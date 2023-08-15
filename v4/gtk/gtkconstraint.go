@@ -62,11 +62,11 @@ func ConstraintNewFromInternalPtr(ptr uintptr) *Constraint {
 	return cls
 }
 
-var xNewConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, uintptr, ConstraintAttribute, float64, float64, int32) uintptr
+var xNewConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, uintptr, ConstraintAttribute, float64, float64, int) uintptr
 
 // Creates a new constraint representing a relation between a layout
 // attribute on a source and a layout attribute on a target.
-func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, SourceVar ConstraintTarget, SourceAttributeVar ConstraintAttribute, MultiplierVar float64, ConstantVar float64, StrengthVar int32) *Constraint {
+func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, SourceVar ConstraintTarget, SourceAttributeVar ConstraintAttribute, MultiplierVar float64, ConstantVar float64, StrengthVar int) *Constraint {
 	NewConstraintPtr := xNewConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, SourceVar.GoPointer(), SourceAttributeVar, MultiplierVar, ConstantVar, StrengthVar)
 	if NewConstraintPtr == 0 {
 		return nil
@@ -77,11 +77,11 @@ func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttr
 	return NewConstraintCls
 }
 
-var xNewConstantConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, float64, int32) uintptr
+var xNewConstantConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, float64, int) uintptr
 
 // Creates a new constraint representing a relation between a layout
 // attribute on a target and a constant value.
-func NewConstantConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, ConstantVar float64, StrengthVar int32) *Constraint {
+func NewConstantConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, ConstantVar float64, StrengthVar int) *Constraint {
 	NewConstantConstraintPtr := xNewConstantConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
 	if NewConstantConstraintPtr == 0 {
 		return nil
@@ -151,10 +151,10 @@ func (x *Constraint) GetSourceAttribute() ConstraintAttribute {
 
 }
 
-var xConstraintGetStrength func(uintptr) int32
+var xConstraintGetStrength func(uintptr) int
 
 // Retrieves the strength of the constraint.
-func (x *Constraint) GetStrength() int32 {
+func (x *Constraint) GetStrength() int {
 
 	return xConstraintGetStrength(x.GoPointer())
 

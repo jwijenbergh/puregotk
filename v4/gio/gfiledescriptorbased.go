@@ -20,7 +20,7 @@ type FileDescriptorBasedIface struct {
 type FileDescriptorBased interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	GetFd() int32
+	GetFd() int
 }
 type FileDescriptorBasedBase struct {
 	Ptr uintptr
@@ -35,13 +35,13 @@ func (x *FileDescriptorBasedBase) SetGoPointer(ptr uintptr) {
 }
 
 // Gets the underlying file descriptor.
-func (x *FileDescriptorBasedBase) GetFd() int32 {
+func (x *FileDescriptorBasedBase) GetFd() int {
 
 	return XGFileDescriptorBasedGetFd(x.GoPointer())
 
 }
 
-var XGFileDescriptorBasedGetFd func(uintptr) int32
+var XGFileDescriptorBasedGetFd func(uintptr) int
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

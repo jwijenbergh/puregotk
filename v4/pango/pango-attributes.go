@@ -59,7 +59,7 @@ type AttrFontFeatures struct {
 type AttrInt struct {
 	Attr uintptr
 
-	Value int32
+	Value int
 }
 
 // A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
@@ -115,7 +115,7 @@ type AttrShape struct {
 type AttrSize struct {
 	Attr uintptr
 
-	Size int32
+	Size int
 
 	Absolute uint
 }
@@ -381,7 +381,7 @@ func AttrBackgroundNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribut
 
 }
 
-var xAttrBaselineShiftNew func(int32) *Attribute
+var xAttrBaselineShiftNew func(int) *Attribute
 
 // Create a new baseline displacement attribute.
 //
@@ -394,7 +394,7 @@ var xAttrBaselineShiftNew func(int32) *Attribute
 //	&lt;img alt="Baseline Shift" src="baseline-shift-light.png"&gt;
 //
 // &lt;/picture&gt;
-func AttrBaselineShiftNew(ShiftVar int32) *Attribute {
+func AttrBaselineShiftNew(ShiftVar int) *Attribute {
 
 	return xAttrBaselineShiftNew(ShiftVar)
 
@@ -517,10 +517,10 @@ func AttrLanguageNew(LanguageVar *Language) *Attribute {
 
 }
 
-var xAttrLetterSpacingNew func(int32) *Attribute
+var xAttrLetterSpacingNew func(int) *Attribute
 
 // Create a new letter-spacing attribute.
-func AttrLetterSpacingNew(LetterSpacingVar int32) *Attribute {
+func AttrLetterSpacingNew(LetterSpacingVar int) *Attribute {
 
 	return xAttrLetterSpacingNew(LetterSpacingVar)
 
@@ -540,7 +540,7 @@ func AttrLineHeightNew(FactorVar float64) *Attribute {
 
 }
 
-var xAttrLineHeightNewAbsolute func(int32) *Attribute
+var xAttrLineHeightNewAbsolute func(int) *Attribute
 
 // Override the height of logical line extents to be @height.
 //
@@ -548,7 +548,7 @@ var xAttrLineHeightNewAbsolute func(int32) *Attribute
 // [method@Pango.LayoutLine.get_extents],
 // [method@Pango.LayoutLine.get_pixel_extents] and
 // [method@Pango.LayoutIter.get_line_extents].
-func AttrLineHeightNewAbsolute(HeightVar int32) *Attribute {
+func AttrLineHeightNewAbsolute(HeightVar int) *Attribute {
 
 	return xAttrLineHeightNewAbsolute(HeightVar)
 
@@ -587,10 +587,10 @@ func AttrOverlineNew(OverlineVar Overline) *Attribute {
 
 }
 
-var xAttrRiseNew func(int32) *Attribute
+var xAttrRiseNew func(int) *Attribute
 
 // Create a new baseline displacement attribute.
-func AttrRiseNew(RiseVar int32) *Attribute {
+func AttrRiseNew(RiseVar int) *Attribute {
 
 	return xAttrRiseNew(RiseVar)
 
@@ -657,19 +657,19 @@ func AttrShowNew(FlagsVar ShowFlags) *Attribute {
 
 }
 
-var xAttrSizeNew func(int32) *Attribute
+var xAttrSizeNew func(int) *Attribute
 
 // Create a new font-size attribute in fractional points.
-func AttrSizeNew(SizeVar int32) *Attribute {
+func AttrSizeNew(SizeVar int) *Attribute {
 
 	return xAttrSizeNew(SizeVar)
 
 }
 
-var xAttrSizeNewAbsolute func(int32) *Attribute
+var xAttrSizeNewAbsolute func(int) *Attribute
 
 // Create a new font-size attribute in device units.
-func AttrSizeNewAbsolute(SizeVar int32) *Attribute {
+func AttrSizeNewAbsolute(SizeVar int) *Attribute {
 
 	return xAttrSizeNewAbsolute(SizeVar)
 

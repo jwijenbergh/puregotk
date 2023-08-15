@@ -105,9 +105,9 @@ const (
 	GLogWriterUnhandledValue LogWriterOutput = 0
 )
 
-var xAssertWarning func(string, string, int32, string, string)
+var xAssertWarning func(string, string, int, string, string)
 
-func AssertWarning(LogDomainVar string, FileVar string, LineVar int32, PrettyFunctionVar string, ExpressionVar string) {
+func AssertWarning(LogDomainVar string, FileVar string, LineVar int, PrettyFunctionVar string, ExpressionVar string) {
 
 	xAssertWarning(LogDomainVar, FileVar, LineVar, PrettyFunctionVar, ExpressionVar)
 
@@ -591,7 +591,7 @@ func LogWriterFormatFields(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFields
 
 }
 
-var xLogWriterIsJournald func(int32) bool
+var xLogWriterIsJournald func(int) bool
 
 // Check whether the given @output_fd file descriptor is a connection to the
 // systemd journal, or something else (like a log file or `stdout` or
@@ -604,7 +604,7 @@ var xLogWriterIsJournald func(int32) bool
 //	is_journald = g_log_writer_is_journald (fileno (stderr));
 //
 // ]|
-func LogWriterIsJournald(OutputFdVar int32) bool {
+func LogWriterIsJournald(OutputFdVar int) bool {
 
 	return xLogWriterIsJournald(OutputFdVar)
 
@@ -649,12 +649,12 @@ func LogWriterStandardStreams(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFie
 
 }
 
-var xLogWriterSupportsColor func(int32) bool
+var xLogWriterSupportsColor func(int) bool
 
 // Check whether the given @output_fd file descriptor supports ANSI color
 // escape sequences. If so, they can safely be used when formatting log
 // messages.
-func LogWriterSupportsColor(OutputFdVar int32) bool {
+func LogWriterSupportsColor(OutputFdVar int) bool {
 
 	return xLogWriterSupportsColor(OutputFdVar)
 
@@ -764,11 +764,11 @@ func SetPrinterrHandler(FuncVar PrintFunc) PrintFunc {
 
 }
 
-var xWarnMessage func(string, string, int32, string, string)
+var xWarnMessage func(string, string, int, string, string)
 
 // Internal function used to print messages from the public g_warn_if_reached()
 // and g_warn_if_fail() macros.
-func WarnMessage(DomainVar string, FileVar string, LineVar int32, FuncVar string, WarnexprVar string) {
+func WarnMessage(DomainVar string, FileVar string, LineVar int, FuncVar string, WarnexprVar string) {
 
 	xWarnMessage(DomainVar, FileVar, LineVar, FuncVar, WarnexprVar)
 

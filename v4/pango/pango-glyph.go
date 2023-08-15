@@ -45,13 +45,13 @@ type GlyphInfo struct {
 // The storage for the glyph information is owned by the structure
 // which simplifies memory management.
 type GlyphString struct {
-	NumGlyphs int32
+	NumGlyphs int
 
 	Glyphs uintptr
 
-	LogClusters int32
+	LogClusters int
 
-	Space int32
+	Space int
 }
 
 // A `PangoGlyphVisAttr` structure communicates information between
@@ -97,7 +97,7 @@ const (
 	ShapeRoundPositionsValue ShapeFlags = 1
 )
 
-var xShape func(string, int32, *Analysis, *GlyphString)
+var xShape func(string, int, *Analysis, *GlyphString)
 
 // Convert the characters in @text into glyphs.
 //
@@ -113,13 +113,13 @@ var xShape func(string, int32, *Analysis, *GlyphString)
 // [func@Pango.itemize] have indices that are relative to the entire paragraph,
 // so you need to subtract the item offset from their indices before
 // calling [func@Pango.shape].
-func Shape(TextVar string, LengthVar int32, AnalysisVar *Analysis, GlyphsVar *GlyphString) {
+func Shape(TextVar string, LengthVar int, AnalysisVar *Analysis, GlyphsVar *GlyphString) {
 
 	xShape(TextVar, LengthVar, AnalysisVar, GlyphsVar)
 
 }
 
-var xShapeFull func(string, int32, string, int32, *Analysis, *GlyphString)
+var xShapeFull func(string, int, string, int, *Analysis, *GlyphString)
 
 // Convert the characters in @text into glyphs.
 //
@@ -138,13 +138,13 @@ var xShapeFull func(string, int32, string, int32, *Analysis, *GlyphString)
 // so you do not pass the full paragraph text as @paragraph_text, you need
 // to subtract the item offset from their indices before calling
 // [func@Pango.shape_full].
-func ShapeFull(ItemTextVar string, ItemLengthVar int32, ParagraphTextVar string, ParagraphLengthVar int32, AnalysisVar *Analysis, GlyphsVar *GlyphString) {
+func ShapeFull(ItemTextVar string, ItemLengthVar int, ParagraphTextVar string, ParagraphLengthVar int, AnalysisVar *Analysis, GlyphsVar *GlyphString) {
 
 	xShapeFull(ItemTextVar, ItemLengthVar, ParagraphTextVar, ParagraphLengthVar, AnalysisVar, GlyphsVar)
 
 }
 
-var xShapeItem func(*Item, string, int32, *LogAttr, *GlyphString, ShapeFlags)
+var xShapeItem func(*Item, string, int, *LogAttr, *GlyphString, ShapeFlags)
 
 // Convert the characters in @item into glyphs.
 //
@@ -158,13 +158,13 @@ var xShapeItem func(*Item, string, int32, *LogAttr, *GlyphString, ShapeFlags)
 // so you do not pass the full paragraph text as @paragraph_text, you need
 // to subtract the item offset from their indices before calling
 // [func@Pango.shape_with_flags].
-func ShapeItem(ItemVar *Item, ParagraphTextVar string, ParagraphLengthVar int32, LogAttrsVar *LogAttr, GlyphsVar *GlyphString, FlagsVar ShapeFlags) {
+func ShapeItem(ItemVar *Item, ParagraphTextVar string, ParagraphLengthVar int, LogAttrsVar *LogAttr, GlyphsVar *GlyphString, FlagsVar ShapeFlags) {
 
 	xShapeItem(ItemVar, ParagraphTextVar, ParagraphLengthVar, LogAttrsVar, GlyphsVar, FlagsVar)
 
 }
 
-var xShapeWithFlags func(string, int32, string, int32, *Analysis, *GlyphString, ShapeFlags)
+var xShapeWithFlags func(string, int, string, int, *Analysis, *GlyphString, ShapeFlags)
 
 // Convert the characters in @text into glyphs.
 //
@@ -180,7 +180,7 @@ var xShapeWithFlags func(string, int32, string, int32, *Analysis, *GlyphString, 
 // so you do not pass the full paragraph text as @paragraph_text, you need
 // to subtract the item offset from their indices before calling
 // [func@Pango.shape_with_flags].
-func ShapeWithFlags(ItemTextVar string, ItemLengthVar int32, ParagraphTextVar string, ParagraphLengthVar int32, AnalysisVar *Analysis, GlyphsVar *GlyphString, FlagsVar ShapeFlags) {
+func ShapeWithFlags(ItemTextVar string, ItemLengthVar int, ParagraphTextVar string, ParagraphLengthVar int, AnalysisVar *Analysis, GlyphsVar *GlyphString, FlagsVar ShapeFlags) {
 
 	xShapeWithFlags(ItemTextVar, ItemLengthVar, ParagraphTextVar, ParagraphLengthVar, AnalysisVar, GlyphsVar, FlagsVar)
 

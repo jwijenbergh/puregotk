@@ -52,7 +52,7 @@ func IMContextNewFromInternalPtr(ptr uintptr) *IMContext {
 	return cls
 }
 
-var xIMContextDeleteSurrounding func(uintptr, int32, int32) bool
+var xIMContextDeleteSurrounding func(uintptr, int, int) bool
 
 // Asks the widget that the input context is attached to delete
 // characters around the cursor position by emitting the
@@ -71,18 +71,18 @@ var xIMContextDeleteSurrounding func(uintptr, int32, int32) bool
 // This function is used by an input method that wants to make
 // subsitutions in the existing text in response to new input.
 // It is not useful for applications.
-func (x *IMContext) DeleteSurrounding(OffsetVar int32, NCharsVar int32) bool {
+func (x *IMContext) DeleteSurrounding(OffsetVar int, NCharsVar int) bool {
 
 	return xIMContextDeleteSurrounding(x.GoPointer(), OffsetVar, NCharsVar)
 
 }
 
-var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint, gdk.ModifierType, int32) bool
+var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint, gdk.ModifierType, int) bool
 
 // Allow an input method to forward key press and release events
 // to another input method without necessarily having a `GdkEvent`
 // available.
-func (x *IMContext) FilterKey(PressVar bool, SurfaceVar *gdk.Surface, DeviceVar *gdk.Device, TimeVar uint32, KeycodeVar uint, StateVar gdk.ModifierType, GroupVar int32) bool {
+func (x *IMContext) FilterKey(PressVar bool, SurfaceVar *gdk.Surface, DeviceVar *gdk.Device, TimeVar uint32, KeycodeVar uint, StateVar gdk.ModifierType, GroupVar int) bool {
 
 	return xIMContextFilterKey(x.GoPointer(), PressVar, SurfaceVar.GoPointer(), DeviceVar.GoPointer(), TimeVar, KeycodeVar, StateVar, GroupVar)
 
@@ -127,19 +127,19 @@ func (x *IMContext) FocusOut() {
 
 }
 
-var xIMContextGetPreeditString func(uintptr, string, **pango.AttrList, int32)
+var xIMContextGetPreeditString func(uintptr, string, **pango.AttrList, int)
 
 // Retrieve the current preedit string for the input context,
 // and a list of attributes to apply to the string.
 //
 // This string should be displayed inserted at the insertion point.
-func (x *IMContext) GetPreeditString(StrVar string, AttrsVar **pango.AttrList, CursorPosVar int32) {
+func (x *IMContext) GetPreeditString(StrVar string, AttrsVar **pango.AttrList, CursorPosVar int) {
 
 	xIMContextGetPreeditString(x.GoPointer(), StrVar, AttrsVar, CursorPosVar)
 
 }
 
-var xIMContextGetSurrounding func(uintptr, string, int32) bool
+var xIMContextGetSurrounding func(uintptr, string, int) bool
 
 // Retrieves context around the insertion point.
 //
@@ -156,13 +156,13 @@ var xIMContextGetSurrounding func(uintptr, string, int32) bool
 // Note that there is no obligation for a widget to respond to the
 // `::retrieve-surrounding` signal, so input methods must be prepared to
 // function without context.
-func (x *IMContext) GetSurrounding(TextVar string, CursorIndexVar int32) bool {
+func (x *IMContext) GetSurrounding(TextVar string, CursorIndexVar int) bool {
 
 	return xIMContextGetSurrounding(x.GoPointer(), TextVar, CursorIndexVar)
 
 }
 
-var xIMContextGetSurroundingWithSelection func(uintptr, string, int32, int32) bool
+var xIMContextGetSurroundingWithSelection func(uintptr, string, int, int) bool
 
 // Retrieves context around the insertion point.
 //
@@ -179,7 +179,7 @@ var xIMContextGetSurroundingWithSelection func(uintptr, string, int32, int32) bo
 // Note that there is no obligation for a widget to respond to the
 // `::retrieve-surrounding` signal, so input methods must be prepared to
 // function without context.
-func (x *IMContext) GetSurroundingWithSelection(TextVar string, CursorIndexVar int32, AnchorIndexVar int32) bool {
+func (x *IMContext) GetSurroundingWithSelection(TextVar string, CursorIndexVar int, AnchorIndexVar int) bool {
 
 	return xIMContextGetSurroundingWithSelection(x.GoPointer(), TextVar, CursorIndexVar, AnchorIndexVar)
 
@@ -222,7 +222,7 @@ func (x *IMContext) SetCursorLocation(AreaVar *gdk.Rectangle) {
 
 }
 
-var xIMContextSetSurrounding func(uintptr, string, int32, int32)
+var xIMContextSetSurrounding func(uintptr, string, int, int)
 
 // Sets surrounding context around the insertion point and preedit
 // string.
@@ -230,19 +230,19 @@ var xIMContextSetSurrounding func(uintptr, string, int32, int32)
 // This function is expected to be called in response to the
 // [signal@Gtk.IMContext::retrieve-surrounding] signal, and will
 // likely have no effect if called at other times.
-func (x *IMContext) SetSurrounding(TextVar string, LenVar int32, CursorIndexVar int32) {
+func (x *IMContext) SetSurrounding(TextVar string, LenVar int, CursorIndexVar int) {
 
 	xIMContextSetSurrounding(x.GoPointer(), TextVar, LenVar, CursorIndexVar)
 
 }
 
-var xIMContextSetSurroundingWithSelection func(uintptr, string, int32, int32, int32)
+var xIMContextSetSurroundingWithSelection func(uintptr, string, int, int, int)
 
 // Sets surrounding context around the insertion point and preedit
 // string. This function is expected to be called in response to the
 // [signal@Gtk.IMContext::retrieve_surrounding] signal, and will likely
 // have no effect if called at other times.
-func (x *IMContext) SetSurroundingWithSelection(TextVar string, LenVar int32, CursorIndexVar int32, AnchorIndexVar int32) {
+func (x *IMContext) SetSurroundingWithSelection(TextVar string, LenVar int, CursorIndexVar int, AnchorIndexVar int) {
 
 	xIMContextSetSurroundingWithSelection(x.GoPointer(), TextVar, LenVar, CursorIndexVar, AnchorIndexVar)
 
@@ -291,8 +291,8 @@ func (x *IMContext) ConnectCommit(cb func(IMContext, string)) {
 
 // The ::delete-surrounding signal is emitted when the input method
 // needs to delete all or part of the context surrounding the cursor.
-func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int32, int32) bool) {
-	fcb := func(clsPtr uintptr, OffsetVarp int32, NCharsVarp int32) bool {
+func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int, int) bool) {
+	fcb := func(clsPtr uintptr, OffsetVarp int, NCharsVarp int) bool {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
 

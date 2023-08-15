@@ -150,7 +150,7 @@ func (x *ComboBoxText) GetActiveText() string {
 
 }
 
-var xComboBoxTextInsert func(uintptr, int32, string, string)
+var xComboBoxTextInsert func(uintptr, int, string, string)
 
 // Inserts @text at @position in the list of strings stored in @combo_box.
 //
@@ -158,13 +158,13 @@ var xComboBoxTextInsert func(uintptr, int32, string, string)
 // See [property@Gtk.ComboBox:id-column].
 //
 // If @position is negative then @text is appended.
-func (x *ComboBoxText) Insert(PositionVar int32, IdVar string, TextVar string) {
+func (x *ComboBoxText) Insert(PositionVar int, IdVar string, TextVar string) {
 
 	xComboBoxTextInsert(x.GoPointer(), PositionVar, IdVar, TextVar)
 
 }
 
-var xComboBoxTextInsertText func(uintptr, int32, string)
+var xComboBoxTextInsertText func(uintptr, int, string)
 
 // Inserts @text at @position in the list of strings stored in @combo_box.
 //
@@ -172,7 +172,7 @@ var xComboBoxTextInsertText func(uintptr, int32, string)
 //
 // This is the same as calling [method@Gtk.ComboBoxText.insert]
 // with a %NULL ID string.
-func (x *ComboBoxText) InsertText(PositionVar int32, TextVar string) {
+func (x *ComboBoxText) InsertText(PositionVar int, TextVar string) {
 
 	xComboBoxTextInsertText(x.GoPointer(), PositionVar, TextVar)
 
@@ -204,10 +204,10 @@ func (x *ComboBoxText) PrependText(TextVar string) {
 
 }
 
-var xComboBoxTextRemove func(uintptr, int32)
+var xComboBoxTextRemove func(uintptr, int)
 
 // Removes the string at @position from @combo_box.
-func (x *ComboBoxText) Remove(PositionVar int32) {
+func (x *ComboBoxText) Remove(PositionVar int) {
 
 	xComboBoxTextRemove(x.GoPointer(), PositionVar)
 
@@ -288,7 +288,7 @@ func (x *ComboBoxText) UpdateProperty(FirstPropertyVar AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBoxText) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ComboBoxText) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -324,7 +324,7 @@ func (x *ComboBoxText) UpdateRelation(FirstRelationVar AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBoxText) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ComboBoxText) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -357,7 +357,7 @@ func (x *ComboBoxText) UpdateState(FirstStateVar AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBoxText) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ComboBoxText) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -410,7 +410,7 @@ func (x *ComboBoxText) StartEditing(EventVar *gdk.Event) {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *ComboBoxText) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *ComboBoxText) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -483,7 +483,7 @@ func (x *ComboBoxText) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *ComboBoxText) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *ComboBoxText) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

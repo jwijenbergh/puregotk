@@ -27,7 +27,7 @@ type FlowBoxForeachFunc func(uintptr, uintptr, uintptr)
 
 // A function to compare two children to determine which
 // should come first.
-type FlowBoxSortFunc func(uintptr, uintptr, uintptr) int32
+type FlowBoxSortFunc func(uintptr, uintptr, uintptr) int
 
 type FlowBoxChildClass struct {
 	ParentClass uintptr
@@ -153,10 +153,10 @@ func (x *FlowBox) GetActivateOnSingleClick() bool {
 
 }
 
-var xFlowBoxGetChildAtIndex func(uintptr, int32) uintptr
+var xFlowBoxGetChildAtIndex func(uintptr, int) uintptr
 
 // Gets the nth child in the @box.
-func (x *FlowBox) GetChildAtIndex(IdxVar int32) *FlowBoxChild {
+func (x *FlowBox) GetChildAtIndex(IdxVar int) *FlowBoxChild {
 
 	GetChildAtIndexPtr := xFlowBoxGetChildAtIndex(x.GoPointer(), IdxVar)
 	if GetChildAtIndexPtr == 0 {
@@ -171,12 +171,12 @@ func (x *FlowBox) GetChildAtIndex(IdxVar int32) *FlowBoxChild {
 
 }
 
-var xFlowBoxGetChildAtPos func(uintptr, int32, int32) uintptr
+var xFlowBoxGetChildAtPos func(uintptr, int, int) uintptr
 
 // Gets the child in the (@x, @y) position.
 //
 // Both @x and @y are assumed to be relative to the origin of @box.
-func (x *FlowBox) GetChildAtPos(XVar int32, YVar int32) *FlowBoxChild {
+func (x *FlowBox) GetChildAtPos(XVar int, YVar int) *FlowBoxChild {
 
 	GetChildAtPosPtr := xFlowBoxGetChildAtPos(x.GoPointer(), XVar, YVar)
 	if GetChildAtPosPtr == 0 {
@@ -254,7 +254,7 @@ func (x *FlowBox) GetSelectionMode() SelectionMode {
 
 }
 
-var xFlowBoxInsert func(uintptr, uintptr, int32)
+var xFlowBoxInsert func(uintptr, uintptr, int)
 
 // Inserts the @widget into @box at @position.
 //
@@ -263,7 +263,7 @@ var xFlowBoxInsert func(uintptr, uintptr, int32)
 //
 // If @position is -1, or larger than the total number of children
 // in the @box, then the @widget will be appended to the end.
-func (x *FlowBox) Insert(WidgetVar *Widget, PositionVar int32) {
+func (x *FlowBox) Insert(WidgetVar *Widget, PositionVar int) {
 
 	xFlowBoxInsert(x.GoPointer(), WidgetVar.GoPointer(), PositionVar)
 
@@ -570,8 +570,8 @@ func (x *FlowBox) ConnectChildActivated(cb func(FlowBox, uintptr)) {
 //     move by individual children
 //   - &lt;kbd&gt;Home&lt;/kbd&gt;, &lt;kbd&gt;End&lt;/kbd&gt; move to the ends of the box
 //   - &lt;kbd&gt;PgUp&lt;/kbd&gt;, &lt;kbd&gt;PgDn&lt;/kbd&gt; move vertically by pages
-func (x *FlowBox) ConnectMoveCursor(cb func(FlowBox, MovementStep, int32, bool, bool) bool) {
-	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int32, ExtendVarp bool, ModifyVarp bool) bool {
+func (x *FlowBox) ConnectMoveCursor(cb func(FlowBox, MovementStep, int, bool, bool) bool) {
+	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendVarp bool, ModifyVarp bool) bool {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
 
@@ -705,7 +705,7 @@ func (x *FlowBox) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ..
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBox) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *FlowBox) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -741,7 +741,7 @@ func (x *FlowBox) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ..
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBox) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *FlowBox) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -774,7 +774,7 @@ func (x *FlowBox) UpdateState(FirstStateVar AccessibleState, varArgs ...interfac
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBox) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *FlowBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -878,10 +878,10 @@ func (x *FlowBoxChild) GetChild() *Widget {
 
 }
 
-var xFlowBoxChildGetIndex func(uintptr) int32
+var xFlowBoxChildGetIndex func(uintptr) int
 
 // Gets the current index of the @child in its `GtkFlowBox` container.
-func (x *FlowBoxChild) GetIndex() int32 {
+func (x *FlowBoxChild) GetIndex() int {
 
 	return xFlowBoxChildGetIndex(x.GoPointer())
 
@@ -992,7 +992,7 @@ func (x *FlowBoxChild) UpdateProperty(FirstPropertyVar AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBoxChild) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *FlowBoxChild) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1028,7 +1028,7 @@ func (x *FlowBoxChild) UpdateRelation(FirstRelationVar AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBoxChild) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *FlowBoxChild) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1061,7 +1061,7 @@ func (x *FlowBoxChild) UpdateState(FirstStateVar AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FlowBoxChild) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *FlowBoxChild) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

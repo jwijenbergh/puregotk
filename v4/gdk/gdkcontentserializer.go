@@ -25,7 +25,7 @@ func ContentRegisterSerializer(TypeVar []interface{}, MimeTypeVar string, Serial
 
 }
 
-var xContentSerializeAsync func(uintptr, string, *gobject.Value, int32, uintptr, uintptr, uintptr)
+var xContentSerializeAsync func(uintptr, string, *gobject.Value, int, uintptr, uintptr, uintptr)
 
 // Serialize content and write it to the given output stream, asynchronously.
 //
@@ -34,7 +34,7 @@ var xContentSerializeAsync func(uintptr, string, *gobject.Value, int32, uintptr,
 //
 // When the operation is finished, @callback will be called. You must then
 // call [func@Gdk.content_serialize_finish] to get the result of the operation.
-func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentSerializeAsync(StreamVar.GoPointer(), MimeTypeVar, ValueVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -129,12 +129,12 @@ func (x *ContentSerializer) GetOutputStream() *gio.OutputStream {
 
 }
 
-var xContentSerializerGetPriority func(uintptr) int32
+var xContentSerializerGetPriority func(uintptr) int
 
 // Gets the I/O priority for the current operation.
 //
 // This is the priority that was passed to [func@content_serialize_async].
-func (x *ContentSerializer) GetPriority() int32 {
+func (x *ContentSerializer) GetPriority() int {
 
 	return xContentSerializerGetPriority(x.GoPointer())
 

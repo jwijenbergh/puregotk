@@ -424,11 +424,11 @@ func (x *CellArea) ApplyAttributes(TreeModelVar TreeModel, IterVar *TreeIter, Is
 
 }
 
-var xCellAreaAttributeConnect func(uintptr, uintptr, string, int32)
+var xCellAreaAttributeConnect func(uintptr, uintptr, string, int)
 
 // Connects an @attribute to apply values from @column for the
 // `GtkTreeModel` in use.
-func (x *CellArea) AttributeConnect(RendererVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *CellArea) AttributeConnect(RendererVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	xCellAreaAttributeConnect(x.GoPointer(), RendererVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -445,11 +445,11 @@ func (x *CellArea) AttributeDisconnect(RendererVar *CellRenderer, AttributeVar s
 
 }
 
-var xCellAreaAttributeGetColumn func(uintptr, uintptr, string) int32
+var xCellAreaAttributeGetColumn func(uintptr, uintptr, string) int
 
 // Returns the model column that an attribute has been mapped to,
 // or -1 if the attribute is not mapped.
-func (x *CellArea) AttributeGetColumn(RendererVar *CellRenderer, AttributeVar string) int32 {
+func (x *CellArea) AttributeGetColumn(RendererVar *CellRenderer, AttributeVar string) int {
 
 	return xCellAreaAttributeGetColumn(x.GoPointer(), RendererVar.GoPointer(), AttributeVar)
 
@@ -556,10 +556,10 @@ func (x *CellArea) CreateContext() *CellAreaContext {
 
 }
 
-var xCellAreaEvent func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangle, CellRendererState) int32
+var xCellAreaEvent func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangle, CellRendererState) int
 
 // Delegates event handling to a `GtkCellArea`.
-func (x *CellArea) Event(ContextVar *CellAreaContext, WidgetVar *Widget, EventVar *gdk.Event, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) int32 {
+func (x *CellArea) Event(ContextVar *CellAreaContext, WidgetVar *Widget, EventVar *gdk.Event, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) int {
 
 	return xCellAreaEvent(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), EventVar.GoPointer(), CellAreaVar, FlagsVar)
 
@@ -609,11 +609,11 @@ func (x *CellArea) GetCellAllocation(ContextVar *CellAreaContext, WidgetVar *Wid
 
 }
 
-var xCellAreaGetCellAtPosition func(uintptr, uintptr, uintptr, *gdk.Rectangle, int32, int32, *gdk.Rectangle) uintptr
+var xCellAreaGetCellAtPosition func(uintptr, uintptr, uintptr, *gdk.Rectangle, int, int, *gdk.Rectangle) uintptr
 
 // Gets the `GtkCellRenderer` at @x and @y coordinates inside @area and optionally
 // returns the full cell allocation for it inside @cell_area.
-func (x *CellArea) GetCellAtPosition(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, XVar int32, YVar int32, AllocAreaVar *gdk.Rectangle) *CellRenderer {
+func (x *CellArea) GetCellAtPosition(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, XVar int, YVar int, AllocAreaVar *gdk.Rectangle) *CellRenderer {
 
 	GetCellAtPositionPtr := xCellAreaGetCellAtPosition(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, XVar, YVar, AllocAreaVar)
 	if GetCellAtPositionPtr == 0 {
@@ -730,7 +730,7 @@ func (x *CellArea) GetFocusSiblings(RendererVar *CellRenderer) *glib.List {
 
 }
 
-var xCellAreaGetPreferredHeight func(uintptr, uintptr, uintptr, int32, int32)
+var xCellAreaGetPreferredHeight func(uintptr, uintptr, uintptr, int, int)
 
 // Retrieves a cell area’s initial minimum and natural height.
 //
@@ -739,13 +739,13 @@ var xCellAreaGetPreferredHeight func(uintptr, uintptr, uintptr, int32, int32)
 // to check the @minimum_height and @natural_height of this call but rather to
 // consult gtk_cell_area_context_get_preferred_height() after a series of
 // requests.
-func (x *CellArea) GetPreferredHeight(ContextVar *CellAreaContext, WidgetVar *Widget, MinimumHeightVar int32, NaturalHeightVar int32) {
+func (x *CellArea) GetPreferredHeight(ContextVar *CellAreaContext, WidgetVar *Widget, MinimumHeightVar int, NaturalHeightVar int) {
 
 	xCellAreaGetPreferredHeight(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), MinimumHeightVar, NaturalHeightVar)
 
 }
 
-var xCellAreaGetPreferredHeightForWidth func(uintptr, uintptr, uintptr, int32, int32, int32)
+var xCellAreaGetPreferredHeightForWidth func(uintptr, uintptr, uintptr, int, int, int)
 
 // Retrieves a cell area’s minimum and natural height if it would be given
 // the specified @width.
@@ -761,13 +761,13 @@ var xCellAreaGetPreferredHeightForWidth func(uintptr, uintptr, uintptr, int32, i
 // requested with gtk_cell_area_get_preferred_width() again and then
 // the full width of the requested rows checked again with
 // gtk_cell_area_context_get_preferred_width().
-func (x *CellArea) GetPreferredHeightForWidth(ContextVar *CellAreaContext, WidgetVar *Widget, WidthVar int32, MinimumHeightVar int32, NaturalHeightVar int32) {
+func (x *CellArea) GetPreferredHeightForWidth(ContextVar *CellAreaContext, WidgetVar *Widget, WidthVar int, MinimumHeightVar int, NaturalHeightVar int) {
 
 	xCellAreaGetPreferredHeightForWidth(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), WidthVar, MinimumHeightVar, NaturalHeightVar)
 
 }
 
-var xCellAreaGetPreferredWidth func(uintptr, uintptr, uintptr, int32, int32)
+var xCellAreaGetPreferredWidth func(uintptr, uintptr, uintptr, int, int)
 
 // Retrieves a cell area’s initial minimum and natural width.
 //
@@ -776,13 +776,13 @@ var xCellAreaGetPreferredWidth func(uintptr, uintptr, uintptr, int32, int32)
 // to check the @minimum_width and @natural_width of this call but rather to
 // consult gtk_cell_area_context_get_preferred_width() after a series of
 // requests.
-func (x *CellArea) GetPreferredWidth(ContextVar *CellAreaContext, WidgetVar *Widget, MinimumWidthVar int32, NaturalWidthVar int32) {
+func (x *CellArea) GetPreferredWidth(ContextVar *CellAreaContext, WidgetVar *Widget, MinimumWidthVar int, NaturalWidthVar int) {
 
 	xCellAreaGetPreferredWidth(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), MinimumWidthVar, NaturalWidthVar)
 
 }
 
-var xCellAreaGetPreferredWidthForHeight func(uintptr, uintptr, uintptr, int32, int32, int32)
+var xCellAreaGetPreferredWidthForHeight func(uintptr, uintptr, uintptr, int, int, int)
 
 // Retrieves a cell area’s minimum and natural width if it would be given
 // the specified @height.
@@ -798,7 +798,7 @@ var xCellAreaGetPreferredWidthForHeight func(uintptr, uintptr, uintptr, int32, i
 // requested with gtk_cell_area_get_preferred_height() again and then
 // the full height of the requested rows checked again with
 // gtk_cell_area_context_get_preferred_height().
-func (x *CellArea) GetPreferredWidthForHeight(ContextVar *CellAreaContext, WidgetVar *Widget, HeightVar int32, MinimumWidthVar int32, NaturalWidthVar int32) {
+func (x *CellArea) GetPreferredWidthForHeight(ContextVar *CellAreaContext, WidgetVar *Widget, HeightVar int, MinimumWidthVar int, NaturalWidthVar int) {
 
 	xCellAreaGetPreferredWidthForHeight(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), HeightVar, MinimumWidthVar, NaturalWidthVar)
 
@@ -873,14 +873,14 @@ func (x *CellArea) RemoveFocusSibling(RendererVar *CellRenderer, SiblingVar *Cel
 
 }
 
-var xCellAreaRequestRenderer func(uintptr, uintptr, Orientation, uintptr, int32, int32, int32)
+var xCellAreaRequestRenderer func(uintptr, uintptr, Orientation, uintptr, int, int, int)
 
 // This is a convenience function for `GtkCellArea` implementations
 // to request size for cell renderers. It’s important to use this
 // function to request size and then use gtk_cell_area_inner_cell_area()
 // at render and event time since this function will add padding
 // around the cell for focus painting.
-func (x *CellArea) RequestRenderer(RendererVar *CellRenderer, OrientationVar Orientation, WidgetVar *Widget, ForSizeVar int32, MinimumSizeVar int32, NaturalSizeVar int32) {
+func (x *CellArea) RequestRenderer(RendererVar *CellRenderer, OrientationVar Orientation, WidgetVar *Widget, ForSizeVar int, MinimumSizeVar int, NaturalSizeVar int) {
 
 	xCellAreaRequestRenderer(x.GoPointer(), RendererVar.GoPointer(), OrientationVar, WidgetVar.GoPointer(), ForSizeVar, MinimumSizeVar, NaturalSizeVar)
 
@@ -1008,7 +1008,7 @@ func (x *CellArea) GetBuildableId() string {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *CellArea) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *CellArea) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -1081,7 +1081,7 @@ func (x *CellArea) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *CellArea) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *CellArea) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

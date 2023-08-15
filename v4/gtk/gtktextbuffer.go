@@ -414,7 +414,7 @@ func (x *TextBuffer) GetCanUndo() bool {
 
 }
 
-var xTextBufferGetCharCount func(uintptr) int32
+var xTextBufferGetCharCount func(uintptr) int
 
 // Gets the number of characters in the buffer.
 //
@@ -423,7 +423,7 @@ var xTextBufferGetCharCount func(uintptr) int32
 // many bytes long.
 //
 // The character count is cached, so this function is very fast.
-func (x *TextBuffer) GetCharCount() int32 {
+func (x *TextBuffer) GetCharCount() int {
 
 	return xTextBufferGetCharCount(x.GoPointer())
 
@@ -499,19 +499,19 @@ func (x *TextBuffer) GetIterAtChildAnchor(IterVar *TextIter, AnchorVar *TextChil
 
 }
 
-var xTextBufferGetIterAtLine func(uintptr, *TextIter, int32) bool
+var xTextBufferGetIterAtLine func(uintptr, *TextIter, int) bool
 
 // Initializes @iter to the start of the given line.
 //
 // If @line_number is greater than or equal to the number of lines
 // in the @buffer, the end iterator is returned.
-func (x *TextBuffer) GetIterAtLine(IterVar *TextIter, LineNumberVar int32) bool {
+func (x *TextBuffer) GetIterAtLine(IterVar *TextIter, LineNumberVar int) bool {
 
 	return xTextBufferGetIterAtLine(x.GoPointer(), IterVar, LineNumberVar)
 
 }
 
-var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int32, int32) bool
+var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int, int) bool
 
 // Obtains an iterator pointing to @byte_index within the given line.
 //
@@ -521,13 +521,13 @@ var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int32, int32) bool
 // If @line_number is greater than or equal to the number of lines in the @buffer,
 // the end iterator is returned. And if @byte_index is off the
 // end of the line, the iterator at the end of the line is returned.
-func (x *TextBuffer) GetIterAtLineIndex(IterVar *TextIter, LineNumberVar int32, ByteIndexVar int32) bool {
+func (x *TextBuffer) GetIterAtLineIndex(IterVar *TextIter, LineNumberVar int, ByteIndexVar int) bool {
 
 	return xTextBufferGetIterAtLineIndex(x.GoPointer(), IterVar, LineNumberVar, ByteIndexVar)
 
 }
 
-var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int32, int32) bool
+var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int, int) bool
 
 // Obtains an iterator pointing to @char_offset within the given line.
 //
@@ -537,7 +537,7 @@ var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int32, int32) bool
 // If @line_number is greater than or equal to the number of lines in the @buffer,
 // the end iterator is returned. And if @char_offset is off the
 // end of the line, the iterator at the end of the line is returned.
-func (x *TextBuffer) GetIterAtLineOffset(IterVar *TextIter, LineNumberVar int32, CharOffsetVar int32) bool {
+func (x *TextBuffer) GetIterAtLineOffset(IterVar *TextIter, LineNumberVar int, CharOffsetVar int) bool {
 
 	return xTextBufferGetIterAtLineOffset(x.GoPointer(), IterVar, LineNumberVar, CharOffsetVar)
 
@@ -552,7 +552,7 @@ func (x *TextBuffer) GetIterAtMark(IterVar *TextIter, MarkVar *TextMark) {
 
 }
 
-var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int32)
+var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int)
 
 // Initializes @iter to a position @char_offset chars from the start
 // of the entire buffer.
@@ -560,18 +560,18 @@ var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int32)
 // If @char_offset is -1 or greater than the number
 // of characters in the buffer, @iter is initialized to the end iterator,
 // the iterator one past the last valid character in the buffer.
-func (x *TextBuffer) GetIterAtOffset(IterVar *TextIter, CharOffsetVar int32) {
+func (x *TextBuffer) GetIterAtOffset(IterVar *TextIter, CharOffsetVar int) {
 
 	xTextBufferGetIterAtOffset(x.GoPointer(), IterVar, CharOffsetVar)
 
 }
 
-var xTextBufferGetLineCount func(uintptr) int32
+var xTextBufferGetLineCount func(uintptr) int
 
 // Obtains the number of lines in the buffer.
 //
 // This value is cached, so the function is very fast.
-func (x *TextBuffer) GetLineCount() int32 {
+func (x *TextBuffer) GetLineCount() int {
 
 	return xTextBufferGetLineCount(x.GoPointer())
 
@@ -749,7 +749,7 @@ func (x *TextBuffer) GetText(StartVar *TextIter, EndVar *TextIter, IncludeHidden
 
 }
 
-var xTextBufferInsert func(uintptr, *TextIter, string, int32)
+var xTextBufferInsert func(uintptr, *TextIter, string, int)
 
 // Inserts @len bytes of @text at position @iter.
 //
@@ -759,19 +759,19 @@ var xTextBufferInsert func(uintptr, *TextIter, string, int32)
 // insertion occurs (because the buffer contents change), but the
 // default signal handler revalidates it to point to the end of the
 // inserted text.
-func (x *TextBuffer) Insert(IterVar *TextIter, TextVar string, LenVar int32) {
+func (x *TextBuffer) Insert(IterVar *TextIter, TextVar string, LenVar int) {
 
 	xTextBufferInsert(x.GoPointer(), IterVar, TextVar, LenVar)
 
 }
 
-var xTextBufferInsertAtCursor func(uintptr, string, int32)
+var xTextBufferInsertAtCursor func(uintptr, string, int)
 
 // Inserts @text in @buffer.
 //
 // Simply calls [method@Gtk.TextBuffer.insert],
 // using the current cursor position as the insertion point.
-func (x *TextBuffer) InsertAtCursor(TextVar string, LenVar int32) {
+func (x *TextBuffer) InsertAtCursor(TextVar string, LenVar int) {
 
 	xTextBufferInsertAtCursor(x.GoPointer(), TextVar, LenVar)
 
@@ -798,7 +798,7 @@ func (x *TextBuffer) InsertChildAnchor(IterVar *TextIter, AnchorVar *TextChildAn
 
 }
 
-var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int32, bool) bool
+var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int, bool) bool
 
 // Inserts @text in @buffer.
 //
@@ -810,13 +810,13 @@ var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int32, bool) b
 // @default_editable indicates the editability of text that doesn't
 // have a tag affecting editability applied to it. Typically the
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
-func (x *TextBuffer) InsertInteractive(IterVar *TextIter, TextVar string, LenVar int32, DefaultEditableVar bool) bool {
+func (x *TextBuffer) InsertInteractive(IterVar *TextIter, TextVar string, LenVar int, DefaultEditableVar bool) bool {
 
 	return xTextBufferInsertInteractive(x.GoPointer(), IterVar, TextVar, LenVar, DefaultEditableVar)
 
 }
 
-var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int32, bool) bool
+var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int, bool) bool
 
 // Inserts @text in @buffer.
 //
@@ -826,13 +826,13 @@ var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int32, bool) bool
 // @default_editable indicates the editability of text that doesn't
 // have a tag affecting editability applied to it. Typically the
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
-func (x *TextBuffer) InsertInteractiveAtCursor(TextVar string, LenVar int32, DefaultEditableVar bool) bool {
+func (x *TextBuffer) InsertInteractiveAtCursor(TextVar string, LenVar int, DefaultEditableVar bool) bool {
 
 	return xTextBufferInsertInteractiveAtCursor(x.GoPointer(), TextVar, LenVar, DefaultEditableVar)
 
 }
 
-var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int32)
+var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int)
 
 // Inserts the text in @markup at position @iter.
 //
@@ -840,7 +840,7 @@ var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int32)
 // and valid UTF-8. Emits the [signal@Gtk.TextBuffer::insert-text] signal,
 // possibly multiple times; insertion actually occurs in the default handler
 // for the signal. @iter will point to the end of the inserted text on return.
-func (x *TextBuffer) InsertMarkup(IterVar *TextIter, MarkupVar string, LenVar int32) {
+func (x *TextBuffer) InsertMarkup(IterVar *TextIter, MarkupVar string, LenVar int) {
 
 	xTextBufferInsertMarkup(x.GoPointer(), IterVar, MarkupVar, LenVar)
 
@@ -898,7 +898,7 @@ func (x *TextBuffer) InsertRangeInteractive(IterVar *TextIter, StartVar *TextIte
 
 }
 
-var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int32, uintptr, ...interface{})
+var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int, uintptr, ...interface{})
 
 // Inserts @text into @buffer at @iter, applying the list of tags to
 // the newly-inserted text.
@@ -907,20 +907,20 @@ var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int32, uintptr, .
 // Equivalent to calling [method@Gtk.TextBuffer.insert],
 // then [method@Gtk.TextBuffer.apply_tag] on the inserted text;
 // this is just a convenience function.
-func (x *TextBuffer) InsertWithTags(IterVar *TextIter, TextVar string, LenVar int32, FirstTagVar *TextTag, varArgs ...interface{}) {
+func (x *TextBuffer) InsertWithTags(IterVar *TextIter, TextVar string, LenVar int, FirstTagVar *TextTag, varArgs ...interface{}) {
 
 	xTextBufferInsertWithTags(x.GoPointer(), IterVar, TextVar, LenVar, FirstTagVar.GoPointer(), varArgs...)
 
 }
 
-var xTextBufferInsertWithTagsByName func(uintptr, *TextIter, string, int32, string, ...interface{})
+var xTextBufferInsertWithTagsByName func(uintptr, *TextIter, string, int, string, ...interface{})
 
 // Inserts @text into @buffer at @iter, applying the list of tags to
 // the newly-inserted text.
 //
 // Same as [method@Gtk.TextBuffer.insert_with_tags], but allows you
 // to pass in tag names instead of tag objects.
-func (x *TextBuffer) InsertWithTagsByName(IterVar *TextIter, TextVar string, LenVar int32, FirstTagNameVar string, varArgs ...interface{}) {
+func (x *TextBuffer) InsertWithTagsByName(IterVar *TextIter, TextVar string, LenVar int, FirstTagNameVar string, varArgs ...interface{}) {
 
 	xTextBufferInsertWithTagsByName(x.GoPointer(), IterVar, TextVar, LenVar, FirstTagNameVar, varArgs...)
 
@@ -1108,7 +1108,7 @@ func (x *TextBuffer) SetModified(SettingVar bool) {
 
 }
 
-var xTextBufferSetText func(uintptr, string, int32)
+var xTextBufferSetText func(uintptr, string, int)
 
 // Deletes current contents of @buffer, and inserts @text instead. This is
 // automatically marked as an irreversible action in the undo stack. If you
@@ -1117,7 +1117,7 @@ var xTextBufferSetText func(uintptr, string, int32)
 //
 // If @len is -1, @text must be nul-terminated.
 // @text must be valid UTF-8.
-func (x *TextBuffer) SetText(TextVar string, LenVar int32) {
+func (x *TextBuffer) SetText(TextVar string, LenVar int) {
 
 	xTextBufferSetText(x.GoPointer(), TextVar, LenVar)
 
@@ -1293,8 +1293,8 @@ func (x *TextBuffer) ConnectInsertPaintable(cb func(TextBuffer, uintptr, uintptr
 //
 // See also: [method@Gtk.TextBuffer.insert],
 // [method@Gtk.TextBuffer.insert_range].
-func (x *TextBuffer) ConnectInsertText(cb func(TextBuffer, uintptr, string, int32)) {
-	fcb := func(clsPtr uintptr, LocationVarp uintptr, TextVarp string, LenVarp int32) {
+func (x *TextBuffer) ConnectInsertText(cb func(TextBuffer, uintptr, string, int)) {
+	fcb := func(clsPtr uintptr, LocationVarp uintptr, TextVarp string, LenVarp int) {
 		fa := TextBuffer{}
 		fa.Ptr = clsPtr
 

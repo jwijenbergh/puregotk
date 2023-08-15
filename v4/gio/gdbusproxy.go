@@ -151,7 +151,7 @@ func NewSyncDBusProxy(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, In
 	return NewSyncDBusProxyCls
 }
 
-var xDBusProxyCall func(uintptr, string, *glib.Variant, DBusCallFlags, int32, uintptr, uintptr, uintptr)
+var xDBusProxyCall func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, uintptr, uintptr)
 
 // Asynchronously invokes the @method_name method on @proxy.
 //
@@ -197,7 +197,7 @@ var xDBusProxyCall func(uintptr, string, *glib.Variant, DBusCallFlags, int32, ui
 //
 // If @callback is %NULL then the D-Bus method call message will be sent with
 // the %G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
-func (x *DBusProxy) Call(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusProxy) Call(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDBusProxyCall(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -212,7 +212,7 @@ func (x *DBusProxy) CallFinish(ResVar AsyncResult) *glib.Variant {
 
 }
 
-var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int32, uintptr) *glib.Variant
+var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr) *glib.Variant
 
 // Synchronously invokes the @method_name method on @proxy.
 //
@@ -250,18 +250,18 @@ var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int32
 // If @proxy has an expected interface (see
 // #GDBusProxy:g-interface-info) and @method_name is referenced by it,
 // then the return value is checked against the return type.
-func (x *DBusProxy) CallSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int32, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusProxy) CallSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) *glib.Variant {
 
 	return xDBusProxyCallSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer())
 
 }
 
-var xDBusProxyCallWithUnixFdList func(uintptr, string, *glib.Variant, DBusCallFlags, int32, uintptr, uintptr, uintptr, uintptr)
+var xDBusProxyCallWithUnixFdList func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, uintptr, uintptr, uintptr)
 
 // Like g_dbus_proxy_call() but also takes a #GUnixFDList object.
 //
 // This method is only available on UNIX.
-func (x *DBusProxy) CallWithUnixFdList(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int32, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusProxy) CallWithUnixFdList(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDBusProxyCallWithUnixFdList(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -276,12 +276,12 @@ func (x *DBusProxy) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, ResVar A
 
 }
 
-var xDBusProxyCallWithUnixFdListSync func(uintptr, string, *glib.Variant, DBusCallFlags, int32, uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusProxyCallWithUnixFdListSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, *uintptr, uintptr) *glib.Variant
 
 // Like g_dbus_proxy_call_sync() but also takes and returns #GUnixFDList objects.
 //
 // This method is only available on UNIX.
-func (x *DBusProxy) CallWithUnixFdListSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int32, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusProxy) CallWithUnixFdListSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
 
 	return xDBusProxyCallWithUnixFdListSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer())
 
@@ -328,14 +328,14 @@ func (x *DBusProxy) GetConnection() *DBusConnection {
 
 }
 
-var xDBusProxyGetDefaultTimeout func(uintptr) int32
+var xDBusProxyGetDefaultTimeout func(uintptr) int
 
 // Gets the timeout to use if -1 (specifying default timeout) is
 // passed as @timeout_msec in the g_dbus_proxy_call() and
 // g_dbus_proxy_call_sync() functions.
 //
 // See the #GDBusProxy:g-default-timeout property for more details.
-func (x *DBusProxy) GetDefaultTimeout() int32 {
+func (x *DBusProxy) GetDefaultTimeout() int {
 
 	return xDBusProxyGetDefaultTimeout(x.GoPointer())
 
@@ -447,14 +447,14 @@ func (x *DBusProxy) SetCachedProperty(PropertyNameVar string, ValueVar *glib.Var
 
 }
 
-var xDBusProxySetDefaultTimeout func(uintptr, int32)
+var xDBusProxySetDefaultTimeout func(uintptr, int)
 
 // Sets the timeout to use if -1 (specifying default timeout) is
 // passed as @timeout_msec in the g_dbus_proxy_call() and
 // g_dbus_proxy_call_sync() functions.
 //
 // See the #GDBusProxy:g-default-timeout property for more details.
-func (x *DBusProxy) SetDefaultTimeout(TimeoutMsecVar int32) {
+func (x *DBusProxy) SetDefaultTimeout(TimeoutMsecVar int) {
 
 	xDBusProxySetDefaultTimeout(x.GoPointer(), TimeoutMsecVar)
 
@@ -554,7 +554,7 @@ func (x *DBusProxy) ConnectGSignal(cb func(DBusProxy, string, string, uintptr)) 
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *DBusProxy) InitAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusProxy) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

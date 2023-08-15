@@ -27,7 +27,7 @@ func Base64DecodeInplace(TextVar uintptr, OutLenVar uint) byte {
 
 }
 
-var xBase64DecodeStep func(uintptr, uint, uintptr, int32, uint) uint
+var xBase64DecodeStep func(uintptr, uint, uintptr, int, uint) uint
 
 // Incrementally decode a sequence of binary data from its Base-64 stringified
 // representation. By calling this function multiple times you can convert
@@ -37,7 +37,7 @@ var xBase64DecodeStep func(uintptr, uint, uintptr, int32, uint) uint
 // be written to it. Since base64 encodes 3 bytes in 4 chars you need
 // at least: (@len / 4) * 3 + 3 bytes (+ 3 may be needed in case of non-zero
 // state).
-func Base64DecodeStep(InVar uintptr, LenVar uint, OutVar uintptr, StateVar int32, SaveVar uint) uint {
+func Base64DecodeStep(InVar uintptr, LenVar uint, OutVar uintptr, StateVar int, SaveVar uint) uint {
 
 	return xBase64DecodeStep(InVar, LenVar, OutVar, StateVar, SaveVar)
 
@@ -53,7 +53,7 @@ func Base64Encode(DataVar uintptr, LenVar uint) string {
 
 }
 
-var xBase64EncodeClose func(bool, uintptr, int32, int32) uint
+var xBase64EncodeClose func(bool, uintptr, int, int) uint
 
 // Flush the status from a sequence of calls to g_base64_encode_step().
 //
@@ -62,13 +62,13 @@ var xBase64EncodeClose func(bool, uintptr, int32, int32) uint
 // line-breaking is enabled.
 //
 // The @out array will not be automatically nul-terminated.
-func Base64EncodeClose(BreakLinesVar bool, OutVar uintptr, StateVar int32, SaveVar int32) uint {
+func Base64EncodeClose(BreakLinesVar bool, OutVar uintptr, StateVar int, SaveVar int) uint {
 
 	return xBase64EncodeClose(BreakLinesVar, OutVar, StateVar, SaveVar)
 
 }
 
-var xBase64EncodeStep func(uintptr, uint, bool, uintptr, int32, int32) uint
+var xBase64EncodeStep func(uintptr, uint, bool, uintptr, int, int) uint
 
 // Incrementally encode a sequence of binary data into its Base-64 stringified
 // representation. By calling this function multiple times you can convert
@@ -89,7 +89,7 @@ var xBase64EncodeStep func(uintptr, uint, bool, uintptr, int32, int32) uint
 // Note however that it breaks the lines with `LF` characters, not
 // `CR LF` sequences, so the result cannot be passed directly to SMTP
 // or certain other protocols.
-func Base64EncodeStep(InVar uintptr, LenVar uint, BreakLinesVar bool, OutVar uintptr, StateVar int32, SaveVar int32) uint {
+func Base64EncodeStep(InVar uintptr, LenVar uint, BreakLinesVar bool, OutVar uintptr, StateVar int, SaveVar int) uint {
 
 	return xBase64EncodeStep(InVar, LenVar, BreakLinesVar, OutVar, StateVar, SaveVar)
 

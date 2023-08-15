@@ -53,7 +53,7 @@ func (x *FileInputStream) QueryInfo(AttributesVar string, CancellableVar *Cancel
 
 }
 
-var xFileInputStreamQueryInfoAsync func(uintptr, string, int32, uintptr, uintptr, uintptr)
+var xFileInputStreamQueryInfoAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
 
 // Queries the stream information asynchronously.
 // When the operation is finished @callback will be called.
@@ -66,7 +66,7 @@ var xFileInputStreamQueryInfoAsync func(uintptr, string, int32, uintptr, uintptr
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be set
-func (x *FileInputStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileInputStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileInputStreamQueryInfoAsync(x.GoPointer(), AttributesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

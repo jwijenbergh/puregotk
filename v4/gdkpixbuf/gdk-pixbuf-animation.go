@@ -124,10 +124,10 @@ func NewFromStreamFinishPixbufAnimation(AsyncResultVar gio.AsyncResult) *PixbufA
 	return NewFromStreamFinishPixbufAnimationCls
 }
 
-var xPixbufAnimationGetHeight func(uintptr) int32
+var xPixbufAnimationGetHeight func(uintptr) int
 
 // Queries the height of the bounding box of a pixbuf animation.
-func (x *PixbufAnimation) GetHeight() int32 {
+func (x *PixbufAnimation) GetHeight() int {
 
 	return xPixbufAnimationGetHeight(x.GoPointer())
 
@@ -210,10 +210,10 @@ func (x *PixbufAnimation) GetStaticImage() *Pixbuf {
 
 }
 
-var xPixbufAnimationGetWidth func(uintptr) int32
+var xPixbufAnimationGetWidth func(uintptr) int
 
 // Queries the width of the bounding box of a pixbuf animation.
-func (x *PixbufAnimation) GetWidth() int32 {
+func (x *PixbufAnimation) GetWidth() int {
 
 	return xPixbufAnimationGetWidth(x.GoPointer())
 
@@ -307,7 +307,7 @@ func (x *PixbufAnimationIter) Advance(CurrentTimeVar *glib.TimeVal) bool {
 
 }
 
-var xPixbufAnimationIterGetDelayTime func(uintptr) int32
+var xPixbufAnimationIterGetDelayTime func(uintptr) int
 
 // Gets the number of milliseconds the current pixbuf should be displayed,
 // or -1 if the current pixbuf should be displayed forever.
@@ -318,7 +318,7 @@ var xPixbufAnimationIterGetDelayTime func(uintptr) int32
 // Note that some formats, like GIF, might clamp the timeout values in the
 // image file to avoid updates that are just too quick. The minimum timeout
 // for GIF images is currently 20 milliseconds.
-func (x *PixbufAnimationIter) GetDelayTime() int32 {
+func (x *PixbufAnimationIter) GetDelayTime() int {
 
 	return xPixbufAnimationIterGetDelayTime(x.GoPointer())
 

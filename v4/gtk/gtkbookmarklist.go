@@ -63,10 +63,10 @@ func (x *BookmarkList) GetFilename() string {
 
 }
 
-var xBookmarkListGetIoPriority func(uintptr) int32
+var xBookmarkListGetIoPriority func(uintptr) int
 
 // Gets the IO priority to use while loading file.
-func (x *BookmarkList) GetIoPriority() int32 {
+func (x *BookmarkList) GetIoPriority() int {
 
 	return xBookmarkListGetIoPriority(x.GoPointer())
 
@@ -97,12 +97,12 @@ func (x *BookmarkList) SetAttributes(AttributesVar string) {
 
 }
 
-var xBookmarkListSetIoPriority func(uintptr, int32)
+var xBookmarkListSetIoPriority func(uintptr, int)
 
 // Sets the IO priority to use while loading files.
 //
 // The default IO priority is %G_PRIORITY_DEFAULT.
-func (x *BookmarkList) SetIoPriority(IoPriorityVar int32) {
+func (x *BookmarkList) SetIoPriority(IoPriorityVar int) {
 
 	xBookmarkListSetIoPriority(x.GoPointer(), IoPriorityVar)
 

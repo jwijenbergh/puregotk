@@ -102,10 +102,10 @@ func (x *PrintUnixDialog) AddCustomTab(ChildVar *Widget, TabLabelVar *Widget) {
 
 }
 
-var xPrintUnixDialogGetCurrentPage func(uintptr) int32
+var xPrintUnixDialogGetCurrentPage func(uintptr) int
 
 // Gets the current page of the `GtkPrintUnixDialog`.
-func (x *PrintUnixDialog) GetCurrentPage() int32 {
+func (x *PrintUnixDialog) GetCurrentPage() int {
 
 	return xPrintUnixDialogGetCurrentPage(x.GoPointer())
 
@@ -212,13 +212,13 @@ func (x *PrintUnixDialog) GetSupportSelection() bool {
 
 }
 
-var xPrintUnixDialogSetCurrentPage func(uintptr, int32)
+var xPrintUnixDialogSetCurrentPage func(uintptr, int)
 
 // Sets the current page number.
 //
 // If @current_page is not -1, this enables the current page choice
 // for the range of pages to print.
-func (x *PrintUnixDialog) SetCurrentPage(CurrentPageVar int32) {
+func (x *PrintUnixDialog) SetCurrentPage(CurrentPageVar int) {
 
 	xPrintUnixDialogSetCurrentPage(x.GoPointer(), CurrentPageVar)
 
@@ -354,7 +354,7 @@ func (x *PrintUnixDialog) UpdateProperty(FirstPropertyVar AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PrintUnixDialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *PrintUnixDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -390,7 +390,7 @@ func (x *PrintUnixDialog) UpdateRelation(FirstRelationVar AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PrintUnixDialog) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *PrintUnixDialog) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -423,7 +423,7 @@ func (x *PrintUnixDialog) UpdateState(FirstStateVar AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PrintUnixDialog) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *PrintUnixDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -214,14 +214,14 @@ func (x *Window) GetDecorated() bool {
 
 }
 
-var xWindowGetDefaultSize func(uintptr, int32, int32)
+var xWindowGetDefaultSize func(uintptr, int, int)
 
 // Gets the default size of the window.
 //
 // A value of 0 for the width or height indicates that a default
 // size has not been explicitly set for that dimension, so the
 // “natural” size of the window will be used.
-func (x *Window) GetDefaultSize(WidthVar int32, HeightVar int32) {
+func (x *Window) GetDefaultSize(WidthVar int, HeightVar int) {
 
 	xWindowGetDefaultSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -613,7 +613,7 @@ func (x *Window) SetDecorated(SettingVar bool) {
 
 }
 
-var xWindowSetDefaultSize func(uintptr, int32, int32)
+var xWindowSetDefaultSize func(uintptr, int, int)
 
 // Sets the default size of a window.
 //
@@ -640,7 +640,7 @@ var xWindowSetDefaultSize func(uintptr, int32, int32)
 // [method@Gtk.Window.get_default_size]. Using the window allocation
 // directly will not work in all circumstances and can lead to growing
 // or shrinking windows.
-func (x *Window) SetDefaultSize(WidthVar int32, HeightVar int32) {
+func (x *Window) SetDefaultSize(WidthVar int, HeightVar int) {
 
 	xWindowSetDefaultSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -1074,7 +1074,7 @@ func (x *Window) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Window) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1110,7 +1110,7 @@ func (x *Window) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Window) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1143,7 +1143,7 @@ func (x *Window) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Window) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

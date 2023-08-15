@@ -281,13 +281,13 @@ func ParseStringShortcutTrigger(StringVar string) *ShortcutTrigger {
 	return ParseStringShortcutTriggerCls
 }
 
-var xShortcutTriggerCompare func(uintptr, uintptr) int32
+var xShortcutTriggerCompare func(uintptr, uintptr) int
 
 // The types of @trigger1 and @trigger2 are `gconstpointer` only to allow
 // use of this function as a `GCompareFunc`.
 //
 // They must each be a `GtkShortcutTrigger`.
-func (x *ShortcutTrigger) Compare(Trigger2Var uintptr) int32 {
+func (x *ShortcutTrigger) Compare(Trigger2Var uintptr) int {
 
 	return xShortcutTriggerCompare(x.GoPointer(), Trigger2Var)
 

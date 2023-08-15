@@ -244,10 +244,10 @@ func (x *RecentManager) MoveItem(UriVar string, NewUriVar string) bool {
 
 }
 
-var xRecentManagerPurgeItems func(uintptr) int32
+var xRecentManagerPurgeItems func(uintptr) int
 
 // Purges every item from the recently used resources list.
-func (x *RecentManager) PurgeItems() int32 {
+func (x *RecentManager) PurgeItems() int {
 
 	return xRecentManagerPurgeItems(x.GoPointer())
 

@@ -336,7 +336,7 @@ func (x *DesktopAppInfo) LaunchUrisAsManager(UrisVar *glib.List, LaunchContextVa
 
 }
 
-var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr, int32, int32, int32) bool
+var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr, int, int, int) bool
 
 // Equivalent to g_desktop_app_info_launch_uris_as_manager() but allows
 // you to pass in file descriptors for the stdin, stdout and stderr streams
@@ -344,7 +344,7 @@ var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr,
 //
 // If application launching occurs via some non-spawn mechanism (e.g. D-Bus
 // activation) then @stdin_fd, @stdout_fd and @stderr_fd are ignored.
-func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int32, StdoutFdVar int32, StderrFdVar int32) bool {
+func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int) bool {
 
 	return xDesktopAppInfoLaunchUrisAsManagerWithFds(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, StdinFdVar, StdoutFdVar, StderrFdVar)
 

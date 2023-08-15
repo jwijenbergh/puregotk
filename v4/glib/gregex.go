@@ -441,20 +441,20 @@ func RegexCheckReplacement(ReplacementVar string, HasReferencesVar bool) bool {
 
 }
 
-var xRegexEscapeNul func(string, int32) string
+var xRegexEscapeNul func(string, int) string
 
 // Escapes the nul characters in @string to "\x00".  It can be used
 // to compile a regex with embedded nul characters.
 //
 // For completeness, @length can be -1 for a nul-terminated string.
 // In this case the output string will be of course equal to @string.
-func RegexEscapeNul(StringVar string, LengthVar int32) string {
+func RegexEscapeNul(StringVar string, LengthVar int) string {
 
 	return xRegexEscapeNul(StringVar, LengthVar)
 
 }
 
-var xRegexEscapeString func(uintptr, int32) string
+var xRegexEscapeString func(uintptr, int) string
 
 // Escapes the special characters used for regular expressions
 // in @string, for instance "a.b*c" becomes "a\.b\*c". This
@@ -463,7 +463,7 @@ var xRegexEscapeString func(uintptr, int32) string
 // @string can contain nul characters that are replaced with "\0",
 // in this case remember to specify the correct length of @string
 // in @length.
-func RegexEscapeString(StringVar uintptr, LengthVar int32) string {
+func RegexEscapeString(StringVar uintptr, LengthVar int) string {
 
 	return xRegexEscapeString(StringVar, LengthVar)
 

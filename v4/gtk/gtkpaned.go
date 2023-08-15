@@ -118,10 +118,10 @@ func (x *Paned) GetEndChild() *Widget {
 
 }
 
-var xPanedGetPosition func(uintptr) int32
+var xPanedGetPosition func(uintptr) int
 
 // Obtains the position of the divider between the two panes.
-func (x *Paned) GetPosition() int32 {
+func (x *Paned) GetPosition() int {
 
 	return xPanedGetPosition(x.GoPointer())
 
@@ -201,10 +201,10 @@ func (x *Paned) SetEndChild(ChildVar *Widget) {
 
 }
 
-var xPanedSetPosition func(uintptr, int32)
+var xPanedSetPosition func(uintptr, int)
 
 // Sets the position of the divider between the two panes.
-func (x *Paned) SetPosition(PositionVar int32) {
+func (x *Paned) SetPosition(PositionVar int) {
 
 	xPanedSetPosition(x.GoPointer(), PositionVar)
 
@@ -434,7 +434,7 @@ func (x *Paned) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Paned) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -470,7 +470,7 @@ func (x *Paned) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Paned) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -503,7 +503,7 @@ func (x *Paned) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Paned) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

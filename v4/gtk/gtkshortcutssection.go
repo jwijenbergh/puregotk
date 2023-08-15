@@ -40,8 +40,8 @@ func (c *ShortcutsSection) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, int32) bool) {
-	fcb := func(clsPtr uintptr, ObjectVarp int32) bool {
+func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, int) bool) {
+	fcb := func(clsPtr uintptr, ObjectVarp int) bool {
 		fa := ShortcutsSection{}
 		fa.Ptr = clsPtr
 
@@ -109,7 +109,7 @@ func (x *ShortcutsSection) UpdateProperty(FirstPropertyVar AccessibleProperty, v
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsSection) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ShortcutsSection) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -145,7 +145,7 @@ func (x *ShortcutsSection) UpdateRelation(FirstRelationVar AccessibleRelation, v
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsSection) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ShortcutsSection) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -178,7 +178,7 @@ func (x *ShortcutsSection) UpdateState(FirstStateVar AccessibleState, varArgs ..
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsSection) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ShortcutsSection) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

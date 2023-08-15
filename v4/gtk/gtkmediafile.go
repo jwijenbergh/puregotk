@@ -297,7 +297,7 @@ func (x *MediaFile) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *MediaFile) GetIntrinsicHeight() int32 {
+func (x *MediaFile) GetIntrinsicHeight() int {
 
 	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 
@@ -313,7 +313,7 @@ func (x *MediaFile) GetIntrinsicHeight() int32 {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *MediaFile) GetIntrinsicWidth() int32 {
+func (x *MediaFile) GetIntrinsicWidth() int {
 
 	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 

@@ -221,7 +221,7 @@ func (x *ApplicationCommandLine) CreateFileForArg(ArgVar string) *FileBase {
 
 }
 
-var xApplicationCommandLineGetArguments func(uintptr, int32) uintptr
+var xApplicationCommandLineGetArguments func(uintptr, int) uintptr
 
 // Gets the list of arguments that was passed on the command line.
 //
@@ -234,7 +234,7 @@ var xApplicationCommandLineGetArguments func(uintptr, int32) uintptr
 //
 // The return value is %NULL-terminated and should be freed using
 // g_strfreev().
-func (x *ApplicationCommandLine) GetArguments(ArgcVar int32) uintptr {
+func (x *ApplicationCommandLine) GetArguments(ArgcVar int) uintptr {
 
 	return xApplicationCommandLineGetArguments(x.GoPointer(), ArgcVar)
 
@@ -279,11 +279,11 @@ func (x *ApplicationCommandLine) GetEnviron() uintptr {
 
 }
 
-var xApplicationCommandLineGetExitStatus func(uintptr) int32
+var xApplicationCommandLineGetExitStatus func(uintptr) int
 
 // Gets the exit status of @cmdline.  See
 // g_application_command_line_set_exit_status() for more information.
-func (x *ApplicationCommandLine) GetExitStatus() int32 {
+func (x *ApplicationCommandLine) GetExitStatus() int {
 
 	return xApplicationCommandLineGetExitStatus(x.GoPointer())
 
@@ -403,7 +403,7 @@ func (x *ApplicationCommandLine) Printerr(FormatVar string, varArgs ...interface
 
 }
 
-var xApplicationCommandLineSetExitStatus func(uintptr, int32)
+var xApplicationCommandLineSetExitStatus func(uintptr, int)
 
 // Sets the exit status that will be used when the invoking process
 // exits.
@@ -426,7 +426,7 @@ var xApplicationCommandLineSetExitStatus func(uintptr, int32)
 // have been 'successful' in a certain sense, and the exit status is
 // always zero.  If the application use count is zero, though, the exit
 // status of the local #GApplicationCommandLine is used.
-func (x *ApplicationCommandLine) SetExitStatus(ExitStatusVar int32) {
+func (x *ApplicationCommandLine) SetExitStatus(ExitStatusVar int) {
 
 	xApplicationCommandLineSetExitStatus(x.GoPointer(), ExitStatusVar)
 

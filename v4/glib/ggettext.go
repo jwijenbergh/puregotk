@@ -6,13 +6,13 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xDcgettext func(string, string, int32) string
+var xDcgettext func(string, string, int) string
 
 // This is a variant of g_dgettext() that allows specifying a locale
 // category instead of always using `LC_MESSAGES`. See g_dgettext() for
 // more information about how this functions differs from calling
 // dcgettext() directly.
-func Dcgettext(DomainVar string, MsgidVar string, CategoryVar int32) string {
+func Dcgettext(DomainVar string, MsgidVar string, CategoryVar int) string {
 
 	return xDcgettext(DomainVar, MsgidVar, CategoryVar)
 

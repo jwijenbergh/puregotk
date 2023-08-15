@@ -122,7 +122,7 @@ func NewWithAttributesTreeViewColumn(TitleVar string, CellVar *CellRenderer, var
 	return NewWithAttributesTreeViewColumnCls
 }
 
-var xTreeViewColumnAddAttribute func(uintptr, uintptr, string, int32)
+var xTreeViewColumnAddAttribute func(uintptr, uintptr, string, int)
 
 // Adds an attribute mapping to the list in @tree_column.
 //
@@ -132,29 +132,29 @@ var xTreeViewColumnAddAttribute func(uintptr, uintptr, string, int32)
 // if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from
 // column 2.
-func (x *TreeViewColumn) AddAttribute(CellRendererVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *TreeViewColumn) AddAttribute(CellRendererVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	xTreeViewColumnAddAttribute(x.GoPointer(), CellRendererVar.GoPointer(), AttributeVar, ColumnVar)
 
 }
 
-var xTreeViewColumnCellGetPosition func(uintptr, uintptr, int32, int32) bool
+var xTreeViewColumnCellGetPosition func(uintptr, uintptr, int, int) bool
 
 // Obtains the horizontal position and size of a cell in a column.
 //
 // If the  cell is not found in the column, @start_pos and @width
 // are not changed and %FALSE is returned.
-func (x *TreeViewColumn) CellGetPosition(CellRendererVar *CellRenderer, XOffsetVar int32, WidthVar int32) bool {
+func (x *TreeViewColumn) CellGetPosition(CellRendererVar *CellRenderer, XOffsetVar int, WidthVar int) bool {
 
 	return xTreeViewColumnCellGetPosition(x.GoPointer(), CellRendererVar.GoPointer(), XOffsetVar, WidthVar)
 
 }
 
-var xTreeViewColumnCellGetSize func(uintptr, int32, int32, int32, int32)
+var xTreeViewColumnCellGetSize func(uintptr, int, int, int, int)
 
 // Obtains the width and height needed to render the column.  This is used
 // primarily by the `GtkTreeView`.
-func (x *TreeViewColumn) CellGetSize(XOffsetVar int32, YOffsetVar int32, WidthVar int32, HeightVar int32) {
+func (x *TreeViewColumn) CellGetSize(XOffsetVar int, YOffsetVar int, WidthVar int, HeightVar int) {
 
 	xTreeViewColumnCellGetSize(x.GoPointer(), XOffsetVar, YOffsetVar, WidthVar, HeightVar)
 
@@ -268,31 +268,31 @@ func (x *TreeViewColumn) GetExpand() bool {
 
 }
 
-var xTreeViewColumnGetFixedWidth func(uintptr) int32
+var xTreeViewColumnGetFixedWidth func(uintptr) int
 
 // Gets the fixed width of the column.  This may not be the actual displayed
 // width of the column; for that, use gtk_tree_view_column_get_width().
-func (x *TreeViewColumn) GetFixedWidth() int32 {
+func (x *TreeViewColumn) GetFixedWidth() int {
 
 	return xTreeViewColumnGetFixedWidth(x.GoPointer())
 
 }
 
-var xTreeViewColumnGetMaxWidth func(uintptr) int32
+var xTreeViewColumnGetMaxWidth func(uintptr) int
 
 // Returns the maximum width in pixels of the @tree_column, or -1 if no maximum
 // width is set.
-func (x *TreeViewColumn) GetMaxWidth() int32 {
+func (x *TreeViewColumn) GetMaxWidth() int {
 
 	return xTreeViewColumnGetMaxWidth(x.GoPointer())
 
 }
 
-var xTreeViewColumnGetMinWidth func(uintptr) int32
+var xTreeViewColumnGetMinWidth func(uintptr) int
 
 // Returns the minimum width in pixels of the @tree_column, or -1 if no minimum
 // width is set.
-func (x *TreeViewColumn) GetMinWidth() int32 {
+func (x *TreeViewColumn) GetMinWidth() int {
 
 	return xTreeViewColumnGetMinWidth(x.GoPointer())
 
@@ -325,13 +325,13 @@ func (x *TreeViewColumn) GetSizing() TreeViewColumnSizing {
 
 }
 
-var xTreeViewColumnGetSortColumnId func(uintptr) int32
+var xTreeViewColumnGetSortColumnId func(uintptr) int
 
 // Gets the logical @sort_column_id that the model sorts on
 // when this column is selected for sorting.
 //
 // See [method@Gtk.TreeViewColumn.set_sort_column_id].
-func (x *TreeViewColumn) GetSortColumnId() int32 {
+func (x *TreeViewColumn) GetSortColumnId() int {
 
 	return xTreeViewColumnGetSortColumnId(x.GoPointer())
 
@@ -355,10 +355,10 @@ func (x *TreeViewColumn) GetSortOrder() SortType {
 
 }
 
-var xTreeViewColumnGetSpacing func(uintptr) int32
+var xTreeViewColumnGetSpacing func(uintptr) int
 
 // Returns the spacing of @tree_column.
-func (x *TreeViewColumn) GetSpacing() int32 {
+func (x *TreeViewColumn) GetSpacing() int {
 
 	return xTreeViewColumnGetSpacing(x.GoPointer())
 
@@ -422,19 +422,19 @@ func (x *TreeViewColumn) GetWidget() *Widget {
 
 }
 
-var xTreeViewColumnGetWidth func(uintptr) int32
+var xTreeViewColumnGetWidth func(uintptr) int
 
 // Returns the current size of @tree_column in pixels.
-func (x *TreeViewColumn) GetWidth() int32 {
+func (x *TreeViewColumn) GetWidth() int {
 
 	return xTreeViewColumnGetWidth(x.GoPointer())
 
 }
 
-var xTreeViewColumnGetXOffset func(uintptr) int32
+var xTreeViewColumnGetXOffset func(uintptr) int
 
 // Returns the current X offset of @tree_column in pixels.
-func (x *TreeViewColumn) GetXOffset() int32 {
+func (x *TreeViewColumn) GetXOffset() int {
 
 	return xTreeViewColumnGetXOffset(x.GoPointer())
 
@@ -536,7 +536,7 @@ func (x *TreeViewColumn) SetExpand(ExpandVar bool) {
 
 }
 
-var xTreeViewColumnSetFixedWidth func(uintptr, int32)
+var xTreeViewColumnSetFixedWidth func(uintptr, int)
 
 // If @fixed_width is not -1, sets the fixed width of @tree_column; otherwise
 // unsets it.  The effective value of @fixed_width is clamped between the
@@ -549,29 +549,29 @@ var xTreeViewColumnSetFixedWidth func(uintptr, int32)
 //
 // Along with “expand”, the “fixed-width” property changes when the column is
 // resized by the user.
-func (x *TreeViewColumn) SetFixedWidth(FixedWidthVar int32) {
+func (x *TreeViewColumn) SetFixedWidth(FixedWidthVar int) {
 
 	xTreeViewColumnSetFixedWidth(x.GoPointer(), FixedWidthVar)
 
 }
 
-var xTreeViewColumnSetMaxWidth func(uintptr, int32)
+var xTreeViewColumnSetMaxWidth func(uintptr, int)
 
 // Sets the maximum width of the @tree_column.  If @max_width is -1, then the
 // maximum width is unset.  Note, the column can actually be wider than max
 // width if it’s the last column in a view.  In this case, the column expands to
 // fill any extra space.
-func (x *TreeViewColumn) SetMaxWidth(MaxWidthVar int32) {
+func (x *TreeViewColumn) SetMaxWidth(MaxWidthVar int) {
 
 	xTreeViewColumnSetMaxWidth(x.GoPointer(), MaxWidthVar)
 
 }
 
-var xTreeViewColumnSetMinWidth func(uintptr, int32)
+var xTreeViewColumnSetMinWidth func(uintptr, int)
 
 // Sets the minimum width of the @tree_column.  If @min_width is -1, then the
 // minimum width is unset.
-func (x *TreeViewColumn) SetMinWidth(MinWidthVar int32) {
+func (x *TreeViewColumn) SetMinWidth(MinWidthVar int) {
 
 	xTreeViewColumnSetMinWidth(x.GoPointer(), MinWidthVar)
 
@@ -610,11 +610,11 @@ func (x *TreeViewColumn) SetSizing(TypeVar TreeViewColumnSizing) {
 
 }
 
-var xTreeViewColumnSetSortColumnId func(uintptr, int32)
+var xTreeViewColumnSetSortColumnId func(uintptr, int)
 
 // Sets the logical @sort_column_id that this column sorts on when this column
 // is selected for sorting.  Doing so makes the column header clickable.
-func (x *TreeViewColumn) SetSortColumnId(SortColumnIdVar int32) {
+func (x *TreeViewColumn) SetSortColumnId(SortColumnIdVar int) {
 
 	xTreeViewColumnSetSortColumnId(x.GoPointer(), SortColumnIdVar)
 
@@ -651,11 +651,11 @@ func (x *TreeViewColumn) SetSortOrder(OrderVar SortType) {
 
 }
 
-var xTreeViewColumnSetSpacing func(uintptr, int32)
+var xTreeViewColumnSetSpacing func(uintptr, int)
 
 // Sets the spacing field of @tree_column, which is the number of pixels to
 // place between cell renderers packed into it.
-func (x *TreeViewColumn) SetSpacing(SpacingVar int32) {
+func (x *TreeViewColumn) SetSpacing(SpacingVar int) {
 
 	xTreeViewColumnSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -749,7 +749,7 @@ func (x *TreeViewColumn) GetCells() *glib.List {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *TreeViewColumn) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *TreeViewColumn) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

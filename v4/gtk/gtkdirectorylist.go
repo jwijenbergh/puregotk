@@ -105,10 +105,10 @@ func (x *DirectoryList) GetFile() *gio.FileBase {
 
 }
 
-var xDirectoryListGetIoPriority func(uintptr) int32
+var xDirectoryListGetIoPriority func(uintptr) int
 
 // Gets the IO priority set via gtk_directory_list_set_io_priority().
-func (x *DirectoryList) GetIoPriority() int32 {
+func (x *DirectoryList) GetIoPriority() int {
 
 	return xDirectoryListGetIoPriority(x.GoPointer())
 
@@ -161,7 +161,7 @@ func (x *DirectoryList) SetFile(FileVar gio.File) {
 
 }
 
-var xDirectoryListSetIoPriority func(uintptr, int32)
+var xDirectoryListSetIoPriority func(uintptr, int)
 
 // Sets the IO priority to use while loading directories.
 //
@@ -172,7 +172,7 @@ var xDirectoryListSetIoPriority func(uintptr, int32)
 // the GTK redraw priority. If you are loading a lot of directories in
 // parallel, lowering it to something like %G_PRIORITY_DEFAULT_IDLE
 // may increase responsiveness.
-func (x *DirectoryList) SetIoPriority(IoPriorityVar int32) {
+func (x *DirectoryList) SetIoPriority(IoPriorityVar int) {
 
 	xDirectoryListSetIoPriority(x.GoPointer(), IoPriorityVar)
 

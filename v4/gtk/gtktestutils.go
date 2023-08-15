@@ -6,7 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xTestInit func(int32, uintptr, ...interface{})
+var xTestInit func(int, uintptr, ...interface{})
 
 // This function is used to initialize a GTK test program.
 //
@@ -17,7 +17,7 @@ var xTestInit func(int32, uintptr, ...interface{})
 //
 // Like gtk_init() and g_test_init(), any known arguments will be
 // processed and stripped from @argc and @argv.
-func TestInit(ArgcpVar int32, ArgvpVar uintptr, varArgs ...interface{}) {
+func TestInit(ArgcpVar int, ArgvpVar uintptr, varArgs ...interface{}) {
 
 	xTestInit(ArgcpVar, ArgvpVar, varArgs...)
 

@@ -55,10 +55,10 @@ func BoxNewFromInternalPtr(ptr uintptr) *Box {
 	return cls
 }
 
-var xNewBox func(Orientation, int32) uintptr
+var xNewBox func(Orientation, int) uintptr
 
 // Creates a new `GtkBox`.
-func NewBox(OrientationVar Orientation, SpacingVar int32) *Widget {
+func NewBox(OrientationVar Orientation, SpacingVar int) *Widget {
 	NewBoxPtr := xNewBox(OrientationVar, SpacingVar)
 	if NewBoxPtr == 0 {
 		return nil
@@ -99,10 +99,10 @@ func (x *Box) GetHomogeneous() bool {
 
 }
 
-var xBoxGetSpacing func(uintptr) int32
+var xBoxGetSpacing func(uintptr) int
 
 // Gets the value set by gtk_box_set_spacing().
-func (x *Box) GetSpacing() int32 {
+func (x *Box) GetSpacing() int {
 
 	return xBoxGetSpacing(x.GoPointer())
 
@@ -179,10 +179,10 @@ func (x *Box) SetHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xBoxSetSpacing func(uintptr, int32)
+var xBoxSetSpacing func(uintptr, int)
 
 // Sets the number of pixels to place between children of @box.
-func (x *Box) SetSpacing(SpacingVar int32) {
+func (x *Box) SetSpacing(SpacingVar int) {
 
 	xBoxSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -254,7 +254,7 @@ func (x *Box) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...int
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Box) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -290,7 +290,7 @@ func (x *Box) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...int
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Box) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -323,7 +323,7 @@ func (x *Box) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{})
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Box) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

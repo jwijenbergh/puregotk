@@ -104,6 +104,12 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			if _type == "" {
 				continue
 			}
+			// HACK: Handle the specific case where a gint is converted to an int
+			// But for structs this needs to be an int32 as purego just gets the pointer to the struct
+			// Instead of converting each field separately
+			if f.AnyType.Type != nil && f.AnyType.Type.CType == "gint" {
+				_type = "int32"
+			}
 			fields = append(fields, types.RecordField{
 				Name: util.SnakeToCamel(f.Name),
 				Type: _type,

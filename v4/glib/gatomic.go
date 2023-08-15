@@ -6,7 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xAtomicIntAdd func(int32, int32) int32
+var xAtomicIntAdd func(int, int) int
 
 // Atomically adds @val to the value of @atomic.
 //
@@ -20,7 +20,7 @@ var xAtomicIntAdd func(int32, int32) int32
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntAdd(AtomicVar int32, ValVar int32) int32 {
+func AtomicIntAdd(AtomicVar int, ValVar int) int {
 
 	return xAtomicIntAdd(AtomicVar, ValVar)
 
@@ -44,7 +44,7 @@ func AtomicIntAnd(AtomicVar uint, ValVar uint) uint {
 
 }
 
-var xAtomicIntCompareAndExchange func(int32, int32, int32) bool
+var xAtomicIntCompareAndExchange func(int, int, int) bool
 
 // Compares @atomic to @oldval and, if equal, sets it to @newval.
 // If @atomic was not equal to @oldval then no change occurs.
@@ -58,13 +58,13 @@ var xAtomicIntCompareAndExchange func(int32, int32, int32) bool
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntCompareAndExchange(AtomicVar int32, OldvalVar int32, NewvalVar int32) bool {
+func AtomicIntCompareAndExchange(AtomicVar int, OldvalVar int, NewvalVar int) bool {
 
 	return xAtomicIntCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
 
 }
 
-var xAtomicIntDecAndTest func(int32) bool
+var xAtomicIntDecAndTest func(int) bool
 
 // Decrements the value of @atomic by 1.
 //
@@ -75,24 +75,24 @@ var xAtomicIntDecAndTest func(int32) bool
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntDecAndTest(AtomicVar int32) bool {
+func AtomicIntDecAndTest(AtomicVar int) bool {
 
 	return xAtomicIntDecAndTest(AtomicVar)
 
 }
 
-var xAtomicIntExchangeAndAdd func(int32, int32) int32
+var xAtomicIntExchangeAndAdd func(int, int) int
 
 // This function existed before g_atomic_int_add() returned the prior
 // value of the integer (which it now does).  It is retained only for
 // compatibility reasons.  Don't use this function in new code.
-func AtomicIntExchangeAndAdd(AtomicVar int32, ValVar int32) int32 {
+func AtomicIntExchangeAndAdd(AtomicVar int, ValVar int) int {
 
 	return xAtomicIntExchangeAndAdd(AtomicVar, ValVar)
 
 }
 
-var xAtomicIntGet func(int32) int32
+var xAtomicIntGet func(int) int
 
 // Gets the current value of @atomic.
 //
@@ -101,13 +101,13 @@ var xAtomicIntGet func(int32) int32
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntGet(AtomicVar int32) int32 {
+func AtomicIntGet(AtomicVar int) int {
 
 	return xAtomicIntGet(AtomicVar)
 
 }
 
-var xAtomicIntInc func(int32)
+var xAtomicIntInc func(int)
 
 // Increments the value of @atomic by 1.
 //
@@ -117,7 +117,7 @@ var xAtomicIntInc func(int32)
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntInc(AtomicVar int32) {
+func AtomicIntInc(AtomicVar int) {
 
 	xAtomicIntInc(AtomicVar)
 
@@ -141,7 +141,7 @@ func AtomicIntOr(AtomicVar uint, ValVar uint) uint {
 
 }
 
-var xAtomicIntSet func(int32, int32)
+var xAtomicIntSet func(int, int)
 
 // Sets the value of @atomic to @newval.
 //
@@ -150,7 +150,7 @@ var xAtomicIntSet func(int32, int32)
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntSet(AtomicVar int32, NewvalVar int32) {
+func AtomicIntSet(AtomicVar int, NewvalVar int) {
 
 	xAtomicIntSet(AtomicVar, NewvalVar)
 

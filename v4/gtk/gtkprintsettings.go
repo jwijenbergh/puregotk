@@ -14,9 +14,9 @@ type PrintSettingsFunc func(string, string, uintptr)
 //
 // See also [method@Gtk.PrintSettings.set_page_ranges].
 type PageRange struct {
-	Start int32
+	Start int
 
-	End int32
+	End int
 }
 
 // A `GtkPrintSettings` object represents the settings of a print dialog in
@@ -224,20 +224,20 @@ func (x *PrintSettings) GetFinishings() string {
 
 }
 
-var xPrintSettingsGetInt func(uintptr, string) int32
+var xPrintSettingsGetInt func(uintptr, string) int
 
 // Returns the integer value of @key, or 0.
-func (x *PrintSettings) GetInt(KeyVar string) int32 {
+func (x *PrintSettings) GetInt(KeyVar string) int {
 
 	return xPrintSettingsGetInt(x.GoPointer(), KeyVar)
 
 }
 
-var xPrintSettingsGetIntWithDefault func(uintptr, string, int32) int32
+var xPrintSettingsGetIntWithDefault func(uintptr, string, int) int
 
 // Returns the value of @key, interpreted as
 // an integer, or the default value.
-func (x *PrintSettings) GetIntWithDefault(KeyVar string, DefVar int32) int32 {
+func (x *PrintSettings) GetIntWithDefault(KeyVar string, DefVar int) int {
 
 	return xPrintSettingsGetIntWithDefault(x.GoPointer(), KeyVar, DefVar)
 
@@ -266,19 +266,19 @@ func (x *PrintSettings) GetMediaType() string {
 
 }
 
-var xPrintSettingsGetNCopies func(uintptr) int32
+var xPrintSettingsGetNCopies func(uintptr) int
 
 // Gets the value of %GTK_PRINT_SETTINGS_N_COPIES.
-func (x *PrintSettings) GetNCopies() int32 {
+func (x *PrintSettings) GetNCopies() int {
 
 	return xPrintSettingsGetNCopies(x.GoPointer())
 
 }
 
-var xPrintSettingsGetNumberUp func(uintptr) int32
+var xPrintSettingsGetNumberUp func(uintptr) int
 
 // Gets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
-func (x *PrintSettings) GetNumberUp() int32 {
+func (x *PrintSettings) GetNumberUp() int {
 
 	return xPrintSettingsGetNumberUp(x.GoPointer())
 
@@ -312,10 +312,10 @@ func (x *PrintSettings) GetOutputBin() string {
 
 }
 
-var xPrintSettingsGetPageRanges func(uintptr, int32) uintptr
+var xPrintSettingsGetPageRanges func(uintptr, int) uintptr
 
 // Gets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
-func (x *PrintSettings) GetPageRanges(NumRangesVar int32) uintptr {
+func (x *PrintSettings) GetPageRanges(NumRangesVar int) uintptr {
 
 	return xPrintSettingsGetPageRanges(x.GoPointer(), NumRangesVar)
 
@@ -397,28 +397,28 @@ func (x *PrintSettings) GetQuality() PrintQuality {
 
 }
 
-var xPrintSettingsGetResolution func(uintptr) int32
+var xPrintSettingsGetResolution func(uintptr) int
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION.
-func (x *PrintSettings) GetResolution() int32 {
+func (x *PrintSettings) GetResolution() int {
 
 	return xPrintSettingsGetResolution(x.GoPointer())
 
 }
 
-var xPrintSettingsGetResolutionX func(uintptr) int32
+var xPrintSettingsGetResolutionX func(uintptr) int
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_X.
-func (x *PrintSettings) GetResolutionX() int32 {
+func (x *PrintSettings) GetResolutionX() int {
 
 	return xPrintSettingsGetResolutionX(x.GoPointer())
 
 }
 
-var xPrintSettingsGetResolutionY func(uintptr) int32
+var xPrintSettingsGetResolutionY func(uintptr) int
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) GetResolutionY() int32 {
+func (x *PrintSettings) GetResolutionY() int {
 
 	return xPrintSettingsGetResolutionY(x.GoPointer())
 
@@ -558,10 +558,10 @@ func (x *PrintSettings) SetFinishings(FinishingsVar string) {
 
 }
 
-var xPrintSettingsSetInt func(uintptr, string, int32)
+var xPrintSettingsSetInt func(uintptr, string, int)
 
 // Sets @key to an integer value.
-func (x *PrintSettings) SetInt(KeyVar string, ValueVar int32) {
+func (x *PrintSettings) SetInt(KeyVar string, ValueVar int) {
 
 	xPrintSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
 
@@ -587,19 +587,19 @@ func (x *PrintSettings) SetMediaType(MediaTypeVar string) {
 
 }
 
-var xPrintSettingsSetNCopies func(uintptr, int32)
+var xPrintSettingsSetNCopies func(uintptr, int)
 
 // Sets the value of %GTK_PRINT_SETTINGS_N_COPIES.
-func (x *PrintSettings) SetNCopies(NumCopiesVar int32) {
+func (x *PrintSettings) SetNCopies(NumCopiesVar int) {
 
 	xPrintSettingsSetNCopies(x.GoPointer(), NumCopiesVar)
 
 }
 
-var xPrintSettingsSetNumberUp func(uintptr, int32)
+var xPrintSettingsSetNumberUp func(uintptr, int)
 
 // Sets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
-func (x *PrintSettings) SetNumberUp(NumberUpVar int32) {
+func (x *PrintSettings) SetNumberUp(NumberUpVar int) {
 
 	xPrintSettingsSetNumberUp(x.GoPointer(), NumberUpVar)
 
@@ -632,10 +632,10 @@ func (x *PrintSettings) SetOutputBin(OutputBinVar string) {
 
 }
 
-var xPrintSettingsSetPageRanges func(uintptr, uintptr, int32)
+var xPrintSettingsSetPageRanges func(uintptr, uintptr, int)
 
 // Sets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
-func (x *PrintSettings) SetPageRanges(PageRangesVar uintptr, NumRangesVar int32) {
+func (x *PrintSettings) SetPageRanges(PageRangesVar uintptr, NumRangesVar int) {
 
 	xPrintSettingsSetPageRanges(x.GoPointer(), PageRangesVar, NumRangesVar)
 
@@ -716,23 +716,23 @@ func (x *PrintSettings) SetQuality(QualityVar PrintQuality) {
 
 }
 
-var xPrintSettingsSetResolution func(uintptr, int32)
+var xPrintSettingsSetResolution func(uintptr, int)
 
 // Sets the values of %GTK_PRINT_SETTINGS_RESOLUTION,
 // %GTK_PRINT_SETTINGS_RESOLUTION_X and
 // %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) SetResolution(ResolutionVar int32) {
+func (x *PrintSettings) SetResolution(ResolutionVar int) {
 
 	xPrintSettingsSetResolution(x.GoPointer(), ResolutionVar)
 
 }
 
-var xPrintSettingsSetResolutionXy func(uintptr, int32, int32)
+var xPrintSettingsSetResolutionXy func(uintptr, int, int)
 
 // Sets the values of %GTK_PRINT_SETTINGS_RESOLUTION,
 // %GTK_PRINT_SETTINGS_RESOLUTION_X and
 // %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) SetResolutionXy(ResolutionXVar int32, ResolutionYVar int32) {
+func (x *PrintSettings) SetResolutionXy(ResolutionXVar int, ResolutionYVar int) {
 
 	xPrintSettingsSetResolutionXy(x.GoPointer(), ResolutionXVar, ResolutionYVar)
 

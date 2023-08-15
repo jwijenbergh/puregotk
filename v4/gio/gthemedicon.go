@@ -42,10 +42,10 @@ func NewThemedIcon(IconnameVar string) *ThemedIcon {
 	return NewThemedIconCls
 }
 
-var xNewFromNamesThemedIcon func([]string, int32) uintptr
+var xNewFromNamesThemedIcon func([]string, int) uintptr
 
 // Creates a new themed icon for @iconnames.
-func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int32) *ThemedIcon {
+func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int) *ThemedIcon {
 	NewFromNamesThemedIconPtr := xNewFromNamesThemedIcon(IconnamesVar, LenVar)
 	if NewFromNamesThemedIconPtr == 0 {
 		return nil

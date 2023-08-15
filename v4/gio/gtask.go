@@ -654,10 +654,10 @@ func (x *Task) GetName() string {
 
 }
 
-var xTaskGetPriority func(uintptr) int32
+var xTaskGetPriority func(uintptr) int
 
 // Gets @task's priority
-func (x *Task) GetPriority() int32 {
+func (x *Task) GetPriority() int {
 
 	return xTaskGetPriority(x.GoPointer())
 
@@ -836,7 +836,7 @@ func (x *Task) ReturnInt(ResultVar int) {
 
 }
 
-var xTaskReturnNewError func(uintptr, glib.Quark, int32, string, ...interface{})
+var xTaskReturnNewError func(uintptr, glib.Quark, int, string, ...interface{})
 
 // Sets @task's result to a new #GError created from @domain, @code,
 // @format, and the remaining arguments, and completes the task (see
@@ -844,7 +844,7 @@ var xTaskReturnNewError func(uintptr, glib.Quark, int32, string, ...interface{})
 // means).
 //
 // See also g_task_return_error().
-func (x *Task) ReturnNewError(DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
+func (x *Task) ReturnNewError(DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
 
 	xTaskReturnNewError(x.GoPointer(), DomainVar, CodeVar, FormatVar, varArgs...)
 
@@ -976,7 +976,7 @@ func (x *Task) SetName(NameVar string) {
 
 }
 
-var xTaskSetPriority func(uintptr, int32)
+var xTaskSetPriority func(uintptr, int)
 
 // Sets @task's priority. If you do not call this, it will default to
 // %G_PRIORITY_DEFAULT.
@@ -985,7 +985,7 @@ var xTaskSetPriority func(uintptr, int32)
 // g_task_attach_source() and the scheduling of tasks run in threads,
 // and can also be explicitly retrieved later via
 // g_task_get_priority().
-func (x *Task) SetPriority(PriorityVar int32) {
+func (x *Task) SetPriority(PriorityVar int) {
 
 	xTaskSetPriority(x.GoPointer(), PriorityVar)
 

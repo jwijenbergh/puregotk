@@ -22,13 +22,13 @@ func MemoryTextureNewFromInternalPtr(ptr uintptr) *MemoryTexture {
 	return cls
 }
 
-var xNewMemoryTexture func(int32, int32, MemoryFormat, *glib.Bytes, uint) uintptr
+var xNewMemoryTexture func(int, int, MemoryFormat, *glib.Bytes, uint) uintptr
 
 // Creates a new texture for a blob of image data.
 //
 // The `GBytes` must contain @stride × @height pixels
 // in the given format.
-func NewMemoryTexture(WidthVar int32, HeightVar int32, FormatVar MemoryFormat, BytesVar *glib.Bytes, StrideVar uint) *MemoryTexture {
+func NewMemoryTexture(WidthVar int, HeightVar int, FormatVar MemoryFormat, BytesVar *glib.Bytes, StrideVar uint) *MemoryTexture {
 	NewMemoryTexturePtr := xNewMemoryTexture(WidthVar, HeightVar, FormatVar, BytesVar, StrideVar)
 	if NewMemoryTexturePtr == 0 {
 		return nil
@@ -126,7 +126,7 @@ func (x *MemoryTexture) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *MemoryTexture) GetIntrinsicHeight() int32 {
+func (x *MemoryTexture) GetIntrinsicHeight() int {
 
 	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 
@@ -142,7 +142,7 @@ func (x *MemoryTexture) GetIntrinsicHeight() int32 {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *MemoryTexture) GetIntrinsicWidth() int32 {
+func (x *MemoryTexture) GetIntrinsicWidth() int {
 
 	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 
@@ -233,7 +233,7 @@ func (x *MemoryTexture) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *MemoryTexture) Load(SizeVar int32, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
+func (x *MemoryTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
 
 	LoadPtr := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -249,7 +249,7 @@ func (x *MemoryTexture) Load(SizeVar int32, TypeVar string, CancellableVar *gio.
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *MemoryTexture) LoadAsync(SizeVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MemoryTexture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

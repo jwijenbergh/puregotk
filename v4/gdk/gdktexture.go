@@ -197,19 +197,19 @@ func (x *Texture) Download(DataVar uintptr, StrideVar uint) {
 
 }
 
-var xTextureGetHeight func(uintptr) int32
+var xTextureGetHeight func(uintptr) int
 
 // Returns the height of the @texture, in pixels.
-func (x *Texture) GetHeight() int32 {
+func (x *Texture) GetHeight() int {
 
 	return xTextureGetHeight(x.GoPointer())
 
 }
 
-var xTextureGetWidth func(uintptr) int32
+var xTextureGetWidth func(uintptr) int
 
 // Returns the width of @texture, in pixels.
-func (x *Texture) GetWidth() int32 {
+func (x *Texture) GetWidth() int {
 
 	return xTextureGetWidth(x.GoPointer())
 
@@ -370,7 +370,7 @@ func (x *Texture) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *Texture) GetIntrinsicHeight() int32 {
+func (x *Texture) GetIntrinsicHeight() int {
 
 	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 
@@ -386,7 +386,7 @@ func (x *Texture) GetIntrinsicHeight() int32 {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *Texture) GetIntrinsicWidth() int32 {
+func (x *Texture) GetIntrinsicWidth() int {
 
 	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 
@@ -477,7 +477,7 @@ func (x *Texture) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *Texture) Load(SizeVar int32, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
+func (x *Texture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
 
 	LoadPtr := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -493,7 +493,7 @@ func (x *Texture) Load(SizeVar int32, TypeVar string, CancellableVar *gio.Cancel
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *Texture) LoadAsync(SizeVar int32, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Texture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

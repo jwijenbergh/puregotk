@@ -19,14 +19,14 @@ type IOModuleClass struct {
 type IOModuleScope struct {
 }
 
-var xIoExtensionPointImplement func(string, []interface{}, string, int32) *IOExtension
+var xIoExtensionPointImplement func(string, []interface{}, string, int) *IOExtension
 
 // Registers @type as extension for the extension point with name
 // @extension_point_name.
 //
 // If @type has already been registered as an extension for this
 // extension point, the existing #GIOExtension object is returned.
-func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar []interface{}, ExtensionNameVar string, PriorityVar int32) *IOExtension {
+func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar []interface{}, ExtensionNameVar string, PriorityVar int) *IOExtension {
 
 	return xIoExtensionPointImplement(ExtensionPointNameVar, TypeVar, ExtensionNameVar, PriorityVar)
 

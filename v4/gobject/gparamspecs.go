@@ -83,13 +83,13 @@ func NewParamSpecDouble(NameVar string, NickVar string, BlurbVar string, Minimum
 
 }
 
-var xNewParamSpecEnum func(string, string, string, []interface{}, int32, ParamFlags) uintptr
+var xNewParamSpecEnum func(string, string, string, []interface{}, int, ParamFlags) uintptr
 
 // Creates a new #GParamSpecEnum instance specifying a %G_TYPE_ENUM
 // property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeVar []interface{}, DefaultValueVar int32, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeVar []interface{}, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
 
 	NewParamSpecEnumPtr := xNewParamSpecEnum(NameVar, NickVar, BlurbVar, EnumTypeVar, DefaultValueVar, FlagsVar)
 	if NewParamSpecEnumPtr == 0 {
@@ -158,12 +158,12 @@ func ParamSpecGtype(NameVar string, NickVar string, BlurbVar string, IsATypeVar 
 
 }
 
-var xNewParamSpecInt func(string, string, string, int32, int32, int32, ParamFlags) uintptr
+var xNewParamSpecInt func(string, string, string, int, int, int, ParamFlags) uintptr
 
 // Creates a new #GParamSpecInt instance specifying a %G_TYPE_INT property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecInt(NameVar string, NickVar string, BlurbVar string, MinimumVar int32, MaximumVar int32, DefaultValueVar int32, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecInt(NameVar string, NickVar string, BlurbVar string, MinimumVar int, MaximumVar int, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
 
 	NewParamSpecIntPtr := xNewParamSpecInt(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 	if NewParamSpecIntPtr == 0 {

@@ -17,10 +17,7 @@ var convList = map[string]string{
 	"gboolean": "bool",
 	"gfloat":   "float32",
 	"gdouble":  "float64",
-	// This was changed because e.g. the error code in a GError struct is a gint and it has to be an int32
-	// gint is a typedef to an int and on 32 and 64 bit systems a c int is 32 bits commonly, whereas in go an int is 32 bits on 32 bits systems and 64 bits on 64 bits systems
-	// gotk4 seems to not cast these, see e.g. https://github.com/diamondburned/gotk4/blob/fd960d20b525a07580938d10a214336bafb47d12/gir/girgen/types/types.go#L473-L481
-	"gint":     "int32",
+	"gint":     "int",
 	"gssize":   "int",
 	"gint8":    "int8",
 	"gint16":   "int16",

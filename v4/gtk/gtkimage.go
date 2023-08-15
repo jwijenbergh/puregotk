@@ -321,10 +321,10 @@ func (x *Image) GetPaintable() *gdk.PaintableBase {
 
 }
 
-var xImageGetPixelSize func(uintptr) int32
+var xImageGetPixelSize func(uintptr) int
 
 // Gets the pixel size used for named icons.
-func (x *Image) GetPixelSize() int32 {
+func (x *Image) GetPixelSize() int {
 
 	return xImageGetPixelSize(x.GoPointer())
 
@@ -422,13 +422,13 @@ func (x *Image) SetIconSize(IconSizeVar IconSize) {
 
 }
 
-var xImageSetPixelSize func(uintptr, int32)
+var xImageSetPixelSize func(uintptr, int)
 
 // Sets the pixel size to use for named icons.
 //
 // If the pixel size is set to a value != -1, it is used instead
 // of the icon size set by [method@Gtk.Image.set_from_icon_name].
-func (x *Image) SetPixelSize(PixelSizeVar int32) {
+func (x *Image) SetPixelSize(PixelSizeVar int) {
 
 	xImageSetPixelSize(x.GoPointer(), PixelSizeVar)
 
@@ -500,7 +500,7 @@ func (x *Image) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Image) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -536,7 +536,7 @@ func (x *Image) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Image) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -569,7 +569,7 @@ func (x *Image) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Image) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

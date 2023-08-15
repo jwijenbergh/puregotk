@@ -51,7 +51,7 @@ func MarkupParserNew(AccelMarkerVar uint32) *glib.MarkupParseContext {
 
 }
 
-var xParseMarkup func(string, int32, uint32, **AttrList, string, uint32) bool
+var xParseMarkup func(string, int, uint32, **AttrList, string, uint32) bool
 
 // Parses marked-up text to create a plain-text string and an attribute list.
 //
@@ -70,7 +70,7 @@ var xParseMarkup func(string, int32, uint32, **AttrList, string, uint32) bool
 //
 // If any error happens, none of the output arguments are touched except
 // for @error.
-func ParseMarkup(MarkupTextVar string, LengthVar int32, AccelMarkerVar uint32, AttrListVar **AttrList, TextVar string, AccelCharVar uint32) bool {
+func ParseMarkup(MarkupTextVar string, LengthVar int, AccelMarkerVar uint32, AttrListVar **AttrList, TextVar string, AccelCharVar uint32) bool {
 
 	return xParseMarkup(MarkupTextVar, LengthVar, AccelMarkerVar, AttrListVar, TextVar, AccelCharVar)
 

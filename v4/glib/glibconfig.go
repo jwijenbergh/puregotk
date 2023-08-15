@@ -8,4 +8,4 @@ package glib
 //
 // GPid is used in GLib only for descendant processes spawned with
 // the g_spawn functions.
-type Pid = int32
+type Pid = int

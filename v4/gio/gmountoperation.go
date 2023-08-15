@@ -69,10 +69,10 @@ func (x *MountOperation) GetAnonymous() bool {
 
 }
 
-var xMountOperationGetChoice func(uintptr) int32
+var xMountOperationGetChoice func(uintptr) int
 
 // Gets a choice from the mount operation.
-func (x *MountOperation) GetChoice() int32 {
+func (x *MountOperation) GetChoice() int {
 
 	return xMountOperationGetChoice(x.GoPointer())
 
@@ -161,10 +161,10 @@ func (x *MountOperation) SetAnonymous(AnonymousVar bool) {
 
 }
 
-var xMountOperationSetChoice func(uintptr, int32)
+var xMountOperationSetChoice func(uintptr, int)
 
 // Sets a default choice for the mount operation.
-func (x *MountOperation) SetChoice(ChoiceVar int32) {
+func (x *MountOperation) SetChoice(ChoiceVar int) {
 
 	xMountOperationSetChoice(x.GoPointer(), ChoiceVar)
 

@@ -16,8 +16,8 @@ type LoadableIconIface struct {
 type LoadableIcon interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	Load(SizeVar int32, TypeVar string, CancellableVar *Cancellable) *InputStream
-	LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream
+	LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
 	LoadFinish(ResVar AsyncResult, TypeVar string) *InputStream
 }
 type LoadableIconBase struct {
@@ -34,7 +34,7 @@ func (x *LoadableIconBase) SetGoPointer(ptr uintptr) {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *LoadableIconBase) Load(SizeVar int32, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *LoadableIconBase) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
 
 	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -50,7 +50,7 @@ func (x *LoadableIconBase) Load(SizeVar int32, TypeVar string, CancellableVar *C
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *LoadableIconBase) LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *LoadableIconBase) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -70,8 +70,8 @@ func (x *LoadableIconBase) LoadFinish(ResVar AsyncResult, TypeVar string) *Input
 
 }
 
-var XGLoadableIconLoad func(uintptr, int32, string, uintptr) uintptr
-var XGLoadableIconLoadAsync func(uintptr, int32, uintptr, uintptr, uintptr)
+var XGLoadableIconLoad func(uintptr, int, string, uintptr) uintptr
+var XGLoadableIconLoadAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGLoadableIconLoadFinish func(uintptr, uintptr, string) uintptr
 
 func init() {

@@ -272,7 +272,7 @@ func (x *AppChooserWidget) UpdateProperty(FirstPropertyVar AccessibleProperty, v
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserWidget) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *AppChooserWidget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -308,7 +308,7 @@ func (x *AppChooserWidget) UpdateRelation(FirstRelationVar AccessibleRelation, v
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserWidget) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *AppChooserWidget) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -341,7 +341,7 @@ func (x *AppChooserWidget) UpdateState(FirstStateVar AccessibleState, varArgs ..
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserWidget) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *AppChooserWidget) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

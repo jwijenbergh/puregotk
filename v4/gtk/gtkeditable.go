@@ -157,28 +157,28 @@ type Editable interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	DeleteSelection()
-	DeleteText(StartPosVar int32, EndPosVar int32)
+	DeleteText(StartPosVar int, EndPosVar int)
 	FinishDelegate()
 	GetAlignment() float32
-	GetChars(StartPosVar int32, EndPosVar int32) string
+	GetChars(StartPosVar int, EndPosVar int) string
 	GetDelegate() *EditableBase
 	GetEditable() bool
 	GetEnableUndo() bool
-	GetMaxWidthChars() int32
-	GetPosition() int32
-	GetSelectionBounds(StartPosVar int32, EndPosVar int32) bool
+	GetMaxWidthChars() int
+	GetPosition() int
+	GetSelectionBounds(StartPosVar int, EndPosVar int) bool
 	GetText() string
-	GetWidthChars() int32
+	GetWidthChars() int
 	InitDelegate()
-	InsertText(TextVar string, LengthVar int32, PositionVar int32)
-	SelectRegion(StartPosVar int32, EndPosVar int32)
+	InsertText(TextVar string, LengthVar int, PositionVar int)
+	SelectRegion(StartPosVar int, EndPosVar int)
 	SetAlignment(XalignVar float32)
 	SetEditable(IsEditableVar bool)
 	SetEnableUndo(EnableUndoVar bool)
-	SetMaxWidthChars(NCharsVar int32)
-	SetPosition(PositionVar int32)
+	SetMaxWidthChars(NCharsVar int)
+	SetPosition(PositionVar int)
 	SetText(TextVar string)
-	SetWidthChars(NCharsVar int32)
+	SetWidthChars(NCharsVar int)
 }
 type EditableBase struct {
 	Ptr uintptr
@@ -209,7 +209,7 @@ func (x *EditableBase) DeleteSelection() {
 // the end of the text.
 //
 // Note that the positions are specified in characters, not bytes.
-func (x *EditableBase) DeleteText(StartPosVar int32, EndPosVar int32) {
+func (x *EditableBase) DeleteText(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableDeleteText(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -240,7 +240,7 @@ func (x *EditableBase) GetAlignment() float32 {
 // the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableBase) GetChars(StartPosVar int32, EndPosVar int32) string {
+func (x *EditableBase) GetChars(StartPosVar int, EndPosVar int) string {
 
 	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -280,7 +280,7 @@ func (x *EditableBase) GetEnableUndo() bool {
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
-func (x *EditableBase) GetMaxWidthChars() int32 {
+func (x *EditableBase) GetMaxWidthChars() int {
 
 	return XGtkEditableGetMaxWidthChars(x.GoPointer())
 
@@ -290,7 +290,7 @@ func (x *EditableBase) GetMaxWidthChars() int32 {
 // to the start of the content of the editable.
 //
 // Note that this position is in characters, not in bytes.
-func (x *EditableBase) GetPosition() int32 {
+func (x *EditableBase) GetPosition() int {
 
 	return XGtkEditableGetPosition(x.GoPointer())
 
@@ -303,7 +303,7 @@ func (x *EditableBase) GetPosition() int32 {
 // and %FALSE will be returned.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableBase) GetSelectionBounds(StartPosVar int32, EndPosVar int32) bool {
+func (x *EditableBase) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
 	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -320,7 +320,7 @@ func (x *EditableBase) GetText() string {
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
-func (x *EditableBase) GetWidthChars() int32 {
+func (x *EditableBase) GetWidthChars() int {
 
 	return XGtkEditableGetWidthChars(x.GoPointer())
 
@@ -345,7 +345,7 @@ func (x *EditableBase) InitDelegate() {
 // Note that the position is in characters, not in bytes.
 // The function updates @position to point after the newly
 // inserted text.
-func (x *EditableBase) InsertText(TextVar string, LengthVar int32, PositionVar int32) {
+func (x *EditableBase) InsertText(TextVar string, LengthVar int, PositionVar int) {
 
 	XGtkEditableInsertText(x.GoPointer(), TextVar, LengthVar, PositionVar)
 
@@ -359,7 +359,7 @@ func (x *EditableBase) InsertText(TextVar string, LengthVar int32, PositionVar i
 // @start_pos to  the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableBase) SelectRegion(StartPosVar int32, EndPosVar int32) {
+func (x *EditableBase) SelectRegion(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableSelectRegion(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -395,7 +395,7 @@ func (x *EditableBase) SetEnableUndo(EnableUndoVar bool) {
 }
 
 // Sets the desired maximum width in characters of @editable.
-func (x *EditableBase) SetMaxWidthChars(NCharsVar int32) {
+func (x *EditableBase) SetMaxWidthChars(NCharsVar int) {
 
 	XGtkEditableSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -408,7 +408,7 @@ func (x *EditableBase) SetMaxWidthChars(NCharsVar int32) {
 // or equal to the number of characters in the editable. A value of -1
 // indicates that the position should be set after the last character
 // of the editable. Note that @position is in characters, not in bytes.
-func (x *EditableBase) SetPosition(PositionVar int32) {
+func (x *EditableBase) SetPosition(PositionVar int) {
 
 	XGtkEditableSetPosition(x.GoPointer(), PositionVar)
 
@@ -429,35 +429,35 @@ func (x *EditableBase) SetText(TextVar string) {
 // Note that it changes the size request, the size can still
 // be affected by how you pack the widget into containers.
 // If @n_chars is -1, the size reverts to the default size.
-func (x *EditableBase) SetWidthChars(NCharsVar int32) {
+func (x *EditableBase) SetWidthChars(NCharsVar int) {
 
 	XGtkEditableSetWidthChars(x.GoPointer(), NCharsVar)
 
 }
 
 var XGtkEditableDeleteSelection func(uintptr)
-var XGtkEditableDeleteText func(uintptr, int32, int32)
+var XGtkEditableDeleteText func(uintptr, int, int)
 var XGtkEditableFinishDelegate func(uintptr)
 var XGtkEditableGetAlignment func(uintptr) float32
-var XGtkEditableGetChars func(uintptr, int32, int32) string
+var XGtkEditableGetChars func(uintptr, int, int) string
 var XGtkEditableGetDelegate func(uintptr) uintptr
 var XGtkEditableGetEditable func(uintptr) bool
 var XGtkEditableGetEnableUndo func(uintptr) bool
-var XGtkEditableGetMaxWidthChars func(uintptr) int32
-var XGtkEditableGetPosition func(uintptr) int32
-var XGtkEditableGetSelectionBounds func(uintptr, int32, int32) bool
+var XGtkEditableGetMaxWidthChars func(uintptr) int
+var XGtkEditableGetPosition func(uintptr) int
+var XGtkEditableGetSelectionBounds func(uintptr, int, int) bool
 var XGtkEditableGetText func(uintptr) string
-var XGtkEditableGetWidthChars func(uintptr) int32
+var XGtkEditableGetWidthChars func(uintptr) int
 var XGtkEditableInitDelegate func(uintptr)
-var XGtkEditableInsertText func(uintptr, string, int32, int32)
-var XGtkEditableSelectRegion func(uintptr, int32, int32)
+var XGtkEditableInsertText func(uintptr, string, int, int)
+var XGtkEditableSelectRegion func(uintptr, int, int)
 var XGtkEditableSetAlignment func(uintptr, float32)
 var XGtkEditableSetEditable func(uintptr, bool)
 var XGtkEditableSetEnableUndo func(uintptr, bool)
-var XGtkEditableSetMaxWidthChars func(uintptr, int32)
-var XGtkEditableSetPosition func(uintptr, int32)
+var XGtkEditableSetMaxWidthChars func(uintptr, int)
+var XGtkEditableSetPosition func(uintptr, int)
 var XGtkEditableSetText func(uintptr, string)
-var XGtkEditableSetWidthChars func(uintptr, int32)
+var XGtkEditableSetWidthChars func(uintptr, int)
 
 // The identifiers for [iface@Gtk.Editable] properties.
 //

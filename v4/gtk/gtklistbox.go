@@ -26,7 +26,7 @@ type ListBoxFilterFunc func(uintptr, uintptr) bool
 type ListBoxForeachFunc func(uintptr, uintptr, uintptr)
 
 // Compare two rows to determine which should be first.
-type ListBoxSortFunc func(uintptr, uintptr, uintptr) int32
+type ListBoxSortFunc func(uintptr, uintptr, uintptr) int
 
 // Whenever @row changes or which row is before @row changes this
 // is called, which lets you update the header on @row.
@@ -207,13 +207,13 @@ func (x *ListBox) GetAdjustment() *Adjustment {
 
 }
 
-var xListBoxGetRowAtIndex func(uintptr, int32) uintptr
+var xListBoxGetRowAtIndex func(uintptr, int) uintptr
 
 // Gets the n-th child in the list (not counting headers).
 //
 // If @index_ is negative or larger than the number of items in the
 // list, %NULL is returned.
-func (x *ListBox) GetRowAtIndex(IndexVar int32) *ListBoxRow {
+func (x *ListBox) GetRowAtIndex(IndexVar int) *ListBoxRow {
 
 	GetRowAtIndexPtr := xListBoxGetRowAtIndex(x.GoPointer(), IndexVar)
 	if GetRowAtIndexPtr == 0 {
@@ -228,10 +228,10 @@ func (x *ListBox) GetRowAtIndex(IndexVar int32) *ListBoxRow {
 
 }
 
-var xListBoxGetRowAtY func(uintptr, int32) uintptr
+var xListBoxGetRowAtY func(uintptr, int) uintptr
 
 // Gets the row at the @y position.
-func (x *ListBox) GetRowAtY(YVar int32) *ListBoxRow {
+func (x *ListBox) GetRowAtY(YVar int) *ListBoxRow {
 
 	GetRowAtYPtr := xListBoxGetRowAtY(x.GoPointer(), YVar)
 	if GetRowAtYPtr == 0 {
@@ -296,7 +296,7 @@ func (x *ListBox) GetShowSeparators() bool {
 
 }
 
-var xListBoxInsert func(uintptr, uintptr, int32)
+var xListBoxInsert func(uintptr, uintptr, int)
 
 // Insert the @child into the @box at @position.
 //
@@ -305,7 +305,7 @@ var xListBoxInsert func(uintptr, uintptr, int32)
 //
 // If @position is -1, or larger than the total number of items in the
 // @box, then the @child will be appended to the end.
-func (x *ListBox) Insert(ChildVar *Widget, PositionVar int32) {
+func (x *ListBox) Insert(ChildVar *Widget, PositionVar int) {
 
 	xListBoxInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -570,8 +570,8 @@ func (x *ListBox) ConnectActivateCursorRow(cb func(ListBox)) {
 	gobject.ObjectConnect(x.GoPointer(), "signal::activate-cursor-row", purego.NewCallback(fcb))
 }
 
-func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int32, bool, bool)) {
-	fcb := func(clsPtr uintptr, ObjectVarp MovementStep, P0Varp int32, P1Varp bool, P2Varp bool) {
+func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int, bool, bool)) {
+	fcb := func(clsPtr uintptr, ObjectVarp MovementStep, P0Varp int, P1Varp bool, P2Varp bool) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
 
@@ -726,7 +726,7 @@ func (x *ListBox) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ..
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBox) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ListBox) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -762,7 +762,7 @@ func (x *ListBox) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ..
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBox) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ListBox) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -795,7 +795,7 @@ func (x *ListBox) UpdateState(FirstStateVar AccessibleState, varArgs ...interfac
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBox) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ListBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -914,10 +914,10 @@ func (x *ListBoxRow) GetHeader() *Widget {
 
 }
 
-var xListBoxRowGetIndex func(uintptr) int32
+var xListBoxRowGetIndex func(uintptr) int
 
 // Gets the current index of the @row in its `GtkListBox` container.
-func (x *ListBoxRow) GetIndex() int32 {
+func (x *ListBoxRow) GetIndex() int {
 
 	return xListBoxRowGetIndex(x.GoPointer())
 
@@ -1065,7 +1065,7 @@ func (x *ListBoxRow) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBoxRow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ListBoxRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1101,7 +1101,7 @@ func (x *ListBoxRow) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBoxRow) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ListBoxRow) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1134,7 +1134,7 @@ func (x *ListBoxRow) UpdateState(FirstStateVar AccessibleState, varArgs ...inter
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ListBoxRow) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ListBoxRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

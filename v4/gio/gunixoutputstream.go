@@ -33,13 +33,13 @@ func UnixOutputStreamNewFromInternalPtr(ptr uintptr) *UnixOutputStream {
 	return cls
 }
 
-var xNewUnixOutputStream func(int32, bool) uintptr
+var xNewUnixOutputStream func(int, bool) uintptr
 
 // Creates a new #GUnixOutputStream for the given @fd.
 //
 // If @close_fd, is %TRUE, the file descriptor will be closed when
 // the output stream is destroyed.
-func NewUnixOutputStream(FdVar int32, CloseFdVar bool) *OutputStream {
+func NewUnixOutputStream(FdVar int, CloseFdVar bool) *OutputStream {
 	NewUnixOutputStreamPtr := xNewUnixOutputStream(FdVar, CloseFdVar)
 	if NewUnixOutputStreamPtr == 0 {
 		return nil
@@ -60,10 +60,10 @@ func (x *UnixOutputStream) GetCloseFd() bool {
 
 }
 
-var xUnixOutputStreamGetFd func(uintptr) int32
+var xUnixOutputStreamGetFd func(uintptr) int
 
 // Return the UNIX file descriptor that the stream writes to.
-func (x *UnixOutputStream) GetFd() int32 {
+func (x *UnixOutputStream) GetFd() int {
 
 	return xUnixOutputStreamGetFd(x.GoPointer())
 

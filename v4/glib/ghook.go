@@ -15,7 +15,7 @@ type HookCheckMarshaller func(*Hook, uintptr) bool
 
 // Defines the type of function used to compare #GHook elements in
 // g_hook_insert_sorted().
-type HookCompareFunc func(*Hook, *Hook) int32
+type HookCompareFunc func(*Hook, *Hook) int
 
 // Defines the type of function to be called when a hook in a
 // list of hooks gets finalized.

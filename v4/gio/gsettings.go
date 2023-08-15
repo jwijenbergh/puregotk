@@ -717,7 +717,7 @@ func (x *Settings) GetDouble(KeyVar string) float64 {
 
 }
 
-var xSettingsGetEnum func(uintptr, string) int32
+var xSettingsGetEnum func(uintptr, string) int
 
 // Gets the value that is stored in @settings for @key and converts it
 // to the enum value that it represents.
@@ -731,7 +731,7 @@ var xSettingsGetEnum func(uintptr, string) int32
 // If the value stored in the configuration database is not a valid
 // value for the enumerated type then this function will return the
 // default value.
-func (x *Settings) GetEnum(KeyVar string) int32 {
+func (x *Settings) GetEnum(KeyVar string) int {
 
 	return xSettingsGetEnum(x.GoPointer(), KeyVar)
 
@@ -767,7 +767,7 @@ func (x *Settings) GetHasUnapplied() bool {
 
 }
 
-var xSettingsGetInt func(uintptr, string) int32
+var xSettingsGetInt func(uintptr, string) int
 
 // Gets the value that is stored at @key in @settings.
 //
@@ -775,7 +775,7 @@ var xSettingsGetInt func(uintptr, string) int32
 //
 // It is a programmer error to give a @key that isn't specified as
 // having a int32 type in the schema for @settings.
-func (x *Settings) GetInt(KeyVar string) int32 {
+func (x *Settings) GetInt(KeyVar string) int {
 
 	return xSettingsGetInt(x.GoPointer(), KeyVar)
 
@@ -1058,7 +1058,7 @@ func (x *Settings) SetDouble(KeyVar string, ValueVar float64) bool {
 
 }
 
-var xSettingsSetEnum func(uintptr, string, int32) bool
+var xSettingsSetEnum func(uintptr, string, int) bool
 
 // Looks up the enumerated type nick for @value and writes it to @key,
 // within @settings.
@@ -1070,7 +1070,7 @@ var xSettingsSetEnum func(uintptr, string, int32) bool
 // After performing the write, accessing @key directly with
 // g_settings_get_string() will return the 'nick' associated with
 // @value.
-func (x *Settings) SetEnum(KeyVar string, ValueVar int32) bool {
+func (x *Settings) SetEnum(KeyVar string, ValueVar int) bool {
 
 	return xSettingsSetEnum(x.GoPointer(), KeyVar, ValueVar)
 
@@ -1095,7 +1095,7 @@ func (x *Settings) SetFlags(KeyVar string, ValueVar uint) bool {
 
 }
 
-var xSettingsSetInt func(uintptr, string, int32) bool
+var xSettingsSetInt func(uintptr, string, int) bool
 
 // Sets @key in @settings to @value.
 //
@@ -1103,7 +1103,7 @@ var xSettingsSetInt func(uintptr, string, int32) bool
 //
 // It is a programmer error to give a @key that isn't specified as
 // having a int32 type in the schema for @settings.
-func (x *Settings) SetInt(KeyVar string, ValueVar int32) bool {
+func (x *Settings) SetInt(KeyVar string, ValueVar int) bool {
 
 	return xSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
 
@@ -1220,8 +1220,8 @@ func (c *Settings) SetGoPointer(ptr uintptr) {
 // The default handler for this signal invokes the "changed" signal
 // for each affected key.  If any other connected handler returns
 // %TRUE then this default functionality will be suppressed.
-func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int32) bool) {
-	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int32) bool {
+func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) {
+	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
 

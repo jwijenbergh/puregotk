@@ -5,13 +5,13 @@ package glib
 // values.  The function should return a negative integer if the first
 // value comes before the second, 0 if they are equal, or a positive
 // integer if the first value comes after the second.
-type CompareDataFunc func(uintptr, uintptr, uintptr) int32
+type CompareDataFunc func(uintptr, uintptr, uintptr) int
 
 // Specifies the type of a comparison function used to compare two
 // values.  The function should return a negative integer if the first
 // value comes before the second, 0 if they are equal, or a positive
 // integer if the first value comes after the second.
-type CompareFunc func(uintptr, uintptr) int32
+type CompareFunc func(uintptr, uintptr) int
 
 // A function of this signature is used to copy the node data
 // when doing a deep-copy of a tree.

@@ -211,8 +211,8 @@ func (x *FileChooserWidget) ConnectPlacesShortcut(cb func(FileChooserWidget)) {
 // Note that in the default binding, that &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;1&lt;/kbd&gt; is
 // actually defined to switch to the bookmark at index 0, and so on
 // successively.
-func (x *FileChooserWidget) ConnectQuickBookmark(cb func(FileChooserWidget, int32)) {
-	fcb := func(clsPtr uintptr, BookmarkIndexVarp int32) {
+func (x *FileChooserWidget) ConnectQuickBookmark(cb func(FileChooserWidget, int)) {
+	fcb := func(clsPtr uintptr, BookmarkIndexVarp int) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
 
@@ -353,7 +353,7 @@ func (x *FileChooserWidget) UpdateProperty(FirstPropertyVar AccessibleProperty, 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *FileChooserWidget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -389,7 +389,7 @@ func (x *FileChooserWidget) UpdateRelation(FirstRelationVar AccessibleRelation, 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *FileChooserWidget) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -422,7 +422,7 @@ func (x *FileChooserWidget) UpdateState(FirstStateVar AccessibleState, varArgs .
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *FileChooserWidget) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

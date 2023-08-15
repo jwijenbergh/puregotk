@@ -155,7 +155,7 @@ func NewWithModelAndEntryComboBox(ModelVar TreeModel) *Widget {
 	return NewWithModelAndEntryComboBoxCls
 }
 
-var xComboBoxGetActive func(uintptr) int32
+var xComboBoxGetActive func(uintptr) int
 
 // Returns the index of the currently active item.
 //
@@ -163,7 +163,7 @@ var xComboBoxGetActive func(uintptr) int32
 // an immediate child of the root of the tree, this function returns
 // `gtk_tree_path_get_indices (path)[0]`, where `path` is the
 // [struct@Gtk.TreePath] of the active item.
-func (x *ComboBox) GetActive() int32 {
+func (x *ComboBox) GetActive() int {
 
 	return xComboBoxGetActive(x.GoPointer())
 
@@ -229,11 +229,11 @@ func (x *ComboBox) GetChild() *Widget {
 
 }
 
-var xComboBoxGetEntryTextColumn func(uintptr) int32
+var xComboBoxGetEntryTextColumn func(uintptr) int
 
 // Returns the column which @combo_box is using to get the strings
 // from to display in the internal entry.
-func (x *ComboBox) GetEntryTextColumn() int32 {
+func (x *ComboBox) GetEntryTextColumn() int {
 
 	return xComboBoxGetEntryTextColumn(x.GoPointer())
 
@@ -248,11 +248,11 @@ func (x *ComboBox) GetHasEntry() bool {
 
 }
 
-var xComboBoxGetIdColumn func(uintptr) int32
+var xComboBoxGetIdColumn func(uintptr) int
 
 // Returns the column which @combo_box is using to get string IDs
 // for values from.
-func (x *ComboBox) GetIdColumn() int32 {
+func (x *ComboBox) GetIdColumn() int {
 
 	return xComboBoxGetIdColumn(x.GoPointer())
 
@@ -334,10 +334,10 @@ func (x *ComboBox) PopupForDevice(DeviceVar *gdk.Device) {
 
 }
 
-var xComboBoxSetActive func(uintptr, int32)
+var xComboBoxSetActive func(uintptr, int)
 
 // Sets the active item of @combo_box to be the item at @index.
-func (x *ComboBox) SetActive(IndexVar int32) {
+func (x *ComboBox) SetActive(IndexVar int) {
 
 	xComboBoxSetActive(x.GoPointer(), IndexVar)
 
@@ -390,7 +390,7 @@ func (x *ComboBox) SetChild(ChildVar *Widget) {
 
 }
 
-var xComboBoxSetEntryTextColumn func(uintptr, int32)
+var xComboBoxSetEntryTextColumn func(uintptr, int)
 
 // Sets the model column which @combo_box should use to get strings
 // from to be @text_column.
@@ -403,20 +403,20 @@ var xComboBoxSetEntryTextColumn func(uintptr, int32)
 //
 // This is only relevant if @combo_box has been created with
 // [property@Gtk.ComboBox:has-entry] as %TRUE.
-func (x *ComboBox) SetEntryTextColumn(TextColumnVar int32) {
+func (x *ComboBox) SetEntryTextColumn(TextColumnVar int) {
 
 	xComboBoxSetEntryTextColumn(x.GoPointer(), TextColumnVar)
 
 }
 
-var xComboBoxSetIdColumn func(uintptr, int32)
+var xComboBoxSetIdColumn func(uintptr, int)
 
 // Sets the model column which @combo_box should use to get string IDs
 // for values from.
 //
 // The column @id_column in the model of @combo_box must be of type
 // %G_TYPE_STRING.
-func (x *ComboBox) SetIdColumn(IdColumnVar int32) {
+func (x *ComboBox) SetIdColumn(IdColumnVar int) {
 
 	xComboBoxSetIdColumn(x.GoPointer(), IdColumnVar)
 
@@ -651,7 +651,7 @@ func (x *ComboBox) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ComboBox) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -687,7 +687,7 @@ func (x *ComboBox) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ComboBox) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -720,7 +720,7 @@ func (x *ComboBox) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ComboBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -773,7 +773,7 @@ func (x *ComboBox) StartEditing(EventVar *gdk.Event) {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *ComboBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *ComboBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -846,7 +846,7 @@ func (x *ComboBox) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *ComboBox) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *ComboBox) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

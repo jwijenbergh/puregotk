@@ -161,12 +161,12 @@ func ParamValueValidate(PspecVar *ParamSpec, ValueVar *Value) bool {
 
 }
 
-var xParamValuesCmp func(uintptr, *Value, *Value) int32
+var xParamValuesCmp func(uintptr, *Value, *Value) int
 
 // Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
 // if @value1 is found to be less than, equal to or greater than @value2,
 // respectively.
-func ParamValuesCmp(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int32 {
+func ParamValuesCmp(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int {
 
 	return xParamValuesCmp(PspecVar.GoPointer(), Value1Var, Value2Var)
 

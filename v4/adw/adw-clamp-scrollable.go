@@ -63,19 +63,19 @@ func (x *ClampScrollable) GetChild() *gtk.Widget {
 
 }
 
-var xClampScrollableGetMaximumSize func(uintptr) int32
+var xClampScrollableGetMaximumSize func(uintptr) int
 
 // Gets the maximum size allocated to the child.
-func (x *ClampScrollable) GetMaximumSize() int32 {
+func (x *ClampScrollable) GetMaximumSize() int {
 
 	return xClampScrollableGetMaximumSize(x.GoPointer())
 
 }
 
-var xClampScrollableGetTighteningThreshold func(uintptr) int32
+var xClampScrollableGetTighteningThreshold func(uintptr) int
 
 // Gets the size above which the child is clamped.
-func (x *ClampScrollable) GetTighteningThreshold() int32 {
+func (x *ClampScrollable) GetTighteningThreshold() int {
 
 	return xClampScrollableGetTighteningThreshold(x.GoPointer())
 
@@ -90,18 +90,18 @@ func (x *ClampScrollable) SetChild(ChildVar *gtk.Widget) {
 
 }
 
-var xClampScrollableSetMaximumSize func(uintptr, int32)
+var xClampScrollableSetMaximumSize func(uintptr, int)
 
 // Sets the maximum size allocated to the child.
 //
 // It is the width if the clamp is horizontal, or the height if it is vertical.
-func (x *ClampScrollable) SetMaximumSize(MaximumSizeVar int32) {
+func (x *ClampScrollable) SetMaximumSize(MaximumSizeVar int) {
 
 	xClampScrollableSetMaximumSize(x.GoPointer(), MaximumSizeVar)
 
 }
 
-var xClampScrollableSetTighteningThreshold func(uintptr, int32)
+var xClampScrollableSetTighteningThreshold func(uintptr, int)
 
 // Sets the size above which the child is clamped.
 //
@@ -117,7 +117,7 @@ var xClampScrollableSetTighteningThreshold func(uintptr, int32)
 //
 // Effectively, tightening the grip on the child before it reaches its maximum
 // size makes transitions to and from the maximum size smoother when resizing.
-func (x *ClampScrollable) SetTighteningThreshold(TighteningThresholdVar int32) {
+func (x *ClampScrollable) SetTighteningThreshold(TighteningThresholdVar int) {
 
 	xClampScrollableSetTighteningThreshold(x.GoPointer(), TighteningThresholdVar)
 
@@ -189,7 +189,7 @@ func (x *ClampScrollable) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ClampScrollable) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *ClampScrollable) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -225,7 +225,7 @@ func (x *ClampScrollable) UpdateRelation(FirstRelationVar gtk.AccessibleRelation
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ClampScrollable) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *ClampScrollable) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -258,7 +258,7 @@ func (x *ClampScrollable) UpdateState(FirstStateVar gtk.AccessibleState, varArgs
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ClampScrollable) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *ClampScrollable) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

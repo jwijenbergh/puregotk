@@ -238,20 +238,20 @@ func (x *ConstraintLayout) AddConstraint(ConstraintVar *Constraint) {
 
 }
 
-var xConstraintLayoutAddConstraintsFromDescription func(uintptr, uintptr, uint, int32, int32, **glib.Error, string, ...interface{}) *glib.List
+var xConstraintLayoutAddConstraintsFromDescription func(uintptr, uintptr, uint, int, int, **glib.Error, string, ...interface{}) *glib.List
 
 // Creates a list of constraints from a VFL description.
 //
 // This function is a convenience wrapper around
 // [method@Gtk.ConstraintLayout.add_constraints_from_descriptionv], using
 // variadic arguments to populate the view/target map.
-func (x *ConstraintLayout) AddConstraintsFromDescription(LinesVar uintptr, NLinesVar uint, HspacingVar int32, VspacingVar int32, ErrorVar **glib.Error, FirstViewVar string, varArgs ...interface{}) *glib.List {
+func (x *ConstraintLayout) AddConstraintsFromDescription(LinesVar uintptr, NLinesVar uint, HspacingVar int, VspacingVar int, ErrorVar **glib.Error, FirstViewVar string, varArgs ...interface{}) *glib.List {
 
 	return xConstraintLayoutAddConstraintsFromDescription(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ErrorVar, FirstViewVar, varArgs...)
 
 }
 
-var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint, int32, int32, *glib.HashTable) *glib.List
+var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint, int, int, *glib.HashTable) *glib.List
 
 // Creates a list of constraints from a VFL description.
 //
@@ -334,7 +334,7 @@ var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint,
 //	[button1(==button2.height)]
 //
 // ```
-func (x *ConstraintLayout) AddConstraintsFromDescriptionv(LinesVar uintptr, NLinesVar uint, HspacingVar int32, VspacingVar int32, ViewsVar *glib.HashTable) *glib.List {
+func (x *ConstraintLayout) AddConstraintsFromDescriptionv(LinesVar uintptr, NLinesVar uint, HspacingVar int, VspacingVar int, ViewsVar *glib.HashTable) *glib.List {
 
 	return xConstraintLayoutAddConstraintsFromDescriptionv(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ViewsVar)
 

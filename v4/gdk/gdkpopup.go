@@ -22,11 +22,11 @@ type Popup interface {
 	SetGoPointer(uintptr)
 	GetAutohide() bool
 	GetParent() *Surface
-	GetPositionX() int32
-	GetPositionY() int32
+	GetPositionX() int
+	GetPositionY() int
 	GetRectAnchor() Gravity
 	GetSurfaceAnchor() Gravity
-	Present(WidthVar int32, HeightVar int32, LayoutVar *PopupLayout) bool
+	Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool
 }
 type PopupBase struct {
 	Ptr uintptr
@@ -64,14 +64,14 @@ func (x *PopupBase) GetParent() *Surface {
 }
 
 // Obtains the position of the popup relative to its parent.
-func (x *PopupBase) GetPositionX() int32 {
+func (x *PopupBase) GetPositionX() int {
 
 	return XGdkPopupGetPositionX(x.GoPointer())
 
 }
 
 // Obtains the position of the popup relative to its parent.
-func (x *PopupBase) GetPositionY() int32 {
+func (x *PopupBase) GetPositionY() int {
 
 	return XGdkPopupGetPositionY(x.GoPointer())
 
@@ -112,7 +112,7 @@ func (x *PopupBase) GetSurfaceAnchor() Gravity {
 // Presenting may fail, for example if the @popup is set to autohide
 // and is immediately hidden upon being presented. If presenting failed,
 // the [signal@Gdk.Surface::layout] signal will not me emitted.
-func (x *PopupBase) Present(WidthVar int32, HeightVar int32, LayoutVar *PopupLayout) bool {
+func (x *PopupBase) Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool {
 
 	return XGdkPopupPresent(x.GoPointer(), WidthVar, HeightVar, LayoutVar)
 
@@ -120,11 +120,11 @@ func (x *PopupBase) Present(WidthVar int32, HeightVar int32, LayoutVar *PopupLay
 
 var XGdkPopupGetAutohide func(uintptr) bool
 var XGdkPopupGetParent func(uintptr) uintptr
-var XGdkPopupGetPositionX func(uintptr) int32
-var XGdkPopupGetPositionY func(uintptr) int32
+var XGdkPopupGetPositionX func(uintptr) int
+var XGdkPopupGetPositionY func(uintptr) int
 var XGdkPopupGetRectAnchor func(uintptr) Gravity
 var XGdkPopupGetSurfaceAnchor func(uintptr) Gravity
-var XGdkPopupPresent func(uintptr, int32, int32, *PopupLayout) bool
+var XGdkPopupPresent func(uintptr, int, int, *PopupLayout) bool
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

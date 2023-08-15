@@ -76,7 +76,7 @@ type PixbufModuleSaveOptionSupportedFunc func(string) bool
 // this as a hint that it will be closed soon and shouldn't allocate further
 // resources. This convention is used to implement gdk_pixbuf_get_file_info()
 // efficiently.
-type PixbufModuleSizeFunc func(int32, int32, uintptr)
+type PixbufModuleSizeFunc func(int, int, uintptr)
 
 // Finalizes the image loading state.
 //
@@ -89,7 +89,7 @@ type PixbufModuleStopLoadFunc func(uintptr) bool
 // #GdkPixbufLoader uses a function of this type to emit the
 // "&lt;link linkend="GdkPixbufLoader-area-updated"&gt;area_updated&lt;/link&gt;"
 // signal.
-type PixbufModuleUpdatedFunc func(uintptr, int32, int32, int32, int32, uintptr)
+type PixbufModuleUpdatedFunc func(uintptr, int, int, int, int, uintptr)
 
 // A `GdkPixbufFormat` contains information about the image format accepted
 // by a module.
@@ -226,7 +226,7 @@ type PixbufModulePattern struct {
 
 	Mask string
 
-	Relevance int32
+	Relevance int
 }
 
 // Flags which allow a module to specify further details about the supported

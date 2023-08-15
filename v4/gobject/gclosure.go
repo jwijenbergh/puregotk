@@ -26,7 +26,7 @@ type ClosureNotify func(uintptr, *Closure)
 // This is the signature of va_list marshaller functions, an optional
 // marshaller that can be used in some situations to avoid
 // marshalling the signal argument into GValues.
-type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int32, uintptr)
+type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int, uintptr)
 
 // A #GCClosure is a specialization of #GClosure for C function callbacks.
 type CClosure struct {

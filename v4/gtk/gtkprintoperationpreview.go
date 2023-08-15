@@ -20,8 +20,8 @@ type PrintOperationPreview interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	EndPreview()
-	IsSelected(PageNrVar int32) bool
-	RenderPage(PageNrVar int32)
+	IsSelected(PageNrVar int) bool
+	RenderPage(PageNrVar int)
 }
 type PrintOperationPreviewBase struct {
 	Ptr uintptr
@@ -46,7 +46,7 @@ func (x *PrintOperationPreviewBase) EndPreview() {
 
 // Returns whether the given page is included in the set of pages that
 // have been selected for printing.
-func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int32) bool {
+func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int) bool {
 
 	return XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
 
@@ -63,15 +63,15 @@ func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int32) bool {
 //
 // Note that this function requires a suitable cairo context to
 // be associated with the print context.
-func (x *PrintOperationPreviewBase) RenderPage(PageNrVar int32) {
+func (x *PrintOperationPreviewBase) RenderPage(PageNrVar int) {
 
 	XGtkPrintOperationPreviewRenderPage(x.GoPointer(), PageNrVar)
 
 }
 
 var XGtkPrintOperationPreviewEndPreview func(uintptr)
-var XGtkPrintOperationPreviewIsSelected func(uintptr, int32) bool
-var XGtkPrintOperationPreviewRenderPage func(uintptr, int32)
+var XGtkPrintOperationPreviewIsSelected func(uintptr, int) bool
+var XGtkPrintOperationPreviewRenderPage func(uintptr, int)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

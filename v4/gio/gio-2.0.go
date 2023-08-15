@@ -189,7 +189,7 @@ func (x *BytesIcon) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *BytesIcon) Load(SizeVar int32, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *BytesIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
 
 	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 	if LoadPtr == 0 {
@@ -205,7 +205,7 @@ func (x *BytesIcon) Load(SizeVar int32, TypeVar string, CancellableVar *Cancella
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *BytesIcon) LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *BytesIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -830,7 +830,7 @@ func (x *DBusConnection) AddFilter(FilterFunctionVar DBusMessageFilterFunction, 
 
 }
 
-var xDBusConnectionCall func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int32, uintptr, uintptr, uintptr)
+var xDBusConnectionCall func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, uintptr, uintptr)
 
 // Asynchronously invokes the @method_name method on the
 // @interface_name D-Bus interface on the remote object at
@@ -879,7 +879,7 @@ var xDBusConnectionCall func(uintptr, string, string, string, string, *glib.Vari
 //
 // If @callback is %NULL then the D-Bus method call message will be sent with
 // the %G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
-func (x *DBusConnection) Call(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) Call(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDBusConnectionCall(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -894,7 +894,7 @@ func (x *DBusConnection) CallFinish(ResVar AsyncResult) *glib.Variant {
 
 }
 
-var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int32, uintptr) *glib.Variant
+var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr) *glib.Variant
 
 // Synchronously invokes the @method_name method on the
 // @interface_name D-Bus interface on the remote object at
@@ -934,13 +934,13 @@ var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.
 // The calling thread is blocked until a reply is received. See
 // g_dbus_connection_call() for the asynchronous version of
 // this method.
-func (x *DBusConnection) CallSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int32, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusConnection) CallSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) *glib.Variant {
 
 	return xDBusConnectionCallSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer())
 
 }
 
-var xDBusConnectionCallWithUnixFdList func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int32, uintptr, uintptr, uintptr, uintptr)
+var xDBusConnectionCallWithUnixFdList func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, uintptr, uintptr, uintptr)
 
 // Like g_dbus_connection_call() but also takes a #GUnixFDList object.
 //
@@ -957,7 +957,7 @@ var xDBusConnectionCallWithUnixFdList func(uintptr, string, string, string, stri
 // value of type %G_VARIANT_TYPE_HANDLE in the body of the message.
 //
 // This method is only available on UNIX.
-func (x *DBusConnection) CallWithUnixFdList(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int32, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) CallWithUnixFdList(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDBusConnectionCallWithUnixFdList(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -983,14 +983,14 @@ func (x *DBusConnection) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, Res
 
 }
 
-var xDBusConnectionCallWithUnixFdListSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int32, uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusConnectionCallWithUnixFdListSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, *uintptr, uintptr) *glib.Variant
 
 // Like g_dbus_connection_call_sync() but also takes and returns #GUnixFDList objects.
 // See g_dbus_connection_call_with_unix_fd_list() and
 // g_dbus_connection_call_with_unix_fd_list_finish() for more details.
 //
 // This method is only available on UNIX.
-func (x *DBusConnection) CallWithUnixFdListSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int32, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusConnection) CallWithUnixFdListSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
 
 	return xDBusConnectionCallWithUnixFdListSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer())
 
@@ -1419,7 +1419,7 @@ func (x *DBusConnection) SendMessage(MessageVar *DBusMessage, FlagsVar DBusSendM
 
 }
 
-var xDBusConnectionSendMessageWithReply func(uintptr, uintptr, DBusSendMessageFlags, int32, uint32, uintptr, uintptr, uintptr)
+var xDBusConnectionSendMessageWithReply func(uintptr, uintptr, DBusSendMessageFlags, int, uint32, uintptr, uintptr, uintptr)
 
 // Asynchronously sends @message to the peer represented by @connection.
 //
@@ -1450,7 +1450,7 @@ var xDBusConnectionSendMessageWithReply func(uintptr, uintptr, DBusSendMessageFl
 // See this [server][gdbus-server] and [client][gdbus-unix-fd-client]
 // for an example of how to use this low-level API to send and receive
 // UNIX file descriptors.
-func (x *DBusConnection) SendMessageWithReply(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int32, OutSerialVar uint32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) SendMessageWithReply(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDBusConnectionSendMessageWithReply(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -1481,7 +1481,7 @@ func (x *DBusConnection) SendMessageWithReplyFinish(ResVar AsyncResult) *DBusMes
 
 }
 
-var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessageFlags, int32, uint32, uintptr) uintptr
+var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessageFlags, int, uint32, uintptr) uintptr
 
 // Synchronously sends @message to the peer represented by @connection
 // and blocks the calling thread until a reply is received or the
@@ -1513,7 +1513,7 @@ var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessa
 //
 // Note that @message must be unlocked, unless @flags contain the
 // %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
-func (x *DBusConnection) SendMessageWithReplySync(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int32, OutSerialVar uint32, CancellableVar *Cancellable) *DBusMessage {
+func (x *DBusConnection) SendMessageWithReplySync(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable) *DBusMessage {
 
 	SendMessageWithReplySyncPtr := xDBusConnectionSendMessageWithReplySync(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer())
 	if SendMessageWithReplySyncPtr == 0 {
@@ -1750,7 +1750,7 @@ func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) {
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *DBusConnection) InitAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -2613,7 +2613,7 @@ func (x *DBusMethodInvocation) ReturnDbusError(ErrorNameVar string, ErrorMessage
 
 }
 
-var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int32, string, ...interface{})
+var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int, string, ...interface{})
 
 // Finishes handling a D-Bus method call by returning an error.
 //
@@ -2635,26 +2635,26 @@ var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int32, string, ..
 // Since 2.48, if the method call requested for a reply not to be sent
 // then this call will free @invocation but otherwise do nothing (as per
 // the recommendations of the D-Bus specification).
-func (x *DBusMethodInvocation) ReturnError(DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
+func (x *DBusMethodInvocation) ReturnError(DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
 
 	xDBusMethodInvocationReturnError(x.GoPointer(), DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xDBusMethodInvocationReturnErrorLiteral func(uintptr, glib.Quark, int32, string)
+var xDBusMethodInvocationReturnErrorLiteral func(uintptr, glib.Quark, int, string)
 
 // Like g_dbus_method_invocation_return_error() but without printf()-style formatting.
 //
 // This method will take ownership of @invocation. See
 // #GDBusInterfaceVTable for more information about the ownership of
 // @invocation.
-func (x *DBusMethodInvocation) ReturnErrorLiteral(DomainVar glib.Quark, CodeVar int32, MessageVar string) {
+func (x *DBusMethodInvocation) ReturnErrorLiteral(DomainVar glib.Quark, CodeVar int, MessageVar string) {
 
 	xDBusMethodInvocationReturnErrorLiteral(x.GoPointer(), DomainVar, CodeVar, MessageVar)
 
 }
 
-var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int32, string, []interface{})
+var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int, string, []interface{})
 
 // Like g_dbus_method_invocation_return_error() but intended for
 // language bindings.
@@ -2662,7 +2662,7 @@ var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int32, stri
 // This method will take ownership of @invocation. See
 // #GDBusInterfaceVTable for more information about the ownership of
 // @invocation.
-func (x *DBusMethodInvocation) ReturnErrorValist(DomainVar glib.Quark, CodeVar int32, FormatVar string, VarArgsVar []interface{}) {
+func (x *DBusMethodInvocation) ReturnErrorValist(DomainVar glib.Quark, CodeVar int, FormatVar string, VarArgsVar []interface{}) {
 
 	xDBusMethodInvocationReturnErrorValist(x.GoPointer(), DomainVar, CodeVar, FormatVar, VarArgsVar)
 
@@ -3059,18 +3059,18 @@ func (x *Menu) Freeze() {
 
 }
 
-var xMenuInsert func(uintptr, int32, string, string)
+var xMenuInsert func(uintptr, int, string, string)
 
 // Convenience function for inserting a normal menu item into @menu.
 // Combine g_menu_item_new() and g_menu_insert_item() for a more flexible
 // alternative.
-func (x *Menu) Insert(PositionVar int32, LabelVar string, DetailedActionVar string) {
+func (x *Menu) Insert(PositionVar int, LabelVar string, DetailedActionVar string) {
 
 	xMenuInsert(x.GoPointer(), PositionVar, LabelVar, DetailedActionVar)
 
 }
 
-var xMenuInsertItem func(uintptr, int32, uintptr)
+var xMenuInsertItem func(uintptr, int, uintptr)
 
 // Inserts @item into @menu.
 //
@@ -3089,29 +3089,29 @@ var xMenuInsertItem func(uintptr, int32, uintptr)
 // See g_menu_insert(), g_menu_insert_section() and
 // g_menu_insert_submenu() as well as "prepend" and "append" variants of
 // each of these functions.
-func (x *Menu) InsertItem(PositionVar int32, ItemVar *MenuItem) {
+func (x *Menu) InsertItem(PositionVar int, ItemVar *MenuItem) {
 
 	xMenuInsertItem(x.GoPointer(), PositionVar, ItemVar.GoPointer())
 
 }
 
-var xMenuInsertSection func(uintptr, int32, string, uintptr)
+var xMenuInsertSection func(uintptr, int, string, uintptr)
 
 // Convenience function for inserting a section menu item into @menu.
 // Combine g_menu_item_new_section() and g_menu_insert_item() for a more
 // flexible alternative.
-func (x *Menu) InsertSection(PositionVar int32, LabelVar string, SectionVar *MenuModel) {
+func (x *Menu) InsertSection(PositionVar int, LabelVar string, SectionVar *MenuModel) {
 
 	xMenuInsertSection(x.GoPointer(), PositionVar, LabelVar, SectionVar.GoPointer())
 
 }
 
-var xMenuInsertSubmenu func(uintptr, int32, string, uintptr)
+var xMenuInsertSubmenu func(uintptr, int, string, uintptr)
 
 // Convenience function for inserting a submenu menu item into @menu.
 // Combine g_menu_item_new_submenu() and g_menu_insert_item() for a more
 // flexible alternative.
-func (x *Menu) InsertSubmenu(PositionVar int32, LabelVar string, SubmenuVar *MenuModel) {
+func (x *Menu) InsertSubmenu(PositionVar int, LabelVar string, SubmenuVar *MenuModel) {
 
 	xMenuInsertSubmenu(x.GoPointer(), PositionVar, LabelVar, SubmenuVar.GoPointer())
 
@@ -3161,7 +3161,7 @@ func (x *Menu) PrependSubmenu(LabelVar string, SubmenuVar *MenuModel) {
 
 }
 
-var xMenuRemove func(uintptr, int32)
+var xMenuRemove func(uintptr, int)
 
 // Removes an item from the menu.
 //
@@ -3173,7 +3173,7 @@ var xMenuRemove func(uintptr, int32)
 // It is not possible to remove items by identity since items are added
 // to the menu simply by copying their links and attributes (ie:
 // identity of the item itself is not preserved).
-func (x *Menu) Remove(PositionVar int32) {
+func (x *Menu) Remove(PositionVar int) {
 
 	xMenuRemove(x.GoPointer(), PositionVar)
 
@@ -3229,14 +3229,14 @@ func NewMenuItem(LabelVar string, DetailedActionVar string) *MenuItem {
 	return NewMenuItemCls
 }
 
-var xNewFromModelMenuItem func(uintptr, int32) uintptr
+var xNewFromModelMenuItem func(uintptr, int) uintptr
 
 // Creates a #GMenuItem as an exact copy of an existing menu item in a
 // #GMenuModel.
 //
 // @item_index must be valid (ie: be sure to call
 // g_menu_model_get_n_items() first).
-func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int32) *MenuItem {
+func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
 	NewFromModelMenuItemPtr := xNewFromModelMenuItem(ModelVar.GoPointer(), ItemIndexVar)
 	if NewFromModelMenuItemPtr == 0 {
 		return nil
@@ -4653,7 +4653,7 @@ func (x *Subprocess) ForceExit() {
 
 }
 
-var xSubprocessGetExitStatus func(uintptr) int32
+var xSubprocessGetExitStatus func(uintptr) int
 
 // Check the exit status of the subprocess, given that it exited
 // normally.  This is the value passed to the exit() system call or the
@@ -4663,7 +4663,7 @@ var xSubprocessGetExitStatus func(uintptr) int32
 //
 // It is an error to call this function before g_subprocess_wait() and
 // unless g_subprocess_get_if_exited() returned %TRUE.
-func (x *Subprocess) GetExitStatus() int32 {
+func (x *Subprocess) GetExitStatus() int {
 
 	return xSubprocessGetExitStatus(x.GoPointer())
 
@@ -4709,7 +4709,7 @@ func (x *Subprocess) GetIfSignaled() bool {
 
 }
 
-var xSubprocessGetStatus func(uintptr) int32
+var xSubprocessGetStatus func(uintptr) int
 
 // Gets the raw status code of the process, as from waitpid().
 //
@@ -4722,7 +4722,7 @@ var xSubprocessGetStatus func(uintptr) int32
 //
 // It is an error to call this function before g_subprocess_wait() has
 // returned.
-func (x *Subprocess) GetStatus() int32 {
+func (x *Subprocess) GetStatus() int {
 
 	return xSubprocessGetStatus(x.GoPointer())
 
@@ -4808,7 +4808,7 @@ func (x *Subprocess) GetSuccessful() bool {
 
 }
 
-var xSubprocessGetTermSig func(uintptr) int32
+var xSubprocessGetTermSig func(uintptr) int
 
 // Get the signal number that caused the subprocess to terminate, given
 // that it terminated due to a signal.
@@ -4817,13 +4817,13 @@ var xSubprocessGetTermSig func(uintptr) int32
 //
 // It is an error to call this function before g_subprocess_wait() and
 // unless g_subprocess_get_if_signaled() returned %TRUE.
-func (x *Subprocess) GetTermSig() int32 {
+func (x *Subprocess) GetTermSig() int {
 
 	return xSubprocessGetTermSig(x.GoPointer())
 
 }
 
-var xSubprocessSendSignal func(uintptr, int32)
+var xSubprocessSendSignal func(uintptr, int)
 
 // Sends the UNIX signal @signal_num to the subprocess, if it is still
 // running.
@@ -4832,7 +4832,7 @@ var xSubprocessSendSignal func(uintptr, int32)
 // be signalled.
 //
 // This API is not available on Windows.
-func (x *Subprocess) SendSignal(SignalNumVar int32) {
+func (x *Subprocess) SendSignal(SignalNumVar int) {
 
 	xSubprocessSendSignal(x.GoPointer(), SignalNumVar)
 
@@ -5213,7 +5213,7 @@ func (x *SubprocessLauncher) Spawnv(ArgvVar uintptr) *Subprocess {
 
 }
 
-var xSubprocessLauncherTakeFd func(uintptr, int32, int32)
+var xSubprocessLauncherTakeFd func(uintptr, int, int)
 
 // Transfer an arbitrary file descriptor from parent process to the
 // child.  This function takes ownership of the @source_fd; it will be closed
@@ -5227,13 +5227,13 @@ var xSubprocessLauncherTakeFd func(uintptr, int32, int32)
 // An example use case is GNUPG, which has a command line argument
 // `--passphrase-fd` providing a file descriptor number where it expects
 // the passphrase to be written.
-func (x *SubprocessLauncher) TakeFd(SourceFdVar int32, TargetFdVar int32) {
+func (x *SubprocessLauncher) TakeFd(SourceFdVar int, TargetFdVar int) {
 
 	xSubprocessLauncherTakeFd(x.GoPointer(), SourceFdVar, TargetFdVar)
 
 }
 
-var xSubprocessLauncherTakeStderrFd func(uintptr, int32)
+var xSubprocessLauncherTakeStderrFd func(uintptr, int)
 
 // Sets the file descriptor to use as the stderr for spawned processes.
 //
@@ -5251,13 +5251,13 @@ var xSubprocessLauncherTakeStderrFd func(uintptr, int32)
 // if the launcher flags contain any flags directing stderr elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStderrFd(FdVar int32) {
+func (x *SubprocessLauncher) TakeStderrFd(FdVar int) {
 
 	xSubprocessLauncherTakeStderrFd(x.GoPointer(), FdVar)
 
 }
 
-var xSubprocessLauncherTakeStdinFd func(uintptr, int32)
+var xSubprocessLauncherTakeStdinFd func(uintptr, int)
 
 // Sets the file descriptor to use as the stdin for spawned processes.
 //
@@ -5277,13 +5277,13 @@ var xSubprocessLauncherTakeStdinFd func(uintptr, int32)
 // the launcher flags contain any flags directing stdin elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStdinFd(FdVar int32) {
+func (x *SubprocessLauncher) TakeStdinFd(FdVar int) {
 
 	xSubprocessLauncherTakeStdinFd(x.GoPointer(), FdVar)
 
 }
 
-var xSubprocessLauncherTakeStdoutFd func(uintptr, int32)
+var xSubprocessLauncherTakeStdoutFd func(uintptr, int)
 
 // Sets the file descriptor to use as the stdout for spawned processes.
 //
@@ -5302,7 +5302,7 @@ var xSubprocessLauncherTakeStdoutFd func(uintptr, int32)
 // if the launcher flags contain any flags directing stdout elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStdoutFd(FdVar int32) {
+func (x *SubprocessLauncher) TakeStdoutFd(FdVar int) {
 
 	xSubprocessLauncherTakeStdoutFd(x.GoPointer(), FdVar)
 

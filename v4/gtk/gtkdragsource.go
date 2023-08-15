@@ -208,7 +208,7 @@ func (x *DragSource) SetContent(ContentVar *gdk.ContentProvider) {
 
 }
 
-var xDragSourceSetIcon func(uintptr, uintptr, int32, int32)
+var xDragSourceSetIcon func(uintptr, uintptr, int, int)
 
 // Sets a paintable to use as icon during DND operations.
 //
@@ -220,7 +220,7 @@ var xDragSourceSetIcon func(uintptr, uintptr, int32, int32)
 // This function can be called before a drag is started, or in
 // a [signal@Gtk.DragSource::prepare] or
 // [signal@Gtk.DragSource::drag-begin] signal handler.
-func (x *DragSource) SetIcon(PaintableVar gdk.Paintable, HotXVar int32, HotYVar int32) {
+func (x *DragSource) SetIcon(PaintableVar gdk.Paintable, HotXVar int, HotYVar int) {
 
 	xDragSourceSetIcon(x.GoPointer(), PaintableVar.GoPointer(), HotXVar, HotYVar)
 

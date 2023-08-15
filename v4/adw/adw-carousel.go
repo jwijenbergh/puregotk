@@ -167,13 +167,13 @@ func (x *Carousel) GetSpacing() uint {
 
 }
 
-var xCarouselInsert func(uintptr, uintptr, int32)
+var xCarouselInsert func(uintptr, uintptr, int)
 
 // Inserts @child into @self at position @position.
 //
 // If position is -1, or larger than the number of pages,
 // @child will be appended to the end.
-func (x *Carousel) Insert(ChildVar *gtk.Widget, PositionVar int32) {
+func (x *Carousel) Insert(ChildVar *gtk.Widget, PositionVar int) {
 
 	xCarouselInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -197,13 +197,13 @@ func (x *Carousel) Remove(ChildVar *gtk.Widget) {
 
 }
 
-var xCarouselReorder func(uintptr, uintptr, int32)
+var xCarouselReorder func(uintptr, uintptr, int)
 
 // Moves @child into position @position.
 //
 // If position is -1, or larger than the number of pages, @child will be moved
 // at the end.
-func (x *Carousel) Reorder(ChildVar *gtk.Widget, PositionVar int32) {
+func (x *Carousel) Reorder(ChildVar *gtk.Widget, PositionVar int) {
 
 	xCarouselReorder(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -352,7 +352,7 @@ func (x *Carousel) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *Carousel) GetSnapPoints(NSnapPointsVar int32) uintptr {
+func (x *Carousel) GetSnapPoints(NSnapPointsVar int) uintptr {
 
 	return XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 
@@ -431,7 +431,7 @@ func (x *Carousel) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Carousel) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -467,7 +467,7 @@ func (x *Carousel) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Carousel) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -500,7 +500,7 @@ func (x *Carousel) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Carousel) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

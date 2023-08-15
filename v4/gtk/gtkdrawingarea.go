@@ -13,7 +13,7 @@ import (
 //
 // This function should exclusively redraw the contents of the drawing area
 // and must not call any widget functions that cause changes.
-type DrawingAreaDrawFunc func(uintptr, *cairo.Context, int32, int32, uintptr)
+type DrawingAreaDrawFunc func(uintptr, *cairo.Context, int, int, uintptr)
 
 type DrawingAreaClass struct {
 	ParentClass uintptr
@@ -132,25 +132,25 @@ func NewDrawingArea() *Widget {
 	return NewDrawingAreaCls
 }
 
-var xDrawingAreaGetContentHeight func(uintptr) int32
+var xDrawingAreaGetContentHeight func(uintptr) int
 
 // Retrieves the content height of the `GtkDrawingArea`.
-func (x *DrawingArea) GetContentHeight() int32 {
+func (x *DrawingArea) GetContentHeight() int {
 
 	return xDrawingAreaGetContentHeight(x.GoPointer())
 
 }
 
-var xDrawingAreaGetContentWidth func(uintptr) int32
+var xDrawingAreaGetContentWidth func(uintptr) int
 
 // Retrieves the content width of the `GtkDrawingArea`.
-func (x *DrawingArea) GetContentWidth() int32 {
+func (x *DrawingArea) GetContentWidth() int {
 
 	return xDrawingAreaGetContentWidth(x.GoPointer())
 
 }
 
-var xDrawingAreaSetContentHeight func(uintptr, int32)
+var xDrawingAreaSetContentHeight func(uintptr, int)
 
 // Sets the desired height of the contents of the drawing area.
 //
@@ -160,13 +160,13 @@ var xDrawingAreaSetContentHeight func(uintptr, int32)
 // [method@Gtk.Widget.set_valign] to avoid that.
 //
 // If the height is set to 0 (the default), the drawing area may disappear.
-func (x *DrawingArea) SetContentHeight(HeightVar int32) {
+func (x *DrawingArea) SetContentHeight(HeightVar int) {
 
 	xDrawingAreaSetContentHeight(x.GoPointer(), HeightVar)
 
 }
 
-var xDrawingAreaSetContentWidth func(uintptr, int32)
+var xDrawingAreaSetContentWidth func(uintptr, int)
 
 // Sets the desired width of the contents of the drawing area.
 //
@@ -176,7 +176,7 @@ var xDrawingAreaSetContentWidth func(uintptr, int32)
 // [method@Gtk.Widget.set_halign] to avoid that.
 //
 // If the width is set to 0 (the default), the drawing area may disappear.
-func (x *DrawingArea) SetContentWidth(WidthVar int32) {
+func (x *DrawingArea) SetContentWidth(WidthVar int) {
 
 	xDrawingAreaSetContentWidth(x.GoPointer(), WidthVar)
 
@@ -217,8 +217,8 @@ func (c *DrawingArea) SetGoPointer(ptr uintptr) {
 //
 // This is useful in order to keep state up to date with the widget size,
 // like for instance a backing surface.
-func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int32, int32)) {
-	fcb := func(clsPtr uintptr, WidthVarp int32, HeightVarp int32) {
+func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) {
+	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := DrawingArea{}
 		fa.Ptr = clsPtr
 
@@ -286,7 +286,7 @@ func (x *DrawingArea) UpdateProperty(FirstPropertyVar AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *DrawingArea) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *DrawingArea) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -322,7 +322,7 @@ func (x *DrawingArea) UpdateRelation(FirstRelationVar AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *DrawingArea) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *DrawingArea) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -355,7 +355,7 @@ func (x *DrawingArea) UpdateState(FirstStateVar AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *DrawingArea) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *DrawingArea) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

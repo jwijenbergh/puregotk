@@ -201,7 +201,7 @@ func (x *PasswordEntry) UpdateProperty(FirstPropertyVar AccessibleProperty, varA
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PasswordEntry) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *PasswordEntry) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -237,7 +237,7 @@ func (x *PasswordEntry) UpdateRelation(FirstRelationVar AccessibleRelation, varA
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PasswordEntry) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *PasswordEntry) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -270,7 +270,7 @@ func (x *PasswordEntry) UpdateState(FirstStateVar AccessibleState, varArgs ...in
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PasswordEntry) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *PasswordEntry) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -303,7 +303,7 @@ func (x *PasswordEntry) DeleteSelection() {
 // the end of the text.
 //
 // Note that the positions are specified in characters, not bytes.
-func (x *PasswordEntry) DeleteText(StartPosVar int32, EndPosVar int32) {
+func (x *PasswordEntry) DeleteText(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableDeleteText(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -334,7 +334,7 @@ func (x *PasswordEntry) GetAlignment() float32 {
 // the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *PasswordEntry) GetChars(StartPosVar int32, EndPosVar int32) string {
+func (x *PasswordEntry) GetChars(StartPosVar int, EndPosVar int) string {
 
 	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -374,7 +374,7 @@ func (x *PasswordEntry) GetEnableUndo() bool {
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
-func (x *PasswordEntry) GetMaxWidthChars() int32 {
+func (x *PasswordEntry) GetMaxWidthChars() int {
 
 	return XGtkEditableGetMaxWidthChars(x.GoPointer())
 
@@ -384,7 +384,7 @@ func (x *PasswordEntry) GetMaxWidthChars() int32 {
 // to the start of the content of the editable.
 //
 // Note that this position is in characters, not in bytes.
-func (x *PasswordEntry) GetPosition() int32 {
+func (x *PasswordEntry) GetPosition() int {
 
 	return XGtkEditableGetPosition(x.GoPointer())
 
@@ -397,7 +397,7 @@ func (x *PasswordEntry) GetPosition() int32 {
 // and %FALSE will be returned.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *PasswordEntry) GetSelectionBounds(StartPosVar int32, EndPosVar int32) bool {
+func (x *PasswordEntry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
 	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -414,7 +414,7 @@ func (x *PasswordEntry) GetText() string {
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
-func (x *PasswordEntry) GetWidthChars() int32 {
+func (x *PasswordEntry) GetWidthChars() int {
 
 	return XGtkEditableGetWidthChars(x.GoPointer())
 
@@ -439,7 +439,7 @@ func (x *PasswordEntry) InitDelegate() {
 // Note that the position is in characters, not in bytes.
 // The function updates @position to point after the newly
 // inserted text.
-func (x *PasswordEntry) InsertText(TextVar string, LengthVar int32, PositionVar int32) {
+func (x *PasswordEntry) InsertText(TextVar string, LengthVar int, PositionVar int) {
 
 	XGtkEditableInsertText(x.GoPointer(), TextVar, LengthVar, PositionVar)
 
@@ -453,7 +453,7 @@ func (x *PasswordEntry) InsertText(TextVar string, LengthVar int32, PositionVar 
 // @start_pos to  the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *PasswordEntry) SelectRegion(StartPosVar int32, EndPosVar int32) {
+func (x *PasswordEntry) SelectRegion(StartPosVar int, EndPosVar int) {
 
 	XGtkEditableSelectRegion(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -489,7 +489,7 @@ func (x *PasswordEntry) SetEnableUndo(EnableUndoVar bool) {
 }
 
 // Sets the desired maximum width in characters of @editable.
-func (x *PasswordEntry) SetMaxWidthChars(NCharsVar int32) {
+func (x *PasswordEntry) SetMaxWidthChars(NCharsVar int) {
 
 	XGtkEditableSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -502,7 +502,7 @@ func (x *PasswordEntry) SetMaxWidthChars(NCharsVar int32) {
 // or equal to the number of characters in the editable. A value of -1
 // indicates that the position should be set after the last character
 // of the editable. Note that @position is in characters, not in bytes.
-func (x *PasswordEntry) SetPosition(PositionVar int32) {
+func (x *PasswordEntry) SetPosition(PositionVar int) {
 
 	XGtkEditableSetPosition(x.GoPointer(), PositionVar)
 
@@ -523,7 +523,7 @@ func (x *PasswordEntry) SetText(TextVar string) {
 // Note that it changes the size request, the size can still
 // be affected by how you pack the widget into containers.
 // If @n_chars is -1, the size reverts to the default size.
-func (x *PasswordEntry) SetWidthChars(NCharsVar int32) {
+func (x *PasswordEntry) SetWidthChars(NCharsVar int) {
 
 	XGtkEditableSetWidthChars(x.GoPointer(), NCharsVar)
 

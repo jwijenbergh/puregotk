@@ -8,7 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdkpixbuf"
 )
 
-var xPixbufGetFromSurface func(*cairo.Surface, int32, int32, int32, int32) uintptr
+var xPixbufGetFromSurface func(*cairo.Surface, int, int, int, int) uintptr
 
 // Transfers image data from a `cairo_surface_t` and converts it
 // to a `GdkPixbuf`.
@@ -17,7 +17,7 @@ var xPixbufGetFromSurface func(*cairo.Surface, int32, int32, int32, int32) uintp
 //
 // This function will create an RGB pixbuf with 8 bits per channel.
 // The pixbuf will contain an alpha channel if the @surface contains one.
-func PixbufGetFromSurface(SurfaceVar *cairo.Surface, SrcXVar int32, SrcYVar int32, WidthVar int32, HeightVar int32) *gdkpixbuf.Pixbuf {
+func PixbufGetFromSurface(SurfaceVar *cairo.Surface, SrcXVar int, SrcYVar int, WidthVar int, HeightVar int) *gdkpixbuf.Pixbuf {
 
 	PixbufGetFromSurfacePtr := xPixbufGetFromSurface(SurfaceVar, SrcXVar, SrcYVar, WidthVar, HeightVar)
 	if PixbufGetFromSurfacePtr == 0 {

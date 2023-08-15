@@ -108,26 +108,26 @@ func Atexit(FuncVar VoidFunc) {
 
 }
 
-var xBitNthLsf func(uint32, int32) int32
+var xBitNthLsf func(uint32, int) int
 
 // Find the position of the first bit set in @mask, searching
 // from (but not including) @nth_bit upwards. Bits are numbered
 // from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 // usually). To start searching from the 0th bit, set @nth_bit to -1.
-func BitNthLsf(MaskVar uint32, NthBitVar int32) int32 {
+func BitNthLsf(MaskVar uint32, NthBitVar int) int {
 
 	return xBitNthLsf(MaskVar, NthBitVar)
 
 }
 
-var xBitNthMsf func(uint32, int32) int32
+var xBitNthMsf func(uint32, int) int
 
 // Find the position of the first bit set in @mask, searching
 // from (but not including) @nth_bit downwards. Bits are numbered
 // from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 // usually). To start searching from the last bit, set @nth_bit to
 // -1 or GLIB_SIZEOF_LONG * 8.
-func BitNthMsf(MaskVar uint32, NthBitVar int32) int32 {
+func BitNthMsf(MaskVar uint32, NthBitVar int) int {
 
 	return xBitNthMsf(MaskVar, NthBitVar)
 
@@ -654,7 +654,7 @@ func SetPrgname(PrgnameVar string) {
 
 }
 
-var xSnprintf func(string, uint32, string, ...interface{}) int32
+var xSnprintf func(string, uint32, string, ...interface{}) int
 
 // A safer form of the standard sprintf() function. The output is guaranteed
 // to not exceed @n characters (including the terminating nul character), so
@@ -673,13 +673,13 @@ var xSnprintf func(string, uint32, string, ...interface{}) int32
 //
 // The format string may contain positional parameters, as specified in
 // the Single Unix Specification.
-func Snprintf(StringVar string, NVar uint32, FormatVar string, varArgs ...interface{}) int32 {
+func Snprintf(StringVar string, NVar uint32, FormatVar string, varArgs ...interface{}) int {
 
 	return xSnprintf(StringVar, NVar, FormatVar, varArgs...)
 
 }
 
-var xVsnprintf func(string, uint32, string, []interface{}) int32
+var xVsnprintf func(string, uint32, string, []interface{}) int
 
 // A safer form of the standard vsprintf() function. The output is guaranteed
 // to not exceed @n characters (including the terminating nul character), so
@@ -698,7 +698,7 @@ var xVsnprintf func(string, uint32, string, []interface{}) int32
 //
 // The format string may contain positional parameters, as specified in
 // the Single Unix Specification.
-func Vsnprintf(StringVar string, NVar uint32, FormatVar string, ArgsVar []interface{}) int32 {
+func Vsnprintf(StringVar string, NVar uint32, FormatVar string, ArgsVar []interface{}) int {
 
 	return xVsnprintf(StringVar, NVar, FormatVar, ArgsVar)
 

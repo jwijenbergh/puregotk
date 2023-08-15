@@ -136,14 +136,14 @@ type CellLayoutIface struct {
 type CellLayout interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32)
+	AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int)
 	Clear()
 	ClearAttributes(CellVar *CellRenderer)
 	GetArea() *CellArea
 	GetCells() *glib.List
 	PackEnd(CellVar *CellRenderer, ExpandVar bool)
 	PackStart(CellVar *CellRenderer, ExpandVar bool)
-	Reorder(CellVar *CellRenderer, PositionVar int32)
+	Reorder(CellVar *CellRenderer, PositionVar int)
 	SetAttributes(CellVar *CellRenderer, varArgs ...interface{})
 	SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify)
 }
@@ -166,7 +166,7 @@ func (x *CellLayoutBase) SetGoPointer(ptr uintptr) {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *CellLayoutBase) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
+func (x *CellLayoutBase) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -239,7 +239,7 @@ func (x *CellLayoutBase) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *CellLayoutBase) Reorder(CellVar *CellRenderer, PositionVar int32) {
+func (x *CellLayoutBase) Reorder(CellVar *CellRenderer, PositionVar int) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 
@@ -272,14 +272,14 @@ func (x *CellLayoutBase) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayo
 
 }
 
-var XGtkCellLayoutAddAttribute func(uintptr, uintptr, string, int32)
+var XGtkCellLayoutAddAttribute func(uintptr, uintptr, string, int)
 var XGtkCellLayoutClear func(uintptr)
 var XGtkCellLayoutClearAttributes func(uintptr, uintptr)
 var XGtkCellLayoutGetArea func(uintptr) uintptr
 var XGtkCellLayoutGetCells func(uintptr) *glib.List
 var XGtkCellLayoutPackEnd func(uintptr, uintptr, bool)
 var XGtkCellLayoutPackStart func(uintptr, uintptr, bool)
-var XGtkCellLayoutReorder func(uintptr, uintptr, int32)
+var XGtkCellLayoutReorder func(uintptr, uintptr, int)
 var XGtkCellLayoutSetAttributes func(uintptr, uintptr, ...interface{})
 var XGtkCellLayoutSetCellDataFunc func(uintptr, uintptr, uintptr, uintptr, uintptr)
 

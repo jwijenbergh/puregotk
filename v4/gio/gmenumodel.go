@@ -322,7 +322,7 @@ func MenuModelNewFromInternalPtr(ptr uintptr) *MenuModel {
 	return cls
 }
 
-var xMenuModelGetItemAttribute func(uintptr, int32, string, string, ...interface{}) bool
+var xMenuModelGetItemAttribute func(uintptr, int, string, string, ...interface{}) bool
 
 // Queries item at position @item_index in @model for the attribute
 // specified by @attribute.
@@ -340,13 +340,13 @@ var xMenuModelGetItemAttribute func(uintptr, int32, string, string, ...interface
 // @format_string must make a complete copy of the data (since the
 // #GVariant may go away after the call to g_variant_unref()).  In
 // particular, no '&amp;' characters are allowed in @format_string.
-func (x *MenuModel) GetItemAttribute(ItemIndexVar int32, AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
+func (x *MenuModel) GetItemAttribute(ItemIndexVar int, AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
 
 	return xMenuModelGetItemAttribute(x.GoPointer(), ItemIndexVar, AttributeVar, FormatStringVar, varArgs...)
 
 }
 
-var xMenuModelGetItemAttributeValue func(uintptr, int32, string, *glib.VariantType) *glib.Variant
+var xMenuModelGetItemAttributeValue func(uintptr, int, string, *glib.VariantType) *glib.Variant
 
 // Queries the item at position @item_index in @model for the attribute
 // specified by @attribute.
@@ -359,20 +359,20 @@ var xMenuModelGetItemAttributeValue func(uintptr, int32, string, *glib.VariantTy
 //
 // If the attribute does not exist, or does not match the expected type
 // then %NULL is returned.
-func (x *MenuModel) GetItemAttributeValue(ItemIndexVar int32, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
+func (x *MenuModel) GetItemAttributeValue(ItemIndexVar int, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
 
 	return xMenuModelGetItemAttributeValue(x.GoPointer(), ItemIndexVar, AttributeVar, ExpectedTypeVar)
 
 }
 
-var xMenuModelGetItemLink func(uintptr, int32, string) uintptr
+var xMenuModelGetItemLink func(uintptr, int, string) uintptr
 
 // Queries the item at position @item_index in @model for the link
 // specified by @link.
 //
 // If the link exists, the linked #GMenuModel is returned.  If the link
 // does not exist, %NULL is returned.
-func (x *MenuModel) GetItemLink(ItemIndexVar int32, LinkVar string) *MenuModel {
+func (x *MenuModel) GetItemLink(ItemIndexVar int, LinkVar string) *MenuModel {
 
 	GetItemLinkPtr := xMenuModelGetItemLink(x.GoPointer(), ItemIndexVar, LinkVar)
 	if GetItemLinkPtr == 0 {
@@ -385,10 +385,10 @@ func (x *MenuModel) GetItemLink(ItemIndexVar int32, LinkVar string) *MenuModel {
 
 }
 
-var xMenuModelGetNItems func(uintptr) int32
+var xMenuModelGetNItems func(uintptr) int
 
 // Query the number of items in @model.
-func (x *MenuModel) GetNItems() int32 {
+func (x *MenuModel) GetNItems() int {
 
 	return xMenuModelGetNItems(x.GoPointer())
 
@@ -406,7 +406,7 @@ func (x *MenuModel) IsMutable() bool {
 
 }
 
-var xMenuModelItemsChanged func(uintptr, int32, int32, int32)
+var xMenuModelItemsChanged func(uintptr, int, int, int)
 
 // Requests emission of the #GMenuModel::items-changed signal on @model.
 //
@@ -423,19 +423,19 @@ var xMenuModelItemsChanged func(uintptr, int32, int32, int32)
 // entry and not in response to calls -- particularly those from the
 // #GMenuModel API.  Said another way: the menu must not change while
 // user code is running without returning to the mainloop.
-func (x *MenuModel) ItemsChanged(PositionVar int32, RemovedVar int32, AddedVar int32) {
+func (x *MenuModel) ItemsChanged(PositionVar int, RemovedVar int, AddedVar int) {
 
 	xMenuModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
 }
 
-var xMenuModelIterateItemAttributes func(uintptr, int32) uintptr
+var xMenuModelIterateItemAttributes func(uintptr, int) uintptr
 
 // Creates a #GMenuAttributeIter to iterate over the attributes of
 // the item at position @item_index in @model.
 //
 // You must free the iterator with g_object_unref() when you are done.
-func (x *MenuModel) IterateItemAttributes(ItemIndexVar int32) *MenuAttributeIter {
+func (x *MenuModel) IterateItemAttributes(ItemIndexVar int) *MenuAttributeIter {
 
 	IterateItemAttributesPtr := xMenuModelIterateItemAttributes(x.GoPointer(), ItemIndexVar)
 	if IterateItemAttributesPtr == 0 {
@@ -448,13 +448,13 @@ func (x *MenuModel) IterateItemAttributes(ItemIndexVar int32) *MenuAttributeIter
 
 }
 
-var xMenuModelIterateItemLinks func(uintptr, int32) uintptr
+var xMenuModelIterateItemLinks func(uintptr, int) uintptr
 
 // Creates a #GMenuLinkIter to iterate over the links of the item at
 // position @item_index in @model.
 //
 // You must free the iterator with g_object_unref() when you are done.
-func (x *MenuModel) IterateItemLinks(ItemIndexVar int32) *MenuLinkIter {
+func (x *MenuModel) IterateItemLinks(ItemIndexVar int) *MenuLinkIter {
 
 	IterateItemLinksPtr := xMenuModelIterateItemLinks(x.GoPointer(), ItemIndexVar)
 	if IterateItemLinksPtr == 0 {
@@ -495,8 +495,8 @@ func (c *MenuModel) SetGoPointer(ptr uintptr) {
 // Signal handlers may query the model (particularly the added items)
 // and expect to see the results of the modification that is being
 // reported.  The signal is emitted after the modification.
-func (x *MenuModel) ConnectItemsChanged(cb func(MenuModel, int32, int32, int32)) {
-	fcb := func(clsPtr uintptr, PositionVarp int32, RemovedVarp int32, AddedVarp int32) {
+func (x *MenuModel) ConnectItemsChanged(cb func(MenuModel, int, int, int)) {
+	fcb := func(clsPtr uintptr, PositionVarp int, RemovedVarp int, AddedVarp int) {
 		fa := MenuModel{}
 		fa.Ptr = clsPtr
 

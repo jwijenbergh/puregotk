@@ -45,7 +45,7 @@ type ActionMap interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	AddAction(ActionVar Action)
-	AddActionEntries(EntriesVar uintptr, NEntriesVar int32, UserDataVar uintptr)
+	AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr)
 	LookupAction(ActionNameVar string) *ActionBase
 	RemoveAction(ActionNameVar string)
 }
@@ -116,7 +116,7 @@ func (x *ActionMapBase) AddAction(ActionVar Action) {
 //	}
 //
 // ]|
-func (x *ActionMapBase) AddActionEntries(EntriesVar uintptr, NEntriesVar int32, UserDataVar uintptr) {
+func (x *ActionMapBase) AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -150,7 +150,7 @@ func (x *ActionMapBase) RemoveAction(ActionNameVar string) {
 }
 
 var XGActionMapAddAction func(uintptr, uintptr)
-var XGActionMapAddActionEntries func(uintptr, uintptr, int32, uintptr)
+var XGActionMapAddActionEntries func(uintptr, uintptr, int, uintptr)
 var XGActionMapLookupAction func(uintptr, string) uintptr
 var XGActionMapRemoveAction func(uintptr, string)
 

@@ -61,36 +61,36 @@ func NewClampLayout() *gtk.LayoutManager {
 	return NewClampLayoutCls
 }
 
-var xClampLayoutGetMaximumSize func(uintptr) int32
+var xClampLayoutGetMaximumSize func(uintptr) int
 
 // Gets the maximum size allocated to the children.
-func (x *ClampLayout) GetMaximumSize() int32 {
+func (x *ClampLayout) GetMaximumSize() int {
 
 	return xClampLayoutGetMaximumSize(x.GoPointer())
 
 }
 
-var xClampLayoutGetTighteningThreshold func(uintptr) int32
+var xClampLayoutGetTighteningThreshold func(uintptr) int
 
 // Gets the size above which the children are clamped.
-func (x *ClampLayout) GetTighteningThreshold() int32 {
+func (x *ClampLayout) GetTighteningThreshold() int {
 
 	return xClampLayoutGetTighteningThreshold(x.GoPointer())
 
 }
 
-var xClampLayoutSetMaximumSize func(uintptr, int32)
+var xClampLayoutSetMaximumSize func(uintptr, int)
 
 // Sets the maximum size allocated to the children.
 //
 // It is the width if the layout is horizontal, or the height if it is vertical.
-func (x *ClampLayout) SetMaximumSize(MaximumSizeVar int32) {
+func (x *ClampLayout) SetMaximumSize(MaximumSizeVar int) {
 
 	xClampLayoutSetMaximumSize(x.GoPointer(), MaximumSizeVar)
 
 }
 
-var xClampLayoutSetTighteningThreshold func(uintptr, int32)
+var xClampLayoutSetTighteningThreshold func(uintptr, int)
 
 // Sets the size above which the children are clamped.
 //
@@ -106,7 +106,7 @@ var xClampLayoutSetTighteningThreshold func(uintptr, int32)
 //
 // Effectively, tightening the grip on a child before it reaches its maximum
 // size makes transitions to and from the maximum size smoother when resizing.
-func (x *ClampLayout) SetTighteningThreshold(TighteningThresholdVar int32) {
+func (x *ClampLayout) SetTighteningThreshold(TighteningThresholdVar int) {
 
 	xClampLayoutSetTighteningThreshold(x.GoPointer(), TighteningThresholdVar)
 

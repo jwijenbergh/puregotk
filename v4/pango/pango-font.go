@@ -48,23 +48,23 @@ type FontFamilyClass struct {
 type FontMetrics struct {
 	RefCount uint
 
-	Ascent int32
+	Ascent int
 
-	Descent int32
+	Descent int
 
-	Height int32
+	Height int
 
-	ApproximateCharWidth int32
+	ApproximateCharWidth int
 
-	ApproximateDigitWidth int32
+	ApproximateDigitWidth int
 
-	UnderlinePosition int32
+	UnderlinePosition int
 
-	UnderlineThickness int32
+	UnderlineThickness int
 
-	StrikethroughPosition int32
+	StrikethroughPosition int
 
-	StrikethroughThickness int32
+	StrikethroughThickness int
 }
 
 // The bits in a `PangoFontMask` correspond to the set fields in a
@@ -530,7 +530,7 @@ func (x *FontFace) IsSynthesized() bool {
 
 }
 
-var xFontFaceListSizes func(uintptr, uintptr, int32)
+var xFontFaceListSizes func(uintptr, uintptr, int)
 
 // List the available sizes for a font.
 //
@@ -538,7 +538,7 @@ var xFontFaceListSizes func(uintptr, uintptr, int32)
 // %NULL at the location pointed to by @sizes and 0 at the location pointed
 // to by @n_sizes. The sizes returned are in Pango units and are sorted
 // in ascending order.
-func (x *FontFace) ListSizes(SizesVar uintptr, NSizesVar int32) {
+func (x *FontFace) ListSizes(SizesVar uintptr, NSizesVar int) {
 
 	xFontFaceListSizes(x.GoPointer(), SizesVar, NSizesVar)
 
@@ -633,13 +633,13 @@ func (x *FontFamily) IsVariable() bool {
 
 }
 
-var xFontFamilyListFaces func(uintptr, uintptr, int32)
+var xFontFamilyListFaces func(uintptr, uintptr, int)
 
 // Lists the different font faces that make up @family.
 //
 // The faces in a family share a common design, but differ in slant, weight,
 // width and other aspects.
-func (x *FontFamily) ListFaces(FacesVar uintptr, NFacesVar int32) {
+func (x *FontFamily) ListFaces(FacesVar uintptr, NFacesVar int) {
 
 	xFontFamilyListFaces(x.GoPointer(), FacesVar, NFacesVar)
 

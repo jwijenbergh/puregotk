@@ -192,11 +192,11 @@ func (x *GLShader) Compile(RendererVar *Renderer) bool {
 
 }
 
-var xGLShaderFindUniformByName func(uintptr, string) int32
+var xGLShaderFindUniformByName func(uintptr, string) int
 
 // Looks for a uniform by the name @name, and returns the index
 // of the uniform, or -1 if it was not found.
-func (x *GLShader) FindUniformByName(NameVar string) int32 {
+func (x *GLShader) FindUniformByName(NameVar string) int {
 
 	return xGLShaderFindUniformByName(x.GoPointer(), NameVar)
 
@@ -238,78 +238,78 @@ func (x *GLShader) FormatArgsVa(UniformsVar []interface{}) *glib.Bytes {
 
 }
 
-var xGLShaderGetArgBool func(uintptr, *glib.Bytes, int32) bool
+var xGLShaderGetArgBool func(uintptr, *glib.Bytes, int) bool
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of bool type.
-func (x *GLShader) GetArgBool(ArgsVar *glib.Bytes, IdxVar int32) bool {
+func (x *GLShader) GetArgBool(ArgsVar *glib.Bytes, IdxVar int) bool {
 
 	return xGLShaderGetArgBool(x.GoPointer(), ArgsVar, IdxVar)
 
 }
 
-var xGLShaderGetArgFloat func(uintptr, *glib.Bytes, int32) float32
+var xGLShaderGetArgFloat func(uintptr, *glib.Bytes, int) float32
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of float type.
-func (x *GLShader) GetArgFloat(ArgsVar *glib.Bytes, IdxVar int32) float32 {
+func (x *GLShader) GetArgFloat(ArgsVar *glib.Bytes, IdxVar int) float32 {
 
 	return xGLShaderGetArgFloat(x.GoPointer(), ArgsVar, IdxVar)
 
 }
 
-var xGLShaderGetArgInt func(uintptr, *glib.Bytes, int32) int32
+var xGLShaderGetArgInt func(uintptr, *glib.Bytes, int) int32
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of int type.
-func (x *GLShader) GetArgInt(ArgsVar *glib.Bytes, IdxVar int32) int32 {
+func (x *GLShader) GetArgInt(ArgsVar *glib.Bytes, IdxVar int) int32 {
 
 	return xGLShaderGetArgInt(x.GoPointer(), ArgsVar, IdxVar)
 
 }
 
-var xGLShaderGetArgUint func(uintptr, *glib.Bytes, int32) uint32
+var xGLShaderGetArgUint func(uintptr, *glib.Bytes, int) uint32
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of uint type.
-func (x *GLShader) GetArgUint(ArgsVar *glib.Bytes, IdxVar int32) uint32 {
+func (x *GLShader) GetArgUint(ArgsVar *glib.Bytes, IdxVar int) uint32 {
 
 	return xGLShaderGetArgUint(x.GoPointer(), ArgsVar, IdxVar)
 
 }
 
-var xGLShaderGetArgVec2 func(uintptr, *glib.Bytes, int32, *graphene.Vec2)
+var xGLShaderGetArgVec2 func(uintptr, *glib.Bytes, int, *graphene.Vec2)
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of vec2 type.
-func (x *GLShader) GetArgVec2(ArgsVar *glib.Bytes, IdxVar int32, OutValueVar *graphene.Vec2) {
+func (x *GLShader) GetArgVec2(ArgsVar *glib.Bytes, IdxVar int, OutValueVar *graphene.Vec2) {
 
 	xGLShaderGetArgVec2(x.GoPointer(), ArgsVar, IdxVar, OutValueVar)
 
 }
 
-var xGLShaderGetArgVec3 func(uintptr, *glib.Bytes, int32, *graphene.Vec3)
+var xGLShaderGetArgVec3 func(uintptr, *glib.Bytes, int, *graphene.Vec3)
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of vec3 type.
-func (x *GLShader) GetArgVec3(ArgsVar *glib.Bytes, IdxVar int32, OutValueVar *graphene.Vec3) {
+func (x *GLShader) GetArgVec3(ArgsVar *glib.Bytes, IdxVar int, OutValueVar *graphene.Vec3) {
 
 	xGLShaderGetArgVec3(x.GoPointer(), ArgsVar, IdxVar, OutValueVar)
 
 }
 
-var xGLShaderGetArgVec4 func(uintptr, *glib.Bytes, int32, *graphene.Vec4)
+var xGLShaderGetArgVec4 func(uintptr, *glib.Bytes, int, *graphene.Vec4)
 
 // Gets the value of the uniform @idx in the @args block.
 //
 // The uniform must be of vec4 type.
-func (x *GLShader) GetArgVec4(ArgsVar *glib.Bytes, IdxVar int32, OutValueVar *graphene.Vec4) {
+func (x *GLShader) GetArgVec4(ArgsVar *glib.Bytes, IdxVar int, OutValueVar *graphene.Vec4) {
 
 	xGLShaderGetArgVec4(x.GoPointer(), ArgsVar, IdxVar, OutValueVar)
 
@@ -324,23 +324,23 @@ func (x *GLShader) GetArgsSize() uint {
 
 }
 
-var xGLShaderGetNTextures func(uintptr) int32
+var xGLShaderGetNTextures func(uintptr) int
 
 // Returns the number of textures that the shader requires.
 //
 // This can be used to check that the a passed shader works
 // in your usecase. It is determined by looking at the highest
 // u_textureN value that the shader defines.
-func (x *GLShader) GetNTextures() int32 {
+func (x *GLShader) GetNTextures() int {
 
 	return xGLShaderGetNTextures(x.GoPointer())
 
 }
 
-var xGLShaderGetNUniforms func(uintptr) int32
+var xGLShaderGetNUniforms func(uintptr) int
 
 // Get the number of declared uniforms for this shader.
-func (x *GLShader) GetNUniforms() int32 {
+func (x *GLShader) GetNUniforms() int {
 
 	return xGLShaderGetNUniforms(x.GoPointer())
 
@@ -365,28 +365,28 @@ func (x *GLShader) GetSource() *glib.Bytes {
 
 }
 
-var xGLShaderGetUniformName func(uintptr, int32) string
+var xGLShaderGetUniformName func(uintptr, int) string
 
 // Get the name of the declared uniform for this shader at index @idx.
-func (x *GLShader) GetUniformName(IdxVar int32) string {
+func (x *GLShader) GetUniformName(IdxVar int) string {
 
 	return xGLShaderGetUniformName(x.GoPointer(), IdxVar)
 
 }
 
-var xGLShaderGetUniformOffset func(uintptr, int32) int32
+var xGLShaderGetUniformOffset func(uintptr, int) int
 
 // Get the offset into the data block where data for this uniforms is stored.
-func (x *GLShader) GetUniformOffset(IdxVar int32) int32 {
+func (x *GLShader) GetUniformOffset(IdxVar int) int {
 
 	return xGLShaderGetUniformOffset(x.GoPointer(), IdxVar)
 
 }
 
-var xGLShaderGetUniformType func(uintptr, int32) GLUniformType
+var xGLShaderGetUniformType func(uintptr, int) GLUniformType
 
 // Get the type of the declared uniform for this shader at index @idx.
-func (x *GLShader) GetUniformType(IdxVar int32) GLUniformType {
+func (x *GLShader) GetUniformType(IdxVar int) GLUniformType {
 
 	return xGLShaderGetUniformType(x.GoPointer(), IdxVar)
 

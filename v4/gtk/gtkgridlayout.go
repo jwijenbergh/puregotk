@@ -52,10 +52,10 @@ func NewGridLayout() *LayoutManager {
 	return NewGridLayoutCls
 }
 
-var xGridLayoutGetBaselineRow func(uintptr) int32
+var xGridLayoutGetBaselineRow func(uintptr) int
 
 // Retrieves the row set with gtk_grid_layout_set_baseline_row().
-func (x *GridLayout) GetBaselineRow() int32 {
+func (x *GridLayout) GetBaselineRow() int {
 
 	return xGridLayoutGetBaselineRow(x.GoPointer())
 
@@ -79,7 +79,7 @@ func (x *GridLayout) GetColumnSpacing() uint {
 
 }
 
-var xGridLayoutGetRowBaselinePosition func(uintptr, int32) BaselinePosition
+var xGridLayoutGetRowBaselinePosition func(uintptr, int) BaselinePosition
 
 // Returns the baseline position of @row.
 //
@@ -87,7 +87,7 @@ var xGridLayoutGetRowBaselinePosition func(uintptr, int32) BaselinePosition
 // [method@Gtk.GridLayout.set_row_baseline_position],
 // the default value of %GTK_BASELINE_POSITION_CENTER
 // is returned.
-func (x *GridLayout) GetRowBaselinePosition(RowVar int32) BaselinePosition {
+func (x *GridLayout) GetRowBaselinePosition(RowVar int) BaselinePosition {
 
 	return xGridLayoutGetRowBaselinePosition(x.GoPointer(), RowVar)
 
@@ -111,14 +111,14 @@ func (x *GridLayout) GetRowSpacing() uint {
 
 }
 
-var xGridLayoutSetBaselineRow func(uintptr, int32)
+var xGridLayoutSetBaselineRow func(uintptr, int)
 
 // Sets which row defines the global baseline for the entire grid.
 //
 // Each row in the grid can have its own local baseline, but only
 // one of those is global, meaning it will be the baseline in the
 // parent of the @grid.
-func (x *GridLayout) SetBaselineRow(RowVar int32) {
+func (x *GridLayout) SetBaselineRow(RowVar int) {
 
 	xGridLayoutSetBaselineRow(x.GoPointer(), RowVar)
 
@@ -142,11 +142,11 @@ func (x *GridLayout) SetColumnSpacing(SpacingVar uint) {
 
 }
 
-var xGridLayoutSetRowBaselinePosition func(uintptr, int32, BaselinePosition)
+var xGridLayoutSetRowBaselinePosition func(uintptr, int, BaselinePosition)
 
 // Sets how the baseline should be positioned on @row of the
 // grid, in case that row is assigned more space than is requested.
-func (x *GridLayout) SetRowBaselinePosition(RowVar int32, PosVar BaselinePosition) {
+func (x *GridLayout) SetRowBaselinePosition(RowVar int, PosVar BaselinePosition) {
 
 	xGridLayoutSetRowBaselinePosition(x.GoPointer(), RowVar, PosVar)
 
@@ -189,73 +189,73 @@ func GridLayoutChildNewFromInternalPtr(ptr uintptr) *GridLayoutChild {
 	return cls
 }
 
-var xGridLayoutChildGetColumn func(uintptr) int32
+var xGridLayoutChildGetColumn func(uintptr) int
 
 // Retrieves the column number to which @child attaches its left side.
-func (x *GridLayoutChild) GetColumn() int32 {
+func (x *GridLayoutChild) GetColumn() int {
 
 	return xGridLayoutChildGetColumn(x.GoPointer())
 
 }
 
-var xGridLayoutChildGetColumnSpan func(uintptr) int32
+var xGridLayoutChildGetColumnSpan func(uintptr) int
 
 // Retrieves the number of columns that @child spans to.
-func (x *GridLayoutChild) GetColumnSpan() int32 {
+func (x *GridLayoutChild) GetColumnSpan() int {
 
 	return xGridLayoutChildGetColumnSpan(x.GoPointer())
 
 }
 
-var xGridLayoutChildGetRow func(uintptr) int32
+var xGridLayoutChildGetRow func(uintptr) int
 
 // Retrieves the row number to which @child attaches its top side.
-func (x *GridLayoutChild) GetRow() int32 {
+func (x *GridLayoutChild) GetRow() int {
 
 	return xGridLayoutChildGetRow(x.GoPointer())
 
 }
 
-var xGridLayoutChildGetRowSpan func(uintptr) int32
+var xGridLayoutChildGetRowSpan func(uintptr) int
 
 // Retrieves the number of rows that @child spans to.
-func (x *GridLayoutChild) GetRowSpan() int32 {
+func (x *GridLayoutChild) GetRowSpan() int {
 
 	return xGridLayoutChildGetRowSpan(x.GoPointer())
 
 }
 
-var xGridLayoutChildSetColumn func(uintptr, int32)
+var xGridLayoutChildSetColumn func(uintptr, int)
 
 // Sets the column number to attach the left side of @child.
-func (x *GridLayoutChild) SetColumn(ColumnVar int32) {
+func (x *GridLayoutChild) SetColumn(ColumnVar int) {
 
 	xGridLayoutChildSetColumn(x.GoPointer(), ColumnVar)
 
 }
 
-var xGridLayoutChildSetColumnSpan func(uintptr, int32)
+var xGridLayoutChildSetColumnSpan func(uintptr, int)
 
 // Sets the number of columns @child spans to.
-func (x *GridLayoutChild) SetColumnSpan(SpanVar int32) {
+func (x *GridLayoutChild) SetColumnSpan(SpanVar int) {
 
 	xGridLayoutChildSetColumnSpan(x.GoPointer(), SpanVar)
 
 }
 
-var xGridLayoutChildSetRow func(uintptr, int32)
+var xGridLayoutChildSetRow func(uintptr, int)
 
 // Sets the row to place @child in.
-func (x *GridLayoutChild) SetRow(RowVar int32) {
+func (x *GridLayoutChild) SetRow(RowVar int) {
 
 	xGridLayoutChildSetRow(x.GoPointer(), RowVar)
 
 }
 
-var xGridLayoutChildSetRowSpan func(uintptr, int32)
+var xGridLayoutChildSetRowSpan func(uintptr, int)
 
 // Sets the number of rows @child spans to.
-func (x *GridLayoutChild) SetRowSpan(SpanVar int32) {
+func (x *GridLayoutChild) SetRowSpan(SpanVar int) {
 
 	xGridLayoutChildSetRowSpan(x.GoPointer(), SpanVar)
 

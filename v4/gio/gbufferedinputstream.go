@@ -100,7 +100,7 @@ func (x *BufferedInputStream) Fill(CountVar int, CancellableVar *Cancellable) in
 
 }
 
-var xBufferedInputStreamFillAsync func(uintptr, int, int32, uintptr, uintptr, uintptr)
+var xBufferedInputStreamFillAsync func(uintptr, int, int, uintptr, uintptr, uintptr)
 
 // Reads data into @stream's buffer asynchronously, up to @count size.
 // @io_priority can be used to prioritize reads. For the synchronous
@@ -108,7 +108,7 @@ var xBufferedInputStreamFillAsync func(uintptr, int, int32, uintptr, uintptr, ui
 //
 // If @count is -1 then the attempted read size is equal to the number
 // of bytes that are required to fill the buffer.
-func (x *BufferedInputStream) FillAsync(CountVar int, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *BufferedInputStream) FillAsync(CountVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
 
 	xBufferedInputStreamFillAsync(x.GoPointer(), CountVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 
@@ -162,7 +162,7 @@ func (x *BufferedInputStream) PeekBuffer(CountVar uint) uintptr {
 
 }
 
-var xBufferedInputStreamReadByte func(uintptr, uintptr) int32
+var xBufferedInputStreamReadByte func(uintptr, uintptr) int
 
 // Tries to read a single byte from the stream or the buffer. Will block
 // during this read.
@@ -177,7 +177,7 @@ var xBufferedInputStreamReadByte func(uintptr, uintptr) int32
 // partial result will be returned, without an error.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) int32 {
+func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) int {
 
 	return xBufferedInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer())
 

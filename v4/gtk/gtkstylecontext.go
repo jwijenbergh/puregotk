@@ -174,10 +174,10 @@ func (x *StyleContext) GetPadding(PaddingVar *Border) {
 
 }
 
-var xStyleContextGetScale func(uintptr) int32
+var xStyleContextGetScale func(uintptr) int
 
 // Returns the scale used for assets.
-func (x *StyleContext) GetScale() int32 {
+func (x *StyleContext) GetScale() int {
 
 	return xStyleContextGetScale(x.GoPointer())
 
@@ -280,10 +280,10 @@ func (x *StyleContext) SetDisplay(DisplayVar *gdk.Display) {
 
 }
 
-var xStyleContextSetScale func(uintptr, int32)
+var xStyleContextSetScale func(uintptr, int)
 
 // Sets the scale to use when getting image assets for the style.
-func (x *StyleContext) SetScale(ScaleVar int32) {
+func (x *StyleContext) SetScale(ScaleVar int) {
 
 	xStyleContextSetScale(x.GoPointer(), ScaleVar)
 

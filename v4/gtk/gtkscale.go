@@ -177,10 +177,10 @@ func (x *Scale) ClearMarks() {
 
 }
 
-var xScaleGetDigits func(uintptr) int32
+var xScaleGetDigits func(uintptr) int
 
 // Gets the number of decimal places that are displayed in the value.
-func (x *Scale) GetDigits() int32 {
+func (x *Scale) GetDigits() int {
 
 	return xScaleGetDigits(x.GoPointer())
 
@@ -226,7 +226,7 @@ func (x *Scale) GetLayout() *pango.Layout {
 
 }
 
-var xScaleGetLayoutOffsets func(uintptr, int32, int32)
+var xScaleGetLayoutOffsets func(uintptr, int, int)
 
 // Obtains the coordinates where the scale will draw the
 // `PangoLayout` representing the text in the scale.
@@ -236,7 +236,7 @@ var xScaleGetLayoutOffsets func(uintptr, int32, int32)
 //
 // If the [property@GtkScale:draw-value] property is %FALSE, the return
 // values are undefined.
-func (x *Scale) GetLayoutOffsets(XVar int32, YVar int32) {
+func (x *Scale) GetLayoutOffsets(XVar int, YVar int) {
 
 	xScaleGetLayoutOffsets(x.GoPointer(), XVar, YVar)
 
@@ -251,7 +251,7 @@ func (x *Scale) GetValuePos() PositionType {
 
 }
 
-var xScaleSetDigits func(uintptr, int32)
+var xScaleSetDigits func(uintptr, int)
 
 // Sets the number of decimal places that are displayed in the value.
 //
@@ -265,7 +265,7 @@ var xScaleSetDigits func(uintptr, int32)
 // the smooth autoscrolling that is built into `GtkScale`. As an alternative,
 // you can use [method@Gtk.Scale.set_format_value_func] to format the displayed
 // value yourself.
-func (x *Scale) SetDigits(DigitsVar int32) {
+func (x *Scale) SetDigits(DigitsVar int) {
 
 	xScaleSetDigits(x.GoPointer(), DigitsVar)
 
@@ -385,7 +385,7 @@ func (x *Scale) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Scale) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -421,7 +421,7 @@ func (x *Scale) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdateRelationValue(NRelationsVar int32, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Scale) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -454,7 +454,7 @@ func (x *Scale) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdateStateValue(NStatesVar int32, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Scale) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
