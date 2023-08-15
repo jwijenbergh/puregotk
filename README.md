@@ -92,4 +92,4 @@ In the root of the project. This needs:
 # Acknowledgements
 * [Purego](https://github.com/ebitengine/purego) and the ebitengine team for their great work
 * [gotk4](https://github.com/diamondburned/gotk4) for some GIR type definitions
-* [gtk](https://gitlab.com/gnome/gtk) of course
+* [gtk](https://gitlab.gnome.org/gnome/gtk) of course
