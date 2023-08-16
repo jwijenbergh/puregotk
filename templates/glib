@@ -6,7 +6,7 @@ import (
 )
 
 func (e *Error) Error() string {
-     return fmt.Sprintf("Gtk reported an error with message: '%s', Domain: '%v' and Code: '%v'", e.MessageGo(), e.Domain, e.Code)
+     return fmt.Sprintf("Gtk reported an error with message: '%s', domain: '%v' and code: '%v'", e.MessageGo(), e.Domain, e.Code)
 }
 
 func (e *Error) MessageGo() string {
