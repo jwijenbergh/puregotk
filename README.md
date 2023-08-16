@@ -21,7 +21,7 @@ No Cgo needed, thus:
 
 Limitations of this library as compared to the alternatives using cgo:
 * Some APIs are not possible due to purego not currently supporting struct arguments (that are not pointers)
-* Currently only support for x86, for ARM I need to figure out how to get callbacks working in purego and contribute to purego
+* Currently only support for AMD64+Linux, for ARM I need to figure out how to get callbacks working in purego and contribute to purego
 
 # Planned features
 In order of priority:
