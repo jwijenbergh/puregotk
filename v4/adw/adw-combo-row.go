@@ -86,7 +86,7 @@ func NewComboRow() *gtk.Widget {
 	cret := xNewComboRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -103,7 +103,7 @@ func (x *ComboRow) GetExpression() *gtk.Expression {
 	cret := xComboRowGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Expression{}
@@ -120,7 +120,7 @@ func (x *ComboRow) GetFactory() *gtk.ListItemFactory {
 	cret := xComboRowGetFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.ListItemFactory{}
@@ -137,7 +137,7 @@ func (x *ComboRow) GetListFactory() *gtk.ListItemFactory {
 	cret := xComboRowGetListFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.ListItemFactory{}
@@ -154,7 +154,7 @@ func (x *ComboRow) GetModel() *gio.ListModelBase {
 	cret := xComboRowGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -180,7 +180,7 @@ func (x *ComboRow) GetSelectedItem() *gobject.Object {
 	cret := xComboRowGetSelectedItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}

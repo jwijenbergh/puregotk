@@ -50,7 +50,7 @@ func NewSortListModel(ModelVar gio.ListModel, SorterVar *Sorter) *SortListModel 
 	cret := xNewSortListModel(ModelVar.GoPointer(), SorterVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SortListModel{}
 	cls.Ptr = cret
@@ -77,7 +77,7 @@ func (x *SortListModel) GetModel() *gio.ListModelBase {
 	cret := xSortListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -119,7 +119,7 @@ func (x *SortListModel) GetSorter() *Sorter {
 	cret := xSortListModelGetSorter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Sorter{}
@@ -237,7 +237,7 @@ func (x *SortListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

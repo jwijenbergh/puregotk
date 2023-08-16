@@ -40,7 +40,7 @@ func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint) (*InetAddressMask,
 	cret := xNewInetAddressMask(AddrVar.GoPointer(), LengthVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InetAddressMask{}
 	cls.Ptr = cret
@@ -64,7 +64,7 @@ func NewFromStringInetAddressMask(MaskStringVar string) (*InetAddressMask, error
 	cret := xNewFromStringInetAddressMask(MaskStringVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InetAddressMask{}
 	cls.Ptr = cret
@@ -93,7 +93,7 @@ func (x *InetAddressMask) GetAddress() *InetAddress {
 	cret := xInetAddressMaskGetAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &InetAddress{}

@@ -180,7 +180,7 @@ func NewToast(TitleVar string) *Toast {
 	cret := xNewToast(TitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Toast{}
 	cls.Ptr = cret
@@ -200,7 +200,7 @@ func NewFormatToast(FormatVar string, varArgs ...interface{}) *Toast {
 	cret := xNewFormatToast(FormatVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Toast{}
 	cls.Ptr = cret
@@ -255,7 +255,7 @@ func (x *Toast) GetCustomTitle() *gtk.Widget {
 	cret := xToastGetCustomTitle(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

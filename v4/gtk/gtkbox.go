@@ -64,7 +64,7 @@ func NewBox(OrientationVar Orientation, SpacingVar int) *Widget {
 	cret := xNewBox(OrientationVar, SpacingVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

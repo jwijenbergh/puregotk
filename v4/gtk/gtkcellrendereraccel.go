@@ -43,7 +43,7 @@ func NewCellRendererAccel() *CellRenderer {
 	cret := xNewCellRendererAccel()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}

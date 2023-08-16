@@ -56,7 +56,7 @@ func NewClampLayout() *gtk.LayoutManager {
 	cret := xNewClampLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gtk.LayoutManager{}
 	cls.Ptr = cret

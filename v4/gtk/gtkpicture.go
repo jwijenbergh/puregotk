@@ -79,7 +79,7 @@ func NewPicture() *Widget {
 	cret := xNewPicture()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -103,7 +103,7 @@ func NewForFilePicture(FileVar gio.File) *Widget {
 	cret := xNewForFilePicture(FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -123,7 +123,7 @@ func NewForFilenamePicture(FilenameVar string) *Widget {
 	cret := xNewForFilenamePicture(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -143,7 +143,7 @@ func NewForPaintablePicture(PaintableVar gdk.Paintable) *Widget {
 	cret := xNewForPaintablePicture(PaintableVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -165,7 +165,7 @@ func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
 	cret := xNewForPixbufPicture(PixbufVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -185,7 +185,7 @@ func NewForResourcePicture(ResourcePathVar string) *Widget {
 	cret := xNewForResourcePicture(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -236,7 +236,7 @@ func (x *Picture) GetFile() *gio.FileBase {
 	cret := xPictureGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.FileBase{}
@@ -262,7 +262,7 @@ func (x *Picture) GetPaintable() *gdk.PaintableBase {
 	cret := xPictureGetPaintable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.PaintableBase{}

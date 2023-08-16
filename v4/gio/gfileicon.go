@@ -32,7 +32,7 @@ func NewFileIcon(FileVar File) *FileIcon {
 	cret := xNewFileIcon(FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileIcon{}
 	cls.Ptr = cret
@@ -48,7 +48,7 @@ func (x *FileIcon) GetFile() *FileBase {
 	cret := xFileIconGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileBase{}
@@ -113,7 +113,7 @@ func (x *FileIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable
 	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -141,7 +141,7 @@ func (x *FileIcon) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream,
 	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

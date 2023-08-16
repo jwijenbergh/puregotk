@@ -29,7 +29,7 @@ func NewPixbufSimpleAnim(WidthVar int, HeightVar int, RateVar float32) *PixbufSi
 	cret := xNewPixbufSimpleAnim(WidthVar, HeightVar, RateVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PixbufSimpleAnim{}
 	cls.Ptr = cret

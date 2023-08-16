@@ -40,7 +40,7 @@ func CreateATContext(AccessibleRoleVar AccessibleRole, AccessibleVar Accessible,
 	cret := xCreateATContext(AccessibleRoleVar, AccessibleVar.GoPointer(), DisplayVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ATContext{}
 	cls.Ptr = cret
@@ -56,7 +56,7 @@ func (x *ATContext) GetAccessible() *AccessibleBase {
 	cret := xATContextGetAccessible(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &AccessibleBase{}

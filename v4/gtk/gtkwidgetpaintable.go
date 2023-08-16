@@ -51,7 +51,7 @@ func NewWidgetPaintable(WidgetVar *Widget) *WidgetPaintable {
 	cret := xNewWidgetPaintable(WidgetVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &WidgetPaintable{}
 	cls.Ptr = cret
@@ -67,7 +67,7 @@ func (x *WidgetPaintable) GetWidget() *Widget {
 	cret := xWidgetPaintableGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -120,7 +120,7 @@ func (x *WidgetPaintable) GetCurrentImage() *gdk.PaintableBase {
 	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret

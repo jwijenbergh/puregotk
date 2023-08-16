@@ -47,7 +47,7 @@ func NewBufferedOutputStream(BaseStreamVar *OutputStream) *OutputStream {
 	cret := xNewBufferedOutputStream(BaseStreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OutputStream{}
 	cls.Ptr = cret
@@ -63,7 +63,7 @@ func NewSizedBufferedOutputStream(BaseStreamVar *OutputStream, SizeVar uint) *Ou
 	cret := xNewSizedBufferedOutputStream(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OutputStream{}
 	cls.Ptr = cret

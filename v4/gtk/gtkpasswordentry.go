@@ -64,7 +64,7 @@ func NewPasswordEntry() *Widget {
 	cret := xNewPasswordEntry()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -81,7 +81,7 @@ func (x *PasswordEntry) GetExtraMenu() *gio.MenuModel {
 	cret := xPasswordEntryGetExtraMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -350,7 +350,7 @@ func (x *PasswordEntry) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

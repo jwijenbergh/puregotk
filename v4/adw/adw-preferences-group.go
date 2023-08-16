@@ -66,7 +66,7 @@ func NewPreferencesGroup() *gtk.Widget {
 	cret := xNewPreferencesGroup()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -101,7 +101,7 @@ func (x *PreferencesGroup) GetHeaderSuffix() *gtk.Widget {
 	cret := xPreferencesGroupGetHeaderSuffix(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

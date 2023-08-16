@@ -212,7 +212,7 @@ func NewConstraintLayout() *LayoutManager {
 	cret := xNewConstraintLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret
@@ -379,7 +379,7 @@ func (x *ConstraintLayout) ObserveConstraints() *gio.ListModelBase {
 	cret := xConstraintLayoutObserveConstraints(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -403,7 +403,7 @@ func (x *ConstraintLayout) ObserveGuides() *gio.ListModelBase {
 	cret := xConstraintLayoutObserveGuides(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret

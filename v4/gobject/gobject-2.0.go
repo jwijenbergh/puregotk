@@ -225,7 +225,7 @@ func (x *Binding) DupSource() *Object {
 	cret := xBindingDupSource(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -245,7 +245,7 @@ func (x *Binding) DupTarget() *Object {
 	cret := xBindingDupTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -278,7 +278,7 @@ func (x *Binding) GetSource() *Object {
 	cret := xBindingGetSource(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -313,7 +313,7 @@ func (x *Binding) GetTarget() *Object {
 	cret := xBindingGetTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -384,7 +384,7 @@ func NewBindingGroup() *BindingGroup {
 	cret := xNewBindingGroup()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BindingGroup{}
 	cls.Ptr = cret
@@ -446,7 +446,7 @@ func (x *BindingGroup) DupSource() *Object {
 	cret := xBindingGroupDupSource(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -512,7 +512,7 @@ func NewSignalGroup(TargetTypeVar []interface{}) *SignalGroup {
 	cret := xNewSignalGroup(TargetTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SignalGroup{}
 	cls.Ptr = cret
@@ -609,7 +609,7 @@ func (x *SignalGroup) DupTarget() *Object {
 	cret := xSignalGroupDupTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret

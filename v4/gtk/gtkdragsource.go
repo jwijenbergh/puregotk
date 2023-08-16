@@ -114,7 +114,7 @@ func NewDragSource() *DragSource {
 	cret := xNewDragSource()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DragSource{}
 	cls.Ptr = cret
@@ -148,7 +148,7 @@ func (x *DragSource) GetContent() *gdk.ContentProvider {
 	cret := xDragSourceGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.ContentProvider{}
@@ -165,7 +165,7 @@ func (x *DragSource) GetDrag() *gdk.Drag {
 	cret := xDragSourceGetDrag(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Drag{}

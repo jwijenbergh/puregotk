@@ -111,7 +111,7 @@ func NewAssistant() *Widget {
 	cret := xNewAssistant()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -182,7 +182,7 @@ func (x *Assistant) GetNthPage(PageNumVar int) *Widget {
 	cret := xAssistantGetNthPage(x.GoPointer(), PageNumVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -199,7 +199,7 @@ func (x *Assistant) GetPage(ChildVar *Widget) *AssistantPage {
 	cret := xAssistantGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &AssistantPage{}
@@ -243,7 +243,7 @@ func (x *Assistant) GetPages() *gio.ListModelBase {
 	cret := xAssistantGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -630,7 +630,7 @@ func (x *Assistant) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -645,7 +645,7 @@ func (x *Assistant) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -688,7 +688,7 @@ func (x *Assistant) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -708,7 +708,7 @@ func (x *Assistant) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -750,7 +750,7 @@ func (x *AssistantPage) GetChild() *Widget {
 	cret := xAssistantPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

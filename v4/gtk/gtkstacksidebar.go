@@ -41,7 +41,7 @@ func NewStackSidebar() *Widget {
 	cret := xNewStackSidebar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -58,7 +58,7 @@ func (x *StackSidebar) GetStack() *Stack {
 	cret := xStackSidebarGetStack(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Stack{}

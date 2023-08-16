@@ -37,7 +37,7 @@ func NewListStore(ItemTypeVar []interface{}) *ListStore {
 	cret := xNewListStore(ItemTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ListStore{}
 	cls.Ptr = cret
@@ -234,7 +234,7 @@ func (x *ListStore) GetObject(PositionVar uint) *gobject.Object {
 	cret := XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

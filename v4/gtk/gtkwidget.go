@@ -752,7 +752,7 @@ func (x *Widget) CreatePangoContext() *pango.Context {
 	cret := xWidgetCreatePangoContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Context{}
 	cls.Ptr = cret
@@ -775,7 +775,7 @@ func (x *Widget) CreatePangoLayout(TextVar string) *pango.Layout {
 	cret := xWidgetCreatePangoLayout(x.GoPointer(), TextVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Layout{}
 	cls.Ptr = cret
@@ -913,7 +913,7 @@ func (x *Widget) GetAncestor(WidgetTypeVar []interface{}) *Widget {
 	cret := xWidgetGetAncestor(x.GoPointer(), WidgetTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -972,7 +972,7 @@ func (x *Widget) GetClipboard() *gdk.Clipboard {
 	cret := xWidgetGetClipboard(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Clipboard{}
@@ -1009,7 +1009,7 @@ func (x *Widget) GetCursor() *gdk.Cursor {
 	cret := xWidgetGetCursor(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Cursor{}
@@ -1045,7 +1045,7 @@ func (x *Widget) GetDisplay() *gdk.Display {
 	cret := xWidgetGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -1064,7 +1064,7 @@ func (x *Widget) GetFirstChild() *Widget {
 	cret := xWidgetGetFirstChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1081,7 +1081,7 @@ func (x *Widget) GetFocusChild() *Widget {
 	cret := xWidgetGetFocusChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1123,7 +1123,7 @@ func (x *Widget) GetFontMap() *pango.FontMap {
 	cret := xWidgetGetFontMap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontMap{}
@@ -1172,7 +1172,7 @@ func (x *Widget) GetFrameClock() *gdk.FrameClock {
 	cret := xWidgetGetFrameClock(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.FrameClock{}
@@ -1271,7 +1271,7 @@ func (x *Widget) GetLastChild() *Widget {
 	cret := xWidgetGetLastChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1290,7 +1290,7 @@ func (x *Widget) GetLayoutManager() *LayoutManager {
 	cret := xWidgetGetLayoutManager(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LayoutManager{}
@@ -1368,7 +1368,7 @@ func (x *Widget) GetNative() *NativeBase {
 	cret := xWidgetGetNative(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &NativeBase{}
@@ -1387,7 +1387,7 @@ func (x *Widget) GetNextSibling() *Widget {
 	cret := xWidgetGetNextSibling(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1432,7 +1432,7 @@ func (x *Widget) GetPangoContext() *pango.Context {
 	cret := xWidgetGetPangoContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Context{}
@@ -1449,7 +1449,7 @@ func (x *Widget) GetParent() *Widget {
 	cret := xWidgetGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1490,7 +1490,7 @@ func (x *Widget) GetPrevSibling() *Widget {
 	cret := xWidgetGetPrevSibling(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -1513,7 +1513,7 @@ func (x *Widget) GetPrimaryClipboard() *gdk.Clipboard {
 	cret := xWidgetGetPrimaryClipboard(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Clipboard{}
@@ -1572,7 +1572,7 @@ func (x *Widget) GetRoot() *RootBase {
 	cret := xWidgetGetRoot(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RootBase{}
@@ -1625,7 +1625,7 @@ func (x *Widget) GetSettings() *Settings {
 	cret := xWidgetGetSettings(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Settings{}
@@ -1696,7 +1696,7 @@ func (x *Widget) GetStyleContext() *StyleContext {
 	cret := xWidgetGetStyleContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StyleContext{}
@@ -1722,7 +1722,7 @@ func (x *Widget) GetTemplateChild(WidgetTypeVar []interface{}, NameVar string) *
 	cret := xWidgetGetTemplateChild(x.GoPointer(), WidgetTypeVar, NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -2174,7 +2174,7 @@ func (x *Widget) ObserveChildren() *gio.ListModelBase {
 	cret := xWidgetObserveChildren(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -2198,7 +2198,7 @@ func (x *Widget) ObserveControllers() *gio.ListModelBase {
 	cret := xWidgetObserveControllers(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -2227,7 +2227,7 @@ func (x *Widget) Pick(XVar float64, YVar float64, FlagsVar PickFlags) *Widget {
 	cret := xWidgetPick(x.GoPointer(), XVar, YVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

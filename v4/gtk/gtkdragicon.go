@@ -43,7 +43,7 @@ func (x *DragIcon) GetChild() *Widget {
 	cret := xDragIconGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -218,7 +218,7 @@ func (x *DragIcon) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -233,7 +233,7 @@ func (x *DragIcon) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -276,7 +276,7 @@ func (x *DragIcon) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -296,7 +296,7 @@ func (x *DragIcon) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

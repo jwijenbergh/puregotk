@@ -103,7 +103,7 @@ func NewWindow() *Widget {
 	cret := xNewWindow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -179,7 +179,7 @@ func (x *Window) GetApplication() *Application {
 	cret := xWindowGetApplication(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Application{}
@@ -196,7 +196,7 @@ func (x *Window) GetChild() *Widget {
 	cret := xWindowGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -235,7 +235,7 @@ func (x *Window) GetDefaultWidget() *Widget {
 	cret := xWindowGetDefaultWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -275,7 +275,7 @@ func (x *Window) GetFocus() *Widget {
 	cret := xWindowGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -303,7 +303,7 @@ func (x *Window) GetGroup() *WindowGroup {
 	cret := xWindowGetGroup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &WindowGroup{}
@@ -385,7 +385,7 @@ func (x *Window) GetTitlebar() *Widget {
 	cret := xWindowGetTitlebar(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -402,7 +402,7 @@ func (x *Window) GetTransientFor() *Window {
 	cret := xWindowGetTransientFor(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Window{}
@@ -1160,7 +1160,7 @@ func (x *Window) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -1175,7 +1175,7 @@ func (x *Window) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -1218,7 +1218,7 @@ func (x *Window) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}

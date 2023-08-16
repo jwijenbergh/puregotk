@@ -75,7 +75,7 @@ func NewFromNameCursor(NameVar string, FallbackVar *Cursor) *Cursor {
 	cret := xNewFromNameCursor(NameVar, FallbackVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Cursor{}
 	cls.Ptr = cret
@@ -91,7 +91,7 @@ func NewFromTextureCursor(TextureVar *Texture, HotspotXVar int, HotspotYVar int,
 	cret := xNewFromTextureCursor(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Cursor{}
 	cls.Ptr = cret
@@ -113,7 +113,7 @@ func (x *Cursor) GetFallback() *Cursor {
 	cret := xCursorGetFallback(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Cursor{}
@@ -173,7 +173,7 @@ func (x *Cursor) GetTexture() *Texture {
 	cret := xCursorGetTexture(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Texture{}

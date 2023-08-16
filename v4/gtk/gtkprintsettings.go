@@ -50,7 +50,7 @@ func NewPrintSettings() *PrintSettings {
 	cret := xNewPrintSettings()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PrintSettings{}
 	cls.Ptr = cret
@@ -73,7 +73,7 @@ func NewFromFilePrintSettings(FileNameVar string) (*PrintSettings, error) {
 	cret := xNewFromFilePrintSettings(FileNameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PrintSettings{}
 	cls.Ptr = cret
@@ -96,7 +96,7 @@ func NewFromGvariantPrintSettings(VariantVar *glib.Variant) *PrintSettings {
 	cret := xNewFromGvariantPrintSettings(VariantVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PrintSettings{}
 	cls.Ptr = cret
@@ -117,7 +117,7 @@ func NewFromKeyFilePrintSettings(KeyFileVar *glib.KeyFile, GroupNameVar string) 
 	cret := xNewFromKeyFilePrintSettings(KeyFileVar, GroupNameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PrintSettings{}
 	cls.Ptr = cret
@@ -137,7 +137,7 @@ func (x *PrintSettings) Copy() *PrintSettings {
 	cret := xPrintSettingsCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PrintSettings{}
 	cls.Ptr = cret

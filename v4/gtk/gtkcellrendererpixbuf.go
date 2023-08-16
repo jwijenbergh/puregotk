@@ -46,7 +46,7 @@ func NewCellRendererPixbuf() *CellRenderer {
 	cret := xNewCellRendererPixbuf()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}

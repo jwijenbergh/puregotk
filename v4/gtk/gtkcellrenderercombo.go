@@ -44,7 +44,7 @@ func NewCellRendererCombo() *CellRenderer {
 	cret := xNewCellRendererCombo()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}

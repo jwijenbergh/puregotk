@@ -51,7 +51,7 @@ func NewStatusPage() *gtk.Widget {
 	cret := xNewStatusPage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -68,7 +68,7 @@ func (x *StatusPage) GetChild() *gtk.Widget {
 	cret := xStatusPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -103,7 +103,7 @@ func (x *StatusPage) GetPaintable() *gdk.PaintableBase {
 	cret := xStatusPageGetPaintable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.PaintableBase{}

@@ -53,7 +53,7 @@ func NewApplicationWindow(AppVar *gtk.Application) *gtk.Widget {
 	cret := xNewApplicationWindow(AppVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -72,7 +72,7 @@ func (x *ApplicationWindow) GetContent() *gtk.Widget {
 	cret := xApplicationWindowGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -400,7 +400,7 @@ func (x *ApplicationWindow) LookupAction(ActionNameVar string) *gio.ActionBase {
 	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ActionBase{}
@@ -567,7 +567,7 @@ func (x *ApplicationWindow) GetRenderer() *gsk.Renderer {
 	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -582,7 +582,7 @@ func (x *ApplicationWindow) GetSurface() *gdk.Surface {
 	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -625,7 +625,7 @@ func (x *ApplicationWindow) GetDisplay() *gdk.Display {
 	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -645,7 +645,7 @@ func (x *ApplicationWindow) GetFocus() *gtk.Widget {
 	cret := gtk.XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

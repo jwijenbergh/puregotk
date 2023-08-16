@@ -23,7 +23,7 @@ func PixbufGetFromSurface(SurfaceVar *cairo.Surface, SrcXVar int, SrcYVar int, W
 	cret := xPixbufGetFromSurface(SurfaceVar, SrcXVar, SrcYVar, WidthVar, HeightVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdkpixbuf.Pixbuf{}
 	cls.Ptr = cret
@@ -43,7 +43,7 @@ func PixbufGetFromTexture(TextureVar *Texture) *gdkpixbuf.Pixbuf {
 	cret := xPixbufGetFromTexture(TextureVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdkpixbuf.Pixbuf{}
 	cls.Ptr = cret

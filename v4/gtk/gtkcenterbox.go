@@ -61,7 +61,7 @@ func NewCenterBox() *Widget {
 	cret := xNewCenterBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -87,7 +87,7 @@ func (x *CenterBox) GetCenterWidget() *Widget {
 	cret := xCenterBoxGetCenterWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -104,7 +104,7 @@ func (x *CenterBox) GetEndWidget() *Widget {
 	cret := xCenterBoxGetEndWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -121,7 +121,7 @@ func (x *CenterBox) GetStartWidget() *Widget {
 	cret := xCenterBoxGetStartWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

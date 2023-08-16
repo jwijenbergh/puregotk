@@ -93,7 +93,7 @@ func (x *SocketConnection) GetLocalAddress() (*SocketAddress, error) {
 	cret := xSocketConnectionGetLocalAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -121,7 +121,7 @@ func (x *SocketConnection) GetRemoteAddress() (*SocketAddress, error) {
 	cret := xSocketConnectionGetRemoteAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -143,7 +143,7 @@ func (x *SocketConnection) GetSocket() *Socket {
 	cret := xSocketConnectionGetSocket(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Socket{}

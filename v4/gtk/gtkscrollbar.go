@@ -70,7 +70,7 @@ func NewScrollbar(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget
 	cret := xNewScrollbar(OrientationVar, AdjustmentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -87,7 +87,7 @@ func (x *Scrollbar) GetAdjustment() *Adjustment {
 	cret := xScrollbarGetAdjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

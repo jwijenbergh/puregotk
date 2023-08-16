@@ -30,7 +30,7 @@ func NewParamSpecExpression(NameVar string, NickVar string, BlurbVar string, Fla
 	cret := xNewParamSpecExpression(NameVar, NickVar, BlurbVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.ParamSpec{}
 	cls.Ptr = cret
@@ -47,7 +47,7 @@ func ValueDupExpression(ValueVar *gobject.Value) *Expression {
 	cret := xValueDupExpression(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Expression{}
 	cls.Ptr = cret
@@ -63,7 +63,7 @@ func ValueGetExpression(ValueVar *gobject.Value) *Expression {
 	cret := xValueGetExpression(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}
@@ -117,7 +117,7 @@ func NewCClosureExpression(ValueTypeVar []interface{}, MarshalVar gobject.Closur
 	cret := xNewCClosureExpression(ValueTypeVar, purego.NewCallback(MarshalVar), NParamsVar, ParamsVar, purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CClosureExpression{}
 	cls.Ptr = cret
@@ -156,7 +156,7 @@ func NewClosureExpression(ValueTypeVar []interface{}, ClosureVar *gobject.Closur
 	cret := xNewClosureExpression(ValueTypeVar, ClosureVar, NParamsVar, ParamsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ClosureExpression{}
 	cls.Ptr = cret
@@ -192,7 +192,7 @@ func NewConstantExpression(ValueTypeVar []interface{}, varArgs ...interface{}) *
 	cret := xNewConstantExpression(ValueTypeVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ConstantExpression{}
 	cls.Ptr = cret
@@ -208,7 +208,7 @@ func NewForValueConstantExpression(ValueVar *gobject.Value) *ConstantExpression 
 	cret := xNewForValueConstantExpression(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ConstantExpression{}
 	cls.Ptr = cret
@@ -457,7 +457,7 @@ func (x *Expression) Ref() *Expression {
 	cret := xExpressionRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Expression{}
 	cls.Ptr = cret
@@ -526,7 +526,7 @@ func NewObjectExpression(ObjectVar *gobject.Object) *ObjectExpression {
 	cret := xNewObjectExpression(ObjectVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ObjectExpression{}
 	cls.Ptr = cret
@@ -542,7 +542,7 @@ func (x *ObjectExpression) GetObject() *gobject.Object {
 	cret := xObjectExpressionGetObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -606,7 +606,7 @@ func NewPropertyExpression(ThisTypeVar []interface{}, ExpressionVar *Expression,
 	cret := xNewPropertyExpression(ThisTypeVar, ExpressionVar.GoPointer(), PropertyNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PropertyExpression{}
 	cls.Ptr = cret
@@ -629,7 +629,7 @@ func NewForPspecPropertyExpression(ExpressionVar *Expression, PspecVar *gobject.
 	cret := xNewForPspecPropertyExpression(ExpressionVar.GoPointer(), PspecVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PropertyExpression{}
 	cls.Ptr = cret
@@ -646,7 +646,7 @@ func (x *PropertyExpression) GetExpression() *Expression {
 	cret := xPropertyExpressionGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}
@@ -664,7 +664,7 @@ func (x *PropertyExpression) GetPspec() *gobject.ParamSpec {
 	cret := xPropertyExpressionGetPspec(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.ParamSpec{}

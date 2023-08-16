@@ -51,7 +51,7 @@ func NewCarouselIndicatorDots() *gtk.Widget {
 	cret := xNewCarouselIndicatorDots()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -68,7 +68,7 @@ func (x *CarouselIndicatorDots) GetCarousel() *Carousel {
 	cret := xCarouselIndicatorDotsGetCarousel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Carousel{}

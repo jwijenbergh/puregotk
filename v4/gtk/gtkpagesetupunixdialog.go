@@ -36,7 +36,7 @@ func NewPageSetupUnixDialog(TitleVar string, ParentVar *Window) *Widget {
 	cret := xNewPageSetupUnixDialog(TitleVar, ParentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -53,7 +53,7 @@ func (x *PageSetupUnixDialog) GetPageSetup() *PageSetup {
 	cret := xPageSetupUnixDialogGetPageSetup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PageSetup{}
@@ -70,7 +70,7 @@ func (x *PageSetupUnixDialog) GetPrintSettings() *PrintSettings {
 	cret := xPageSetupUnixDialogGetPrintSettings(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PrintSettings{}
@@ -256,7 +256,7 @@ func (x *PageSetupUnixDialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -271,7 +271,7 @@ func (x *PageSetupUnixDialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -314,7 +314,7 @@ func (x *PageSetupUnixDialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -334,7 +334,7 @@ func (x *PageSetupUnixDialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

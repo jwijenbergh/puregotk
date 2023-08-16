@@ -43,7 +43,7 @@ func NewPreferencesRow() *gtk.Widget {
 	cret := xNewPreferencesRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

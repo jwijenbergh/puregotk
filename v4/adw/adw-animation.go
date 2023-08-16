@@ -119,7 +119,7 @@ func (x *Animation) GetTarget() *AnimationTarget {
 	cret := xAnimationGetTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &AnimationTarget{}
@@ -152,7 +152,7 @@ func (x *Animation) GetWidget() *gtk.Widget {
 	cret := xAnimationGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

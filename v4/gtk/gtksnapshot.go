@@ -46,7 +46,7 @@ func NewSnapshot() *Snapshot {
 	cret := xNewSnapshot()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Snapshot{}
 	cls.Ptr = cret
@@ -193,7 +193,7 @@ func (x *Snapshot) FreeToNode() *gsk.RenderNode {
 	cret := xSnapshotFreeToNode(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gsk.RenderNode{}
 	cls.Ptr = cret
@@ -210,7 +210,7 @@ func (x *Snapshot) FreeToPaintable(SizeVar *graphene.Size) *gdk.PaintableBase {
 	cret := xSnapshotFreeToPaintable(x.GoPointer(), SizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret
@@ -560,7 +560,7 @@ func (x *Snapshot) ToNode() *gsk.RenderNode {
 	cret := xSnapshotToNode(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gsk.RenderNode{}
 	cls.Ptr = cret
@@ -581,7 +581,7 @@ func (x *Snapshot) ToPaintable(SizeVar *graphene.Size) *gdk.PaintableBase {
 	cret := xSnapshotToPaintable(x.GoPointer(), SizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret

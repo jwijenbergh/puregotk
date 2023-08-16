@@ -63,7 +63,7 @@ func (x *UnixConnection) ReceiveCredentials(CancellableVar *Cancellable) (*Crede
 	cret := xUnixConnectionReceiveCredentials(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Credentials{}
 	cls.Ptr = cret
@@ -100,7 +100,7 @@ func (x *UnixConnection) ReceiveCredentialsFinish(ResultVar AsyncResult) (*Crede
 	cret := xUnixConnectionReceiveCredentialsFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Credentials{}
 	cls.Ptr = cret

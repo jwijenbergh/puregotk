@@ -153,7 +153,7 @@ func NewDebugControllerDBus(ConnectionVar *DBusConnection, CancellableVar *Cance
 	cret := xNewDebugControllerDBus(ConnectionVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DebugControllerDBus{}
 	cls.Ptr = cret

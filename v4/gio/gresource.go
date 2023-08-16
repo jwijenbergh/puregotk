@@ -121,7 +121,7 @@ func ResourcesOpenStream(PathVar string, LookupFlagsVar ResourceLookupFlags) (*I
 	cret := xResourcesOpenStream(PathVar, LookupFlagsVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

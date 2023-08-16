@@ -50,7 +50,7 @@ func NewNetworkAddress(HostnameVar string, PortVar uint16) *NetworkAddress {
 	cret := xNewNetworkAddress(HostnameVar, PortVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &NetworkAddress{}
 	cls.Ptr = cret
@@ -77,7 +77,7 @@ func NewLoopbackNetworkAddress(PortVar uint16) *NetworkAddress {
 	cret := xNewLoopbackNetworkAddress(PortVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &NetworkAddress{}
 	cls.Ptr = cret
@@ -127,7 +127,7 @@ func (x *NetworkAddress) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -147,7 +147,7 @@ func (x *NetworkAddress) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

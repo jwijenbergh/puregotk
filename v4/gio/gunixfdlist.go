@@ -44,7 +44,7 @@ func NewUnixFDList() *UnixFDList {
 	cret := xNewUnixFDList()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &UnixFDList{}
 	cls.Ptr = cret
@@ -67,7 +67,7 @@ func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int) *UnixFDList {
 	cret := xNewFromArrayUnixFDList(FdsVar, NFdsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &UnixFDList{}
 	cls.Ptr = cret

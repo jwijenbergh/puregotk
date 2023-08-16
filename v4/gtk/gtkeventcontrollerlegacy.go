@@ -34,7 +34,7 @@ func NewEventControllerLegacy() *EventController {
 	cret := xNewEventControllerLegacy()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret

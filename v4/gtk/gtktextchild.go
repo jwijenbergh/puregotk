@@ -39,7 +39,7 @@ func NewTextChildAnchor() *TextChildAnchor {
 	cret := xNewTextChildAnchor()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextChildAnchor{}
 	cls.Ptr = cret
@@ -58,7 +58,7 @@ func NewWithReplacementTextChildAnchor(CharacterVar string) *TextChildAnchor {
 	cret := xNewWithReplacementTextChildAnchor(CharacterVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextChildAnchor{}
 	cls.Ptr = cret

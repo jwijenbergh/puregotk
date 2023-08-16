@@ -53,7 +53,7 @@ func NewColorButton() *Widget {
 	cret := xNewColorButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -70,7 +70,7 @@ func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *Widget {
 	cret := xNewWithRgbaColorButton(RgbaVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -83,7 +83,7 @@ func NewEventControllerScroll(FlagsVar EventControllerScrollFlags) *EventControl
 	cret := xNewEventControllerScroll(FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret

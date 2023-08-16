@@ -118,7 +118,7 @@ func InitableNewv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVa
 	cret := xInitableNewv(ObjectTypeVar, NParametersVar, ParametersVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

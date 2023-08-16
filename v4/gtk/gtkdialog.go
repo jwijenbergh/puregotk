@@ -210,7 +210,7 @@ func NewDialog() *Widget {
 	cret := xNewDialog()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -261,7 +261,7 @@ func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFla
 	cret := xNewWithButtonsDialog(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -300,7 +300,7 @@ func (x *Dialog) AddButton(ButtonTextVar string, ResponseIdVar int) *Widget {
 	cret := xDialogAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -331,7 +331,7 @@ func (x *Dialog) GetContentArea() *Box {
 	cret := xDialogGetContentArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Box{}
@@ -351,7 +351,7 @@ func (x *Dialog) GetHeaderBar() *HeaderBar {
 	cret := xDialogGetHeaderBar(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &HeaderBar{}
@@ -379,7 +379,7 @@ func (x *Dialog) GetWidgetForResponse(ResponseIdVar int) *Widget {
 	cret := xDialogGetWidgetForResponse(x.GoPointer(), ResponseIdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -612,7 +612,7 @@ func (x *Dialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -627,7 +627,7 @@ func (x *Dialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -670,7 +670,7 @@ func (x *Dialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -690,7 +690,7 @@ func (x *Dialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

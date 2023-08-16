@@ -59,7 +59,7 @@ func NewInscription(TextVar string) *Widget {
 	cret := xNewInscription(TextVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

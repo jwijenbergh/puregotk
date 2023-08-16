@@ -34,7 +34,7 @@ func (x *FilterInputStream) GetBaseStream() *InputStream {
 	cret := xFilterInputStreamGetBaseStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &InputStream{}

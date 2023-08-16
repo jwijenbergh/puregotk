@@ -73,7 +73,7 @@ func NewShortcutController() *EventController {
 	cret := xNewShortcutController()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret
@@ -94,7 +94,7 @@ func NewForModelShortcutController(ModelVar gio.ListModel) *EventController {
 	cret := xNewForModelShortcutController(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret
@@ -249,7 +249,7 @@ func (x *ShortcutController) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

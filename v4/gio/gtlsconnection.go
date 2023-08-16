@@ -54,7 +54,7 @@ func (x *TlsConnection) GetCertificate() *TlsCertificate {
 	cret := xTlsConnectionGetCertificate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsCertificate{}
@@ -114,7 +114,7 @@ func (x *TlsConnection) GetDatabase() *TlsDatabase {
 	cret := xTlsConnectionGetDatabase(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsDatabase{}
@@ -133,7 +133,7 @@ func (x *TlsConnection) GetInteraction() *TlsInteraction {
 	cret := xTlsConnectionGetInteraction(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsInteraction{}
@@ -167,7 +167,7 @@ func (x *TlsConnection) GetPeerCertificate() *TlsCertificate {
 	cret := xTlsConnectionGetPeerCertificate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsCertificate{}

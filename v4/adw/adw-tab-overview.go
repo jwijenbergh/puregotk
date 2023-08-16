@@ -91,7 +91,7 @@ func NewTabOverview() *gtk.Widget {
 	cret := xNewTabOverview()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -108,7 +108,7 @@ func (x *TabOverview) GetChild() *gtk.Widget {
 	cret := xTabOverviewGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -181,7 +181,7 @@ func (x *TabOverview) GetSecondaryMenu() *gio.MenuModel {
 	cret := xTabOverviewGetSecondaryMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -216,7 +216,7 @@ func (x *TabOverview) GetView() *TabView {
 	cret := xTabOverviewGetView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabView{}

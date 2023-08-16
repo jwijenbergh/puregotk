@@ -64,7 +64,7 @@ func NewTabButton() *gtk.Widget {
 	cret := xNewTabButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -81,7 +81,7 @@ func (x *TabButton) GetView() *TabView {
 	cret := xTabButtonGetView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabView{}

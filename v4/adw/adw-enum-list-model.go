@@ -84,7 +84,7 @@ func NewEnumListModel(EnumTypeVar []interface{}) *EnumListModel {
 	cret := xNewEnumListModel(EnumTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EnumListModel{}
 	cls.Ptr = cret
@@ -175,7 +175,7 @@ func (x *EnumListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

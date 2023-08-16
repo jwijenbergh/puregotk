@@ -47,7 +47,7 @@ func NewTreeListModel(RootVar gio.ListModel, PassthroughVar bool, AutoexpandVar 
 	cret := xNewTreeListModel(RootVar.GoPointer(), PassthroughVar, AutoexpandVar, purego.NewCallback(CreateFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListModel{}
 	cls.Ptr = cret
@@ -82,7 +82,7 @@ func (x *TreeListModel) GetChildRow(PositionVar uint) *TreeListRow {
 	cret := xTreeListModelGetChildRow(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListRow{}
 	cls.Ptr = cret
@@ -98,7 +98,7 @@ func (x *TreeListModel) GetModel() *gio.ListModelBase {
 	cret := xTreeListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -149,7 +149,7 @@ func (x *TreeListModel) GetRow(PositionVar uint) *TreeListRow {
 	cret := xTreeListModelGetRow(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListRow{}
 	cls.Ptr = cret
@@ -235,7 +235,7 @@ func (x *TreeListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -299,7 +299,7 @@ func (x *TreeListRow) GetChildRow(PositionVar uint) *TreeListRow {
 	cret := xTreeListRowGetChildRow(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListRow{}
 	cls.Ptr = cret
@@ -320,7 +320,7 @@ func (x *TreeListRow) GetChildren() *gio.ListModelBase {
 	cret := xTreeListRowGetChildren(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -364,7 +364,7 @@ func (x *TreeListRow) GetItem() *gobject.Object {
 	cret := xTreeListRowGetItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -389,7 +389,7 @@ func (x *TreeListRow) GetParent() *TreeListRow {
 	cret := xTreeListRowGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListRow{}
 	cls.Ptr = cret

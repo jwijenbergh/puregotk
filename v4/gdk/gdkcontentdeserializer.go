@@ -86,7 +86,7 @@ func (x *ContentDeserializer) GetCancellable() *gio.Cancellable {
 	cret := xContentDeserializerGetCancellable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.Cancellable{}
@@ -114,7 +114,7 @@ func (x *ContentDeserializer) GetInputStream() *gio.InputStream {
 	cret := xContentDeserializerGetInputStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.InputStream{}
@@ -215,7 +215,7 @@ func (x *ContentDeserializer) GetSourceObject() *gobject.Object {
 	cret := gio.XGAsyncResultGetSourceObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

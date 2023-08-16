@@ -75,7 +75,7 @@ func NewRevealer() *Widget {
 	cret := xNewRevealer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -92,7 +92,7 @@ func (x *Revealer) GetChild() *Widget {
 	cret := xRevealerGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

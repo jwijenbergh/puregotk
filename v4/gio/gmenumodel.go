@@ -168,7 +168,7 @@ func (x *MenuLinkIter) GetValue() *MenuModel {
 	cret := xMenuLinkIterGetValue(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuModel{}
 	cls.Ptr = cret
@@ -378,7 +378,7 @@ func (x *MenuModel) GetItemLink(ItemIndexVar int, LinkVar string) *MenuModel {
 	cret := xMenuModelGetItemLink(x.GoPointer(), ItemIndexVar, LinkVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuModel{}
 	cls.Ptr = cret
@@ -441,7 +441,7 @@ func (x *MenuModel) IterateItemAttributes(ItemIndexVar int) *MenuAttributeIter {
 	cret := xMenuModelIterateItemAttributes(x.GoPointer(), ItemIndexVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuAttributeIter{}
 	cls.Ptr = cret
@@ -460,7 +460,7 @@ func (x *MenuModel) IterateItemLinks(ItemIndexVar int) *MenuLinkIter {
 	cret := xMenuModelIterateItemLinks(x.GoPointer(), ItemIndexVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuLinkIter{}
 	cls.Ptr = cret

@@ -67,7 +67,7 @@ func NewApplication(ApplicationIdVar string, FlagsVar gio.ApplicationFlags) *App
 	cret := xNewApplication(ApplicationIdVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Application{}
 	cls.Ptr = cret
@@ -86,7 +86,7 @@ func (x *Application) GetStyleManager() *StyleManager {
 	cret := xApplicationGetStyleManager(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StyleManager{}
@@ -403,7 +403,7 @@ func (x *Application) LookupAction(ActionNameVar string) *gio.ActionBase {
 	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ActionBase{}

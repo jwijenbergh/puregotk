@@ -46,7 +46,7 @@ func NewCellAreaBox() *CellArea {
 	cret := xNewCellAreaBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}
@@ -152,7 +152,7 @@ func (x *CellAreaBox) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

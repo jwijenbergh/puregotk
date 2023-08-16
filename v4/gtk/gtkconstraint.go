@@ -72,7 +72,7 @@ func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttr
 	cret := xNewConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, SourceVar.GoPointer(), SourceAttributeVar, MultiplierVar, ConstantVar, StrengthVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Constraint{}
 	cls.Ptr = cret
@@ -89,7 +89,7 @@ func NewConstantConstraint(TargetVar ConstraintTarget, TargetAttributeVar Constr
 	cret := xNewConstantConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Constraint{}
 	cls.Ptr = cret
@@ -137,7 +137,7 @@ func (x *Constraint) GetSource() *ConstraintTargetBase {
 	cret := xConstraintGetSource(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ConstraintTargetBase{}
@@ -176,7 +176,7 @@ func (x *Constraint) GetTarget() *ConstraintTargetBase {
 	cret := xConstraintGetTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ConstraintTargetBase{}

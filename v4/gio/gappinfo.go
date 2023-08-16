@@ -157,7 +157,7 @@ func (x *AppInfoBase) Dup() *AppInfoBase {
 	cret := XGAppInfoDup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -212,7 +212,7 @@ func (x *AppInfoBase) GetIcon() *IconBase {
 	cret := XGAppInfoGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}
@@ -450,7 +450,7 @@ func AppInfoCreateFromCommandline(CommandlineVar string, ApplicationNameVar stri
 	cret := xAppInfoCreateFromCommandline(CommandlineVar, ApplicationNameVar, FlagsVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -498,7 +498,7 @@ func AppInfoGetDefaultForType(ContentTypeVar string, MustSupportUrisVar bool) *A
 	cret := xAppInfoGetDefaultForType(ContentTypeVar, MustSupportUrisVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -517,7 +517,7 @@ func AppInfoGetDefaultForUriScheme(UriSchemeVar string) *AppInfoBase {
 	cret := xAppInfoGetDefaultForUriScheme(UriSchemeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -638,7 +638,7 @@ func NewAppLaunchContext() *AppLaunchContext {
 	cret := xNewAppLaunchContext()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppLaunchContext{}
 	cls.Ptr = cret

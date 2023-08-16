@@ -34,7 +34,7 @@ func NewCharsetConverter(ToCharsetVar string, FromCharsetVar string) (*CharsetCo
 	cret := xNewCharsetConverter(ToCharsetVar, FromCharsetVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &CharsetConverter{}
 	cls.Ptr = cret

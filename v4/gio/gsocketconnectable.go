@@ -98,7 +98,7 @@ func (x *SocketConnectableBase) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -118,7 +118,7 @@ func (x *SocketConnectableBase) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

@@ -78,7 +78,7 @@ func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *Widget {
 	cret := xNewDropDown(ModelVar.GoPointer(), ExpressionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -96,7 +96,7 @@ func NewFromStringsDropDown(StringsVar uintptr) *Widget {
 	cret := xNewFromStringsDropDown(StringsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -124,7 +124,7 @@ func (x *DropDown) GetExpression() *Expression {
 	cret := xDropDownGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}
@@ -145,7 +145,7 @@ func (x *DropDown) GetFactory() *ListItemFactory {
 	cret := xDropDownGetFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListItemFactory{}
@@ -162,7 +162,7 @@ func (x *DropDown) GetListFactory() *ListItemFactory {
 	cret := xDropDownGetListFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListItemFactory{}
@@ -179,7 +179,7 @@ func (x *DropDown) GetModel() *gio.ListModelBase {
 	cret := xDropDownGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -205,7 +205,7 @@ func (x *DropDown) GetSelectedItem() *gobject.Object {
 	cret := xDropDownGetSelectedItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}

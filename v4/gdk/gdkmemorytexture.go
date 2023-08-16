@@ -34,7 +34,7 @@ func NewMemoryTexture(WidthVar int, HeightVar int, FormatVar MemoryFormat, Bytes
 	cret := xNewMemoryTexture(WidthVar, HeightVar, FormatVar, BytesVar, StrideVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MemoryTexture{}
 	cls.Ptr = cret
@@ -77,7 +77,7 @@ func (x *MemoryTexture) GetCurrentImage() *PaintableBase {
 	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PaintableBase{}
 	cls.Ptr = cret
@@ -242,7 +242,7 @@ func (x *MemoryTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Ca
 	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret
@@ -270,7 +270,7 @@ func (x *MemoryTexture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio
 	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret

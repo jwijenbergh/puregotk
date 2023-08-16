@@ -80,7 +80,7 @@ func (x *FontMapBase) CreateContext() *pango.Context {
 	cret := XPangoCairoFontMapCreateContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Context{}
 	cls.Ptr = cret
@@ -237,7 +237,7 @@ func CreateContext(CrVar *cairo.Context) *pango.Context {
 	cret := xCreateContext(CrVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Context{}
 	cls.Ptr = cret
@@ -264,7 +264,7 @@ func CreateLayout(CrVar *cairo.Context) *pango.Layout {
 	cret := xCreateLayout(CrVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Layout{}
 	cls.Ptr = cret
@@ -308,7 +308,7 @@ func FontMapGetDefault() *pango.FontMap {
 	cret := xFontMapGetDefault()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontMap{}
@@ -342,7 +342,7 @@ func FontMapNew() *pango.FontMap {
 	cret := xFontMapNew()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.FontMap{}
 	cls.Ptr = cret
@@ -362,7 +362,7 @@ func FontMapNewForFontType(FonttypeVar cairo.FontType) *pango.FontMap {
 	cret := xFontMapNewForFontType(FonttypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.FontMap{}
 	cls.Ptr = cret

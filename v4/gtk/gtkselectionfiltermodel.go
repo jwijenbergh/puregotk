@@ -34,7 +34,7 @@ func NewSelectionFilterModel(ModelVar SelectionModel) *SelectionFilterModel {
 	cret := xNewSelectionFilterModel(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SelectionFilterModel{}
 	cls.Ptr = cret
@@ -50,7 +50,7 @@ func (x *SelectionFilterModel) GetModel() *SelectionModelBase {
 	cret := xSelectionFilterModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SelectionModelBase{}
@@ -138,7 +138,7 @@ func (x *SelectionFilterModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

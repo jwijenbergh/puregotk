@@ -34,7 +34,7 @@ func NewAspectFrame(XalignVar float32, YalignVar float32, RatioVar float32, Obey
 	cret := xNewAspectFrame(XalignVar, YalignVar, RatioVar, ObeyChildVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -51,7 +51,7 @@ func (x *AspectFrame) GetChild() *Widget {
 	cret := xAspectFrameGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

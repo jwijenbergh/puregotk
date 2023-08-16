@@ -71,7 +71,7 @@ func NewSignalListItemFactory() *ListItemFactory {
 	cret := xNewSignalListItemFactory()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ListItemFactory{}
 	cls.Ptr = cret

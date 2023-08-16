@@ -375,7 +375,7 @@ func (x *DNDEvent) GetDrop() *Drop {
 	cret := xDNDEventGetDrop(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Drop{}
@@ -500,7 +500,7 @@ func (x *Event) GetDevice() *Device {
 	cret := xEventGetDevice(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Device{}
@@ -526,7 +526,7 @@ func (x *Event) GetDeviceTool() *DeviceTool {
 	cret := xEventGetDeviceTool(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DeviceTool{}
@@ -543,7 +543,7 @@ func (x *Event) GetDisplay() *Display {
 	cret := xEventGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -627,7 +627,7 @@ func (x *Event) GetSeat() *Seat {
 	cret := xEventGetSeat(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Seat{}
@@ -644,7 +644,7 @@ func (x *Event) GetSurface() *Surface {
 	cret := xEventGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}
@@ -673,7 +673,7 @@ func (x *Event) Ref() *Event {
 	cret := xEventRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Event{}
 	cls.Ptr = cret
@@ -763,7 +763,7 @@ func (x *GrabBrokenEvent) GetGrabSurface() *Surface {
 	cret := xGrabBrokenEventGetGrabSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

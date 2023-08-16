@@ -70,7 +70,7 @@ func NewActionRow() *gtk.Widget {
 	cret := xNewActionRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -114,7 +114,7 @@ func (x *ActionRow) GetActivatableWidget() *gtk.Widget {
 	cret := xActionRowGetActivatableWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

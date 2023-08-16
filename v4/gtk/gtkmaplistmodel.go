@@ -71,7 +71,7 @@ func NewMapListModel(ModelVar gio.ListModel, MapFuncVar MapListModelMapFunc, Use
 	cret := xNewMapListModel(ModelVar.GoPointer(), purego.NewCallback(MapFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MapListModel{}
 	cls.Ptr = cret
@@ -87,7 +87,7 @@ func (x *MapListModel) GetModel() *gio.ListModelBase {
 	cret := xMapListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -202,7 +202,7 @@ func (x *MapListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

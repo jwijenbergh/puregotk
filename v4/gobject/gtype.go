@@ -716,7 +716,7 @@ func TypeGetPlugin(TypeVar []interface{}) *TypePluginBase {
 	cret := xTypeGetPlugin(TypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &TypePluginBase{}
@@ -801,7 +801,7 @@ func TypeInterfaceGetPlugin(InstanceTypeVar []interface{}, InterfaceTypeVar []in
 	cret := xTypeInterfaceGetPlugin(InstanceTypeVar, InterfaceTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &TypePluginBase{}

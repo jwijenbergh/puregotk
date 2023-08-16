@@ -62,7 +62,7 @@ func (x *FontMap) CreateContext() *Context {
 	cret := xFontMapCreateContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Context{}
 	cls.Ptr = cret
@@ -78,7 +78,7 @@ func (x *FontMap) GetFamily(NameVar string) *FontFamily {
 	cret := xFontMapGetFamily(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FontFamily{}
@@ -124,7 +124,7 @@ func (x *FontMap) LoadFont(ContextVar *Context, DescVar *FontDescription) *Font 
 	cret := xFontMapLoadFont(x.GoPointer(), ContextVar.GoPointer(), DescVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Font{}
 	cls.Ptr = cret
@@ -141,7 +141,7 @@ func (x *FontMap) LoadFontset(ContextVar *Context, DescVar *FontDescription, Lan
 	cret := xFontMapLoadFontset(x.GoPointer(), ContextVar.GoPointer(), DescVar, LanguageVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Fontset{}
 	cls.Ptr = cret

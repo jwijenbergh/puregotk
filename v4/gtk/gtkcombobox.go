@@ -94,7 +94,7 @@ func NewComboBox() *Widget {
 	cret := xNewComboBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -115,7 +115,7 @@ func NewWithEntryComboBox() *Widget {
 	cret := xNewWithEntryComboBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -132,7 +132,7 @@ func NewWithModelComboBox(ModelVar TreeModel) *Widget {
 	cret := xNewWithModelComboBox(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -151,7 +151,7 @@ func NewWithModelAndEntryComboBox(ModelVar TreeModel) *Widget {
 	cret := xNewWithModelAndEntryComboBox(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -224,7 +224,7 @@ func (x *ComboBox) GetChild() *Widget {
 	cret := xComboBoxGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -270,7 +270,7 @@ func (x *ComboBox) GetModel() *TreeModelBase {
 	cret := xComboBoxGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -806,7 +806,7 @@ func (x *ComboBox) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

@@ -49,7 +49,7 @@ func (x *ProxyBase) Connect(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddre
 	cret := XGProxyConnect(x.GoPointer(), ConnectionVar.GoPointer(), ProxyAddressVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &IOStream{}
 	cls.Ptr = cret
@@ -75,7 +75,7 @@ func (x *ProxyBase) ConnectFinish(ResultVar AsyncResult) (*IOStream, error) {
 	cret := XGProxyConnectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &IOStream{}
 	cls.Ptr = cret
@@ -114,7 +114,7 @@ func ProxyGetDefaultForProtocol(ProtocolVar string) *ProxyBase {
 	cret := xProxyGetDefaultForProtocol(ProtocolVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ProxyBase{}
 	cls.Ptr = cret

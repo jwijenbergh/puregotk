@@ -60,7 +60,7 @@ func NewEditableLabel(StrVar string) *Widget {
 	cret := xNewEditableLabel(StrVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -315,7 +315,7 @@ func (x *EditableLabel) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

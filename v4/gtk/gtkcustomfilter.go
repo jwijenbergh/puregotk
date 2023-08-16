@@ -43,7 +43,7 @@ func NewCustomFilter(MatchFuncVar CustomFilterFunc, UserDataVar uintptr, UserDes
 	cret := xNewCustomFilter(purego.NewCallback(MatchFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CustomFilter{}
 	cls.Ptr = cret

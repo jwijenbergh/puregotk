@@ -44,7 +44,7 @@ func NewAnyInetAddress(FamilyVar SocketFamily) *InetAddress {
 	cret := xNewAnyInetAddress(FamilyVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InetAddress{}
 	cls.Ptr = cret
@@ -62,7 +62,7 @@ func NewFromBytesInetAddress(BytesVar uintptr, FamilyVar SocketFamily) *InetAddr
 	cret := xNewFromBytesInetAddress(BytesVar, FamilyVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InetAddress{}
 	cls.Ptr = cret
@@ -78,7 +78,7 @@ func NewFromStringInetAddress(StringVar string) *InetAddress {
 	cret := xNewFromStringInetAddress(StringVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InetAddress{}
 	cls.Ptr = cret
@@ -94,7 +94,7 @@ func NewLoopbackInetAddress(FamilyVar SocketFamily) *InetAddress {
 	cret := xNewLoopbackInetAddress(FamilyVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InetAddress{}
 	cls.Ptr = cret

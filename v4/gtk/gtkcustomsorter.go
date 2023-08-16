@@ -35,7 +35,7 @@ func NewCustomSorter(SortFuncVar glib.CompareDataFunc, UserDataVar uintptr, User
 	cret := xNewCustomSorter(purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CustomSorter{}
 	cls.Ptr = cret

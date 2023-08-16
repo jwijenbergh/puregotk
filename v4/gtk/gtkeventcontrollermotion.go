@@ -38,7 +38,7 @@ func NewEventControllerMotion() *EventController {
 	cret := xNewEventControllerMotion()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret

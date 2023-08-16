@@ -49,7 +49,7 @@ func NewThreadedSocketService(MaxThreadsVar int) *SocketService {
 	cret := xNewThreadedSocketService(MaxThreadsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketService{}
 	cls.Ptr = cret

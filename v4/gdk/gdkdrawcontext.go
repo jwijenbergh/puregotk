@@ -84,7 +84,7 @@ func (x *DrawContext) GetDisplay() *Display {
 	cret := xDrawContextGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -117,7 +117,7 @@ func (x *DrawContext) GetSurface() *Surface {
 	cret := xDrawContextGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

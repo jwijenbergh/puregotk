@@ -69,7 +69,7 @@ func NewIMContextSimple() *IMContext {
 	cret := xNewIMContextSimple()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IMContext{}
 	cls.Ptr = cret

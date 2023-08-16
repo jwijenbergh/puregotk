@@ -33,7 +33,7 @@ func NewPixbufNonAnim(PixbufVar *Pixbuf) *PixbufAnimation {
 	cret := xNewPixbufNonAnim(PixbufVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret

@@ -78,7 +78,7 @@ func NewFrame(LabelVar string) *Widget {
 	cret := xNewFrame(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -95,7 +95,7 @@ func (x *Frame) GetChild() *Widget {
 	cret := xFrameGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -133,7 +133,7 @@ func (x *Frame) GetLabelWidget() *Widget {
 	cret := xFrameGetLabelWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

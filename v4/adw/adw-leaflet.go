@@ -86,7 +86,7 @@ func NewLeaflet() *gtk.Widget {
 	cret := xNewLeaflet()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -103,7 +103,7 @@ func (x *Leaflet) Append(ChildVar *gtk.Widget) *LeafletPage {
 	cret := xLeafletAppend(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LeafletPage{}
@@ -127,7 +127,7 @@ func (x *Leaflet) GetAdjacentChild(DirectionVar NavigationDirection) *gtk.Widget
 	cret := xLeafletGetAdjacentChild(x.GoPointer(), DirectionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -175,7 +175,7 @@ func (x *Leaflet) GetChildByName(NameVar string) *gtk.Widget {
 	cret := xLeafletGetChildByName(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -250,7 +250,7 @@ func (x *Leaflet) GetPage(ChildVar *gtk.Widget) *LeafletPage {
 	cret := xLeafletGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LeafletPage{}
@@ -271,7 +271,7 @@ func (x *Leaflet) GetPages() *gtk.SelectionModelBase {
 	cret := xLeafletGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gtk.SelectionModelBase{}
 	cls.Ptr = cret
@@ -296,7 +296,7 @@ func (x *Leaflet) GetVisibleChild() *gtk.Widget {
 	cret := xLeafletGetVisibleChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -324,7 +324,7 @@ func (x *Leaflet) InsertChildAfter(ChildVar *gtk.Widget, SiblingVar *gtk.Widget)
 	cret := xLeafletInsertChildAfter(x.GoPointer(), ChildVar.GoPointer(), SiblingVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LeafletPage{}
@@ -356,7 +356,7 @@ func (x *Leaflet) Prepend(ChildVar *gtk.Widget) *LeafletPage {
 	cret := xLeafletPrepend(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LeafletPage{}
@@ -766,7 +766,7 @@ func (x *LeafletPage) GetChild() *gtk.Widget {
 	cret := xLeafletPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

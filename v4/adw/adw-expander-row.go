@@ -64,7 +64,7 @@ func NewExpanderRow() *gtk.Widget {
 	cret := xNewExpanderRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

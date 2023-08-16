@@ -91,7 +91,7 @@ func NewPrinter(NameVar string, BackendVar *PrintBackend, VirtualVar bool) *Prin
 	cret := xNewPrinter(NameVar, BackendVar, VirtualVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Printer{}
 	cls.Ptr = cret
@@ -162,7 +162,7 @@ func (x *Printer) GetDefaultPageSize() *PageSetup {
 	cret := xPrinterGetDefaultPageSize(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret

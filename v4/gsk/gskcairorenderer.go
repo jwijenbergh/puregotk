@@ -39,7 +39,7 @@ func NewCairoRenderer() *Renderer {
 	cret := xNewCairoRenderer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Renderer{}
 	cls.Ptr = cret

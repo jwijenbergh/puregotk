@@ -44,7 +44,7 @@ func (x *EventController) GetCurrentEvent() *gdk.Event {
 	cret := xEventControllerGetCurrentEvent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Event{}
@@ -64,7 +64,7 @@ func (x *EventController) GetCurrentEventDevice() *gdk.Device {
 	cret := xEventControllerGetCurrentEventDevice(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Device{}
@@ -132,7 +132,7 @@ func (x *EventController) GetWidget() *Widget {
 	cret := xEventControllerGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -116,7 +116,7 @@ func (x *DisplayManager) GetDefaultDisplay() *Display {
 	cret := xDisplayManagerGetDefaultDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -142,7 +142,7 @@ func (x *DisplayManager) OpenDisplay(NameVar string) *Display {
 	cret := xDisplayManagerOpenDisplay(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}

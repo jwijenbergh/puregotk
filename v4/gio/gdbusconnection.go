@@ -226,7 +226,7 @@ func BusGetFinish(ResVar AsyncResult) (*DBusConnection, error) {
 	cret := xBusGetFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -264,7 +264,7 @@ func BusGetSync(BusTypeVar BusType, CancellableVar *Cancellable) (*DBusConnectio
 	cret := xBusGetSync(BusTypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret

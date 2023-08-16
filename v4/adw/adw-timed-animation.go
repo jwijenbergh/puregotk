@@ -47,7 +47,7 @@ func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, Du
 	cret := xNewTimedAnimation(WidgetVar.GoPointer(), FromVar, ToVar, DurationVar, TargetVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Animation{}

@@ -58,7 +58,7 @@ func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *Widget {
 	cret := xNewFromModelPopoverMenuBar(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -87,7 +87,7 @@ func (x *PopoverMenuBar) GetMenuModel() *gio.MenuModel {
 	cret := xPopoverMenuBarGetMenuModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}

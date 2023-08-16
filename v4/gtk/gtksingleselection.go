@@ -38,7 +38,7 @@ func NewSingleSelection(ModelVar gio.ListModel) *SingleSelection {
 	cret := xNewSingleSelection(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SingleSelection{}
 	cls.Ptr = cret
@@ -74,7 +74,7 @@ func (x *SingleSelection) GetModel() *gio.ListModelBase {
 	cret := xSingleSelectionGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -104,7 +104,7 @@ func (x *SingleSelection) GetSelectedItem() *gobject.Object {
 	cret := xSingleSelectionGetSelectedItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -232,7 +232,7 @@ func (x *SingleSelection) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

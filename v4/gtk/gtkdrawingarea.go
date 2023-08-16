@@ -125,7 +125,7 @@ func NewDrawingArea() *Widget {
 	cret := xNewDrawingArea()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

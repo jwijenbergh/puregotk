@@ -43,7 +43,7 @@ func NewPrintJob(TitleVar string, PrinterVar *Printer, SettingsVar *PrintSetting
 	cret := xNewPrintJob(TitleVar, PrinterVar.GoPointer(), SettingsVar.GoPointer(), PageSetupVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PrintJob{}
 	cls.Ptr = cret
@@ -122,7 +122,7 @@ func (x *PrintJob) GetPrinter() *Printer {
 	cret := xPrintJobGetPrinter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Printer{}
@@ -166,7 +166,7 @@ func (x *PrintJob) GetSettings() *PrintSettings {
 	cret := xPrintJobGetSettings(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PrintSettings{}

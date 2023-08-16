@@ -33,7 +33,7 @@ func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int) *ZlibCompre
 	cret := xNewZlibCompressor(FormatVar, LevelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ZlibCompressor{}
 	cls.Ptr = cret
@@ -49,7 +49,7 @@ func (x *ZlibCompressor) GetFileInfo() *FileInfo {
 	cret := xZlibCompressorGetFileInfo(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileInfo{}

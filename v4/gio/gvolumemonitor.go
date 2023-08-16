@@ -54,7 +54,7 @@ func (x *VolumeMonitor) GetMountForUuid(UuidVar string) *MountBase {
 	cret := xVolumeMonitorGetMountForUuid(x.GoPointer(), UuidVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MountBase{}
 	cls.Ptr = cret
@@ -82,7 +82,7 @@ func (x *VolumeMonitor) GetVolumeForUuid(UuidVar string) *VolumeBase {
 	cret := xVolumeMonitorGetVolumeForUuid(x.GoPointer(), UuidVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &VolumeBase{}
 	cls.Ptr = cret

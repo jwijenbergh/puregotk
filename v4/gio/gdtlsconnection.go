@@ -142,7 +142,7 @@ func (x *DtlsConnectionBase) GetCertificate() *TlsCertificate {
 	cret := XGDtlsConnectionGetCertificate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsCertificate{}
@@ -196,7 +196,7 @@ func (x *DtlsConnectionBase) GetDatabase() *TlsDatabase {
 	cret := XGDtlsConnectionGetDatabase(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsDatabase{}
@@ -213,7 +213,7 @@ func (x *DtlsConnectionBase) GetInteraction() *TlsInteraction {
 	cret := XGDtlsConnectionGetInteraction(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsInteraction{}
@@ -243,7 +243,7 @@ func (x *DtlsConnectionBase) GetPeerCertificate() *TlsCertificate {
 	cret := XGDtlsConnectionGetPeerCertificate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsCertificate{}

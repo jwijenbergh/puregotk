@@ -269,7 +269,7 @@ func (x *ParamSpec) GetRedirectTarget() *ParamSpec {
 	cret := xParamSpecGetRedirectTarget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &ParamSpec{}
@@ -286,7 +286,7 @@ func (x *ParamSpec) Ref() *ParamSpec {
 	cret := xParamSpecRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -302,7 +302,7 @@ func (x *ParamSpec) RefSink() *ParamSpec {
 	cret := xParamSpecRefSink(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret

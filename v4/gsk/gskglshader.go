@@ -153,7 +153,7 @@ func NewFromBytesGLShader(SourcecodeVar *glib.Bytes) *GLShader {
 	cret := xNewFromBytesGLShader(SourcecodeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &GLShader{}
 	cls.Ptr = cret
@@ -169,7 +169,7 @@ func NewFromResourceGLShader(ResourcePathVar string) *GLShader {
 	cret := xNewFromResourceGLShader(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &GLShader{}
 	cls.Ptr = cret

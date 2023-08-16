@@ -130,7 +130,7 @@ func NewStack() *Widget {
 	cret := xNewStack()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -147,7 +147,7 @@ func (x *Stack) AddChild(ChildVar *Widget) *StackPage {
 	cret := xStackAddChild(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StackPage{}
@@ -166,7 +166,7 @@ func (x *Stack) AddNamed(ChildVar *Widget, NameVar string) *StackPage {
 	cret := xStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StackPage{}
@@ -187,7 +187,7 @@ func (x *Stack) AddTitled(ChildVar *Widget, NameVar string, TitleVar string) *St
 	cret := xStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StackPage{}
@@ -206,7 +206,7 @@ func (x *Stack) GetChildByName(NameVar string) *Widget {
 	cret := xStackGetChildByName(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -242,7 +242,7 @@ func (x *Stack) GetPage(ChildVar *Widget) *StackPage {
 	cret := xStackGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &StackPage{}
@@ -263,7 +263,7 @@ func (x *Stack) GetPages() *SelectionModelBase {
 	cret := xStackGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SelectionModelBase{}
 	cls.Ptr = cret
@@ -320,7 +320,7 @@ func (x *Stack) GetVisibleChild() *Widget {
 	cret := xStackGetVisibleChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -633,7 +633,7 @@ func (x *StackPage) GetChild() *Widget {
 	cret := xStackPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -61,7 +61,7 @@ func NewCoverage() *Coverage {
 	cret := xNewCoverage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Coverage{}
 	cls.Ptr = cret
@@ -77,7 +77,7 @@ func (x *Coverage) Copy() *Coverage {
 	cret := xCoverageCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Coverage{}
 	cls.Ptr = cret
@@ -113,7 +113,7 @@ func (x *Coverage) Ref() *Coverage {
 	cret := xCoverageRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Coverage{}
 	cls.Ptr = cret

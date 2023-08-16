@@ -40,7 +40,7 @@ func NewOverlayLayout() *LayoutManager {
 	cret := xNewOverlayLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret

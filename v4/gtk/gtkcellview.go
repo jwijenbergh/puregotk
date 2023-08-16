@@ -47,7 +47,7 @@ func NewCellView() *Widget {
 	cret := xNewCellView()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -70,7 +70,7 @@ func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *Wid
 	cret := xNewWithContextCellView(AreaVar.GoPointer(), ContextVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -89,7 +89,7 @@ func NewWithMarkupCellView(MarkupVar string) *Widget {
 	cret := xNewWithMarkupCellView(MarkupVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -107,7 +107,7 @@ func NewWithTextCellView(TextVar string) *Widget {
 	cret := xNewWithTextCellView(TextVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -125,7 +125,7 @@ func NewWithTextureCellView(TextureVar *gdk.Texture) *Widget {
 	cret := xNewWithTextureCellView(TextureVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -174,7 +174,7 @@ func (x *CellView) GetModel() *TreeModelBase {
 	cret := xCellViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -421,7 +421,7 @@ func (x *CellView) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

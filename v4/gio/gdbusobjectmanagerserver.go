@@ -65,7 +65,7 @@ func NewDBusObjectManagerServer(ObjectPathVar string) *DBusObjectManagerServer {
 	cret := xNewDBusObjectManagerServer(ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectManagerServer{}
 	cls.Ptr = cret
@@ -111,7 +111,7 @@ func (x *DBusObjectManagerServer) GetConnection() *DBusConnection {
 	cret := xDBusObjectManagerServerGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -166,7 +166,7 @@ func (x *DBusObjectManagerServer) GetInterface(ObjectPathVar string, InterfaceNa
 	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret
@@ -180,7 +180,7 @@ func (x *DBusObjectManagerServer) GetObject(ObjectPathVar string) *DBusObjectBas
 	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret

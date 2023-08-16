@@ -110,7 +110,7 @@ func NewToggleButton() *Widget {
 	cret := xNewToggleButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -127,7 +127,7 @@ func NewWithLabelToggleButton(LabelVar string) *Widget {
 	cret := xNewWithLabelToggleButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -147,7 +147,7 @@ func NewWithMnemonicToggleButton(LabelVar string) *Widget {
 	cret := xNewWithMnemonicToggleButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

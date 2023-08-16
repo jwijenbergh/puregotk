@@ -142,7 +142,7 @@ func NewGLArea() *Widget {
 	cret := xNewGLArea()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -185,7 +185,7 @@ func (x *GLArea) GetContext() *gdk.GLContext {
 	cret := xGLAreaGetContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.GLContext{}

@@ -51,7 +51,7 @@ func NewColorChooserWidget() *Widget {
 	cret := xNewColorChooserWidget()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

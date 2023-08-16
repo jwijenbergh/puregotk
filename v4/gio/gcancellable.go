@@ -44,7 +44,7 @@ func NewCancellable() *Cancellable {
 	cret := xNewCancellable()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Cancellable{}
 	cls.Ptr = cret

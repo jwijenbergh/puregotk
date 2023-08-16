@@ -528,7 +528,7 @@ func (x *CellArea) CopyContext(ContextVar *CellAreaContext) *CellAreaContext {
 	cret := xCellAreaCopyContext(x.GoPointer(), ContextVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CellAreaContext{}
 	cls.Ptr = cret
@@ -549,7 +549,7 @@ func (x *CellArea) CreateContext() *CellAreaContext {
 	cret := xCellAreaCreateContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CellAreaContext{}
 	cls.Ptr = cret
@@ -619,7 +619,7 @@ func (x *CellArea) GetCellAtPosition(ContextVar *CellAreaContext, WidgetVar *Wid
 	cret := xCellAreaGetCellAtPosition(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, XVar, YVar, AllocAreaVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}
@@ -650,7 +650,7 @@ func (x *CellArea) GetEditWidget() *CellEditableBase {
 	cret := xCellAreaGetEditWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellEditableBase{}
@@ -668,7 +668,7 @@ func (x *CellArea) GetEditedCell() *CellRenderer {
 	cret := xCellAreaGetEditedCell(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}
@@ -685,7 +685,7 @@ func (x *CellArea) GetFocusCell() *CellRenderer {
 	cret := xCellAreaGetFocusCell(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}
@@ -708,7 +708,7 @@ func (x *CellArea) GetFocusFromSibling(RendererVar *CellRenderer) *CellRenderer 
 	cret := xCellAreaGetFocusFromSibling(x.GoPointer(), RendererVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}
@@ -1034,7 +1034,7 @@ func (x *CellArea) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

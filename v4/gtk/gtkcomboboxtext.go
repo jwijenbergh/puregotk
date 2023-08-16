@@ -87,7 +87,7 @@ func NewComboBoxText() *Widget {
 	cret := xNewComboBoxText()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -104,7 +104,7 @@ func NewWithEntryComboBoxText() *Widget {
 	cret := xNewWithEntryComboBoxText()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -443,7 +443,7 @@ func (x *ComboBoxText) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

@@ -125,7 +125,7 @@ func NewExpander(LabelVar string) *Widget {
 	cret := xNewExpander(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -149,7 +149,7 @@ func NewWithMnemonicExpander(LabelVar string) *Widget {
 	cret := xNewWithMnemonicExpander(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -166,7 +166,7 @@ func (x *Expander) GetChild() *Widget {
 	cret := xExpanderGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -209,7 +209,7 @@ func (x *Expander) GetLabelWidget() *Widget {
 	cret := xExpanderGetLabelWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

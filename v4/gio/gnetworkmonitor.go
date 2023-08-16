@@ -156,7 +156,7 @@ func NetworkMonitorGetDefault() *NetworkMonitorBase {
 	cret := xNetworkMonitorGetDefault()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &NetworkMonitorBase{}

@@ -51,7 +51,7 @@ func NewPreferencesWindow() *gtk.Widget {
 	cret := xNewPreferencesWindow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -117,7 +117,7 @@ func (x *PreferencesWindow) GetVisiblePage() *PreferencesPage {
 	cret := xPreferencesWindowGetVisiblePage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PreferencesPage{}
@@ -362,7 +362,7 @@ func (x *PreferencesWindow) GetRenderer() *gsk.Renderer {
 	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -377,7 +377,7 @@ func (x *PreferencesWindow) GetSurface() *gdk.Surface {
 	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -420,7 +420,7 @@ func (x *PreferencesWindow) GetDisplay() *gdk.Display {
 	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -440,7 +440,7 @@ func (x *PreferencesWindow) GetFocus() *gtk.Widget {
 	cret := gtk.XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

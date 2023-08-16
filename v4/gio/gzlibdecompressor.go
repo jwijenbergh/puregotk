@@ -33,7 +33,7 @@ func NewZlibDecompressor(FormatVar ZlibCompressorFormat) *ZlibDecompressor {
 	cret := xNewZlibDecompressor(FormatVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ZlibDecompressor{}
 	cls.Ptr = cret
@@ -53,7 +53,7 @@ func (x *ZlibDecompressor) GetFileInfo() *FileInfo {
 	cret := xZlibDecompressorGetFileInfo(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileInfo{}

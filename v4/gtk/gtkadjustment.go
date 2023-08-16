@@ -41,7 +41,7 @@ func NewAdjustment(ValueVar float64, LowerVar float64, UpperVar float64, StepInc
 	cret := xNewAdjustment(ValueVar, LowerVar, UpperVar, StepIncrementVar, PageIncrementVar, PageSizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

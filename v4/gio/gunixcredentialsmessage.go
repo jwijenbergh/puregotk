@@ -53,7 +53,7 @@ func NewUnixCredentialsMessage() *SocketControlMessage {
 	cret := xNewUnixCredentialsMessage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketControlMessage{}
 	cls.Ptr = cret
@@ -69,7 +69,7 @@ func NewWithCredentialsUnixCredentialsMessage(CredentialsVar *Credentials) *Sock
 	cret := xNewWithCredentialsUnixCredentialsMessage(CredentialsVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketControlMessage{}
 	cls.Ptr = cret
@@ -85,7 +85,7 @@ func (x *UnixCredentialsMessage) GetCredentials() *Credentials {
 	cret := xUnixCredentialsMessageGetCredentials(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Credentials{}

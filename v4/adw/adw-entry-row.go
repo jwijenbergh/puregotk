@@ -69,7 +69,7 @@ func NewEntryRow() *gtk.Widget {
 	cret := xNewEntryRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -566,7 +566,7 @@ func (x *EntryRow) GetDelegate() *gtk.EditableBase {
 	cret := gtk.XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.EditableBase{}

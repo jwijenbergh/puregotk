@@ -45,7 +45,7 @@ func NewForBytesContentProvider(MimeTypeVar string, BytesVar *glib.Bytes) *Conte
 	cret := xNewForBytesContentProvider(MimeTypeVar, BytesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ContentProvider{}
 	cls.Ptr = cret
@@ -61,7 +61,7 @@ func NewForValueContentProvider(ValueVar *gobject.Value) *ContentProvider {
 	cret := xNewForValueContentProvider(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ContentProvider{}
 	cls.Ptr = cret
@@ -81,7 +81,7 @@ func NewTypedContentProvider(TypeVar []interface{}, varArgs ...interface{}) *Con
 	cret := xNewTypedContentProvider(TypeVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ContentProvider{}
 	cls.Ptr = cret
@@ -113,7 +113,7 @@ func NewUnionContentProvider(ProvidersVar uintptr, NProvidersVar uint) *ContentP
 	cret := xNewUnionContentProvider(ProvidersVar, NProvidersVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ContentProvider{}
 	cls.Ptr = cret

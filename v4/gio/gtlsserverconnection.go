@@ -45,7 +45,7 @@ func TlsServerConnectionNew(BaseIoStreamVar *IOStream, CertificateVar *TlsCertif
 	cret := xTlsServerConnectionNew(BaseIoStreamVar.GoPointer(), CertificateVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsServerConnectionBase{}
 	cls.Ptr = cret

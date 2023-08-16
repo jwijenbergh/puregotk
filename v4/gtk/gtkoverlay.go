@@ -58,7 +58,7 @@ func NewOverlay() *Widget {
 	cret := xNewOverlay()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -91,7 +91,7 @@ func (x *Overlay) GetChild() *Widget {
 	cret := xOverlayGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

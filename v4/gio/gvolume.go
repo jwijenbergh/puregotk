@@ -189,7 +189,7 @@ func (x *VolumeBase) GetActivationRoot() *FileBase {
 	cret := XGVolumeGetActivationRoot(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -203,7 +203,7 @@ func (x *VolumeBase) GetDrive() *DriveBase {
 	cret := XGVolumeGetDrive(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DriveBase{}
 	cls.Ptr = cret
@@ -217,7 +217,7 @@ func (x *VolumeBase) GetIcon() *IconBase {
 	cret := XGVolumeGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -240,7 +240,7 @@ func (x *VolumeBase) GetMount() *MountBase {
 	cret := XGVolumeGetMount(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MountBase{}
 	cls.Ptr = cret
@@ -268,7 +268,7 @@ func (x *VolumeBase) GetSymbolicIcon() *IconBase {
 	cret := XGVolumeGetSymbolicIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret

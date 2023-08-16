@@ -355,7 +355,7 @@ func (x *CellRenderer) StartEditing(EventVar *gdk.Event, WidgetVar *Widget, Path
 	cret := xCellRendererStartEditing(x.GoPointer(), EventVar.GoPointer(), WidgetVar.GoPointer(), PathVar, BackgroundAreaVar, CellAreaVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellEditableBase{}

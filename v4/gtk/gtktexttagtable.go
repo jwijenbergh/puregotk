@@ -55,7 +55,7 @@ func NewTextTagTable() *TextTagTable {
 	cret := xNewTextTagTable()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextTagTable{}
 	cls.Ptr = cret
@@ -106,7 +106,7 @@ func (x *TextTagTable) Lookup(NameVar string) *TextTag {
 	cret := xTextTagTableLookup(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextTag{}

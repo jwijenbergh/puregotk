@@ -117,7 +117,7 @@ func (x *PaintableBase) GetCurrentImage() *PaintableBase {
 	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PaintableBase{}
 	cls.Ptr = cret
@@ -274,7 +274,7 @@ func PaintableNewEmpty(IntrinsicWidthVar int, IntrinsicHeightVar int) *Paintable
 	cret := xPaintableNewEmpty(IntrinsicWidthVar, IntrinsicHeightVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PaintableBase{}
 	cls.Ptr = cret

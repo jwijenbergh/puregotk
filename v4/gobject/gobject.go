@@ -258,7 +258,7 @@ func NewObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, varArgs
 	cret := xNewObject(ObjectTypeVar, FirstPropertyNameVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -277,7 +277,7 @@ func NewValistObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, V
 	cret := xNewValistObject(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -298,7 +298,7 @@ func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, N
 	cret := xNewWithPropertiesObject(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -317,7 +317,7 @@ func NewvObject(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar 
 	cret := xNewvObject(ObjectTypeVar, NParametersVar, ParametersVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret
@@ -418,7 +418,7 @@ func (x *Object) BindProperty(SourcePropertyVar string, TargetVar *Object, Targe
 	cret := xObjectBindProperty(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Binding{}
@@ -459,7 +459,7 @@ func (x *Object) BindPropertyFull(SourcePropertyVar string, TargetVar *Object, T
 	cret := xObjectBindPropertyFull(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, purego.NewCallback(TransformToVar), purego.NewCallback(TransformFromVar), UserDataVar, purego.NewCallback(NotifyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Binding{}
@@ -482,7 +482,7 @@ func (x *Object) BindPropertyWithClosures(SourcePropertyVar string, TargetVar *O
 	cret := xObjectBindPropertyWithClosures(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, TransformToVar, TransformFromVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Binding{}
@@ -523,7 +523,7 @@ func (x *Object) Connect(SignalSpecVar string, varArgs ...interface{}) *Object {
 	cret := xObjectConnect(x.GoPointer(), SignalSpecVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -815,7 +815,7 @@ func (x *Object) Ref() *Object {
 	cret := xObjectRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -842,7 +842,7 @@ func (x *Object) RefSink() *Object {
 	cret := xObjectRefSink(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	IncreaseRef(cret)
 	cls = &Object{}
@@ -1137,7 +1137,7 @@ func (x *Object) TakeRef() *Object {
 	cret := xObjectTakeRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Object{}
 	cls.Ptr = cret

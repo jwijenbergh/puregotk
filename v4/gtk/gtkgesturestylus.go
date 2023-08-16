@@ -34,7 +34,7 @@ func NewGestureStylus() *Gesture {
 	cret := xNewGestureStylus()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Gesture{}
 	cls.Ptr = cret
@@ -104,7 +104,7 @@ func (x *GestureStylus) GetDeviceTool() *gdk.DeviceTool {
 	cret := xGestureStylusGetDeviceTool(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.DeviceTool{}

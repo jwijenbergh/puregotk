@@ -39,7 +39,7 @@ func NewDropControllerMotion() *EventController {
 	cret := xNewDropControllerMotion()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret
@@ -66,7 +66,7 @@ func (x *DropControllerMotion) GetDrop() *gdk.Drop {
 	cret := xDropControllerMotionGetDrop(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Drop{}

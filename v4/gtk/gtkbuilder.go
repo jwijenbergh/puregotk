@@ -266,7 +266,7 @@ func NewBuilder() *Builder {
 	cret := xNewBuilder()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Builder{}
 	cls.Ptr = cret
@@ -286,7 +286,7 @@ func NewFromFileBuilder(FilenameVar string) *Builder {
 	cret := xNewFromFileBuilder(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Builder{}
 	cls.Ptr = cret
@@ -305,7 +305,7 @@ func NewFromResourceBuilder(ResourcePathVar string) *Builder {
 	cret := xNewFromResourceBuilder(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Builder{}
 	cls.Ptr = cret
@@ -328,7 +328,7 @@ func NewFromStringBuilder(StringVar string, LengthVar int) *Builder {
 	cret := xNewFromStringBuilder(StringVar, LengthVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Builder{}
 	cls.Ptr = cret
@@ -555,7 +555,7 @@ func (x *Builder) GetCurrentObject() *gobject.Object {
 	cret := xBuilderGetCurrentObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -575,7 +575,7 @@ func (x *Builder) GetObject(NameVar string) *gobject.Object {
 	cret := xBuilderGetObject(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -604,7 +604,7 @@ func (x *Builder) GetScope() *BuilderScopeBase {
 	cret := xBuilderGetScope(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &BuilderScopeBase{}

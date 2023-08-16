@@ -98,7 +98,7 @@ func NewColumnView(ModelVar SelectionModel) *Widget {
 	cret := xNewColumnView(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -128,7 +128,7 @@ func (x *ColumnView) GetColumns() *gio.ListModelBase {
 	cret := xColumnViewGetColumns(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -154,7 +154,7 @@ func (x *ColumnView) GetModel() *SelectionModelBase {
 	cret := xColumnViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SelectionModelBase{}
@@ -228,7 +228,7 @@ func (x *ColumnView) GetSorter() *Sorter {
 	cret := xColumnViewGetSorter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Sorter{}
@@ -522,7 +522,7 @@ func (x *ColumnView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -544,7 +544,7 @@ func (x *ColumnView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

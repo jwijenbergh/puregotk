@@ -38,7 +38,7 @@ func NewClampScrollable() *gtk.Widget {
 	cret := xNewClampScrollable()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -55,7 +55,7 @@ func (x *ClampScrollable) GetChild() *gtk.Widget {
 	cret := xClampScrollableGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -307,7 +307,7 @@ func (x *ClampScrollable) GetHadjustment() *gtk.Adjustment {
 	cret := gtk.XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Adjustment{}
@@ -329,7 +329,7 @@ func (x *ClampScrollable) GetVadjustment() *gtk.Adjustment {
 	cret := gtk.XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Adjustment{}

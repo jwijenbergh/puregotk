@@ -59,7 +59,7 @@ func (x *SocketAddressEnumerator) Next(CancellableVar *Cancellable) (*SocketAddr
 	cret := xSocketAddressEnumeratorNext(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -96,7 +96,7 @@ func (x *SocketAddressEnumerator) NextFinish(ResultVar AsyncResult) (*SocketAddr
 	cret := xSocketAddressEnumeratorNextFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret

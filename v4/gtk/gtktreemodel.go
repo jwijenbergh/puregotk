@@ -301,7 +301,7 @@ func (x *TreeModelBase) FilterNew(RootVar *TreePath) *TreeModelBase {
 	cret := XGtkTreeModelFilterNew(x.GoPointer(), RootVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeModelBase{}
 	cls.Ptr = cret

@@ -54,7 +54,7 @@ func (x *ListItem) GetChild() *Widget {
 	cret := xListItemGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -73,7 +73,7 @@ func (x *ListItem) GetItem() *gobject.Object {
 	cret := xListItemGetItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}

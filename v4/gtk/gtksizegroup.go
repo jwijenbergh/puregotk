@@ -93,7 +93,7 @@ func NewSizeGroup(ModeVar SizeGroupMode) *SizeGroup {
 	cret := xNewSizeGroup(ModeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SizeGroup{}
 	cls.Ptr = cret

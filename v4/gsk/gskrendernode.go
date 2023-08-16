@@ -55,7 +55,7 @@ func ValueDupRenderNode(ValueVar *gobject.Value) *RenderNode {
 	cret := xValueDupRenderNode(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RenderNode{}
 	cls.Ptr = cret
@@ -71,7 +71,7 @@ func ValueGetRenderNode(ValueVar *gobject.Value) *RenderNode {
 	cret := xValueGetRenderNode(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -169,7 +169,7 @@ func (x *RenderNode) Ref() *RenderNode {
 	cret := xRenderNodeRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RenderNode{}
 	cls.Ptr = cret

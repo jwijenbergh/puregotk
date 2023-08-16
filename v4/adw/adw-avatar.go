@@ -57,7 +57,7 @@ func NewAvatar(SizeVar int, TextVar string, ShowInitialsVar bool) *gtk.Widget {
 	cret := xNewAvatar(SizeVar, TextVar, ShowInitialsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -76,7 +76,7 @@ func (x *Avatar) DrawToTexture(ScaleFactorVar int) *gdk.Texture {
 	cret := xAvatarDrawToTexture(x.GoPointer(), ScaleFactorVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.Texture{}
 	cls.Ptr = cret
@@ -92,7 +92,7 @@ func (x *Avatar) GetCustomImage() *gdk.PaintableBase {
 	cret := xAvatarGetCustomImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.PaintableBase{}

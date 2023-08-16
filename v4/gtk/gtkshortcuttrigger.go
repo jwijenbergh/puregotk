@@ -52,7 +52,7 @@ func NewAlternativeTrigger(FirstVar *ShortcutTrigger, SecondVar *ShortcutTrigger
 	cret := xNewAlternativeTrigger(FirstVar.GoPointer(), SecondVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ShortcutTrigger{}
 	cls.Ptr = cret
@@ -72,7 +72,7 @@ func (x *AlternativeTrigger) GetFirst() *ShortcutTrigger {
 	cret := xAlternativeTriggerGetFirst(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ShortcutTrigger{}
@@ -93,7 +93,7 @@ func (x *AlternativeTrigger) GetSecond() *ShortcutTrigger {
 	cret := xAlternativeTriggerGetSecond(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ShortcutTrigger{}
@@ -130,7 +130,7 @@ func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *ShortcutTr
 	cret := xNewKeyvalTrigger(KeyvalVar, ModifiersVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ShortcutTrigger{}
 	cls.Ptr = cret
@@ -192,7 +192,7 @@ func NewMnemonicTrigger(KeyvalVar uint) *MnemonicTrigger {
 	cret := xNewMnemonicTrigger(KeyvalVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MnemonicTrigger{}
 	cls.Ptr = cret
@@ -280,7 +280,7 @@ func ParseStringShortcutTrigger(StringVar string) *ShortcutTrigger {
 	cret := xParseStringShortcutTrigger(StringVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ShortcutTrigger{}
 	cls.Ptr = cret

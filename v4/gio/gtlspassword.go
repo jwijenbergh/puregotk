@@ -38,7 +38,7 @@ func NewTlsPassword(FlagsVar TlsPasswordFlags, DescriptionVar string) *TlsPasswo
 	cret := xNewTlsPassword(FlagsVar, DescriptionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TlsPassword{}
 	cls.Ptr = cret

@@ -33,7 +33,7 @@ func NewMultiSelection(ModelVar gio.ListModel) *MultiSelection {
 	cret := xNewMultiSelection(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MultiSelection{}
 	cls.Ptr = cret
@@ -49,7 +49,7 @@ func (x *MultiSelection) GetModel() *gio.ListModelBase {
 	cret := xMultiSelectionGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -134,7 +134,7 @@ func (x *MultiSelection) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

@@ -162,7 +162,7 @@ func NewTreeView() *Widget {
 	cret := xNewTreeView()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -179,7 +179,7 @@ func NewWithModelTreeView(ModelVar TreeModel) *Widget {
 	cret := xNewWithModelTreeView(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -294,7 +294,7 @@ func (x *TreeView) CreateRowDragIcon(PathVar *TreePath) *gdk.PaintableBase {
 	cret := xTreeViewCreateRowDragIcon(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret
@@ -401,7 +401,7 @@ func (x *TreeView) GetColumn(NVar int) *TreeViewColumn {
 	cret := xTreeViewGetColumn(x.GoPointer(), NVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeViewColumn{}
@@ -484,7 +484,7 @@ func (x *TreeView) GetExpanderColumn() *TreeViewColumn {
 	cret := xTreeViewGetExpanderColumn(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeViewColumn{}
@@ -566,7 +566,7 @@ func (x *TreeView) GetModel() *TreeModelBase {
 	cret := xTreeViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -657,7 +657,7 @@ func (x *TreeView) GetSearchEntry() *EditableBase {
 	cret := xTreeViewGetSearchEntry(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}
@@ -683,7 +683,7 @@ func (x *TreeView) GetSelection() *TreeSelection {
 	cret := xTreeViewGetSelection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeSelection{}
@@ -1651,7 +1651,7 @@ func (x *TreeView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -1673,7 +1673,7 @@ func (x *TreeView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

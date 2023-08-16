@@ -84,7 +84,7 @@ func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar Rea
 	cret := xNewMemoryOutputStream(DataVar, SizeVar, purego.NewCallback(ReallocFunctionVar), purego.NewCallback(DestroyFunctionVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OutputStream{}
 	cls.Ptr = cret
@@ -101,7 +101,7 @@ func NewResizableMemoryOutputStream() *OutputStream {
 	cret := xNewResizableMemoryOutputStream()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OutputStream{}
 	cls.Ptr = cret

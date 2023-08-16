@@ -42,7 +42,7 @@ func NewWindowHandle() *Widget {
 	cret := xNewWindowHandle()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -59,7 +59,7 @@ func (x *WindowHandle) GetChild() *Widget {
 	cret := xWindowHandleGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

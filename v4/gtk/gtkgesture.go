@@ -155,7 +155,7 @@ func (x *Gesture) GetDevice() *gdk.Device {
 	cret := xGestureGetDevice(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Device{}
@@ -185,7 +185,7 @@ func (x *Gesture) GetLastEvent(SequenceVar *gdk.EventSequence) *gdk.Event {
 	cret := xGestureGetLastEvent(x.GoPointer(), SequenceVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Event{}

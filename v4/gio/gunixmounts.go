@@ -195,7 +195,7 @@ func UnixMountGuessIcon(MountEntryVar *UnixMountEntry) *IconBase {
 	cret := xUnixMountGuessIcon(MountEntryVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -230,7 +230,7 @@ func UnixMountGuessSymbolicIcon(MountEntryVar *UnixMountEntry) *IconBase {
 	cret := xUnixMountGuessSymbolicIcon(MountEntryVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -339,7 +339,7 @@ func NewUnixMountMonitor() *UnixMountMonitor {
 	cret := xNewUnixMountMonitor()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &UnixMountMonitor{}
 	cls.Ptr = cret

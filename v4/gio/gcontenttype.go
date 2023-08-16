@@ -66,7 +66,7 @@ func ContentTypeGetIcon(TypeVar string) *IconBase {
 	cret := xContentTypeGetIcon(TypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -101,7 +101,7 @@ func ContentTypeGetSymbolicIcon(TypeVar string) *IconBase {
 	cret := xContentTypeGetSymbolicIcon(TypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret

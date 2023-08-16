@@ -52,7 +52,7 @@ func NewPreferencesPage() *gtk.Widget {
 	cret := xNewPreferencesPage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

@@ -35,7 +35,7 @@ func NewMediaControls(StreamVar *MediaStream) *Widget {
 	cret := xNewMediaControls(StreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -52,7 +52,7 @@ func (x *MediaControls) GetMediaStream() *MediaStream {
 	cret := xMediaControlsGetMediaStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &MediaStream{}

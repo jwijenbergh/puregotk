@@ -263,7 +263,7 @@ func (x *FileBase) AppendTo(FlagsVar FileCreateFlags, CancellableVar *Cancellabl
 	cret := XGFileAppendTo(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -297,7 +297,7 @@ func (x *FileBase) AppendToFinish(ResVar AsyncResult) (*FileOutputStream, error)
 	cret := XGFileAppendToFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -452,7 +452,7 @@ func (x *FileBase) Create(FlagsVar FileCreateFlags, CancellableVar *Cancellable)
 	cret := XGFileCreate(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -487,7 +487,7 @@ func (x *FileBase) CreateFinish(ResVar AsyncResult) (*FileOutputStream, error) {
 	cret := XGFileCreateFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -528,7 +528,7 @@ func (x *FileBase) CreateReadwrite(FlagsVar FileCreateFlags, CancellableVar *Can
 	cret := XGFileCreateReadwrite(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -563,7 +563,7 @@ func (x *FileBase) CreateReadwriteFinish(ResVar AsyncResult) (*FileIOStream, err
 	cret := XGFileCreateReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -645,7 +645,7 @@ func (x *FileBase) Dup() *FileBase {
 	cret := XGFileDup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -738,7 +738,7 @@ func (x *FileBase) EnumerateChildren(AttributesVar string, FlagsVar FileQueryInf
 	cret := XGFileEnumerateChildren(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileEnumerator{}
 	cls.Ptr = cret
@@ -774,7 +774,7 @@ func (x *FileBase) EnumerateChildrenFinish(ResVar AsyncResult) (*FileEnumerator,
 	cret := XGFileEnumerateChildrenFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileEnumerator{}
 	cls.Ptr = cret
@@ -814,7 +814,7 @@ func (x *FileBase) FindEnclosingMount(CancellableVar *Cancellable) (*MountBase, 
 	cret := XGFileFindEnclosingMount(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &MountBase{}
 	cls.Ptr = cret
@@ -848,7 +848,7 @@ func (x *FileBase) FindEnclosingMountFinish(ResVar AsyncResult) (*MountBase, err
 	cret := XGFileFindEnclosingMountFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &MountBase{}
 	cls.Ptr = cret
@@ -891,7 +891,7 @@ func (x *FileBase) GetChild(NameVar string) *FileBase {
 	cret := XGFileGetChild(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -913,7 +913,7 @@ func (x *FileBase) GetChildForDisplayName(DisplayNameVar string) (*FileBase, err
 	cret := XGFileGetChildForDisplayName(x.GoPointer(), DisplayNameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -935,7 +935,7 @@ func (x *FileBase) GetParent() *FileBase {
 	cret := XGFileGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -1370,7 +1370,7 @@ func (x *FileBase) Monitor(FlagsVar FileMonitorFlags, CancellableVar *Cancellabl
 	cret := XGFileMonitor(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileMonitor{}
 	cls.Ptr = cret
@@ -1400,7 +1400,7 @@ func (x *FileBase) MonitorDirectory(FlagsVar FileMonitorFlags, CancellableVar *C
 	cret := XGFileMonitorDirectory(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileMonitor{}
 	cls.Ptr = cret
@@ -1432,7 +1432,7 @@ func (x *FileBase) MonitorFile(FlagsVar FileMonitorFlags, CancellableVar *Cancel
 	cret := XGFileMonitorFile(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileMonitor{}
 	cls.Ptr = cret
@@ -1499,7 +1499,7 @@ func (x *FileBase) MountMountableFinish(ResultVar AsyncResult) (*FileBase, error
 	cret := XGFileMountMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -1605,7 +1605,7 @@ func (x *FileBase) OpenReadwrite(CancellableVar *Cancellable) (*FileIOStream, er
 	cret := XGFileOpenReadwrite(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -1639,7 +1639,7 @@ func (x *FileBase) OpenReadwriteFinish(ResVar AsyncResult) (*FileIOStream, error
 	cret := XGFileOpenReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -1706,7 +1706,7 @@ func (x *FileBase) QueryDefaultHandler(CancellableVar *Cancellable) (*AppInfoBas
 	cret := XGFileQueryDefaultHandler(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -1732,7 +1732,7 @@ func (x *FileBase) QueryDefaultHandlerFinish(ResultVar AsyncResult) (*AppInfoBas
 	cret := XGFileQueryDefaultHandlerFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -1814,7 +1814,7 @@ func (x *FileBase) QueryFilesystemInfo(AttributesVar string, CancellableVar *Can
 	cret := XGFileQueryFilesystemInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -1851,7 +1851,7 @@ func (x *FileBase) QueryFilesystemInfoFinish(ResVar AsyncResult) (*FileInfo, err
 	cret := XGFileQueryFilesystemInfoFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -1899,7 +1899,7 @@ func (x *FileBase) QueryInfo(AttributesVar string, FlagsVar FileQueryInfoFlags, 
 	cret := XGFileQueryInfo(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -1934,7 +1934,7 @@ func (x *FileBase) QueryInfoFinish(ResVar AsyncResult) (*FileInfo, error) {
 	cret := XGFileQueryInfoFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -2002,7 +2002,7 @@ func (x *FileBase) Read(CancellableVar *Cancellable) (*FileInputStream, error) {
 	cret := XGFileRead(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInputStream{}
 	cls.Ptr = cret
@@ -2036,7 +2036,7 @@ func (x *FileBase) ReadFinish(ResVar AsyncResult) (*FileInputStream, error) {
 	cret := XGFileReadFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInputStream{}
 	cls.Ptr = cret
@@ -2095,7 +2095,7 @@ func (x *FileBase) Replace(EtagVar string, MakeBackupVar bool, FlagsVar FileCrea
 	cret := XGFileReplace(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -2210,7 +2210,7 @@ func (x *FileBase) ReplaceFinish(ResVar AsyncResult) (*FileOutputStream, error) 
 	cret := XGFileReplaceFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileOutputStream{}
 	cls.Ptr = cret
@@ -2238,7 +2238,7 @@ func (x *FileBase) ReplaceReadwrite(EtagVar string, MakeBackupVar bool, FlagsVar
 	cret := XGFileReplaceReadwrite(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -2274,7 +2274,7 @@ func (x *FileBase) ReplaceReadwriteFinish(ResVar AsyncResult) (*FileIOStream, er
 	cret := XGFileReplaceReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileIOStream{}
 	cls.Ptr = cret
@@ -2297,7 +2297,7 @@ func (x *FileBase) ResolveRelativePath(RelativePathVar string) *FileBase {
 	cret := XGFileResolveRelativePath(x.GoPointer(), RelativePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2497,7 +2497,7 @@ func (x *FileBase) SetDisplayName(DisplayNameVar string, CancellableVar *Cancell
 	cret := XGFileSetDisplayName(x.GoPointer(), DisplayNameVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2531,7 +2531,7 @@ func (x *FileBase) SetDisplayNameFinish(ResVar AsyncResult) (*FileBase, error) {
 	cret := XGFileSetDisplayNameFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2866,7 +2866,7 @@ func FileNewForCommandlineArg(ArgVar string) *FileBase {
 	cret := xFileNewForCommandlineArg(ArgVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2892,7 +2892,7 @@ func FileNewForCommandlineArgAndCwd(ArgVar string, CwdVar string) *FileBase {
 	cret := xFileNewForCommandlineArgAndCwd(ArgVar, CwdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2910,7 +2910,7 @@ func FileNewForPath(PathVar string) *FileBase {
 	cret := xFileNewForPath(PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2929,7 +2929,7 @@ func FileNewForUri(UriVar string) *FileBase {
 	cret := xFileNewForUri(UriVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2955,7 +2955,7 @@ func FileNewTmp(TmplVar string, IostreamVar **FileIOStream) (*FileBase, error) {
 	cret := xFileNewTmp(TmplVar, gobject.ConvertPtr(IostreamVar), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -2978,7 +2978,7 @@ func FileParseName(ParseNameVar string) *FileBase {
 	cret := xFileParseName(ParseNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret

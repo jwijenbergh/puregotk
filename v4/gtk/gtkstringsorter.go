@@ -42,7 +42,7 @@ func NewStringSorter(ExpressionVar *Expression) *StringSorter {
 	cret := xNewStringSorter(ExpressionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &StringSorter{}
 	cls.Ptr = cret
@@ -58,7 +58,7 @@ func (x *StringSorter) GetExpression() *Expression {
 	cret := xStringSorterGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}

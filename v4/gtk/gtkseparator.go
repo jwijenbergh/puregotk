@@ -42,7 +42,7 @@ func NewSeparator(OrientationVar Orientation) *Widget {
 	cret := xNewSeparator(OrientationVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

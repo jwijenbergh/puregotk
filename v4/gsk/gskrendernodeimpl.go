@@ -33,7 +33,7 @@ func NewBlendNode(BottomVar *RenderNode, TopVar *RenderNode, BlendModeVar BlendM
 	cret := xNewBlendNode(BottomVar.GoPointer(), TopVar.GoPointer(), BlendModeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BlendNode{}
 	cls.Ptr = cret
@@ -58,7 +58,7 @@ func (x *BlendNode) GetBottomChild() *RenderNode {
 	cret := xBlendNodeGetBottomChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -75,7 +75,7 @@ func (x *BlendNode) GetTopChild() *RenderNode {
 	cret := xBlendNodeGetTopChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -111,7 +111,7 @@ func NewBlurNode(ChildVar *RenderNode, RadiusVar float32) *BlurNode {
 	cret := xNewBlurNode(ChildVar.GoPointer(), RadiusVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BlurNode{}
 	cls.Ptr = cret
@@ -127,7 +127,7 @@ func (x *BlurNode) GetChild() *RenderNode {
 	cret := xBlurNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -175,7 +175,7 @@ func NewBorderNode(OutlineVar *RoundedRect, BorderWidthVar uintptr, BorderColorV
 	cret := xNewBorderNode(OutlineVar, BorderWidthVar, BorderColorVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BorderNode{}
 	cls.Ptr = cret
@@ -240,7 +240,7 @@ func NewCairoNode(BoundsVar *graphene.Rect) *CairoNode {
 	cret := xNewCairoNode(BoundsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CairoNode{}
 	cls.Ptr = cret
@@ -298,7 +298,7 @@ func NewClipNode(ChildVar *RenderNode, ClipVar *graphene.Rect) *ClipNode {
 	cret := xNewClipNode(ChildVar.GoPointer(), ClipVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ClipNode{}
 	cls.Ptr = cret
@@ -314,7 +314,7 @@ func (x *ClipNode) GetChild() *RenderNode {
 	cret := xClipNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -366,7 +366,7 @@ func NewColorMatrixNode(ChildVar *RenderNode, ColorMatrixVar *graphene.Matrix, C
 	cret := xNewColorMatrixNode(ChildVar.GoPointer(), ColorMatrixVar, ColorOffsetVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ColorMatrixNode{}
 	cls.Ptr = cret
@@ -382,7 +382,7 @@ func (x *ColorMatrixNode) GetChild() *RenderNode {
 	cret := xColorMatrixNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -437,7 +437,7 @@ func NewColorNode(RgbaVar *gdk.RGBA, BoundsVar *graphene.Rect) *ColorNode {
 	cret := xNewColorNode(RgbaVar, BoundsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ColorNode{}
 	cls.Ptr = cret
@@ -485,7 +485,7 @@ func NewConicGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, R
 	cret := xNewConicGradientNode(BoundsVar, CenterVar, RotationVar, ColorStopsVar, NColorStopsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ConicGradientNode{}
 	cls.Ptr = cret
@@ -572,7 +572,7 @@ func NewContainerNode(ChildrenVar uintptr, NChildrenVar uint) *ContainerNode {
 	cret := xNewContainerNode(ChildrenVar, NChildrenVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ContainerNode{}
 	cls.Ptr = cret
@@ -588,7 +588,7 @@ func (x *ContainerNode) GetChild(IdxVar uint) *RenderNode {
 	cret := xContainerNodeGetChild(x.GoPointer(), IdxVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -633,7 +633,7 @@ func NewCrossFadeNode(StartVar *RenderNode, EndVar *RenderNode, ProgressVar floa
 	cret := xNewCrossFadeNode(StartVar.GoPointer(), EndVar.GoPointer(), ProgressVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CrossFadeNode{}
 	cls.Ptr = cret
@@ -649,7 +649,7 @@ func (x *CrossFadeNode) GetEndChild() *RenderNode {
 	cret := xCrossFadeNodeGetEndChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -675,7 +675,7 @@ func (x *CrossFadeNode) GetStartChild() *RenderNode {
 	cret := xCrossFadeNodeGetStartChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -715,7 +715,7 @@ func NewDebugNode(ChildVar *RenderNode, MessageVar string) *DebugNode {
 	cret := xNewDebugNode(ChildVar.GoPointer(), MessageVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DebugNode{}
 	cls.Ptr = cret
@@ -731,7 +731,7 @@ func (x *DebugNode) GetChild() *RenderNode {
 	cret := xDebugNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -792,7 +792,7 @@ func NewGLShaderNode(ShaderVar *GLShader, BoundsVar *graphene.Rect, ArgsVar *gli
 	cret := xNewGLShaderNode(ShaderVar.GoPointer(), BoundsVar, ArgsVar, ChildrenVar, NChildrenVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &GLShaderNode{}
 	cls.Ptr = cret
@@ -817,7 +817,7 @@ func (x *GLShaderNode) GetChild(IdxVar uint) *RenderNode {
 	cret := xGLShaderNodeGetChild(x.GoPointer(), IdxVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -843,7 +843,7 @@ func (x *GLShaderNode) GetShader() *GLShader {
 	cret := xGLShaderNodeGetShader(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &GLShader{}
@@ -880,7 +880,7 @@ func NewInsetShadowNode(OutlineVar *RoundedRect, ColorVar *gdk.RGBA, DxVar float
 	cret := xNewInsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InsetShadowNode{}
 	cls.Ptr = cret
@@ -970,7 +970,7 @@ func NewLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, E
 	cret := xNewLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LinearGradientNode{}
 	cls.Ptr = cret
@@ -1042,7 +1042,7 @@ func NewOpacityNode(ChildVar *RenderNode, OpacityVar float32) *OpacityNode {
 	cret := xNewOpacityNode(ChildVar.GoPointer(), OpacityVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OpacityNode{}
 	cls.Ptr = cret
@@ -1058,7 +1058,7 @@ func (x *OpacityNode) GetChild() *RenderNode {
 	cret := xOpacityNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -1104,7 +1104,7 @@ func NewOutsetShadowNode(OutlineVar *RoundedRect, ColorVar *gdk.RGBA, DxVar floa
 	cret := xNewOutsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &OutsetShadowNode{}
 	cls.Ptr = cret
@@ -1197,7 +1197,7 @@ func NewRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, 
 	cret := xNewRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RadialGradientNode{}
 	cls.Ptr = cret
@@ -1296,7 +1296,7 @@ func NewRepeatNode(BoundsVar *graphene.Rect, ChildVar *RenderNode, ChildBoundsVa
 	cret := xNewRepeatNode(BoundsVar, ChildVar.GoPointer(), ChildBoundsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RepeatNode{}
 	cls.Ptr = cret
@@ -1312,7 +1312,7 @@ func (x *RepeatNode) GetChild() *RenderNode {
 	cret := xRepeatNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -1359,7 +1359,7 @@ func NewRepeatingLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene
 	cret := xNewRepeatingLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RepeatingLinearGradientNode{}
 	cls.Ptr = cret
@@ -1398,7 +1398,7 @@ func NewRepeatingRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphen
 	cret := xNewRepeatingRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RepeatingRadialGradientNode{}
 	cls.Ptr = cret
@@ -1434,7 +1434,7 @@ func NewRoundedClipNode(ChildVar *RenderNode, ClipVar *RoundedRect) *RoundedClip
 	cret := xNewRoundedClipNode(ChildVar.GoPointer(), ClipVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RoundedClipNode{}
 	cls.Ptr = cret
@@ -1450,7 +1450,7 @@ func (x *RoundedClipNode) GetChild() *RenderNode {
 	cret := xRoundedClipNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -1496,7 +1496,7 @@ func NewShadowNode(ChildVar *RenderNode, ShadowsVar uintptr, NShadowsVar uint) *
 	cret := xNewShadowNode(ChildVar.GoPointer(), ShadowsVar, NShadowsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ShadowNode{}
 	cls.Ptr = cret
@@ -1512,7 +1512,7 @@ func (x *ShadowNode) GetChild() *RenderNode {
 	cret := xShadowNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}
@@ -1569,7 +1569,7 @@ func NewTextNode(FontVar *pango.Font, GlyphsVar *pango.GlyphString, ColorVar *gd
 	cret := xNewTextNode(FontVar.GoPointer(), GlyphsVar, ColorVar, OffsetVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextNode{}
 	cls.Ptr = cret
@@ -1594,7 +1594,7 @@ func (x *TextNode) GetFont() *pango.Font {
 	cret := xTextNodeGetFont(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Font{}
@@ -1667,7 +1667,7 @@ func NewTextureNode(TextureVar *gdk.Texture, BoundsVar *graphene.Rect) *TextureN
 	cret := xNewTextureNode(TextureVar.GoPointer(), BoundsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextureNode{}
 	cls.Ptr = cret
@@ -1683,7 +1683,7 @@ func (x *TextureNode) GetTexture() *gdk.Texture {
 	cret := xTextureNodeGetTexture(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Texture{}
@@ -1720,7 +1720,7 @@ func NewTransformNode(ChildVar *RenderNode, TransformVar *Transform) *TransformN
 	cret := xNewTransformNode(ChildVar.GoPointer(), TransformVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TransformNode{}
 	cls.Ptr = cret
@@ -1736,7 +1736,7 @@ func (x *TransformNode) GetChild() *RenderNode {
 	cret := xTransformNodeGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &RenderNode{}

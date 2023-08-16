@@ -258,13 +258,13 @@ func (fr *funcRetTemplate) Fmt(ngo bool) string {
 		if fr.Throws {
 			after.WriteString(`
     if cret == 0 {
-        return cls, cerr
+        return nil, cerr
     }
 `)
 		} else {
 			after.WriteString(`
     if cret == 0 {
-        return cls
+        return nil
     }
 `)
 		}

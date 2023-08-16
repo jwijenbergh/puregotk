@@ -38,7 +38,7 @@ func NewMemoryInputStream() *InputStream {
 	cret := xNewMemoryInputStream()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -54,7 +54,7 @@ func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *InputStream {
 	cret := xNewFromBytesMemoryInputStream(BytesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -70,7 +70,7 @@ func NewFromDataMemoryInputStream(DataVar uintptr, LenVar int, DestroyVar glib.D
 	cret := xNewFromDataMemoryInputStream(DataVar, LenVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

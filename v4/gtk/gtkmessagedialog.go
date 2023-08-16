@@ -125,7 +125,7 @@ func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageTy
 	cret := xNewMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -173,7 +173,7 @@ func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar
 	cret := xNewWithMarkupMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -231,7 +231,7 @@ func (x *MessageDialog) GetMessageArea() *Widget {
 	cret := xMessageDialogGetMessageArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -406,7 +406,7 @@ func (x *MessageDialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -421,7 +421,7 @@ func (x *MessageDialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -464,7 +464,7 @@ func (x *MessageDialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -484,7 +484,7 @@ func (x *MessageDialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -35,7 +35,7 @@ func NewFromNativeSocketAddress(NativeVar uintptr, LenVar uint) *SocketAddress {
 	cret := xNewFromNativeSocketAddress(NativeVar, LenVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -96,7 +96,7 @@ func (x *SocketAddress) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -116,7 +116,7 @@ func (x *SocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

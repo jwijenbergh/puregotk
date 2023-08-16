@@ -85,7 +85,7 @@ func NewCheckButton() *Widget {
 	cret := xNewCheckButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -102,7 +102,7 @@ func NewWithLabelCheckButton(LabelVar string) *Widget {
 	cret := xNewWithLabelCheckButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -119,7 +119,7 @@ func NewWithMnemonicCheckButton(LabelVar string) *Widget {
 	cret := xNewWithMnemonicCheckButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -145,7 +145,7 @@ func (x *CheckButton) GetChild() *Widget {
 	cret := xCheckButtonGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

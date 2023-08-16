@@ -64,7 +64,7 @@ func NewDropTargetAsync(FormatsVar *gdk.ContentFormats, ActionsVar gdk.DragActio
 	cret := xNewDropTargetAsync(FormatsVar, ActionsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DropTargetAsync{}
 	cls.Ptr = cret

@@ -41,7 +41,7 @@ func NewMultiSorter() *MultiSorter {
 	cret := xNewMultiSorter()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MultiSorter{}
 	cls.Ptr = cret
@@ -138,7 +138,7 @@ func (x *MultiSorter) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

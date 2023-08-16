@@ -153,7 +153,7 @@ func NewRecentManager() *RecentManager {
 	cret := xNewRecentManager()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &RecentManager{}
 	cls.Ptr = cret

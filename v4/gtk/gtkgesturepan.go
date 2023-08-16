@@ -43,7 +43,7 @@ func NewGesturePan(OrientationVar Orientation) *Gesture {
 	cret := xNewGesturePan(OrientationVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Gesture{}
 	cls.Ptr = cret

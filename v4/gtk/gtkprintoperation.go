@@ -136,7 +136,7 @@ func PrintRunPageSetupDialog(ParentVar *Window, PageSetupVar *PageSetup, Setting
 	cret := xPrintRunPageSetupDialog(ParentVar.GoPointer(), PageSetupVar.GoPointer(), SettingsVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret
@@ -239,7 +239,7 @@ func NewPrintOperation() *PrintOperation {
 	cret := xNewPrintOperation()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PrintOperation{}
 	cls.Ptr = cret
@@ -282,7 +282,7 @@ func (x *PrintOperation) GetDefaultPageSetup() *PageSetup {
 	cret := xPrintOperationGetDefaultPageSetup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PageSetup{}
@@ -360,7 +360,7 @@ func (x *PrintOperation) GetPrintSettings() *PrintSettings {
 	cret := xPrintOperationGetPrintSettings(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PrintSettings{}

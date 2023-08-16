@@ -76,7 +76,7 @@ func (x *DBusInterfaceSkeleton) GetConnection() *DBusConnection {
 	cret := xDBusInterfaceSkeletonGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -243,7 +243,7 @@ func (x *DBusInterfaceSkeleton) DupObject() *DBusObjectBase {
 	cret := XGDbusInterfaceDupObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret
@@ -261,7 +261,7 @@ func (x *DBusInterfaceSkeleton) GetObject() *DBusObjectBase {
 	cret := XGDbusInterfaceGetObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusObjectBase{}

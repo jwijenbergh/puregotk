@@ -72,7 +72,7 @@ func PowerProfileMonitorDupDefault() *PowerProfileMonitorBase {
 	cret := xPowerProfileMonitorDupDefault()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PowerProfileMonitorBase{}
 	cls.Ptr = cret

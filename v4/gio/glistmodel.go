@@ -138,7 +138,7 @@ func (x *ListModelBase) GetObject(PositionVar uint) *gobject.Object {
 	cret := XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

@@ -45,7 +45,7 @@ func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar ui
 	cret := xNewScaleButton(MinVar, MaxVar, StepVar, IconsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -64,7 +64,7 @@ func (x *ScaleButton) GetAdjustment() *Adjustment {
 	cret := xScaleButtonGetAdjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -81,7 +81,7 @@ func (x *ScaleButton) GetMinusButton() *Button {
 	cret := xScaleButtonGetMinusButton(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Button{}
@@ -98,7 +98,7 @@ func (x *ScaleButton) GetPlusButton() *Button {
 	cret := xScaleButtonGetPlusButton(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Button{}
@@ -115,7 +115,7 @@ func (x *ScaleButton) GetPopup() *Widget {
 	cret := xScaleButtonGetPopup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

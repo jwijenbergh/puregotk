@@ -98,7 +98,7 @@ func NewSocket(FamilyVar SocketFamily, TypeVar SocketType, ProtocolVar SocketPro
 	cret := xNewSocket(FamilyVar, TypeVar, ProtocolVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Socket{}
 	cls.Ptr = cret
@@ -131,7 +131,7 @@ func NewFromFdSocket(FdVar int) (*Socket, error) {
 	cret := xNewFromFdSocket(FdVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Socket{}
 	cls.Ptr = cret
@@ -161,7 +161,7 @@ func (x *Socket) Accept(CancellableVar *Cancellable) (*Socket, error) {
 	cret := xSocketAccept(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Socket{}
 	cls.Ptr = cret
@@ -382,7 +382,7 @@ func (x *Socket) ConnectionFactoryCreateConnection() *SocketConnection {
 	cret := xSocketConnectionFactoryCreateConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -487,7 +487,7 @@ func (x *Socket) GetCredentials() (*Credentials, error) {
 	cret := xSocketGetCredentials(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Credentials{}
 	cls.Ptr = cret
@@ -552,7 +552,7 @@ func (x *Socket) GetLocalAddress() (*SocketAddress, error) {
 	cret := xSocketGetLocalAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -631,7 +631,7 @@ func (x *Socket) GetRemoteAddress() (*SocketAddress, error) {
 	cret := xSocketGetRemoteAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret

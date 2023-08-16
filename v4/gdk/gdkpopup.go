@@ -54,7 +54,7 @@ func (x *PopupBase) GetParent() *Surface {
 	cret := XGdkPopupGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

@@ -101,7 +101,7 @@ func NewHeaderBar() *Widget {
 	cret := xNewHeaderBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -139,7 +139,7 @@ func (x *HeaderBar) GetTitleWidget() *Widget {
 	cret := xHeaderBarGetTitleWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -63,7 +63,7 @@ func NewStringList(StringsVar uintptr) *StringList {
 	cret := xNewStringList(StringsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &StringList{}
 	cls.Ptr = cret
@@ -211,7 +211,7 @@ func (x *StringList) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -277,7 +277,7 @@ func NewStringObject(StringVar string) *StringObject {
 	cret := xNewStringObject(StringVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &StringObject{}
 	cls.Ptr = cret

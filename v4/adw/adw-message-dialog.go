@@ -209,7 +209,7 @@ func NewMessageDialog(ParentVar *gtk.Window, HeadingVar string, BodyVar string) 
 	cret := xNewMessageDialog(ParentVar.GoPointer(), HeadingVar, BodyVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -388,7 +388,7 @@ func (x *MessageDialog) GetExtraChild() *gtk.Widget {
 	cret := xMessageDialogGetExtraChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -782,7 +782,7 @@ func (x *MessageDialog) GetRenderer() *gsk.Renderer {
 	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -797,7 +797,7 @@ func (x *MessageDialog) GetSurface() *gdk.Surface {
 	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -840,7 +840,7 @@ func (x *MessageDialog) GetDisplay() *gdk.Display {
 	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -860,7 +860,7 @@ func (x *MessageDialog) GetFocus() *gtk.Widget {
 	cret := gtk.XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

@@ -391,7 +391,7 @@ func NewSettings(SchemaIdVar string) *Settings {
 	cret := xNewSettings(SchemaIdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret
@@ -429,7 +429,7 @@ func NewFullSettings(SchemaVar *SettingsSchema, BackendVar *SettingsBackend, Pat
 	cret := xNewFullSettings(SchemaVar, BackendVar.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret
@@ -452,7 +452,7 @@ func NewWithBackendSettings(SchemaIdVar string, BackendVar *SettingsBackend) *Se
 	cret := xNewWithBackendSettings(SchemaIdVar, BackendVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret
@@ -472,7 +472,7 @@ func NewWithBackendAndPathSettings(SchemaIdVar string, BackendVar *SettingsBacke
 	cret := xNewWithBackendAndPathSettings(SchemaIdVar, BackendVar.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret
@@ -500,7 +500,7 @@ func NewWithPathSettings(SchemaIdVar string, PathVar string) *Settings {
 	cret := xNewWithPathSettings(SchemaIdVar, PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret
@@ -612,7 +612,7 @@ func (x *Settings) CreateAction(KeyVar string) *ActionBase {
 	cret := xSettingsCreateAction(x.GoPointer(), KeyVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ActionBase{}
 	cls.Ptr = cret
@@ -677,7 +677,7 @@ func (x *Settings) GetChild(NameVar string) *Settings {
 	cret := xSettingsGetChild(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Settings{}
 	cls.Ptr = cret

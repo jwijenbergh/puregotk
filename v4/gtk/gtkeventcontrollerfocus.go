@@ -38,7 +38,7 @@ func NewEventControllerFocus() *EventController {
 	cret := xNewEventControllerFocus()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret

@@ -39,7 +39,7 @@ func NewSliceListModel(ModelVar gio.ListModel, OffsetVar uint, SizeVar uint) *Sl
 	cret := xNewSliceListModel(ModelVar.GoPointer(), OffsetVar, SizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SliceListModel{}
 	cls.Ptr = cret
@@ -55,7 +55,7 @@ func (x *SliceListModel) GetModel() *gio.ListModelBase {
 	cret := xSliceListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -183,7 +183,7 @@ func (x *SliceListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

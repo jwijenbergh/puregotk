@@ -35,7 +35,7 @@ func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *SocketAddres
 	cret := xNewInetSocketAddress(AddressVar.GoPointer(), PortVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -54,7 +54,7 @@ func NewFromStringInetSocketAddress(AddressVar string, PortVar uint) *SocketAddr
 	cret := xNewFromStringInetSocketAddress(AddressVar, PortVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -70,7 +70,7 @@ func (x *InetSocketAddress) GetAddress() *InetAddress {
 	cret := xInetSocketAddressGetAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &InetAddress{}
@@ -122,7 +122,7 @@ func (x *InetSocketAddress) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -142,7 +142,7 @@ func (x *InetSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

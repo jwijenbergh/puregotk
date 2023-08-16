@@ -154,7 +154,7 @@ func NewScrolledWindow() *Widget {
 	cret := xNewScrolledWindow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -171,7 +171,7 @@ func (x *ScrolledWindow) GetChild() *Widget {
 	cret := xScrolledWindowGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -191,7 +191,7 @@ func (x *ScrolledWindow) GetHadjustment() *Adjustment {
 	cret := xScrolledWindowGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -217,7 +217,7 @@ func (x *ScrolledWindow) GetHscrollbar() *Widget {
 	cret := xScrolledWindowGetHscrollbar(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -332,7 +332,7 @@ func (x *ScrolledWindow) GetVadjustment() *Adjustment {
 	cret := xScrolledWindowGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -349,7 +349,7 @@ func (x *ScrolledWindow) GetVscrollbar() *Widget {
 	cret := xScrolledWindowGetVscrollbar(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

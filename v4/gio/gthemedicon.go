@@ -37,7 +37,7 @@ func NewThemedIcon(IconnameVar string) *ThemedIcon {
 	cret := xNewThemedIcon(IconnameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ThemedIcon{}
 	cls.Ptr = cret
@@ -53,7 +53,7 @@ func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int) *ThemedIcon {
 	cret := xNewFromNamesThemedIcon(IconnamesVar, LenVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ThemedIcon{}
 	cls.Ptr = cret
@@ -84,7 +84,7 @@ func NewWithDefaultFallbacksThemedIcon(IconnameVar string) *ThemedIcon {
 	cret := xNewWithDefaultFallbacksThemedIcon(IconnameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ThemedIcon{}
 	cls.Ptr = cret

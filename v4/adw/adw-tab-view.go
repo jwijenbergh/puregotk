@@ -83,7 +83,7 @@ func (x *TabPage) GetChild() *gtk.Widget {
 	cret := xTabPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -100,7 +100,7 @@ func (x *TabPage) GetIcon() *gio.IconBase {
 	cret := xTabPageGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.IconBase{}
@@ -126,7 +126,7 @@ func (x *TabPage) GetIndicatorIcon() *gio.IconBase {
 	cret := xTabPageGetIndicatorIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.IconBase{}
@@ -190,7 +190,7 @@ func (x *TabPage) GetParent() *TabPage {
 	cret := xTabPageGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -671,7 +671,7 @@ func NewTabView() *TabView {
 	cret := xNewTabView()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabView{}
@@ -694,7 +694,7 @@ func (x *TabView) AddPage(ChildVar *gtk.Widget, ParentVar *TabPage) *TabPage {
 	cret := xTabViewAddPage(x.GoPointer(), ChildVar.GoPointer(), ParentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -722,7 +722,7 @@ func (x *TabView) Append(ChildVar *gtk.Widget) *TabPage {
 	cret := xTabViewAppend(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -739,7 +739,7 @@ func (x *TabView) AppendPinned(ChildVar *gtk.Widget) *TabPage {
 	cret := xTabViewAppendPinned(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -829,7 +829,7 @@ func (x *TabView) GetDefaultIcon() *gio.IconBase {
 	cret := xTabViewGetDefaultIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.IconBase{}
@@ -861,7 +861,7 @@ func (x *TabView) GetMenuModel() *gio.MenuModel {
 	cret := xTabViewGetMenuModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -898,7 +898,7 @@ func (x *TabView) GetNthPage(PositionVar int) *TabPage {
 	cret := xTabViewGetNthPage(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -915,7 +915,7 @@ func (x *TabView) GetPage(ChildVar *gtk.Widget) *TabPage {
 	cret := xTabViewGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -945,7 +945,7 @@ func (x *TabView) GetPages() *gtk.SelectionModelBase {
 	cret := xTabViewGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gtk.SelectionModelBase{}
 	cls.Ptr = cret
@@ -961,7 +961,7 @@ func (x *TabView) GetSelectedPage() *TabPage {
 	cret := xTabViewGetSelectedPage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -990,7 +990,7 @@ func (x *TabView) Insert(ChildVar *gtk.Widget, PositionVar int) *TabPage {
 	cret := xTabViewInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -1010,7 +1010,7 @@ func (x *TabView) InsertPinned(ChildVar *gtk.Widget, PositionVar int) *TabPage {
 	cret := xTabViewInsertPinned(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -1039,7 +1039,7 @@ func (x *TabView) Prepend(ChildVar *gtk.Widget) *TabPage {
 	cret := xTabViewPrepend(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}
@@ -1056,7 +1056,7 @@ func (x *TabView) PrependPinned(ChildVar *gtk.Widget) *TabPage {
 	cret := xTabViewPrependPinned(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabPage{}

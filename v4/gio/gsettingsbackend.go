@@ -79,7 +79,7 @@ func KeyfileSettingsBackendNew(FilenameVar string, RootPathVar string, RootGroup
 	cret := xKeyfileSettingsBackendNew(FilenameVar, RootPathVar, RootGroupVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SettingsBackend{}
 	cls.Ptr = cret
@@ -99,7 +99,7 @@ func MemorySettingsBackendNew() *SettingsBackend {
 	cret := xMemorySettingsBackendNew()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SettingsBackend{}
 	cls.Ptr = cret
@@ -118,7 +118,7 @@ func NullSettingsBackendNew() *SettingsBackend {
 	cret := xNullSettingsBackendNew()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SettingsBackend{}
 	cls.Ptr = cret

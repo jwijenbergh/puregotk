@@ -42,7 +42,7 @@ func (x *LoadableIconBase) Load(SizeVar int, TypeVar string, CancellableVar *Can
 	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -70,7 +70,7 @@ func (x *LoadableIconBase) LoadFinish(ResVar AsyncResult, TypeVar string) (*Inpu
 	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

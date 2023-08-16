@@ -76,7 +76,7 @@ func NewIconView() *Widget {
 	cret := xNewIconView()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -94,7 +94,7 @@ func NewWithAreaIconView(AreaVar *CellArea) *Widget {
 	cret := xNewWithAreaIconView(AreaVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -111,7 +111,7 @@ func NewWithModelIconView(ModelVar TreeModel) *Widget {
 	cret := xNewWithModelIconView(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -129,7 +129,7 @@ func (x *IconView) CreateDragIcon(PathVar *TreePath) *gdk.PaintableBase {
 	cret := xIconViewCreateDragIcon(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret
@@ -311,7 +311,7 @@ func (x *IconView) GetModel() *TreeModelBase {
 	cret := xIconViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -1134,7 +1134,7 @@ func (x *IconView) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}
@@ -1227,7 +1227,7 @@ func (x *IconView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -1249,7 +1249,7 @@ func (x *IconView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

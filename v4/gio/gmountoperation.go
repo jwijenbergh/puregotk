@@ -54,7 +54,7 @@ func NewMountOperation() *MountOperation {
 	cret := xNewMountOperation()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MountOperation{}
 	cls.Ptr = cret

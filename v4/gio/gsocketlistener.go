@@ -51,7 +51,7 @@ func NewSocketListener() *SocketListener {
 	cret := xNewSocketListener()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketListener{}
 	cls.Ptr = cret
@@ -78,7 +78,7 @@ func (x *SocketListener) Accept(SourceObjectVar **gobject.Object, CancellableVar
 	cret := xSocketListenerAccept(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -112,7 +112,7 @@ func (x *SocketListener) AcceptFinish(ResultVar AsyncResult, SourceObjectVar **g
 	cret := xSocketListenerAcceptFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -146,7 +146,7 @@ func (x *SocketListener) AcceptSocket(SourceObjectVar **gobject.Object, Cancella
 	cret := xSocketListenerAcceptSocket(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Socket{}
 	cls.Ptr = cret
@@ -180,7 +180,7 @@ func (x *SocketListener) AcceptSocketFinish(ResultVar AsyncResult, SourceObjectV
 	cret := xSocketListenerAcceptSocketFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Socket{}
 	cls.Ptr = cret

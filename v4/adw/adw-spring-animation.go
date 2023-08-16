@@ -64,7 +64,7 @@ func NewSpringAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, S
 	cret := xNewSpringAnimation(WidgetVar.GoPointer(), FromVar, ToVar, SpringParamsVar, TargetVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Animation{}

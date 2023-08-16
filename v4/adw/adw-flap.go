@@ -131,7 +131,7 @@ func NewFlap() *gtk.Widget {
 	cret := xNewFlap()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -148,7 +148,7 @@ func (x *Flap) GetContent() *gtk.Widget {
 	cret := xFlapGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -165,7 +165,7 @@ func (x *Flap) GetFlap() *gtk.Widget {
 	cret := xFlapGetFlap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -278,7 +278,7 @@ func (x *Flap) GetSeparator() *gtk.Widget {
 	cret := xFlapGetSeparator(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

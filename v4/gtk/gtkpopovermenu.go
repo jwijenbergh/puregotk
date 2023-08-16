@@ -157,7 +157,7 @@ func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *Widget {
 	cret := xNewFromModelPopoverMenu(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -184,7 +184,7 @@ func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFl
 	cret := xNewFromModelFullPopoverMenu(ModelVar.GoPointer(), FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -213,7 +213,7 @@ func (x *PopoverMenu) GetMenuModel() *gio.MenuModel {
 	cret := xPopoverMenuGetMenuModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -402,7 +402,7 @@ func (x *PopoverMenu) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -417,7 +417,7 @@ func (x *PopoverMenu) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}

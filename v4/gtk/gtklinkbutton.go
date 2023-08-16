@@ -53,7 +53,7 @@ func NewLinkButton(UriVar string) *Widget {
 	cret := xNewLinkButton(UriVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -70,7 +70,7 @@ func NewWithLabelLinkButton(UriVar string, LabelVar string) *Widget {
 	cret := xNewWithLabelLinkButton(UriVar, LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

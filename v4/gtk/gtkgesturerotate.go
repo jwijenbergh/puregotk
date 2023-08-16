@@ -34,7 +34,7 @@ func NewGestureRotate() *Gesture {
 	cret := xNewGestureRotate()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Gesture{}
 	cls.Ptr = cret

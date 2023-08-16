@@ -41,7 +41,7 @@ func NewGestureSwipe() *Gesture {
 	cret := xNewGestureSwipe()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Gesture{}
 	cls.Ptr = cret

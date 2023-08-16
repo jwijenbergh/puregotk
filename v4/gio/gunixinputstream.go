@@ -45,7 +45,7 @@ func NewUnixInputStream(FdVar int, CloseFdVar bool) *InputStream {
 	cret := xNewUnixInputStream(FdVar, CloseFdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

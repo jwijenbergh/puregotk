@@ -36,7 +36,7 @@ func NewNoSelection(ModelVar gio.ListModel) *NoSelection {
 	cret := xNewNoSelection(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &NoSelection{}
 	cls.Ptr = cret
@@ -52,7 +52,7 @@ func (x *NoSelection) GetModel() *gio.ListModelBase {
 	cret := xNoSelectionGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -137,7 +137,7 @@ func (x *NoSelection) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

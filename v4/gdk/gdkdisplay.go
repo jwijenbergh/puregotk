@@ -71,7 +71,7 @@ func (x *Display) CreateGlContext() (*GLContext, error) {
 	cret := xDisplayCreateGlContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &GLContext{}
 	cls.Ptr = cret
@@ -119,7 +119,7 @@ func (x *Display) GetAppLaunchContext() *AppLaunchContext {
 	cret := xDisplayGetAppLaunchContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppLaunchContext{}
 	cls.Ptr = cret
@@ -135,7 +135,7 @@ func (x *Display) GetClipboard() *Clipboard {
 	cret := xDisplayGetClipboard(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Clipboard{}
@@ -155,7 +155,7 @@ func (x *Display) GetDefaultSeat() *Seat {
 	cret := xDisplayGetDefaultSeat(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Seat{}
@@ -176,7 +176,7 @@ func (x *Display) GetMonitorAtSurface(SurfaceVar *Surface) *Monitor {
 	cret := xDisplayGetMonitorAtSurface(x.GoPointer(), SurfaceVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Monitor{}
@@ -199,7 +199,7 @@ func (x *Display) GetMonitors() *gio.ListModelBase {
 	cret := xDisplayGetMonitors(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -228,7 +228,7 @@ func (x *Display) GetPrimaryClipboard() *Clipboard {
 	cret := xDisplayGetPrimaryClipboard(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Clipboard{}

@@ -73,7 +73,7 @@ func DbusAddressGetStreamFinish(ResVar AsyncResult, OutGuidVar string) (*IOStrea
 	cret := xDbusAddressGetStreamFinish(ResVar.GoPointer(), OutGuidVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &IOStream{}
 	cls.Ptr = cret
@@ -103,7 +103,7 @@ func DbusAddressGetStreamSync(AddressVar string, OutGuidVar string, CancellableV
 	cret := xDbusAddressGetStreamSync(AddressVar, OutGuidVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &IOStream{}
 	cls.Ptr = cret

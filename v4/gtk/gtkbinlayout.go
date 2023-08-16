@@ -36,7 +36,7 @@ func NewBinLayout() *LayoutManager {
 	cret := xNewBinLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret

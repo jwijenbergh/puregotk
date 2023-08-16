@@ -116,7 +116,7 @@ func NewGrid() *Widget {
 	cret := xNewGrid()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -173,7 +173,7 @@ func (x *Grid) GetChildAt(ColumnVar int, RowVar int) *Widget {
 	cret := xGridGetChildAt(x.GoPointer(), ColumnVar, RowVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

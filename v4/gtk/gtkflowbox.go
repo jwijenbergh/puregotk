@@ -100,7 +100,7 @@ func NewFlowBox() *Widget {
 	cret := xNewFlowBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -163,7 +163,7 @@ func (x *FlowBox) GetChildAtIndex(IdxVar int) *FlowBoxChild {
 	cret := xFlowBoxGetChildAtIndex(x.GoPointer(), IdxVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FlowBoxChild{}
@@ -182,7 +182,7 @@ func (x *FlowBox) GetChildAtPos(XVar int, YVar int) *FlowBoxChild {
 	cret := xFlowBoxGetChildAtPos(x.GoPointer(), XVar, YVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FlowBoxChild{}
@@ -825,7 +825,7 @@ func NewFlowBoxChild() *Widget {
 	cret := xNewFlowBoxChild()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -869,7 +869,7 @@ func (x *FlowBoxChild) GetChild() *Widget {
 	cret := xFlowBoxChildGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

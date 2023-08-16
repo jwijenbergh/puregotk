@@ -76,7 +76,7 @@ func (x *Drop) GetDevice() *Device {
 	cret := xDropGetDevice(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Device{}
@@ -93,7 +93,7 @@ func (x *Drop) GetDisplay() *Display {
 	cret := xDropGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -113,7 +113,7 @@ func (x *Drop) GetDrag() *Drag {
 	cret := xDropGetDrag(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Drag{}
@@ -140,7 +140,7 @@ func (x *Drop) GetSurface() *Surface {
 	cret := xDropGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}
@@ -175,7 +175,7 @@ func (x *Drop) ReadFinish(ResultVar gio.AsyncResult, OutMimeTypeVar string) (*gi
 	cret := xDropReadFinish(x.GoPointer(), ResultVar.GoPointer(), OutMimeTypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret

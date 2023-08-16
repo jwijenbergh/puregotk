@@ -34,7 +34,7 @@ func NewNglRenderer() *Renderer {
 	cret := xNewNglRenderer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Renderer{}
 	cls.Ptr = cret

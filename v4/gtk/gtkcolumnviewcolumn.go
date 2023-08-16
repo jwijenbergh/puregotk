@@ -54,7 +54,7 @@ func NewColumnViewColumn(TitleVar string, FactoryVar *ListItemFactory) *ColumnVi
 	cret := xNewColumnViewColumn(TitleVar, FactoryVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ColumnViewColumn{}
 	cls.Ptr = cret
@@ -72,7 +72,7 @@ func (x *ColumnViewColumn) GetColumnView() *ColumnView {
 	cret := xColumnViewColumnGetColumnView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ColumnView{}
@@ -99,7 +99,7 @@ func (x *ColumnViewColumn) GetFactory() *ListItemFactory {
 	cret := xColumnViewColumnGetFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListItemFactory{}
@@ -126,7 +126,7 @@ func (x *ColumnViewColumn) GetHeaderMenu() *gio.MenuModel {
 	cret := xColumnViewColumnGetHeaderMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -152,7 +152,7 @@ func (x *ColumnViewColumn) GetSorter() *Sorter {
 	cret := xColumnViewColumnGetSorter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Sorter{}

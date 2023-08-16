@@ -60,7 +60,7 @@ func NewForFileIconPaintable(FileVar gio.File, SizeVar int, ScaleVar int) *IconP
 	cret := xNewForFileIconPaintable(FileVar.GoPointer(), SizeVar, ScaleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconPaintable{}
 	cls.Ptr = cret
@@ -78,7 +78,7 @@ func (x *IconPaintable) GetFile() *gio.FileBase {
 	cret := xIconPaintableGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.FileBase{}
 	cls.Ptr = cret
@@ -153,7 +153,7 @@ func (x *IconPaintable) GetCurrentImage() *gdk.PaintableBase {
 	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret
@@ -337,7 +337,7 @@ func NewIconTheme() *IconTheme {
 	cret := xNewIconTheme()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconTheme{}
 	cls.Ptr = cret
@@ -380,7 +380,7 @@ func (x *IconTheme) GetDisplay() *gdk.Display {
 	cret := xIconThemeGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -475,7 +475,7 @@ func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int, ScaleVar int, D
 	cret := xIconThemeLookupByGicon(x.GoPointer(), IconVar.GoPointer(), SizeVar, ScaleVar, DirectionVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconPaintable{}
 	cls.Ptr = cret
@@ -506,7 +506,7 @@ func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar uintptr, SizeVar
 	cret := xIconThemeLookupIcon(x.GoPointer(), IconNameVar, FallbacksVar, SizeVar, ScaleVar, DirectionVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconPaintable{}
 	cls.Ptr = cret

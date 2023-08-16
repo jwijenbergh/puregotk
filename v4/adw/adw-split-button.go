@@ -73,7 +73,7 @@ func NewSplitButton() *gtk.Widget {
 	cret := xNewSplitButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -90,7 +90,7 @@ func (x *SplitButton) GetChild() *gtk.Widget {
 	cret := xSplitButtonGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -143,7 +143,7 @@ func (x *SplitButton) GetMenuModel() *gio.MenuModel {
 	cret := xSplitButtonGetMenuModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -160,7 +160,7 @@ func (x *SplitButton) GetPopover() *gtk.Popover {
 	cret := xSplitButtonGetPopover(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Popover{}

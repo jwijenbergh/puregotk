@@ -48,7 +48,7 @@ func NewBufferedInputStream(BaseStreamVar *InputStream) *InputStream {
 	cret := xNewBufferedInputStream(BaseStreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -65,7 +65,7 @@ func NewSizedBufferedInputStream(BaseStreamVar *InputStream, SizeVar uint) *Inpu
 	cret := xNewSizedBufferedInputStream(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

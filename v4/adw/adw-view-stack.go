@@ -91,7 +91,7 @@ func NewViewStack() *gtk.Widget {
 	cret := xNewViewStack()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -108,7 +108,7 @@ func (x *ViewStack) Add(ChildVar *gtk.Widget) *ViewStackPage {
 	cret := xViewStackAdd(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStackPage{}
@@ -127,7 +127,7 @@ func (x *ViewStack) AddNamed(ChildVar *gtk.Widget, NameVar string) *ViewStackPag
 	cret := xViewStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStackPage{}
@@ -147,7 +147,7 @@ func (x *ViewStack) AddTitled(ChildVar *gtk.Widget, NameVar string, TitleVar str
 	cret := xViewStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStackPage{}
@@ -167,7 +167,7 @@ func (x *ViewStack) AddTitledWithIcon(ChildVar *gtk.Widget, NameVar string, Titl
 	cret := xViewStackAddTitledWithIcon(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar, IconNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStackPage{}
@@ -184,7 +184,7 @@ func (x *ViewStack) GetChildByName(NameVar string) *gtk.Widget {
 	cret := xViewStackGetChildByName(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -210,7 +210,7 @@ func (x *ViewStack) GetPage(ChildVar *gtk.Widget) *ViewStackPage {
 	cret := xViewStackGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStackPage{}
@@ -231,7 +231,7 @@ func (x *ViewStack) GetPages() *gtk.SelectionModelBase {
 	cret := xViewStackGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gtk.SelectionModelBase{}
 	cls.Ptr = cret
@@ -256,7 +256,7 @@ func (x *ViewStack) GetVisibleChild() *gtk.Widget {
 	cret := xViewStackGetVisibleChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -512,7 +512,7 @@ func (x *ViewStackPage) GetChild() *gtk.Widget {
 	cret := xViewStackPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

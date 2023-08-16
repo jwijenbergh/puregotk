@@ -36,7 +36,7 @@ func NewEmblem(IconVar Icon) *Emblem {
 	cret := xNewEmblem(IconVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Emblem{}
 	cls.Ptr = cret
@@ -52,7 +52,7 @@ func NewWithOriginEmblem(IconVar Icon, OriginVar EmblemOrigin) *Emblem {
 	cret := xNewWithOriginEmblem(IconVar.GoPointer(), OriginVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Emblem{}
 	cls.Ptr = cret
@@ -68,7 +68,7 @@ func (x *Emblem) GetIcon() *IconBase {
 	cret := xEmblemGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}

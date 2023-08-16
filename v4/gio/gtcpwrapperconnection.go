@@ -38,7 +38,7 @@ func NewTcpWrapperConnection(BaseIoStreamVar *IOStream, SocketVar *Socket) *Sock
 	cret := xNewTcpWrapperConnection(BaseIoStreamVar.GoPointer(), SocketVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -54,7 +54,7 @@ func (x *TcpWrapperConnection) GetBaseIoStream() *IOStream {
 	cret := xTcpWrapperConnectionGetBaseIoStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IOStream{}

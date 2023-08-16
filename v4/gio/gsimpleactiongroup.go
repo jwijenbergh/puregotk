@@ -38,7 +38,7 @@ func NewSimpleActionGroup() *SimpleActionGroup {
 	cret := xNewSimpleActionGroup()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleActionGroup{}
 	cls.Ptr = cret
@@ -80,7 +80,7 @@ func (x *SimpleActionGroup) Lookup(ActionNameVar string) *ActionBase {
 	cret := xSimpleActionGroupLookup(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ActionBase{}
@@ -408,7 +408,7 @@ func (x *SimpleActionGroup) LookupAction(ActionNameVar string) *ActionBase {
 	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ActionBase{}

@@ -35,7 +35,7 @@ func NewBroadwayRenderer() *Renderer {
 	cret := xNewBroadwayRenderer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Renderer{}
 	cls.Ptr = cret

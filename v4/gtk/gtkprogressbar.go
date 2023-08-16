@@ -75,7 +75,7 @@ func NewProgressBar() *Widget {
 	cret := xNewProgressBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

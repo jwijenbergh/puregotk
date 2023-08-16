@@ -50,7 +50,7 @@ func NewForSurfaceRenderer(SurfaceVar *gdk.Surface) *Renderer {
 	cret := xNewForSurfaceRenderer(SurfaceVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Renderer{}
 	cls.Ptr = cret
@@ -68,7 +68,7 @@ func (x *Renderer) GetSurface() *gdk.Surface {
 	cret := xRendererGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -142,7 +142,7 @@ func (x *Renderer) RenderTexture(RootVar *RenderNode, ViewportVar *graphene.Rect
 	cret := xRendererRenderTexture(x.GoPointer(), RootVar.GoPointer(), ViewportVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.Texture{}
 	cls.Ptr = cret

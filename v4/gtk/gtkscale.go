@@ -118,7 +118,7 @@ func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
 	cret := xNewScale(OrientationVar, AdjustmentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -145,7 +145,7 @@ func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float6
 	cret := xNewWithRangeScale(OrientationVar, MinVar, MaxVar, StepVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -219,7 +219,7 @@ func (x *Scale) GetLayout() *pango.Layout {
 	cret := xScaleGetLayout(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Layout{}

@@ -60,7 +60,7 @@ func (x *TlsBackendBase) GetDefaultDatabase() *TlsDatabase {
 	cret := XGTlsBackendGetDefaultDatabase(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TlsDatabase{}
 	cls.Ptr = cret
@@ -145,7 +145,7 @@ func TlsBackendGetDefault() *TlsBackendBase {
 	cret := xTlsBackendGetDefault()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsBackendBase{}

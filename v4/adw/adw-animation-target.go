@@ -61,7 +61,7 @@ func NewCallbackAnimationTarget(CallbackVar AnimationTargetFunc, UserDataVar uin
 	cret := xNewCallbackAnimationTarget(purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AnimationTarget{}
 	cls.Ptr = cret
@@ -98,7 +98,7 @@ func NewPropertyAnimationTarget(ObjectVar *gobject.Object, PropertyNameVar strin
 	cret := xNewPropertyAnimationTarget(ObjectVar.GoPointer(), PropertyNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AnimationTarget{}
 	cls.Ptr = cret
@@ -115,7 +115,7 @@ func NewForPspecPropertyAnimationTarget(ObjectVar *gobject.Object, PspecVar *gob
 	cret := xNewForPspecPropertyAnimationTarget(ObjectVar.GoPointer(), PspecVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AnimationTarget{}
 	cls.Ptr = cret
@@ -135,7 +135,7 @@ func (x *PropertyAnimationTarget) GetObject() *gobject.Object {
 	cret := xPropertyAnimationTargetGetObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -152,7 +152,7 @@ func (x *PropertyAnimationTarget) GetPspec() *gobject.ParamSpec {
 	cret := xPropertyAnimationTargetGetPspec(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.ParamSpec{}

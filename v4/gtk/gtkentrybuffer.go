@@ -42,7 +42,7 @@ func NewEntryBuffer(InitialCharsVar string, NInitialCharsVar int) *EntryBuffer {
 	cret := xNewEntryBuffer(InitialCharsVar, NInitialCharsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EntryBuffer{}
 	cls.Ptr = cret

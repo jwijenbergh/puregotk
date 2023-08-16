@@ -45,7 +45,7 @@ func NewBin() *gtk.Widget {
 	cret := xNewBin()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -62,7 +62,7 @@ func (x *Bin) GetChild() *gtk.Widget {
 	cret := xBinGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

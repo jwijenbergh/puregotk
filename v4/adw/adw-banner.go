@@ -56,7 +56,7 @@ func NewBanner(TitleVar string) *gtk.Widget {
 	cret := xNewBanner(TitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

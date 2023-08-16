@@ -68,7 +68,7 @@ func NewWindow() *gtk.Widget {
 	cret := xNewWindow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -87,7 +87,7 @@ func (x *Window) GetContent() *gtk.Widget {
 	cret := xWindowGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -264,7 +264,7 @@ func (x *Window) GetRenderer() *gsk.Renderer {
 	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -279,7 +279,7 @@ func (x *Window) GetSurface() *gdk.Surface {
 	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -322,7 +322,7 @@ func (x *Window) GetDisplay() *gdk.Display {
 	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -342,7 +342,7 @@ func (x *Window) GetFocus() *gtk.Widget {
 	cret := gtk.XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

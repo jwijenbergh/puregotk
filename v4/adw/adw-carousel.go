@@ -50,7 +50,7 @@ func NewCarousel() *gtk.Widget {
 	cret := xNewCarousel()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -121,7 +121,7 @@ func (x *Carousel) GetNthPage(NVar uint) *gtk.Widget {
 	cret := xCarouselGetNthPage(x.GoPointer(), NVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

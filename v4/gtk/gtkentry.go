@@ -140,7 +140,7 @@ func NewEntry() *Widget {
 	cret := xNewEntry()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -157,7 +157,7 @@ func NewWithBufferEntry(BufferVar *EntryBuffer) *Widget {
 	cret := xNewWithBufferEntry(BufferVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -206,7 +206,7 @@ func (x *Entry) GetBuffer() *EntryBuffer {
 	cret := xEntryGetBuffer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EntryBuffer{}
@@ -224,7 +224,7 @@ func (x *Entry) GetCompletion() *EntryCompletion {
 	cret := xEntryGetCompletion(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EntryCompletion{}
@@ -251,7 +251,7 @@ func (x *Entry) GetExtraMenu() *gio.MenuModel {
 	cret := xEntryGetExtraMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -321,7 +321,7 @@ func (x *Entry) GetIconGicon(IconPosVar EntryIconPosition) *gio.IconBase {
 	cret := xEntryGetIconGicon(x.GoPointer(), IconPosVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.IconBase{}
@@ -352,7 +352,7 @@ func (x *Entry) GetIconPaintable(IconPosVar EntryIconPosition) *gdk.PaintableBas
 	cret := xEntryGetIconPaintable(x.GoPointer(), IconPosVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.PaintableBase{}
@@ -1176,7 +1176,7 @@ func (x *Entry) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

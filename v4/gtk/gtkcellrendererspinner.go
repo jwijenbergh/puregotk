@@ -39,7 +39,7 @@ func NewCellRendererSpinner() *CellRenderer {
 	cret := xNewCellRendererSpinner()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}

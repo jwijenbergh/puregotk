@@ -71,7 +71,7 @@ func NewViewSwitcher() *gtk.Widget {
 	cret := xNewViewSwitcher()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -97,7 +97,7 @@ func (x *ViewSwitcher) GetStack() *ViewStack {
 	cret := xViewSwitcherGetStack(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ViewStack{}

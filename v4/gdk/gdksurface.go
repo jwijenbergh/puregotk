@@ -43,7 +43,7 @@ func NewPopupSurface(ParentVar *Surface, AutohideVar bool) *Surface {
 	cret := xNewPopupSurface(ParentVar.GoPointer(), AutohideVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Surface{}
 	cls.Ptr = cret
@@ -59,7 +59,7 @@ func NewToplevelSurface(DisplayVar *Display) *Surface {
 	cret := xNewToplevelSurface(DisplayVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Surface{}
 	cls.Ptr = cret
@@ -87,7 +87,7 @@ func (x *Surface) CreateCairoContext() *CairoContext {
 	cret := xSurfaceCreateCairoContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CairoContext{}
 	cls.Ptr = cret
@@ -109,7 +109,7 @@ func (x *Surface) CreateGlContext() (*GLContext, error) {
 	cret := xSurfaceCreateGlContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &GLContext{}
 	cls.Ptr = cret
@@ -155,7 +155,7 @@ func (x *Surface) CreateVulkanContext() (*VulkanContext, error) {
 	cret := xSurfaceCreateVulkanContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &VulkanContext{}
 	cls.Ptr = cret
@@ -198,7 +198,7 @@ func (x *Surface) GetCursor() *Cursor {
 	cret := xSurfaceGetCursor(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Cursor{}
@@ -221,7 +221,7 @@ func (x *Surface) GetDeviceCursor(DeviceVar *Device) *Cursor {
 	cret := xSurfaceGetDeviceCursor(x.GoPointer(), DeviceVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Cursor{}
@@ -250,7 +250,7 @@ func (x *Surface) GetDisplay() *Display {
 	cret := xSurfaceGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -270,7 +270,7 @@ func (x *Surface) GetFrameClock() *FrameClock {
 	cret := xSurfaceGetFrameClock(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FrameClock{}

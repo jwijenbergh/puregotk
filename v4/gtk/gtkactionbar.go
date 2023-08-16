@@ -66,7 +66,7 @@ func NewActionBar() *Widget {
 	cret := xNewActionBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -83,7 +83,7 @@ func (x *ActionBar) GetCenterWidget() *Widget {
 	cret := xActionBarGetCenterWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

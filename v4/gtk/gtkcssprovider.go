@@ -62,7 +62,7 @@ func NewCssProvider() *CssProvider {
 	cret := xNewCssProvider()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CssProvider{}
 	cls.Ptr = cret

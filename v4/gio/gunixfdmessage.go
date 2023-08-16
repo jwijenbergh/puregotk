@@ -48,7 +48,7 @@ func NewUnixFDMessage() *SocketControlMessage {
 	cret := xNewUnixFDMessage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketControlMessage{}
 	cls.Ptr = cret
@@ -64,7 +64,7 @@ func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *SocketControlMessage {
 	cret := xNewWithFdListUnixFDMessage(FdListVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketControlMessage{}
 	cls.Ptr = cret
@@ -103,7 +103,7 @@ func (x *UnixFDMessage) GetFdList() *UnixFDList {
 	cret := xUnixFDMessageGetFdList(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &UnixFDList{}

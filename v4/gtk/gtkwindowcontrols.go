@@ -82,7 +82,7 @@ func NewWindowControls(SideVar PackType) *Widget {
 	cret := xNewWindowControls(SideVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

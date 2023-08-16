@@ -184,7 +184,7 @@ func NewFileChooserNative(TitleVar string, ParentVar *Window, ActionVar FileChoo
 	cret := xNewFileChooserNative(TitleVar, ParentVar.GoPointer(), ActionVar, AcceptLabelVar, CancelLabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileChooserNative{}
 	cls.Ptr = cret
@@ -317,7 +317,7 @@ func (x *FileChooserNative) GetCurrentFolder() *gio.FileBase {
 	cret := XGtkFileChooserGetCurrentFolder(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.FileBase{}
 	cls.Ptr = cret
@@ -348,7 +348,7 @@ func (x *FileChooserNative) GetFile() *gio.FileBase {
 	cret := XGtkFileChooserGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.FileBase{}
 	cls.Ptr = cret
@@ -363,7 +363,7 @@ func (x *FileChooserNative) GetFiles() *gio.ListModelBase {
 	cret := XGtkFileChooserGetFiles(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -377,7 +377,7 @@ func (x *FileChooserNative) GetFilter() *FileFilter {
 	cret := XGtkFileChooserGetFilter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileFilter{}
@@ -398,7 +398,7 @@ func (x *FileChooserNative) GetFilters() *gio.ListModelBase {
 	cret := XGtkFileChooserGetFilters(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -423,7 +423,7 @@ func (x *FileChooserNative) GetShortcutFolders() *gio.ListModelBase {
 	cret := XGtkFileChooserGetShortcutFolders(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret

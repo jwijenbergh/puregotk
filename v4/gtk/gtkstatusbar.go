@@ -62,7 +62,7 @@ func NewStatusbar() *Widget {
 	cret := xNewStatusbar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

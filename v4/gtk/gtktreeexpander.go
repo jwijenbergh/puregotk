@@ -69,7 +69,7 @@ func NewTreeExpander() *Widget {
 	cret := xNewTreeExpander()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -86,7 +86,7 @@ func (x *TreeExpander) GetChild() *Widget {
 	cret := xTreeExpanderGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -118,7 +118,7 @@ func (x *TreeExpander) GetItem() *gobject.Object {
 	cret := xTreeExpanderGetItem(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -134,7 +134,7 @@ func (x *TreeExpander) GetListRow() *TreeListRow {
 	cret := xTreeExpanderGetListRow(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeListRow{}

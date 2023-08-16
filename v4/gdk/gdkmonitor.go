@@ -65,7 +65,7 @@ func (x *Monitor) GetDisplay() *Display {
 	cret := xMonitorGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}

@@ -91,7 +91,7 @@ func NewText() *Widget {
 	cret := xNewText()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -108,7 +108,7 @@ func NewWithBufferText(BufferVar *EntryBuffer) *Widget {
 	cret := xNewWithBufferText(BufferVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -167,7 +167,7 @@ func (x *Text) GetBuffer() *EntryBuffer {
 	cret := xTextGetBuffer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EntryBuffer{}
@@ -196,7 +196,7 @@ func (x *Text) GetExtraMenu() *gio.MenuModel {
 	cret := xTextGetExtraMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -950,7 +950,7 @@ func (x *Text) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

@@ -110,7 +110,7 @@ func NewListBox() *Widget {
 	cret := xNewListBox()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -199,7 +199,7 @@ func (x *ListBox) GetAdjustment() *Adjustment {
 	cret := xListBoxGetAdjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -219,7 +219,7 @@ func (x *ListBox) GetRowAtIndex(IndexVar int) *ListBoxRow {
 	cret := xListBoxGetRowAtIndex(x.GoPointer(), IndexVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListBoxRow{}
@@ -236,7 +236,7 @@ func (x *ListBox) GetRowAtY(YVar int) *ListBoxRow {
 	cret := xListBoxGetRowAtY(x.GoPointer(), YVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListBoxRow{}
@@ -257,7 +257,7 @@ func (x *ListBox) GetSelectedRow() *ListBoxRow {
 	cret := xListBoxGetSelectedRow(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListBoxRow{}
@@ -828,7 +828,7 @@ func NewListBoxRow() *Widget {
 	cret := xNewListBoxRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -880,7 +880,7 @@ func (x *ListBoxRow) GetChild() *Widget {
 	cret := xListBoxRowGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -902,7 +902,7 @@ func (x *ListBoxRow) GetHeader() *Widget {
 	cret := xListBoxRowGetHeader(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

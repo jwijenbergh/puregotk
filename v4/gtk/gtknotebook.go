@@ -134,7 +134,7 @@ func NewNotebook() *Widget {
 	cret := xNewNotebook()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -186,7 +186,7 @@ func (x *Notebook) GetActionWidget(PackTypeVar PackType) *Widget {
 	cret := xNotebookGetActionWidget(x.GoPointer(), PackTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -221,7 +221,7 @@ func (x *Notebook) GetMenuLabel(ChildVar *Widget) *Widget {
 	cret := xNotebookGetMenuLabel(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -257,7 +257,7 @@ func (x *Notebook) GetNthPage(PageNumVar int) *Widget {
 	cret := xNotebookGetNthPage(x.GoPointer(), PageNumVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -274,7 +274,7 @@ func (x *Notebook) GetPage(ChildVar *Widget) *NotebookPage {
 	cret := xNotebookGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &NotebookPage{}
@@ -295,7 +295,7 @@ func (x *Notebook) GetPages() *gio.ListModelBase {
 	cret := xNotebookGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -350,7 +350,7 @@ func (x *Notebook) GetTabLabel(ChildVar *Widget) *Widget {
 	cret := xNotebookGetTabLabel(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -981,7 +981,7 @@ func (x *NotebookPage) GetChild() *Widget {
 	cret := xNotebookPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -35,7 +35,7 @@ func NewGLTexture(ContextVar *GLContext, IdVar uint, WidthVar int, HeightVar int
 	cret := xNewGLTexture(ContextVar.GoPointer(), IdVar, WidthVar, HeightVar, purego.NewCallback(DestroyVar), DataVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &GLTexture{}
 	cls.Ptr = cret
@@ -91,7 +91,7 @@ func (x *GLTexture) GetCurrentImage() *PaintableBase {
 	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PaintableBase{}
 	cls.Ptr = cret
@@ -256,7 +256,7 @@ func (x *GLTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancel
 	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret
@@ -284,7 +284,7 @@ func (x *GLTexture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.Inp
 	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret

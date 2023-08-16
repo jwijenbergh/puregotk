@@ -22,7 +22,7 @@ func NewParamSpecBoolean(NameVar string, NickVar string, BlurbVar string, Defaul
 	cret := xNewParamSpecBoolean(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -41,7 +41,7 @@ func NewParamSpecBoxed(NameVar string, NickVar string, BlurbVar string, BoxedTyp
 	cret := xNewParamSpecBoxed(NameVar, NickVar, BlurbVar, BoxedTypeVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -57,7 +57,7 @@ func NewParamSpecChar(NameVar string, NickVar string, BlurbVar string, MinimumVa
 	cret := xNewParamSpecChar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -76,7 +76,7 @@ func NewParamSpecDouble(NameVar string, NickVar string, BlurbVar string, Minimum
 	cret := xNewParamSpecDouble(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -95,7 +95,7 @@ func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeV
 	cret := xNewParamSpecEnum(NameVar, NickVar, BlurbVar, EnumTypeVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -114,7 +114,7 @@ func NewParamSpecFlags(NameVar string, NickVar string, BlurbVar string, FlagsTyp
 	cret := xNewParamSpecFlags(NameVar, NickVar, BlurbVar, FlagsTypeVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -132,7 +132,7 @@ func NewParamSpecFloat(NameVar string, NickVar string, BlurbVar string, MinimumV
 	cret := xNewParamSpecFloat(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -151,7 +151,7 @@ func ParamSpecGtype(NameVar string, NickVar string, BlurbVar string, IsATypeVar 
 	cret := xParamSpecGtype(NameVar, NickVar, BlurbVar, IsATypeVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -169,7 +169,7 @@ func NewParamSpecInt(NameVar string, NickVar string, BlurbVar string, MinimumVar
 	cret := xNewParamSpecInt(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -187,7 +187,7 @@ func NewParamSpecInt64(NameVar string, NickVar string, BlurbVar string, MinimumV
 	cret := xNewParamSpecInt64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -205,7 +205,7 @@ func NewParamSpecLong(NameVar string, NickVar string, BlurbVar string, MinimumVa
 	cret := xNewParamSpecLong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -224,7 +224,7 @@ func NewParamSpecObject(NameVar string, NickVar string, BlurbVar string, ObjectT
 	cret := xNewParamSpecObject(NameVar, NickVar, BlurbVar, ObjectTypeVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -242,7 +242,7 @@ func NewParamSpecOverride(NameVar string, OverriddenVar *ParamSpec) *ParamSpec {
 	cret := xNewParamSpecOverride(NameVar, OverriddenVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -261,7 +261,7 @@ func NewParamSpecParam(NameVar string, NickVar string, BlurbVar string, ParamTyp
 	cret := xNewParamSpecParam(NameVar, NickVar, BlurbVar, ParamTypeVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -281,7 +281,7 @@ func NewParamSpecPointer(NameVar string, NickVar string, BlurbVar string, FlagsV
 	cret := xNewParamSpecPointer(NameVar, NickVar, BlurbVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -299,7 +299,7 @@ func NewParamSpecString(NameVar string, NickVar string, BlurbVar string, Default
 	cret := xNewParamSpecString(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -315,7 +315,7 @@ func ParamSpecUchar(NameVar string, NickVar string, BlurbVar string, MinimumVar 
 	cret := xParamSpecUchar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -333,7 +333,7 @@ func ParamSpecUint(NameVar string, NickVar string, BlurbVar string, MinimumVar u
 	cret := xParamSpecUint(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -352,7 +352,7 @@ func ParamSpecUint64(NameVar string, NickVar string, BlurbVar string, MinimumVar
 	cret := xParamSpecUint64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -371,7 +371,7 @@ func ParamSpecUlong(NameVar string, NickVar string, BlurbVar string, MinimumVar 
 	cret := xParamSpecUlong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -391,7 +391,7 @@ func NewParamSpecUnichar(NameVar string, NickVar string, BlurbVar string, Defaul
 	cret := xNewParamSpecUnichar(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -412,7 +412,7 @@ func NewParamSpecValueArray(NameVar string, NickVar string, BlurbVar string, Ele
 	cret := xNewParamSpecValueArray(NameVar, NickVar, BlurbVar, ElementSpecVar.GoPointer(), FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret
@@ -433,7 +433,7 @@ func NewParamSpecVariant(NameVar string, NickVar string, BlurbVar string, TypeVa
 	cret := xNewParamSpecVariant(NameVar, NickVar, BlurbVar, TypeVar, DefaultValueVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ParamSpec{}
 	cls.Ptr = cret

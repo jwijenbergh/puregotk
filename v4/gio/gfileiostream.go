@@ -81,7 +81,7 @@ func (x *FileIOStream) QueryInfo(AttributesVar string, CancellableVar *Cancellab
 	cret := xFileIOStreamQueryInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -117,7 +117,7 @@ func (x *FileIOStream) QueryInfoFinish(ResultVar AsyncResult) (*FileInfo, error)
 	cret := xFileIOStreamQueryInfoFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret

@@ -72,7 +72,7 @@ func NewSqueezer() *gtk.Widget {
 	cret := xNewSqueezer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -89,7 +89,7 @@ func (x *Squeezer) Add(ChildVar *gtk.Widget) *SqueezerPage {
 	cret := xSqueezerAdd(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SqueezerPage{}
@@ -133,7 +133,7 @@ func (x *Squeezer) GetPage(ChildVar *gtk.Widget) *SqueezerPage {
 	cret := xSqueezerGetPage(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SqueezerPage{}
@@ -153,7 +153,7 @@ func (x *Squeezer) GetPages() *gtk.SelectionModelBase {
 	cret := xSqueezerGetPages(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gtk.SelectionModelBase{}
 	cls.Ptr = cret
@@ -209,7 +209,7 @@ func (x *Squeezer) GetVisibleChild() *gtk.Widget {
 	cret := xSqueezerGetVisibleChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -535,7 +535,7 @@ func (x *SqueezerPage) GetChild() *gtk.Widget {
 	cret := xSqueezerPageGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

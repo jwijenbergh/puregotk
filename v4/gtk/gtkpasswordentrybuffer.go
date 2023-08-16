@@ -33,7 +33,7 @@ func NewPasswordEntryBuffer() *EntryBuffer {
 	cret := xNewPasswordEntryBuffer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EntryBuffer{}
 	cls.Ptr = cret

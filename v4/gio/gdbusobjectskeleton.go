@@ -42,7 +42,7 @@ func NewDBusObjectSkeleton(ObjectPathVar string) *DBusObjectSkeleton {
 	cret := xNewDBusObjectSkeleton(ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectSkeleton{}
 	cls.Ptr = cret
@@ -140,7 +140,7 @@ func (x *DBusObjectSkeleton) GetInterface(InterfaceNameVar string) *DBusInterfac
 	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret

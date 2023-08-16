@@ -527,7 +527,7 @@ func (x *MediaStream) GetCurrentImage() *gdk.PaintableBase {
 	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret

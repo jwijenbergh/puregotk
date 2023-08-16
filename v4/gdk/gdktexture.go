@@ -66,7 +66,7 @@ func NewForPixbufTexture(PixbufVar *gdkpixbuf.Pixbuf) *Texture {
 	cret := xNewForPixbufTexture(PixbufVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Texture{}
 	cls.Ptr = cret
@@ -92,7 +92,7 @@ func NewFromBytesTexture(BytesVar *glib.Bytes) (*Texture, error) {
 	cret := xNewFromBytesTexture(BytesVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Texture{}
 	cls.Ptr = cret
@@ -122,7 +122,7 @@ func NewFromFileTexture(FileVar gio.File) (*Texture, error) {
 	cret := xNewFromFileTexture(FileVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Texture{}
 	cls.Ptr = cret
@@ -152,7 +152,7 @@ func NewFromFilenameTexture(PathVar string) (*Texture, error) {
 	cret := xNewFromFilenameTexture(PathVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Texture{}
 	cls.Ptr = cret
@@ -184,7 +184,7 @@ func NewFromResourceTexture(ResourcePathVar string) *Texture {
 	cret := xNewFromResourceTexture(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Texture{}
 	cls.Ptr = cret
@@ -344,7 +344,7 @@ func (x *Texture) GetCurrentImage() *PaintableBase {
 	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PaintableBase{}
 	cls.Ptr = cret
@@ -509,7 +509,7 @@ func (x *Texture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancella
 	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret
@@ -537,7 +537,7 @@ func (x *Texture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.Input
 	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret

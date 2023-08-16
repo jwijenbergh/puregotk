@@ -85,7 +85,7 @@ func NewCallbackAction(CallbackVar ShortcutFunc, DataVar uintptr, DestroyVar gli
 	cret := xNewCallbackAction(purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &CallbackAction{}
 	cls.Ptr = cret
@@ -145,7 +145,7 @@ func NewNamedAction(NameVar string) *NamedAction {
 	cret := xNewNamedAction(NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &NamedAction{}
 	cls.Ptr = cret
@@ -245,7 +245,7 @@ func ParseStringShortcutAction(StringVar string) *ShortcutAction {
 	cret := xParseStringShortcutAction(StringVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ShortcutAction{}
 	cls.Ptr = cret
@@ -327,7 +327,7 @@ func NewSignalAction(SignalNameVar string) *SignalAction {
 	cret := xNewSignalAction(SignalNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SignalAction{}
 	cls.Ptr = cret

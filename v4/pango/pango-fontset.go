@@ -58,7 +58,7 @@ func (x *Fontset) GetFont(WcVar uint) *Font {
 	cret := xFontsetGetFont(x.GoPointer(), WcVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Font{}
 	cls.Ptr = cret
@@ -106,7 +106,7 @@ func NewFontsetSimple(LanguageVar *Language) *FontsetSimple {
 	cret := xNewFontsetSimple(LanguageVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FontsetSimple{}
 	cls.Ptr = cret

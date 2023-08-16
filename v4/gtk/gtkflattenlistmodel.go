@@ -36,7 +36,7 @@ func NewFlattenListModel(ModelVar gio.ListModel) *FlattenListModel {
 	cret := xNewFlattenListModel(ModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FlattenListModel{}
 	cls.Ptr = cret
@@ -52,7 +52,7 @@ func (x *FlattenListModel) GetModel() *gio.ListModelBase {
 	cret := xFlattenListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -69,7 +69,7 @@ func (x *FlattenListModel) GetModelForItem(PositionVar uint) *gio.ListModelBase 
 	cret := xFlattenListModelGetModelForItem(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -152,7 +152,7 @@ func (x *FlattenListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

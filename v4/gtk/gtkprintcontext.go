@@ -101,7 +101,7 @@ func (x *PrintContext) CreatePangoContext() *pango.Context {
 	cret := xPrintContextCreatePangoContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Context{}
 	cls.Ptr = cret
@@ -118,7 +118,7 @@ func (x *PrintContext) CreatePangoLayout() *pango.Layout {
 	cret := xPrintContextCreatePangoLayout(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.Layout{}
 	cls.Ptr = cret
@@ -184,7 +184,7 @@ func (x *PrintContext) GetPageSetup() *PageSetup {
 	cret := xPrintContextGetPageSetup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PageSetup{}
@@ -202,7 +202,7 @@ func (x *PrintContext) GetPangoFontmap() *pango.FontMap {
 	cret := xPrintContextGetPangoFontmap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontMap{}

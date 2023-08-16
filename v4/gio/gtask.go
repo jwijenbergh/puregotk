@@ -569,7 +569,7 @@ func NewTask(SourceObjectVar *gobject.Object, CancellableVar *Cancellable, Callb
 	cret := xNewTask(SourceObjectVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Task{}
 	cls.Ptr = cret
@@ -602,7 +602,7 @@ func (x *Task) GetCancellable() *Cancellable {
 	cret := xTaskGetCancellable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Cancellable{}
@@ -684,7 +684,7 @@ func (x *Task) GetSourceObject() *gobject.Object {
 	cret := xTaskGetSourceObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}

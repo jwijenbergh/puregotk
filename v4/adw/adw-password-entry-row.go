@@ -53,7 +53,7 @@ func NewPasswordEntryRow() *gtk.Widget {
 	cret := xNewPasswordEntryRow()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -359,7 +359,7 @@ func (x *PasswordEntryRow) GetDelegate() *gtk.EditableBase {
 	cret := gtk.XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.EditableBase{}

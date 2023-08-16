@@ -35,7 +35,7 @@ func NewDataInputStream(BaseStreamVar *InputStream) *DataInputStream {
 	cret := xNewDataInputStream(BaseStreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DataInputStream{}
 	cls.Ptr = cret

@@ -33,7 +33,7 @@ func NewFilenameCompleter() *FilenameCompleter {
 	cret := xNewFilenameCompleter()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FilenameCompleter{}
 	cls.Ptr = cret

@@ -211,7 +211,7 @@ func NewLabel(StrVar string) *Widget {
 	cret := xNewLabel(StrVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -241,7 +241,7 @@ func NewWithMnemonicLabel(StrVar string) *Widget {
 	cret := xNewWithMnemonicLabel(StrVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -303,7 +303,7 @@ func (x *Label) GetExtraMenu() *gio.MenuModel {
 	cret := xLabelGetExtraMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -349,7 +349,7 @@ func (x *Label) GetLayout() *pango.Layout {
 	cret := xLabelGetLayout(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Layout{}
@@ -420,7 +420,7 @@ func (x *Label) GetMnemonicWidget() *Widget {
 	cret := xLabelGetMnemonicWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

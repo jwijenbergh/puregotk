@@ -90,7 +90,7 @@ func (x *Drag) GetContent() *ContentProvider {
 	cret := xDragGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ContentProvider{}
@@ -107,7 +107,7 @@ func (x *Drag) GetDevice() *Device {
 	cret := xDragGetDevice(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Device{}
@@ -124,7 +124,7 @@ func (x *Drag) GetDisplay() *Display {
 	cret := xDragGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -147,7 +147,7 @@ func (x *Drag) GetDragSurface() *Surface {
 	cret := xDragGetDragSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}
@@ -182,7 +182,7 @@ func (x *Drag) GetSurface() *Surface {
 	cret := xDragGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

@@ -244,7 +244,7 @@ func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncRead
 	cret := xNewSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, SourceTagVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAsyncResult{}
 	cls.Ptr = cret
@@ -260,7 +260,7 @@ func NewErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar Asyn
 	cret := xNewErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAsyncResult{}
 	cls.Ptr = cret
@@ -276,7 +276,7 @@ func NewFromErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar 
 	cret := xNewFromErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAsyncResult{}
 	cls.Ptr = cret
@@ -293,7 +293,7 @@ func NewTakeErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar 
 	cret := xNewTakeErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAsyncResult{}
 	cls.Ptr = cret
@@ -516,7 +516,7 @@ func (x *SimpleAsyncResult) GetSourceObject() *gobject.Object {
 	cret := XGAsyncResultGetSourceObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

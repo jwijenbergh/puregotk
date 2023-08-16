@@ -43,7 +43,7 @@ func NewBoxLayout(OrientationVar Orientation) *LayoutManager {
 	cret := xNewBoxLayout(OrientationVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret

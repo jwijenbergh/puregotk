@@ -41,7 +41,7 @@ func NewSpinner() *Widget {
 	cret := xNewSpinner()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

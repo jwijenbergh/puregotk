@@ -137,7 +137,7 @@ func NewIOModule(FilenameVar string) *IOModule {
 	cret := xNewIOModule(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IOModule{}
 	cls.Ptr = cret

@@ -104,7 +104,7 @@ func (x *FontChooserBase) GetFontFace() *pango.FontFace {
 	cret := XGtkFontChooserGetFontFace(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontFace{}
@@ -123,7 +123,7 @@ func (x *FontChooserBase) GetFontFamily() *pango.FontFamily {
 	cret := XGtkFontChooserGetFontFamily(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontFamily{}
@@ -150,7 +150,7 @@ func (x *FontChooserBase) GetFontMap() *pango.FontMap {
 	cret := XGtkFontChooserGetFontMap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.FontMap{}
 	cls.Ptr = cret

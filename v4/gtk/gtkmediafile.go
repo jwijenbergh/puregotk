@@ -40,7 +40,7 @@ func NewMediaFile() *MediaFile {
 	cret := xNewMediaFile()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MediaFile{}
 	cls.Ptr = cret
@@ -56,7 +56,7 @@ func NewForFileMediaFile(FileVar gio.File) *MediaFile {
 	cret := xNewForFileMediaFile(FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MediaFile{}
 	cls.Ptr = cret
@@ -75,7 +75,7 @@ func NewForFilenameMediaFile(FilenameVar string) *MediaFile {
 	cret := xNewForFilenameMediaFile(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MediaFile{}
 	cls.Ptr = cret
@@ -94,7 +94,7 @@ func NewForInputStreamMediaFile(StreamVar *gio.InputStream) *MediaFile {
 	cret := xNewForInputStreamMediaFile(StreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MediaFile{}
 	cls.Ptr = cret
@@ -113,7 +113,7 @@ func NewForResourceMediaFile(ResourcePathVar string) *MediaFile {
 	cret := xNewForResourceMediaFile(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MediaFile{}
 	cls.Ptr = cret
@@ -141,7 +141,7 @@ func (x *MediaFile) GetFile() *gio.FileBase {
 	cret := xMediaFileGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.FileBase{}
@@ -161,7 +161,7 @@ func (x *MediaFile) GetInputStream() *gio.InputStream {
 	cret := xMediaFileGetInputStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.InputStream{}
@@ -254,7 +254,7 @@ func (x *MediaFile) GetCurrentImage() *gdk.PaintableBase {
 	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.PaintableBase{}
 	cls.Ptr = cret

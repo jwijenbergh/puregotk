@@ -47,7 +47,7 @@ func NewGridLayout() *LayoutManager {
 	cret := xNewGridLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret

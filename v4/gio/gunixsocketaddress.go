@@ -53,7 +53,7 @@ func NewUnixSocketAddress(PathVar string) *SocketAddress {
 	cret := xNewUnixSocketAddress(PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -70,7 +70,7 @@ func NewAbstractUnixSocketAddress(PathVar uintptr, PathLenVar int) *SocketAddres
 	cret := xNewAbstractUnixSocketAddress(PathVar, PathLenVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -116,7 +116,7 @@ func NewWithTypeUnixSocketAddress(PathVar uintptr, PathLenVar int, TypeVar UnixS
 	cret := xNewWithTypeUnixSocketAddress(PathVar, PathLenVar, TypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddress{}
 	cls.Ptr = cret
@@ -181,7 +181,7 @@ func (x *UnixSocketAddress) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -201,7 +201,7 @@ func (x *UnixSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

@@ -82,7 +82,7 @@ func NewFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
 	cret := xNewFinishDBusProxy(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusProxy{}
 	cls.Ptr = cret
@@ -103,7 +103,7 @@ func NewForBusFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
 	cret := xNewForBusFinishDBusProxy(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusProxy{}
 	cls.Ptr = cret
@@ -126,7 +126,7 @@ func NewForBusSyncDBusProxy(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar
 	cret := xNewForBusSyncDBusProxy(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusProxy{}
 	cls.Ptr = cret
@@ -168,7 +168,7 @@ func NewSyncDBusProxy(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, In
 	cret := xNewSyncDBusProxy(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusProxy{}
 	cls.Ptr = cret
@@ -367,7 +367,7 @@ func (x *DBusProxy) GetConnection() *DBusConnection {
 	cret := xDBusProxyGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -629,7 +629,7 @@ func (x *DBusProxy) NewFinish(ResVar AsyncResult) (*gobject.Object, error) {
 	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -647,7 +647,7 @@ func (x *DBusProxy) DupObject() *DBusObjectBase {
 	cret := XGDbusInterfaceDupObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret
@@ -673,7 +673,7 @@ func (x *DBusProxy) GetObject() *DBusObjectBase {
 	cret := XGDbusInterfaceGetObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusObjectBase{}

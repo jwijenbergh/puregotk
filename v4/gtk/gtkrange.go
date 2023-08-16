@@ -42,7 +42,7 @@ func (x *Range) GetAdjustment() *Adjustment {
 	cret := xRangeGetAdjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

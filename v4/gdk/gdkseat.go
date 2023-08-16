@@ -70,7 +70,7 @@ func (x *Seat) GetDisplay() *Display {
 	cret := xSeatGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -87,7 +87,7 @@ func (x *Seat) GetKeyboard() *Device {
 	cret := xSeatGetKeyboard(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Device{}
@@ -104,7 +104,7 @@ func (x *Seat) GetPointer() *Device {
 	cret := xSeatGetPointer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Device{}

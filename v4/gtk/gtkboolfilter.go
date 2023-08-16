@@ -32,7 +32,7 @@ func NewBoolFilter(ExpressionVar *Expression) *BoolFilter {
 	cret := xNewBoolFilter(ExpressionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BoolFilter{}
 	cls.Ptr = cret
@@ -49,7 +49,7 @@ func (x *BoolFilter) GetExpression() *Expression {
 	cret := xBoolFilterGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}

@@ -130,7 +130,7 @@ func (x *FileEnumerator) GetChild(InfoVar *FileInfo) *FileBase {
 	cret := xFileEnumeratorGetChild(x.GoPointer(), InfoVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -146,7 +146,7 @@ func (x *FileEnumerator) GetContainer() *FileBase {
 	cret := xFileEnumeratorGetContainer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileBase{}
@@ -246,7 +246,7 @@ func (x *FileEnumerator) NextFile(CancellableVar *Cancellable) (*FileInfo, error
 	cret := xFileEnumeratorNextFile(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret

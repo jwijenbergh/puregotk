@@ -59,7 +59,7 @@ func NewFileInfo() *FileInfo {
 	cret := xNewFileInfo()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -94,7 +94,7 @@ func (x *FileInfo) Dup() *FileInfo {
 	cret := xFileInfoDup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileInfo{}
 	cls.Ptr = cret
@@ -187,7 +187,7 @@ func (x *FileInfo) GetAttributeObject(AttributeVar string) *gobject.Object {
 	cret := xFileInfoGetAttributeObject(x.GoPointer(), AttributeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gobject.Object{}
@@ -336,7 +336,7 @@ func (x *FileInfo) GetIcon() *IconBase {
 	cret := xFileInfoGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}
@@ -434,7 +434,7 @@ func (x *FileInfo) GetSymbolicIcon() *IconBase {
 	cret := xFileInfoGetSymbolicIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}

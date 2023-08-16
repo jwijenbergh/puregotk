@@ -41,7 +41,7 @@ func NewFilterListModel(ModelVar gio.ListModel, FilterVar *Filter) *FilterListMo
 	cret := xNewFilterListModel(ModelVar.GoPointer(), FilterVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FilterListModel{}
 	cls.Ptr = cret
@@ -57,7 +57,7 @@ func (x *FilterListModel) GetFilter() *Filter {
 	cret := xFilterListModelGetFilter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Filter{}
@@ -85,7 +85,7 @@ func (x *FilterListModel) GetModel() *gio.ListModelBase {
 	cret := xFilterListModelGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ListModelBase{}
@@ -230,7 +230,7 @@ func (x *FilterListModel) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

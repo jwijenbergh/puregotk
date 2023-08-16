@@ -28,7 +28,7 @@ func NewGLRenderer() *Renderer {
 	cret := xNewGLRenderer()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Renderer{}
 	cls.Ptr = cret

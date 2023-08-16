@@ -45,7 +45,7 @@ func NewVideo() *Widget {
 	cret := xNewVideo()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -62,7 +62,7 @@ func NewForFileVideo(FileVar gio.File) *Widget {
 	cret := xNewForFileVideo(FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -82,7 +82,7 @@ func NewForFilenameVideo(FilenameVar string) *Widget {
 	cret := xNewForFilenameVideo(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -99,7 +99,7 @@ func NewForMediaStreamVideo(StreamVar *MediaStream) *Widget {
 	cret := xNewForMediaStreamVideo(StreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -119,7 +119,7 @@ func NewForResourceVideo(ResourcePathVar string) *Widget {
 	cret := xNewForResourceVideo(ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -146,7 +146,7 @@ func (x *Video) GetFile() *gio.FileBase {
 	cret := xVideoGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.FileBase{}
@@ -172,7 +172,7 @@ func (x *Video) GetMediaStream() *MediaStream {
 	cret := xVideoGetMediaStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &MediaStream{}

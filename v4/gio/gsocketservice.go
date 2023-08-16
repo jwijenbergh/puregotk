@@ -66,7 +66,7 @@ func NewSocketService() *SocketService {
 	cret := xNewSocketService()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketService{}
 	cls.Ptr = cret

@@ -68,7 +68,7 @@ func NewButton() *Widget {
 	cret := xNewButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -89,7 +89,7 @@ func NewFromIconNameButton(IconNameVar string) *Widget {
 	cret := xNewFromIconNameButton(IconNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -106,7 +106,7 @@ func NewWithLabelButton(LabelVar string) *Widget {
 	cret := xNewWithLabelButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -128,7 +128,7 @@ func NewWithMnemonicButton(LabelVar string) *Widget {
 	cret := xNewWithMnemonicButton(LabelVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -145,7 +145,7 @@ func (x *Button) GetChild() *Widget {
 	cret := xButtonGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

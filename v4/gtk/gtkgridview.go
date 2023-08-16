@@ -74,7 +74,7 @@ func NewGridView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
 	cret := xNewGridView(ModelVar.GoPointer(), FactoryVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -100,7 +100,7 @@ func (x *GridView) GetFactory() *ListItemFactory {
 	cret := xGridViewGetFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListItemFactory{}
@@ -135,7 +135,7 @@ func (x *GridView) GetModel() *SelectionModelBase {
 	cret := xGridViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SelectionModelBase{}
@@ -421,7 +421,7 @@ func (x *GridView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -443,7 +443,7 @@ func (x *GridView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

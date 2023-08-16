@@ -50,7 +50,7 @@ func NewWindowGroup() *WindowGroup {
 	cret := xNewWindowGroup()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &WindowGroup{}
 	cls.Ptr = cret

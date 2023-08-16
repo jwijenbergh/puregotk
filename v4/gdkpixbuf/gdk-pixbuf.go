@@ -171,7 +171,7 @@ func NewPixbuf(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int,
 	cret := xNewPixbuf(ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -192,7 +192,7 @@ func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaV
 	cret := xNewFromBytesPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -218,7 +218,7 @@ func NewFromDataPixbuf(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bo
 	cret := xNewFromDataPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, purego.NewCallback(DestroyFnVar), DestroyFnDataVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -246,7 +246,7 @@ func NewFromFilePixbuf(FilenameVar string) (*Pixbuf, error) {
 	cret := xNewFromFilePixbuf(FilenameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -288,7 +288,7 @@ func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int, HeightVar int, P
 	cret := xNewFromFileAtScalePixbuf(FilenameVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -326,7 +326,7 @@ func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int, HeightVar int) (*
 	cret := xNewFromFileAtSizePixbuf(FilenameVar, WidthVar, HeightVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -379,7 +379,7 @@ func NewFromInlinePixbuf(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool)
 	cret := xNewFromInlinePixbuf(DataLengthVar, DataVar, CopyPixelsVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -403,7 +403,7 @@ func NewFromResourcePixbuf(ResourcePathVar string) (*Pixbuf, error) {
 	cret := xNewFromResourcePixbuf(ResourcePathVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -436,7 +436,7 @@ func NewFromResourceAtScalePixbuf(ResourcePathVar string, WidthVar int, HeightVa
 	cret := xNewFromResourceAtScalePixbuf(ResourcePathVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -468,7 +468,7 @@ func NewFromStreamPixbuf(StreamVar *gio.InputStream, CancellableVar *gio.Cancell
 	cret := xNewFromStreamPixbuf(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -509,7 +509,7 @@ func NewFromStreamAtScalePixbuf(StreamVar *gio.InputStream, WidthVar int, Height
 	cret := xNewFromStreamAtScalePixbuf(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -531,7 +531,7 @@ func NewFromStreamFinishPixbuf(AsyncResultVar gio.AsyncResult) (*Pixbuf, error) 
 	cret := xNewFromStreamFinishPixbuf(AsyncResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -554,7 +554,7 @@ func NewFromXpmDataPixbuf(DataVar uintptr) *Pixbuf {
 	cret := xNewFromXpmDataPixbuf(DataVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -582,7 +582,7 @@ func (x *Pixbuf) AddAlpha(SubstituteColorVar bool, RVar byte, GVar byte, BVar by
 	cret := xPixbufAddAlpha(x.GoPointer(), SubstituteColorVar, RVar, GVar, BVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -607,7 +607,7 @@ func (x *Pixbuf) ApplyEmbeddedOrientation() *Pixbuf {
 	cret := xPixbufApplyEmbeddedOrientation(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -666,7 +666,7 @@ func (x *Pixbuf) CompositeColorSimple(DestWidthVar int, DestHeightVar int, Inter
 	cret := xPixbufCompositeColorSimple(x.GoPointer(), DestWidthVar, DestHeightVar, InterpTypeVar, OverallAlphaVar, CheckSizeVar, Color1Var, Color2Var)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -686,7 +686,7 @@ func (x *Pixbuf) Copy() *Pixbuf {
 	cret := xPixbufCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -745,7 +745,7 @@ func (x *Pixbuf) Flip(HorizontalVar bool) *Pixbuf {
 	cret := xPixbufFlip(x.GoPointer(), HorizontalVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -906,7 +906,7 @@ func (x *Pixbuf) NewSubpixbuf(SrcXVar int, SrcYVar int, WidthVar int, HeightVar 
 	cret := xPixbufNewSubpixbuf(x.GoPointer(), SrcXVar, SrcYVar, WidthVar, HeightVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -947,7 +947,7 @@ func (x *Pixbuf) Ref() *Pixbuf {
 	cret := xPixbufRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -975,7 +975,7 @@ func (x *Pixbuf) RotateSimple(AngleVar PixbufRotation) *Pixbuf {
 	cret := xPixbufRotateSimple(x.GoPointer(), AngleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -1304,7 +1304,7 @@ func (x *Pixbuf) ScaleSimple(DestWidthVar int, DestHeightVar int, InterpTypeVar 
 	cret := xPixbufScaleSimple(x.GoPointer(), DestWidthVar, DestHeightVar, InterpTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Pixbuf{}
 	cls.Ptr = cret
@@ -1389,7 +1389,7 @@ func (x *Pixbuf) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellab
 	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret
@@ -1417,7 +1417,7 @@ func (x *Pixbuf) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.InputS
 	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret

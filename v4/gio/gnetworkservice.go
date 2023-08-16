@@ -44,7 +44,7 @@ func NewNetworkService(ServiceVar string, ProtocolVar string, DomainVar string) 
 	cret := xNewNetworkService(ServiceVar, ProtocolVar, DomainVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &NetworkService{}
 	cls.Ptr = cret
@@ -114,7 +114,7 @@ func (x *NetworkService) Enumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret
@@ -134,7 +134,7 @@ func (x *NetworkService) ProxyEnumerate() *SocketAddressEnumerator {
 	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketAddressEnumerator{}
 	cls.Ptr = cret

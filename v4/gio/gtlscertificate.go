@@ -50,7 +50,7 @@ func NewFromFileTlsCertificate(FileVar string) (*TlsCertificate, error) {
 	cret := xNewFromFileTlsCertificate(FileVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -78,7 +78,7 @@ func NewFromFileWithPasswordTlsCertificate(FileVar string, PasswordVar string) (
 	cret := xNewFromFileWithPasswordTlsCertificate(FileVar, PasswordVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -112,7 +112,7 @@ func NewFromFilesTlsCertificate(CertFileVar string, KeyFileVar string) (*TlsCert
 	cret := xNewFromFilesTlsCertificate(CertFileVar, KeyFileVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -146,7 +146,7 @@ func NewFromPemTlsCertificate(DataVar string, LengthVar int) (*TlsCertificate, e
 	cret := xNewFromPemTlsCertificate(DataVar, LengthVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -193,7 +193,7 @@ func NewFromPkcs11UrisTlsCertificate(Pkcs11UriVar string, PrivateKeyPkcs11UriVar
 	cret := xNewFromPkcs11UrisTlsCertificate(Pkcs11UriVar, PrivateKeyPkcs11UriVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -230,7 +230,7 @@ func NewFromPkcs12TlsCertificate(DataVar uintptr, LengthVar uint, PasswordVar st
 	cret := xNewFromPkcs12TlsCertificate(DataVar, LengthVar, PasswordVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -268,7 +268,7 @@ func (x *TlsCertificate) GetIssuer() *TlsCertificate {
 	cret := xTlsCertificateGetIssuer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TlsCertificate{}

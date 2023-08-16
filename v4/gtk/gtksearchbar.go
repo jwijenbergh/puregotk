@@ -75,7 +75,7 @@ func NewSearchBar() *Widget {
 	cret := xNewSearchBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -106,7 +106,7 @@ func (x *SearchBar) GetChild() *Widget {
 	cret := xSearchBarGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -123,7 +123,7 @@ func (x *SearchBar) GetKeyCaptureWidget() *Widget {
 	cret := xSearchBarGetKeyCaptureWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

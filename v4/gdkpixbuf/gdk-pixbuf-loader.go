@@ -76,7 +76,7 @@ func NewPixbufLoader() *PixbufLoader {
 	cret := xNewPixbufLoader()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PixbufLoader{}
 	cls.Ptr = cret
@@ -107,7 +107,7 @@ func NewWithMimeTypePixbufLoader(MimeTypeVar string) (*PixbufLoader, error) {
 	cret := xNewWithMimeTypePixbufLoader(MimeTypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufLoader{}
 	cls.Ptr = cret
@@ -141,7 +141,7 @@ func NewWithTypePixbufLoader(ImageTypeVar string) (*PixbufLoader, error) {
 	cret := xNewWithTypePixbufLoader(ImageTypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufLoader{}
 	cls.Ptr = cret
@@ -196,7 +196,7 @@ func (x *PixbufLoader) GetAnimation() *PixbufAnimation {
 	cret := xPixbufLoaderGetAnimation(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &PixbufAnimation{}
@@ -237,7 +237,7 @@ func (x *PixbufLoader) GetPixbuf() *Pixbuf {
 	cret := xPixbufLoaderGetPixbuf(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Pixbuf{}

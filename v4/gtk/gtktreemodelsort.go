@@ -137,7 +137,7 @@ func NewWithModelTreeModelSort(ChildModelVar TreeModel) *TreeModelSort {
 	cret := xNewWithModelTreeModelSort(ChildModelVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeModelSort{}
 	cls.Ptr = cret
@@ -212,7 +212,7 @@ func (x *TreeModelSort) GetModel() *TreeModelBase {
 	cret := xTreeModelSortGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -272,7 +272,7 @@ func (x *TreeModelSort) DragDataGet(PathVar *TreePath) *gdk.ContentProvider {
 	cret := XGtkTreeDragSourceDragDataGet(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.ContentProvider{}
 	cls.Ptr = cret
@@ -296,7 +296,7 @@ func (x *TreeModelSort) FilterNew(RootVar *TreePath) *TreeModelBase {
 	cret := XGtkTreeModelFilterNew(x.GoPointer(), RootVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeModelBase{}
 	cls.Ptr = cret

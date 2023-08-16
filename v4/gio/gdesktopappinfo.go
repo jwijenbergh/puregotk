@@ -56,7 +56,7 @@ func (x *DesktopAppInfoLookupBase) GetDefaultForUriScheme(UriSchemeVar string) *
 	cret := XGDesktopAppInfoLookupGetDefaultForUriScheme(x.GoPointer(), UriSchemeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -100,7 +100,7 @@ func NewDesktopAppInfo(DesktopIdVar string) *DesktopAppInfo {
 	cret := xNewDesktopAppInfo(DesktopIdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DesktopAppInfo{}
 	cls.Ptr = cret
@@ -116,7 +116,7 @@ func NewFromFilenameDesktopAppInfo(FilenameVar string) *DesktopAppInfo {
 	cret := xNewFromFilenameDesktopAppInfo(FilenameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DesktopAppInfo{}
 	cls.Ptr = cret
@@ -132,7 +132,7 @@ func NewFromKeyfileDesktopAppInfo(KeyFileVar *glib.KeyFile) *DesktopAppInfo {
 	cret := xNewFromKeyfileDesktopAppInfo(KeyFileVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DesktopAppInfo{}
 	cls.Ptr = cret
@@ -433,7 +433,7 @@ func (x *DesktopAppInfo) Dup() *AppInfoBase {
 	cret := XGAppInfoDup(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &AppInfoBase{}
 	cls.Ptr = cret
@@ -488,7 +488,7 @@ func (x *DesktopAppInfo) GetIcon() *IconBase {
 	cret := XGAppInfoGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}

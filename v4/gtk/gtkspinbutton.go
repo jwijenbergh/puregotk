@@ -185,7 +185,7 @@ func NewSpinButton(AdjustmentVar *Adjustment, ClimbRateVar float64, DigitsVar ui
 	cret := xNewSpinButton(AdjustmentVar.GoPointer(), ClimbRateVar, DigitsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -214,7 +214,7 @@ func NewWithRangeSpinButton(MinVar float64, MaxVar float64, StepVar float64) *Wi
 	cret := xNewWithRangeSpinButton(MinVar, MaxVar, StepVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -243,7 +243,7 @@ func (x *SpinButton) GetAdjustment() *Adjustment {
 	cret := xSpinButtonGetAdjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -821,7 +821,7 @@ func (x *SpinButton) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

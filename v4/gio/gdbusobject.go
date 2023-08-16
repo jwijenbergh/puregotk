@@ -43,7 +43,7 @@ func (x *DBusObjectBase) GetInterface(InterfaceNameVar string) *DBusInterfaceBas
 	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret

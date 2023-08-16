@@ -42,7 +42,7 @@ func NewConstraintGuide() *ConstraintGuide {
 	cret := xNewConstraintGuide()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ConstraintGuide{}
 	cls.Ptr = cret

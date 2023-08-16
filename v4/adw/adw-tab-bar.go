@@ -54,7 +54,7 @@ func NewTabBar() *TabBar {
 	cret := xNewTabBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabBar{}
@@ -80,7 +80,7 @@ func (x *TabBar) GetEndActionWidget() *gtk.Widget {
 	cret := xTabBarGetEndActionWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -135,7 +135,7 @@ func (x *TabBar) GetStartActionWidget() *gtk.Widget {
 	cret := xTabBarGetStartActionWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -163,7 +163,7 @@ func (x *TabBar) GetView() *TabView {
 	cret := xTabBarGetView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TabView{}

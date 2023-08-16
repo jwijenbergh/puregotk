@@ -114,7 +114,7 @@ func IconDeserialize(ValueVar *glib.Variant) *IconBase {
 	cret := xIconDeserialize(ValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -145,7 +145,7 @@ func IconNewForString(StrVar string) (*IconBase, error) {
 	cret := xIconNewForString(StrVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret

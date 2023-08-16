@@ -30,7 +30,7 @@ func NewCellRendererProgress() *CellRenderer {
 	cret := xNewCellRendererProgress()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellRenderer{}

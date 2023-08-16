@@ -45,7 +45,7 @@ func NewViewport(HadjustmentVar *Adjustment, VadjustmentVar *Adjustment) *Widget
 	cret := xNewViewport(HadjustmentVar.GoPointer(), VadjustmentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -62,7 +62,7 @@ func (x *Viewport) GetChild() *Widget {
 	cret := xViewportGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -269,7 +269,7 @@ func (x *Viewport) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -291,7 +291,7 @@ func (x *Viewport) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

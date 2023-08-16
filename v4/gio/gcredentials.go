@@ -69,7 +69,7 @@ func NewCredentials() *Credentials {
 	cret := xNewCredentials()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Credentials{}
 	cls.Ptr = cret

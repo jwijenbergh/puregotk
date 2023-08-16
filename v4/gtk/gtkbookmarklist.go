@@ -39,7 +39,7 @@ func NewBookmarkList(FilenameVar string, AttributesVar string) *BookmarkList {
 	cret := xNewBookmarkList(FilenameVar, AttributesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BookmarkList{}
 	cls.Ptr = cret
@@ -176,7 +176,7 @@ func (x *BookmarkList) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

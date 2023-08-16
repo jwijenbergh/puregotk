@@ -47,7 +47,7 @@ func NewSocketClient() *SocketClient {
 	cret := xNewSocketClient()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SocketClient{}
 	cls.Ptr = cret
@@ -108,7 +108,7 @@ func (x *SocketClient) Connect(ConnectableVar SocketConnectable, CancellableVar 
 	cret := xSocketClientConnect(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -151,7 +151,7 @@ func (x *SocketClient) ConnectFinish(ResultVar AsyncResult) (*SocketConnection, 
 	cret := xSocketClientConnectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -201,7 +201,7 @@ func (x *SocketClient) ConnectToHost(HostAndPortVar string, DefaultPortVar uint1
 	cret := xSocketClientConnectToHost(x.GoPointer(), HostAndPortVar, DefaultPortVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -235,7 +235,7 @@ func (x *SocketClient) ConnectToHostFinish(ResultVar AsyncResult) (*SocketConnec
 	cret := xSocketClientConnectToHostFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -269,7 +269,7 @@ func (x *SocketClient) ConnectToService(DomainVar string, ServiceVar string, Can
 	cret := xSocketClientConnectToService(x.GoPointer(), DomainVar, ServiceVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -300,7 +300,7 @@ func (x *SocketClient) ConnectToServiceFinish(ResultVar AsyncResult) (*SocketCon
 	cret := xSocketClientConnectToServiceFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -341,7 +341,7 @@ func (x *SocketClient) ConnectToUri(UriVar string, DefaultPortVar uint16, Cancel
 	cret := xSocketClientConnectToUri(x.GoPointer(), UriVar, DefaultPortVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -375,7 +375,7 @@ func (x *SocketClient) ConnectToUriFinish(ResultVar AsyncResult) (*SocketConnect
 	cret := xSocketClientConnectToUriFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &SocketConnection{}
 	cls.Ptr = cret
@@ -417,7 +417,7 @@ func (x *SocketClient) GetLocalAddress() *SocketAddress {
 	cret := xSocketClientGetLocalAddress(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SocketAddress{}
@@ -447,7 +447,7 @@ func (x *SocketClient) GetProxyResolver() *ProxyResolverBase {
 	cret := xSocketClientGetProxyResolver(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ProxyResolverBase{}

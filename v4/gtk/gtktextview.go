@@ -122,7 +122,7 @@ func NewTextView() *Widget {
 	cret := xNewTextView()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -144,7 +144,7 @@ func NewWithBufferTextView(BufferVar *TextBuffer) *Widget {
 	cret := xNewWithBufferTextView(BufferVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -288,7 +288,7 @@ func (x *TextView) GetBuffer() *TextBuffer {
 	cret := xTextViewGetBuffer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextBuffer{}
@@ -354,7 +354,7 @@ func (x *TextView) GetExtraMenu() *gio.MenuModel {
 	cret := xTextViewGetExtraMenu(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -376,7 +376,7 @@ func (x *TextView) GetGutter(WinVar TextWindowType) *Widget {
 	cret := xTextViewGetGutter(x.GoPointer(), WinVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -521,7 +521,7 @@ func (x *TextView) GetLtrContext() *pango.Context {
 	cret := xTextViewGetLtrContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Context{}
@@ -604,7 +604,7 @@ func (x *TextView) GetRtlContext() *pango.Context {
 	cret := xTextViewGetRtlContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.Context{}
@@ -1562,7 +1562,7 @@ func (x *TextView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -1584,7 +1584,7 @@ func (x *TextView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

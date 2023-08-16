@@ -70,7 +70,7 @@ func NewSearchEntry() *Widget {
 	cret := xNewSearchEntry()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -87,7 +87,7 @@ func (x *SearchEntry) GetKeyCaptureWidget() *Widget {
 	cret := xSearchEntryGetKeyCaptureWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -454,7 +454,7 @@ func (x *SearchEntry) GetDelegate() *EditableBase {
 	cret := XGtkEditableGetDelegate(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &EditableBase{}

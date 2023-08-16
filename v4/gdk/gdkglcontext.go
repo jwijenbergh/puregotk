@@ -118,7 +118,7 @@ func (x *GLContext) GetDisplay() *Display {
 	cret := xGLContextGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -163,7 +163,7 @@ func (x *GLContext) GetSharedContext() *GLContext {
 	cret := xGLContextGetSharedContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &GLContext{}
@@ -180,7 +180,7 @@ func (x *GLContext) GetSurface() *Surface {
 	cret := xGLContextGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

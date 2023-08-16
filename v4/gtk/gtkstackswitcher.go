@@ -59,7 +59,7 @@ func NewStackSwitcher() *Widget {
 	cret := xNewStackSwitcher()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -76,7 +76,7 @@ func (x *StackSwitcher) GetStack() *Stack {
 	cret := xStackSwitcherGetStack(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Stack{}

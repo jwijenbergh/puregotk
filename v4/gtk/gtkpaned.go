@@ -93,7 +93,7 @@ func NewPaned(OrientationVar Orientation) *Widget {
 	cret := xNewPaned(OrientationVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -110,7 +110,7 @@ func (x *Paned) GetEndChild() *Widget {
 	cret := xPanedGetEndChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -172,7 +172,7 @@ func (x *Paned) GetStartChild() *Widget {
 	cret := xPanedGetStartChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

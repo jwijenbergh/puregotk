@@ -104,7 +104,7 @@ func NewInfoBar() *Widget {
 	cret := xNewInfoBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -128,7 +128,7 @@ func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *W
 	cret := xNewWithButtonsInfoBar(FirstButtonTextVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -164,7 +164,7 @@ func (x *InfoBar) AddButton(ButtonTextVar string, ResponseIdVar int) *Button {
 	cret := xInfoBarAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Button{}

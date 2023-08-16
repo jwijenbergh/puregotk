@@ -48,7 +48,7 @@ func NewCustomLayout(RequestModeVar CustomRequestModeFunc, MeasureVar CustomMeas
 	cret := xNewCustomLayout(purego.NewCallback(RequestModeVar), purego.NewCallback(MeasureVar), purego.NewCallback(AllocateVar))
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret

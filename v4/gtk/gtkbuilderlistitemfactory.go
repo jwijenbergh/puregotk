@@ -56,7 +56,7 @@ func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.By
 	cret := xNewFromBytesBuilderListItemFactory(ScopeVar.GoPointer(), BytesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ListItemFactory{}
 	cls.Ptr = cret
@@ -73,7 +73,7 @@ func NewFromResourceBuilderListItemFactory(ScopeVar BuilderScope, ResourcePathVa
 	cret := xNewFromResourceBuilderListItemFactory(ScopeVar.GoPointer(), ResourcePathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &ListItemFactory{}
 	cls.Ptr = cret
@@ -108,7 +108,7 @@ func (x *BuilderListItemFactory) GetScope() *BuilderScopeBase {
 	cret := xBuilderListItemFactoryGetScope(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &BuilderScopeBase{}

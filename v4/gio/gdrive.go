@@ -178,7 +178,7 @@ func (x *DriveBase) GetIcon() *IconBase {
 	cret := XGDriveGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret
@@ -222,7 +222,7 @@ func (x *DriveBase) GetSymbolicIcon() *IconBase {
 	cret := XGDriveGetSymbolicIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IconBase{}
 	cls.Ptr = cret

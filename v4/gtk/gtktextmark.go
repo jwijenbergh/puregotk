@@ -75,7 +75,7 @@ func NewTextMark(NameVar string, LeftGravityVar bool) *TextMark {
 	cret := xNewTextMark(NameVar, LeftGravityVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextMark{}
 	cls.Ptr = cret
@@ -93,7 +93,7 @@ func (x *TextMark) GetBuffer() *TextBuffer {
 	cret := xTextMarkGetBuffer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextBuffer{}

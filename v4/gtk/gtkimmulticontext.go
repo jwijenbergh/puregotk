@@ -38,7 +38,7 @@ func NewIMMulticontext() *IMContext {
 	cret := xNewIMMulticontext()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IMContext{}
 	cls.Ptr = cret

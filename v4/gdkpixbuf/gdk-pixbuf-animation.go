@@ -63,7 +63,7 @@ func NewFromFilePixbufAnimation(FilenameVar string) (*PixbufAnimation, error) {
 	cret := xNewFromFilePixbufAnimation(FilenameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret
@@ -87,7 +87,7 @@ func NewFromResourcePixbufAnimation(ResourcePathVar string) (*PixbufAnimation, e
 	cret := xNewFromResourcePixbufAnimation(ResourcePathVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret
@@ -119,7 +119,7 @@ func NewFromStreamPixbufAnimation(StreamVar *gio.InputStream, CancellableVar *gi
 	cret := xNewFromStreamPixbufAnimation(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret
@@ -141,7 +141,7 @@ func NewFromStreamFinishPixbufAnimation(AsyncResultVar gio.AsyncResult) (*Pixbuf
 	cret := xNewFromStreamFinishPixbufAnimation(AsyncResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret
@@ -203,7 +203,7 @@ func (x *PixbufAnimation) GetIter(StartTimeVar *glib.TimeVal) *PixbufAnimationIt
 	cret := xPixbufAnimationGetIter(x.GoPointer(), StartTimeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PixbufAnimationIter{}
 	cls.Ptr = cret
@@ -229,7 +229,7 @@ func (x *PixbufAnimation) GetStaticImage() *Pixbuf {
 	cret := xPixbufAnimationGetStaticImage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Pixbuf{}
@@ -269,7 +269,7 @@ func (x *PixbufAnimation) Ref() *PixbufAnimation {
 	cret := xPixbufAnimationRef(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PixbufAnimation{}
 	cls.Ptr = cret
@@ -374,7 +374,7 @@ func (x *PixbufAnimationIter) GetPixbuf() *Pixbuf {
 	cret := xPixbufAnimationIterGetPixbuf(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Pixbuf{}

@@ -41,7 +41,7 @@ func NewSwipeTracker(SwipeableVar Swipeable) *SwipeTracker {
 	cret := xNewSwipeTracker(SwipeableVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SwipeTracker{}
 	cls.Ptr = cret
@@ -93,7 +93,7 @@ func (x *SwipeTracker) GetSwipeable() *SwipeableBase {
 	cret := xSwipeTrackerGetSwipeable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SwipeableBase{}

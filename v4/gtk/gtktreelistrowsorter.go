@@ -47,7 +47,7 @@ func NewTreeListRowSorter(SorterVar *Sorter) *TreeListRowSorter {
 	cret := xNewTreeListRowSorter(SorterVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeListRowSorter{}
 	cls.Ptr = cret
@@ -63,7 +63,7 @@ func (x *TreeListRowSorter) GetSorter() *Sorter {
 	cret := xTreeListRowSorterGetSorter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Sorter{}

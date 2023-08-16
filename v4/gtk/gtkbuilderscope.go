@@ -102,7 +102,7 @@ func NewBuilderCScope() *BuilderCScope {
 	cret := xNewBuilderCScope()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BuilderCScope{}
 	cls.Ptr = cret

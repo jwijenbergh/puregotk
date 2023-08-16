@@ -214,7 +214,7 @@ func (x *ApplicationCommandLine) CreateFileForArg(ArgVar string) *FileBase {
 	cret := xApplicationCommandLineCreateFileForArg(x.GoPointer(), ArgVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -349,7 +349,7 @@ func (x *ApplicationCommandLine) GetStdin() *InputStream {
 	cret := xApplicationCommandLineGetStdin(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret

@@ -32,7 +32,7 @@ func NewEventControllerKey() *EventController {
 	cret := xNewEventControllerKey()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EventController{}
 	cls.Ptr = cret
@@ -73,7 +73,7 @@ func (x *EventControllerKey) GetImContext() *IMContext {
 	cret := xEventControllerKeyGetImContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IMContext{}

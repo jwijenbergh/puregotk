@@ -127,7 +127,7 @@ func NewLevelBar() *Widget {
 	cret := xNewLevelBar()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -144,7 +144,7 @@ func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *Widget {
 	cret := xNewForIntervalLevelBar(MinValueVar, MaxValueVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

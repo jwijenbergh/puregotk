@@ -76,7 +76,7 @@ func (x *TlsDatabase) LookupCertificateForHandle(HandleVar string, InteractionVa
 	cret := xTlsDatabaseLookupCertificateForHandle(x.GoPointer(), HandleVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -111,7 +111,7 @@ func (x *TlsDatabase) LookupCertificateForHandleFinish(ResultVar AsyncResult) (*
 	cret := xTlsDatabaseLookupCertificateForHandleFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -151,7 +151,7 @@ func (x *TlsDatabase) LookupCertificateIssuer(CertificateVar *TlsCertificate, In
 	cret := xTlsDatabaseLookupCertificateIssuer(x.GoPointer(), CertificateVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret
@@ -183,7 +183,7 @@ func (x *TlsDatabase) LookupCertificateIssuerFinish(ResultVar AsyncResult) (*Tls
 	cret := xTlsDatabaseLookupCertificateIssuerFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsCertificate{}
 	cls.Ptr = cret

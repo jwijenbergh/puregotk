@@ -53,7 +53,7 @@ func NewTextTag(NameVar string) *TextTag {
 	cret := xNewTextTag(NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextTag{}
 	cls.Ptr = cret

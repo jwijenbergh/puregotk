@@ -74,7 +74,7 @@ func NewEntryCompletion() *EntryCompletion {
 	cret := xNewEntryCompletion()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EntryCompletion{}
 	cls.Ptr = cret
@@ -94,7 +94,7 @@ func NewWithAreaEntryCompletion(AreaVar *CellArea) *EntryCompletion {
 	cret := xNewWithAreaEntryCompletion(AreaVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EntryCompletion{}
 	cls.Ptr = cret
@@ -146,7 +146,7 @@ func (x *EntryCompletion) GetEntry() *Widget {
 	cret := xEntryCompletionGetEntry(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -193,7 +193,7 @@ func (x *EntryCompletion) GetModel() *TreeModelBase {
 	cret := xEntryCompletionGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeModelBase{}
@@ -487,7 +487,7 @@ func (x *EntryCompletion) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}

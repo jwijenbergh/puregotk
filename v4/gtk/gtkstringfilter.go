@@ -62,7 +62,7 @@ func NewStringFilter(ExpressionVar *Expression) *StringFilter {
 	cret := xNewStringFilter(ExpressionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &StringFilter{}
 	cls.Ptr = cret
@@ -79,7 +79,7 @@ func (x *StringFilter) GetExpression() *Expression {
 	cret := xStringFilterGetExpression(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Expression{}

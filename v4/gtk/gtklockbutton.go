@@ -65,7 +65,7 @@ func NewLockButton(PermissionVar *gio.Permission) *Widget {
 	cret := xNewLockButton(PermissionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -82,7 +82,7 @@ func (x *LockButton) GetPermission() *gio.Permission {
 	cret := xLockButtonGetPermission(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.Permission{}

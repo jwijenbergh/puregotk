@@ -52,7 +52,7 @@ func (x *AppChooserBase) GetAppInfo() *gio.AppInfoBase {
 	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.AppInfoBase{}
 	cls.Ptr = cret

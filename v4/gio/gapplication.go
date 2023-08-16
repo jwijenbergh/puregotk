@@ -157,7 +157,7 @@ func NewApplication(ApplicationIdVar string, FlagsVar ApplicationFlags) *Applica
 	cret := xNewApplication(ApplicationIdVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Application{}
 	cls.Ptr = cret
@@ -338,7 +338,7 @@ func (x *Application) GetDbusConnection() *DBusConnection {
 	cret := xApplicationGetDbusConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -1330,7 +1330,7 @@ func (x *Application) LookupAction(ActionNameVar string) *ActionBase {
 	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ActionBase{}

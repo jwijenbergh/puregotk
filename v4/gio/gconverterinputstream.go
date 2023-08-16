@@ -39,7 +39,7 @@ func NewConverterInputStream(BaseStreamVar *InputStream, ConverterVar Converter)
 	cret := xNewConverterInputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -55,7 +55,7 @@ func (x *ConverterInputStream) GetConverter() *ConverterBase {
 	cret := xConverterInputStreamGetConverter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ConverterBase{}

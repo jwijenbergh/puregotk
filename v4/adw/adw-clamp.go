@@ -61,7 +61,7 @@ func NewClamp() *gtk.Widget {
 	cret := xNewClamp()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -78,7 +78,7 @@ func (x *Clamp) GetChild() *gtk.Widget {
 	cret := xClampGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

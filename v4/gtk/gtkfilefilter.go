@@ -87,7 +87,7 @@ func NewFileFilter() *FileFilter {
 	cret := xNewFileFilter()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileFilter{}
 	cls.Ptr = cret
@@ -106,7 +106,7 @@ func NewFromGvariantFileFilter(VariantVar *glib.Variant) *FileFilter {
 	cret := xNewFromGvariantFileFilter(VariantVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileFilter{}
 	cls.Ptr = cret

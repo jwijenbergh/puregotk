@@ -42,7 +42,7 @@ func (x *DBusInterfaceBase) DupObject() *DBusObjectBase {
 	cret := XGDbusInterfaceDupObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret
@@ -68,7 +68,7 @@ func (x *DBusInterfaceBase) GetObject() *DBusObjectBase {
 	cret := XGDbusInterfaceGetObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusObjectBase{}

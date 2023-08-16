@@ -47,7 +47,7 @@ func (x *AppLaunchContext) GetDisplay() *Display {
 	cret := xAppLaunchContextGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}

@@ -209,7 +209,7 @@ func NewLayout(ContextVar *Context) *Layout {
 	cret := xNewLayout(ContextVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Layout{}
 	cls.Ptr = cret
@@ -241,7 +241,7 @@ func (x *Layout) Copy() *Layout {
 	cret := xLayoutCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Layout{}
 	cls.Ptr = cret
@@ -328,7 +328,7 @@ func (x *Layout) GetContext() *Context {
 	cret := xLayoutGetContext(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Context{}

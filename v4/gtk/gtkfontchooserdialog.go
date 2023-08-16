@@ -44,7 +44,7 @@ func NewFontChooserDialog(TitleVar string, ParentVar *Window) *Widget {
 	cret := xNewFontChooserDialog(TitleVar, ParentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -245,7 +245,7 @@ func (x *FontChooserDialog) GetFontFace() *pango.FontFace {
 	cret := XGtkFontChooserGetFontFace(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontFace{}
@@ -264,7 +264,7 @@ func (x *FontChooserDialog) GetFontFamily() *pango.FontFamily {
 	cret := XGtkFontChooserGetFontFamily(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &pango.FontFamily{}
@@ -291,7 +291,7 @@ func (x *FontChooserDialog) GetFontMap() *pango.FontMap {
 	cret := XGtkFontChooserGetFontMap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &pango.FontMap{}
 	cls.Ptr = cret
@@ -423,7 +423,7 @@ func (x *FontChooserDialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -438,7 +438,7 @@ func (x *FontChooserDialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -481,7 +481,7 @@ func (x *FontChooserDialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -501,7 +501,7 @@ func (x *FontChooserDialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

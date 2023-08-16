@@ -125,7 +125,7 @@ func NewBytesIcon(BytesVar *glib.Bytes) *BytesIcon {
 	cret := xNewBytesIcon(BytesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &BytesIcon{}
 	cls.Ptr = cret
@@ -198,7 +198,7 @@ func (x *BytesIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellabl
 	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -226,7 +226,7 @@ func (x *BytesIcon) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream
 	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &InputStream{}
 	cls.Ptr = cret
@@ -606,7 +606,7 @@ func NewDBusAuthObserver() *DBusAuthObserver {
 	cret := xNewDBusAuthObserver()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusAuthObserver{}
 	cls.Ptr = cret
@@ -733,7 +733,7 @@ func NewFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
 	cret := xNewFinishDBusConnection(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -754,7 +754,7 @@ func NewForAddressFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, err
 	cret := xNewForAddressFinishDBusConnection(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -791,7 +791,7 @@ func NewForAddressSyncDBusConnection(AddressVar string, FlagsVar DBusConnectionF
 	cret := xNewForAddressSyncDBusConnection(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -826,7 +826,7 @@ func NewSyncDBusConnection(StreamVar *IOStream, GuidVar string, FlagsVar DBusCon
 	cret := xNewSyncDBusConnection(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusConnection{}
 	cls.Ptr = cret
@@ -1322,7 +1322,7 @@ func (x *DBusConnection) GetPeerCredentials() *Credentials {
 	cret := xDBusConnectionGetPeerCredentials(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Credentials{}
@@ -1343,7 +1343,7 @@ func (x *DBusConnection) GetStream() *IOStream {
 	cret := xDBusConnectionGetStream(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IOStream{}
@@ -1590,7 +1590,7 @@ func (x *DBusConnection) SendMessageWithReplyFinish(ResVar AsyncResult) (*DBusMe
 	cret := xDBusConnectionSendMessageWithReplyFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -1640,7 +1640,7 @@ func (x *DBusConnection) SendMessageWithReplySync(MessageVar *DBusMessage, Flags
 	cret := xDBusConnectionSendMessageWithReplySync(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -1903,7 +1903,7 @@ func (x *DBusConnection) NewFinish(ResVar AsyncResult) (*gobject.Object, error) 
 	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -2005,7 +2005,7 @@ func NewDBusMessage() *DBusMessage {
 	cret := xNewDBusMessage()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2027,7 +2027,7 @@ func NewFromBlobDBusMessage(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DB
 	cret := xNewFromBlobDBusMessage(BlobVar, BlobLenVar, CapabilitiesVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2047,7 +2047,7 @@ func NewMethodCallDBusMessage(NameVar string, PathVar string, InterfaceVar strin
 	cret := xNewMethodCallDBusMessage(NameVar, PathVar, InterfaceVar, MethodVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2063,7 +2063,7 @@ func NewSignalDBusMessage(PathVar string, InterfaceVar string, SignalVar string)
 	cret := xNewSignalDBusMessage(PathVar, InterfaceVar, SignalVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2085,7 +2085,7 @@ func (x *DBusMessage) Copy() (*DBusMessage, error) {
 	cret := xDBusMessageCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2282,7 +2282,7 @@ func (x *DBusMessage) GetUnixFdList() *UnixFDList {
 	cret := xDBusMessageGetUnixFdList(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &UnixFDList{}
@@ -2308,7 +2308,7 @@ func (x *DBusMessage) NewMethodError(ErrorNameVar string, ErrorMessageFormatVar 
 	cret := xDBusMessageNewMethodError(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2324,7 +2324,7 @@ func (x *DBusMessage) NewMethodErrorLiteral(ErrorNameVar string, ErrorMessageVar
 	cret := xDBusMessageNewMethodErrorLiteral(x.GoPointer(), ErrorNameVar, ErrorMessageVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2340,7 +2340,7 @@ func (x *DBusMessage) NewMethodErrorValist(ErrorNameVar string, ErrorMessageForm
 	cret := xDBusMessageNewMethodErrorValist(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, VarArgsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2356,7 +2356,7 @@ func (x *DBusMessage) NewMethodReply() *DBusMessage {
 	cret := xDBusMessageNewMethodReply(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusMessage{}
 	cls.Ptr = cret
@@ -2640,7 +2640,7 @@ func (x *DBusMethodInvocation) GetConnection() *DBusConnection {
 	cret := xDBusMethodInvocationGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -2678,7 +2678,7 @@ func (x *DBusMethodInvocation) GetMessage() *DBusMessage {
 	cret := xDBusMethodInvocationGetMessage(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusMessage{}
@@ -2984,7 +2984,7 @@ func NewSyncDBusServer(AddressVar string, FlagsVar DBusServerFlags, GuidVar stri
 	cret := xNewSyncDBusServer(AddressVar, FlagsVar, GuidVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusServer{}
 	cls.Ptr = cret
@@ -3171,7 +3171,7 @@ func NewMenu() *Menu {
 	cret := xNewMenu()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Menu{}
 	cls.Ptr = cret
@@ -3403,7 +3403,7 @@ func NewMenuItem(LabelVar string, DetailedActionVar string) *MenuItem {
 	cret := xNewMenuItem(LabelVar, DetailedActionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuItem{}
 	cls.Ptr = cret
@@ -3423,7 +3423,7 @@ func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
 	cret := xNewFromModelMenuItem(ModelVar.GoPointer(), ItemIndexVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuItem{}
 	cls.Ptr = cret
@@ -3502,7 +3502,7 @@ func NewSectionMenuItem(LabelVar string, SectionVar *MenuModel) *MenuItem {
 	cret := xNewSectionMenuItem(LabelVar, SectionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuItem{}
 	cls.Ptr = cret
@@ -3521,7 +3521,7 @@ func NewSubmenuMenuItem(LabelVar string, SubmenuVar *MenuModel) *MenuItem {
 	cret := xNewSubmenuMenuItem(LabelVar, SubmenuVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuItem{}
 	cls.Ptr = cret
@@ -3567,7 +3567,7 @@ func (x *MenuItem) GetLink(LinkVar string) *MenuModel {
 	cret := xMenuItemGetLink(x.GoPointer(), LinkVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MenuModel{}
 	cls.Ptr = cret
@@ -3874,7 +3874,7 @@ func NewNotification(TitleVar string) *Notification {
 	cret := xNewNotification(TitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Notification{}
 	cls.Ptr = cret
@@ -4125,7 +4125,7 @@ func NewPropertyAction(NameVar string, ObjectVar *gobject.Object, PropertyNameVa
 	cret := xNewPropertyAction(NameVar, ObjectVar.GoPointer(), PropertyNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PropertyAction{}
 	cls.Ptr = cret
@@ -4283,7 +4283,7 @@ func NewSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType) *Simple
 	cret := xNewSimpleAction(NameVar, ParameterTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAction{}
 	cls.Ptr = cret
@@ -4304,7 +4304,7 @@ func NewStatefulSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType,
 	cret := xNewStatefulSimpleAction(NameVar, ParameterTypeVar, StateVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SimpleAction{}
 	cls.Ptr = cret
@@ -4579,7 +4579,7 @@ func NewSimpleIOStream(InputStreamVar *InputStream, OutputStreamVar *OutputStrea
 	cret := xNewSimpleIOStream(InputStreamVar.GoPointer(), OutputStreamVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &IOStream{}
 	cls.Ptr = cret
@@ -4619,7 +4619,7 @@ func NewSimplePermission(AllowedVar bool) *Permission {
 	cret := xNewSimplePermission(AllowedVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Permission{}
 	cls.Ptr = cret
@@ -4716,7 +4716,7 @@ func NewSubprocess(FlagsVar SubprocessFlags, ErrorVar **glib.Error, Argv0Var str
 	cret := xNewSubprocess(FlagsVar, ErrorVar, Argv0Var, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Subprocess{}
 	cls.Ptr = cret
@@ -4735,7 +4735,7 @@ func NewvSubprocess(ArgvVar uintptr, FlagsVar SubprocessFlags) (*Subprocess, err
 	cret := xNewvSubprocess(ArgvVar, FlagsVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Subprocess{}
 	cls.Ptr = cret
@@ -4969,7 +4969,7 @@ func (x *Subprocess) GetStderrPipe() *InputStream {
 	cret := xSubprocessGetStderrPipe(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &InputStream{}
@@ -4990,7 +4990,7 @@ func (x *Subprocess) GetStdinPipe() *OutputStream {
 	cret := xSubprocessGetStdinPipe(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &OutputStream{}
@@ -5011,7 +5011,7 @@ func (x *Subprocess) GetStdoutPipe() *InputStream {
 	cret := xSubprocessGetStdoutPipe(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &InputStream{}
@@ -5241,7 +5241,7 @@ func NewSubprocessLauncher(FlagsVar SubprocessFlags) *SubprocessLauncher {
 	cret := xNewSubprocessLauncher(FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &SubprocessLauncher{}
 	cls.Ptr = cret
@@ -5442,7 +5442,7 @@ func (x *SubprocessLauncher) Spawn(ErrorVar **glib.Error, Argv0Var string, varAr
 	cret := xSubprocessLauncherSpawn(x.GoPointer(), ErrorVar, Argv0Var, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Subprocess{}
 	cls.Ptr = cret
@@ -5459,7 +5459,7 @@ func (x *SubprocessLauncher) Spawnv(ArgvVar uintptr) (*Subprocess, error) {
 	cret := xSubprocessLauncherSpawnv(x.GoPointer(), ArgvVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Subprocess{}
 	cls.Ptr = cret
@@ -5685,7 +5685,7 @@ func NewTestDBus(FlagsVar TestDBusFlags) *TestDBus {
 	cret := xNewTestDBus(FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TestDBus{}
 	cls.Ptr = cret

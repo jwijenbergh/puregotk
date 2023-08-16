@@ -84,7 +84,7 @@ func (x *StyleManager) GetDisplay() *gdk.Display {
 	cret := xStyleManagerGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}

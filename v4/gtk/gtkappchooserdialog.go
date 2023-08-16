@@ -43,7 +43,7 @@ func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.Fi
 	cret := xNewAppChooserDialog(ParentVar.GoPointer(), FlagsVar, FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -62,7 +62,7 @@ func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, 
 	cret := xNewForContentTypeAppChooserDialog(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -88,7 +88,7 @@ func (x *AppChooserDialog) GetWidget() *Widget {
 	cret := xAppChooserDialogGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -255,7 +255,7 @@ func (x *AppChooserDialog) GetAppInfo() *gio.AppInfoBase {
 	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.AppInfoBase{}
 	cls.Ptr = cret
@@ -294,7 +294,7 @@ func (x *AppChooserDialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -309,7 +309,7 @@ func (x *AppChooserDialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -352,7 +352,7 @@ func (x *AppChooserDialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -372,7 +372,7 @@ func (x *AppChooserDialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

@@ -82,7 +82,7 @@ func (x *Device) GetDeviceTool() *DeviceTool {
 	cret := xDeviceGetDeviceTool(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DeviceTool{}
@@ -113,7 +113,7 @@ func (x *Device) GetDisplay() *Display {
 	cret := xDeviceGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -205,7 +205,7 @@ func (x *Device) GetSeat() *Seat {
 	cret := xDeviceGetSeat(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Seat{}
@@ -235,7 +235,7 @@ func (x *Device) GetSurfaceAtPosition(WinXVar float64, WinYVar float64) *Surface
 	cret := xDeviceGetSurfaceAtPosition(x.GoPointer(), WinXVar, WinYVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Surface{}

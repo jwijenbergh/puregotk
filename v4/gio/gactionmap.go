@@ -131,7 +131,7 @@ func (x *ActionMapBase) LookupAction(ActionNameVar string) *ActionBase {
 	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ActionBase{}

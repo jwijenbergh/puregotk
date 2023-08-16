@@ -37,7 +37,7 @@ func NewCenterLayout() *LayoutManager {
 	cret := xNewCenterLayout()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &LayoutManager{}
 	cls.Ptr = cret
@@ -62,7 +62,7 @@ func (x *CenterLayout) GetCenterWidget() *Widget {
 	cret := xCenterLayoutGetCenterWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -79,7 +79,7 @@ func (x *CenterLayout) GetEndWidget() *Widget {
 	cret := xCenterLayoutGetEndWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -105,7 +105,7 @@ func (x *CenterLayout) GetStartWidget() *Widget {
 	cret := xCenterLayoutGetStartWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

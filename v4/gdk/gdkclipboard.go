@@ -48,7 +48,7 @@ func (x *Clipboard) GetContent() *ContentProvider {
 	cret := xClipboardGetContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ContentProvider{}
@@ -65,7 +65,7 @@ func (x *Clipboard) GetDisplay() *Display {
 	cret := xClipboardGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Display{}
@@ -125,7 +125,7 @@ func (x *Clipboard) ReadFinish(ResultVar gio.AsyncResult, OutMimeTypeVar string)
 	cret := xClipboardReadFinish(x.GoPointer(), ResultVar.GoPointer(), OutMimeTypeVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gio.InputStream{}
 	cls.Ptr = cret
@@ -196,7 +196,7 @@ func (x *Clipboard) ReadTextureFinish(ResultVar gio.AsyncResult) (*Texture, erro
 	cret := xClipboardReadTextureFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &Texture{}
 	cls.Ptr = cret

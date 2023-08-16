@@ -104,7 +104,7 @@ func NewMenuButton() *Widget {
 	cret := xNewMenuButton()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -130,7 +130,7 @@ func (x *MenuButton) GetChild() *Widget {
 	cret := xMenuButtonGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -183,7 +183,7 @@ func (x *MenuButton) GetMenuModel() *gio.MenuModel {
 	cret := xMenuButtonGetMenuModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -203,7 +203,7 @@ func (x *MenuButton) GetPopover() *Popover {
 	cret := xMenuButtonGetPopover(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Popover{}

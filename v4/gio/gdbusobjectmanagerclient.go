@@ -113,7 +113,7 @@ func NewFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerCli
 	cret := xNewFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusObjectManagerClient{}
 	cls.Ptr = cret
@@ -134,7 +134,7 @@ func NewForBusFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectMana
 	cret := xNewForBusFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusObjectManagerClient{}
 	cls.Ptr = cret
@@ -160,7 +160,7 @@ func NewForBusSyncDBusObjectManagerClient(BusTypeVar BusType, FlagsVar DBusObjec
 	cret := xNewForBusSyncDBusObjectManagerClient(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusObjectManagerClient{}
 	cls.Ptr = cret
@@ -185,7 +185,7 @@ func NewSyncDBusObjectManagerClient(ConnectionVar *DBusConnection, FlagsVar DBus
 	cret := xNewSyncDBusObjectManagerClient(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DBusObjectManagerClient{}
 	cls.Ptr = cret
@@ -205,7 +205,7 @@ func (x *DBusObjectManagerClient) GetConnection() *DBusConnection {
 	cret := xDBusObjectManagerClientGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -357,7 +357,7 @@ func (x *DBusObjectManagerClient) NewFinish(ResVar AsyncResult) (*gobject.Object
 	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret
@@ -376,7 +376,7 @@ func (x *DBusObjectManagerClient) GetInterface(ObjectPathVar string, InterfaceNa
 	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret
@@ -390,7 +390,7 @@ func (x *DBusObjectManagerClient) GetObject(ObjectPathVar string) *DBusObjectBas
 	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret

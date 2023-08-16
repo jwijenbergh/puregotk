@@ -293,7 +293,7 @@ func (x *Font) GetCoverage(LanguageVar *Language) *Coverage {
 	cret := xFontGetCoverage(x.GoPointer(), LanguageVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Coverage{}
 	cls.Ptr = cret
@@ -309,7 +309,7 @@ func (x *Font) GetFace() *FontFace {
 	cret := xFontGetFace(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FontFace{}
@@ -351,7 +351,7 @@ func (x *Font) GetFontMap() *FontMap {
 	cret := xFontGetFontMap(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FontMap{}
@@ -506,7 +506,7 @@ func (x *FontFace) GetFamily() *FontFamily {
 	cret := xFontFaceGetFamily(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FontFamily{}
@@ -573,7 +573,7 @@ func (x *FontFamily) GetFace(NameVar string) *FontFace {
 	cret := xFontFamilyGetFace(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FontFace{}

@@ -47,7 +47,7 @@ func NewShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction) *Shortc
 	cret := xNewShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Shortcut{}
 	cls.Ptr = cret
@@ -64,7 +64,7 @@ func NewWithArgumentsShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAc
 	cret := xNewWithArgumentsShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer(), FormatStringVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Shortcut{}
 	cls.Ptr = cret
@@ -80,7 +80,7 @@ func (x *Shortcut) GetAction() *ShortcutAction {
 	cret := xShortcutGetAction(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ShortcutAction{}
@@ -106,7 +106,7 @@ func (x *Shortcut) GetTrigger() *ShortcutTrigger {
 	cret := xShortcutGetTrigger(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ShortcutTrigger{}

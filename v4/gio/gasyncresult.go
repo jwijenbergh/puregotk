@@ -130,7 +130,7 @@ func (x *AsyncResultBase) GetSourceObject() *gobject.Object {
 	cret := XGAsyncResultGetSourceObject(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

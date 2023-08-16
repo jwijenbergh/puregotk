@@ -42,7 +42,7 @@ func NewDBusObjectProxy(ConnectionVar *DBusConnection, ObjectPathVar string) *DB
 	cret := xNewDBusObjectProxy(ConnectionVar.GoPointer(), ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectProxy{}
 	cls.Ptr = cret
@@ -58,7 +58,7 @@ func (x *DBusObjectProxy) GetConnection() *DBusConnection {
 	cret := xDBusObjectProxyGetConnection(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &DBusConnection{}
@@ -82,7 +82,7 @@ func (x *DBusObjectProxy) GetInterface(InterfaceNameVar string) *DBusInterfaceBa
 	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret

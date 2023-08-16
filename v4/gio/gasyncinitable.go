@@ -205,7 +205,7 @@ func (x *AsyncInitableBase) NewFinish(ResVar AsyncResult) (*gobject.Object, erro
 	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

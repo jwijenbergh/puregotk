@@ -40,7 +40,7 @@ func (x *Vfs) GetFileForPath(PathVar string) *FileBase {
 	cret := xVfsGetFileForPath(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -60,7 +60,7 @@ func (x *Vfs) GetFileForUri(UriVar string) *FileBase {
 	cret := xVfsGetFileForUri(x.GoPointer(), UriVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret
@@ -96,7 +96,7 @@ func (x *Vfs) ParseName(ParseNameVar string) *FileBase {
 	cret := xVfsParseName(x.GoPointer(), ParseNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &FileBase{}
 	cls.Ptr = cret

@@ -109,7 +109,7 @@ func NewDropTarget(TypeVar []interface{}, ActionsVar gdk.DragAction) *DropTarget
 	cret := xNewDropTarget(TypeVar, ActionsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DropTarget{}
 	cls.Ptr = cret
@@ -136,7 +136,7 @@ func (x *DropTarget) GetCurrentDrop() *gdk.Drop {
 	cret := xDropTargetGetCurrentDrop(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Drop{}
@@ -155,7 +155,7 @@ func (x *DropTarget) GetDrop() *gdk.Drop {
 	cret := xDropTargetGetDrop(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Drop{}

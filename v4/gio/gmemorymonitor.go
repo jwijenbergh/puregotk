@@ -85,7 +85,7 @@ func MemoryMonitorDupDefault() *MemoryMonitorBase {
 	cret := xMemoryMonitorDupDefault()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &MemoryMonitorBase{}
 	cls.Ptr = cret

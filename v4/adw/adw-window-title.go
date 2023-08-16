@@ -46,7 +46,7 @@ func NewWindowTitle(TitleVar string, SubtitleVar string) *gtk.Widget {
 	cret := xNewWindowTitle(TitleVar, SubtitleVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

@@ -122,7 +122,7 @@ func (x *TreeSelection) GetTreeView() *TreeView {
 	cret := xTreeSelectionGetTreeView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeView{}

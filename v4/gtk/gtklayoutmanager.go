@@ -106,7 +106,7 @@ func (x *LayoutManager) GetLayoutChild(ChildVar *Widget) *LayoutChild {
 	cret := xLayoutManagerGetLayoutChild(x.GoPointer(), ChildVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &LayoutChild{}
@@ -132,7 +132,7 @@ func (x *LayoutManager) GetWidget() *Widget {
 	cret := xLayoutManagerGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

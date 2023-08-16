@@ -71,7 +71,7 @@ func NewPageSetup() *PageSetup {
 	cret := xNewPageSetup()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret
@@ -92,7 +92,7 @@ func NewFromFilePageSetup(FileNameVar string) (*PageSetup, error) {
 	cret := xNewFromFilePageSetup(FileNameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret
@@ -115,7 +115,7 @@ func NewFromGvariantPageSetup(VariantVar *glib.Variant) *PageSetup {
 	cret := xNewFromGvariantPageSetup(VariantVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret
@@ -136,7 +136,7 @@ func NewFromKeyFilePageSetup(KeyFileVar *glib.KeyFile, GroupNameVar string) (*Pa
 	cret := xNewFromKeyFilePageSetup(KeyFileVar, GroupNameVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret
@@ -156,7 +156,7 @@ func (x *PageSetup) Copy() *PageSetup {
 	cret := xPageSetupCopy(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &PageSetup{}
 	cls.Ptr = cret

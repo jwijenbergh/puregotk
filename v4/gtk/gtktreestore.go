@@ -77,7 +77,7 @@ func NewTreeStore(NColumnsVar int, varArgs ...interface{}) *TreeStore {
 	cret := xNewTreeStore(NColumnsVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeStore{}
 	cls.Ptr = cret
@@ -93,7 +93,7 @@ func NewvTreeStore(NColumnsVar int, TypesVar uintptr) *TreeStore {
 	cret := xNewvTreeStore(NColumnsVar, TypesVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeStore{}
 	cls.Ptr = cret
@@ -432,7 +432,7 @@ func (x *TreeStore) DragDataGet(PathVar *TreePath) *gdk.ContentProvider {
 	cret := XGtkTreeDragSourceDragDataGet(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.ContentProvider{}
 	cls.Ptr = cret
@@ -456,7 +456,7 @@ func (x *TreeStore) FilterNew(RootVar *TreePath) *TreeModelBase {
 	cret := XGtkTreeModelFilterNew(x.GoPointer(), RootVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TreeModelBase{}
 	cls.Ptr = cret

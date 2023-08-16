@@ -40,7 +40,7 @@ func NewEmblemedIcon(IconVar Icon, EmblemVar *Emblem) *EmblemedIcon {
 	cret := xNewEmblemedIcon(IconVar.GoPointer(), EmblemVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &EmblemedIcon{}
 	cls.Ptr = cret
@@ -83,7 +83,7 @@ func (x *EmblemedIcon) GetIcon() *IconBase {
 	cret := xEmblemedIconGetIcon(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &IconBase{}

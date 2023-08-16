@@ -44,7 +44,7 @@ func NewTextBuffer(TableVar *TextTagTable) *TextBuffer {
 	cret := xNewTextBuffer(TableVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &TextBuffer{}
 	cls.Ptr = cret
@@ -195,7 +195,7 @@ func (x *TextBuffer) CreateChildAnchor(IterVar *TextIter) *TextChildAnchor {
 	cret := xTextBufferCreateChildAnchor(x.GoPointer(), IterVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextChildAnchor{}
@@ -230,7 +230,7 @@ func (x *TextBuffer) CreateMark(MarkNameVar string, WhereVar *TextIter, LeftGrav
 	cret := xTextBufferCreateMark(x.GoPointer(), MarkNameVar, WhereVar, LeftGravityVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextMark{}
@@ -259,7 +259,7 @@ func (x *TextBuffer) CreateTag(TagNameVar string, FirstPropertyNameVar string, v
 	cret := xTextBufferCreateTag(x.GoPointer(), TagNameVar, FirstPropertyNameVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextTag{}
@@ -480,7 +480,7 @@ func (x *TextBuffer) GetInsert() *TextMark {
 	cret := xTextBufferGetInsert(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextMark{}
@@ -585,7 +585,7 @@ func (x *TextBuffer) GetMark(NameVar string) *TextMark {
 	cret := xTextBufferGetMark(x.GoPointer(), NameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextMark{}
@@ -639,7 +639,7 @@ func (x *TextBuffer) GetSelectionBound() *TextMark {
 	cret := xTextBufferGetSelectionBound(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextMark{}
@@ -674,7 +674,7 @@ func (x *TextBuffer) GetSelectionContent() *gdk.ContentProvider {
 	cret := xTextBufferGetSelectionContent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.ContentProvider{}
 	cls.Ptr = cret
@@ -720,7 +720,7 @@ func (x *TextBuffer) GetTagTable() *TextTagTable {
 	cret := xTextBufferGetTagTable(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TextTagTable{}

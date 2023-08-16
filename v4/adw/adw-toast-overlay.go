@@ -74,7 +74,7 @@ func NewToastOverlay() *gtk.Widget {
 	cret := xNewToastOverlay()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
@@ -109,7 +109,7 @@ func (x *ToastOverlay) GetChild() *gtk.Widget {
 	cret := xToastOverlayGetChild(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}

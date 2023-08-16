@@ -207,7 +207,7 @@ func NewFileChooserDialog(TitleVar string, ParentVar *Window, ActionVar FileChoo
 	cret := xNewFileChooserDialog(TitleVar, ParentVar.GoPointer(), ActionVar, FirstButtonTextVar, varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -434,7 +434,7 @@ func (x *FileChooserDialog) GetCurrentFolder() *gio.FileBase {
 	cret := XGtkFileChooserGetCurrentFolder(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.FileBase{}
 	cls.Ptr = cret
@@ -465,7 +465,7 @@ func (x *FileChooserDialog) GetFile() *gio.FileBase {
 	cret := XGtkFileChooserGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.FileBase{}
 	cls.Ptr = cret
@@ -480,7 +480,7 @@ func (x *FileChooserDialog) GetFiles() *gio.ListModelBase {
 	cret := XGtkFileChooserGetFiles(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -494,7 +494,7 @@ func (x *FileChooserDialog) GetFilter() *FileFilter {
 	cret := XGtkFileChooserGetFilter(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &FileFilter{}
@@ -515,7 +515,7 @@ func (x *FileChooserDialog) GetFilters() *gio.ListModelBase {
 	cret := XGtkFileChooserGetFilters(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -540,7 +540,7 @@ func (x *FileChooserDialog) GetShortcutFolders() *gio.ListModelBase {
 	cret := XGtkFileChooserGetShortcutFolders(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.ListModelBase{}
 	cls.Ptr = cret
@@ -726,7 +726,7 @@ func (x *FileChooserDialog) GetRenderer() *gsk.Renderer {
 	cret := XGtkNativeGetRenderer(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gsk.Renderer{}
@@ -741,7 +741,7 @@ func (x *FileChooserDialog) GetSurface() *gdk.Surface {
 	cret := XGtkNativeGetSurface(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Surface{}
@@ -784,7 +784,7 @@ func (x *FileChooserDialog) GetDisplay() *gdk.Display {
 	cret := XGtkRootGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -804,7 +804,7 @@ func (x *FileChooserDialog) GetFocus() *Widget {
 	cret := XGtkRootGetFocus(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

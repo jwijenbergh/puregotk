@@ -47,7 +47,7 @@ func (x *DBusObjectManagerBase) GetInterface(ObjectPathVar string, InterfaceName
 	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusInterfaceBase{}
 	cls.Ptr = cret
@@ -61,7 +61,7 @@ func (x *DBusObjectManagerBase) GetObject(ObjectPathVar string) *DBusObjectBase 
 	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DBusObjectBase{}
 	cls.Ptr = cret

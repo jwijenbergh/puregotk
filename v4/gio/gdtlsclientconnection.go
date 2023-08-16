@@ -56,7 +56,7 @@ func (x *DtlsClientConnectionBase) GetServerIdentity() *SocketConnectableBase {
 	cret := XGDtlsClientConnectionGetServerIdentity(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SocketConnectableBase{}
@@ -107,7 +107,7 @@ func DtlsClientConnectionNew(BaseSocketVar DatagramBased, ServerIdentityVar Sock
 	cret := xDtlsClientConnectionNew(BaseSocketVar.GoPointer(), ServerIdentityVar.GoPointer(), &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &DtlsClientConnectionBase{}
 	cls.Ptr = cret

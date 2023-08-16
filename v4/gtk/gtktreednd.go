@@ -101,7 +101,7 @@ func (x *TreeDragSourceBase) DragDataGet(PathVar *TreePath) *gdk.ContentProvider
 	cret := XGtkTreeDragSourceDragDataGet(x.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.ContentProvider{}
 	cls.Ptr = cret
@@ -130,7 +130,7 @@ func TreeCreateRowDragContent(TreeModelVar TreeModel, PathVar *TreePath) *gdk.Co
 	cret := xTreeCreateRowDragContent(TreeModelVar.GoPointer(), PathVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gdk.ContentProvider{}
 	cls.Ptr = cret

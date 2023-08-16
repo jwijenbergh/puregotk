@@ -70,7 +70,7 @@ func NewFixed() *Widget {
 	cret := xNewFixed()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}

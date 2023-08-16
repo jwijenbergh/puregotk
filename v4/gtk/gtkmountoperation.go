@@ -48,7 +48,7 @@ func NewMountOperation(ParentVar *Window) *gio.MountOperation {
 	cret := xNewMountOperation(ParentVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gio.MountOperation{}
 	cls.Ptr = cret
@@ -65,7 +65,7 @@ func (x *MountOperation) GetDisplay() *gdk.Display {
 	cret := xMountOperationGetDisplay(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gdk.Display{}
@@ -82,7 +82,7 @@ func (x *MountOperation) GetParent() *Window {
 	cret := xMountOperationGetParent(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Window{}

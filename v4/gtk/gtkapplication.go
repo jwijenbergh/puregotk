@@ -134,7 +134,7 @@ func NewApplication(ApplicationIdVar string, FlagsVar gio.ApplicationFlags) *App
 	cret := xNewApplication(ApplicationIdVar, FlagsVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &Application{}
 	cls.Ptr = cret
@@ -213,7 +213,7 @@ func (x *Application) GetActiveWindow() *Window {
 	cret := xApplicationGetActiveWindow(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Window{}
@@ -233,7 +233,7 @@ func (x *Application) GetMenuById(IdVar string) *gio.Menu {
 	cret := xApplicationGetMenuById(x.GoPointer(), IdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.Menu{}
@@ -251,7 +251,7 @@ func (x *Application) GetMenubar() *gio.MenuModel {
 	cret := xApplicationGetMenubar(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.MenuModel{}
@@ -271,7 +271,7 @@ func (x *Application) GetWindowById(IdVar uint) *Window {
 	cret := xApplicationGetWindowById(x.GoPointer(), IdVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Window{}
@@ -766,7 +766,7 @@ func (x *Application) LookupAction(ActionNameVar string) *gio.ActionBase {
 	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.ActionBase{}

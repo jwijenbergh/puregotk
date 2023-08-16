@@ -46,7 +46,7 @@ func TlsFileDatabaseNew(AnchorsVar string) (*TlsFileDatabaseBase, error) {
 	cret := xTlsFileDatabaseNew(AnchorsVar, &cerr)
 
 	if cret == 0 {
-		return cls, cerr
+		return nil, cerr
 	}
 	cls = &TlsFileDatabaseBase{}
 	cls.Ptr = cret

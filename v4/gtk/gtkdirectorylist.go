@@ -57,7 +57,7 @@ func NewDirectoryList(AttributesVar string, FileVar gio.File) *DirectoryList {
 	cret := xNewDirectoryList(AttributesVar, FileVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &DirectoryList{}
 	cls.Ptr = cret
@@ -98,7 +98,7 @@ func (x *DirectoryList) GetFile() *gio.FileBase {
 	cret := xDirectoryListGetFile(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gio.FileBase{}
@@ -263,7 +263,7 @@ func (x *DirectoryList) GetObject(PositionVar uint) *gobject.Object {
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	cls = &gobject.Object{}
 	cls.Ptr = cret

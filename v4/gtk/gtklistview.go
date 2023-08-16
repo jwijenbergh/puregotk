@@ -143,7 +143,7 @@ func NewListView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
 	cret := xNewListView(ModelVar.GoPointer(), FactoryVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -169,7 +169,7 @@ func (x *ListView) GetFactory() *ListItemFactory {
 	cret := xListViewGetFactory(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &ListItemFactory{}
@@ -186,7 +186,7 @@ func (x *ListView) GetModel() *SelectionModelBase {
 	cret := xListViewGetModel(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &SelectionModelBase{}
@@ -464,7 +464,7 @@ func (x *ListView) GetHadjustment() *Adjustment {
 	cret := XGtkScrollableGetHadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}
@@ -486,7 +486,7 @@ func (x *ListView) GetVadjustment() *Adjustment {
 	cret := XGtkScrollableGetVadjustment(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Adjustment{}

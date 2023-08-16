@@ -62,7 +62,7 @@ func NewTreeViewColumn() *TreeViewColumn {
 	cret := xNewTreeViewColumn()
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeViewColumn{}
@@ -79,7 +79,7 @@ func NewWithAreaTreeViewColumn(AreaVar *CellArea) *TreeViewColumn {
 	cret := xNewWithAreaTreeViewColumn(AreaVar.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeViewColumn{}
@@ -117,7 +117,7 @@ func NewWithAttributesTreeViewColumn(TitleVar string, CellVar *CellRenderer, var
 	cret := xNewWithAttributesTreeViewColumn(TitleVar, CellVar.GoPointer(), varArgs...)
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &TreeViewColumn{}
@@ -244,7 +244,7 @@ func (x *TreeViewColumn) GetButton() *Widget {
 	cret := xTreeViewColumnGetButton(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -386,7 +386,7 @@ func (x *TreeViewColumn) GetTreeView() *Widget {
 	cret := xTreeViewColumnGetTreeView(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -414,7 +414,7 @@ func (x *TreeViewColumn) GetWidget() *Widget {
 	cret := xTreeViewColumnGetWidget(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &Widget{}
@@ -729,7 +729,7 @@ func (x *TreeViewColumn) GetArea() *CellArea {
 	cret := XGtkCellLayoutGetArea(x.GoPointer())
 
 	if cret == 0 {
-		return cls
+		return nil
 	}
 	gobject.IncreaseRef(cret)
 	cls = &CellArea{}
