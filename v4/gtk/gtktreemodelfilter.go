@@ -127,8 +127,8 @@ var xTreeModelFilterConvertChildIterToIter func(uintptr, *TreeIter, *TreeIter) b
 // returned.
 func (x *TreeModelFilter) ConvertChildIterToIter(FilterIterVar *TreeIter, ChildIterVar *TreeIter) bool {
 
-	return xTreeModelFilterConvertChildIterToIter(x.GoPointer(), FilterIterVar, ChildIterVar)
-
+	cret := xTreeModelFilterConvertChildIterToIter(x.GoPointer(), FilterIterVar, ChildIterVar)
+	return cret
 }
 
 var xTreeModelFilterConvertChildPathToPath func(uintptr, *TreePath) *TreePath
@@ -140,8 +140,8 @@ var xTreeModelFilterConvertChildPathToPath func(uintptr, *TreePath) *TreePath
 // is returned.
 func (x *TreeModelFilter) ConvertChildPathToPath(ChildPathVar *TreePath) *TreePath {
 
-	return xTreeModelFilterConvertChildPathToPath(x.GoPointer(), ChildPathVar)
-
+	cret := xTreeModelFilterConvertChildPathToPath(x.GoPointer(), ChildPathVar)
+	return cret
 }
 
 var xTreeModelFilterConvertIterToChildIter func(uintptr, *TreeIter, *TreeIter)
@@ -161,26 +161,25 @@ var xTreeModelFilterConvertPathToChildPath func(uintptr, *TreePath) *TreePath
 // does not point to a location in the child model, %NULL is returned.
 func (x *TreeModelFilter) ConvertPathToChildPath(FilterPathVar *TreePath) *TreePath {
 
-	return xTreeModelFilterConvertPathToChildPath(x.GoPointer(), FilterPathVar)
-
+	cret := xTreeModelFilterConvertPathToChildPath(x.GoPointer(), FilterPathVar)
+	return cret
 }
 
 var xTreeModelFilterGetModel func(uintptr) uintptr
 
 // Returns a pointer to the child model of @filter.
 func (x *TreeModelFilter) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
 
-	GetModelPtr := xTreeModelFilterGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xTreeModelFilterGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &TreeModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeModelFilterRefilter func(uintptr)
@@ -288,24 +287,24 @@ func (c *TreeModelFilter) SetGoPointer(ptr uintptr) {
 // longer found in the model!
 func (x *TreeModelFilter) DragDataDelete(PathVar *TreePath) bool {
 
-	return XGtkTreeDragSourceDragDataDelete(x.GoPointer(), PathVar)
-
+	cret := XGtkTreeDragSourceDragDataDelete(x.GoPointer(), PathVar)
+	return cret
 }
 
 // Asks the `GtkTreeDragSource` to return a `GdkContentProvider` representing
 // the row at @path. Should robustly handle a @path no
 // longer found in the model!
 func (x *TreeModelFilter) DragDataGet(PathVar *TreePath) *gdk.ContentProvider {
+	var cls *gdk.ContentProvider
 
-	DragDataGetPtr := XGtkTreeDragSourceDragDataGet(x.GoPointer(), PathVar)
-	if DragDataGetPtr == 0 {
-		return nil
+	cret := XGtkTreeDragSourceDragDataGet(x.GoPointer(), PathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	DragDataGetCls := &gdk.ContentProvider{}
-	DragDataGetCls.Ptr = DragDataGetPtr
-	return DragDataGetCls
-
+	cls = &gdk.ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Asks the `GtkTreeDragSource` whether a particular row can be used as
@@ -313,23 +312,23 @@ func (x *TreeModelFilter) DragDataGet(PathVar *TreePath) *gdk.ContentProvider {
 // this interface, the row is assumed draggable.
 func (x *TreeModelFilter) RowDraggable(PathVar *TreePath) bool {
 
-	return XGtkTreeDragSourceRowDraggable(x.GoPointer(), PathVar)
-
+	cret := XGtkTreeDragSourceRowDraggable(x.GoPointer(), PathVar)
+	return cret
 }
 
 // Creates a new `GtkTreeModel`, with @child_model as the child_model
 // and @root as the virtual root.
 func (x *TreeModelFilter) FilterNew(RootVar *TreePath) *TreeModelBase {
+	var cls *TreeModelBase
 
-	FilterNewPtr := XGtkTreeModelFilterNew(x.GoPointer(), RootVar)
-	if FilterNewPtr == 0 {
-		return nil
+	cret := XGtkTreeModelFilterNew(x.GoPointer(), RootVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FilterNewCls := &TreeModelBase{}
-	FilterNewCls.Ptr = FilterNewPtr
-	return FilterNewCls
-
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Calls @func on each node in model in a depth-first fashion.
@@ -364,8 +363,8 @@ func (x *TreeModelFilter) Get(IterVar *TreeIter, varArgs ...interface{}) {
 // Returns the type of the column.
 func (x *TreeModelFilter) GetColumnType(IndexVar int) []interface{} {
 
-	return XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
-
+	cret := XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
+	return cret
 }
 
 // Returns a set of flags supported by this interface.
@@ -375,8 +374,8 @@ func (x *TreeModelFilter) GetColumnType(IndexVar int) []interface{} {
 // of the @tree_model.
 func (x *TreeModelFilter) GetFlags() TreeModelFlags {
 
-	return XGtkTreeModelGetFlags(x.GoPointer())
-
+	cret := XGtkTreeModelGetFlags(x.GoPointer())
+	return cret
 }
 
 // Sets @iter to a valid iterator pointing to @path.
@@ -385,8 +384,8 @@ func (x *TreeModelFilter) GetFlags() TreeModelFlags {
 // iterator and %FALSE is returned.
 func (x *TreeModelFilter) GetIter(IterVar *TreeIter, PathVar *TreePath) bool {
 
-	return XGtkTreeModelGetIter(x.GoPointer(), IterVar, PathVar)
-
+	cret := XGtkTreeModelGetIter(x.GoPointer(), IterVar, PathVar)
+	return cret
 }
 
 // Initializes @iter with the first iterator in the tree
@@ -395,8 +394,8 @@ func (x *TreeModelFilter) GetIter(IterVar *TreeIter, PathVar *TreePath) bool {
 // Returns %FALSE if the tree is empty, %TRUE otherwise.
 func (x *TreeModelFilter) GetIterFirst(IterVar *TreeIter) bool {
 
-	return XGtkTreeModelGetIterFirst(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelGetIterFirst(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Sets @iter to a valid iterator pointing to @path_string, if it
@@ -405,15 +404,15 @@ func (x *TreeModelFilter) GetIterFirst(IterVar *TreeIter) bool {
 // Otherwise, @iter is left invalid and %FALSE is returned.
 func (x *TreeModelFilter) GetIterFromString(IterVar *TreeIter, PathStringVar string) bool {
 
-	return XGtkTreeModelGetIterFromString(x.GoPointer(), IterVar, PathStringVar)
-
+	cret := XGtkTreeModelGetIterFromString(x.GoPointer(), IterVar, PathStringVar)
+	return cret
 }
 
 // Returns the number of columns supported by @tree_model.
 func (x *TreeModelFilter) GetNColumns() int {
 
-	return XGtkTreeModelGetNColumns(x.GoPointer())
-
+	cret := XGtkTreeModelGetNColumns(x.GoPointer())
+	return cret
 }
 
 // Returns a newly-created `GtkTreePath` referenced by @iter.
@@ -421,8 +420,8 @@ func (x *TreeModelFilter) GetNColumns() int {
 // This path should be freed with gtk_tree_path_free().
 func (x *TreeModelFilter) GetPath(IterVar *TreeIter) *TreePath {
 
-	return XGtkTreeModelGetPath(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelGetPath(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Generates a string representation of the iter.
@@ -432,8 +431,8 @@ func (x *TreeModelFilter) GetPath(IterVar *TreeIter) *TreePath {
 // return value for this string.
 func (x *TreeModelFilter) GetStringFromIter(IterVar *TreeIter) string {
 
-	return XGtkTreeModelGetStringFromIter(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelGetStringFromIter(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Gets the value of one or more cells in the row referenced by @iter.
@@ -466,15 +465,15 @@ func (x *TreeModelFilter) GetValue(IterVar *TreeIter, ColumnVar int, ValueVar *g
 // `gtk_tree_model_get_iter_first (tree_model, iter);`
 func (x *TreeModelFilter) IterChildren(IterVar *TreeIter, ParentVar *TreeIter) bool {
 
-	return XGtkTreeModelIterChildren(x.GoPointer(), IterVar, ParentVar)
-
+	cret := XGtkTreeModelIterChildren(x.GoPointer(), IterVar, ParentVar)
+	return cret
 }
 
 // Returns %TRUE if @iter has children, %FALSE otherwise.
 func (x *TreeModelFilter) IterHasChild(IterVar *TreeIter) bool {
 
-	return XGtkTreeModelIterHasChild(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelIterHasChild(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Returns the number of children that @iter has.
@@ -483,8 +482,8 @@ func (x *TreeModelFilter) IterHasChild(IterVar *TreeIter) bool {
 // of toplevel nodes is returned.
 func (x *TreeModelFilter) IterNChildren(IterVar *TreeIter) int {
 
-	return XGtkTreeModelIterNChildren(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelIterNChildren(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Sets @iter to point to the node following it at the current level.
@@ -493,8 +492,8 @@ func (x *TreeModelFilter) IterNChildren(IterVar *TreeIter) int {
 // to be invalid.
 func (x *TreeModelFilter) IterNext(IterVar *TreeIter) bool {
 
-	return XGtkTreeModelIterNext(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelIterNext(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Sets @iter to be the child of @parent, using the given index.
@@ -506,8 +505,8 @@ func (x *TreeModelFilter) IterNext(IterVar *TreeIter) bool {
 // is set.
 func (x *TreeModelFilter) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, NVar int) bool {
 
-	return XGtkTreeModelIterNthChild(x.GoPointer(), IterVar, ParentVar, NVar)
-
+	cret := XGtkTreeModelIterNthChild(x.GoPointer(), IterVar, ParentVar, NVar)
+	return cret
 }
 
 // Sets @iter to be the parent of @child.
@@ -521,8 +520,8 @@ func (x *TreeModelFilter) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, N
 // and @iter cannot point to the same memory location.
 func (x *TreeModelFilter) IterParent(IterVar *TreeIter, ChildVar *TreeIter) bool {
 
-	return XGtkTreeModelIterParent(x.GoPointer(), IterVar, ChildVar)
-
+	cret := XGtkTreeModelIterParent(x.GoPointer(), IterVar, ChildVar)
+	return cret
 }
 
 // Sets @iter to point to the previous node at the current level.
@@ -531,8 +530,8 @@ func (x *TreeModelFilter) IterParent(IterVar *TreeIter, ChildVar *TreeIter) bool
 // set to be invalid.
 func (x *TreeModelFilter) IterPrevious(IterVar *TreeIter) bool {
 
-	return XGtkTreeModelIterPrevious(x.GoPointer(), IterVar)
-
+	cret := XGtkTreeModelIterPrevious(x.GoPointer(), IterVar)
+	return cret
 }
 
 // Lets the tree ref the node.

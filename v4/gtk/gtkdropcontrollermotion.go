@@ -34,14 +34,16 @@ var xNewDropControllerMotion func() uintptr
 // Creates a new event controller that will handle pointer motion
 // events during drag and drop.
 func NewDropControllerMotion() *EventController {
-	NewDropControllerMotionPtr := xNewDropControllerMotion()
-	if NewDropControllerMotionPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewDropControllerMotionCls := &EventController{}
-	NewDropControllerMotionCls.Ptr = NewDropControllerMotionPtr
-	return NewDropControllerMotionCls
+	cret := xNewDropControllerMotion()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropControllerMotionContainsPointer func(uintptr) bool
@@ -50,8 +52,8 @@ var xDropControllerMotionContainsPointer func(uintptr) bool
 // @self or one of its children.
 func (x *DropControllerMotion) ContainsPointer() bool {
 
-	return xDropControllerMotionContainsPointer(x.GoPointer())
-
+	cret := xDropControllerMotionContainsPointer(x.GoPointer())
+	return cret
 }
 
 var xDropControllerMotionGetDrop func(uintptr) uintptr
@@ -59,18 +61,17 @@ var xDropControllerMotionGetDrop func(uintptr) uintptr
 // Returns the `GdkDrop` of a current Drag-and-Drop operation
 // over the widget of @self.
 func (x *DropControllerMotion) GetDrop() *gdk.Drop {
+	var cls *gdk.Drop
 
-	GetDropPtr := xDropControllerMotionGetDrop(x.GoPointer())
-	if GetDropPtr == 0 {
-		return nil
+	cret := xDropControllerMotionGetDrop(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDropPtr)
-
-	GetDropCls := &gdk.Drop{}
-	GetDropCls.Ptr = GetDropPtr
-	return GetDropCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Drop{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropControllerMotionIsPointer func(uintptr) bool
@@ -79,8 +80,8 @@ var xDropControllerMotionIsPointer func(uintptr) bool
 // @self, not one of its children.
 func (x *DropControllerMotion) IsPointer() bool {
 
-	return xDropControllerMotionIsPointer(x.GoPointer())
-
+	cret := xDropControllerMotionIsPointer(x.GoPointer())
+	return cret
 }
 
 func (c *DropControllerMotion) GoPointer() uintptr {

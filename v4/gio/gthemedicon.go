@@ -32,28 +32,32 @@ var xNewThemedIcon func(string) uintptr
 
 // Creates a new themed icon for @iconname.
 func NewThemedIcon(IconnameVar string) *ThemedIcon {
-	NewThemedIconPtr := xNewThemedIcon(IconnameVar)
-	if NewThemedIconPtr == 0 {
-		return nil
-	}
+	var cls *ThemedIcon
 
-	NewThemedIconCls := &ThemedIcon{}
-	NewThemedIconCls.Ptr = NewThemedIconPtr
-	return NewThemedIconCls
+	cret := xNewThemedIcon(IconnameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ThemedIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromNamesThemedIcon func([]string, int) uintptr
 
 // Creates a new themed icon for @iconnames.
 func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int) *ThemedIcon {
-	NewFromNamesThemedIconPtr := xNewFromNamesThemedIcon(IconnamesVar, LenVar)
-	if NewFromNamesThemedIconPtr == 0 {
-		return nil
-	}
+	var cls *ThemedIcon
 
-	NewFromNamesThemedIconCls := &ThemedIcon{}
-	NewFromNamesThemedIconCls.Ptr = NewFromNamesThemedIconPtr
-	return NewFromNamesThemedIconCls
+	cret := xNewFromNamesThemedIcon(IconnamesVar, LenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ThemedIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithDefaultFallbacksThemedIcon func(string) uintptr
@@ -75,14 +79,16 @@ var xNewWithDefaultFallbacksThemedIcon func(string) uintptr
 // icon2 = g_themed_icon_new_with_default_fallbacks ("gnome-dev-cdrom-audio");
 // ]|
 func NewWithDefaultFallbacksThemedIcon(IconnameVar string) *ThemedIcon {
-	NewWithDefaultFallbacksThemedIconPtr := xNewWithDefaultFallbacksThemedIcon(IconnameVar)
-	if NewWithDefaultFallbacksThemedIconPtr == 0 {
-		return nil
-	}
+	var cls *ThemedIcon
 
-	NewWithDefaultFallbacksThemedIconCls := &ThemedIcon{}
-	NewWithDefaultFallbacksThemedIconCls.Ptr = NewWithDefaultFallbacksThemedIconPtr
-	return NewWithDefaultFallbacksThemedIconCls
+	cret := xNewWithDefaultFallbacksThemedIcon(IconnameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ThemedIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xThemedIconAppendName func(uintptr, string)
@@ -102,8 +108,8 @@ var xThemedIconGetNames func(uintptr) uintptr
 // Gets the names of icons from within @icon.
 func (x *ThemedIcon) GetNames() uintptr {
 
-	return xThemedIconGetNames(x.GoPointer())
-
+	cret := xThemedIconGetNames(x.GoPointer())
+	return cret
 }
 
 var xThemedIconPrependName func(uintptr, string)
@@ -129,8 +135,8 @@ func (c *ThemedIcon) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *ThemedIcon) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -140,8 +146,8 @@ func (x *ThemedIcon) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *ThemedIcon) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -162,8 +168,8 @@ func (x *ThemedIcon) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *ThemedIcon) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 func init() {

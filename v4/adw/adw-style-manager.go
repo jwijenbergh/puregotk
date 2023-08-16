@@ -56,8 +56,8 @@ var xStyleManagerGetColorScheme func(uintptr) ColorScheme
 // Gets the requested application color scheme.
 func (x *StyleManager) GetColorScheme() ColorScheme {
 
-	return xStyleManagerGetColorScheme(x.GoPointer())
-
+	cret := xStyleManagerGetColorScheme(x.GoPointer())
+	return cret
 }
 
 var xStyleManagerGetDark func(uintptr) bool
@@ -68,8 +68,8 @@ var xStyleManagerGetDark func(uintptr) bool
 // [property@StyleManager:color-scheme].
 func (x *StyleManager) GetDark() bool {
 
-	return xStyleManagerGetDark(x.GoPointer())
-
+	cret := xStyleManagerGetDark(x.GoPointer())
+	return cret
 }
 
 var xStyleManagerGetDisplay func(uintptr) uintptr
@@ -79,18 +79,17 @@ var xStyleManagerGetDisplay func(uintptr) uintptr
 // The display will be `NULL` for the style manager returned by
 // [func@StyleManager.get_default].
 func (x *StyleManager) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := xStyleManagerGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xStyleManagerGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStyleManagerGetHighContrast func(uintptr) bool
@@ -100,8 +99,8 @@ var xStyleManagerGetHighContrast func(uintptr) bool
 // This cannot be overridden by applications.
 func (x *StyleManager) GetHighContrast() bool {
 
-	return xStyleManagerGetHighContrast(x.GoPointer())
-
+	cret := xStyleManagerGetHighContrast(x.GoPointer())
+	return cret
 }
 
 var xStyleManagerGetSystemSupportsColorSchemes func(uintptr) bool
@@ -113,8 +112,8 @@ var xStyleManagerGetSystemSupportsColorSchemes func(uintptr) bool
 // appearance switcher if it's set to `FALSE`.
 func (x *StyleManager) GetSystemSupportsColorSchemes() bool {
 
-	return xStyleManagerGetSystemSupportsColorSchemes(x.GoPointer())
-
+	cret := xStyleManagerGetSystemSupportsColorSchemes(x.GoPointer())
+	return cret
 }
 
 var xStyleManagerSetColorScheme func(uintptr, ColorScheme)

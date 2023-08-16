@@ -46,16 +46,17 @@ var xNewAppChooserWidget func(string) uintptr
 // Creates a new `GtkAppChooserWidget` for applications
 // that can handle content of the given type.
 func NewAppChooserWidget(ContentTypeVar string) *Widget {
-	NewAppChooserWidgetPtr := xNewAppChooserWidget(ContentTypeVar)
-	if NewAppChooserWidgetPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAppChooserWidget(ContentTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAppChooserWidgetPtr)
-
-	NewAppChooserWidgetCls := &Widget{}
-	NewAppChooserWidgetCls.Ptr = NewAppChooserWidgetPtr
-	return NewAppChooserWidgetCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppChooserWidgetGetDefaultText func(uintptr) string
@@ -64,8 +65,8 @@ var xAppChooserWidgetGetDefaultText func(uintptr) string
 // that can handle the content type.
 func (x *AppChooserWidget) GetDefaultText() string {
 
-	return xAppChooserWidgetGetDefaultText(x.GoPointer())
-
+	cret := xAppChooserWidgetGetDefaultText(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetGetShowAll func(uintptr) bool
@@ -74,8 +75,8 @@ var xAppChooserWidgetGetShowAll func(uintptr) bool
 // in a flat list.
 func (x *AppChooserWidget) GetShowAll() bool {
 
-	return xAppChooserWidgetGetShowAll(x.GoPointer())
-
+	cret := xAppChooserWidgetGetShowAll(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetGetShowDefault func(uintptr) bool
@@ -84,8 +85,8 @@ var xAppChooserWidgetGetShowDefault func(uintptr) bool
 // for the content type in a separate section.
 func (x *AppChooserWidget) GetShowDefault() bool {
 
-	return xAppChooserWidgetGetShowDefault(x.GoPointer())
-
+	cret := xAppChooserWidgetGetShowDefault(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetGetShowFallback func(uintptr) bool
@@ -94,8 +95,8 @@ var xAppChooserWidgetGetShowFallback func(uintptr) bool
 // for the content type in a separate section.
 func (x *AppChooserWidget) GetShowFallback() bool {
 
-	return xAppChooserWidgetGetShowFallback(x.GoPointer())
-
+	cret := xAppChooserWidgetGetShowFallback(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetGetShowOther func(uintptr) bool
@@ -104,8 +105,8 @@ var xAppChooserWidgetGetShowOther func(uintptr) bool
 // which are unrelated to the content type.
 func (x *AppChooserWidget) GetShowOther() bool {
 
-	return xAppChooserWidgetGetShowOther(x.GoPointer())
-
+	cret := xAppChooserWidgetGetShowOther(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetGetShowRecommended func(uintptr) bool
@@ -114,8 +115,8 @@ var xAppChooserWidgetGetShowRecommended func(uintptr) bool
 // for the content type in a separate section.
 func (x *AppChooserWidget) GetShowRecommended() bool {
 
-	return xAppChooserWidgetGetShowRecommended(x.GoPointer())
-
+	cret := xAppChooserWidgetGetShowRecommended(x.GoPointer())
+	return cret
 }
 
 var xAppChooserWidgetSetDefaultText func(uintptr, string)
@@ -217,8 +218,8 @@ func (x *AppChooserWidget) ConnectApplicationSelected(cb func(AppChooserWidget, 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AppChooserWidget) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -349,24 +350,24 @@ func (x *AppChooserWidget) UpdateStateValue(NStatesVar int, StatesVar uintptr, V
 
 // Returns the currently selected application.
 func (x *AppChooserWidget) GetAppInfo() *gio.AppInfoBase {
+	var cls *gio.AppInfoBase
 
-	GetAppInfoPtr := XGtkAppChooserGetAppInfo(x.GoPointer())
-	if GetAppInfoPtr == 0 {
-		return nil
+	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetAppInfoCls := &gio.AppInfoBase{}
-	GetAppInfoCls.Ptr = GetAppInfoPtr
-	return GetAppInfoCls
-
+	cls = &gio.AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the content type for which the `GtkAppChooser`
 // shows applications.
 func (x *AppChooserWidget) GetContentType() string {
 
-	return XGtkAppChooserGetContentType(x.GoPointer())
-
+	cret := XGtkAppChooserGetContentType(x.GoPointer())
+	return cret
 }
 
 // Reloads the list of applications.
@@ -382,8 +383,8 @@ func (x *AppChooserWidget) Refresh() {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AppChooserWidget) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

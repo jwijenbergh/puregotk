@@ -42,14 +42,16 @@ var xNewGridLayout func() uintptr
 
 // Creates a new `GtkGridLayout`.
 func NewGridLayout() *LayoutManager {
-	NewGridLayoutPtr := xNewGridLayout()
-	if NewGridLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewGridLayoutCls := &LayoutManager{}
-	NewGridLayoutCls.Ptr = NewGridLayoutPtr
-	return NewGridLayoutCls
+	cret := xNewGridLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridLayoutGetBaselineRow func(uintptr) int
@@ -57,8 +59,8 @@ var xGridLayoutGetBaselineRow func(uintptr) int
 // Retrieves the row set with gtk_grid_layout_set_baseline_row().
 func (x *GridLayout) GetBaselineRow() int {
 
-	return xGridLayoutGetBaselineRow(x.GoPointer())
-
+	cret := xGridLayoutGetBaselineRow(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutGetColumnHomogeneous func(uintptr) bool
@@ -66,8 +68,8 @@ var xGridLayoutGetColumnHomogeneous func(uintptr) bool
 // Checks whether all columns of @grid should have the same width.
 func (x *GridLayout) GetColumnHomogeneous() bool {
 
-	return xGridLayoutGetColumnHomogeneous(x.GoPointer())
-
+	cret := xGridLayoutGetColumnHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutGetColumnSpacing func(uintptr) uint
@@ -75,8 +77,8 @@ var xGridLayoutGetColumnSpacing func(uintptr) uint
 // Retrieves the spacing set with gtk_grid_layout_set_column_spacing().
 func (x *GridLayout) GetColumnSpacing() uint {
 
-	return xGridLayoutGetColumnSpacing(x.GoPointer())
-
+	cret := xGridLayoutGetColumnSpacing(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutGetRowBaselinePosition func(uintptr, int) BaselinePosition
@@ -89,8 +91,8 @@ var xGridLayoutGetRowBaselinePosition func(uintptr, int) BaselinePosition
 // is returned.
 func (x *GridLayout) GetRowBaselinePosition(RowVar int) BaselinePosition {
 
-	return xGridLayoutGetRowBaselinePosition(x.GoPointer(), RowVar)
-
+	cret := xGridLayoutGetRowBaselinePosition(x.GoPointer(), RowVar)
+	return cret
 }
 
 var xGridLayoutGetRowHomogeneous func(uintptr) bool
@@ -98,8 +100,8 @@ var xGridLayoutGetRowHomogeneous func(uintptr) bool
 // Checks whether all rows of @grid should have the same height.
 func (x *GridLayout) GetRowHomogeneous() bool {
 
-	return xGridLayoutGetRowHomogeneous(x.GoPointer())
-
+	cret := xGridLayoutGetRowHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutGetRowSpacing func(uintptr) uint
@@ -107,8 +109,8 @@ var xGridLayoutGetRowSpacing func(uintptr) uint
 // Retrieves the spacing set with gtk_grid_layout_set_row_spacing().
 func (x *GridLayout) GetRowSpacing() uint {
 
-	return xGridLayoutGetRowSpacing(x.GoPointer())
-
+	cret := xGridLayoutGetRowSpacing(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutSetBaselineRow func(uintptr, int)
@@ -194,8 +196,8 @@ var xGridLayoutChildGetColumn func(uintptr) int
 // Retrieves the column number to which @child attaches its left side.
 func (x *GridLayoutChild) GetColumn() int {
 
-	return xGridLayoutChildGetColumn(x.GoPointer())
-
+	cret := xGridLayoutChildGetColumn(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutChildGetColumnSpan func(uintptr) int
@@ -203,8 +205,8 @@ var xGridLayoutChildGetColumnSpan func(uintptr) int
 // Retrieves the number of columns that @child spans to.
 func (x *GridLayoutChild) GetColumnSpan() int {
 
-	return xGridLayoutChildGetColumnSpan(x.GoPointer())
-
+	cret := xGridLayoutChildGetColumnSpan(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutChildGetRow func(uintptr) int
@@ -212,8 +214,8 @@ var xGridLayoutChildGetRow func(uintptr) int
 // Retrieves the row number to which @child attaches its top side.
 func (x *GridLayoutChild) GetRow() int {
 
-	return xGridLayoutChildGetRow(x.GoPointer())
-
+	cret := xGridLayoutChildGetRow(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutChildGetRowSpan func(uintptr) int
@@ -221,8 +223,8 @@ var xGridLayoutChildGetRowSpan func(uintptr) int
 // Retrieves the number of rows that @child spans to.
 func (x *GridLayoutChild) GetRowSpan() int {
 
-	return xGridLayoutChildGetRowSpan(x.GoPointer())
-
+	cret := xGridLayoutChildGetRowSpan(x.GoPointer())
+	return cret
 }
 
 var xGridLayoutChildSetColumn func(uintptr, int)

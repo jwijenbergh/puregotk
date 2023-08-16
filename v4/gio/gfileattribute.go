@@ -3,7 +3,7 @@ package gio
 
 // Information about a specific attribute.
 type FileAttributeInfo struct {
-	Name string
+	Name uintptr
 
 	Type FileAttributeType
 

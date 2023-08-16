@@ -45,31 +45,30 @@ func (x *DtlsClientConnectionBase) SetGoPointer(ptr uintptr) {
 // subject DN of the certificate authority.
 func (x *DtlsClientConnectionBase) GetAcceptedCas() *glib.List {
 
-	return XGDtlsClientConnectionGetAcceptedCas(x.GoPointer())
-
+	cret := XGDtlsClientConnectionGetAcceptedCas(x.GoPointer())
+	return cret
 }
 
 // Gets @conn's expected server identity
 func (x *DtlsClientConnectionBase) GetServerIdentity() *SocketConnectableBase {
+	var cls *SocketConnectableBase
 
-	GetServerIdentityPtr := XGDtlsClientConnectionGetServerIdentity(x.GoPointer())
-	if GetServerIdentityPtr == 0 {
-		return nil
+	cret := XGDtlsClientConnectionGetServerIdentity(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetServerIdentityPtr)
-
-	GetServerIdentityCls := &SocketConnectableBase{}
-	GetServerIdentityCls.Ptr = GetServerIdentityPtr
-	return GetServerIdentityCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SocketConnectableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets @conn's validation flags
 func (x *DtlsClientConnectionBase) GetValidationFlags() TlsCertificateFlags {
 
-	return XGDtlsClientConnectionGetValidationFlags(x.GoPointer())
-
+	cret := XGDtlsClientConnectionGetValidationFlags(x.GoPointer())
+	return cret
 }
 
 // Sets @conn's expected server identity, which is used both to tell
@@ -97,20 +96,25 @@ var XGDtlsClientConnectionGetValidationFlags func(uintptr) TlsCertificateFlags
 var XGDtlsClientConnectionSetServerIdentity func(uintptr, uintptr)
 var XGDtlsClientConnectionSetValidationFlags func(uintptr, TlsCertificateFlags)
 
-var xDtlsClientConnectionNew func(uintptr, uintptr) uintptr
+var xDtlsClientConnectionNew func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GDtlsClientConnection wrapping @base_socket which is
 // assumed to communicate with the server identified by @server_identity.
-func DtlsClientConnectionNew(BaseSocketVar DatagramBased, ServerIdentityVar SocketConnectable) *DtlsClientConnectionBase {
+func DtlsClientConnectionNew(BaseSocketVar DatagramBased, ServerIdentityVar SocketConnectable) (*DtlsClientConnectionBase, error) {
+	var cls *DtlsClientConnectionBase
+	var cerr *glib.Error
 
-	DtlsClientConnectionNewPtr := xDtlsClientConnectionNew(BaseSocketVar.GoPointer(), ServerIdentityVar.GoPointer())
-	if DtlsClientConnectionNewPtr == 0 {
-		return nil
+	cret := xDtlsClientConnectionNew(BaseSocketVar.GoPointer(), ServerIdentityVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	DtlsClientConnectionNewCls := &DtlsClientConnectionBase{}
-	DtlsClientConnectionNewCls.Ptr = DtlsClientConnectionNewPtr
-	return DtlsClientConnectionNewCls
+	cls = &DtlsClientConnectionBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

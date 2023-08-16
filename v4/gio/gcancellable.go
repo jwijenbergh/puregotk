@@ -39,14 +39,16 @@ var xNewCancellable func() uintptr
 // One #GCancellable can be used in multiple consecutive
 // operations or in multiple concurrent operations.
 func NewCancellable() *Cancellable {
-	NewCancellablePtr := xNewCancellable()
-	if NewCancellablePtr == 0 {
-		return nil
-	}
+	var cls *Cancellable
 
-	NewCancellableCls := &Cancellable{}
-	NewCancellableCls.Ptr = NewCancellablePtr
-	return NewCancellableCls
+	cret := xNewCancellable()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Cancellable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCancellableCancel func(uintptr)
@@ -95,8 +97,8 @@ var xCancellableConnect func(uintptr, uintptr, uintptr, uintptr) uint32
 // code that unconditionally invokes e.g. g_cancellable_cancel().
 func (x *Cancellable) Connect(CallbackVar gobject.Callback, DataVar uintptr, DataDestroyFuncVar glib.DestroyNotify) uint32 {
 
-	return xCancellableConnect(x.GoPointer(), purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DataDestroyFuncVar))
-
+	cret := xCancellableConnect(x.GoPointer(), purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DataDestroyFuncVar))
+	return cret
 }
 
 var xCancellableDisconnect func(uintptr, uint32)
@@ -138,8 +140,8 @@ var xCancellableGetFd func(uintptr) int
 // See also g_cancellable_make_pollfd().
 func (x *Cancellable) GetFd() int {
 
-	return xCancellableGetFd(x.GoPointer())
-
+	cret := xCancellableGetFd(x.GoPointer())
+	return cret
 }
 
 var xCancellableIsCancelled func(uintptr) bool
@@ -147,8 +149,8 @@ var xCancellableIsCancelled func(uintptr) bool
 // Checks if a cancellable job has been cancelled.
 func (x *Cancellable) IsCancelled() bool {
 
-	return xCancellableIsCancelled(x.GoPointer())
-
+	cret := xCancellableIsCancelled(x.GoPointer())
+	return cret
 }
 
 var xCancellableMakePollfd func(uintptr, *glib.PollFD) bool
@@ -173,8 +175,8 @@ var xCancellableMakePollfd func(uintptr, *glib.PollFD) bool
 // with g_cancellable_reset().
 func (x *Cancellable) MakePollfd(PollfdVar *glib.PollFD) bool {
 
-	return xCancellableMakePollfd(x.GoPointer(), PollfdVar)
-
+	cret := xCancellableMakePollfd(x.GoPointer(), PollfdVar)
+	return cret
 }
 
 var xCancellablePopCurrent func(uintptr)
@@ -243,9 +245,14 @@ var xCancellableSetErrorIfCancelled func(uintptr) bool
 
 // If the @cancellable is cancelled, sets the error to notify
 // that the operation was cancelled.
-func (x *Cancellable) SetErrorIfCancelled() bool {
+func (x *Cancellable) SetErrorIfCancelled() (bool, error) {
+	var cerr *glib.Error
 
-	return xCancellableSetErrorIfCancelled(x.GoPointer())
+	cret := xCancellableSetErrorIfCancelled(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -262,8 +269,8 @@ var xCancellableSourceNew func(uintptr) *glib.Source
 // The new #GSource will hold a reference to the #GCancellable.
 func (x *Cancellable) SourceNew() *glib.Source {
 
-	return xCancellableSourceNew(x.GoPointer())
-
+	cret := xCancellableSourceNew(x.GoPointer())
+	return cret
 }
 
 func (c *Cancellable) GoPointer() uintptr {

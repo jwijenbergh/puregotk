@@ -48,32 +48,34 @@ var xNewColorButton func() uintptr
 // to select a color. The swatch will be updated to reflect the new
 // color when the user finishes.
 func NewColorButton() *Widget {
-	NewColorButtonPtr := xNewColorButton()
-	if NewColorButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewColorButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewColorButtonPtr)
-
-	NewColorButtonCls := &Widget{}
-	NewColorButtonCls.Ptr = NewColorButtonPtr
-	return NewColorButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithRgbaColorButton func(*gdk.RGBA) uintptr
 
 // Creates a new color button showing the given color.
 func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *Widget {
-	NewWithRgbaColorButtonPtr := xNewWithRgbaColorButton(RgbaVar)
-	if NewWithRgbaColorButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithRgbaColorButton(RgbaVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithRgbaColorButtonPtr)
-
-	NewWithRgbaColorButtonCls := &Widget{}
-	NewWithRgbaColorButtonCls.Ptr = NewWithRgbaColorButtonPtr
-	return NewWithRgbaColorButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColorButtonGetModal func(uintptr) bool
@@ -81,8 +83,8 @@ var xColorButtonGetModal func(uintptr) bool
 // Gets whether the dialog is modal.
 func (x *ColorButton) GetModal() bool {
 
-	return xColorButtonGetModal(x.GoPointer())
-
+	cret := xColorButtonGetModal(x.GoPointer())
+	return cret
 }
 
 var xColorButtonGetTitle func(uintptr) string
@@ -90,8 +92,8 @@ var xColorButtonGetTitle func(uintptr) string
 // Gets the title of the color chooser dialog.
 func (x *ColorButton) GetTitle() string {
 
-	return xColorButtonGetTitle(x.GoPointer())
-
+	cret := xColorButtonGetTitle(x.GoPointer())
+	return cret
 }
 
 var xColorButtonSetModal func(uintptr, bool)
@@ -157,8 +159,8 @@ func (x *ColorButton) ConnectColorSet(cb func(ColorButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ColorButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -293,8 +295,8 @@ func (x *ColorButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ColorButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds a palette to the color chooser.
@@ -330,8 +332,8 @@ func (x *ColorButton) GetRgba(ColorVar *gdk.RGBA) {
 // Returns whether the color chooser shows the alpha channel.
 func (x *ColorButton) GetUseAlpha() bool {
 
-	return XGtkColorChooserGetUseAlpha(x.GoPointer())
-
+	cret := XGtkColorChooserGetUseAlpha(x.GoPointer())
+	return cret
 }
 
 // Sets the color.

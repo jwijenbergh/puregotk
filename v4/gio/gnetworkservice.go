@@ -39,14 +39,16 @@ var xNewNetworkService func(string, string, string) uintptr
 // @protocol, and @domain. This will initially be unresolved; use the
 // #GSocketConnectable interface to resolve it.
 func NewNetworkService(ServiceVar string, ProtocolVar string, DomainVar string) *NetworkService {
-	NewNetworkServicePtr := xNewNetworkService(ServiceVar, ProtocolVar, DomainVar)
-	if NewNetworkServicePtr == 0 {
-		return nil
-	}
+	var cls *NetworkService
 
-	NewNetworkServiceCls := &NetworkService{}
-	NewNetworkServiceCls.Ptr = NewNetworkServicePtr
-	return NewNetworkServiceCls
+	cret := xNewNetworkService(ServiceVar, ProtocolVar, DomainVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &NetworkService{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNetworkServiceGetDomain func(uintptr) string
@@ -55,8 +57,8 @@ var xNetworkServiceGetDomain func(uintptr) string
 // ASCII-encoded, depending on what @srv was created with.
 func (x *NetworkService) GetDomain() string {
 
-	return xNetworkServiceGetDomain(x.GoPointer())
-
+	cret := xNetworkServiceGetDomain(x.GoPointer())
+	return cret
 }
 
 var xNetworkServiceGetProtocol func(uintptr) string
@@ -64,8 +66,8 @@ var xNetworkServiceGetProtocol func(uintptr) string
 // Gets @srv's protocol name (eg, "tcp").
 func (x *NetworkService) GetProtocol() string {
 
-	return xNetworkServiceGetProtocol(x.GoPointer())
-
+	cret := xNetworkServiceGetProtocol(x.GoPointer())
+	return cret
 }
 
 var xNetworkServiceGetScheme func(uintptr) string
@@ -74,8 +76,8 @@ var xNetworkServiceGetScheme func(uintptr) string
 // is used as scheme.
 func (x *NetworkService) GetScheme() string {
 
-	return xNetworkServiceGetScheme(x.GoPointer())
-
+	cret := xNetworkServiceGetScheme(x.GoPointer())
+	return cret
 }
 
 var xNetworkServiceGetService func(uintptr) string
@@ -83,8 +85,8 @@ var xNetworkServiceGetService func(uintptr) string
 // Gets @srv's service name (eg, "ldap").
 func (x *NetworkService) GetService() string {
 
-	return xNetworkServiceGetService(x.GoPointer())
-
+	cret := xNetworkServiceGetService(x.GoPointer())
+	return cret
 }
 
 var xNetworkServiceSetScheme func(uintptr, string)
@@ -107,16 +109,16 @@ func (c *NetworkService) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *NetworkService) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -127,16 +129,16 @@ func (x *NetworkService) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *NetworkService) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -148,8 +150,8 @@ func (x *NetworkService) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *NetworkService) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

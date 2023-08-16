@@ -45,8 +45,8 @@ var xValueTypeCompatible func([]interface{}, []interface{}) bool
 // a #GValue of type @dest_type.
 func ValueTypeCompatible(SrcTypeVar []interface{}, DestTypeVar []interface{}) bool {
 
-	return xValueTypeCompatible(SrcTypeVar, DestTypeVar)
-
+	cret := xValueTypeCompatible(SrcTypeVar, DestTypeVar)
+	return cret
 }
 
 var xValueTypeTransformable func([]interface{}, []interface{}) bool
@@ -57,8 +57,8 @@ var xValueTypeTransformable func([]interface{}, []interface{}) bool
 // transformation function must be registered.
 func ValueTypeTransformable(SrcTypeVar []interface{}, DestTypeVar []interface{}) bool {
 
-	return xValueTypeTransformable(SrcTypeVar, DestTypeVar)
-
+	cret := xValueTypeTransformable(SrcTypeVar, DestTypeVar)
+	return cret
 }
 
 func init() {

@@ -386,14 +386,16 @@ var xNewSettings func(string) uintptr
 // call to g_settings_new().  The new #GSettings will hold a reference
 // on the context.  See g_main_context_push_thread_default().
 func NewSettings(SchemaIdVar string) *Settings {
-	NewSettingsPtr := xNewSettings(SchemaIdVar)
-	if NewSettingsPtr == 0 {
-		return nil
-	}
+	var cls *Settings
 
-	NewSettingsCls := &Settings{}
-	NewSettingsCls.Ptr = NewSettingsPtr
-	return NewSettingsCls
+	cret := xNewSettings(SchemaIdVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFullSettings func(*SettingsSchema, uintptr, string) uintptr
@@ -422,14 +424,16 @@ var xNewFullSettings func(*SettingsSchema, uintptr, string) uintptr
 // @path is non-%NULL and not equal to the path that the schema does
 // have.
 func NewFullSettings(SchemaVar *SettingsSchema, BackendVar *SettingsBackend, PathVar string) *Settings {
-	NewFullSettingsPtr := xNewFullSettings(SchemaVar, BackendVar.GoPointer(), PathVar)
-	if NewFullSettingsPtr == 0 {
-		return nil
-	}
+	var cls *Settings
 
-	NewFullSettingsCls := &Settings{}
-	NewFullSettingsCls.Ptr = NewFullSettingsPtr
-	return NewFullSettingsCls
+	cret := xNewFullSettings(SchemaVar, BackendVar.GoPointer(), PathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithBackendSettings func(string, uintptr) uintptr
@@ -443,14 +447,16 @@ var xNewWithBackendSettings func(string, uintptr) uintptr
 // the system to get a settings object that modifies the system default
 // settings instead of the settings for this user.
 func NewWithBackendSettings(SchemaIdVar string, BackendVar *SettingsBackend) *Settings {
-	NewWithBackendSettingsPtr := xNewWithBackendSettings(SchemaIdVar, BackendVar.GoPointer())
-	if NewWithBackendSettingsPtr == 0 {
-		return nil
-	}
+	var cls *Settings
 
-	NewWithBackendSettingsCls := &Settings{}
-	NewWithBackendSettingsCls.Ptr = NewWithBackendSettingsPtr
-	return NewWithBackendSettingsCls
+	cret := xNewWithBackendSettings(SchemaIdVar, BackendVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithBackendAndPathSettings func(string, uintptr, string) uintptr
@@ -461,14 +467,16 @@ var xNewWithBackendAndPathSettings func(string, uintptr, string) uintptr
 // This is a mix of g_settings_new_with_backend() and
 // g_settings_new_with_path().
 func NewWithBackendAndPathSettings(SchemaIdVar string, BackendVar *SettingsBackend, PathVar string) *Settings {
-	NewWithBackendAndPathSettingsPtr := xNewWithBackendAndPathSettings(SchemaIdVar, BackendVar.GoPointer(), PathVar)
-	if NewWithBackendAndPathSettingsPtr == 0 {
-		return nil
-	}
+	var cls *Settings
 
-	NewWithBackendAndPathSettingsCls := &Settings{}
-	NewWithBackendAndPathSettingsCls.Ptr = NewWithBackendAndPathSettingsPtr
-	return NewWithBackendAndPathSettingsCls
+	cret := xNewWithBackendAndPathSettings(SchemaIdVar, BackendVar.GoPointer(), PathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithPathSettings func(string, string) uintptr
@@ -487,14 +495,16 @@ var xNewWithPathSettings func(string, string) uintptr
 // begins and ends with '/' and does not contain two consecutive '/'
 // characters.
 func NewWithPathSettings(SchemaIdVar string, PathVar string) *Settings {
-	NewWithPathSettingsPtr := xNewWithPathSettings(SchemaIdVar, PathVar)
-	if NewWithPathSettingsPtr == 0 {
-		return nil
-	}
+	var cls *Settings
 
-	NewWithPathSettingsCls := &Settings{}
-	NewWithPathSettingsCls.Ptr = NewWithPathSettingsPtr
-	return NewWithPathSettingsCls
+	cret := xNewWithPathSettings(SchemaIdVar, PathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSettingsApply func(uintptr)
@@ -597,16 +607,16 @@ var xSettingsCreateAction func(uintptr, string) uintptr
 // activations take the new value for the key (which must have the
 // correct type).
 func (x *Settings) CreateAction(KeyVar string) *ActionBase {
+	var cls *ActionBase
 
-	CreateActionPtr := xSettingsCreateAction(x.GoPointer(), KeyVar)
-	if CreateActionPtr == 0 {
-		return nil
+	cret := xSettingsCreateAction(x.GoPointer(), KeyVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateActionCls := &ActionBase{}
-	CreateActionCls.Ptr = CreateActionPtr
-	return CreateActionCls
-
+	cls = &ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSettingsDelay func(uintptr)
@@ -646,8 +656,8 @@ var xSettingsGetBoolean func(uintptr, string) bool
 // having a boolean type in the schema for @settings.
 func (x *Settings) GetBoolean(KeyVar string) bool {
 
-	return xSettingsGetBoolean(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetBoolean(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetChild func(uintptr, string) uintptr
@@ -662,16 +672,16 @@ var xSettingsGetChild func(uintptr, string) uintptr
 // The created child settings object will inherit the #GSettings:delay-apply
 // mode from @settings.
 func (x *Settings) GetChild(NameVar string) *Settings {
+	var cls *Settings
 
-	GetChildPtr := xSettingsGetChild(x.GoPointer(), NameVar)
-	if GetChildPtr == 0 {
-		return nil
+	cret := xSettingsGetChild(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetChildCls := &Settings{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSettingsGetDefaultValue func(uintptr, string) *glib.Variant
@@ -699,8 +709,8 @@ var xSettingsGetDefaultValue func(uintptr, string) *glib.Variant
 // schema for @settings.
 func (x *Settings) GetDefaultValue(KeyVar string) *glib.Variant {
 
-	return xSettingsGetDefaultValue(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetDefaultValue(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetDouble func(uintptr, string) float64
@@ -713,8 +723,8 @@ var xSettingsGetDouble func(uintptr, string) float64
 // having a 'double' type in the schema for @settings.
 func (x *Settings) GetDouble(KeyVar string) float64 {
 
-	return xSettingsGetDouble(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetDouble(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetEnum func(uintptr, string) int
@@ -733,8 +743,8 @@ var xSettingsGetEnum func(uintptr, string) int
 // default value.
 func (x *Settings) GetEnum(KeyVar string) int {
 
-	return xSettingsGetEnum(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetEnum(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetFlags func(uintptr, string) uint
@@ -753,8 +763,8 @@ var xSettingsGetFlags func(uintptr, string) uint
 // value.
 func (x *Settings) GetFlags(KeyVar string) uint {
 
-	return xSettingsGetFlags(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetFlags(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetHasUnapplied func(uintptr) bool
@@ -763,8 +773,8 @@ var xSettingsGetHasUnapplied func(uintptr) bool
 // changes.  This can only be the case if it is in 'delayed-apply' mode.
 func (x *Settings) GetHasUnapplied() bool {
 
-	return xSettingsGetHasUnapplied(x.GoPointer())
-
+	cret := xSettingsGetHasUnapplied(x.GoPointer())
+	return cret
 }
 
 var xSettingsGetInt func(uintptr, string) int
@@ -777,8 +787,8 @@ var xSettingsGetInt func(uintptr, string) int
 // having a int32 type in the schema for @settings.
 func (x *Settings) GetInt(KeyVar string) int {
 
-	return xSettingsGetInt(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetInt(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetInt64 func(uintptr, string) int64
@@ -791,8 +801,8 @@ var xSettingsGetInt64 func(uintptr, string) int64
 // having a int64 type in the schema for @settings.
 func (x *Settings) GetInt64(KeyVar string) int64 {
 
-	return xSettingsGetInt64(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetInt64(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetMapped func(uintptr, string, uintptr, uintptr) uintptr
@@ -826,8 +836,8 @@ var xSettingsGetMapped func(uintptr, string, uintptr, uintptr) uintptr
 // just as any other value would be.
 func (x *Settings) GetMapped(KeyVar string, MappingVar SettingsGetMapping, UserDataVar uintptr) uintptr {
 
-	return xSettingsGetMapped(x.GoPointer(), KeyVar, purego.NewCallback(MappingVar), UserDataVar)
-
+	cret := xSettingsGetMapped(x.GoPointer(), KeyVar, purego.NewCallback(MappingVar), UserDataVar)
+	return cret
 }
 
 var xSettingsGetRange func(uintptr, string) *glib.Variant
@@ -835,8 +845,8 @@ var xSettingsGetRange func(uintptr, string) *glib.Variant
 // Queries the range of a key.
 func (x *Settings) GetRange(KeyVar string) *glib.Variant {
 
-	return xSettingsGetRange(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetRange(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetString func(uintptr, string) string
@@ -849,8 +859,8 @@ var xSettingsGetString func(uintptr, string) string
 // having a string type in the schema for @settings.
 func (x *Settings) GetString(KeyVar string) string {
 
-	return xSettingsGetString(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetString(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetStrv func(uintptr, string) uintptr
@@ -861,8 +871,8 @@ var xSettingsGetStrv func(uintptr, string) uintptr
 // having an array of strings type in the schema for @settings.
 func (x *Settings) GetStrv(KeyVar string) uintptr {
 
-	return xSettingsGetStrv(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetStrv(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetUint func(uintptr, string) uint
@@ -876,8 +886,8 @@ var xSettingsGetUint func(uintptr, string) uint
 // having a uint32 type in the schema for @settings.
 func (x *Settings) GetUint(KeyVar string) uint {
 
-	return xSettingsGetUint(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetUint(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetUint64 func(uintptr, string) uint64
@@ -891,8 +901,8 @@ var xSettingsGetUint64 func(uintptr, string) uint64
 // having a uint64 type in the schema for @settings.
 func (x *Settings) GetUint64(KeyVar string) uint64 {
 
-	return xSettingsGetUint64(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetUint64(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetUserValue func(uintptr, string) *glib.Variant
@@ -917,8 +927,8 @@ var xSettingsGetUserValue func(uintptr, string) *glib.Variant
 // schema for @settings.
 func (x *Settings) GetUserValue(KeyVar string) *glib.Variant {
 
-	return xSettingsGetUserValue(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetUserValue(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsGetValue func(uintptr, string) *glib.Variant
@@ -929,8 +939,8 @@ var xSettingsGetValue func(uintptr, string) *glib.Variant
 // schema for @settings.
 func (x *Settings) GetValue(KeyVar string) *glib.Variant {
 
-	return xSettingsGetValue(x.GoPointer(), KeyVar)
-
+	cret := xSettingsGetValue(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xSettingsIsWritable func(uintptr, string) bool
@@ -938,8 +948,8 @@ var xSettingsIsWritable func(uintptr, string) bool
 // Finds out if a key can be written or not
 func (x *Settings) IsWritable(NameVar string) bool {
 
-	return xSettingsIsWritable(x.GoPointer(), NameVar)
-
+	cret := xSettingsIsWritable(x.GoPointer(), NameVar)
+	return cret
 }
 
 var xSettingsListChildren func(uintptr) uintptr
@@ -957,8 +967,8 @@ var xSettingsListChildren func(uintptr) uintptr
 // with it.
 func (x *Settings) ListChildren() uintptr {
 
-	return xSettingsListChildren(x.GoPointer())
-
+	cret := xSettingsListChildren(x.GoPointer())
+	return cret
 }
 
 var xSettingsListKeys func(uintptr) uintptr
@@ -973,8 +983,8 @@ var xSettingsListKeys func(uintptr) uintptr
 // with it.
 func (x *Settings) ListKeys() uintptr {
 
-	return xSettingsListKeys(x.GoPointer())
-
+	cret := xSettingsListKeys(x.GoPointer())
+	return cret
 }
 
 var xSettingsRangeCheck func(uintptr, string, *glib.Variant) bool
@@ -983,8 +993,8 @@ var xSettingsRangeCheck func(uintptr, string, *glib.Variant) bool
 // permitted range for @key.
 func (x *Settings) RangeCheck(KeyVar string, ValueVar *glib.Variant) bool {
 
-	return xSettingsRangeCheck(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsRangeCheck(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsReset func(uintptr, string)
@@ -1026,8 +1036,8 @@ var xSettingsSet func(uintptr, string, string, ...interface{}) bool
 // the type given in the schema.
 func (x *Settings) Set(KeyVar string, FormatVar string, varArgs ...interface{}) bool {
 
-	return xSettingsSet(x.GoPointer(), KeyVar, FormatVar, varArgs...)
-
+	cret := xSettingsSet(x.GoPointer(), KeyVar, FormatVar, varArgs...)
+	return cret
 }
 
 var xSettingsSetBoolean func(uintptr, string, bool) bool
@@ -1040,8 +1050,8 @@ var xSettingsSetBoolean func(uintptr, string, bool) bool
 // having a boolean type in the schema for @settings.
 func (x *Settings) SetBoolean(KeyVar string, ValueVar bool) bool {
 
-	return xSettingsSetBoolean(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetBoolean(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetDouble func(uintptr, string, float64) bool
@@ -1054,8 +1064,8 @@ var xSettingsSetDouble func(uintptr, string, float64) bool
 // having a 'double' type in the schema for @settings.
 func (x *Settings) SetDouble(KeyVar string, ValueVar float64) bool {
 
-	return xSettingsSetDouble(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetDouble(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetEnum func(uintptr, string, int) bool
@@ -1072,8 +1082,8 @@ var xSettingsSetEnum func(uintptr, string, int) bool
 // @value.
 func (x *Settings) SetEnum(KeyVar string, ValueVar int) bool {
 
-	return xSettingsSetEnum(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetEnum(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetFlags func(uintptr, string, uint) bool
@@ -1091,8 +1101,8 @@ var xSettingsSetFlags func(uintptr, string, uint) bool
 // bit in @value.
 func (x *Settings) SetFlags(KeyVar string, ValueVar uint) bool {
 
-	return xSettingsSetFlags(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetFlags(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetInt func(uintptr, string, int) bool
@@ -1105,8 +1115,8 @@ var xSettingsSetInt func(uintptr, string, int) bool
 // having a int32 type in the schema for @settings.
 func (x *Settings) SetInt(KeyVar string, ValueVar int) bool {
 
-	return xSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetInt64 func(uintptr, string, int64) bool
@@ -1119,8 +1129,8 @@ var xSettingsSetInt64 func(uintptr, string, int64) bool
 // having a int64 type in the schema for @settings.
 func (x *Settings) SetInt64(KeyVar string, ValueVar int64) bool {
 
-	return xSettingsSetInt64(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetInt64(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetString func(uintptr, string, string) bool
@@ -1133,8 +1143,8 @@ var xSettingsSetString func(uintptr, string, string) bool
 // having a string type in the schema for @settings.
 func (x *Settings) SetString(KeyVar string, ValueVar string) bool {
 
-	return xSettingsSetString(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetString(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetStrv func(uintptr, string, uintptr) bool
@@ -1148,8 +1158,8 @@ var xSettingsSetStrv func(uintptr, string, uintptr) bool
 // having an array of strings type in the schema for @settings.
 func (x *Settings) SetStrv(KeyVar string, ValueVar uintptr) bool {
 
-	return xSettingsSetStrv(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetStrv(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetUint func(uintptr, string, uint) bool
@@ -1163,8 +1173,8 @@ var xSettingsSetUint func(uintptr, string, uint) bool
 // having a uint32 type in the schema for @settings.
 func (x *Settings) SetUint(KeyVar string, ValueVar uint) bool {
 
-	return xSettingsSetUint(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetUint(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetUint64 func(uintptr, string, uint64) bool
@@ -1178,8 +1188,8 @@ var xSettingsSetUint64 func(uintptr, string, uint64) bool
 // having a uint64 type in the schema for @settings.
 func (x *Settings) SetUint64(KeyVar string, ValueVar uint64) bool {
 
-	return xSettingsSetUint64(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetUint64(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 var xSettingsSetValue func(uintptr, string, *glib.Variant) bool
@@ -1193,8 +1203,8 @@ var xSettingsSetValue func(uintptr, string, *glib.Variant) bool
 // If @value is floating then this function consumes the reference.
 func (x *Settings) SetValue(KeyVar string, ValueVar *glib.Variant) bool {
 
-	return xSettingsSetValue(x.GoPointer(), KeyVar, ValueVar)
-
+	cret := xSettingsSetValue(x.GoPointer(), KeyVar, ValueVar)
+	return cret
 }
 
 func (c *Settings) GoPointer() uintptr {

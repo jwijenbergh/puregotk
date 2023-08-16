@@ -38,14 +38,16 @@ var xNewGesturePan func(Orientation) uintptr
 
 // Returns a newly created `GtkGesture` that recognizes pan gestures.
 func NewGesturePan(OrientationVar Orientation) *Gesture {
-	NewGesturePanPtr := xNewGesturePan(OrientationVar)
-	if NewGesturePanPtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGesturePanCls := &Gesture{}
-	NewGesturePanCls.Ptr = NewGesturePanPtr
-	return NewGesturePanCls
+	cret := xNewGesturePan(OrientationVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGesturePanGetOrientation func(uintptr) Orientation
@@ -53,8 +55,8 @@ var xGesturePanGetOrientation func(uintptr) Orientation
 // Returns the orientation of the pan gestures that this @gesture expects.
 func (x *GesturePan) GetOrientation() Orientation {
 
-	return xGesturePanGetOrientation(x.GoPointer())
-
+	cret := xGesturePanGetOrientation(x.GoPointer())
+	return cret
 }
 
 var xGesturePanSetOrientation func(uintptr, Orientation)

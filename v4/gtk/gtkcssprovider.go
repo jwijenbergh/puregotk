@@ -57,14 +57,16 @@ var xNewCssProvider func() uintptr
 
 // Returns a newly created `GtkCssProvider`.
 func NewCssProvider() *CssProvider {
-	NewCssProviderPtr := xNewCssProvider()
-	if NewCssProviderPtr == 0 {
-		return nil
-	}
+	var cls *CssProvider
 
-	NewCssProviderCls := &CssProvider{}
-	NewCssProviderCls.Ptr = NewCssProviderPtr
-	return NewCssProviderCls
+	cret := xNewCssProvider()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CssProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCssProviderLoadFromData func(uintptr, string, int)
@@ -136,8 +138,8 @@ var xCssProviderToString func(uintptr) string
 // of this @provider.
 func (x *CssProvider) ToString() string {
 
-	return xCssProviderToString(x.GoPointer())
-
+	cret := xCssProviderToString(x.GoPointer())
+	return cret
 }
 
 func (c *CssProvider) GoPointer() uintptr {

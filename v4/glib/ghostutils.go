@@ -18,8 +18,8 @@ var xHostnameIsAsciiEncoded func(string) bool
 // g_hostname_is_ascii_encoded() to both return %TRUE for a name.
 func HostnameIsAsciiEncoded(HostnameVar string) bool {
 
-	return xHostnameIsAsciiEncoded(HostnameVar)
-
+	cret := xHostnameIsAsciiEncoded(HostnameVar)
+	return cret
 }
 
 var xHostnameIsIpAddress func(string) bool
@@ -30,8 +30,8 @@ var xHostnameIsIpAddress func(string) bool
 // Since 2.66, IPv6 addresses with a zone-id are accepted (RFC6874).
 func HostnameIsIpAddress(HostnameVar string) bool {
 
-	return xHostnameIsIpAddress(HostnameVar)
-
+	cret := xHostnameIsIpAddress(HostnameVar)
+	return cret
 }
 
 var xHostnameIsNonAscii func(string) bool
@@ -45,8 +45,8 @@ var xHostnameIsNonAscii func(string) bool
 // g_hostname_is_ascii_encoded() to both return %TRUE for a name.
 func HostnameIsNonAscii(HostnameVar string) bool {
 
-	return xHostnameIsNonAscii(HostnameVar)
-
+	cret := xHostnameIsNonAscii(HostnameVar)
+	return cret
 }
 
 var xHostnameToAscii func(string) string
@@ -56,8 +56,8 @@ var xHostnameToAscii func(string) string
 // trailing dot.
 func HostnameToAscii(HostnameVar string) string {
 
-	return xHostnameToAscii(HostnameVar)
-
+	cret := xHostnameToAscii(HostnameVar)
+	return cret
 }
 
 var xHostnameToUnicode func(string) string
@@ -71,8 +71,8 @@ var xHostnameToUnicode func(string) string
 // the canonical presentation form will be entirely ASCII.
 func HostnameToUnicode(HostnameVar string) string {
 
-	return xHostnameToUnicode(HostnameVar)
-
+	cret := xHostnameToUnicode(HostnameVar)
+	return cret
 }
 
 func init() {

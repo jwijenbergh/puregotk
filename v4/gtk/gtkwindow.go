@@ -98,16 +98,17 @@ var xNewWindow func() uintptr
 //
 // To delete a `GtkWindow`, call [method@Gtk.Window.destroy].
 func NewWindow() *Widget {
-	NewWindowPtr := xNewWindow()
-	if NewWindowPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWindow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWindowPtr)
-
-	NewWindowCls := &Widget{}
-	NewWindowCls.Ptr = NewWindowPtr
-	return NewWindowCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowClose func(uintptr)
@@ -173,36 +174,34 @@ var xWindowGetApplication func(uintptr) uintptr
 
 // Gets the `GtkApplication` associated with the window.
 func (x *Window) GetApplication() *Application {
+	var cls *Application
 
-	GetApplicationPtr := xWindowGetApplication(x.GoPointer())
-	if GetApplicationPtr == 0 {
-		return nil
+	cret := xWindowGetApplication(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetApplicationPtr)
-
-	GetApplicationCls := &Application{}
-	GetApplicationCls.Ptr = GetApplicationPtr
-	return GetApplicationCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Application{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetChild func(uintptr) uintptr
 
 // Gets the child widget of @window.
 func (x *Window) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xWindowGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xWindowGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetDecorated func(uintptr) bool
@@ -210,8 +209,8 @@ var xWindowGetDecorated func(uintptr) bool
 // Returns whether the window has been set to have decorations.
 func (x *Window) GetDecorated() bool {
 
-	return xWindowGetDecorated(x.GoPointer())
-
+	cret := xWindowGetDecorated(x.GoPointer())
+	return cret
 }
 
 var xWindowGetDefaultSize func(uintptr, int, int)
@@ -231,18 +230,17 @@ var xWindowGetDefaultWidget func(uintptr) uintptr
 
 // Returns the default widget for @window.
 func (x *Window) GetDefaultWidget() *Widget {
+	var cls *Widget
 
-	GetDefaultWidgetPtr := xWindowGetDefaultWidget(x.GoPointer())
-	if GetDefaultWidgetPtr == 0 {
-		return nil
+	cret := xWindowGetDefaultWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDefaultWidgetPtr)
-
-	GetDefaultWidgetCls := &Widget{}
-	GetDefaultWidgetCls.Ptr = GetDefaultWidgetPtr
-	return GetDefaultWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetDeletable func(uintptr) bool
@@ -250,8 +248,8 @@ var xWindowGetDeletable func(uintptr) bool
 // Returns whether the window has been set to have a close button.
 func (x *Window) GetDeletable() bool {
 
-	return xWindowGetDeletable(x.GoPointer())
-
+	cret := xWindowGetDeletable(x.GoPointer())
+	return cret
 }
 
 var xWindowGetDestroyWithParent func(uintptr) bool
@@ -259,8 +257,8 @@ var xWindowGetDestroyWithParent func(uintptr) bool
 // Returns whether the window will be destroyed with its transient parent.
 func (x *Window) GetDestroyWithParent() bool {
 
-	return xWindowGetDestroyWithParent(x.GoPointer())
-
+	cret := xWindowGetDestroyWithParent(x.GoPointer())
+	return cret
 }
 
 var xWindowGetFocus func(uintptr) uintptr
@@ -272,18 +270,17 @@ var xWindowGetFocus func(uintptr) uintptr
 // is not focused then `gtk_widget_has_focus (widget)` will
 // not be %TRUE for the widget.
 func (x *Window) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := xWindowGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := xWindowGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetFocusVisible func(uintptr) bool
@@ -291,8 +288,8 @@ var xWindowGetFocusVisible func(uintptr) bool
 // Gets whether “focus rectangles” are supposed to be visible.
 func (x *Window) GetFocusVisible() bool {
 
-	return xWindowGetFocusVisible(x.GoPointer())
-
+	cret := xWindowGetFocusVisible(x.GoPointer())
+	return cret
 }
 
 var xWindowGetGroup func(uintptr) uintptr
@@ -301,18 +298,17 @@ var xWindowGetGroup func(uintptr) uintptr
 //
 // If the window has no group, then the default group is returned.
 func (x *Window) GetGroup() *WindowGroup {
+	var cls *WindowGroup
 
-	GetGroupPtr := xWindowGetGroup(x.GoPointer())
-	if GetGroupPtr == 0 {
-		return nil
+	cret := xWindowGetGroup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetGroupPtr)
-
-	GetGroupCls := &WindowGroup{}
-	GetGroupCls.Ptr = GetGroupPtr
-	return GetGroupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &WindowGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetHandleMenubarAccel func(uintptr) bool
@@ -321,8 +317,8 @@ var xWindowGetHandleMenubarAccel func(uintptr) bool
 // activating a menubar it contains.
 func (x *Window) GetHandleMenubarAccel() bool {
 
-	return xWindowGetHandleMenubarAccel(x.GoPointer())
-
+	cret := xWindowGetHandleMenubarAccel(x.GoPointer())
+	return cret
 }
 
 var xWindowGetHideOnClose func(uintptr) bool
@@ -330,8 +326,8 @@ var xWindowGetHideOnClose func(uintptr) bool
 // Returns whether the window will be hidden when the close button is clicked.
 func (x *Window) GetHideOnClose() bool {
 
-	return xWindowGetHideOnClose(x.GoPointer())
-
+	cret := xWindowGetHideOnClose(x.GoPointer())
+	return cret
 }
 
 var xWindowGetIconName func(uintptr) string
@@ -339,8 +335,8 @@ var xWindowGetIconName func(uintptr) string
 // Returns the name of the themed icon for the window.
 func (x *Window) GetIconName() string {
 
-	return xWindowGetIconName(x.GoPointer())
-
+	cret := xWindowGetIconName(x.GoPointer())
+	return cret
 }
 
 var xWindowGetMnemonicsVisible func(uintptr) bool
@@ -348,8 +344,8 @@ var xWindowGetMnemonicsVisible func(uintptr) bool
 // Gets whether mnemonics are supposed to be visible.
 func (x *Window) GetMnemonicsVisible() bool {
 
-	return xWindowGetMnemonicsVisible(x.GoPointer())
-
+	cret := xWindowGetMnemonicsVisible(x.GoPointer())
+	return cret
 }
 
 var xWindowGetModal func(uintptr) bool
@@ -357,8 +353,8 @@ var xWindowGetModal func(uintptr) bool
 // Returns whether the window is modal.
 func (x *Window) GetModal() bool {
 
-	return xWindowGetModal(x.GoPointer())
-
+	cret := xWindowGetModal(x.GoPointer())
+	return cret
 }
 
 var xWindowGetResizable func(uintptr) bool
@@ -366,8 +362,8 @@ var xWindowGetResizable func(uintptr) bool
 // Gets the value set by gtk_window_set_resizable().
 func (x *Window) GetResizable() bool {
 
-	return xWindowGetResizable(x.GoPointer())
-
+	cret := xWindowGetResizable(x.GoPointer())
+	return cret
 }
 
 var xWindowGetTitle func(uintptr) string
@@ -375,8 +371,8 @@ var xWindowGetTitle func(uintptr) string
 // Retrieves the title of the window.
 func (x *Window) GetTitle() string {
 
-	return xWindowGetTitle(x.GoPointer())
-
+	cret := xWindowGetTitle(x.GoPointer())
+	return cret
 }
 
 var xWindowGetTitlebar func(uintptr) uintptr
@@ -384,36 +380,34 @@ var xWindowGetTitlebar func(uintptr) uintptr
 // Returns the custom titlebar that has been set with
 // gtk_window_set_titlebar().
 func (x *Window) GetTitlebar() *Widget {
+	var cls *Widget
 
-	GetTitlebarPtr := xWindowGetTitlebar(x.GoPointer())
-	if GetTitlebarPtr == 0 {
-		return nil
+	cret := xWindowGetTitlebar(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTitlebarPtr)
-
-	GetTitlebarCls := &Widget{}
-	GetTitlebarCls.Ptr = GetTitlebarPtr
-	return GetTitlebarCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetTransientFor func(uintptr) uintptr
 
 // Fetches the transient parent for this window.
 func (x *Window) GetTransientFor() *Window {
+	var cls *Window
 
-	GetTransientForPtr := xWindowGetTransientFor(x.GoPointer())
-	if GetTransientForPtr == 0 {
-		return nil
+	cret := xWindowGetTransientFor(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTransientForPtr)
-
-	GetTransientForCls := &Window{}
-	GetTransientForCls.Ptr = GetTransientForPtr
-	return GetTransientForCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Window{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowHasGroup func(uintptr) bool
@@ -421,8 +415,8 @@ var xWindowHasGroup func(uintptr) bool
 // Returns whether @window has an explicit window group.
 func (x *Window) HasGroup() bool {
 
-	return xWindowHasGroup(x.GoPointer())
-
+	cret := xWindowHasGroup(x.GoPointer())
+	return cret
 }
 
 var xWindowIsActive func(uintptr) bool
@@ -436,8 +430,8 @@ var xWindowIsActive func(uintptr) bool
 // differently in an active window from a widget in an inactive window.
 func (x *Window) IsActive() bool {
 
-	return xWindowIsActive(x.GoPointer())
-
+	cret := xWindowIsActive(x.GoPointer())
+	return cret
 }
 
 var xWindowIsFullscreen func(uintptr) bool
@@ -454,8 +448,8 @@ var xWindowIsFullscreen func(uintptr) bool
 // initial requested state is fullscreen.
 func (x *Window) IsFullscreen() bool {
 
-	return xWindowIsFullscreen(x.GoPointer())
-
+	cret := xWindowIsFullscreen(x.GoPointer())
+	return cret
 }
 
 var xWindowIsMaximized func(uintptr) bool
@@ -472,8 +466,8 @@ var xWindowIsMaximized func(uintptr) bool
 // initial requested state is maximized.
 func (x *Window) IsMaximized() bool {
 
-	return xWindowIsMaximized(x.GoPointer())
-
+	cret := xWindowIsMaximized(x.GoPointer())
+	return cret
 }
 
 var xWindowMaximize func(uintptr)
@@ -1019,8 +1013,8 @@ func (x *Window) ConnectKeysChanged(cb func(Window)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Window) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1155,40 +1149,38 @@ func (x *Window) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Window) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *Window) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *Window) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -1221,18 +1213,17 @@ func (x *Window) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *Window) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

@@ -33,8 +33,8 @@ func (c *ShortcutsGroup) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ShortcutsGroup) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -169,15 +169,15 @@ func (x *ShortcutsGroup) UpdateStateValue(NStatesVar int, StatesVar uintptr, Val
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ShortcutsGroup) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ShortcutsGroup) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

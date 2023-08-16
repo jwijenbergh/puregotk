@@ -20,8 +20,8 @@ var xVec3One func() *Vec3
 // all sets to 1.
 func Vec3One() *Vec3 {
 
-	return xVec3One()
-
+	cret := xVec3One()
+	return cret
 }
 
 var xVec3XAxis func() *Vec3
@@ -30,8 +30,8 @@ var xVec3XAxis func() *Vec3
 // with values set to (1, 0, 0).
 func Vec3XAxis() *Vec3 {
 
-	return xVec3XAxis()
-
+	cret := xVec3XAxis()
+	return cret
 }
 
 var xVec3YAxis func() *Vec3
@@ -40,8 +40,8 @@ var xVec3YAxis func() *Vec3
 // with values set to (0, 1, 0).
 func Vec3YAxis() *Vec3 {
 
-	return xVec3YAxis()
-
+	cret := xVec3YAxis()
+	return cret
 }
 
 var xVec3ZAxis func() *Vec3
@@ -50,8 +50,8 @@ var xVec3ZAxis func() *Vec3
 // with values set to (0, 0, 1).
 func Vec3ZAxis() *Vec3 {
 
-	return xVec3ZAxis()
-
+	cret := xVec3ZAxis()
+	return cret
 }
 
 var xVec3Zero func() *Vec3
@@ -60,8 +60,8 @@ var xVec3Zero func() *Vec3
 // all sets to 0.
 func Vec3Zero() *Vec3 {
 
-	return xVec3Zero()
-
+	cret := xVec3Zero()
+	return cret
 }
 
 func init() {

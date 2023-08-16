@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -45,17 +46,19 @@ var xNewSocketListener func() uintptr
 // New listeners can be added with e.g. g_socket_listener_add_address()
 // or g_socket_listener_add_inet_port().
 func NewSocketListener() *SocketListener {
-	NewSocketListenerPtr := xNewSocketListener()
-	if NewSocketListenerPtr == 0 {
-		return nil
-	}
+	var cls *SocketListener
 
-	NewSocketListenerCls := &SocketListener{}
-	NewSocketListenerCls.Ptr = NewSocketListenerPtr
-	return NewSocketListenerCls
+	cret := xNewSocketListener()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketListener{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xSocketListenerAccept func(uintptr, *uintptr, uintptr) uintptr
+var xSocketListenerAccept func(uintptr, *uintptr, uintptr, **glib.Error) uintptr
 
 // Blocks waiting for a client to connect to any of the sockets added
 // to the listener. Returns a #GSocketConnection for the socket that was
@@ -68,16 +71,21 @@ var xSocketListenerAccept func(uintptr, *uintptr, uintptr) uintptr
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *SocketListener) Accept(SourceObjectVar **gobject.Object, CancellableVar *Cancellable) *SocketConnection {
+func (x *SocketListener) Accept(SourceObjectVar **gobject.Object, CancellableVar *Cancellable) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	AcceptPtr := xSocketListenerAccept(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer())
-	if AcceptPtr == 0 {
-		return nil
+	cret := xSocketListenerAccept(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AcceptCls := &SocketConnection{}
-	AcceptCls.Ptr = AcceptPtr
-	return AcceptCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -94,23 +102,28 @@ func (x *SocketListener) AcceptAsync(CancellableVar *Cancellable, CallbackVar As
 
 }
 
-var xSocketListenerAcceptFinish func(uintptr, uintptr, *uintptr) uintptr
+var xSocketListenerAcceptFinish func(uintptr, uintptr, *uintptr, **glib.Error) uintptr
 
 // Finishes an async accept operation. See g_socket_listener_accept_async()
-func (x *SocketListener) AcceptFinish(ResultVar AsyncResult, SourceObjectVar **gobject.Object) *SocketConnection {
+func (x *SocketListener) AcceptFinish(ResultVar AsyncResult, SourceObjectVar **gobject.Object) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	AcceptFinishPtr := xSocketListenerAcceptFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar))
-	if AcceptFinishPtr == 0 {
-		return nil
+	cret := xSocketListenerAcceptFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AcceptFinishCls := &SocketConnection{}
-	AcceptFinishCls.Ptr = AcceptFinishPtr
-	return AcceptFinishCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xSocketListenerAcceptSocket func(uintptr, *uintptr, uintptr) uintptr
+var xSocketListenerAcceptSocket func(uintptr, *uintptr, uintptr, **glib.Error) uintptr
 
 // Blocks waiting for a client to connect to any of the sockets added
 // to the listener. Returns the #GSocket that was accepted.
@@ -126,16 +139,21 @@ var xSocketListenerAcceptSocket func(uintptr, *uintptr, uintptr) uintptr
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *SocketListener) AcceptSocket(SourceObjectVar **gobject.Object, CancellableVar *Cancellable) *Socket {
+func (x *SocketListener) AcceptSocket(SourceObjectVar **gobject.Object, CancellableVar *Cancellable) (*Socket, error) {
+	var cls *Socket
+	var cerr *glib.Error
 
-	AcceptSocketPtr := xSocketListenerAcceptSocket(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer())
-	if AcceptSocketPtr == 0 {
-		return nil
+	cret := xSocketListenerAcceptSocket(x.GoPointer(), gobject.ConvertPtr(SourceObjectVar), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AcceptSocketCls := &Socket{}
-	AcceptSocketCls.Ptr = AcceptSocketPtr
-	return AcceptSocketCls
+	cls = &Socket{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -152,23 +170,28 @@ func (x *SocketListener) AcceptSocketAsync(CancellableVar *Cancellable, Callback
 
 }
 
-var xSocketListenerAcceptSocketFinish func(uintptr, uintptr, *uintptr) uintptr
+var xSocketListenerAcceptSocketFinish func(uintptr, uintptr, *uintptr, **glib.Error) uintptr
 
 // Finishes an async accept operation. See g_socket_listener_accept_socket_async()
-func (x *SocketListener) AcceptSocketFinish(ResultVar AsyncResult, SourceObjectVar **gobject.Object) *Socket {
+func (x *SocketListener) AcceptSocketFinish(ResultVar AsyncResult, SourceObjectVar **gobject.Object) (*Socket, error) {
+	var cls *Socket
+	var cerr *glib.Error
 
-	AcceptSocketFinishPtr := xSocketListenerAcceptSocketFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar))
-	if AcceptSocketFinishPtr == 0 {
-		return nil
+	cret := xSocketListenerAcceptSocketFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(SourceObjectVar), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AcceptSocketFinishCls := &Socket{}
-	AcceptSocketFinishCls.Ptr = AcceptSocketFinishPtr
-	return AcceptSocketFinishCls
+	cls = &Socket{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xSocketListenerAddAddress func(uintptr, uintptr, SocketType, SocketProtocol, uintptr, *uintptr) bool
+var xSocketListenerAddAddress func(uintptr, uintptr, SocketType, SocketProtocol, uintptr, *uintptr, **glib.Error) bool
 
 // Creates a socket of type @type and protocol @protocol, binds
 // it to @address and adds it to the set of sockets we're accepting
@@ -193,13 +216,18 @@ var xSocketListenerAddAddress func(uintptr, uintptr, SocketType, SocketProtocol,
 // Call g_socket_listener_close() to stop listening on @address; this will not
 // be done automatically when you drop your final reference to @listener, as
 // references may be held internally.
-func (x *SocketListener) AddAddress(AddressVar *SocketAddress, TypeVar SocketType, ProtocolVar SocketProtocol, SourceObjectVar *gobject.Object, EffectiveAddressVar **SocketAddress) bool {
+func (x *SocketListener) AddAddress(AddressVar *SocketAddress, TypeVar SocketType, ProtocolVar SocketProtocol, SourceObjectVar *gobject.Object, EffectiveAddressVar **SocketAddress) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketListenerAddAddress(x.GoPointer(), AddressVar.GoPointer(), TypeVar, ProtocolVar, SourceObjectVar.GoPointer(), gobject.ConvertPtr(EffectiveAddressVar))
+	cret := xSocketListenerAddAddress(x.GoPointer(), AddressVar.GoPointer(), TypeVar, ProtocolVar, SourceObjectVar.GoPointer(), gobject.ConvertPtr(EffectiveAddressVar), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSocketListenerAddAnyInetPort func(uintptr, uintptr) uint16
+var xSocketListenerAddAnyInetPort func(uintptr, uintptr, **glib.Error) uint16
 
 // Listens for TCP connections on any available port number for both
 // IPv6 and IPv4 (if each is available).
@@ -211,13 +239,18 @@ var xSocketListenerAddAnyInetPort func(uintptr, uintptr) uint16
 // to accept to identify this particular source, which is
 // useful if you're listening on multiple addresses and do
 // different things depending on what address is connected to.
-func (x *SocketListener) AddAnyInetPort(SourceObjectVar *gobject.Object) uint16 {
+func (x *SocketListener) AddAnyInetPort(SourceObjectVar *gobject.Object) (uint16, error) {
+	var cerr *glib.Error
 
-	return xSocketListenerAddAnyInetPort(x.GoPointer(), SourceObjectVar.GoPointer())
+	cret := xSocketListenerAddAnyInetPort(x.GoPointer(), SourceObjectVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSocketListenerAddInetPort func(uintptr, uint16, uintptr) bool
+var xSocketListenerAddInetPort func(uintptr, uint16, uintptr, **glib.Error) bool
 
 // Helper function for g_socket_listener_add_address() that
 // creates a TCP/IP socket listening on IPv4 and IPv6 (if
@@ -231,13 +264,18 @@ var xSocketListenerAddInetPort func(uintptr, uint16, uintptr) bool
 // Call g_socket_listener_close() to stop listening on @port; this will not
 // be done automatically when you drop your final reference to @listener, as
 // references may be held internally.
-func (x *SocketListener) AddInetPort(PortVar uint16, SourceObjectVar *gobject.Object) bool {
+func (x *SocketListener) AddInetPort(PortVar uint16, SourceObjectVar *gobject.Object) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketListenerAddInetPort(x.GoPointer(), PortVar, SourceObjectVar.GoPointer())
+	cret := xSocketListenerAddInetPort(x.GoPointer(), PortVar, SourceObjectVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSocketListenerAddSocket func(uintptr, uintptr, uintptr) bool
+var xSocketListenerAddSocket func(uintptr, uintptr, uintptr, **glib.Error) bool
 
 // Adds @socket to the set of sockets that we try to accept
 // new clients from. The socket must be bound to a local
@@ -252,9 +290,14 @@ var xSocketListenerAddSocket func(uintptr, uintptr, uintptr) bool
 // unless the listener held the final reference to the socket. Before GLib 2.42,
 // the @socket was automatically closed on finalization of the @listener, even
 // if references to it were held elsewhere.
-func (x *SocketListener) AddSocket(SocketVar *Socket, SourceObjectVar *gobject.Object) bool {
+func (x *SocketListener) AddSocket(SocketVar *Socket, SourceObjectVar *gobject.Object) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketListenerAddSocket(x.GoPointer(), SocketVar.GoPointer(), SourceObjectVar.GoPointer())
+	cret := xSocketListenerAddSocket(x.GoPointer(), SocketVar.GoPointer(), SourceObjectVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

@@ -41,16 +41,17 @@ var xNewWindowTitle func(string, string) uintptr
 
 // Creates a new `AdwWindowTitle`.
 func NewWindowTitle(TitleVar string, SubtitleVar string) *gtk.Widget {
-	NewWindowTitlePtr := xNewWindowTitle(TitleVar, SubtitleVar)
-	if NewWindowTitlePtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewWindowTitle(TitleVar, SubtitleVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWindowTitlePtr)
-
-	NewWindowTitleCls := &gtk.Widget{}
-	NewWindowTitleCls.Ptr = NewWindowTitlePtr
-	return NewWindowTitleCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowTitleGetSubtitle func(uintptr) string
@@ -58,8 +59,8 @@ var xWindowTitleGetSubtitle func(uintptr) string
 // Gets the subtitle of @self.
 func (x *WindowTitle) GetSubtitle() string {
 
-	return xWindowTitleGetSubtitle(x.GoPointer())
-
+	cret := xWindowTitleGetSubtitle(x.GoPointer())
+	return cret
 }
 
 var xWindowTitleGetTitle func(uintptr) string
@@ -67,8 +68,8 @@ var xWindowTitleGetTitle func(uintptr) string
 // Gets the title of @self.
 func (x *WindowTitle) GetTitle() string {
 
-	return xWindowTitleGetTitle(x.GoPointer())
-
+	cret := xWindowTitleGetTitle(x.GoPointer())
+	return cret
 }
 
 var xWindowTitleSetSubtitle func(uintptr, string)
@@ -105,8 +106,8 @@ func (c *WindowTitle) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *WindowTitle) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -241,8 +242,8 @@ func (x *WindowTitle) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *WindowTitle) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

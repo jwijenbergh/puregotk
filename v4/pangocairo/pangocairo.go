@@ -41,8 +41,8 @@ func (x *FontBase) SetGoPointer(ptr uintptr) {
 // cairo_scaled_font_reference().
 func (x *FontBase) GetScaledFont() *cairo.ScaledFont {
 
-	return XPangoCairoFontGetScaledFont(x.GoPointer())
-
+	cret := XPangoCairoFontGetScaledFont(x.GoPointer())
+	return cret
 }
 
 var XPangoCairoFontGetScaledFont func(uintptr) *cairo.ScaledFont
@@ -75,23 +75,23 @@ func (x *FontMapBase) SetGoPointer(ptr uintptr) {
 
 // Create a `PangoContext` for the given fontmap.
 func (x *FontMapBase) CreateContext() *pango.Context {
+	var cls *pango.Context
 
-	CreateContextPtr := XPangoCairoFontMapCreateContext(x.GoPointer())
-	if CreateContextPtr == 0 {
-		return nil
+	cret := XPangoCairoFontMapCreateContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateContextCls := &pango.Context{}
-	CreateContextCls.Ptr = CreateContextPtr
-	return CreateContextCls
-
+	cls = &pango.Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the type of Cairo font backend that @fontmap uses.
 func (x *FontMapBase) GetFontType() cairo.FontType {
 
-	return XPangoCairoFontMapGetFontType(x.GoPointer())
-
+	cret := XPangoCairoFontMapGetFontType(x.GoPointer())
+	return cret
 }
 
 // Gets the resolution for the fontmap.
@@ -99,8 +99,8 @@ func (x *FontMapBase) GetFontType() cairo.FontType {
 // See [method@PangoCairo.FontMap.set_resolution].
 func (x *FontMapBase) GetResolution() float64 {
 
-	return XPangoCairoFontMapGetResolution(x.GoPointer())
-
+	cret := XPangoCairoFontMapGetResolution(x.GoPointer())
+	return cret
 }
 
 // Sets a default `PangoCairoFontMap` to use with Cairo.
@@ -151,8 +151,8 @@ var xContextGetFontOptions func(uintptr) *cairo.FontOptions
 // the target surface by [func@update_context].
 func ContextGetFontOptions(ContextVar *pango.Context) *cairo.FontOptions {
 
-	return xContextGetFontOptions(ContextVar.GoPointer())
-
+	cret := xContextGetFontOptions(ContextVar.GoPointer())
+	return cret
 }
 
 var xContextGetResolution func(uintptr) float64
@@ -162,8 +162,8 @@ var xContextGetResolution func(uintptr) float64
 // See [func@PangoCairo.context_set_resolution]
 func ContextGetResolution(ContextVar *pango.Context) float64 {
 
-	return xContextGetResolution(ContextVar.GoPointer())
-
+	cret := xContextGetResolution(ContextVar.GoPointer())
+	return cret
 }
 
 var xContextGetShapeRenderer func(uintptr, uintptr) ShapeRendererFunc
@@ -178,8 +178,8 @@ var xContextGetShapeRenderer func(uintptr, uintptr) ShapeRendererFunc
 // [func@PangoCairo.context_set_shape_renderer], if any.
 func ContextGetShapeRenderer(ContextVar *pango.Context, DataVar uintptr) ShapeRendererFunc {
 
-	return xContextGetShapeRenderer(ContextVar.GoPointer(), DataVar)
-
+	cret := xContextGetShapeRenderer(ContextVar.GoPointer(), DataVar)
+	return cret
 }
 
 var xContextSetFontOptions func(uintptr, *cairo.FontOptions)
@@ -232,16 +232,16 @@ var xCreateContext func(*cairo.Context) uintptr
 // create a layout for use with @cr and do not need to access `PangoContext`
 // directly, you can use [func@create_layout] instead.
 func CreateContext(CrVar *cairo.Context) *pango.Context {
+	var cls *pango.Context
 
-	CreateContextPtr := xCreateContext(CrVar)
-	if CreateContextPtr == 0 {
-		return nil
+	cret := xCreateContext(CrVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateContextCls := &pango.Context{}
-	CreateContextCls.Ptr = CreateContextPtr
-	return CreateContextCls
-
+	cls = &pango.Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCreateLayout func(*cairo.Context) uintptr
@@ -259,16 +259,16 @@ var xCreateLayout func(*cairo.Context) uintptr
 // `PangoContext` object for each layout. This might matter in an
 // application that was laying out large amounts of text.
 func CreateLayout(CrVar *cairo.Context) *pango.Layout {
+	var cls *pango.Layout
 
-	CreateLayoutPtr := xCreateLayout(CrVar)
-	if CreateLayoutPtr == 0 {
-		return nil
+	cret := xCreateLayout(CrVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateLayoutCls := &pango.Layout{}
-	CreateLayoutCls.Ptr = CreateLayoutPtr
-	return CreateLayoutCls
-
+	cls = &pango.Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xErrorUnderlinePath func(*cairo.Context, float64, float64, float64, float64)
@@ -303,18 +303,17 @@ var xFontMapGetDefault func() uintptr
 // Each thread gets its own default fontmap. In this way, PangoCairo
 // can be used safely from multiple threads.
 func FontMapGetDefault() *pango.FontMap {
+	var cls *pango.FontMap
 
-	FontMapGetDefaultPtr := xFontMapGetDefault()
-	if FontMapGetDefaultPtr == 0 {
-		return nil
+	cret := xFontMapGetDefault()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(FontMapGetDefaultPtr)
-
-	FontMapGetDefaultCls := &pango.FontMap{}
-	FontMapGetDefaultCls.Ptr = FontMapGetDefaultPtr
-	return FontMapGetDefaultCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontMapNew func() uintptr
@@ -338,16 +337,16 @@ var xFontMapNew func() uintptr
 // this is only useful for testing, when at least two backends
 // are compiled in.
 func FontMapNew() *pango.FontMap {
+	var cls *pango.FontMap
 
-	FontMapNewPtr := xFontMapNew()
-	if FontMapNewPtr == 0 {
-		return nil
+	cret := xFontMapNew()
+
+	if cret == 0 {
+		return cls
 	}
-
-	FontMapNewCls := &pango.FontMap{}
-	FontMapNewCls.Ptr = FontMapNewPtr
-	return FontMapNewCls
-
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontMapNewForFontType func(cairo.FontType) uintptr
@@ -358,16 +357,16 @@ var xFontMapNewForFontType func(cairo.FontType) uintptr
 // In most cases one should simply use [func@PangoCairo.FontMap.new], or
 // in fact in most of those cases, just use [func@PangoCairo.FontMap.get_default].
 func FontMapNewForFontType(FonttypeVar cairo.FontType) *pango.FontMap {
+	var cls *pango.FontMap
 
-	FontMapNewForFontTypePtr := xFontMapNewForFontType(FonttypeVar)
-	if FontMapNewForFontTypePtr == 0 {
-		return nil
+	cret := xFontMapNewForFontType(FonttypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FontMapNewForFontTypeCls := &pango.FontMap{}
-	FontMapNewForFontTypeCls.Ptr = FontMapNewForFontTypePtr
-	return FontMapNewForFontTypeCls
-
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGlyphStringPath func(*cairo.Context, uintptr, *pango.GlyphString)

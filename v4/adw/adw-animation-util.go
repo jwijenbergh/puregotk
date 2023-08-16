@@ -15,8 +15,8 @@ var xGetEnableAnimations func(uintptr) bool
 // animate it or not.
 func GetEnableAnimations(WidgetVar *gtk.Widget) bool {
 
-	return xGetEnableAnimations(WidgetVar.GoPointer())
-
+	cret := xGetEnableAnimations(WidgetVar.GoPointer())
+	return cret
 }
 
 var xLerp func(float64, float64, float64) float64
@@ -24,8 +24,8 @@ var xLerp func(float64, float64, float64) float64
 // Computes the linear interpolation between @a and @b for @t.
 func Lerp(AVar float64, BVar float64, TVar float64) float64 {
 
-	return xLerp(AVar, BVar, TVar)
-
+	cret := xLerp(AVar, BVar, TVar)
+	return cret
 }
 
 func init() {

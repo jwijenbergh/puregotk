@@ -33,14 +33,16 @@ var xNewEventControllerMotion func() uintptr
 
 // Creates a new event controller that will handle motion events.
 func NewEventControllerMotion() *EventController {
-	NewEventControllerMotionPtr := xNewEventControllerMotion()
-	if NewEventControllerMotionPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewEventControllerMotionCls := &EventController{}
-	NewEventControllerMotionCls.Ptr = NewEventControllerMotionPtr
-	return NewEventControllerMotionCls
+	cret := xNewEventControllerMotion()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerMotionContainsPointer func(uintptr) bool
@@ -48,8 +50,8 @@ var xEventControllerMotionContainsPointer func(uintptr) bool
 // Returns if a pointer is within @self or one of its children.
 func (x *EventControllerMotion) ContainsPointer() bool {
 
-	return xEventControllerMotionContainsPointer(x.GoPointer())
-
+	cret := xEventControllerMotionContainsPointer(x.GoPointer())
+	return cret
 }
 
 var xEventControllerMotionIsPointer func(uintptr) bool
@@ -57,8 +59,8 @@ var xEventControllerMotionIsPointer func(uintptr) bool
 // Returns if a pointer is within @self, but not one of its children.
 func (x *EventControllerMotion) IsPointer() bool {
 
-	return xEventControllerMotionIsPointer(x.GoPointer())
-
+	cret := xEventControllerMotionIsPointer(x.GoPointer())
+	return cret
 }
 
 func (c *EventControllerMotion) GoPointer() uintptr {

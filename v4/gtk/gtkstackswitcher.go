@@ -54,34 +54,34 @@ var xNewStackSwitcher func() uintptr
 
 // Create a new `GtkStackSwitcher`.
 func NewStackSwitcher() *Widget {
-	NewStackSwitcherPtr := xNewStackSwitcher()
-	if NewStackSwitcherPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewStackSwitcher()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewStackSwitcherPtr)
-
-	NewStackSwitcherCls := &Widget{}
-	NewStackSwitcherCls.Ptr = NewStackSwitcherPtr
-	return NewStackSwitcherCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackSwitcherGetStack func(uintptr) uintptr
 
 // Retrieves the stack.
 func (x *StackSwitcher) GetStack() *Stack {
+	var cls *Stack
 
-	GetStackPtr := xStackSwitcherGetStack(x.GoPointer())
-	if GetStackPtr == 0 {
-		return nil
+	cret := xStackSwitcherGetStack(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStackPtr)
-
-	GetStackCls := &Stack{}
-	GetStackCls.Ptr = GetStackPtr
-	return GetStackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Stack{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackSwitcherSetStack func(uintptr, uintptr)
@@ -104,8 +104,8 @@ func (c *StackSwitcher) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *StackSwitcher) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -240,15 +240,15 @@ func (x *StackSwitcher) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *StackSwitcher) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *StackSwitcher) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

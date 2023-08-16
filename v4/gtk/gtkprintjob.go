@@ -38,14 +38,16 @@ var xNewPrintJob func(string, uintptr, uintptr, uintptr) uintptr
 
 // Creates a new `GtkPrintJob`.
 func NewPrintJob(TitleVar string, PrinterVar *Printer, SettingsVar *PrintSettings, PageSetupVar *PageSetup) *PrintJob {
-	NewPrintJobPtr := xNewPrintJob(TitleVar, PrinterVar.GoPointer(), SettingsVar.GoPointer(), PageSetupVar.GoPointer())
-	if NewPrintJobPtr == 0 {
-		return nil
-	}
+	var cls *PrintJob
 
-	NewPrintJobCls := &PrintJob{}
-	NewPrintJobCls.Ptr = NewPrintJobPtr
-	return NewPrintJobCls
+	cret := xNewPrintJob(TitleVar, PrinterVar.GoPointer(), SettingsVar.GoPointer(), PageSetupVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PrintJob{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintJobGetCollate func(uintptr) bool
@@ -53,8 +55,8 @@ var xPrintJobGetCollate func(uintptr) bool
 // Gets whether this job is printed collated.
 func (x *PrintJob) GetCollate() bool {
 
-	return xPrintJobGetCollate(x.GoPointer())
-
+	cret := xPrintJobGetCollate(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetNUp func(uintptr) uint
@@ -62,8 +64,8 @@ var xPrintJobGetNUp func(uintptr) uint
 // Gets the n-up setting for this job.
 func (x *PrintJob) GetNUp() uint {
 
-	return xPrintJobGetNUp(x.GoPointer())
-
+	cret := xPrintJobGetNUp(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetNUpLayout func(uintptr) NumberUpLayout
@@ -71,8 +73,8 @@ var xPrintJobGetNUpLayout func(uintptr) NumberUpLayout
 // Gets the n-up layout setting for this job.
 func (x *PrintJob) GetNUpLayout() NumberUpLayout {
 
-	return xPrintJobGetNUpLayout(x.GoPointer())
-
+	cret := xPrintJobGetNUpLayout(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetNumCopies func(uintptr) int
@@ -80,8 +82,8 @@ var xPrintJobGetNumCopies func(uintptr) int
 // Gets the number of copies of this job.
 func (x *PrintJob) GetNumCopies() int {
 
-	return xPrintJobGetNumCopies(x.GoPointer())
-
+	cret := xPrintJobGetNumCopies(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetPageRanges func(uintptr, int) uintptr
@@ -89,8 +91,8 @@ var xPrintJobGetPageRanges func(uintptr, int) uintptr
 // Gets the page ranges for this job.
 func (x *PrintJob) GetPageRanges(NRangesVar int) uintptr {
 
-	return xPrintJobGetPageRanges(x.GoPointer(), NRangesVar)
-
+	cret := xPrintJobGetPageRanges(x.GoPointer(), NRangesVar)
+	return cret
 }
 
 var xPrintJobGetPageSet func(uintptr) PageSet
@@ -98,8 +100,8 @@ var xPrintJobGetPageSet func(uintptr) PageSet
 // Gets the `GtkPageSet` setting for this job.
 func (x *PrintJob) GetPageSet() PageSet {
 
-	return xPrintJobGetPageSet(x.GoPointer())
-
+	cret := xPrintJobGetPageSet(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetPages func(uintptr) PrintPages
@@ -107,26 +109,25 @@ var xPrintJobGetPages func(uintptr) PrintPages
 // Gets the `GtkPrintPages` setting for this job.
 func (x *PrintJob) GetPages() PrintPages {
 
-	return xPrintJobGetPages(x.GoPointer())
-
+	cret := xPrintJobGetPages(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetPrinter func(uintptr) uintptr
 
 // Gets the `GtkPrinter` of the print job.
 func (x *PrintJob) GetPrinter() *Printer {
+	var cls *Printer
 
-	GetPrinterPtr := xPrintJobGetPrinter(x.GoPointer())
-	if GetPrinterPtr == 0 {
-		return nil
+	cret := xPrintJobGetPrinter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrinterPtr)
-
-	GetPrinterCls := &Printer{}
-	GetPrinterCls.Ptr = GetPrinterPtr
-	return GetPrinterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Printer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintJobGetReverse func(uintptr) bool
@@ -134,8 +135,8 @@ var xPrintJobGetReverse func(uintptr) bool
 // Gets whether this job is printed reversed.
 func (x *PrintJob) GetReverse() bool {
 
-	return xPrintJobGetReverse(x.GoPointer())
-
+	cret := xPrintJobGetReverse(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetRotate func(uintptr) bool
@@ -143,8 +144,8 @@ var xPrintJobGetRotate func(uintptr) bool
 // Gets whether the job is printed rotated.
 func (x *PrintJob) GetRotate() bool {
 
-	return xPrintJobGetRotate(x.GoPointer())
-
+	cret := xPrintJobGetRotate(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetScale func(uintptr) float64
@@ -152,26 +153,25 @@ var xPrintJobGetScale func(uintptr) float64
 // Gets the scale for this job.
 func (x *PrintJob) GetScale() float64 {
 
-	return xPrintJobGetScale(x.GoPointer())
-
+	cret := xPrintJobGetScale(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetSettings func(uintptr) uintptr
 
 // Gets the `GtkPrintSettings` of the print job.
 func (x *PrintJob) GetSettings() *PrintSettings {
+	var cls *PrintSettings
 
-	GetSettingsPtr := xPrintJobGetSettings(x.GoPointer())
-	if GetSettingsPtr == 0 {
-		return nil
+	cret := xPrintJobGetSettings(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSettingsPtr)
-
-	GetSettingsCls := &PrintSettings{}
-	GetSettingsCls.Ptr = GetSettingsPtr
-	return GetSettingsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PrintSettings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintJobGetStatus func(uintptr) PrintStatus
@@ -179,17 +179,22 @@ var xPrintJobGetStatus func(uintptr) PrintStatus
 // Gets the status of the print job.
 func (x *PrintJob) GetStatus() PrintStatus {
 
-	return xPrintJobGetStatus(x.GoPointer())
-
+	cret := xPrintJobGetStatus(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetSurface func(uintptr) *cairo.Surface
 
 // Gets a cairo surface onto which the pages of
 // the print job should be rendered.
-func (x *PrintJob) GetSurface() *cairo.Surface {
+func (x *PrintJob) GetSurface() (*cairo.Surface, error) {
+	var cerr *glib.Error
 
-	return xPrintJobGetSurface(x.GoPointer())
+	cret := xPrintJobGetSurface(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -198,8 +203,8 @@ var xPrintJobGetTitle func(uintptr) string
 // Gets the job title.
 func (x *PrintJob) GetTitle() string {
 
-	return xPrintJobGetTitle(x.GoPointer())
-
+	cret := xPrintJobGetTitle(x.GoPointer())
+	return cret
 }
 
 var xPrintJobGetTrackPrintStatus func(uintptr) bool
@@ -209,8 +214,8 @@ var xPrintJobGetTrackPrintStatus func(uintptr) bool
 // For details, see [method@Gtk.PrintJob.set_track_print_status].
 func (x *PrintJob) GetTrackPrintStatus() bool {
 
-	return xPrintJobGetTrackPrintStatus(x.GoPointer())
-
+	cret := xPrintJobGetTrackPrintStatus(x.GoPointer())
+	return cret
 }
 
 var xPrintJobSend func(uintptr, uintptr, uintptr, uintptr)
@@ -314,7 +319,7 @@ func (x *PrintJob) SetScale(ScaleVar float64) {
 
 }
 
-var xPrintJobSetSourceFd func(uintptr, int) bool
+var xPrintJobSetSourceFd func(uintptr, int, **glib.Error) bool
 
 // Make the `GtkPrintJob` send an existing document to the
 // printing system.
@@ -327,13 +332,18 @@ var xPrintJobSetSourceFd func(uintptr, int) bool
 // This is similar to [method@Gtk.PrintJob.set_source_file],
 // but takes expects an open file descriptor for the file,
 // instead of a filename.
-func (x *PrintJob) SetSourceFd(FdVar int) bool {
+func (x *PrintJob) SetSourceFd(FdVar int) (bool, error) {
+	var cerr *glib.Error
 
-	return xPrintJobSetSourceFd(x.GoPointer(), FdVar)
+	cret := xPrintJobSetSourceFd(x.GoPointer(), FdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xPrintJobSetSourceFile func(uintptr, string) bool
+var xPrintJobSetSourceFile func(uintptr, string, **glib.Error) bool
 
 // Make the `GtkPrintJob` send an existing document to the
 // printing system.
@@ -342,9 +352,14 @@ var xPrintJobSetSourceFile func(uintptr, string) bool
 // printing system (typically PostScript, but on many platforms
 // PDF may work too). See [method@Gtk.Printer.accepts_pdf] and
 // [method@Gtk.Printer.accepts_ps].
-func (x *PrintJob) SetSourceFile(FilenameVar string) bool {
+func (x *PrintJob) SetSourceFile(FilenameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xPrintJobSetSourceFile(x.GoPointer(), FilenameVar)
+	cret := xPrintJobSetSourceFile(x.GoPointer(), FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

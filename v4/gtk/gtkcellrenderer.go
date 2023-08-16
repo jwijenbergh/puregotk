@@ -112,8 +112,8 @@ var xCellRendererActivate func(uintptr, uintptr, uintptr, string, *gdk.Rectangle
 // toggles when it gets a mouse click.
 func (x *CellRenderer) Activate(EventVar *gdk.Event, WidgetVar *Widget, PathVar string, BackgroundAreaVar *gdk.Rectangle, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) bool {
 
-	return xCellRendererActivate(x.GoPointer(), EventVar.GoPointer(), WidgetVar.GoPointer(), PathVar, BackgroundAreaVar, CellAreaVar, FlagsVar)
-
+	cret := xCellRendererActivate(x.GoPointer(), EventVar.GoPointer(), WidgetVar.GoPointer(), PathVar, BackgroundAreaVar, CellAreaVar, FlagsVar)
+	return cret
 }
 
 var xCellRendererGetAlignedArea func(uintptr, uintptr, CellRendererState, *gdk.Rectangle, *gdk.Rectangle)
@@ -149,8 +149,8 @@ var xCellRendererGetIsExpanded func(uintptr) bool
 // Checks whether the given `GtkCellRenderer` is expanded.
 func (x *CellRenderer) GetIsExpanded() bool {
 
-	return xCellRendererGetIsExpanded(x.GoPointer())
-
+	cret := xCellRendererGetIsExpanded(x.GoPointer())
+	return cret
 }
 
 var xCellRendererGetIsExpander func(uintptr) bool
@@ -158,8 +158,8 @@ var xCellRendererGetIsExpander func(uintptr) bool
 // Checks whether the given `GtkCellRenderer` is an expander.
 func (x *CellRenderer) GetIsExpander() bool {
 
-	return xCellRendererGetIsExpander(x.GoPointer())
-
+	cret := xCellRendererGetIsExpander(x.GoPointer())
+	return cret
 }
 
 var xCellRendererGetPadding func(uintptr, int, int)
@@ -225,8 +225,8 @@ var xCellRendererGetRequestMode func(uintptr) SizeRequestMode
 // or a width-for-height layout.
 func (x *CellRenderer) GetRequestMode() SizeRequestMode {
 
-	return xCellRendererGetRequestMode(x.GoPointer())
-
+	cret := xCellRendererGetRequestMode(x.GoPointer())
+	return cret
 }
 
 var xCellRendererGetSensitive func(uintptr) bool
@@ -234,8 +234,8 @@ var xCellRendererGetSensitive func(uintptr) bool
 // Returns the cell renderer’s sensitivity.
 func (x *CellRenderer) GetSensitive() bool {
 
-	return xCellRendererGetSensitive(x.GoPointer())
-
+	cret := xCellRendererGetSensitive(x.GoPointer())
+	return cret
 }
 
 var xCellRendererGetState func(uintptr, uintptr, CellRendererState) StateFlags
@@ -245,8 +245,8 @@ var xCellRendererGetState func(uintptr, uintptr, CellRendererState) StateFlags
 // the given `GtkCellRenderer`State.
 func (x *CellRenderer) GetState(WidgetVar *Widget, CellStateVar CellRendererState) StateFlags {
 
-	return xCellRendererGetState(x.GoPointer(), WidgetVar.GoPointer(), CellStateVar)
-
+	cret := xCellRendererGetState(x.GoPointer(), WidgetVar.GoPointer(), CellStateVar)
+	return cret
 }
 
 var xCellRendererGetVisible func(uintptr) bool
@@ -254,8 +254,8 @@ var xCellRendererGetVisible func(uintptr) bool
 // Returns the cell renderer’s visibility.
 func (x *CellRenderer) GetVisible() bool {
 
-	return xCellRendererGetVisible(x.GoPointer())
-
+	cret := xCellRendererGetVisible(x.GoPointer())
+	return cret
 }
 
 var xCellRendererIsActivatable func(uintptr) bool
@@ -263,8 +263,8 @@ var xCellRendererIsActivatable func(uintptr) bool
 // Checks whether the cell renderer can do something when activated.
 func (x *CellRenderer) IsActivatable() bool {
 
-	return xCellRendererIsActivatable(x.GoPointer())
-
+	cret := xCellRendererIsActivatable(x.GoPointer())
+	return cret
 }
 
 var xCellRendererSetAlignment func(uintptr, float32, float32)
@@ -350,18 +350,17 @@ var xCellRendererStartEditing func(uintptr, uintptr, uintptr, string, *gdk.Recta
 // Starts editing the contents of this @cell, through a new `GtkCellEditable`
 // widget created by the `GtkCellRenderer`Class.start_editing virtual function.
 func (x *CellRenderer) StartEditing(EventVar *gdk.Event, WidgetVar *Widget, PathVar string, BackgroundAreaVar *gdk.Rectangle, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) *CellEditableBase {
+	var cls *CellEditableBase
 
-	StartEditingPtr := xCellRendererStartEditing(x.GoPointer(), EventVar.GoPointer(), WidgetVar.GoPointer(), PathVar, BackgroundAreaVar, CellAreaVar, FlagsVar)
-	if StartEditingPtr == 0 {
-		return nil
+	cret := xCellRendererStartEditing(x.GoPointer(), EventVar.GoPointer(), WidgetVar.GoPointer(), PathVar, BackgroundAreaVar, CellAreaVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(StartEditingPtr)
-
-	StartEditingCls := &CellEditableBase{}
-	StartEditingCls.Ptr = StartEditingPtr
-	return StartEditingCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellEditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellRendererStopEditing func(uintptr, bool)

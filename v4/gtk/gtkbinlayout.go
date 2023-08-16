@@ -31,14 +31,16 @@ var xNewBinLayout func() uintptr
 
 // Creates a new `GtkBinLayout` instance.
 func NewBinLayout() *LayoutManager {
-	NewBinLayoutPtr := xNewBinLayout()
-	if NewBinLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewBinLayoutCls := &LayoutManager{}
-	NewBinLayoutCls.Ptr = NewBinLayoutPtr
-	return NewBinLayoutCls
+	cret := xNewBinLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *BinLayout) GoPointer() uintptr {

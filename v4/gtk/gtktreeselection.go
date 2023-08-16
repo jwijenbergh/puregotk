@@ -60,8 +60,8 @@ var xTreeSelectionCountSelectedRows func(uintptr) int
 // Returns the number of rows that have been selected in @tree.
 func (x *TreeSelection) CountSelectedRows() int {
 
-	return xTreeSelectionCountSelectedRows(x.GoPointer())
-
+	cret := xTreeSelectionCountSelectedRows(x.GoPointer())
+	return cret
 }
 
 var xTreeSelectionGetMode func(uintptr) SelectionMode
@@ -70,8 +70,8 @@ var xTreeSelectionGetMode func(uintptr) SelectionMode
 // gtk_tree_selection_set_mode().
 func (x *TreeSelection) GetMode() SelectionMode {
 
-	return xTreeSelectionGetMode(x.GoPointer())
-
+	cret := xTreeSelectionGetMode(x.GoPointer())
+	return cret
 }
 
 var xTreeSelectionGetSelectFunction func(uintptr) TreeSelectionFunc
@@ -79,8 +79,8 @@ var xTreeSelectionGetSelectFunction func(uintptr) TreeSelectionFunc
 // Returns the current selection function.
 func (x *TreeSelection) GetSelectFunction() TreeSelectionFunc {
 
-	return xTreeSelectionGetSelectFunction(x.GoPointer())
-
+	cret := xTreeSelectionGetSelectFunction(x.GoPointer())
+	return cret
 }
 
 var xTreeSelectionGetSelected func(uintptr, *uintptr, *TreeIter) bool
@@ -92,8 +92,8 @@ var xTreeSelectionGetSelected func(uintptr, *uintptr, *TreeIter) bool
 // use @selection is %GTK_SELECTION_MULTIPLE.
 func (x *TreeSelection) GetSelected(ModelVar *TreeModel, IterVar *TreeIter) bool {
 
-	return xTreeSelectionGetSelected(x.GoPointer(), gobject.ConvertPtr(ModelVar), IterVar)
-
+	cret := xTreeSelectionGetSelected(x.GoPointer(), gobject.ConvertPtr(ModelVar), IterVar)
+	return cret
 }
 
 var xTreeSelectionGetSelectedRows func(uintptr, *uintptr) *glib.List
@@ -109,26 +109,25 @@ var xTreeSelectionGetSelectedRows func(uintptr, *uintptr) *glib.List
 // ]|
 func (x *TreeSelection) GetSelectedRows(ModelVar *TreeModel) *glib.List {
 
-	return xTreeSelectionGetSelectedRows(x.GoPointer(), gobject.ConvertPtr(ModelVar))
-
+	cret := xTreeSelectionGetSelectedRows(x.GoPointer(), gobject.ConvertPtr(ModelVar))
+	return cret
 }
 
 var xTreeSelectionGetTreeView func(uintptr) uintptr
 
 // Returns the tree view associated with @selection.
 func (x *TreeSelection) GetTreeView() *TreeView {
+	var cls *TreeView
 
-	GetTreeViewPtr := xTreeSelectionGetTreeView(x.GoPointer())
-	if GetTreeViewPtr == 0 {
-		return nil
+	cret := xTreeSelectionGetTreeView(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTreeViewPtr)
-
-	GetTreeViewCls := &TreeView{}
-	GetTreeViewCls.Ptr = GetTreeViewPtr
-	return GetTreeViewCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeSelectionGetUserData func(uintptr) uintptr
@@ -136,8 +135,8 @@ var xTreeSelectionGetUserData func(uintptr) uintptr
 // Returns the user data for the selection function.
 func (x *TreeSelection) GetUserData() uintptr {
 
-	return xTreeSelectionGetUserData(x.GoPointer())
-
+	cret := xTreeSelectionGetUserData(x.GoPointer())
+	return cret
 }
 
 var xTreeSelectionIterIsSelected func(uintptr, *TreeIter) bool
@@ -145,8 +144,8 @@ var xTreeSelectionIterIsSelected func(uintptr, *TreeIter) bool
 // Returns %TRUE if the row at @iter is currently selected.
 func (x *TreeSelection) IterIsSelected(IterVar *TreeIter) bool {
 
-	return xTreeSelectionIterIsSelected(x.GoPointer(), IterVar)
-
+	cret := xTreeSelectionIterIsSelected(x.GoPointer(), IterVar)
+	return cret
 }
 
 var xTreeSelectionPathIsSelected func(uintptr, *TreePath) bool
@@ -155,8 +154,8 @@ var xTreeSelectionPathIsSelected func(uintptr, *TreePath) bool
 // does not point to a valid location, %FALSE is returned
 func (x *TreeSelection) PathIsSelected(PathVar *TreePath) bool {
 
-	return xTreeSelectionPathIsSelected(x.GoPointer(), PathVar)
-
+	cret := xTreeSelectionPathIsSelected(x.GoPointer(), PathVar)
+	return cret
 }
 
 var xTreeSelectionSelectAll func(uintptr)

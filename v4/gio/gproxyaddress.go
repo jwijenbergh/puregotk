@@ -34,14 +34,16 @@ var xNewProxyAddress func(uintptr, uint16, string, string, uint16, string, strin
 // #GProxyAddress:destination-protocol fields; use g_object_new()
 // directly if you want to set those.)
 func NewProxyAddress(InetaddrVar *InetAddress, PortVar uint16, ProtocolVar string, DestHostnameVar string, DestPortVar uint16, UsernameVar string, PasswordVar string) *SocketAddress {
-	NewProxyAddressPtr := xNewProxyAddress(InetaddrVar.GoPointer(), PortVar, ProtocolVar, DestHostnameVar, DestPortVar, UsernameVar, PasswordVar)
-	if NewProxyAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewProxyAddressCls := &SocketAddress{}
-	NewProxyAddressCls.Ptr = NewProxyAddressPtr
-	return NewProxyAddressCls
+	cret := xNewProxyAddress(InetaddrVar.GoPointer(), PortVar, ProtocolVar, DestHostnameVar, DestPortVar, UsernameVar, PasswordVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xProxyAddressGetDestinationHostname func(uintptr) string
@@ -51,8 +53,8 @@ var xProxyAddressGetDestinationHostname func(uintptr) string
 // itself.
 func (x *ProxyAddress) GetDestinationHostname() string {
 
-	return xProxyAddressGetDestinationHostname(x.GoPointer())
-
+	cret := xProxyAddressGetDestinationHostname(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetDestinationPort func(uintptr) uint16
@@ -62,8 +64,8 @@ var xProxyAddressGetDestinationPort func(uintptr) uint16
 // port number of the proxy itself.
 func (x *ProxyAddress) GetDestinationPort() uint16 {
 
-	return xProxyAddressGetDestinationPort(x.GoPointer())
-
+	cret := xProxyAddressGetDestinationPort(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetDestinationProtocol func(uintptr) string
@@ -72,8 +74,8 @@ var xProxyAddressGetDestinationProtocol func(uintptr) string
 // server; eg, "http" or "ftp".
 func (x *ProxyAddress) GetDestinationProtocol() string {
 
-	return xProxyAddressGetDestinationProtocol(x.GoPointer())
-
+	cret := xProxyAddressGetDestinationProtocol(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetPassword func(uintptr) string
@@ -81,8 +83,8 @@ var xProxyAddressGetPassword func(uintptr) string
 // Gets @proxy's password.
 func (x *ProxyAddress) GetPassword() string {
 
-	return xProxyAddressGetPassword(x.GoPointer())
-
+	cret := xProxyAddressGetPassword(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetProtocol func(uintptr) string
@@ -90,8 +92,8 @@ var xProxyAddressGetProtocol func(uintptr) string
 // Gets @proxy's protocol. eg, "socks" or "http"
 func (x *ProxyAddress) GetProtocol() string {
 
-	return xProxyAddressGetProtocol(x.GoPointer())
-
+	cret := xProxyAddressGetProtocol(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetUri func(uintptr) string
@@ -99,8 +101,8 @@ var xProxyAddressGetUri func(uintptr) string
 // Gets the proxy URI that @proxy was constructed from.
 func (x *ProxyAddress) GetUri() string {
 
-	return xProxyAddressGetUri(x.GoPointer())
-
+	cret := xProxyAddressGetUri(x.GoPointer())
+	return cret
 }
 
 var xProxyAddressGetUsername func(uintptr) string
@@ -108,8 +110,8 @@ var xProxyAddressGetUsername func(uintptr) string
 // Gets @proxy's username.
 func (x *ProxyAddress) GetUsername() string {
 
-	return xProxyAddressGetUsername(x.GoPointer())
-
+	cret := xProxyAddressGetUsername(x.GoPointer())
+	return cret
 }
 
 func (c *ProxyAddress) GoPointer() uintptr {
@@ -122,16 +124,16 @@ func (c *ProxyAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *ProxyAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -142,16 +144,16 @@ func (x *ProxyAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *ProxyAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -163,8 +165,8 @@ func (x *ProxyAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *ProxyAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

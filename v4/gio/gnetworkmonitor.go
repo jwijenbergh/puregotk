@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -57,9 +58,14 @@ func (x *NetworkMonitorBase) SetGoPointer(ptr uintptr) {
 // @connectable, it may still block for a brief period of time (eg,
 // trying to do multicast DNS on the local network), so if you do not
 // want to block, you should use g_network_monitor_can_reach_async().
-func (x *NetworkMonitorBase) CanReach(ConnectableVar SocketConnectable, CancellableVar *Cancellable) bool {
+func (x *NetworkMonitorBase) CanReach(ConnectableVar SocketConnectable, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGNetworkMonitorCanReach(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer())
+	cret := XGNetworkMonitorCanReach(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -80,9 +86,14 @@ func (x *NetworkMonitorBase) CanReachAsync(ConnectableVar SocketConnectable, Can
 
 // Finishes an async network connectivity test.
 // See g_network_monitor_can_reach_async().
-func (x *NetworkMonitorBase) CanReachFinish(ResultVar AsyncResult) bool {
+func (x *NetworkMonitorBase) CanReachFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGNetworkMonitorCanReachFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGNetworkMonitorCanReachFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -107,8 +118,8 @@ func (x *NetworkMonitorBase) CanReachFinish(ResultVar AsyncResult) bool {
 // back to their "offline" behavior if the connection attempt fails.
 func (x *NetworkMonitorBase) GetConnectivity() NetworkConnectivity {
 
-	return XGNetworkMonitorGetConnectivity(x.GoPointer())
-
+	cret := XGNetworkMonitorGetConnectivity(x.GoPointer())
+	return cret
 }
 
 // Checks if the network is available. "Available" here means that the
@@ -117,21 +128,21 @@ func (x *NetworkMonitorBase) GetConnectivity() NetworkConnectivity {
 // reachable. See #GNetworkMonitor:network-available for more details.
 func (x *NetworkMonitorBase) GetNetworkAvailable() bool {
 
-	return XGNetworkMonitorGetNetworkAvailable(x.GoPointer())
-
+	cret := XGNetworkMonitorGetNetworkAvailable(x.GoPointer())
+	return cret
 }
 
 // Checks if the network is metered.
 // See #GNetworkMonitor:network-metered for more details.
 func (x *NetworkMonitorBase) GetNetworkMetered() bool {
 
-	return XGNetworkMonitorGetNetworkMetered(x.GoPointer())
-
+	cret := XGNetworkMonitorGetNetworkMetered(x.GoPointer())
+	return cret
 }
 
-var XGNetworkMonitorCanReach func(uintptr, uintptr, uintptr) bool
+var XGNetworkMonitorCanReach func(uintptr, uintptr, uintptr, **glib.Error) bool
 var XGNetworkMonitorCanReachAsync func(uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGNetworkMonitorCanReachFinish func(uintptr, uintptr) bool
+var XGNetworkMonitorCanReachFinish func(uintptr, uintptr, **glib.Error) bool
 var XGNetworkMonitorGetConnectivity func(uintptr) NetworkConnectivity
 var XGNetworkMonitorGetNetworkAvailable func(uintptr) bool
 var XGNetworkMonitorGetNetworkMetered func(uintptr) bool
@@ -140,18 +151,17 @@ var xNetworkMonitorGetDefault func() uintptr
 
 // Gets the default #GNetworkMonitor for the system.
 func NetworkMonitorGetDefault() *NetworkMonitorBase {
+	var cls *NetworkMonitorBase
 
-	NetworkMonitorGetDefaultPtr := xNetworkMonitorGetDefault()
-	if NetworkMonitorGetDefaultPtr == 0 {
-		return nil
+	cret := xNetworkMonitorGetDefault()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NetworkMonitorGetDefaultPtr)
-
-	NetworkMonitorGetDefaultCls := &NetworkMonitorBase{}
-	NetworkMonitorGetDefaultCls.Ptr = NetworkMonitorGetDefaultPtr
-	return NetworkMonitorGetDefaultCls
-
+	gobject.IncreaseRef(cret)
+	cls = &NetworkMonitorBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

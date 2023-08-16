@@ -30,8 +30,8 @@ var xGetCharset func(string) bool
 // freed.
 func GetCharset(CharsetVar string) bool {
 
-	return xGetCharset(CharsetVar)
-
+	cret := xGetCharset(CharsetVar)
+	return cret
 }
 
 var xGetCodeset func() string
@@ -39,8 +39,8 @@ var xGetCodeset func() string
 // Gets the character set for the current locale.
 func GetCodeset() string {
 
-	return xGetCodeset()
-
+	cret := xGetCodeset()
+	return cret
 }
 
 var xGetConsoleCharset func(string) bool
@@ -64,8 +64,8 @@ var xGetConsoleCharset func(string) bool
 // freed.
 func GetConsoleCharset(CharsetVar string) bool {
 
-	return xGetConsoleCharset(CharsetVar)
-
+	cret := xGetConsoleCharset(CharsetVar)
+	return cret
 }
 
 var xGetLanguageNames func() uintptr
@@ -83,8 +83,8 @@ var xGetLanguageNames func() uintptr
 // user.
 func GetLanguageNames() uintptr {
 
-	return xGetLanguageNames()
-
+	cret := xGetLanguageNames()
+	return cret
 }
 
 var xGetLanguageNamesWithCategory func(string) uintptr
@@ -101,8 +101,8 @@ var xGetLanguageNamesWithCategory func(string) uintptr
 // g_get_language_names() returns g_get_language_names_with_category("LC_MESSAGES").
 func GetLanguageNamesWithCategory(CategoryNameVar string) uintptr {
 
-	return xGetLanguageNamesWithCategory(CategoryNameVar)
-
+	cret := xGetLanguageNamesWithCategory(CategoryNameVar)
+	return cret
 }
 
 var xGetLocaleVariants func(string) uintptr
@@ -124,8 +124,8 @@ var xGetLocaleVariants func(string) uintptr
 // use g_get_language_names().
 func GetLocaleVariants(LocaleVar string) uintptr {
 
-	return xGetLocaleVariants(LocaleVar)
-
+	cret := xGetLocaleVariants(LocaleVar)
+	return cret
 }
 
 func init() {

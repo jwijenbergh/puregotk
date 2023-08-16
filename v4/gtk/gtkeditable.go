@@ -228,8 +228,8 @@ func (x *EditableBase) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *EditableBase) GetAlignment() float32 {
 
-	return XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -242,8 +242,8 @@ func (x *EditableBase) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *EditableBase) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -251,39 +251,38 @@ func (x *EditableBase) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *EditableBase) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *EditableBase) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *EditableBase) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *EditableBase) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -292,8 +291,8 @@ func (x *EditableBase) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *EditableBase) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -305,8 +304,8 @@ func (x *EditableBase) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *EditableBase) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -314,16 +313,16 @@ func (x *EditableBase) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *EditableBase) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *EditableBase) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.
@@ -496,8 +495,8 @@ var xEditableDelegateGetProperty func(uintptr, uint, *gobject.Value, uintptr) bo
 // own properties.
 func EditableDelegateGetProperty(ObjectVar *gobject.Object, PropIdVar uint, ValueVar *gobject.Value, PspecVar *gobject.ParamSpec) bool {
 
-	return xEditableDelegateGetProperty(ObjectVar.GoPointer(), PropIdVar, ValueVar, PspecVar.GoPointer())
-
+	cret := xEditableDelegateGetProperty(ObjectVar.GoPointer(), PropIdVar, ValueVar, PspecVar.GoPointer())
+	return cret
 }
 
 var xEditableDelegateSetProperty func(uintptr, uint, *gobject.Value, uintptr) bool
@@ -509,8 +508,8 @@ var xEditableDelegateSetProperty func(uintptr, uint, *gobject.Value, uintptr) bo
 // own properties.
 func EditableDelegateSetProperty(ObjectVar *gobject.Object, PropIdVar uint, ValueVar *gobject.Value, PspecVar *gobject.ParamSpec) bool {
 
-	return xEditableDelegateSetProperty(ObjectVar.GoPointer(), PropIdVar, ValueVar, PspecVar.GoPointer())
-
+	cret := xEditableDelegateSetProperty(ObjectVar.GoPointer(), PropIdVar, ValueVar, PspecVar.GoPointer())
+	return cret
 }
 
 var xEditableInstallProperties func(*gobject.ObjectClass, uint) uint
@@ -532,8 +531,8 @@ var xEditableInstallProperties func(*gobject.ObjectClass, uint) uint
 // property IDs for these properties.
 func EditableInstallProperties(ObjectClassVar *gobject.ObjectClass, FirstPropVar uint) uint {
 
-	return xEditableInstallProperties(ObjectClassVar, FirstPropVar)
-
+	cret := xEditableInstallProperties(ObjectClassVar, FirstPropVar)
+	return cret
 }
 
 func init() {

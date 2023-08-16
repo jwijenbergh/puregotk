@@ -29,14 +29,16 @@ var xNewGestureRotate func() uintptr
 // Returns a newly created `GtkGesture` that recognizes 2-touch
 // rotation gestures.
 func NewGestureRotate() *Gesture {
-	NewGestureRotatePtr := xNewGestureRotate()
-	if NewGestureRotatePtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureRotateCls := &Gesture{}
-	NewGestureRotateCls.Ptr = NewGestureRotatePtr
-	return NewGestureRotateCls
+	cret := xNewGestureRotate()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureRotateGetAngleDelta func(uintptr) float64
@@ -48,8 +50,8 @@ var xGestureRotateGetAngleDelta func(uintptr) float64
 // not active, 0 is returned.
 func (x *GestureRotate) GetAngleDelta() float64 {
 
-	return xGestureRotateGetAngleDelta(x.GoPointer())
-
+	cret := xGestureRotateGetAngleDelta(x.GoPointer())
+	return cret
 }
 
 func (c *GestureRotate) GoPointer() uintptr {

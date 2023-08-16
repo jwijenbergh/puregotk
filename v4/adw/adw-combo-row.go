@@ -81,88 +81,85 @@ var xNewComboRow func() uintptr
 
 // Creates a new `AdwComboRow`.
 func NewComboRow() *gtk.Widget {
-	NewComboRowPtr := xNewComboRow()
-	if NewComboRowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewComboRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewComboRowPtr)
-
-	NewComboRowCls := &gtk.Widget{}
-	NewComboRowCls.Ptr = NewComboRowPtr
-	return NewComboRowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetExpression func(uintptr) uintptr
 
 // Gets the expression used to obtain strings from items.
 func (x *ComboRow) GetExpression() *gtk.Expression {
+	var cls *gtk.Expression
 
-	GetExpressionPtr := xComboRowGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xComboRowGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &gtk.Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetFactory func(uintptr) uintptr
 
 // Gets the factory for populating list items.
 func (x *ComboRow) GetFactory() *gtk.ListItemFactory {
+	var cls *gtk.ListItemFactory
 
-	GetFactoryPtr := xComboRowGetFactory(x.GoPointer())
-	if GetFactoryPtr == 0 {
-		return nil
+	cret := xComboRowGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFactoryPtr)
-
-	GetFactoryCls := &gtk.ListItemFactory{}
-	GetFactoryCls.Ptr = GetFactoryPtr
-	return GetFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetListFactory func(uintptr) uintptr
 
 // Gets the factory for populating list items in the popup.
 func (x *ComboRow) GetListFactory() *gtk.ListItemFactory {
+	var cls *gtk.ListItemFactory
 
-	GetListFactoryPtr := xComboRowGetListFactory(x.GoPointer())
-	if GetListFactoryPtr == 0 {
-		return nil
+	cret := xComboRowGetListFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetListFactoryPtr)
-
-	GetListFactoryCls := &gtk.ListItemFactory{}
-	GetListFactoryCls.Ptr = GetListFactoryPtr
-	return GetListFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetModel func(uintptr) uintptr
 
 // Gets the model that provides the displayed items.
 func (x *ComboRow) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xComboRowGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xComboRowGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetSelected func(uintptr) uint
@@ -170,26 +167,25 @@ var xComboRowGetSelected func(uintptr) uint
 // Gets the position of the selected item.
 func (x *ComboRow) GetSelected() uint {
 
-	return xComboRowGetSelected(x.GoPointer())
-
+	cret := xComboRowGetSelected(x.GoPointer())
+	return cret
 }
 
 var xComboRowGetSelectedItem func(uintptr) uintptr
 
 // Gets the selected item.
 func (x *ComboRow) GetSelectedItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSelectedItemPtr := xComboRowGetSelectedItem(x.GoPointer())
-	if GetSelectedItemPtr == 0 {
-		return nil
+	cret := xComboRowGetSelectedItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedItemPtr)
-
-	GetSelectedItemCls := &gobject.Object{}
-	GetSelectedItemCls.Ptr = GetSelectedItemPtr
-	return GetSelectedItemCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboRowGetUseSubtitle func(uintptr) bool
@@ -197,8 +193,8 @@ var xComboRowGetUseSubtitle func(uintptr) bool
 // Gets whether to use the current value as the subtitle.
 func (x *ComboRow) GetUseSubtitle() bool {
 
-	return xComboRowGetUseSubtitle(x.GoPointer())
-
+	cret := xComboRowGetUseSubtitle(x.GoPointer())
+	return cret
 }
 
 var xComboRowSetExpression func(uintptr, uintptr)
@@ -285,8 +281,8 @@ func (c *ComboRow) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ComboRow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -418,15 +414,15 @@ func (x *ComboRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // Gets the action name for @actionable.
 func (x *ComboRow) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ComboRow) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -504,8 +500,8 @@ func (x *ComboRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ComboRow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

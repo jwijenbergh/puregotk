@@ -69,14 +69,16 @@ var xNewEntryCompletion func() uintptr
 
 // Creates a new `GtkEntryCompletion` object.
 func NewEntryCompletion() *EntryCompletion {
-	NewEntryCompletionPtr := xNewEntryCompletion()
-	if NewEntryCompletionPtr == 0 {
-		return nil
-	}
+	var cls *EntryCompletion
 
-	NewEntryCompletionCls := &EntryCompletion{}
-	NewEntryCompletionCls.Ptr = NewEntryCompletionPtr
-	return NewEntryCompletionCls
+	cret := xNewEntryCompletion()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EntryCompletion{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithAreaEntryCompletion func(uintptr) uintptr
@@ -87,14 +89,16 @@ var xNewWithAreaEntryCompletion func(uintptr) uintptr
 // The `GtkCellArea` is used to layout cells in the underlying
 // `GtkTreeViewColumn` for the drop-down menu.
 func NewWithAreaEntryCompletion(AreaVar *CellArea) *EntryCompletion {
-	NewWithAreaEntryCompletionPtr := xNewWithAreaEntryCompletion(AreaVar.GoPointer())
-	if NewWithAreaEntryCompletionPtr == 0 {
-		return nil
-	}
+	var cls *EntryCompletion
 
-	NewWithAreaEntryCompletionCls := &EntryCompletion{}
-	NewWithAreaEntryCompletionCls.Ptr = NewWithAreaEntryCompletionPtr
-	return NewWithAreaEntryCompletionCls
+	cret := xNewWithAreaEntryCompletion(AreaVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EntryCompletion{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryCompletionComplete func(uintptr)
@@ -119,8 +123,8 @@ var xEntryCompletionComputePrefix func(uintptr, string) string
 // see [method@Gtk.EntryCompletion.set_text_column] for details.
 func (x *EntryCompletion) ComputePrefix(KeyVar string) string {
 
-	return xEntryCompletionComputePrefix(x.GoPointer(), KeyVar)
-
+	cret := xEntryCompletionComputePrefix(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xEntryCompletionGetCompletionPrefix func(uintptr) string
@@ -129,26 +133,25 @@ var xEntryCompletionGetCompletionPrefix func(uintptr) string
 // the completion or %NULL if there’s no completion ongoing.
 func (x *EntryCompletion) GetCompletionPrefix() string {
 
-	return xEntryCompletionGetCompletionPrefix(x.GoPointer())
-
+	cret := xEntryCompletionGetCompletionPrefix(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetEntry func(uintptr) uintptr
 
 // Gets the entry @completion has been attached to.
 func (x *EntryCompletion) GetEntry() *Widget {
+	var cls *Widget
 
-	GetEntryPtr := xEntryCompletionGetEntry(x.GoPointer())
-	if GetEntryPtr == 0 {
-		return nil
+	cret := xEntryCompletionGetEntry(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEntryPtr)
-
-	GetEntryCls := &Widget{}
-	GetEntryCls.Ptr = GetEntryPtr
-	return GetEntryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryCompletionGetInlineCompletion func(uintptr) bool
@@ -157,8 +160,8 @@ var xEntryCompletionGetInlineCompletion func(uintptr) bool
 // be automatically inserted in the entry.
 func (x *EntryCompletion) GetInlineCompletion() bool {
 
-	return xEntryCompletionGetInlineCompletion(x.GoPointer())
-
+	cret := xEntryCompletionGetInlineCompletion(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetInlineSelection func(uintptr) bool
@@ -166,8 +169,8 @@ var xEntryCompletionGetInlineSelection func(uintptr) bool
 // Returns %TRUE if inline-selection mode is turned on.
 func (x *EntryCompletion) GetInlineSelection() bool {
 
-	return xEntryCompletionGetInlineSelection(x.GoPointer())
-
+	cret := xEntryCompletionGetInlineSelection(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetMinimumKeyLength func(uintptr) int
@@ -175,8 +178,8 @@ var xEntryCompletionGetMinimumKeyLength func(uintptr) int
 // Returns the minimum key length as set for @completion.
 func (x *EntryCompletion) GetMinimumKeyLength() int {
 
-	return xEntryCompletionGetMinimumKeyLength(x.GoPointer())
-
+	cret := xEntryCompletionGetMinimumKeyLength(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetModel func(uintptr) uintptr
@@ -185,18 +188,17 @@ var xEntryCompletionGetModel func(uintptr) uintptr
 //
 // Returns %NULL if the model is unset.
 func (x *EntryCompletion) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
 
-	GetModelPtr := xEntryCompletionGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xEntryCompletionGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &TreeModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryCompletionGetPopupCompletion func(uintptr) bool
@@ -204,8 +206,8 @@ var xEntryCompletionGetPopupCompletion func(uintptr) bool
 // Returns whether the completions should be presented in a popup window.
 func (x *EntryCompletion) GetPopupCompletion() bool {
 
-	return xEntryCompletionGetPopupCompletion(x.GoPointer())
-
+	cret := xEntryCompletionGetPopupCompletion(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetPopupSetWidth func(uintptr) bool
@@ -214,8 +216,8 @@ var xEntryCompletionGetPopupSetWidth func(uintptr) bool
 // width of the entry.
 func (x *EntryCompletion) GetPopupSetWidth() bool {
 
-	return xEntryCompletionGetPopupSetWidth(x.GoPointer())
-
+	cret := xEntryCompletionGetPopupSetWidth(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetPopupSingleMatch func(uintptr) bool
@@ -224,8 +226,8 @@ var xEntryCompletionGetPopupSingleMatch func(uintptr) bool
 // only a single match.
 func (x *EntryCompletion) GetPopupSingleMatch() bool {
 
-	return xEntryCompletionGetPopupSingleMatch(x.GoPointer())
-
+	cret := xEntryCompletionGetPopupSingleMatch(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionGetTextColumn func(uintptr) int
@@ -233,8 +235,8 @@ var xEntryCompletionGetTextColumn func(uintptr) int
 // Returns the column in the model of @completion to get strings from.
 func (x *EntryCompletion) GetTextColumn() int {
 
-	return xEntryCompletionGetTextColumn(x.GoPointer())
-
+	cret := xEntryCompletionGetTextColumn(x.GoPointer())
+	return cret
 }
 
 var xEntryCompletionInsertPrefix func(uintptr)
@@ -443,8 +445,8 @@ func (x *EntryCompletion) ConnectNoMatches(cb func(EntryCompletion)) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *EntryCompletion) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds an attribute mapping to the list in @cell_layout.
@@ -480,25 +482,24 @@ func (x *EntryCompletion) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *EntryCompletion) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *EntryCompletion) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the

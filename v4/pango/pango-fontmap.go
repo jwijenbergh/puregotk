@@ -12,7 +12,7 @@ import (
 type FontMapClass struct {
 	ParentClass uintptr
 
-	ShapeEngineType string
+	ShapeEngineType uintptr
 }
 
 // A `PangoFontMap` represents the set of fonts available for a
@@ -57,34 +57,33 @@ var xFontMapCreateContext func(uintptr) uintptr
 // For instance, the GTK toolkit has, among others,
 // gtk_widget_get_pango_context(). Use those instead.
 func (x *FontMap) CreateContext() *Context {
+	var cls *Context
 
-	CreateContextPtr := xFontMapCreateContext(x.GoPointer())
-	if CreateContextPtr == 0 {
-		return nil
+	cret := xFontMapCreateContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateContextCls := &Context{}
-	CreateContextCls.Ptr = CreateContextPtr
-	return CreateContextCls
-
+	cls = &Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontMapGetFamily func(uintptr, string) uintptr
 
 // Gets a font family by name.
 func (x *FontMap) GetFamily(NameVar string) *FontFamily {
+	var cls *FontFamily
 
-	GetFamilyPtr := xFontMapGetFamily(x.GoPointer(), NameVar)
-	if GetFamilyPtr == 0 {
-		return nil
+	cret := xFontMapGetFamily(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFamilyPtr)
-
-	GetFamilyCls := &FontFamily{}
-	GetFamilyCls.Ptr = GetFamilyPtr
-	return GetFamilyCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontFamily{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontMapGetSerial func(uintptr) uint
@@ -103,8 +102,8 @@ var xFontMapGetSerial func(uintptr) uint
 // like in `PangoContext`.
 func (x *FontMap) GetSerial() uint {
 
-	return xFontMapGetSerial(x.GoPointer())
-
+	cret := xFontMapGetSerial(x.GoPointer())
+	return cret
 }
 
 var xFontMapListFamilies func(uintptr, uintptr, int)
@@ -120,16 +119,16 @@ var xFontMapLoadFont func(uintptr, uintptr, *FontDescription) uintptr
 
 // Load the font in the fontmap that is the closest match for @desc.
 func (x *FontMap) LoadFont(ContextVar *Context, DescVar *FontDescription) *Font {
+	var cls *Font
 
-	LoadFontPtr := xFontMapLoadFont(x.GoPointer(), ContextVar.GoPointer(), DescVar)
-	if LoadFontPtr == 0 {
-		return nil
+	cret := xFontMapLoadFont(x.GoPointer(), ContextVar.GoPointer(), DescVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LoadFontCls := &Font{}
-	LoadFontCls.Ptr = LoadFontPtr
-	return LoadFontCls
-
+	cls = &Font{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontMapLoadFontset func(uintptr, uintptr, *FontDescription, *Language) uintptr
@@ -137,16 +136,16 @@ var xFontMapLoadFontset func(uintptr, uintptr, *FontDescription, *Language) uint
 // Load a set of fonts in the fontmap that can be used to render
 // a font matching @desc.
 func (x *FontMap) LoadFontset(ContextVar *Context, DescVar *FontDescription, LanguageVar *Language) *Fontset {
+	var cls *Fontset
 
-	LoadFontsetPtr := xFontMapLoadFontset(x.GoPointer(), ContextVar.GoPointer(), DescVar, LanguageVar)
-	if LoadFontsetPtr == 0 {
-		return nil
+	cret := xFontMapLoadFontset(x.GoPointer(), ContextVar.GoPointer(), DescVar, LanguageVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LoadFontsetCls := &Fontset{}
-	LoadFontsetCls.Ptr = LoadFontsetPtr
-	return LoadFontsetCls
-
+	cls = &Fontset{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FontMap) GoPointer() uintptr {

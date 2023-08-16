@@ -207,14 +207,16 @@ var xNewConstraintLayout func() uintptr
 
 // Creates a new `GtkConstraintLayout` layout manager.
 func NewConstraintLayout() *LayoutManager {
-	NewConstraintLayoutPtr := xNewConstraintLayout()
-	if NewConstraintLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewConstraintLayoutCls := &LayoutManager{}
-	NewConstraintLayoutCls.Ptr = NewConstraintLayoutPtr
-	return NewConstraintLayoutCls
+	cret := xNewConstraintLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintLayoutAddConstraint func(uintptr, uintptr)
@@ -247,11 +249,11 @@ var xConstraintLayoutAddConstraintsFromDescription func(uintptr, uintptr, uint, 
 // variadic arguments to populate the view/target map.
 func (x *ConstraintLayout) AddConstraintsFromDescription(LinesVar uintptr, NLinesVar uint, HspacingVar int, VspacingVar int, ErrorVar **glib.Error, FirstViewVar string, varArgs ...interface{}) *glib.List {
 
-	return xConstraintLayoutAddConstraintsFromDescription(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ErrorVar, FirstViewVar, varArgs...)
-
+	cret := xConstraintLayoutAddConstraintsFromDescription(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ErrorVar, FirstViewVar, varArgs...)
+	return cret
 }
 
-var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint, int, int, *glib.HashTable) *glib.List
+var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint, int, int, *glib.HashTable, **glib.Error) *glib.List
 
 // Creates a list of constraints from a VFL description.
 //
@@ -334,9 +336,14 @@ var xConstraintLayoutAddConstraintsFromDescriptionv func(uintptr, uintptr, uint,
 //	[button1(==button2.height)]
 //
 // ```
-func (x *ConstraintLayout) AddConstraintsFromDescriptionv(LinesVar uintptr, NLinesVar uint, HspacingVar int, VspacingVar int, ViewsVar *glib.HashTable) *glib.List {
+func (x *ConstraintLayout) AddConstraintsFromDescriptionv(LinesVar uintptr, NLinesVar uint, HspacingVar int, VspacingVar int, ViewsVar *glib.HashTable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xConstraintLayoutAddConstraintsFromDescriptionv(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ViewsVar)
+	cret := xConstraintLayoutAddConstraintsFromDescriptionv(x.GoPointer(), LinesVar, NLinesVar, HspacingVar, VspacingVar, ViewsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -367,16 +374,16 @@ var xConstraintLayoutObserveConstraints func(uintptr) uintptr
 // Applications should try hard to avoid calling this function
 // because of the slowdowns.
 func (x *ConstraintLayout) ObserveConstraints() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	ObserveConstraintsPtr := xConstraintLayoutObserveConstraints(x.GoPointer())
-	if ObserveConstraintsPtr == 0 {
-		return nil
+	cret := xConstraintLayoutObserveConstraints(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ObserveConstraintsCls := &gio.ListModelBase{}
-	ObserveConstraintsCls.Ptr = ObserveConstraintsPtr
-	return ObserveConstraintsCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintLayoutObserveGuides func(uintptr) uintptr
@@ -391,16 +398,16 @@ var xConstraintLayoutObserveGuides func(uintptr) uintptr
 // Applications should try hard to avoid calling this function
 // because of the slowdowns.
 func (x *ConstraintLayout) ObserveGuides() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	ObserveGuidesPtr := xConstraintLayoutObserveGuides(x.GoPointer())
-	if ObserveGuidesPtr == 0 {
-		return nil
+	cret := xConstraintLayoutObserveGuides(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ObserveGuidesCls := &gio.ListModelBase{}
-	ObserveGuidesCls.Ptr = ObserveGuidesPtr
-	return ObserveGuidesCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintLayoutRemoveAllConstraints func(uintptr)
@@ -446,8 +453,8 @@ func (c *ConstraintLayout) SetGoPointer(ptr uintptr) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ConstraintLayout) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkLayoutChild` subclass for children in a `GtkConstraintLayout`.

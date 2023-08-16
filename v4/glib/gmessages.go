@@ -50,7 +50,7 @@ type PrintFunc func(string)
 // have a trailing nul byte. Otherwise, @length must be set to a non-negative
 // value.
 type LogField struct {
-	Key string
+	Key uintptr
 
 	Value uintptr
 
@@ -179,8 +179,8 @@ var xLogGetDebugEnabled func() bool
 // the docs for g_log_set_debug_enabled().
 func LogGetDebugEnabled() bool {
 
-	return xLogGetDebugEnabled()
-
+	cret := xLogGetDebugEnabled()
+	return cret
 }
 
 var xLogRemoveHandler func(string, uint)
@@ -215,8 +215,8 @@ var xLogSetAlwaysFatal func(LogLevelFlags) LogLevelFlags
 // are fatal. See [Using Structured Logging][using-structured-logging].
 func LogSetAlwaysFatal(FatalMaskVar LogLevelFlags) LogLevelFlags {
 
-	return xLogSetAlwaysFatal(FatalMaskVar)
-
+	cret := xLogSetAlwaysFatal(FatalMaskVar)
+	return cret
 }
 
 var xLogSetDebugEnabled func(bool)
@@ -244,8 +244,8 @@ var xLogSetDefaultHandler func(uintptr, uintptr) LogFunc
 // [Using Structured Logging][using-structured-logging].
 func LogSetDefaultHandler(LogFuncVar LogFunc, UserDataVar uintptr) LogFunc {
 
-	return xLogSetDefaultHandler(purego.NewCallback(LogFuncVar), UserDataVar)
-
+	cret := xLogSetDefaultHandler(purego.NewCallback(LogFuncVar), UserDataVar)
+	return cret
 }
 
 var xLogSetFatalMask func(string, LogLevelFlags) LogLevelFlags
@@ -265,8 +265,8 @@ var xLogSetFatalMask func(string, LogLevelFlags) LogLevelFlags
 // %G_LOG_LEVEL_DEBUG as fatal except inside of test programs.
 func LogSetFatalMask(LogDomainVar string, FatalMaskVar LogLevelFlags) LogLevelFlags {
 
-	return xLogSetFatalMask(LogDomainVar, FatalMaskVar)
-
+	cret := xLogSetFatalMask(LogDomainVar, FatalMaskVar)
+	return cret
 }
 
 var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint
@@ -313,8 +313,8 @@ var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint
 // ]|
 func LogSetHandler(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar LogFunc, UserDataVar uintptr) uint {
 
-	return xLogSetHandler(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar)
-
+	cret := xLogSetHandler(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar)
+	return cret
 }
 
 var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) uint
@@ -325,8 +325,8 @@ var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) ui
 // [Using Structured Logging][using-structured-logging].
 func LogSetHandlerFull(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar LogFunc, UserDataVar uintptr, DestroyVar DestroyNotify) uint {
 
-	return xLogSetHandlerFull(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
-
+	cret := xLogSetHandlerFull(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	return cret
 }
 
 var xLogSetWriterFunc func(uintptr, uintptr, uintptr)
@@ -510,8 +510,8 @@ var xLogWriterDefault func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutpu
 // up to the writer function to determine which log messages are fatal.
 func LogWriterDefault(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
-	return xLogWriterDefault(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
-
+	cret := xLogWriterDefault(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
+	return cret
 }
 
 var xLogWriterDefaultSetUseStderr func(bool)
@@ -570,8 +570,8 @@ var xLogWriterDefaultWouldDrop func(LogLevelFlags, string) bool
 // ]|
 func LogWriterDefaultWouldDrop(LogLevelVar LogLevelFlags, LogDomainVar string) bool {
 
-	return xLogWriterDefaultWouldDrop(LogLevelVar, LogDomainVar)
-
+	cret := xLogWriterDefaultWouldDrop(LogLevelVar, LogDomainVar)
+	return cret
 }
 
 var xLogWriterFormatFields func(LogLevelFlags, uintptr, uint, bool) string
@@ -587,8 +587,8 @@ var xLogWriterFormatFields func(LogLevelFlags, uintptr, uint, bool) string
 // UTF-8.
 func LogWriterFormatFields(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UseColorVar bool) string {
 
-	return xLogWriterFormatFields(LogLevelVar, FieldsVar, NFieldsVar, UseColorVar)
-
+	cret := xLogWriterFormatFields(LogLevelVar, FieldsVar, NFieldsVar, UseColorVar)
+	return cret
 }
 
 var xLogWriterIsJournald func(int) bool
@@ -606,8 +606,8 @@ var xLogWriterIsJournald func(int) bool
 // ]|
 func LogWriterIsJournald(OutputFdVar int) bool {
 
-	return xLogWriterIsJournald(OutputFdVar)
-
+	cret := xLogWriterIsJournald(OutputFdVar)
+	return cret
 }
 
 var xLogWriterJournald func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
@@ -623,8 +623,8 @@ var xLogWriterJournald func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutp
 // defined, but will always return %G_LOG_WRITER_UNHANDLED.
 func LogWriterJournald(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
-	return xLogWriterJournald(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
-
+	cret := xLogWriterJournald(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
+	return cret
 }
 
 var xLogWriterStandardStreams func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
@@ -645,8 +645,8 @@ var xLogWriterStandardStreams func(LogLevelFlags, uintptr, uint, uintptr) LogWri
 // This is suitable for use as a #GLogWriterFunc.
 func LogWriterStandardStreams(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
-	return xLogWriterStandardStreams(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
-
+	cret := xLogWriterStandardStreams(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
+	return cret
 }
 
 var xLogWriterSupportsColor func(int) bool
@@ -656,8 +656,8 @@ var xLogWriterSupportsColor func(int) bool
 // messages.
 func LogWriterSupportsColor(OutputFdVar int) bool {
 
-	return xLogWriterSupportsColor(OutputFdVar)
-
+	cret := xLogWriterSupportsColor(OutputFdVar)
+	return cret
 }
 
 var xLogv func(string, LogLevelFlags, string, []interface{})
@@ -720,8 +720,8 @@ var xPrintfStringUpperBound func(string, []interface{}) uint
 // of the sprintf() function.
 func PrintfStringUpperBound(FormatVar string, ArgsVar []interface{}) uint {
 
-	return xPrintfStringUpperBound(FormatVar, ArgsVar)
-
+	cret := xPrintfStringUpperBound(FormatVar, ArgsVar)
+	return cret
 }
 
 var xReturnIfFailWarning func(string, string, string)
@@ -745,8 +745,8 @@ var xSetPrintHandler func(uintptr) PrintFunc
 // log file for example.
 func SetPrintHandler(FuncVar PrintFunc) PrintFunc {
 
-	return xSetPrintHandler(purego.NewCallback(FuncVar))
-
+	cret := xSetPrintHandler(purego.NewCallback(FuncVar))
+	return cret
 }
 
 var xSetPrinterrHandler func(uintptr) PrintFunc
@@ -760,8 +760,8 @@ var xSetPrinterrHandler func(uintptr) PrintFunc
 // example.
 func SetPrinterrHandler(FuncVar PrintFunc) PrintFunc {
 
-	return xSetPrinterrHandler(purego.NewCallback(FuncVar))
-
+	cret := xSetPrinterrHandler(purego.NewCallback(FuncVar))
+	return cret
 }
 
 var xWarnMessage func(string, string, int, string, string)

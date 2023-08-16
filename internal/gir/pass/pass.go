@@ -110,6 +110,11 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			if f.AnyType.Type != nil && f.AnyType.Type.CType == "gint" {
 				_type = "int32"
 			}
+
+			// HACK: in structs the strings should be uintptr as we convert it ourselves
+			if _type == "string" {
+				_type = "uintptr"
+			}
 			fields = append(fields, types.RecordField{
 				Name: util.SnakeToCamel(f.Name),
 				Type: _type,
@@ -131,8 +136,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		cbT := types.CallbackTemplate{
 			Doc:  cb.Doc.StringSafe(),
 			Name: cb.Name,
-			Args: cb.Parameters.Template(ns.Name, "", p.Types),
-			Ret:  cb.ReturnValue.Template(ns.Name, "", p.Types),
+			Args: cb.Parameters.Template(ns.Name, "", p.Types, cb.Throws),
+			Ret:  cb.ReturnValue.Template(ns.Name, "", p.Types, cb.Throws),
 		}
 		callbacks[fn] = append(callbacks[fn], cbT)
 	}
@@ -186,8 +191,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Name:  name,
 			CName: f.CIdentifier,
 			Doc:   f.Doc.StringSafe(),
-			Args:  f.Parameters.Template(ns.Name, "", p.Types),
-			Ret:   f.ReturnValue.Template(ns.Name, "", p.Types),
+			Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+			Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
 		})
 	}
 
@@ -204,8 +209,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				Name:  name,
 				CName: c.CIdentifier,
 				Doc:   c.Doc.StringSafe(),
-				Args:  c.Parameters.Template(ns.Name, "", p.Types),
-				Ret:   c.ReturnValue.Template(ns.Name, "", p.Types),
+				Args:  c.Parameters.Template(ns.Name, "", p.Types, c.Throws),
+				Ret:   c.ReturnValue.Template(ns.Name, "", p.Types, c.Throws),
 			}
 		}
 		signals := make([]types.SignalsTemplate, len(cls.Signals))
@@ -214,8 +219,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				Doc:        s.Doc.StringSafe(),
 				Name:       util.DashToCamel(s.Name),
 				CName:      s.Name,
-				Args:       s.Parameters.Template(ns.Name, "", p.Types),
-				Ret:        s.ReturnValue.Template(ns.Name, "", p.Types),
+				Args:       s.Parameters.Template(ns.Name, "", p.Types, false),
+				Ret:        s.ReturnValue.Template(ns.Name, "", p.Types, false),
 			}
 		}
 		receivers := make([]types.FuncTemplate, len(cls.Methods))
@@ -226,8 +231,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				Doc:   f.Doc.StringSafe(),
 				Name:  name,
 				CName: f.CIdentifier,
-				Args:  f.Parameters.Template(ns.Name, "", p.Types),
-				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types),
+				Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
 			}
 		}
 		var interfaces []types.InterfaceTemplate

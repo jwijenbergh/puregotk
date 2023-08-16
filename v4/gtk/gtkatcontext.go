@@ -35,32 +35,33 @@ var xCreateATContext func(AccessibleRole, uintptr, uintptr) uintptr
 // The `GtkATContext` implementation being instantiated will depend on the
 // platform.
 func CreateATContext(AccessibleRoleVar AccessibleRole, AccessibleVar Accessible, DisplayVar *gdk.Display) *ATContext {
-	CreateATContextPtr := xCreateATContext(AccessibleRoleVar, AccessibleVar.GoPointer(), DisplayVar.GoPointer())
-	if CreateATContextPtr == 0 {
-		return nil
-	}
+	var cls *ATContext
 
-	CreateATContextCls := &ATContext{}
-	CreateATContextCls.Ptr = CreateATContextPtr
-	return CreateATContextCls
+	cret := xCreateATContext(AccessibleRoleVar, AccessibleVar.GoPointer(), DisplayVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ATContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xATContextGetAccessible func(uintptr) uintptr
 
 // Retrieves the `GtkAccessible` using this context.
 func (x *ATContext) GetAccessible() *AccessibleBase {
+	var cls *AccessibleBase
 
-	GetAccessiblePtr := xATContextGetAccessible(x.GoPointer())
-	if GetAccessiblePtr == 0 {
-		return nil
+	cret := xATContextGetAccessible(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAccessiblePtr)
-
-	GetAccessibleCls := &AccessibleBase{}
-	GetAccessibleCls.Ptr = GetAccessiblePtr
-	return GetAccessibleCls
-
+	gobject.IncreaseRef(cret)
+	cls = &AccessibleBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xATContextGetAccessibleRole func(uintptr) AccessibleRole
@@ -68,8 +69,8 @@ var xATContextGetAccessibleRole func(uintptr) AccessibleRole
 // Retrieves the accessible role of this context.
 func (x *ATContext) GetAccessibleRole() AccessibleRole {
 
-	return xATContextGetAccessibleRole(x.GoPointer())
-
+	cret := xATContextGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 func (c *ATContext) GoPointer() uintptr {

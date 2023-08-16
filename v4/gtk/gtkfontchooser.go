@@ -74,8 +74,8 @@ func (x *FontChooserBase) SetGoPointer(ptr uintptr) {
 // font descriptions.
 func (x *FontChooserBase) GetFont() string {
 
-	return XGtkFontChooserGetFont(x.GoPointer())
-
+	cret := XGtkFontChooserGetFont(x.GoPointer())
+	return cret
 }
 
 // Gets the currently-selected font.
@@ -90,8 +90,8 @@ func (x *FontChooserBase) GetFont() string {
 // font descriptions.
 func (x *FontChooserBase) GetFontDesc() *pango.FontDescription {
 
-	return XGtkFontChooserGetFontDesc(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontDesc(x.GoPointer())
+	return cret
 }
 
 // Gets the `PangoFontFace` representing the selected font group
@@ -99,18 +99,17 @@ func (x *FontChooserBase) GetFontDesc() *pango.FontDescription {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserBase) GetFontFace() *pango.FontFace {
+	var cls *pango.FontFace
 
-	GetFontFacePtr := XGtkFontChooserGetFontFace(x.GoPointer())
-	if GetFontFacePtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFace(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFacePtr)
-
-	GetFontFaceCls := &pango.FontFace{}
-	GetFontFaceCls.Ptr = GetFontFacePtr
-	return GetFontFaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFace{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the `PangoFontFamily` representing the selected font family.
@@ -119,18 +118,17 @@ func (x *FontChooserBase) GetFontFace() *pango.FontFace {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserBase) GetFontFamily() *pango.FontFamily {
+	var cls *pango.FontFamily
 
-	GetFontFamilyPtr := XGtkFontChooserGetFontFamily(x.GoPointer())
-	if GetFontFamilyPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFamily(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFamilyPtr)
-
-	GetFontFamilyCls := &pango.FontFamily{}
-	GetFontFamilyCls.Ptr = GetFontFamilyPtr
-	return GetFontFamilyCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFamily{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the currently-selected font features.
@@ -140,58 +138,58 @@ func (x *FontChooserBase) GetFontFamily() *pango.FontFamily {
 // It can be passed to [func@Pango.AttrFontFeatures.new].
 func (x *FontChooserBase) GetFontFeatures() string {
 
-	return XGtkFontChooserGetFontFeatures(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontFeatures(x.GoPointer())
+	return cret
 }
 
 // Gets the custom font map of this font chooser widget,
 // or %NULL if it does not have one.
 func (x *FontChooserBase) GetFontMap() *pango.FontMap {
+	var cls *pango.FontMap
 
-	GetFontMapPtr := XGtkFontChooserGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFontMapCls := &pango.FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 // The selected font size.
 func (x *FontChooserBase) GetFontSize() int {
 
-	return XGtkFontChooserGetFontSize(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontSize(x.GoPointer())
+	return cret
 }
 
 // Gets the language that is used for font features.
 func (x *FontChooserBase) GetLanguage() string {
 
-	return XGtkFontChooserGetLanguage(x.GoPointer())
-
+	cret := XGtkFontChooserGetLanguage(x.GoPointer())
+	return cret
 }
 
 // Returns the current level of granularity for selecting fonts.
 func (x *FontChooserBase) GetLevel() FontChooserLevel {
 
-	return XGtkFontChooserGetLevel(x.GoPointer())
-
+	cret := XGtkFontChooserGetLevel(x.GoPointer())
+	return cret
 }
 
 // Gets the text displayed in the preview area.
 func (x *FontChooserBase) GetPreviewText() string {
 
-	return XGtkFontChooserGetPreviewText(x.GoPointer())
-
+	cret := XGtkFontChooserGetPreviewText(x.GoPointer())
+	return cret
 }
 
 // Returns whether the preview entry is shown or not.
 func (x *FontChooserBase) GetShowPreviewEntry() bool {
 
-	return XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
-
+	cret := XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
+	return cret
 }
 
 // Adds a filter function that decides which fonts to display

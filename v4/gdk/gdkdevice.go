@@ -69,26 +69,25 @@ var xDeviceGetCapsLockState func(uintptr) bool
 // This is only relevant for keyboard devices.
 func (x *Device) GetCapsLockState() bool {
 
-	return xDeviceGetCapsLockState(x.GoPointer())
-
+	cret := xDeviceGetCapsLockState(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetDeviceTool func(uintptr) uintptr
 
 // Retrieves the current tool for @device.
 func (x *Device) GetDeviceTool() *DeviceTool {
+	var cls *DeviceTool
 
-	GetDeviceToolPtr := xDeviceGetDeviceTool(x.GoPointer())
-	if GetDeviceToolPtr == 0 {
-		return nil
+	cret := xDeviceGetDeviceTool(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDeviceToolPtr)
-
-	GetDeviceToolCls := &DeviceTool{}
-	GetDeviceToolCls.Ptr = GetDeviceToolPtr
-	return GetDeviceToolCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DeviceTool{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDeviceGetDirection func(uintptr) pango.Direction
@@ -101,26 +100,25 @@ var xDeviceGetDirection func(uintptr) pango.Direction
 // of its symbols. See [func@Pango.unichar_direction].
 func (x *Device) GetDirection() pango.Direction {
 
-	return xDeviceGetDirection(x.GoPointer())
-
+	cret := xDeviceGetDirection(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetDisplay func(uintptr) uintptr
 
 // Returns the `GdkDisplay` to which @device pertains.
 func (x *Device) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xDeviceGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xDeviceGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDeviceGetHasCursor func(uintptr) bool
@@ -131,8 +129,8 @@ var xDeviceGetHasCursor func(uintptr) bool
 // don't have a pointer.
 func (x *Device) GetHasCursor() bool {
 
-	return xDeviceGetHasCursor(x.GoPointer())
-
+	cret := xDeviceGetHasCursor(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetModifierState func(uintptr) ModifierType
@@ -142,8 +140,8 @@ var xDeviceGetModifierState func(uintptr) ModifierType
 // This is only relevant for keyboard devices.
 func (x *Device) GetModifierState() ModifierType {
 
-	return xDeviceGetModifierState(x.GoPointer())
-
+	cret := xDeviceGetModifierState(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetName func(uintptr) string
@@ -151,8 +149,8 @@ var xDeviceGetName func(uintptr) string
 // The name of the device, suitable for showing in a user interface.
 func (x *Device) GetName() string {
 
-	return xDeviceGetName(x.GoPointer())
-
+	cret := xDeviceGetName(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetNumLockState func(uintptr) bool
@@ -162,8 +160,8 @@ var xDeviceGetNumLockState func(uintptr) bool
 // This is only relevant for keyboard devices.
 func (x *Device) GetNumLockState() bool {
 
-	return xDeviceGetNumLockState(x.GoPointer())
-
+	cret := xDeviceGetNumLockState(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetNumTouches func(uintptr) uint
@@ -171,8 +169,8 @@ var xDeviceGetNumTouches func(uintptr) uint
 // Retrieves the number of touch points associated to @device.
 func (x *Device) GetNumTouches() uint {
 
-	return xDeviceGetNumTouches(x.GoPointer())
-
+	cret := xDeviceGetNumTouches(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetProductId func(uintptr) string
@@ -183,8 +181,8 @@ var xDeviceGetProductId func(uintptr) string
 // See [method@Gdk.Device.get_vendor_id] for more information.
 func (x *Device) GetProductId() string {
 
-	return xDeviceGetProductId(x.GoPointer())
-
+	cret := xDeviceGetProductId(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetScrollLockState func(uintptr) bool
@@ -194,26 +192,25 @@ var xDeviceGetScrollLockState func(uintptr) bool
 // This is only relevant for keyboard devices.
 func (x *Device) GetScrollLockState() bool {
 
-	return xDeviceGetScrollLockState(x.GoPointer())
-
+	cret := xDeviceGetScrollLockState(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetSeat func(uintptr) uintptr
 
 // Returns the `GdkSeat` the device belongs to.
 func (x *Device) GetSeat() *Seat {
+	var cls *Seat
 
-	GetSeatPtr := xDeviceGetSeat(x.GoPointer())
-	if GetSeatPtr == 0 {
-		return nil
+	cret := xDeviceGetSeat(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSeatPtr)
-
-	GetSeatCls := &Seat{}
-	GetSeatCls.Ptr = GetSeatPtr
-	return GetSeatCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Seat{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDeviceGetSource func(uintptr) InputSource
@@ -221,8 +218,8 @@ var xDeviceGetSource func(uintptr) InputSource
 // Determines the type of the device.
 func (x *Device) GetSource() InputSource {
 
-	return xDeviceGetSource(x.GoPointer())
-
+	cret := xDeviceGetSource(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetSurfaceAtPosition func(uintptr, float64, float64) uintptr
@@ -233,18 +230,17 @@ var xDeviceGetSurfaceAtPosition func(uintptr, float64, float64) uintptr
 // Returns %NULL if the surface tree under @device is not known to GDK
 // (for example, belongs to another application).
 func (x *Device) GetSurfaceAtPosition(WinXVar float64, WinYVar float64) *Surface {
+	var cls *Surface
 
-	GetSurfaceAtPositionPtr := xDeviceGetSurfaceAtPosition(x.GoPointer(), WinXVar, WinYVar)
-	if GetSurfaceAtPositionPtr == 0 {
-		return nil
+	cret := xDeviceGetSurfaceAtPosition(x.GoPointer(), WinXVar, WinYVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfaceAtPositionPtr)
-
-	GetSurfaceAtPositionCls := &Surface{}
-	GetSurfaceAtPositionCls.Ptr = GetSurfaceAtPositionPtr
-	return GetSurfaceAtPositionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDeviceGetTimestamp func(uintptr) uint32
@@ -257,8 +253,8 @@ var xDeviceGetTimestamp func(uintptr) uint32
 // update the timestamp).
 func (x *Device) GetTimestamp() uint32 {
 
-	return xDeviceGetTimestamp(x.GoPointer())
-
+	cret := xDeviceGetTimestamp(x.GoPointer())
+	return cret
 }
 
 var xDeviceGetVendorId func(uintptr) string
@@ -294,8 +290,8 @@ var xDeviceGetVendorId func(uintptr) string
 // ```
 func (x *Device) GetVendorId() string {
 
-	return xDeviceGetVendorId(x.GoPointer())
-
+	cret := xDeviceGetVendorId(x.GoPointer())
+	return cret
 }
 
 var xDeviceHasBidiLayouts func(uintptr) bool
@@ -306,8 +302,8 @@ var xDeviceHasBidiLayouts func(uintptr) bool
 // This is only relevant for keyboard devices.
 func (x *Device) HasBidiLayouts() bool {
 
-	return xDeviceHasBidiLayouts(x.GoPointer())
-
+	cret := xDeviceHasBidiLayouts(x.GoPointer())
+	return cret
 }
 
 func (c *Device) GoPointer() uintptr {

@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -37,28 +38,32 @@ var xNewPopupSurface func(uintptr, bool) uintptr
 // The surface will be attached to @parent and can be positioned
 // relative to it using [method@Gdk.Popup.present].
 func NewPopupSurface(ParentVar *Surface, AutohideVar bool) *Surface {
-	NewPopupSurfacePtr := xNewPopupSurface(ParentVar.GoPointer(), AutohideVar)
-	if NewPopupSurfacePtr == 0 {
-		return nil
-	}
+	var cls *Surface
 
-	NewPopupSurfaceCls := &Surface{}
-	NewPopupSurfaceCls.Ptr = NewPopupSurfacePtr
-	return NewPopupSurfaceCls
+	cret := xNewPopupSurface(ParentVar.GoPointer(), AutohideVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewToplevelSurface func(uintptr) uintptr
 
 // Creates a new toplevel surface.
 func NewToplevelSurface(DisplayVar *Display) *Surface {
-	NewToplevelSurfacePtr := xNewToplevelSurface(DisplayVar.GoPointer())
-	if NewToplevelSurfacePtr == 0 {
-		return nil
-	}
+	var cls *Surface
 
-	NewToplevelSurfaceCls := &Surface{}
-	NewToplevelSurfaceCls.Ptr = NewToplevelSurfacePtr
-	return NewToplevelSurfaceCls
+	cret := xNewToplevelSurface(DisplayVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceBeep func(uintptr)
@@ -77,16 +82,16 @@ var xSurfaceCreateCairoContext func(uintptr) uintptr
 
 // Creates a new `GdkCairoContext` for rendering on @surface.
 func (x *Surface) CreateCairoContext() *CairoContext {
+	var cls *CairoContext
 
-	CreateCairoContextPtr := xSurfaceCreateCairoContext(x.GoPointer())
-	if CreateCairoContextPtr == 0 {
-		return nil
+	cret := xSurfaceCreateCairoContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateCairoContextCls := &CairoContext{}
-	CreateCairoContextCls.Ptr = CreateCairoContextPtr
-	return CreateCairoContextCls
-
+	cls = &CairoContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceCreateGlContext func(uintptr) uintptr
@@ -97,16 +102,21 @@ var xSurfaceCreateGlContext func(uintptr) uintptr
 // If the creation of the `GdkGLContext` failed, @error will be set.
 // Before using the returned `GdkGLContext`, you will need to
 // call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
-func (x *Surface) CreateGlContext() *GLContext {
+func (x *Surface) CreateGlContext() (*GLContext, error) {
+	var cls *GLContext
+	var cerr *glib.Error
 
-	CreateGlContextPtr := xSurfaceCreateGlContext(x.GoPointer())
-	if CreateGlContextPtr == 0 {
-		return nil
+	cret := xSurfaceCreateGlContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateGlContextCls := &GLContext{}
-	CreateGlContextCls.Ptr = CreateGlContextPtr
-	return CreateGlContextCls
+	cls = &GLContext{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -129,8 +139,8 @@ var xSurfaceCreateSimilarSurface func(uintptr, cairo.Content, int, int) *cairo.S
 // or any other error occurs.
 func (x *Surface) CreateSimilarSurface(ContentVar cairo.Content, WidthVar int, HeightVar int) *cairo.Surface {
 
-	return xSurfaceCreateSimilarSurface(x.GoPointer(), ContentVar, WidthVar, HeightVar)
-
+	cret := xSurfaceCreateSimilarSurface(x.GoPointer(), ContentVar, WidthVar, HeightVar)
+	return cret
 }
 
 var xSurfaceCreateVulkanContext func(uintptr) uintptr
@@ -138,16 +148,21 @@ var xSurfaceCreateVulkanContext func(uintptr) uintptr
 // Creates a new `GdkVulkanContext` for rendering on @surface.
 //
 // If the creation of the `GdkVulkanContext` failed, @error will be set.
-func (x *Surface) CreateVulkanContext() *VulkanContext {
+func (x *Surface) CreateVulkanContext() (*VulkanContext, error) {
+	var cls *VulkanContext
+	var cerr *glib.Error
 
-	CreateVulkanContextPtr := xSurfaceCreateVulkanContext(x.GoPointer())
-	if CreateVulkanContextPtr == 0 {
-		return nil
+	cret := xSurfaceCreateVulkanContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateVulkanContextCls := &VulkanContext{}
-	CreateVulkanContextCls.Ptr = CreateVulkanContextPtr
-	return CreateVulkanContextCls
+	cls = &VulkanContext{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -178,18 +193,17 @@ var xSurfaceGetCursor func(uintptr) uintptr
 //
 // Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
 func (x *Surface) GetCursor() *Cursor {
+	var cls *Cursor
 
-	GetCursorPtr := xSurfaceGetCursor(x.GoPointer())
-	if GetCursorPtr == 0 {
-		return nil
+	cret := xSurfaceGetCursor(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCursorPtr)
-
-	GetCursorCls := &Cursor{}
-	GetCursorCls.Ptr = GetCursorPtr
-	return GetCursorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceGetDeviceCursor func(uintptr, uintptr) uintptr
@@ -202,18 +216,17 @@ var xSurfaceGetDeviceCursor func(uintptr, uintptr) uintptr
 //
 // Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
 func (x *Surface) GetDeviceCursor(DeviceVar *Device) *Cursor {
+	var cls *Cursor
 
-	GetDeviceCursorPtr := xSurfaceGetDeviceCursor(x.GoPointer(), DeviceVar.GoPointer())
-	if GetDeviceCursorPtr == 0 {
-		return nil
+	cret := xSurfaceGetDeviceCursor(x.GoPointer(), DeviceVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDeviceCursorPtr)
-
-	GetDeviceCursorCls := &Cursor{}
-	GetDeviceCursorCls.Ptr = GetDeviceCursorPtr
-	return GetDeviceCursorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceGetDevicePosition func(uintptr, uintptr, float64, float64, *ModifierType) bool
@@ -224,26 +237,25 @@ var xSurfaceGetDevicePosition func(uintptr, uintptr, float64, float64, *Modifier
 // left corner of @surface.
 func (x *Surface) GetDevicePosition(DeviceVar *Device, XVar float64, YVar float64, MaskVar *ModifierType) bool {
 
-	return xSurfaceGetDevicePosition(x.GoPointer(), DeviceVar.GoPointer(), XVar, YVar, MaskVar)
-
+	cret := xSurfaceGetDevicePosition(x.GoPointer(), DeviceVar.GoPointer(), XVar, YVar, MaskVar)
+	return cret
 }
 
 var xSurfaceGetDisplay func(uintptr) uintptr
 
 // Gets the `GdkDisplay` associated with a `GdkSurface`.
 func (x *Surface) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xSurfaceGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xSurfaceGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceGetFrameClock func(uintptr) uintptr
@@ -253,18 +265,17 @@ var xSurfaceGetFrameClock func(uintptr) uintptr
 // The frame clock for a surface never changes unless the surface is
 // reparented to a new toplevel surface.
 func (x *Surface) GetFrameClock() *FrameClock {
+	var cls *FrameClock
 
-	GetFrameClockPtr := xSurfaceGetFrameClock(x.GoPointer())
-	if GetFrameClockPtr == 0 {
-		return nil
+	cret := xSurfaceGetFrameClock(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFrameClockPtr)
-
-	GetFrameClockCls := &FrameClock{}
-	GetFrameClockCls.Ptr = GetFrameClockPtr
-	return GetFrameClockCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FrameClock{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSurfaceGetHeight func(uintptr) int
@@ -275,8 +286,8 @@ var xSurfaceGetHeight func(uintptr) int
 // ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
 func (x *Surface) GetHeight() int {
 
-	return xSurfaceGetHeight(x.GoPointer())
-
+	cret := xSurfaceGetHeight(x.GoPointer())
+	return cret
 }
 
 var xSurfaceGetMapped func(uintptr) bool
@@ -287,8 +298,8 @@ var xSurfaceGetMapped func(uintptr) bool
 // or [method@Gdk.Popup.present].
 func (x *Surface) GetMapped() bool {
 
-	return xSurfaceGetMapped(x.GoPointer())
-
+	cret := xSurfaceGetMapped(x.GoPointer())
+	return cret
 }
 
 var xSurfaceGetScaleFactor func(uintptr) int
@@ -306,8 +317,8 @@ var xSurfaceGetScaleFactor func(uintptr) int
 // The scale of a surface may change during runtime.
 func (x *Surface) GetScaleFactor() int {
 
-	return xSurfaceGetScaleFactor(x.GoPointer())
-
+	cret := xSurfaceGetScaleFactor(x.GoPointer())
+	return cret
 }
 
 var xSurfaceGetWidth func(uintptr) int
@@ -318,8 +329,8 @@ var xSurfaceGetWidth func(uintptr) int
 // ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
 func (x *Surface) GetWidth() int {
 
-	return xSurfaceGetWidth(x.GoPointer())
-
+	cret := xSurfaceGetWidth(x.GoPointer())
+	return cret
 }
 
 var xSurfaceHide func(uintptr)
@@ -341,8 +352,8 @@ var xSurfaceIsDestroyed func(uintptr) bool
 // Check to see if a surface is destroyed.
 func (x *Surface) IsDestroyed() bool {
 
-	return xSurfaceIsDestroyed(x.GoPointer())
-
+	cret := xSurfaceIsDestroyed(x.GoPointer())
+	return cret
 }
 
 var xSurfaceQueueRender func(uintptr)
@@ -453,8 +464,8 @@ var xSurfaceTranslateCoordinates func(uintptr, uintptr, float64, float64) bool
 // transient-for to the same toplevel (directly or indirectly).
 func (x *Surface) TranslateCoordinates(ToVar *Surface, XVar float64, YVar float64) bool {
 
-	return xSurfaceTranslateCoordinates(x.GoPointer(), ToVar.GoPointer(), XVar, YVar)
-
+	cret := xSurfaceTranslateCoordinates(x.GoPointer(), ToVar.GoPointer(), XVar, YVar)
+	return cret
 }
 
 func (c *Surface) GoPointer() uintptr {

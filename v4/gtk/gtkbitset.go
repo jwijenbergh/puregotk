@@ -24,8 +24,8 @@ var xBitsetIterInitAt func(*BitsetIter, *Bitset, uint, uint) bool
 // If no value &gt;= @target exists in @set, this function returns %FALSE.
 func BitsetIterInitAt(IterVar *BitsetIter, SetVar *Bitset, TargetVar uint, ValueVar uint) bool {
 
-	return xBitsetIterInitAt(IterVar, SetVar, TargetVar, ValueVar)
-
+	cret := xBitsetIterInitAt(IterVar, SetVar, TargetVar, ValueVar)
+	return cret
 }
 
 var xBitsetIterInitFirst func(*BitsetIter, *Bitset, uint) bool
@@ -36,8 +36,8 @@ var xBitsetIterInitFirst func(*BitsetIter, *Bitset, uint) bool
 // If @set is empty, %FALSE is returned and @value is set to %G_MAXUINT.
 func BitsetIterInitFirst(IterVar *BitsetIter, SetVar *Bitset, ValueVar uint) bool {
 
-	return xBitsetIterInitFirst(IterVar, SetVar, ValueVar)
-
+	cret := xBitsetIterInitFirst(IterVar, SetVar, ValueVar)
+	return cret
 }
 
 var xBitsetIterInitLast func(*BitsetIter, *Bitset, uint) bool
@@ -48,8 +48,8 @@ var xBitsetIterInitLast func(*BitsetIter, *Bitset, uint) bool
 // If @set is empty, %FALSE is returned.
 func BitsetIterInitLast(IterVar *BitsetIter, SetVar *Bitset, ValueVar uint) bool {
 
-	return xBitsetIterInitLast(IterVar, SetVar, ValueVar)
-
+	cret := xBitsetIterInitLast(IterVar, SetVar, ValueVar)
+	return cret
 }
 
 func init() {

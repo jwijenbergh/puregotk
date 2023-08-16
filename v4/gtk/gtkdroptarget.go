@@ -104,14 +104,16 @@ var xNewDropTarget func([]interface{}, gdk.DragAction) uintptr
 // %G_TYPE_INVALID for @type and then call
 // [method@Gtk.DropTarget.set_gtypes].
 func NewDropTarget(TypeVar []interface{}, ActionsVar gdk.DragAction) *DropTarget {
-	NewDropTargetPtr := xNewDropTarget(TypeVar, ActionsVar)
-	if NewDropTargetPtr == 0 {
-		return nil
-	}
+	var cls *DropTarget
 
-	NewDropTargetCls := &DropTarget{}
-	NewDropTargetCls.Ptr = NewDropTargetPtr
-	return NewDropTargetCls
+	cret := xNewDropTarget(TypeVar, ActionsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DropTarget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropTargetGetActions func(uintptr) gdk.DragAction
@@ -119,8 +121,8 @@ var xDropTargetGetActions func(uintptr) gdk.DragAction
 // Gets the actions that this drop target supports.
 func (x *DropTarget) GetActions() gdk.DragAction {
 
-	return xDropTargetGetActions(x.GoPointer())
-
+	cret := xDropTargetGetActions(x.GoPointer())
+	return cret
 }
 
 var xDropTargetGetCurrentDrop func(uintptr) uintptr
@@ -129,18 +131,17 @@ var xDropTargetGetCurrentDrop func(uintptr) uintptr
 //
 // If no drop operation is going on, %NULL is returned.
 func (x *DropTarget) GetCurrentDrop() *gdk.Drop {
+	var cls *gdk.Drop
 
-	GetCurrentDropPtr := xDropTargetGetCurrentDrop(x.GoPointer())
-	if GetCurrentDropPtr == 0 {
-		return nil
+	cret := xDropTargetGetCurrentDrop(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCurrentDropPtr)
-
-	GetCurrentDropCls := &gdk.Drop{}
-	GetCurrentDropCls.Ptr = GetCurrentDropPtr
-	return GetCurrentDropCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Drop{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropTargetGetDrop func(uintptr) uintptr
@@ -149,18 +150,17 @@ var xDropTargetGetDrop func(uintptr) uintptr
 //
 // If no drop operation is going on, %NULL is returned.
 func (x *DropTarget) GetDrop() *gdk.Drop {
+	var cls *gdk.Drop
 
-	GetDropPtr := xDropTargetGetDrop(x.GoPointer())
-	if GetDropPtr == 0 {
-		return nil
+	cret := xDropTargetGetDrop(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDropPtr)
-
-	GetDropCls := &gdk.Drop{}
-	GetDropCls.Ptr = GetDropPtr
-	return GetDropCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Drop{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropTargetGetFormats func(uintptr) *gdk.ContentFormats
@@ -170,8 +170,8 @@ var xDropTargetGetFormats func(uintptr) *gdk.ContentFormats
 // If the result is %NULL, all formats are expected to be supported.
 func (x *DropTarget) GetFormats() *gdk.ContentFormats {
 
-	return xDropTargetGetFormats(x.GoPointer())
-
+	cret := xDropTargetGetFormats(x.GoPointer())
+	return cret
 }
 
 var xDropTargetGetGtypes func(uintptr, uint) uintptr
@@ -181,8 +181,8 @@ var xDropTargetGetGtypes func(uintptr, uint) uintptr
 // If no types have been set, `NULL` will be returned.
 func (x *DropTarget) GetGtypes(NTypesVar uint) uintptr {
 
-	return xDropTargetGetGtypes(x.GoPointer(), NTypesVar)
-
+	cret := xDropTargetGetGtypes(x.GoPointer(), NTypesVar)
+	return cret
 }
 
 var xDropTargetGetPreload func(uintptr) bool
@@ -190,8 +190,8 @@ var xDropTargetGetPreload func(uintptr) bool
 // Gets whether data should be preloaded on hover.
 func (x *DropTarget) GetPreload() bool {
 
-	return xDropTargetGetPreload(x.GoPointer())
-
+	cret := xDropTargetGetPreload(x.GoPointer())
+	return cret
 }
 
 var xDropTargetGetValue func(uintptr) *gobject.Value
@@ -199,8 +199,8 @@ var xDropTargetGetValue func(uintptr) *gobject.Value
 // Gets the current drop data, as a `GValue`.
 func (x *DropTarget) GetValue() *gobject.Value {
 
-	return xDropTargetGetValue(x.GoPointer())
-
+	cret := xDropTargetGetValue(x.GoPointer())
+	return cret
 }
 
 var xDropTargetReject func(uintptr)

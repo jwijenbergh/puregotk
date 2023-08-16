@@ -33,14 +33,16 @@ var xNewSingleSelection func(uintptr) uintptr
 
 // Creates a new selection to handle @model.
 func NewSingleSelection(ModelVar gio.ListModel) *SingleSelection {
-	NewSingleSelectionPtr := xNewSingleSelection(ModelVar.GoPointer())
-	if NewSingleSelectionPtr == 0 {
-		return nil
-	}
+	var cls *SingleSelection
 
-	NewSingleSelectionCls := &SingleSelection{}
-	NewSingleSelectionCls.Ptr = NewSingleSelectionPtr
-	return NewSingleSelectionCls
+	cret := xNewSingleSelection(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SingleSelection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSingleSelectionGetAutoselect func(uintptr) bool
@@ -49,8 +51,8 @@ var xSingleSelectionGetAutoselect func(uintptr) bool
 // gtk_single_selection_set_autoselect().
 func (x *SingleSelection) GetAutoselect() bool {
 
-	return xSingleSelectionGetAutoselect(x.GoPointer())
-
+	cret := xSingleSelectionGetAutoselect(x.GoPointer())
+	return cret
 }
 
 var xSingleSelectionGetCanUnselect func(uintptr) bool
@@ -59,26 +61,25 @@ var xSingleSelectionGetCanUnselect func(uintptr) bool
 // unselecting the selected item.
 func (x *SingleSelection) GetCanUnselect() bool {
 
-	return xSingleSelectionGetCanUnselect(x.GoPointer())
-
+	cret := xSingleSelectionGetCanUnselect(x.GoPointer())
+	return cret
 }
 
 var xSingleSelectionGetModel func(uintptr) uintptr
 
 // Gets the model that @self is wrapping.
 func (x *SingleSelection) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xSingleSelectionGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xSingleSelectionGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSingleSelectionGetSelected func(uintptr) uint
@@ -88,8 +89,8 @@ var xSingleSelectionGetSelected func(uintptr) uint
 // If no item is selected, %GTK_INVALID_LIST_POSITION is returned.
 func (x *SingleSelection) GetSelected() uint {
 
-	return xSingleSelectionGetSelected(x.GoPointer())
-
+	cret := xSingleSelectionGetSelected(x.GoPointer())
+	return cret
 }
 
 var xSingleSelectionGetSelectedItem func(uintptr) uintptr
@@ -98,18 +99,17 @@ var xSingleSelectionGetSelectedItem func(uintptr) uintptr
 //
 // If no item is selected, %NULL is returned.
 func (x *SingleSelection) GetSelectedItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSelectedItemPtr := xSingleSelectionGetSelectedItem(x.GoPointer())
-	if GetSelectedItemPtr == 0 {
-		return nil
+	cret := xSingleSelectionGetSelectedItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedItemPtr)
-
-	GetSelectedItemCls := &gobject.Object{}
-	GetSelectedItemCls.Ptr = GetSelectedItemPtr
-	return GetSelectedItemCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSingleSelectionSetAutoselect func(uintptr, bool)
@@ -185,8 +185,8 @@ func (c *SingleSelection) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *SingleSelection) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -199,8 +199,8 @@ func (x *SingleSelection) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *SingleSelection) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -210,8 +210,8 @@ func (x *SingleSelection) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *SingleSelection) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -227,16 +227,16 @@ func (x *SingleSelection) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *SingleSelection) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -272,8 +272,8 @@ func (x *SingleSelection) ItemsChanged(PositionVar uint, RemovedVar uint, AddedV
 // interested in a few, consider [method@Gtk.SelectionModel.get_selection_in_range].
 func (x *SingleSelection) GetSelection() *Bitset {
 
-	return XGtkSelectionModelGetSelection(x.GoPointer())
-
+	cret := XGtkSelectionModelGetSelection(x.GoPointer())
+	return cret
 }
 
 // Gets the set of selected items in a range.
@@ -285,36 +285,36 @@ func (x *SingleSelection) GetSelection() *Bitset {
 // signal.
 func (x *SingleSelection) GetSelectionInRange(PositionVar uint, NItemsVar uint) *Bitset {
 
-	return XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 // Checks if the given item is selected.
 func (x *SingleSelection) IsSelected(PositionVar uint) bool {
 
-	return XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to select all items in the model.
 func (x *SingleSelection) SelectAll() bool {
 
-	return XGtkSelectionModelSelectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelSelectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to select an item in the model.
 func (x *SingleSelection) SelectItem(PositionVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
+	return cret
 }
 
 // Requests to select a range of items in the model.
 func (x *SingleSelection) SelectRange(PositionVar uint, NItemsVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
+	return cret
 }
 
 // Helper function for implementations of `GtkSelectionModel`.
@@ -365,29 +365,29 @@ func (x *SingleSelection) SelectionChanged(PositionVar uint, NItemsVar uint) {
 // be selected.
 func (x *SingleSelection) SetSelection(SelectedVar *Bitset, MaskVar *Bitset) bool {
 
-	return XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
-
+	cret := XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
+	return cret
 }
 
 // Requests to unselect all items in the model.
 func (x *SingleSelection) UnselectAll() bool {
 
-	return XGtkSelectionModelUnselectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelUnselectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to unselect an item in the model.
 func (x *SingleSelection) UnselectItem(PositionVar uint) bool {
 
-	return XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to unselect a range of items in the model.
 func (x *SingleSelection) UnselectRange(PositionVar uint, NItemsVar uint) bool {
 
-	return XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 func init() {

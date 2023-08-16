@@ -17,8 +17,8 @@ var xIoErrorFromErrno func(int) IOErrorEnum
 // calls, you should save its value as soon as the call which sets it
 func IoErrorFromErrno(ErrNoVar int) IOErrorEnum {
 
-	return xIoErrorFromErrno(ErrNoVar)
-
+	cret := xIoErrorFromErrno(ErrNoVar)
+	return cret
 }
 
 func init() {

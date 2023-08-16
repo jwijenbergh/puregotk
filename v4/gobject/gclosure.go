@@ -132,8 +132,8 @@ var xCclosureNew func(uintptr, uintptr, uintptr) *Closure
 // @destroy_data will be called as a finalize notifier on the #GClosure.
 func CclosureNew(CallbackFuncVar Callback, UserDataVar uintptr, DestroyDataVar ClosureNotify) *Closure {
 
-	return xCclosureNew(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
-
+	cret := xCclosureNew(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
+	return cret
 }
 
 var xCclosureNewSwap func(uintptr, uintptr, uintptr) *Closure
@@ -144,8 +144,8 @@ var xCclosureNewSwap func(uintptr, uintptr, uintptr) *Closure
 // @destroy_data will be called as a finalize notifier on the #GClosure.
 func CclosureNewSwap(CallbackFuncVar Callback, UserDataVar uintptr, DestroyDataVar ClosureNotify) *Closure {
 
-	return xCclosureNewSwap(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
-
+	cret := xCclosureNewSwap(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
+	return cret
 }
 
 var xSignalTypeCclosureNew func([]interface{}, uint) *Closure
@@ -155,8 +155,8 @@ var xSignalTypeCclosureNew func([]interface{}, uint) *Closure
 // identified by @itype.
 func SignalTypeCclosureNew(ItypeVar []interface{}, StructOffsetVar uint) *Closure {
 
-	return xSignalTypeCclosureNew(ItypeVar, StructOffsetVar)
-
+	cret := xSignalTypeCclosureNew(ItypeVar, StructOffsetVar)
+	return cret
 }
 
 func init() {

@@ -29,8 +29,8 @@ var xAccess func(string, int) int
 // See your C library manual for more details about access().
 func Access(FilenameVar string, ModeVar int) int {
 
-	return xAccess(FilenameVar, ModeVar)
-
+	cret := xAccess(FilenameVar, ModeVar)
+	return cret
 }
 
 var xChdir func(string) int
@@ -41,11 +41,11 @@ var xChdir func(string) int
 // See your C library manual for more details about chdir().
 func Chdir(PathVar string) int {
 
-	return xChdir(PathVar)
-
+	cret := xChdir(PathVar)
+	return cret
 }
 
-var xClose func(int) bool
+var xClose func(int, **Error) bool
 
 // This wraps the close() call; in case of error, %errno will be
 // preserved, but the error will also be stored as a #GError in @error.
@@ -54,9 +54,14 @@ var xClose func(int) bool
 // function over the call provided by the system; on Unix, it will
 // attempt to correctly handle %EINTR, which has platform-specific
 // semantics.
-func Close(FdVar int) bool {
+func Close(FdVar int) (bool, error) {
+	var cerr *Error
 
-	return xClose(FdVar)
+	cret := xClose(FdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -69,8 +74,8 @@ var xRmdir func(string) int
 // on your system.
 func Rmdir(FilenameVar string) int {
 
-	return xRmdir(FilenameVar)
-
+	cret := xRmdir(FilenameVar)
+	return cret
 }
 
 var xUnlink func(string) int
@@ -85,8 +90,8 @@ var xUnlink func(string) int
 // are open to some process, or mapped into memory.
 func Unlink(FilenameVar string) int {
 
-	return xUnlink(FilenameVar)
-
+	cret := xUnlink(FilenameVar)
+	return cret
 }
 
 func init() {

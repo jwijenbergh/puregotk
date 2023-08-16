@@ -66,32 +66,33 @@ var xNewMapListModel func(uintptr, uintptr, uintptr, uintptr) uintptr
 
 // Creates a new `GtkMapListModel` for the given arguments.
 func NewMapListModel(ModelVar gio.ListModel, MapFuncVar MapListModelMapFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *MapListModel {
-	NewMapListModelPtr := xNewMapListModel(ModelVar.GoPointer(), purego.NewCallback(MapFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-	if NewMapListModelPtr == 0 {
-		return nil
-	}
+	var cls *MapListModel
 
-	NewMapListModelCls := &MapListModel{}
-	NewMapListModelCls.Ptr = NewMapListModelPtr
-	return NewMapListModelCls
+	cret := xNewMapListModel(ModelVar.GoPointer(), purego.NewCallback(MapFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MapListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMapListModelGetModel func(uintptr) uintptr
 
 // Gets the model that is currently being mapped or %NULL if none.
 func (x *MapListModel) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xMapListModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xMapListModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMapListModelHasMap func(uintptr) bool
@@ -99,8 +100,8 @@ var xMapListModelHasMap func(uintptr) bool
 // Checks if a map function is currently set on @self.
 func (x *MapListModel) HasMap() bool {
 
-	return xMapListModelHasMap(x.GoPointer())
-
+	cret := xMapListModelHasMap(x.GoPointer())
+	return cret
 }
 
 var xMapListModelSetMapFunc func(uintptr, uintptr, uintptr, uintptr)
@@ -154,8 +155,8 @@ func (c *MapListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *MapListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -168,8 +169,8 @@ func (x *MapListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *MapListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -179,8 +180,8 @@ func (x *MapListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *MapListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -196,16 +197,16 @@ func (x *MapListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *MapListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

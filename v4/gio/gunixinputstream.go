@@ -40,14 +40,16 @@ var xNewUnixInputStream func(int, bool) uintptr
 // If @close_fd is %TRUE, the file descriptor will be closed
 // when the stream is closed.
 func NewUnixInputStream(FdVar int, CloseFdVar bool) *InputStream {
-	NewUnixInputStreamPtr := xNewUnixInputStream(FdVar, CloseFdVar)
-	if NewUnixInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewUnixInputStreamCls := &InputStream{}
-	NewUnixInputStreamCls.Ptr = NewUnixInputStreamPtr
-	return NewUnixInputStreamCls
+	cret := xNewUnixInputStream(FdVar, CloseFdVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixInputStreamGetCloseFd func(uintptr) bool
@@ -56,8 +58,8 @@ var xUnixInputStreamGetCloseFd func(uintptr) bool
 // closed when the stream is closed.
 func (x *UnixInputStream) GetCloseFd() bool {
 
-	return xUnixInputStreamGetCloseFd(x.GoPointer())
-
+	cret := xUnixInputStreamGetCloseFd(x.GoPointer())
+	return cret
 }
 
 var xUnixInputStreamGetFd func(uintptr) int
@@ -65,8 +67,8 @@ var xUnixInputStreamGetFd func(uintptr) int
 // Return the UNIX file descriptor that the stream reads from.
 func (x *UnixInputStream) GetFd() int {
 
-	return xUnixInputStreamGetFd(x.GoPointer())
-
+	cret := xUnixInputStreamGetFd(x.GoPointer())
+	return cret
 }
 
 var xUnixInputStreamSetCloseFd func(uintptr, bool)
@@ -96,8 +98,8 @@ func (c *UnixInputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *UnixInputStream) CanPoll() bool {
 
-	return XGPollableInputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableInputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be read, or
@@ -110,8 +112,8 @@ func (x *UnixInputStream) CanPoll() bool {
 // rather than g_input_stream_read() from the callback.
 func (x *UnixInputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be read.
@@ -124,8 +126,8 @@ func (x *UnixInputStream) CreateSource(CancellableVar *Cancellable) *glib.Source
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *UnixInputStream) IsReadable() bool {
 
-	return XGPollableInputStreamIsReadable(x.GoPointer())
-
+	cret := XGPollableInputStreamIsReadable(x.GoPointer())
+	return cret
 }
 
 // Attempts to read up to @count bytes from @stream into @buffer, as
@@ -139,9 +141,14 @@ func (x *UnixInputStream) IsReadable() bool {
 // if @cancellable has already been cancelled when you call, which
 // may happen if you call this method after a source triggers due
 // to having been cancelled.
-func (x *UnixInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *UnixInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

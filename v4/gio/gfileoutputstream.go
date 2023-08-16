@@ -45,11 +45,11 @@ var xFileOutputStreamGetEtag func(uintptr) string
 // and closed, as the etag can change while writing.
 func (x *FileOutputStream) GetEtag() string {
 
-	return xFileOutputStreamGetEtag(x.GoPointer())
-
+	cret := xFileOutputStreamGetEtag(x.GoPointer())
+	return cret
 }
 
-var xFileOutputStreamQueryInfo func(uintptr, string, uintptr) uintptr
+var xFileOutputStreamQueryInfo func(uintptr, string, uintptr, **glib.Error) uintptr
 
 // Queries a file output stream for the given @attributes.
 // This function blocks while querying the stream. For the asynchronous
@@ -68,16 +68,21 @@ var xFileOutputStreamQueryInfo func(uintptr, string, uintptr) uintptr
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be set, and %NULL will
 // be returned.
-func (x *FileOutputStream) QueryInfo(AttributesVar string, CancellableVar *Cancellable) *FileInfo {
+func (x *FileOutputStream) QueryInfo(AttributesVar string, CancellableVar *Cancellable) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryInfoPtr := xFileOutputStreamQueryInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer())
-	if QueryInfoPtr == 0 {
-		return nil
+	cret := xFileOutputStreamQueryInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryInfoCls := &FileInfo{}
-	QueryInfoCls.Ptr = QueryInfoPtr
-	return QueryInfoCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -95,20 +100,25 @@ func (x *FileOutputStream) QueryInfoAsync(AttributesVar string, IoPriorityVar in
 
 }
 
-var xFileOutputStreamQueryInfoFinish func(uintptr, uintptr) uintptr
+var xFileOutputStreamQueryInfoFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finalizes the asynchronous query started
 // by g_file_output_stream_query_info_async().
-func (x *FileOutputStream) QueryInfoFinish(ResultVar AsyncResult) *FileInfo {
+func (x *FileOutputStream) QueryInfoFinish(ResultVar AsyncResult) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryInfoFinishPtr := xFileOutputStreamQueryInfoFinish(x.GoPointer(), ResultVar.GoPointer())
-	if QueryInfoFinishPtr == 0 {
-		return nil
+	cret := xFileOutputStreamQueryInfoFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryInfoFinishCls := &FileInfo{}
-	QueryInfoFinishCls.Ptr = QueryInfoFinishPtr
-	return QueryInfoFinishCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -123,16 +133,16 @@ func (c *FileOutputStream) SetGoPointer(ptr uintptr) {
 // Tests if the stream supports the #GSeekableIface.
 func (x *FileOutputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *FileOutputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -149,17 +159,22 @@ func (x *FileOutputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *FileOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *FileOutputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -171,9 +186,14 @@ func (x *FileOutputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *FileOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *FileOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

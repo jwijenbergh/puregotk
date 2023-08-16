@@ -73,16 +73,17 @@ var xNewDropDown func(uintptr, uintptr) uintptr
 // You may want to call [method@Gtk.DropDown.set_factory]
 // to set up a way to map its items to widgets.
 func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *Widget {
-	NewDropDownPtr := xNewDropDown(ModelVar.GoPointer(), ExpressionVar.GoPointer())
-	if NewDropDownPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewDropDown(ModelVar.GoPointer(), ExpressionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewDropDownPtr)
-
-	NewDropDownCls := &Widget{}
-	NewDropDownCls.Ptr = NewDropDownPtr
-	return NewDropDownCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromStringsDropDown func(uintptr) uintptr
@@ -90,16 +91,17 @@ var xNewFromStringsDropDown func(uintptr) uintptr
 // Creates a new `GtkDropDown` that is populated with
 // the strings.
 func NewFromStringsDropDown(StringsVar uintptr) *Widget {
-	NewFromStringsDropDownPtr := xNewFromStringsDropDown(StringsVar)
-	if NewFromStringsDropDownPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromStringsDropDown(StringsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromStringsDropDownPtr)
-
-	NewFromStringsDropDownCls := &Widget{}
-	NewFromStringsDropDownCls.Ptr = NewFromStringsDropDownPtr
-	return NewFromStringsDropDownCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetEnableSearch func(uintptr) bool
@@ -107,8 +109,8 @@ var xDropDownGetEnableSearch func(uintptr) bool
 // Returns whether search is enabled.
 func (x *DropDown) GetEnableSearch() bool {
 
-	return xDropDownGetEnableSearch(x.GoPointer())
-
+	cret := xDropDownGetEnableSearch(x.GoPointer())
+	return cret
 }
 
 var xDropDownGetExpression func(uintptr) uintptr
@@ -117,18 +119,17 @@ var xDropDownGetExpression func(uintptr) uintptr
 //
 // See [method@Gtk.DropDown.set_expression].
 func (x *DropDown) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xDropDownGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xDropDownGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetFactory func(uintptr) uintptr
@@ -139,54 +140,51 @@ var xDropDownGetFactory func(uintptr) uintptr
 // item in the button. It is also used for items in the popup
 // if [property@Gtk.DropDown:list-factory] is not set.
 func (x *DropDown) GetFactory() *ListItemFactory {
+	var cls *ListItemFactory
 
-	GetFactoryPtr := xDropDownGetFactory(x.GoPointer())
-	if GetFactoryPtr == 0 {
-		return nil
+	cret := xDropDownGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFactoryPtr)
-
-	GetFactoryCls := &ListItemFactory{}
-	GetFactoryCls.Ptr = GetFactoryPtr
-	return GetFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetListFactory func(uintptr) uintptr
 
 // Gets the factory that's currently used to populate list items in the popup.
 func (x *DropDown) GetListFactory() *ListItemFactory {
+	var cls *ListItemFactory
 
-	GetListFactoryPtr := xDropDownGetListFactory(x.GoPointer())
-	if GetListFactoryPtr == 0 {
-		return nil
+	cret := xDropDownGetListFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetListFactoryPtr)
-
-	GetListFactoryCls := &ListItemFactory{}
-	GetListFactoryCls.Ptr = GetListFactoryPtr
-	return GetListFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetModel func(uintptr) uintptr
 
 // Gets the model that provides the displayed items.
 func (x *DropDown) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xDropDownGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xDropDownGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetSelected func(uintptr) uint
@@ -194,26 +192,25 @@ var xDropDownGetSelected func(uintptr) uint
 // Gets the position of the selected item.
 func (x *DropDown) GetSelected() uint {
 
-	return xDropDownGetSelected(x.GoPointer())
-
+	cret := xDropDownGetSelected(x.GoPointer())
+	return cret
 }
 
 var xDropDownGetSelectedItem func(uintptr) uintptr
 
 // Gets the selected item. If no item is selected, %NULL is returned.
 func (x *DropDown) GetSelectedItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSelectedItemPtr := xDropDownGetSelectedItem(x.GoPointer())
-	if GetSelectedItemPtr == 0 {
-		return nil
+	cret := xDropDownGetSelectedItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedItemPtr)
-
-	GetSelectedItemCls := &gobject.Object{}
-	GetSelectedItemCls.Ptr = GetSelectedItemPtr
-	return GetSelectedItemCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropDownGetShowArrow func(uintptr) bool
@@ -221,8 +218,8 @@ var xDropDownGetShowArrow func(uintptr) bool
 // Returns whether to show an arrow within the widget.
 func (x *DropDown) GetShowArrow() bool {
 
-	return xDropDownGetShowArrow(x.GoPointer())
-
+	cret := xDropDownGetShowArrow(x.GoPointer())
+	return cret
 }
 
 var xDropDownSetEnableSearch func(uintptr, bool)
@@ -321,8 +318,8 @@ func (x *DropDown) ConnectActivate(cb func(DropDown)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *DropDown) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -457,8 +454,8 @@ func (x *DropDown) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *DropDown) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

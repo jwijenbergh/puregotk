@@ -41,16 +41,17 @@ var xNewCellRendererText func() uintptr
 // value in the model, thus rendering a different string in each row
 // of the `GtkTreeView`.
 func NewCellRendererText() *CellRenderer {
-	NewCellRendererTextPtr := xNewCellRendererText()
-	if NewCellRendererTextPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererText()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererTextPtr)
-
-	NewCellRendererTextCls := &CellRenderer{}
-	NewCellRendererTextCls.Ptr = NewCellRendererTextPtr
-	return NewCellRendererTextCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellRendererTextSetFixedHeightFromFont func(uintptr, int)

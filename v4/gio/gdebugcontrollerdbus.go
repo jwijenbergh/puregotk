@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -136,7 +137,7 @@ func DebugControllerDBusNewFromInternalPtr(ptr uintptr) *DebugControllerDBus {
 	return cls
 }
 
-var xNewDebugControllerDBus func(uintptr, uintptr) uintptr
+var xNewDebugControllerDBus func(uintptr, uintptr, **glib.Error) uintptr
 
 // Create a new #GDebugControllerDBus and synchronously initialize it.
 //
@@ -145,15 +146,22 @@ var xNewDebugControllerDBus func(uintptr, uintptr) uintptr
 // #GDebugControllerDBus is dropped.
 //
 // Initialization may fail if registering the object on @connection fails.
-func NewDebugControllerDBus(ConnectionVar *DBusConnection, CancellableVar *Cancellable) *DebugControllerDBus {
-	NewDebugControllerDBusPtr := xNewDebugControllerDBus(ConnectionVar.GoPointer(), CancellableVar.GoPointer())
-	if NewDebugControllerDBusPtr == 0 {
-		return nil
-	}
+func NewDebugControllerDBus(ConnectionVar *DBusConnection, CancellableVar *Cancellable) (*DebugControllerDBus, error) {
+	var cls *DebugControllerDBus
+	var cerr *glib.Error
 
-	NewDebugControllerDBusCls := &DebugControllerDBus{}
-	NewDebugControllerDBusCls.Ptr = NewDebugControllerDBusPtr
-	return NewDebugControllerDBusCls
+	cret := xNewDebugControllerDBus(ConnectionVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DebugControllerDBus{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xDebugControllerDBusStop func(uintptr)
@@ -219,8 +227,8 @@ func (x *DebugControllerDBus) ConnectAuthorize(cb func(DebugControllerDBus, uint
 // Get the value of #GDebugController:debug-enabled.
 func (x *DebugControllerDBus) GetDebugEnabled() bool {
 
-	return XGDebugControllerGetDebugEnabled(x.GoPointer())
-
+	cret := XGDebugControllerGetDebugEnabled(x.GoPointer())
+	return cret
 }
 
 // Set the value of #GDebugController:debug-enabled.
@@ -268,9 +276,14 @@ func (x *DebugControllerDBus) SetDebugEnabled(DebugEnabledVar bool) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *DebugControllerDBus) Init(CancellableVar *Cancellable) bool {
+func (x *DebugControllerDBus) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

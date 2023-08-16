@@ -50,34 +50,33 @@ var xValueDupRenderNode func(*gobject.Value) uintptr
 // Retrieves the `GskRenderNode` stored inside the given `value`, and acquires
 // a reference to it.
 func ValueDupRenderNode(ValueVar *gobject.Value) *RenderNode {
+	var cls *RenderNode
 
-	ValueDupRenderNodePtr := xValueDupRenderNode(ValueVar)
-	if ValueDupRenderNodePtr == 0 {
-		return nil
+	cret := xValueDupRenderNode(ValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ValueDupRenderNodeCls := &RenderNode{}
-	ValueDupRenderNodeCls.Ptr = ValueDupRenderNodePtr
-	return ValueDupRenderNodeCls
-
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xValueGetRenderNode func(*gobject.Value) uintptr
 
 // Retrieves the `GskRenderNode` stored inside the given `value`.
 func ValueGetRenderNode(ValueVar *gobject.Value) *RenderNode {
+	var cls *RenderNode
 
-	ValueGetRenderNodePtr := xValueGetRenderNode(ValueVar)
-	if ValueGetRenderNodePtr == 0 {
-		return nil
+	cret := xValueGetRenderNode(ValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(ValueGetRenderNodePtr)
-
-	ValueGetRenderNodeCls := &RenderNode{}
-	ValueGetRenderNodeCls.Ptr = ValueGetRenderNodePtr
-	return ValueGetRenderNodeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xValueSetRenderNode func(*gobject.Value, uintptr)
@@ -157,24 +156,24 @@ var xRenderNodeGetNodeType func(uintptr) RenderNodeType
 // Returns the type of the @node.
 func (x *RenderNode) GetNodeType() RenderNodeType {
 
-	return xRenderNodeGetNodeType(x.GoPointer())
-
+	cret := xRenderNodeGetNodeType(x.GoPointer())
+	return cret
 }
 
 var xRenderNodeRef func(uintptr) uintptr
 
 // Acquires a reference on the given `GskRenderNode`.
 func (x *RenderNode) Ref() *RenderNode {
+	var cls *RenderNode
 
-	RefPtr := xRenderNodeRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xRenderNodeRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefCls := &RenderNode{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRenderNodeSerialize func(uintptr) *glib.Bytes
@@ -190,8 +189,8 @@ var xRenderNodeSerialize func(uintptr) *glib.Bytes
 // The format is not meant as a permanent storage format.
 func (x *RenderNode) Serialize() *glib.Bytes {
 
-	return xRenderNodeSerialize(x.GoPointer())
-
+	cret := xRenderNodeSerialize(x.GoPointer())
+	return cret
 }
 
 var xRenderNodeUnref func(uintptr)
@@ -206,7 +205,7 @@ func (x *RenderNode) Unref() {
 
 }
 
-var xRenderNodeWriteToFile func(uintptr, string) bool
+var xRenderNodeWriteToFile func(uintptr, string, **glib.Error) bool
 
 // This function is equivalent to calling [method@Gsk.RenderNode.serialize]
 // followed by [func@GLib.file_set_contents].
@@ -215,9 +214,14 @@ var xRenderNodeWriteToFile func(uintptr, string) bool
 //
 // It is mostly intended for use inside a debugger to quickly dump a render
 // node to a file for later inspection.
-func (x *RenderNode) WriteToFile(FilenameVar string) bool {
+func (x *RenderNode) WriteToFile(FilenameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xRenderNodeWriteToFile(x.GoPointer(), FilenameVar)
+	cret := xRenderNodeWriteToFile(x.GoPointer(), FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

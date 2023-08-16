@@ -137,16 +137,17 @@ var xNewGLArea func() uintptr
 
 // Creates a new `GtkGLArea` widget.
 func NewGLArea() *Widget {
-	NewGLAreaPtr := xNewGLArea()
-	if NewGLAreaPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewGLArea()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewGLAreaPtr)
-
-	NewGLAreaCls := &Widget{}
-	NewGLAreaCls.Ptr = NewGLAreaPtr
-	return NewGLAreaCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLAreaAttachBuffers func(uintptr)
@@ -171,26 +172,25 @@ var xGLAreaGetAutoRender func(uintptr) bool
 // Returns whether the area is in auto render mode or not.
 func (x *GLArea) GetAutoRender() bool {
 
-	return xGLAreaGetAutoRender(x.GoPointer())
-
+	cret := xGLAreaGetAutoRender(x.GoPointer())
+	return cret
 }
 
 var xGLAreaGetContext func(uintptr) uintptr
 
 // Retrieves the `GdkGLContext` used by @area.
 func (x *GLArea) GetContext() *gdk.GLContext {
+	var cls *gdk.GLContext
 
-	GetContextPtr := xGLAreaGetContext(x.GoPointer())
-	if GetContextPtr == 0 {
-		return nil
+	cret := xGLAreaGetContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContextPtr)
-
-	GetContextCls := &gdk.GLContext{}
-	GetContextCls.Ptr = GetContextPtr
-	return GetContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.GLContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLAreaGetError func(uintptr) *glib.Error
@@ -198,8 +198,8 @@ var xGLAreaGetError func(uintptr) *glib.Error
 // Gets the current error set on the @area.
 func (x *GLArea) GetError() *glib.Error {
 
-	return xGLAreaGetError(x.GoPointer())
-
+	cret := xGLAreaGetError(x.GoPointer())
+	return cret
 }
 
 var xGLAreaGetHasDepthBuffer func(uintptr) bool
@@ -207,8 +207,8 @@ var xGLAreaGetHasDepthBuffer func(uintptr) bool
 // Returns whether the area has a depth buffer.
 func (x *GLArea) GetHasDepthBuffer() bool {
 
-	return xGLAreaGetHasDepthBuffer(x.GoPointer())
-
+	cret := xGLAreaGetHasDepthBuffer(x.GoPointer())
+	return cret
 }
 
 var xGLAreaGetHasStencilBuffer func(uintptr) bool
@@ -216,8 +216,8 @@ var xGLAreaGetHasStencilBuffer func(uintptr) bool
 // Returns whether the area has a stencil buffer.
 func (x *GLArea) GetHasStencilBuffer() bool {
 
-	return xGLAreaGetHasStencilBuffer(x.GoPointer())
-
+	cret := xGLAreaGetHasStencilBuffer(x.GoPointer())
+	return cret
 }
 
 var xGLAreaGetRequiredVersion func(uintptr, int, int)
@@ -238,8 +238,8 @@ var xGLAreaGetUseEs func(uintptr) bool
 // See [method@Gtk.GLArea.set_use_es].
 func (x *GLArea) GetUseEs() bool {
 
-	return xGLAreaGetUseEs(x.GoPointer())
-
+	cret := xGLAreaGetUseEs(x.GoPointer())
+	return cret
 }
 
 var xGLAreaMakeCurrent func(uintptr)
@@ -424,8 +424,8 @@ func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *GLArea) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -560,8 +560,8 @@ func (x *GLArea) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *GLArea) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -93,8 +93,8 @@ func (x *SelectionModelBase) SetGoPointer(ptr uintptr) {
 // interested in a few, consider [method@Gtk.SelectionModel.get_selection_in_range].
 func (x *SelectionModelBase) GetSelection() *Bitset {
 
-	return XGtkSelectionModelGetSelection(x.GoPointer())
-
+	cret := XGtkSelectionModelGetSelection(x.GoPointer())
+	return cret
 }
 
 // Gets the set of selected items in a range.
@@ -106,36 +106,36 @@ func (x *SelectionModelBase) GetSelection() *Bitset {
 // signal.
 func (x *SelectionModelBase) GetSelectionInRange(PositionVar uint, NItemsVar uint) *Bitset {
 
-	return XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 // Checks if the given item is selected.
 func (x *SelectionModelBase) IsSelected(PositionVar uint) bool {
 
-	return XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to select all items in the model.
 func (x *SelectionModelBase) SelectAll() bool {
 
-	return XGtkSelectionModelSelectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelSelectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to select an item in the model.
 func (x *SelectionModelBase) SelectItem(PositionVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
+	return cret
 }
 
 // Requests to select a range of items in the model.
 func (x *SelectionModelBase) SelectRange(PositionVar uint, NItemsVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
+	return cret
 }
 
 // Helper function for implementations of `GtkSelectionModel`.
@@ -186,29 +186,29 @@ func (x *SelectionModelBase) SelectionChanged(PositionVar uint, NItemsVar uint) 
 // be selected.
 func (x *SelectionModelBase) SetSelection(SelectedVar *Bitset, MaskVar *Bitset) bool {
 
-	return XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
-
+	cret := XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
+	return cret
 }
 
 // Requests to unselect all items in the model.
 func (x *SelectionModelBase) UnselectAll() bool {
 
-	return XGtkSelectionModelUnselectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelUnselectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to unselect an item in the model.
 func (x *SelectionModelBase) UnselectItem(PositionVar uint) bool {
 
-	return XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to unselect a range of items in the model.
 func (x *SelectionModelBase) UnselectRange(PositionVar uint, NItemsVar uint) bool {
 
-	return XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 var XGtkSelectionModelGetSelection func(uintptr) *Bitset

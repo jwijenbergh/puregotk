@@ -94,8 +94,8 @@ var xAnimationGetFollowEnableAnimationsSetting func(uintptr) bool
 // Gets whether @self should be skipped when animations are globally disabled.
 func (x *Animation) GetFollowEnableAnimationsSetting() bool {
 
-	return xAnimationGetFollowEnableAnimationsSetting(x.GoPointer())
-
+	cret := xAnimationGetFollowEnableAnimationsSetting(x.GoPointer())
+	return cret
 }
 
 var xAnimationGetState func(uintptr) AnimationState
@@ -106,26 +106,25 @@ var xAnimationGetState func(uintptr) AnimationState
 // hasn't been started yet.
 func (x *Animation) GetState() AnimationState {
 
-	return xAnimationGetState(x.GoPointer())
-
+	cret := xAnimationGetState(x.GoPointer())
+	return cret
 }
 
 var xAnimationGetTarget func(uintptr) uintptr
 
 // Gets the target @self animates.
 func (x *Animation) GetTarget() *AnimationTarget {
+	var cls *AnimationTarget
 
-	GetTargetPtr := xAnimationGetTarget(x.GoPointer())
-	if GetTargetPtr == 0 {
-		return nil
+	cret := xAnimationGetTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTargetPtr)
-
-	GetTargetCls := &AnimationTarget{}
-	GetTargetCls.Ptr = GetTargetPtr
-	return GetTargetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &AnimationTarget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAnimationGetValue func(uintptr) float64
@@ -133,8 +132,8 @@ var xAnimationGetValue func(uintptr) float64
 // Gets the current value of @self.
 func (x *Animation) GetValue() float64 {
 
-	return xAnimationGetValue(x.GoPointer())
-
+	cret := xAnimationGetValue(x.GoPointer())
+	return cret
 }
 
 var xAnimationGetWidget func(uintptr) uintptr
@@ -148,18 +147,17 @@ var xAnimationGetWidget func(uintptr) uintptr
 // mapped, or if it gets unmapped during an ongoing animation, the animation
 // will be automatically skipped.
 func (x *Animation) GetWidget() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetWidgetPtr := xAnimationGetWidget(x.GoPointer())
-	if GetWidgetPtr == 0 {
-		return nil
+	cret := xAnimationGetWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetPtr)
-
-	GetWidgetCls := &gtk.Widget{}
-	GetWidgetCls.Ptr = GetWidgetPtr
-	return GetWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAnimationPause func(uintptr)

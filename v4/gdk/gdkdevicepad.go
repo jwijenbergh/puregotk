@@ -51,22 +51,22 @@ func (x *DevicePadBase) SetGoPointer(ptr uintptr) {
 // f the feature or index do not exist in @pad, -1 is returned.
 func (x *DevicePadBase) GetFeatureGroup(FeatureVar DevicePadFeature, FeatureIdxVar int) int {
 
-	return XGdkDevicePadGetFeatureGroup(x.GoPointer(), FeatureVar, FeatureIdxVar)
-
+	cret := XGdkDevicePadGetFeatureGroup(x.GoPointer(), FeatureVar, FeatureIdxVar)
+	return cret
 }
 
 // Returns the number of modes that @group may have.
 func (x *DevicePadBase) GetGroupNModes(GroupIdxVar int) int {
 
-	return XGdkDevicePadGetGroupNModes(x.GoPointer(), GroupIdxVar)
-
+	cret := XGdkDevicePadGetGroupNModes(x.GoPointer(), GroupIdxVar)
+	return cret
 }
 
 // Returns the number of features a tablet pad has.
 func (x *DevicePadBase) GetNFeatures(FeatureVar DevicePadFeature) int {
 
-	return XGdkDevicePadGetNFeatures(x.GoPointer(), FeatureVar)
-
+	cret := XGdkDevicePadGetNFeatures(x.GoPointer(), FeatureVar)
+	return cret
 }
 
 // Returns the number of groups this pad device has.
@@ -76,8 +76,8 @@ func (x *DevicePadBase) GetNFeatures(FeatureVar DevicePadFeature) int {
 // current mode.
 func (x *DevicePadBase) GetNGroups() int {
 
-	return XGdkDevicePadGetNGroups(x.GoPointer())
-
+	cret := XGdkDevicePadGetNGroups(x.GoPointer())
+	return cret
 }
 
 var XGdkDevicePadGetFeatureGroup func(uintptr, DevicePadFeature, int) int

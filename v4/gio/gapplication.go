@@ -152,14 +152,16 @@ var xNewApplication func(string, ApplicationFlags) uintptr
 // If no application ID is given then some features of #GApplication
 // (most notably application uniqueness) will be disabled.
 func NewApplication(ApplicationIdVar string, FlagsVar ApplicationFlags) *Application {
-	NewApplicationPtr := xNewApplication(ApplicationIdVar, FlagsVar)
-	if NewApplicationPtr == 0 {
-		return nil
-	}
+	var cls *Application
 
-	NewApplicationCls := &Application{}
-	NewApplicationCls.Ptr = NewApplicationPtr
-	return NewApplicationCls
+	cret := xNewApplication(ApplicationIdVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Application{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationActivate func(uintptr)
@@ -311,8 +313,8 @@ var xApplicationGetApplicationId func(uintptr) string
 // Gets the unique identifier for @application.
 func (x *Application) GetApplicationId() string {
 
-	return xApplicationGetApplicationId(x.GoPointer())
-
+	cret := xApplicationGetApplicationId(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetDbusConnection func(uintptr) uintptr
@@ -331,18 +333,17 @@ var xApplicationGetDbusConnection func(uintptr) uintptr
 // This function must not be called before the application has been
 // registered.  See g_application_get_is_registered().
 func (x *Application) GetDbusConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetDbusConnectionPtr := xApplicationGetDbusConnection(x.GoPointer())
-	if GetDbusConnectionPtr == 0 {
-		return nil
+	cret := xApplicationGetDbusConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDbusConnectionPtr)
-
-	GetDbusConnectionCls := &DBusConnection{}
-	GetDbusConnectionCls.Ptr = GetDbusConnectionPtr
-	return GetDbusConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetDbusObjectPath func(uintptr) string
@@ -363,8 +364,8 @@ var xApplicationGetDbusObjectPath func(uintptr) string
 // registered.  See g_application_get_is_registered().
 func (x *Application) GetDbusObjectPath() string {
 
-	return xApplicationGetDbusObjectPath(x.GoPointer())
-
+	cret := xApplicationGetDbusObjectPath(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetFlags func(uintptr) ApplicationFlags
@@ -374,8 +375,8 @@ var xApplicationGetFlags func(uintptr) ApplicationFlags
 // See #GApplicationFlags.
 func (x *Application) GetFlags() ApplicationFlags {
 
-	return xApplicationGetFlags(x.GoPointer())
-
+	cret := xApplicationGetFlags(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetInactivityTimeout func(uintptr) uint
@@ -386,8 +387,8 @@ var xApplicationGetInactivityTimeout func(uintptr) uint
 // g_application_release() before the application stops running.
 func (x *Application) GetInactivityTimeout() uint {
 
-	return xApplicationGetInactivityTimeout(x.GoPointer())
-
+	cret := xApplicationGetInactivityTimeout(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetIsBusy func(uintptr) bool
@@ -396,8 +397,8 @@ var xApplicationGetIsBusy func(uintptr) bool
 // g_application_mark_busy() or g_application_bind_busy_property().
 func (x *Application) GetIsBusy() bool {
 
-	return xApplicationGetIsBusy(x.GoPointer())
-
+	cret := xApplicationGetIsBusy(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetIsRegistered func(uintptr) bool
@@ -408,8 +409,8 @@ var xApplicationGetIsRegistered func(uintptr) bool
 // successfully called.
 func (x *Application) GetIsRegistered() bool {
 
-	return xApplicationGetIsRegistered(x.GoPointer())
-
+	cret := xApplicationGetIsRegistered(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetIsRemote func(uintptr) bool
@@ -426,8 +427,8 @@ var xApplicationGetIsRemote func(uintptr) bool
 // g_application_get_is_registered().
 func (x *Application) GetIsRemote() bool {
 
-	return xApplicationGetIsRemote(x.GoPointer())
-
+	cret := xApplicationGetIsRemote(x.GoPointer())
+	return cret
 }
 
 var xApplicationGetResourceBasePath func(uintptr) string
@@ -437,8 +438,8 @@ var xApplicationGetResourceBasePath func(uintptr) string
 // See g_application_set_resource_base_path() for more information.
 func (x *Application) GetResourceBasePath() string {
 
-	return xApplicationGetResourceBasePath(x.GoPointer())
-
+	cret := xApplicationGetResourceBasePath(x.GoPointer())
+	return cret
 }
 
 var xApplicationHold func(uintptr)
@@ -519,7 +520,7 @@ func (x *Application) Quit() {
 
 }
 
-var xApplicationRegister func(uintptr, uintptr) bool
+var xApplicationRegister func(uintptr, uintptr, **glib.Error) bool
 
 // Attempts registration of the application.
 //
@@ -551,9 +552,14 @@ var xApplicationRegister func(uintptr, uintptr) bool
 // Note: the return value of this function is not an indicator that this
 // instance is or is not the primary instance of the application.  See
 // g_application_get_is_remote() for that.
-func (x *Application) Register(CancellableVar *Cancellable) bool {
+func (x *Application) Register(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xApplicationRegister(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xApplicationRegister(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -650,8 +656,8 @@ var xApplicationRun func(uintptr, int, []string) int
 // what their exit status will be.
 func (x *Application) Run(ArgcVar int, ArgvVar []string) int {
 
-	return xApplicationRun(x.GoPointer(), ArgcVar, ArgvVar)
-
+	cret := xApplicationRun(x.GoPointer(), ArgcVar, ArgvVar)
+	return cret
 }
 
 var xApplicationSendNotification func(uintptr, string, uintptr)
@@ -1121,8 +1127,8 @@ func (x *Application) ChangeActionState(ActionNameVar string, ValueVar *glib.Var
 // have its state changed from outside callers.
 func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 
-	return XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -1140,8 +1146,8 @@ func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *Application) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -1154,8 +1160,8 @@ func (x *Application) GetActionParameterType(ActionNameVar string) *glib.Variant
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -1178,8 +1184,8 @@ func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -1200,15 +1206,15 @@ func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 // with the same name but a different state type.
 func (x *Application) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *Application) HasAction(ActionNameVar string) bool {
 
-	return XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -1217,8 +1223,8 @@ func (x *Application) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *Application) ListActions() uintptr {
 
-	return XGActionGroupListActions(x.GoPointer())
-
+	cret := XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -1250,8 +1256,8 @@ func (x *Application) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *Application) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Adds an action to the @action_map.
@@ -1319,18 +1325,17 @@ func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, User
 //
 // If no such action exists, returns %NULL.
 func (x *Application) LookupAction(ActionNameVar string) *ActionBase {
+	var cls *ActionBase
 
-	LookupActionPtr := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.

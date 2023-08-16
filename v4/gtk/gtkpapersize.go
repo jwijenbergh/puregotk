@@ -27,8 +27,8 @@ var xPaperSizeGetDefault func() string
 // depends on the current locale.
 func PaperSizeGetDefault() string {
 
-	return xPaperSizeGetDefault()
-
+	cret := xPaperSizeGetDefault()
+	return cret
 }
 
 var xPaperSizeGetPaperSizes func(bool) *glib.List
@@ -36,8 +36,8 @@ var xPaperSizeGetPaperSizes func(bool) *glib.List
 // Creates a list of known paper sizes.
 func PaperSizeGetPaperSizes(IncludeCustomVar bool) *glib.List {
 
-	return xPaperSizeGetPaperSizes(IncludeCustomVar)
-
+	cret := xPaperSizeGetPaperSizes(IncludeCustomVar)
+	return cret
 }
 
 func init() {

@@ -45,16 +45,17 @@ var xNewCarousel func() uintptr
 
 // Creates a new `AdwCarousel`.
 func NewCarousel() *gtk.Widget {
-	NewCarouselPtr := xNewCarousel()
-	if NewCarouselPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewCarousel()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCarouselPtr)
-
-	NewCarouselCls := &gtk.Widget{}
-	NewCarouselCls.Ptr = NewCarouselPtr
-	return NewCarouselCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCarouselAppend func(uintptr, uintptr)
@@ -71,8 +72,8 @@ var xCarouselGetAllowLongSwipes func(uintptr) bool
 // Gets whether to allow swiping for more than one page at a time.
 func (x *Carousel) GetAllowLongSwipes() bool {
 
-	return xCarouselGetAllowLongSwipes(x.GoPointer())
-
+	cret := xCarouselGetAllowLongSwipes(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetAllowMouseDrag func(uintptr) bool
@@ -80,8 +81,8 @@ var xCarouselGetAllowMouseDrag func(uintptr) bool
 // Sets whether @self can be dragged with mouse pointer.
 func (x *Carousel) GetAllowMouseDrag() bool {
 
-	return xCarouselGetAllowMouseDrag(x.GoPointer())
-
+	cret := xCarouselGetAllowMouseDrag(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetAllowScrollWheel func(uintptr) bool
@@ -89,8 +90,8 @@ var xCarouselGetAllowScrollWheel func(uintptr) bool
 // Gets whether @self will respond to scroll wheel events.
 func (x *Carousel) GetAllowScrollWheel() bool {
 
-	return xCarouselGetAllowScrollWheel(x.GoPointer())
-
+	cret := xCarouselGetAllowScrollWheel(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetInteractive func(uintptr) bool
@@ -98,8 +99,8 @@ var xCarouselGetInteractive func(uintptr) bool
 // Gets whether @self can be navigated.
 func (x *Carousel) GetInteractive() bool {
 
-	return xCarouselGetInteractive(x.GoPointer())
-
+	cret := xCarouselGetInteractive(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetNPages func(uintptr) uint
@@ -107,26 +108,25 @@ var xCarouselGetNPages func(uintptr) uint
 // Gets the number of pages in @self.
 func (x *Carousel) GetNPages() uint {
 
-	return xCarouselGetNPages(x.GoPointer())
-
+	cret := xCarouselGetNPages(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetNthPage func(uintptr, uint) uintptr
 
 // Gets the page at position @n.
 func (x *Carousel) GetNthPage(NVar uint) *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetNthPagePtr := xCarouselGetNthPage(x.GoPointer(), NVar)
-	if GetNthPagePtr == 0 {
-		return nil
+	cret := xCarouselGetNthPage(x.GoPointer(), NVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNthPagePtr)
-
-	GetNthPageCls := &gtk.Widget{}
-	GetNthPageCls.Ptr = GetNthPagePtr
-	return GetNthPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCarouselGetPosition func(uintptr) float64
@@ -136,8 +136,8 @@ var xCarouselGetPosition func(uintptr) float64
 // 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
 func (x *Carousel) GetPosition() float64 {
 
-	return xCarouselGetPosition(x.GoPointer())
-
+	cret := xCarouselGetPosition(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetRevealDuration func(uintptr) uint
@@ -145,8 +145,8 @@ var xCarouselGetRevealDuration func(uintptr) uint
 // Gets the page reveal duration, in milliseconds.
 func (x *Carousel) GetRevealDuration() uint {
 
-	return xCarouselGetRevealDuration(x.GoPointer())
-
+	cret := xCarouselGetRevealDuration(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetScrollParams func(uintptr) *SpringParams
@@ -154,8 +154,8 @@ var xCarouselGetScrollParams func(uintptr) *SpringParams
 // Gets the scroll animation spring parameters for @self.
 func (x *Carousel) GetScrollParams() *SpringParams {
 
-	return xCarouselGetScrollParams(x.GoPointer())
-
+	cret := xCarouselGetScrollParams(x.GoPointer())
+	return cret
 }
 
 var xCarouselGetSpacing func(uintptr) uint
@@ -163,8 +163,8 @@ var xCarouselGetSpacing func(uintptr) uint
 // Gets spacing between pages in pixels.
 func (x *Carousel) GetSpacing() uint {
 
-	return xCarouselGetSpacing(x.GoPointer())
-
+	cret := xCarouselGetSpacing(x.GoPointer())
+	return cret
 }
 
 var xCarouselInsert func(uintptr, uintptr, int)
@@ -328,8 +328,8 @@ func (x *Carousel) ConnectPageChanged(cb func(Carousel, uint)) {
 // Gets the progress @self will snap back to after the gesture is canceled.
 func (x *Carousel) GetCancelProgress() float64 {
 
-	return XAdwSwipeableGetCancelProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetCancelProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the swipe distance of @self.
@@ -337,15 +337,15 @@ func (x *Carousel) GetCancelProgress() float64 {
 // This corresponds to how many pixels 1 unit represents.
 func (x *Carousel) GetDistance() float64 {
 
-	return XAdwSwipeableGetDistance(x.GoPointer())
-
+	cret := XAdwSwipeableGetDistance(x.GoPointer())
+	return cret
 }
 
 // Gets the current progress of @self.
 func (x *Carousel) GetProgress() float64 {
 
-	return XAdwSwipeableGetProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the snap points of @self.
@@ -354,8 +354,8 @@ func (x *Carousel) GetProgress() float64 {
 // end the swipe on.
 func (x *Carousel) GetSnapPoints(NSnapPointsVar int) uintptr {
 
-	return XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
-
+	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
+	return cret
 }
 
 // Gets the area @self can start a swipe from for the given direction and
@@ -376,8 +376,8 @@ func (x *Carousel) GetSwipeArea(NavigationDirectionVar NavigationDirection, IsDr
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Carousel) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -512,15 +512,15 @@ func (x *Carousel) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Carousel) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Carousel) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

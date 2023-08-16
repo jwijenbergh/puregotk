@@ -109,14 +109,16 @@ var xNewDragSource func() uintptr
 
 // Creates a new `GtkDragSource` object.
 func NewDragSource() *DragSource {
-	NewDragSourcePtr := xNewDragSource()
-	if NewDragSourcePtr == 0 {
-		return nil
-	}
+	var cls *DragSource
 
-	NewDragSourceCls := &DragSource{}
-	NewDragSourceCls.Ptr = NewDragSourcePtr
-	return NewDragSourceCls
+	cret := xNewDragSource()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DragSource{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragSourceDragCancel func(uintptr)
@@ -133,44 +135,42 @@ var xDragSourceGetActions func(uintptr) gdk.DragAction
 // Gets the actions that are currently set on the `GtkDragSource`.
 func (x *DragSource) GetActions() gdk.DragAction {
 
-	return xDragSourceGetActions(x.GoPointer())
-
+	cret := xDragSourceGetActions(x.GoPointer())
+	return cret
 }
 
 var xDragSourceGetContent func(uintptr) uintptr
 
 // Gets the current content provider of a `GtkDragSource`.
 func (x *DragSource) GetContent() *gdk.ContentProvider {
+	var cls *gdk.ContentProvider
 
-	GetContentPtr := xDragSourceGetContent(x.GoPointer())
-	if GetContentPtr == 0 {
-		return nil
+	cret := xDragSourceGetContent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContentPtr)
-
-	GetContentCls := &gdk.ContentProvider{}
-	GetContentCls.Ptr = GetContentPtr
-	return GetContentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragSourceGetDrag func(uintptr) uintptr
 
 // Returns the underlying `GdkDrag` object for an ongoing drag.
 func (x *DragSource) GetDrag() *gdk.Drag {
+	var cls *gdk.Drag
 
-	GetDragPtr := xDragSourceGetDrag(x.GoPointer())
-	if GetDragPtr == 0 {
-		return nil
+	cret := xDragSourceGetDrag(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDragPtr)
-
-	GetDragCls := &gdk.Drag{}
-	GetDragCls.Ptr = GetDragPtr
-	return GetDragCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Drag{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragSourceSetActions func(uintptr, gdk.DragAction)

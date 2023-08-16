@@ -272,7 +272,7 @@ type TypeInterface struct {
 type TypeQuery struct {
 	Type []interface{}
 
-	TypeName string
+	TypeName uintptr
 
 	ClassSize uint
 
@@ -282,9 +282,9 @@ type TypeQuery struct {
 // The #GTypeValueTable provides the functions required by the #GValue
 // implementation, to serve as a container for values of a type.
 type TypeValueTable struct {
-	CollectFormat string
+	CollectFormat uintptr
 
-	LcopyFormat string
+	LcopyFormat uintptr
 }
 
 type TypeCValue = uintptr
@@ -384,8 +384,8 @@ var xTypeAddInstancePrivate func([]interface{}, uint) int
 
 func TypeAddInstancePrivate(ClassTypeVar []interface{}, PrivateSizeVar uint) int {
 
-	return xTypeAddInstancePrivate(ClassTypeVar, PrivateSizeVar)
-
+	cret := xTypeAddInstancePrivate(ClassTypeVar, PrivateSizeVar)
+	return cret
 }
 
 var xTypeAddInterfaceCheck func(uintptr, uintptr)
@@ -431,16 +431,16 @@ var xTypeCheckClassCast func(*TypeClass, []interface{}) *TypeClass
 
 func TypeCheckClassCast(GClassVar *TypeClass, IsATypeVar []interface{}) *TypeClass {
 
-	return xTypeCheckClassCast(GClassVar, IsATypeVar)
-
+	cret := xTypeCheckClassCast(GClassVar, IsATypeVar)
+	return cret
 }
 
 var xTypeCheckClassIsA func(*TypeClass, []interface{}) bool
 
 func TypeCheckClassIsA(GClassVar *TypeClass, IsATypeVar []interface{}) bool {
 
-	return xTypeCheckClassIsA(GClassVar, IsATypeVar)
-
+	cret := xTypeCheckClassIsA(GClassVar, IsATypeVar)
+	return cret
 }
 
 var xTypeCheckInstance func(*TypeInstance) bool
@@ -449,56 +449,56 @@ var xTypeCheckInstance func(*TypeInstance) bool
 // G_TYPE_CHECK_INSTANCE() macro.
 func TypeCheckInstance(InstanceVar *TypeInstance) bool {
 
-	return xTypeCheckInstance(InstanceVar)
-
+	cret := xTypeCheckInstance(InstanceVar)
+	return cret
 }
 
 var xTypeCheckInstanceCast func(*TypeInstance, []interface{}) *TypeInstance
 
 func TypeCheckInstanceCast(InstanceVar *TypeInstance, IfaceTypeVar []interface{}) *TypeInstance {
 
-	return xTypeCheckInstanceCast(InstanceVar, IfaceTypeVar)
-
+	cret := xTypeCheckInstanceCast(InstanceVar, IfaceTypeVar)
+	return cret
 }
 
 var xTypeCheckInstanceIsA func(*TypeInstance, []interface{}) bool
 
 func TypeCheckInstanceIsA(InstanceVar *TypeInstance, IfaceTypeVar []interface{}) bool {
 
-	return xTypeCheckInstanceIsA(InstanceVar, IfaceTypeVar)
-
+	cret := xTypeCheckInstanceIsA(InstanceVar, IfaceTypeVar)
+	return cret
 }
 
 var xTypeCheckInstanceIsFundamentallyA func(*TypeInstance, []interface{}) bool
 
 func TypeCheckInstanceIsFundamentallyA(InstanceVar *TypeInstance, FundamentalTypeVar []interface{}) bool {
 
-	return xTypeCheckInstanceIsFundamentallyA(InstanceVar, FundamentalTypeVar)
-
+	cret := xTypeCheckInstanceIsFundamentallyA(InstanceVar, FundamentalTypeVar)
+	return cret
 }
 
 var xTypeCheckIsValueType func([]interface{}) bool
 
 func TypeCheckIsValueType(TypeVar []interface{}) bool {
 
-	return xTypeCheckIsValueType(TypeVar)
-
+	cret := xTypeCheckIsValueType(TypeVar)
+	return cret
 }
 
 var xTypeCheckValue func(*Value) bool
 
 func TypeCheckValue(ValueVar *Value) bool {
 
-	return xTypeCheckValue(ValueVar)
-
+	cret := xTypeCheckValue(ValueVar)
+	return cret
 }
 
 var xTypeCheckValueHolds func(*Value, []interface{}) bool
 
 func TypeCheckValueHolds(ValueVar *Value, TypeVar []interface{}) bool {
 
-	return xTypeCheckValueHolds(ValueVar, TypeVar)
-
+	cret := xTypeCheckValueHolds(ValueVar, TypeVar)
+	return cret
 }
 
 var xTypeChildren func([]interface{}, uint) uintptr
@@ -507,8 +507,8 @@ var xTypeChildren func([]interface{}, uint) uintptr
 // the child types of @type.
 func TypeChildren(TypeVar []interface{}, NChildrenVar uint) uintptr {
 
-	return xTypeChildren(TypeVar, NChildrenVar)
-
+	cret := xTypeChildren(TypeVar, NChildrenVar)
+	return cret
 }
 
 var xTypeClassAdjustPrivateOffset func(uintptr, int)
@@ -528,8 +528,8 @@ var xTypeClassPeek func([]interface{}) *TypeClass
 // referenced before).
 func TypeClassPeek(TypeVar []interface{}) *TypeClass {
 
-	return xTypeClassPeek(TypeVar)
-
+	cret := xTypeClassPeek(TypeVar)
+	return cret
 }
 
 var xTypeClassPeekStatic func([]interface{}) *TypeClass
@@ -538,8 +538,8 @@ var xTypeClassPeekStatic func([]interface{}) *TypeClass
 // static types.
 func TypeClassPeekStatic(TypeVar []interface{}) *TypeClass {
 
-	return xTypeClassPeekStatic(TypeVar)
-
+	cret := xTypeClassPeekStatic(TypeVar)
+	return cret
 }
 
 var xTypeClassRef func([]interface{}) *TypeClass
@@ -549,8 +549,8 @@ var xTypeClassRef func([]interface{}) *TypeClass
 // exist already.
 func TypeClassRef(TypeVar []interface{}) *TypeClass {
 
-	return xTypeClassRef(TypeVar)
-
+	cret := xTypeClassRef(TypeVar)
+	return cret
 }
 
 var xTypeCreateInstance func([]interface{}) *TypeInstance
@@ -573,8 +573,8 @@ var xTypeCreateInstance func([]interface{}) *TypeInstance
 // function, but g_object_new() instead.
 func TypeCreateInstance(TypeVar []interface{}) *TypeInstance {
 
-	return xTypeCreateInstance(TypeVar)
-
+	cret := xTypeCreateInstance(TypeVar)
+	return cret
 }
 
 var xTypeDefaultInterfacePeek func([]interface{}) *TypeInterface
@@ -583,8 +583,8 @@ var xTypeDefaultInterfacePeek func([]interface{}) *TypeInterface
 // default interface vtable.
 func TypeDefaultInterfacePeek(GTypeVar []interface{}) *TypeInterface {
 
-	return xTypeDefaultInterfacePeek(GTypeVar)
-
+	cret := xTypeDefaultInterfacePeek(GTypeVar)
+	return cret
 }
 
 var xTypeDefaultInterfaceRef func([]interface{}) *TypeInterface
@@ -601,8 +601,8 @@ var xTypeDefaultInterfaceRef func([]interface{}) *TypeInterface
 // have been installed.
 func TypeDefaultInterfaceRef(GTypeVar []interface{}) *TypeInterface {
 
-	return xTypeDefaultInterfaceRef(GTypeVar)
-
+	cret := xTypeDefaultInterfaceRef(GTypeVar)
+	return cret
 }
 
 var xTypeDefaultInterfaceUnref func(*TypeInterface)
@@ -624,8 +624,8 @@ var xTypeDepth func([]interface{}) uint
 // includes the type itself, so that e.g. a fundamental type has depth 1.
 func TypeDepth(TypeVar []interface{}) uint {
 
-	return xTypeDepth(TypeVar)
-
+	cret := xTypeDepth(TypeVar)
+	return cret
 }
 
 var xTypeEnsure func([]interface{})
@@ -669,8 +669,8 @@ var xTypeFromName func(string) []interface{}
 // yet).
 func TypeFromName(NameVar string) []interface{} {
 
-	return xTypeFromName(NameVar)
-
+	cret := xTypeFromName(NameVar)
+	return cret
 }
 
 var xTypeFundamental func([]interface{}) []interface{}
@@ -679,8 +679,8 @@ var xTypeFundamental func([]interface{}) []interface{}
 // Use G_TYPE_FUNDAMENTAL() instead.
 func TypeFundamental(TypeIdVar []interface{}) []interface{} {
 
-	return xTypeFundamental(TypeIdVar)
-
+	cret := xTypeFundamental(TypeIdVar)
+	return cret
 }
 
 var xTypeFundamentalNext func() []interface{}
@@ -691,8 +691,8 @@ var xTypeFundamentalNext func() []interface{}
 // fundamental type identifier.
 func TypeFundamentalNext() []interface{} {
 
-	return xTypeFundamentalNext()
-
+	cret := xTypeFundamentalNext()
+	return cret
 }
 
 var xTypeGetInstanceCount func([]interface{}) int
@@ -703,26 +703,25 @@ var xTypeGetInstanceCount func([]interface{}) int
 // variable to include instance-count).
 func TypeGetInstanceCount(TypeVar []interface{}) int {
 
-	return xTypeGetInstanceCount(TypeVar)
-
+	cret := xTypeGetInstanceCount(TypeVar)
+	return cret
 }
 
 var xTypeGetPlugin func([]interface{}) uintptr
 
 // Returns the #GTypePlugin structure for @type.
 func TypeGetPlugin(TypeVar []interface{}) *TypePluginBase {
+	var cls *TypePluginBase
 
-	TypeGetPluginPtr := xTypeGetPlugin(TypeVar)
-	if TypeGetPluginPtr == 0 {
-		return nil
+	cret := xTypeGetPlugin(TypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(TypeGetPluginPtr)
-
-	TypeGetPluginCls := &TypePluginBase{}
-	TypeGetPluginCls.Ptr = TypeGetPluginPtr
-	return TypeGetPluginCls
-
+	IncreaseRef(cret)
+	cls = &TypePluginBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTypeGetQdata func([]interface{}, glib.Quark) uintptr
@@ -735,8 +734,8 @@ var xTypeGetQdata func([]interface{}, glib.Quark) uintptr
 // be retrieved from a subtype using g_type_get_qdata().
 func TypeGetQdata(TypeVar []interface{}, QuarkVar glib.Quark) uintptr {
 
-	return xTypeGetQdata(TypeVar, QuarkVar)
-
+	cret := xTypeGetQdata(TypeVar, QuarkVar)
+	return cret
 }
 
 var xTypeGetTypeRegistrationSerial func() uint
@@ -748,8 +747,8 @@ var xTypeGetTypeRegistrationSerial func() uint
 // time by comparing the current serial with the one at the type lookup.
 func TypeGetTypeRegistrationSerial() uint {
 
-	return xTypeGetTypeRegistrationSerial()
-
+	cret := xTypeGetTypeRegistrationSerial()
+	return cret
 }
 
 var xTypeInit func()
@@ -797,18 +796,17 @@ var xTypeInterfaceGetPlugin func([]interface{}, []interface{}) uintptr
 // if @interface_type has not been added to @instance_type or does
 // not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
 func TypeInterfaceGetPlugin(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}) *TypePluginBase {
+	var cls *TypePluginBase
 
-	TypeInterfaceGetPluginPtr := xTypeInterfaceGetPlugin(InstanceTypeVar, InterfaceTypeVar)
-	if TypeInterfaceGetPluginPtr == 0 {
-		return nil
+	cret := xTypeInterfaceGetPlugin(InstanceTypeVar, InterfaceTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(TypeInterfaceGetPluginPtr)
-
-	TypeInterfaceGetPluginCls := &TypePluginBase{}
-	TypeInterfaceGetPluginCls.Ptr = TypeInterfaceGetPluginPtr
-	return TypeInterfaceGetPluginCls
-
+	IncreaseRef(cret)
+	cls = &TypePluginBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTypeInterfaceInstantiatablePrerequisite func([]interface{}) []interface{}
@@ -821,8 +819,8 @@ var xTypeInterfaceInstantiatablePrerequisite func([]interface{}) []interface{}
 // about prerequisites.
 func TypeInterfaceInstantiatablePrerequisite(InterfaceTypeVar []interface{}) []interface{} {
 
-	return xTypeInterfaceInstantiatablePrerequisite(InterfaceTypeVar)
-
+	cret := xTypeInterfaceInstantiatablePrerequisite(InterfaceTypeVar)
+	return cret
 }
 
 var xTypeInterfacePeek func(*TypeClass, []interface{}) *TypeInterface
@@ -831,8 +829,8 @@ var xTypeInterfacePeek func(*TypeClass, []interface{}) *TypeInterface
 // passed in class conforms.
 func TypeInterfacePeek(InstanceClassVar *TypeClass, IfaceTypeVar []interface{}) *TypeInterface {
 
-	return xTypeInterfacePeek(InstanceClassVar, IfaceTypeVar)
-
+	cret := xTypeInterfacePeek(InstanceClassVar, IfaceTypeVar)
+	return cret
 }
 
 var xTypeInterfacePrerequisites func([]interface{}, uint) uintptr
@@ -840,8 +838,8 @@ var xTypeInterfacePrerequisites func([]interface{}, uint) uintptr
 // Returns the prerequisites of an interfaces type.
 func TypeInterfacePrerequisites(InterfaceTypeVar []interface{}, NPrerequisitesVar uint) uintptr {
 
-	return xTypeInterfacePrerequisites(InterfaceTypeVar, NPrerequisitesVar)
-
+	cret := xTypeInterfacePrerequisites(InterfaceTypeVar, NPrerequisitesVar)
+	return cret
 }
 
 var xTypeInterfaces func([]interface{}, uint) uintptr
@@ -850,8 +848,8 @@ var xTypeInterfaces func([]interface{}, uint) uintptr
 // the interface types that @type conforms to.
 func TypeInterfaces(TypeVar []interface{}, NInterfacesVar uint) uintptr {
 
-	return xTypeInterfaces(TypeVar, NInterfacesVar)
-
+	cret := xTypeInterfaces(TypeVar, NInterfacesVar)
+	return cret
 }
 
 var xTypeIsA func([]interface{}, []interface{}) bool
@@ -861,8 +859,8 @@ var xTypeIsA func([]interface{}, []interface{}) bool
 // whether @type conforms to it.
 func TypeIsA(TypeVar []interface{}, IsATypeVar []interface{}) bool {
 
-	return xTypeIsA(TypeVar, IsATypeVar)
-
+	cret := xTypeIsA(TypeVar, IsATypeVar)
+	return cret
 }
 
 var xTypeName func([]interface{}) string
@@ -874,24 +872,24 @@ var xTypeName func([]interface{}) string
 // not be passed in and will most likely lead to a crash.
 func TypeName(TypeVar []interface{}) string {
 
-	return xTypeName(TypeVar)
-
+	cret := xTypeName(TypeVar)
+	return cret
 }
 
 var xTypeNameFromClass func(*TypeClass) string
 
 func TypeNameFromClass(GClassVar *TypeClass) string {
 
-	return xTypeNameFromClass(GClassVar)
-
+	cret := xTypeNameFromClass(GClassVar)
+	return cret
 }
 
 var xTypeNameFromInstance func(*TypeInstance) string
 
 func TypeNameFromInstance(InstanceVar *TypeInstance) string {
 
-	return xTypeNameFromInstance(InstanceVar)
-
+	cret := xTypeNameFromInstance(InstanceVar)
+	return cret
 }
 
 var xTypeNextBase func([]interface{}, []interface{}) []interface{}
@@ -905,8 +903,8 @@ var xTypeNextBase func([]interface{}, []interface{}) []interface{}
 // descended from the root type.
 func TypeNextBase(LeafTypeVar []interface{}, RootTypeVar []interface{}) []interface{} {
 
-	return xTypeNextBase(LeafTypeVar, RootTypeVar)
-
+	cret := xTypeNextBase(LeafTypeVar, RootTypeVar)
+	return cret
 }
 
 var xTypeParent func([]interface{}) []interface{}
@@ -915,8 +913,8 @@ var xTypeParent func([]interface{}) []interface{}
 // in type has no parent, i.e. is a fundamental type, 0 is returned.
 func TypeParent(TypeVar []interface{}) []interface{} {
 
-	return xTypeParent(TypeVar)
-
+	cret := xTypeParent(TypeVar)
+	return cret
 }
 
 var xTypeQname func([]interface{}) glib.Quark
@@ -924,8 +922,8 @@ var xTypeQname func([]interface{}) glib.Quark
 // Get the corresponding quark of the type IDs name.
 func TypeQname(TypeVar []interface{}) glib.Quark {
 
-	return xTypeQname(TypeVar)
-
+	cret := xTypeQname(TypeVar)
+	return cret
 }
 
 var xNewTypeQuery func([]interface{}, *TypeQuery)
@@ -951,8 +949,8 @@ var xTypeRegisterDynamic func([]interface{}, string, uintptr, TypeFlags) []inter
 // (e.g. abstract or not) of the type.
 func TypeRegisterDynamic(ParentTypeVar []interface{}, TypeNameVar string, PluginVar TypePlugin, FlagsVar TypeFlags) []interface{} {
 
-	return xTypeRegisterDynamic(ParentTypeVar, TypeNameVar, PluginVar.GoPointer(), FlagsVar)
-
+	cret := xTypeRegisterDynamic(ParentTypeVar, TypeNameVar, PluginVar.GoPointer(), FlagsVar)
+	return cret
 }
 
 var xTypeRegisterFundamental func([]interface{}, string, *TypeInfo, *TypeFundamentalInfo, TypeFlags) []interface{}
@@ -966,8 +964,8 @@ var xTypeRegisterFundamental func([]interface{}, string, *TypeInfo, *TypeFundame
 // additional characteristics of the fundamental type.
 func TypeRegisterFundamental(TypeIdVar []interface{}, TypeNameVar string, InfoVar *TypeInfo, FinfoVar *TypeFundamentalInfo, FlagsVar TypeFlags) []interface{} {
 
-	return xTypeRegisterFundamental(TypeIdVar, TypeNameVar, InfoVar, FinfoVar, FlagsVar)
-
+	cret := xTypeRegisterFundamental(TypeIdVar, TypeNameVar, InfoVar, FinfoVar, FlagsVar)
+	return cret
 }
 
 var xTypeRegisterStatic func([]interface{}, string, *TypeInfo, TypeFlags) []interface{}
@@ -979,8 +977,8 @@ var xTypeRegisterStatic func([]interface{}, string, *TypeInfo, TypeFlags) []inte
 // (e.g. abstract or not) of the type.
 func TypeRegisterStatic(ParentTypeVar []interface{}, TypeNameVar string, InfoVar *TypeInfo, FlagsVar TypeFlags) []interface{} {
 
-	return xTypeRegisterStatic(ParentTypeVar, TypeNameVar, InfoVar, FlagsVar)
-
+	cret := xTypeRegisterStatic(ParentTypeVar, TypeNameVar, InfoVar, FlagsVar)
+	return cret
 }
 
 var xTypeRegisterStaticSimple func([]interface{}, string, uint, uintptr, uint, uintptr, TypeFlags) []interface{}
@@ -991,8 +989,8 @@ var xTypeRegisterStaticSimple func([]interface{}, string, uint, uintptr, uint, u
 // struct and calling g_type_register_static().
 func TypeRegisterStaticSimple(ParentTypeVar []interface{}, TypeNameVar string, ClassSizeVar uint, ClassInitVar ClassInitFunc, InstanceSizeVar uint, InstanceInitVar InstanceInitFunc, FlagsVar TypeFlags) []interface{} {
 
-	return xTypeRegisterStaticSimple(ParentTypeVar, TypeNameVar, ClassSizeVar, purego.NewCallback(ClassInitVar), InstanceSizeVar, purego.NewCallback(InstanceInitVar), FlagsVar)
-
+	cret := xTypeRegisterStaticSimple(ParentTypeVar, TypeNameVar, ClassSizeVar, purego.NewCallback(ClassInitVar), InstanceSizeVar, purego.NewCallback(InstanceInitVar), FlagsVar)
+	return cret
 }
 
 var xTypeRemoveClassCacheFunc func(uintptr, uintptr)
@@ -1029,8 +1027,8 @@ var xTypeTestFlags func([]interface{}, uint) bool
 
 func TypeTestFlags(TypeVar []interface{}, FlagsVar uint) bool {
 
-	return xTypeTestFlags(TypeVar, FlagsVar)
-
+	cret := xTypeTestFlags(TypeVar, FlagsVar)
+	return cret
 }
 
 var xTypeValueTablePeek func([]interface{}) *TypeValueTable
@@ -1042,8 +1040,8 @@ var xTypeValueTablePeek func([]interface{}) *TypeValueTable
 // @type.
 func TypeValueTablePeek(TypeVar []interface{}) *TypeValueTable {
 
-	return xTypeValueTablePeek(TypeVar)
-
+	cret := xTypeValueTablePeek(TypeVar)
+	return cret
 }
 
 func init() {

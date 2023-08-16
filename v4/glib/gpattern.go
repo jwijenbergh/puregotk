@@ -32,8 +32,8 @@ var xPatternMatch func(*PatternSpec, uint, string, string) bool
 // g_utf8_strreverse() function to reverse UTF-8 encoded strings.
 func PatternMatch(PspecVar *PatternSpec, StringLengthVar uint, StringVar string, StringReversedVar string) bool {
 
-	return xPatternMatch(PspecVar, StringLengthVar, StringVar, StringReversedVar)
-
+	cret := xPatternMatch(PspecVar, StringLengthVar, StringVar, StringReversedVar)
+	return cret
 }
 
 var xPatternMatchSimple func(string, string) bool
@@ -44,8 +44,8 @@ var xPatternMatchSimple func(string, string) bool
 // g_pattern_match_string() repeatedly.
 func PatternMatchSimple(PatternVar string, StringVar string) bool {
 
-	return xPatternMatchSimple(PatternVar, StringVar)
-
+	cret := xPatternMatchSimple(PatternVar, StringVar)
+	return cret
 }
 
 var xPatternMatchString func(*PatternSpec, string) bool
@@ -55,8 +55,8 @@ var xPatternMatchString func(*PatternSpec, string) bool
 // g_pattern_match() instead while supplying the reversed string.
 func PatternMatchString(PspecVar *PatternSpec, StringVar string) bool {
 
-	return xPatternMatchString(PspecVar, StringVar)
-
+	cret := xPatternMatchString(PspecVar, StringVar)
+	return cret
 }
 
 func init() {

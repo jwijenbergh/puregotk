@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Provides an interface for #GTlsFileDatabase implementations.
@@ -32,22 +33,27 @@ func (x *TlsFileDatabaseBase) SetGoPointer(ptr uintptr) {
 	x.Ptr = ptr
 }
 
-var xTlsFileDatabaseNew func(string) uintptr
+var xTlsFileDatabaseNew func(string, **glib.Error) uintptr
 
 // Creates a new #GTlsFileDatabase which uses anchor certificate authorities
 // in @anchors to verify certificate chains.
 //
 // The certificates in @anchors must be PEM encoded.
-func TlsFileDatabaseNew(AnchorsVar string) *TlsFileDatabaseBase {
+func TlsFileDatabaseNew(AnchorsVar string) (*TlsFileDatabaseBase, error) {
+	var cls *TlsFileDatabaseBase
+	var cerr *glib.Error
 
-	TlsFileDatabaseNewPtr := xTlsFileDatabaseNew(AnchorsVar)
-	if TlsFileDatabaseNewPtr == 0 {
-		return nil
+	cret := xTlsFileDatabaseNew(AnchorsVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	TlsFileDatabaseNewCls := &TlsFileDatabaseBase{}
-	TlsFileDatabaseNewCls.Ptr = TlsFileDatabaseNewPtr
-	return TlsFileDatabaseNewCls
+	cls = &TlsFileDatabaseBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

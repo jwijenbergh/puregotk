@@ -65,8 +65,8 @@ var xGetDebugFlags func() DebugFlags
 // to adjust their debug output based on GTK debug flags.
 func GetDebugFlags() DebugFlags {
 
-	return xGetDebugFlags()
-
+	cret := xGetDebugFlags()
+	return cret
 }
 
 var xSetDebugFlags func(DebugFlags)

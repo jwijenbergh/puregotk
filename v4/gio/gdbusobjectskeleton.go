@@ -37,14 +37,16 @@ var xNewDBusObjectSkeleton func(string) uintptr
 
 // Creates a new #GDBusObjectSkeleton.
 func NewDBusObjectSkeleton(ObjectPathVar string) *DBusObjectSkeleton {
-	NewDBusObjectSkeletonPtr := xNewDBusObjectSkeleton(ObjectPathVar)
-	if NewDBusObjectSkeletonPtr == 0 {
-		return nil
-	}
+	var cls *DBusObjectSkeleton
 
-	NewDBusObjectSkeletonCls := &DBusObjectSkeleton{}
-	NewDBusObjectSkeletonCls.Ptr = NewDBusObjectSkeletonPtr
-	return NewDBusObjectSkeletonCls
+	cret := xNewDBusObjectSkeleton(ObjectPathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusObjectSkeleton{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusObjectSkeletonAddInterface func(uintptr, uintptr)
@@ -133,30 +135,30 @@ func (x *DBusObjectSkeleton) ConnectAuthorizeMethod(cb func(DBusObjectSkeleton, 
 // Gets the D-Bus interface with name @interface_name associated with
 // @object, if any.
 func (x *DBusObjectSkeleton) GetInterface(InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the D-Bus interfaces associated with @object.
 func (x *DBusObjectSkeleton) GetInterfaces() *glib.List {
 
-	return XGDbusObjectGetInterfaces(x.GoPointer())
-
+	cret := XGDbusObjectGetInterfaces(x.GoPointer())
+	return cret
 }
 
 // Gets the object path for @object.
 func (x *DBusObjectSkeleton) GetObjectPath() string {
 
-	return XGDbusObjectGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectGetObjectPath(x.GoPointer())
+	return cret
 }
 
 func init() {

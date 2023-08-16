@@ -83,8 +83,8 @@ var xTypeModuleRegisterEnum func(uintptr, string, *EnumValue) []interface{}
 // instead. This can be used when making a static build of the module.
 func (x *TypeModule) RegisterEnum(NameVar string, ConstStaticValuesVar *EnumValue) []interface{} {
 
-	return xTypeModuleRegisterEnum(x.GoPointer(), NameVar, ConstStaticValuesVar)
-
+	cret := xTypeModuleRegisterEnum(x.GoPointer(), NameVar, ConstStaticValuesVar)
+	return cret
 }
 
 var xTypeModuleRegisterFlags func(uintptr, string, *FlagsValue) []interface{}
@@ -101,8 +101,8 @@ var xTypeModuleRegisterFlags func(uintptr, string, *FlagsValue) []interface{}
 // instead. This can be used when making a static build of the module.
 func (x *TypeModule) RegisterFlags(NameVar string, ConstStaticValuesVar *FlagsValue) []interface{} {
 
-	return xTypeModuleRegisterFlags(x.GoPointer(), NameVar, ConstStaticValuesVar)
-
+	cret := xTypeModuleRegisterFlags(x.GoPointer(), NameVar, ConstStaticValuesVar)
+	return cret
 }
 
 var xTypeModuleRegisterType func(uintptr, []interface{}, string, *TypeInfo, TypeFlags) []interface{}
@@ -123,8 +123,8 @@ var xTypeModuleRegisterType func(uintptr, []interface{}, string, *TypeInfo, Type
 // instead. This can be used when making a static build of the module.
 func (x *TypeModule) RegisterType(ParentTypeVar []interface{}, TypeNameVar string, TypeInfoVar *TypeInfo, FlagsVar TypeFlags) []interface{} {
 
-	return xTypeModuleRegisterType(x.GoPointer(), ParentTypeVar, TypeNameVar, TypeInfoVar, FlagsVar)
-
+	cret := xTypeModuleRegisterType(x.GoPointer(), ParentTypeVar, TypeNameVar, TypeInfoVar, FlagsVar)
+	return cret
 }
 
 var xTypeModuleSetName func(uintptr, string)
@@ -157,8 +157,8 @@ var xTypeModuleUse func(uintptr) bool
 // its prior value.
 func (x *TypeModule) Use() bool {
 
-	return xTypeModuleUse(x.GoPointer())
-
+	cret := xTypeModuleUse(x.GoPointer())
+	return cret
 }
 
 func (c *TypeModule) GoPointer() uintptr {

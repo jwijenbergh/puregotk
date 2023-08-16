@@ -50,16 +50,16 @@ func (x *SeekableBase) SetGoPointer(ptr uintptr) {
 // Tests if the stream supports the #GSeekableIface.
 func (x *SeekableBase) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *SeekableBase) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -76,17 +76,22 @@ func (x *SeekableBase) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *SeekableBase) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *SeekableBase) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *SeekableBase) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -98,17 +103,22 @@ func (x *SeekableBase) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *SeekableBase) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *SeekableBase) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 var XGSeekableCanSeek func(uintptr) bool
 var XGSeekableCanTruncate func(uintptr) bool
-var XGSeekableSeek func(uintptr, int64, glib.SeekType, uintptr) bool
+var XGSeekableSeek func(uintptr, int64, glib.SeekType, uintptr, **glib.Error) bool
 var XGSeekableTell func(uintptr) int64
-var XGSeekableTruncate func(uintptr, int64, uintptr) bool
+var XGSeekableTruncate func(uintptr, int64, uintptr, **glib.Error) bool
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

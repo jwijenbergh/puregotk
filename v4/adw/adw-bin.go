@@ -40,34 +40,34 @@ var xNewBin func() uintptr
 
 // Creates a new `AdwBin`.
 func NewBin() *gtk.Widget {
-	NewBinPtr := xNewBin()
-	if NewBinPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewBin()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewBinPtr)
-
-	NewBinCls := &gtk.Widget{}
-	NewBinCls.Ptr = NewBinPtr
-	return NewBinCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBinGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *Bin) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xBinGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xBinGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBinSetChild func(uintptr, uintptr)
@@ -90,8 +90,8 @@ func (c *Bin) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Bin) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -226,8 +226,8 @@ func (x *Bin) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uint
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Bin) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -28,8 +28,8 @@ func ConvertInterface(currns string, ins string, inter Interface, implemented ma
 				Doc:   m.Doc.StringSafe(),
 				CName: m.CIdentifier,
 				Name:  name,
-				Args:  m.Parameters.Template(currns, ins, kinds),
-				Ret:   m.ReturnValue.Template(currns, ins, kinds),
+				Args:  m.Parameters.Template(currns, ins, kinds, m.Throws),
+				Ret:   m.ReturnValue.Template(currns, ins, kinds, m.Throws),
 			},
 		})
 	}

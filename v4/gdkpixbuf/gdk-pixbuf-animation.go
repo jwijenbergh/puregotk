@@ -46,7 +46,7 @@ func PixbufAnimationNewFromInternalPtr(ptr uintptr) *PixbufAnimation {
 	return cls
 }
 
-var xNewFromFilePixbufAnimation func(string) uintptr
+var xNewFromFilePixbufAnimation func(string, **glib.Error) uintptr
 
 // Creates a new animation by loading it from a file.
 //
@@ -56,35 +56,49 @@ var xNewFromFilePixbufAnimation func(string) uintptr
 // with a single frame will be created.
 //
 // Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.
-func NewFromFilePixbufAnimation(FilenameVar string) *PixbufAnimation {
-	NewFromFilePixbufAnimationPtr := xNewFromFilePixbufAnimation(FilenameVar)
-	if NewFromFilePixbufAnimationPtr == 0 {
-		return nil
-	}
+func NewFromFilePixbufAnimation(FilenameVar string) (*PixbufAnimation, error) {
+	var cls *PixbufAnimation
+	var cerr *glib.Error
 
-	NewFromFilePixbufAnimationCls := &PixbufAnimation{}
-	NewFromFilePixbufAnimationCls.Ptr = NewFromFilePixbufAnimationPtr
-	return NewFromFilePixbufAnimationCls
+	cret := xNewFromFilePixbufAnimation(FilenameVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromResourcePixbufAnimation func(string) uintptr
+var xNewFromResourcePixbufAnimation func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf animation by loading an image from an resource.
 //
 // The file format is detected automatically. If `NULL` is returned, then
 // @error will be set.
-func NewFromResourcePixbufAnimation(ResourcePathVar string) *PixbufAnimation {
-	NewFromResourcePixbufAnimationPtr := xNewFromResourcePixbufAnimation(ResourcePathVar)
-	if NewFromResourcePixbufAnimationPtr == 0 {
-		return nil
-	}
+func NewFromResourcePixbufAnimation(ResourcePathVar string) (*PixbufAnimation, error) {
+	var cls *PixbufAnimation
+	var cerr *glib.Error
 
-	NewFromResourcePixbufAnimationCls := &PixbufAnimation{}
-	NewFromResourcePixbufAnimationCls.Ptr = NewFromResourcePixbufAnimationPtr
-	return NewFromResourcePixbufAnimationCls
+	cret := xNewFromResourcePixbufAnimation(ResourcePathVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromStreamPixbufAnimation func(uintptr, uintptr) uintptr
+var xNewFromStreamPixbufAnimation func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new animation by loading it from an input stream.
 //
@@ -98,30 +112,44 @@ var xNewFromStreamPixbufAnimation func(uintptr, uintptr) uintptr
 // `G_IO_ERROR` domains.
 //
 // The stream is not closed.
-func NewFromStreamPixbufAnimation(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) *PixbufAnimation {
-	NewFromStreamPixbufAnimationPtr := xNewFromStreamPixbufAnimation(StreamVar.GoPointer(), CancellableVar.GoPointer())
-	if NewFromStreamPixbufAnimationPtr == 0 {
-		return nil
-	}
+func NewFromStreamPixbufAnimation(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) (*PixbufAnimation, error) {
+	var cls *PixbufAnimation
+	var cerr *glib.Error
 
-	NewFromStreamPixbufAnimationCls := &PixbufAnimation{}
-	NewFromStreamPixbufAnimationCls.Ptr = NewFromStreamPixbufAnimationPtr
-	return NewFromStreamPixbufAnimationCls
+	cret := xNewFromStreamPixbufAnimation(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromStreamFinishPixbufAnimation func(uintptr) uintptr
+var xNewFromStreamFinishPixbufAnimation func(uintptr, **glib.Error) uintptr
 
 // Finishes an asynchronous pixbuf animation creation operation started with
 // [func@GdkPixbuf.PixbufAnimation.new_from_stream_async].
-func NewFromStreamFinishPixbufAnimation(AsyncResultVar gio.AsyncResult) *PixbufAnimation {
-	NewFromStreamFinishPixbufAnimationPtr := xNewFromStreamFinishPixbufAnimation(AsyncResultVar.GoPointer())
-	if NewFromStreamFinishPixbufAnimationPtr == 0 {
-		return nil
-	}
+func NewFromStreamFinishPixbufAnimation(AsyncResultVar gio.AsyncResult) (*PixbufAnimation, error) {
+	var cls *PixbufAnimation
+	var cerr *glib.Error
 
-	NewFromStreamFinishPixbufAnimationCls := &PixbufAnimation{}
-	NewFromStreamFinishPixbufAnimationCls.Ptr = NewFromStreamFinishPixbufAnimationPtr
-	return NewFromStreamFinishPixbufAnimationCls
+	cret := xNewFromStreamFinishPixbufAnimation(AsyncResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xPixbufAnimationGetHeight func(uintptr) int
@@ -129,8 +157,8 @@ var xPixbufAnimationGetHeight func(uintptr) int
 // Queries the height of the bounding box of a pixbuf animation.
 func (x *PixbufAnimation) GetHeight() int {
 
-	return xPixbufAnimationGetHeight(x.GoPointer())
-
+	cret := xPixbufAnimationGetHeight(x.GoPointer())
+	return cret
 }
 
 var xPixbufAnimationGetIter func(uintptr, *glib.TimeVal) uintptr
@@ -170,16 +198,16 @@ var xPixbufAnimationGetIter func(uintptr, *glib.TimeVal) uintptr
 //
 // A delay time of -1 is possible, indicating "infinite".
 func (x *PixbufAnimation) GetIter(StartTimeVar *glib.TimeVal) *PixbufAnimationIter {
+	var cls *PixbufAnimationIter
 
-	GetIterPtr := xPixbufAnimationGetIter(x.GoPointer(), StartTimeVar)
-	if GetIterPtr == 0 {
-		return nil
+	cret := xPixbufAnimationGetIter(x.GoPointer(), StartTimeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetIterCls := &PixbufAnimationIter{}
-	GetIterCls.Ptr = GetIterPtr
-	return GetIterCls
-
+	cls = &PixbufAnimationIter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufAnimationGetStaticImage func(uintptr) uintptr
@@ -196,18 +224,17 @@ var xPixbufAnimationGetStaticImage func(uintptr) uintptr
 // If an animation hasn't loaded any frames yet, this function will
 // return `NULL`.
 func (x *PixbufAnimation) GetStaticImage() *Pixbuf {
+	var cls *Pixbuf
 
-	GetStaticImagePtr := xPixbufAnimationGetStaticImage(x.GoPointer())
-	if GetStaticImagePtr == 0 {
-		return nil
+	cret := xPixbufAnimationGetStaticImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStaticImagePtr)
-
-	GetStaticImageCls := &Pixbuf{}
-	GetStaticImageCls.Ptr = GetStaticImagePtr
-	return GetStaticImageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Pixbuf{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufAnimationGetWidth func(uintptr) int
@@ -215,8 +242,8 @@ var xPixbufAnimationGetWidth func(uintptr) int
 // Queries the width of the bounding box of a pixbuf animation.
 func (x *PixbufAnimation) GetWidth() int {
 
-	return xPixbufAnimationGetWidth(x.GoPointer())
-
+	cret := xPixbufAnimationGetWidth(x.GoPointer())
+	return cret
 }
 
 var xPixbufAnimationIsStaticImage func(uintptr) bool
@@ -229,24 +256,24 @@ var xPixbufAnimationIsStaticImage func(uintptr) bool
 // the image.
 func (x *PixbufAnimation) IsStaticImage() bool {
 
-	return xPixbufAnimationIsStaticImage(x.GoPointer())
-
+	cret := xPixbufAnimationIsStaticImage(x.GoPointer())
+	return cret
 }
 
 var xPixbufAnimationRef func(uintptr) uintptr
 
 // Adds a reference to an animation.
 func (x *PixbufAnimation) Ref() *PixbufAnimation {
+	var cls *PixbufAnimation
 
-	RefPtr := xPixbufAnimationRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xPixbufAnimationRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefCls := &PixbufAnimation{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufAnimationUnref func(uintptr)
@@ -303,8 +330,8 @@ var xPixbufAnimationIterAdvance func(uintptr, *glib.TimeVal) bool
 // and update the display with the new pixbuf.
 func (x *PixbufAnimationIter) Advance(CurrentTimeVar *glib.TimeVal) bool {
 
-	return xPixbufAnimationIterAdvance(x.GoPointer(), CurrentTimeVar)
-
+	cret := xPixbufAnimationIterAdvance(x.GoPointer(), CurrentTimeVar)
+	return cret
 }
 
 var xPixbufAnimationIterGetDelayTime func(uintptr) int
@@ -320,8 +347,8 @@ var xPixbufAnimationIterGetDelayTime func(uintptr) int
 // for GIF images is currently 20 milliseconds.
 func (x *PixbufAnimationIter) GetDelayTime() int {
 
-	return xPixbufAnimationIterGetDelayTime(x.GoPointer())
-
+	cret := xPixbufAnimationIterGetDelayTime(x.GoPointer())
+	return cret
 }
 
 var xPixbufAnimationIterGetPixbuf func(uintptr) uintptr
@@ -342,18 +369,17 @@ var xPixbufAnimationIterGetPixbuf func(uintptr) uintptr
 // Copy the pixbuf to keep it (don't just add a reference), as it may get
 // recycled as you advance the iterator.
 func (x *PixbufAnimationIter) GetPixbuf() *Pixbuf {
+	var cls *Pixbuf
 
-	GetPixbufPtr := xPixbufAnimationIterGetPixbuf(x.GoPointer())
-	if GetPixbufPtr == 0 {
-		return nil
+	cret := xPixbufAnimationIterGetPixbuf(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPixbufPtr)
-
-	GetPixbufCls := &Pixbuf{}
-	GetPixbufCls.Ptr = GetPixbufPtr
-	return GetPixbufCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Pixbuf{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufAnimationIterOnCurrentlyLoadingFrame func(uintptr) bool
@@ -366,8 +392,8 @@ var xPixbufAnimationIterOnCurrentlyLoadingFrame func(uintptr) bool
 // you will need to redraw the screen for the updated area.
 func (x *PixbufAnimationIter) OnCurrentlyLoadingFrame() bool {
 
-	return xPixbufAnimationIterOnCurrentlyLoadingFrame(x.GoPointer())
-
+	cret := xPixbufAnimationIterOnCurrentlyLoadingFrame(x.GoPointer())
+	return cret
 }
 
 func (c *PixbufAnimationIter) GoPointer() uintptr {

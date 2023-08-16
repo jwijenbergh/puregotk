@@ -60,14 +60,16 @@ var xNewDBusObjectManagerServer func(string) uintptr
 // [InterfacesAdded](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-objectmanager)
 // signals being emitted.
 func NewDBusObjectManagerServer(ObjectPathVar string) *DBusObjectManagerServer {
-	NewDBusObjectManagerServerPtr := xNewDBusObjectManagerServer(ObjectPathVar)
-	if NewDBusObjectManagerServerPtr == 0 {
-		return nil
-	}
+	var cls *DBusObjectManagerServer
 
-	NewDBusObjectManagerServerCls := &DBusObjectManagerServer{}
-	NewDBusObjectManagerServerCls.Ptr = NewDBusObjectManagerServerPtr
-	return NewDBusObjectManagerServerCls
+	cret := xNewDBusObjectManagerServer(ObjectPathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusObjectManagerServer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusObjectManagerServerExport func(uintptr, uintptr)
@@ -104,16 +106,16 @@ var xDBusObjectManagerServerGetConnection func(uintptr) uintptr
 
 // Gets the #GDBusConnection used by @manager.
 func (x *DBusObjectManagerServer) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusObjectManagerServerGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusObjectManagerServerGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusObjectManagerServerIsExported func(uintptr, uintptr) bool
@@ -121,8 +123,8 @@ var xDBusObjectManagerServerIsExported func(uintptr, uintptr) bool
 // Returns whether @object is currently exported on @manager.
 func (x *DBusObjectManagerServer) IsExported(ObjectVar *DBusObjectSkeleton) bool {
 
-	return xDBusObjectManagerServerIsExported(x.GoPointer(), ObjectVar.GoPointer())
-
+	cret := xDBusObjectManagerServerIsExported(x.GoPointer(), ObjectVar.GoPointer())
+	return cret
 }
 
 var xDBusObjectManagerServerSetConnection func(uintptr, uintptr)
@@ -144,8 +146,8 @@ var xDBusObjectManagerServerUnexport func(uintptr, string) bool
 // object path for @manager.
 func (x *DBusObjectManagerServer) Unexport(ObjectPathVar string) bool {
 
-	return xDBusObjectManagerServerUnexport(x.GoPointer(), ObjectPathVar)
-
+	cret := xDBusObjectManagerServerUnexport(x.GoPointer(), ObjectPathVar)
+	return cret
 }
 
 func (c *DBusObjectManagerServer) GoPointer() uintptr {
@@ -159,44 +161,44 @@ func (c *DBusObjectManagerServer) SetGoPointer(ptr uintptr) {
 // Gets the interface proxy for @interface_name at @object_path, if
 // any.
 func (x *DBusObjectManagerServer) GetInterface(ObjectPathVar string, InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the #GDBusObject at @object_path, if any.
 func (x *DBusObjectManagerServer) GetObject(ObjectPathVar string) *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the object path that @manager is for.
 func (x *DBusObjectManagerServer) GetObjectPath() string {
 
-	return XGDbusObjectManagerGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjectPath(x.GoPointer())
+	return cret
 }
 
 // Gets all #GDBusObject objects known to @manager.
 func (x *DBusObjectManagerServer) GetObjects() *glib.List {
 
-	return XGDbusObjectManagerGetObjects(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjects(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -19,8 +19,8 @@ var xBoxedCopy func([]interface{}, uintptr) uintptr
 // Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
 func BoxedCopy(BoxedTypeVar []interface{}, SrcBoxedVar uintptr) uintptr {
 
-	return xBoxedCopy(BoxedTypeVar, SrcBoxedVar)
-
+	cret := xBoxedCopy(BoxedTypeVar, SrcBoxedVar)
+	return cret
 }
 
 var xBoxedFree func([]interface{}, uintptr)
@@ -45,8 +45,8 @@ var xBoxedTypeRegisterStatic func(string, uintptr, uintptr) []interface{}
 // will create the appropriate `*_get_type()` function for the boxed type.
 func BoxedTypeRegisterStatic(NameVar string, BoxedCopyVar BoxedCopyFunc, BoxedFreeVar BoxedFreeFunc) []interface{} {
 
-	return xBoxedTypeRegisterStatic(NameVar, purego.NewCallback(BoxedCopyVar), purego.NewCallback(BoxedFreeVar))
-
+	cret := xBoxedTypeRegisterStatic(NameVar, purego.NewCallback(BoxedCopyVar), purego.NewCallback(BoxedFreeVar))
+	return cret
 }
 
 func init() {

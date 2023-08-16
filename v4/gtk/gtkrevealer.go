@@ -70,34 +70,34 @@ var xNewRevealer func() uintptr
 
 // Creates a new `GtkRevealer`.
 func NewRevealer() *Widget {
-	NewRevealerPtr := xNewRevealer()
-	if NewRevealerPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewRevealer()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewRevealerPtr)
-
-	NewRevealerCls := &Widget{}
-	NewRevealerCls.Ptr = NewRevealerPtr
-	return NewRevealerCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRevealerGetChild func(uintptr) uintptr
 
 // Gets the child widget of @revealer.
 func (x *Revealer) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xRevealerGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xRevealerGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRevealerGetChildRevealed func(uintptr) bool
@@ -108,8 +108,8 @@ var xRevealerGetChildRevealed func(uintptr) bool
 // to the revealed state is completed.
 func (x *Revealer) GetChildRevealed() bool {
 
-	return xRevealerGetChildRevealed(x.GoPointer())
-
+	cret := xRevealerGetChildRevealed(x.GoPointer())
+	return cret
 }
 
 var xRevealerGetRevealChild func(uintptr) bool
@@ -122,8 +122,8 @@ var xRevealerGetRevealChild func(uintptr) bool
 // use [method@Gtk.Revealer.get_child_revealed].
 func (x *Revealer) GetRevealChild() bool {
 
-	return xRevealerGetRevealChild(x.GoPointer())
-
+	cret := xRevealerGetRevealChild(x.GoPointer())
+	return cret
 }
 
 var xRevealerGetTransitionDuration func(uintptr) uint
@@ -132,8 +132,8 @@ var xRevealerGetTransitionDuration func(uintptr) uint
 // transitions will take.
 func (x *Revealer) GetTransitionDuration() uint {
 
-	return xRevealerGetTransitionDuration(x.GoPointer())
-
+	cret := xRevealerGetTransitionDuration(x.GoPointer())
+	return cret
 }
 
 var xRevealerGetTransitionType func(uintptr) RevealerTransitionType
@@ -142,8 +142,8 @@ var xRevealerGetTransitionType func(uintptr) RevealerTransitionType
 // for transitions in @revealer.
 func (x *Revealer) GetTransitionType() RevealerTransitionType {
 
-	return xRevealerGetTransitionType(x.GoPointer())
-
+	cret := xRevealerGetTransitionType(x.GoPointer())
+	return cret
 }
 
 var xRevealerSetChild func(uintptr, uintptr)
@@ -199,8 +199,8 @@ func (c *Revealer) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Revealer) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -335,8 +335,8 @@ func (x *Revealer) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Revealer) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

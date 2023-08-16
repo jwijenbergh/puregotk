@@ -91,8 +91,8 @@ func (x *ListModelBase) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *ListModelBase) GetItem(PositionVar uint) uintptr {
 
-	return XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -105,8 +105,8 @@ func (x *ListModelBase) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *ListModelBase) GetItemType() []interface{} {
 
-	return XGListModelGetItemType(x.GoPointer())
-
+	cret := XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -116,8 +116,8 @@ func (x *ListModelBase) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *ListModelBase) GetNItems() uint {
 
-	return XGListModelGetNItems(x.GoPointer())
-
+	cret := XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -133,16 +133,16 @@ func (x *ListModelBase) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *ListModelBase) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

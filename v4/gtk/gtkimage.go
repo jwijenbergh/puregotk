@@ -85,16 +85,17 @@ var xNewImage func() uintptr
 
 // Creates a new empty `GtkImage` widget.
 func NewImage() *Widget {
-	NewImagePtr := xNewImage()
-	if NewImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewImage()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewImagePtr)
-
-	NewImageCls := &Widget{}
-	NewImageCls.Ptr = NewImagePtr
-	return NewImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromFileImage func(string) uintptr
@@ -113,16 +114,17 @@ var xNewFromFileImage func(string) uintptr
 // of the returned image is not defined, it will be whatever
 // is appropriate for displaying the file.
 func NewFromFileImage(FilenameVar string) *Widget {
-	NewFromFileImagePtr := xNewFromFileImage(FilenameVar)
-	if NewFromFileImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromFileImage(FilenameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromFileImagePtr)
-
-	NewFromFileImageCls := &Widget{}
-	NewFromFileImageCls.Ptr = NewFromFileImagePtr
-	return NewFromFileImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromGiconImage func(uintptr) uintptr
@@ -133,16 +135,17 @@ var xNewFromGiconImage func(uintptr) uintptr
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
 func NewFromGiconImage(IconVar gio.Icon) *Widget {
-	NewFromGiconImagePtr := xNewFromGiconImage(IconVar.GoPointer())
-	if NewFromGiconImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromGiconImage(IconVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromGiconImagePtr)
-
-	NewFromGiconImageCls := &Widget{}
-	NewFromGiconImageCls.Ptr = NewFromGiconImagePtr
-	return NewFromGiconImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromIconNameImage func(string) uintptr
@@ -153,16 +156,17 @@ var xNewFromIconNameImage func(string) uintptr
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
 func NewFromIconNameImage(IconNameVar string) *Widget {
-	NewFromIconNameImagePtr := xNewFromIconNameImage(IconNameVar)
-	if NewFromIconNameImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromIconNameImage(IconNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromIconNameImagePtr)
-
-	NewFromIconNameImageCls := &Widget{}
-	NewFromIconNameImageCls.Ptr = NewFromIconNameImagePtr
-	return NewFromIconNameImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromPaintableImage func(uintptr) uintptr
@@ -176,16 +180,17 @@ var xNewFromPaintableImage func(uintptr) uintptr
 // The `GtkImage` will track changes to the @paintable and update
 // its size and contents in response to it.
 func NewFromPaintableImage(PaintableVar gdk.Paintable) *Widget {
-	NewFromPaintableImagePtr := xNewFromPaintableImage(PaintableVar.GoPointer())
-	if NewFromPaintableImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromPaintableImage(PaintableVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromPaintableImagePtr)
-
-	NewFromPaintableImageCls := &Widget{}
-	NewFromPaintableImageCls.Ptr = NewFromPaintableImagePtr
-	return NewFromPaintableImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromPixbufImage func(uintptr) uintptr
@@ -203,16 +208,17 @@ var xNewFromPixbufImage func(uintptr) uintptr
 // The `GtkImage` created will not react to state changes. Should you
 // want that, you should use [ctor@Gtk.Image.new_from_icon_name].
 func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
-	NewFromPixbufImagePtr := xNewFromPixbufImage(PixbufVar.GoPointer())
-	if NewFromPixbufImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromPixbufImage(PixbufVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromPixbufImagePtr)
-
-	NewFromPixbufImageCls := &Widget{}
-	NewFromPixbufImageCls.Ptr = NewFromPixbufImagePtr
-	return NewFromPixbufImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromResourceImage func(string) uintptr
@@ -231,16 +237,17 @@ var xNewFromResourceImage func(string) uintptr
 // the returned image is not defined, it will be whatever is
 // appropriate for displaying the file.
 func NewFromResourceImage(ResourcePathVar string) *Widget {
-	NewFromResourceImagePtr := xNewFromResourceImage(ResourcePathVar)
-	if NewFromResourceImagePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromResourceImage(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromResourceImagePtr)
-
-	NewFromResourceImageCls := &Widget{}
-	NewFromResourceImageCls.Ptr = NewFromResourceImagePtr
-	return NewFromResourceImageCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xImageClear func(uintptr)
@@ -261,18 +268,17 @@ var xImageGetGicon func(uintptr) uintptr
 // The caller of this function does not own a reference to the
 // returned `GIcon`.
 func (x *Image) GetGicon() *gio.IconBase {
+	var cls *gio.IconBase
 
-	GetGiconPtr := xImageGetGicon(x.GoPointer())
-	if GetGiconPtr == 0 {
-		return nil
+	cret := xImageGetGicon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetGiconPtr)
-
-	GetGiconCls := &gio.IconBase{}
-	GetGiconCls.Ptr = GetGiconPtr
-	return GetGiconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xImageGetIconName func(uintptr) string
@@ -285,8 +291,8 @@ var xImageGetIconName func(uintptr) string
 // be freed.
 func (x *Image) GetIconName() string {
 
-	return xImageGetIconName(x.GoPointer())
-
+	cret := xImageGetIconName(x.GoPointer())
+	return cret
 }
 
 var xImageGetIconSize func(uintptr) IconSize
@@ -294,8 +300,8 @@ var xImageGetIconSize func(uintptr) IconSize
 // Gets the icon size used by the @image when rendering icons.
 func (x *Image) GetIconSize() IconSize {
 
-	return xImageGetIconSize(x.GoPointer())
-
+	cret := xImageGetIconSize(x.GoPointer())
+	return cret
 }
 
 var xImageGetPaintable func(uintptr) uintptr
@@ -307,18 +313,17 @@ var xImageGetPaintable func(uintptr) uintptr
 // The caller of this function does not own a reference to the
 // returned paintable.
 func (x *Image) GetPaintable() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetPaintablePtr := xImageGetPaintable(x.GoPointer())
-	if GetPaintablePtr == 0 {
-		return nil
+	cret := xImageGetPaintable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPaintablePtr)
-
-	GetPaintableCls := &gdk.PaintableBase{}
-	GetPaintableCls.Ptr = GetPaintablePtr
-	return GetPaintableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xImageGetPixelSize func(uintptr) int
@@ -326,8 +331,8 @@ var xImageGetPixelSize func(uintptr) int
 // Gets the pixel size used for named icons.
 func (x *Image) GetPixelSize() int {
 
-	return xImageGetPixelSize(x.GoPointer())
-
+	cret := xImageGetPixelSize(x.GoPointer())
+	return cret
 }
 
 var xImageGetStorageType func(uintptr) ImageType
@@ -339,8 +344,8 @@ var xImageGetStorageType func(uintptr) ImageType
 // be %GTK_IMAGE_EMPTY.
 func (x *Image) GetStorageType() ImageType {
 
-	return xImageGetStorageType(x.GoPointer())
-
+	cret := xImageGetStorageType(x.GoPointer())
+	return cret
 }
 
 var xImageSetFromFile func(uintptr, string)
@@ -445,8 +450,8 @@ func (c *Image) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Image) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -581,8 +586,8 @@ func (x *Image) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Image) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

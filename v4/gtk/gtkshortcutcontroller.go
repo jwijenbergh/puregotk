@@ -68,14 +68,16 @@ var xNewShortcutController func() uintptr
 
 // Creates a new shortcut controller.
 func NewShortcutController() *EventController {
-	NewShortcutControllerPtr := xNewShortcutController()
-	if NewShortcutControllerPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewShortcutControllerCls := &EventController{}
-	NewShortcutControllerCls.Ptr = NewShortcutControllerPtr
-	return NewShortcutControllerCls
+	cret := xNewShortcutController()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForModelShortcutController func(uintptr) uintptr
@@ -87,14 +89,16 @@ var xNewForModelShortcutController func(uintptr) uintptr
 // remove individual shortcuts using the shortcut controller api,
 // but you can change the contents of the model.
 func NewForModelShortcutController(ModelVar gio.ListModel) *EventController {
-	NewForModelShortcutControllerPtr := xNewForModelShortcutController(ModelVar.GoPointer())
-	if NewForModelShortcutControllerPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewForModelShortcutControllerCls := &EventController{}
-	NewForModelShortcutControllerCls.Ptr = NewForModelShortcutControllerPtr
-	return NewForModelShortcutControllerCls
+	cret := xNewForModelShortcutController(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutControllerAddShortcut func(uintptr, uintptr)
@@ -114,8 +118,8 @@ var xShortcutControllerGetMnemonicsModifiers func(uintptr) gdk.ModifierType
 // Gets the mnemonics modifiers for when this controller activates its shortcuts.
 func (x *ShortcutController) GetMnemonicsModifiers() gdk.ModifierType {
 
-	return xShortcutControllerGetMnemonicsModifiers(x.GoPointer())
-
+	cret := xShortcutControllerGetMnemonicsModifiers(x.GoPointer())
+	return cret
 }
 
 var xShortcutControllerGetScope func(uintptr) ShortcutScope
@@ -125,8 +129,8 @@ var xShortcutControllerGetScope func(uintptr) ShortcutScope
 // See [method@Gtk.ShortcutController.set_scope] for details.
 func (x *ShortcutController) GetScope() ShortcutScope {
 
-	return xShortcutControllerGetScope(x.GoPointer())
-
+	cret := xShortcutControllerGetScope(x.GoPointer())
+	return cret
 }
 
 var xShortcutControllerRemoveShortcut func(uintptr, uintptr)
@@ -198,8 +202,8 @@ func (c *ShortcutController) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *ShortcutController) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -212,8 +216,8 @@ func (x *ShortcutController) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *ShortcutController) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -223,8 +227,8 @@ func (x *ShortcutController) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *ShortcutController) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -240,16 +244,16 @@ func (x *ShortcutController) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *ShortcutController) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -284,8 +288,8 @@ func (x *ShortcutController) ItemsChanged(PositionVar uint, RemovedVar uint, Add
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ShortcutController) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -49,8 +49,8 @@ var xMenuAttributeIterGetName func(uintptr) string
 // The iterator is not advanced.
 func (x *MenuAttributeIter) GetName() string {
 
-	return xMenuAttributeIterGetName(x.GoPointer())
-
+	cret := xMenuAttributeIterGetName(x.GoPointer())
+	return cret
 }
 
 var xMenuAttributeIterGetNext func(uintptr, string, **glib.Variant) bool
@@ -72,8 +72,8 @@ var xMenuAttributeIterGetNext func(uintptr, string, **glib.Variant) bool
 // be unreffed using g_variant_unref() when it is no longer in use.
 func (x *MenuAttributeIter) GetNext(OutNameVar string, ValueVar **glib.Variant) bool {
 
-	return xMenuAttributeIterGetNext(x.GoPointer(), OutNameVar, ValueVar)
-
+	cret := xMenuAttributeIterGetNext(x.GoPointer(), OutNameVar, ValueVar)
+	return cret
 }
 
 var xMenuAttributeIterGetValue func(uintptr) *glib.Variant
@@ -83,8 +83,8 @@ var xMenuAttributeIterGetValue func(uintptr) *glib.Variant
 // The iterator is not advanced.
 func (x *MenuAttributeIter) GetValue() *glib.Variant {
 
-	return xMenuAttributeIterGetValue(x.GoPointer())
-
+	cret := xMenuAttributeIterGetValue(x.GoPointer())
+	return cret
 }
 
 var xMenuAttributeIterNext func(uintptr) bool
@@ -100,8 +100,8 @@ var xMenuAttributeIterNext func(uintptr) bool
 // attribute exists at all).
 func (x *MenuAttributeIter) Next() bool {
 
-	return xMenuAttributeIterNext(x.GoPointer())
-
+	cret := xMenuAttributeIterNext(x.GoPointer())
+	return cret
 }
 
 func (c *MenuAttributeIter) GoPointer() uintptr {
@@ -131,8 +131,8 @@ var xMenuLinkIterGetName func(uintptr) string
 // The iterator is not advanced.
 func (x *MenuLinkIter) GetName() string {
 
-	return xMenuLinkIterGetName(x.GoPointer())
-
+	cret := xMenuLinkIterGetName(x.GoPointer())
+	return cret
 }
 
 var xMenuLinkIterGetNext func(uintptr, string, *uintptr) bool
@@ -153,8 +153,8 @@ var xMenuLinkIterGetNext func(uintptr, string, *uintptr) bool
 // be unreffed using g_object_unref() when it is no longer in use.
 func (x *MenuLinkIter) GetNext(OutLinkVar string, ValueVar **MenuModel) bool {
 
-	return xMenuLinkIterGetNext(x.GoPointer(), OutLinkVar, gobject.ConvertPtr(ValueVar))
-
+	cret := xMenuLinkIterGetNext(x.GoPointer(), OutLinkVar, gobject.ConvertPtr(ValueVar))
+	return cret
 }
 
 var xMenuLinkIterGetValue func(uintptr) uintptr
@@ -163,16 +163,16 @@ var xMenuLinkIterGetValue func(uintptr) uintptr
 //
 // The iterator is not advanced.
 func (x *MenuLinkIter) GetValue() *MenuModel {
+	var cls *MenuModel
 
-	GetValuePtr := xMenuLinkIterGetValue(x.GoPointer())
-	if GetValuePtr == 0 {
-		return nil
+	cret := xMenuLinkIterGetValue(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetValueCls := &MenuModel{}
-	GetValueCls.Ptr = GetValuePtr
-	return GetValueCls
-
+	cls = &MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuLinkIterNext func(uintptr) bool
@@ -187,8 +187,8 @@ var xMenuLinkIterNext func(uintptr) bool
 // at all).
 func (x *MenuLinkIter) Next() bool {
 
-	return xMenuLinkIterNext(x.GoPointer())
-
+	cret := xMenuLinkIterNext(x.GoPointer())
+	return cret
 }
 
 func (c *MenuLinkIter) GoPointer() uintptr {
@@ -342,8 +342,8 @@ var xMenuModelGetItemAttribute func(uintptr, int, string, string, ...interface{}
 // particular, no '&amp;' characters are allowed in @format_string.
 func (x *MenuModel) GetItemAttribute(ItemIndexVar int, AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
 
-	return xMenuModelGetItemAttribute(x.GoPointer(), ItemIndexVar, AttributeVar, FormatStringVar, varArgs...)
-
+	cret := xMenuModelGetItemAttribute(x.GoPointer(), ItemIndexVar, AttributeVar, FormatStringVar, varArgs...)
+	return cret
 }
 
 var xMenuModelGetItemAttributeValue func(uintptr, int, string, *glib.VariantType) *glib.Variant
@@ -361,8 +361,8 @@ var xMenuModelGetItemAttributeValue func(uintptr, int, string, *glib.VariantType
 // then %NULL is returned.
 func (x *MenuModel) GetItemAttributeValue(ItemIndexVar int, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
 
-	return xMenuModelGetItemAttributeValue(x.GoPointer(), ItemIndexVar, AttributeVar, ExpectedTypeVar)
-
+	cret := xMenuModelGetItemAttributeValue(x.GoPointer(), ItemIndexVar, AttributeVar, ExpectedTypeVar)
+	return cret
 }
 
 var xMenuModelGetItemLink func(uintptr, int, string) uintptr
@@ -373,16 +373,16 @@ var xMenuModelGetItemLink func(uintptr, int, string) uintptr
 // If the link exists, the linked #GMenuModel is returned.  If the link
 // does not exist, %NULL is returned.
 func (x *MenuModel) GetItemLink(ItemIndexVar int, LinkVar string) *MenuModel {
+	var cls *MenuModel
 
-	GetItemLinkPtr := xMenuModelGetItemLink(x.GoPointer(), ItemIndexVar, LinkVar)
-	if GetItemLinkPtr == 0 {
-		return nil
+	cret := xMenuModelGetItemLink(x.GoPointer(), ItemIndexVar, LinkVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetItemLinkCls := &MenuModel{}
-	GetItemLinkCls.Ptr = GetItemLinkPtr
-	return GetItemLinkCls
-
+	cls = &MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuModelGetNItems func(uintptr) int
@@ -390,8 +390,8 @@ var xMenuModelGetNItems func(uintptr) int
 // Query the number of items in @model.
 func (x *MenuModel) GetNItems() int {
 
-	return xMenuModelGetNItems(x.GoPointer())
-
+	cret := xMenuModelGetNItems(x.GoPointer())
+	return cret
 }
 
 var xMenuModelIsMutable func(uintptr) bool
@@ -402,8 +402,8 @@ var xMenuModelIsMutable func(uintptr) bool
 // signal. Consumers of the model may make optimisations accordingly.
 func (x *MenuModel) IsMutable() bool {
 
-	return xMenuModelIsMutable(x.GoPointer())
-
+	cret := xMenuModelIsMutable(x.GoPointer())
+	return cret
 }
 
 var xMenuModelItemsChanged func(uintptr, int, int, int)
@@ -436,16 +436,16 @@ var xMenuModelIterateItemAttributes func(uintptr, int) uintptr
 //
 // You must free the iterator with g_object_unref() when you are done.
 func (x *MenuModel) IterateItemAttributes(ItemIndexVar int) *MenuAttributeIter {
+	var cls *MenuAttributeIter
 
-	IterateItemAttributesPtr := xMenuModelIterateItemAttributes(x.GoPointer(), ItemIndexVar)
-	if IterateItemAttributesPtr == 0 {
-		return nil
+	cret := xMenuModelIterateItemAttributes(x.GoPointer(), ItemIndexVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IterateItemAttributesCls := &MenuAttributeIter{}
-	IterateItemAttributesCls.Ptr = IterateItemAttributesPtr
-	return IterateItemAttributesCls
-
+	cls = &MenuAttributeIter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuModelIterateItemLinks func(uintptr, int) uintptr
@@ -455,16 +455,16 @@ var xMenuModelIterateItemLinks func(uintptr, int) uintptr
 //
 // You must free the iterator with g_object_unref() when you are done.
 func (x *MenuModel) IterateItemLinks(ItemIndexVar int) *MenuLinkIter {
+	var cls *MenuLinkIter
 
-	IterateItemLinksPtr := xMenuModelIterateItemLinks(x.GoPointer(), ItemIndexVar)
-	if IterateItemLinksPtr == 0 {
-		return nil
+	cret := xMenuModelIterateItemLinks(x.GoPointer(), ItemIndexVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IterateItemLinksCls := &MenuLinkIter{}
-	IterateItemLinksCls.Ptr = IterateItemLinksPtr
-	return IterateItemLinksCls
-
+	cls = &MenuLinkIter{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *MenuModel) GoPointer() uintptr {

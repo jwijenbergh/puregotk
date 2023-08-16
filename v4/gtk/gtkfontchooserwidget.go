@@ -40,16 +40,17 @@ var xNewFontChooserWidget func() uintptr
 
 // Creates a new `GtkFontChooserWidget`.
 func NewFontChooserWidget() *Widget {
-	NewFontChooserWidgetPtr := xNewFontChooserWidget()
-	if NewFontChooserWidgetPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFontChooserWidget()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFontChooserWidgetPtr)
-
-	NewFontChooserWidgetCls := &Widget{}
-	NewFontChooserWidgetCls.Ptr = NewFontChooserWidgetPtr
-	return NewFontChooserWidgetCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FontChooserWidget) GoPointer() uintptr {
@@ -63,8 +64,8 @@ func (c *FontChooserWidget) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *FontChooserWidget) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -199,8 +200,8 @@ func (x *FontChooserWidget) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FontChooserWidget) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Gets the currently-selected font name.
@@ -215,8 +216,8 @@ func (x *FontChooserWidget) GetBuildableId() string {
 // font descriptions.
 func (x *FontChooserWidget) GetFont() string {
 
-	return XGtkFontChooserGetFont(x.GoPointer())
-
+	cret := XGtkFontChooserGetFont(x.GoPointer())
+	return cret
 }
 
 // Gets the currently-selected font.
@@ -231,8 +232,8 @@ func (x *FontChooserWidget) GetFont() string {
 // font descriptions.
 func (x *FontChooserWidget) GetFontDesc() *pango.FontDescription {
 
-	return XGtkFontChooserGetFontDesc(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontDesc(x.GoPointer())
+	return cret
 }
 
 // Gets the `PangoFontFace` representing the selected font group
@@ -240,18 +241,17 @@ func (x *FontChooserWidget) GetFontDesc() *pango.FontDescription {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserWidget) GetFontFace() *pango.FontFace {
+	var cls *pango.FontFace
 
-	GetFontFacePtr := XGtkFontChooserGetFontFace(x.GoPointer())
-	if GetFontFacePtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFace(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFacePtr)
-
-	GetFontFaceCls := &pango.FontFace{}
-	GetFontFaceCls.Ptr = GetFontFacePtr
-	return GetFontFaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFace{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the `PangoFontFamily` representing the selected font family.
@@ -260,18 +260,17 @@ func (x *FontChooserWidget) GetFontFace() *pango.FontFace {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserWidget) GetFontFamily() *pango.FontFamily {
+	var cls *pango.FontFamily
 
-	GetFontFamilyPtr := XGtkFontChooserGetFontFamily(x.GoPointer())
-	if GetFontFamilyPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFamily(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFamilyPtr)
-
-	GetFontFamilyCls := &pango.FontFamily{}
-	GetFontFamilyCls.Ptr = GetFontFamilyPtr
-	return GetFontFamilyCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFamily{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the currently-selected font features.
@@ -281,58 +280,58 @@ func (x *FontChooserWidget) GetFontFamily() *pango.FontFamily {
 // It can be passed to [func@Pango.AttrFontFeatures.new].
 func (x *FontChooserWidget) GetFontFeatures() string {
 
-	return XGtkFontChooserGetFontFeatures(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontFeatures(x.GoPointer())
+	return cret
 }
 
 // Gets the custom font map of this font chooser widget,
 // or %NULL if it does not have one.
 func (x *FontChooserWidget) GetFontMap() *pango.FontMap {
+	var cls *pango.FontMap
 
-	GetFontMapPtr := XGtkFontChooserGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFontMapCls := &pango.FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 // The selected font size.
 func (x *FontChooserWidget) GetFontSize() int {
 
-	return XGtkFontChooserGetFontSize(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontSize(x.GoPointer())
+	return cret
 }
 
 // Gets the language that is used for font features.
 func (x *FontChooserWidget) GetLanguage() string {
 
-	return XGtkFontChooserGetLanguage(x.GoPointer())
-
+	cret := XGtkFontChooserGetLanguage(x.GoPointer())
+	return cret
 }
 
 // Returns the current level of granularity for selecting fonts.
 func (x *FontChooserWidget) GetLevel() FontChooserLevel {
 
-	return XGtkFontChooserGetLevel(x.GoPointer())
-
+	cret := XGtkFontChooserGetLevel(x.GoPointer())
+	return cret
 }
 
 // Gets the text displayed in the preview area.
 func (x *FontChooserWidget) GetPreviewText() string {
 
-	return XGtkFontChooserGetPreviewText(x.GoPointer())
-
+	cret := XGtkFontChooserGetPreviewText(x.GoPointer())
+	return cret
 }
 
 // Returns whether the preview entry is shown or not.
 func (x *FontChooserWidget) GetShowPreviewEntry() bool {
 
-	return XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
-
+	cret := XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
+	return cret
 }
 
 // Adds a filter function that decides which fonts to display

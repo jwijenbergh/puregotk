@@ -82,32 +82,34 @@ var xNewComboBoxText func() uintptr
 
 // Creates a new `GtkComboBoxText`.
 func NewComboBoxText() *Widget {
-	NewComboBoxTextPtr := xNewComboBoxText()
-	if NewComboBoxTextPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewComboBoxText()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewComboBoxTextPtr)
-
-	NewComboBoxTextCls := &Widget{}
-	NewComboBoxTextCls.Ptr = NewComboBoxTextPtr
-	return NewComboBoxTextCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithEntryComboBoxText func() uintptr
 
 // Creates a new `GtkComboBoxText` with an entry.
 func NewWithEntryComboBoxText() *Widget {
-	NewWithEntryComboBoxTextPtr := xNewWithEntryComboBoxText()
-	if NewWithEntryComboBoxTextPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithEntryComboBoxText()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithEntryComboBoxTextPtr)
-
-	NewWithEntryComboBoxTextCls := &Widget{}
-	NewWithEntryComboBoxTextCls.Ptr = NewWithEntryComboBoxTextPtr
-	return NewWithEntryComboBoxTextCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboBoxTextAppend func(uintptr, string, string)
@@ -146,8 +148,8 @@ var xComboBoxTextGetActiveText func(uintptr) string
 // be an item from the list).
 func (x *ComboBoxText) GetActiveText() string {
 
-	return xComboBoxTextGetActiveText(x.GoPointer())
-
+	cret := xComboBoxTextGetActiveText(x.GoPointer())
+	return cret
 }
 
 var xComboBoxTextInsert func(uintptr, int, string, string)
@@ -233,8 +235,8 @@ func (c *ComboBoxText) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ComboBoxText) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -369,8 +371,8 @@ func (x *ComboBoxText) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ComboBoxText) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Emits the `GtkCellEditable::editing-done` signal.
@@ -436,25 +438,24 @@ func (x *ComboBoxText) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *ComboBoxText) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *ComboBoxText) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the

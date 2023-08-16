@@ -27,8 +27,8 @@ var xUnixFdAdd func(int, IOCondition, uintptr, uintptr) uint
 // The source will never close the fd -- you must do it yourself.
 func UnixFdAdd(FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr) uint {
 
-	return xUnixFdAdd(FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar)
-
+	cret := xUnixFdAdd(FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar)
+	return cret
 }
 
 var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
@@ -41,8 +41,8 @@ var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
 // @user_data.
 func UnixFdAddFull(PriorityVar int, FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar, purego.NewCallback(NotifyVar))
-
+	cret := xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xUnixFdSourceNew func(int, IOCondition) *Source
@@ -53,11 +53,11 @@ var xUnixFdSourceNew func(int, IOCondition) *Source
 // The source will never close the fd -- you must do it yourself.
 func UnixFdSourceNew(FdVar int, ConditionVar IOCondition) *Source {
 
-	return xUnixFdSourceNew(FdVar, ConditionVar)
-
+	cret := xUnixFdSourceNew(FdVar, ConditionVar)
+	return cret
 }
 
-var xUnixGetPasswdEntry func(string) uintptr
+var xUnixGetPasswdEntry func(string, **Error) uintptr
 
 // Get the `passwd` file entry for the given @user_name using `getpwnam_r()`.
 // This can fail if the given @user_name doesn’t exist.
@@ -70,13 +70,18 @@ var xUnixGetPasswdEntry func(string) uintptr
 // This function is safe to call from multiple threads concurrently.
 //
 // You will need to include `pwd.h` to get the definition of `struct passwd`.
-func UnixGetPasswdEntry(UserNameVar string) uintptr {
+func UnixGetPasswdEntry(UserNameVar string) (uintptr, error) {
+	var cerr *Error
 
-	return xUnixGetPasswdEntry(UserNameVar)
+	cret := xUnixGetPasswdEntry(UserNameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xUnixOpenPipe func(int, int) bool
+var xUnixOpenPipe func(int, int, **Error) bool
 
 // Similar to the UNIX pipe() call, but on modern systems like Linux
 // uses the pipe2() system call, which atomically creates a pipe with
@@ -86,20 +91,30 @@ var xUnixOpenPipe func(int, int) bool
 //
 // This function does not take %O_CLOEXEC, it takes %FD_CLOEXEC as if
 // for fcntl(); these are different on Linux/glibc.
-func UnixOpenPipe(FdsVar int, FlagsVar int) bool {
+func UnixOpenPipe(FdsVar int, FlagsVar int) (bool, error) {
+	var cerr *Error
 
-	return xUnixOpenPipe(FdsVar, FlagsVar)
+	cret := xUnixOpenPipe(FdsVar, FlagsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xUnixSetFdNonblocking func(int, bool) bool
+var xUnixSetFdNonblocking func(int, bool, **Error) bool
 
 // Control the non-blocking state of the given file descriptor,
 // according to @nonblock. On most systems this uses %O_NONBLOCK, but
 // on some older ones may use %O_NDELAY.
-func UnixSetFdNonblocking(FdVar int, NonblockVar bool) bool {
+func UnixSetFdNonblocking(FdVar int, NonblockVar bool) (bool, error) {
+	var cerr *Error
 
-	return xUnixSetFdNonblocking(FdVar, NonblockVar)
+	cret := xUnixSetFdNonblocking(FdVar, NonblockVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -110,8 +125,8 @@ var xUnixSignalAdd func(int, uintptr, uintptr) uint
 // using g_source_remove().
 func UnixSignalAdd(SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr) uint {
 
-	return xUnixSignalAdd(SignumVar, purego.NewCallback(HandlerVar), UserDataVar)
-
+	cret := xUnixSignalAdd(SignumVar, purego.NewCallback(HandlerVar), UserDataVar)
+	return cret
 }
 
 var xUnixSignalAddFull func(int, int, uintptr, uintptr, uintptr) uint
@@ -121,8 +136,8 @@ var xUnixSignalAddFull func(int, int, uintptr, uintptr, uintptr) uint
 // using g_source_remove().
 func UnixSignalAddFull(PriorityVar int, SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xUnixSignalAddFull(PriorityVar, SignumVar, purego.NewCallback(HandlerVar), UserDataVar, purego.NewCallback(NotifyVar))
-
+	cret := xUnixSignalAddFull(PriorityVar, SignumVar, purego.NewCallback(HandlerVar), UserDataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xUnixSignalSourceNew func(int) *Source
@@ -152,8 +167,8 @@ var xUnixSignalSourceNew func(int) *Source
 // executed.
 func UnixSignalSourceNew(SignumVar int) *Source {
 
-	return xUnixSignalSourceNew(SignumVar)
-
+	cret := xUnixSignalSourceNew(SignumVar)
+	return cret
 }
 
 func init() {

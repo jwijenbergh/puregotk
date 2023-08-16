@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Interface for implementing operations for mounts.
@@ -76,15 +77,15 @@ func (x *MountBase) SetGoPointer(ptr uintptr) {
 // Checks if @mount can be ejected.
 func (x *MountBase) CanEject() bool {
 
-	return XGMountCanEject(x.GoPointer())
-
+	cret := XGMountCanEject(x.GoPointer())
+	return cret
 }
 
 // Checks if @mount can be unmounted.
 func (x *MountBase) CanUnmount() bool {
 
-	return XGMountCanUnmount(x.GoPointer())
-
+	cret := XGMountCanUnmount(x.GoPointer())
+	return cret
 }
 
 // Ejects a mount. This is an asynchronous operation, and is
@@ -98,9 +99,14 @@ func (x *MountBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellabl
 
 // Finishes ejecting a mount. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *MountBase) EjectFinish(ResultVar AsyncResult) bool {
+func (x *MountBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGMountEjectFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountEjectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -115,9 +121,14 @@ func (x *MountBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperatio
 
 // Finishes ejecting a mount. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *MountBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *MountBase) EjectWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGMountEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -125,16 +136,16 @@ func (x *MountBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
 // @mount is a path that reflects the main entry point for the user (e.g.
 // the home directory, or the root of the volume).
 func (x *MountBase) GetDefaultLocation() *FileBase {
+	var cls *FileBase
 
-	GetDefaultLocationPtr := XGMountGetDefaultLocation(x.GoPointer())
-	if GetDefaultLocationPtr == 0 {
-		return nil
+	cret := XGMountGetDefaultLocation(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDefaultLocationCls := &FileBase{}
-	GetDefaultLocationCls.Ptr = GetDefaultLocationPtr
-	return GetDefaultLocationCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the drive for the @mount.
@@ -142,72 +153,72 @@ func (x *MountBase) GetDefaultLocation() *FileBase {
 // This is a convenience method for getting the #GVolume and then
 // using that object to get the #GDrive.
 func (x *MountBase) GetDrive() *DriveBase {
+	var cls *DriveBase
 
-	GetDrivePtr := XGMountGetDrive(x.GoPointer())
-	if GetDrivePtr == 0 {
-		return nil
+	cret := XGMountGetDrive(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDriveCls := &DriveBase{}
-	GetDriveCls.Ptr = GetDrivePtr
-	return GetDriveCls
-
+	cls = &DriveBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the icon for @mount.
 func (x *MountBase) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := XGMountGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := XGMountGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the name of @mount.
 func (x *MountBase) GetName() string {
 
-	return XGMountGetName(x.GoPointer())
-
+	cret := XGMountGetName(x.GoPointer())
+	return cret
 }
 
 // Gets the root directory on @mount.
 func (x *MountBase) GetRoot() *FileBase {
+	var cls *FileBase
 
-	GetRootPtr := XGMountGetRoot(x.GoPointer())
-	if GetRootPtr == 0 {
-		return nil
+	cret := XGMountGetRoot(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetRootCls := &FileBase{}
-	GetRootCls.Ptr = GetRootPtr
-	return GetRootCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the sort key for @mount, if any.
 func (x *MountBase) GetSortKey() string {
 
-	return XGMountGetSortKey(x.GoPointer())
-
+	cret := XGMountGetSortKey(x.GoPointer())
+	return cret
 }
 
 // Gets the symbolic icon for @mount.
 func (x *MountBase) GetSymbolicIcon() *IconBase {
+	var cls *IconBase
 
-	GetSymbolicIconPtr := XGMountGetSymbolicIcon(x.GoPointer())
-	if GetSymbolicIconPtr == 0 {
-		return nil
+	cret := XGMountGetSymbolicIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSymbolicIconCls := &IconBase{}
-	GetSymbolicIconCls.Ptr = GetSymbolicIconPtr
-	return GetSymbolicIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the UUID for the @mount. The reference is typically based on
@@ -216,22 +227,22 @@ func (x *MountBase) GetSymbolicIcon() *IconBase {
 // available.
 func (x *MountBase) GetUuid() string {
 
-	return XGMountGetUuid(x.GoPointer())
-
+	cret := XGMountGetUuid(x.GoPointer())
+	return cret
 }
 
 // Gets the volume for the @mount.
 func (x *MountBase) GetVolume() *VolumeBase {
+	var cls *VolumeBase
 
-	GetVolumePtr := XGMountGetVolume(x.GoPointer())
-	if GetVolumePtr == 0 {
-		return nil
+	cret := XGMountGetVolume(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetVolumeCls := &VolumeBase{}
-	GetVolumeCls.Ptr = GetVolumePtr
-	return GetVolumeCls
-
+	cls = &VolumeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Tries to guess the type of content stored on @mount. Returns one or
@@ -256,9 +267,14 @@ func (x *MountBase) GuessContentType(ForceRescanVar bool, CancellableVar *Cancel
 // %FALSE will be returned. In particular, you may get an
 // %G_IO_ERROR_NOT_SUPPORTED if the mount does not support content
 // guessing.
-func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) uintptr {
+func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) (uintptr, error) {
+	var cerr *glib.Error
 
-	return XGMountGuessContentTypeFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountGuessContentTypeFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -271,9 +287,14 @@ func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) uintptr {
 //
 // This is a synchronous operation and as such may block doing IO;
 // see g_mount_guess_content_type() for the asynchronous version.
-func (x *MountBase) GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) uintptr {
+func (x *MountBase) GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) (uintptr, error) {
+	var cerr *glib.Error
 
-	return XGMountGuessContentTypeSync(x.GoPointer(), ForceRescanVar, CancellableVar.GoPointer())
+	cret := XGMountGuessContentTypeSync(x.GoPointer(), ForceRescanVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -302,8 +323,8 @@ func (x *MountBase) GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Ca
 // activation root on a #GVolume is set.
 func (x *MountBase) IsShadowed() bool {
 
-	return XGMountIsShadowed(x.GoPointer())
-
+	cret := XGMountIsShadowed(x.GoPointer())
+	return cret
 }
 
 // Remounts a mount. This is an asynchronous operation, and is
@@ -323,9 +344,14 @@ func (x *MountBase) Remount(FlagsVar MountMountFlags, MountOperationVar *MountOp
 
 // Finishes remounting a mount. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *MountBase) RemountFinish(ResultVar AsyncResult) bool {
+func (x *MountBase) RemountFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGMountRemountFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountRemountFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -350,9 +376,14 @@ func (x *MountBase) Unmount(FlagsVar MountUnmountFlags, CancellableVar *Cancella
 
 // Finishes unmounting a mount. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *MountBase) UnmountFinish(ResultVar AsyncResult) bool {
+func (x *MountBase) UnmountFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGMountUnmountFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountUnmountFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -367,9 +398,14 @@ func (x *MountBase) UnmountWithOperation(FlagsVar MountUnmountFlags, MountOperat
 
 // Finishes unmounting a mount. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *MountBase) UnmountWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *MountBase) UnmountWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGMountUnmountWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGMountUnmountWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -386,9 +422,9 @@ func (x *MountBase) Unshadow() {
 var XGMountCanEject func(uintptr) bool
 var XGMountCanUnmount func(uintptr) bool
 var XGMountEject func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGMountEjectFinish func(uintptr, uintptr) bool
+var XGMountEjectFinish func(uintptr, uintptr, **glib.Error) bool
 var XGMountEjectWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGMountEjectWithOperationFinish func(uintptr, uintptr) bool
+var XGMountEjectWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
 var XGMountGetDefaultLocation func(uintptr) uintptr
 var XGMountGetDrive func(uintptr) uintptr
 var XGMountGetIcon func(uintptr) uintptr
@@ -399,16 +435,16 @@ var XGMountGetSymbolicIcon func(uintptr) uintptr
 var XGMountGetUuid func(uintptr) string
 var XGMountGetVolume func(uintptr) uintptr
 var XGMountGuessContentType func(uintptr, bool, uintptr, uintptr, uintptr)
-var XGMountGuessContentTypeFinish func(uintptr, uintptr) uintptr
-var XGMountGuessContentTypeSync func(uintptr, bool, uintptr) uintptr
+var XGMountGuessContentTypeFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGMountGuessContentTypeSync func(uintptr, bool, uintptr, **glib.Error) uintptr
 var XGMountIsShadowed func(uintptr) bool
 var XGMountRemount func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGMountRemountFinish func(uintptr, uintptr) bool
+var XGMountRemountFinish func(uintptr, uintptr, **glib.Error) bool
 var XGMountShadow func(uintptr)
 var XGMountUnmount func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGMountUnmountFinish func(uintptr, uintptr) bool
+var XGMountUnmountFinish func(uintptr, uintptr, **glib.Error) bool
 var XGMountUnmountWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGMountUnmountWithOperationFinish func(uintptr, uintptr) bool
+var XGMountUnmountWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
 var XGMountUnshadow func(uintptr)
 
 func init() {

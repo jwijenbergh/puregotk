@@ -42,16 +42,17 @@ var xNewTimedAnimation func(uintptr, float64, float64, uint, uintptr) uintptr
 // Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
 // to @to.
 func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, DurationVar uint, TargetVar *AnimationTarget) *Animation {
-	NewTimedAnimationPtr := xNewTimedAnimation(WidgetVar.GoPointer(), FromVar, ToVar, DurationVar, TargetVar.GoPointer())
-	if NewTimedAnimationPtr == 0 {
-		return nil
+	var cls *Animation
+
+	cret := xNewTimedAnimation(WidgetVar.GoPointer(), FromVar, ToVar, DurationVar, TargetVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTimedAnimationPtr)
-
-	NewTimedAnimationCls := &Animation{}
-	NewTimedAnimationCls.Ptr = NewTimedAnimationPtr
-	return NewTimedAnimationCls
+	gobject.IncreaseRef(cret)
+	cls = &Animation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTimedAnimationGetAlternate func(uintptr) bool
@@ -59,8 +60,8 @@ var xTimedAnimationGetAlternate func(uintptr) bool
 // Gets whether @self changes direction on every iteration.
 func (x *TimedAnimation) GetAlternate() bool {
 
-	return xTimedAnimationGetAlternate(x.GoPointer())
-
+	cret := xTimedAnimationGetAlternate(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetDuration func(uintptr) uint
@@ -68,8 +69,8 @@ var xTimedAnimationGetDuration func(uintptr) uint
 // Gets the duration of @self.
 func (x *TimedAnimation) GetDuration() uint {
 
-	return xTimedAnimationGetDuration(x.GoPointer())
-
+	cret := xTimedAnimationGetDuration(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetEasing func(uintptr) Easing
@@ -77,8 +78,8 @@ var xTimedAnimationGetEasing func(uintptr) Easing
 // Gets the easing function @self uses.
 func (x *TimedAnimation) GetEasing() Easing {
 
-	return xTimedAnimationGetEasing(x.GoPointer())
-
+	cret := xTimedAnimationGetEasing(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetRepeatCount func(uintptr) uint
@@ -86,8 +87,8 @@ var xTimedAnimationGetRepeatCount func(uintptr) uint
 // Gets the number of times @self will play.
 func (x *TimedAnimation) GetRepeatCount() uint {
 
-	return xTimedAnimationGetRepeatCount(x.GoPointer())
-
+	cret := xTimedAnimationGetRepeatCount(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetReverse func(uintptr) bool
@@ -95,8 +96,8 @@ var xTimedAnimationGetReverse func(uintptr) bool
 // Gets whether @self plays backwards.
 func (x *TimedAnimation) GetReverse() bool {
 
-	return xTimedAnimationGetReverse(x.GoPointer())
-
+	cret := xTimedAnimationGetReverse(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetValueFrom func(uintptr) float64
@@ -104,8 +105,8 @@ var xTimedAnimationGetValueFrom func(uintptr) float64
 // Gets the value @self will animate from.
 func (x *TimedAnimation) GetValueFrom() float64 {
 
-	return xTimedAnimationGetValueFrom(x.GoPointer())
-
+	cret := xTimedAnimationGetValueFrom(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationGetValueTo func(uintptr) float64
@@ -113,8 +114,8 @@ var xTimedAnimationGetValueTo func(uintptr) float64
 // Gets the value @self will animate to.
 func (x *TimedAnimation) GetValueTo() float64 {
 
-	return xTimedAnimationGetValueTo(x.GoPointer())
-
+	cret := xTimedAnimationGetValueTo(x.GoPointer())
+	return cret
 }
 
 var xTimedAnimationSetAlternate func(uintptr, bool)

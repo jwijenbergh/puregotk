@@ -500,8 +500,8 @@ var xWidgetActivate func(uintptr) bool
 // If @widget isn't activatable, the function returns %FALSE.
 func (x *Widget) Activate() bool {
 
-	return xWidgetActivate(x.GoPointer())
-
+	cret := xWidgetActivate(x.GoPointer())
+	return cret
 }
 
 var xWidgetActivateAction func(uintptr, string, string, ...interface{}) bool
@@ -513,8 +513,8 @@ var xWidgetActivateAction func(uintptr, string, string, ...interface{}) bool
 // that constructs the @args variant according to @format_string.
 func (x *Widget) ActivateAction(NameVar string, FormatStringVar string, varArgs ...interface{}) bool {
 
-	return xWidgetActivateAction(x.GoPointer(), NameVar, FormatStringVar, varArgs...)
-
+	cret := xWidgetActivateAction(x.GoPointer(), NameVar, FormatStringVar, varArgs...)
+	return cret
 }
 
 var xWidgetActivateActionVariant func(uintptr, string, *glib.Variant) bool
@@ -531,8 +531,8 @@ var xWidgetActivateActionVariant func(uintptr, string, *glib.Variant) bool
 // as returned by `g_action_get_parameter_type()`.
 func (x *Widget) ActivateActionVariant(NameVar string, ArgsVar *glib.Variant) bool {
 
-	return xWidgetActivateActionVariant(x.GoPointer(), NameVar, ArgsVar)
-
+	cret := xWidgetActivateActionVariant(x.GoPointer(), NameVar, ArgsVar)
+	return cret
 }
 
 var xWidgetActivateDefault func(uintptr)
@@ -611,8 +611,8 @@ var xWidgetAddTickCallback func(uintptr, uintptr, uintptr, uintptr) uint
 // don't have to worry about when a `GdkFrameClock` is assigned to a widget.
 func (x *Widget) AddTickCallback(CallbackVar TickCallback, UserDataVar uintptr, NotifyVar glib.DestroyNotify) uint {
 
-	return xWidgetAddTickCallback(x.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(NotifyVar))
-
+	cret := xWidgetAddTickCallback(x.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xWidgetAllocate func(uintptr, int, int, int, *gsk.Transform)
@@ -657,8 +657,8 @@ var xWidgetChildFocus func(uintptr, DirectionType) bool
 // the focus to a particular widget.
 func (x *Widget) ChildFocus(DirectionVar DirectionType) bool {
 
-	return xWidgetChildFocus(x.GoPointer(), DirectionVar)
-
+	cret := xWidgetChildFocus(x.GoPointer(), DirectionVar)
+	return cret
 }
 
 var xWidgetComputeBounds func(uintptr, uintptr, *graphene.Rect) bool
@@ -675,8 +675,8 @@ var xWidgetComputeBounds func(uintptr, uintptr, *graphene.Rect) bool
 // It is valid for @widget and @target to be the same widget.
 func (x *Widget) ComputeBounds(TargetVar *Widget, OutBoundsVar *graphene.Rect) bool {
 
-	return xWidgetComputeBounds(x.GoPointer(), TargetVar.GoPointer(), OutBoundsVar)
-
+	cret := xWidgetComputeBounds(x.GoPointer(), TargetVar.GoPointer(), OutBoundsVar)
+	return cret
 }
 
 var xWidgetComputeExpand func(uintptr, Orientation) bool
@@ -696,8 +696,8 @@ var xWidgetComputeExpand func(uintptr, Orientation) bool
 // the widget may expand if some of its children do.
 func (x *Widget) ComputeExpand(OrientationVar Orientation) bool {
 
-	return xWidgetComputeExpand(x.GoPointer(), OrientationVar)
-
+	cret := xWidgetComputeExpand(x.GoPointer(), OrientationVar)
+	return cret
 }
 
 var xWidgetComputePoint func(uintptr, uintptr, *graphene.Point, *graphene.Point) bool
@@ -709,8 +709,8 @@ var xWidgetComputePoint func(uintptr, uintptr, *graphene.Point, *graphene.Point)
 // common ancestor.
 func (x *Widget) ComputePoint(TargetVar *Widget, PointVar *graphene.Point, OutPointVar *graphene.Point) bool {
 
-	return xWidgetComputePoint(x.GoPointer(), TargetVar.GoPointer(), PointVar, OutPointVar)
-
+	cret := xWidgetComputePoint(x.GoPointer(), TargetVar.GoPointer(), PointVar, OutPointVar)
+	return cret
 }
 
 var xWidgetComputeTransform func(uintptr, uintptr, *graphene.Matrix) bool
@@ -723,8 +723,8 @@ var xWidgetComputeTransform func(uintptr, uintptr, *graphene.Matrix) bool
 // case @out_transform gets set to the identity matrix.
 func (x *Widget) ComputeTransform(TargetVar *Widget, OutTransformVar *graphene.Matrix) bool {
 
-	return xWidgetComputeTransform(x.GoPointer(), TargetVar.GoPointer(), OutTransformVar)
-
+	cret := xWidgetComputeTransform(x.GoPointer(), TargetVar.GoPointer(), OutTransformVar)
+	return cret
 }
 
 var xWidgetContains func(uintptr, float64, float64) bool
@@ -735,8 +735,8 @@ var xWidgetContains func(uintptr, float64, float64) bool
 // (0, 0) is assumed to be the top left of @widget's content area.
 func (x *Widget) Contains(XVar float64, YVar float64) bool {
 
-	return xWidgetContains(x.GoPointer(), XVar, YVar)
-
+	cret := xWidgetContains(x.GoPointer(), XVar, YVar)
+	return cret
 }
 
 var xWidgetCreatePangoContext func(uintptr) uintptr
@@ -747,16 +747,16 @@ var xWidgetCreatePangoContext func(uintptr) uintptr
 //
 // See also [method@Gtk.Widget.get_pango_context].
 func (x *Widget) CreatePangoContext() *pango.Context {
+	var cls *pango.Context
 
-	CreatePangoContextPtr := xWidgetCreatePangoContext(x.GoPointer())
-	if CreatePangoContextPtr == 0 {
-		return nil
+	cret := xWidgetCreatePangoContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreatePangoContextCls := &pango.Context{}
-	CreatePangoContextCls.Ptr = CreatePangoContextPtr
-	return CreatePangoContextCls
-
+	cls = &pango.Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetCreatePangoLayout func(uintptr, string) uintptr
@@ -770,16 +770,16 @@ var xWidgetCreatePangoLayout func(uintptr, string) uintptr
 // is replaced. This can be tracked by listening to changes
 // of the [property@Gtk.Widget:root] property on the widget.
 func (x *Widget) CreatePangoLayout(TextVar string) *pango.Layout {
+	var cls *pango.Layout
 
-	CreatePangoLayoutPtr := xWidgetCreatePangoLayout(x.GoPointer(), TextVar)
-	if CreatePangoLayoutPtr == 0 {
-		return nil
+	cret := xWidgetCreatePangoLayout(x.GoPointer(), TextVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreatePangoLayoutCls := &pango.Layout{}
-	CreatePangoLayoutCls.Ptr = CreatePangoLayoutPtr
-	return CreatePangoLayoutCls
-
+	cls = &pango.Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetDisposeTemplate func(uintptr, []interface{})
@@ -822,8 +822,8 @@ var xWidgetDragCheckThreshold func(uintptr, int, int, int, int) bool
 // Checks to see if a drag movement has passed the GTK drag threshold.
 func (x *Widget) DragCheckThreshold(StartXVar int, StartYVar int, CurrentXVar int, CurrentYVar int) bool {
 
-	return xWidgetDragCheckThreshold(x.GoPointer(), StartXVar, StartYVar, CurrentXVar, CurrentYVar)
-
+	cret := xWidgetDragCheckThreshold(x.GoPointer(), StartXVar, StartYVar, CurrentXVar, CurrentYVar)
+	return cret
 }
 
 var xWidgetErrorBell func(uintptr)
@@ -851,8 +851,8 @@ var xWidgetGetAllocatedBaseline func(uintptr) int
 // child widgets in `GtkWidget`Class.size_allocate().
 func (x *Widget) GetAllocatedBaseline() int {
 
-	return xWidgetGetAllocatedBaseline(x.GoPointer())
-
+	cret := xWidgetGetAllocatedBaseline(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetAllocatedHeight func(uintptr) int
@@ -860,8 +860,8 @@ var xWidgetGetAllocatedHeight func(uintptr) int
 // Returns the height that has currently been allocated to @widget.
 func (x *Widget) GetAllocatedHeight() int {
 
-	return xWidgetGetAllocatedHeight(x.GoPointer())
-
+	cret := xWidgetGetAllocatedHeight(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetAllocatedWidth func(uintptr) int
@@ -869,8 +869,8 @@ var xWidgetGetAllocatedWidth func(uintptr) int
 // Returns the width that has currently been allocated to @widget.
 func (x *Widget) GetAllocatedWidth() int {
 
-	return xWidgetGetAllocatedWidth(x.GoPointer())
-
+	cret := xWidgetGetAllocatedWidth(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetAllocation func(uintptr, *Allocation)
@@ -908,18 +908,17 @@ var xWidgetGetAncestor func(uintptr, []interface{}) uintptr
 // Note that unlike [method@Gtk.Widget.is_ancestor], this function
 // considers @widget to be an ancestor of itself.
 func (x *Widget) GetAncestor(WidgetTypeVar []interface{}) *Widget {
+	var cls *Widget
 
-	GetAncestorPtr := xWidgetGetAncestor(x.GoPointer(), WidgetTypeVar)
-	if GetAncestorPtr == 0 {
-		return nil
+	cret := xWidgetGetAncestor(x.GoPointer(), WidgetTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAncestorPtr)
-
-	GetAncestorCls := &Widget{}
-	GetAncestorCls.Ptr = GetAncestorPtr
-	return GetAncestorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetCanFocus func(uintptr) bool
@@ -930,8 +929,8 @@ var xWidgetGetCanFocus func(uintptr) bool
 // See [method@Gtk.Widget.set_focusable].
 func (x *Widget) GetCanFocus() bool {
 
-	return xWidgetGetCanFocus(x.GoPointer())
-
+	cret := xWidgetGetCanFocus(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetCanTarget func(uintptr) bool
@@ -939,8 +938,8 @@ var xWidgetGetCanTarget func(uintptr) bool
 // Queries whether @widget can be the target of pointer events.
 func (x *Widget) GetCanTarget() bool {
 
-	return xWidgetGetCanTarget(x.GoPointer())
-
+	cret := xWidgetGetCanTarget(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetChildVisible func(uintptr) bool
@@ -954,8 +953,8 @@ var xWidgetGetChildVisible func(uintptr) bool
 // and should never be called by an application.
 func (x *Widget) GetChildVisible() bool {
 
-	return xWidgetGetChildVisible(x.GoPointer())
-
+	cret := xWidgetGetChildVisible(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetClipboard func(uintptr) uintptr
@@ -968,18 +967,17 @@ var xWidgetGetClipboard func(uintptr) uintptr
 // Note that this function always works, even when @widget is not
 // realized yet.
 func (x *Widget) GetClipboard() *gdk.Clipboard {
+	var cls *gdk.Clipboard
 
-	GetClipboardPtr := xWidgetGetClipboard(x.GoPointer())
-	if GetClipboardPtr == 0 {
-		return nil
+	cret := xWidgetGetClipboard(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetClipboardPtr)
-
-	GetClipboardCls := &gdk.Clipboard{}
-	GetClipboardCls.Ptr = GetClipboardPtr
-	return GetClipboardCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Clipboard{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetCssClasses func(uintptr) []string
@@ -987,8 +985,8 @@ var xWidgetGetCssClasses func(uintptr) []string
 // Returns the list of style classes applied to @widget.
 func (x *Widget) GetCssClasses() []string {
 
-	return xWidgetGetCssClasses(x.GoPointer())
-
+	cret := xWidgetGetCssClasses(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetCssName func(uintptr) string
@@ -996,8 +994,8 @@ var xWidgetGetCssName func(uintptr) string
 // Returns the CSS name that is used for @self.
 func (x *Widget) GetCssName() string {
 
-	return xWidgetGetCssName(x.GoPointer())
-
+	cret := xWidgetGetCssName(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetCursor func(uintptr) uintptr
@@ -1006,18 +1004,17 @@ var xWidgetGetCursor func(uintptr) uintptr
 //
 // See [method@Gtk.Widget.set_cursor] for details.
 func (x *Widget) GetCursor() *gdk.Cursor {
+	var cls *gdk.Cursor
 
-	GetCursorPtr := xWidgetGetCursor(x.GoPointer())
-	if GetCursorPtr == 0 {
-		return nil
+	cret := xWidgetGetCursor(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCursorPtr)
-
-	GetCursorCls := &gdk.Cursor{}
-	GetCursorCls.Ptr = GetCursorPtr
-	return GetCursorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetDirection func(uintptr) TextDirection
@@ -1027,8 +1024,8 @@ var xWidgetGetDirection func(uintptr) TextDirection
 // See [method@Gtk.Widget.set_direction].
 func (x *Widget) GetDirection() TextDirection {
 
-	return xWidgetGetDirection(x.GoPointer())
-
+	cret := xWidgetGetDirection(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetDisplay func(uintptr) uintptr
@@ -1043,18 +1040,17 @@ var xWidgetGetDisplay func(uintptr) uintptr
 // resources when a widget has been realized, and you should
 // free those resources when the widget is unrealized.
 func (x *Widget) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := xWidgetGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xWidgetGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetFirstChild func(uintptr) uintptr
@@ -1063,36 +1059,34 @@ var xWidgetGetFirstChild func(uintptr) uintptr
 //
 // This API is primarily meant for widget implementations.
 func (x *Widget) GetFirstChild() *Widget {
+	var cls *Widget
 
-	GetFirstChildPtr := xWidgetGetFirstChild(x.GoPointer())
-	if GetFirstChildPtr == 0 {
-		return nil
+	cret := xWidgetGetFirstChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFirstChildPtr)
-
-	GetFirstChildCls := &Widget{}
-	GetFirstChildCls.Ptr = GetFirstChildPtr
-	return GetFirstChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetFocusChild func(uintptr) uintptr
 
 // Returns the current focus child of @widget.
 func (x *Widget) GetFocusChild() *Widget {
+	var cls *Widget
 
-	GetFocusChildPtr := xWidgetGetFocusChild(x.GoPointer())
-	if GetFocusChildPtr == 0 {
-		return nil
+	cret := xWidgetGetFocusChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusChildPtr)
-
-	GetFocusChildCls := &Widget{}
-	GetFocusChildCls.Ptr = GetFocusChildPtr
-	return GetFocusChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetFocusOnClick func(uintptr) bool
@@ -1103,8 +1097,8 @@ var xWidgetGetFocusOnClick func(uintptr) bool
 // See [method@Gtk.Widget.set_focus_on_click].
 func (x *Widget) GetFocusOnClick() bool {
 
-	return xWidgetGetFocusOnClick(x.GoPointer())
-
+	cret := xWidgetGetFocusOnClick(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetFocusable func(uintptr) bool
@@ -1114,8 +1108,8 @@ var xWidgetGetFocusable func(uintptr) bool
 // See [method@Gtk.Widget.set_focusable].
 func (x *Widget) GetFocusable() bool {
 
-	return xWidgetGetFocusable(x.GoPointer())
-
+	cret := xWidgetGetFocusable(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetFontMap func(uintptr) uintptr
@@ -1124,18 +1118,17 @@ var xWidgetGetFontMap func(uintptr) uintptr
 //
 // See [method@Gtk.Widget.set_font_map].
 func (x *Widget) GetFontMap() *pango.FontMap {
+	var cls *pango.FontMap
 
-	GetFontMapPtr := xWidgetGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := xWidgetGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontMapPtr)
-
-	GetFontMapCls := &pango.FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetFontOptions func(uintptr) *cairo.FontOptions
@@ -1145,8 +1138,8 @@ var xWidgetGetFontOptions func(uintptr) *cairo.FontOptions
 // Seee [method@Gtk.Widget.set_font_options].
 func (x *Widget) GetFontOptions() *cairo.FontOptions {
 
-	return xWidgetGetFontOptions(x.GoPointer())
-
+	cret := xWidgetGetFontOptions(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetFrameClock func(uintptr) uintptr
@@ -1174,18 +1167,17 @@ var xWidgetGetFrameClock func(uintptr) uintptr
 //
 // Unrealized widgets do not have a frame clock.
 func (x *Widget) GetFrameClock() *gdk.FrameClock {
+	var cls *gdk.FrameClock
 
-	GetFrameClockPtr := xWidgetGetFrameClock(x.GoPointer())
-	if GetFrameClockPtr == 0 {
-		return nil
+	cret := xWidgetGetFrameClock(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFrameClockPtr)
-
-	GetFrameClockCls := &gdk.FrameClock{}
-	GetFrameClockCls.Ptr = GetFrameClockPtr
-	return GetFrameClockCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.FrameClock{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetHalign func(uintptr) Align
@@ -1198,8 +1190,8 @@ var xWidgetGetHalign func(uintptr) Align
 // alignment.
 func (x *Widget) GetHalign() Align {
 
-	return xWidgetGetHalign(x.GoPointer())
-
+	cret := xWidgetGetHalign(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetHasTooltip func(uintptr) bool
@@ -1207,8 +1199,8 @@ var xWidgetGetHasTooltip func(uintptr) bool
 // Returns the current value of the `has-tooltip` property.
 func (x *Widget) GetHasTooltip() bool {
 
-	return xWidgetGetHasTooltip(x.GoPointer())
-
+	cret := xWidgetGetHasTooltip(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetHeight func(uintptr) int
@@ -1222,8 +1214,8 @@ var xWidgetGetHeight func(uintptr) int
 // For pointer events, see [method@Gtk.Widget.contains].
 func (x *Widget) GetHeight() int {
 
-	return xWidgetGetHeight(x.GoPointer())
-
+	cret := xWidgetGetHeight(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetHexpand func(uintptr) bool
@@ -1246,8 +1238,8 @@ var xWidgetGetHexpand func(uintptr) bool
 // wants to expand.
 func (x *Widget) GetHexpand() bool {
 
-	return xWidgetGetHexpand(x.GoPointer())
-
+	cret := xWidgetGetHexpand(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetHexpandSet func(uintptr) bool
@@ -1264,8 +1256,8 @@ var xWidgetGetHexpandSet func(uintptr) bool
 // for completeness and consistency.
 func (x *Widget) GetHexpandSet() bool {
 
-	return xWidgetGetHexpandSet(x.GoPointer())
-
+	cret := xWidgetGetHexpandSet(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetLastChild func(uintptr) uintptr
@@ -1274,18 +1266,17 @@ var xWidgetGetLastChild func(uintptr) uintptr
 //
 // This API is primarily meant for widget implementations.
 func (x *Widget) GetLastChild() *Widget {
+	var cls *Widget
 
-	GetLastChildPtr := xWidgetGetLastChild(x.GoPointer())
-	if GetLastChildPtr == 0 {
-		return nil
+	cret := xWidgetGetLastChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLastChildPtr)
-
-	GetLastChildCls := &Widget{}
-	GetLastChildCls.Ptr = GetLastChildPtr
-	return GetLastChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetLayoutManager func(uintptr) uintptr
@@ -1294,18 +1285,17 @@ var xWidgetGetLayoutManager func(uintptr) uintptr
 //
 // See [method@Gtk.Widget.set_layout_manager].
 func (x *Widget) GetLayoutManager() *LayoutManager {
+	var cls *LayoutManager
 
-	GetLayoutManagerPtr := xWidgetGetLayoutManager(x.GoPointer())
-	if GetLayoutManagerPtr == 0 {
-		return nil
+	cret := xWidgetGetLayoutManager(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLayoutManagerPtr)
-
-	GetLayoutManagerCls := &LayoutManager{}
-	GetLayoutManagerCls.Ptr = GetLayoutManagerPtr
-	return GetLayoutManagerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetMapped func(uintptr) bool
@@ -1313,8 +1303,8 @@ var xWidgetGetMapped func(uintptr) bool
 // Whether the widget is mapped.
 func (x *Widget) GetMapped() bool {
 
-	return xWidgetGetMapped(x.GoPointer())
-
+	cret := xWidgetGetMapped(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetMarginBottom func(uintptr) int
@@ -1322,8 +1312,8 @@ var xWidgetGetMarginBottom func(uintptr) int
 // Gets the bottom margin of @widget.
 func (x *Widget) GetMarginBottom() int {
 
-	return xWidgetGetMarginBottom(x.GoPointer())
-
+	cret := xWidgetGetMarginBottom(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetMarginEnd func(uintptr) int
@@ -1331,8 +1321,8 @@ var xWidgetGetMarginEnd func(uintptr) int
 // Gets the end margin of @widget.
 func (x *Widget) GetMarginEnd() int {
 
-	return xWidgetGetMarginEnd(x.GoPointer())
-
+	cret := xWidgetGetMarginEnd(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetMarginStart func(uintptr) int
@@ -1340,8 +1330,8 @@ var xWidgetGetMarginStart func(uintptr) int
 // Gets the start margin of @widget.
 func (x *Widget) GetMarginStart() int {
 
-	return xWidgetGetMarginStart(x.GoPointer())
-
+	cret := xWidgetGetMarginStart(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetMarginTop func(uintptr) int
@@ -1349,8 +1339,8 @@ var xWidgetGetMarginTop func(uintptr) int
 // Gets the top margin of @widget.
 func (x *Widget) GetMarginTop() int {
 
-	return xWidgetGetMarginTop(x.GoPointer())
-
+	cret := xWidgetGetMarginTop(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetName func(uintptr) string
@@ -1360,8 +1350,8 @@ var xWidgetGetName func(uintptr) string
 // See [method@Gtk.Widget.set_name] for the significance of widget names.
 func (x *Widget) GetName() string {
 
-	return xWidgetGetName(x.GoPointer())
-
+	cret := xWidgetGetName(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetNative func(uintptr) uintptr
@@ -1373,18 +1363,17 @@ var xWidgetGetNative func(uintptr) uintptr
 //
 // `GtkNative` widgets will return themselves here.
 func (x *Widget) GetNative() *NativeBase {
+	var cls *NativeBase
 
-	GetNativePtr := xWidgetGetNative(x.GoPointer())
-	if GetNativePtr == 0 {
-		return nil
+	cret := xWidgetGetNative(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNativePtr)
-
-	GetNativeCls := &NativeBase{}
-	GetNativeCls.Ptr = GetNativePtr
-	return GetNativeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &NativeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetNextSibling func(uintptr) uintptr
@@ -1393,18 +1382,17 @@ var xWidgetGetNextSibling func(uintptr) uintptr
 //
 // This API is primarily meant for widget implementations.
 func (x *Widget) GetNextSibling() *Widget {
+	var cls *Widget
 
-	GetNextSiblingPtr := xWidgetGetNextSibling(x.GoPointer())
-	if GetNextSiblingPtr == 0 {
-		return nil
+	cret := xWidgetGetNextSibling(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNextSiblingPtr)
-
-	GetNextSiblingCls := &Widget{}
-	GetNextSiblingCls.Ptr = GetNextSiblingPtr
-	return GetNextSiblingCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetOpacity func(uintptr) float64
@@ -1414,8 +1402,8 @@ var xWidgetGetOpacity func(uintptr) float64
 // See [method@Gtk.Widget.set_opacity].
 func (x *Widget) GetOpacity() float64 {
 
-	return xWidgetGetOpacity(x.GoPointer())
-
+	cret := xWidgetGetOpacity(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetOverflow func(uintptr) Overflow
@@ -1423,8 +1411,8 @@ var xWidgetGetOverflow func(uintptr) Overflow
 // Returns the widgets overflow value.
 func (x *Widget) GetOverflow() Overflow {
 
-	return xWidgetGetOverflow(x.GoPointer())
-
+	cret := xWidgetGetOverflow(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetPangoContext func(uintptr) uintptr
@@ -1439,36 +1427,34 @@ var xWidgetGetPangoContext func(uintptr) uintptr
 // This can be tracked by listening to changes of the
 // [property@Gtk.Widget:root] property on the widget.
 func (x *Widget) GetPangoContext() *pango.Context {
+	var cls *pango.Context
 
-	GetPangoContextPtr := xWidgetGetPangoContext(x.GoPointer())
-	if GetPangoContextPtr == 0 {
-		return nil
+	cret := xWidgetGetPangoContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPangoContextPtr)
-
-	GetPangoContextCls := &pango.Context{}
-	GetPangoContextCls.Ptr = GetPangoContextPtr
-	return GetPangoContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetParent func(uintptr) uintptr
 
 // Returns the parent widget of @widget.
 func (x *Widget) GetParent() *Widget {
+	var cls *Widget
 
-	GetParentPtr := xWidgetGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := xWidgetGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetParentPtr)
-
-	GetParentCls := &Widget{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetPreferredSize func(uintptr, *Requisition, *Requisition)
@@ -1499,18 +1485,17 @@ var xWidgetGetPrevSibling func(uintptr) uintptr
 //
 // This API is primarily meant for widget implementations.
 func (x *Widget) GetPrevSibling() *Widget {
+	var cls *Widget
 
-	GetPrevSiblingPtr := xWidgetGetPrevSibling(x.GoPointer())
-	if GetPrevSiblingPtr == 0 {
-		return nil
+	cret := xWidgetGetPrevSibling(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrevSiblingPtr)
-
-	GetPrevSiblingCls := &Widget{}
-	GetPrevSiblingCls.Ptr = GetPrevSiblingPtr
-	return GetPrevSiblingCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetPrimaryClipboard func(uintptr) uintptr
@@ -1523,18 +1508,17 @@ var xWidgetGetPrimaryClipboard func(uintptr) uintptr
 // Note that this function always works, even when @widget is not
 // realized yet.
 func (x *Widget) GetPrimaryClipboard() *gdk.Clipboard {
+	var cls *gdk.Clipboard
 
-	GetPrimaryClipboardPtr := xWidgetGetPrimaryClipboard(x.GoPointer())
-	if GetPrimaryClipboardPtr == 0 {
-		return nil
+	cret := xWidgetGetPrimaryClipboard(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrimaryClipboardPtr)
-
-	GetPrimaryClipboardCls := &gdk.Clipboard{}
-	GetPrimaryClipboardCls.Ptr = GetPrimaryClipboardPtr
-	return GetPrimaryClipboardCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Clipboard{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetRealized func(uintptr) bool
@@ -1542,8 +1526,8 @@ var xWidgetGetRealized func(uintptr) bool
 // Determines whether @widget is realized.
 func (x *Widget) GetRealized() bool {
 
-	return xWidgetGetRealized(x.GoPointer())
-
+	cret := xWidgetGetRealized(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetReceivesDefault func(uintptr) bool
@@ -1555,8 +1539,8 @@ var xWidgetGetReceivesDefault func(uintptr) bool
 // See [method@Gtk.Widget.set_receives_default].
 func (x *Widget) GetReceivesDefault() bool {
 
-	return xWidgetGetReceivesDefault(x.GoPointer())
-
+	cret := xWidgetGetReceivesDefault(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetRequestMode func(uintptr) SizeRequestMode
@@ -1570,8 +1554,8 @@ var xWidgetGetRequestMode func(uintptr) SizeRequestMode
 // allocation capabilities.
 func (x *Widget) GetRequestMode() SizeRequestMode {
 
-	return xWidgetGetRequestMode(x.GoPointer())
-
+	cret := xWidgetGetRequestMode(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetRoot func(uintptr) uintptr
@@ -1583,18 +1567,17 @@ var xWidgetGetRoot func(uintptr) uintptr
 //
 // `GtkRoot` widgets will return themselves here.
 func (x *Widget) GetRoot() *RootBase {
+	var cls *RootBase
 
-	GetRootPtr := xWidgetGetRoot(x.GoPointer())
-	if GetRootPtr == 0 {
-		return nil
+	cret := xWidgetGetRoot(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRootPtr)
-
-	GetRootCls := &RootBase{}
-	GetRootCls.Ptr = GetRootPtr
-	return GetRootCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RootBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetScaleFactor func(uintptr) int
@@ -1608,8 +1591,8 @@ var xWidgetGetScaleFactor func(uintptr) int
 // See [method@Gdk.Surface.get_scale_factor].
 func (x *Widget) GetScaleFactor() int {
 
-	return xWidgetGetScaleFactor(x.GoPointer())
-
+	cret := xWidgetGetScaleFactor(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetSensitive func(uintptr) bool
@@ -1624,8 +1607,8 @@ var xWidgetGetSensitive func(uintptr) bool
 // See [method@Gtk.Widget.is_sensitive].
 func (x *Widget) GetSensitive() bool {
 
-	return xWidgetGetSensitive(x.GoPointer())
-
+	cret := xWidgetGetSensitive(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetSettings func(uintptr) uintptr
@@ -1637,18 +1620,17 @@ var xWidgetGetSettings func(uintptr) uintptr
 // to a particular `GdkDisplay`. If you want to monitor the widget for
 // changes in its settings, connect to the `notify::display` signal.
 func (x *Widget) GetSettings() *Settings {
+	var cls *Settings
 
-	GetSettingsPtr := xWidgetGetSettings(x.GoPointer())
-	if GetSettingsPtr == 0 {
-		return nil
+	cret := xWidgetGetSettings(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSettingsPtr)
-
-	GetSettingsCls := &Settings{}
-	GetSettingsCls.Ptr = GetSettingsPtr
-	return GetSettingsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetSize func(uintptr, Orientation) int
@@ -1664,8 +1646,8 @@ var xWidgetGetSize func(uintptr, Orientation) int
 // implementing [iface@Gtk.Orientable] widgets.
 func (x *Widget) GetSize(OrientationVar Orientation) int {
 
-	return xWidgetGetSize(x.GoPointer(), OrientationVar)
-
+	cret := xWidgetGetSize(x.GoPointer(), OrientationVar)
+	return cret
 }
 
 var xWidgetGetSizeRequest func(uintptr, int, int)
@@ -1698,8 +1680,8 @@ var xWidgetGetStateFlags func(uintptr) StateFlags
 // method, you should look at [method@Gtk.StyleContext.get_state].
 func (x *Widget) GetStateFlags() StateFlags {
 
-	return xWidgetGetStateFlags(x.GoPointer())
-
+	cret := xWidgetGetStateFlags(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetStyleContext func(uintptr) uintptr
@@ -1709,18 +1691,17 @@ var xWidgetGetStyleContext func(uintptr) uintptr
 // The returned object is guaranteed to be the same
 // for the lifetime of @widget.
 func (x *Widget) GetStyleContext() *StyleContext {
+	var cls *StyleContext
 
-	GetStyleContextPtr := xWidgetGetStyleContext(x.GoPointer())
-	if GetStyleContextPtr == 0 {
-		return nil
+	cret := xWidgetGetStyleContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStyleContextPtr)
-
-	GetStyleContextCls := &StyleContext{}
-	GetStyleContextCls.Ptr = GetStyleContextPtr
-	return GetStyleContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StyleContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetTemplateChild func(uintptr, []interface{}, string) uintptr
@@ -1736,18 +1717,17 @@ var xWidgetGetTemplateChild func(uintptr, []interface{}, string) uintptr
 // to the @widget_type which declared the child and is meant for language
 // bindings which cannot easily make use of the GObject structure offsets.
 func (x *Widget) GetTemplateChild(WidgetTypeVar []interface{}, NameVar string) *gobject.Object {
+	var cls *gobject.Object
 
-	GetTemplateChildPtr := xWidgetGetTemplateChild(x.GoPointer(), WidgetTypeVar, NameVar)
-	if GetTemplateChildPtr == 0 {
-		return nil
+	cret := xWidgetGetTemplateChild(x.GoPointer(), WidgetTypeVar, NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTemplateChildPtr)
-
-	GetTemplateChildCls := &gobject.Object{}
-	GetTemplateChildCls.Ptr = GetTemplateChildPtr
-	return GetTemplateChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetGetTooltipMarkup func(uintptr) string
@@ -1759,8 +1739,8 @@ var xWidgetGetTooltipMarkup func(uintptr) string
 // function returns %NULL.
 func (x *Widget) GetTooltipMarkup() string {
 
-	return xWidgetGetTooltipMarkup(x.GoPointer())
-
+	cret := xWidgetGetTooltipMarkup(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetTooltipText func(uintptr) string
@@ -1772,8 +1752,8 @@ var xWidgetGetTooltipText func(uintptr) string
 // this function will return the escaped text.
 func (x *Widget) GetTooltipText() string {
 
-	return xWidgetGetTooltipText(x.GoPointer())
-
+	cret := xWidgetGetTooltipText(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetValign func(uintptr) Align
@@ -1781,8 +1761,8 @@ var xWidgetGetValign func(uintptr) Align
 // Gets the vertical alignment of @widget.
 func (x *Widget) GetValign() Align {
 
-	return xWidgetGetValign(x.GoPointer())
-
+	cret := xWidgetGetValign(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetVexpand func(uintptr) bool
@@ -1793,8 +1773,8 @@ var xWidgetGetVexpand func(uintptr) bool
 // See [method@Gtk.Widget.get_hexpand] for more detail.
 func (x *Widget) GetVexpand() bool {
 
-	return xWidgetGetVexpand(x.GoPointer())
-
+	cret := xWidgetGetVexpand(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetVexpandSet func(uintptr) bool
@@ -1805,8 +1785,8 @@ var xWidgetGetVexpandSet func(uintptr) bool
 // See [method@Gtk.Widget.get_hexpand_set] for more detail.
 func (x *Widget) GetVexpandSet() bool {
 
-	return xWidgetGetVexpandSet(x.GoPointer())
-
+	cret := xWidgetGetVexpandSet(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetVisible func(uintptr) bool
@@ -1823,8 +1803,8 @@ var xWidgetGetVisible func(uintptr) bool
 // See [method@Gtk.Widget.set_visible].
 func (x *Widget) GetVisible() bool {
 
-	return xWidgetGetVisible(x.GoPointer())
-
+	cret := xWidgetGetVisible(x.GoPointer())
+	return cret
 }
 
 var xWidgetGetWidth func(uintptr) int
@@ -1838,8 +1818,8 @@ var xWidgetGetWidth func(uintptr) int
 // For pointer events, see [method@Gtk.Widget.contains].
 func (x *Widget) GetWidth() int {
 
-	return xWidgetGetWidth(x.GoPointer())
-
+	cret := xWidgetGetWidth(x.GoPointer())
+	return cret
 }
 
 var xWidgetGrabFocus func(uintptr) bool
@@ -1854,8 +1834,8 @@ var xWidgetGrabFocus func(uintptr) bool
 // is allowed, should not have an effect, and return %TRUE.
 func (x *Widget) GrabFocus() bool {
 
-	return xWidgetGrabFocus(x.GoPointer())
-
+	cret := xWidgetGrabFocus(x.GoPointer())
+	return cret
 }
 
 var xWidgetHasCssClass func(uintptr, string) bool
@@ -1863,8 +1843,8 @@ var xWidgetHasCssClass func(uintptr, string) bool
 // Returns whether @css_class is currently applied to @widget.
 func (x *Widget) HasCssClass(CssClassVar string) bool {
 
-	return xWidgetHasCssClass(x.GoPointer(), CssClassVar)
-
+	cret := xWidgetHasCssClass(x.GoPointer(), CssClassVar)
+	return cret
 }
 
 var xWidgetHasDefault func(uintptr) bool
@@ -1873,8 +1853,8 @@ var xWidgetHasDefault func(uintptr) bool
 // within its toplevel.
 func (x *Widget) HasDefault() bool {
 
-	return xWidgetHasDefault(x.GoPointer())
-
+	cret := xWidgetHasDefault(x.GoPointer())
+	return cret
 }
 
 var xWidgetHasFocus func(uintptr) bool
@@ -1886,8 +1866,8 @@ var xWidgetHasFocus func(uintptr) bool
 // within a toplevel.
 func (x *Widget) HasFocus() bool {
 
-	return xWidgetHasFocus(x.GoPointer())
-
+	cret := xWidgetHasFocus(x.GoPointer())
+	return cret
 }
 
 var xWidgetHasVisibleFocus func(uintptr) bool
@@ -1904,8 +1884,8 @@ var xWidgetHasVisibleFocus func(uintptr) bool
 // [method@Gtk.Widget.has_focus].
 func (x *Widget) HasVisibleFocus() bool {
 
-	return xWidgetHasVisibleFocus(x.GoPointer())
-
+	cret := xWidgetHasVisibleFocus(x.GoPointer())
+	return cret
 }
 
 var xWidgetHide func(uintptr)
@@ -1927,8 +1907,8 @@ var xWidgetInDestruction func(uintptr) bool
 // unnecessary work.
 func (x *Widget) InDestruction() bool {
 
-	return xWidgetInDestruction(x.GoPointer())
-
+	cret := xWidgetInDestruction(x.GoPointer())
+	return cret
 }
 
 var xWidgetInitTemplate func(uintptr)
@@ -2029,8 +2009,8 @@ var xWidgetIsAncestor func(uintptr, uintptr) bool
 // possibly with intermediate containers.
 func (x *Widget) IsAncestor(AncestorVar *Widget) bool {
 
-	return xWidgetIsAncestor(x.GoPointer(), AncestorVar.GoPointer())
-
+	cret := xWidgetIsAncestor(x.GoPointer(), AncestorVar.GoPointer())
+	return cret
 }
 
 var xWidgetIsDrawable func(uintptr) bool
@@ -2040,8 +2020,8 @@ var xWidgetIsDrawable func(uintptr) bool
 // A widget can be drawn if it is mapped and visible.
 func (x *Widget) IsDrawable() bool {
 
-	return xWidgetIsDrawable(x.GoPointer())
-
+	cret := xWidgetIsDrawable(x.GoPointer())
+	return cret
 }
 
 var xWidgetIsFocus func(uintptr) bool
@@ -2055,8 +2035,8 @@ var xWidgetIsFocus func(uintptr) bool
 // global input focus.
 func (x *Widget) IsFocus() bool {
 
-	return xWidgetIsFocus(x.GoPointer())
-
+	cret := xWidgetIsFocus(x.GoPointer())
+	return cret
 }
 
 var xWidgetIsSensitive func(uintptr) bool
@@ -2067,8 +2047,8 @@ var xWidgetIsSensitive func(uintptr) bool
 // parent widget is sensitive.
 func (x *Widget) IsSensitive() bool {
 
-	return xWidgetIsSensitive(x.GoPointer())
-
+	cret := xWidgetIsSensitive(x.GoPointer())
+	return cret
 }
 
 var xWidgetIsVisible func(uintptr) bool
@@ -2082,8 +2062,8 @@ var xWidgetIsVisible func(uintptr) bool
 // [method@Gtk.Widget.set_visible].
 func (x *Widget) IsVisible() bool {
 
-	return xWidgetIsVisible(x.GoPointer())
-
+	cret := xWidgetIsVisible(x.GoPointer())
+	return cret
 }
 
 var xWidgetKeynavFailed func(uintptr, DirectionType) bool
@@ -2117,8 +2097,8 @@ var xWidgetKeynavFailed func(uintptr, DirectionType) bool
 // interfaces that require entering license keys.
 func (x *Widget) KeynavFailed(DirectionVar DirectionType) bool {
 
-	return xWidgetKeynavFailed(x.GoPointer(), DirectionVar)
-
+	cret := xWidgetKeynavFailed(x.GoPointer(), DirectionVar)
+	return cret
 }
 
 var xWidgetListMnemonicLabels func(uintptr) *glib.List
@@ -2136,8 +2116,8 @@ var xWidgetListMnemonicLabels func(uintptr) *glib.List
 // first, and then unref all the widgets afterwards.
 func (x *Widget) ListMnemonicLabels() *glib.List {
 
-	return xWidgetListMnemonicLabels(x.GoPointer())
-
+	cret := xWidgetListMnemonicLabels(x.GoPointer())
+	return cret
 }
 
 var xWidgetMap func(uintptr)
@@ -2174,8 +2154,8 @@ var xWidgetMnemonicActivate func(uintptr, bool) bool
 // See [signal@Gtk.Widget::mnemonic-activate].
 func (x *Widget) MnemonicActivate(GroupCyclingVar bool) bool {
 
-	return xWidgetMnemonicActivate(x.GoPointer(), GroupCyclingVar)
-
+	cret := xWidgetMnemonicActivate(x.GoPointer(), GroupCyclingVar)
+	return cret
 }
 
 var xWidgetObserveChildren func(uintptr) uintptr
@@ -2189,16 +2169,16 @@ var xWidgetObserveChildren func(uintptr) uintptr
 // Applications should try hard to avoid calling this function
 // because of the slowdowns.
 func (x *Widget) ObserveChildren() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	ObserveChildrenPtr := xWidgetObserveChildren(x.GoPointer())
-	if ObserveChildrenPtr == 0 {
-		return nil
+	cret := xWidgetObserveChildren(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ObserveChildrenCls := &gio.ListModelBase{}
-	ObserveChildrenCls.Ptr = ObserveChildrenPtr
-	return ObserveChildrenCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetObserveControllers func(uintptr) uintptr
@@ -2213,16 +2193,16 @@ var xWidgetObserveControllers func(uintptr) uintptr
 // Applications should try hard to avoid calling this function
 // because of the slowdowns.
 func (x *Widget) ObserveControllers() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	ObserveControllersPtr := xWidgetObserveControllers(x.GoPointer())
-	if ObserveControllersPtr == 0 {
-		return nil
+	cret := xWidgetObserveControllers(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ObserveControllersCls := &gio.ListModelBase{}
-	ObserveControllersCls.Ptr = ObserveControllersPtr
-	return ObserveControllersCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetPick func(uintptr, float64, float64, PickFlags) uintptr
@@ -2242,18 +2222,17 @@ var xWidgetPick func(uintptr, float64, float64, PickFlags) uintptr
 // below the mouse cursor for purposes of hover highlighting and
 // delivering events.
 func (x *Widget) Pick(XVar float64, YVar float64, FlagsVar PickFlags) *Widget {
+	var cls *Widget
 
-	PickPtr := xWidgetPick(x.GoPointer(), XVar, YVar, FlagsVar)
-	if PickPtr == 0 {
-		return nil
+	cret := xWidgetPick(x.GoPointer(), XVar, YVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(PickPtr)
-
-	PickCls := &Widget{}
-	PickCls.Ptr = PickPtr
-	return PickCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetQueueAllocate func(uintptr)
@@ -2955,8 +2934,8 @@ var xWidgetShouldLayout func(uintptr) bool
 // for children that have their own surface.
 func (x *Widget) ShouldLayout() bool {
 
-	return xWidgetShouldLayout(x.GoPointer())
-
+	cret := xWidgetShouldLayout(x.GoPointer())
+	return cret
 }
 
 var xWidgetShow func(uintptr)
@@ -3020,8 +2999,8 @@ var xWidgetTranslateCoordinates func(uintptr, uintptr, float64, float64, float64
 // a common ancestor.
 func (x *Widget) TranslateCoordinates(DestWidgetVar *Widget, SrcXVar float64, SrcYVar float64, DestXVar float64, DestYVar float64) bool {
 
-	return xWidgetTranslateCoordinates(x.GoPointer(), DestWidgetVar.GoPointer(), SrcXVar, SrcYVar, DestXVar, DestYVar)
-
+	cret := xWidgetTranslateCoordinates(x.GoPointer(), DestWidgetVar.GoPointer(), SrcXVar, SrcYVar, DestXVar, DestYVar)
+	return cret
 }
 
 var xWidgetTriggerTooltipQuery func(uintptr)
@@ -3294,8 +3273,8 @@ func (x *Widget) ConnectUnrealize(cb func(Widget)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Widget) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -3430,8 +3409,8 @@ func (x *Widget) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Widget) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -29,14 +29,16 @@ var xNewGestureStylus func() uintptr
 
 // Creates a new `GtkGestureStylus`.
 func NewGestureStylus() *Gesture {
-	NewGestureStylusPtr := xNewGestureStylus()
-	if NewGestureStylusPtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureStylusCls := &Gesture{}
-	NewGestureStylusCls.Ptr = NewGestureStylusPtr
-	return NewGestureStylusCls
+	cret := xNewGestureStylus()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureStylusGetAxes func(uintptr, uintptr, uintptr) bool
@@ -49,8 +51,8 @@ var xGestureStylusGetAxes func(uintptr, uintptr, uintptr) bool
 // signals.
 func (x *GestureStylus) GetAxes(AxesVar uintptr, ValuesVar uintptr) bool {
 
-	return xGestureStylusGetAxes(x.GoPointer(), AxesVar, ValuesVar)
-
+	cret := xGestureStylusGetAxes(x.GoPointer(), AxesVar, ValuesVar)
+	return cret
 }
 
 var xGestureStylusGetAxis func(uintptr, gdk.AxisUse, float64) bool
@@ -63,8 +65,8 @@ var xGestureStylusGetAxis func(uintptr, gdk.AxisUse, float64) bool
 // signals.
 func (x *GestureStylus) GetAxis(AxisVar gdk.AxisUse, ValueVar float64) bool {
 
-	return xGestureStylusGetAxis(x.GoPointer(), AxisVar, ValueVar)
-
+	cret := xGestureStylusGetAxis(x.GoPointer(), AxisVar, ValueVar)
+	return cret
 }
 
 var xGestureStylusGetBacklog func(uintptr, uintptr, uint) bool
@@ -84,8 +86,8 @@ var xGestureStylusGetBacklog func(uintptr, uintptr, uint) bool
 // The @backlog is provided in chronological order.
 func (x *GestureStylus) GetBacklog(BacklogVar uintptr, NElemsVar uint) bool {
 
-	return xGestureStylusGetBacklog(x.GoPointer(), BacklogVar, NElemsVar)
-
+	cret := xGestureStylusGetBacklog(x.GoPointer(), BacklogVar, NElemsVar)
+	return cret
 }
 
 var xGestureStylusGetDeviceTool func(uintptr) uintptr
@@ -97,18 +99,17 @@ var xGestureStylusGetDeviceTool func(uintptr) uintptr
 // [signal@Gtk.GestureStylus::up] or [signal@Gtk.GestureStylus::proximity]
 // signals.
 func (x *GestureStylus) GetDeviceTool() *gdk.DeviceTool {
+	var cls *gdk.DeviceTool
 
-	GetDeviceToolPtr := xGestureStylusGetDeviceTool(x.GoPointer())
-	if GetDeviceToolPtr == 0 {
-		return nil
+	cret := xGestureStylusGetDeviceTool(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDeviceToolPtr)
-
-	GetDeviceToolCls := &gdk.DeviceTool{}
-	GetDeviceToolCls.Ptr = GetDeviceToolPtr
-	return GetDeviceToolCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.DeviceTool{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *GestureStylus) GoPointer() uintptr {

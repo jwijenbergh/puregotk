@@ -47,8 +47,8 @@ func (x *DebugControllerBase) SetGoPointer(ptr uintptr) {
 // Get the value of #GDebugController:debug-enabled.
 func (x *DebugControllerBase) GetDebugEnabled() bool {
 
-	return XGDebugControllerGetDebugEnabled(x.GoPointer())
-
+	cret := XGDebugControllerGetDebugEnabled(x.GoPointer())
+	return cret
 }
 
 // Set the value of #GDebugController:debug-enabled.

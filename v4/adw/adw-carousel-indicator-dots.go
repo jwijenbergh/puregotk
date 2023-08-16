@@ -46,34 +46,34 @@ var xNewCarouselIndicatorDots func() uintptr
 
 // Creates a new `AdwCarouselIndicatorDots`.
 func NewCarouselIndicatorDots() *gtk.Widget {
-	NewCarouselIndicatorDotsPtr := xNewCarouselIndicatorDots()
-	if NewCarouselIndicatorDotsPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewCarouselIndicatorDots()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCarouselIndicatorDotsPtr)
-
-	NewCarouselIndicatorDotsCls := &gtk.Widget{}
-	NewCarouselIndicatorDotsCls.Ptr = NewCarouselIndicatorDotsPtr
-	return NewCarouselIndicatorDotsCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCarouselIndicatorDotsGetCarousel func(uintptr) uintptr
 
 // Gets the displayed carousel.
 func (x *CarouselIndicatorDots) GetCarousel() *Carousel {
+	var cls *Carousel
 
-	GetCarouselPtr := xCarouselIndicatorDotsGetCarousel(x.GoPointer())
-	if GetCarouselPtr == 0 {
-		return nil
+	cret := xCarouselIndicatorDotsGetCarousel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCarouselPtr)
-
-	GetCarouselCls := &Carousel{}
-	GetCarouselCls.Ptr = GetCarouselPtr
-	return GetCarouselCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Carousel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCarouselIndicatorDotsSetCarousel func(uintptr, uintptr)
@@ -96,8 +96,8 @@ func (c *CarouselIndicatorDots) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *CarouselIndicatorDots) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -232,15 +232,15 @@ func (x *CarouselIndicatorDots) UpdateStateValue(NStatesVar int, StatesVar uintp
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CarouselIndicatorDots) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *CarouselIndicatorDots) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

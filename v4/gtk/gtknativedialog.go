@@ -63,8 +63,8 @@ var xNativeDialogGetModal func(uintptr) bool
 // Returns whether the dialog is modal.
 func (x *NativeDialog) GetModal() bool {
 
-	return xNativeDialogGetModal(x.GoPointer())
-
+	cret := xNativeDialogGetModal(x.GoPointer())
+	return cret
 }
 
 var xNativeDialogGetTitle func(uintptr) string
@@ -72,26 +72,25 @@ var xNativeDialogGetTitle func(uintptr) string
 // Gets the title of the `GtkNativeDialog`.
 func (x *NativeDialog) GetTitle() string {
 
-	return xNativeDialogGetTitle(x.GoPointer())
-
+	cret := xNativeDialogGetTitle(x.GoPointer())
+	return cret
 }
 
 var xNativeDialogGetTransientFor func(uintptr) uintptr
 
 // Fetches the transient parent for this window.
 func (x *NativeDialog) GetTransientFor() *Window {
+	var cls *Window
 
-	GetTransientForPtr := xNativeDialogGetTransientFor(x.GoPointer())
-	if GetTransientForPtr == 0 {
-		return nil
+	cret := xNativeDialogGetTransientFor(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTransientForPtr)
-
-	GetTransientForCls := &Window{}
-	GetTransientForCls.Ptr = GetTransientForPtr
-	return GetTransientForCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Window{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNativeDialogGetVisible func(uintptr) bool
@@ -99,8 +98,8 @@ var xNativeDialogGetVisible func(uintptr) bool
 // Determines whether the dialog is visible.
 func (x *NativeDialog) GetVisible() bool {
 
-	return xNativeDialogGetVisible(x.GoPointer())
-
+	cret := xNativeDialogGetVisible(x.GoPointer())
+	return cret
 }
 
 var xNativeDialogHide func(uintptr)

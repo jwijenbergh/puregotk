@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 var xDbusAddressEscapeValue func(string) string
@@ -17,11 +18,11 @@ var xDbusAddressEscapeValue func(string) string
 // `unix:nonce-tcp:host=127.0.0.1,port=42,noncefile=/run/bus-for-%3A0`.
 func DbusAddressEscapeValue(StringVar string) string {
 
-	return xDbusAddressEscapeValue(StringVar)
-
+	cret := xDbusAddressEscapeValue(StringVar)
+	return cret
 }
 
-var xDbusAddressGetForBusSync func(BusType, uintptr) string
+var xDbusAddressGetForBusSync func(BusType, uintptr, **glib.Error) string
 
 // Synchronously looks up the D-Bus address for the well-known message
 // bus instance specified by @bus_type. This may involve using various
@@ -29,9 +30,14 @@ var xDbusAddressGetForBusSync func(BusType, uintptr) string
 //
 // The returned address will be in the
 // [D-Bus address format](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses).
-func DbusAddressGetForBusSync(BusTypeVar BusType, CancellableVar *Cancellable) string {
+func DbusAddressGetForBusSync(BusTypeVar BusType, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return xDbusAddressGetForBusSync(BusTypeVar, CancellableVar.GoPointer())
+	cret := xDbusAddressGetForBusSync(BusTypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -54,26 +60,31 @@ func DbusAddressGetStream(AddressVar string, CancellableVar *Cancellable, Callba
 
 }
 
-var xDbusAddressGetStreamFinish func(uintptr, string) uintptr
+var xDbusAddressGetStreamFinish func(uintptr, string, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_address_get_stream().
 //
 // A server is not required to set a GUID, so @out_guid may be set to %NULL
 // even on success.
-func DbusAddressGetStreamFinish(ResVar AsyncResult, OutGuidVar string) *IOStream {
+func DbusAddressGetStreamFinish(ResVar AsyncResult, OutGuidVar string) (*IOStream, error) {
+	var cls *IOStream
+	var cerr *glib.Error
 
-	DbusAddressGetStreamFinishPtr := xDbusAddressGetStreamFinish(ResVar.GoPointer(), OutGuidVar)
-	if DbusAddressGetStreamFinishPtr == 0 {
-		return nil
+	cret := xDbusAddressGetStreamFinish(ResVar.GoPointer(), OutGuidVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	DbusAddressGetStreamFinishCls := &IOStream{}
-	DbusAddressGetStreamFinishCls.Ptr = DbusAddressGetStreamFinishPtr
-	return DbusAddressGetStreamFinishCls
+	cls = &IOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xDbusAddressGetStreamSync func(string, string, uintptr) uintptr
+var xDbusAddressGetStreamSync func(string, string, uintptr, **glib.Error) uintptr
 
 // Synchronously connects to an endpoint specified by @address and
 // sets up the connection so it is in a state to run the client-side
@@ -85,16 +96,21 @@ var xDbusAddressGetStreamSync func(string, string, uintptr) uintptr
 //
 // This is a synchronous failable function. See
 // g_dbus_address_get_stream() for the asynchronous version.
-func DbusAddressGetStreamSync(AddressVar string, OutGuidVar string, CancellableVar *Cancellable) *IOStream {
+func DbusAddressGetStreamSync(AddressVar string, OutGuidVar string, CancellableVar *Cancellable) (*IOStream, error) {
+	var cls *IOStream
+	var cerr *glib.Error
 
-	DbusAddressGetStreamSyncPtr := xDbusAddressGetStreamSync(AddressVar, OutGuidVar, CancellableVar.GoPointer())
-	if DbusAddressGetStreamSyncPtr == 0 {
-		return nil
+	cret := xDbusAddressGetStreamSync(AddressVar, OutGuidVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	DbusAddressGetStreamSyncCls := &IOStream{}
-	DbusAddressGetStreamSyncCls.Ptr = DbusAddressGetStreamSyncPtr
-	return DbusAddressGetStreamSyncCls
+	cls = &IOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -108,19 +124,24 @@ var xDbusIsAddress func(string) bool
 // checks.
 func DbusIsAddress(StringVar string) bool {
 
-	return xDbusIsAddress(StringVar)
-
+	cret := xDbusIsAddress(StringVar)
+	return cret
 }
 
-var xDbusIsSupportedAddress func(string) bool
+var xDbusIsSupportedAddress func(string, **glib.Error) bool
 
 // Like g_dbus_is_address() but also checks if the library supports the
 // transports in @string and that key/value pairs for each transport
 // are valid. See the specification of the
 // [D-Bus address format](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses).
-func DbusIsSupportedAddress(StringVar string) bool {
+func DbusIsSupportedAddress(StringVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xDbusIsSupportedAddress(StringVar)
+	cret := xDbusIsSupportedAddress(StringVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

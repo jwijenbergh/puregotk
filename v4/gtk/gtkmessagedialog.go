@@ -120,16 +120,17 @@ var xNewMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsType, strin
 // response IDs from [enum@Gtk.ResponseType]. See [class@Gtk.Dialog]
 // for more details.
 func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *Widget {
-	NewMessageDialogPtr := xNewMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
-	if NewMessageDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewMessageDialogPtr)
-
-	NewMessageDialogCls := &Widget{}
-	NewMessageDialogCls.Ptr = NewMessageDialogPtr
-	return NewMessageDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMarkupMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsType, string, ...interface{}) uintptr
@@ -167,16 +168,17 @@ var xNewWithMarkupMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsT
 //
 // ```
 func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *Widget {
-	NewWithMarkupMessageDialogPtr := xNewWithMarkupMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
-	if NewWithMarkupMessageDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMarkupMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMarkupMessageDialogPtr)
-
-	NewWithMarkupMessageDialogCls := &Widget{}
-	NewWithMarkupMessageDialogCls.Ptr = NewWithMarkupMessageDialogPtr
-	return NewWithMarkupMessageDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMessageDialogFormatSecondaryMarkup func(uintptr, string, ...interface{})
@@ -224,18 +226,17 @@ var xMessageDialogGetMessageArea func(uintptr) uintptr
 // will appear below those labels. See [method@Gtk.Dialog.get_content_area]
 // for the corresponding function in the parent [class@Gtk.Dialog].
 func (x *MessageDialog) GetMessageArea() *Widget {
+	var cls *Widget
 
-	GetMessageAreaPtr := xMessageDialogGetMessageArea(x.GoPointer())
-	if GetMessageAreaPtr == 0 {
-		return nil
+	cret := xMessageDialogGetMessageArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMessageAreaPtr)
-
-	GetMessageAreaCls := &Widget{}
-	GetMessageAreaCls.Ptr = GetMessageAreaPtr
-	return GetMessageAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMessageDialogSetMarkup func(uintptr, string)
@@ -258,8 +259,8 @@ func (c *MessageDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *MessageDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -394,40 +395,38 @@ func (x *MessageDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MessageDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *MessageDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *MessageDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -460,18 +459,17 @@ func (x *MessageDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *MessageDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -481,18 +479,17 @@ func (x *MessageDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *MessageDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

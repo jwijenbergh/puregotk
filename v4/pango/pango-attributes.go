@@ -51,7 +51,7 @@ type AttrFontDesc struct {
 type AttrFontFeatures struct {
 	Attr uintptr
 
-	Features string
+	Features uintptr
 }
 
 // The `PangoAttrInt` structure is used to represent attributes with
@@ -125,7 +125,7 @@ type AttrSize struct {
 type AttrString struct {
 	Attr uintptr
 
-	Value string
+	Value uintptr
 }
 
 // The `PangoAttribute` structure represents the common portions of all
@@ -359,8 +359,8 @@ var xAttrAllowBreaksNew func(bool) *Attribute
 // single run, as far as possible.
 func AttrAllowBreaksNew(AllowBreaksVar bool) *Attribute {
 
-	return xAttrAllowBreaksNew(AllowBreaksVar)
-
+	cret := xAttrAllowBreaksNew(AllowBreaksVar)
+	return cret
 }
 
 var xAttrBackgroundAlphaNew func(uint16) *Attribute
@@ -368,8 +368,8 @@ var xAttrBackgroundAlphaNew func(uint16) *Attribute
 // Create a new background alpha attribute.
 func AttrBackgroundAlphaNew(AlphaVar uint16) *Attribute {
 
-	return xAttrBackgroundAlphaNew(AlphaVar)
-
+	cret := xAttrBackgroundAlphaNew(AlphaVar)
+	return cret
 }
 
 var xAttrBackgroundNew func(uint16, uint16, uint16) *Attribute
@@ -377,8 +377,8 @@ var xAttrBackgroundNew func(uint16, uint16, uint16) *Attribute
 // Create a new background color attribute.
 func AttrBackgroundNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribute {
 
-	return xAttrBackgroundNew(RedVar, GreenVar, BlueVar)
-
+	cret := xAttrBackgroundNew(RedVar, GreenVar, BlueVar)
+	return cret
 }
 
 var xAttrBaselineShiftNew func(int) *Attribute
@@ -396,8 +396,8 @@ var xAttrBaselineShiftNew func(int) *Attribute
 // &lt;/picture&gt;
 func AttrBaselineShiftNew(ShiftVar int) *Attribute {
 
-	return xAttrBaselineShiftNew(ShiftVar)
-
+	cret := xAttrBaselineShiftNew(ShiftVar)
+	return cret
 }
 
 var xAttrFallbackNew func(bool) *Attribute
@@ -410,8 +410,8 @@ var xAttrFallbackNew func(bool) *Attribute
 // that might contain the characters in the text.
 func AttrFallbackNew(EnableFallbackVar bool) *Attribute {
 
-	return xAttrFallbackNew(EnableFallbackVar)
-
+	cret := xAttrFallbackNew(EnableFallbackVar)
+	return cret
 }
 
 var xAttrFamilyNew func(string) *Attribute
@@ -419,8 +419,8 @@ var xAttrFamilyNew func(string) *Attribute
 // Create a new font family attribute.
 func AttrFamilyNew(FamilyVar string) *Attribute {
 
-	return xAttrFamilyNew(FamilyVar)
-
+	cret := xAttrFamilyNew(FamilyVar)
+	return cret
 }
 
 var xAttrFontDescNew func(*FontDescription) *Attribute
@@ -431,8 +431,8 @@ var xAttrFontDescNew func(*FontDescription) *Attribute
 // stretch, and size simultaneously.
 func AttrFontDescNew(DescVar *FontDescription) *Attribute {
 
-	return xAttrFontDescNew(DescVar)
-
+	cret := xAttrFontDescNew(DescVar)
+	return cret
 }
 
 var xAttrFontFeaturesNew func(string) *Attribute
@@ -443,8 +443,8 @@ var xAttrFontFeaturesNew func(string) *Attribute
 // alternative glyphs, ligatures, etc. for fonts that support them.
 func AttrFontFeaturesNew(FeaturesVar string) *Attribute {
 
-	return xAttrFontFeaturesNew(FeaturesVar)
-
+	cret := xAttrFontFeaturesNew(FeaturesVar)
+	return cret
 }
 
 var xAttrFontScaleNew func(FontScale) *Attribute
@@ -455,8 +455,8 @@ var xAttrFontScaleNew func(FontScale) *Attribute
 // relative to the size of preceding run.
 func AttrFontScaleNew(ScaleVar FontScale) *Attribute {
 
-	return xAttrFontScaleNew(ScaleVar)
-
+	cret := xAttrFontScaleNew(ScaleVar)
+	return cret
 }
 
 var xAttrForegroundAlphaNew func(uint16) *Attribute
@@ -464,8 +464,8 @@ var xAttrForegroundAlphaNew func(uint16) *Attribute
 // Create a new foreground alpha attribute.
 func AttrForegroundAlphaNew(AlphaVar uint16) *Attribute {
 
-	return xAttrForegroundAlphaNew(AlphaVar)
-
+	cret := xAttrForegroundAlphaNew(AlphaVar)
+	return cret
 }
 
 var xAttrForegroundNew func(uint16, uint16, uint16) *Attribute
@@ -473,8 +473,8 @@ var xAttrForegroundNew func(uint16, uint16, uint16) *Attribute
 // Create a new foreground color attribute.
 func AttrForegroundNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribute {
 
-	return xAttrForegroundNew(RedVar, GreenVar, BlueVar)
-
+	cret := xAttrForegroundNew(RedVar, GreenVar, BlueVar)
+	return cret
 }
 
 var xAttrGravityHintNew func(GravityHint) *Attribute
@@ -482,8 +482,8 @@ var xAttrGravityHintNew func(GravityHint) *Attribute
 // Create a new gravity hint attribute.
 func AttrGravityHintNew(HintVar GravityHint) *Attribute {
 
-	return xAttrGravityHintNew(HintVar)
-
+	cret := xAttrGravityHintNew(HintVar)
+	return cret
 }
 
 var xAttrGravityNew func(Gravity) *Attribute
@@ -491,8 +491,8 @@ var xAttrGravityNew func(Gravity) *Attribute
 // Create a new gravity attribute.
 func AttrGravityNew(GravityVar Gravity) *Attribute {
 
-	return xAttrGravityNew(GravityVar)
-
+	cret := xAttrGravityNew(GravityVar)
+	return cret
 }
 
 var xAttrInsertHyphensNew func(bool) *Attribute
@@ -504,8 +504,8 @@ var xAttrInsertHyphensNew func(bool) *Attribute
 // to suppress the hyphen.
 func AttrInsertHyphensNew(InsertHyphensVar bool) *Attribute {
 
-	return xAttrInsertHyphensNew(InsertHyphensVar)
-
+	cret := xAttrInsertHyphensNew(InsertHyphensVar)
+	return cret
 }
 
 var xAttrLanguageNew func(*Language) *Attribute
@@ -513,8 +513,8 @@ var xAttrLanguageNew func(*Language) *Attribute
 // Create a new language tag attribute.
 func AttrLanguageNew(LanguageVar *Language) *Attribute {
 
-	return xAttrLanguageNew(LanguageVar)
-
+	cret := xAttrLanguageNew(LanguageVar)
+	return cret
 }
 
 var xAttrLetterSpacingNew func(int) *Attribute
@@ -522,8 +522,8 @@ var xAttrLetterSpacingNew func(int) *Attribute
 // Create a new letter-spacing attribute.
 func AttrLetterSpacingNew(LetterSpacingVar int) *Attribute {
 
-	return xAttrLetterSpacingNew(LetterSpacingVar)
-
+	cret := xAttrLetterSpacingNew(LetterSpacingVar)
+	return cret
 }
 
 var xAttrLineHeightNew func(float64) *Attribute
@@ -536,8 +536,8 @@ var xAttrLineHeightNew func(float64) *Attribute
 // [method@Pango.LayoutIter.get_line_extents].
 func AttrLineHeightNew(FactorVar float64) *Attribute {
 
-	return xAttrLineHeightNew(FactorVar)
-
+	cret := xAttrLineHeightNew(FactorVar)
+	return cret
 }
 
 var xAttrLineHeightNewAbsolute func(int) *Attribute
@@ -550,8 +550,8 @@ var xAttrLineHeightNewAbsolute func(int) *Attribute
 // [method@Pango.LayoutIter.get_line_extents].
 func AttrLineHeightNewAbsolute(HeightVar int) *Attribute {
 
-	return xAttrLineHeightNewAbsolute(HeightVar)
-
+	cret := xAttrLineHeightNewAbsolute(HeightVar)
+	return cret
 }
 
 var xAttrListFromString func(string) *AttrList
@@ -562,8 +562,8 @@ var xAttrListFromString func(string) *AttrList
 // See that functions for details about the format.
 func AttrListFromString(TextVar string) *AttrList {
 
-	return xAttrListFromString(TextVar)
-
+	cret := xAttrListFromString(TextVar)
+	return cret
 }
 
 var xAttrOverlineColorNew func(uint16, uint16, uint16) *Attribute
@@ -574,8 +574,8 @@ var xAttrOverlineColorNew func(uint16, uint16, uint16) *Attribute
 // If not set, overlines will use the foreground color.
 func AttrOverlineColorNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribute {
 
-	return xAttrOverlineColorNew(RedVar, GreenVar, BlueVar)
-
+	cret := xAttrOverlineColorNew(RedVar, GreenVar, BlueVar)
+	return cret
 }
 
 var xAttrOverlineNew func(Overline) *Attribute
@@ -583,8 +583,8 @@ var xAttrOverlineNew func(Overline) *Attribute
 // Create a new overline-style attribute.
 func AttrOverlineNew(OverlineVar Overline) *Attribute {
 
-	return xAttrOverlineNew(OverlineVar)
-
+	cret := xAttrOverlineNew(OverlineVar)
+	return cret
 }
 
 var xAttrRiseNew func(int) *Attribute
@@ -592,8 +592,8 @@ var xAttrRiseNew func(int) *Attribute
 // Create a new baseline displacement attribute.
 func AttrRiseNew(RiseVar int) *Attribute {
 
-	return xAttrRiseNew(RiseVar)
-
+	cret := xAttrRiseNew(RiseVar)
+	return cret
 }
 
 var xAttrScaleNew func(float64) *Attribute
@@ -604,8 +604,8 @@ var xAttrScaleNew func(float64) *Attribute
 // its size multiplied by @scale_factor.
 func AttrScaleNew(ScaleFactorVar float64) *Attribute {
 
-	return xAttrScaleNew(ScaleFactorVar)
-
+	cret := xAttrScaleNew(ScaleFactorVar)
+	return cret
 }
 
 var xAttrSentenceNew func() *Attribute
@@ -616,8 +616,8 @@ var xAttrSentenceNew func() *Attribute
 // sentence classification around the range.
 func AttrSentenceNew() *Attribute {
 
-	return xAttrSentenceNew()
-
+	cret := xAttrSentenceNew()
+	return cret
 }
 
 var xAttrShapeNew func(*Rectangle, *Rectangle) *Attribute
@@ -630,8 +630,8 @@ var xAttrShapeNew func(*Rectangle, *Rectangle) *Attribute
 // or a widget inside a `PangoLayout`.
 func AttrShapeNew(InkRectVar *Rectangle, LogicalRectVar *Rectangle) *Attribute {
 
-	return xAttrShapeNew(InkRectVar, LogicalRectVar)
-
+	cret := xAttrShapeNew(InkRectVar, LogicalRectVar)
+	return cret
 }
 
 var xAttrShapeNewWithData func(*Rectangle, *Rectangle, uintptr, uintptr, uintptr) *Attribute
@@ -643,8 +643,8 @@ var xAttrShapeNewWithData func(*Rectangle, *Rectangle, uintptr, uintptr, uintptr
 // rendering the glyph.
 func AttrShapeNewWithData(InkRectVar *Rectangle, LogicalRectVar *Rectangle, DataVar uintptr, CopyFuncVar AttrDataCopyFunc, DestroyFuncVar glib.DestroyNotify) *Attribute {
 
-	return xAttrShapeNewWithData(InkRectVar, LogicalRectVar, DataVar, purego.NewCallback(CopyFuncVar), purego.NewCallback(DestroyFuncVar))
-
+	cret := xAttrShapeNewWithData(InkRectVar, LogicalRectVar, DataVar, purego.NewCallback(CopyFuncVar), purego.NewCallback(DestroyFuncVar))
+	return cret
 }
 
 var xAttrShowNew func(ShowFlags) *Attribute
@@ -653,8 +653,8 @@ var xAttrShowNew func(ShowFlags) *Attribute
 // characters are rendered.
 func AttrShowNew(FlagsVar ShowFlags) *Attribute {
 
-	return xAttrShowNew(FlagsVar)
-
+	cret := xAttrShowNew(FlagsVar)
+	return cret
 }
 
 var xAttrSizeNew func(int) *Attribute
@@ -662,8 +662,8 @@ var xAttrSizeNew func(int) *Attribute
 // Create a new font-size attribute in fractional points.
 func AttrSizeNew(SizeVar int) *Attribute {
 
-	return xAttrSizeNew(SizeVar)
-
+	cret := xAttrSizeNew(SizeVar)
+	return cret
 }
 
 var xAttrSizeNewAbsolute func(int) *Attribute
@@ -671,8 +671,8 @@ var xAttrSizeNewAbsolute func(int) *Attribute
 // Create a new font-size attribute in device units.
 func AttrSizeNewAbsolute(SizeVar int) *Attribute {
 
-	return xAttrSizeNewAbsolute(SizeVar)
-
+	cret := xAttrSizeNewAbsolute(SizeVar)
+	return cret
 }
 
 var xAttrStretchNew func(Stretch) *Attribute
@@ -680,8 +680,8 @@ var xAttrStretchNew func(Stretch) *Attribute
 // Create a new font stretch attribute.
 func AttrStretchNew(StretchVar Stretch) *Attribute {
 
-	return xAttrStretchNew(StretchVar)
-
+	cret := xAttrStretchNew(StretchVar)
+	return cret
 }
 
 var xAttrStrikethroughColorNew func(uint16, uint16, uint16) *Attribute
@@ -692,8 +692,8 @@ var xAttrStrikethroughColorNew func(uint16, uint16, uint16) *Attribute
 // If not set, strikethrough lines will use the foreground color.
 func AttrStrikethroughColorNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribute {
 
-	return xAttrStrikethroughColorNew(RedVar, GreenVar, BlueVar)
-
+	cret := xAttrStrikethroughColorNew(RedVar, GreenVar, BlueVar)
+	return cret
 }
 
 var xAttrStrikethroughNew func(bool) *Attribute
@@ -701,8 +701,8 @@ var xAttrStrikethroughNew func(bool) *Attribute
 // Create a new strike-through attribute.
 func AttrStrikethroughNew(StrikethroughVar bool) *Attribute {
 
-	return xAttrStrikethroughNew(StrikethroughVar)
-
+	cret := xAttrStrikethroughNew(StrikethroughVar)
+	return cret
 }
 
 var xAttrStyleNew func(Style) *Attribute
@@ -710,8 +710,8 @@ var xAttrStyleNew func(Style) *Attribute
 // Create a new font slant style attribute.
 func AttrStyleNew(StyleVar Style) *Attribute {
 
-	return xAttrStyleNew(StyleVar)
-
+	cret := xAttrStyleNew(StyleVar)
+	return cret
 }
 
 var xAttrTextTransformNew func(TextTransform) *Attribute
@@ -720,8 +720,8 @@ var xAttrTextTransformNew func(TextTransform) *Attribute
 // are transformed during shaping.
 func AttrTextTransformNew(TransformVar TextTransform) *Attribute {
 
-	return xAttrTextTransformNew(TransformVar)
-
+	cret := xAttrTextTransformNew(TransformVar)
+	return cret
 }
 
 var xAttrTypeGetName func(AttrType) string
@@ -737,8 +737,8 @@ var xAttrTypeGetName func(AttrType) string
 // not be modified or freed.
 func AttrTypeGetName(TypeVar AttrType) string {
 
-	return xAttrTypeGetName(TypeVar)
-
+	cret := xAttrTypeGetName(TypeVar)
+	return cret
 }
 
 var xAttrTypeRegister func(string) AttrType
@@ -749,8 +749,8 @@ var xAttrTypeRegister func(string) AttrType
 // by using [func@Pango.AttrType.get_name].
 func AttrTypeRegister(NameVar string) AttrType {
 
-	return xAttrTypeRegister(NameVar)
-
+	cret := xAttrTypeRegister(NameVar)
+	return cret
 }
 
 var xAttrUnderlineColorNew func(uint16, uint16, uint16) *Attribute
@@ -761,8 +761,8 @@ var xAttrUnderlineColorNew func(uint16, uint16, uint16) *Attribute
 // If not set, underlines will use the foreground color.
 func AttrUnderlineColorNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribute {
 
-	return xAttrUnderlineColorNew(RedVar, GreenVar, BlueVar)
-
+	cret := xAttrUnderlineColorNew(RedVar, GreenVar, BlueVar)
+	return cret
 }
 
 var xAttrUnderlineNew func(Underline) *Attribute
@@ -770,8 +770,8 @@ var xAttrUnderlineNew func(Underline) *Attribute
 // Create a new underline-style attribute.
 func AttrUnderlineNew(UnderlineVar Underline) *Attribute {
 
-	return xAttrUnderlineNew(UnderlineVar)
-
+	cret := xAttrUnderlineNew(UnderlineVar)
+	return cret
 }
 
 var xAttrVariantNew func(Variant) *Attribute
@@ -779,8 +779,8 @@ var xAttrVariantNew func(Variant) *Attribute
 // Create a new font variant attribute (normal or small caps).
 func AttrVariantNew(VariantVar Variant) *Attribute {
 
-	return xAttrVariantNew(VariantVar)
-
+	cret := xAttrVariantNew(VariantVar)
+	return cret
 }
 
 var xAttrWeightNew func(Weight) *Attribute
@@ -788,8 +788,8 @@ var xAttrWeightNew func(Weight) *Attribute
 // Create a new font weight attribute.
 func AttrWeightNew(WeightVar Weight) *Attribute {
 
-	return xAttrWeightNew(WeightVar)
-
+	cret := xAttrWeightNew(WeightVar)
+	return cret
 }
 
 var xAttrWordNew func() *Attribute
@@ -800,8 +800,8 @@ var xAttrWordNew func() *Attribute
 // sentence classification around the range.
 func AttrWordNew() *Attribute {
 
-	return xAttrWordNew()
-
+	cret := xAttrWordNew()
+	return cret
 }
 
 func init() {

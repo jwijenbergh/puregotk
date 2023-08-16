@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -40,12 +41,17 @@ func SocketConnectionNewFromInternalPtr(ptr uintptr) *SocketConnection {
 	return cls
 }
 
-var xSocketConnectionConnect func(uintptr, uintptr, uintptr) bool
+var xSocketConnectionConnect func(uintptr, uintptr, uintptr, **glib.Error) bool
 
 // Connect @connection to the specified remote address.
-func (x *SocketConnection) Connect(AddressVar *SocketAddress, CancellableVar *Cancellable) bool {
+func (x *SocketConnection) Connect(AddressVar *SocketAddress, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketConnectionConnect(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer())
+	cret := xSocketConnectionConnect(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -63,28 +69,38 @@ func (x *SocketConnection) ConnectAsync(AddressVar *SocketAddress, CancellableVa
 
 }
 
-var xSocketConnectionConnectFinish func(uintptr, uintptr) bool
+var xSocketConnectionConnectFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Gets the result of a g_socket_connection_connect_async() call.
-func (x *SocketConnection) ConnectFinish(ResultVar AsyncResult) bool {
+func (x *SocketConnection) ConnectFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketConnectionConnectFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xSocketConnectionConnectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 var xSocketConnectionGetLocalAddress func(uintptr) uintptr
 
 // Try to get the local address of a socket connection.
-func (x *SocketConnection) GetLocalAddress() *SocketAddress {
+func (x *SocketConnection) GetLocalAddress() (*SocketAddress, error) {
+	var cls *SocketAddress
+	var cerr *glib.Error
 
-	GetLocalAddressPtr := xSocketConnectionGetLocalAddress(x.GoPointer())
-	if GetLocalAddressPtr == 0 {
-		return nil
+	cret := xSocketConnectionGetLocalAddress(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	GetLocalAddressCls := &SocketAddress{}
-	GetLocalAddressCls.Ptr = GetLocalAddressPtr
-	return GetLocalAddressCls
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -98,16 +114,21 @@ var xSocketConnectionGetRemoteAddress func(uintptr) uintptr
 // address that will be used for the connection.  This allows
 // applications to print e.g. "Connecting to example.com
 // (10.42.77.3)...".
-func (x *SocketConnection) GetRemoteAddress() *SocketAddress {
+func (x *SocketConnection) GetRemoteAddress() (*SocketAddress, error) {
+	var cls *SocketAddress
+	var cerr *glib.Error
 
-	GetRemoteAddressPtr := xSocketConnectionGetRemoteAddress(x.GoPointer())
-	if GetRemoteAddressPtr == 0 {
-		return nil
+	cret := xSocketConnectionGetRemoteAddress(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	GetRemoteAddressCls := &SocketAddress{}
-	GetRemoteAddressCls.Ptr = GetRemoteAddressPtr
-	return GetRemoteAddressCls
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -117,18 +138,17 @@ var xSocketConnectionGetSocket func(uintptr) uintptr
 // This can be useful if you want to do something unusual on it
 // not supported by the #GSocketConnection APIs.
 func (x *SocketConnection) GetSocket() *Socket {
+	var cls *Socket
 
-	GetSocketPtr := xSocketConnectionGetSocket(x.GoPointer())
-	if GetSocketPtr == 0 {
-		return nil
+	cret := xSocketConnectionGetSocket(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSocketPtr)
-
-	GetSocketCls := &Socket{}
-	GetSocketCls.Ptr = GetSocketPtr
-	return GetSocketCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Socket{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketConnectionIsConnected func(uintptr) bool
@@ -137,8 +157,8 @@ var xSocketConnectionIsConnected func(uintptr) bool
 // g_socket_is_connected() on @connection's underlying #GSocket.
 func (x *SocketConnection) IsConnected() bool {
 
-	return xSocketConnectionIsConnected(x.GoPointer())
-
+	cret := xSocketConnectionIsConnected(x.GoPointer())
+	return cret
 }
 
 func (c *SocketConnection) GoPointer() uintptr {

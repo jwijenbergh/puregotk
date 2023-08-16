@@ -26,8 +26,8 @@ var xKeyvalFromName func(string) uint
 // but without the leading “GDK_KEY_”.
 func KeyvalFromName(KeyvalNameVar string) uint {
 
-	return xKeyvalFromName(KeyvalNameVar)
-
+	cret := xKeyvalFromName(KeyvalNameVar)
+	return cret
 }
 
 var xKeyvalIsLower func(uint) bool
@@ -35,8 +35,8 @@ var xKeyvalIsLower func(uint) bool
 // Returns %TRUE if the given key value is in lower case.
 func KeyvalIsLower(KeyvalVar uint) bool {
 
-	return xKeyvalIsLower(KeyvalVar)
-
+	cret := xKeyvalIsLower(KeyvalVar)
+	return cret
 }
 
 var xKeyvalIsUpper func(uint) bool
@@ -44,8 +44,8 @@ var xKeyvalIsUpper func(uint) bool
 // Returns %TRUE if the given key value is in upper case.
 func KeyvalIsUpper(KeyvalVar uint) bool {
 
-	return xKeyvalIsUpper(KeyvalVar)
-
+	cret := xKeyvalIsUpper(KeyvalVar)
+	return cret
 }
 
 var xKeyvalName func(uint) string
@@ -57,8 +57,8 @@ var xKeyvalName func(uint) string
 // but without the leading “GDK_KEY_”.
 func KeyvalName(KeyvalVar uint) string {
 
-	return xKeyvalName(KeyvalVar)
-
+	cret := xKeyvalName(KeyvalVar)
+	return cret
 }
 
 var xKeyvalToLower func(uint) uint
@@ -66,8 +66,8 @@ var xKeyvalToLower func(uint) uint
 // Converts a key value to lower case, if applicable.
 func KeyvalToLower(KeyvalVar uint) uint {
 
-	return xKeyvalToLower(KeyvalVar)
-
+	cret := xKeyvalToLower(KeyvalVar)
+	return cret
 }
 
 var xKeyvalToUnicode func(uint) uint32
@@ -80,8 +80,8 @@ var xKeyvalToUnicode func(uint) uint32
 // keyvals, such as %GDK_KEY_KP_Decimal.
 func KeyvalToUnicode(KeyvalVar uint) uint32 {
 
-	return xKeyvalToUnicode(KeyvalVar)
-
+	cret := xKeyvalToUnicode(KeyvalVar)
+	return cret
 }
 
 var xKeyvalToUpper func(uint) uint
@@ -89,8 +89,8 @@ var xKeyvalToUpper func(uint) uint
 // Converts a key value to upper case, if applicable.
 func KeyvalToUpper(KeyvalVar uint) uint {
 
-	return xKeyvalToUpper(KeyvalVar)
-
+	cret := xKeyvalToUpper(KeyvalVar)
+	return cret
 }
 
 var xUnicodeToKeyval func(uint32) uint
@@ -98,8 +98,8 @@ var xUnicodeToKeyval func(uint32) uint
 // Convert from a Unicode character to a key symbol.
 func UnicodeToKeyval(WcVar uint32) uint {
 
-	return xUnicodeToKeyval(WcVar)
-
+	cret := xUnicodeToKeyval(WcVar)
+	return cret
 }
 
 func init() {

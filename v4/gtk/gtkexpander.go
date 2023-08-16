@@ -120,16 +120,17 @@ var xNewExpander func(string) uintptr
 
 // Creates a new expander using @label as the text of the label.
 func NewExpander(LabelVar string) *Widget {
-	NewExpanderPtr := xNewExpander(LabelVar)
-	if NewExpanderPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewExpander(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewExpanderPtr)
-
-	NewExpanderCls := &Widget{}
-	NewExpanderCls.Ptr = NewExpanderPtr
-	return NewExpanderCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMnemonicExpander func(string) uintptr
@@ -143,34 +144,34 @@ var xNewWithMnemonicExpander func(string) uintptr
 //
 // Pressing Alt and that key activates the button.
 func NewWithMnemonicExpander(LabelVar string) *Widget {
-	NewWithMnemonicExpanderPtr := xNewWithMnemonicExpander(LabelVar)
-	if NewWithMnemonicExpanderPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMnemonicExpander(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMnemonicExpanderPtr)
-
-	NewWithMnemonicExpanderCls := &Widget{}
-	NewWithMnemonicExpanderCls.Ptr = NewWithMnemonicExpanderPtr
-	return NewWithMnemonicExpanderCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xExpanderGetChild func(uintptr) uintptr
 
 // Gets the child widget of @expander.
 func (x *Expander) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xExpanderGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xExpanderGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xExpanderGetExpanded func(uintptr) bool
@@ -180,8 +181,8 @@ var xExpanderGetExpanded func(uintptr) bool
 // Returns %TRUE if the child widget is revealed.
 func (x *Expander) GetExpanded() bool {
 
-	return xExpanderGetExpanded(x.GoPointer())
-
+	cret := xExpanderGetExpanded(x.GoPointer())
+	return cret
 }
 
 var xExpanderGetLabel func(uintptr) string
@@ -195,26 +196,25 @@ var xExpanderGetLabel func(uintptr) string
 // container.
 func (x *Expander) GetLabel() string {
 
-	return xExpanderGetLabel(x.GoPointer())
-
+	cret := xExpanderGetLabel(x.GoPointer())
+	return cret
 }
 
 var xExpanderGetLabelWidget func(uintptr) uintptr
 
 // Retrieves the label widget for the frame.
 func (x *Expander) GetLabelWidget() *Widget {
+	var cls *Widget
 
-	GetLabelWidgetPtr := xExpanderGetLabelWidget(x.GoPointer())
-	if GetLabelWidgetPtr == 0 {
-		return nil
+	cret := xExpanderGetLabelWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLabelWidgetPtr)
-
-	GetLabelWidgetCls := &Widget{}
-	GetLabelWidgetCls.Ptr = GetLabelWidgetPtr
-	return GetLabelWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xExpanderGetResizeToplevel func(uintptr) bool
@@ -223,8 +223,8 @@ var xExpanderGetResizeToplevel func(uintptr) bool
 // containing the expander upon resizing and collpasing.
 func (x *Expander) GetResizeToplevel() bool {
 
-	return xExpanderGetResizeToplevel(x.GoPointer())
-
+	cret := xExpanderGetResizeToplevel(x.GoPointer())
+	return cret
 }
 
 var xExpanderGetUseMarkup func(uintptr) bool
@@ -232,8 +232,8 @@ var xExpanderGetUseMarkup func(uintptr) bool
 // Returns whether the label’s text is interpreted as Pango markup.
 func (x *Expander) GetUseMarkup() bool {
 
-	return xExpanderGetUseMarkup(x.GoPointer())
-
+	cret := xExpanderGetUseMarkup(x.GoPointer())
+	return cret
 }
 
 var xExpanderGetUseUnderline func(uintptr) bool
@@ -241,8 +241,8 @@ var xExpanderGetUseUnderline func(uintptr) bool
 // Returns whether an underline in the text indicates a mnemonic.
 func (x *Expander) GetUseUnderline() bool {
 
-	return xExpanderGetUseUnderline(x.GoPointer())
-
+	cret := xExpanderGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xExpanderSetChild func(uintptr, uintptr)
@@ -340,8 +340,8 @@ func (x *Expander) ConnectActivate(cb func(Expander)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Expander) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -476,8 +476,8 @@ func (x *Expander) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Expander) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

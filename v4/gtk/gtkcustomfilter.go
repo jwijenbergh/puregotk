@@ -38,14 +38,16 @@ var xNewCustomFilter func(uintptr, uintptr, uintptr) uintptr
 // If the filter func changes its filtering behavior,
 // gtk_filter_changed() needs to be called.
 func NewCustomFilter(MatchFuncVar CustomFilterFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *CustomFilter {
-	NewCustomFilterPtr := xNewCustomFilter(purego.NewCallback(MatchFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-	if NewCustomFilterPtr == 0 {
-		return nil
-	}
+	var cls *CustomFilter
 
-	NewCustomFilterCls := &CustomFilter{}
-	NewCustomFilterCls.Ptr = NewCustomFilterPtr
-	return NewCustomFilterCls
+	cret := xNewCustomFilter(purego.NewCallback(MatchFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CustomFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCustomFilterSetFilterFunc func(uintptr, uintptr, uintptr, uintptr)

@@ -181,16 +181,16 @@ var xVariantTypeChecked func(string) *VariantType
 
 func VariantTypeChecked(Arg0Var string) *VariantType {
 
-	return xVariantTypeChecked(Arg0Var)
-
+	cret := xVariantTypeChecked(Arg0Var)
+	return cret
 }
 
 var xVariantTypeStringGetDepth func(string) uint
 
 func VariantTypeStringGetDepth(TypeStringVar string) uint {
 
-	return xVariantTypeStringGetDepth(TypeStringVar)
-
+	cret := xVariantTypeStringGetDepth(TypeStringVar)
+	return cret
 }
 
 var xVariantTypeStringIsValid func(string) bool
@@ -200,8 +200,8 @@ var xVariantTypeStringIsValid func(string) bool
 // that the following character is a nul terminator.
 func VariantTypeStringIsValid(TypeStringVar string) bool {
 
-	return xVariantTypeStringIsValid(TypeStringVar)
-
+	cret := xVariantTypeStringIsValid(TypeStringVar)
+	return cret
 }
 
 var xVariantTypeStringScan func(string, string, string) bool
@@ -221,8 +221,8 @@ var xVariantTypeStringScan func(string, string, string) bool
 // see g_variant_type_string_is_valid().
 func VariantTypeStringScan(StringVar string, LimitVar string, EndptrVar string) bool {
 
-	return xVariantTypeStringScan(StringVar, LimitVar, EndptrVar)
-
+	cret := xVariantTypeStringScan(StringVar, LimitVar, EndptrVar)
+	return cret
 }
 
 func init() {

@@ -27,14 +27,16 @@ var xNewBoolFilter func(uintptr) uintptr
 
 // Creates a new bool filter.
 func NewBoolFilter(ExpressionVar *Expression) *BoolFilter {
-	NewBoolFilterPtr := xNewBoolFilter(ExpressionVar.GoPointer())
-	if NewBoolFilterPtr == 0 {
-		return nil
-	}
+	var cls *BoolFilter
 
-	NewBoolFilterCls := &BoolFilter{}
-	NewBoolFilterCls.Ptr = NewBoolFilterPtr
-	return NewBoolFilterCls
+	cret := xNewBoolFilter(ExpressionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BoolFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBoolFilterGetExpression func(uintptr) uintptr
@@ -42,18 +44,17 @@ var xBoolFilterGetExpression func(uintptr) uintptr
 // Gets the expression that the filter uses to evaluate if
 // an item should be filtered.
 func (x *BoolFilter) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xBoolFilterGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xBoolFilterGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBoolFilterGetInvert func(uintptr) bool
@@ -61,8 +62,8 @@ var xBoolFilterGetInvert func(uintptr) bool
 // Returns whether the filter inverts the expression.
 func (x *BoolFilter) GetInvert() bool {
 
-	return xBoolFilterGetInvert(x.GoPointer())
-
+	cret := xBoolFilterGetInvert(x.GoPointer())
+	return cret
 }
 
 var xBoolFilterSetExpression func(uintptr, uintptr)

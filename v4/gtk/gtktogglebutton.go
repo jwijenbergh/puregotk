@@ -105,32 +105,34 @@ var xNewToggleButton func() uintptr
 //
 // A widget should be packed into the button, as in [ctor@Gtk.Button.new].
 func NewToggleButton() *Widget {
-	NewToggleButtonPtr := xNewToggleButton()
-	if NewToggleButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewToggleButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewToggleButtonPtr)
-
-	NewToggleButtonCls := &Widget{}
-	NewToggleButtonCls.Ptr = NewToggleButtonPtr
-	return NewToggleButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithLabelToggleButton func(string) uintptr
 
 // Creates a new toggle button with a text label.
 func NewWithLabelToggleButton(LabelVar string) *Widget {
-	NewWithLabelToggleButtonPtr := xNewWithLabelToggleButton(LabelVar)
-	if NewWithLabelToggleButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithLabelToggleButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithLabelToggleButtonPtr)
-
-	NewWithLabelToggleButtonCls := &Widget{}
-	NewWithLabelToggleButtonCls.Ptr = NewWithLabelToggleButtonPtr
-	return NewWithLabelToggleButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMnemonicToggleButton func(string) uintptr
@@ -140,16 +142,17 @@ var xNewWithMnemonicToggleButton func(string) uintptr
 // The label will be created using [ctor@Gtk.Label.new_with_mnemonic],
 // so underscores in @label indicate the mnemonic for the button.
 func NewWithMnemonicToggleButton(LabelVar string) *Widget {
-	NewWithMnemonicToggleButtonPtr := xNewWithMnemonicToggleButton(LabelVar)
-	if NewWithMnemonicToggleButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMnemonicToggleButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMnemonicToggleButtonPtr)
-
-	NewWithMnemonicToggleButtonCls := &Widget{}
-	NewWithMnemonicToggleButtonCls.Ptr = NewWithMnemonicToggleButtonPtr
-	return NewWithMnemonicToggleButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xToggleButtonGetActive func(uintptr) bool
@@ -160,8 +163,8 @@ var xToggleButtonGetActive func(uintptr) bool
 // if it is raised.
 func (x *ToggleButton) GetActive() bool {
 
-	return xToggleButtonGetActive(x.GoPointer())
-
+	cret := xToggleButtonGetActive(x.GoPointer())
+	return cret
 }
 
 var xToggleButtonSetActive func(uintptr, bool)
@@ -232,8 +235,8 @@ func (x *ToggleButton) ConnectToggled(cb func(ToggleButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ToggleButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -365,15 +368,15 @@ func (x *ToggleButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // Gets the action name for @actionable.
 func (x *ToggleButton) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ToggleButton) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -451,8 +454,8 @@ func (x *ToggleButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ToggleButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

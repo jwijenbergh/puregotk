@@ -78,14 +78,16 @@ var xNewEventControllerScroll func(EventControllerScrollFlags) uintptr
 
 // Creates a new event controller that will handle scroll events.
 func NewEventControllerScroll(FlagsVar EventControllerScrollFlags) *EventController {
-	NewEventControllerScrollPtr := xNewEventControllerScroll(FlagsVar)
-	if NewEventControllerScrollPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewEventControllerScrollCls := &EventController{}
-	NewEventControllerScrollCls.Ptr = NewEventControllerScrollPtr
-	return NewEventControllerScrollCls
+	cret := xNewEventControllerScroll(FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerScrollGetFlags func(uintptr) EventControllerScrollFlags
@@ -93,8 +95,8 @@ var xEventControllerScrollGetFlags func(uintptr) EventControllerScrollFlags
 // Gets the flags conditioning the scroll controller behavior.
 func (x *EventControllerScroll) GetFlags() EventControllerScrollFlags {
 
-	return xEventControllerScrollGetFlags(x.GoPointer())
-
+	cret := xEventControllerScrollGetFlags(x.GoPointer())
+	return cret
 }
 
 var xEventControllerScrollGetUnit func(uintptr) gdk.ScrollUnit
@@ -106,8 +108,8 @@ var xEventControllerScrollGetUnit func(uintptr) gdk.ScrollUnit
 // %GTK_EVENT_CONTROLLER_SCROLL_DISCRETE flag is set.
 func (x *EventControllerScroll) GetUnit() gdk.ScrollUnit {
 
-	return xEventControllerScrollGetUnit(x.GoPointer())
-
+	cret := xEventControllerScrollGetUnit(x.GoPointer())
+	return cret
 }
 
 var xEventControllerScrollSetFlags func(uintptr, EventControllerScrollFlags)

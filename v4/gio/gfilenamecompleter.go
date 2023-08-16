@@ -28,14 +28,16 @@ var xNewFilenameCompleter func() uintptr
 
 // Creates a new filename completer.
 func NewFilenameCompleter() *FilenameCompleter {
-	NewFilenameCompleterPtr := xNewFilenameCompleter()
-	if NewFilenameCompleterPtr == 0 {
-		return nil
-	}
+	var cls *FilenameCompleter
 
-	NewFilenameCompleterCls := &FilenameCompleter{}
-	NewFilenameCompleterCls.Ptr = NewFilenameCompleterPtr
-	return NewFilenameCompleterCls
+	cret := xNewFilenameCompleter()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FilenameCompleter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFilenameCompleterGetCompletionSuffix func(uintptr, string) string
@@ -43,8 +45,8 @@ var xFilenameCompleterGetCompletionSuffix func(uintptr, string) string
 // Obtains a completion for @initial_text from @completer.
 func (x *FilenameCompleter) GetCompletionSuffix(InitialTextVar string) string {
 
-	return xFilenameCompleterGetCompletionSuffix(x.GoPointer(), InitialTextVar)
-
+	cret := xFilenameCompleterGetCompletionSuffix(x.GoPointer(), InitialTextVar)
+	return cret
 }
 
 var xFilenameCompleterGetCompletions func(uintptr, string) []string
@@ -52,8 +54,8 @@ var xFilenameCompleterGetCompletions func(uintptr, string) []string
 // Gets an array of completion strings for a given initial text.
 func (x *FilenameCompleter) GetCompletions(InitialTextVar string) []string {
 
-	return xFilenameCompleterGetCompletions(x.GoPointer(), InitialTextVar)
-
+	cret := xFilenameCompleterGetCompletions(x.GoPointer(), InitialTextVar)
+	return cret
 }
 
 var xFilenameCompleterSetDirsOnly func(uintptr, bool)

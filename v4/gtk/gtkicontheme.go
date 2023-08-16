@@ -55,14 +55,16 @@ var xNewForFileIconPaintable func(uintptr, int, int) uintptr
 //
 // The icon can then be rendered by using it as a `GdkPaintable`.
 func NewForFileIconPaintable(FileVar gio.File, SizeVar int, ScaleVar int) *IconPaintable {
-	NewForFileIconPaintablePtr := xNewForFileIconPaintable(FileVar.GoPointer(), SizeVar, ScaleVar)
-	if NewForFileIconPaintablePtr == 0 {
-		return nil
-	}
+	var cls *IconPaintable
 
-	NewForFileIconPaintableCls := &IconPaintable{}
-	NewForFileIconPaintableCls.Ptr = NewForFileIconPaintablePtr
-	return NewForFileIconPaintableCls
+	cret := xNewForFileIconPaintable(FileVar.GoPointer(), SizeVar, ScaleVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IconPaintable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconPaintableGetFile func(uintptr) uintptr
@@ -71,16 +73,16 @@ var xIconPaintableGetFile func(uintptr) uintptr
 //
 // Returns %NULL if the icon was not loaded from a file.
 func (x *IconPaintable) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := xIconPaintableGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xIconPaintableGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconPaintableGetIconName func(uintptr) string
@@ -96,8 +98,8 @@ var xIconPaintableGetIconName func(uintptr) string
 // returns %NULL.
 func (x *IconPaintable) GetIconName() string {
 
-	return xIconPaintableGetIconName(x.GoPointer())
-
+	cret := xIconPaintableGetIconName(x.GoPointer())
+	return cret
 }
 
 var xIconPaintableIsSymbolic func(uintptr) bool
@@ -111,8 +113,8 @@ var xIconPaintableIsSymbolic func(uintptr) bool
 // recoloring), you have to set its icon name on a `GtkImage`.
 func (x *IconPaintable) IsSymbolic() bool {
 
-	return xIconPaintableIsSymbolic(x.GoPointer())
-
+	cret := xIconPaintableIsSymbolic(x.GoPointer())
+	return cret
 }
 
 func (c *IconPaintable) GoPointer() uintptr {
@@ -146,16 +148,16 @@ func (x *IconPaintable) ComputeConcreteSize(SpecifiedWidthVar float64, Specified
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *IconPaintable) GetCurrentImage() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetCurrentImagePtr := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &gdk.PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -165,8 +167,8 @@ func (x *IconPaintable) GetCurrentImage() *gdk.PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *IconPaintable) GetFlags() gdk.PaintableFlags {
 
-	return gdk.XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -188,8 +190,8 @@ func (x *IconPaintable) GetFlags() gdk.PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *IconPaintable) GetIntrinsicAspectRatio() float64 {
 
-	return gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -204,8 +206,8 @@ func (x *IconPaintable) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *IconPaintable) GetIntrinsicHeight() int {
 
-	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -220,8 +222,8 @@ func (x *IconPaintable) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *IconPaintable) GetIntrinsicWidth() int {
 
-	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -330,14 +332,16 @@ var xNewIconTheme func() uintptr
 // [func@Gtk.IconTheme.get_for_display] rather than creating
 // a new icon theme object for scratch.
 func NewIconTheme() *IconTheme {
-	NewIconThemePtr := xNewIconTheme()
-	if NewIconThemePtr == 0 {
-		return nil
-	}
+	var cls *IconTheme
 
-	NewIconThemeCls := &IconTheme{}
-	NewIconThemeCls.Ptr = NewIconThemePtr
-	return NewIconThemeCls
+	cret := xNewIconTheme()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IconTheme{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconThemeAddResourcePath func(uintptr, string)
@@ -371,18 +375,17 @@ var xIconThemeGetDisplay func(uintptr) uintptr
 // Returns the display that the `GtkIconTheme` object was
 // created for.
 func (x *IconTheme) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := xIconThemeGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xIconThemeGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconThemeGetIconNames func(uintptr) []string
@@ -390,8 +393,8 @@ var xIconThemeGetIconNames func(uintptr) []string
 // Lists the names of icons in the current icon theme.
 func (x *IconTheme) GetIconNames() []string {
 
-	return xIconThemeGetIconNames(x.GoPointer())
-
+	cret := xIconThemeGetIconNames(x.GoPointer())
+	return cret
 }
 
 var xIconThemeGetIconSizes func(uintptr, string) uintptr
@@ -403,8 +406,8 @@ var xIconThemeGetIconSizes func(uintptr, string) uintptr
 // format. The array is zero-terminated.
 func (x *IconTheme) GetIconSizes(IconNameVar string) uintptr {
 
-	return xIconThemeGetIconSizes(x.GoPointer(), IconNameVar)
-
+	cret := xIconThemeGetIconSizes(x.GoPointer(), IconNameVar)
+	return cret
 }
 
 var xIconThemeGetResourcePath func(uintptr) []string
@@ -414,8 +417,8 @@ var xIconThemeGetResourcePath func(uintptr) []string
 // See [method@Gtk.IconTheme.set_resource_path].
 func (x *IconTheme) GetResourcePath() []string {
 
-	return xIconThemeGetResourcePath(x.GoPointer())
-
+	cret := xIconThemeGetResourcePath(x.GoPointer())
+	return cret
 }
 
 var xIconThemeGetSearchPath func(uintptr) []string
@@ -425,8 +428,8 @@ var xIconThemeGetSearchPath func(uintptr) []string
 // See [method@Gtk.IconTheme.set_search_path].
 func (x *IconTheme) GetSearchPath() []string {
 
-	return xIconThemeGetSearchPath(x.GoPointer())
-
+	cret := xIconThemeGetSearchPath(x.GoPointer())
+	return cret
 }
 
 var xIconThemeGetThemeName func(uintptr) string
@@ -436,8 +439,8 @@ var xIconThemeGetThemeName func(uintptr) string
 // Returns (transfer full): the current icon theme name,
 func (x *IconTheme) GetThemeName() string {
 
-	return xIconThemeGetThemeName(x.GoPointer())
-
+	cret := xIconThemeGetThemeName(x.GoPointer())
+	return cret
 }
 
 var xIconThemeHasGicon func(uintptr, uintptr) bool
@@ -446,8 +449,8 @@ var xIconThemeHasGicon func(uintptr, uintptr) bool
 // for a particular `GIcon`.
 func (x *IconTheme) HasGicon(GiconVar gio.Icon) bool {
 
-	return xIconThemeHasGicon(x.GoPointer(), GiconVar.GoPointer())
-
+	cret := xIconThemeHasGicon(x.GoPointer(), GiconVar.GoPointer())
+	return cret
 }
 
 var xIconThemeHasIcon func(uintptr, string) bool
@@ -456,8 +459,8 @@ var xIconThemeHasIcon func(uintptr, string) bool
 // for a particular name.
 func (x *IconTheme) HasIcon(IconNameVar string) bool {
 
-	return xIconThemeHasIcon(x.GoPointer(), IconNameVar)
-
+	cret := xIconThemeHasIcon(x.GoPointer(), IconNameVar)
+	return cret
 }
 
 var xIconThemeLookupByGicon func(uintptr, uintptr, int, int, TextDirection, IconLookupFlags) uintptr
@@ -467,16 +470,16 @@ var xIconThemeLookupByGicon func(uintptr, uintptr, int, int, TextDirection, Icon
 // The icon can then be rendered by using it as a `GdkPaintable`,
 // or you can get information such as the filename and size.
 func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
+	var cls *IconPaintable
 
-	LookupByGiconPtr := xIconThemeLookupByGicon(x.GoPointer(), IconVar.GoPointer(), SizeVar, ScaleVar, DirectionVar, FlagsVar)
-	if LookupByGiconPtr == 0 {
-		return nil
+	cret := xIconThemeLookupByGicon(x.GoPointer(), IconVar.GoPointer(), SizeVar, ScaleVar, DirectionVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LookupByGiconCls := &IconPaintable{}
-	LookupByGiconCls.Ptr = LookupByGiconPtr
-	return LookupByGiconCls
-
+	cls = &IconPaintable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconThemeLookupIcon func(uintptr, string, uintptr, int, int, TextDirection, IconLookupFlags) uintptr
@@ -498,16 +501,16 @@ var xIconThemeLookupIcon func(uintptr, string, uintptr, int, int, TextDirection,
 // update the icon. This is usually done by overriding the
 // GtkWidgetClass.css-changed() function.
 func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar uintptr, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
+	var cls *IconPaintable
 
-	LookupIconPtr := xIconThemeLookupIcon(x.GoPointer(), IconNameVar, FallbacksVar, SizeVar, ScaleVar, DirectionVar, FlagsVar)
-	if LookupIconPtr == 0 {
-		return nil
+	cret := xIconThemeLookupIcon(x.GoPointer(), IconNameVar, FallbacksVar, SizeVar, ScaleVar, DirectionVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LookupIconCls := &IconPaintable{}
-	LookupIconCls.Ptr = LookupIconPtr
-	return LookupIconCls
-
+	cls = &IconPaintable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconThemeSetResourcePath func(uintptr, uintptr)

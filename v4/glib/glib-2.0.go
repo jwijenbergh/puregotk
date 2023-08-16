@@ -32,8 +32,8 @@ var xVariantParserGetErrorQuark func() Quark
 // Same as g_variant_error_quark().
 func VariantParserGetErrorQuark() Quark {
 
-	return xVariantParserGetErrorQuark()
-
+	cret := xVariantParserGetErrorQuark()
+	return cret
 }
 
 func init() {

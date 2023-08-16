@@ -220,16 +220,16 @@ var xBindingDupSource func(uintptr) uintptr
 // strong reference to the source. If the source is destroyed before the
 // binding then this function will return %NULL.
 func (x *Binding) DupSource() *Object {
+	var cls *Object
 
-	DupSourcePtr := xBindingDupSource(x.GoPointer())
-	if DupSourcePtr == 0 {
-		return nil
+	cret := xBindingDupSource(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupSourceCls := &Object{}
-	DupSourceCls.Ptr = DupSourcePtr
-	return DupSourceCls
-
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingDupTarget func(uintptr) uintptr
@@ -240,16 +240,16 @@ var xBindingDupTarget func(uintptr) uintptr
 // strong reference to the target. If the target is destroyed before the
 // binding then this function will return %NULL.
 func (x *Binding) DupTarget() *Object {
+	var cls *Object
 
-	DupTargetPtr := xBindingDupTarget(x.GoPointer())
-	if DupTargetPtr == 0 {
-		return nil
+	cret := xBindingDupTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupTargetCls := &Object{}
-	DupTargetCls.Ptr = DupTargetPtr
-	return DupTargetCls
-
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingGetFlags func(uintptr) BindingFlags
@@ -257,8 +257,8 @@ var xBindingGetFlags func(uintptr) BindingFlags
 // Retrieves the flags passed when constructing the #GBinding.
 func (x *Binding) GetFlags() BindingFlags {
 
-	return xBindingGetFlags(x.GoPointer())
-
+	cret := xBindingGetFlags(x.GoPointer())
+	return cret
 }
 
 var xBindingGetSource func(uintptr) uintptr
@@ -273,18 +273,17 @@ var xBindingGetSource func(uintptr) uintptr
 // threads as otherwise the pointer returned from this function might become
 // invalid if the source is finalized from another thread in the meantime.
 func (x *Binding) GetSource() *Object {
+	var cls *Object
 
-	GetSourcePtr := xBindingGetSource(x.GoPointer())
-	if GetSourcePtr == 0 {
-		return nil
+	cret := xBindingGetSource(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(GetSourcePtr)
-
-	GetSourceCls := &Object{}
-	GetSourceCls.Ptr = GetSourcePtr
-	return GetSourceCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingGetSourceProperty func(uintptr) string
@@ -293,8 +292,8 @@ var xBindingGetSourceProperty func(uintptr) string
 // of the binding.
 func (x *Binding) GetSourceProperty() string {
 
-	return xBindingGetSourceProperty(x.GoPointer())
-
+	cret := xBindingGetSourceProperty(x.GoPointer())
+	return cret
 }
 
 var xBindingGetTarget func(uintptr) uintptr
@@ -309,18 +308,17 @@ var xBindingGetTarget func(uintptr) uintptr
 // threads as otherwise the pointer returned from this function might become
 // invalid if the target is finalized from another thread in the meantime.
 func (x *Binding) GetTarget() *Object {
+	var cls *Object
 
-	GetTargetPtr := xBindingGetTarget(x.GoPointer())
-	if GetTargetPtr == 0 {
-		return nil
+	cret := xBindingGetTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(GetTargetPtr)
-
-	GetTargetCls := &Object{}
-	GetTargetCls.Ptr = GetTargetPtr
-	return GetTargetCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingGetTargetProperty func(uintptr) string
@@ -329,8 +327,8 @@ var xBindingGetTargetProperty func(uintptr) string
 // of the binding.
 func (x *Binding) GetTargetProperty() string {
 
-	return xBindingGetTargetProperty(x.GoPointer())
-
+	cret := xBindingGetTargetProperty(x.GoPointer())
+	return cret
 }
 
 var xBindingUnbind func(uintptr)
@@ -381,14 +379,16 @@ var xNewBindingGroup func() uintptr
 
 // Creates a new #GBindingGroup.
 func NewBindingGroup() *BindingGroup {
-	NewBindingGroupPtr := xNewBindingGroup()
-	if NewBindingGroupPtr == 0 {
-		return nil
-	}
+	var cls *BindingGroup
 
-	NewBindingGroupCls := &BindingGroup{}
-	NewBindingGroupCls.Ptr = NewBindingGroupPtr
-	return NewBindingGroupCls
+	cret := xNewBindingGroup()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BindingGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingGroupBind func(uintptr, string, uintptr, string, BindingFlags)
@@ -441,18 +441,17 @@ var xBindingGroupDupSource func(uintptr) uintptr
 
 // Gets the source object used for binding properties.
 func (x *BindingGroup) DupSource() *Object {
+	var cls *Object
 
-	DupSourcePtr := xBindingGroupDupSource(x.GoPointer())
-	if DupSourcePtr == 0 {
-		return nil
+	cret := xBindingGroupDupSource(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(DupSourcePtr)
-
-	DupSourceCls := &Object{}
-	DupSourceCls.Ptr = DupSourcePtr
-	return DupSourceCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBindingGroupSetSource func(uintptr, uintptr)
@@ -508,14 +507,16 @@ var xNewSignalGroup func([]interface{}) uintptr
 
 // Creates a new #GSignalGroup for target instances of @target_type.
 func NewSignalGroup(TargetTypeVar []interface{}) *SignalGroup {
-	NewSignalGroupPtr := xNewSignalGroup(TargetTypeVar)
-	if NewSignalGroupPtr == 0 {
-		return nil
-	}
+	var cls *SignalGroup
 
-	NewSignalGroupCls := &SignalGroup{}
-	NewSignalGroupCls.Ptr = NewSignalGroupPtr
-	return NewSignalGroupCls
+	cret := xNewSignalGroup(TargetTypeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SignalGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSignalGroupBlock func(uintptr)
@@ -603,16 +604,16 @@ var xSignalGroupDupTarget func(uintptr) uintptr
 
 // Gets the target instance used when connecting signals.
 func (x *SignalGroup) DupTarget() *Object {
+	var cls *Object
 
-	DupTargetPtr := xSignalGroupDupTarget(x.GoPointer())
-	if DupTargetPtr == 0 {
-		return nil
+	cret := xSignalGroupDupTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupTargetCls := &Object{}
-	DupTargetCls.Ptr = DupTargetPtr
-	return DupTargetCls
-
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSignalGroupSetTarget func(uintptr, uintptr)

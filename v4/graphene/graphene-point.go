@@ -18,8 +18,8 @@ var xPointZero func() *Point
 // Returns a point fixed at (0, 0).
 func PointZero() *Point {
 
-	return xPointZero()
-
+	cret := xPointZero()
+	return cret
 }
 
 func init() {

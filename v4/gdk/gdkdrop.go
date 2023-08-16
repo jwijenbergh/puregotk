@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -62,44 +63,42 @@ var xDropGetActions func(uintptr) DragAction
 // side will not change this value anymore once a drop has started.
 func (x *Drop) GetActions() DragAction {
 
-	return xDropGetActions(x.GoPointer())
-
+	cret := xDropGetActions(x.GoPointer())
+	return cret
 }
 
 var xDropGetDevice func(uintptr) uintptr
 
 // Returns the `GdkDevice` performing the drop.
 func (x *Drop) GetDevice() *Device {
+	var cls *Device
 
-	GetDevicePtr := xDropGetDevice(x.GoPointer())
-	if GetDevicePtr == 0 {
-		return nil
+	cret := xDropGetDevice(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDevicePtr)
-
-	GetDeviceCls := &Device{}
-	GetDeviceCls.Ptr = GetDevicePtr
-	return GetDeviceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Device{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropGetDisplay func(uintptr) uintptr
 
 // Gets the `GdkDisplay` that @self was created for.
 func (x *Drop) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xDropGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xDropGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropGetDrag func(uintptr) uintptr
@@ -109,18 +108,17 @@ var xDropGetDrag func(uintptr) uintptr
 //
 // If it is not, %NULL is returned.
 func (x *Drop) GetDrag() *Drag {
+	var cls *Drag
 
-	GetDragPtr := xDropGetDrag(x.GoPointer())
-	if GetDragPtr == 0 {
-		return nil
+	cret := xDropGetDrag(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDragPtr)
-
-	GetDragCls := &Drag{}
-	GetDragCls.Ptr = GetDragPtr
-	return GetDragCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Drag{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropGetFormats func(uintptr) *ContentFormats
@@ -129,26 +127,25 @@ var xDropGetFormats func(uintptr) *ContentFormats
 // to be read in.
 func (x *Drop) GetFormats() *ContentFormats {
 
-	return xDropGetFormats(x.GoPointer())
-
+	cret := xDropGetFormats(x.GoPointer())
+	return cret
 }
 
 var xDropGetSurface func(uintptr) uintptr
 
 // Returns the `GdkSurface` performing the drop.
 func (x *Drop) GetSurface() *Surface {
+	var cls *Surface
 
-	GetSurfacePtr := xDropGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := xDropGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropReadAsync func(uintptr, uintptr, int, uintptr, uintptr, uintptr)
@@ -161,7 +158,7 @@ func (x *Drop) ReadAsync(MimeTypesVar uintptr, IoPriorityVar int, CancellableVar
 
 }
 
-var xDropReadFinish func(uintptr, uintptr, string) uintptr
+var xDropReadFinish func(uintptr, uintptr, string, **glib.Error) uintptr
 
 // Finishes an async drop read operation.
 //
@@ -171,16 +168,21 @@ var xDropReadFinish func(uintptr, uintptr, string) uintptr
 // g_input_stream_read_bytes_async().
 //
 // See [method@Gdk.Drop.read_async].
-func (x *Drop) ReadFinish(ResultVar gio.AsyncResult, OutMimeTypeVar string) *gio.InputStream {
+func (x *Drop) ReadFinish(ResultVar gio.AsyncResult, OutMimeTypeVar string) (*gio.InputStream, error) {
+	var cls *gio.InputStream
+	var cerr *glib.Error
 
-	ReadFinishPtr := xDropReadFinish(x.GoPointer(), ResultVar.GoPointer(), OutMimeTypeVar)
-	if ReadFinishPtr == 0 {
-		return nil
+	cret := xDropReadFinish(x.GoPointer(), ResultVar.GoPointer(), OutMimeTypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReadFinishCls := &gio.InputStream{}
-	ReadFinishCls.Ptr = ReadFinishPtr
-	return ReadFinishCls
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -202,14 +204,19 @@ func (x *Drop) ReadValueAsync(TypeVar []interface{}, IoPriorityVar int, Cancella
 
 }
 
-var xDropReadValueFinish func(uintptr, uintptr) *gobject.Value
+var xDropReadValueFinish func(uintptr, uintptr, **glib.Error) *gobject.Value
 
 // Finishes an async drop read.
 //
 // See [method@Gdk.Drop.read_value_async].
-func (x *Drop) ReadValueFinish(ResultVar gio.AsyncResult) *gobject.Value {
+func (x *Drop) ReadValueFinish(ResultVar gio.AsyncResult) (*gobject.Value, error) {
+	var cerr *glib.Error
 
-	return xDropReadValueFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xDropReadValueFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

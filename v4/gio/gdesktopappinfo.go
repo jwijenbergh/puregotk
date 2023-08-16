@@ -51,16 +51,16 @@ func (x *DesktopAppInfoLookupBase) SetGoPointer(ptr uintptr) {
 // in a GIO module. There is no reason for applications to use it
 // directly. Applications should use g_app_info_get_default_for_uri_scheme().
 func (x *DesktopAppInfoLookupBase) GetDefaultForUriScheme(UriSchemeVar string) *AppInfoBase {
+	var cls *AppInfoBase
 
-	GetDefaultForUriSchemePtr := XGDesktopAppInfoLookupGetDefaultForUriScheme(x.GoPointer(), UriSchemeVar)
-	if GetDefaultForUriSchemePtr == 0 {
-		return nil
+	cret := XGDesktopAppInfoLookupGetDefaultForUriScheme(x.GoPointer(), UriSchemeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDefaultForUriSchemeCls := &AppInfoBase{}
-	GetDefaultForUriSchemeCls.Ptr = GetDefaultForUriSchemePtr
-	return GetDefaultForUriSchemeCls
-
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var XGDesktopAppInfoLookupGetDefaultForUriScheme func(uintptr, string) uintptr
@@ -95,42 +95,48 @@ var xNewDesktopAppInfo func(string) uintptr
 // (i.e. a desktop id of kde-foo.desktop will match
 // `/usr/share/applications/kde/foo.desktop`).
 func NewDesktopAppInfo(DesktopIdVar string) *DesktopAppInfo {
-	NewDesktopAppInfoPtr := xNewDesktopAppInfo(DesktopIdVar)
-	if NewDesktopAppInfoPtr == 0 {
-		return nil
-	}
+	var cls *DesktopAppInfo
 
-	NewDesktopAppInfoCls := &DesktopAppInfo{}
-	NewDesktopAppInfoCls.Ptr = NewDesktopAppInfoPtr
-	return NewDesktopAppInfoCls
+	cret := xNewDesktopAppInfo(DesktopIdVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DesktopAppInfo{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromFilenameDesktopAppInfo func(string) uintptr
 
 // Creates a new #GDesktopAppInfo.
 func NewFromFilenameDesktopAppInfo(FilenameVar string) *DesktopAppInfo {
-	NewFromFilenameDesktopAppInfoPtr := xNewFromFilenameDesktopAppInfo(FilenameVar)
-	if NewFromFilenameDesktopAppInfoPtr == 0 {
-		return nil
-	}
+	var cls *DesktopAppInfo
 
-	NewFromFilenameDesktopAppInfoCls := &DesktopAppInfo{}
-	NewFromFilenameDesktopAppInfoCls.Ptr = NewFromFilenameDesktopAppInfoPtr
-	return NewFromFilenameDesktopAppInfoCls
+	cret := xNewFromFilenameDesktopAppInfo(FilenameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DesktopAppInfo{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromKeyfileDesktopAppInfo func(*glib.KeyFile) uintptr
 
 // Creates a new #GDesktopAppInfo.
 func NewFromKeyfileDesktopAppInfo(KeyFileVar *glib.KeyFile) *DesktopAppInfo {
-	NewFromKeyfileDesktopAppInfoPtr := xNewFromKeyfileDesktopAppInfo(KeyFileVar)
-	if NewFromKeyfileDesktopAppInfoPtr == 0 {
-		return nil
-	}
+	var cls *DesktopAppInfo
 
-	NewFromKeyfileDesktopAppInfoCls := &DesktopAppInfo{}
-	NewFromKeyfileDesktopAppInfoCls.Ptr = NewFromKeyfileDesktopAppInfoPtr
-	return NewFromKeyfileDesktopAppInfoCls
+	cret := xNewFromKeyfileDesktopAppInfo(KeyFileVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DesktopAppInfo{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDesktopAppInfoGetActionName func(uintptr, string) string
@@ -142,8 +148,8 @@ var xDesktopAppInfoGetActionName func(uintptr, string) string
 // action.
 func (x *DesktopAppInfo) GetActionName(ActionNameVar string) string {
 
-	return xDesktopAppInfoGetActionName(x.GoPointer(), ActionNameVar)
-
+	cret := xDesktopAppInfoGetActionName(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 var xDesktopAppInfoGetBoolean func(uintptr, string) bool
@@ -153,8 +159,8 @@ var xDesktopAppInfoGetBoolean func(uintptr, string) bool
 // The @key is looked up in the "Desktop Entry" group.
 func (x *DesktopAppInfo) GetBoolean(KeyVar string) bool {
 
-	return xDesktopAppInfoGetBoolean(x.GoPointer(), KeyVar)
-
+	cret := xDesktopAppInfoGetBoolean(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xDesktopAppInfoGetCategories func(uintptr) string
@@ -162,8 +168,8 @@ var xDesktopAppInfoGetCategories func(uintptr) string
 // Gets the categories from the desktop file.
 func (x *DesktopAppInfo) GetCategories() string {
 
-	return xDesktopAppInfoGetCategories(x.GoPointer())
-
+	cret := xDesktopAppInfoGetCategories(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetFilename func(uintptr) string
@@ -173,8 +179,8 @@ var xDesktopAppInfoGetFilename func(uintptr) string
 // g_desktop_app_info_new_from_keyfile(), this function will return %NULL.
 func (x *DesktopAppInfo) GetFilename() string {
 
-	return xDesktopAppInfoGetFilename(x.GoPointer())
-
+	cret := xDesktopAppInfoGetFilename(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetGenericName func(uintptr) string
@@ -182,8 +188,8 @@ var xDesktopAppInfoGetGenericName func(uintptr) string
 // Gets the generic name from the desktop file.
 func (x *DesktopAppInfo) GetGenericName() string {
 
-	return xDesktopAppInfoGetGenericName(x.GoPointer())
-
+	cret := xDesktopAppInfoGetGenericName(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetIsHidden func(uintptr) bool
@@ -192,8 +198,8 @@ var xDesktopAppInfoGetIsHidden func(uintptr) bool
 // set to True.
 func (x *DesktopAppInfo) GetIsHidden() bool {
 
-	return xDesktopAppInfoGetIsHidden(x.GoPointer())
-
+	cret := xDesktopAppInfoGetIsHidden(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetKeywords func(uintptr) uintptr
@@ -201,8 +207,8 @@ var xDesktopAppInfoGetKeywords func(uintptr) uintptr
 // Gets the keywords from the desktop file.
 func (x *DesktopAppInfo) GetKeywords() uintptr {
 
-	return xDesktopAppInfoGetKeywords(x.GoPointer())
-
+	cret := xDesktopAppInfoGetKeywords(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetLocaleString func(uintptr, string) string
@@ -213,8 +219,8 @@ var xDesktopAppInfoGetLocaleString func(uintptr, string) string
 // The @key is looked up in the "Desktop Entry" group.
 func (x *DesktopAppInfo) GetLocaleString(KeyVar string) string {
 
-	return xDesktopAppInfoGetLocaleString(x.GoPointer(), KeyVar)
-
+	cret := xDesktopAppInfoGetLocaleString(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xDesktopAppInfoGetNodisplay func(uintptr) bool
@@ -224,8 +230,8 @@ var xDesktopAppInfoGetNodisplay func(uintptr) bool
 // %G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY and g_app_info_should_show().
 func (x *DesktopAppInfo) GetNodisplay() bool {
 
-	return xDesktopAppInfoGetNodisplay(x.GoPointer())
-
+	cret := xDesktopAppInfoGetNodisplay(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetShowIn func(uintptr, string) bool
@@ -243,8 +249,8 @@ var xDesktopAppInfoGetShowIn func(uintptr, string) bool
 // %NULL for @desktop_env) as well as additional checks.
 func (x *DesktopAppInfo) GetShowIn(DesktopEnvVar string) bool {
 
-	return xDesktopAppInfoGetShowIn(x.GoPointer(), DesktopEnvVar)
-
+	cret := xDesktopAppInfoGetShowIn(x.GoPointer(), DesktopEnvVar)
+	return cret
 }
 
 var xDesktopAppInfoGetStartupWmClass func(uintptr) string
@@ -254,8 +260,8 @@ var xDesktopAppInfoGetStartupWmClass func(uintptr) string
 // through @info.
 func (x *DesktopAppInfo) GetStartupWmClass() string {
 
-	return xDesktopAppInfoGetStartupWmClass(x.GoPointer())
-
+	cret := xDesktopAppInfoGetStartupWmClass(x.GoPointer())
+	return cret
 }
 
 var xDesktopAppInfoGetString func(uintptr, string) string
@@ -265,8 +271,8 @@ var xDesktopAppInfoGetString func(uintptr, string) string
 // The @key is looked up in the "Desktop Entry" group.
 func (x *DesktopAppInfo) GetString(KeyVar string) string {
 
-	return xDesktopAppInfoGetString(x.GoPointer(), KeyVar)
-
+	cret := xDesktopAppInfoGetString(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xDesktopAppInfoGetStringList func(uintptr, string, uint) uintptr
@@ -276,8 +282,8 @@ var xDesktopAppInfoGetStringList func(uintptr, string, uint) uintptr
 // The @key is looked up in the "Desktop Entry" group.
 func (x *DesktopAppInfo) GetStringList(KeyVar string, LengthVar uint) uintptr {
 
-	return xDesktopAppInfoGetStringList(x.GoPointer(), KeyVar, LengthVar)
-
+	cret := xDesktopAppInfoGetStringList(x.GoPointer(), KeyVar, LengthVar)
+	return cret
 }
 
 var xDesktopAppInfoHasKey func(uintptr, string) bool
@@ -286,8 +292,8 @@ var xDesktopAppInfoHasKey func(uintptr, string) bool
 // of the keyfile backing @info.
 func (x *DesktopAppInfo) HasKey(KeyVar string) bool {
 
-	return xDesktopAppInfoHasKey(x.GoPointer(), KeyVar)
-
+	cret := xDesktopAppInfoHasKey(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xDesktopAppInfoLaunchAction func(uintptr, string, uintptr)
@@ -313,7 +319,7 @@ func (x *DesktopAppInfo) LaunchAction(ActionNameVar string, LaunchContextVar *Ap
 
 }
 
-var xDesktopAppInfoLaunchUrisAsManager func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr) bool
+var xDesktopAppInfoLaunchUrisAsManager func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr, **glib.Error) bool
 
 // This function performs the equivalent of g_app_info_launch_uris(),
 // but is intended primarily for operating system components that
@@ -330,13 +336,18 @@ var xDesktopAppInfoLaunchUrisAsManager func(uintptr, *glib.List, uintptr, glib.S
 // If application launching occurs via some other mechanism (eg: D-Bus
 // activation) then @spawn_flags, @user_setup, @user_setup_data,
 // @pid_callback and @pid_callback_data are ignored.
-func (x *DesktopAppInfo) LaunchUrisAsManager(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr) bool {
+func (x *DesktopAppInfo) LaunchUrisAsManager(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return xDesktopAppInfoLaunchUrisAsManager(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar)
+	cret := xDesktopAppInfoLaunchUrisAsManager(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr, int, int, int) bool
+var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr, glib.SpawnFlags, uintptr, uintptr, uintptr, uintptr, int, int, int, **glib.Error) bool
 
 // Equivalent to g_desktop_app_info_launch_uris_as_manager() but allows
 // you to pass in file descriptors for the stdin, stdout and stderr streams
@@ -344,9 +355,14 @@ var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr,
 //
 // If application launching occurs via some non-spawn mechanism (e.g. D-Bus
 // activation) then @stdin_fd, @stdout_fd and @stderr_fd are ignored.
-func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int) bool {
+func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
+	var cerr *glib.Error
 
-	return xDesktopAppInfoLaunchUrisAsManagerWithFds(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, StdinFdVar, StdoutFdVar, StderrFdVar)
+	cret := xDesktopAppInfoLaunchUrisAsManagerWithFds(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -359,8 +375,8 @@ var xDesktopAppInfoListActions func(uintptr) uintptr
 // explicitly listed in the "Actions" key of the [Desktop Entry] group.
 func (x *DesktopAppInfo) ListActions() uintptr {
 
-	return xDesktopAppInfoListActions(x.GoPointer())
-
+	cret := xDesktopAppInfoListActions(x.GoPointer())
+	return cret
 }
 
 func (c *DesktopAppInfo) GoPointer() uintptr {
@@ -373,9 +389,14 @@ func (c *DesktopAppInfo) SetGoPointer(ptr uintptr) {
 
 // Adds a content type to the application information to indicate the
 // application is capable of opening files with the given content type.
-func (x *DesktopAppInfo) AddSupportsType(ContentTypeVar string) bool {
+func (x *DesktopAppInfo) AddSupportsType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoAddSupportsType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoAddSupportsType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -383,15 +404,15 @@ func (x *DesktopAppInfo) AddSupportsType(ContentTypeVar string) bool {
 // See g_app_info_delete().
 func (x *DesktopAppInfo) CanDelete() bool {
 
-	return XGAppInfoCanDelete(x.GoPointer())
-
+	cret := XGAppInfoCanDelete(x.GoPointer())
+	return cret
 }
 
 // Checks if a supported content type can be removed from an application.
 func (x *DesktopAppInfo) CanRemoveSupportsType() bool {
 
-	return XGAppInfoCanRemoveSupportsType(x.GoPointer())
-
+	cret := XGAppInfoCanRemoveSupportsType(x.GoPointer())
+	return cret
 }
 
 // Tries to delete a #GAppInfo.
@@ -401,22 +422,22 @@ func (x *DesktopAppInfo) CanRemoveSupportsType() bool {
 // See g_app_info_can_delete().
 func (x *DesktopAppInfo) Delete() bool {
 
-	return XGAppInfoDelete(x.GoPointer())
-
+	cret := XGAppInfoDelete(x.GoPointer())
+	return cret
 }
 
 // Creates a duplicate of a #GAppInfo.
 func (x *DesktopAppInfo) Dup() *AppInfoBase {
+	var cls *AppInfoBase
 
-	DupPtr := XGAppInfoDup(x.GoPointer())
-	if DupPtr == 0 {
-		return nil
+	cret := XGAppInfoDup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupCls := &AppInfoBase{}
-	DupCls.Ptr = DupPtr
-	return DupCls
-
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Checks if two #GAppInfos are equal.
@@ -426,54 +447,53 @@ func (x *DesktopAppInfo) Dup() *AppInfoBase {
 // contents is needed, program code must additionally compare relevant fields.
 func (x *DesktopAppInfo) Equal(Appinfo2Var AppInfo) bool {
 
-	return XGAppInfoEqual(x.GoPointer(), Appinfo2Var.GoPointer())
-
+	cret := XGAppInfoEqual(x.GoPointer(), Appinfo2Var.GoPointer())
+	return cret
 }
 
 // Gets the commandline with which the application will be
 // started.
 func (x *DesktopAppInfo) GetCommandline() string {
 
-	return XGAppInfoGetCommandline(x.GoPointer())
-
+	cret := XGAppInfoGetCommandline(x.GoPointer())
+	return cret
 }
 
 // Gets a human-readable description of an installed application.
 func (x *DesktopAppInfo) GetDescription() string {
 
-	return XGAppInfoGetDescription(x.GoPointer())
-
+	cret := XGAppInfoGetDescription(x.GoPointer())
+	return cret
 }
 
 // Gets the display name of the application. The display name is often more
 // descriptive to the user than the name itself.
 func (x *DesktopAppInfo) GetDisplayName() string {
 
-	return XGAppInfoGetDisplayName(x.GoPointer())
-
+	cret := XGAppInfoGetDisplayName(x.GoPointer())
+	return cret
 }
 
 // Gets the executable's name for the installed application.
 func (x *DesktopAppInfo) GetExecutable() string {
 
-	return XGAppInfoGetExecutable(x.GoPointer())
-
+	cret := XGAppInfoGetExecutable(x.GoPointer())
+	return cret
 }
 
 // Gets the icon for the application.
 func (x *DesktopAppInfo) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := XGAppInfoGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := XGAppInfoGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPtr)
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the ID of an application. An id is a string that
@@ -485,15 +505,15 @@ func (x *DesktopAppInfo) GetIcon() *IconBase {
 // the @appinfo has been constructed.
 func (x *DesktopAppInfo) GetId() string {
 
-	return XGAppInfoGetId(x.GoPointer())
-
+	cret := XGAppInfoGetId(x.GoPointer())
+	return cret
 }
 
 // Gets the installed name of the application.
 func (x *DesktopAppInfo) GetName() string {
 
-	return XGAppInfoGetName(x.GoPointer())
-
+	cret := XGAppInfoGetName(x.GoPointer())
+	return cret
 }
 
 // Retrieves the list of content types that @app_info claims to support.
@@ -504,8 +524,8 @@ func (x *DesktopAppInfo) GetName() string {
 // the application.
 func (x *DesktopAppInfo) GetSupportedTypes() uintptr {
 
-	return XGAppInfoGetSupportedTypes(x.GoPointer())
-
+	cret := XGAppInfoGetSupportedTypes(x.GoPointer())
+	return cret
 }
 
 // Launches the application. Passes @files to the launched application
@@ -535,9 +555,14 @@ func (x *DesktopAppInfo) GetSupportedTypes() uintptr {
 // should it be inherited by further processes. The `DISPLAY` and
 // `DESKTOP_STARTUP_ID` environment variables are also set, based
 // on information provided in @context.
-func (x *DesktopAppInfo) Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) bool {
+func (x *DesktopAppInfo) Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunch(x.GoPointer(), FilesVar, ContextVar.GoPointer())
+	cret := XGAppInfoLaunch(x.GoPointer(), FilesVar, ContextVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -551,9 +576,14 @@ func (x *DesktopAppInfo) Launch(FilesVar *glib.List, ContextVar *AppLaunchContex
 // Note that even if the launch is successful the application launched
 // can fail to start if it runs into problems during startup. There is
 // no way to detect this.
-func (x *DesktopAppInfo) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) bool {
+func (x *DesktopAppInfo) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunchUris(x.GoPointer(), UrisVar, ContextVar.GoPointer())
+	cret := XGAppInfoLaunchUris(x.GoPointer(), UrisVar, ContextVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -570,30 +600,50 @@ func (x *DesktopAppInfo) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaun
 }
 
 // Finishes a g_app_info_launch_uris_async() operation.
-func (x *DesktopAppInfo) LaunchUrisFinish(ResultVar AsyncResult) bool {
+func (x *DesktopAppInfo) LaunchUrisFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunchUrisFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGAppInfoLaunchUrisFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Removes a supported type from an application, if possible.
-func (x *DesktopAppInfo) RemoveSupportsType(ContentTypeVar string) bool {
+func (x *DesktopAppInfo) RemoveSupportsType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoRemoveSupportsType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoRemoveSupportsType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Sets the application as the default handler for the given file extension.
-func (x *DesktopAppInfo) SetAsDefaultForExtension(ExtensionVar string) bool {
+func (x *DesktopAppInfo) SetAsDefaultForExtension(ExtensionVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsDefaultForExtension(x.GoPointer(), ExtensionVar)
+	cret := XGAppInfoSetAsDefaultForExtension(x.GoPointer(), ExtensionVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Sets the application as the default handler for a given type.
-func (x *DesktopAppInfo) SetAsDefaultForType(ContentTypeVar string) bool {
+func (x *DesktopAppInfo) SetAsDefaultForType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsDefaultForType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoSetAsDefaultForType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -601,9 +651,14 @@ func (x *DesktopAppInfo) SetAsDefaultForType(ContentTypeVar string) bool {
 // This will make the application appear as first in the list returned
 // by g_app_info_get_recommended_for_type(), regardless of the default
 // application for that content type.
-func (x *DesktopAppInfo) SetAsLastUsedForType(ContentTypeVar string) bool {
+func (x *DesktopAppInfo) SetAsLastUsedForType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsLastUsedForType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoSetAsLastUsedForType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -611,22 +666,22 @@ func (x *DesktopAppInfo) SetAsLastUsedForType(ContentTypeVar string) bool {
 // list available applications.
 func (x *DesktopAppInfo) ShouldShow() bool {
 
-	return XGAppInfoShouldShow(x.GoPointer())
-
+	cret := XGAppInfoShouldShow(x.GoPointer())
+	return cret
 }
 
 // Checks if the application accepts files as arguments.
 func (x *DesktopAppInfo) SupportsFiles() bool {
 
-	return XGAppInfoSupportsFiles(x.GoPointer())
-
+	cret := XGAppInfoSupportsFiles(x.GoPointer())
+	return cret
 }
 
 // Checks if the application supports reading files and directories from URIs.
 func (x *DesktopAppInfo) SupportsUris() bool {
 
-	return XGAppInfoSupportsUris(x.GoPointer())
-
+	cret := XGAppInfoSupportsUris(x.GoPointer())
+	return cret
 }
 
 func init() {

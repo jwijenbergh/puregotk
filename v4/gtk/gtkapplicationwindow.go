@@ -103,16 +103,17 @@ var xNewApplicationWindow func(uintptr) uintptr
 
 // Creates a new `GtkApplicationWindow`.
 func NewApplicationWindow(ApplicationVar *Application) *Widget {
-	NewApplicationWindowPtr := xNewApplicationWindow(ApplicationVar.GoPointer())
-	if NewApplicationWindowPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewApplicationWindow(ApplicationVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewApplicationWindowPtr)
-
-	NewApplicationWindowCls := &Widget{}
-	NewApplicationWindowCls.Ptr = NewApplicationWindowPtr
-	return NewApplicationWindowCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationWindowGetHelpOverlay func(uintptr) uintptr
@@ -121,18 +122,17 @@ var xApplicationWindowGetHelpOverlay func(uintptr) uintptr
 //
 // See [method@Gtk.ApplicationWindow.set_help_overlay].
 func (x *ApplicationWindow) GetHelpOverlay() *ShortcutsWindow {
+	var cls *ShortcutsWindow
 
-	GetHelpOverlayPtr := xApplicationWindowGetHelpOverlay(x.GoPointer())
-	if GetHelpOverlayPtr == 0 {
-		return nil
+	cret := xApplicationWindowGetHelpOverlay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHelpOverlayPtr)
-
-	GetHelpOverlayCls := &ShortcutsWindow{}
-	GetHelpOverlayCls.Ptr = GetHelpOverlayPtr
-	return GetHelpOverlayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ShortcutsWindow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationWindowGetId func(uintptr) uint
@@ -142,8 +142,8 @@ var xApplicationWindowGetId func(uintptr) uint
 //	If the window has not yet been added to a `GtkApplication`, returns `0`.
 func (x *ApplicationWindow) GetId() uint {
 
-	return xApplicationWindowGetId(x.GoPointer())
-
+	cret := xApplicationWindowGetId(x.GoPointer())
+	return cret
 }
 
 var xApplicationWindowGetShowMenubar func(uintptr) bool
@@ -152,8 +152,8 @@ var xApplicationWindowGetShowMenubar func(uintptr) bool
 // and menubar as needed.
 func (x *ApplicationWindow) GetShowMenubar() bool {
 
-	return xApplicationWindowGetShowMenubar(x.GoPointer())
-
+	cret := xApplicationWindowGetShowMenubar(x.GoPointer())
+	return cret
 }
 
 var xApplicationWindowSetHelpOverlay func(uintptr, uintptr)
@@ -286,8 +286,8 @@ func (x *ApplicationWindow) ChangeActionState(ActionNameVar string, ValueVar *gl
 // have its state changed from outside callers.
 func (x *ApplicationWindow) GetActionEnabled(ActionNameVar string) bool {
 
-	return gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -305,8 +305,8 @@ func (x *ApplicationWindow) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *ApplicationWindow) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -319,8 +319,8 @@ func (x *ApplicationWindow) GetActionParameterType(ActionNameVar string) *glib.V
 // g_variant_unref() when it is no longer required.
 func (x *ApplicationWindow) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -343,8 +343,8 @@ func (x *ApplicationWindow) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *ApplicationWindow) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -365,15 +365,15 @@ func (x *ApplicationWindow) GetActionStateHint(ActionNameVar string) *glib.Varia
 // with the same name but a different state type.
 func (x *ApplicationWindow) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *ApplicationWindow) HasAction(ActionNameVar string) bool {
 
-	return gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -382,8 +382,8 @@ func (x *ApplicationWindow) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *ApplicationWindow) ListActions() uintptr {
 
-	return gio.XGActionGroupListActions(x.GoPointer())
-
+	cret := gio.XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -415,8 +415,8 @@ func (x *ApplicationWindow) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *ApplicationWindow) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Adds an action to the @action_map.
@@ -484,18 +484,17 @@ func (x *ApplicationWindow) AddActionEntries(EntriesVar uintptr, NEntriesVar int
 //
 // If no such action exists, returns %NULL.
 func (x *ApplicationWindow) LookupAction(ActionNameVar string) *gio.ActionBase {
+	var cls *gio.ActionBase
 
-	LookupActionPtr := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &gio.ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.
@@ -510,8 +509,8 @@ func (x *ApplicationWindow) RemoveAction(ActionNameVar string) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ApplicationWindow) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -646,40 +645,38 @@ func (x *ApplicationWindow) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ApplicationWindow) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *ApplicationWindow) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *ApplicationWindow) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -712,18 +709,17 @@ func (x *ApplicationWindow) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *ApplicationWindow) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -733,18 +729,17 @@ func (x *ApplicationWindow) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *ApplicationWindow) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

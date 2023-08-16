@@ -70,14 +70,16 @@ var xNewTextMark func(string, bool) uintptr
 // is a mark with right gravity (when you type, the cursor stays on the
 // right side of the text you’re typing).
 func NewTextMark(NameVar string, LeftGravityVar bool) *TextMark {
-	NewTextMarkPtr := xNewTextMark(NameVar, LeftGravityVar)
-	if NewTextMarkPtr == 0 {
-		return nil
-	}
+	var cls *TextMark
 
-	NewTextMarkCls := &TextMark{}
-	NewTextMarkCls.Ptr = NewTextMarkPtr
-	return NewTextMarkCls
+	cret := xNewTextMark(NameVar, LeftGravityVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextMark{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextMarkGetBuffer func(uintptr) uintptr
@@ -86,18 +88,17 @@ var xTextMarkGetBuffer func(uintptr) uintptr
 //
 // Returns %NULL if the mark is deleted.
 func (x *TextMark) GetBuffer() *TextBuffer {
+	var cls *TextBuffer
 
-	GetBufferPtr := xTextMarkGetBuffer(x.GoPointer())
-	if GetBufferPtr == 0 {
-		return nil
+	cret := xTextMarkGetBuffer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBufferPtr)
-
-	GetBufferCls := &TextBuffer{}
-	GetBufferCls.Ptr = GetBufferPtr
-	return GetBufferCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextMarkGetDeleted func(uintptr) bool
@@ -108,8 +109,8 @@ var xTextMarkGetDeleted func(uintptr) bool
 // to a buffer again.
 func (x *TextMark) GetDeleted() bool {
 
-	return xTextMarkGetDeleted(x.GoPointer())
-
+	cret := xTextMarkGetDeleted(x.GoPointer())
+	return cret
 }
 
 var xTextMarkGetLeftGravity func(uintptr) bool
@@ -117,8 +118,8 @@ var xTextMarkGetLeftGravity func(uintptr) bool
 // Determines whether the mark has left gravity.
 func (x *TextMark) GetLeftGravity() bool {
 
-	return xTextMarkGetLeftGravity(x.GoPointer())
-
+	cret := xTextMarkGetLeftGravity(x.GoPointer())
+	return cret
 }
 
 var xTextMarkGetName func(uintptr) string
@@ -128,8 +129,8 @@ var xTextMarkGetName func(uintptr) string
 // Returns %NULL for anonymous marks.
 func (x *TextMark) GetName() string {
 
-	return xTextMarkGetName(x.GoPointer())
-
+	cret := xTextMarkGetName(x.GoPointer())
+	return cret
 }
 
 var xTextMarkGetVisible func(uintptr) bool
@@ -139,8 +140,8 @@ var xTextMarkGetVisible func(uintptr) bool
 // A cursor is displayed for visible marks.
 func (x *TextMark) GetVisible() bool {
 
-	return xTextMarkGetVisible(x.GoPointer())
-
+	cret := xTextMarkGetVisible(x.GoPointer())
+	return cret
 }
 
 var xTextMarkSetVisible func(uintptr, bool)

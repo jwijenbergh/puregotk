@@ -80,48 +80,51 @@ var xNewCheckButton func() uintptr
 
 // Creates a new `GtkCheckButton`.
 func NewCheckButton() *Widget {
-	NewCheckButtonPtr := xNewCheckButton()
-	if NewCheckButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewCheckButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCheckButtonPtr)
-
-	NewCheckButtonCls := &Widget{}
-	NewCheckButtonCls.Ptr = NewCheckButtonPtr
-	return NewCheckButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithLabelCheckButton func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text.
 func NewWithLabelCheckButton(LabelVar string) *Widget {
-	NewWithLabelCheckButtonPtr := xNewWithLabelCheckButton(LabelVar)
-	if NewWithLabelCheckButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithLabelCheckButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithLabelCheckButtonPtr)
-
-	NewWithLabelCheckButtonCls := &Widget{}
-	NewWithLabelCheckButtonCls.Ptr = NewWithLabelCheckButtonPtr
-	return NewWithLabelCheckButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMnemonicCheckButton func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text and a mnemonic.
 func NewWithMnemonicCheckButton(LabelVar string) *Widget {
-	NewWithMnemonicCheckButtonPtr := xNewWithMnemonicCheckButton(LabelVar)
-	if NewWithMnemonicCheckButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMnemonicCheckButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMnemonicCheckButtonPtr)
-
-	NewWithMnemonicCheckButtonCls := &Widget{}
-	NewWithMnemonicCheckButtonCls.Ptr = NewWithMnemonicCheckButtonPtr
-	return NewWithMnemonicCheckButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCheckButtonGetActive func(uintptr) bool
@@ -129,26 +132,25 @@ var xCheckButtonGetActive func(uintptr) bool
 // Returns whether the check button is active.
 func (x *CheckButton) GetActive() bool {
 
-	return xCheckButtonGetActive(x.GoPointer())
-
+	cret := xCheckButtonGetActive(x.GoPointer())
+	return cret
 }
 
 var xCheckButtonGetChild func(uintptr) uintptr
 
 // Gets the child widget of @button or `NULL` if [property@CheckButton:label] is set.
 func (x *CheckButton) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xCheckButtonGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xCheckButtonGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCheckButtonGetInconsistent func(uintptr) bool
@@ -156,8 +158,8 @@ var xCheckButtonGetInconsistent func(uintptr) bool
 // Returns whether the check button is in an inconsistent state.
 func (x *CheckButton) GetInconsistent() bool {
 
-	return xCheckButtonGetInconsistent(x.GoPointer())
-
+	cret := xCheckButtonGetInconsistent(x.GoPointer())
+	return cret
 }
 
 var xCheckButtonGetLabel func(uintptr) string
@@ -165,8 +167,8 @@ var xCheckButtonGetLabel func(uintptr) string
 // Returns the label of the check button or `NULL` if [property@CheckButton:child] is set.
 func (x *CheckButton) GetLabel() string {
 
-	return xCheckButtonGetLabel(x.GoPointer())
-
+	cret := xCheckButtonGetLabel(x.GoPointer())
+	return cret
 }
 
 var xCheckButtonGetUseUnderline func(uintptr) bool
@@ -174,8 +176,8 @@ var xCheckButtonGetUseUnderline func(uintptr) bool
 // Returns whether underlines in the label indicate mnemonics.
 func (x *CheckButton) GetUseUnderline() bool {
 
-	return xCheckButtonGetUseUnderline(x.GoPointer())
-
+	cret := xCheckButtonGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xCheckButtonSetActive func(uintptr, bool)
@@ -305,8 +307,8 @@ func (x *CheckButton) ConnectToggled(cb func(CheckButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *CheckButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -438,15 +440,15 @@ func (x *CheckButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // Gets the action name for @actionable.
 func (x *CheckButton) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *CheckButton) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -524,8 +526,8 @@ func (x *CheckButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CheckButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

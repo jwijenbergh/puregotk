@@ -48,46 +48,49 @@ var xNewUnixCredentialsMessage func() uintptr
 
 // Creates a new #GUnixCredentialsMessage with credentials matching the current processes.
 func NewUnixCredentialsMessage() *SocketControlMessage {
-	NewUnixCredentialsMessagePtr := xNewUnixCredentialsMessage()
-	if NewUnixCredentialsMessagePtr == 0 {
-		return nil
-	}
+	var cls *SocketControlMessage
 
-	NewUnixCredentialsMessageCls := &SocketControlMessage{}
-	NewUnixCredentialsMessageCls.Ptr = NewUnixCredentialsMessagePtr
-	return NewUnixCredentialsMessageCls
+	cret := xNewUnixCredentialsMessage()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketControlMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithCredentialsUnixCredentialsMessage func(uintptr) uintptr
 
 // Creates a new #GUnixCredentialsMessage holding @credentials.
 func NewWithCredentialsUnixCredentialsMessage(CredentialsVar *Credentials) *SocketControlMessage {
-	NewWithCredentialsUnixCredentialsMessagePtr := xNewWithCredentialsUnixCredentialsMessage(CredentialsVar.GoPointer())
-	if NewWithCredentialsUnixCredentialsMessagePtr == 0 {
-		return nil
-	}
+	var cls *SocketControlMessage
 
-	NewWithCredentialsUnixCredentialsMessageCls := &SocketControlMessage{}
-	NewWithCredentialsUnixCredentialsMessageCls.Ptr = NewWithCredentialsUnixCredentialsMessagePtr
-	return NewWithCredentialsUnixCredentialsMessageCls
+	cret := xNewWithCredentialsUnixCredentialsMessage(CredentialsVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketControlMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixCredentialsMessageGetCredentials func(uintptr) uintptr
 
 // Gets the credentials stored in @message.
 func (x *UnixCredentialsMessage) GetCredentials() *Credentials {
+	var cls *Credentials
 
-	GetCredentialsPtr := xUnixCredentialsMessageGetCredentials(x.GoPointer())
-	if GetCredentialsPtr == 0 {
-		return nil
+	cret := xUnixCredentialsMessageGetCredentials(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCredentialsPtr)
-
-	GetCredentialsCls := &Credentials{}
-	GetCredentialsCls.Ptr = GetCredentialsPtr
-	return GetCredentialsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Credentials{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *UnixCredentialsMessage) GoPointer() uintptr {

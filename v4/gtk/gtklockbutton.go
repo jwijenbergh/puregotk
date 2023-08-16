@@ -60,34 +60,34 @@ var xNewLockButton func(uintptr) uintptr
 
 // Creates a new lock button which reflects the @permission.
 func NewLockButton(PermissionVar *gio.Permission) *Widget {
-	NewLockButtonPtr := xNewLockButton(PermissionVar.GoPointer())
-	if NewLockButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewLockButton(PermissionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewLockButtonPtr)
-
-	NewLockButtonCls := &Widget{}
-	NewLockButtonCls.Ptr = NewLockButtonPtr
-	return NewLockButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLockButtonGetPermission func(uintptr) uintptr
 
 // Obtains the `GPermission` object that controls @button.
 func (x *LockButton) GetPermission() *gio.Permission {
+	var cls *gio.Permission
 
-	GetPermissionPtr := xLockButtonGetPermission(x.GoPointer())
-	if GetPermissionPtr == 0 {
-		return nil
+	cret := xLockButtonGetPermission(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPermissionPtr)
-
-	GetPermissionCls := &gio.Permission{}
-	GetPermissionCls.Ptr = GetPermissionPtr
-	return GetPermissionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.Permission{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLockButtonSetPermission func(uintptr, uintptr)
@@ -110,8 +110,8 @@ func (c *LockButton) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *LockButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -243,15 +243,15 @@ func (x *LockButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // Gets the action name for @actionable.
 func (x *LockButton) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *LockButton) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -329,8 +329,8 @@ func (x *LockButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *LockButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

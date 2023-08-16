@@ -73,34 +73,34 @@ var xNewFrame func(string) uintptr
 //
 // If @label is %NULL, the label is omitted.
 func NewFrame(LabelVar string) *Widget {
-	NewFramePtr := xNewFrame(LabelVar)
-	if NewFramePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFrame(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFramePtr)
-
-	NewFrameCls := &Widget{}
-	NewFrameCls.Ptr = NewFramePtr
-	return NewFrameCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFrameGetChild func(uintptr) uintptr
 
 // Gets the child widget of @frame.
 func (x *Frame) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xFrameGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xFrameGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFrameGetLabel func(uintptr) string
@@ -111,8 +111,8 @@ var xFrameGetLabel func(uintptr) string
 // is returned.
 func (x *Frame) GetLabel() string {
 
-	return xFrameGetLabel(x.GoPointer())
-
+	cret := xFrameGetLabel(x.GoPointer())
+	return cret
 }
 
 var xFrameGetLabelAlign func(uintptr) float32
@@ -120,26 +120,25 @@ var xFrameGetLabelAlign func(uintptr) float32
 // Retrieves the X alignment of the frame’s label.
 func (x *Frame) GetLabelAlign() float32 {
 
-	return xFrameGetLabelAlign(x.GoPointer())
-
+	cret := xFrameGetLabelAlign(x.GoPointer())
+	return cret
 }
 
 var xFrameGetLabelWidget func(uintptr) uintptr
 
 // Retrieves the label widget for the frame.
 func (x *Frame) GetLabelWidget() *Widget {
+	var cls *Widget
 
-	GetLabelWidgetPtr := xFrameGetLabelWidget(x.GoPointer())
-	if GetLabelWidgetPtr == 0 {
-		return nil
+	cret := xFrameGetLabelWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLabelWidgetPtr)
-
-	GetLabelWidgetCls := &Widget{}
-	GetLabelWidgetCls.Ptr = GetLabelWidgetPtr
-	return GetLabelWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFrameSetChild func(uintptr, uintptr)
@@ -195,8 +194,8 @@ func (c *Frame) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Frame) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -331,8 +330,8 @@ func (x *Frame) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Frame) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

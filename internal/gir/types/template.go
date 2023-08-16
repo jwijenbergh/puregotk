@@ -132,6 +132,15 @@ func (f *funcArgsTemplate) Add(p Parameter, ins string, ns string, kinds KindMap
 	f.AddPure(goType, varName, kind)
 }
 
+func (f *funcArgsTemplate) AddThrows(ns string) {
+	f.API.Call = append(f.API.Call, "&cerr")
+	if strings.ToLower(ns) != "glib" {
+		f.Pure.Types = append(f.Pure.Types, "**glib.Error")
+	} else {
+		f.Pure.Types = append(f.Pure.Types, "**Error")
+	}
+}
+
 type CallbackTemplate struct {
 	Doc  string
 	Name string
@@ -196,13 +205,101 @@ type funcRetTemplate struct {
 	Class bool
 	// RefSink indicates whether or not we should increase the reference count using obj.RefSink()
 	RefSink bool
+	// Throws indicates whether or not this function throws
+	Throws bool
 }
 
 func (fr *funcRetTemplate) Instance() string {
+	val := fr.Value + "{}"
 	if strings.HasPrefix(fr.Value, "*") {
-		return "&"+fr.Value[1:]
+		return "&"+val[1:]
+	}
+	return val
+}
+
+func (fr *funcRetTemplate) Return() string {
+	if fr.Throws {
+		if fr.Value == "" {
+			return "error"
+		}
+		return fmt.Sprintf("(%s, error)", fr.Value)
 	}
 	return fr.Value
+}
+
+func (fr *funcRetTemplate) HasReturn() bool {
+	return fr.Value != "" || fr.Throws
+}
+
+func (fr *funcRetTemplate) Preamble(nglib bool) string {
+	preamb := strings.Builder{}
+	if fr.Class {
+		preamb.WriteString("var cls ")
+		preamb.WriteString(fr.Value)
+		preamb.WriteString("\n")
+	}
+	if fr.Throws {
+		preamb.WriteString("var cerr *")
+		if nglib {
+			preamb.WriteString("glib.")
+		}
+		preamb.WriteString("Error\n")
+	}
+	return preamb.String()
+}
+
+func (fr *funcRetTemplate) Fmt(ngo bool) string {
+	if !fr.HasReturn() {
+		return ""
+	}
+	after := strings.Builder{}
+	val := "cret"
+	if fr.Class {
+		if fr.Throws {
+			after.WriteString(`
+    if cret == 0 {
+        return cls, cerr
+    }
+`)
+		} else {
+			after.WriteString(`
+    if cret == 0 {
+        return cls
+    }
+`)
+		}
+		if fr.RefSink {
+			if ngo {
+				after.WriteString("gobject.")
+			}
+			after.WriteString("IncreaseRef(cret)\n")
+		}
+		after.WriteString("cls = ")
+		after.WriteString(fr.Instance())
+		after.WriteString("\n")
+		after.WriteString("cls.Ptr = cret\n")
+		val = "cls"
+	}
+	if fr.Throws {
+		after.WriteString("if cerr == nil {\n")
+		after.WriteString("return ")
+		if fr.Value != "" {
+			after.WriteString(val)
+			after.WriteString(",")
+		}
+		after.WriteString( "nil\n")
+		after.WriteString("}\n")
+		after.WriteString("return ")
+		if fr.Value != "" {
+			after.WriteString(val)
+			after.WriteString(",")
+		}
+		after.WriteString( "cerr\n")
+		return after.String()
+	}
+	after.WriteString("return ")
+	after.WriteString(val)
+	return after.String()
 }
 
 type FuncTemplate struct {

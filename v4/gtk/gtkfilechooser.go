@@ -119,45 +119,50 @@ func (x *FileChooserBase) AddFilter(FilterVar *FileFilter) {
 
 // Adds a folder to be displayed with the shortcut folders
 // in a file chooser.
-func (x *FileChooserBase) AddShortcutFolder(FolderVar gio.File) bool {
+func (x *FileChooserBase) AddShortcutFolder(FolderVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserAddShortcutFolder(x.GoPointer(), FolderVar.GoPointer())
+	cret := XGtkFileChooserAddShortcutFolder(x.GoPointer(), FolderVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Gets the type of operation that the file chooser is performing.
 func (x *FileChooserBase) GetAction() FileChooserAction {
 
-	return XGtkFileChooserGetAction(x.GoPointer())
-
+	cret := XGtkFileChooserGetAction(x.GoPointer())
+	return cret
 }
 
 // Gets the currently selected option in the 'choice' with the given ID.
 func (x *FileChooserBase) GetChoice(IdVar string) string {
 
-	return XGtkFileChooserGetChoice(x.GoPointer(), IdVar)
-
+	cret := XGtkFileChooserGetChoice(x.GoPointer(), IdVar)
+	return cret
 }
 
 // Gets whether file chooser will offer to create new folders.
 func (x *FileChooserBase) GetCreateFolders() bool {
 
-	return XGtkFileChooserGetCreateFolders(x.GoPointer())
-
+	cret := XGtkFileChooserGetCreateFolders(x.GoPointer())
+	return cret
 }
 
 // Gets the current folder of @chooser as `GFile`.
 func (x *FileChooserBase) GetCurrentFolder() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetCurrentFolderPtr := XGtkFileChooserGetCurrentFolder(x.GoPointer())
-	if GetCurrentFolderPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetCurrentFolder(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentFolderCls := &gio.FileBase{}
-	GetCurrentFolderCls.Ptr = GetCurrentFolderPtr
-	return GetCurrentFolderCls
-
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current name in the file selector, as entered by the user.
@@ -166,8 +171,8 @@ func (x *FileChooserBase) GetCurrentFolder() *gio.FileBase {
 // filename when the file itself does not exist yet.
 func (x *FileChooserBase) GetCurrentName() string {
 
-	return XGtkFileChooserGetCurrentName(x.GoPointer())
-
+	cret := XGtkFileChooserGetCurrentName(x.GoPointer())
+	return cret
 }
 
 // Gets the `GFile` for the currently selected file in
@@ -179,47 +184,46 @@ func (x *FileChooserBase) GetCurrentName() string {
 // If the file chooser is in folder mode, this function returns
 // the selected folder.
 func (x *FileChooserBase) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := XGtkFileChooserGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Lists all the selected files and subfolders in the current folder
 // of @chooser as `GFile`.
 func (x *FileChooserBase) GetFiles() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetFilesPtr := XGtkFileChooserGetFiles(x.GoPointer())
-	if GetFilesPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFiles(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFilesCls := &gio.ListModelBase{}
-	GetFilesCls.Ptr = GetFilesPtr
-	return GetFilesCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current filter.
 func (x *FileChooserBase) GetFilter() *FileFilter {
+	var cls *FileFilter
 
-	GetFilterPtr := XGtkFileChooserGetFilter(x.GoPointer())
-	if GetFilterPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFilter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilterPtr)
-
-	GetFilterCls := &FileFilter{}
-	GetFilterCls.Ptr = GetFilterPtr
-	return GetFilterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current set of user-selectable filters, as a list model.
@@ -230,24 +234,24 @@ func (x *FileChooserBase) GetFilter() *FileFilter {
 // You should not modify the returned list model. Future changes to
 // @chooser may or may not affect the returned model.
 func (x *FileChooserBase) GetFilters() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetFiltersPtr := XGtkFileChooserGetFilters(x.GoPointer())
-	if GetFiltersPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFilters(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFiltersCls := &gio.ListModelBase{}
-	GetFiltersCls.Ptr = GetFiltersPtr
-	return GetFiltersCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets whether multiple files can be selected in the file
 // chooser.
 func (x *FileChooserBase) GetSelectMultiple() bool {
 
-	return XGtkFileChooserGetSelectMultiple(x.GoPointer())
-
+	cret := XGtkFileChooserGetSelectMultiple(x.GoPointer())
+	return cret
 }
 
 // Queries the list of shortcut folders in the file chooser.
@@ -255,16 +259,16 @@ func (x *FileChooserBase) GetSelectMultiple() bool {
 // You should not modify the returned list model. Future changes to
 // @chooser may or may not affect the returned model.
 func (x *FileChooserBase) GetShortcutFolders() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetShortcutFoldersPtr := XGtkFileChooserGetShortcutFolders(x.GoPointer())
-	if GetShortcutFoldersPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetShortcutFolders(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetShortcutFoldersCls := &gio.ListModelBase{}
-	GetShortcutFoldersCls.Ptr = GetShortcutFoldersPtr
-	return GetShortcutFoldersCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes a 'choice' that has been added with gtk_file_chooser_add_choice().
@@ -282,9 +286,14 @@ func (x *FileChooserBase) RemoveFilter(FilterVar *FileFilter) {
 }
 
 // Removes a folder from the shortcut folders in a file chooser.
-func (x *FileChooserBase) RemoveShortcutFolder(FolderVar gio.File) bool {
+func (x *FileChooserBase) RemoveShortcutFolder(FolderVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserRemoveShortcutFolder(x.GoPointer(), FolderVar.GoPointer())
+	cret := XGtkFileChooserRemoveShortcutFolder(x.GoPointer(), FolderVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -322,9 +331,14 @@ func (x *FileChooserBase) SetCreateFolders(CreateFoldersVar bool) {
 }
 
 // Sets the current folder for @chooser from a `GFile`.
-func (x *FileChooserBase) SetCurrentFolder(FileVar gio.File) bool {
+func (x *FileChooserBase) SetCurrentFolder(FileVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserSetCurrentFolder(x.GoPointer(), FileVar.GoPointer())
+	cret := XGtkFileChooserSetCurrentFolder(x.GoPointer(), FileVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -392,9 +406,14 @@ func (x *FileChooserBase) SetCurrentName(NameVar string) {
 //	}
 //
 // ```
-func (x *FileChooserBase) SetFile(FileVar gio.File) bool {
+func (x *FileChooserBase) SetFile(FileVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserSetFile(x.GoPointer(), FileVar.GoPointer())
+	cret := XGtkFileChooserSetFile(x.GoPointer(), FileVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -426,7 +445,7 @@ func (x *FileChooserBase) SetSelectMultiple(SelectMultipleVar bool) {
 
 var XGtkFileChooserAddChoice func(uintptr, string, string, uintptr, uintptr)
 var XGtkFileChooserAddFilter func(uintptr, uintptr)
-var XGtkFileChooserAddShortcutFolder func(uintptr, uintptr) bool
+var XGtkFileChooserAddShortcutFolder func(uintptr, uintptr, **glib.Error) bool
 var XGtkFileChooserGetAction func(uintptr) FileChooserAction
 var XGtkFileChooserGetChoice func(uintptr, string) string
 var XGtkFileChooserGetCreateFolders func(uintptr) bool
@@ -440,13 +459,13 @@ var XGtkFileChooserGetSelectMultiple func(uintptr) bool
 var XGtkFileChooserGetShortcutFolders func(uintptr) uintptr
 var XGtkFileChooserRemoveChoice func(uintptr, string)
 var XGtkFileChooserRemoveFilter func(uintptr, uintptr)
-var XGtkFileChooserRemoveShortcutFolder func(uintptr, uintptr) bool
+var XGtkFileChooserRemoveShortcutFolder func(uintptr, uintptr, **glib.Error) bool
 var XGtkFileChooserSetAction func(uintptr, FileChooserAction)
 var XGtkFileChooserSetChoice func(uintptr, string, string)
 var XGtkFileChooserSetCreateFolders func(uintptr, bool)
-var XGtkFileChooserSetCurrentFolder func(uintptr, uintptr) bool
+var XGtkFileChooserSetCurrentFolder func(uintptr, uintptr, **glib.Error) bool
 var XGtkFileChooserSetCurrentName func(uintptr, string)
-var XGtkFileChooserSetFile func(uintptr, uintptr) bool
+var XGtkFileChooserSetFile func(uintptr, uintptr, **glib.Error) bool
 var XGtkFileChooserSetFilter func(uintptr, uintptr)
 var XGtkFileChooserSetSelectMultiple func(uintptr, bool)
 
@@ -492,8 +511,8 @@ var xFileChooserErrorQuark func() glib.Quark
 // Registers an error quark for `GtkFileChooser` errors.
 func FileChooserErrorQuark() glib.Quark {
 
-	return xFileChooserErrorQuark()
-
+	cret := xFileChooserErrorQuark()
+	return cret
 }
 
 func init() {

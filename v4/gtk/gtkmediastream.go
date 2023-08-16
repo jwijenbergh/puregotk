@@ -105,8 +105,8 @@ var xMediaStreamGetDuration func(uintptr) int64
 // If the duration is not known, 0 will be returned.
 func (x *MediaStream) GetDuration() int64 {
 
-	return xMediaStreamGetDuration(x.GoPointer())
-
+	cret := xMediaStreamGetDuration(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetEnded func(uintptr) bool
@@ -114,8 +114,8 @@ var xMediaStreamGetEnded func(uintptr) bool
 // Returns whether the streams playback is finished.
 func (x *MediaStream) GetEnded() bool {
 
-	return xMediaStreamGetEnded(x.GoPointer())
-
+	cret := xMediaStreamGetEnded(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetError func(uintptr) *glib.Error
@@ -136,8 +136,8 @@ var xMediaStreamGetError func(uintptr) *glib.Error
 // set, e.g. with [method@Gtk.MediaFile.set_file].
 func (x *MediaStream) GetError() *glib.Error {
 
-	return xMediaStreamGetError(x.GoPointer())
-
+	cret := xMediaStreamGetError(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetLoop func(uintptr) bool
@@ -147,8 +147,8 @@ var xMediaStreamGetLoop func(uintptr) bool
 // See [method@Gtk.MediaStream.set_loop] for details.
 func (x *MediaStream) GetLoop() bool {
 
-	return xMediaStreamGetLoop(x.GoPointer())
-
+	cret := xMediaStreamGetLoop(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetMuted func(uintptr) bool
@@ -158,8 +158,8 @@ var xMediaStreamGetMuted func(uintptr) bool
 // See [method@Gtk.MediaStream.set_muted] for details.
 func (x *MediaStream) GetMuted() bool {
 
-	return xMediaStreamGetMuted(x.GoPointer())
-
+	cret := xMediaStreamGetMuted(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetPlaying func(uintptr) bool
@@ -167,8 +167,8 @@ var xMediaStreamGetPlaying func(uintptr) bool
 // Return whether the stream is currently playing.
 func (x *MediaStream) GetPlaying() bool {
 
-	return xMediaStreamGetPlaying(x.GoPointer())
-
+	cret := xMediaStreamGetPlaying(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetTimestamp func(uintptr) int64
@@ -176,8 +176,8 @@ var xMediaStreamGetTimestamp func(uintptr) int64
 // Returns the current presentation timestamp in microseconds.
 func (x *MediaStream) GetTimestamp() int64 {
 
-	return xMediaStreamGetTimestamp(x.GoPointer())
-
+	cret := xMediaStreamGetTimestamp(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamGetVolume func(uintptr) float64
@@ -187,8 +187,8 @@ var xMediaStreamGetVolume func(uintptr) float64
 // See [method@Gtk.MediaStream.set_volume] for details.
 func (x *MediaStream) GetVolume() float64 {
 
-	return xMediaStreamGetVolume(x.GoPointer())
-
+	cret := xMediaStreamGetVolume(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamHasAudio func(uintptr) bool
@@ -196,8 +196,8 @@ var xMediaStreamHasAudio func(uintptr) bool
 // Returns whether the stream has audio.
 func (x *MediaStream) HasAudio() bool {
 
-	return xMediaStreamHasAudio(x.GoPointer())
-
+	cret := xMediaStreamHasAudio(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamHasVideo func(uintptr) bool
@@ -205,8 +205,8 @@ var xMediaStreamHasVideo func(uintptr) bool
 // Returns whether the stream has video.
 func (x *MediaStream) HasVideo() bool {
 
-	return xMediaStreamHasVideo(x.GoPointer())
-
+	cret := xMediaStreamHasVideo(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamIsPrepared func(uintptr) bool
@@ -216,8 +216,8 @@ var xMediaStreamIsPrepared func(uintptr) bool
 // At this point the existence of audio and video is known.
 func (x *MediaStream) IsPrepared() bool {
 
-	return xMediaStreamIsPrepared(x.GoPointer())
-
+	cret := xMediaStreamIsPrepared(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamIsSeekable func(uintptr) bool
@@ -233,8 +233,8 @@ var xMediaStreamIsSeekable func(uintptr) bool
 // stream, though it will not do anything.
 func (x *MediaStream) IsSeekable() bool {
 
-	return xMediaStreamIsSeekable(x.GoPointer())
-
+	cret := xMediaStreamIsSeekable(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamIsSeeking func(uintptr) bool
@@ -242,8 +242,8 @@ var xMediaStreamIsSeeking func(uintptr) bool
 // Checks if there is currently a seek operation going on.
 func (x *MediaStream) IsSeeking() bool {
 
-	return xMediaStreamIsSeeking(x.GoPointer())
-
+	cret := xMediaStreamIsSeeking(x.GoPointer())
+	return cret
 }
 
 var xMediaStreamPause func(uintptr)
@@ -522,16 +522,16 @@ func (x *MediaStream) ComputeConcreteSize(SpecifiedWidthVar float64, SpecifiedHe
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *MediaStream) GetCurrentImage() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetCurrentImagePtr := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &gdk.PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -541,8 +541,8 @@ func (x *MediaStream) GetCurrentImage() *gdk.PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *MediaStream) GetFlags() gdk.PaintableFlags {
 
-	return gdk.XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -564,8 +564,8 @@ func (x *MediaStream) GetFlags() gdk.PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *MediaStream) GetIntrinsicAspectRatio() float64 {
 
-	return gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -580,8 +580,8 @@ func (x *MediaStream) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *MediaStream) GetIntrinsicHeight() int {
 
-	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -596,8 +596,8 @@ func (x *MediaStream) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *MediaStream) GetIntrinsicWidth() int {
 
-	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.

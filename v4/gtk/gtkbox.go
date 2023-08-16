@@ -59,16 +59,17 @@ var xNewBox func(Orientation, int) uintptr
 
 // Creates a new `GtkBox`.
 func NewBox(OrientationVar Orientation, SpacingVar int) *Widget {
-	NewBoxPtr := xNewBox(OrientationVar, SpacingVar)
-	if NewBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewBox(OrientationVar, SpacingVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewBoxPtr)
-
-	NewBoxCls := &Widget{}
-	NewBoxCls.Ptr = NewBoxPtr
-	return NewBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBoxAppend func(uintptr, uintptr)
@@ -85,8 +86,8 @@ var xBoxGetBaselinePosition func(uintptr) BaselinePosition
 // Gets the value set by gtk_box_set_baseline_position().
 func (x *Box) GetBaselinePosition() BaselinePosition {
 
-	return xBoxGetBaselinePosition(x.GoPointer())
-
+	cret := xBoxGetBaselinePosition(x.GoPointer())
+	return cret
 }
 
 var xBoxGetHomogeneous func(uintptr) bool
@@ -95,8 +96,8 @@ var xBoxGetHomogeneous func(uintptr) bool
 // same size).
 func (x *Box) GetHomogeneous() bool {
 
-	return xBoxGetHomogeneous(x.GoPointer())
-
+	cret := xBoxGetHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xBoxGetSpacing func(uintptr) int
@@ -104,8 +105,8 @@ var xBoxGetSpacing func(uintptr) int
 // Gets the value set by gtk_box_set_spacing().
 func (x *Box) GetSpacing() int {
 
-	return xBoxGetSpacing(x.GoPointer())
-
+	cret := xBoxGetSpacing(x.GoPointer())
+	return cret
 }
 
 var xBoxInsertChildAfter func(uintptr, uintptr, uintptr)
@@ -199,8 +200,8 @@ func (c *Box) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Box) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -335,15 +336,15 @@ func (x *Box) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uint
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Box) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Box) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

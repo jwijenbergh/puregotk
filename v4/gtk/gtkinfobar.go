@@ -99,16 +99,17 @@ var xNewInfoBar func() uintptr
 
 // Creates a new `GtkInfoBar` object.
 func NewInfoBar() *Widget {
-	NewInfoBarPtr := xNewInfoBar()
-	if NewInfoBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewInfoBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewInfoBarPtr)
-
-	NewInfoBarCls := &Widget{}
-	NewInfoBarCls.Ptr = NewInfoBarPtr
-	return NewInfoBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithButtonsInfoBar func(string, ...interface{}) uintptr
@@ -122,16 +123,17 @@ var xNewWithButtonsInfoBar func(string, ...interface{}) uintptr
 // the [signal@Gtk.InfoBar::response] signal with the corresponding
 // response ID.
 func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	NewWithButtonsInfoBarPtr := xNewWithButtonsInfoBar(FirstButtonTextVar, varArgs...)
-	if NewWithButtonsInfoBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithButtonsInfoBar(FirstButtonTextVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithButtonsInfoBarPtr)
-
-	NewWithButtonsInfoBarCls := &Widget{}
-	NewWithButtonsInfoBarCls.Ptr = NewWithButtonsInfoBarPtr
-	return NewWithButtonsInfoBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInfoBarAddActionWidget func(uintptr, uintptr, int)
@@ -157,18 +159,17 @@ var xInfoBarAddButton func(uintptr, string, int) uintptr
 // end of the info bars's action area. The button widget is returned,
 // but usually you don't need it.
 func (x *InfoBar) AddButton(ButtonTextVar string, ResponseIdVar int) *Button {
+	var cls *Button
 
-	AddButtonPtr := xInfoBarAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
-	if AddButtonPtr == 0 {
-		return nil
+	cret := xInfoBarAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddButtonPtr)
-
-	AddButtonCls := &Button{}
-	AddButtonCls.Ptr = AddButtonPtr
-	return AddButtonCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Button{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInfoBarAddButtons func(uintptr, string, ...interface{})
@@ -199,8 +200,8 @@ var xInfoBarGetMessageType func(uintptr) MessageType
 // Returns the message type of the message area.
 func (x *InfoBar) GetMessageType() MessageType {
 
-	return xInfoBarGetMessageType(x.GoPointer())
-
+	cret := xInfoBarGetMessageType(x.GoPointer())
+	return cret
 }
 
 var xInfoBarGetRevealed func(uintptr) bool
@@ -208,8 +209,8 @@ var xInfoBarGetRevealed func(uintptr) bool
 // Returns whether the info bar is currently revealed.
 func (x *InfoBar) GetRevealed() bool {
 
-	return xInfoBarGetRevealed(x.GoPointer())
-
+	cret := xInfoBarGetRevealed(x.GoPointer())
+	return cret
 }
 
 var xInfoBarGetShowCloseButton func(uintptr) bool
@@ -217,8 +218,8 @@ var xInfoBarGetShowCloseButton func(uintptr) bool
 // Returns whether the widget will display a standard close button.
 func (x *InfoBar) GetShowCloseButton() bool {
 
-	return xInfoBarGetShowCloseButton(x.GoPointer())
-
+	cret := xInfoBarGetShowCloseButton(x.GoPointer())
+	return cret
 }
 
 var xInfoBarRemoveActionWidget func(uintptr, uintptr)
@@ -360,8 +361,8 @@ func (x *InfoBar) ConnectResponse(cb func(InfoBar, int)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *InfoBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -496,8 +497,8 @@ func (x *InfoBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *InfoBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

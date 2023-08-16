@@ -57,16 +57,17 @@ var xNewStatusbar func() uintptr
 
 // Creates a new `GtkStatusbar` ready for messages.
 func NewStatusbar() *Widget {
-	NewStatusbarPtr := xNewStatusbar()
-	if NewStatusbarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewStatusbar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewStatusbarPtr)
-
-	NewStatusbarCls := &Widget{}
-	NewStatusbarCls.Ptr = NewStatusbarPtr
-	return NewStatusbarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStatusbarGetContextId func(uintptr, string) uint
@@ -77,8 +78,8 @@ var xStatusbarGetContextId func(uintptr, string) uint
 // Note that the description is not shown in the UI.
 func (x *Statusbar) GetContextId(ContextDescriptionVar string) uint {
 
-	return xStatusbarGetContextId(x.GoPointer(), ContextDescriptionVar)
-
+	cret := xStatusbarGetContextId(x.GoPointer(), ContextDescriptionVar)
+	return cret
 }
 
 var xStatusbarPop func(uintptr, uint)
@@ -100,8 +101,8 @@ var xStatusbarPush func(uintptr, uint, string) uint
 // Pushes a new message onto a statusbar’s stack.
 func (x *Statusbar) Push(ContextIdVar uint, TextVar string) uint {
 
-	return xStatusbarPush(x.GoPointer(), ContextIdVar, TextVar)
-
+	cret := xStatusbarPush(x.GoPointer(), ContextIdVar, TextVar)
+	return cret
 }
 
 var xStatusbarRemove func(uintptr, uint, uint)
@@ -159,8 +160,8 @@ func (x *Statusbar) ConnectTextPushed(cb func(Statusbar, uint, string)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Statusbar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -295,8 +296,8 @@ func (x *Statusbar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Statusbar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

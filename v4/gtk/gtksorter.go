@@ -115,8 +115,8 @@ var xSorterCompare func(uintptr, uintptr, uintptr) Ordering
 // via the return value of [method@Gtk.Sorter.get_order].
 func (x *Sorter) Compare(Item1Var *gobject.Object, Item2Var *gobject.Object) Ordering {
 
-	return xSorterCompare(x.GoPointer(), Item1Var.GoPointer(), Item2Var.GoPointer())
-
+	cret := xSorterCompare(x.GoPointer(), Item1Var.GoPointer(), Item2Var.GoPointer())
+	return cret
 }
 
 var xSorterGetOrder func(uintptr) SorterOrder
@@ -129,8 +129,8 @@ var xSorterGetOrder func(uintptr) SorterOrder
 // This function is intended to allow optimizations.
 func (x *Sorter) GetOrder() SorterOrder {
 
-	return xSorterGetOrder(x.GoPointer())
-
+	cret := xSorterGetOrder(x.GoPointer())
+	return cret
 }
 
 func (c *Sorter) GoPointer() uintptr {

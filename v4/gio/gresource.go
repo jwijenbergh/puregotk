@@ -21,7 +21,7 @@ type StaticResource struct {
 	Padding uintptr
 }
 
-var xResourceLoad func(string) *Resource
+var xResourceLoad func(string, **glib.Error) *Resource
 
 // Loads a binary resource bundle and creates a #GResource representation of it, allowing
 // you to query it for data.
@@ -33,13 +33,18 @@ var xResourceLoad func(string) *Resource
 // %G_RESOURCE_ERROR_INTERNAL will be returned. If @filename doesn’t exist, or
 // there is an error in reading it, an error from g_mapped_file_new() will be
 // returned.
-func ResourceLoad(FilenameVar string) *Resource {
+func ResourceLoad(FilenameVar string) (*Resource, error) {
+	var cerr *glib.Error
 
-	return xResourceLoad(FilenameVar)
+	cret := xResourceLoad(FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResourcesEnumerateChildren func(string, ResourceLookupFlags) []string
+var xResourcesEnumerateChildren func(string, ResourceLookupFlags, **glib.Error) []string
 
 // Returns all the names of children at the specified @path in the set of
 // globally registered resources.
@@ -47,25 +52,35 @@ var xResourcesEnumerateChildren func(string, ResourceLookupFlags) []string
 // be released with g_strfreev().
 //
 // @lookup_flags controls the behaviour of the lookup.
-func ResourcesEnumerateChildren(PathVar string, LookupFlagsVar ResourceLookupFlags) []string {
+func ResourcesEnumerateChildren(PathVar string, LookupFlagsVar ResourceLookupFlags) ([]string, error) {
+	var cerr *glib.Error
 
-	return xResourcesEnumerateChildren(PathVar, LookupFlagsVar)
+	cret := xResourcesEnumerateChildren(PathVar, LookupFlagsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResourcesGetInfo func(string, ResourceLookupFlags, uint, uint32) bool
+var xResourcesGetInfo func(string, ResourceLookupFlags, uint, uint32, **glib.Error) bool
 
 // Looks for a file at the specified @path in the set of
 // globally registered resources and if found returns information about it.
 //
 // @lookup_flags controls the behaviour of the lookup.
-func ResourcesGetInfo(PathVar string, LookupFlagsVar ResourceLookupFlags, SizeVar uint, FlagsVar uint32) bool {
+func ResourcesGetInfo(PathVar string, LookupFlagsVar ResourceLookupFlags, SizeVar uint, FlagsVar uint32) (bool, error) {
+	var cerr *glib.Error
 
-	return xResourcesGetInfo(PathVar, LookupFlagsVar, SizeVar, FlagsVar)
+	cret := xResourcesGetInfo(PathVar, LookupFlagsVar, SizeVar, FlagsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResourcesLookupData func(string, ResourceLookupFlags) *glib.Bytes
+var xResourcesLookupData func(string, ResourceLookupFlags, **glib.Error) *glib.Bytes
 
 // Looks for a file at the specified @path in the set of
 // globally registered resources and returns a #GBytes that
@@ -81,29 +96,39 @@ var xResourcesLookupData func(string, ResourceLookupFlags) *glib.Bytes
 // the heap and automatically uncompress the data.
 //
 // @lookup_flags controls the behaviour of the lookup.
-func ResourcesLookupData(PathVar string, LookupFlagsVar ResourceLookupFlags) *glib.Bytes {
+func ResourcesLookupData(PathVar string, LookupFlagsVar ResourceLookupFlags) (*glib.Bytes, error) {
+	var cerr *glib.Error
 
-	return xResourcesLookupData(PathVar, LookupFlagsVar)
+	cret := xResourcesLookupData(PathVar, LookupFlagsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResourcesOpenStream func(string, ResourceLookupFlags) uintptr
+var xResourcesOpenStream func(string, ResourceLookupFlags, **glib.Error) uintptr
 
 // Looks for a file at the specified @path in the set of
 // globally registered resources and returns a #GInputStream
 // that lets you read the data.
 //
 // @lookup_flags controls the behaviour of the lookup.
-func ResourcesOpenStream(PathVar string, LookupFlagsVar ResourceLookupFlags) *InputStream {
+func ResourcesOpenStream(PathVar string, LookupFlagsVar ResourceLookupFlags) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	ResourcesOpenStreamPtr := xResourcesOpenStream(PathVar, LookupFlagsVar)
-	if ResourcesOpenStreamPtr == 0 {
-		return nil
+	cret := xResourcesOpenStream(PathVar, LookupFlagsVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ResourcesOpenStreamCls := &InputStream{}
-	ResourcesOpenStreamCls.Ptr = ResourcesOpenStreamPtr
-	return ResourcesOpenStreamCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

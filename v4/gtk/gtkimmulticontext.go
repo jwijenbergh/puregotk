@@ -33,14 +33,16 @@ var xNewIMMulticontext func() uintptr
 
 // Creates a new `GtkIMMulticontext`.
 func NewIMMulticontext() *IMContext {
-	NewIMMulticontextPtr := xNewIMMulticontext()
-	if NewIMMulticontextPtr == 0 {
-		return nil
-	}
+	var cls *IMContext
 
-	NewIMMulticontextCls := &IMContext{}
-	NewIMMulticontextCls.Ptr = NewIMMulticontextPtr
-	return NewIMMulticontextCls
+	cret := xNewIMMulticontext()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IMContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIMMulticontextGetContextId func(uintptr) string
@@ -48,8 +50,8 @@ var xIMMulticontextGetContextId func(uintptr) string
 // Gets the id of the currently active delegate of the @context.
 func (x *IMMulticontext) GetContextId() string {
 
-	return xIMMulticontextGetContextId(x.GoPointer())
-
+	cret := xIMMulticontextGetContextId(x.GoPointer())
+	return cret
 }
 
 var xIMMulticontextSetContextId func(uintptr, string)

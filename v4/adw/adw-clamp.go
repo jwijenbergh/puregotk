@@ -56,34 +56,34 @@ var xNewClamp func() uintptr
 
 // Creates a new `AdwClamp`.
 func NewClamp() *gtk.Widget {
-	NewClampPtr := xNewClamp()
-	if NewClampPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewClamp()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewClampPtr)
-
-	NewClampCls := &gtk.Widget{}
-	NewClampCls.Ptr = NewClampPtr
-	return NewClampCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClampGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *Clamp) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xClampGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xClampGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClampGetMaximumSize func(uintptr) int
@@ -91,8 +91,8 @@ var xClampGetMaximumSize func(uintptr) int
 // Gets the maximum size allocated to the child.
 func (x *Clamp) GetMaximumSize() int {
 
-	return xClampGetMaximumSize(x.GoPointer())
-
+	cret := xClampGetMaximumSize(x.GoPointer())
+	return cret
 }
 
 var xClampGetTighteningThreshold func(uintptr) int
@@ -100,8 +100,8 @@ var xClampGetTighteningThreshold func(uintptr) int
 // Gets the size above which the child is clamped.
 func (x *Clamp) GetTighteningThreshold() int {
 
-	return xClampGetTighteningThreshold(x.GoPointer())
-
+	cret := xClampGetTighteningThreshold(x.GoPointer())
+	return cret
 }
 
 var xClampSetChild func(uintptr, uintptr)
@@ -157,8 +157,8 @@ func (c *Clamp) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Clamp) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -293,15 +293,15 @@ func (x *Clamp) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Clamp) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Clamp) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

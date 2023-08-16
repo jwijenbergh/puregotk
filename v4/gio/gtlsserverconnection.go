@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // vtable for a #GTlsServerConnection implementation.
@@ -29,7 +30,7 @@ func (x *TlsServerConnectionBase) SetGoPointer(ptr uintptr) {
 	x.Ptr = ptr
 }
 
-var xTlsServerConnectionNew func(uintptr, uintptr) uintptr
+var xTlsServerConnectionNew func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GTlsServerConnection wrapping @base_io_stream (which
 // must have pollable input and output streams).
@@ -37,16 +38,21 @@ var xTlsServerConnectionNew func(uintptr, uintptr) uintptr
 // See the documentation for #GTlsConnection:base-io-stream for restrictions
 // on when application code can run operations on the @base_io_stream after
 // this function has returned.
-func TlsServerConnectionNew(BaseIoStreamVar *IOStream, CertificateVar *TlsCertificate) *TlsServerConnectionBase {
+func TlsServerConnectionNew(BaseIoStreamVar *IOStream, CertificateVar *TlsCertificate) (*TlsServerConnectionBase, error) {
+	var cls *TlsServerConnectionBase
+	var cerr *glib.Error
 
-	TlsServerConnectionNewPtr := xTlsServerConnectionNew(BaseIoStreamVar.GoPointer(), CertificateVar.GoPointer())
-	if TlsServerConnectionNewPtr == 0 {
-		return nil
+	cret := xTlsServerConnectionNew(BaseIoStreamVar.GoPointer(), CertificateVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	TlsServerConnectionNewCls := &TlsServerConnectionBase{}
-	TlsServerConnectionNewCls.Ptr = TlsServerConnectionNewPtr
-	return TlsServerConnectionNewCls
+	cls = &TlsServerConnectionBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

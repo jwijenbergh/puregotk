@@ -25,16 +25,17 @@ var xNewCellRendererProgress func() uintptr
 
 // Creates a new `GtkCellRendererProgress`.
 func NewCellRendererProgress() *CellRenderer {
-	NewCellRendererProgressPtr := xNewCellRendererProgress()
-	if NewCellRendererProgressPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererProgress()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererProgressPtr)
-
-	NewCellRendererProgressCls := &CellRenderer{}
-	NewCellRendererProgressCls.Ptr = NewCellRendererProgressPtr
-	return NewCellRendererProgressCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CellRendererProgress) GoPointer() uintptr {
@@ -48,8 +49,8 @@ func (c *CellRendererProgress) SetGoPointer(ptr uintptr) {
 // Retrieves the orientation of the @orientable.
 func (x *CellRendererProgress) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

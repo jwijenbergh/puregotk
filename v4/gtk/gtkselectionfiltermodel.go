@@ -29,32 +29,33 @@ var xNewSelectionFilterModel func(uintptr) uintptr
 // Creates a new `GtkSelectionFilterModel` that will include the
 // selected items from the underlying selection model.
 func NewSelectionFilterModel(ModelVar SelectionModel) *SelectionFilterModel {
-	NewSelectionFilterModelPtr := xNewSelectionFilterModel(ModelVar.GoPointer())
-	if NewSelectionFilterModelPtr == 0 {
-		return nil
-	}
+	var cls *SelectionFilterModel
 
-	NewSelectionFilterModelCls := &SelectionFilterModel{}
-	NewSelectionFilterModelCls.Ptr = NewSelectionFilterModelPtr
-	return NewSelectionFilterModelCls
+	cret := xNewSelectionFilterModel(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SelectionFilterModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSelectionFilterModelGetModel func(uintptr) uintptr
 
 // Gets the model currently filtered or %NULL if none.
 func (x *SelectionFilterModel) GetModel() *SelectionModelBase {
+	var cls *SelectionModelBase
 
-	GetModelPtr := xSelectionFilterModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xSelectionFilterModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &SelectionModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSelectionFilterModelSetModel func(uintptr, uintptr)
@@ -90,8 +91,8 @@ func (c *SelectionFilterModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *SelectionFilterModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -104,8 +105,8 @@ func (x *SelectionFilterModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *SelectionFilterModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -115,8 +116,8 @@ func (x *SelectionFilterModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *SelectionFilterModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -132,16 +133,16 @@ func (x *SelectionFilterModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *SelectionFilterModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

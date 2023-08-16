@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -29,14 +30,16 @@ var xNewFromNativeSocketAddress func(uintptr, uint) uintptr
 // Creates a #GSocketAddress subclass corresponding to the native
 // struct sockaddr @native.
 func NewFromNativeSocketAddress(NativeVar uintptr, LenVar uint) *SocketAddress {
-	NewFromNativeSocketAddressPtr := xNewFromNativeSocketAddress(NativeVar, LenVar)
-	if NewFromNativeSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewFromNativeSocketAddressCls := &SocketAddress{}
-	NewFromNativeSocketAddressCls.Ptr = NewFromNativeSocketAddressPtr
-	return NewFromNativeSocketAddressCls
+	cret := xNewFromNativeSocketAddress(NativeVar, LenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketAddressGetFamily func(uintptr) SocketFamily
@@ -44,8 +47,8 @@ var xSocketAddressGetFamily func(uintptr) SocketFamily
 // Gets the socket family type of @address.
 func (x *SocketAddress) GetFamily() SocketFamily {
 
-	return xSocketAddressGetFamily(x.GoPointer())
-
+	cret := xSocketAddressGetFamily(x.GoPointer())
+	return cret
 }
 
 var xSocketAddressGetNativeSize func(uintptr) int
@@ -55,11 +58,11 @@ var xSocketAddressGetNativeSize func(uintptr) int
 // g_socket_address_to_native().
 func (x *SocketAddress) GetNativeSize() int {
 
-	return xSocketAddressGetNativeSize(x.GoPointer())
-
+	cret := xSocketAddressGetNativeSize(x.GoPointer())
+	return cret
 }
 
-var xSocketAddressToNative func(uintptr, uintptr, uint) bool
+var xSocketAddressToNative func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Converts a #GSocketAddress to a native struct sockaddr, which can
 // be passed to low-level functions like connect() or bind().
@@ -67,9 +70,14 @@ var xSocketAddressToNative func(uintptr, uintptr, uint) bool
 // If not enough space is available, a %G_IO_ERROR_NO_SPACE error
 // is returned. If the address type is not known on the system
 // then a %G_IO_ERROR_NOT_SUPPORTED error is returned.
-func (x *SocketAddress) ToNative(DestVar uintptr, DestlenVar uint) bool {
+func (x *SocketAddress) ToNative(DestVar uintptr, DestlenVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xSocketAddressToNative(x.GoPointer(), DestVar, DestlenVar)
+	cret := xSocketAddressToNative(x.GoPointer(), DestVar, DestlenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -83,16 +91,16 @@ func (c *SocketAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *SocketAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -103,16 +111,16 @@ func (x *SocketAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *SocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -124,8 +132,8 @@ func (x *SocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *SocketAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

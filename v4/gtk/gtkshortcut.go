@@ -42,14 +42,16 @@ var xNewShortcut func(uintptr, uintptr) uintptr
 // Creates a new `GtkShortcut` that is triggered by
 // @trigger and then activates @action.
 func NewShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction) *Shortcut {
-	NewShortcutPtr := xNewShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer())
-	if NewShortcutPtr == 0 {
-		return nil
-	}
+	var cls *Shortcut
 
-	NewShortcutCls := &Shortcut{}
-	NewShortcutCls.Ptr = NewShortcutPtr
-	return NewShortcutCls
+	cret := xNewShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Shortcut{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithArgumentsShortcut func(uintptr, uintptr, string, ...interface{}) uintptr
@@ -57,32 +59,33 @@ var xNewWithArgumentsShortcut func(uintptr, uintptr, string, ...interface{}) uin
 // Creates a new `GtkShortcut` that is triggered by @trigger and then activates
 // @action with arguments given by @format_string.
 func NewWithArgumentsShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction, FormatStringVar string, varArgs ...interface{}) *Shortcut {
-	NewWithArgumentsShortcutPtr := xNewWithArgumentsShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer(), FormatStringVar, varArgs...)
-	if NewWithArgumentsShortcutPtr == 0 {
-		return nil
-	}
+	var cls *Shortcut
 
-	NewWithArgumentsShortcutCls := &Shortcut{}
-	NewWithArgumentsShortcutCls.Ptr = NewWithArgumentsShortcutPtr
-	return NewWithArgumentsShortcutCls
+	cret := xNewWithArgumentsShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer(), FormatStringVar, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Shortcut{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutGetAction func(uintptr) uintptr
 
 // Gets the action that is activated by this shortcut.
 func (x *Shortcut) GetAction() *ShortcutAction {
+	var cls *ShortcutAction
 
-	GetActionPtr := xShortcutGetAction(x.GoPointer())
-	if GetActionPtr == 0 {
-		return nil
+	cret := xShortcutGetAction(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetActionPtr)
-
-	GetActionCls := &ShortcutAction{}
-	GetActionCls.Ptr = GetActionPtr
-	return GetActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ShortcutAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutGetArguments func(uintptr) *glib.Variant
@@ -90,26 +93,25 @@ var xShortcutGetArguments func(uintptr) *glib.Variant
 // Gets the arguments that are passed when activating the shortcut.
 func (x *Shortcut) GetArguments() *glib.Variant {
 
-	return xShortcutGetArguments(x.GoPointer())
-
+	cret := xShortcutGetArguments(x.GoPointer())
+	return cret
 }
 
 var xShortcutGetTrigger func(uintptr) uintptr
 
 // Gets the trigger used to trigger @self.
 func (x *Shortcut) GetTrigger() *ShortcutTrigger {
+	var cls *ShortcutTrigger
 
-	GetTriggerPtr := xShortcutGetTrigger(x.GoPointer())
-	if GetTriggerPtr == 0 {
-		return nil
+	cret := xShortcutGetTrigger(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTriggerPtr)
-
-	GetTriggerCls := &ShortcutTrigger{}
-	GetTriggerCls.Ptr = GetTriggerPtr
-	return GetTriggerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutSetAction func(uintptr, uintptr)

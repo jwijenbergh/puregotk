@@ -58,8 +58,8 @@ func (x *TreeSortableBase) SetGoPointer(ptr uintptr) {
 // %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
 func (x *TreeSortableBase) GetSortColumnId(SortColumnIdVar int, OrderVar *SortType) bool {
 
-	return XGtkTreeSortableGetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
-
+	cret := XGtkTreeSortableGetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
+	return cret
 }
 
 // Returns %TRUE if the model has a default sort function. This is used
@@ -67,8 +67,8 @@ func (x *TreeSortableBase) GetSortColumnId(SortColumnIdVar int, OrderVar *SortTy
 // go back to the default state, or not.
 func (x *TreeSortableBase) HasDefaultSortFunc() bool {
 
-	return XGtkTreeSortableHasDefaultSortFunc(x.GoPointer())
-
+	cret := XGtkTreeSortableHasDefaultSortFunc(x.GoPointer())
+	return cret
 }
 
 // Sets the default comparison function used when sorting to be @sort_func.

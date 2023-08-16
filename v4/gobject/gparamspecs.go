@@ -17,16 +17,16 @@ var xNewParamSpecBoolean func(string, string, string, bool, ParamFlags) uintptr
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecBoolean(NameVar string, NickVar string, BlurbVar string, DefaultValueVar bool, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecBooleanPtr := xNewParamSpecBoolean(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecBooleanPtr == 0 {
-		return nil
+	cret := xNewParamSpecBoolean(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecBooleanCls := &ParamSpec{}
-	NewParamSpecBooleanCls.Ptr = NewParamSpecBooleanPtr
-	return NewParamSpecBooleanCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecBoxed func(string, string, string, []interface{}, ParamFlags) uintptr
@@ -36,32 +36,32 @@ var xNewParamSpecBoxed func(string, string, string, []interface{}, ParamFlags) u
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecBoxed(NameVar string, NickVar string, BlurbVar string, BoxedTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecBoxedPtr := xNewParamSpecBoxed(NameVar, NickVar, BlurbVar, BoxedTypeVar, FlagsVar)
-	if NewParamSpecBoxedPtr == 0 {
-		return nil
+	cret := xNewParamSpecBoxed(NameVar, NickVar, BlurbVar, BoxedTypeVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecBoxedCls := &ParamSpec{}
-	NewParamSpecBoxedCls.Ptr = NewParamSpecBoxedPtr
-	return NewParamSpecBoxedCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecChar func(string, string, string, int8, int8, int8, ParamFlags) uintptr
 
 // Creates a new #GParamSpecChar instance specifying a %G_TYPE_CHAR property.
 func NewParamSpecChar(NameVar string, NickVar string, BlurbVar string, MinimumVar int8, MaximumVar int8, DefaultValueVar int8, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecCharPtr := xNewParamSpecChar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecCharPtr == 0 {
-		return nil
+	cret := xNewParamSpecChar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecCharCls := &ParamSpec{}
-	NewParamSpecCharCls.Ptr = NewParamSpecCharPtr
-	return NewParamSpecCharCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecDouble func(string, string, string, float64, float64, float64, ParamFlags) uintptr
@@ -71,16 +71,16 @@ var xNewParamSpecDouble func(string, string, string, float64, float64, float64, 
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecDouble(NameVar string, NickVar string, BlurbVar string, MinimumVar float64, MaximumVar float64, DefaultValueVar float64, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecDoublePtr := xNewParamSpecDouble(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecDoublePtr == 0 {
-		return nil
+	cret := xNewParamSpecDouble(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecDoubleCls := &ParamSpec{}
-	NewParamSpecDoubleCls.Ptr = NewParamSpecDoublePtr
-	return NewParamSpecDoubleCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecEnum func(string, string, string, []interface{}, int, ParamFlags) uintptr
@@ -90,16 +90,16 @@ var xNewParamSpecEnum func(string, string, string, []interface{}, int, ParamFlag
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeVar []interface{}, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecEnumPtr := xNewParamSpecEnum(NameVar, NickVar, BlurbVar, EnumTypeVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecEnumPtr == 0 {
-		return nil
+	cret := xNewParamSpecEnum(NameVar, NickVar, BlurbVar, EnumTypeVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecEnumCls := &ParamSpec{}
-	NewParamSpecEnumCls.Ptr = NewParamSpecEnumPtr
-	return NewParamSpecEnumCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecFlags func(string, string, string, []interface{}, uint, ParamFlags) uintptr
@@ -109,16 +109,16 @@ var xNewParamSpecFlags func(string, string, string, []interface{}, uint, ParamFl
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecFlags(NameVar string, NickVar string, BlurbVar string, FlagsTypeVar []interface{}, DefaultValueVar uint, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecFlagsPtr := xNewParamSpecFlags(NameVar, NickVar, BlurbVar, FlagsTypeVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecFlagsPtr == 0 {
-		return nil
+	cret := xNewParamSpecFlags(NameVar, NickVar, BlurbVar, FlagsTypeVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecFlagsCls := &ParamSpec{}
-	NewParamSpecFlagsCls.Ptr = NewParamSpecFlagsPtr
-	return NewParamSpecFlagsCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecFloat func(string, string, string, float32, float32, float32, ParamFlags) uintptr
@@ -127,16 +127,16 @@ var xNewParamSpecFloat func(string, string, string, float32, float32, float32, P
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecFloat(NameVar string, NickVar string, BlurbVar string, MinimumVar float32, MaximumVar float32, DefaultValueVar float32, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecFloatPtr := xNewParamSpecFloat(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecFloatPtr == 0 {
-		return nil
+	cret := xNewParamSpecFloat(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecFloatCls := &ParamSpec{}
-	NewParamSpecFloatCls.Ptr = NewParamSpecFloatPtr
-	return NewParamSpecFloatCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecGtype func(string, string, string, []interface{}, ParamFlags) uintptr
@@ -146,16 +146,16 @@ var xParamSpecGtype func(string, string, string, []interface{}, ParamFlags) uint
 //
 // See g_param_spec_internal() for details on property names.
 func ParamSpecGtype(NameVar string, NickVar string, BlurbVar string, IsATypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	ParamSpecGtypePtr := xParamSpecGtype(NameVar, NickVar, BlurbVar, IsATypeVar, FlagsVar)
-	if ParamSpecGtypePtr == 0 {
-		return nil
+	cret := xParamSpecGtype(NameVar, NickVar, BlurbVar, IsATypeVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParamSpecGtypeCls := &ParamSpec{}
-	ParamSpecGtypeCls.Ptr = ParamSpecGtypePtr
-	return ParamSpecGtypeCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecInt func(string, string, string, int, int, int, ParamFlags) uintptr
@@ -164,16 +164,16 @@ var xNewParamSpecInt func(string, string, string, int, int, int, ParamFlags) uin
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecInt(NameVar string, NickVar string, BlurbVar string, MinimumVar int, MaximumVar int, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecIntPtr := xNewParamSpecInt(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecIntPtr == 0 {
-		return nil
+	cret := xNewParamSpecInt(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecIntCls := &ParamSpec{}
-	NewParamSpecIntCls.Ptr = NewParamSpecIntPtr
-	return NewParamSpecIntCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecInt64 func(string, string, string, int64, int64, int64, ParamFlags) uintptr
@@ -182,16 +182,16 @@ var xNewParamSpecInt64 func(string, string, string, int64, int64, int64, ParamFl
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecInt64(NameVar string, NickVar string, BlurbVar string, MinimumVar int64, MaximumVar int64, DefaultValueVar int64, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecInt64Ptr := xNewParamSpecInt64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecInt64Ptr == 0 {
-		return nil
+	cret := xNewParamSpecInt64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecInt64Cls := &ParamSpec{}
-	NewParamSpecInt64Cls.Ptr = NewParamSpecInt64Ptr
-	return NewParamSpecInt64Cls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecLong func(string, string, string, int32, int32, int32, ParamFlags) uintptr
@@ -200,16 +200,16 @@ var xNewParamSpecLong func(string, string, string, int32, int32, int32, ParamFla
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecLong(NameVar string, NickVar string, BlurbVar string, MinimumVar int32, MaximumVar int32, DefaultValueVar int32, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecLongPtr := xNewParamSpecLong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecLongPtr == 0 {
-		return nil
+	cret := xNewParamSpecLong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecLongCls := &ParamSpec{}
-	NewParamSpecLongCls.Ptr = NewParamSpecLongPtr
-	return NewParamSpecLongCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecObject func(string, string, string, []interface{}, ParamFlags) uintptr
@@ -219,16 +219,16 @@ var xNewParamSpecObject func(string, string, string, []interface{}, ParamFlags) 
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecObject(NameVar string, NickVar string, BlurbVar string, ObjectTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecObjectPtr := xNewParamSpecObject(NameVar, NickVar, BlurbVar, ObjectTypeVar, FlagsVar)
-	if NewParamSpecObjectPtr == 0 {
-		return nil
+	cret := xNewParamSpecObject(NameVar, NickVar, BlurbVar, ObjectTypeVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecObjectCls := &ParamSpec{}
-	NewParamSpecObjectCls.Ptr = NewParamSpecObjectPtr
-	return NewParamSpecObjectCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecOverride func(string, uintptr) uintptr
@@ -237,16 +237,16 @@ var xNewParamSpecOverride func(string, uintptr) uintptr
 // to direct operations to another paramspec, and will not be directly
 // useful unless you are implementing a new base type similar to GObject.
 func NewParamSpecOverride(NameVar string, OverriddenVar *ParamSpec) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecOverridePtr := xNewParamSpecOverride(NameVar, OverriddenVar.GoPointer())
-	if NewParamSpecOverridePtr == 0 {
-		return nil
+	cret := xNewParamSpecOverride(NameVar, OverriddenVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecOverrideCls := &ParamSpec{}
-	NewParamSpecOverrideCls.Ptr = NewParamSpecOverridePtr
-	return NewParamSpecOverrideCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecParam func(string, string, string, []interface{}, ParamFlags) uintptr
@@ -256,16 +256,16 @@ var xNewParamSpecParam func(string, string, string, []interface{}, ParamFlags) u
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecParam(NameVar string, NickVar string, BlurbVar string, ParamTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecParamPtr := xNewParamSpecParam(NameVar, NickVar, BlurbVar, ParamTypeVar, FlagsVar)
-	if NewParamSpecParamPtr == 0 {
-		return nil
+	cret := xNewParamSpecParam(NameVar, NickVar, BlurbVar, ParamTypeVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecParamCls := &ParamSpec{}
-	NewParamSpecParamCls.Ptr = NewParamSpecParamPtr
-	return NewParamSpecParamCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecPointer func(string, string, string, ParamFlags) uintptr
@@ -276,16 +276,16 @@ var xNewParamSpecPointer func(string, string, string, ParamFlags) uintptr
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecPointer(NameVar string, NickVar string, BlurbVar string, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecPointerPtr := xNewParamSpecPointer(NameVar, NickVar, BlurbVar, FlagsVar)
-	if NewParamSpecPointerPtr == 0 {
-		return nil
+	cret := xNewParamSpecPointer(NameVar, NickVar, BlurbVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecPointerCls := &ParamSpec{}
-	NewParamSpecPointerCls.Ptr = NewParamSpecPointerPtr
-	return NewParamSpecPointerCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecString func(string, string, string, string, ParamFlags) uintptr
@@ -294,32 +294,32 @@ var xNewParamSpecString func(string, string, string, string, ParamFlags) uintptr
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecString(NameVar string, NickVar string, BlurbVar string, DefaultValueVar string, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecStringPtr := xNewParamSpecString(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecStringPtr == 0 {
-		return nil
+	cret := xNewParamSpecString(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecStringCls := &ParamSpec{}
-	NewParamSpecStringCls.Ptr = NewParamSpecStringPtr
-	return NewParamSpecStringCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecUchar func(string, string, string, byte, byte, byte, ParamFlags) uintptr
 
 // Creates a new #GParamSpecUChar instance specifying a %G_TYPE_UCHAR property.
 func ParamSpecUchar(NameVar string, NickVar string, BlurbVar string, MinimumVar byte, MaximumVar byte, DefaultValueVar byte, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	ParamSpecUcharPtr := xParamSpecUchar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if ParamSpecUcharPtr == 0 {
-		return nil
+	cret := xParamSpecUchar(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParamSpecUcharCls := &ParamSpec{}
-	ParamSpecUcharCls.Ptr = ParamSpecUcharPtr
-	return ParamSpecUcharCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecUint func(string, string, string, uint, uint, uint, ParamFlags) uintptr
@@ -328,16 +328,16 @@ var xParamSpecUint func(string, string, string, uint, uint, uint, ParamFlags) ui
 //
 // See g_param_spec_internal() for details on property names.
 func ParamSpecUint(NameVar string, NickVar string, BlurbVar string, MinimumVar uint, MaximumVar uint, DefaultValueVar uint, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	ParamSpecUintPtr := xParamSpecUint(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if ParamSpecUintPtr == 0 {
-		return nil
+	cret := xParamSpecUint(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParamSpecUintCls := &ParamSpec{}
-	ParamSpecUintCls.Ptr = ParamSpecUintPtr
-	return ParamSpecUintCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecUint64 func(string, string, string, uint64, uint64, uint64, ParamFlags) uintptr
@@ -347,16 +347,16 @@ var xParamSpecUint64 func(string, string, string, uint64, uint64, uint64, ParamF
 //
 // See g_param_spec_internal() for details on property names.
 func ParamSpecUint64(NameVar string, NickVar string, BlurbVar string, MinimumVar uint64, MaximumVar uint64, DefaultValueVar uint64, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	ParamSpecUint64Ptr := xParamSpecUint64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if ParamSpecUint64Ptr == 0 {
-		return nil
+	cret := xParamSpecUint64(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParamSpecUint64Cls := &ParamSpec{}
-	ParamSpecUint64Cls.Ptr = ParamSpecUint64Ptr
-	return ParamSpecUint64Cls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecUlong func(string, string, string, uint32, uint32, uint32, ParamFlags) uintptr
@@ -366,16 +366,16 @@ var xParamSpecUlong func(string, string, string, uint32, uint32, uint32, ParamFl
 //
 // See g_param_spec_internal() for details on property names.
 func ParamSpecUlong(NameVar string, NickVar string, BlurbVar string, MinimumVar uint32, MaximumVar uint32, DefaultValueVar uint32, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	ParamSpecUlongPtr := xParamSpecUlong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
-	if ParamSpecUlongPtr == 0 {
-		return nil
+	cret := xParamSpecUlong(NameVar, NickVar, BlurbVar, MinimumVar, MaximumVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParamSpecUlongCls := &ParamSpec{}
-	ParamSpecUlongCls.Ptr = ParamSpecUlongPtr
-	return ParamSpecUlongCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecUnichar func(string, string, string, uint32, ParamFlags) uintptr
@@ -386,16 +386,16 @@ var xNewParamSpecUnichar func(string, string, string, uint32, ParamFlags) uintpt
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecUnichar(NameVar string, NickVar string, BlurbVar string, DefaultValueVar uint32, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecUnicharPtr := xNewParamSpecUnichar(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecUnicharPtr == 0 {
-		return nil
+	cret := xNewParamSpecUnichar(NameVar, NickVar, BlurbVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecUnicharCls := &ParamSpec{}
-	NewParamSpecUnicharCls.Ptr = NewParamSpecUnicharPtr
-	return NewParamSpecUnicharCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecValueArray func(string, string, string, uintptr, ParamFlags) uintptr
@@ -407,16 +407,16 @@ var xNewParamSpecValueArray func(string, string, string, uintptr, ParamFlags) ui
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecValueArray(NameVar string, NickVar string, BlurbVar string, ElementSpecVar *ParamSpec, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecValueArrayPtr := xNewParamSpecValueArray(NameVar, NickVar, BlurbVar, ElementSpecVar.GoPointer(), FlagsVar)
-	if NewParamSpecValueArrayPtr == 0 {
-		return nil
+	cret := xNewParamSpecValueArray(NameVar, NickVar, BlurbVar, ElementSpecVar.GoPointer(), FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecValueArrayCls := &ParamSpec{}
-	NewParamSpecValueArrayCls.Ptr = NewParamSpecValueArrayPtr
-	return NewParamSpecValueArrayCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewParamSpecVariant func(string, string, string, *glib.VariantType, *glib.Variant, ParamFlags) uintptr
@@ -428,16 +428,16 @@ var xNewParamSpecVariant func(string, string, string, *glib.VariantType, *glib.V
 //
 // See g_param_spec_internal() for details on property names.
 func NewParamSpecVariant(NameVar string, NickVar string, BlurbVar string, TypeVar *glib.VariantType, DefaultValueVar *glib.Variant, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
 
-	NewParamSpecVariantPtr := xNewParamSpecVariant(NameVar, NickVar, BlurbVar, TypeVar, DefaultValueVar, FlagsVar)
-	if NewParamSpecVariantPtr == 0 {
-		return nil
+	cret := xNewParamSpecVariant(NameVar, NickVar, BlurbVar, TypeVar, DefaultValueVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecVariantCls := &ParamSpec{}
-	NewParamSpecVariantCls.Ptr = NewParamSpecVariantPtr
-	return NewParamSpecVariantCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 // A #GParamSpec derived structure that contains the meta data for boolean properties.

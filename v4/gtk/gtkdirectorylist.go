@@ -52,14 +52,16 @@ var xNewDirectoryList func(string, uintptr) uintptr
 // The `GtkDirectoryList` is querying the given @file
 // with the given @attributes.
 func NewDirectoryList(AttributesVar string, FileVar gio.File) *DirectoryList {
-	NewDirectoryListPtr := xNewDirectoryList(AttributesVar, FileVar.GoPointer())
-	if NewDirectoryListPtr == 0 {
-		return nil
-	}
+	var cls *DirectoryList
 
-	NewDirectoryListCls := &DirectoryList{}
-	NewDirectoryListCls.Ptr = NewDirectoryListPtr
-	return NewDirectoryListCls
+	cret := xNewDirectoryList(AttributesVar, FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DirectoryList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDirectoryListGetAttributes func(uintptr) string
@@ -67,8 +69,8 @@ var xDirectoryListGetAttributes func(uintptr) string
 // Gets the attributes queried on the children.
 func (x *DirectoryList) GetAttributes() string {
 
-	return xDirectoryListGetAttributes(x.GoPointer())
-
+	cret := xDirectoryListGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xDirectoryListGetError func(uintptr) *glib.Error
@@ -83,26 +85,25 @@ var xDirectoryListGetError func(uintptr) *glib.Error
 // successfully queried files will remain in the list.
 func (x *DirectoryList) GetError() *glib.Error {
 
-	return xDirectoryListGetError(x.GoPointer())
-
+	cret := xDirectoryListGetError(x.GoPointer())
+	return cret
 }
 
 var xDirectoryListGetFile func(uintptr) uintptr
 
 // Gets the file whose children are currently enumerated.
 func (x *DirectoryList) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := xDirectoryListGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xDirectoryListGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilePtr)
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDirectoryListGetIoPriority func(uintptr) int
@@ -110,8 +111,8 @@ var xDirectoryListGetIoPriority func(uintptr) int
 // Gets the IO priority set via gtk_directory_list_set_io_priority().
 func (x *DirectoryList) GetIoPriority() int {
 
-	return xDirectoryListGetIoPriority(x.GoPointer())
-
+	cret := xDirectoryListGetIoPriority(x.GoPointer())
+	return cret
 }
 
 var xDirectoryListGetMonitored func(uintptr) bool
@@ -120,8 +121,8 @@ var xDirectoryListGetMonitored func(uintptr) bool
 // the directory for changes.
 func (x *DirectoryList) GetMonitored() bool {
 
-	return xDirectoryListGetMonitored(x.GoPointer())
-
+	cret := xDirectoryListGetMonitored(x.GoPointer())
+	return cret
 }
 
 var xDirectoryListIsLoading func(uintptr) bool
@@ -134,8 +135,8 @@ var xDirectoryListIsLoading func(uintptr) bool
 // in between runs.
 func (x *DirectoryList) IsLoading() bool {
 
-	return xDirectoryListIsLoading(x.GoPointer())
-
+	cret := xDirectoryListIsLoading(x.GoPointer())
+	return cret
 }
 
 var xDirectoryListSetAttributes func(uintptr, string)
@@ -215,8 +216,8 @@ func (c *DirectoryList) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *DirectoryList) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -229,8 +230,8 @@ func (x *DirectoryList) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *DirectoryList) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -240,8 +241,8 @@ func (x *DirectoryList) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *DirectoryList) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -257,16 +258,16 @@ func (x *DirectoryList) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *DirectoryList) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

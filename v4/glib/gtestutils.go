@@ -57,7 +57,7 @@ type TestLogMsg struct {
 
 	NStrings uint
 
-	Strings string
+	Strings uintptr
 
 	NNums uint
 
@@ -237,8 +237,8 @@ var xStrcmp0 func(string, string) int
 // Comparing two %NULL pointers returns 0.
 func Strcmp0(Str1Var string, Str2Var string) int {
 
-	return xStrcmp0(Str1Var, Str2Var)
-
+	cret := xStrcmp0(Str1Var, Str2Var)
+	return cret
 }
 
 var xTestAddDataFunc func(string, uintptr, uintptr)
@@ -374,8 +374,8 @@ var xTestBuildFilename func(TestFileType, string, ...interface{}) string
 // same relative path as the test binary.
 func TestBuildFilename(FileTypeVar TestFileType, FirstPathVar string, varArgs ...interface{}) string {
 
-	return xTestBuildFilename(FileTypeVar, FirstPathVar, varArgs...)
-
+	cret := xTestBuildFilename(FileTypeVar, FirstPathVar, varArgs...)
+	return cret
 }
 
 var xTestCreateCase func(string, uint, uintptr, uintptr, uintptr, uintptr) *TestCase
@@ -399,8 +399,8 @@ var xTestCreateCase func(string, uint, uintptr, uintptr, uintptr, uintptr) *Test
 // @test_name and @data_test arguments.
 func TestCreateCase(TestNameVar string, DataSizeVar uint, TestDataVar uintptr, DataSetupVar TestFixtureFunc, DataTestVar TestFixtureFunc, DataTeardownVar TestFixtureFunc) *TestCase {
 
-	return xTestCreateCase(TestNameVar, DataSizeVar, TestDataVar, purego.NewCallback(DataSetupVar), purego.NewCallback(DataTestVar), purego.NewCallback(DataTeardownVar))
-
+	cret := xTestCreateCase(TestNameVar, DataSizeVar, TestDataVar, purego.NewCallback(DataSetupVar), purego.NewCallback(DataTestVar), purego.NewCallback(DataTeardownVar))
+	return cret
 }
 
 var xTestCreateSuite func(string) *TestSuite
@@ -408,8 +408,8 @@ var xTestCreateSuite func(string) *TestSuite
 // Create a new test suite with the name @suite_name.
 func TestCreateSuite(SuiteNameVar string) *TestSuite {
 
-	return xTestCreateSuite(SuiteNameVar)
-
+	cret := xTestCreateSuite(SuiteNameVar)
+	return cret
 }
 
 var xTestExpectMessage func(string, LogLevelFlags, string)
@@ -507,8 +507,8 @@ var xTestFailed func() bool
 // if it is called from inside a test function.
 func TestFailed() bool {
 
-	return xTestFailed()
-
+	cret := xTestFailed()
+	return cret
 }
 
 var xTestGetDir func(TestFileType) string
@@ -520,8 +520,8 @@ var xTestGetDir func(TestFileType) string
 // but you don't need to free the return value.
 func TestGetDir(FileTypeVar TestFileType) string {
 
-	return xTestGetDir(FileTypeVar)
-
+	cret := xTestGetDir(FileTypeVar)
+	return cret
 }
 
 var xTestGetFilename func(TestFileType, string, ...interface{}) string
@@ -540,8 +540,8 @@ var xTestGetFilename func(TestFileType, string, ...interface{}) string
 // joined).
 func TestGetFilename(FileTypeVar TestFileType, FirstPathVar string, varArgs ...interface{}) string {
 
-	return xTestGetFilename(FileTypeVar, FirstPathVar, varArgs...)
-
+	cret := xTestGetFilename(FileTypeVar, FirstPathVar, varArgs...)
+	return cret
 }
 
 var xTestGetPath func() string
@@ -554,8 +554,8 @@ var xTestGetPath func() string
 // This function returns a valid string only within a test function.
 func TestGetPath() string {
 
-	return xTestGetPath()
-
+	cret := xTestGetPath()
+	return cret
 }
 
 var xTestGetRoot func() *TestSuite
@@ -563,8 +563,8 @@ var xTestGetRoot func() *TestSuite
 // Get the toplevel test suite for the test path API.
 func TestGetRoot() *TestSuite {
 
-	return xTestGetRoot()
-
+	cret := xTestGetRoot()
+	return cret
 }
 
 var xTestIncomplete func(string)
@@ -687,8 +687,8 @@ var xTestLogTypeName func(TestLogType) string
 
 func TestLogTypeName(LogTypeVar TestLogType) string {
 
-	return xTestLogTypeName(LogTypeVar)
-
+	cret := xTestLogTypeName(LogTypeVar)
+	return cret
 }
 
 var xTestMaximizedResult func(float64, string, ...interface{})
@@ -757,8 +757,8 @@ var xTestRandDouble func() float64
 // see g_test_rand_int() for details on test case random numbers.
 func TestRandDouble() float64 {
 
-	return xTestRandDouble()
-
+	cret := xTestRandDouble()
+	return cret
 }
 
 var xTestRandDoubleRange func(float64, float64) float64
@@ -767,8 +767,8 @@ var xTestRandDoubleRange func(float64, float64) float64
 // see g_test_rand_int() for details on test case random numbers.
 func TestRandDoubleRange(RangeStartVar float64, RangeEndVar float64) float64 {
 
-	return xTestRandDoubleRange(RangeStartVar, RangeEndVar)
-
+	cret := xTestRandDoubleRange(RangeStartVar, RangeEndVar)
+	return cret
 }
 
 var xTestRandInt func() int32
@@ -784,8 +784,8 @@ var xTestRandInt func() int32
 // effective for all test cases.
 func TestRandInt() int32 {
 
-	return xTestRandInt()
-
+	cret := xTestRandInt()
+	return cret
 }
 
 var xTestRandIntRange func(int32, int32) int32
@@ -794,8 +794,8 @@ var xTestRandIntRange func(int32, int32) int32
 // see g_test_rand_int() for details on test case random numbers.
 func TestRandIntRange(BeginVar int32, EndVar int32) int32 {
 
-	return xTestRandIntRange(BeginVar, EndVar)
-
+	cret := xTestRandIntRange(BeginVar, EndVar)
+	return cret
 }
 
 var xTestRun func() int
@@ -834,8 +834,8 @@ var xTestRun func() int
 // as "skip test" by Automake) otherwise.
 func TestRun() int {
 
-	return xTestRun()
-
+	cret := xTestRun()
+	return cret
 }
 
 var xTestRunSuite func(*TestSuite) int
@@ -850,8 +850,8 @@ var xTestRunSuite func(*TestSuite) int
 // in a program.
 func TestRunSuite(SuiteVar *TestSuite) int {
 
-	return xTestRunSuite(SuiteVar)
-
+	cret := xTestRunSuite(SuiteVar)
+	return cret
 }
 
 var xTestSetNonfatalAssertions func()
@@ -905,8 +905,8 @@ var xTestSubprocess func() bool
 // program is running under g_test_trap_subprocess().
 func TestSubprocess() bool {
 
-	return xTestSubprocess()
-
+	cret := xTestSubprocess()
+	return cret
 }
 
 var xTestSummary func(string)
@@ -943,8 +943,8 @@ var xTestTimerElapsed func() float64
 // g_test_timer_start().
 func TestTimerElapsed() float64 {
 
-	return xTestTimerElapsed()
-
+	cret := xTestTimerElapsed()
+	return cret
 }
 
 var xTestTimerLast func() float64
@@ -952,8 +952,8 @@ var xTestTimerLast func() float64
 // Report the last result of g_test_timer_elapsed().
 func TestTimerLast() float64 {
 
-	return xTestTimerLast()
-
+	cret := xTestTimerLast()
+	return cret
 }
 
 var xTestTimerStart func()
@@ -1008,8 +1008,8 @@ var xTestTrapFork func(uint64, TestTrapFlags) bool
 // ]|
 func TestTrapFork(UsecTimeoutVar uint64, TestTrapFlagsVar TestTrapFlags) bool {
 
-	return xTestTrapFork(UsecTimeoutVar, TestTrapFlagsVar)
-
+	cret := xTestTrapFork(UsecTimeoutVar, TestTrapFlagsVar)
+	return cret
 }
 
 var xTestTrapHasPassed func() bool
@@ -1017,8 +1017,8 @@ var xTestTrapHasPassed func() bool
 // Check the result of the last g_test_trap_subprocess() call.
 func TestTrapHasPassed() bool {
 
-	return xTestTrapHasPassed()
-
+	cret := xTestTrapHasPassed()
+	return cret
 }
 
 var xTestTrapReachedTimeout func() bool
@@ -1026,8 +1026,8 @@ var xTestTrapReachedTimeout func() bool
 // Check the result of the last g_test_trap_subprocess() call.
 func TestTrapReachedTimeout() bool {
 
-	return xTestTrapReachedTimeout()
-
+	cret := xTestTrapReachedTimeout()
+	return cret
 }
 
 var xTestTrapSubprocess func(string, uint64, TestSubprocessFlags)

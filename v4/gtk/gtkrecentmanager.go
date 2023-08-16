@@ -11,15 +11,15 @@ import (
 // Meta-data to be passed to gtk_recent_manager_add_full() when
 // registering a recently used resource.
 type RecentData struct {
-	DisplayName string
+	DisplayName uintptr
 
-	Description string
+	Description uintptr
 
-	MimeType string
+	MimeType uintptr
 
-	AppName string
+	AppName uintptr
 
-	AppExec string
+	AppExec uintptr
 
 	Groups []string
 
@@ -148,14 +148,16 @@ var xNewRecentManager func() uintptr
 // only when needed. You should use [func@Gtk.RecentManager.get_default]
 // instead.
 func NewRecentManager() *RecentManager {
-	NewRecentManagerPtr := xNewRecentManager()
-	if NewRecentManagerPtr == 0 {
-		return nil
-	}
+	var cls *RecentManager
 
-	NewRecentManagerCls := &RecentManager{}
-	NewRecentManagerCls.Ptr = NewRecentManagerPtr
-	return NewRecentManagerCls
+	cret := xNewRecentManager()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RecentManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRecentManagerAddFull func(uintptr, string, *RecentData) bool
@@ -181,8 +183,8 @@ var xRecentManagerAddFull func(uintptr, string, *RecentData) bool
 // applications that have registered it.
 func (x *RecentManager) AddFull(UriVar string, RecentDataVar *RecentData) bool {
 
-	return xRecentManagerAddFull(x.GoPointer(), UriVar, RecentDataVar)
-
+	cret := xRecentManagerAddFull(x.GoPointer(), UriVar, RecentDataVar)
+	return cret
 }
 
 var xRecentManagerAddItem func(uintptr, string) bool
@@ -198,8 +200,8 @@ var xRecentManagerAddItem func(uintptr, string) bool
 // define the metadata for the resource pointed by @uri.
 func (x *RecentManager) AddItem(UriVar string) bool {
 
-	return xRecentManagerAddItem(x.GoPointer(), UriVar)
-
+	cret := xRecentManagerAddItem(x.GoPointer(), UriVar)
+	return cret
 }
 
 var xRecentManagerGetItems func(uintptr) *glib.List
@@ -207,8 +209,8 @@ var xRecentManagerGetItems func(uintptr) *glib.List
 // Gets the list of recently used resources.
 func (x *RecentManager) GetItems() *glib.List {
 
-	return xRecentManagerGetItems(x.GoPointer())
-
+	cret := xRecentManagerGetItems(x.GoPointer())
+	return cret
 }
 
 var xRecentManagerHasItem func(uintptr, string) bool
@@ -217,49 +219,69 @@ var xRecentManagerHasItem func(uintptr, string) bool
 // with @uri inside the recent manager.
 func (x *RecentManager) HasItem(UriVar string) bool {
 
-	return xRecentManagerHasItem(x.GoPointer(), UriVar)
-
+	cret := xRecentManagerHasItem(x.GoPointer(), UriVar)
+	return cret
 }
 
-var xRecentManagerLookupItem func(uintptr, string) *RecentInfo
+var xRecentManagerLookupItem func(uintptr, string, **glib.Error) *RecentInfo
 
 // Searches for a URI inside the recently used resources list, and
 // returns a `GtkRecentInfo` containing information about the resource
 // like its MIME type, or its display name.
-func (x *RecentManager) LookupItem(UriVar string) *RecentInfo {
+func (x *RecentManager) LookupItem(UriVar string) (*RecentInfo, error) {
+	var cerr *glib.Error
 
-	return xRecentManagerLookupItem(x.GoPointer(), UriVar)
+	cret := xRecentManagerLookupItem(x.GoPointer(), UriVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xRecentManagerMoveItem func(uintptr, string, string) bool
+var xRecentManagerMoveItem func(uintptr, string, string, **glib.Error) bool
 
 // Changes the location of a recently used resource from @uri to @new_uri.
 //
 // Please note that this function will not affect the resource pointed
 // by the URIs, but only the URI used in the recently used resources list.
-func (x *RecentManager) MoveItem(UriVar string, NewUriVar string) bool {
+func (x *RecentManager) MoveItem(UriVar string, NewUriVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xRecentManagerMoveItem(x.GoPointer(), UriVar, NewUriVar)
+	cret := xRecentManagerMoveItem(x.GoPointer(), UriVar, NewUriVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 var xRecentManagerPurgeItems func(uintptr) int
 
 // Purges every item from the recently used resources list.
-func (x *RecentManager) PurgeItems() int {
+func (x *RecentManager) PurgeItems() (int, error) {
+	var cerr *glib.Error
 
-	return xRecentManagerPurgeItems(x.GoPointer())
+	cret := xRecentManagerPurgeItems(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xRecentManagerRemoveItem func(uintptr, string) bool
+var xRecentManagerRemoveItem func(uintptr, string, **glib.Error) bool
 
 // Removes a resource pointed by @uri from the recently used resources
 // list handled by a recent manager.
-func (x *RecentManager) RemoveItem(UriVar string) bool {
+func (x *RecentManager) RemoveItem(UriVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xRecentManagerRemoveItem(x.GoPointer(), UriVar)
+	cret := xRecentManagerRemoveItem(x.GoPointer(), UriVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

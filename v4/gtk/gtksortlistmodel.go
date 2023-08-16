@@ -45,14 +45,16 @@ var xNewSortListModel func(uintptr, uintptr) uintptr
 
 // Creates a new sort list model that uses the @sorter to sort @model.
 func NewSortListModel(ModelVar gio.ListModel, SorterVar *Sorter) *SortListModel {
-	NewSortListModelPtr := xNewSortListModel(ModelVar.GoPointer(), SorterVar.GoPointer())
-	if NewSortListModelPtr == 0 {
-		return nil
-	}
+	var cls *SortListModel
 
-	NewSortListModelCls := &SortListModel{}
-	NewSortListModelCls.Ptr = NewSortListModelPtr
-	return NewSortListModelCls
+	cret := xNewSortListModel(ModelVar.GoPointer(), SorterVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SortListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSortListModelGetIncremental func(uintptr) bool
@@ -62,26 +64,25 @@ var xSortListModelGetIncremental func(uintptr) bool
 // See [method@Gtk.SortListModel.set_incremental].
 func (x *SortListModel) GetIncremental() bool {
 
-	return xSortListModelGetIncremental(x.GoPointer())
-
+	cret := xSortListModelGetIncremental(x.GoPointer())
+	return cret
 }
 
 var xSortListModelGetModel func(uintptr) uintptr
 
 // Gets the model currently sorted or %NULL if none.
 func (x *SortListModel) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xSortListModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xSortListModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSortListModelGetPending func(uintptr) uint
@@ -105,26 +106,25 @@ var xSortListModelGetPending func(uintptr) uint
 // function returns 0.
 func (x *SortListModel) GetPending() uint {
 
-	return xSortListModelGetPending(x.GoPointer())
-
+	cret := xSortListModelGetPending(x.GoPointer())
+	return cret
 }
 
 var xSortListModelGetSorter func(uintptr) uintptr
 
 // Gets the sorter that is used to sort @self.
 func (x *SortListModel) GetSorter() *Sorter {
+	var cls *Sorter
 
-	GetSorterPtr := xSortListModelGetSorter(x.GoPointer())
-	if GetSorterPtr == 0 {
-		return nil
+	cret := xSortListModelGetSorter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSorterPtr)
-
-	GetSorterCls := &Sorter{}
-	GetSorterCls.Ptr = GetSorterPtr
-	return GetSorterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Sorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSortListModelSetIncremental func(uintptr, bool)
@@ -190,8 +190,8 @@ func (c *SortListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *SortListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -204,8 +204,8 @@ func (x *SortListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *SortListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -215,8 +215,8 @@ func (x *SortListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *SortListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -232,16 +232,16 @@ func (x *SortListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *SortListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

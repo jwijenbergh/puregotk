@@ -208,16 +208,17 @@ var xNewAboutWindow func() uintptr
 
 // Creates a new `AdwAboutWindow`.
 func NewAboutWindow() *gtk.Widget {
-	NewAboutWindowPtr := xNewAboutWindow()
-	if NewAboutWindowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewAboutWindow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAboutWindowPtr)
-
-	NewAboutWindowCls := &gtk.Widget{}
-	NewAboutWindowCls.Ptr = NewAboutWindowPtr
-	return NewAboutWindowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAboutWindowAddAcknowledgementSection func(uintptr, string, uintptr)
@@ -341,8 +342,8 @@ var xAboutWindowGetApplicationIcon func(uintptr) string
 // Gets the name of the application icon for @self.
 func (x *AboutWindow) GetApplicationIcon() string {
 
-	return xAboutWindowGetApplicationIcon(x.GoPointer())
-
+	cret := xAboutWindowGetApplicationIcon(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetApplicationName func(uintptr) string
@@ -350,8 +351,8 @@ var xAboutWindowGetApplicationName func(uintptr) string
 // Gets the application name for @self.
 func (x *AboutWindow) GetApplicationName() string {
 
-	return xAboutWindowGetApplicationName(x.GoPointer())
-
+	cret := xAboutWindowGetApplicationName(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetArtists func(uintptr) uintptr
@@ -359,8 +360,8 @@ var xAboutWindowGetArtists func(uintptr) uintptr
 // Gets the list of artists of the application.
 func (x *AboutWindow) GetArtists() uintptr {
 
-	return xAboutWindowGetArtists(x.GoPointer())
-
+	cret := xAboutWindowGetArtists(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetComments func(uintptr) string
@@ -368,8 +369,8 @@ var xAboutWindowGetComments func(uintptr) string
 // Gets the comments about the application.
 func (x *AboutWindow) GetComments() string {
 
-	return xAboutWindowGetComments(x.GoPointer())
-
+	cret := xAboutWindowGetComments(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetCopyright func(uintptr) string
@@ -377,8 +378,8 @@ var xAboutWindowGetCopyright func(uintptr) string
 // Gets the copyright information for @self.
 func (x *AboutWindow) GetCopyright() string {
 
-	return xAboutWindowGetCopyright(x.GoPointer())
-
+	cret := xAboutWindowGetCopyright(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDebugInfo func(uintptr) string
@@ -386,8 +387,8 @@ var xAboutWindowGetDebugInfo func(uintptr) string
 // Gets the debug information for @self.
 func (x *AboutWindow) GetDebugInfo() string {
 
-	return xAboutWindowGetDebugInfo(x.GoPointer())
-
+	cret := xAboutWindowGetDebugInfo(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDebugInfoFilename func(uintptr) string
@@ -395,8 +396,8 @@ var xAboutWindowGetDebugInfoFilename func(uintptr) string
 // Gets the debug information filename for @self.
 func (x *AboutWindow) GetDebugInfoFilename() string {
 
-	return xAboutWindowGetDebugInfoFilename(x.GoPointer())
-
+	cret := xAboutWindowGetDebugInfoFilename(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDesigners func(uintptr) uintptr
@@ -404,8 +405,8 @@ var xAboutWindowGetDesigners func(uintptr) uintptr
 // Gets the list of designers of the application.
 func (x *AboutWindow) GetDesigners() uintptr {
 
-	return xAboutWindowGetDesigners(x.GoPointer())
-
+	cret := xAboutWindowGetDesigners(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDeveloperName func(uintptr) string
@@ -413,8 +414,8 @@ var xAboutWindowGetDeveloperName func(uintptr) string
 // Gets the developer name for @self.
 func (x *AboutWindow) GetDeveloperName() string {
 
-	return xAboutWindowGetDeveloperName(x.GoPointer())
-
+	cret := xAboutWindowGetDeveloperName(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDevelopers func(uintptr) uintptr
@@ -422,8 +423,8 @@ var xAboutWindowGetDevelopers func(uintptr) uintptr
 // Gets the list of developers of the application.
 func (x *AboutWindow) GetDevelopers() uintptr {
 
-	return xAboutWindowGetDevelopers(x.GoPointer())
-
+	cret := xAboutWindowGetDevelopers(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetDocumenters func(uintptr) uintptr
@@ -431,8 +432,8 @@ var xAboutWindowGetDocumenters func(uintptr) uintptr
 // Gets the list of documenters of the application.
 func (x *AboutWindow) GetDocumenters() uintptr {
 
-	return xAboutWindowGetDocumenters(x.GoPointer())
-
+	cret := xAboutWindowGetDocumenters(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetIssueUrl func(uintptr) string
@@ -440,8 +441,8 @@ var xAboutWindowGetIssueUrl func(uintptr) string
 // Gets the issue tracker URL for @self.
 func (x *AboutWindow) GetIssueUrl() string {
 
-	return xAboutWindowGetIssueUrl(x.GoPointer())
-
+	cret := xAboutWindowGetIssueUrl(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetLicense func(uintptr) string
@@ -449,8 +450,8 @@ var xAboutWindowGetLicense func(uintptr) string
 // Gets the license for @self.
 func (x *AboutWindow) GetLicense() string {
 
-	return xAboutWindowGetLicense(x.GoPointer())
-
+	cret := xAboutWindowGetLicense(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetLicenseType func(uintptr) gtk.License
@@ -458,8 +459,8 @@ var xAboutWindowGetLicenseType func(uintptr) gtk.License
 // Gets the license type for @self.
 func (x *AboutWindow) GetLicenseType() gtk.License {
 
-	return xAboutWindowGetLicenseType(x.GoPointer())
-
+	cret := xAboutWindowGetLicenseType(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetReleaseNotes func(uintptr) string
@@ -467,8 +468,8 @@ var xAboutWindowGetReleaseNotes func(uintptr) string
 // Gets the release notes for @self.
 func (x *AboutWindow) GetReleaseNotes() string {
 
-	return xAboutWindowGetReleaseNotes(x.GoPointer())
-
+	cret := xAboutWindowGetReleaseNotes(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetReleaseNotesVersion func(uintptr) string
@@ -476,8 +477,8 @@ var xAboutWindowGetReleaseNotesVersion func(uintptr) string
 // Gets the version described by the application's release notes.
 func (x *AboutWindow) GetReleaseNotesVersion() string {
 
-	return xAboutWindowGetReleaseNotesVersion(x.GoPointer())
-
+	cret := xAboutWindowGetReleaseNotesVersion(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetSupportUrl func(uintptr) string
@@ -485,8 +486,8 @@ var xAboutWindowGetSupportUrl func(uintptr) string
 // Gets the URL of the support page for @self.
 func (x *AboutWindow) GetSupportUrl() string {
 
-	return xAboutWindowGetSupportUrl(x.GoPointer())
-
+	cret := xAboutWindowGetSupportUrl(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetTranslatorCredits func(uintptr) string
@@ -494,8 +495,8 @@ var xAboutWindowGetTranslatorCredits func(uintptr) string
 // Gets the translator credits string.
 func (x *AboutWindow) GetTranslatorCredits() string {
 
-	return xAboutWindowGetTranslatorCredits(x.GoPointer())
-
+	cret := xAboutWindowGetTranslatorCredits(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetVersion func(uintptr) string
@@ -503,8 +504,8 @@ var xAboutWindowGetVersion func(uintptr) string
 // Gets the version for @self.
 func (x *AboutWindow) GetVersion() string {
 
-	return xAboutWindowGetVersion(x.GoPointer())
-
+	cret := xAboutWindowGetVersion(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowGetWebsite func(uintptr) string
@@ -512,8 +513,8 @@ var xAboutWindowGetWebsite func(uintptr) string
 // Gets the application website URL for @self.
 func (x *AboutWindow) GetWebsite() string {
 
-	return xAboutWindowGetWebsite(x.GoPointer())
-
+	cret := xAboutWindowGetWebsite(x.GoPointer())
+	return cret
 }
 
 var xAboutWindowSetApplicationIcon func(uintptr, string)
@@ -912,8 +913,8 @@ func (x *AboutWindow) ConnectActivateLink(cb func(AboutWindow, string) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AboutWindow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1048,40 +1049,38 @@ func (x *AboutWindow) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AboutWindow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *AboutWindow) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := gtk.XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *AboutWindow) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := gtk.XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -1114,18 +1113,17 @@ func (x *AboutWindow) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *AboutWindow) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := gtk.XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -1135,18 +1133,17 @@ func (x *AboutWindow) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *AboutWindow) GetFocus() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetFocusPtr := gtk.XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &gtk.Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

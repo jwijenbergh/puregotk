@@ -50,15 +50,15 @@ func (x *ActionableBase) SetGoPointer(ptr uintptr) {
 // Gets the action name for @actionable.
 func (x *ActionableBase) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ActionableBase) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be

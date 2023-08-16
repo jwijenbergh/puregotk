@@ -82,14 +82,16 @@ var xNewFileFilter func() uintptr
 // gtk_file_filter_add_pattern (filter, "*");
 // ```
 func NewFileFilter() *FileFilter {
-	NewFileFilterPtr := xNewFileFilter()
-	if NewFileFilterPtr == 0 {
-		return nil
-	}
+	var cls *FileFilter
 
-	NewFileFilterCls := &FileFilter{}
-	NewFileFilterCls.Ptr = NewFileFilterPtr
-	return NewFileFilterCls
+	cret := xNewFileFilter()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FileFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromGvariantFileFilter func(*glib.Variant) uintptr
@@ -99,14 +101,16 @@ var xNewFromGvariantFileFilter func(*glib.Variant) uintptr
 // The variant must be in the format produced by
 // [method@Gtk.FileFilter.to_gvariant].
 func NewFromGvariantFileFilter(VariantVar *glib.Variant) *FileFilter {
-	NewFromGvariantFileFilterPtr := xNewFromGvariantFileFilter(VariantVar)
-	if NewFromGvariantFileFilterPtr == 0 {
-		return nil
-	}
+	var cls *FileFilter
 
-	NewFromGvariantFileFilterCls := &FileFilter{}
-	NewFromGvariantFileFilterCls.Ptr = NewFromGvariantFileFilterPtr
-	return NewFromGvariantFileFilterCls
+	cret := xNewFromGvariantFileFilter(VariantVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FileFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileFilterAddMimeType func(uintptr, string)
@@ -169,8 +173,8 @@ var xFileFilterGetAttributes func(uintptr) uintptr
 // of `GtkFileChooser`.
 func (x *FileFilter) GetAttributes() uintptr {
 
-	return xFileFilterGetAttributes(x.GoPointer())
-
+	cret := xFileFilterGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xFileFilterGetName func(uintptr) string
@@ -180,8 +184,8 @@ var xFileFilterGetName func(uintptr) string
 // See [method@Gtk.FileFilter.set_name].
 func (x *FileFilter) GetName() string {
 
-	return xFileFilterGetName(x.GoPointer())
-
+	cret := xFileFilterGetName(x.GoPointer())
+	return cret
 }
 
 var xFileFilterSetName func(uintptr, string)
@@ -201,8 +205,8 @@ var xFileFilterToGvariant func(uintptr) *glib.Variant
 // Serialize a file filter to an `a{sv}` variant.
 func (x *FileFilter) ToGvariant() *glib.Variant {
 
-	return xFileFilterToGvariant(x.GoPointer())
-
+	cret := xFileFilterToGvariant(x.GoPointer())
+	return cret
 }
 
 func (c *FileFilter) GoPointer() uintptr {
@@ -219,8 +223,8 @@ func (c *FileFilter) SetGoPointer(ptr uintptr) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FileFilter) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

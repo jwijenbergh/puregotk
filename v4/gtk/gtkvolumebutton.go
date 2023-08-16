@@ -29,16 +29,17 @@ var xNewVolumeButton func() uintptr
 // Volume values can be obtained and modified using the functions from
 // [class@Gtk.ScaleButton].
 func NewVolumeButton() *Widget {
-	NewVolumeButtonPtr := xNewVolumeButton()
-	if NewVolumeButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewVolumeButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewVolumeButtonPtr)
-
-	NewVolumeButtonCls := &Widget{}
-	NewVolumeButtonCls.Ptr = NewVolumeButtonPtr
-	return NewVolumeButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *VolumeButton) GoPointer() uintptr {
@@ -52,8 +53,8 @@ func (c *VolumeButton) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *VolumeButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -188,15 +189,15 @@ func (x *VolumeButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *VolumeButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *VolumeButton) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

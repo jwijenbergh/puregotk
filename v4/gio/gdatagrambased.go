@@ -122,8 +122,8 @@ func (x *DatagramBasedBase) SetGoPointer(ptr uintptr) {
 // This call never blocks.
 func (x *DatagramBasedBase) ConditionCheck(ConditionVar glib.IOCondition) glib.IOCondition {
 
-	return XGDatagramBasedConditionCheck(x.GoPointer(), ConditionVar)
-
+	cret := XGDatagramBasedConditionCheck(x.GoPointer(), ConditionVar)
+	return cret
 }
 
 // Waits for up to @timeout microseconds for condition to become true on
@@ -132,9 +132,14 @@ func (x *DatagramBasedBase) ConditionCheck(ConditionVar glib.IOCondition) glib.I
 // If @cancellable is cancelled before the condition is met, or if @timeout is
 // reached before the condition is met, then %FALSE is returned and @error is
 // set appropriately (%G_IO_ERROR_CANCELLED or %G_IO_ERROR_TIMED_OUT).
-func (x *DatagramBasedBase) ConditionWait(ConditionVar glib.IOCondition, TimeoutVar int64, CancellableVar *Cancellable) bool {
+func (x *DatagramBasedBase) ConditionWait(ConditionVar glib.IOCondition, TimeoutVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDatagramBasedConditionWait(x.GoPointer(), ConditionVar, TimeoutVar, CancellableVar.GoPointer())
+	cret := XGDatagramBasedConditionWait(x.GoPointer(), ConditionVar, TimeoutVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -154,8 +159,8 @@ func (x *DatagramBasedBase) ConditionWait(ConditionVar glib.IOCondition, Timeout
 // g_cancellable_is_cancelled().
 func (x *DatagramBasedBase) CreateSource(ConditionVar glib.IOCondition, CancellableVar *Cancellable) *glib.Source {
 
-	return XGDatagramBasedCreateSource(x.GoPointer(), ConditionVar, CancellableVar.GoPointer())
-
+	cret := XGDatagramBasedCreateSource(x.GoPointer(), ConditionVar, CancellableVar.GoPointer())
+	return cret
 }
 
 // Receive one or more data messages from @datagram_based in one go.
@@ -208,9 +213,14 @@ func (x *DatagramBasedBase) CreateSource(ConditionVar glib.IOCondition, Cancella
 // messages successfully received before the error will be returned. If
 // @cancellable is cancelled, %G_IO_ERROR_CANCELLED is returned as with any
 // other error.
-func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int {
+func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGDatagramBasedReceiveMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer())
+	cret := XGDatagramBasedReceiveMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -255,17 +265,22 @@ func (x *DatagramBasedBase) ReceiveMessages(MessagesVar uintptr, NumMessagesVar 
 // be returned if zero messages could be sent; otherwise the number of messages
 // successfully sent before the error will be returned. If @cancellable is
 // cancelled, %G_IO_ERROR_CANCELLED is returned as with any other error.
-func (x *DatagramBasedBase) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int {
+func (x *DatagramBasedBase) SendMessages(MessagesVar uintptr, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGDatagramBasedSendMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer())
+	cret := XGDatagramBasedSendMessages(x.GoPointer(), MessagesVar, NumMessagesVar, FlagsVar, TimeoutVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 var XGDatagramBasedConditionCheck func(uintptr, glib.IOCondition) glib.IOCondition
-var XGDatagramBasedConditionWait func(uintptr, glib.IOCondition, int64, uintptr) bool
+var XGDatagramBasedConditionWait func(uintptr, glib.IOCondition, int64, uintptr, **glib.Error) bool
 var XGDatagramBasedCreateSource func(uintptr, glib.IOCondition, uintptr) *glib.Source
-var XGDatagramBasedReceiveMessages func(uintptr, uintptr, uint, int, int64, uintptr) int
-var XGDatagramBasedSendMessages func(uintptr, uintptr, uint, int, int64, uintptr) int
+var XGDatagramBasedReceiveMessages func(uintptr, uintptr, uint, int, int64, uintptr, **glib.Error) int
+var XGDatagramBasedSendMessages func(uintptr, uintptr, uint, int, int64, uintptr, **glib.Error) int
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

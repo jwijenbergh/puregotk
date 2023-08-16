@@ -19,8 +19,8 @@ var xVec2One func() *Vec2
 // Retrieves a constant vector with (1, 1) components.
 func Vec2One() *Vec2 {
 
-	return xVec2One()
-
+	cret := xVec2One()
+	return cret
 }
 
 var xVec2XAxis func() *Vec2
@@ -28,8 +28,8 @@ var xVec2XAxis func() *Vec2
 // Retrieves a constant vector with (1, 0) components.
 func Vec2XAxis() *Vec2 {
 
-	return xVec2XAxis()
-
+	cret := xVec2XAxis()
+	return cret
 }
 
 var xVec2YAxis func() *Vec2
@@ -37,8 +37,8 @@ var xVec2YAxis func() *Vec2
 // Retrieves a constant vector with (0, 1) components.
 func Vec2YAxis() *Vec2 {
 
-	return xVec2YAxis()
-
+	cret := xVec2YAxis()
+	return cret
 }
 
 var xVec2Zero func() *Vec2
@@ -46,8 +46,8 @@ var xVec2Zero func() *Vec2
 // Retrieves a constant vector with (0, 0) components.
 func Vec2Zero() *Vec2 {
 
-	return xVec2Zero()
-
+	cret := xVec2Zero()
+	return cret
 }
 
 func init() {

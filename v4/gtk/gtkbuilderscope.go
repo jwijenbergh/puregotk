@@ -97,14 +97,16 @@ var xNewBuilderCScope func() uintptr
 // Calling this function is only necessary if you want to add
 // custom callbacks via [method@Gtk.BuilderCScope.add_callback_symbol].
 func NewBuilderCScope() *BuilderCScope {
-	NewBuilderCScopePtr := xNewBuilderCScope()
-	if NewBuilderCScopePtr == 0 {
-		return nil
-	}
+	var cls *BuilderCScope
 
-	NewBuilderCScopeCls := &BuilderCScope{}
-	NewBuilderCScopeCls.Ptr = NewBuilderCScopePtr
-	return NewBuilderCScopeCls
+	cret := xNewBuilderCScope()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BuilderCScope{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBuilderCScopeAddCallbackSymbol func(uintptr, string, uintptr)
@@ -141,8 +143,8 @@ var xBuilderCScopeLookupCallbackSymbol func(uintptr, string) gobject.Callback
 // gtk_builder_cscope_add_callback_symbol().
 func (x *BuilderCScope) LookupCallbackSymbol(CallbackNameVar string) gobject.Callback {
 
-	return xBuilderCScopeLookupCallbackSymbol(x.GoPointer(), CallbackNameVar)
-
+	cret := xBuilderCScopeLookupCallbackSymbol(x.GoPointer(), CallbackNameVar)
+	return cret
 }
 
 func (c *BuilderCScope) GoPointer() uintptr {

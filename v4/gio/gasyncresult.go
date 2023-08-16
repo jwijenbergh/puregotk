@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -124,31 +125,31 @@ func (x *AsyncResultBase) SetGoPointer(ptr uintptr) {
 
 // Gets the source object from a #GAsyncResult.
 func (x *AsyncResultBase) GetSourceObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSourceObjectPtr := XGAsyncResultGetSourceObject(x.GoPointer())
-	if GetSourceObjectPtr == 0 {
-		return nil
+	cret := XGAsyncResultGetSourceObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSourceObjectCls := &gobject.Object{}
-	GetSourceObjectCls.Ptr = GetSourceObjectPtr
-	return GetSourceObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the user data from a #GAsyncResult.
 func (x *AsyncResultBase) GetUserData() uintptr {
 
-	return XGAsyncResultGetUserData(x.GoPointer())
-
+	cret := XGAsyncResultGetUserData(x.GoPointer())
+	return cret
 }
 
 // Checks if @res has the given @source_tag (generally a function
 // pointer indicating the function @res was created by).
 func (x *AsyncResultBase) IsTagged(SourceTagVar uintptr) bool {
 
-	return XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
-
+	cret := XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
+	return cret
 }
 
 // If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -161,9 +162,14 @@ func (x *AsyncResultBase) IsTagged(SourceTagVar uintptr) bool {
 // This should not be used in new code; #GAsyncResult errors that are
 // set by virtual methods should also be extracted by virtual methods,
 // to enable subclasses to chain up correctly.
-func (x *AsyncResultBase) LegacyPropagateError() bool {
+func (x *AsyncResultBase) LegacyPropagateError() (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncResultLegacyPropagateError(x.GoPointer())
+	cret := XGAsyncResultLegacyPropagateError(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

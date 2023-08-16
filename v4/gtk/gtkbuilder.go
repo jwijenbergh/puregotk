@@ -261,14 +261,16 @@ var xNewBuilder func() uintptr
 // or [method@Gtk.Builder.add_from_string] in order to merge multiple UI
 // descriptions into a single builder.
 func NewBuilder() *Builder {
-	NewBuilderPtr := xNewBuilder()
-	if NewBuilderPtr == 0 {
-		return nil
-	}
+	var cls *Builder
 
-	NewBuilderCls := &Builder{}
-	NewBuilderCls.Ptr = NewBuilderPtr
-	return NewBuilderCls
+	cret := xNewBuilder()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Builder{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromFileBuilder func(string) uintptr
@@ -279,14 +281,16 @@ var xNewFromFileBuilder func(string) uintptr
 // the program will be aborted. You should only ever attempt to parse
 // user interface descriptions that are shipped as part of your program.
 func NewFromFileBuilder(FilenameVar string) *Builder {
-	NewFromFileBuilderPtr := xNewFromFileBuilder(FilenameVar)
-	if NewFromFileBuilderPtr == 0 {
-		return nil
-	}
+	var cls *Builder
 
-	NewFromFileBuilderCls := &Builder{}
-	NewFromFileBuilderCls.Ptr = NewFromFileBuilderPtr
-	return NewFromFileBuilderCls
+	cret := xNewFromFileBuilder(FilenameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Builder{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromResourceBuilder func(string) uintptr
@@ -296,14 +300,16 @@ var xNewFromResourceBuilder func(string) uintptr
 // If there is an error locating the resource or parsing the
 // description, then the program will be aborted.
 func NewFromResourceBuilder(ResourcePathVar string) *Builder {
-	NewFromResourceBuilderPtr := xNewFromResourceBuilder(ResourcePathVar)
-	if NewFromResourceBuilderPtr == 0 {
-		return nil
-	}
+	var cls *Builder
 
-	NewFromResourceBuilderCls := &Builder{}
-	NewFromResourceBuilderCls.Ptr = NewFromResourceBuilderPtr
-	return NewFromResourceBuilderCls
+	cret := xNewFromResourceBuilder(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Builder{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromStringBuilder func(string, int) uintptr
@@ -317,17 +323,19 @@ var xNewFromStringBuilder func(string, int) uintptr
 // aborted. You should not attempt to parse user interface description
 // from untrusted sources.
 func NewFromStringBuilder(StringVar string, LengthVar int) *Builder {
-	NewFromStringBuilderPtr := xNewFromStringBuilder(StringVar, LengthVar)
-	if NewFromStringBuilderPtr == 0 {
-		return nil
-	}
+	var cls *Builder
 
-	NewFromStringBuilderCls := &Builder{}
-	NewFromStringBuilderCls.Ptr = NewFromStringBuilderPtr
-	return NewFromStringBuilderCls
+	cret := xNewFromStringBuilder(StringVar, LengthVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Builder{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xBuilderAddFromFile func(uintptr, string) bool
+var xBuilderAddFromFile func(uintptr, string, **glib.Error) bool
 
 // Parses a file containing a UI definition and merges it with
 // the current contents of @builder.
@@ -347,13 +355,18 @@ var xBuilderAddFromFile func(uintptr, string) bool
 // files can easily crash your program, and it’s possible that memory
 // was leaked leading up to the reported failure. The only reasonable
 // thing to do when an error is detected is to call `g_error()`.
-func (x *Builder) AddFromFile(FilenameVar string) bool {
+func (x *Builder) AddFromFile(FilenameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddFromFile(x.GoPointer(), FilenameVar)
+	cret := xBuilderAddFromFile(x.GoPointer(), FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderAddFromResource func(uintptr, string) bool
+var xBuilderAddFromResource func(uintptr, string, **glib.Error) bool
 
 // Parses a resource file containing a UI definition
 // and merges it with the current contents of @builder.
@@ -370,13 +383,18 @@ var xBuilderAddFromResource func(uintptr, string) bool
 // It’s not really reasonable to attempt to handle failures of this
 // call.  The only reasonable thing to do when an error is detected is
 // to call g_error().
-func (x *Builder) AddFromResource(ResourcePathVar string) bool {
+func (x *Builder) AddFromResource(ResourcePathVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddFromResource(x.GoPointer(), ResourcePathVar)
+	cret := xBuilderAddFromResource(x.GoPointer(), ResourcePathVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderAddFromString func(uintptr, string, int) bool
+var xBuilderAddFromString func(uintptr, string, int, **glib.Error) bool
 
 // Parses a string containing a UI definition and merges it
 // with the current contents of @builder.
@@ -393,13 +411,18 @@ var xBuilderAddFromString func(uintptr, string, int) bool
 // It’s not really reasonable to attempt to handle failures of this
 // call.  The only reasonable thing to do when an error is detected is
 // to call g_error().
-func (x *Builder) AddFromString(BufferVar string, LengthVar int) bool {
+func (x *Builder) AddFromString(BufferVar string, LengthVar int) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddFromString(x.GoPointer(), BufferVar, LengthVar)
+	cret := xBuilderAddFromString(x.GoPointer(), BufferVar, LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderAddObjectsFromFile func(uintptr, string, uintptr) bool
+var xBuilderAddObjectsFromFile func(uintptr, string, uintptr, **glib.Error) bool
 
 // Parses a file containing a UI definition building only the
 // requested objects and merges them with the current contents
@@ -412,13 +435,18 @@ var xBuilderAddObjectsFromFile func(uintptr, string, uintptr) bool
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromFile(FilenameVar string, ObjectIdsVar uintptr) bool {
+func (x *Builder) AddObjectsFromFile(FilenameVar string, ObjectIdsVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddObjectsFromFile(x.GoPointer(), FilenameVar, ObjectIdsVar)
+	cret := xBuilderAddObjectsFromFile(x.GoPointer(), FilenameVar, ObjectIdsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderAddObjectsFromResource func(uintptr, string, uintptr) bool
+var xBuilderAddObjectsFromResource func(uintptr, string, uintptr, **glib.Error) bool
 
 // Parses a resource file containing a UI definition, building
 // only the requested objects and merges them with the current
@@ -431,13 +459,18 @@ var xBuilderAddObjectsFromResource func(uintptr, string, uintptr) bool
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromResource(ResourcePathVar string, ObjectIdsVar uintptr) bool {
+func (x *Builder) AddObjectsFromResource(ResourcePathVar string, ObjectIdsVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddObjectsFromResource(x.GoPointer(), ResourcePathVar, ObjectIdsVar)
+	cret := xBuilderAddObjectsFromResource(x.GoPointer(), ResourcePathVar, ObjectIdsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderAddObjectsFromString func(uintptr, string, int, uintptr) bool
+var xBuilderAddObjectsFromString func(uintptr, string, int, uintptr, **glib.Error) bool
 
 // Parses a string containing a UI definition, building only the
 // requested objects and merges them with the current contents of
@@ -449,13 +482,18 @@ var xBuilderAddObjectsFromString func(uintptr, string, int, uintptr) bool
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromString(BufferVar string, LengthVar int, ObjectIdsVar uintptr) bool {
+func (x *Builder) AddObjectsFromString(BufferVar string, LengthVar int, ObjectIdsVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderAddObjectsFromString(x.GoPointer(), BufferVar, LengthVar, ObjectIdsVar)
+	cret := xBuilderAddObjectsFromString(x.GoPointer(), BufferVar, LengthVar, ObjectIdsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderCreateClosure func(uintptr, string, BuilderClosureFlags, uintptr) *gobject.Closure
+var xBuilderCreateClosure func(uintptr, string, BuilderClosureFlags, uintptr, **glib.Error) *gobject.Closure
 
 // Creates a closure to invoke the function called @function_name.
 //
@@ -464,9 +502,14 @@ var xBuilderCreateClosure func(uintptr, string, BuilderClosureFlags, uintptr) *g
 //
 // If no closure could be created, %NULL will be returned and @error
 // will be set.
-func (x *Builder) CreateClosure(FunctionNameVar string, FlagsVar BuilderClosureFlags, ObjectVar *gobject.Object) *gobject.Closure {
+func (x *Builder) CreateClosure(FunctionNameVar string, FlagsVar BuilderClosureFlags, ObjectVar *gobject.Object) (*gobject.Closure, error) {
+	var cerr *glib.Error
 
-	return xBuilderCreateClosure(x.GoPointer(), FunctionNameVar, FlagsVar, ObjectVar.GoPointer())
+	cret := xBuilderCreateClosure(x.GoPointer(), FunctionNameVar, FlagsVar, ObjectVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -485,16 +528,21 @@ func (x *Builder) ExposeObject(NameVar string, ObjectVar *gobject.Object) {
 
 }
 
-var xBuilderExtendWithTemplate func(uintptr, uintptr, []interface{}, string, int) bool
+var xBuilderExtendWithTemplate func(uintptr, uintptr, []interface{}, string, int, **glib.Error) bool
 
 // Main private entry point for building composite components
 // from template XML.
 //
 // Most likely you do not need to call this function in applications as
 // templates are handled by `GtkWidget`.
-func (x *Builder) ExtendWithTemplate(ObjectVar *gobject.Object, TemplateTypeVar []interface{}, BufferVar string, LengthVar int) bool {
+func (x *Builder) ExtendWithTemplate(ObjectVar *gobject.Object, TemplateTypeVar []interface{}, BufferVar string, LengthVar int) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderExtendWithTemplate(x.GoPointer(), ObjectVar.GoPointer(), TemplateTypeVar, BufferVar, LengthVar)
+	cret := xBuilderExtendWithTemplate(x.GoPointer(), ObjectVar.GoPointer(), TemplateTypeVar, BufferVar, LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -502,18 +550,17 @@ var xBuilderGetCurrentObject func(uintptr) uintptr
 
 // Gets the current object set via gtk_builder_set_current_object().
 func (x *Builder) GetCurrentObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetCurrentObjectPtr := xBuilderGetCurrentObject(x.GoPointer())
-	if GetCurrentObjectPtr == 0 {
-		return nil
+	cret := xBuilderGetCurrentObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCurrentObjectPtr)
-
-	GetCurrentObjectCls := &gobject.Object{}
-	GetCurrentObjectCls.Ptr = GetCurrentObjectPtr
-	return GetCurrentObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBuilderGetObject func(uintptr, string) uintptr
@@ -523,18 +570,17 @@ var xBuilderGetObject func(uintptr, string) uintptr
 // Note that this function does not increment the reference count
 // of the returned object.
 func (x *Builder) GetObject(NameVar string) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := xBuilderGetObject(x.GoPointer(), NameVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := xBuilderGetObject(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBuilderGetObjects func(uintptr) *glib.SList
@@ -545,26 +591,25 @@ var xBuilderGetObjects func(uintptr) *glib.SList
 // counts of the returned objects.
 func (x *Builder) GetObjects() *glib.SList {
 
-	return xBuilderGetObjects(x.GoPointer())
-
+	cret := xBuilderGetObjects(x.GoPointer())
+	return cret
 }
 
 var xBuilderGetScope func(uintptr) uintptr
 
 // Gets the scope in use that was set via gtk_builder_set_scope().
 func (x *Builder) GetScope() *BuilderScopeBase {
+	var cls *BuilderScopeBase
 
-	GetScopePtr := xBuilderGetScope(x.GoPointer())
-	if GetScopePtr == 0 {
-		return nil
+	cret := xBuilderGetScope(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetScopePtr)
-
-	GetScopeCls := &BuilderScopeBase{}
-	GetScopeCls.Ptr = GetScopePtr
-	return GetScopeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &BuilderScopeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBuilderGetTranslationDomain func(uintptr) string
@@ -572,8 +617,8 @@ var xBuilderGetTranslationDomain func(uintptr) string
 // Gets the translation domain of @builder.
 func (x *Builder) GetTranslationDomain() string {
 
-	return xBuilderGetTranslationDomain(x.GoPointer())
-
+	cret := xBuilderGetTranslationDomain(x.GoPointer())
+	return cret
 }
 
 var xBuilderGetTypeFromName func(uintptr, string) []interface{}
@@ -585,8 +630,8 @@ var xBuilderGetTypeFromName func(uintptr, string) []interface{}
 // the `GtkBuildable` interface on a type.
 func (x *Builder) GetTypeFromName(TypeNameVar string) []interface{} {
 
-	return xBuilderGetTypeFromName(x.GoPointer(), TypeNameVar)
-
+	cret := xBuilderGetTypeFromName(x.GoPointer(), TypeNameVar)
+	return cret
 }
 
 var xBuilderSetCurrentObject func(uintptr, uintptr)
@@ -626,7 +671,7 @@ func (x *Builder) SetTranslationDomain(DomainVar string) {
 
 }
 
-var xBuilderValueFromString func(uintptr, uintptr, string, *gobject.Value) bool
+var xBuilderValueFromString func(uintptr, uintptr, string, *gobject.Value, **glib.Error) bool
 
 // Demarshals a value from a string.
 //
@@ -639,13 +684,18 @@ var xBuilderValueFromString func(uintptr, uintptr, string, *gobject.Value) bool
 //
 // Upon errors %FALSE will be returned and @error will be
 // assigned a `GError` from the %GTK_BUILDER_ERROR domain.
-func (x *Builder) ValueFromString(PspecVar *gobject.ParamSpec, StringVar string, ValueVar *gobject.Value) bool {
+func (x *Builder) ValueFromString(PspecVar *gobject.ParamSpec, StringVar string, ValueVar *gobject.Value) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderValueFromString(x.GoPointer(), PspecVar.GoPointer(), StringVar, ValueVar)
+	cret := xBuilderValueFromString(x.GoPointer(), PspecVar.GoPointer(), StringVar, ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xBuilderValueFromStringType func(uintptr, []interface{}, string, *gobject.Value) bool
+var xBuilderValueFromStringType func(uintptr, []interface{}, string, *gobject.Value, **glib.Error) bool
 
 // Demarshals a value from a string.
 //
@@ -657,9 +707,14 @@ var xBuilderValueFromStringType func(uintptr, []interface{}, string, *gobject.Va
 //
 // Upon errors %FALSE will be returned and @error will be
 // assigned a `GError` from the %GTK_BUILDER_ERROR domain.
-func (x *Builder) ValueFromStringType(TypeVar []interface{}, StringVar string, ValueVar *gobject.Value) bool {
+func (x *Builder) ValueFromStringType(TypeVar []interface{}, StringVar string, ValueVar *gobject.Value) (bool, error) {
+	var cerr *glib.Error
 
-	return xBuilderValueFromStringType(x.GoPointer(), TypeVar, StringVar, ValueVar)
+	cret := xBuilderValueFromStringType(x.GoPointer(), TypeVar, StringVar, ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

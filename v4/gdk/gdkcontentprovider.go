@@ -40,28 +40,32 @@ var xNewForBytesContentProvider func(string, *glib.Bytes) uintptr
 // Create a content provider that provides the given @bytes as data for
 // the given @mime_type.
 func NewForBytesContentProvider(MimeTypeVar string, BytesVar *glib.Bytes) *ContentProvider {
-	NewForBytesContentProviderPtr := xNewForBytesContentProvider(MimeTypeVar, BytesVar)
-	if NewForBytesContentProviderPtr == 0 {
-		return nil
-	}
+	var cls *ContentProvider
 
-	NewForBytesContentProviderCls := &ContentProvider{}
-	NewForBytesContentProviderCls.Ptr = NewForBytesContentProviderPtr
-	return NewForBytesContentProviderCls
+	cret := xNewForBytesContentProvider(MimeTypeVar, BytesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForValueContentProvider func(*gobject.Value) uintptr
 
 // Create a content provider that provides the given @value.
 func NewForValueContentProvider(ValueVar *gobject.Value) *ContentProvider {
-	NewForValueContentProviderPtr := xNewForValueContentProvider(ValueVar)
-	if NewForValueContentProviderPtr == 0 {
-		return nil
-	}
+	var cls *ContentProvider
 
-	NewForValueContentProviderCls := &ContentProvider{}
-	NewForValueContentProviderCls.Ptr = NewForValueContentProviderPtr
-	return NewForValueContentProviderCls
+	cret := xNewForValueContentProvider(ValueVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewTypedContentProvider func([]interface{}, ...interface{}) uintptr
@@ -72,14 +76,16 @@ var xNewTypedContentProvider func([]interface{}, ...interface{}) uintptr
 // The value is provided using G_VALUE_COLLECT(), so the same rules
 // apply as when calling g_object_new() or g_object_set().
 func NewTypedContentProvider(TypeVar []interface{}, varArgs ...interface{}) *ContentProvider {
-	NewTypedContentProviderPtr := xNewTypedContentProvider(TypeVar, varArgs...)
-	if NewTypedContentProviderPtr == 0 {
-		return nil
-	}
+	var cls *ContentProvider
 
-	NewTypedContentProviderCls := &ContentProvider{}
-	NewTypedContentProviderCls.Ptr = NewTypedContentProviderPtr
-	return NewTypedContentProviderCls
+	cret := xNewTypedContentProvider(TypeVar, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewUnionContentProvider func(uintptr, uint) uintptr
@@ -102,14 +108,16 @@ var xNewUnionContentProvider func(uintptr, uint) uintptr
 //
 // ```
 func NewUnionContentProvider(ProvidersVar uintptr, NProvidersVar uint) *ContentProvider {
-	NewUnionContentProviderPtr := xNewUnionContentProvider(ProvidersVar, NProvidersVar)
-	if NewUnionContentProviderPtr == 0 {
-		return nil
-	}
+	var cls *ContentProvider
 
-	NewUnionContentProviderCls := &ContentProvider{}
-	NewUnionContentProviderCls.Ptr = NewUnionContentProviderPtr
-	return NewUnionContentProviderCls
+	cret := xNewUnionContentProvider(ProvidersVar, NProvidersVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentProviderContentChanged func(uintptr)
@@ -121,7 +129,7 @@ func (x *ContentProvider) ContentChanged() {
 
 }
 
-var xContentProviderGetValue func(uintptr, *gobject.Value) bool
+var xContentProviderGetValue func(uintptr, *gobject.Value, **glib.Error) bool
 
 // Gets the contents of @provider stored in @value.
 //
@@ -130,9 +138,14 @@ var xContentProviderGetValue func(uintptr, *gobject.Value) bool
 // returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
 // given `GType` is not supported, this operation can fail and
 // `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-func (x *ContentProvider) GetValue(ValueVar *gobject.Value) bool {
+func (x *ContentProvider) GetValue(ValueVar *gobject.Value) (bool, error) {
+	var cerr *glib.Error
 
-	return xContentProviderGetValue(x.GoPointer(), ValueVar)
+	cret := xContentProviderGetValue(x.GoPointer(), ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -141,8 +154,8 @@ var xContentProviderRefFormats func(uintptr) *ContentFormats
 // Gets the formats that the provider can provide its current contents in.
 func (x *ContentProvider) RefFormats() *ContentFormats {
 
-	return xContentProviderRefFormats(x.GoPointer())
-
+	cret := xContentProviderRefFormats(x.GoPointer())
+	return cret
 }
 
 var xContentProviderRefStorableFormats func(uintptr) *ContentFormats
@@ -155,8 +168,8 @@ var xContentProviderRefStorableFormats func(uintptr) *ContentFormats
 // This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
 func (x *ContentProvider) RefStorableFormats() *ContentFormats {
 
-	return xContentProviderRefStorableFormats(x.GoPointer())
-
+	cret := xContentProviderRefStorableFormats(x.GoPointer())
+	return cret
 }
 
 var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int, uintptr, uintptr, uintptr)
@@ -179,14 +192,19 @@ func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.
 
 }
 
-var xContentProviderWriteMimeTypeFinish func(uintptr, uintptr) bool
+var xContentProviderWriteMimeTypeFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes an asynchronous write operation.
 //
 // See [method@Gdk.ContentProvider.write_mime_type_async].
-func (x *ContentProvider) WriteMimeTypeFinish(ResultVar gio.AsyncResult) bool {
+func (x *ContentProvider) WriteMimeTypeFinish(ResultVar gio.AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xContentProviderWriteMimeTypeFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xContentProviderWriteMimeTypeFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

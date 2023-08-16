@@ -12,8 +12,8 @@ var xEnvironGetenv func(uintptr, string) string
 // provided list @envp.
 func EnvironGetenv(EnvpVar uintptr, VariableVar string) string {
 
-	return xEnvironGetenv(EnvpVar, VariableVar)
-
+	cret := xEnvironGetenv(EnvpVar, VariableVar)
+	return cret
 }
 
 var xEnvironSetenv func(uintptr, string, string, bool) uintptr
@@ -22,8 +22,8 @@ var xEnvironSetenv func(uintptr, string, string, bool) uintptr
 // @envp to @value.
 func EnvironSetenv(EnvpVar uintptr, VariableVar string, ValueVar string, OverwriteVar bool) uintptr {
 
-	return xEnvironSetenv(EnvpVar, VariableVar, ValueVar, OverwriteVar)
-
+	cret := xEnvironSetenv(EnvpVar, VariableVar, ValueVar, OverwriteVar)
+	return cret
 }
 
 var xEnvironUnsetenv func(uintptr, string) uintptr
@@ -32,8 +32,8 @@ var xEnvironUnsetenv func(uintptr, string) uintptr
 // environment @envp.
 func EnvironUnsetenv(EnvpVar uintptr, VariableVar string) uintptr {
 
-	return xEnvironUnsetenv(EnvpVar, VariableVar)
-
+	cret := xEnvironUnsetenv(EnvpVar, VariableVar)
+	return cret
 }
 
 var xGetEnviron func() uintptr
@@ -50,8 +50,8 @@ var xGetEnviron func() uintptr
 // g_strfreev() when it is no longer needed.
 func GetEnviron() uintptr {
 
-	return xGetEnviron()
-
+	cret := xGetEnviron()
+	return cret
 }
 
 var xGetenv func(string) string
@@ -65,8 +65,8 @@ var xGetenv func(string) string
 // references to other environment variables, they are expanded.
 func Getenv(VariableVar string) string {
 
-	return xGetenv(VariableVar)
-
+	cret := xGetenv(VariableVar)
+	return cret
 }
 
 var xListenv func() uintptr
@@ -81,8 +81,8 @@ var xListenv func() uintptr
 // the UTF-8 encoding that this function and g_getenv() provide.
 func Listenv() uintptr {
 
-	return xListenv()
-
+	cret := xListenv()
+	return cret
 }
 
 var xSetenv func(string, string, bool) bool
@@ -108,8 +108,8 @@ var xSetenv func(string, string, bool) bool
 // array directly to execvpe(), g_spawn_async(), or the like.
 func Setenv(VariableVar string, ValueVar string, OverwriteVar bool) bool {
 
-	return xSetenv(VariableVar, ValueVar, OverwriteVar)
-
+	cret := xSetenv(VariableVar, ValueVar, OverwriteVar)
+	return cret
 }
 
 var xUnsetenv func(string)

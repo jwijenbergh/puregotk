@@ -10,128 +10,128 @@ var xBookmarkFileErrorQuark func() Quark
 
 func BookmarkFileErrorQuark() Quark {
 
-	return xBookmarkFileErrorQuark()
-
+	cret := xBookmarkFileErrorQuark()
+	return cret
 }
 
 var xConvertErrorQuark func() Quark
 
 func ConvertErrorQuark() Quark {
 
-	return xConvertErrorQuark()
-
+	cret := xConvertErrorQuark()
+	return cret
 }
 
 var xFileErrorQuark func() Quark
 
 func FileErrorQuark() Quark {
 
-	return xFileErrorQuark()
-
+	cret := xFileErrorQuark()
+	return cret
 }
 
 var xIoChannelErrorQuark func() Quark
 
 func IoChannelErrorQuark() Quark {
 
-	return xIoChannelErrorQuark()
-
+	cret := xIoChannelErrorQuark()
+	return cret
 }
 
 var xKeyFileErrorQuark func() Quark
 
 func KeyFileErrorQuark() Quark {
 
-	return xKeyFileErrorQuark()
-
+	cret := xKeyFileErrorQuark()
+	return cret
 }
 
 var xMarkupErrorQuark func() Quark
 
 func MarkupErrorQuark() Quark {
 
-	return xMarkupErrorQuark()
-
+	cret := xMarkupErrorQuark()
+	return cret
 }
 
 var xNumberParserErrorQuark func() Quark
 
 func NumberParserErrorQuark() Quark {
 
-	return xNumberParserErrorQuark()
-
+	cret := xNumberParserErrorQuark()
+	return cret
 }
 
 var xOptionErrorQuark func() Quark
 
 func OptionErrorQuark() Quark {
 
-	return xOptionErrorQuark()
-
+	cret := xOptionErrorQuark()
+	return cret
 }
 
 var xRegexErrorQuark func() Quark
 
 func RegexErrorQuark() Quark {
 
-	return xRegexErrorQuark()
-
+	cret := xRegexErrorQuark()
+	return cret
 }
 
 var xShellErrorQuark func() Quark
 
 func ShellErrorQuark() Quark {
 
-	return xShellErrorQuark()
-
+	cret := xShellErrorQuark()
+	return cret
 }
 
 var xSpawnErrorQuark func() Quark
 
 func SpawnErrorQuark() Quark {
 
-	return xSpawnErrorQuark()
-
+	cret := xSpawnErrorQuark()
+	return cret
 }
 
 var xSpawnExitErrorQuark func() Quark
 
 func SpawnExitErrorQuark() Quark {
 
-	return xSpawnExitErrorQuark()
-
+	cret := xSpawnExitErrorQuark()
+	return cret
 }
 
 var xThreadErrorQuark func() Quark
 
 func ThreadErrorQuark() Quark {
 
-	return xThreadErrorQuark()
-
+	cret := xThreadErrorQuark()
+	return cret
 }
 
 var xUnixErrorQuark func() Quark
 
 func UnixErrorQuark() Quark {
 
-	return xUnixErrorQuark()
-
+	cret := xUnixErrorQuark()
+	return cret
 }
 
 var xUriErrorQuark func() Quark
 
 func UriErrorQuark() Quark {
 
-	return xUriErrorQuark()
-
+	cret := xUriErrorQuark()
+	return cret
 }
 
 var xVariantParseErrorQuark func() Quark
 
 func VariantParseErrorQuark() Quark {
 
-	return xVariantParseErrorQuark()
-
+	cret := xVariantParseErrorQuark()
+	return cret
 }
 
 func init() {

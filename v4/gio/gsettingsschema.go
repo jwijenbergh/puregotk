@@ -132,8 +132,8 @@ var xSettingsSchemaSourceGetDefault func() *SettingsSchemaSource
 // recursively.
 func SettingsSchemaSourceGetDefault() *SettingsSchemaSource {
 
-	return xSettingsSchemaSourceGetDefault()
-
+	cret := xSettingsSchemaSourceGetDefault()
+	return cret
 }
 
 func init() {

@@ -36,34 +36,34 @@ var xNewStackSidebar func() uintptr
 
 // Creates a new `GtkStackSidebar`.
 func NewStackSidebar() *Widget {
-	NewStackSidebarPtr := xNewStackSidebar()
-	if NewStackSidebarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewStackSidebar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewStackSidebarPtr)
-
-	NewStackSidebarCls := &Widget{}
-	NewStackSidebarCls.Ptr = NewStackSidebarPtr
-	return NewStackSidebarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackSidebarGetStack func(uintptr) uintptr
 
 // Retrieves the stack.
 func (x *StackSidebar) GetStack() *Stack {
+	var cls *Stack
 
-	GetStackPtr := xStackSidebarGetStack(x.GoPointer())
-	if GetStackPtr == 0 {
-		return nil
+	cret := xStackSidebarGetStack(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStackPtr)
-
-	GetStackCls := &Stack{}
-	GetStackCls.Ptr = GetStackPtr
-	return GetStackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Stack{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackSidebarSetStack func(uintptr, uintptr)
@@ -89,8 +89,8 @@ func (c *StackSidebar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *StackSidebar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -225,8 +225,8 @@ func (x *StackSidebar) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *StackSidebar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

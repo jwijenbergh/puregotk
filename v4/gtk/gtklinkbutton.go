@@ -48,32 +48,34 @@ var xNewLinkButton func(string) uintptr
 
 // Creates a new `GtkLinkButton` with the URI as its text.
 func NewLinkButton(UriVar string) *Widget {
-	NewLinkButtonPtr := xNewLinkButton(UriVar)
-	if NewLinkButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewLinkButton(UriVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewLinkButtonPtr)
-
-	NewLinkButtonCls := &Widget{}
-	NewLinkButtonCls.Ptr = NewLinkButtonPtr
-	return NewLinkButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithLabelLinkButton func(string, string) uintptr
 
 // Creates a new `GtkLinkButton` containing a label.
 func NewWithLabelLinkButton(UriVar string, LabelVar string) *Widget {
-	NewWithLabelLinkButtonPtr := xNewWithLabelLinkButton(UriVar, LabelVar)
-	if NewWithLabelLinkButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithLabelLinkButton(UriVar, LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithLabelLinkButtonPtr)
-
-	NewWithLabelLinkButtonCls := &Widget{}
-	NewWithLabelLinkButtonCls.Ptr = NewWithLabelLinkButtonPtr
-	return NewWithLabelLinkButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLinkButtonGetUri func(uintptr) string
@@ -81,8 +83,8 @@ var xLinkButtonGetUri func(uintptr) string
 // Retrieves the URI of the `GtkLinkButton`.
 func (x *LinkButton) GetUri() string {
 
-	return xLinkButtonGetUri(x.GoPointer())
-
+	cret := xLinkButtonGetUri(x.GoPointer())
+	return cret
 }
 
 var xLinkButtonGetVisited func(uintptr) bool
@@ -95,8 +97,8 @@ var xLinkButtonGetVisited func(uintptr) bool
 // The state may also be changed using [method@Gtk.LinkButton.set_visited].
 func (x *LinkButton) GetVisited() bool {
 
-	return xLinkButtonGetVisited(x.GoPointer())
-
+	cret := xLinkButtonGetVisited(x.GoPointer())
+	return cret
 }
 
 var xLinkButtonSetUri func(uintptr, string)
@@ -151,8 +153,8 @@ func (x *LinkButton) ConnectActivateLink(cb func(LinkButton) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *LinkButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -284,15 +286,15 @@ func (x *LinkButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // Gets the action name for @actionable.
 func (x *LinkButton) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *LinkButton) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -370,8 +372,8 @@ func (x *LinkButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *LinkButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

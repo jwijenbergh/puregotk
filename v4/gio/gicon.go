@@ -64,8 +64,8 @@ func (x *IconBase) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *IconBase) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -75,8 +75,8 @@ func (x *IconBase) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *IconBase) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -97,8 +97,8 @@ func (x *IconBase) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *IconBase) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 var XGIconEqual func(uintptr, uintptr) bool
@@ -109,16 +109,16 @@ var xIconDeserialize func(*glib.Variant) uintptr
 
 // Deserializes a #GIcon previously serialized using g_icon_serialize().
 func IconDeserialize(ValueVar *glib.Variant) *IconBase {
+	var cls *IconBase
 
-	IconDeserializePtr := xIconDeserialize(ValueVar)
-	if IconDeserializePtr == 0 {
-		return nil
+	cret := xIconDeserialize(ValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IconDeserializeCls := &IconBase{}
-	IconDeserializeCls.Ptr = IconDeserializePtr
-	return IconDeserializeCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIconHash func(uintptr) uint
@@ -126,11 +126,11 @@ var xIconHash func(uintptr) uint
 // Gets a hash for an icon.
 func IconHash(IconVar uintptr) uint {
 
-	return xIconHash(IconVar)
-
+	cret := xIconHash(IconVar)
+	return cret
 }
 
-var xIconNewForString func(string) uintptr
+var xIconNewForString func(string, **glib.Error) uintptr
 
 // Generate a #GIcon instance from @str. This function can fail if
 // @str is not valid - see g_icon_to_string() for discussion.
@@ -138,16 +138,21 @@ var xIconNewForString func(string) uintptr
 // If your application or library provides one or more #GIcon
 // implementations you need to ensure that each #GType is registered
 // with the type system prior to calling g_icon_new_for_string().
-func IconNewForString(StrVar string) *IconBase {
+func IconNewForString(StrVar string) (*IconBase, error) {
+	var cls *IconBase
+	var cerr *glib.Error
 
-	IconNewForStringPtr := xIconNewForString(StrVar)
-	if IconNewForStringPtr == 0 {
-		return nil
+	cret := xIconNewForString(StrVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	IconNewForStringCls := &IconBase{}
-	IconNewForStringCls.Ptr = IconNewForStringPtr
-	return IconNewForStringCls
+	cls = &IconBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

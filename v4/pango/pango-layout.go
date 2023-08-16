@@ -204,14 +204,16 @@ var xNewLayout func(uintptr) uintptr
 // Create a new `PangoLayout` object with attributes initialized to
 // default values for a particular `PangoContext`.
 func NewLayout(ContextVar *Context) *Layout {
-	NewLayoutPtr := xNewLayout(ContextVar.GoPointer())
-	if NewLayoutPtr == 0 {
-		return nil
-	}
+	var cls *Layout
 
-	NewLayoutCls := &Layout{}
-	NewLayoutCls.Ptr = NewLayoutPtr
-	return NewLayoutCls
+	cret := xNewLayout(ContextVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutContextChanged func(uintptr)
@@ -234,16 +236,16 @@ var xLayoutCopy func(uintptr) uintptr
 // The attribute list, tab array, and text from the original layout
 // are all copied by value.
 func (x *Layout) Copy() *Layout {
+	var cls *Layout
 
-	CopyPtr := xLayoutCopy(x.GoPointer())
-	if CopyPtr == 0 {
-		return nil
+	cret := xLayoutCopy(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CopyCls := &Layout{}
-	CopyCls.Ptr = CopyPtr
-	return CopyCls
-
+	cls = &Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutGetAlignment func(uintptr) Alignment
@@ -252,8 +254,8 @@ var xLayoutGetAlignment func(uintptr) Alignment
 // positioned within the horizontal space available.
 func (x *Layout) GetAlignment() Alignment {
 
-	return xLayoutGetAlignment(x.GoPointer())
-
+	cret := xLayoutGetAlignment(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetAttributes func(uintptr) *AttrList
@@ -261,8 +263,8 @@ var xLayoutGetAttributes func(uintptr) *AttrList
 // Gets the attribute list for the layout, if any.
 func (x *Layout) GetAttributes() *AttrList {
 
-	return xLayoutGetAttributes(x.GoPointer())
-
+	cret := xLayoutGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetAutoDir func(uintptr) bool
@@ -273,8 +275,8 @@ var xLayoutGetAutoDir func(uintptr) bool
 // See [method@Pango.Layout.set_auto_dir].
 func (x *Layout) GetAutoDir() bool {
 
-	return xLayoutGetAutoDir(x.GoPointer())
-
+	cret := xLayoutGetAutoDir(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetBaseline func(uintptr) int
@@ -282,8 +284,8 @@ var xLayoutGetBaseline func(uintptr) int
 // Gets the Y position of baseline of the first line in @layout.
 func (x *Layout) GetBaseline() int {
 
-	return xLayoutGetBaseline(x.GoPointer())
-
+	cret := xLayoutGetBaseline(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetCaretPos func(uintptr, int, *Rectangle, *Rectangle)
@@ -313,26 +315,25 @@ var xLayoutGetCharacterCount func(uintptr) int
 // the text of @layout.
 func (x *Layout) GetCharacterCount() int {
 
-	return xLayoutGetCharacterCount(x.GoPointer())
-
+	cret := xLayoutGetCharacterCount(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetContext func(uintptr) uintptr
 
 // Retrieves the `PangoContext` used for this layout.
 func (x *Layout) GetContext() *Context {
+	var cls *Context
 
-	GetContextPtr := xLayoutGetContext(x.GoPointer())
-	if GetContextPtr == 0 {
-		return nil
+	cret := xLayoutGetContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContextPtr)
-
-	GetContextCls := &Context{}
-	GetContextCls.Ptr = GetContextPtr
-	return GetContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutGetCursorPos func(uintptr, int, *Rectangle, *Rectangle)
@@ -379,8 +380,8 @@ var xLayoutGetDirection func(uintptr, int) Direction
 // Gets the text direction at the given character position in @layout.
 func (x *Layout) GetDirection(IndexVar int) Direction {
 
-	return xLayoutGetDirection(x.GoPointer(), IndexVar)
-
+	cret := xLayoutGetDirection(x.GoPointer(), IndexVar)
+	return cret
 }
 
 var xLayoutGetEllipsize func(uintptr) EllipsizeMode
@@ -393,8 +394,8 @@ var xLayoutGetEllipsize func(uintptr) EllipsizeMode
 // paragraphs were actually ellipsized.
 func (x *Layout) GetEllipsize() EllipsizeMode {
 
-	return xLayoutGetEllipsize(x.GoPointer())
-
+	cret := xLayoutGetEllipsize(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetExtents func(uintptr, *Rectangle, *Rectangle)
@@ -420,8 +421,8 @@ var xLayoutGetFontDescription func(uintptr) *FontDescription
 // Gets the font description for the layout, if any.
 func (x *Layout) GetFontDescription() *FontDescription {
 
-	return xLayoutGetFontDescription(x.GoPointer())
-
+	cret := xLayoutGetFontDescription(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetHeight func(uintptr) int
@@ -431,8 +432,8 @@ var xLayoutGetHeight func(uintptr) int
 // See [method@Pango.Layout.set_height] for details.
 func (x *Layout) GetHeight() int {
 
-	return xLayoutGetHeight(x.GoPointer())
-
+	cret := xLayoutGetHeight(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetIndent func(uintptr) int
@@ -442,8 +443,8 @@ var xLayoutGetIndent func(uintptr) int
 // A negative value indicates a hanging indentation.
 func (x *Layout) GetIndent() int {
 
-	return xLayoutGetIndent(x.GoPointer())
-
+	cret := xLayoutGetIndent(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetIter func(uintptr) *LayoutIter
@@ -451,8 +452,8 @@ var xLayoutGetIter func(uintptr) *LayoutIter
 // Returns an iterator to iterate over the visual extents of the layout.
 func (x *Layout) GetIter() *LayoutIter {
 
-	return xLayoutGetIter(x.GoPointer())
-
+	cret := xLayoutGetIter(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetJustify func(uintptr) bool
@@ -461,8 +462,8 @@ var xLayoutGetJustify func(uintptr) bool
 // width of the layout.
 func (x *Layout) GetJustify() bool {
 
-	return xLayoutGetJustify(x.GoPointer())
-
+	cret := xLayoutGetJustify(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetJustifyLastLine func(uintptr) bool
@@ -471,8 +472,8 @@ var xLayoutGetJustifyLastLine func(uintptr) bool
 // to fill the entire width of the layout.
 func (x *Layout) GetJustifyLastLine() bool {
 
-	return xLayoutGetJustifyLastLine(x.GoPointer())
-
+	cret := xLayoutGetJustifyLastLine(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetLine func(uintptr, int) *LayoutLine
@@ -483,8 +484,8 @@ var xLayoutGetLine func(uintptr, int) *LayoutLine
 // plan to modify the contents of the line (glyphs, glyph widths, etc.).
 func (x *Layout) GetLine(LineVar int) *LayoutLine {
 
-	return xLayoutGetLine(x.GoPointer(), LineVar)
-
+	cret := xLayoutGetLine(x.GoPointer(), LineVar)
+	return cret
 }
 
 var xLayoutGetLineCount func(uintptr) int
@@ -492,8 +493,8 @@ var xLayoutGetLineCount func(uintptr) int
 // Retrieves the count of lines for the @layout.
 func (x *Layout) GetLineCount() int {
 
-	return xLayoutGetLineCount(x.GoPointer())
-
+	cret := xLayoutGetLineCount(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetLineReadonly func(uintptr, int) *LayoutLine
@@ -505,8 +506,8 @@ var xLayoutGetLineReadonly func(uintptr, int) *LayoutLine
 // (glyphs, glyph widths, etc.).
 func (x *Layout) GetLineReadonly(LineVar int) *LayoutLine {
 
-	return xLayoutGetLineReadonly(x.GoPointer(), LineVar)
-
+	cret := xLayoutGetLineReadonly(x.GoPointer(), LineVar)
+	return cret
 }
 
 var xLayoutGetLineSpacing func(uintptr) float32
@@ -516,8 +517,8 @@ var xLayoutGetLineSpacing func(uintptr) float32
 // See [method@Pango.Layout.set_line_spacing].
 func (x *Layout) GetLineSpacing() float32 {
 
-	return xLayoutGetLineSpacing(x.GoPointer())
-
+	cret := xLayoutGetLineSpacing(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetLines func(uintptr) *glib.SList
@@ -528,8 +529,8 @@ var xLayoutGetLines func(uintptr) *glib.SList
 // plan to modify the contents of the lines (glyphs, glyph widths, etc.).
 func (x *Layout) GetLines() *glib.SList {
 
-	return xLayoutGetLines(x.GoPointer())
-
+	cret := xLayoutGetLines(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetLinesReadonly func(uintptr) *glib.SList
@@ -541,8 +542,8 @@ var xLayoutGetLinesReadonly func(uintptr) *glib.SList
 // (glyphs, glyph widths, etc.).
 func (x *Layout) GetLinesReadonly() *glib.SList {
 
-	return xLayoutGetLinesReadonly(x.GoPointer())
-
+	cret := xLayoutGetLinesReadonly(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetLogAttrs func(uintptr, uintptr, int)
@@ -570,8 +571,8 @@ var xLayoutGetLogAttrsReadonly func(uintptr, int) uintptr
 // the first character and the position after the last character.
 func (x *Layout) GetLogAttrsReadonly(NAttrsVar int) uintptr {
 
-	return xLayoutGetLogAttrsReadonly(x.GoPointer(), NAttrsVar)
-
+	cret := xLayoutGetLogAttrsReadonly(x.GoPointer(), NAttrsVar)
+	return cret
 }
 
 var xLayoutGetPixelExtents func(uintptr, *Rectangle, *Rectangle)
@@ -618,8 +619,8 @@ var xLayoutGetSerial func(uintptr) uint
 // [method@Pango.Layout.context_changed].
 func (x *Layout) GetSerial() uint {
 
-	return xLayoutGetSerial(x.GoPointer())
-
+	cret := xLayoutGetSerial(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetSingleParagraphMode func(uintptr) bool
@@ -629,8 +630,8 @@ var xLayoutGetSingleParagraphMode func(uintptr) bool
 // See [method@Pango.Layout.set_single_paragraph_mode].
 func (x *Layout) GetSingleParagraphMode() bool {
 
-	return xLayoutGetSingleParagraphMode(x.GoPointer())
-
+	cret := xLayoutGetSingleParagraphMode(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetSize func(uintptr, int, int)
@@ -650,8 +651,8 @@ var xLayoutGetSpacing func(uintptr) int
 // Gets the amount of spacing between the lines of the layout.
 func (x *Layout) GetSpacing() int {
 
-	return xLayoutGetSpacing(x.GoPointer())
-
+	cret := xLayoutGetSpacing(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetTabs func(uintptr) *TabArray
@@ -664,8 +665,8 @@ var xLayoutGetTabs func(uintptr) *TabArray
 // The return value should be freed with [method@Pango.TabArray.free].
 func (x *Layout) GetTabs() *TabArray {
 
-	return xLayoutGetTabs(x.GoPointer())
-
+	cret := xLayoutGetTabs(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetText func(uintptr) string
@@ -675,8 +676,8 @@ var xLayoutGetText func(uintptr) string
 // The returned text should not be freed or modified.
 func (x *Layout) GetText() string {
 
-	return xLayoutGetText(x.GoPointer())
-
+	cret := xLayoutGetText(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetUnknownGlyphsCount func(uintptr) int
@@ -689,8 +690,8 @@ var xLayoutGetUnknownGlyphsCount func(uintptr) int
 // certain font supports all the characters in the string.
 func (x *Layout) GetUnknownGlyphsCount() int {
 
-	return xLayoutGetUnknownGlyphsCount(x.GoPointer())
-
+	cret := xLayoutGetUnknownGlyphsCount(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetWidth func(uintptr) int
@@ -698,8 +699,8 @@ var xLayoutGetWidth func(uintptr) int
 // Gets the width to which the lines of the `PangoLayout` should wrap.
 func (x *Layout) GetWidth() int {
 
-	return xLayoutGetWidth(x.GoPointer())
-
+	cret := xLayoutGetWidth(x.GoPointer())
+	return cret
 }
 
 var xLayoutGetWrap func(uintptr) WrapMode
@@ -710,8 +711,8 @@ var xLayoutGetWrap func(uintptr) WrapMode
 // any paragraphs were actually wrapped.
 func (x *Layout) GetWrap() WrapMode {
 
-	return xLayoutGetWrap(x.GoPointer())
-
+	cret := xLayoutGetWrap(x.GoPointer())
+	return cret
 }
 
 var xLayoutIndexToLineX func(uintptr, int, bool, int, int)
@@ -750,8 +751,8 @@ var xLayoutIsEllipsized func(uintptr) bool
 // ellipsized.
 func (x *Layout) IsEllipsized() bool {
 
-	return xLayoutIsEllipsized(x.GoPointer())
-
+	cret := xLayoutIsEllipsized(x.GoPointer())
+	return cret
 }
 
 var xLayoutIsWrapped func(uintptr) bool
@@ -764,8 +765,8 @@ var xLayoutIsWrapped func(uintptr) bool
 // to be wrapped.
 func (x *Layout) IsWrapped() bool {
 
-	return xLayoutIsWrapped(x.GoPointer())
-
+	cret := xLayoutIsWrapped(x.GoPointer())
+	return cret
 }
 
 var xLayoutMoveCursorVisually func(uintptr, bool, int, int, int, int, int)
@@ -803,8 +804,8 @@ var xLayoutSerialize func(uintptr, LayoutSerializeFlags) *glib.Bytes
 // The format is not meant as a permanent storage format.
 func (x *Layout) Serialize(FlagsVar LayoutSerializeFlags) *glib.Bytes {
 
-	return xLayoutSerialize(x.GoPointer(), FlagsVar)
-
+	cret := xLayoutSerialize(x.GoPointer(), FlagsVar)
+	return cret
 }
 
 var xLayoutSetAlignment func(uintptr, Alignment)
@@ -1147,7 +1148,7 @@ func (x *Layout) SetWrap(WrapVar WrapMode) {
 
 }
 
-var xLayoutWriteToFile func(uintptr, LayoutSerializeFlags, string) bool
+var xLayoutWriteToFile func(uintptr, LayoutSerializeFlags, string, **glib.Error) bool
 
 // A convenience method to serialize a layout to a file.
 //
@@ -1158,9 +1159,14 @@ var xLayoutWriteToFile func(uintptr, LayoutSerializeFlags, string) bool
 //
 // It is mostly intended for use inside a debugger to quickly dump
 // a layout to a file for later inspection.
-func (x *Layout) WriteToFile(FlagsVar LayoutSerializeFlags, FilenameVar string) bool {
+func (x *Layout) WriteToFile(FlagsVar LayoutSerializeFlags, FilenameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xLayoutWriteToFile(x.GoPointer(), FlagsVar, FilenameVar)
+	cret := xLayoutWriteToFile(x.GoPointer(), FlagsVar, FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1177,8 +1183,8 @@ var xLayoutXyToIndex func(uintptr, int, int, int, int) bool
 // %FALSE; on an exact hit, it returns %TRUE.
 func (x *Layout) XyToIndex(XVar int, YVar int, IndexVar int, TrailingVar int) bool {
 
-	return xLayoutXyToIndex(x.GoPointer(), XVar, YVar, IndexVar, TrailingVar)
-
+	cret := xLayoutXyToIndex(x.GoPointer(), XVar, YVar, IndexVar, TrailingVar)
+	return cret
 }
 
 func (c *Layout) GoPointer() uintptr {

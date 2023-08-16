@@ -43,8 +43,8 @@ var xFileMonitorCancel func(uintptr) bool
 // Cancels a file monitor.
 func (x *FileMonitor) Cancel() bool {
 
-	return xFileMonitorCancel(x.GoPointer())
-
+	cret := xFileMonitorCancel(x.GoPointer())
+	return cret
 }
 
 var xFileMonitorEmitEvent func(uintptr, uintptr, uintptr, FileMonitorEvent)
@@ -67,8 +67,8 @@ var xFileMonitorIsCancelled func(uintptr) bool
 // Returns whether the monitor is canceled.
 func (x *FileMonitor) IsCancelled() bool {
 
-	return xFileMonitorIsCancelled(x.GoPointer())
-
+	cret := xFileMonitorIsCancelled(x.GoPointer())
+	return cret
 }
 
 var xFileMonitorSetRateLimit func(uintptr, int)

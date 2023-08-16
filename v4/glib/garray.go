@@ -8,7 +8,7 @@ import (
 
 // Contains the public fields of a GArray.
 type Array struct {
-	Data string
+	Data uintptr
 
 	Len uint
 }
@@ -62,8 +62,8 @@ var xByteArrayFree func(uintptr, bool) byte
 // the size of @array will be set to zero.
 func ByteArrayFree(ArrayVar uintptr, FreeSegmentVar bool) byte {
 
-	return xByteArrayFree(ArrayVar, FreeSegmentVar)
-
+	cret := xByteArrayFree(ArrayVar, FreeSegmentVar)
+	return cret
 }
 
 var xByteArrayFreeToBytes func(uintptr) *Bytes
@@ -78,8 +78,8 @@ var xByteArrayFreeToBytes func(uintptr) *Bytes
 // together.
 func ByteArrayFreeToBytes(ArrayVar uintptr) *Bytes {
 
-	return xByteArrayFreeToBytes(ArrayVar)
-
+	cret := xByteArrayFreeToBytes(ArrayVar)
+	return cret
 }
 
 var xByteArrayNew func() uintptr
@@ -87,8 +87,8 @@ var xByteArrayNew func() uintptr
 // Creates a new #GByteArray with a reference count of 1.
 func ByteArrayNew() uintptr {
 
-	return xByteArrayNew()
-
+	cret := xByteArrayNew()
+	return cret
 }
 
 var xByteArrayNewTake func(uintptr, uint) uintptr
@@ -101,8 +101,8 @@ var xByteArrayNewTake func(uintptr, uint) uintptr
 // #gsize.
 func ByteArrayNewTake(DataVar uintptr, LenVar uint) uintptr {
 
-	return xByteArrayNewTake(DataVar, LenVar)
-
+	cret := xByteArrayNewTake(DataVar, LenVar)
+	return cret
 }
 
 var xByteArraySteal func(uintptr, uint) byte
@@ -112,8 +112,8 @@ var xByteArraySteal func(uintptr, uint) byte
 // to the caller.
 func ByteArraySteal(ArrayVar uintptr, LenVar uint) byte {
 
-	return xByteArraySteal(ArrayVar, LenVar)
-
+	cret := xByteArraySteal(ArrayVar, LenVar)
+	return cret
 }
 
 var xByteArrayUnref func(uintptr)
@@ -139,8 +139,8 @@ var xPtrArrayFind func(uintptr, uintptr, uint) bool
 // checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
 func PtrArrayFind(HaystackVar uintptr, NeedleVar uintptr, IndexVar uint) bool {
 
-	return xPtrArrayFind(HaystackVar, NeedleVar, IndexVar)
-
+	cret := xPtrArrayFind(HaystackVar, NeedleVar, IndexVar)
+	return cret
 }
 
 var xPtrArrayFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
@@ -156,8 +156,8 @@ var xPtrArrayFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
 // equality is used.
 func PtrArrayFindWithEqualFunc(HaystackVar uintptr, NeedleVar uintptr, EqualFuncVar EqualFunc, IndexVar uint) bool {
 
-	return xPtrArrayFindWithEqualFunc(HaystackVar, NeedleVar, purego.NewCallback(EqualFuncVar), IndexVar)
-
+	cret := xPtrArrayFindWithEqualFunc(HaystackVar, NeedleVar, purego.NewCallback(EqualFuncVar), IndexVar)
+	return cret
 }
 
 func init() {

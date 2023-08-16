@@ -67,34 +67,34 @@ var xNewSqueezer func() uintptr
 
 // Creates a new `AdwSqueezer`.
 func NewSqueezer() *gtk.Widget {
-	NewSqueezerPtr := xNewSqueezer()
-	if NewSqueezerPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewSqueezer()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSqueezerPtr)
-
-	NewSqueezerCls := &gtk.Widget{}
-	NewSqueezerCls.Ptr = NewSqueezerPtr
-	return NewSqueezerCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerAdd func(uintptr, uintptr) uintptr
 
 // Adds a child to @self.
 func (x *Squeezer) Add(ChildVar *gtk.Widget) *SqueezerPage {
+	var cls *SqueezerPage
 
-	AddPtr := xSqueezerAdd(x.GoPointer(), ChildVar.GoPointer())
-	if AddPtr == 0 {
-		return nil
+	cret := xSqueezerAdd(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddPtr)
-
-	AddCls := &SqueezerPage{}
-	AddCls.Ptr = AddPtr
-	return AddCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SqueezerPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerGetAllowNone func(uintptr) bool
@@ -102,8 +102,8 @@ var xSqueezerGetAllowNone func(uintptr) bool
 // Gets whether to allow squeezing beyond the last child's minimum size.
 func (x *Squeezer) GetAllowNone() bool {
 
-	return xSqueezerGetAllowNone(x.GoPointer())
-
+	cret := xSqueezerGetAllowNone(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetHomogeneous func(uintptr) bool
@@ -111,8 +111,8 @@ var xSqueezerGetHomogeneous func(uintptr) bool
 // Gets whether all children have the same size for the opposite orientation.
 func (x *Squeezer) GetHomogeneous() bool {
 
-	return xSqueezerGetHomogeneous(x.GoPointer())
-
+	cret := xSqueezerGetHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetInterpolateSize func(uintptr) bool
@@ -120,26 +120,25 @@ var xSqueezerGetInterpolateSize func(uintptr) bool
 // Gets whether @self interpolates its size when changing the visible child.
 func (x *Squeezer) GetInterpolateSize() bool {
 
-	return xSqueezerGetInterpolateSize(x.GoPointer())
-
+	cret := xSqueezerGetInterpolateSize(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetPage func(uintptr, uintptr) uintptr
 
 // Returns the [class@SqueezerPage] object for @child.
 func (x *Squeezer) GetPage(ChildVar *gtk.Widget) *SqueezerPage {
+	var cls *SqueezerPage
 
-	GetPagePtr := xSqueezerGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xSqueezerGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &SqueezerPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SqueezerPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerGetPages func(uintptr) uintptr
@@ -149,16 +148,16 @@ var xSqueezerGetPages func(uintptr) uintptr
 // This can be used to keep an up-to-date view. The model also implements
 // [iface@Gtk.SelectionModel] and can be used to track the visible page.
 func (x *Squeezer) GetPages() *gtk.SelectionModelBase {
+	var cls *gtk.SelectionModelBase
 
-	GetPagesPtr := xSqueezerGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xSqueezerGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &gtk.SelectionModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &gtk.SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerGetSwitchThresholdPolicy func(uintptr) FoldThresholdPolicy
@@ -166,8 +165,8 @@ var xSqueezerGetSwitchThresholdPolicy func(uintptr) FoldThresholdPolicy
 // Gets the switch threshold policy for @self.
 func (x *Squeezer) GetSwitchThresholdPolicy() FoldThresholdPolicy {
 
-	return xSqueezerGetSwitchThresholdPolicy(x.GoPointer())
-
+	cret := xSqueezerGetSwitchThresholdPolicy(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetTransitionDuration func(uintptr) uint
@@ -175,8 +174,8 @@ var xSqueezerGetTransitionDuration func(uintptr) uint
 // Gets the transition animation duration for @self.
 func (x *Squeezer) GetTransitionDuration() uint {
 
-	return xSqueezerGetTransitionDuration(x.GoPointer())
-
+	cret := xSqueezerGetTransitionDuration(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetTransitionRunning func(uintptr) bool
@@ -188,8 +187,8 @@ var xSqueezerGetTransitionRunning func(uintptr) bool
 // to know that a transition has happened.
 func (x *Squeezer) GetTransitionRunning() bool {
 
-	return xSqueezerGetTransitionRunning(x.GoPointer())
-
+	cret := xSqueezerGetTransitionRunning(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetTransitionType func(uintptr) SqueezerTransitionType
@@ -197,26 +196,25 @@ var xSqueezerGetTransitionType func(uintptr) SqueezerTransitionType
 // Gets the type of animation used for transitions between children in @self.
 func (x *Squeezer) GetTransitionType() SqueezerTransitionType {
 
-	return xSqueezerGetTransitionType(x.GoPointer())
-
+	cret := xSqueezerGetTransitionType(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetVisibleChild func(uintptr) uintptr
 
 // Gets the currently visible child of @self.
 func (x *Squeezer) GetVisibleChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetVisibleChildPtr := xSqueezerGetVisibleChild(x.GoPointer())
-	if GetVisibleChildPtr == 0 {
-		return nil
+	cret := xSqueezerGetVisibleChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVisibleChildPtr)
-
-	GetVisibleChildCls := &gtk.Widget{}
-	GetVisibleChildCls.Ptr = GetVisibleChildPtr
-	return GetVisibleChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerGetXalign func(uintptr) float32
@@ -224,8 +222,8 @@ var xSqueezerGetXalign func(uintptr) float32
 // Gets the horizontal alignment, from 0 (start) to 1 (end).
 func (x *Squeezer) GetXalign() float32 {
 
-	return xSqueezerGetXalign(x.GoPointer())
-
+	cret := xSqueezerGetXalign(x.GoPointer())
+	return cret
 }
 
 var xSqueezerGetYalign func(uintptr) float32
@@ -233,8 +231,8 @@ var xSqueezerGetYalign func(uintptr) float32
 // Gets the vertical alignment, from 0 (top) to 1 (bottom).
 func (x *Squeezer) GetYalign() float32 {
 
-	return xSqueezerGetYalign(x.GoPointer())
-
+	cret := xSqueezerGetYalign(x.GoPointer())
+	return cret
 }
 
 var xSqueezerRemove func(uintptr, uintptr)
@@ -363,8 +361,8 @@ func (c *Squeezer) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Squeezer) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -499,15 +497,15 @@ func (x *Squeezer) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Squeezer) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Squeezer) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.
@@ -532,18 +530,17 @@ var xSqueezerPageGetChild func(uintptr) uintptr
 
 // Returns the squeezer child to which @self belongs.
 func (x *SqueezerPage) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xSqueezerPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xSqueezerPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSqueezerPageGetEnabled func(uintptr) bool
@@ -551,8 +548,8 @@ var xSqueezerPageGetEnabled func(uintptr) bool
 // Gets whether @self is enabled.
 func (x *SqueezerPage) GetEnabled() bool {
 
-	return xSqueezerPageGetEnabled(x.GoPointer())
-
+	cret := xSqueezerPageGetEnabled(x.GoPointer())
+	return cret
 }
 
 var xSqueezerPageSetEnabled func(uintptr, bool)

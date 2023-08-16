@@ -120,16 +120,17 @@ var xNewDrawingArea func() uintptr
 
 // Creates a new drawing area.
 func NewDrawingArea() *Widget {
-	NewDrawingAreaPtr := xNewDrawingArea()
-	if NewDrawingAreaPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewDrawingArea()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewDrawingAreaPtr)
-
-	NewDrawingAreaCls := &Widget{}
-	NewDrawingAreaCls.Ptr = NewDrawingAreaPtr
-	return NewDrawingAreaCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDrawingAreaGetContentHeight func(uintptr) int
@@ -137,8 +138,8 @@ var xDrawingAreaGetContentHeight func(uintptr) int
 // Retrieves the content height of the `GtkDrawingArea`.
 func (x *DrawingArea) GetContentHeight() int {
 
-	return xDrawingAreaGetContentHeight(x.GoPointer())
-
+	cret := xDrawingAreaGetContentHeight(x.GoPointer())
+	return cret
 }
 
 var xDrawingAreaGetContentWidth func(uintptr) int
@@ -146,8 +147,8 @@ var xDrawingAreaGetContentWidth func(uintptr) int
 // Retrieves the content width of the `GtkDrawingArea`.
 func (x *DrawingArea) GetContentWidth() int {
 
-	return xDrawingAreaGetContentWidth(x.GoPointer())
-
+	cret := xDrawingAreaGetContentWidth(x.GoPointer())
+	return cret
 }
 
 var xDrawingAreaSetContentHeight func(uintptr, int)
@@ -231,8 +232,8 @@ func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *DrawingArea) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -367,8 +368,8 @@ func (x *DrawingArea) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *DrawingArea) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

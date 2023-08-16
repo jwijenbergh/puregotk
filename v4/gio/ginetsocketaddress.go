@@ -30,14 +30,16 @@ var xNewInetSocketAddress func(uintptr, uint16) uintptr
 
 // Creates a new #GInetSocketAddress for @address and @port.
 func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *SocketAddress {
-	NewInetSocketAddressPtr := xNewInetSocketAddress(AddressVar.GoPointer(), PortVar)
-	if NewInetSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewInetSocketAddressCls := &SocketAddress{}
-	NewInetSocketAddressCls.Ptr = NewInetSocketAddressPtr
-	return NewInetSocketAddressCls
+	cret := xNewInetSocketAddress(AddressVar.GoPointer(), PortVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromStringInetSocketAddress func(string, uint) uintptr
@@ -47,32 +49,33 @@ var xNewFromStringInetSocketAddress func(string, uint) uintptr
 // If @address is an IPv6 address, it can also contain a scope ID
 // (separated from the address by a `%`).
 func NewFromStringInetSocketAddress(AddressVar string, PortVar uint) *SocketAddress {
-	NewFromStringInetSocketAddressPtr := xNewFromStringInetSocketAddress(AddressVar, PortVar)
-	if NewFromStringInetSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewFromStringInetSocketAddressCls := &SocketAddress{}
-	NewFromStringInetSocketAddressCls.Ptr = NewFromStringInetSocketAddressPtr
-	return NewFromStringInetSocketAddressCls
+	cret := xNewFromStringInetSocketAddress(AddressVar, PortVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInetSocketAddressGetAddress func(uintptr) uintptr
 
 // Gets @address's #GInetAddress.
 func (x *InetSocketAddress) GetAddress() *InetAddress {
+	var cls *InetAddress
 
-	GetAddressPtr := xInetSocketAddressGetAddress(x.GoPointer())
-	if GetAddressPtr == 0 {
-		return nil
+	cret := xInetSocketAddressGetAddress(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAddressPtr)
-
-	GetAddressCls := &InetAddress{}
-	GetAddressCls.Ptr = GetAddressPtr
-	return GetAddressCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInetSocketAddressGetFlowinfo func(uintptr) uint32
@@ -81,8 +84,8 @@ var xInetSocketAddressGetFlowinfo func(uintptr) uint32
 // which must be an IPv6 address.
 func (x *InetSocketAddress) GetFlowinfo() uint32 {
 
-	return xInetSocketAddressGetFlowinfo(x.GoPointer())
-
+	cret := xInetSocketAddressGetFlowinfo(x.GoPointer())
+	return cret
 }
 
 var xInetSocketAddressGetPort func(uintptr) uint16
@@ -90,8 +93,8 @@ var xInetSocketAddressGetPort func(uintptr) uint16
 // Gets @address's port.
 func (x *InetSocketAddress) GetPort() uint16 {
 
-	return xInetSocketAddressGetPort(x.GoPointer())
-
+	cret := xInetSocketAddressGetPort(x.GoPointer())
+	return cret
 }
 
 var xInetSocketAddressGetScopeId func(uintptr) uint32
@@ -100,8 +103,8 @@ var xInetSocketAddressGetScopeId func(uintptr) uint32
 // which must be an IPv6 address.
 func (x *InetSocketAddress) GetScopeId() uint32 {
 
-	return xInetSocketAddressGetScopeId(x.GoPointer())
-
+	cret := xInetSocketAddressGetScopeId(x.GoPointer())
+	return cret
 }
 
 func (c *InetSocketAddress) GoPointer() uintptr {
@@ -114,16 +117,16 @@ func (c *InetSocketAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *InetSocketAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -134,16 +137,16 @@ func (x *InetSocketAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *InetSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -155,8 +158,8 @@ func (x *InetSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *InetSocketAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

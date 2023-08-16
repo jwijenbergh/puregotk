@@ -81,16 +81,17 @@ var xNewPrintUnixDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkPrintUnixDialog`.
 func NewPrintUnixDialog(TitleVar string, ParentVar *Window) *Widget {
-	NewPrintUnixDialogPtr := xNewPrintUnixDialog(TitleVar, ParentVar.GoPointer())
-	if NewPrintUnixDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPrintUnixDialog(TitleVar, ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPrintUnixDialogPtr)
-
-	NewPrintUnixDialogCls := &Widget{}
-	NewPrintUnixDialogCls.Ptr = NewPrintUnixDialogPtr
-	return NewPrintUnixDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintUnixDialogAddCustomTab func(uintptr, uintptr, uintptr)
@@ -107,8 +108,8 @@ var xPrintUnixDialogGetCurrentPage func(uintptr) int
 // Gets the current page of the `GtkPrintUnixDialog`.
 func (x *PrintUnixDialog) GetCurrentPage() int {
 
-	return xPrintUnixDialogGetCurrentPage(x.GoPointer())
-
+	cret := xPrintUnixDialogGetCurrentPage(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogGetEmbedPageSetup func(uintptr) bool
@@ -116,8 +117,8 @@ var xPrintUnixDialogGetEmbedPageSetup func(uintptr) bool
 // Gets whether to embed the page setup.
 func (x *PrintUnixDialog) GetEmbedPageSetup() bool {
 
-	return xPrintUnixDialogGetEmbedPageSetup(x.GoPointer())
-
+	cret := xPrintUnixDialogGetEmbedPageSetup(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogGetHasSelection func(uintptr) bool
@@ -125,8 +126,8 @@ var xPrintUnixDialogGetHasSelection func(uintptr) bool
 // Gets whether there is a selection.
 func (x *PrintUnixDialog) GetHasSelection() bool {
 
-	return xPrintUnixDialogGetHasSelection(x.GoPointer())
-
+	cret := xPrintUnixDialogGetHasSelection(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogGetManualCapabilities func(uintptr) PrintCapabilities
@@ -134,26 +135,25 @@ var xPrintUnixDialogGetManualCapabilities func(uintptr) PrintCapabilities
 // Gets the capabilities that have been set on this `GtkPrintUnixDialog`.
 func (x *PrintUnixDialog) GetManualCapabilities() PrintCapabilities {
 
-	return xPrintUnixDialogGetManualCapabilities(x.GoPointer())
-
+	cret := xPrintUnixDialogGetManualCapabilities(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogGetPageSetup func(uintptr) uintptr
 
 // Gets the page setup that is used by the `GtkPrintUnixDialog`.
 func (x *PrintUnixDialog) GetPageSetup() *PageSetup {
+	var cls *PageSetup
 
-	GetPageSetupPtr := xPrintUnixDialogGetPageSetup(x.GoPointer())
-	if GetPageSetupPtr == 0 {
-		return nil
+	cret := xPrintUnixDialogGetPageSetup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPageSetupPtr)
-
-	GetPageSetupCls := &PageSetup{}
-	GetPageSetupCls.Ptr = GetPageSetupPtr
-	return GetPageSetupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintUnixDialogGetPageSetupSet func(uintptr) bool
@@ -161,26 +161,25 @@ var xPrintUnixDialogGetPageSetupSet func(uintptr) bool
 // Gets whether a page setup was set by the user.
 func (x *PrintUnixDialog) GetPageSetupSet() bool {
 
-	return xPrintUnixDialogGetPageSetupSet(x.GoPointer())
-
+	cret := xPrintUnixDialogGetPageSetupSet(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogGetSelectedPrinter func(uintptr) uintptr
 
 // Gets the currently selected printer.
 func (x *PrintUnixDialog) GetSelectedPrinter() *Printer {
+	var cls *Printer
 
-	GetSelectedPrinterPtr := xPrintUnixDialogGetSelectedPrinter(x.GoPointer())
-	if GetSelectedPrinterPtr == 0 {
-		return nil
+	cret := xPrintUnixDialogGetSelectedPrinter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedPrinterPtr)
-
-	GetSelectedPrinterCls := &Printer{}
-	GetSelectedPrinterCls.Ptr = GetSelectedPrinterPtr
-	return GetSelectedPrinterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Printer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintUnixDialogGetSettings func(uintptr) uintptr
@@ -191,16 +190,16 @@ var xPrintUnixDialogGetSettings func(uintptr) uintptr
 // Note that this creates a new object, and you need to unref
 // it if don’t want to keep it.
 func (x *PrintUnixDialog) GetSettings() *PrintSettings {
+	var cls *PrintSettings
 
-	GetSettingsPtr := xPrintUnixDialogGetSettings(x.GoPointer())
-	if GetSettingsPtr == 0 {
-		return nil
+	cret := xPrintUnixDialogGetSettings(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSettingsCls := &PrintSettings{}
-	GetSettingsCls.Ptr = GetSettingsPtr
-	return GetSettingsCls
-
+	cls = &PrintSettings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintUnixDialogGetSupportSelection func(uintptr) bool
@@ -208,8 +207,8 @@ var xPrintUnixDialogGetSupportSelection func(uintptr) bool
 // Gets whether the print dialog allows user to print a selection.
 func (x *PrintUnixDialog) GetSupportSelection() bool {
 
-	return xPrintUnixDialogGetSupportSelection(x.GoPointer())
-
+	cret := xPrintUnixDialogGetSupportSelection(x.GoPointer())
+	return cret
 }
 
 var xPrintUnixDialogSetCurrentPage func(uintptr, int)
@@ -299,8 +298,8 @@ func (c *PrintUnixDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PrintUnixDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -435,40 +434,38 @@ func (x *PrintUnixDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, Va
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PrintUnixDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *PrintUnixDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *PrintUnixDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -501,18 +498,17 @@ func (x *PrintUnixDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *PrintUnixDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -522,18 +518,17 @@ func (x *PrintUnixDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *PrintUnixDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

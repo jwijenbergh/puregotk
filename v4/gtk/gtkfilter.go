@@ -115,8 +115,8 @@ var xFilterGetStrictness func(uintptr) FilterMatch
 // choose to omit implementing it, but `GtkFilterListModel` uses it.
 func (x *Filter) GetStrictness() FilterMatch {
 
-	return xFilterGetStrictness(x.GoPointer())
-
+	cret := xFilterGetStrictness(x.GoPointer())
+	return cret
 }
 
 var xFilterMatch func(uintptr, uintptr) bool
@@ -124,8 +124,8 @@ var xFilterMatch func(uintptr, uintptr) bool
 // Checks if the given @item is matched by the filter or not.
 func (x *Filter) Match(ItemVar *gobject.Object) bool {
 
-	return xFilterMatch(x.GoPointer(), ItemVar.GoPointer())
-
+	cret := xFilterMatch(x.GoPointer(), ItemVar.GoPointer())
+	return cret
 }
 
 func (c *Filter) GoPointer() uintptr {

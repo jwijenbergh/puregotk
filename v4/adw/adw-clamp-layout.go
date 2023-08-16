@@ -51,14 +51,16 @@ var xNewClampLayout func() uintptr
 
 // Creates a new `AdwClampLayout`.
 func NewClampLayout() *gtk.LayoutManager {
-	NewClampLayoutPtr := xNewClampLayout()
-	if NewClampLayoutPtr == 0 {
-		return nil
-	}
+	var cls *gtk.LayoutManager
 
-	NewClampLayoutCls := &gtk.LayoutManager{}
-	NewClampLayoutCls.Ptr = NewClampLayoutPtr
-	return NewClampLayoutCls
+	cret := xNewClampLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &gtk.LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClampLayoutGetMaximumSize func(uintptr) int
@@ -66,8 +68,8 @@ var xClampLayoutGetMaximumSize func(uintptr) int
 // Gets the maximum size allocated to the children.
 func (x *ClampLayout) GetMaximumSize() int {
 
-	return xClampLayoutGetMaximumSize(x.GoPointer())
-
+	cret := xClampLayoutGetMaximumSize(x.GoPointer())
+	return cret
 }
 
 var xClampLayoutGetTighteningThreshold func(uintptr) int
@@ -75,8 +77,8 @@ var xClampLayoutGetTighteningThreshold func(uintptr) int
 // Gets the size above which the children are clamped.
 func (x *ClampLayout) GetTighteningThreshold() int {
 
-	return xClampLayoutGetTighteningThreshold(x.GoPointer())
-
+	cret := xClampLayoutGetTighteningThreshold(x.GoPointer())
+	return cret
 }
 
 var xClampLayoutSetMaximumSize func(uintptr, int)
@@ -123,8 +125,8 @@ func (c *ClampLayout) SetGoPointer(ptr uintptr) {
 // Retrieves the orientation of the @orientable.
 func (x *ClampLayout) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

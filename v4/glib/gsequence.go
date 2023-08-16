@@ -26,8 +26,8 @@ var xSequenceGet func(*SequenceIter) uintptr
 // Returns the data that @iter points to.
 func SequenceGet(IterVar *SequenceIter) uintptr {
 
-	return xSequenceGet(IterVar)
-
+	cret := xSequenceGet(IterVar)
+	return cret
 }
 
 var xSequenceInsertBefore func(*SequenceIter, uintptr) *SequenceIter
@@ -35,8 +35,8 @@ var xSequenceInsertBefore func(*SequenceIter, uintptr) *SequenceIter
 // Inserts a new item just before the item pointed to by @iter.
 func SequenceInsertBefore(IterVar *SequenceIter, DataVar uintptr) *SequenceIter {
 
-	return xSequenceInsertBefore(IterVar, DataVar)
-
+	cret := xSequenceInsertBefore(IterVar, DataVar)
+	return cret
 }
 
 var xSequenceMove func(*SequenceIter, *SequenceIter)
@@ -77,8 +77,8 @@ var xSequenceRangeGetMidpoint func(*SequenceIter, *SequenceIter) *SequenceIter
 // and @begin must come before or be equal to @end in the sequence.
 func SequenceRangeGetMidpoint(BeginVar *SequenceIter, EndVar *SequenceIter) *SequenceIter {
 
-	return xSequenceRangeGetMidpoint(BeginVar, EndVar)
-
+	cret := xSequenceRangeGetMidpoint(BeginVar, EndVar)
+	return cret
 }
 
 var xSequenceRemove func(*SequenceIter)

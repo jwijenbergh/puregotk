@@ -256,16 +256,21 @@ func (x *FileBase) SetGoPointer(ptr uintptr) {
 // %G_IO_ERROR_INVALID_FILENAME error. If the file is a directory the
 // %G_IO_ERROR_IS_DIRECTORY error will be returned. Other errors are
 // possible too, and depend on what kind of filesystem the file is on.
-func (x *FileBase) AppendTo(FlagsVar FileCreateFlags, CancellableVar *Cancellable) *FileOutputStream {
+func (x *FileBase) AppendTo(FlagsVar FileCreateFlags, CancellableVar *Cancellable) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	AppendToPtr := XGFileAppendTo(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if AppendToPtr == 0 {
-		return nil
+	cret := XGFileAppendTo(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AppendToCls := &FileOutputStream{}
-	AppendToCls.Ptr = AppendToPtr
-	return AppendToCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -285,16 +290,21 @@ func (x *FileBase) AppendToAsync(FlagsVar FileCreateFlags, IoPriorityVar int, Ca
 
 // Finishes an asynchronous file append operation started with
 // g_file_append_to_async().
-func (x *FileBase) AppendToFinish(ResVar AsyncResult) *FileOutputStream {
+func (x *FileBase) AppendToFinish(ResVar AsyncResult) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	AppendToFinishPtr := XGFileAppendToFinish(x.GoPointer(), ResVar.GoPointer())
-	if AppendToFinishPtr == 0 {
-		return nil
+	cret := XGFileAppendToFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AppendToFinishCls := &FileOutputStream{}
-	AppendToFinishCls.Ptr = AppendToFinishPtr
-	return AppendToFinishCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -307,9 +317,14 @@ func (x *FileBase) AppendToFinish(ResVar AsyncResult) *FileOutputStream {
 // implementation of g_file_copy_attributes() and is useful
 // when one needs to query and set the attributes in two
 // stages (e.g., for recursive move of a directory).
-func (x *FileBase) BuildAttributeListForCopy(FlagsVar FileCopyFlags, CancellableVar *Cancellable) string {
+func (x *FileBase) BuildAttributeListForCopy(FlagsVar FileCopyFlags, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return XGFileBuildAttributeListForCopy(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileBuildAttributeListForCopy(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -353,9 +368,14 @@ func (x *FileBase) BuildAttributeListForCopy(FlagsVar FileCopyFlags, Cancellable
 //
 // If you are interested in copying the #GFile object itself (not the on-disk
 // file), see g_file_dup().
-func (x *FileBase) Copy(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable, ProgressCallbackVar FileProgressCallback, ProgressCallbackDataVar uintptr) bool {
+func (x *FileBase) Copy(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable, ProgressCallbackVar FileProgressCallback, ProgressCallbackDataVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileCopy(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressCallbackDataVar)
+	cret := XGFileCopy(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressCallbackDataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -383,16 +403,26 @@ func (x *FileBase) CopyAsync(DestinationVar File, FlagsVar FileCopyFlags, IoPrio
 // if %G_FILE_COPY_ALL_METADATA is specified in @flags, then
 // all the metadata that is possible to copy is copied. This
 // is useful when implementing move by copy + delete source.
-func (x *FileBase) CopyAttributes(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) CopyAttributes(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileCopyAttributes(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileCopyAttributes(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes copying the file started with g_file_copy_async().
-func (x *FileBase) CopyFinish(ResVar AsyncResult) bool {
+func (x *FileBase) CopyFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileCopyFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := XGFileCopyFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -415,16 +445,21 @@ func (x *FileBase) CopyFinish(ResVar AsyncResult) bool {
 // error, and if the name is to long %G_IO_ERROR_FILENAME_TOO_LONG will
 // be returned. Other errors are possible too, and depend on what kind
 // of filesystem the file is on.
-func (x *FileBase) Create(FlagsVar FileCreateFlags, CancellableVar *Cancellable) *FileOutputStream {
+func (x *FileBase) Create(FlagsVar FileCreateFlags, CancellableVar *Cancellable) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	CreatePtr := XGFileCreate(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if CreatePtr == 0 {
-		return nil
+	cret := XGFileCreate(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateCls := &FileOutputStream{}
-	CreateCls.Ptr = CreatePtr
-	return CreateCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -445,16 +480,21 @@ func (x *FileBase) CreateAsync(FlagsVar FileCreateFlags, IoPriorityVar int, Canc
 
 // Finishes an asynchronous file create operation started with
 // g_file_create_async().
-func (x *FileBase) CreateFinish(ResVar AsyncResult) *FileOutputStream {
+func (x *FileBase) CreateFinish(ResVar AsyncResult) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	CreateFinishPtr := XGFileCreateFinish(x.GoPointer(), ResVar.GoPointer())
-	if CreateFinishPtr == 0 {
-		return nil
+	cret := XGFileCreateFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateFinishCls := &FileOutputStream{}
-	CreateFinishCls.Ptr = CreateFinishPtr
-	return CreateFinishCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -481,16 +521,21 @@ func (x *FileBase) CreateFinish(ResVar AsyncResult) *FileOutputStream {
 // Note that in many non-local file cases read and write streams are
 // not supported, so make sure you really need to do read and write
 // streaming, rather than just opening for reading or writing.
-func (x *FileBase) CreateReadwrite(FlagsVar FileCreateFlags, CancellableVar *Cancellable) *FileIOStream {
+func (x *FileBase) CreateReadwrite(FlagsVar FileCreateFlags, CancellableVar *Cancellable) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	CreateReadwritePtr := XGFileCreateReadwrite(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if CreateReadwritePtr == 0 {
-		return nil
+	cret := XGFileCreateReadwrite(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateReadwriteCls := &FileIOStream{}
-	CreateReadwriteCls.Ptr = CreateReadwritePtr
-	return CreateReadwriteCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -511,16 +556,21 @@ func (x *FileBase) CreateReadwriteAsync(FlagsVar FileCreateFlags, IoPriorityVar 
 
 // Finishes an asynchronous file create operation started with
 // g_file_create_readwrite_async().
-func (x *FileBase) CreateReadwriteFinish(ResVar AsyncResult) *FileIOStream {
+func (x *FileBase) CreateReadwriteFinish(ResVar AsyncResult) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	CreateReadwriteFinishPtr := XGFileCreateReadwriteFinish(x.GoPointer(), ResVar.GoPointer())
-	if CreateReadwriteFinishPtr == 0 {
-		return nil
+	cret := XGFileCreateReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateReadwriteFinishCls := &FileIOStream{}
-	CreateReadwriteFinishCls.Ptr = CreateReadwriteFinishPtr
-	return CreateReadwriteFinishCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -547,9 +597,14 @@ func (x *FileBase) CreateReadwriteFinish(ResVar AsyncResult) *FileIOStream {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) Delete(CancellableVar *Cancellable) bool {
+func (x *FileBase) Delete(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileDelete(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileDelete(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -563,9 +618,14 @@ func (x *FileBase) DeleteAsync(IoPriorityVar int, CancellableVar *Cancellable, C
 }
 
 // Finishes deleting a file started with g_file_delete_async().
-func (x *FileBase) DeleteFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) DeleteFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileDeleteFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileDeleteFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -580,16 +640,16 @@ func (x *FileBase) DeleteFinish(ResultVar AsyncResult) bool {
 //
 // This call does no blocking I/O.
 func (x *FileBase) Dup() *FileBase {
+	var cls *FileBase
 
-	DupPtr := XGFileDup(x.GoPointer())
-	if DupPtr == 0 {
-		return nil
+	cret := XGFileDup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupCls := &FileBase{}
-	DupCls.Ptr = DupPtr
-	return DupCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Starts an asynchronous eject on a mountable.
@@ -608,9 +668,14 @@ func (x *FileBase) EjectMountable(FlagsVar MountUnmountFlags, CancellableVar *Ca
 
 // Finishes an asynchronous eject operation started by
 // g_file_eject_mountable().
-func (x *FileBase) EjectMountableFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) EjectMountableFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileEjectMountableFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileEjectMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -630,9 +695,14 @@ func (x *FileBase) EjectMountableWithOperation(FlagsVar MountUnmountFlags, Mount
 
 // Finishes an asynchronous eject operation started by
 // g_file_eject_mountable_with_operation().
-func (x *FileBase) EjectMountableWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) EjectMountableWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileEjectMountableWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileEjectMountableWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -661,16 +731,21 @@ func (x *FileBase) EjectMountableWithOperationFinish(ResultVar AsyncResult) bool
 // If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will
 // be returned. If the file is not a directory, the %G_IO_ERROR_NOT_DIRECTORY
 // error will be returned. Other errors are possible too.
-func (x *FileBase) EnumerateChildren(AttributesVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) *FileEnumerator {
+func (x *FileBase) EnumerateChildren(AttributesVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (*FileEnumerator, error) {
+	var cls *FileEnumerator
+	var cerr *glib.Error
 
-	EnumerateChildrenPtr := XGFileEnumerateChildren(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer())
-	if EnumerateChildrenPtr == 0 {
-		return nil
+	cret := XGFileEnumerateChildren(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	EnumerateChildrenCls := &FileEnumerator{}
-	EnumerateChildrenCls.Ptr = EnumerateChildrenPtr
-	return EnumerateChildrenCls
+	cls = &FileEnumerator{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -692,16 +767,21 @@ func (x *FileBase) EnumerateChildrenAsync(AttributesVar string, FlagsVar FileQue
 
 // Finishes an async enumerate children operation.
 // See g_file_enumerate_children_async().
-func (x *FileBase) EnumerateChildrenFinish(ResVar AsyncResult) *FileEnumerator {
+func (x *FileBase) EnumerateChildrenFinish(ResVar AsyncResult) (*FileEnumerator, error) {
+	var cls *FileEnumerator
+	var cerr *glib.Error
 
-	EnumerateChildrenFinishPtr := XGFileEnumerateChildrenFinish(x.GoPointer(), ResVar.GoPointer())
-	if EnumerateChildrenFinishPtr == 0 {
-		return nil
+	cret := XGFileEnumerateChildrenFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	EnumerateChildrenFinishCls := &FileEnumerator{}
-	EnumerateChildrenFinishCls.Ptr = EnumerateChildrenFinishPtr
-	return EnumerateChildrenFinishCls
+	cls = &FileEnumerator{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -714,8 +794,8 @@ func (x *FileBase) EnumerateChildrenFinish(ResVar AsyncResult) *FileEnumerator {
 // This call does no blocking I/O.
 func (x *FileBase) Equal(File2Var File) bool {
 
-	return XGFileEqual(x.GoPointer(), File2Var.GoPointer())
-
+	cret := XGFileEqual(x.GoPointer(), File2Var.GoPointer())
+	return cret
 }
 
 // Gets a #GMount for the #GFile.
@@ -727,16 +807,21 @@ func (x *FileBase) Equal(File2Var File) bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) FindEnclosingMount(CancellableVar *Cancellable) *MountBase {
+func (x *FileBase) FindEnclosingMount(CancellableVar *Cancellable) (*MountBase, error) {
+	var cls *MountBase
+	var cerr *glib.Error
 
-	FindEnclosingMountPtr := XGFileFindEnclosingMount(x.GoPointer(), CancellableVar.GoPointer())
-	if FindEnclosingMountPtr == 0 {
-		return nil
+	cret := XGFileFindEnclosingMount(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	FindEnclosingMountCls := &MountBase{}
-	FindEnclosingMountCls.Ptr = FindEnclosingMountPtr
-	return FindEnclosingMountCls
+	cls = &MountBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -756,16 +841,21 @@ func (x *FileBase) FindEnclosingMountAsync(IoPriorityVar int, CancellableVar *Ca
 
 // Finishes an asynchronous find mount request.
 // See g_file_find_enclosing_mount_async().
-func (x *FileBase) FindEnclosingMountFinish(ResVar AsyncResult) *MountBase {
+func (x *FileBase) FindEnclosingMountFinish(ResVar AsyncResult) (*MountBase, error) {
+	var cls *MountBase
+	var cerr *glib.Error
 
-	FindEnclosingMountFinishPtr := XGFileFindEnclosingMountFinish(x.GoPointer(), ResVar.GoPointer())
-	if FindEnclosingMountFinishPtr == 0 {
-		return nil
+	cret := XGFileFindEnclosingMountFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	FindEnclosingMountFinishCls := &MountBase{}
-	FindEnclosingMountFinishCls.Ptr = FindEnclosingMountFinishPtr
-	return FindEnclosingMountFinishCls
+	cls = &MountBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -784,8 +874,8 @@ func (x *FileBase) FindEnclosingMountFinish(ResVar AsyncResult) *MountBase {
 // This call does no blocking I/O.
 func (x *FileBase) GetBasename() string {
 
-	return XGFileGetBasename(x.GoPointer())
-
+	cret := XGFileGetBasename(x.GoPointer())
+	return cret
 }
 
 // Gets a child of @file with basename equal to @name.
@@ -796,16 +886,16 @@ func (x *FileBase) GetBasename() string {
 //
 // This call does no blocking I/O.
 func (x *FileBase) GetChild(NameVar string) *FileBase {
+	var cls *FileBase
 
-	GetChildPtr := XGFileGetChild(x.GoPointer(), NameVar)
-	if GetChildPtr == 0 {
-		return nil
+	cret := XGFileGetChild(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetChildCls := &FileBase{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the child of @file for a given @display_name (i.e. a UTF-8
@@ -816,16 +906,21 @@ func (x *FileBase) GetChild(NameVar string) *FileBase {
 // type a filename in the file selector.
 //
 // This call does no blocking I/O.
-func (x *FileBase) GetChildForDisplayName(DisplayNameVar string) *FileBase {
+func (x *FileBase) GetChildForDisplayName(DisplayNameVar string) (*FileBase, error) {
+	var cls *FileBase
+	var cerr *glib.Error
 
-	GetChildForDisplayNamePtr := XGFileGetChildForDisplayName(x.GoPointer(), DisplayNameVar)
-	if GetChildForDisplayNamePtr == 0 {
-		return nil
+	cret := XGFileGetChildForDisplayName(x.GoPointer(), DisplayNameVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	GetChildForDisplayNameCls := &FileBase{}
-	GetChildForDisplayNameCls.Ptr = GetChildForDisplayNamePtr
-	return GetChildForDisplayNameCls
+	cls = &FileBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -835,16 +930,16 @@ func (x *FileBase) GetChildForDisplayName(DisplayNameVar string) *FileBase {
 //
 // This call does no blocking I/O.
 func (x *FileBase) GetParent() *FileBase {
+	var cls *FileBase
 
-	GetParentPtr := XGFileGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := XGFileGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetParentCls := &FileBase{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the parse name of the @file.
@@ -863,8 +958,8 @@ func (x *FileBase) GetParent() *FileBase {
 // This call does no blocking I/O.
 func (x *FileBase) GetParseName() string {
 
-	return XGFileGetParseName(x.GoPointer())
-
+	cret := XGFileGetParseName(x.GoPointer())
+	return cret
 }
 
 // Gets the local pathname for #GFile, if one exists. If non-%NULL, this is
@@ -873,8 +968,8 @@ func (x *FileBase) GetParseName() string {
 // This call does no blocking I/O.
 func (x *FileBase) GetPath() string {
 
-	return XGFileGetPath(x.GoPointer())
-
+	cret := XGFileGetPath(x.GoPointer())
+	return cret
 }
 
 // Gets the path for @descendant relative to @parent.
@@ -882,8 +977,8 @@ func (x *FileBase) GetPath() string {
 // This call does no blocking I/O.
 func (x *FileBase) GetRelativePath(DescendantVar File) string {
 
-	return XGFileGetRelativePath(x.GoPointer(), DescendantVar.GoPointer())
-
+	cret := XGFileGetRelativePath(x.GoPointer(), DescendantVar.GoPointer())
+	return cret
 }
 
 // Gets the URI for the @file.
@@ -891,8 +986,8 @@ func (x *FileBase) GetRelativePath(DescendantVar File) string {
 // This call does no blocking I/O.
 func (x *FileBase) GetUri() string {
 
-	return XGFileGetUri(x.GoPointer())
-
+	cret := XGFileGetUri(x.GoPointer())
+	return cret
 }
 
 // Gets the URI scheme for a #GFile.
@@ -908,8 +1003,8 @@ func (x *FileBase) GetUri() string {
 // This call does no blocking I/O.
 func (x *FileBase) GetUriScheme() string {
 
-	return XGFileGetUriScheme(x.GoPointer())
-
+	cret := XGFileGetUriScheme(x.GoPointer())
+	return cret
 }
 
 // Checks if @file has a parent, and optionally, if it is @parent.
@@ -919,8 +1014,8 @@ func (x *FileBase) GetUriScheme() string {
 // if @file is an immediate child of @parent.
 func (x *FileBase) HasParent(ParentVar File) bool {
 
-	return XGFileHasParent(x.GoPointer(), ParentVar.GoPointer())
-
+	cret := XGFileHasParent(x.GoPointer(), ParentVar.GoPointer())
+	return cret
 }
 
 // Checks whether @file has the prefix specified by @prefix.
@@ -939,8 +1034,8 @@ func (x *FileBase) HasParent(ParentVar File) bool {
 // of @prefix.
 func (x *FileBase) HasPrefix(PrefixVar File) bool {
 
-	return XGFileHasPrefix(x.GoPointer(), PrefixVar.GoPointer())
-
+	cret := XGFileHasPrefix(x.GoPointer(), PrefixVar.GoPointer())
+	return cret
 }
 
 // Checks to see if a #GFile has a given URI scheme.
@@ -948,8 +1043,8 @@ func (x *FileBase) HasPrefix(PrefixVar File) bool {
 // This call does no blocking I/O.
 func (x *FileBase) HasUriScheme(UriSchemeVar string) bool {
 
-	return XGFileHasUriScheme(x.GoPointer(), UriSchemeVar)
-
+	cret := XGFileHasUriScheme(x.GoPointer(), UriSchemeVar)
+	return cret
 }
 
 // Creates a hash value for a #GFile.
@@ -957,8 +1052,8 @@ func (x *FileBase) HasUriScheme(UriSchemeVar string) bool {
 // This call does no blocking I/O.
 func (x *FileBase) Hash() uint {
 
-	return XGFileHash(x.GoPointer())
-
+	cret := XGFileHash(x.GoPointer())
+	return cret
 }
 
 // Checks to see if a file is native to the platform.
@@ -974,8 +1069,8 @@ func (x *FileBase) Hash() uint {
 // This call does no blocking I/O.
 func (x *FileBase) IsNative() bool {
 
-	return XGFileIsNative(x.GoPointer())
-
+	cret := XGFileIsNative(x.GoPointer())
+	return cret
 }
 
 // Loads the contents of @file and returns it as #GBytes.
@@ -989,9 +1084,14 @@ func (x *FileBase) IsNative() bool {
 // The data contained in the resulting #GBytes is always zero-terminated, but
 // this is not included in the #GBytes length. The resulting #GBytes should be
 // freed with g_bytes_unref() when no longer in use.
-func (x *FileBase) LoadBytes(CancellableVar *Cancellable, EtagOutVar string) *glib.Bytes {
+func (x *FileBase) LoadBytes(CancellableVar *Cancellable, EtagOutVar string) (*glib.Bytes, error) {
+	var cerr *glib.Error
 
-	return XGFileLoadBytes(x.GoPointer(), CancellableVar.GoPointer(), EtagOutVar)
+	cret := XGFileLoadBytes(x.GoPointer(), CancellableVar.GoPointer(), EtagOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1020,9 +1120,14 @@ func (x *FileBase) LoadBytesAsync(CancellableVar *Cancellable, CallbackVar Async
 // freed with g_bytes_unref() when no longer in use.
 //
 // See g_file_load_bytes() for more information.
-func (x *FileBase) LoadBytesFinish(ResultVar AsyncResult, EtagOutVar string) *glib.Bytes {
+func (x *FileBase) LoadBytesFinish(ResultVar AsyncResult, EtagOutVar string) (*glib.Bytes, error) {
+	var cerr *glib.Error
 
-	return XGFileLoadBytesFinish(x.GoPointer(), ResultVar.GoPointer(), EtagOutVar)
+	cret := XGFileLoadBytesFinish(x.GoPointer(), ResultVar.GoPointer(), EtagOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1034,9 +1139,14 @@ func (x *FileBase) LoadBytesFinish(ResultVar AsyncResult, EtagOutVar string) *gl
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) LoadContents(CancellableVar *Cancellable, ContentsVar []string, LengthVar uint, EtagOutVar string) bool {
+func (x *FileBase) LoadContents(CancellableVar *Cancellable, ContentsVar []string, LengthVar uint, EtagOutVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileLoadContents(x.GoPointer(), CancellableVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar)
+	cret := XGFileLoadContents(x.GoPointer(), CancellableVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1064,9 +1174,14 @@ func (x *FileBase) LoadContentsAsync(CancellableVar *Cancellable, CallbackVar As
 // size of the @contents string. The @contents should be freed with
 // g_free() when no longer needed. If @etag_out is present, it will be
 // set to the new entity tag for the @file.
-func (x *FileBase) LoadContentsFinish(ResVar AsyncResult, ContentsVar []string, LengthVar uint, EtagOutVar string) bool {
+func (x *FileBase) LoadContentsFinish(ResVar AsyncResult, ContentsVar []string, LengthVar uint, EtagOutVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileLoadContentsFinish(x.GoPointer(), ResVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar)
+	cret := XGFileLoadContentsFinish(x.GoPointer(), ResVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1092,9 +1207,14 @@ func (x *FileBase) LoadPartialContentsAsync(CancellableVar *Cancellable, ReadMor
 // zero-terminated, but this is not included in the resultant @length.
 // The returned @contents should be freed with g_free() when no longer
 // needed.
-func (x *FileBase) LoadPartialContentsFinish(ResVar AsyncResult, ContentsVar []string, LengthVar uint, EtagOutVar string) bool {
+func (x *FileBase) LoadPartialContentsFinish(ResVar AsyncResult, ContentsVar []string, LengthVar uint, EtagOutVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileLoadPartialContentsFinish(x.GoPointer(), ResVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar)
+	cret := XGFileLoadPartialContentsFinish(x.GoPointer(), ResVar.GoPointer(), ContentsVar, LengthVar, EtagOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1112,9 +1232,14 @@ func (x *FileBase) LoadPartialContentsFinish(ResVar AsyncResult, ContentsVar []s
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) MakeDirectory(CancellableVar *Cancellable) bool {
+func (x *FileBase) MakeDirectory(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMakeDirectory(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileMakeDirectory(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1127,9 +1252,14 @@ func (x *FileBase) MakeDirectoryAsync(IoPriorityVar int, CancellableVar *Cancell
 
 // Finishes an asynchronous directory creation, started with
 // g_file_make_directory_async().
-func (x *FileBase) MakeDirectoryFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) MakeDirectoryFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMakeDirectoryFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileMakeDirectoryFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1146,9 +1276,14 @@ func (x *FileBase) MakeDirectoryFinish(ResultVar AsyncResult) bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) MakeDirectoryWithParents(CancellableVar *Cancellable) bool {
+func (x *FileBase) MakeDirectoryWithParents(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMakeDirectoryWithParents(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileMakeDirectoryWithParents(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1158,9 +1293,14 @@ func (x *FileBase) MakeDirectoryWithParents(CancellableVar *Cancellable) bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) MakeSymbolicLink(SymlinkValueVar string, CancellableVar *Cancellable) bool {
+func (x *FileBase) MakeSymbolicLink(SymlinkValueVar string, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMakeSymbolicLink(x.GoPointer(), SymlinkValueVar, CancellableVar.GoPointer())
+	cret := XGFileMakeSymbolicLink(x.GoPointer(), SymlinkValueVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1182,9 +1322,14 @@ func (x *FileBase) MakeSymbolicLink(SymlinkValueVar string, CancellableVar *Canc
 // periodic progress updates while scanning.  See the documentation for
 // #GFileMeasureProgressCallback for information about when and how the
 // callback will be invoked.
-func (x *FileBase) MeasureDiskUsage(FlagsVar FileMeasureFlags, CancellableVar *Cancellable, ProgressCallbackVar FileMeasureProgressCallback, ProgressDataVar uintptr, DiskUsageVar uint64, NumDirsVar uint64, NumFilesVar uint64) bool {
+func (x *FileBase) MeasureDiskUsage(FlagsVar FileMeasureFlags, CancellableVar *Cancellable, ProgressCallbackVar FileMeasureProgressCallback, ProgressDataVar uintptr, DiskUsageVar uint64, NumDirsVar uint64, NumFilesVar uint64) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMeasureDiskUsage(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressDataVar, DiskUsageVar, NumDirsVar, NumFilesVar)
+	cret := XGFileMeasureDiskUsage(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressDataVar, DiskUsageVar, NumDirsVar, NumFilesVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1201,9 +1346,14 @@ func (x *FileBase) MeasureDiskUsageAsync(FlagsVar FileMeasureFlags, IoPriorityVa
 // Collects the results from an earlier call to
 // g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
 // more information.
-func (x *FileBase) MeasureDiskUsageFinish(ResultVar AsyncResult, DiskUsageVar uint64, NumDirsVar uint64, NumFilesVar uint64) bool {
+func (x *FileBase) MeasureDiskUsageFinish(ResultVar AsyncResult, DiskUsageVar uint64, NumDirsVar uint64, NumFilesVar uint64) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMeasureDiskUsageFinish(x.GoPointer(), ResultVar.GoPointer(), DiskUsageVar, NumDirsVar, NumFilesVar)
+	cret := XGFileMeasureDiskUsageFinish(x.GoPointer(), ResultVar.GoPointer(), DiskUsageVar, NumDirsVar, NumFilesVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1213,16 +1363,21 @@ func (x *FileBase) MeasureDiskUsageFinish(ResultVar AsyncResult, DiskUsageVar ui
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) Monitor(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) *FileMonitor {
+func (x *FileBase) Monitor(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) (*FileMonitor, error) {
+	var cls *FileMonitor
+	var cerr *glib.Error
 
-	MonitorPtr := XGFileMonitor(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if MonitorPtr == 0 {
-		return nil
+	cret := XGFileMonitor(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	MonitorCls := &FileMonitor{}
-	MonitorCls.Ptr = MonitorPtr
-	return MonitorCls
+	cls = &FileMonitor{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1238,16 +1393,21 @@ func (x *FileBase) Monitor(FlagsVar FileMonitorFlags, CancellableVar *Cancellabl
 // directories.  It is not possible to monitor all the files in a
 // directory for changes made via hard links; if you want to do this then
 // you must register individual watches with g_file_monitor().
-func (x *FileBase) MonitorDirectory(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) *FileMonitor {
+func (x *FileBase) MonitorDirectory(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) (*FileMonitor, error) {
+	var cls *FileMonitor
+	var cerr *glib.Error
 
-	MonitorDirectoryPtr := XGFileMonitorDirectory(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if MonitorDirectoryPtr == 0 {
-		return nil
+	cret := XGFileMonitorDirectory(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	MonitorDirectoryCls := &FileMonitor{}
-	MonitorDirectoryCls.Ptr = MonitorDirectoryPtr
-	return MonitorDirectoryCls
+	cls = &FileMonitor{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1265,16 +1425,21 @@ func (x *FileBase) MonitorDirectory(FlagsVar FileMonitorFlags, CancellableVar *C
 // reported. Using this flag may result in an increase in resource
 // usage, and may not have any effect depending on the #GFileMonitor
 // backend and/or filesystem type.
-func (x *FileBase) MonitorFile(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) *FileMonitor {
+func (x *FileBase) MonitorFile(FlagsVar FileMonitorFlags, CancellableVar *Cancellable) (*FileMonitor, error) {
+	var cls *FileMonitor
+	var cerr *glib.Error
 
-	MonitorFilePtr := XGFileMonitorFile(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if MonitorFilePtr == 0 {
-		return nil
+	cret := XGFileMonitorFile(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	MonitorFileCls := &FileMonitor{}
-	MonitorFileCls.Ptr = MonitorFilePtr
-	return MonitorFileCls
+	cls = &FileMonitor{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1295,9 +1460,14 @@ func (x *FileBase) MountEnclosingVolume(FlagsVar MountMountFlags, MountOperation
 }
 
 // Finishes a mount operation started by g_file_mount_enclosing_volume().
-func (x *FileBase) MountEnclosingVolumeFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) MountEnclosingVolumeFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMountEnclosingVolumeFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileMountEnclosingVolumeFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1322,16 +1492,21 @@ func (x *FileBase) MountMountable(FlagsVar MountMountFlags, MountOperationVar *M
 //
 // Finish an asynchronous mount operation that was started
 // with g_file_mount_mountable().
-func (x *FileBase) MountMountableFinish(ResultVar AsyncResult) *FileBase {
+func (x *FileBase) MountMountableFinish(ResultVar AsyncResult) (*FileBase, error) {
+	var cls *FileBase
+	var cerr *glib.Error
 
-	MountMountableFinishPtr := XGFileMountMountableFinish(x.GoPointer(), ResultVar.GoPointer())
-	if MountMountableFinishPtr == 0 {
-		return nil
+	cret := XGFileMountMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	MountMountableFinishCls := &FileBase{}
-	MountMountableFinishCls.Ptr = MountMountableFinishPtr
-	return MountMountableFinishCls
+	cls = &FileBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1368,9 +1543,14 @@ func (x *FileBase) MountMountableFinish(ResultVar AsyncResult) *FileBase {
 // %G_FILE_COPY_OVERWRITE is specified and the target is a file, then
 // the %G_IO_ERROR_WOULD_RECURSE error may be returned (if the native
 // move operation isn't available).
-func (x *FileBase) Move(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable, ProgressCallbackVar FileProgressCallback, ProgressCallbackDataVar uintptr) bool {
+func (x *FileBase) Move(DestinationVar File, FlagsVar FileCopyFlags, CancellableVar *Cancellable, ProgressCallbackVar FileProgressCallback, ProgressCallbackDataVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMove(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressCallbackDataVar)
+	cret := XGFileMove(x.GoPointer(), DestinationVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(ProgressCallbackVar), ProgressCallbackDataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1391,9 +1571,14 @@ func (x *FileBase) MoveAsync(DestinationVar File, FlagsVar FileCopyFlags, IoPrio
 
 // Finishes an asynchronous file movement, started with
 // g_file_move_async().
-func (x *FileBase) MoveFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) MoveFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileMoveFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileMoveFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1413,16 +1598,21 @@ func (x *FileBase) MoveFinish(ResultVar AsyncResult) bool {
 // file cases read and write streams are not supported, so make sure you
 // really need to do read and write streaming, rather than just opening
 // for reading or writing.
-func (x *FileBase) OpenReadwrite(CancellableVar *Cancellable) *FileIOStream {
+func (x *FileBase) OpenReadwrite(CancellableVar *Cancellable) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	OpenReadwritePtr := XGFileOpenReadwrite(x.GoPointer(), CancellableVar.GoPointer())
-	if OpenReadwritePtr == 0 {
-		return nil
+	cret := XGFileOpenReadwrite(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	OpenReadwriteCls := &FileIOStream{}
-	OpenReadwriteCls.Ptr = OpenReadwritePtr
-	return OpenReadwriteCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1442,16 +1632,21 @@ func (x *FileBase) OpenReadwriteAsync(IoPriorityVar int, CancellableVar *Cancell
 
 // Finishes an asynchronous file read operation started with
 // g_file_open_readwrite_async().
-func (x *FileBase) OpenReadwriteFinish(ResVar AsyncResult) *FileIOStream {
+func (x *FileBase) OpenReadwriteFinish(ResVar AsyncResult) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	OpenReadwriteFinishPtr := XGFileOpenReadwriteFinish(x.GoPointer(), ResVar.GoPointer())
-	if OpenReadwriteFinishPtr == 0 {
-		return nil
+	cret := XGFileOpenReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	OpenReadwriteFinishCls := &FileIOStream{}
-	OpenReadwriteFinishCls.Ptr = OpenReadwriteFinishPtr
-	return OpenReadwriteFinishCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1464,8 +1659,8 @@ func (x *FileBase) OpenReadwriteFinish(ResVar AsyncResult) *FileIOStream {
 // This call does no blocking I/O.
 func (x *FileBase) PeekPath() string {
 
-	return XGFilePeekPath(x.GoPointer())
-
+	cret := XGFilePeekPath(x.GoPointer())
+	return cret
 }
 
 // Polls a file of type %G_FILE_TYPE_MOUNTABLE.
@@ -1487,9 +1682,14 @@ func (x *FileBase) PollMountable(CancellableVar *Cancellable, CallbackVar AsyncR
 //
 // Finish an asynchronous poll operation that was polled
 // with g_file_poll_mountable().
-func (x *FileBase) PollMountableFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) PollMountableFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFilePollMountableFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFilePollMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1499,16 +1699,21 @@ func (x *FileBase) PollMountableFinish(ResultVar AsyncResult) bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) QueryDefaultHandler(CancellableVar *Cancellable) *AppInfoBase {
+func (x *FileBase) QueryDefaultHandler(CancellableVar *Cancellable) (*AppInfoBase, error) {
+	var cls *AppInfoBase
+	var cerr *glib.Error
 
-	QueryDefaultHandlerPtr := XGFileQueryDefaultHandler(x.GoPointer(), CancellableVar.GoPointer())
-	if QueryDefaultHandlerPtr == 0 {
-		return nil
+	cret := XGFileQueryDefaultHandler(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryDefaultHandlerCls := &AppInfoBase{}
-	QueryDefaultHandlerCls.Ptr = QueryDefaultHandlerPtr
-	return QueryDefaultHandlerCls
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1520,16 +1725,21 @@ func (x *FileBase) QueryDefaultHandlerAsync(IoPriorityVar int, CancellableVar *C
 }
 
 // Finishes a g_file_query_default_handler_async() operation.
-func (x *FileBase) QueryDefaultHandlerFinish(ResultVar AsyncResult) *AppInfoBase {
+func (x *FileBase) QueryDefaultHandlerFinish(ResultVar AsyncResult) (*AppInfoBase, error) {
+	var cls *AppInfoBase
+	var cerr *glib.Error
 
-	QueryDefaultHandlerFinishPtr := XGFileQueryDefaultHandlerFinish(x.GoPointer(), ResultVar.GoPointer())
-	if QueryDefaultHandlerFinishPtr == 0 {
-		return nil
+	cret := XGFileQueryDefaultHandlerFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryDefaultHandlerFinishCls := &AppInfoBase{}
-	QueryDefaultHandlerFinishCls.Ptr = QueryDefaultHandlerFinishPtr
-	return QueryDefaultHandlerFinishCls
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1557,8 +1767,8 @@ func (x *FileBase) QueryDefaultHandlerFinish(ResultVar AsyncResult) *AppInfoBase
 // that can happen due to races when you execute the operation.
 func (x *FileBase) QueryExists(CancellableVar *Cancellable) bool {
 
-	return XGFileQueryExists(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGFileQueryExists(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Utility function to inspect the #GFileType of a file. This is
@@ -1568,8 +1778,8 @@ func (x *FileBase) QueryExists(CancellableVar *Cancellable) bool {
 // a regular file, directory, or symlink.
 func (x *FileBase) QueryFileType(FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) FileType {
 
-	return XGFileQueryFileType(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-
+	cret := XGFileQueryFileType(x.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	return cret
 }
 
 // Similar to g_file_query_info(), but obtains information
@@ -1597,16 +1807,21 @@ func (x *FileBase) QueryFileType(FlagsVar FileQueryInfoFlags, CancellableVar *Ca
 // If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will
 // be returned. Other errors are possible too, and depend on what
 // kind of filesystem the file is on.
-func (x *FileBase) QueryFilesystemInfo(AttributesVar string, CancellableVar *Cancellable) *FileInfo {
+func (x *FileBase) QueryFilesystemInfo(AttributesVar string, CancellableVar *Cancellable) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryFilesystemInfoPtr := XGFileQueryFilesystemInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer())
-	if QueryFilesystemInfoPtr == 0 {
-		return nil
+	cret := XGFileQueryFilesystemInfo(x.GoPointer(), AttributesVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryFilesystemInfoCls := &FileInfo{}
-	QueryFilesystemInfoCls.Ptr = QueryFilesystemInfoPtr
-	return QueryFilesystemInfoCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1629,16 +1844,21 @@ func (x *FileBase) QueryFilesystemInfoAsync(AttributesVar string, IoPriorityVar 
 
 // Finishes an asynchronous filesystem info query.
 // See g_file_query_filesystem_info_async().
-func (x *FileBase) QueryFilesystemInfoFinish(ResVar AsyncResult) *FileInfo {
+func (x *FileBase) QueryFilesystemInfoFinish(ResVar AsyncResult) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryFilesystemInfoFinishPtr := XGFileQueryFilesystemInfoFinish(x.GoPointer(), ResVar.GoPointer())
-	if QueryFilesystemInfoFinishPtr == 0 {
-		return nil
+	cret := XGFileQueryFilesystemInfoFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryFilesystemInfoFinishCls := &FileInfo{}
-	QueryFilesystemInfoFinishCls.Ptr = QueryFilesystemInfoFinishPtr
-	return QueryFilesystemInfoFinishCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1672,16 +1892,21 @@ func (x *FileBase) QueryFilesystemInfoFinish(ResVar AsyncResult) *FileInfo {
 // If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will be
 // returned. Other errors are possible too, and depend on what kind of
 // filesystem the file is on.
-func (x *FileBase) QueryInfo(AttributesVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) *FileInfo {
+func (x *FileBase) QueryInfo(AttributesVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryInfoPtr := XGFileQueryInfo(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer())
-	if QueryInfoPtr == 0 {
-		return nil
+	cret := XGFileQueryInfo(x.GoPointer(), AttributesVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryInfoCls := &FileInfo{}
-	QueryInfoCls.Ptr = QueryInfoPtr
-	return QueryInfoCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1702,16 +1927,21 @@ func (x *FileBase) QueryInfoAsync(AttributesVar string, FlagsVar FileQueryInfoFl
 
 // Finishes an asynchronous file info query.
 // See g_file_query_info_async().
-func (x *FileBase) QueryInfoFinish(ResVar AsyncResult) *FileInfo {
+func (x *FileBase) QueryInfoFinish(ResVar AsyncResult) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	QueryInfoFinishPtr := XGFileQueryInfoFinish(x.GoPointer(), ResVar.GoPointer())
-	if QueryInfoFinishPtr == 0 {
-		return nil
+	cret := XGFileQueryInfoFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	QueryInfoFinishCls := &FileInfo{}
-	QueryInfoFinishCls.Ptr = QueryInfoFinishPtr
-	return QueryInfoFinishCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1725,9 +1955,14 @@ func (x *FileBase) QueryInfoFinish(ResVar AsyncResult) *FileInfo {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) QuerySettableAttributes(CancellableVar *Cancellable) *FileAttributeInfoList {
+func (x *FileBase) QuerySettableAttributes(CancellableVar *Cancellable) (*FileAttributeInfoList, error) {
+	var cerr *glib.Error
 
-	return XGFileQuerySettableAttributes(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileQuerySettableAttributes(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1738,9 +1973,14 @@ func (x *FileBase) QuerySettableAttributes(CancellableVar *Cancellable) *FileAtt
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) QueryWritableNamespaces(CancellableVar *Cancellable) *FileAttributeInfoList {
+func (x *FileBase) QueryWritableNamespaces(CancellableVar *Cancellable) (*FileAttributeInfoList, error) {
+	var cerr *glib.Error
 
-	return XGFileQueryWritableNamespaces(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileQueryWritableNamespaces(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1755,16 +1995,21 @@ func (x *FileBase) QueryWritableNamespaces(CancellableVar *Cancellable) *FileAtt
 // returned. If the file is a directory, the %G_IO_ERROR_IS_DIRECTORY
 // error will be returned. Other errors are possible too, and depend
 // on what kind of filesystem the file is on.
-func (x *FileBase) Read(CancellableVar *Cancellable) *FileInputStream {
+func (x *FileBase) Read(CancellableVar *Cancellable) (*FileInputStream, error) {
+	var cls *FileInputStream
+	var cerr *glib.Error
 
-	ReadPtr := XGFileRead(x.GoPointer(), CancellableVar.GoPointer())
-	if ReadPtr == 0 {
-		return nil
+	cret := XGFileRead(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReadCls := &FileInputStream{}
-	ReadCls.Ptr = ReadPtr
-	return ReadCls
+	cls = &FileInputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1784,16 +2029,21 @@ func (x *FileBase) ReadAsync(IoPriorityVar int, CancellableVar *Cancellable, Cal
 
 // Finishes an asynchronous file read operation started with
 // g_file_read_async().
-func (x *FileBase) ReadFinish(ResVar AsyncResult) *FileInputStream {
+func (x *FileBase) ReadFinish(ResVar AsyncResult) (*FileInputStream, error) {
+	var cls *FileInputStream
+	var cerr *glib.Error
 
-	ReadFinishPtr := XGFileReadFinish(x.GoPointer(), ResVar.GoPointer())
-	if ReadFinishPtr == 0 {
-		return nil
+	cret := XGFileReadFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReadFinishCls := &FileInputStream{}
-	ReadFinishCls.Ptr = ReadFinishPtr
-	return ReadFinishCls
+	cls = &FileInputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1838,16 +2088,21 @@ func (x *FileBase) ReadFinish(ResVar AsyncResult) *FileInputStream {
 // %G_IO_ERROR_INVALID_FILENAME error, and if the name is to long
 // %G_IO_ERROR_FILENAME_TOO_LONG will be returned. Other errors are
 // possible too, and depend on what kind of filesystem the file is on.
-func (x *FileBase) Replace(EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, CancellableVar *Cancellable) *FileOutputStream {
+func (x *FileBase) Replace(EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, CancellableVar *Cancellable) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	ReplacePtr := XGFileReplace(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer())
-	if ReplacePtr == 0 {
-		return nil
+	cret := XGFileReplace(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReplaceCls := &FileOutputStream{}
-	ReplaceCls.Ptr = ReplacePtr
-	return ReplaceCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1882,9 +2137,14 @@ func (x *FileBase) ReplaceAsync(EtagVar string, MakeBackupVar bool, FlagsVar Fil
 //
 // The returned @new_etag can be used to verify that the file hasn't
 // changed the next time it is saved over.
-func (x *FileBase) ReplaceContents(ContentsVar string, LengthVar uint, EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, NewEtagVar string, CancellableVar *Cancellable) bool {
+func (x *FileBase) ReplaceContents(ContentsVar string, LengthVar uint, EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, NewEtagVar string, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileReplaceContents(x.GoPointer(), ContentsVar, LengthVar, EtagVar, MakeBackupVar, FlagsVar, NewEtagVar, CancellableVar.GoPointer())
+	cret := XGFileReplaceContents(x.GoPointer(), ContentsVar, LengthVar, EtagVar, MakeBackupVar, FlagsVar, NewEtagVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1930,24 +2190,34 @@ func (x *FileBase) ReplaceContentsBytesAsync(ContentsVar *glib.Bytes, EtagVar st
 // Finishes an asynchronous replace of the given @file. See
 // g_file_replace_contents_async(). Sets @new_etag to the new entity
 // tag for the document, if present.
-func (x *FileBase) ReplaceContentsFinish(ResVar AsyncResult, NewEtagVar string) bool {
+func (x *FileBase) ReplaceContentsFinish(ResVar AsyncResult, NewEtagVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileReplaceContentsFinish(x.GoPointer(), ResVar.GoPointer(), NewEtagVar)
+	cret := XGFileReplaceContentsFinish(x.GoPointer(), ResVar.GoPointer(), NewEtagVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes an asynchronous file replace operation started with
 // g_file_replace_async().
-func (x *FileBase) ReplaceFinish(ResVar AsyncResult) *FileOutputStream {
+func (x *FileBase) ReplaceFinish(ResVar AsyncResult) (*FileOutputStream, error) {
+	var cls *FileOutputStream
+	var cerr *glib.Error
 
-	ReplaceFinishPtr := XGFileReplaceFinish(x.GoPointer(), ResVar.GoPointer())
-	if ReplaceFinishPtr == 0 {
-		return nil
+	cret := XGFileReplaceFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReplaceFinishCls := &FileOutputStream{}
-	ReplaceFinishCls.Ptr = ReplaceFinishPtr
-	return ReplaceFinishCls
+	cls = &FileOutputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1961,16 +2231,21 @@ func (x *FileBase) ReplaceFinish(ResVar AsyncResult) *FileOutputStream {
 // Note that in many non-local file cases read and write streams are not
 // supported, so make sure you really need to do read and write streaming,
 // rather than just opening for reading or writing.
-func (x *FileBase) ReplaceReadwrite(EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, CancellableVar *Cancellable) *FileIOStream {
+func (x *FileBase) ReplaceReadwrite(EtagVar string, MakeBackupVar bool, FlagsVar FileCreateFlags, CancellableVar *Cancellable) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	ReplaceReadwritePtr := XGFileReplaceReadwrite(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer())
-	if ReplaceReadwritePtr == 0 {
-		return nil
+	cret := XGFileReplaceReadwrite(x.GoPointer(), EtagVar, MakeBackupVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReplaceReadwriteCls := &FileIOStream{}
-	ReplaceReadwriteCls.Ptr = ReplaceReadwritePtr
-	return ReplaceReadwriteCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1992,16 +2267,21 @@ func (x *FileBase) ReplaceReadwriteAsync(EtagVar string, MakeBackupVar bool, Fla
 
 // Finishes an asynchronous file replace operation started with
 // g_file_replace_readwrite_async().
-func (x *FileBase) ReplaceReadwriteFinish(ResVar AsyncResult) *FileIOStream {
+func (x *FileBase) ReplaceReadwriteFinish(ResVar AsyncResult) (*FileIOStream, error) {
+	var cls *FileIOStream
+	var cerr *glib.Error
 
-	ReplaceReadwriteFinishPtr := XGFileReplaceReadwriteFinish(x.GoPointer(), ResVar.GoPointer())
-	if ReplaceReadwriteFinishPtr == 0 {
-		return nil
+	cret := XGFileReplaceReadwriteFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReplaceReadwriteFinishCls := &FileIOStream{}
-	ReplaceReadwriteFinishCls.Ptr = ReplaceReadwriteFinishPtr
-	return ReplaceReadwriteFinishCls
+	cls = &FileIOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -2012,16 +2292,16 @@ func (x *FileBase) ReplaceReadwriteFinish(ResVar AsyncResult) *FileIOStream {
 // If the @relative_path is an absolute path name, the resolution
 // is done absolutely (without taking @file path as base).
 func (x *FileBase) ResolveRelativePath(RelativePathVar string) *FileBase {
+	var cls *FileBase
 
-	ResolveRelativePathPtr := XGFileResolveRelativePath(x.GoPointer(), RelativePathVar)
-	if ResolveRelativePathPtr == 0 {
-		return nil
+	cret := XGFileResolveRelativePath(x.GoPointer(), RelativePathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ResolveRelativePathCls := &FileBase{}
-	ResolveRelativePathCls.Ptr = ResolveRelativePathPtr
-	return ResolveRelativePathCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Sets an attribute in the file with attribute name @attribute to @value_p.
@@ -2032,9 +2312,14 @@ func (x *FileBase) ResolveRelativePath(RelativePathVar string) *FileBase {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttribute(AttributeVar string, TypeVar FileAttributeType, ValuePVar uintptr, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttribute(AttributeVar string, TypeVar FileAttributeType, ValuePVar uintptr, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttribute(x.GoPointer(), AttributeVar, TypeVar, ValuePVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttribute(x.GoPointer(), AttributeVar, TypeVar, ValuePVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2045,9 +2330,14 @@ func (x *FileBase) SetAttribute(AttributeVar string, TypeVar FileAttributeType, 
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeByteString(AttributeVar string, ValueVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeByteString(AttributeVar string, ValueVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeByteString(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeByteString(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2057,9 +2347,14 @@ func (x *FileBase) SetAttributeByteString(AttributeVar string, ValueVar string, 
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeInt32(AttributeVar string, ValueVar int32, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeInt32(AttributeVar string, ValueVar int32, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeInt32(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeInt32(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2069,9 +2364,14 @@ func (x *FileBase) SetAttributeInt32(AttributeVar string, ValueVar int32, FlagsV
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeInt64(AttributeVar string, ValueVar int64, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeInt64(AttributeVar string, ValueVar int64, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeInt64(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeInt64(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2081,9 +2381,14 @@ func (x *FileBase) SetAttributeInt64(AttributeVar string, ValueVar int64, FlagsV
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeString(AttributeVar string, ValueVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeString(AttributeVar string, ValueVar string, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeString(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeString(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2093,9 +2398,14 @@ func (x *FileBase) SetAttributeString(AttributeVar string, ValueVar string, Flag
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeUint32(AttributeVar string, ValueVar uint32, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeUint32(AttributeVar string, ValueVar uint32, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeUint32(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeUint32(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2105,9 +2415,14 @@ func (x *FileBase) SetAttributeUint32(AttributeVar string, ValueVar uint32, Flag
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributeUint64(AttributeVar string, ValueVar uint64, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributeUint64(AttributeVar string, ValueVar uint64, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributeUint64(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributeUint64(x.GoPointer(), AttributeVar, ValueVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2126,9 +2441,14 @@ func (x *FileBase) SetAttributesAsync(InfoVar *FileInfo, FlagsVar FileQueryInfoF
 }
 
 // Finishes setting an attribute started in g_file_set_attributes_async().
-func (x *FileBase) SetAttributesFinish(ResultVar AsyncResult, InfoVar **FileInfo) bool {
+func (x *FileBase) SetAttributesFinish(ResultVar AsyncResult, InfoVar **FileInfo) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributesFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(InfoVar))
+	cret := XGFileSetAttributesFinish(x.GoPointer(), ResultVar.GoPointer(), gobject.ConvertPtr(InfoVar), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2144,9 +2464,14 @@ func (x *FileBase) SetAttributesFinish(ResultVar AsyncResult, InfoVar **FileInfo
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetAttributesFromInfo(InfoVar *FileInfo, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) bool {
+func (x *FileBase) SetAttributesFromInfo(InfoVar *FileInfo, FlagsVar FileQueryInfoFlags, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileSetAttributesFromInfo(x.GoPointer(), InfoVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := XGFileSetAttributesFromInfo(x.GoPointer(), InfoVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2165,16 +2490,21 @@ func (x *FileBase) SetAttributesFromInfo(InfoVar *FileInfo, FlagsVar FileQueryIn
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) SetDisplayName(DisplayNameVar string, CancellableVar *Cancellable) *FileBase {
+func (x *FileBase) SetDisplayName(DisplayNameVar string, CancellableVar *Cancellable) (*FileBase, error) {
+	var cls *FileBase
+	var cerr *glib.Error
 
-	SetDisplayNamePtr := XGFileSetDisplayName(x.GoPointer(), DisplayNameVar, CancellableVar.GoPointer())
-	if SetDisplayNamePtr == 0 {
-		return nil
+	cret := XGFileSetDisplayName(x.GoPointer(), DisplayNameVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	SetDisplayNameCls := &FileBase{}
-	SetDisplayNameCls.Ptr = SetDisplayNamePtr
-	return SetDisplayNameCls
+	cls = &FileBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -2194,16 +2524,21 @@ func (x *FileBase) SetDisplayNameAsync(DisplayNameVar string, IoPriorityVar int,
 
 // Finishes setting a display name started with
 // g_file_set_display_name_async().
-func (x *FileBase) SetDisplayNameFinish(ResVar AsyncResult) *FileBase {
+func (x *FileBase) SetDisplayNameFinish(ResVar AsyncResult) (*FileBase, error) {
+	var cls *FileBase
+	var cerr *glib.Error
 
-	SetDisplayNameFinishPtr := XGFileSetDisplayNameFinish(x.GoPointer(), ResVar.GoPointer())
-	if SetDisplayNameFinishPtr == 0 {
-		return nil
+	cret := XGFileSetDisplayNameFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	SetDisplayNameFinishCls := &FileBase{}
-	SetDisplayNameFinishCls.Ptr = SetDisplayNameFinishPtr
-	return SetDisplayNameFinishCls
+	cls = &FileBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -2228,9 +2563,14 @@ func (x *FileBase) StartMountable(FlagsVar DriveStartFlags, StartOperationVar *M
 //
 // Finish an asynchronous start operation that was started
 // with g_file_start_mountable().
-func (x *FileBase) StartMountableFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) StartMountableFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileStartMountableFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileStartMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2253,9 +2593,14 @@ func (x *FileBase) StopMountable(FlagsVar MountUnmountFlags, MountOperationVar *
 //
 // Finish an asynchronous stop operation that was started
 // with g_file_stop_mountable().
-func (x *FileBase) StopMountableFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) StopMountableFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileStopMountableFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileStopMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2265,8 +2610,8 @@ func (x *FileBase) StopMountableFinish(ResultVar AsyncResult) bool {
 // @file in a thread that has a thread-default context.
 func (x *FileBase) SupportsThreadContexts() bool {
 
-	return XGFileSupportsThreadContexts(x.GoPointer())
-
+	cret := XGFileSupportsThreadContexts(x.GoPointer())
+	return cret
 }
 
 // Sends @file to the "Trashcan", if possible. This is similar to
@@ -2279,9 +2624,14 @@ func (x *FileBase) SupportsThreadContexts() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *FileBase) Trash(CancellableVar *Cancellable) bool {
+func (x *FileBase) Trash(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileTrash(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGFileTrash(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2294,9 +2644,14 @@ func (x *FileBase) TrashAsync(IoPriorityVar int, CancellableVar *Cancellable, Ca
 
 // Finishes an asynchronous file trashing operation, started with
 // g_file_trash_async().
-func (x *FileBase) TrashFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) TrashFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileTrashFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileTrashFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2319,9 +2674,14 @@ func (x *FileBase) UnmountMountable(FlagsVar MountUnmountFlags, CancellableVar *
 //
 // Finish an asynchronous unmount operation that was started
 // with g_file_unmount_mountable().
-func (x *FileBase) UnmountMountableFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) UnmountMountableFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileUnmountMountableFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileUnmountMountableFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2345,44 +2705,49 @@ func (x *FileBase) UnmountMountableWithOperation(FlagsVar MountUnmountFlags, Mou
 //
 // Finish an asynchronous unmount operation that was started
 // with g_file_unmount_mountable_with_operation().
-func (x *FileBase) UnmountMountableWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *FileBase) UnmountMountableWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGFileUnmountMountableWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGFileUnmountMountableWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var XGFileAppendTo func(uintptr, FileCreateFlags, uintptr) uintptr
+var XGFileAppendTo func(uintptr, FileCreateFlags, uintptr, **glib.Error) uintptr
 var XGFileAppendToAsync func(uintptr, FileCreateFlags, int, uintptr, uintptr, uintptr)
-var XGFileAppendToFinish func(uintptr, uintptr) uintptr
-var XGFileBuildAttributeListForCopy func(uintptr, FileCopyFlags, uintptr) string
-var XGFileCopy func(uintptr, uintptr, FileCopyFlags, uintptr, uintptr, uintptr) bool
+var XGFileAppendToFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileBuildAttributeListForCopy func(uintptr, FileCopyFlags, uintptr, **glib.Error) string
+var XGFileCopy func(uintptr, uintptr, FileCopyFlags, uintptr, uintptr, uintptr, **glib.Error) bool
 var XGFileCopyAsync func(uintptr, uintptr, FileCopyFlags, int, uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGFileCopyAttributes func(uintptr, uintptr, FileCopyFlags, uintptr) bool
-var XGFileCopyFinish func(uintptr, uintptr) bool
-var XGFileCreate func(uintptr, FileCreateFlags, uintptr) uintptr
+var XGFileCopyAttributes func(uintptr, uintptr, FileCopyFlags, uintptr, **glib.Error) bool
+var XGFileCopyFinish func(uintptr, uintptr, **glib.Error) bool
+var XGFileCreate func(uintptr, FileCreateFlags, uintptr, **glib.Error) uintptr
 var XGFileCreateAsync func(uintptr, FileCreateFlags, int, uintptr, uintptr, uintptr)
-var XGFileCreateFinish func(uintptr, uintptr) uintptr
-var XGFileCreateReadwrite func(uintptr, FileCreateFlags, uintptr) uintptr
+var XGFileCreateFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileCreateReadwrite func(uintptr, FileCreateFlags, uintptr, **glib.Error) uintptr
 var XGFileCreateReadwriteAsync func(uintptr, FileCreateFlags, int, uintptr, uintptr, uintptr)
-var XGFileCreateReadwriteFinish func(uintptr, uintptr) uintptr
-var XGFileDelete func(uintptr, uintptr) bool
+var XGFileCreateReadwriteFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileDelete func(uintptr, uintptr, **glib.Error) bool
 var XGFileDeleteAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileDeleteFinish func(uintptr, uintptr) bool
+var XGFileDeleteFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileDup func(uintptr) uintptr
 var XGFileEjectMountable func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGFileEjectMountableFinish func(uintptr, uintptr) bool
+var XGFileEjectMountableFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileEjectMountableWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileEjectMountableWithOperationFinish func(uintptr, uintptr) bool
-var XGFileEnumerateChildren func(uintptr, string, FileQueryInfoFlags, uintptr) uintptr
+var XGFileEjectMountableWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
+var XGFileEnumerateChildren func(uintptr, string, FileQueryInfoFlags, uintptr, **glib.Error) uintptr
 var XGFileEnumerateChildrenAsync func(uintptr, string, FileQueryInfoFlags, int, uintptr, uintptr, uintptr)
-var XGFileEnumerateChildrenFinish func(uintptr, uintptr) uintptr
+var XGFileEnumerateChildrenFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileEqual func(uintptr, uintptr) bool
-var XGFileFindEnclosingMount func(uintptr, uintptr) uintptr
+var XGFileFindEnclosingMount func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileFindEnclosingMountAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileFindEnclosingMountFinish func(uintptr, uintptr) uintptr
+var XGFileFindEnclosingMountFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileGetBasename func(uintptr) string
 var XGFileGetChild func(uintptr, string) uintptr
-var XGFileGetChildForDisplayName func(uintptr, string) uintptr
+var XGFileGetChildForDisplayName func(uintptr, string, **glib.Error) uintptr
 var XGFileGetParent func(uintptr) uintptr
 var XGFileGetParseName func(uintptr) string
 var XGFileGetPath func(uintptr) string
@@ -2394,90 +2759,90 @@ var XGFileHasPrefix func(uintptr, uintptr) bool
 var XGFileHasUriScheme func(uintptr, string) bool
 var XGFileHash func(uintptr) uint
 var XGFileIsNative func(uintptr) bool
-var XGFileLoadBytes func(uintptr, uintptr, string) *glib.Bytes
+var XGFileLoadBytes func(uintptr, uintptr, string, **glib.Error) *glib.Bytes
 var XGFileLoadBytesAsync func(uintptr, uintptr, uintptr, uintptr)
-var XGFileLoadBytesFinish func(uintptr, uintptr, string) *glib.Bytes
-var XGFileLoadContents func(uintptr, uintptr, []string, uint, string) bool
+var XGFileLoadBytesFinish func(uintptr, uintptr, string, **glib.Error) *glib.Bytes
+var XGFileLoadContents func(uintptr, uintptr, []string, uint, string, **glib.Error) bool
 var XGFileLoadContentsAsync func(uintptr, uintptr, uintptr, uintptr)
-var XGFileLoadContentsFinish func(uintptr, uintptr, []string, uint, string) bool
+var XGFileLoadContentsFinish func(uintptr, uintptr, []string, uint, string, **glib.Error) bool
 var XGFileLoadPartialContentsAsync func(uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGFileLoadPartialContentsFinish func(uintptr, uintptr, []string, uint, string) bool
-var XGFileMakeDirectory func(uintptr, uintptr) bool
+var XGFileLoadPartialContentsFinish func(uintptr, uintptr, []string, uint, string, **glib.Error) bool
+var XGFileMakeDirectory func(uintptr, uintptr, **glib.Error) bool
 var XGFileMakeDirectoryAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileMakeDirectoryFinish func(uintptr, uintptr) bool
-var XGFileMakeDirectoryWithParents func(uintptr, uintptr) bool
-var XGFileMakeSymbolicLink func(uintptr, string, uintptr) bool
-var XGFileMeasureDiskUsage func(uintptr, FileMeasureFlags, uintptr, uintptr, uintptr, uint64, uint64, uint64) bool
+var XGFileMakeDirectoryFinish func(uintptr, uintptr, **glib.Error) bool
+var XGFileMakeDirectoryWithParents func(uintptr, uintptr, **glib.Error) bool
+var XGFileMakeSymbolicLink func(uintptr, string, uintptr, **glib.Error) bool
+var XGFileMeasureDiskUsage func(uintptr, FileMeasureFlags, uintptr, uintptr, uintptr, uint64, uint64, uint64, **glib.Error) bool
 var XGFileMeasureDiskUsageAsync func(uintptr, FileMeasureFlags, int, uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGFileMeasureDiskUsageFinish func(uintptr, uintptr, uint64, uint64, uint64) bool
-var XGFileMonitor func(uintptr, FileMonitorFlags, uintptr) uintptr
-var XGFileMonitorDirectory func(uintptr, FileMonitorFlags, uintptr) uintptr
-var XGFileMonitorFile func(uintptr, FileMonitorFlags, uintptr) uintptr
+var XGFileMeasureDiskUsageFinish func(uintptr, uintptr, uint64, uint64, uint64, **glib.Error) bool
+var XGFileMonitor func(uintptr, FileMonitorFlags, uintptr, **glib.Error) uintptr
+var XGFileMonitorDirectory func(uintptr, FileMonitorFlags, uintptr, **glib.Error) uintptr
+var XGFileMonitorFile func(uintptr, FileMonitorFlags, uintptr, **glib.Error) uintptr
 var XGFileMountEnclosingVolume func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileMountEnclosingVolumeFinish func(uintptr, uintptr) bool
+var XGFileMountEnclosingVolumeFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileMountMountable func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileMountMountableFinish func(uintptr, uintptr) uintptr
-var XGFileMove func(uintptr, uintptr, FileCopyFlags, uintptr, uintptr, uintptr) bool
+var XGFileMountMountableFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileMove func(uintptr, uintptr, FileCopyFlags, uintptr, uintptr, uintptr, **glib.Error) bool
 var XGFileMoveAsync func(uintptr, uintptr, FileCopyFlags, int, uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGFileMoveFinish func(uintptr, uintptr) bool
-var XGFileOpenReadwrite func(uintptr, uintptr) uintptr
+var XGFileMoveFinish func(uintptr, uintptr, **glib.Error) bool
+var XGFileOpenReadwrite func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileOpenReadwriteAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileOpenReadwriteFinish func(uintptr, uintptr) uintptr
+var XGFileOpenReadwriteFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFilePeekPath func(uintptr) string
 var XGFilePollMountable func(uintptr, uintptr, uintptr, uintptr)
-var XGFilePollMountableFinish func(uintptr, uintptr) bool
-var XGFileQueryDefaultHandler func(uintptr, uintptr) uintptr
+var XGFilePollMountableFinish func(uintptr, uintptr, **glib.Error) bool
+var XGFileQueryDefaultHandler func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileQueryDefaultHandlerAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileQueryDefaultHandlerFinish func(uintptr, uintptr) uintptr
+var XGFileQueryDefaultHandlerFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileQueryExists func(uintptr, uintptr) bool
 var XGFileQueryFileType func(uintptr, FileQueryInfoFlags, uintptr) FileType
-var XGFileQueryFilesystemInfo func(uintptr, string, uintptr) uintptr
+var XGFileQueryFilesystemInfo func(uintptr, string, uintptr, **glib.Error) uintptr
 var XGFileQueryFilesystemInfoAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
-var XGFileQueryFilesystemInfoFinish func(uintptr, uintptr) uintptr
-var XGFileQueryInfo func(uintptr, string, FileQueryInfoFlags, uintptr) uintptr
+var XGFileQueryFilesystemInfoFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileQueryInfo func(uintptr, string, FileQueryInfoFlags, uintptr, **glib.Error) uintptr
 var XGFileQueryInfoAsync func(uintptr, string, FileQueryInfoFlags, int, uintptr, uintptr, uintptr)
-var XGFileQueryInfoFinish func(uintptr, uintptr) uintptr
-var XGFileQuerySettableAttributes func(uintptr, uintptr) *FileAttributeInfoList
-var XGFileQueryWritableNamespaces func(uintptr, uintptr) *FileAttributeInfoList
-var XGFileRead func(uintptr, uintptr) uintptr
+var XGFileQueryInfoFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileQuerySettableAttributes func(uintptr, uintptr, **glib.Error) *FileAttributeInfoList
+var XGFileQueryWritableNamespaces func(uintptr, uintptr, **glib.Error) *FileAttributeInfoList
+var XGFileRead func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileReadAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileReadFinish func(uintptr, uintptr) uintptr
-var XGFileReplace func(uintptr, string, bool, FileCreateFlags, uintptr) uintptr
+var XGFileReadFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileReplace func(uintptr, string, bool, FileCreateFlags, uintptr, **glib.Error) uintptr
 var XGFileReplaceAsync func(uintptr, string, bool, FileCreateFlags, int, uintptr, uintptr, uintptr)
-var XGFileReplaceContents func(uintptr, string, uint, string, bool, FileCreateFlags, string, uintptr) bool
+var XGFileReplaceContents func(uintptr, string, uint, string, bool, FileCreateFlags, string, uintptr, **glib.Error) bool
 var XGFileReplaceContentsAsync func(uintptr, string, uint, string, bool, FileCreateFlags, uintptr, uintptr, uintptr)
 var XGFileReplaceContentsBytesAsync func(uintptr, *glib.Bytes, string, bool, FileCreateFlags, uintptr, uintptr, uintptr)
-var XGFileReplaceContentsFinish func(uintptr, uintptr, string) bool
-var XGFileReplaceFinish func(uintptr, uintptr) uintptr
-var XGFileReplaceReadwrite func(uintptr, string, bool, FileCreateFlags, uintptr) uintptr
+var XGFileReplaceContentsFinish func(uintptr, uintptr, string, **glib.Error) bool
+var XGFileReplaceFinish func(uintptr, uintptr, **glib.Error) uintptr
+var XGFileReplaceReadwrite func(uintptr, string, bool, FileCreateFlags, uintptr, **glib.Error) uintptr
 var XGFileReplaceReadwriteAsync func(uintptr, string, bool, FileCreateFlags, int, uintptr, uintptr, uintptr)
-var XGFileReplaceReadwriteFinish func(uintptr, uintptr) uintptr
+var XGFileReplaceReadwriteFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileResolveRelativePath func(uintptr, string) uintptr
-var XGFileSetAttribute func(uintptr, string, FileAttributeType, uintptr, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeByteString func(uintptr, string, string, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeInt32 func(uintptr, string, int32, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeInt64 func(uintptr, string, int64, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeString func(uintptr, string, string, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeUint32 func(uintptr, string, uint32, FileQueryInfoFlags, uintptr) bool
-var XGFileSetAttributeUint64 func(uintptr, string, uint64, FileQueryInfoFlags, uintptr) bool
+var XGFileSetAttribute func(uintptr, string, FileAttributeType, uintptr, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeByteString func(uintptr, string, string, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeInt32 func(uintptr, string, int32, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeInt64 func(uintptr, string, int64, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeString func(uintptr, string, string, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeUint32 func(uintptr, string, uint32, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetAttributeUint64 func(uintptr, string, uint64, FileQueryInfoFlags, uintptr, **glib.Error) bool
 var XGFileSetAttributesAsync func(uintptr, uintptr, FileQueryInfoFlags, int, uintptr, uintptr, uintptr)
-var XGFileSetAttributesFinish func(uintptr, uintptr, *uintptr) bool
-var XGFileSetAttributesFromInfo func(uintptr, uintptr, FileQueryInfoFlags, uintptr) bool
-var XGFileSetDisplayName func(uintptr, string, uintptr) uintptr
+var XGFileSetAttributesFinish func(uintptr, uintptr, *uintptr, **glib.Error) bool
+var XGFileSetAttributesFromInfo func(uintptr, uintptr, FileQueryInfoFlags, uintptr, **glib.Error) bool
+var XGFileSetDisplayName func(uintptr, string, uintptr, **glib.Error) uintptr
 var XGFileSetDisplayNameAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
-var XGFileSetDisplayNameFinish func(uintptr, uintptr) uintptr
+var XGFileSetDisplayNameFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGFileStartMountable func(uintptr, DriveStartFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileStartMountableFinish func(uintptr, uintptr) bool
+var XGFileStartMountableFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileStopMountable func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileStopMountableFinish func(uintptr, uintptr) bool
+var XGFileStopMountableFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileSupportsThreadContexts func(uintptr) bool
-var XGFileTrash func(uintptr, uintptr) bool
+var XGFileTrash func(uintptr, uintptr, **glib.Error) bool
 var XGFileTrashAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGFileTrashFinish func(uintptr, uintptr) bool
+var XGFileTrashFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileUnmountMountable func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGFileUnmountMountableFinish func(uintptr, uintptr) bool
+var XGFileUnmountMountableFinish func(uintptr, uintptr, **glib.Error) bool
 var XGFileUnmountMountableWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGFileUnmountMountableWithOperationFinish func(uintptr, uintptr) bool
+var XGFileUnmountMountableWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
 
 var xFileNewForCommandlineArg func(string) uintptr
 
@@ -2496,16 +2861,16 @@ var xFileNewForCommandlineArg func(string) uintptr
 // for you there.  It is also always possible to use this function with
 // #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
 func FileNewForCommandlineArg(ArgVar string) *FileBase {
+	var cls *FileBase
 
-	FileNewForCommandlineArgPtr := xFileNewForCommandlineArg(ArgVar)
-	if FileNewForCommandlineArgPtr == 0 {
-		return nil
+	cret := xFileNewForCommandlineArg(ArgVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FileNewForCommandlineArgCls := &FileBase{}
-	FileNewForCommandlineArgCls.Ptr = FileNewForCommandlineArgPtr
-	return FileNewForCommandlineArgCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileNewForCommandlineArgAndCwd func(string, string) uintptr
@@ -2522,16 +2887,16 @@ var xFileNewForCommandlineArgAndCwd func(string, string) uintptr
 //
 // See also g_application_command_line_create_file_for_arg().
 func FileNewForCommandlineArgAndCwd(ArgVar string, CwdVar string) *FileBase {
+	var cls *FileBase
 
-	FileNewForCommandlineArgAndCwdPtr := xFileNewForCommandlineArgAndCwd(ArgVar, CwdVar)
-	if FileNewForCommandlineArgAndCwdPtr == 0 {
-		return nil
+	cret := xFileNewForCommandlineArgAndCwd(ArgVar, CwdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FileNewForCommandlineArgAndCwdCls := &FileBase{}
-	FileNewForCommandlineArgAndCwdCls.Ptr = FileNewForCommandlineArgAndCwdPtr
-	return FileNewForCommandlineArgAndCwdCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileNewForPath func(string) uintptr
@@ -2540,16 +2905,16 @@ var xFileNewForPath func(string) uintptr
 // fails, but the returned object might not support any I/O
 // operation if @path is malformed.
 func FileNewForPath(PathVar string) *FileBase {
+	var cls *FileBase
 
-	FileNewForPathPtr := xFileNewForPath(PathVar)
-	if FileNewForPathPtr == 0 {
-		return nil
+	cret := xFileNewForPath(PathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FileNewForPathCls := &FileBase{}
-	FileNewForPathCls.Ptr = FileNewForPathPtr
-	return FileNewForPathCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileNewForUri func(string) uintptr
@@ -2559,19 +2924,19 @@ var xFileNewForUri func(string) uintptr
 // operation if @uri is malformed or if the uri type is
 // not supported.
 func FileNewForUri(UriVar string) *FileBase {
+	var cls *FileBase
 
-	FileNewForUriPtr := xFileNewForUri(UriVar)
-	if FileNewForUriPtr == 0 {
-		return nil
+	cret := xFileNewForUri(UriVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FileNewForUriCls := &FileBase{}
-	FileNewForUriCls.Ptr = FileNewForUriPtr
-	return FileNewForUriCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xFileNewTmp func(string, *uintptr) uintptr
+var xFileNewTmp func(string, *uintptr, **glib.Error) uintptr
 
 // Opens a file in the preferred directory for temporary files (as
 // returned by g_get_tmp_dir()) and returns a #GFile and
@@ -2583,16 +2948,21 @@ var xFileNewTmp func(string, *uintptr) uintptr
 //
 // Unlike the other #GFile constructors, this will return %NULL if
 // a temporary file could not be created.
-func FileNewTmp(TmplVar string, IostreamVar **FileIOStream) *FileBase {
+func FileNewTmp(TmplVar string, IostreamVar **FileIOStream) (*FileBase, error) {
+	var cls *FileBase
+	var cerr *glib.Error
 
-	FileNewTmpPtr := xFileNewTmp(TmplVar, gobject.ConvertPtr(IostreamVar))
-	if FileNewTmpPtr == 0 {
-		return nil
+	cret := xFileNewTmp(TmplVar, gobject.ConvertPtr(IostreamVar), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	FileNewTmpCls := &FileBase{}
-	FileNewTmpCls.Ptr = FileNewTmpPtr
-	return FileNewTmpCls
+	cls = &FileBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -2603,16 +2973,16 @@ var xFileParseName func(string) uintptr
 // but the returned object might not support any I/O operation if
 // the @parse_name cannot be parsed.
 func FileParseName(ParseNameVar string) *FileBase {
+	var cls *FileBase
 
-	FileParseNamePtr := xFileParseName(ParseNameVar)
-	if FileParseNamePtr == 0 {
-		return nil
+	cret := xFileParseName(ParseNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FileParseNameCls := &FileBase{}
-	FileParseNameCls.Ptr = FileParseNamePtr
-	return FileParseNameCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

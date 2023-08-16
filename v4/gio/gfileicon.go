@@ -27,32 +27,33 @@ var xNewFileIcon func(uintptr) uintptr
 
 // Creates a new icon for a file.
 func NewFileIcon(FileVar File) *FileIcon {
-	NewFileIconPtr := xNewFileIcon(FileVar.GoPointer())
-	if NewFileIconPtr == 0 {
-		return nil
-	}
+	var cls *FileIcon
 
-	NewFileIconCls := &FileIcon{}
-	NewFileIconCls.Ptr = NewFileIconPtr
-	return NewFileIconCls
+	cret := xNewFileIcon(FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FileIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileIconGetFile func(uintptr) uintptr
 
 // Gets the #GFile associated with the given @icon.
 func (x *FileIcon) GetFile() *FileBase {
+	var cls *FileBase
 
-	GetFilePtr := xFileIconGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xFileIconGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilePtr)
-
-	GetFileCls := &FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FileIcon) GoPointer() uintptr {
@@ -66,8 +67,8 @@ func (c *FileIcon) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *FileIcon) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -77,8 +78,8 @@ func (x *FileIcon) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *FileIcon) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -99,22 +100,27 @@ func (x *FileIcon) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *FileIcon) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *FileIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *FileIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
-	if LoadPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadCls := &InputStream{}
-	LoadCls.Ptr = LoadPtr
-	return LoadCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -128,16 +134,21 @@ func (x *FileIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackV
 }
 
 // Finishes an asynchronous icon load started in g_loadable_icon_load_async().
-func (x *FileIcon) LoadFinish(ResVar AsyncResult, TypeVar string) *InputStream {
+func (x *FileIcon) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadFinishPtr := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar)
-	if LoadFinishPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadFinishCls := &InputStream{}
-	LoadFinishCls.Ptr = LoadFinishPtr
-	return LoadFinishCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

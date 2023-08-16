@@ -14,7 +14,7 @@ type VoidFunc func()
 // Associates a string with a bit flag.
 // Used in g_parse_debug_string().
 type DebugKey struct {
-	Key string
+	Key uintptr
 
 	Value uint
 }
@@ -116,8 +116,8 @@ var xBitNthLsf func(uint32, int) int
 // usually). To start searching from the 0th bit, set @nth_bit to -1.
 func BitNthLsf(MaskVar uint32, NthBitVar int) int {
 
-	return xBitNthLsf(MaskVar, NthBitVar)
-
+	cret := xBitNthLsf(MaskVar, NthBitVar)
+	return cret
 }
 
 var xBitNthMsf func(uint32, int) int
@@ -129,8 +129,8 @@ var xBitNthMsf func(uint32, int) int
 // -1 or GLIB_SIZEOF_LONG * 8.
 func BitNthMsf(MaskVar uint32, NthBitVar int) int {
 
-	return xBitNthMsf(MaskVar, NthBitVar)
-
+	cret := xBitNthMsf(MaskVar, NthBitVar)
+	return cret
 }
 
 var xBitStorage func(uint32) uint
@@ -139,8 +139,8 @@ var xBitStorage func(uint32) uint
 // e.g. if @number is 4, 3 bits are needed.
 func BitStorage(NumberVar uint32) uint {
 
-	return xBitStorage(NumberVar)
-
+	cret := xBitStorage(NumberVar)
+	return cret
 }
 
 var xFindProgramInPath func(string) string
@@ -164,8 +164,8 @@ var xFindProgramInPath func(string) string
 // including the type suffix.
 func FindProgramInPath(ProgramVar string) string {
 
-	return xFindProgramInPath(ProgramVar)
-
+	cret := xFindProgramInPath(ProgramVar)
+	return cret
 }
 
 var xFormatSize func(uint64) string
@@ -185,8 +185,8 @@ var xFormatSize func(uint64) string
 // formatted.
 func FormatSize(SizeVar uint64) string {
 
-	return xFormatSize(SizeVar)
-
+	cret := xFormatSize(SizeVar)
+	return cret
 }
 
 var xFormatSizeForDisplay func(int64) string
@@ -202,8 +202,8 @@ var xFormatSizeForDisplay func(int64) string
 // This string should be freed with g_free() when not needed any longer.
 func FormatSizeForDisplay(SizeVar int64) string {
 
-	return xFormatSizeForDisplay(SizeVar)
-
+	cret := xFormatSizeForDisplay(SizeVar)
+	return cret
 }
 
 var xFormatSizeFull func(uint64, FormatSizeFlags) string
@@ -214,8 +214,8 @@ var xFormatSizeFull func(uint64, FormatSizeFlags) string
 // that modify the output. See #GFormatSizeFlags.
 func FormatSizeFull(SizeVar uint64, FlagsVar FormatSizeFlags) string {
 
-	return xFormatSizeFull(SizeVar, FlagsVar)
-
+	cret := xFormatSizeFull(SizeVar, FlagsVar)
+	return cret
 }
 
 var xGetApplicationName func() string
@@ -229,8 +229,8 @@ var xGetApplicationName func() string
 // been called).
 func GetApplicationName() string {
 
-	return xGetApplicationName()
-
+	cret := xGetApplicationName()
+	return cret
 }
 
 var xGetHomeDir func() string
@@ -257,8 +257,8 @@ var xGetHomeDir func() string
 // or unset it before calling any functions in GLib.
 func GetHomeDir() string {
 
-	return xGetHomeDir()
-
+	cret := xGetHomeDir()
+	return cret
 }
 
 var xGetHostName func() string
@@ -279,8 +279,8 @@ var xGetHostName func() string
 // The encoding of the returned string is UTF-8.
 func GetHostName() string {
 
-	return xGetHostName()
-
+	cret := xGetHostName()
+	return cret
 }
 
 var xGetOsInfo func(string) string
@@ -295,8 +295,8 @@ var xGetOsInfo func(string) string
 // check if the result is %NULL.
 func GetOsInfo(KeyNameVar string) string {
 
-	return xGetOsInfo(KeyNameVar)
-
+	cret := xGetOsInfo(KeyNameVar)
+	return cret
 }
 
 var xGetPrgname func() string
@@ -311,8 +311,8 @@ var xGetPrgname func() string
 // taking the last component of @argv[0].
 func GetPrgname() string {
 
-	return xGetPrgname()
-
+	cret := xGetPrgname()
+	return cret
 }
 
 var xGetRealName func() string
@@ -324,8 +324,8 @@ var xGetRealName func() string
 // returned.
 func GetRealName() string {
 
-	return xGetRealName()
-
+	cret := xGetRealName()
+	return cret
 }
 
 var xGetSystemConfigDirs func() uintptr
@@ -352,8 +352,8 @@ var xGetSystemConfigDirs func() uintptr
 // it’s not thread-safe to modify environment variables at runtime.
 func GetSystemConfigDirs() uintptr {
 
-	return xGetSystemConfigDirs()
-
+	cret := xGetSystemConfigDirs()
+	return cret
 }
 
 var xGetSystemDataDirs func() uintptr
@@ -394,8 +394,8 @@ var xGetSystemDataDirs func() uintptr
 // it’s not thread-safe to modify environment variables at runtime.
 func GetSystemDataDirs() uintptr {
 
-	return xGetSystemDataDirs()
-
+	cret := xGetSystemDataDirs()
+	return cret
 }
 
 var xGetTmpDir func() string
@@ -416,8 +416,8 @@ var xGetTmpDir func() string
 // string.
 func GetTmpDir() string {
 
-	return xGetTmpDir()
-
+	cret := xGetTmpDir()
+	return cret
 }
 
 var xGetUserCacheDir func() string
@@ -440,8 +440,8 @@ var xGetUserCacheDir func() string
 // it’s not thread-safe to modify environment variables at runtime.
 func GetUserCacheDir() string {
 
-	return xGetUserCacheDir()
-
+	cret := xGetUserCacheDir()
+	return cret
 }
 
 var xGetUserConfigDir func() string
@@ -465,8 +465,8 @@ var xGetUserConfigDir func() string
 // it’s not thread-safe to modify environment variables at runtime.
 func GetUserConfigDir() string {
 
-	return xGetUserConfigDir()
-
+	cret := xGetUserConfigDir()
+	return cret
 }
 
 var xGetUserDataDir func() string
@@ -490,8 +490,8 @@ var xGetUserDataDir func() string
 // it’s not thread-safe to modify environment variables at runtime.
 func GetUserDataDir() string {
 
-	return xGetUserDataDir()
-
+	cret := xGetUserDataDir()
+	return cret
 }
 
 var xGetUserName func() string
@@ -502,8 +502,8 @@ var xGetUserName func() string
 // consistent on a machine. On Windows, it is always UTF-8.
 func GetUserName() string {
 
-	return xGetUserName()
-
+	cret := xGetUserName()
+	return cret
 }
 
 var xGetUserRuntimeDir func() string
@@ -523,8 +523,8 @@ var xGetUserRuntimeDir func() string
 // it’s not thread-safe to modify environment variables at runtime.
 func GetUserRuntimeDir() string {
 
-	return xGetUserRuntimeDir()
-
+	cret := xGetUserRuntimeDir()
+	return cret
 }
 
 var xGetUserSpecialDir func(UserDirectory) string
@@ -541,8 +541,8 @@ var xGetUserSpecialDir func(UserDirectory) string
 // will not reflect any change once the special directories are loaded.
 func GetUserSpecialDir(DirectoryVar UserDirectory) string {
 
-	return xGetUserSpecialDir(DirectoryVar)
-
+	cret := xGetUserSpecialDir(DirectoryVar)
+	return cret
 }
 
 var xGetUserStateDir func() string
@@ -566,8 +566,8 @@ var xGetUserStateDir func() string
 // it’s not thread-safe to modify environment variables at runtime.
 func GetUserStateDir() string {
 
-	return xGetUserStateDir()
-
+	cret := xGetUserStateDir()
+	return cret
 }
 
 var xNullifyPointer func(uintptr)
@@ -595,8 +595,8 @@ var xParseDebugString func(string, uintptr, uint) uint
 // are printed out to standard error.
 func ParseDebugString(StringVar string, KeysVar uintptr, NkeysVar uint) uint {
 
-	return xParseDebugString(StringVar, KeysVar, NkeysVar)
-
+	cret := xParseDebugString(StringVar, KeysVar, NkeysVar)
+	return cret
 }
 
 var xReloadUserSpecialDirsCache func()
@@ -675,8 +675,8 @@ var xSnprintf func(string, uint32, string, ...interface{}) int
 // the Single Unix Specification.
 func Snprintf(StringVar string, NVar uint32, FormatVar string, varArgs ...interface{}) int {
 
-	return xSnprintf(StringVar, NVar, FormatVar, varArgs...)
-
+	cret := xSnprintf(StringVar, NVar, FormatVar, varArgs...)
+	return cret
 }
 
 var xVsnprintf func(string, uint32, string, []interface{}) int
@@ -700,8 +700,8 @@ var xVsnprintf func(string, uint32, string, []interface{}) int
 // the Single Unix Specification.
 func Vsnprintf(StringVar string, NVar uint32, FormatVar string, ArgsVar []interface{}) int {
 
-	return xVsnprintf(StringVar, NVar, FormatVar, ArgsVar)
-
+	cret := xVsnprintf(StringVar, NVar, FormatVar, ArgsVar)
+	return cret
 }
 
 func init() {

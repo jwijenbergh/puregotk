@@ -128,7 +128,7 @@ const (
 	GSpawnErrorFailedValue SpawnError = 19
 )
 
-var xSpawnAsync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid) bool
+var xSpawnAsync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid, **Error) bool
 
 // Executes a child program asynchronously.
 //
@@ -146,35 +146,50 @@ var xSpawnAsync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pi
 // Note that the returned @child_pid on Windows is a handle to the child
 // process and not its identifier. Process handles and process identifiers
 // are different concepts on Windows.
-func SpawnAsync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid) bool {
+func SpawnAsync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid) (bool, error) {
+	var cerr *Error
 
-	return xSpawnAsync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar)
+	cret := xSpawnAsync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnAsyncWithFds func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid, int, int, int) bool
+var xSpawnAsyncWithFds func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid, int, int, int, **Error) bool
 
 // Executes a child program asynchronously.
 //
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int, StdoutFdVar int, StderrFdVar int) bool {
+func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnAsyncWithFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StdinFdVar, StdoutFdVar, StderrFdVar)
+	cret := xSpawnAsyncWithFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnAsyncWithPipes func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid, int, int, int) bool
+var xSpawnAsyncWithPipes func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pid, int, int, int, **Error) bool
 
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar int, StandardOutputVar int, StandardErrorVar int) bool {
+func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar int, StandardOutputVar int, StandardErrorVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnAsyncWithPipes(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StandardInputVar, StandardOutputVar, StandardErrorVar)
+	cret := xSpawnAsyncWithPipes(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StandardInputVar, StandardOutputVar, StandardErrorVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnAsyncWithPipesAndFds func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, int, int, int, uintptr, uintptr, uint, *Pid, int, int, int) bool
+var xSpawnAsyncWithPipesAndFds func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, int, int, int, uintptr, uintptr, uint, *Pid, int, int, int, **Error) bool
 
 // Executes a child program asynchronously (your program will not
 // block waiting for the child to exit).
@@ -364,13 +379,18 @@ var xSpawnAsyncWithPipesAndFds func(string, uintptr, uintptr, SpawnFlags, uintpt
 // graphical application too, then to ensure that the spawned program opens its
 // windows on the right screen, you may want to use #GdkAppLaunchContext,
 // #GAppLaunchContext, or set the `DISPLAY` environment variable.
-func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int, SourceFdsVar uintptr, TargetFdsVar uintptr, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar int, StdoutPipeOutVar int, StderrPipeOutVar int) bool {
+func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int, SourceFdsVar uintptr, TargetFdsVar uintptr, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar int, StdoutPipeOutVar int, StderrPipeOutVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnAsyncWithPipesAndFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, SourceFdsVar, TargetFdsVar, NFdsVar, ChildPidOutVar, StdinPipeOutVar, StdoutPipeOutVar, StderrPipeOutVar)
+	cret := xSpawnAsyncWithPipesAndFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, SourceFdsVar, TargetFdsVar, NFdsVar, ChildPidOutVar, StdinPipeOutVar, StdoutPipeOutVar, StderrPipeOutVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnCheckExitStatus func(int) bool
+var xSpawnCheckExitStatus func(int, **Error) bool
 
 // An old name for g_spawn_check_wait_status(), deprecated because its
 // name is misleading.
@@ -380,13 +400,18 @@ var xSpawnCheckExitStatus func(int) bool
 // etc. On Unix platforms, it is incorrect for it to be the exit status
 // as passed to `exit()` or returned by g_subprocess_get_exit_status() or
 // `WEXITSTATUS()`.
-func SpawnCheckExitStatus(WaitStatusVar int) bool {
+func SpawnCheckExitStatus(WaitStatusVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnCheckExitStatus(WaitStatusVar)
+	cret := xSpawnCheckExitStatus(WaitStatusVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnCheckWaitStatus func(int) bool
+var xSpawnCheckWaitStatus func(int, **Error) bool
 
 // Set @error if @wait_status indicates the child exited abnormally
 // (e.g. with a nonzero exit code, or via a fatal signal).
@@ -427,9 +452,14 @@ var xSpawnCheckWaitStatus func(int) bool
 //
 // Prior to version 2.70, g_spawn_check_exit_status() provides the same
 // functionality, although under a misleading name.
-func SpawnCheckWaitStatus(WaitStatusVar int) bool {
+func SpawnCheckWaitStatus(WaitStatusVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnCheckWaitStatus(WaitStatusVar)
+	cret := xSpawnCheckWaitStatus(WaitStatusVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -445,7 +475,7 @@ func SpawnClosePid(PidVar Pid) {
 
 }
 
-var xSpawnCommandLineAsync func(string) bool
+var xSpawnCommandLineAsync func(string, **Error) bool
 
 // A simple version of g_spawn_async() that parses a command line with
 // g_shell_parse_argv() and passes it to g_spawn_async().
@@ -457,13 +487,18 @@ var xSpawnCommandLineAsync func(string) bool
 // errors are those from g_shell_parse_argv() and g_spawn_async().
 //
 // The same concerns on Windows apply as for g_spawn_command_line_sync().
-func SpawnCommandLineAsync(CommandLineVar string) bool {
+func SpawnCommandLineAsync(CommandLineVar string) (bool, error) {
+	var cerr *Error
 
-	return xSpawnCommandLineAsync(CommandLineVar)
+	cret := xSpawnCommandLineAsync(CommandLineVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnCommandLineSync func(string, uintptr, uintptr, int) bool
+var xSpawnCommandLineSync func(string, uintptr, uintptr, int, **Error) bool
 
 // A simple version of g_spawn_sync() with little-used parameters
 // removed, taking a command line instead of an argument vector.
@@ -494,13 +529,18 @@ var xSpawnCommandLineSync func(string, uintptr, uintptr, int) bool
 // the backslashes will be eaten, and the space will act as a
 // separator. You need to enclose such paths with single quotes, like
 // "'c:\\program files\\app\\app.exe' 'e:\\folder\\argument.txt'".
-func SpawnCommandLineSync(CommandLineVar string, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) bool {
+func SpawnCommandLineSync(CommandLineVar string, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnCommandLineSync(CommandLineVar, StandardOutputVar, StandardErrorVar, WaitStatusVar)
+	cret := xSpawnCommandLineSync(CommandLineVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSpawnSync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, uintptr, uintptr, int) bool
+var xSpawnSync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, uintptr, uintptr, int, **Error) bool
 
 // Executes a child synchronously (waits for the child to exit before returning).
 //
@@ -525,9 +565,14 @@ var xSpawnSync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, uint
 // This function calls g_spawn_async_with_pipes() internally; see that
 // function for full details on the other parameters and details on
 // how these functions work on Windows.
-func SpawnSync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) bool {
+func SpawnSync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) (bool, error) {
+	var cerr *Error
 
-	return xSpawnSync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StandardOutputVar, StandardErrorVar, WaitStatusVar)
+	cret := xSpawnSync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

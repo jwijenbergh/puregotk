@@ -82,32 +82,31 @@ func (x *TlsClientConnectionBase) CopySessionState(SourceVar TlsClientConnection
 // subject DN of the certificate authority.
 func (x *TlsClientConnectionBase) GetAcceptedCas() *glib.List {
 
-	return XGTlsClientConnectionGetAcceptedCas(x.GoPointer())
-
+	cret := XGTlsClientConnectionGetAcceptedCas(x.GoPointer())
+	return cret
 }
 
 // Gets @conn's expected server identity
 func (x *TlsClientConnectionBase) GetServerIdentity() *SocketConnectableBase {
+	var cls *SocketConnectableBase
 
-	GetServerIdentityPtr := XGTlsClientConnectionGetServerIdentity(x.GoPointer())
-	if GetServerIdentityPtr == 0 {
-		return nil
+	cret := XGTlsClientConnectionGetServerIdentity(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetServerIdentityPtr)
-
-	GetServerIdentityCls := &SocketConnectableBase{}
-	GetServerIdentityCls.Ptr = GetServerIdentityPtr
-	return GetServerIdentityCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SocketConnectableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // SSL 3.0 is no longer supported. See
 // g_tls_client_connection_set_use_ssl3() for details.
 func (x *TlsClientConnectionBase) GetUseSsl3() bool {
 
-	return XGTlsClientConnectionGetUseSsl3(x.GoPointer())
-
+	cret := XGTlsClientConnectionGetUseSsl3(x.GoPointer())
+	return cret
 }
 
 // Gets @conn's validation flags
@@ -117,8 +116,8 @@ func (x *TlsClientConnectionBase) GetUseSsl3() bool {
 // information.
 func (x *TlsClientConnectionBase) GetValidationFlags() TlsCertificateFlags {
 
-	return XGTlsClientConnectionGetValidationFlags(x.GoPointer())
-
+	cret := XGTlsClientConnectionGetValidationFlags(x.GoPointer())
+	return cret
 }
 
 // Sets @conn's expected server identity, which is used both to tell
@@ -169,7 +168,7 @@ var XGTlsClientConnectionSetServerIdentity func(uintptr, uintptr)
 var XGTlsClientConnectionSetUseSsl3 func(uintptr, bool)
 var XGTlsClientConnectionSetValidationFlags func(uintptr, TlsCertificateFlags)
 
-var xTlsClientConnectionNew func(uintptr, uintptr) uintptr
+var xTlsClientConnectionNew func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GTlsClientConnection wrapping @base_io_stream (which
 // must have pollable input and output streams) which is assumed to
@@ -178,16 +177,21 @@ var xTlsClientConnectionNew func(uintptr, uintptr) uintptr
 // See the documentation for #GTlsConnection:base-io-stream for restrictions
 // on when application code can run operations on the @base_io_stream after
 // this function has returned.
-func TlsClientConnectionNew(BaseIoStreamVar *IOStream, ServerIdentityVar SocketConnectable) *TlsClientConnectionBase {
+func TlsClientConnectionNew(BaseIoStreamVar *IOStream, ServerIdentityVar SocketConnectable) (*TlsClientConnectionBase, error) {
+	var cls *TlsClientConnectionBase
+	var cerr *glib.Error
 
-	TlsClientConnectionNewPtr := xTlsClientConnectionNew(BaseIoStreamVar.GoPointer(), ServerIdentityVar.GoPointer())
-	if TlsClientConnectionNewPtr == 0 {
-		return nil
+	cret := xTlsClientConnectionNew(BaseIoStreamVar.GoPointer(), ServerIdentityVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	TlsClientConnectionNewCls := &TlsClientConnectionBase{}
-	TlsClientConnectionNewCls.Ptr = TlsClientConnectionNewPtr
-	return TlsClientConnectionNewCls
+	cls = &TlsClientConnectionBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

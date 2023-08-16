@@ -126,52 +126,51 @@ var xNewFlap func() uintptr
 
 // Creates a new `AdwFlap`.
 func NewFlap() *gtk.Widget {
-	NewFlapPtr := xNewFlap()
-	if NewFlapPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewFlap()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFlapPtr)
-
-	NewFlapCls := &gtk.Widget{}
-	NewFlapCls.Ptr = NewFlapPtr
-	return NewFlapCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlapGetContent func(uintptr) uintptr
 
 // Gets the content widget for @self.
 func (x *Flap) GetContent() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetContentPtr := xFlapGetContent(x.GoPointer())
-	if GetContentPtr == 0 {
-		return nil
+	cret := xFlapGetContent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContentPtr)
-
-	GetContentCls := &gtk.Widget{}
-	GetContentCls.Ptr = GetContentPtr
-	return GetContentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlapGetFlap func(uintptr) uintptr
 
 // Gets the flap widget for @self.
 func (x *Flap) GetFlap() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetFlapPtr := xFlapGetFlap(x.GoPointer())
-	if GetFlapPtr == 0 {
-		return nil
+	cret := xFlapGetFlap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFlapPtr)
-
-	GetFlapCls := &gtk.Widget{}
-	GetFlapCls.Ptr = GetFlapPtr
-	return GetFlapCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlapGetFlapPosition func(uintptr) gtk.PackType
@@ -179,8 +178,8 @@ var xFlapGetFlapPosition func(uintptr) gtk.PackType
 // Gets the flap position for @self.
 func (x *Flap) GetFlapPosition() gtk.PackType {
 
-	return xFlapGetFlapPosition(x.GoPointer())
-
+	cret := xFlapGetFlapPosition(x.GoPointer())
+	return cret
 }
 
 var xFlapGetFoldDuration func(uintptr) uint
@@ -188,8 +187,8 @@ var xFlapGetFoldDuration func(uintptr) uint
 // Gets the fold transition animation duration for @self, in milliseconds.
 func (x *Flap) GetFoldDuration() uint {
 
-	return xFlapGetFoldDuration(x.GoPointer())
-
+	cret := xFlapGetFoldDuration(x.GoPointer())
+	return cret
 }
 
 var xFlapGetFoldPolicy func(uintptr) FlapFoldPolicy
@@ -197,8 +196,8 @@ var xFlapGetFoldPolicy func(uintptr) FlapFoldPolicy
 // Gets the fold policy for @self.
 func (x *Flap) GetFoldPolicy() FlapFoldPolicy {
 
-	return xFlapGetFoldPolicy(x.GoPointer())
-
+	cret := xFlapGetFoldPolicy(x.GoPointer())
+	return cret
 }
 
 var xFlapGetFoldThresholdPolicy func(uintptr) FoldThresholdPolicy
@@ -206,8 +205,8 @@ var xFlapGetFoldThresholdPolicy func(uintptr) FoldThresholdPolicy
 // Gets the fold threshold policy for @self.
 func (x *Flap) GetFoldThresholdPolicy() FoldThresholdPolicy {
 
-	return xFlapGetFoldThresholdPolicy(x.GoPointer())
-
+	cret := xFlapGetFoldThresholdPolicy(x.GoPointer())
+	return cret
 }
 
 var xFlapGetFolded func(uintptr) bool
@@ -217,8 +216,8 @@ var xFlapGetFolded func(uintptr) bool
 // See [property@Flap:fold-policy].
 func (x *Flap) GetFolded() bool {
 
-	return xFlapGetFolded(x.GoPointer())
-
+	cret := xFlapGetFolded(x.GoPointer())
+	return cret
 }
 
 var xFlapGetLocked func(uintptr) bool
@@ -226,8 +225,8 @@ var xFlapGetLocked func(uintptr) bool
 // Gets whether @self is locked.
 func (x *Flap) GetLocked() bool {
 
-	return xFlapGetLocked(x.GoPointer())
-
+	cret := xFlapGetLocked(x.GoPointer())
+	return cret
 }
 
 var xFlapGetModal func(uintptr) bool
@@ -235,8 +234,8 @@ var xFlapGetModal func(uintptr) bool
 // Gets whether @self is modal.
 func (x *Flap) GetModal() bool {
 
-	return xFlapGetModal(x.GoPointer())
-
+	cret := xFlapGetModal(x.GoPointer())
+	return cret
 }
 
 var xFlapGetRevealFlap func(uintptr) bool
@@ -244,8 +243,8 @@ var xFlapGetRevealFlap func(uintptr) bool
 // Gets whether the flap widget is revealed for @self.
 func (x *Flap) GetRevealFlap() bool {
 
-	return xFlapGetRevealFlap(x.GoPointer())
-
+	cret := xFlapGetRevealFlap(x.GoPointer())
+	return cret
 }
 
 var xFlapGetRevealParams func(uintptr) *SpringParams
@@ -253,8 +252,8 @@ var xFlapGetRevealParams func(uintptr) *SpringParams
 // Gets the reveal animation spring parameters for @self.
 func (x *Flap) GetRevealParams() *SpringParams {
 
-	return xFlapGetRevealParams(x.GoPointer())
-
+	cret := xFlapGetRevealParams(x.GoPointer())
+	return cret
 }
 
 var xFlapGetRevealProgress func(uintptr) float64
@@ -266,26 +265,25 @@ var xFlapGetRevealProgress func(uintptr) float64
 // See [property@Flap:reveal-flap].
 func (x *Flap) GetRevealProgress() float64 {
 
-	return xFlapGetRevealProgress(x.GoPointer())
-
+	cret := xFlapGetRevealProgress(x.GoPointer())
+	return cret
 }
 
 var xFlapGetSeparator func(uintptr) uintptr
 
 // Gets the separator widget for @self.
 func (x *Flap) GetSeparator() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetSeparatorPtr := xFlapGetSeparator(x.GoPointer())
-	if GetSeparatorPtr == 0 {
-		return nil
+	cret := xFlapGetSeparator(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSeparatorPtr)
-
-	GetSeparatorCls := &gtk.Widget{}
-	GetSeparatorCls.Ptr = GetSeparatorPtr
-	return GetSeparatorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlapGetSwipeToClose func(uintptr) bool
@@ -293,8 +291,8 @@ var xFlapGetSwipeToClose func(uintptr) bool
 // Gets whether @self can be closed with a swipe gesture.
 func (x *Flap) GetSwipeToClose() bool {
 
-	return xFlapGetSwipeToClose(x.GoPointer())
-
+	cret := xFlapGetSwipeToClose(x.GoPointer())
+	return cret
 }
 
 var xFlapGetSwipeToOpen func(uintptr) bool
@@ -302,8 +300,8 @@ var xFlapGetSwipeToOpen func(uintptr) bool
 // Gets whether @self can be opened with a swipe gesture.
 func (x *Flap) GetSwipeToOpen() bool {
 
-	return xFlapGetSwipeToOpen(x.GoPointer())
-
+	cret := xFlapGetSwipeToOpen(x.GoPointer())
+	return cret
 }
 
 var xFlapGetTransitionType func(uintptr) FlapTransitionType
@@ -311,8 +309,8 @@ var xFlapGetTransitionType func(uintptr) FlapTransitionType
 // Gets the type of animation used for reveal and fold transitions in @self.
 func (x *Flap) GetTransitionType() FlapTransitionType {
 
-	return xFlapGetTransitionType(x.GoPointer())
-
+	cret := xFlapGetTransitionType(x.GoPointer())
+	return cret
 }
 
 var xFlapSetContent func(uintptr, uintptr)
@@ -495,8 +493,8 @@ func (c *Flap) SetGoPointer(ptr uintptr) {
 // Gets the progress @self will snap back to after the gesture is canceled.
 func (x *Flap) GetCancelProgress() float64 {
 
-	return XAdwSwipeableGetCancelProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetCancelProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the swipe distance of @self.
@@ -504,15 +502,15 @@ func (x *Flap) GetCancelProgress() float64 {
 // This corresponds to how many pixels 1 unit represents.
 func (x *Flap) GetDistance() float64 {
 
-	return XAdwSwipeableGetDistance(x.GoPointer())
-
+	cret := XAdwSwipeableGetDistance(x.GoPointer())
+	return cret
 }
 
 // Gets the current progress of @self.
 func (x *Flap) GetProgress() float64 {
 
-	return XAdwSwipeableGetProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the snap points of @self.
@@ -521,8 +519,8 @@ func (x *Flap) GetProgress() float64 {
 // end the swipe on.
 func (x *Flap) GetSnapPoints(NSnapPointsVar int) uintptr {
 
-	return XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
-
+	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
+	return cret
 }
 
 // Gets the area @self can start a swipe from for the given direction and
@@ -543,8 +541,8 @@ func (x *Flap) GetSwipeArea(NavigationDirectionVar NavigationDirection, IsDragVa
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Flap) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -679,15 +677,15 @@ func (x *Flap) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uin
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Flap) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Flap) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

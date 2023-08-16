@@ -31,12 +31,17 @@ func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, Typ
 
 }
 
-var xContentDeserializeFinish func(uintptr, *gobject.Value) bool
+var xContentDeserializeFinish func(uintptr, *gobject.Value, **glib.Error) bool
 
 // Finishes a content deserialization operation.
-func ContentDeserializeFinish(ResultVar gio.AsyncResult, ValueVar *gobject.Value) bool {
+func ContentDeserializeFinish(ResultVar gio.AsyncResult, ValueVar *gobject.Value) (bool, error) {
+	var cerr *glib.Error
 
-	return xContentDeserializeFinish(ResultVar.GoPointer(), ValueVar)
+	cret := xContentDeserializeFinish(ResultVar.GoPointer(), ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -76,18 +81,17 @@ var xContentDeserializerGetCancellable func(uintptr) uintptr
 //
 // This is the `GCancellable` that was passed to [func@Gdk.content_deserialize_async].
 func (x *ContentDeserializer) GetCancellable() *gio.Cancellable {
+	var cls *gio.Cancellable
 
-	GetCancellablePtr := xContentDeserializerGetCancellable(x.GoPointer())
-	if GetCancellablePtr == 0 {
-		return nil
+	cret := xContentDeserializerGetCancellable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCancellablePtr)
-
-	GetCancellableCls := &gio.Cancellable{}
-	GetCancellableCls.Ptr = GetCancellablePtr
-	return GetCancellableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.Cancellable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentDeserializerGetGtype func(uintptr) []interface{}
@@ -95,8 +99,8 @@ var xContentDeserializerGetGtype func(uintptr) []interface{}
 // Gets the `GType` to create an instance of.
 func (x *ContentDeserializer) GetGtype() []interface{} {
 
-	return xContentDeserializerGetGtype(x.GoPointer())
-
+	cret := xContentDeserializerGetGtype(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerGetInputStream func(uintptr) uintptr
@@ -105,18 +109,17 @@ var xContentDeserializerGetInputStream func(uintptr) uintptr
 //
 // This is the stream that was passed to [func@Gdk.content_deserialize_async].
 func (x *ContentDeserializer) GetInputStream() *gio.InputStream {
+	var cls *gio.InputStream
 
-	GetInputStreamPtr := xContentDeserializerGetInputStream(x.GoPointer())
-	if GetInputStreamPtr == 0 {
-		return nil
+	cret := xContentDeserializerGetInputStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetInputStreamPtr)
-
-	GetInputStreamCls := &gio.InputStream{}
-	GetInputStreamCls.Ptr = GetInputStreamPtr
-	return GetInputStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentDeserializerGetMimeType func(uintptr) string
@@ -124,8 +127,8 @@ var xContentDeserializerGetMimeType func(uintptr) string
 // Gets the mime type to deserialize from.
 func (x *ContentDeserializer) GetMimeType() string {
 
-	return xContentDeserializerGetMimeType(x.GoPointer())
-
+	cret := xContentDeserializerGetMimeType(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerGetPriority func(uintptr) int
@@ -135,8 +138,8 @@ var xContentDeserializerGetPriority func(uintptr) int
 // This is the priority that was passed to [func@Gdk.content_deserialize_async].
 func (x *ContentDeserializer) GetPriority() int {
 
-	return xContentDeserializerGetPriority(x.GoPointer())
-
+	cret := xContentDeserializerGetPriority(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerGetTaskData func(uintptr) uintptr
@@ -146,8 +149,8 @@ var xContentDeserializerGetTaskData func(uintptr) uintptr
 // See [method@Gdk.ContentDeserializer.set_task_data].
 func (x *ContentDeserializer) GetTaskData() uintptr {
 
-	return xContentDeserializerGetTaskData(x.GoPointer())
-
+	cret := xContentDeserializerGetTaskData(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerGetUserData func(uintptr) uintptr
@@ -155,8 +158,8 @@ var xContentDeserializerGetUserData func(uintptr) uintptr
 // Gets the user data that was passed when the deserializer was registered.
 func (x *ContentDeserializer) GetUserData() uintptr {
 
-	return xContentDeserializerGetUserData(x.GoPointer())
-
+	cret := xContentDeserializerGetUserData(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerGetValue func(uintptr) *gobject.Value
@@ -164,8 +167,8 @@ var xContentDeserializerGetValue func(uintptr) *gobject.Value
 // Gets the `GValue` to store the deserialized object in.
 func (x *ContentDeserializer) GetValue() *gobject.Value {
 
-	return xContentDeserializerGetValue(x.GoPointer())
-
+	cret := xContentDeserializerGetValue(x.GoPointer())
+	return cret
 }
 
 var xContentDeserializerReturnError func(uintptr, *glib.Error)
@@ -207,24 +210,24 @@ func (c *ContentDeserializer) SetGoPointer(ptr uintptr) {
 
 // Gets the source object from a #GAsyncResult.
 func (x *ContentDeserializer) GetSourceObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSourceObjectPtr := gio.XGAsyncResultGetSourceObject(x.GoPointer())
-	if GetSourceObjectPtr == 0 {
-		return nil
+	cret := gio.XGAsyncResultGetSourceObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSourceObjectCls := &gobject.Object{}
-	GetSourceObjectCls.Ptr = GetSourceObjectPtr
-	return GetSourceObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Checks if @res has the given @source_tag (generally a function
 // pointer indicating the function @res was created by).
 func (x *ContentDeserializer) IsTagged(SourceTagVar uintptr) bool {
 
-	return gio.XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
-
+	cret := gio.XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
+	return cret
 }
 
 // If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -237,9 +240,14 @@ func (x *ContentDeserializer) IsTagged(SourceTagVar uintptr) bool {
 // This should not be used in new code; #GAsyncResult errors that are
 // set by virtual methods should also be extracted by virtual methods,
 // to enable subclasses to chain up correctly.
-func (x *ContentDeserializer) LegacyPropagateError() bool {
+func (x *ContentDeserializer) LegacyPropagateError() (bool, error) {
+	var cerr *glib.Error
 
-	return gio.XGAsyncResultLegacyPropagateError(x.GoPointer())
+	cret := gio.XGAsyncResultLegacyPropagateError(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

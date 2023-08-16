@@ -37,34 +37,34 @@ var xNewWindowHandle func() uintptr
 
 // Creates a new `GtkWindowHandle`.
 func NewWindowHandle() *Widget {
-	NewWindowHandlePtr := xNewWindowHandle()
-	if NewWindowHandlePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWindowHandle()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWindowHandlePtr)
-
-	NewWindowHandleCls := &Widget{}
-	NewWindowHandleCls.Ptr = NewWindowHandlePtr
-	return NewWindowHandleCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowHandleGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *WindowHandle) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xWindowHandleGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xWindowHandleGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowHandleSetChild func(uintptr, uintptr)
@@ -87,8 +87,8 @@ func (c *WindowHandle) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *WindowHandle) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -223,8 +223,8 @@ func (x *WindowHandle) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *WindowHandle) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

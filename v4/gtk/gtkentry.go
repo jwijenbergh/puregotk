@@ -135,32 +135,34 @@ var xNewEntry func() uintptr
 
 // Creates a new entry.
 func NewEntry() *Widget {
-	NewEntryPtr := xNewEntry()
-	if NewEntryPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewEntry()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewEntryPtr)
-
-	NewEntryCls := &Widget{}
-	NewEntryCls.Ptr = NewEntryPtr
-	return NewEntryCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithBufferEntry func(uintptr) uintptr
 
 // Creates a new entry with the specified text buffer.
 func NewWithBufferEntry(BufferVar *EntryBuffer) *Widget {
-	NewWithBufferEntryPtr := xNewWithBufferEntry(BufferVar.GoPointer())
-	if NewWithBufferEntryPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithBufferEntry(BufferVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithBufferEntryPtr)
-
-	NewWithBufferEntryCls := &Widget{}
-	NewWithBufferEntryCls.Ptr = NewWithBufferEntryPtr
-	return NewWithBufferEntryCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetActivatesDefault func(uintptr) bool
@@ -168,8 +170,8 @@ var xEntryGetActivatesDefault func(uintptr) bool
 // Retrieves the value set by gtk_entry_set_activates_default().
 func (x *Entry) GetActivatesDefault() bool {
 
-	return xEntryGetActivatesDefault(x.GoPointer())
-
+	cret := xEntryGetActivatesDefault(x.GoPointer())
+	return cret
 }
 
 var xEntryGetAlignment func(uintptr) float32
@@ -179,8 +181,8 @@ var xEntryGetAlignment func(uintptr) float32
 // See also: [property@Gtk.Editable:xalign]
 func (x *Entry) GetAlignment() float32 {
 
-	return xEntryGetAlignment(x.GoPointer())
-
+	cret := xEntryGetAlignment(x.GoPointer())
+	return cret
 }
 
 var xEntryGetAttributes func(uintptr) *pango.AttrList
@@ -190,8 +192,8 @@ var xEntryGetAttributes func(uintptr) *pango.AttrList
 // See [method@Gtk.Entry.set_attributes].
 func (x *Entry) GetAttributes() *pango.AttrList {
 
-	return xEntryGetAttributes(x.GoPointer())
-
+	cret := xEntryGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xEntryGetBuffer func(uintptr) uintptr
@@ -199,18 +201,17 @@ var xEntryGetBuffer func(uintptr) uintptr
 // Get the `GtkEntryBuffer` object which holds the text for
 // this widget.
 func (x *Entry) GetBuffer() *EntryBuffer {
+	var cls *EntryBuffer
 
-	GetBufferPtr := xEntryGetBuffer(x.GoPointer())
-	if GetBufferPtr == 0 {
-		return nil
+	cret := xEntryGetBuffer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBufferPtr)
-
-	GetBufferCls := &EntryBuffer{}
-	GetBufferCls.Ptr = GetBufferPtr
-	return GetBufferCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EntryBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetCompletion func(uintptr) uintptr
@@ -218,18 +219,17 @@ var xEntryGetCompletion func(uintptr) uintptr
 // Returns the auxiliary completion object currently
 // in use by @entry.
 func (x *Entry) GetCompletion() *EntryCompletion {
+	var cls *EntryCompletion
 
-	GetCompletionPtr := xEntryGetCompletion(x.GoPointer())
-	if GetCompletionPtr == 0 {
-		return nil
+	cret := xEntryGetCompletion(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCompletionPtr)
-
-	GetCompletionCls := &EntryCompletion{}
-	GetCompletionCls.Ptr = GetCompletionPtr
-	return GetCompletionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EntryCompletion{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetCurrentIconDragSource func(uintptr) int
@@ -238,26 +238,25 @@ var xEntryGetCurrentIconDragSource func(uintptr) int
 // current  DND operation, or -1.
 func (x *Entry) GetCurrentIconDragSource() int {
 
-	return xEntryGetCurrentIconDragSource(x.GoPointer())
-
+	cret := xEntryGetCurrentIconDragSource(x.GoPointer())
+	return cret
 }
 
 var xEntryGetExtraMenu func(uintptr) uintptr
 
 // Gets the menu model set with gtk_entry_set_extra_menu().
 func (x *Entry) GetExtraMenu() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetExtraMenuPtr := xEntryGetExtraMenu(x.GoPointer())
-	if GetExtraMenuPtr == 0 {
-		return nil
+	cret := xEntryGetExtraMenu(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExtraMenuPtr)
-
-	GetExtraMenuCls := &gio.MenuModel{}
-	GetExtraMenuCls.Ptr = GetExtraMenuPtr
-	return GetExtraMenuCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetHasFrame func(uintptr) bool
@@ -265,8 +264,8 @@ var xEntryGetHasFrame func(uintptr) bool
 // Gets the value set by gtk_entry_set_has_frame().
 func (x *Entry) GetHasFrame() bool {
 
-	return xEntryGetHasFrame(x.GoPointer())
-
+	cret := xEntryGetHasFrame(x.GoPointer())
+	return cret
 }
 
 var xEntryGetIconActivatable func(uintptr, EntryIconPosition) bool
@@ -274,8 +273,8 @@ var xEntryGetIconActivatable func(uintptr, EntryIconPosition) bool
 // Returns whether the icon is activatable.
 func (x *Entry) GetIconActivatable(IconPosVar EntryIconPosition) bool {
 
-	return xEntryGetIconActivatable(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconActivatable(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetIconArea func(uintptr, EntryIconPosition, *gdk.Rectangle)
@@ -306,8 +305,8 @@ var xEntryGetIconAtPos func(uintptr, int, int) int
 //	[signal@Gtk.Widget::query-tooltip] signal handler.
 func (x *Entry) GetIconAtPos(XVar int, YVar int) int {
 
-	return xEntryGetIconAtPos(x.GoPointer(), XVar, YVar)
-
+	cret := xEntryGetIconAtPos(x.GoPointer(), XVar, YVar)
+	return cret
 }
 
 var xEntryGetIconGicon func(uintptr, EntryIconPosition) uintptr
@@ -317,18 +316,17 @@ var xEntryGetIconGicon func(uintptr, EntryIconPosition) uintptr
 // %NULL will be returned if there is no icon or if the icon was
 // set by some other method (e.g., by `GdkPaintable` or icon name).
 func (x *Entry) GetIconGicon(IconPosVar EntryIconPosition) *gio.IconBase {
+	var cls *gio.IconBase
 
-	GetIconGiconPtr := xEntryGetIconGicon(x.GoPointer(), IconPosVar)
-	if GetIconGiconPtr == 0 {
-		return nil
+	cret := xEntryGetIconGicon(x.GoPointer(), IconPosVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconGiconPtr)
-
-	GetIconGiconCls := &gio.IconBase{}
-	GetIconGiconCls.Ptr = GetIconGiconPtr
-	return GetIconGiconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetIconName func(uintptr, EntryIconPosition) string
@@ -339,8 +337,8 @@ var xEntryGetIconName func(uintptr, EntryIconPosition) string
 // by some other method (e.g., by `GdkPaintable` or gicon).
 func (x *Entry) GetIconName(IconPosVar EntryIconPosition) string {
 
-	return xEntryGetIconName(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconName(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetIconPaintable func(uintptr, EntryIconPosition) uintptr
@@ -349,18 +347,17 @@ var xEntryGetIconPaintable func(uintptr, EntryIconPosition) uintptr
 //
 // If no `GdkPaintable` was used for the icon, %NULL is returned.
 func (x *Entry) GetIconPaintable(IconPosVar EntryIconPosition) *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetIconPaintablePtr := xEntryGetIconPaintable(x.GoPointer(), IconPosVar)
-	if GetIconPaintablePtr == 0 {
-		return nil
+	cret := xEntryGetIconPaintable(x.GoPointer(), IconPosVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPaintablePtr)
-
-	GetIconPaintableCls := &gdk.PaintableBase{}
-	GetIconPaintableCls.Ptr = GetIconPaintablePtr
-	return GetIconPaintableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryGetIconSensitive func(uintptr, EntryIconPosition) bool
@@ -368,8 +365,8 @@ var xEntryGetIconSensitive func(uintptr, EntryIconPosition) bool
 // Returns whether the icon appears sensitive or insensitive.
 func (x *Entry) GetIconSensitive(IconPosVar EntryIconPosition) bool {
 
-	return xEntryGetIconSensitive(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconSensitive(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetIconStorageType func(uintptr, EntryIconPosition) ImageType
@@ -381,8 +378,8 @@ var xEntryGetIconStorageType func(uintptr, EntryIconPosition) ImageType
 // be %GTK_IMAGE_EMPTY.
 func (x *Entry) GetIconStorageType(IconPosVar EntryIconPosition) ImageType {
 
-	return xEntryGetIconStorageType(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconStorageType(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetIconTooltipMarkup func(uintptr, EntryIconPosition) string
@@ -391,8 +388,8 @@ var xEntryGetIconTooltipMarkup func(uintptr, EntryIconPosition) string
 // position in @entry.
 func (x *Entry) GetIconTooltipMarkup(IconPosVar EntryIconPosition) string {
 
-	return xEntryGetIconTooltipMarkup(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconTooltipMarkup(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetIconTooltipText func(uintptr, EntryIconPosition) string
@@ -401,8 +398,8 @@ var xEntryGetIconTooltipText func(uintptr, EntryIconPosition) string
 // position in @entry.
 func (x *Entry) GetIconTooltipText(IconPosVar EntryIconPosition) string {
 
-	return xEntryGetIconTooltipText(x.GoPointer(), IconPosVar)
-
+	cret := xEntryGetIconTooltipText(x.GoPointer(), IconPosVar)
+	return cret
 }
 
 var xEntryGetInputHints func(uintptr) InputHints
@@ -410,8 +407,8 @@ var xEntryGetInputHints func(uintptr) InputHints
 // Gets the input hints of this `GtkEntry`.
 func (x *Entry) GetInputHints() InputHints {
 
-	return xEntryGetInputHints(x.GoPointer())
-
+	cret := xEntryGetInputHints(x.GoPointer())
+	return cret
 }
 
 var xEntryGetInputPurpose func(uintptr) InputPurpose
@@ -419,8 +416,8 @@ var xEntryGetInputPurpose func(uintptr) InputPurpose
 // Gets the input purpose of the `GtkEntry`.
 func (x *Entry) GetInputPurpose() InputPurpose {
 
-	return xEntryGetInputPurpose(x.GoPointer())
-
+	cret := xEntryGetInputPurpose(x.GoPointer())
+	return cret
 }
 
 var xEntryGetInvisibleChar func(uintptr) uint32
@@ -429,8 +426,8 @@ var xEntryGetInvisibleChar func(uintptr) uint32
 // in “password mode”.
 func (x *Entry) GetInvisibleChar() uint32 {
 
-	return xEntryGetInvisibleChar(x.GoPointer())
-
+	cret := xEntryGetInvisibleChar(x.GoPointer())
+	return cret
 }
 
 var xEntryGetMaxLength func(uintptr) int
@@ -440,8 +437,8 @@ var xEntryGetMaxLength func(uintptr) int
 // See [method@Gtk.Entry.set_max_length].
 func (x *Entry) GetMaxLength() int {
 
-	return xEntryGetMaxLength(x.GoPointer())
-
+	cret := xEntryGetMaxLength(x.GoPointer())
+	return cret
 }
 
 var xEntryGetOverwriteMode func(uintptr) bool
@@ -449,8 +446,8 @@ var xEntryGetOverwriteMode func(uintptr) bool
 // Gets whether the `GtkEntry` is in overwrite mode.
 func (x *Entry) GetOverwriteMode() bool {
 
-	return xEntryGetOverwriteMode(x.GoPointer())
-
+	cret := xEntryGetOverwriteMode(x.GoPointer())
+	return cret
 }
 
 var xEntryGetPlaceholderText func(uintptr) string
@@ -459,8 +456,8 @@ var xEntryGetPlaceholderText func(uintptr) string
 // is empty and unfocused
 func (x *Entry) GetPlaceholderText() string {
 
-	return xEntryGetPlaceholderText(x.GoPointer())
-
+	cret := xEntryGetPlaceholderText(x.GoPointer())
+	return cret
 }
 
 var xEntryGetProgressFraction func(uintptr) float64
@@ -470,8 +467,8 @@ var xEntryGetProgressFraction func(uintptr) float64
 // See [method@Gtk.Entry.set_progress_fraction].
 func (x *Entry) GetProgressFraction() float64 {
 
-	return xEntryGetProgressFraction(x.GoPointer())
-
+	cret := xEntryGetProgressFraction(x.GoPointer())
+	return cret
 }
 
 var xEntryGetProgressPulseStep func(uintptr) float64
@@ -480,8 +477,8 @@ var xEntryGetProgressPulseStep func(uintptr) float64
 // gtk_entry_set_progress_pulse_step().
 func (x *Entry) GetProgressPulseStep() float64 {
 
-	return xEntryGetProgressPulseStep(x.GoPointer())
-
+	cret := xEntryGetProgressPulseStep(x.GoPointer())
+	return cret
 }
 
 var xEntryGetTabs func(uintptr) *pango.TabArray
@@ -491,8 +488,8 @@ var xEntryGetTabs func(uintptr) *pango.TabArray
 // See [method@Gtk.Entry.set_tabs].
 func (x *Entry) GetTabs() *pango.TabArray {
 
-	return xEntryGetTabs(x.GoPointer())
-
+	cret := xEntryGetTabs(x.GoPointer())
+	return cret
 }
 
 var xEntryGetTextLength func(uintptr) uint16
@@ -503,8 +500,8 @@ var xEntryGetTextLength func(uintptr) uint16
 // and calling [method@Gtk.EntryBuffer.get_length] on it.
 func (x *Entry) GetTextLength() uint16 {
 
-	return xEntryGetTextLength(x.GoPointer())
-
+	cret := xEntryGetTextLength(x.GoPointer())
+	return cret
 }
 
 var xEntryGetVisibility func(uintptr) bool
@@ -514,8 +511,8 @@ var xEntryGetVisibility func(uintptr) bool
 // See [method@Gtk.Entry.set_visibility].
 func (x *Entry) GetVisibility() bool {
 
-	return xEntryGetVisibility(x.GoPointer())
-
+	cret := xEntryGetVisibility(x.GoPointer())
+	return cret
 }
 
 var xEntryGrabFocusWithoutSelecting func(uintptr) bool
@@ -528,8 +525,8 @@ var xEntryGrabFocusWithoutSelecting func(uintptr) bool
 // in, such as search-as-you-type entries.
 func (x *Entry) GrabFocusWithoutSelecting() bool {
 
-	return xEntryGrabFocusWithoutSelecting(x.GoPointer())
-
+	cret := xEntryGrabFocusWithoutSelecting(x.GoPointer())
+	return cret
 }
 
 var xEntryProgressPulse func(uintptr)
@@ -952,8 +949,8 @@ func (x *Entry) ConnectIconRelease(cb func(Entry, EntryIconPosition)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Entry) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1088,8 +1085,8 @@ func (x *Entry) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Entry) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Emits the `GtkCellEditable::editing-done` signal.
@@ -1165,8 +1162,8 @@ func (x *Entry) FinishDelegate() {
 // Note that positions are specified in characters, not bytes.
 func (x *Entry) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -1174,39 +1171,38 @@ func (x *Entry) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *Entry) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *Entry) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *Entry) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *Entry) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -1215,8 +1211,8 @@ func (x *Entry) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *Entry) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -1228,8 +1224,8 @@ func (x *Entry) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *Entry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -1237,16 +1233,16 @@ func (x *Entry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *Entry) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *Entry) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

@@ -111,18 +111,17 @@ var xDisplayManagerGetDefaultDisplay func(uintptr) uintptr
 
 // Gets the default `GdkDisplay`.
 func (x *DisplayManager) GetDefaultDisplay() *Display {
+	var cls *Display
 
-	GetDefaultDisplayPtr := xDisplayManagerGetDefaultDisplay(x.GoPointer())
-	if GetDefaultDisplayPtr == 0 {
-		return nil
+	cret := xDisplayManagerGetDefaultDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDefaultDisplayPtr)
-
-	GetDefaultDisplayCls := &Display{}
-	GetDefaultDisplayCls.Ptr = GetDefaultDisplayPtr
-	return GetDefaultDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayManagerListDisplays func(uintptr) *glib.SList
@@ -130,26 +129,25 @@ var xDisplayManagerListDisplays func(uintptr) *glib.SList
 // List all currently open displays.
 func (x *DisplayManager) ListDisplays() *glib.SList {
 
-	return xDisplayManagerListDisplays(x.GoPointer())
-
+	cret := xDisplayManagerListDisplays(x.GoPointer())
+	return cret
 }
 
 var xDisplayManagerOpenDisplay func(uintptr, string) uintptr
 
 // Opens a display.
 func (x *DisplayManager) OpenDisplay(NameVar string) *Display {
+	var cls *Display
 
-	OpenDisplayPtr := xDisplayManagerOpenDisplay(x.GoPointer(), NameVar)
-	if OpenDisplayPtr == 0 {
-		return nil
+	cret := xDisplayManagerOpenDisplay(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(OpenDisplayPtr)
-
-	OpenDisplayCls := &Display{}
-	OpenDisplayCls.Ptr = OpenDisplayPtr
-	return OpenDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayManagerSetDefaultDisplay func(uintptr, uintptr)

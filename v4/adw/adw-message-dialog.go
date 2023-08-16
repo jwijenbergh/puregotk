@@ -204,16 +204,17 @@ var xNewMessageDialog func(uintptr, string, string) uintptr
 //
 // ```
 func NewMessageDialog(ParentVar *gtk.Window, HeadingVar string, BodyVar string) *gtk.Widget {
-	NewMessageDialogPtr := xNewMessageDialog(ParentVar.GoPointer(), HeadingVar, BodyVar)
-	if NewMessageDialogPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewMessageDialog(ParentVar.GoPointer(), HeadingVar, BodyVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewMessageDialogPtr)
-
-	NewMessageDialogCls := &gtk.Widget{}
-	NewMessageDialogCls.Ptr = NewMessageDialogPtr
-	return NewMessageDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMessageDialogAddResponse func(uintptr, string, string)
@@ -282,8 +283,8 @@ var xMessageDialogChooseFinish func(uintptr, uintptr) string
 // Finishes the [method@MessageDialog.choose] call and returns the response ID.
 func (x *MessageDialog) ChooseFinish(ResultVar gio.AsyncResult) string {
 
-	return xMessageDialogChooseFinish(x.GoPointer(), ResultVar.GoPointer())
-
+	cret := xMessageDialogChooseFinish(x.GoPointer(), ResultVar.GoPointer())
+	return cret
 }
 
 var xMessageDialogFormatBody func(uintptr, string, ...interface{})
@@ -347,8 +348,8 @@ var xMessageDialogGetBody func(uintptr) string
 // Gets the body text of @self.
 func (x *MessageDialog) GetBody() string {
 
-	return xMessageDialogGetBody(x.GoPointer())
-
+	cret := xMessageDialogGetBody(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetBodyUseMarkup func(uintptr) bool
@@ -356,8 +357,8 @@ var xMessageDialogGetBodyUseMarkup func(uintptr) bool
 // Gets whether the body text of @self includes Pango markup.
 func (x *MessageDialog) GetBodyUseMarkup() bool {
 
-	return xMessageDialogGetBodyUseMarkup(x.GoPointer())
-
+	cret := xMessageDialogGetBodyUseMarkup(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetCloseResponse func(uintptr) string
@@ -365,8 +366,8 @@ var xMessageDialogGetCloseResponse func(uintptr) string
 // Gets the ID of the close response of @self.
 func (x *MessageDialog) GetCloseResponse() string {
 
-	return xMessageDialogGetCloseResponse(x.GoPointer())
-
+	cret := xMessageDialogGetCloseResponse(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetDefaultResponse func(uintptr) string
@@ -374,26 +375,25 @@ var xMessageDialogGetDefaultResponse func(uintptr) string
 // Gets the ID of the default response of @self.
 func (x *MessageDialog) GetDefaultResponse() string {
 
-	return xMessageDialogGetDefaultResponse(x.GoPointer())
-
+	cret := xMessageDialogGetDefaultResponse(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetExtraChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *MessageDialog) GetExtraChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetExtraChildPtr := xMessageDialogGetExtraChild(x.GoPointer())
-	if GetExtraChildPtr == 0 {
-		return nil
+	cret := xMessageDialogGetExtraChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExtraChildPtr)
-
-	GetExtraChildCls := &gtk.Widget{}
-	GetExtraChildCls.Ptr = GetExtraChildPtr
-	return GetExtraChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMessageDialogGetHeading func(uintptr) string
@@ -401,8 +401,8 @@ var xMessageDialogGetHeading func(uintptr) string
 // Gets the heading of @self.
 func (x *MessageDialog) GetHeading() string {
 
-	return xMessageDialogGetHeading(x.GoPointer())
-
+	cret := xMessageDialogGetHeading(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetHeadingUseMarkup func(uintptr) bool
@@ -410,8 +410,8 @@ var xMessageDialogGetHeadingUseMarkup func(uintptr) bool
 // Gets whether the heading of @self includes Pango markup.
 func (x *MessageDialog) GetHeadingUseMarkup() bool {
 
-	return xMessageDialogGetHeadingUseMarkup(x.GoPointer())
-
+	cret := xMessageDialogGetHeadingUseMarkup(x.GoPointer())
+	return cret
 }
 
 var xMessageDialogGetResponseAppearance func(uintptr, string) ResponseAppearance
@@ -421,8 +421,8 @@ var xMessageDialogGetResponseAppearance func(uintptr, string) ResponseAppearance
 // See [method@MessageDialog.set_response_appearance].
 func (x *MessageDialog) GetResponseAppearance(ResponseVar string) ResponseAppearance {
 
-	return xMessageDialogGetResponseAppearance(x.GoPointer(), ResponseVar)
-
+	cret := xMessageDialogGetResponseAppearance(x.GoPointer(), ResponseVar)
+	return cret
 }
 
 var xMessageDialogGetResponseEnabled func(uintptr, string) bool
@@ -432,8 +432,8 @@ var xMessageDialogGetResponseEnabled func(uintptr, string) bool
 // See [method@MessageDialog.set_response_enabled].
 func (x *MessageDialog) GetResponseEnabled(ResponseVar string) bool {
 
-	return xMessageDialogGetResponseEnabled(x.GoPointer(), ResponseVar)
-
+	cret := xMessageDialogGetResponseEnabled(x.GoPointer(), ResponseVar)
+	return cret
 }
 
 var xMessageDialogGetResponseLabel func(uintptr, string) string
@@ -443,8 +443,8 @@ var xMessageDialogGetResponseLabel func(uintptr, string) string
 // See [method@MessageDialog.set_response_label].
 func (x *MessageDialog) GetResponseLabel(ResponseVar string) string {
 
-	return xMessageDialogGetResponseLabel(x.GoPointer(), ResponseVar)
-
+	cret := xMessageDialogGetResponseLabel(x.GoPointer(), ResponseVar)
+	return cret
 }
 
 var xMessageDialogHasResponse func(uintptr, string) bool
@@ -452,8 +452,8 @@ var xMessageDialogHasResponse func(uintptr, string) bool
 // Gets whether @self has a response with the ID @response.
 func (x *MessageDialog) HasResponse(ResponseVar string) bool {
 
-	return xMessageDialogHasResponse(x.GoPointer(), ResponseVar)
-
+	cret := xMessageDialogHasResponse(x.GoPointer(), ResponseVar)
+	return cret
 }
 
 var xMessageDialogResponse func(uintptr, string)
@@ -635,8 +635,8 @@ func (x *MessageDialog) ConnectResponse(cb func(MessageDialog, string)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *MessageDialog) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -771,40 +771,38 @@ func (x *MessageDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MessageDialog) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *MessageDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := gtk.XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *MessageDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := gtk.XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -837,18 +835,17 @@ func (x *MessageDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *MessageDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := gtk.XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -858,18 +855,17 @@ func (x *MessageDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *MessageDialog) GetFocus() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetFocusPtr := gtk.XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &gtk.Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

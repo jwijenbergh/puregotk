@@ -82,18 +82,17 @@ var xCellAreaContextGetArea func(uintptr) uintptr
 // that the `GtkCellArea` is configured with in order to
 // compute a proper allocation.
 func (x *CellAreaContext) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := xCellAreaContextGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := xCellAreaContextGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaContextGetPreferredHeight func(uintptr, int, int)

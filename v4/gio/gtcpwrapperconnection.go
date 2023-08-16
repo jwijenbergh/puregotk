@@ -33,32 +33,33 @@ var xNewTcpWrapperConnection func(uintptr, uintptr) uintptr
 
 // Wraps @base_io_stream and @socket together as a #GSocketConnection.
 func NewTcpWrapperConnection(BaseIoStreamVar *IOStream, SocketVar *Socket) *SocketConnection {
-	NewTcpWrapperConnectionPtr := xNewTcpWrapperConnection(BaseIoStreamVar.GoPointer(), SocketVar.GoPointer())
-	if NewTcpWrapperConnectionPtr == 0 {
-		return nil
-	}
+	var cls *SocketConnection
 
-	NewTcpWrapperConnectionCls := &SocketConnection{}
-	NewTcpWrapperConnectionCls.Ptr = NewTcpWrapperConnectionPtr
-	return NewTcpWrapperConnectionCls
+	cret := xNewTcpWrapperConnection(BaseIoStreamVar.GoPointer(), SocketVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTcpWrapperConnectionGetBaseIoStream func(uintptr) uintptr
 
 // Gets @conn's base #GIOStream
 func (x *TcpWrapperConnection) GetBaseIoStream() *IOStream {
+	var cls *IOStream
 
-	GetBaseIoStreamPtr := xTcpWrapperConnectionGetBaseIoStream(x.GoPointer())
-	if GetBaseIoStreamPtr == 0 {
-		return nil
+	cret := xTcpWrapperConnectionGetBaseIoStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBaseIoStreamPtr)
-
-	GetBaseIoStreamCls := &IOStream{}
-	GetBaseIoStreamCls.Ptr = GetBaseIoStreamPtr
-	return GetBaseIoStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IOStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *TcpWrapperConnection) GoPointer() uintptr {

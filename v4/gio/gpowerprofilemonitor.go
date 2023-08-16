@@ -57,8 +57,8 @@ func (x *PowerProfileMonitorBase) SetGoPointer(ptr uintptr) {
 // changed.
 func (x *PowerProfileMonitorBase) GetPowerSaverEnabled() bool {
 
-	return XGPowerProfileMonitorGetPowerSaverEnabled(x.GoPointer())
-
+	cret := XGPowerProfileMonitorGetPowerSaverEnabled(x.GoPointer())
+	return cret
 }
 
 var XGPowerProfileMonitorGetPowerSaverEnabled func(uintptr) bool
@@ -67,16 +67,16 @@ var xPowerProfileMonitorDupDefault func() uintptr
 
 // Gets a reference to the default #GPowerProfileMonitor for the system.
 func PowerProfileMonitorDupDefault() *PowerProfileMonitorBase {
+	var cls *PowerProfileMonitorBase
 
-	PowerProfileMonitorDupDefaultPtr := xPowerProfileMonitorDupDefault()
-	if PowerProfileMonitorDupDefaultPtr == 0 {
-		return nil
+	cret := xPowerProfileMonitorDupDefault()
+
+	if cret == 0 {
+		return cls
 	}
-
-	PowerProfileMonitorDupDefaultCls := &PowerProfileMonitorBase{}
-	PowerProfileMonitorDupDefaultCls.Ptr = PowerProfileMonitorDupDefaultPtr
-	return PowerProfileMonitorDupDefaultCls
-
+	cls = &PowerProfileMonitorBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

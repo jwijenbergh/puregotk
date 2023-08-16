@@ -44,4 +44,8 @@ func main() {
 	if err == nil {
 		os.WriteFile("v4/gobject/more.go", data, 0o644)
 	}
+	data, err = os.ReadFile("templates/glib")
+	if err == nil {
+		os.WriteFile("v4/glib/more.go", data, 0o644)
+	}
 }

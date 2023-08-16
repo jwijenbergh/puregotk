@@ -47,14 +47,16 @@ var xNewAlternativeTrigger func(uintptr, uintptr) uintptr
 // Note that nesting is allowed, so if you want more than two
 // alternative, create a new alternative trigger for each option.
 func NewAlternativeTrigger(FirstVar *ShortcutTrigger, SecondVar *ShortcutTrigger) *ShortcutTrigger {
-	NewAlternativeTriggerPtr := xNewAlternativeTrigger(FirstVar.GoPointer(), SecondVar.GoPointer())
-	if NewAlternativeTriggerPtr == 0 {
-		return nil
-	}
+	var cls *ShortcutTrigger
 
-	NewAlternativeTriggerCls := &ShortcutTrigger{}
-	NewAlternativeTriggerCls.Ptr = NewAlternativeTriggerPtr
-	return NewAlternativeTriggerCls
+	cret := xNewAlternativeTrigger(FirstVar.GoPointer(), SecondVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAlternativeTriggerGetFirst func(uintptr) uintptr
@@ -65,18 +67,17 @@ var xAlternativeTriggerGetFirst func(uintptr) uintptr
 // [method@Gtk.AlternativeTrigger.get_second] will return
 // the other one.
 func (x *AlternativeTrigger) GetFirst() *ShortcutTrigger {
+	var cls *ShortcutTrigger
 
-	GetFirstPtr := xAlternativeTriggerGetFirst(x.GoPointer())
-	if GetFirstPtr == 0 {
-		return nil
+	cret := xAlternativeTriggerGetFirst(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFirstPtr)
-
-	GetFirstCls := &ShortcutTrigger{}
-	GetFirstCls.Ptr = GetFirstPtr
-	return GetFirstCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAlternativeTriggerGetSecond func(uintptr) uintptr
@@ -87,18 +88,17 @@ var xAlternativeTriggerGetSecond func(uintptr) uintptr
 // [method@Gtk.AlternativeTrigger.get_first] will return
 // the other one.
 func (x *AlternativeTrigger) GetSecond() *ShortcutTrigger {
+	var cls *ShortcutTrigger
 
-	GetSecondPtr := xAlternativeTriggerGetSecond(x.GoPointer())
-	if GetSecondPtr == 0 {
-		return nil
+	cret := xAlternativeTriggerGetSecond(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSecondPtr)
-
-	GetSecondCls := &ShortcutTrigger{}
-	GetSecondCls.Ptr = GetSecondPtr
-	return GetSecondCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *AlternativeTrigger) GoPointer() uintptr {
@@ -125,14 +125,16 @@ var xNewKeyvalTrigger func(uint, gdk.ModifierType) uintptr
 // Creates a `GtkShortcutTrigger` that will trigger whenever
 // the key with the given @keyval and @modifiers is pressed.
 func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *ShortcutTrigger {
-	NewKeyvalTriggerPtr := xNewKeyvalTrigger(KeyvalVar, ModifiersVar)
-	if NewKeyvalTriggerPtr == 0 {
-		return nil
-	}
+	var cls *ShortcutTrigger
 
-	NewKeyvalTriggerCls := &ShortcutTrigger{}
-	NewKeyvalTriggerCls.Ptr = NewKeyvalTriggerPtr
-	return NewKeyvalTriggerCls
+	cret := xNewKeyvalTrigger(KeyvalVar, ModifiersVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xKeyvalTriggerGetKeyval func(uintptr) uint
@@ -141,8 +143,8 @@ var xKeyvalTriggerGetKeyval func(uintptr) uint
 // triggering @self.
 func (x *KeyvalTrigger) GetKeyval() uint {
 
-	return xKeyvalTriggerGetKeyval(x.GoPointer())
-
+	cret := xKeyvalTriggerGetKeyval(x.GoPointer())
+	return cret
 }
 
 var xKeyvalTriggerGetModifiers func(uintptr) gdk.ModifierType
@@ -151,8 +153,8 @@ var xKeyvalTriggerGetModifiers func(uintptr) gdk.ModifierType
 // triggering @self.
 func (x *KeyvalTrigger) GetModifiers() gdk.ModifierType {
 
-	return xKeyvalTriggerGetModifiers(x.GoPointer())
-
+	cret := xKeyvalTriggerGetModifiers(x.GoPointer())
+	return cret
 }
 
 func (c *KeyvalTrigger) GoPointer() uintptr {
@@ -185,14 +187,16 @@ var xNewMnemonicTrigger func(uint) uintptr
 // Mnemonics are activated by calling code when a key event with the right
 // modifiers is detected.
 func NewMnemonicTrigger(KeyvalVar uint) *MnemonicTrigger {
-	NewMnemonicTriggerPtr := xNewMnemonicTrigger(KeyvalVar)
-	if NewMnemonicTriggerPtr == 0 {
-		return nil
-	}
+	var cls *MnemonicTrigger
 
-	NewMnemonicTriggerCls := &MnemonicTrigger{}
-	NewMnemonicTriggerCls.Ptr = NewMnemonicTriggerPtr
-	return NewMnemonicTriggerCls
+	cret := xNewMnemonicTrigger(KeyvalVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MnemonicTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMnemonicTriggerGetKeyval func(uintptr) uint
@@ -200,8 +204,8 @@ var xMnemonicTriggerGetKeyval func(uintptr) uint
 // Gets the keyval that must be pressed to succeed triggering @self.
 func (x *MnemonicTrigger) GetKeyval() uint {
 
-	return xMnemonicTriggerGetKeyval(x.GoPointer())
-
+	cret := xMnemonicTriggerGetKeyval(x.GoPointer())
+	return cret
 }
 
 func (c *MnemonicTrigger) GoPointer() uintptr {
@@ -271,14 +275,16 @@ var xParseStringShortcutTrigger func(string) uintptr
 // triggers in XML files, such as GtkBuilder ui files. Use `&amp;lt;` instead of
 // `&lt;` and `&amp;gt;` instead of `&gt;`.
 func ParseStringShortcutTrigger(StringVar string) *ShortcutTrigger {
-	ParseStringShortcutTriggerPtr := xParseStringShortcutTrigger(StringVar)
-	if ParseStringShortcutTriggerPtr == 0 {
-		return nil
-	}
+	var cls *ShortcutTrigger
 
-	ParseStringShortcutTriggerCls := &ShortcutTrigger{}
-	ParseStringShortcutTriggerCls.Ptr = ParseStringShortcutTriggerPtr
-	return ParseStringShortcutTriggerCls
+	cret := xParseStringShortcutTrigger(StringVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ShortcutTrigger{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutTriggerCompare func(uintptr, uintptr) int
@@ -289,8 +295,8 @@ var xShortcutTriggerCompare func(uintptr, uintptr) int
 // They must each be a `GtkShortcutTrigger`.
 func (x *ShortcutTrigger) Compare(Trigger2Var uintptr) int {
 
-	return xShortcutTriggerCompare(x.GoPointer(), Trigger2Var)
-
+	cret := xShortcutTriggerCompare(x.GoPointer(), Trigger2Var)
+	return cret
 }
 
 var xShortcutTriggerEqual func(uintptr, uintptr) bool
@@ -301,8 +307,8 @@ var xShortcutTriggerEqual func(uintptr, uintptr) bool
 // function with `GHashTable`. They must each be a `GtkShortcutTrigger`.
 func (x *ShortcutTrigger) Equal(Trigger2Var uintptr) bool {
 
-	return xShortcutTriggerEqual(x.GoPointer(), Trigger2Var)
-
+	cret := xShortcutTriggerEqual(x.GoPointer(), Trigger2Var)
+	return cret
 }
 
 var xShortcutTriggerHash func(uintptr) uint
@@ -318,8 +324,8 @@ var xShortcutTriggerHash func(uintptr) uint
 // function with `GHashTable`. They must each be a `GtkShortcutTrigger`.
 func (x *ShortcutTrigger) Hash() uint {
 
-	return xShortcutTriggerHash(x.GoPointer())
-
+	cret := xShortcutTriggerHash(x.GoPointer())
+	return cret
 }
 
 var xShortcutTriggerPrint func(uintptr, *glib.String)
@@ -350,8 +356,8 @@ var xShortcutTriggerPrintLabel func(uintptr, uintptr, *glib.String) bool
 // not guaranteed to stay identical.
 func (x *ShortcutTrigger) PrintLabel(DisplayVar *gdk.Display, StringVar *glib.String) bool {
 
-	return xShortcutTriggerPrintLabel(x.GoPointer(), DisplayVar.GoPointer(), StringVar)
-
+	cret := xShortcutTriggerPrintLabel(x.GoPointer(), DisplayVar.GoPointer(), StringVar)
+	return cret
 }
 
 var xShortcutTriggerToLabel func(uintptr, uintptr) string
@@ -370,8 +376,8 @@ var xShortcutTriggerToLabel func(uintptr, uintptr) string
 // not guaranteed to stay identical.
 func (x *ShortcutTrigger) ToLabel(DisplayVar *gdk.Display) string {
 
-	return xShortcutTriggerToLabel(x.GoPointer(), DisplayVar.GoPointer())
-
+	cret := xShortcutTriggerToLabel(x.GoPointer(), DisplayVar.GoPointer())
+	return cret
 }
 
 var xShortcutTriggerToString func(uintptr) string
@@ -382,8 +388,8 @@ var xShortcutTriggerToString func(uintptr) string
 // to help when debugging.
 func (x *ShortcutTrigger) ToString() string {
 
-	return xShortcutTriggerToString(x.GoPointer())
-
+	cret := xShortcutTriggerToString(x.GoPointer())
+	return cret
 }
 
 var xShortcutTriggerTrigger func(uintptr, uintptr, bool) gdk.KeyMatch
@@ -391,8 +397,8 @@ var xShortcutTriggerTrigger func(uintptr, uintptr, bool) gdk.KeyMatch
 // Checks if the given @event triggers @self.
 func (x *ShortcutTrigger) Trigger(EventVar *gdk.Event, EnableMnemonicsVar bool) gdk.KeyMatch {
 
-	return xShortcutTriggerTrigger(x.GoPointer(), EventVar.GoPointer(), EnableMnemonicsVar)
-
+	cret := xShortcutTriggerTrigger(x.GoPointer(), EventVar.GoPointer(), EnableMnemonicsVar)
+	return cret
 }
 
 func (c *ShortcutTrigger) GoPointer() uintptr {

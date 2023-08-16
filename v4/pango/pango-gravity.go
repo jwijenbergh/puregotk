@@ -64,8 +64,8 @@ var xGravityGetForMatrix func(*Matrix) Gravity
 // in a `PangoMatrix`.
 func GravityGetForMatrix(MatrixVar *Matrix) Gravity {
 
-	return xGravityGetForMatrix(MatrixVar)
-
+	cret := xGravityGetForMatrix(MatrixVar)
+	return cret
 }
 
 var xGravityGetForScript func(Script, Gravity, GravityHint) Gravity
@@ -79,8 +79,8 @@ var xGravityGetForScript func(Script, Gravity, GravityHint) Gravity
 // pass %PANGO_GRAVITY_AUTO and %PANGO_GRAVITY_HINT_STRONG in.
 func GravityGetForScript(ScriptVar Script, BaseGravityVar Gravity, HintVar GravityHint) Gravity {
 
-	return xGravityGetForScript(ScriptVar, BaseGravityVar, HintVar)
-
+	cret := xGravityGetForScript(ScriptVar, BaseGravityVar, HintVar)
+	return cret
 }
 
 var xGravityGetForScriptAndWidth func(Script, bool, Gravity, GravityHint) Gravity
@@ -102,8 +102,8 @@ var xGravityGetForScriptAndWidth func(Script, bool, Gravity, GravityHint) Gravit
 // preferred gravity of @script.
 func GravityGetForScriptAndWidth(ScriptVar Script, WideVar bool, BaseGravityVar Gravity, HintVar GravityHint) Gravity {
 
-	return xGravityGetForScriptAndWidth(ScriptVar, WideVar, BaseGravityVar, HintVar)
-
+	cret := xGravityGetForScriptAndWidth(ScriptVar, WideVar, BaseGravityVar, HintVar)
+	return cret
 }
 
 var xGravityToRotation func(Gravity) float64
@@ -115,8 +115,8 @@ var xGravityToRotation func(Gravity) float64
 // you should multiply it by (180. / G_PI).
 func GravityToRotation(GravityVar Gravity) float64 {
 
-	return xGravityToRotation(GravityVar)
-
+	cret := xGravityToRotation(GravityVar)
+	return cret
 }
 
 func init() {

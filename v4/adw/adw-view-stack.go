@@ -86,34 +86,34 @@ var xNewViewStack func() uintptr
 
 // Creates a new `AdwViewStack`.
 func NewViewStack() *gtk.Widget {
-	NewViewStackPtr := xNewViewStack()
-	if NewViewStackPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewViewStack()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewViewStackPtr)
-
-	NewViewStackCls := &gtk.Widget{}
-	NewViewStackCls.Ptr = NewViewStackPtr
-	return NewViewStackCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackAdd func(uintptr, uintptr) uintptr
 
 // Adds a child to @self.
 func (x *ViewStack) Add(ChildVar *gtk.Widget) *ViewStackPage {
+	var cls *ViewStackPage
 
-	AddPtr := xViewStackAdd(x.GoPointer(), ChildVar.GoPointer())
-	if AddPtr == 0 {
-		return nil
+	cret := xViewStackAdd(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddPtr)
-
-	AddCls := &ViewStackPage{}
-	AddCls.Ptr = AddPtr
-	return AddCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackAddNamed func(uintptr, uintptr, string) uintptr
@@ -122,18 +122,17 @@ var xViewStackAddNamed func(uintptr, uintptr, string) uintptr
 //
 // The child is identified by the @name.
 func (x *ViewStack) AddNamed(ChildVar *gtk.Widget, NameVar string) *ViewStackPage {
+	var cls *ViewStackPage
 
-	AddNamedPtr := xViewStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
-	if AddNamedPtr == 0 {
-		return nil
+	cret := xViewStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddNamedPtr)
-
-	AddNamedCls := &ViewStackPage{}
-	AddNamedCls.Ptr = AddNamedPtr
-	return AddNamedCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackAddTitled func(uintptr, uintptr, string, string) uintptr
@@ -143,18 +142,17 @@ var xViewStackAddTitled func(uintptr, uintptr, string, string) uintptr
 // The child is identified by the @name. The @title will be used by
 // [class@ViewSwitcher] to represent @child, so it should be short.
 func (x *ViewStack) AddTitled(ChildVar *gtk.Widget, NameVar string, TitleVar string) *ViewStackPage {
+	var cls *ViewStackPage
 
-	AddTitledPtr := xViewStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
-	if AddTitledPtr == 0 {
-		return nil
+	cret := xViewStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddTitledPtr)
-
-	AddTitledCls := &ViewStackPage{}
-	AddTitledCls.Ptr = AddTitledPtr
-	return AddTitledCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackAddTitledWithIcon func(uintptr, uintptr, string, string, string) uintptr
@@ -164,36 +162,34 @@ var xViewStackAddTitledWithIcon func(uintptr, uintptr, string, string, string) u
 // The child is identified by the @name. The @title and @icon_name will be used
 // by [class@ViewSwitcher] to represent @child.
 func (x *ViewStack) AddTitledWithIcon(ChildVar *gtk.Widget, NameVar string, TitleVar string, IconNameVar string) *ViewStackPage {
+	var cls *ViewStackPage
 
-	AddTitledWithIconPtr := xViewStackAddTitledWithIcon(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar, IconNameVar)
-	if AddTitledWithIconPtr == 0 {
-		return nil
+	cret := xViewStackAddTitledWithIcon(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar, IconNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddTitledWithIconPtr)
-
-	AddTitledWithIconCls := &ViewStackPage{}
-	AddTitledWithIconCls.Ptr = AddTitledWithIconPtr
-	return AddTitledWithIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackGetChildByName func(uintptr, string) uintptr
 
 // Finds the child with @name in @self.
 func (x *ViewStack) GetChildByName(NameVar string) *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildByNamePtr := xViewStackGetChildByName(x.GoPointer(), NameVar)
-	if GetChildByNamePtr == 0 {
-		return nil
+	cret := xViewStackGetChildByName(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildByNamePtr)
-
-	GetChildByNameCls := &gtk.Widget{}
-	GetChildByNameCls.Ptr = GetChildByNamePtr
-	return GetChildByNameCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackGetHhomogeneous func(uintptr) bool
@@ -201,26 +197,25 @@ var xViewStackGetHhomogeneous func(uintptr) bool
 // Gets whether @self is horizontally homogeneous.
 func (x *ViewStack) GetHhomogeneous() bool {
 
-	return xViewStackGetHhomogeneous(x.GoPointer())
-
+	cret := xViewStackGetHhomogeneous(x.GoPointer())
+	return cret
 }
 
 var xViewStackGetPage func(uintptr, uintptr) uintptr
 
 // Gets the [class@ViewStackPage] object for @child.
 func (x *ViewStack) GetPage(ChildVar *gtk.Widget) *ViewStackPage {
+	var cls *ViewStackPage
 
-	GetPagePtr := xViewStackGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xViewStackGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &ViewStackPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackGetPages func(uintptr) uintptr
@@ -231,16 +226,16 @@ var xViewStackGetPages func(uintptr) uintptr
 // [iface@Gtk.SelectionModel] and can be used to track and change the visible
 // page.
 func (x *ViewStack) GetPages() *gtk.SelectionModelBase {
+	var cls *gtk.SelectionModelBase
 
-	GetPagesPtr := xViewStackGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xViewStackGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &gtk.SelectionModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &gtk.SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackGetVhomogeneous func(uintptr) bool
@@ -248,26 +243,25 @@ var xViewStackGetVhomogeneous func(uintptr) bool
 // Gets whether @self is vertically homogeneous.
 func (x *ViewStack) GetVhomogeneous() bool {
 
-	return xViewStackGetVhomogeneous(x.GoPointer())
-
+	cret := xViewStackGetVhomogeneous(x.GoPointer())
+	return cret
 }
 
 var xViewStackGetVisibleChild func(uintptr) uintptr
 
 // Gets the currently visible child of @self, .
 func (x *ViewStack) GetVisibleChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetVisibleChildPtr := xViewStackGetVisibleChild(x.GoPointer())
-	if GetVisibleChildPtr == 0 {
-		return nil
+	cret := xViewStackGetVisibleChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVisibleChildPtr)
-
-	GetVisibleChildCls := &gtk.Widget{}
-	GetVisibleChildCls.Ptr = GetVisibleChildPtr
-	return GetVisibleChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackGetVisibleChildName func(uintptr) string
@@ -275,8 +269,8 @@ var xViewStackGetVisibleChildName func(uintptr) string
 // Returns the name of the currently visible child of @self.
 func (x *ViewStack) GetVisibleChildName() string {
 
-	return xViewStackGetVisibleChildName(x.GoPointer())
-
+	cret := xViewStackGetVisibleChildName(x.GoPointer())
+	return cret
 }
 
 var xViewStackRemove func(uintptr, uintptr)
@@ -349,8 +343,8 @@ func (c *ViewStack) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ViewStack) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -485,8 +479,8 @@ func (x *ViewStack) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ViewStack) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // An auxiliary class used by [class@ViewStack].
@@ -505,26 +499,25 @@ var xViewStackPageGetBadgeNumber func(uintptr) uint
 // Gets the badge number for this page.
 func (x *ViewStackPage) GetBadgeNumber() uint {
 
-	return xViewStackPageGetBadgeNumber(x.GoPointer())
-
+	cret := xViewStackPageGetBadgeNumber(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetChild func(uintptr) uintptr
 
 // Gets the stack child to which @self belongs.
 func (x *ViewStackPage) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xViewStackPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xViewStackPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewStackPageGetIconName func(uintptr) string
@@ -532,8 +525,8 @@ var xViewStackPageGetIconName func(uintptr) string
 // Gets the icon name of the page.
 func (x *ViewStackPage) GetIconName() string {
 
-	return xViewStackPageGetIconName(x.GoPointer())
-
+	cret := xViewStackPageGetIconName(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetName func(uintptr) string
@@ -541,8 +534,8 @@ var xViewStackPageGetName func(uintptr) string
 // Gets the name of the page.
 func (x *ViewStackPage) GetName() string {
 
-	return xViewStackPageGetName(x.GoPointer())
-
+	cret := xViewStackPageGetName(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetNeedsAttention func(uintptr) bool
@@ -550,8 +543,8 @@ var xViewStackPageGetNeedsAttention func(uintptr) bool
 // Gets whether the page requires the user attention.
 func (x *ViewStackPage) GetNeedsAttention() bool {
 
-	return xViewStackPageGetNeedsAttention(x.GoPointer())
-
+	cret := xViewStackPageGetNeedsAttention(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetTitle func(uintptr) string
@@ -559,8 +552,8 @@ var xViewStackPageGetTitle func(uintptr) string
 // Gets the page title.
 func (x *ViewStackPage) GetTitle() string {
 
-	return xViewStackPageGetTitle(x.GoPointer())
-
+	cret := xViewStackPageGetTitle(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetUseUnderline func(uintptr) bool
@@ -568,8 +561,8 @@ var xViewStackPageGetUseUnderline func(uintptr) bool
 // Gets whether underlines in the page title indicate mnemonics.
 func (x *ViewStackPage) GetUseUnderline() bool {
 
-	return xViewStackPageGetUseUnderline(x.GoPointer())
-
+	cret := xViewStackPageGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageGetVisible func(uintptr) bool
@@ -580,8 +573,8 @@ var xViewStackPageGetVisible func(uintptr) bool
 // property of its widget.
 func (x *ViewStackPage) GetVisible() bool {
 
-	return xViewStackPageGetVisible(x.GoPointer())
-
+	cret := xViewStackPageGetVisible(x.GoPointer())
+	return cret
 }
 
 var xViewStackPageSetBadgeNumber func(uintptr, uint)
@@ -668,8 +661,8 @@ func (c *ViewStackPage) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ViewStackPage) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.

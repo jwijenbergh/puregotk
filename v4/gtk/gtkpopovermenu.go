@@ -152,16 +152,17 @@ var xNewFromModelPopoverMenu func(uintptr) uintptr
 // See [ctor@Gtk.PopoverMenu.new_from_model_full] for a way
 // to control this.
 func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *Widget {
-	NewFromModelPopoverMenuPtr := xNewFromModelPopoverMenu(ModelVar.GoPointer())
-	if NewFromModelPopoverMenuPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromModelPopoverMenu(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromModelPopoverMenuPtr)
-
-	NewFromModelPopoverMenuCls := &Widget{}
-	NewFromModelPopoverMenuCls.Ptr = NewFromModelPopoverMenuPtr
-	return NewFromModelPopoverMenuCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromModelFullPopoverMenu func(uintptr, PopoverMenuFlags) uintptr
@@ -178,16 +179,17 @@ var xNewFromModelFullPopoverMenu func(uintptr, PopoverMenuFlags) uintptr
 // %GTK_POPOVER_MENU_NESTED, which makes GTK create traditional,
 // nested submenus instead of the default sliding submenus.
 func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFlags) *Widget {
-	NewFromModelFullPopoverMenuPtr := xNewFromModelFullPopoverMenu(ModelVar.GoPointer(), FlagsVar)
-	if NewFromModelFullPopoverMenuPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromModelFullPopoverMenu(ModelVar.GoPointer(), FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromModelFullPopoverMenuPtr)
-
-	NewFromModelFullPopoverMenuCls := &Widget{}
-	NewFromModelFullPopoverMenuCls.Ptr = NewFromModelFullPopoverMenuPtr
-	return NewFromModelFullPopoverMenuCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverMenuAddChild func(uintptr, uintptr, string) bool
@@ -198,26 +200,25 @@ var xPopoverMenuAddChild func(uintptr, uintptr, string) bool
 // an item with a `custom` attribute that matches @id.
 func (x *PopoverMenu) AddChild(ChildVar *Widget, IdVar string) bool {
 
-	return xPopoverMenuAddChild(x.GoPointer(), ChildVar.GoPointer(), IdVar)
-
+	cret := xPopoverMenuAddChild(x.GoPointer(), ChildVar.GoPointer(), IdVar)
+	return cret
 }
 
 var xPopoverMenuGetMenuModel func(uintptr) uintptr
 
 // Returns the menu model used to populate the popover.
 func (x *PopoverMenu) GetMenuModel() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenuModelPtr := xPopoverMenuGetMenuModel(x.GoPointer())
-	if GetMenuModelPtr == 0 {
-		return nil
+	cret := xPopoverMenuGetMenuModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuModelPtr)
-
-	GetMenuModelCls := &gio.MenuModel{}
-	GetMenuModelCls.Ptr = GetMenuModelPtr
-	return GetMenuModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverMenuRemoveChild func(uintptr, uintptr) bool
@@ -226,8 +227,8 @@ var xPopoverMenuRemoveChild func(uintptr, uintptr) bool
 // gtk_popover_menu_add_child().
 func (x *PopoverMenu) RemoveChild(ChildVar *Widget) bool {
 
-	return xPopoverMenuRemoveChild(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xPopoverMenuRemoveChild(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xPopoverMenuSetMenuModel func(uintptr, uintptr)
@@ -254,8 +255,8 @@ func (c *PopoverMenu) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PopoverMenu) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -390,40 +391,38 @@ func (x *PopoverMenu) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PopoverMenu) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *PopoverMenu) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *PopoverMenu) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.

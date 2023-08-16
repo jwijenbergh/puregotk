@@ -33,14 +33,16 @@ var xNewEventControllerFocus func() uintptr
 
 // Creates a new event controller that will handle focus events.
 func NewEventControllerFocus() *EventController {
-	NewEventControllerFocusPtr := xNewEventControllerFocus()
-	if NewEventControllerFocusPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewEventControllerFocusCls := &EventController{}
-	NewEventControllerFocusCls.Ptr = NewEventControllerFocusPtr
-	return NewEventControllerFocusCls
+	cret := xNewEventControllerFocus()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerFocusContainsFocus func(uintptr) bool
@@ -48,8 +50,8 @@ var xEventControllerFocusContainsFocus func(uintptr) bool
 // Returns %TRUE if focus is within @self or one of its children.
 func (x *EventControllerFocus) ContainsFocus() bool {
 
-	return xEventControllerFocusContainsFocus(x.GoPointer())
-
+	cret := xEventControllerFocusContainsFocus(x.GoPointer())
+	return cret
 }
 
 var xEventControllerFocusIsFocus func(uintptr) bool
@@ -57,8 +59,8 @@ var xEventControllerFocusIsFocus func(uintptr) bool
 // Returns %TRUE if focus is within @self, but not one of its children.
 func (x *EventControllerFocus) IsFocus() bool {
 
-	return xEventControllerFocusIsFocus(x.GoPointer())
-
+	cret := xEventControllerFocusIsFocus(x.GoPointer())
+	return cret
 }
 
 func (c *EventControllerFocus) GoPointer() uintptr {

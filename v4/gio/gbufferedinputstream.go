@@ -43,14 +43,16 @@ var xNewBufferedInputStream func(uintptr) uintptr
 // Creates a new #GInputStream from the given @base_stream, with
 // a buffer set to the default size (4 kilobytes).
 func NewBufferedInputStream(BaseStreamVar *InputStream) *InputStream {
-	NewBufferedInputStreamPtr := xNewBufferedInputStream(BaseStreamVar.GoPointer())
-	if NewBufferedInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewBufferedInputStreamCls := &InputStream{}
-	NewBufferedInputStreamCls.Ptr = NewBufferedInputStreamPtr
-	return NewBufferedInputStreamCls
+	cret := xNewBufferedInputStream(BaseStreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewSizedBufferedInputStream func(uintptr, uint) uintptr
@@ -58,17 +60,19 @@ var xNewSizedBufferedInputStream func(uintptr, uint) uintptr
 // Creates a new #GBufferedInputStream from the given @base_stream,
 // with a buffer set to @size.
 func NewSizedBufferedInputStream(BaseStreamVar *InputStream, SizeVar uint) *InputStream {
-	NewSizedBufferedInputStreamPtr := xNewSizedBufferedInputStream(BaseStreamVar.GoPointer(), SizeVar)
-	if NewSizedBufferedInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewSizedBufferedInputStreamCls := &InputStream{}
-	NewSizedBufferedInputStreamCls.Ptr = NewSizedBufferedInputStreamPtr
-	return NewSizedBufferedInputStreamCls
+	cret := xNewSizedBufferedInputStream(BaseStreamVar.GoPointer(), SizeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xBufferedInputStreamFill func(uintptr, int, uintptr) int
+var xBufferedInputStreamFill func(uintptr, int, uintptr, **glib.Error) int
 
 // Tries to read @count bytes from the stream into the buffer.
 // Will block during this read.
@@ -94,9 +98,14 @@ var xBufferedInputStreamFill func(uintptr, int, uintptr) int
 //
 // For the asynchronous, non-blocking, version of this function, see
 // g_buffered_input_stream_fill_async().
-func (x *BufferedInputStream) Fill(CountVar int, CancellableVar *Cancellable) int {
+func (x *BufferedInputStream) Fill(CountVar int, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xBufferedInputStreamFill(x.GoPointer(), CountVar, CancellableVar.GoPointer())
+	cret := xBufferedInputStreamFill(x.GoPointer(), CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -114,12 +123,17 @@ func (x *BufferedInputStream) FillAsync(CountVar int, IoPriorityVar int, Cancell
 
 }
 
-var xBufferedInputStreamFillFinish func(uintptr, uintptr) int
+var xBufferedInputStreamFillFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes an asynchronous read.
-func (x *BufferedInputStream) FillFinish(ResultVar AsyncResult) int {
+func (x *BufferedInputStream) FillFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xBufferedInputStreamFillFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xBufferedInputStreamFillFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -128,8 +142,8 @@ var xBufferedInputStreamGetAvailable func(uintptr) uint
 // Gets the size of the available data within the stream.
 func (x *BufferedInputStream) GetAvailable() uint {
 
-	return xBufferedInputStreamGetAvailable(x.GoPointer())
-
+	cret := xBufferedInputStreamGetAvailable(x.GoPointer())
+	return cret
 }
 
 var xBufferedInputStreamGetBufferSize func(uintptr) uint
@@ -137,8 +151,8 @@ var xBufferedInputStreamGetBufferSize func(uintptr) uint
 // Gets the size of the input buffer.
 func (x *BufferedInputStream) GetBufferSize() uint {
 
-	return xBufferedInputStreamGetBufferSize(x.GoPointer())
-
+	cret := xBufferedInputStreamGetBufferSize(x.GoPointer())
+	return cret
 }
 
 var xBufferedInputStreamPeek func(uintptr, uintptr, uint, uint) uint
@@ -147,8 +161,8 @@ var xBufferedInputStreamPeek func(uintptr, uintptr, uint, uint) uint
 // offset @offset bytes.
 func (x *BufferedInputStream) Peek(BufferVar uintptr, OffsetVar uint, CountVar uint) uint {
 
-	return xBufferedInputStreamPeek(x.GoPointer(), BufferVar, OffsetVar, CountVar)
-
+	cret := xBufferedInputStreamPeek(x.GoPointer(), BufferVar, OffsetVar, CountVar)
+	return cret
 }
 
 var xBufferedInputStreamPeekBuffer func(uintptr, uint) uintptr
@@ -158,11 +172,11 @@ var xBufferedInputStreamPeekBuffer func(uintptr, uint) uintptr
 // the stream or filling the buffer.
 func (x *BufferedInputStream) PeekBuffer(CountVar uint) uintptr {
 
-	return xBufferedInputStreamPeekBuffer(x.GoPointer(), CountVar)
-
+	cret := xBufferedInputStreamPeekBuffer(x.GoPointer(), CountVar)
+	return cret
 }
 
-var xBufferedInputStreamReadByte func(uintptr, uintptr) int
+var xBufferedInputStreamReadByte func(uintptr, uintptr, **glib.Error) int
 
 // Tries to read a single byte from the stream or the buffer. Will block
 // during this read.
@@ -177,9 +191,14 @@ var xBufferedInputStreamReadByte func(uintptr, uintptr) int
 // partial result will be returned, without an error.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) int {
+func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xBufferedInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xBufferedInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -205,16 +224,16 @@ func (c *BufferedInputStream) SetGoPointer(ptr uintptr) {
 // Tests if the stream supports the #GSeekableIface.
 func (x *BufferedInputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *BufferedInputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -231,17 +250,22 @@ func (x *BufferedInputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *BufferedInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *BufferedInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *BufferedInputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -253,9 +277,14 @@ func (x *BufferedInputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *BufferedInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *BufferedInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

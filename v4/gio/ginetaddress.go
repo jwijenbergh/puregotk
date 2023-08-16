@@ -39,14 +39,16 @@ var xNewAnyInetAddress func(SocketFamily) uintptr
 // Creates a #GInetAddress for the "any" address (unassigned/"don't
 // care") for @family.
 func NewAnyInetAddress(FamilyVar SocketFamily) *InetAddress {
-	NewAnyInetAddressPtr := xNewAnyInetAddress(FamilyVar)
-	if NewAnyInetAddressPtr == 0 {
-		return nil
-	}
+	var cls *InetAddress
 
-	NewAnyInetAddressCls := &InetAddress{}
-	NewAnyInetAddressCls.Ptr = NewAnyInetAddressPtr
-	return NewAnyInetAddressCls
+	cret := xNewAnyInetAddress(FamilyVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromBytesInetAddress func(uintptr, SocketFamily) uintptr
@@ -55,42 +57,48 @@ var xNewFromBytesInetAddress func(uintptr, SocketFamily) uintptr
 // @bytes should be 4 bytes for %G_SOCKET_FAMILY_IPV4 and 16 bytes for
 // %G_SOCKET_FAMILY_IPV6.
 func NewFromBytesInetAddress(BytesVar uintptr, FamilyVar SocketFamily) *InetAddress {
-	NewFromBytesInetAddressPtr := xNewFromBytesInetAddress(BytesVar, FamilyVar)
-	if NewFromBytesInetAddressPtr == 0 {
-		return nil
-	}
+	var cls *InetAddress
 
-	NewFromBytesInetAddressCls := &InetAddress{}
-	NewFromBytesInetAddressCls.Ptr = NewFromBytesInetAddressPtr
-	return NewFromBytesInetAddressCls
+	cret := xNewFromBytesInetAddress(BytesVar, FamilyVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromStringInetAddress func(string) uintptr
 
 // Parses @string as an IP address and creates a new #GInetAddress.
 func NewFromStringInetAddress(StringVar string) *InetAddress {
-	NewFromStringInetAddressPtr := xNewFromStringInetAddress(StringVar)
-	if NewFromStringInetAddressPtr == 0 {
-		return nil
-	}
+	var cls *InetAddress
 
-	NewFromStringInetAddressCls := &InetAddress{}
-	NewFromStringInetAddressCls.Ptr = NewFromStringInetAddressPtr
-	return NewFromStringInetAddressCls
+	cret := xNewFromStringInetAddress(StringVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewLoopbackInetAddress func(SocketFamily) uintptr
 
 // Creates a #GInetAddress for the loopback address for @family.
 func NewLoopbackInetAddress(FamilyVar SocketFamily) *InetAddress {
-	NewLoopbackInetAddressPtr := xNewLoopbackInetAddress(FamilyVar)
-	if NewLoopbackInetAddressPtr == 0 {
-		return nil
-	}
+	var cls *InetAddress
 
-	NewLoopbackInetAddressCls := &InetAddress{}
-	NewLoopbackInetAddressCls.Ptr = NewLoopbackInetAddressPtr
-	return NewLoopbackInetAddressCls
+	cret := xNewLoopbackInetAddress(FamilyVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInetAddressEqual func(uintptr, uintptr) bool
@@ -98,8 +106,8 @@ var xInetAddressEqual func(uintptr, uintptr) bool
 // Checks if two #GInetAddress instances are equal, e.g. the same address.
 func (x *InetAddress) Equal(OtherAddressVar *InetAddress) bool {
 
-	return xInetAddressEqual(x.GoPointer(), OtherAddressVar.GoPointer())
-
+	cret := xInetAddressEqual(x.GoPointer(), OtherAddressVar.GoPointer())
+	return cret
 }
 
 var xInetAddressGetFamily func(uintptr) SocketFamily
@@ -107,8 +115,8 @@ var xInetAddressGetFamily func(uintptr) SocketFamily
 // Gets @address's family
 func (x *InetAddress) GetFamily() SocketFamily {
 
-	return xInetAddressGetFamily(x.GoPointer())
-
+	cret := xInetAddressGetFamily(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsAny func(uintptr) bool
@@ -116,8 +124,8 @@ var xInetAddressGetIsAny func(uintptr) bool
 // Tests whether @address is the "any" address for its family.
 func (x *InetAddress) GetIsAny() bool {
 
-	return xInetAddressGetIsAny(x.GoPointer())
-
+	cret := xInetAddressGetIsAny(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsLinkLocal func(uintptr) bool
@@ -127,8 +135,8 @@ var xInetAddressGetIsLinkLocal func(uintptr) bool
 // Internet).
 func (x *InetAddress) GetIsLinkLocal() bool {
 
-	return xInetAddressGetIsLinkLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsLinkLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsLoopback func(uintptr) bool
@@ -136,8 +144,8 @@ var xInetAddressGetIsLoopback func(uintptr) bool
 // Tests whether @address is the loopback address for its family.
 func (x *InetAddress) GetIsLoopback() bool {
 
-	return xInetAddressGetIsLoopback(x.GoPointer())
-
+	cret := xInetAddressGetIsLoopback(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMcGlobal func(uintptr) bool
@@ -145,8 +153,8 @@ var xInetAddressGetIsMcGlobal func(uintptr) bool
 // Tests whether @address is a global multicast address.
 func (x *InetAddress) GetIsMcGlobal() bool {
 
-	return xInetAddressGetIsMcGlobal(x.GoPointer())
-
+	cret := xInetAddressGetIsMcGlobal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMcLinkLocal func(uintptr) bool
@@ -154,8 +162,8 @@ var xInetAddressGetIsMcLinkLocal func(uintptr) bool
 // Tests whether @address is a link-local multicast address.
 func (x *InetAddress) GetIsMcLinkLocal() bool {
 
-	return xInetAddressGetIsMcLinkLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsMcLinkLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMcNodeLocal func(uintptr) bool
@@ -163,8 +171,8 @@ var xInetAddressGetIsMcNodeLocal func(uintptr) bool
 // Tests whether @address is a node-local multicast address.
 func (x *InetAddress) GetIsMcNodeLocal() bool {
 
-	return xInetAddressGetIsMcNodeLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsMcNodeLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMcOrgLocal func(uintptr) bool
@@ -172,8 +180,8 @@ var xInetAddressGetIsMcOrgLocal func(uintptr) bool
 // Tests whether @address is an organization-local multicast address.
 func (x *InetAddress) GetIsMcOrgLocal() bool {
 
-	return xInetAddressGetIsMcOrgLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsMcOrgLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMcSiteLocal func(uintptr) bool
@@ -181,8 +189,8 @@ var xInetAddressGetIsMcSiteLocal func(uintptr) bool
 // Tests whether @address is a site-local multicast address.
 func (x *InetAddress) GetIsMcSiteLocal() bool {
 
-	return xInetAddressGetIsMcSiteLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsMcSiteLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsMulticast func(uintptr) bool
@@ -190,8 +198,8 @@ var xInetAddressGetIsMulticast func(uintptr) bool
 // Tests whether @address is a multicast address.
 func (x *InetAddress) GetIsMulticast() bool {
 
-	return xInetAddressGetIsMulticast(x.GoPointer())
-
+	cret := xInetAddressGetIsMulticast(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetIsSiteLocal func(uintptr) bool
@@ -202,8 +210,8 @@ var xInetAddressGetIsSiteLocal func(uintptr) bool
 // outgoing Internet connectivity via a NAT or firewall).
 func (x *InetAddress) GetIsSiteLocal() bool {
 
-	return xInetAddressGetIsSiteLocal(x.GoPointer())
-
+	cret := xInetAddressGetIsSiteLocal(x.GoPointer())
+	return cret
 }
 
 var xInetAddressGetNativeSize func(uintptr) uint
@@ -212,8 +220,8 @@ var xInetAddressGetNativeSize func(uintptr) uint
 // is the size of the data that you get from g_inet_address_to_bytes().
 func (x *InetAddress) GetNativeSize() uint {
 
-	return xInetAddressGetNativeSize(x.GoPointer())
-
+	cret := xInetAddressGetNativeSize(x.GoPointer())
+	return cret
 }
 
 var xInetAddressToBytes func(uintptr) byte
@@ -221,8 +229,8 @@ var xInetAddressToBytes func(uintptr) byte
 // Gets the raw binary address data from @address.
 func (x *InetAddress) ToBytes() byte {
 
-	return xInetAddressToBytes(x.GoPointer())
-
+	cret := xInetAddressToBytes(x.GoPointer())
+	return cret
 }
 
 var xInetAddressToString func(uintptr) string
@@ -230,8 +238,8 @@ var xInetAddressToString func(uintptr) string
 // Converts @address to string form.
 func (x *InetAddress) ToString() string {
 
-	return xInetAddressToString(x.GoPointer())
-
+	cret := xInetAddressToString(x.GoPointer())
+	return cret
 }
 
 func (c *InetAddress) GoPointer() uintptr {

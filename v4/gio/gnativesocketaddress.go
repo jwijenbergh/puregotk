@@ -28,14 +28,16 @@ var xNewNativeSocketAddress func(uintptr, uint) uintptr
 
 // Creates a new #GNativeSocketAddress for @native and @len.
 func NewNativeSocketAddress(NativeVar uintptr, LenVar uint) *SocketAddress {
-	NewNativeSocketAddressPtr := xNewNativeSocketAddress(NativeVar, LenVar)
-	if NewNativeSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewNativeSocketAddressCls := &SocketAddress{}
-	NewNativeSocketAddressCls.Ptr = NewNativeSocketAddressPtr
-	return NewNativeSocketAddressCls
+	cret := xNewNativeSocketAddress(NativeVar, LenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *NativeSocketAddress) GoPointer() uintptr {
@@ -48,16 +50,16 @@ func (c *NativeSocketAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *NativeSocketAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -68,16 +70,16 @@ func (x *NativeSocketAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *NativeSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -89,8 +91,8 @@ func (x *NativeSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *NativeSocketAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

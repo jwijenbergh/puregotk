@@ -10,9 +10,9 @@ import (
 type DBusAnnotationInfo struct {
 	RefCount int32
 
-	Key string
+	Key uintptr
 
-	Value string
+	Value uintptr
 
 	Annotations uintptr
 }
@@ -21,9 +21,9 @@ type DBusAnnotationInfo struct {
 type DBusArgInfo struct {
 	RefCount int32
 
-	Name string
+	Name uintptr
 
-	Signature string
+	Signature uintptr
 
 	Annotations uintptr
 }
@@ -32,7 +32,7 @@ type DBusArgInfo struct {
 type DBusInterfaceInfo struct {
 	RefCount int32
 
-	Name string
+	Name uintptr
 
 	Methods uintptr
 
@@ -47,7 +47,7 @@ type DBusInterfaceInfo struct {
 type DBusMethodInfo struct {
 	RefCount int32
 
-	Name string
+	Name uintptr
 
 	InArgs uintptr
 
@@ -60,7 +60,7 @@ type DBusMethodInfo struct {
 type DBusNodeInfo struct {
 	RefCount int32
 
-	Path string
+	Path uintptr
 
 	Interfaces uintptr
 
@@ -73,9 +73,9 @@ type DBusNodeInfo struct {
 type DBusPropertyInfo struct {
 	RefCount int32
 
-	Name string
+	Name uintptr
 
-	Signature string
+	Signature uintptr
 
 	Flags DBusPropertyInfoFlags
 
@@ -86,7 +86,7 @@ type DBusPropertyInfo struct {
 type DBusSignalInfo struct {
 	RefCount int32
 
-	Name string
+	Name uintptr
 
 	Args uintptr
 
@@ -100,8 +100,8 @@ var xDbusAnnotationInfoLookup func(uintptr, string) string
 // The cost of this function is O(n) in number of annotations.
 func DbusAnnotationInfoLookup(AnnotationsVar uintptr, NameVar string) string {
 
-	return xDbusAnnotationInfoLookup(AnnotationsVar, NameVar)
-
+	cret := xDbusAnnotationInfoLookup(AnnotationsVar, NameVar)
+	return cret
 }
 
 func init() {

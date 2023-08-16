@@ -45,7 +45,7 @@ func (x *InputStream) ClearPending() {
 
 }
 
-var xInputStreamClose func(uintptr, uintptr) bool
+var xInputStreamClose func(uintptr, uintptr, **glib.Error) bool
 
 // Closes the stream, releasing resources related to it.
 //
@@ -70,9 +70,14 @@ var xInputStreamClose func(uintptr, uintptr) bool
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 // Cancelling a close will still leave the stream closed, but some streams
 // can use a faster close that doesn't block to e.g. check errors.
-func (x *InputStream) Close(CancellableVar *Cancellable) bool {
+func (x *InputStream) Close(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xInputStreamClose(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xInputStreamClose(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -94,12 +99,17 @@ func (x *InputStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable,
 
 }
 
-var xInputStreamCloseFinish func(uintptr, uintptr) bool
+var xInputStreamCloseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes closing a stream asynchronously, started from g_input_stream_close_async().
-func (x *InputStream) CloseFinish(ResultVar AsyncResult) bool {
+func (x *InputStream) CloseFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xInputStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xInputStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -108,8 +118,8 @@ var xInputStreamHasPending func(uintptr) bool
 // Checks if an input stream has pending actions.
 func (x *InputStream) HasPending() bool {
 
-	return xInputStreamHasPending(x.GoPointer())
-
+	cret := xInputStreamHasPending(x.GoPointer())
+	return cret
 }
 
 var xInputStreamIsClosed func(uintptr) bool
@@ -117,11 +127,11 @@ var xInputStreamIsClosed func(uintptr) bool
 // Checks if an input stream is closed.
 func (x *InputStream) IsClosed() bool {
 
-	return xInputStreamIsClosed(x.GoPointer())
-
+	cret := xInputStreamIsClosed(x.GoPointer())
+	return cret
 }
 
-var xInputStreamRead func(uintptr, uintptr, uint, uintptr) int
+var xInputStreamRead func(uintptr, uintptr, uint, uintptr, **glib.Error) int
 
 // Tries to read @count bytes from the stream into the buffer starting at
 // @buffer. Will block during this read.
@@ -144,13 +154,18 @@ var xInputStreamRead func(uintptr, uintptr, uint, uintptr) int
 // partial result will be returned, without an error.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *InputStream) Read(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *InputStream) Read(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xInputStreamRead(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := xInputStreamRead(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xInputStreamReadAll func(uintptr, uintptr, uint, uint, uintptr) bool
+var xInputStreamReadAll func(uintptr, uintptr, uint, uint, uintptr, **glib.Error) bool
 
 // Tries to read @count bytes from the stream into the buffer starting at
 // @buffer. Will block during this read.
@@ -171,9 +186,14 @@ var xInputStreamReadAll func(uintptr, uintptr, uint, uint, uintptr) bool
 // read before the error was encountered.  This functionality is only
 // available from C.  If you need it from another language then you must
 // write your own loop around g_input_stream_read().
-func (x *InputStream) ReadAll(BufferVar uintptr, CountVar uint, BytesReadVar uint, CancellableVar *Cancellable) bool {
+func (x *InputStream) ReadAll(BufferVar uintptr, CountVar uint, BytesReadVar uint, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xInputStreamReadAll(x.GoPointer(), BufferVar, CountVar, BytesReadVar, CancellableVar.GoPointer())
+	cret := xInputStreamReadAll(x.GoPointer(), BufferVar, CountVar, BytesReadVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -195,7 +215,7 @@ func (x *InputStream) ReadAllAsync(BufferVar uintptr, CountVar uint, IoPriorityV
 
 }
 
-var xInputStreamReadAllFinish func(uintptr, uintptr, uint) bool
+var xInputStreamReadAllFinish func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Finishes an asynchronous stream read operation started with
 // g_input_stream_read_all_async().
@@ -206,9 +226,14 @@ var xInputStreamReadAllFinish func(uintptr, uintptr, uint) bool
 // read before the error was encountered.  This functionality is only
 // available from C.  If you need it from another language then you must
 // write your own loop around g_input_stream_read_async().
-func (x *InputStream) ReadAllFinish(ResultVar AsyncResult, BytesReadVar uint) bool {
+func (x *InputStream) ReadAllFinish(ResultVar AsyncResult, BytesReadVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xInputStreamReadAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesReadVar)
+	cret := xInputStreamReadAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesReadVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -243,7 +268,7 @@ func (x *InputStream) ReadAsync(BufferVar uintptr, CountVar uint, IoPriorityVar 
 
 }
 
-var xInputStreamReadBytes func(uintptr, uint, uintptr) *glib.Bytes
+var xInputStreamReadBytes func(uintptr, uint, uintptr, **glib.Error) *glib.Bytes
 
 // Like g_input_stream_read(), this tries to read @count bytes from
 // the stream in a blocking fashion. However, rather than reading into
@@ -268,9 +293,14 @@ var xInputStreamReadBytes func(uintptr, uint, uintptr) *glib.Bytes
 // partial result will be returned, without an error.
 //
 // On error %NULL is returned and @error is set accordingly.
-func (x *InputStream) ReadBytes(CountVar uint, CancellableVar *Cancellable) *glib.Bytes {
+func (x *InputStream) ReadBytes(CountVar uint, CancellableVar *Cancellable) (*glib.Bytes, error) {
+	var cerr *glib.Error
 
-	return xInputStreamReadBytes(x.GoPointer(), CountVar, CancellableVar.GoPointer())
+	cret := xInputStreamReadBytes(x.GoPointer(), CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -302,21 +332,31 @@ func (x *InputStream) ReadBytesAsync(CountVar uint, IoPriorityVar int, Cancellab
 
 }
 
-var xInputStreamReadBytesFinish func(uintptr, uintptr) *glib.Bytes
+var xInputStreamReadBytesFinish func(uintptr, uintptr, **glib.Error) *glib.Bytes
 
 // Finishes an asynchronous stream read-into-#GBytes operation.
-func (x *InputStream) ReadBytesFinish(ResultVar AsyncResult) *glib.Bytes {
+func (x *InputStream) ReadBytesFinish(ResultVar AsyncResult) (*glib.Bytes, error) {
+	var cerr *glib.Error
 
-	return xInputStreamReadBytesFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xInputStreamReadBytesFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xInputStreamReadFinish func(uintptr, uintptr) int
+var xInputStreamReadFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes an asynchronous stream read operation.
-func (x *InputStream) ReadFinish(ResultVar AsyncResult) int {
+func (x *InputStream) ReadFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xInputStreamReadFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xInputStreamReadFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -325,13 +365,18 @@ var xInputStreamSetPending func(uintptr) bool
 // Sets @stream to have actions pending. If the pending flag is
 // already set or @stream is closed, it will return %FALSE and set
 // @error.
-func (x *InputStream) SetPending() bool {
+func (x *InputStream) SetPending() (bool, error) {
+	var cerr *glib.Error
 
-	return xInputStreamSetPending(x.GoPointer())
+	cret := xInputStreamSetPending(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xInputStreamSkip func(uintptr, uint, uintptr) int
+var xInputStreamSkip func(uintptr, uint, uintptr, **glib.Error) int
 
 // Tries to skip @count bytes from the stream. Will block during the operation.
 //
@@ -347,9 +392,14 @@ var xInputStreamSkip func(uintptr, uint, uintptr) int
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *InputStream) Skip(CountVar uint, CancellableVar *Cancellable) int {
+func (x *InputStream) Skip(CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xInputStreamSkip(x.GoPointer(), CountVar, CancellableVar.GoPointer())
+	cret := xInputStreamSkip(x.GoPointer(), CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -384,12 +434,17 @@ func (x *InputStream) SkipAsync(CountVar uint, IoPriorityVar int, CancellableVar
 
 }
 
-var xInputStreamSkipFinish func(uintptr, uintptr) int
+var xInputStreamSkipFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes a stream skip operation.
-func (x *InputStream) SkipFinish(ResultVar AsyncResult) int {
+func (x *InputStream) SkipFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xInputStreamSkipFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xInputStreamSkipFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

@@ -52,26 +52,25 @@ var xMonitorGetConnector func(uintptr) string
 // Gets the name of the monitor's connector, if available.
 func (x *Monitor) GetConnector() string {
 
-	return xMonitorGetConnector(x.GoPointer())
-
+	cret := xMonitorGetConnector(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetDisplay func(uintptr) uintptr
 
 // Gets the display that this monitor belongs to.
 func (x *Monitor) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xMonitorGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xMonitorGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMonitorGetGeometry func(uintptr, *Rectangle)
@@ -92,8 +91,8 @@ var xMonitorGetHeightMm func(uintptr) int
 // Gets the height in millimeters of the monitor.
 func (x *Monitor) GetHeightMm() int {
 
-	return xMonitorGetHeightMm(x.GoPointer())
-
+	cret := xMonitorGetHeightMm(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetManufacturer func(uintptr) string
@@ -107,8 +106,8 @@ var xMonitorGetManufacturer func(uintptr) string
 // [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
 func (x *Monitor) GetManufacturer() string {
 
-	return xMonitorGetManufacturer(x.GoPointer())
-
+	cret := xMonitorGetManufacturer(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetModel func(uintptr) string
@@ -116,8 +115,8 @@ var xMonitorGetModel func(uintptr) string
 // Gets the string identifying the monitor model, if available.
 func (x *Monitor) GetModel() string {
 
-	return xMonitorGetModel(x.GoPointer())
-
+	cret := xMonitorGetModel(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetRefreshRate func(uintptr) int
@@ -128,8 +127,8 @@ var xMonitorGetRefreshRate func(uintptr) int
 // is returned as 60000.
 func (x *Monitor) GetRefreshRate() int {
 
-	return xMonitorGetRefreshRate(x.GoPointer())
-
+	cret := xMonitorGetRefreshRate(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetScaleFactor func(uintptr) int
@@ -145,8 +144,8 @@ var xMonitorGetScaleFactor func(uintptr) int
 // where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
 func (x *Monitor) GetScaleFactor() int {
 
-	return xMonitorGetScaleFactor(x.GoPointer())
-
+	cret := xMonitorGetScaleFactor(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetSubpixelLayout func(uintptr) SubpixelLayout
@@ -155,8 +154,8 @@ var xMonitorGetSubpixelLayout func(uintptr) SubpixelLayout
 // primaries for pixels.
 func (x *Monitor) GetSubpixelLayout() SubpixelLayout {
 
-	return xMonitorGetSubpixelLayout(x.GoPointer())
-
+	cret := xMonitorGetSubpixelLayout(x.GoPointer())
+	return cret
 }
 
 var xMonitorGetWidthMm func(uintptr) int
@@ -164,8 +163,8 @@ var xMonitorGetWidthMm func(uintptr) int
 // Gets the width in millimeters of the monitor.
 func (x *Monitor) GetWidthMm() int {
 
-	return xMonitorGetWidthMm(x.GoPointer())
-
+	cret := xMonitorGetWidthMm(x.GoPointer())
+	return cret
 }
 
 var xMonitorIsValid func(uintptr) bool
@@ -177,8 +176,8 @@ var xMonitorIsValid func(uintptr) bool
 // is unplugged or removed.
 func (x *Monitor) IsValid() bool {
 
-	return xMonitorIsValid(x.GoPointer())
-
+	cret := xMonitorIsValid(x.GoPointer())
+	return cret
 }
 
 func (c *Monitor) GoPointer() uintptr {

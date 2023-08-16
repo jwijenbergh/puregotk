@@ -31,8 +31,8 @@ var xRectAlloc func() *Rect
 // The contents of the returned rectangle are undefined.
 func RectAlloc() *Rect {
 
-	return xRectAlloc()
-
+	cret := xRectAlloc()
+	return cret
 }
 
 var xRectZero func() *Rect
@@ -41,8 +41,8 @@ var xRectZero func() *Rect
 // a size of 0, 0.
 func RectZero() *Rect {
 
-	return xRectZero()
-
+	cret := xRectZero()
+	return cret
 }
 
 func init() {

@@ -72,8 +72,8 @@ var xBidiTypeForUnichar func(uint32) BidiType
 // A simplified version of this function is available as [func@unichar_direction].
 func BidiTypeForUnichar(ChVar uint32) BidiType {
 
-	return xBidiTypeForUnichar(ChVar)
-
+	cret := xBidiTypeForUnichar(ChVar)
+	return cret
 }
 
 var xFindBaseDir func(string, int) Direction
@@ -82,8 +82,8 @@ var xFindBaseDir func(string, int) Direction
 // direction, according to the Unicode bidirectional algorithm.
 func FindBaseDir(TextVar string, LengthVar int) Direction {
 
-	return xFindBaseDir(TextVar, LengthVar)
-
+	cret := xFindBaseDir(TextVar, LengthVar)
+	return cret
 }
 
 var xGetMirrorChar func(uint32, uint32) bool
@@ -93,8 +93,8 @@ var xGetMirrorChar func(uint32, uint32) bool
 // Mirror characters are determined by the Unicode mirrored property.
 func GetMirrorChar(ChVar uint32, MirroredChVar uint32) bool {
 
-	return xGetMirrorChar(ChVar, MirroredChVar)
-
+	cret := xGetMirrorChar(ChVar, MirroredChVar)
+	return cret
 }
 
 var xUnicharDirection func(uint32) Direction
@@ -110,8 +110,8 @@ var xUnicharDirection func(uint32) Direction
 // can be used instead.
 func UnicharDirection(ChVar uint32) Direction {
 
-	return xUnicharDirection(ChVar)
-
+	cret := xUnicharDirection(ChVar)
+	return cret
 }
 
 func init() {

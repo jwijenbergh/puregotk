@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -27,14 +28,16 @@ var xNewZlibDecompressor func(ZlibCompressorFormat) uintptr
 
 // Creates a new #GZlibDecompressor.
 func NewZlibDecompressor(FormatVar ZlibCompressorFormat) *ZlibDecompressor {
-	NewZlibDecompressorPtr := xNewZlibDecompressor(FormatVar)
-	if NewZlibDecompressorPtr == 0 {
-		return nil
-	}
+	var cls *ZlibDecompressor
 
-	NewZlibDecompressorCls := &ZlibDecompressor{}
-	NewZlibDecompressorCls.Ptr = NewZlibDecompressorPtr
-	return NewZlibDecompressorCls
+	cret := xNewZlibDecompressor(FormatVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ZlibDecompressor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xZlibDecompressorGetFileInfo func(uintptr) uintptr
@@ -45,18 +48,17 @@ var xZlibDecompressorGetFileInfo func(uintptr) uintptr
 // or the header data was not fully processed yet, or it not present in the
 // data stream at all.
 func (x *ZlibDecompressor) GetFileInfo() *FileInfo {
+	var cls *FileInfo
 
-	GetFileInfoPtr := xZlibDecompressorGetFileInfo(x.GoPointer())
-	if GetFileInfoPtr == 0 {
-		return nil
+	cret := xZlibDecompressorGetFileInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFileInfoPtr)
-
-	GetFileInfoCls := &FileInfo{}
-	GetFileInfoCls.Ptr = GetFileInfoPtr
-	return GetFileInfoCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ZlibDecompressor) GoPointer() uintptr {
@@ -149,9 +151,14 @@ func (c *ZlibDecompressor) SetGoPointer(ptr uintptr) {
 // at a partial multibyte sequence). Converters are supposed to try
 // to produce as much output as possible and then return an error
 // (typically %G_IO_ERROR_PARTIAL_INPUT).
-func (x *ZlibDecompressor) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult {
+func (x *ZlibDecompressor) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
+	var cerr *glib.Error
 
-	return XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar)
+	cret := XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

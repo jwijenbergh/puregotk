@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 )
@@ -44,14 +45,16 @@ var xNewForSurfaceRenderer func(uintptr) uintptr
 //
 // The renderer will be realized before it is returned.
 func NewForSurfaceRenderer(SurfaceVar *gdk.Surface) *Renderer {
-	NewForSurfaceRendererPtr := xNewForSurfaceRenderer(SurfaceVar.GoPointer())
-	if NewForSurfaceRendererPtr == 0 {
-		return nil
-	}
+	var cls *Renderer
 
-	NewForSurfaceRendererCls := &Renderer{}
-	NewForSurfaceRendererCls.Ptr = NewForSurfaceRendererPtr
-	return NewForSurfaceRendererCls
+	cret := xNewForSurfaceRenderer(SurfaceVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRendererGetSurface func(uintptr) uintptr
@@ -60,18 +63,17 @@ var xRendererGetSurface func(uintptr) uintptr
 //
 // If the renderer has not been realized yet, %NULL will be returned.
 func (x *Renderer) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := xRendererGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := xRendererGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRendererIsRealized func(uintptr) bool
@@ -79,11 +81,11 @@ var xRendererIsRealized func(uintptr) bool
 // Checks whether the @renderer is realized or not.
 func (x *Renderer) IsRealized() bool {
 
-	return xRendererIsRealized(x.GoPointer())
-
+	cret := xRendererIsRealized(x.GoPointer())
+	return cret
 }
 
-var xRendererRealize func(uintptr, uintptr) bool
+var xRendererRealize func(uintptr, uintptr, **glib.Error) bool
 
 // Creates the resources needed by the @renderer to render the scene
 // graph.
@@ -93,9 +95,14 @@ var xRendererRealize func(uintptr, uintptr) bool
 //
 // Note that it is mandatory to call [method@Gsk.Renderer.unrealize] before
 // destroying the renderer.
-func (x *Renderer) Realize(SurfaceVar *gdk.Surface) bool {
+func (x *Renderer) Realize(SurfaceVar *gdk.Surface) (bool, error) {
+	var cerr *glib.Error
 
-	return xRendererRealize(x.GoPointer(), SurfaceVar.GoPointer())
+	cret := xRendererRealize(x.GoPointer(), SurfaceVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -130,16 +137,16 @@ var xRendererRenderTexture func(uintptr, uintptr, *graphene.Rect) uintptr
 // If you want to apply any transformations to @root, you should put it into a
 // transform node and pass that node instead.
 func (x *Renderer) RenderTexture(RootVar *RenderNode, ViewportVar *graphene.Rect) *gdk.Texture {
+	var cls *gdk.Texture
 
-	RenderTexturePtr := xRendererRenderTexture(x.GoPointer(), RootVar.GoPointer(), ViewportVar)
-	if RenderTexturePtr == 0 {
-		return nil
+	cret := xRendererRenderTexture(x.GoPointer(), RootVar.GoPointer(), ViewportVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	RenderTextureCls := &gdk.Texture{}
-	RenderTextureCls.Ptr = RenderTexturePtr
-	return RenderTextureCls
-
+	cls = &gdk.Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRendererUnrealize func(uintptr)

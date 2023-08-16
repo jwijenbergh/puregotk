@@ -65,34 +65,34 @@ var xNewScrollbar func(Orientation, uintptr) uintptr
 
 // Creates a new scrollbar with the given orientation.
 func NewScrollbar(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
-	NewScrollbarPtr := xNewScrollbar(OrientationVar, AdjustmentVar.GoPointer())
-	if NewScrollbarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewScrollbar(OrientationVar, AdjustmentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewScrollbarPtr)
-
-	NewScrollbarCls := &Widget{}
-	NewScrollbarCls.Ptr = NewScrollbarPtr
-	return NewScrollbarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScrollbarGetAdjustment func(uintptr) uintptr
 
 // Returns the scrollbar's adjustment.
 func (x *Scrollbar) GetAdjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetAdjustmentPtr := xScrollbarGetAdjustment(x.GoPointer())
-	if GetAdjustmentPtr == 0 {
-		return nil
+	cret := xScrollbarGetAdjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAdjustmentPtr)
-
-	GetAdjustmentCls := &Adjustment{}
-	GetAdjustmentCls.Ptr = GetAdjustmentPtr
-	return GetAdjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScrollbarSetAdjustment func(uintptr, uintptr)
@@ -115,8 +115,8 @@ func (c *Scrollbar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Scrollbar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -251,15 +251,15 @@ func (x *Scrollbar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Scrollbar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Scrollbar) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

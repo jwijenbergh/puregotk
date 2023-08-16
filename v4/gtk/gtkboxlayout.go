@@ -38,14 +38,16 @@ var xNewBoxLayout func(Orientation) uintptr
 
 // Creates a new `GtkBoxLayout`.
 func NewBoxLayout(OrientationVar Orientation) *LayoutManager {
-	NewBoxLayoutPtr := xNewBoxLayout(OrientationVar)
-	if NewBoxLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewBoxLayoutCls := &LayoutManager{}
-	NewBoxLayoutCls.Ptr = NewBoxLayoutPtr
-	return NewBoxLayoutCls
+	cret := xNewBoxLayout(OrientationVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBoxLayoutGetBaselinePosition func(uintptr) BaselinePosition
@@ -53,8 +55,8 @@ var xBoxLayoutGetBaselinePosition func(uintptr) BaselinePosition
 // Gets the value set by gtk_box_layout_set_baseline_position().
 func (x *BoxLayout) GetBaselinePosition() BaselinePosition {
 
-	return xBoxLayoutGetBaselinePosition(x.GoPointer())
-
+	cret := xBoxLayoutGetBaselinePosition(x.GoPointer())
+	return cret
 }
 
 var xBoxLayoutGetHomogeneous func(uintptr) bool
@@ -62,8 +64,8 @@ var xBoxLayoutGetHomogeneous func(uintptr) bool
 // Returns whether the layout is set to be homogeneous.
 func (x *BoxLayout) GetHomogeneous() bool {
 
-	return xBoxLayoutGetHomogeneous(x.GoPointer())
-
+	cret := xBoxLayoutGetHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xBoxLayoutGetSpacing func(uintptr) uint
@@ -71,8 +73,8 @@ var xBoxLayoutGetSpacing func(uintptr) uint
 // Returns the space that @box_layout puts between children.
 func (x *BoxLayout) GetSpacing() uint {
 
-	return xBoxLayoutGetSpacing(x.GoPointer())
-
+	cret := xBoxLayoutGetSpacing(x.GoPointer())
+	return cret
 }
 
 var xBoxLayoutSetBaselinePosition func(uintptr, BaselinePosition)
@@ -120,8 +122,8 @@ func (c *BoxLayout) SetGoPointer(ptr uintptr) {
 // Retrieves the orientation of the @orientable.
 func (x *BoxLayout) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

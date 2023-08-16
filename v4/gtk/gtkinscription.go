@@ -54,16 +54,17 @@ var xNewInscription func(string) uintptr
 
 // Creates a new `GtkInscription` with the given text.
 func NewInscription(TextVar string) *Widget {
-	NewInscriptionPtr := xNewInscription(TextVar)
-	if NewInscriptionPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewInscription(TextVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewInscriptionPtr)
-
-	NewInscriptionCls := &Widget{}
-	NewInscriptionCls.Ptr = NewInscriptionPtr
-	return NewInscriptionCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInscriptionGetAttributes func(uintptr) *pango.AttrList
@@ -71,8 +72,8 @@ var xInscriptionGetAttributes func(uintptr) *pango.AttrList
 // Gets the inscription's attribute list.
 func (x *Inscription) GetAttributes() *pango.AttrList {
 
-	return xInscriptionGetAttributes(x.GoPointer())
-
+	cret := xInscriptionGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetMinChars func(uintptr) uint
@@ -82,8 +83,8 @@ var xInscriptionGetMinChars func(uintptr) uint
 // See the [property@Gtk.Inscription:min-chars] property.
 func (x *Inscription) GetMinChars() uint {
 
-	return xInscriptionGetMinChars(x.GoPointer())
-
+	cret := xInscriptionGetMinChars(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetMinLines func(uintptr) uint
@@ -93,8 +94,8 @@ var xInscriptionGetMinLines func(uintptr) uint
 // See the [property@Gtk.Inscription:min-lines] property.
 func (x *Inscription) GetMinLines() uint {
 
-	return xInscriptionGetMinLines(x.GoPointer())
-
+	cret := xInscriptionGetMinLines(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetNatChars func(uintptr) uint
@@ -104,8 +105,8 @@ var xInscriptionGetNatChars func(uintptr) uint
 // See the [property@Gtk.Inscription:nat-chars] property.
 func (x *Inscription) GetNatChars() uint {
 
-	return xInscriptionGetNatChars(x.GoPointer())
-
+	cret := xInscriptionGetNatChars(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetNatLines func(uintptr) uint
@@ -115,8 +116,8 @@ var xInscriptionGetNatLines func(uintptr) uint
 // See the [property@Gtk.Inscription:nat-lines] property.
 func (x *Inscription) GetNatLines() uint {
 
-	return xInscriptionGetNatLines(x.GoPointer())
-
+	cret := xInscriptionGetNatLines(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetText func(uintptr) string
@@ -124,8 +125,8 @@ var xInscriptionGetText func(uintptr) string
 // Gets the text that is displayed.
 func (x *Inscription) GetText() string {
 
-	return xInscriptionGetText(x.GoPointer())
-
+	cret := xInscriptionGetText(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetTextOverflow func(uintptr) InscriptionOverflow
@@ -133,8 +134,8 @@ var xInscriptionGetTextOverflow func(uintptr) InscriptionOverflow
 // Gets the inscription's overflow method.
 func (x *Inscription) GetTextOverflow() InscriptionOverflow {
 
-	return xInscriptionGetTextOverflow(x.GoPointer())
-
+	cret := xInscriptionGetTextOverflow(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetWrapMode func(uintptr) pango.WrapMode
@@ -144,8 +145,8 @@ var xInscriptionGetWrapMode func(uintptr) pango.WrapMode
 // See [method@Gtk.Inscription.set_wrap_mode].
 func (x *Inscription) GetWrapMode() pango.WrapMode {
 
-	return xInscriptionGetWrapMode(x.GoPointer())
-
+	cret := xInscriptionGetWrapMode(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetXalign func(uintptr) float32
@@ -155,8 +156,8 @@ var xInscriptionGetXalign func(uintptr) float32
 // See the [property@Gtk.Inscription:xalign] property.
 func (x *Inscription) GetXalign() float32 {
 
-	return xInscriptionGetXalign(x.GoPointer())
-
+	cret := xInscriptionGetXalign(x.GoPointer())
+	return cret
 }
 
 var xInscriptionGetYalign func(uintptr) float32
@@ -166,8 +167,8 @@ var xInscriptionGetYalign func(uintptr) float32
 // See the [property@Gtk.Inscription:yalign] property.
 func (x *Inscription) GetYalign() float32 {
 
-	return xInscriptionGetYalign(x.GoPointer())
-
+	cret := xInscriptionGetYalign(x.GoPointer())
+	return cret
 }
 
 var xInscriptionSetAttributes func(uintptr, *pango.AttrList)
@@ -296,8 +297,8 @@ func (c *Inscription) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Inscription) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -432,8 +433,8 @@ func (x *Inscription) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Inscription) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -42,57 +42,57 @@ func (x *TlsBackendBase) SetGoPointer(ptr uintptr) {
 // Gets the #GType of @backend's #GTlsCertificate implementation.
 func (x *TlsBackendBase) GetCertificateType() []interface{} {
 
-	return XGTlsBackendGetCertificateType(x.GoPointer())
-
+	cret := XGTlsBackendGetCertificateType(x.GoPointer())
+	return cret
 }
 
 // Gets the #GType of @backend's #GTlsClientConnection implementation.
 func (x *TlsBackendBase) GetClientConnectionType() []interface{} {
 
-	return XGTlsBackendGetClientConnectionType(x.GoPointer())
-
+	cret := XGTlsBackendGetClientConnectionType(x.GoPointer())
+	return cret
 }
 
 // Gets the default #GTlsDatabase used to verify TLS connections.
 func (x *TlsBackendBase) GetDefaultDatabase() *TlsDatabase {
+	var cls *TlsDatabase
 
-	GetDefaultDatabasePtr := XGTlsBackendGetDefaultDatabase(x.GoPointer())
-	if GetDefaultDatabasePtr == 0 {
-		return nil
+	cret := XGTlsBackendGetDefaultDatabase(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDefaultDatabaseCls := &TlsDatabase{}
-	GetDefaultDatabaseCls.Ptr = GetDefaultDatabasePtr
-	return GetDefaultDatabaseCls
-
+	cls = &TlsDatabase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the #GType of @backend’s #GDtlsClientConnection implementation.
 func (x *TlsBackendBase) GetDtlsClientConnectionType() []interface{} {
 
-	return XGTlsBackendGetDtlsClientConnectionType(x.GoPointer())
-
+	cret := XGTlsBackendGetDtlsClientConnectionType(x.GoPointer())
+	return cret
 }
 
 // Gets the #GType of @backend’s #GDtlsServerConnection implementation.
 func (x *TlsBackendBase) GetDtlsServerConnectionType() []interface{} {
 
-	return XGTlsBackendGetDtlsServerConnectionType(x.GoPointer())
-
+	cret := XGTlsBackendGetDtlsServerConnectionType(x.GoPointer())
+	return cret
 }
 
 // Gets the #GType of @backend's #GTlsFileDatabase implementation.
 func (x *TlsBackendBase) GetFileDatabaseType() []interface{} {
 
-	return XGTlsBackendGetFileDatabaseType(x.GoPointer())
-
+	cret := XGTlsBackendGetFileDatabaseType(x.GoPointer())
+	return cret
 }
 
 // Gets the #GType of @backend's #GTlsServerConnection implementation.
 func (x *TlsBackendBase) GetServerConnectionType() []interface{} {
 
-	return XGTlsBackendGetServerConnectionType(x.GoPointer())
-
+	cret := XGTlsBackendGetServerConnectionType(x.GoPointer())
+	return cret
 }
 
 // Set the default #GTlsDatabase used to verify TLS connections
@@ -113,16 +113,16 @@ func (x *TlsBackendBase) SetDefaultDatabase(DatabaseVar *TlsDatabase) {
 // support is available, and vice-versa.
 func (x *TlsBackendBase) SupportsDtls() bool {
 
-	return XGTlsBackendSupportsDtls(x.GoPointer())
-
+	cret := XGTlsBackendSupportsDtls(x.GoPointer())
+	return cret
 }
 
 // Checks if TLS is supported; if this returns %FALSE for the default
 // #GTlsBackend, it means no "real" TLS backend is available.
 func (x *TlsBackendBase) SupportsTls() bool {
 
-	return XGTlsBackendSupportsTls(x.GoPointer())
-
+	cret := XGTlsBackendSupportsTls(x.GoPointer())
+	return cret
 }
 
 var XGTlsBackendGetCertificateType func(uintptr) []interface{}
@@ -140,18 +140,17 @@ var xTlsBackendGetDefault func() uintptr
 
 // Gets the default #GTlsBackend for the system.
 func TlsBackendGetDefault() *TlsBackendBase {
+	var cls *TlsBackendBase
 
-	TlsBackendGetDefaultPtr := xTlsBackendGetDefault()
-	if TlsBackendGetDefaultPtr == 0 {
-		return nil
+	cret := xTlsBackendGetDefault()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(TlsBackendGetDefaultPtr)
-
-	TlsBackendGetDefaultCls := &TlsBackendBase{}
-	TlsBackendGetDefaultCls.Ptr = TlsBackendGetDefaultPtr
-	return TlsBackendGetDefaultCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsBackendBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

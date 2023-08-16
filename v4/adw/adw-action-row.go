@@ -65,16 +65,17 @@ var xNewActionRow func() uintptr
 
 // Creates a new `AdwActionRow`.
 func NewActionRow() *gtk.Widget {
-	NewActionRowPtr := xNewActionRow()
-	if NewActionRowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewActionRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewActionRowPtr)
-
-	NewActionRowCls := &gtk.Widget{}
-	NewActionRowCls.Ptr = NewActionRowPtr
-	return NewActionRowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xActionRowActivate func(uintptr)
@@ -108,18 +109,17 @@ var xActionRowGetActivatableWidget func(uintptr) uintptr
 
 // Gets the widget activated when @self is activated.
 func (x *ActionRow) GetActivatableWidget() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetActivatableWidgetPtr := xActionRowGetActivatableWidget(x.GoPointer())
-	if GetActivatableWidgetPtr == 0 {
-		return nil
+	cret := xActionRowGetActivatableWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetActivatableWidgetPtr)
-
-	GetActivatableWidgetCls := &gtk.Widget{}
-	GetActivatableWidgetCls.Ptr = GetActivatableWidgetPtr
-	return GetActivatableWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xActionRowGetIconName func(uintptr) string
@@ -127,8 +127,8 @@ var xActionRowGetIconName func(uintptr) string
 // Gets the icon name for @self.
 func (x *ActionRow) GetIconName() string {
 
-	return xActionRowGetIconName(x.GoPointer())
-
+	cret := xActionRowGetIconName(x.GoPointer())
+	return cret
 }
 
 var xActionRowGetSubtitle func(uintptr) string
@@ -136,8 +136,8 @@ var xActionRowGetSubtitle func(uintptr) string
 // Gets the subtitle for @self.
 func (x *ActionRow) GetSubtitle() string {
 
-	return xActionRowGetSubtitle(x.GoPointer())
-
+	cret := xActionRowGetSubtitle(x.GoPointer())
+	return cret
 }
 
 var xActionRowGetSubtitleLines func(uintptr) int
@@ -146,8 +146,8 @@ var xActionRowGetSubtitleLines func(uintptr) int
 // ellipsized.
 func (x *ActionRow) GetSubtitleLines() int {
 
-	return xActionRowGetSubtitleLines(x.GoPointer())
-
+	cret := xActionRowGetSubtitleLines(x.GoPointer())
+	return cret
 }
 
 var xActionRowGetSubtitleSelectable func(uintptr) bool
@@ -155,8 +155,8 @@ var xActionRowGetSubtitleSelectable func(uintptr) bool
 // Gets whether the user can copy the subtitle from the label
 func (x *ActionRow) GetSubtitleSelectable() bool {
 
-	return xActionRowGetSubtitleSelectable(x.GoPointer())
-
+	cret := xActionRowGetSubtitleSelectable(x.GoPointer())
+	return cret
 }
 
 var xActionRowGetTitleLines func(uintptr) int
@@ -165,8 +165,8 @@ var xActionRowGetTitleLines func(uintptr) int
 // ellipsized.
 func (x *ActionRow) GetTitleLines() int {
 
-	return xActionRowGetTitleLines(x.GoPointer())
-
+	cret := xActionRowGetTitleLines(x.GoPointer())
+	return cret
 }
 
 var xActionRowRemove func(uintptr, uintptr)
@@ -273,8 +273,8 @@ func (x *ActionRow) ConnectActivated(cb func(ActionRow)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ActionRow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -406,15 +406,15 @@ func (x *ActionRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // Gets the action name for @actionable.
 func (x *ActionRow) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ActionRow) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -492,8 +492,8 @@ func (x *ActionRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ActionRow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

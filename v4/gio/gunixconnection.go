@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 type UnixConnectionClass struct {
@@ -35,7 +36,7 @@ func UnixConnectionNewFromInternalPtr(ptr uintptr) *UnixConnection {
 	return cls
 }
 
-var xUnixConnectionReceiveCredentials func(uintptr, uintptr) uintptr
+var xUnixConnectionReceiveCredentials func(uintptr, uintptr, **glib.Error) uintptr
 
 // Receives credentials from the sending end of the connection.  The
 // sending end has to call g_unix_connection_send_credentials() (or
@@ -55,16 +56,21 @@ var xUnixConnectionReceiveCredentials func(uintptr, uintptr) uintptr
 //
 // Other ways to exchange credentials with a foreign peer includes the
 // #GUnixCredentialsMessage type and g_socket_get_credentials() function.
-func (x *UnixConnection) ReceiveCredentials(CancellableVar *Cancellable) *Credentials {
+func (x *UnixConnection) ReceiveCredentials(CancellableVar *Cancellable) (*Credentials, error) {
+	var cls *Credentials
+	var cerr *glib.Error
 
-	ReceiveCredentialsPtr := xUnixConnectionReceiveCredentials(x.GoPointer(), CancellableVar.GoPointer())
-	if ReceiveCredentialsPtr == 0 {
-		return nil
+	cret := xUnixConnectionReceiveCredentials(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReceiveCredentialsCls := &Credentials{}
-	ReceiveCredentialsCls.Ptr = ReceiveCredentialsPtr
-	return ReceiveCredentialsCls
+	cls = &Credentials{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -83,24 +89,29 @@ func (x *UnixConnection) ReceiveCredentialsAsync(CancellableVar *Cancellable, Ca
 
 }
 
-var xUnixConnectionReceiveCredentialsFinish func(uintptr, uintptr) uintptr
+var xUnixConnectionReceiveCredentialsFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an asynchronous receive credentials operation started with
 // g_unix_connection_receive_credentials_async().
-func (x *UnixConnection) ReceiveCredentialsFinish(ResultVar AsyncResult) *Credentials {
+func (x *UnixConnection) ReceiveCredentialsFinish(ResultVar AsyncResult) (*Credentials, error) {
+	var cls *Credentials
+	var cerr *glib.Error
 
-	ReceiveCredentialsFinishPtr := xUnixConnectionReceiveCredentialsFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ReceiveCredentialsFinishPtr == 0 {
-		return nil
+	cret := xUnixConnectionReceiveCredentialsFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ReceiveCredentialsFinishCls := &Credentials{}
-	ReceiveCredentialsFinishCls.Ptr = ReceiveCredentialsFinishPtr
-	return ReceiveCredentialsFinishCls
+	cls = &Credentials{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xUnixConnectionReceiveFd func(uintptr, uintptr) int
+var xUnixConnectionReceiveFd func(uintptr, uintptr, **glib.Error) int
 
 // Receives a file descriptor from the sending end of the connection.
 // The sending end has to call g_unix_connection_send_fd() for this
@@ -109,13 +120,18 @@ var xUnixConnectionReceiveFd func(uintptr, uintptr) int
 // As well as reading the fd this also reads a single byte from the
 // stream, as this is required for fd passing to work on some
 // implementations.
-func (x *UnixConnection) ReceiveFd(CancellableVar *Cancellable) int {
+func (x *UnixConnection) ReceiveFd(CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xUnixConnectionReceiveFd(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xUnixConnectionReceiveFd(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xUnixConnectionSendCredentials func(uintptr, uintptr) bool
+var xUnixConnectionSendCredentials func(uintptr, uintptr, **glib.Error) bool
 
 // Passes the credentials of the current user the receiving side
 // of the connection. The receiving end has to call
@@ -136,9 +152,14 @@ var xUnixConnectionSendCredentials func(uintptr, uintptr) bool
 //
 // Other ways to exchange credentials with a foreign peer includes the
 // #GUnixCredentialsMessage type and g_socket_get_credentials() function.
-func (x *UnixConnection) SendCredentials(CancellableVar *Cancellable) bool {
+func (x *UnixConnection) SendCredentials(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xUnixConnectionSendCredentials(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xUnixConnectionSendCredentials(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -157,17 +178,22 @@ func (x *UnixConnection) SendCredentialsAsync(CancellableVar *Cancellable, Callb
 
 }
 
-var xUnixConnectionSendCredentialsFinish func(uintptr, uintptr) bool
+var xUnixConnectionSendCredentialsFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes an asynchronous send credentials operation started with
 // g_unix_connection_send_credentials_async().
-func (x *UnixConnection) SendCredentialsFinish(ResultVar AsyncResult) bool {
+func (x *UnixConnection) SendCredentialsFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xUnixConnectionSendCredentialsFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xUnixConnectionSendCredentialsFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xUnixConnectionSendFd func(uintptr, int, uintptr) bool
+var xUnixConnectionSendFd func(uintptr, int, uintptr, **glib.Error) bool
 
 // Passes a file descriptor to the receiving side of the
 // connection. The receiving end has to call g_unix_connection_receive_fd()
@@ -176,9 +202,14 @@ var xUnixConnectionSendFd func(uintptr, int, uintptr) bool
 // As well as sending the fd this also writes a single byte to the
 // stream, as this is required for fd passing to work on some
 // implementations.
-func (x *UnixConnection) SendFd(FdVar int, CancellableVar *Cancellable) bool {
+func (x *UnixConnection) SendFd(FdVar int, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xUnixConnectionSendFd(x.GoPointer(), FdVar, CancellableVar.GoPointer())
+	cret := xUnixConnectionSendFd(x.GoPointer(), FdVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

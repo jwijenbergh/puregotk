@@ -11,40 +11,40 @@ var xBuilderErrorQuark func() glib.Quark
 
 func BuilderErrorQuark() glib.Quark {
 
-	return xBuilderErrorQuark()
-
+	cret := xBuilderErrorQuark()
+	return cret
 }
 
 var xConstraintVflParserErrorQuark func() glib.Quark
 
 func ConstraintVflParserErrorQuark() glib.Quark {
 
-	return xConstraintVflParserErrorQuark()
-
+	cret := xConstraintVflParserErrorQuark()
+	return cret
 }
 
 var xCssParserErrorQuark func() glib.Quark
 
 func CssParserErrorQuark() glib.Quark {
 
-	return xCssParserErrorQuark()
-
+	cret := xCssParserErrorQuark()
+	return cret
 }
 
 var xIconThemeErrorQuark func() glib.Quark
 
 func IconThemeErrorQuark() glib.Quark {
 
-	return xIconThemeErrorQuark()
-
+	cret := xIconThemeErrorQuark()
+	return cret
 }
 
 var xRecentManagerErrorQuark func() glib.Quark
 
 func RecentManagerErrorQuark() glib.Quark {
 
-	return xRecentManagerErrorQuark()
-
+	cret := xRecentManagerErrorQuark()
+	return cret
 }
 
 func init() {

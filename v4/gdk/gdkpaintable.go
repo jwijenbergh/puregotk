@@ -112,16 +112,16 @@ func (x *PaintableBase) ComputeConcreteSize(SpecifiedWidthVar float64, Specified
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *PaintableBase) GetCurrentImage() *PaintableBase {
+	var cls *PaintableBase
 
-	GetCurrentImagePtr := XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -131,8 +131,8 @@ func (x *PaintableBase) GetCurrentImage() *PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *PaintableBase) GetFlags() PaintableFlags {
 
-	return XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -154,8 +154,8 @@ func (x *PaintableBase) GetFlags() PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *PaintableBase) GetIntrinsicAspectRatio() float64 {
 
-	return XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -170,8 +170,8 @@ func (x *PaintableBase) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *PaintableBase) GetIntrinsicHeight() int {
 
-	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -186,8 +186,8 @@ func (x *PaintableBase) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *PaintableBase) GetIntrinsicWidth() int {
 
-	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -269,16 +269,16 @@ var xPaintableNewEmpty func(int, int) uintptr
 // when the paintable is in an incomplete state (like a
 // [class@Gtk.MediaStream] before receiving the first frame).
 func PaintableNewEmpty(IntrinsicWidthVar int, IntrinsicHeightVar int) *PaintableBase {
+	var cls *PaintableBase
 
-	PaintableNewEmptyPtr := xPaintableNewEmpty(IntrinsicWidthVar, IntrinsicHeightVar)
-	if PaintableNewEmptyPtr == 0 {
-		return nil
+	cret := xPaintableNewEmpty(IntrinsicWidthVar, IntrinsicHeightVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	PaintableNewEmptyCls := &PaintableBase{}
-	PaintableNewEmptyCls.Ptr = PaintableNewEmptyPtr
-	return PaintableNewEmptyCls
-
+	cls = &PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

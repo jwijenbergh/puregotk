@@ -138,16 +138,17 @@ var xNewListView func(uintptr, uintptr) uintptr
 //
 // ```
 func NewListView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
-	NewListViewPtr := xNewListView(ModelVar.GoPointer(), FactoryVar.GoPointer())
-	if NewListViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewListView(ModelVar.GoPointer(), FactoryVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewListViewPtr)
-
-	NewListViewCls := &Widget{}
-	NewListViewCls.Ptr = NewListViewPtr
-	return NewListViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListViewGetEnableRubberband func(uintptr) bool
@@ -155,44 +156,42 @@ var xListViewGetEnableRubberband func(uintptr) bool
 // Returns whether rows can be selected by dragging with the mouse.
 func (x *ListView) GetEnableRubberband() bool {
 
-	return xListViewGetEnableRubberband(x.GoPointer())
-
+	cret := xListViewGetEnableRubberband(x.GoPointer())
+	return cret
 }
 
 var xListViewGetFactory func(uintptr) uintptr
 
 // Gets the factory that's currently used to populate list items.
 func (x *ListView) GetFactory() *ListItemFactory {
+	var cls *ListItemFactory
 
-	GetFactoryPtr := xListViewGetFactory(x.GoPointer())
-	if GetFactoryPtr == 0 {
-		return nil
+	cret := xListViewGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFactoryPtr)
-
-	GetFactoryCls := &ListItemFactory{}
-	GetFactoryCls.Ptr = GetFactoryPtr
-	return GetFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListViewGetModel func(uintptr) uintptr
 
 // Gets the model that's currently used to read the items displayed.
 func (x *ListView) GetModel() *SelectionModelBase {
+	var cls *SelectionModelBase
 
-	GetModelPtr := xListViewGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xListViewGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &SelectionModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListViewGetShowSeparators func(uintptr) bool
@@ -201,8 +200,8 @@ var xListViewGetShowSeparators func(uintptr) bool
 // between rows.
 func (x *ListView) GetShowSeparators() bool {
 
-	return xListViewGetShowSeparators(x.GoPointer())
-
+	cret := xListViewGetShowSeparators(x.GoPointer())
+	return cret
 }
 
 var xListViewGetSingleClickActivate func(uintptr) bool
@@ -211,8 +210,8 @@ var xListViewGetSingleClickActivate func(uintptr) bool
 // selected on hover.
 func (x *ListView) GetSingleClickActivate() bool {
 
-	return xListViewGetSingleClickActivate(x.GoPointer())
-
+	cret := xListViewGetSingleClickActivate(x.GoPointer())
+	return cret
 }
 
 var xListViewSetEnableRubberband func(uintptr, bool)
@@ -292,8 +291,8 @@ func (x *ListView) ConnectActivate(cb func(ListView, uint)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ListView) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -428,15 +427,15 @@ func (x *ListView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ListView) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ListView) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.
@@ -454,54 +453,52 @@ func (x *ListView) SetOrientation(OrientationVar Orientation) {
 // overshoot indication, at the right position.
 func (x *ListView) GetBorder(BorderVar *Border) bool {
 
-	return XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *ListView) GetHadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetHadjustmentPtr := XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *ListView) GetHscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *ListView) GetVadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetVadjustmentPtr := XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *ListView) GetVscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

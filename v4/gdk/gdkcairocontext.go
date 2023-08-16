@@ -35,8 +35,8 @@ var xCairoContextCairoCreate func(uintptr) *cairo.Context
 // [method@Gdk.DrawContext.end_frame] is called.
 func (x *CairoContext) CairoCreate() *cairo.Context {
 
-	return xCairoContextCairoCreate(x.GoPointer())
-
+	cret := xCairoContextCairoCreate(x.GoPointer())
+	return cret
 }
 
 func (c *CairoContext) GoPointer() uintptr {

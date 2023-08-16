@@ -4,6 +4,7 @@ package gdk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -87,8 +88,13 @@ func (x *VulkanContext) ConnectImagesUpdated(cb func(VulkanContext)) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *VulkanContext) Init(CancellableVar *gio.Cancellable) bool {
+func (x *VulkanContext) Init(CancellableVar *gio.Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return gio.XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := gio.XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }

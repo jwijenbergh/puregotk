@@ -18,8 +18,8 @@ var xUuidStringIsValid func(string) bool
 // as per the aforementioned RFC.
 func UuidStringIsValid(StrVar string) bool {
 
-	return xUuidStringIsValid(StrVar)
-
+	cret := xUuidStringIsValid(StrVar)
+	return cret
 }
 
 var xUuidStringRandom func() string
@@ -29,8 +29,8 @@ var xUuidStringRandom func() string
 // purposes such as key generation, nonces, salts or one-time pads.
 func UuidStringRandom() string {
 
-	return xUuidStringRandom()
-
+	cret := xUuidStringRandom()
+	return cret
 }
 
 func init() {

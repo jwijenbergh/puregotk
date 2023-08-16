@@ -25,16 +25,16 @@ var xNewParamSpecExpression func(string, string, string, gobject.ParamFlags) uin
 //
 // See `g_param_spec_internal()` for details on the property strings.
 func NewParamSpecExpression(NameVar string, NickVar string, BlurbVar string, FlagsVar gobject.ParamFlags) *gobject.ParamSpec {
+	var cls *gobject.ParamSpec
 
-	NewParamSpecExpressionPtr := xNewParamSpecExpression(NameVar, NickVar, BlurbVar, FlagsVar)
-	if NewParamSpecExpressionPtr == 0 {
-		return nil
+	cret := xNewParamSpecExpression(NameVar, NickVar, BlurbVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewParamSpecExpressionCls := &gobject.ParamSpec{}
-	NewParamSpecExpressionCls.Ptr = NewParamSpecExpressionPtr
-	return NewParamSpecExpressionCls
-
+	cls = &gobject.ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xValueDupExpression func(*gobject.Value) uintptr
@@ -42,34 +42,33 @@ var xValueDupExpression func(*gobject.Value) uintptr
 // Retrieves the `GtkExpression` stored inside the given `value`, and acquires
 // a reference to it.
 func ValueDupExpression(ValueVar *gobject.Value) *Expression {
+	var cls *Expression
 
-	ValueDupExpressionPtr := xValueDupExpression(ValueVar)
-	if ValueDupExpressionPtr == 0 {
-		return nil
+	cret := xValueDupExpression(ValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ValueDupExpressionCls := &Expression{}
-	ValueDupExpressionCls.Ptr = ValueDupExpressionPtr
-	return ValueDupExpressionCls
-
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xValueGetExpression func(*gobject.Value) uintptr
 
 // Retrieves the `GtkExpression` stored inside the given `value`.
 func ValueGetExpression(ValueVar *gobject.Value) *Expression {
+	var cls *Expression
 
-	ValueGetExpressionPtr := xValueGetExpression(ValueVar)
-	if ValueGetExpressionPtr == 0 {
-		return nil
+	cret := xValueGetExpression(ValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(ValueGetExpressionPtr)
-
-	ValueGetExpressionCls := &Expression{}
-	ValueGetExpressionCls.Ptr = ValueGetExpressionPtr
-	return ValueGetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xValueSetExpression func(*gobject.Value, uintptr)
@@ -113,14 +112,16 @@ var xNewCClosureExpression func([]interface{}, uintptr, uint, uintptr, uintptr, 
 // creates a `GClosure` by calling g_cclosure_new() with the given
 // `callback_func`, `user_data` and `user_destroy`.
 func NewCClosureExpression(ValueTypeVar []interface{}, MarshalVar gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar gobject.Callback, UserDataVar uintptr, UserDestroyVar gobject.ClosureNotify) *CClosureExpression {
-	NewCClosureExpressionPtr := xNewCClosureExpression(ValueTypeVar, purego.NewCallback(MarshalVar), NParamsVar, ParamsVar, purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-	if NewCClosureExpressionPtr == 0 {
-		return nil
-	}
+	var cls *CClosureExpression
 
-	NewCClosureExpressionCls := &CClosureExpression{}
-	NewCClosureExpressionCls.Ptr = NewCClosureExpressionPtr
-	return NewCClosureExpressionCls
+	cret := xNewCClosureExpression(ValueTypeVar, purego.NewCallback(MarshalVar), NParamsVar, ParamsVar, purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CClosureExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CClosureExpression) GoPointer() uintptr {
@@ -150,14 +151,16 @@ var xNewClosureExpression func([]interface{}, *gobject.Closure, uint, uintptr) u
 // `closure` is called with the `this` object and the results of evaluating
 // the `params` expressions.
 func NewClosureExpression(ValueTypeVar []interface{}, ClosureVar *gobject.Closure, NParamsVar uint, ParamsVar uintptr) *ClosureExpression {
-	NewClosureExpressionPtr := xNewClosureExpression(ValueTypeVar, ClosureVar, NParamsVar, ParamsVar)
-	if NewClosureExpressionPtr == 0 {
-		return nil
-	}
+	var cls *ClosureExpression
 
-	NewClosureExpressionCls := &ClosureExpression{}
-	NewClosureExpressionCls.Ptr = NewClosureExpressionPtr
-	return NewClosureExpressionCls
+	cret := xNewClosureExpression(ValueTypeVar, ClosureVar, NParamsVar, ParamsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ClosureExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ClosureExpression) GoPointer() uintptr {
@@ -184,28 +187,32 @@ var xNewConstantExpression func([]interface{}, ...interface{}) uintptr
 // Creates a `GtkExpression` that evaluates to the
 // object given by the arguments.
 func NewConstantExpression(ValueTypeVar []interface{}, varArgs ...interface{}) *ConstantExpression {
-	NewConstantExpressionPtr := xNewConstantExpression(ValueTypeVar, varArgs...)
-	if NewConstantExpressionPtr == 0 {
-		return nil
-	}
+	var cls *ConstantExpression
 
-	NewConstantExpressionCls := &ConstantExpression{}
-	NewConstantExpressionCls.Ptr = NewConstantExpressionPtr
-	return NewConstantExpressionCls
+	cret := xNewConstantExpression(ValueTypeVar, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ConstantExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForValueConstantExpression func(*gobject.Value) uintptr
 
 // Creates an expression that always evaluates to the given `value`.
 func NewForValueConstantExpression(ValueVar *gobject.Value) *ConstantExpression {
-	NewForValueConstantExpressionPtr := xNewForValueConstantExpression(ValueVar)
-	if NewForValueConstantExpressionPtr == 0 {
-		return nil
-	}
+	var cls *ConstantExpression
 
-	NewForValueConstantExpressionCls := &ConstantExpression{}
-	NewForValueConstantExpressionCls.Ptr = NewForValueConstantExpressionPtr
-	return NewForValueConstantExpressionCls
+	cret := xNewForValueConstantExpression(ValueVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ConstantExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstantExpressionGetValue func(uintptr) *gobject.Value
@@ -213,8 +220,8 @@ var xConstantExpressionGetValue func(uintptr) *gobject.Value
 // Gets the value that a constant expression evaluates to.
 func (x *ConstantExpression) GetValue() *gobject.Value {
 
-	return xConstantExpressionGetValue(x.GoPointer())
-
+	cret := xConstantExpressionGetValue(x.GoPointer())
+	return cret
 }
 
 func (c *ConstantExpression) GoPointer() uintptr {
@@ -392,8 +399,8 @@ var xExpressionBind func(uintptr, uintptr, string, uintptr) *ExpressionWatch
 // to keep it around, you should [method@Gtk.Expression.ref] it beforehand.
 func (x *Expression) Bind(TargetVar *gobject.Object, PropertyVar string, ThisVar *gobject.Object) *ExpressionWatch {
 
-	return xExpressionBind(x.GoPointer(), TargetVar.GoPointer(), PropertyVar, ThisVar.GoPointer())
-
+	cret := xExpressionBind(x.GoPointer(), TargetVar.GoPointer(), PropertyVar, ThisVar.GoPointer())
+	return cret
 }
 
 var xExpressionEvaluate func(uintptr, uintptr, *gobject.Value) bool
@@ -410,8 +417,8 @@ var xExpressionEvaluate func(uintptr, uintptr, *gobject.Value) bool
 // will be returned.
 func (x *Expression) Evaluate(ThisVar *gobject.Object, ValueVar *gobject.Value) bool {
 
-	return xExpressionEvaluate(x.GoPointer(), ThisVar.GoPointer(), ValueVar)
-
+	cret := xExpressionEvaluate(x.GoPointer(), ThisVar.GoPointer(), ValueVar)
+	return cret
 }
 
 var xExpressionGetValueType func(uintptr) []interface{}
@@ -422,8 +429,8 @@ var xExpressionGetValueType func(uintptr) []interface{}
 // of this expression.
 func (x *Expression) GetValueType() []interface{} {
 
-	return xExpressionGetValueType(x.GoPointer())
-
+	cret := xExpressionGetValueType(x.GoPointer())
+	return cret
 }
 
 var xExpressionIsStatic func(uintptr) bool
@@ -437,24 +444,24 @@ var xExpressionIsStatic func(uintptr) bool
 // it will never trigger a notify.
 func (x *Expression) IsStatic() bool {
 
-	return xExpressionIsStatic(x.GoPointer())
-
+	cret := xExpressionIsStatic(x.GoPointer())
+	return cret
 }
 
 var xExpressionRef func(uintptr) uintptr
 
 // Acquires a reference on the given `GtkExpression`.
 func (x *Expression) Ref() *Expression {
+	var cls *Expression
 
-	RefPtr := xExpressionRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xExpressionRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefCls := &Expression{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xExpressionUnref func(uintptr)
@@ -481,8 +488,8 @@ var xExpressionWatch func(uintptr, uintptr, uintptr, uintptr, uintptr) *Expressi
 // the @notify will be invoked.
 func (x *Expression) Watch(ThisVar *gobject.Object, NotifyVar ExpressionNotify, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *ExpressionWatch {
 
-	return xExpressionWatch(x.GoPointer(), ThisVar.GoPointer(), purego.NewCallback(NotifyVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-
+	cret := xExpressionWatch(x.GoPointer(), ThisVar.GoPointer(), purego.NewCallback(NotifyVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	return cret
 }
 
 func (c *Expression) GoPointer() uintptr {
@@ -514,32 +521,33 @@ var xNewObjectExpression func(uintptr) uintptr
 //
 // If you want to keep a reference to `object`, use [ctor@Gtk.ConstantExpression.new].
 func NewObjectExpression(ObjectVar *gobject.Object) *ObjectExpression {
-	NewObjectExpressionPtr := xNewObjectExpression(ObjectVar.GoPointer())
-	if NewObjectExpressionPtr == 0 {
-		return nil
-	}
+	var cls *ObjectExpression
 
-	NewObjectExpressionCls := &ObjectExpression{}
-	NewObjectExpressionCls.Ptr = NewObjectExpressionPtr
-	return NewObjectExpressionCls
+	cret := xNewObjectExpression(ObjectVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ObjectExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectExpressionGetObject func(uintptr) uintptr
 
 // Gets the object that the expression evaluates to.
 func (x *ObjectExpression) GetObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := xObjectExpressionGetObject(x.GoPointer())
-	if GetObjectPtr == 0 {
-		return nil
+	cret := xObjectExpressionGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ObjectExpression) GoPointer() uintptr {
@@ -593,14 +601,16 @@ var xNewPropertyExpression func([]interface{}, uintptr, string) uintptr
 //
 // The given `this_type` must have a property with `property_name`.
 func NewPropertyExpression(ThisTypeVar []interface{}, ExpressionVar *Expression, PropertyNameVar string) *PropertyExpression {
-	NewPropertyExpressionPtr := xNewPropertyExpression(ThisTypeVar, ExpressionVar.GoPointer(), PropertyNameVar)
-	if NewPropertyExpressionPtr == 0 {
-		return nil
-	}
+	var cls *PropertyExpression
 
-	NewPropertyExpressionCls := &PropertyExpression{}
-	NewPropertyExpressionCls.Ptr = NewPropertyExpressionPtr
-	return NewPropertyExpressionCls
+	cret := xNewPropertyExpression(ThisTypeVar, ExpressionVar.GoPointer(), PropertyNameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PropertyExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForPspecPropertyExpression func(uintptr, uintptr) uintptr
@@ -614,14 +624,16 @@ var xNewForPspecPropertyExpression func(uintptr, uintptr) uintptr
 // property specified by `pspec` will be queried.
 // Otherwise, this expression's evaluation will fail.
 func NewForPspecPropertyExpression(ExpressionVar *Expression, PspecVar *gobject.ParamSpec) *PropertyExpression {
-	NewForPspecPropertyExpressionPtr := xNewForPspecPropertyExpression(ExpressionVar.GoPointer(), PspecVar.GoPointer())
-	if NewForPspecPropertyExpressionPtr == 0 {
-		return nil
-	}
+	var cls *PropertyExpression
 
-	NewForPspecPropertyExpressionCls := &PropertyExpression{}
-	NewForPspecPropertyExpressionCls.Ptr = NewForPspecPropertyExpressionPtr
-	return NewForPspecPropertyExpressionCls
+	cret := xNewForPspecPropertyExpression(ExpressionVar.GoPointer(), PspecVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PropertyExpression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPropertyExpressionGetExpression func(uintptr) uintptr
@@ -629,18 +641,17 @@ var xPropertyExpressionGetExpression func(uintptr) uintptr
 // Gets the expression specifying the object of
 // a property expression.
 func (x *PropertyExpression) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xPropertyExpressionGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xPropertyExpressionGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPropertyExpressionGetPspec func(uintptr) uintptr
@@ -648,18 +659,17 @@ var xPropertyExpressionGetPspec func(uintptr) uintptr
 // Gets the `GParamSpec` specifying the property of
 // a property expression.
 func (x *PropertyExpression) GetPspec() *gobject.ParamSpec {
+	var cls *gobject.ParamSpec
 
-	GetPspecPtr := xPropertyExpressionGetPspec(x.GoPointer())
-	if GetPspecPtr == 0 {
-		return nil
+	cret := xPropertyExpressionGetPspec(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPspecPtr)
-
-	GetPspecCls := &gobject.ParamSpec{}
-	GetPspecCls.Ptr = GetPspecPtr
-	return GetPspecCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *PropertyExpression) GoPointer() uintptr {

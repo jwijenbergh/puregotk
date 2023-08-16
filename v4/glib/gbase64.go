@@ -13,8 +13,8 @@ var xBase64Decode func(string, uint) uintptr
 // so it should not be used as a character string.
 func Base64Decode(TextVar string, OutLenVar uint) uintptr {
 
-	return xBase64Decode(TextVar, OutLenVar)
-
+	cret := xBase64Decode(TextVar, OutLenVar)
+	return cret
 }
 
 var xBase64DecodeInplace func(uintptr, uint) byte
@@ -23,8 +23,8 @@ var xBase64DecodeInplace func(uintptr, uint) byte
 // by overwriting the input data.
 func Base64DecodeInplace(TextVar uintptr, OutLenVar uint) byte {
 
-	return xBase64DecodeInplace(TextVar, OutLenVar)
-
+	cret := xBase64DecodeInplace(TextVar, OutLenVar)
+	return cret
 }
 
 var xBase64DecodeStep func(uintptr, uint, uintptr, int, uint) uint
@@ -39,8 +39,8 @@ var xBase64DecodeStep func(uintptr, uint, uintptr, int, uint) uint
 // state).
 func Base64DecodeStep(InVar uintptr, LenVar uint, OutVar uintptr, StateVar int, SaveVar uint) uint {
 
-	return xBase64DecodeStep(InVar, LenVar, OutVar, StateVar, SaveVar)
-
+	cret := xBase64DecodeStep(InVar, LenVar, OutVar, StateVar, SaveVar)
+	return cret
 }
 
 var xBase64Encode func(uintptr, uint) string
@@ -49,8 +49,8 @@ var xBase64Encode func(uintptr, uint) string
 // representation.
 func Base64Encode(DataVar uintptr, LenVar uint) string {
 
-	return xBase64Encode(DataVar, LenVar)
-
+	cret := xBase64Encode(DataVar, LenVar)
+	return cret
 }
 
 var xBase64EncodeClose func(bool, uintptr, int, int) uint
@@ -64,8 +64,8 @@ var xBase64EncodeClose func(bool, uintptr, int, int) uint
 // The @out array will not be automatically nul-terminated.
 func Base64EncodeClose(BreakLinesVar bool, OutVar uintptr, StateVar int, SaveVar int) uint {
 
-	return xBase64EncodeClose(BreakLinesVar, OutVar, StateVar, SaveVar)
-
+	cret := xBase64EncodeClose(BreakLinesVar, OutVar, StateVar, SaveVar)
+	return cret
 }
 
 var xBase64EncodeStep func(uintptr, uint, bool, uintptr, int, int) uint
@@ -91,8 +91,8 @@ var xBase64EncodeStep func(uintptr, uint, bool, uintptr, int, int) uint
 // or certain other protocols.
 func Base64EncodeStep(InVar uintptr, LenVar uint, BreakLinesVar bool, OutVar uintptr, StateVar int, SaveVar int) uint {
 
-	return xBase64EncodeStep(InVar, LenVar, BreakLinesVar, OutVar, StateVar, SaveVar)
-
+	cret := xBase64EncodeStep(InVar, LenVar, BreakLinesVar, OutVar, StateVar, SaveVar)
+	return cret
 }
 
 func init() {

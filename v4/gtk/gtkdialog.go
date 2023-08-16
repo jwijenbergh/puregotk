@@ -205,16 +205,17 @@ var xNewDialog func() uintptr
 // directly, but into the @content_area and @action_area,
 // as described above.
 func NewDialog() *Widget {
-	NewDialogPtr := xNewDialog()
-	if NewDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewDialog()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewDialogPtr)
-
-	NewDialogCls := &Widget{}
-	NewDialogCls.Ptr = NewDialogPtr
-	return NewDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithButtonsDialog func(string, uintptr, DialogFlags, string, ...interface{}) uintptr
@@ -255,16 +256,17 @@ var xNewWithButtonsDialog func(string, uintptr, DialogFlags, string, ...interfac
 //
 // ```
 func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFlags, FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	NewWithButtonsDialogPtr := xNewWithButtonsDialog(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
-	if NewWithButtonsDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithButtonsDialog(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithButtonsDialogPtr)
-
-	NewWithButtonsDialogCls := &Widget{}
-	NewWithButtonsDialogCls.Ptr = NewWithButtonsDialogPtr
-	return NewWithButtonsDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDialogAddActionWidget func(uintptr, uintptr, int)
@@ -293,18 +295,17 @@ var xDialogAddButton func(uintptr, string, int) uintptr
 // The button is appended to the end of the dialog’s action area.
 // The button widget is returned, but usually you don’t need it.
 func (x *Dialog) AddButton(ButtonTextVar string, ResponseIdVar int) *Widget {
+	var cls *Widget
 
-	AddButtonPtr := xDialogAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
-	if AddButtonPtr == 0 {
-		return nil
+	cret := xDialogAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddButtonPtr)
-
-	AddButtonCls := &Widget{}
-	AddButtonCls.Ptr = AddButtonPtr
-	return AddButtonCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDialogAddButtons func(uintptr, string, ...interface{})
@@ -325,18 +326,17 @@ var xDialogGetContentArea func(uintptr) uintptr
 
 // Returns the content area of @dialog.
 func (x *Dialog) GetContentArea() *Box {
+	var cls *Box
 
-	GetContentAreaPtr := xDialogGetContentArea(x.GoPointer())
-	if GetContentAreaPtr == 0 {
-		return nil
+	cret := xDialogGetContentArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContentAreaPtr)
-
-	GetContentAreaCls := &Box{}
-	GetContentAreaCls.Ptr = GetContentAreaPtr
-	return GetContentAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Box{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDialogGetHeaderBar func(uintptr) uintptr
@@ -346,18 +346,17 @@ var xDialogGetHeaderBar func(uintptr) uintptr
 // Note that the headerbar is only used by the dialog if the
 // [property@Gtk.Dialog:use-header-bar] property is %TRUE.
 func (x *Dialog) GetHeaderBar() *HeaderBar {
+	var cls *HeaderBar
 
-	GetHeaderBarPtr := xDialogGetHeaderBar(x.GoPointer())
-	if GetHeaderBarPtr == 0 {
-		return nil
+	cret := xDialogGetHeaderBar(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHeaderBarPtr)
-
-	GetHeaderBarCls := &HeaderBar{}
-	GetHeaderBarCls.Ptr = GetHeaderBarPtr
-	return GetHeaderBarCls
-
+	gobject.IncreaseRef(cret)
+	cls = &HeaderBar{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDialogGetResponseForWidget func(uintptr, uintptr) int
@@ -366,8 +365,8 @@ var xDialogGetResponseForWidget func(uintptr, uintptr) int
 // of a dialog.
 func (x *Dialog) GetResponseForWidget(WidgetVar *Widget) int {
 
-	return xDialogGetResponseForWidget(x.GoPointer(), WidgetVar.GoPointer())
-
+	cret := xDialogGetResponseForWidget(x.GoPointer(), WidgetVar.GoPointer())
+	return cret
 }
 
 var xDialogGetWidgetForResponse func(uintptr, int) uintptr
@@ -375,18 +374,17 @@ var xDialogGetWidgetForResponse func(uintptr, int) uintptr
 // Gets the widget button that uses the given response ID in the action area
 // of a dialog.
 func (x *Dialog) GetWidgetForResponse(ResponseIdVar int) *Widget {
+	var cls *Widget
 
-	GetWidgetForResponsePtr := xDialogGetWidgetForResponse(x.GoPointer(), ResponseIdVar)
-	if GetWidgetForResponsePtr == 0 {
-		return nil
+	cret := xDialogGetWidgetForResponse(x.GoPointer(), ResponseIdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetForResponsePtr)
-
-	GetWidgetForResponseCls := &Widget{}
-	GetWidgetForResponseCls.Ptr = GetWidgetForResponsePtr
-	return GetWidgetForResponseCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDialogResponse func(uintptr, int)
@@ -467,8 +465,8 @@ func (x *Dialog) ConnectResponse(cb func(Dialog, int)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Dialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -603,40 +601,38 @@ func (x *Dialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Dialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *Dialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *Dialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -669,18 +665,17 @@ func (x *Dialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *Dialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -690,18 +685,17 @@ func (x *Dialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *Dialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

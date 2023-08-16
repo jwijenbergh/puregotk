@@ -46,16 +46,17 @@ var xNewColorChooserWidget func() uintptr
 
 // Creates a new `GtkColorChooserWidget`.
 func NewColorChooserWidget() *Widget {
-	NewColorChooserWidgetPtr := xNewColorChooserWidget()
-	if NewColorChooserWidgetPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewColorChooserWidget()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewColorChooserWidgetPtr)
-
-	NewColorChooserWidgetCls := &Widget{}
-	NewColorChooserWidgetCls.Ptr = NewColorChooserWidgetPtr
-	return NewColorChooserWidgetCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ColorChooserWidget) GoPointer() uintptr {
@@ -69,8 +70,8 @@ func (c *ColorChooserWidget) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ColorChooserWidget) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -205,8 +206,8 @@ func (x *ColorChooserWidget) UpdateStateValue(NStatesVar int, StatesVar uintptr,
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ColorChooserWidget) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds a palette to the color chooser.
@@ -242,8 +243,8 @@ func (x *ColorChooserWidget) GetRgba(ColorVar *gdk.RGBA) {
 // Returns whether the color chooser shows the alpha channel.
 func (x *ColorChooserWidget) GetUseAlpha() bool {
 
-	return XGtkColorChooserGetUseAlpha(x.GoPointer())
-
+	cret := XGtkColorChooserGetUseAlpha(x.GoPointer())
+	return cret
 }
 
 // Sets the color.

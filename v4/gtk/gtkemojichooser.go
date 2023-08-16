@@ -56,16 +56,17 @@ var xNewEmojiChooser func() uintptr
 
 // Creates a new `GtkEmojiChooser`.
 func NewEmojiChooser() *Widget {
-	NewEmojiChooserPtr := xNewEmojiChooser()
-	if NewEmojiChooserPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewEmojiChooser()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewEmojiChooserPtr)
-
-	NewEmojiChooserCls := &Widget{}
-	NewEmojiChooserCls.Ptr = NewEmojiChooserPtr
-	return NewEmojiChooserCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *EmojiChooser) GoPointer() uintptr {
@@ -91,8 +92,8 @@ func (x *EmojiChooser) ConnectEmojiPicked(cb func(EmojiChooser, string)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *EmojiChooser) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -227,40 +228,38 @@ func (x *EmojiChooser) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *EmojiChooser) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *EmojiChooser) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *EmojiChooser) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.

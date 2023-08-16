@@ -39,8 +39,8 @@ var xIsZeroWidth func(uint32) bool
 // This is totally different from [func@GLib.unichar_iszerowidth] and is at best misnamed.
 func IsZeroWidth(ChVar uint32) bool {
 
-	return xIsZeroWidth(ChVar)
-
+	cret := xIsZeroWidth(ChVar)
+	return cret
 }
 
 var xLog2visGetEmbeddingLevels func(string, int, *Direction) byte
@@ -54,8 +54,8 @@ var xLog2visGetEmbeddingLevels func(string, int, *Direction) byte
 // characters in the text will determine the final resolved direction.
 func Log2visGetEmbeddingLevels(TextVar string, LengthVar int, PbaseDirVar *Direction) byte {
 
-	return xLog2visGetEmbeddingLevels(TextVar, LengthVar, PbaseDirVar)
-
+	cret := xLog2visGetEmbeddingLevels(TextVar, LengthVar, PbaseDirVar)
+	return cret
 }
 
 var xParseEnum func([]interface{}, string, int, bool, string) bool
@@ -72,8 +72,8 @@ var xParseEnum func([]interface{}, string, int, bool, string) bool
 // be freed using g_free().
 func ParseEnum(TypeVar []interface{}, StrVar string, ValueVar int, WarnVar bool, PossibleValuesVar string) bool {
 
-	return xParseEnum(TypeVar, StrVar, ValueVar, WarnVar, PossibleValuesVar)
-
+	cret := xParseEnum(TypeVar, StrVar, ValueVar, WarnVar, PossibleValuesVar)
+	return cret
 }
 
 var xParseStretch func(string, *Stretch, bool) bool
@@ -87,8 +87,8 @@ var xParseStretch func(string, *Stretch, bool) bool
 // ignored and the '_' characters may be omitted.
 func ParseStretch(StrVar string, StretchVar *Stretch, WarnVar bool) bool {
 
-	return xParseStretch(StrVar, StretchVar, WarnVar)
-
+	cret := xParseStretch(StrVar, StretchVar, WarnVar)
+	return cret
 }
 
 var xParseStyle func(string, *Style, bool) bool
@@ -100,8 +100,8 @@ var xParseStyle func(string, *Style, bool) bool
 // ignored.
 func ParseStyle(StrVar string, StyleVar *Style, WarnVar bool) bool {
 
-	return xParseStyle(StrVar, StyleVar, WarnVar)
-
+	cret := xParseStyle(StrVar, StyleVar, WarnVar)
+	return cret
 }
 
 var xParseVariant func(string, *Variant, bool) bool
@@ -113,8 +113,8 @@ var xParseVariant func(string, *Variant, bool) bool
 // case variations being ignored.
 func ParseVariant(StrVar string, VariantVar *Variant, WarnVar bool) bool {
 
-	return xParseVariant(StrVar, VariantVar, WarnVar)
-
+	cret := xParseVariant(StrVar, VariantVar, WarnVar)
+	return cret
 }
 
 var xParseWeight func(string, *Weight, bool) bool
@@ -126,8 +126,8 @@ var xParseWeight func(string, *Weight, bool) bool
 // and integers. Case variations are ignored.
 func ParseWeight(StrVar string, WeightVar *Weight, WarnVar bool) bool {
 
-	return xParseWeight(StrVar, WeightVar, WarnVar)
-
+	cret := xParseWeight(StrVar, WeightVar, WarnVar)
+	return cret
 }
 
 var xQuantizeLineGeometry func(int, int)
@@ -158,8 +158,8 @@ var xReadLine func(uintptr, *glib.String) int
 // unmodified.
 func ReadLine(StreamVar uintptr, StrVar *glib.String) int {
 
-	return xReadLine(StreamVar, StrVar)
-
+	cret := xReadLine(StreamVar, StrVar)
+	return cret
 }
 
 var xScanInt func(string, int) bool
@@ -169,8 +169,8 @@ var xScanInt func(string, int) bool
 // Leading white space is skipped.
 func ScanInt(PosVar string, OutVar int) bool {
 
-	return xScanInt(PosVar, OutVar)
-
+	cret := xScanInt(PosVar, OutVar)
+	return cret
 }
 
 var xScanString func(string, *glib.String) bool
@@ -182,8 +182,8 @@ var xScanString func(string, *glib.String) bool
 // a literal quote. Leading white space outside of quotes is skipped.
 func ScanString(PosVar string, OutVar *glib.String) bool {
 
-	return xScanString(PosVar, OutVar)
-
+	cret := xScanString(PosVar, OutVar)
+	return cret
 }
 
 var xScanWord func(string, *glib.String) bool
@@ -194,8 +194,8 @@ var xScanWord func(string, *glib.String) bool
 // [A-Za-z_0-9]. Leading white space is skipped.
 func ScanWord(PosVar string, OutVar *glib.String) bool {
 
-	return xScanWord(PosVar, OutVar)
-
+	cret := xScanWord(PosVar, OutVar)
+	return cret
 }
 
 var xSkipSpace func(string) bool
@@ -203,8 +203,8 @@ var xSkipSpace func(string) bool
 // Skips 0 or more characters of white space.
 func SkipSpace(PosVar string) bool {
 
-	return xSkipSpace(PosVar)
-
+	cret := xSkipSpace(PosVar)
+	return cret
 }
 
 var xSplitFileList func(string) []string
@@ -213,8 +213,8 @@ var xSplitFileList func(string) []string
 // white space and substituting ~/ with $HOME/.
 func SplitFileList(StrVar string) []string {
 
-	return xSplitFileList(StrVar)
-
+	cret := xSplitFileList(StrVar)
+	return cret
 }
 
 var xTrimString func(string) string
@@ -222,8 +222,8 @@ var xTrimString func(string) string
 // Trims leading and trailing whitespace from a string.
 func TrimString(StrVar string) string {
 
-	return xTrimString(StrVar)
-
+	cret := xTrimString(StrVar)
+	return cret
 }
 
 var xVersion func() int
@@ -235,8 +235,8 @@ var xVersion func() int
 // number can be encoded into an integer using PANGO_VERSION_ENCODE().
 func Version() int {
 
-	return xVersion()
-
+	cret := xVersion()
+	return cret
 }
 
 var xVersionCheck func(int, int, int) string
@@ -260,8 +260,8 @@ var xVersionCheck func(int, int, int) string
 // For compile-time version checking use PANGO_VERSION_CHECK().
 func VersionCheck(RequiredMajorVar int, RequiredMinorVar int, RequiredMicroVar int) string {
 
-	return xVersionCheck(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
-
+	cret := xVersionCheck(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
+	return cret
 }
 
 var xVersionString func() string
@@ -272,8 +272,8 @@ var xVersionString func() string
 // macro returns the version available at compile-time.
 func VersionString() string {
 
-	return xVersionString()
-
+	cret := xVersionString()
+	return cret
 }
 
 func init() {

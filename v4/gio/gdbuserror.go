@@ -11,7 +11,7 @@ import (
 type DBusErrorEntry struct {
 	ErrorCode int32
 
-	DbusErrorName string
+	DbusErrorName uintptr
 }
 
 var xDbusErrorEncodeGerror func(*glib.Error) string
@@ -29,8 +29,8 @@ var xDbusErrorEncodeGerror func(*glib.Error) string
 // #GError on the wire. Regular applications should not use it.
 func DbusErrorEncodeGerror(ErrorVar *glib.Error) string {
 
-	return xDbusErrorEncodeGerror(ErrorVar)
-
+	cret := xDbusErrorEncodeGerror(ErrorVar)
+	return cret
 }
 
 var xDbusErrorGetRemoteError func(*glib.Error) string
@@ -43,8 +43,8 @@ var xDbusErrorGetRemoteError func(*glib.Error) string
 // g_dbus_error_strip_remote_error() has been used on @error.
 func DbusErrorGetRemoteError(ErrorVar *glib.Error) string {
 
-	return xDbusErrorGetRemoteError(ErrorVar)
-
+	cret := xDbusErrorGetRemoteError(ErrorVar)
+	return cret
 }
 
 var xDbusErrorIsRemoteError func(*glib.Error) bool
@@ -53,8 +53,8 @@ var xDbusErrorIsRemoteError func(*glib.Error) bool
 // use g_dbus_error_get_remote_error() to get the name of the error.
 func DbusErrorIsRemoteError(ErrorVar *glib.Error) bool {
 
-	return xDbusErrorIsRemoteError(ErrorVar)
-
+	cret := xDbusErrorIsRemoteError(ErrorVar)
+	return cret
 }
 
 var xDbusErrorNewForDbusError func(string, string) *glib.Error
@@ -87,8 +87,8 @@ var xDbusErrorNewForDbusError func(string, string) *glib.Error
 // it.
 func DbusErrorNewForDbusError(DbusErrorNameVar string, DbusErrorMessageVar string) *glib.Error {
 
-	return xDbusErrorNewForDbusError(DbusErrorNameVar, DbusErrorMessageVar)
-
+	cret := xDbusErrorNewForDbusError(DbusErrorNameVar, DbusErrorMessageVar)
+	return cret
 }
 
 var xDbusErrorRegisterError func(glib.Quark, int, string) bool
@@ -100,8 +100,8 @@ var xDbusErrorRegisterError func(glib.Quark, int, string) bool
 // an error domain.
 func DbusErrorRegisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
 
-	return xDbusErrorRegisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
-
+	cret := xDbusErrorRegisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
+	return cret
 }
 
 var xDbusErrorRegisterErrorDomain func(string, uint, uintptr, uint)
@@ -126,8 +126,8 @@ var xDbusErrorStripRemoteError func(*glib.Error) bool
 // This is typically used when presenting errors to the end user.
 func DbusErrorStripRemoteError(ErrorVar *glib.Error) bool {
 
-	return xDbusErrorStripRemoteError(ErrorVar)
-
+	cret := xDbusErrorStripRemoteError(ErrorVar)
+	return cret
 }
 
 var xDbusErrorUnregisterError func(glib.Quark, int, string) bool
@@ -135,8 +135,8 @@ var xDbusErrorUnregisterError func(glib.Quark, int, string) bool
 // Destroys an association previously set up with g_dbus_error_register_error().
 func DbusErrorUnregisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
 
-	return xDbusErrorUnregisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
-
+	cret := xDbusErrorUnregisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
+	return cret
 }
 
 func init() {

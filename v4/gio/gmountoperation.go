@@ -49,14 +49,16 @@ var xNewMountOperation func() uintptr
 
 // Creates a new mount operation.
 func NewMountOperation() *MountOperation {
-	NewMountOperationPtr := xNewMountOperation()
-	if NewMountOperationPtr == 0 {
-		return nil
-	}
+	var cls *MountOperation
 
-	NewMountOperationCls := &MountOperation{}
-	NewMountOperationCls.Ptr = NewMountOperationPtr
-	return NewMountOperationCls
+	cret := xNewMountOperation()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MountOperation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMountOperationGetAnonymous func(uintptr) bool
@@ -65,8 +67,8 @@ var xMountOperationGetAnonymous func(uintptr) bool
 // for an anonymous user.
 func (x *MountOperation) GetAnonymous() bool {
 
-	return xMountOperationGetAnonymous(x.GoPointer())
-
+	cret := xMountOperationGetAnonymous(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetChoice func(uintptr) int
@@ -74,8 +76,8 @@ var xMountOperationGetChoice func(uintptr) int
 // Gets a choice from the mount operation.
 func (x *MountOperation) GetChoice() int {
 
-	return xMountOperationGetChoice(x.GoPointer())
-
+	cret := xMountOperationGetChoice(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetDomain func(uintptr) string
@@ -83,8 +85,8 @@ var xMountOperationGetDomain func(uintptr) string
 // Gets the domain of the mount operation.
 func (x *MountOperation) GetDomain() string {
 
-	return xMountOperationGetDomain(x.GoPointer())
-
+	cret := xMountOperationGetDomain(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetIsTcryptHiddenVolume func(uintptr) bool
@@ -93,8 +95,8 @@ var xMountOperationGetIsTcryptHiddenVolume func(uintptr) bool
 // for a TCRYPT hidden volume.
 func (x *MountOperation) GetIsTcryptHiddenVolume() bool {
 
-	return xMountOperationGetIsTcryptHiddenVolume(x.GoPointer())
-
+	cret := xMountOperationGetIsTcryptHiddenVolume(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetIsTcryptSystemVolume func(uintptr) bool
@@ -103,8 +105,8 @@ var xMountOperationGetIsTcryptSystemVolume func(uintptr) bool
 // for a TCRYPT system volume.
 func (x *MountOperation) GetIsTcryptSystemVolume() bool {
 
-	return xMountOperationGetIsTcryptSystemVolume(x.GoPointer())
-
+	cret := xMountOperationGetIsTcryptSystemVolume(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetPassword func(uintptr) string
@@ -112,8 +114,8 @@ var xMountOperationGetPassword func(uintptr) string
 // Gets a password from the mount operation.
 func (x *MountOperation) GetPassword() string {
 
-	return xMountOperationGetPassword(x.GoPointer())
-
+	cret := xMountOperationGetPassword(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetPasswordSave func(uintptr) PasswordSave
@@ -121,8 +123,8 @@ var xMountOperationGetPasswordSave func(uintptr) PasswordSave
 // Gets the state of saving passwords for the mount operation.
 func (x *MountOperation) GetPasswordSave() PasswordSave {
 
-	return xMountOperationGetPasswordSave(x.GoPointer())
-
+	cret := xMountOperationGetPasswordSave(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetPim func(uintptr) uint
@@ -130,8 +132,8 @@ var xMountOperationGetPim func(uintptr) uint
 // Gets a PIM from the mount operation.
 func (x *MountOperation) GetPim() uint {
 
-	return xMountOperationGetPim(x.GoPointer())
-
+	cret := xMountOperationGetPim(x.GoPointer())
+	return cret
 }
 
 var xMountOperationGetUsername func(uintptr) string
@@ -139,8 +141,8 @@ var xMountOperationGetUsername func(uintptr) string
 // Get the user name from the mount operation.
 func (x *MountOperation) GetUsername() string {
 
-	return xMountOperationGetUsername(x.GoPointer())
-
+	cret := xMountOperationGetUsername(x.GoPointer())
+	return cret
 }
 
 var xMountOperationReply func(uintptr, MountOperationResult)

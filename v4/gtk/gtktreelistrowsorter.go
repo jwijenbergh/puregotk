@@ -42,32 +42,33 @@ var xNewTreeListRowSorter func(uintptr) uintptr
 // Note that this sorter relies on [property@Gtk.TreeListModel:passthrough]
 // being %FALSE as it can only sort [class@Gtk.TreeListRow]s.
 func NewTreeListRowSorter(SorterVar *Sorter) *TreeListRowSorter {
-	NewTreeListRowSorterPtr := xNewTreeListRowSorter(SorterVar.GoPointer())
-	if NewTreeListRowSorterPtr == 0 {
-		return nil
-	}
+	var cls *TreeListRowSorter
 
-	NewTreeListRowSorterCls := &TreeListRowSorter{}
-	NewTreeListRowSorterCls.Ptr = NewTreeListRowSorterPtr
-	return NewTreeListRowSorterCls
+	cret := xNewTreeListRowSorter(SorterVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TreeListRowSorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowSorterGetSorter func(uintptr) uintptr
 
 // Returns the sorter used by @self.
 func (x *TreeListRowSorter) GetSorter() *Sorter {
+	var cls *Sorter
 
-	GetSorterPtr := xTreeListRowSorterGetSorter(x.GoPointer())
-	if GetSorterPtr == 0 {
-		return nil
+	cret := xTreeListRowSorterGetSorter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSorterPtr)
-
-	GetSorterCls := &Sorter{}
-	GetSorterCls.Ptr = GetSorterPtr
-	return GetSorterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Sorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowSorterSetSorter func(uintptr, uintptr)

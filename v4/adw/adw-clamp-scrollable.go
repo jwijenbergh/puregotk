@@ -33,34 +33,34 @@ var xNewClampScrollable func() uintptr
 
 // Creates a new `AdwClampScrollable`.
 func NewClampScrollable() *gtk.Widget {
-	NewClampScrollablePtr := xNewClampScrollable()
-	if NewClampScrollablePtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewClampScrollable()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewClampScrollablePtr)
-
-	NewClampScrollableCls := &gtk.Widget{}
-	NewClampScrollableCls.Ptr = NewClampScrollablePtr
-	return NewClampScrollableCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClampScrollableGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *ClampScrollable) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xClampScrollableGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xClampScrollableGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClampScrollableGetMaximumSize func(uintptr) int
@@ -68,8 +68,8 @@ var xClampScrollableGetMaximumSize func(uintptr) int
 // Gets the maximum size allocated to the child.
 func (x *ClampScrollable) GetMaximumSize() int {
 
-	return xClampScrollableGetMaximumSize(x.GoPointer())
-
+	cret := xClampScrollableGetMaximumSize(x.GoPointer())
+	return cret
 }
 
 var xClampScrollableGetTighteningThreshold func(uintptr) int
@@ -77,8 +77,8 @@ var xClampScrollableGetTighteningThreshold func(uintptr) int
 // Gets the size above which the child is clamped.
 func (x *ClampScrollable) GetTighteningThreshold() int {
 
-	return xClampScrollableGetTighteningThreshold(x.GoPointer())
-
+	cret := xClampScrollableGetTighteningThreshold(x.GoPointer())
+	return cret
 }
 
 var xClampScrollableSetChild func(uintptr, uintptr)
@@ -134,8 +134,8 @@ func (c *ClampScrollable) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ClampScrollable) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -270,15 +270,15 @@ func (x *ClampScrollable) UpdateStateValue(NStatesVar int, StatesVar uintptr, Va
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ClampScrollable) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ClampScrollable) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.
@@ -296,54 +296,52 @@ func (x *ClampScrollable) SetOrientation(OrientationVar gtk.Orientation) {
 // overshoot indication, at the right position.
 func (x *ClampScrollable) GetBorder(BorderVar *gtk.Border) bool {
 
-	return gtk.XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := gtk.XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *ClampScrollable) GetHadjustment() *gtk.Adjustment {
+	var cls *gtk.Adjustment
 
-	GetHadjustmentPtr := gtk.XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := gtk.XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &gtk.Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *ClampScrollable) GetHscrollPolicy() gtk.ScrollablePolicy {
 
-	return gtk.XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := gtk.XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *ClampScrollable) GetVadjustment() *gtk.Adjustment {
+	var cls *gtk.Adjustment
 
-	GetVadjustmentPtr := gtk.XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := gtk.XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &gtk.Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *ClampScrollable) GetVscrollPolicy() gtk.ScrollablePolicy {
 
-	return gtk.XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := gtk.XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

@@ -43,38 +43,37 @@ func (x *PopupBase) SetGoPointer(ptr uintptr) {
 // Returns whether this popup is set to hide on outside clicks.
 func (x *PopupBase) GetAutohide() bool {
 
-	return XGdkPopupGetAutohide(x.GoPointer())
-
+	cret := XGdkPopupGetAutohide(x.GoPointer())
+	return cret
 }
 
 // Returns the parent surface of a popup.
 func (x *PopupBase) GetParent() *Surface {
+	var cls *Surface
 
-	GetParentPtr := XGdkPopupGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := XGdkPopupGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetParentPtr)
-
-	GetParentCls := &Surface{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Obtains the position of the popup relative to its parent.
 func (x *PopupBase) GetPositionX() int {
 
-	return XGdkPopupGetPositionX(x.GoPointer())
-
+	cret := XGdkPopupGetPositionX(x.GoPointer())
+	return cret
 }
 
 // Obtains the position of the popup relative to its parent.
 func (x *PopupBase) GetPositionY() int {
 
-	return XGdkPopupGetPositionY(x.GoPointer())
-
+	cret := XGdkPopupGetPositionY(x.GoPointer())
+	return cret
 }
 
 // Gets the current popup rectangle anchor.
@@ -83,8 +82,8 @@ func (x *PopupBase) GetPositionY() int {
 // or after the [signal@Gdk.Surface::layout] signal is emitted.
 func (x *PopupBase) GetRectAnchor() Gravity {
 
-	return XGdkPopupGetRectAnchor(x.GoPointer())
-
+	cret := XGdkPopupGetRectAnchor(x.GoPointer())
+	return cret
 }
 
 // Gets the current popup surface anchor.
@@ -93,8 +92,8 @@ func (x *PopupBase) GetRectAnchor() Gravity {
 // or after the [signal@Gdk.Surface::layout] signal is emitted.
 func (x *PopupBase) GetSurfaceAnchor() Gravity {
 
-	return XGdkPopupGetSurfaceAnchor(x.GoPointer())
-
+	cret := XGdkPopupGetSurfaceAnchor(x.GoPointer())
+	return cret
 }
 
 // Present @popup after having processed the `GdkPopupLayout` rules.
@@ -114,8 +113,8 @@ func (x *PopupBase) GetSurfaceAnchor() Gravity {
 // the [signal@Gdk.Surface::layout] signal will not me emitted.
 func (x *PopupBase) Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool {
 
-	return XGdkPopupPresent(x.GoPointer(), WidthVar, HeightVar, LayoutVar)
-
+	cret := XGdkPopupPresent(x.GoPointer(), WidthVar, HeightVar, LayoutVar)
+	return cret
 }
 
 var XGdkPopupGetAutohide func(uintptr) bool

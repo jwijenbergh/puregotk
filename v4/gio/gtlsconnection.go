@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -39,8 +40,8 @@ var xTlsConnectionEmitAcceptCertificate func(uintptr, uintptr, TlsCertificateFla
 // #GTlsConnection::accept-certificate signal.
 func (x *TlsConnection) EmitAcceptCertificate(PeerCertVar *TlsCertificate, ErrorsVar TlsCertificateFlags) bool {
 
-	return xTlsConnectionEmitAcceptCertificate(x.GoPointer(), PeerCertVar.GoPointer(), ErrorsVar)
-
+	cret := xTlsConnectionEmitAcceptCertificate(x.GoPointer(), PeerCertVar.GoPointer(), ErrorsVar)
+	return cret
 }
 
 var xTlsConnectionGetCertificate func(uintptr) uintptr
@@ -48,21 +49,20 @@ var xTlsConnectionGetCertificate func(uintptr) uintptr
 // Gets @conn's certificate, as set by
 // g_tls_connection_set_certificate().
 func (x *TlsConnection) GetCertificate() *TlsCertificate {
+	var cls *TlsCertificate
 
-	GetCertificatePtr := xTlsConnectionGetCertificate(x.GoPointer())
-	if GetCertificatePtr == 0 {
-		return nil
+	cret := xTlsConnectionGetCertificate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCertificatePtr)
-
-	GetCertificateCls := &TlsCertificate{}
-	GetCertificateCls.Ptr = GetCertificatePtr
-	return GetCertificateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uintptr) bool
+var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uintptr, **glib.Error) bool
 
 // Query the TLS backend for TLS channel binding data of @type for @conn.
 //
@@ -77,9 +77,14 @@ var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uin
 // will be available though.  That could happen if TLS connection does not
 // support @type or the binding data is not available yet due to additional
 // negotiation or input required.
-func (x *TlsConnection) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar uintptr) bool {
+func (x *TlsConnection) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar uintptr) (bool, error) {
+	var cerr *glib.Error
 
-	return xTlsConnectionGetChannelBindingData(x.GoPointer(), TypeVar, DataVar)
+	cret := xTlsConnectionGetChannelBindingData(x.GoPointer(), TypeVar, DataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -95,8 +100,8 @@ var xTlsConnectionGetCiphersuiteName func(uintptr) string
 // is not recommended.
 func (x *TlsConnection) GetCiphersuiteName() string {
 
-	return xTlsConnectionGetCiphersuiteName(x.GoPointer())
-
+	cret := xTlsConnectionGetCiphersuiteName(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetDatabase func(uintptr) uintptr
@@ -104,18 +109,17 @@ var xTlsConnectionGetDatabase func(uintptr) uintptr
 // Gets the certificate database that @conn uses to verify
 // peer certificates. See g_tls_connection_set_database().
 func (x *TlsConnection) GetDatabase() *TlsDatabase {
+	var cls *TlsDatabase
 
-	GetDatabasePtr := xTlsConnectionGetDatabase(x.GoPointer())
-	if GetDatabasePtr == 0 {
-		return nil
+	cret := xTlsConnectionGetDatabase(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDatabasePtr)
-
-	GetDatabaseCls := &TlsDatabase{}
-	GetDatabaseCls.Ptr = GetDatabasePtr
-	return GetDatabaseCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsDatabase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTlsConnectionGetInteraction func(uintptr) uintptr
@@ -124,18 +128,17 @@ var xTlsConnectionGetInteraction func(uintptr) uintptr
 // for things like prompting the user for passwords. If %NULL is returned, then
 // no user interaction will occur for this connection.
 func (x *TlsConnection) GetInteraction() *TlsInteraction {
+	var cls *TlsInteraction
 
-	GetInteractionPtr := xTlsConnectionGetInteraction(x.GoPointer())
-	if GetInteractionPtr == 0 {
-		return nil
+	cret := xTlsConnectionGetInteraction(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetInteractionPtr)
-
-	GetInteractionCls := &TlsInteraction{}
-	GetInteractionCls.Ptr = GetInteractionPtr
-	return GetInteractionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsInteraction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTlsConnectionGetNegotiatedProtocol func(uintptr) string
@@ -149,8 +152,8 @@ var xTlsConnectionGetNegotiatedProtocol func(uintptr) string
 // g_tls_connection_set_advertised_protocols().
 func (x *TlsConnection) GetNegotiatedProtocol() string {
 
-	return xTlsConnectionGetNegotiatedProtocol(x.GoPointer())
-
+	cret := xTlsConnectionGetNegotiatedProtocol(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetPeerCertificate func(uintptr) uintptr
@@ -159,18 +162,17 @@ var xTlsConnectionGetPeerCertificate func(uintptr) uintptr
 // or failed. (It is not set during the emission of
 // #GTlsConnection::accept-certificate.)
 func (x *TlsConnection) GetPeerCertificate() *TlsCertificate {
+	var cls *TlsCertificate
 
-	GetPeerCertificatePtr := xTlsConnectionGetPeerCertificate(x.GoPointer())
-	if GetPeerCertificatePtr == 0 {
-		return nil
+	cret := xTlsConnectionGetPeerCertificate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPeerCertificatePtr)
-
-	GetPeerCertificateCls := &TlsCertificate{}
-	GetPeerCertificateCls.Ptr = GetPeerCertificatePtr
-	return GetPeerCertificateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTlsConnectionGetPeerCertificateErrors func(uintptr) TlsCertificateFlags
@@ -182,8 +184,8 @@ var xTlsConnectionGetPeerCertificateErrors func(uintptr) TlsCertificateFlags
 // See #GTlsConnection:peer-certificate-errors for more information.
 func (x *TlsConnection) GetPeerCertificateErrors() TlsCertificateFlags {
 
-	return xTlsConnectionGetPeerCertificateErrors(x.GoPointer())
-
+	cret := xTlsConnectionGetPeerCertificateErrors(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetProtocolVersion func(uintptr) TlsProtocolVersion
@@ -194,8 +196,8 @@ var xTlsConnectionGetProtocolVersion func(uintptr) TlsProtocolVersion
 // that is not a recognized #GTlsProtocolVersion.
 func (x *TlsConnection) GetProtocolVersion() TlsProtocolVersion {
 
-	return xTlsConnectionGetProtocolVersion(x.GoPointer())
-
+	cret := xTlsConnectionGetProtocolVersion(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetRehandshakeMode func(uintptr) TlsRehandshakeMode
@@ -204,8 +206,8 @@ var xTlsConnectionGetRehandshakeMode func(uintptr) TlsRehandshakeMode
 // g_tls_connection_set_rehandshake_mode() for details.
 func (x *TlsConnection) GetRehandshakeMode() TlsRehandshakeMode {
 
-	return xTlsConnectionGetRehandshakeMode(x.GoPointer())
-
+	cret := xTlsConnectionGetRehandshakeMode(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetRequireCloseNotify func(uintptr) bool
@@ -215,8 +217,8 @@ var xTlsConnectionGetRequireCloseNotify func(uintptr) bool
 // g_tls_connection_set_require_close_notify() for details.
 func (x *TlsConnection) GetRequireCloseNotify() bool {
 
-	return xTlsConnectionGetRequireCloseNotify(x.GoPointer())
-
+	cret := xTlsConnectionGetRequireCloseNotify(x.GoPointer())
+	return cret
 }
 
 var xTlsConnectionGetUseSystemCertdb func(uintptr) bool
@@ -225,11 +227,11 @@ var xTlsConnectionGetUseSystemCertdb func(uintptr) bool
 // peer certificates. See g_tls_connection_set_use_system_certdb().
 func (x *TlsConnection) GetUseSystemCertdb() bool {
 
-	return xTlsConnectionGetUseSystemCertdb(x.GoPointer())
-
+	cret := xTlsConnectionGetUseSystemCertdb(x.GoPointer())
+	return cret
 }
 
-var xTlsConnectionHandshake func(uintptr, uintptr) bool
+var xTlsConnectionHandshake func(uintptr, uintptr, **glib.Error) bool
 
 // Attempts a TLS handshake on @conn.
 //
@@ -262,9 +264,14 @@ var xTlsConnectionHandshake func(uintptr, uintptr) bool
 //
 // #GTlsConnection::accept_certificate may be emitted during the
 // handshake.
-func (x *TlsConnection) Handshake(CancellableVar *Cancellable) bool {
+func (x *TlsConnection) Handshake(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xTlsConnectionHandshake(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xTlsConnectionHandshake(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -278,13 +285,18 @@ func (x *TlsConnection) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancel
 
 }
 
-var xTlsConnectionHandshakeFinish func(uintptr, uintptr) bool
+var xTlsConnectionHandshakeFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finish an asynchronous TLS handshake operation. See
 // g_tls_connection_handshake() for more information.
-func (x *TlsConnection) HandshakeFinish(ResultVar AsyncResult) bool {
+func (x *TlsConnection) HandshakeFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xTlsConnectionHandshakeFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xTlsConnectionHandshakeFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

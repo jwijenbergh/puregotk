@@ -15,8 +15,8 @@ var xToplevelSizeGetType func() []interface{}
 
 func ToplevelSizeGetType() []interface{} {
 
-	return xToplevelSizeGetType()
-
+	cret := xToplevelSizeGetType()
+	return cret
 }
 
 func init() {

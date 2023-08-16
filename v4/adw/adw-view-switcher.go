@@ -66,16 +66,17 @@ var xNewViewSwitcher func() uintptr
 
 // Creates a new `AdwViewSwitcher`.
 func NewViewSwitcher() *gtk.Widget {
-	NewViewSwitcherPtr := xNewViewSwitcher()
-	if NewViewSwitcherPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewViewSwitcher()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewViewSwitcherPtr)
-
-	NewViewSwitcherCls := &gtk.Widget{}
-	NewViewSwitcherCls.Ptr = NewViewSwitcherPtr
-	return NewViewSwitcherCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherGetPolicy func(uintptr) ViewSwitcherPolicy
@@ -83,26 +84,25 @@ var xViewSwitcherGetPolicy func(uintptr) ViewSwitcherPolicy
 // Gets the policy of @self.
 func (x *ViewSwitcher) GetPolicy() ViewSwitcherPolicy {
 
-	return xViewSwitcherGetPolicy(x.GoPointer())
-
+	cret := xViewSwitcherGetPolicy(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherGetStack func(uintptr) uintptr
 
 // Gets the stack controlled by @self.
 func (x *ViewSwitcher) GetStack() *ViewStack {
+	var cls *ViewStack
 
-	GetStackPtr := xViewSwitcherGetStack(x.GoPointer())
-	if GetStackPtr == 0 {
-		return nil
+	cret := xViewSwitcherGetStack(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStackPtr)
-
-	GetStackCls := &ViewStack{}
-	GetStackCls.Ptr = GetStackPtr
-	return GetStackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStack{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherSetPolicy func(uintptr, ViewSwitcherPolicy)
@@ -134,8 +134,8 @@ func (c *ViewSwitcher) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ViewSwitcher) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -270,8 +270,8 @@ func (x *ViewSwitcher) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ViewSwitcher) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

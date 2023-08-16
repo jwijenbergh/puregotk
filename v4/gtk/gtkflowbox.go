@@ -95,16 +95,17 @@ var xNewFlowBox func() uintptr
 
 // Creates a `GtkFlowBox`.
 func NewFlowBox() *Widget {
-	NewFlowBoxPtr := xNewFlowBox()
-	if NewFlowBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFlowBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFlowBoxPtr)
-
-	NewFlowBoxCls := &Widget{}
-	NewFlowBoxCls.Ptr = NewFlowBoxPtr
-	return NewFlowBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlowBoxAppend func(uintptr, uintptr)
@@ -149,26 +150,25 @@ var xFlowBoxGetActivateOnSingleClick func(uintptr) bool
 // Returns whether children activate on single clicks.
 func (x *FlowBox) GetActivateOnSingleClick() bool {
 
-	return xFlowBoxGetActivateOnSingleClick(x.GoPointer())
-
+	cret := xFlowBoxGetActivateOnSingleClick(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetChildAtIndex func(uintptr, int) uintptr
 
 // Gets the nth child in the @box.
 func (x *FlowBox) GetChildAtIndex(IdxVar int) *FlowBoxChild {
+	var cls *FlowBoxChild
 
-	GetChildAtIndexPtr := xFlowBoxGetChildAtIndex(x.GoPointer(), IdxVar)
-	if GetChildAtIndexPtr == 0 {
-		return nil
+	cret := xFlowBoxGetChildAtIndex(x.GoPointer(), IdxVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildAtIndexPtr)
-
-	GetChildAtIndexCls := &FlowBoxChild{}
-	GetChildAtIndexCls.Ptr = GetChildAtIndexPtr
-	return GetChildAtIndexCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FlowBoxChild{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlowBoxGetChildAtPos func(uintptr, int, int) uintptr
@@ -177,18 +177,17 @@ var xFlowBoxGetChildAtPos func(uintptr, int, int) uintptr
 //
 // Both @x and @y are assumed to be relative to the origin of @box.
 func (x *FlowBox) GetChildAtPos(XVar int, YVar int) *FlowBoxChild {
+	var cls *FlowBoxChild
 
-	GetChildAtPosPtr := xFlowBoxGetChildAtPos(x.GoPointer(), XVar, YVar)
-	if GetChildAtPosPtr == 0 {
-		return nil
+	cret := xFlowBoxGetChildAtPos(x.GoPointer(), XVar, YVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildAtPosPtr)
-
-	GetChildAtPosCls := &FlowBoxChild{}
-	GetChildAtPosCls.Ptr = GetChildAtPosPtr
-	return GetChildAtPosCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FlowBoxChild{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlowBoxGetColumnSpacing func(uintptr) uint
@@ -196,8 +195,8 @@ var xFlowBoxGetColumnSpacing func(uintptr) uint
 // Gets the horizontal spacing.
 func (x *FlowBox) GetColumnSpacing() uint {
 
-	return xFlowBoxGetColumnSpacing(x.GoPointer())
-
+	cret := xFlowBoxGetColumnSpacing(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetHomogeneous func(uintptr) bool
@@ -205,8 +204,8 @@ var xFlowBoxGetHomogeneous func(uintptr) bool
 // Returns whether the box is homogeneous.
 func (x *FlowBox) GetHomogeneous() bool {
 
-	return xFlowBoxGetHomogeneous(x.GoPointer())
-
+	cret := xFlowBoxGetHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetMaxChildrenPerLine func(uintptr) uint
@@ -214,8 +213,8 @@ var xFlowBoxGetMaxChildrenPerLine func(uintptr) uint
 // Gets the maximum number of children per line.
 func (x *FlowBox) GetMaxChildrenPerLine() uint {
 
-	return xFlowBoxGetMaxChildrenPerLine(x.GoPointer())
-
+	cret := xFlowBoxGetMaxChildrenPerLine(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetMinChildrenPerLine func(uintptr) uint
@@ -223,8 +222,8 @@ var xFlowBoxGetMinChildrenPerLine func(uintptr) uint
 // Gets the minimum number of children per line.
 func (x *FlowBox) GetMinChildrenPerLine() uint {
 
-	return xFlowBoxGetMinChildrenPerLine(x.GoPointer())
-
+	cret := xFlowBoxGetMinChildrenPerLine(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetRowSpacing func(uintptr) uint
@@ -232,8 +231,8 @@ var xFlowBoxGetRowSpacing func(uintptr) uint
 // Gets the vertical spacing.
 func (x *FlowBox) GetRowSpacing() uint {
 
-	return xFlowBoxGetRowSpacing(x.GoPointer())
-
+	cret := xFlowBoxGetRowSpacing(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetSelectedChildren func(uintptr) *glib.List
@@ -241,8 +240,8 @@ var xFlowBoxGetSelectedChildren func(uintptr) *glib.List
 // Creates a list of all selected children.
 func (x *FlowBox) GetSelectedChildren() *glib.List {
 
-	return xFlowBoxGetSelectedChildren(x.GoPointer())
-
+	cret := xFlowBoxGetSelectedChildren(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxGetSelectionMode func(uintptr) SelectionMode
@@ -250,8 +249,8 @@ var xFlowBoxGetSelectionMode func(uintptr) SelectionMode
 // Gets the selection mode of @box.
 func (x *FlowBox) GetSelectionMode() SelectionMode {
 
-	return xFlowBoxGetSelectionMode(x.GoPointer())
-
+	cret := xFlowBoxGetSelectionMode(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxInsert func(uintptr, uintptr, int)
@@ -650,8 +649,8 @@ func (x *FlowBox) ConnectUnselectAll(cb func(FlowBox)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *FlowBox) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -786,15 +785,15 @@ func (x *FlowBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FlowBox) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *FlowBox) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.
@@ -821,16 +820,17 @@ var xNewFlowBoxChild func() uintptr
 //
 // This should only be used as a child of a `GtkFlowBox`.
 func NewFlowBoxChild() *Widget {
-	NewFlowBoxChildPtr := xNewFlowBoxChild()
-	if NewFlowBoxChildPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFlowBoxChild()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFlowBoxChildPtr)
-
-	NewFlowBoxChildCls := &Widget{}
-	NewFlowBoxChildCls.Ptr = NewFlowBoxChildPtr
-	return NewFlowBoxChildCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlowBoxChildChanged func(uintptr)
@@ -864,18 +864,17 @@ var xFlowBoxChildGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *FlowBoxChild) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xFlowBoxChildGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xFlowBoxChildGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlowBoxChildGetIndex func(uintptr) int
@@ -883,8 +882,8 @@ var xFlowBoxChildGetIndex func(uintptr) int
 // Gets the current index of the @child in its `GtkFlowBox` container.
 func (x *FlowBoxChild) GetIndex() int {
 
-	return xFlowBoxChildGetIndex(x.GoPointer())
-
+	cret := xFlowBoxChildGetIndex(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxChildIsSelected func(uintptr) bool
@@ -893,8 +892,8 @@ var xFlowBoxChildIsSelected func(uintptr) bool
 // `GtkFlowBox` container.
 func (x *FlowBoxChild) IsSelected() bool {
 
-	return xFlowBoxChildIsSelected(x.GoPointer())
-
+	cret := xFlowBoxChildIsSelected(x.GoPointer())
+	return cret
 }
 
 var xFlowBoxChildSetChild func(uintptr, uintptr)
@@ -937,8 +936,8 @@ func (x *FlowBoxChild) ConnectActivate(cb func(FlowBoxChild)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *FlowBoxChild) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1073,8 +1072,8 @@ func (x *FlowBoxChild) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FlowBoxChild) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

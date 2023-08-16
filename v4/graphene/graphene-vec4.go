@@ -20,8 +20,8 @@ var xVec4One func() *Vec4
 // components set to 1.
 func Vec4One() *Vec4 {
 
-	return xVec4One()
-
+	cret := xVec4One()
+	return cret
 }
 
 var xVec4WAxis func() *Vec4
@@ -30,8 +30,8 @@ var xVec4WAxis func() *Vec4
 // components set to (0, 0, 0, 1).
 func Vec4WAxis() *Vec4 {
 
-	return xVec4WAxis()
-
+	cret := xVec4WAxis()
+	return cret
 }
 
 var xVec4XAxis func() *Vec4
@@ -40,8 +40,8 @@ var xVec4XAxis func() *Vec4
 // components set to (1, 0, 0, 0).
 func Vec4XAxis() *Vec4 {
 
-	return xVec4XAxis()
-
+	cret := xVec4XAxis()
+	return cret
 }
 
 var xVec4YAxis func() *Vec4
@@ -50,8 +50,8 @@ var xVec4YAxis func() *Vec4
 // components set to (0, 1, 0, 0).
 func Vec4YAxis() *Vec4 {
 
-	return xVec4YAxis()
-
+	cret := xVec4YAxis()
+	return cret
 }
 
 var xVec4ZAxis func() *Vec4
@@ -60,8 +60,8 @@ var xVec4ZAxis func() *Vec4
 // components set to (0, 0, 1, 0).
 func Vec4ZAxis() *Vec4 {
 
-	return xVec4ZAxis()
-
+	cret := xVec4ZAxis()
+	return cret
 }
 
 var xVec4Zero func() *Vec4
@@ -70,8 +70,8 @@ var xVec4Zero func() *Vec4
 // components set to 0.
 func Vec4Zero() *Vec4 {
 
-	return xVec4Zero()
-
+	cret := xVec4Zero()
+	return cret
 }
 
 func init() {

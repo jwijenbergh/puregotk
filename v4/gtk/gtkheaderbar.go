@@ -96,16 +96,17 @@ var xNewHeaderBar func() uintptr
 
 // Creates a new `GtkHeaderBar` widget.
 func NewHeaderBar() *Widget {
-	NewHeaderBarPtr := xNewHeaderBar()
-	if NewHeaderBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewHeaderBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewHeaderBarPtr)
-
-	NewHeaderBarCls := &Widget{}
-	NewHeaderBarCls.Ptr = NewHeaderBarPtr
-	return NewHeaderBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xHeaderBarGetDecorationLayout func(uintptr) string
@@ -113,8 +114,8 @@ var xHeaderBarGetDecorationLayout func(uintptr) string
 // Gets the decoration layout of the `GtkHeaderBar`.
 func (x *HeaderBar) GetDecorationLayout() string {
 
-	return xHeaderBarGetDecorationLayout(x.GoPointer())
-
+	cret := xHeaderBarGetDecorationLayout(x.GoPointer())
+	return cret
 }
 
 var xHeaderBarGetShowTitleButtons func(uintptr) bool
@@ -123,8 +124,8 @@ var xHeaderBarGetShowTitleButtons func(uintptr) bool
 // title buttons.
 func (x *HeaderBar) GetShowTitleButtons() bool {
 
-	return xHeaderBarGetShowTitleButtons(x.GoPointer())
-
+	cret := xHeaderBarGetShowTitleButtons(x.GoPointer())
+	return cret
 }
 
 var xHeaderBarGetTitleWidget func(uintptr) uintptr
@@ -133,18 +134,17 @@ var xHeaderBarGetTitleWidget func(uintptr) uintptr
 //
 // See [method@Gtk.HeaderBar.set_title_widget].
 func (x *HeaderBar) GetTitleWidget() *Widget {
+	var cls *Widget
 
-	GetTitleWidgetPtr := xHeaderBarGetTitleWidget(x.GoPointer())
-	if GetTitleWidgetPtr == 0 {
-		return nil
+	cret := xHeaderBarGetTitleWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTitleWidgetPtr)
-
-	GetTitleWidgetCls := &Widget{}
-	GetTitleWidgetCls.Ptr = GetTitleWidgetPtr
-	return GetTitleWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xHeaderBarPackEnd func(uintptr, uintptr)
@@ -246,8 +246,8 @@ func (c *HeaderBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *HeaderBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -382,8 +382,8 @@ func (x *HeaderBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *HeaderBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

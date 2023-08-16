@@ -40,32 +40,34 @@ var xNewVideo func() uintptr
 
 // Creates a new empty `GtkVideo`.
 func NewVideo() *Widget {
-	NewVideoPtr := xNewVideo()
-	if NewVideoPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewVideo()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewVideoPtr)
-
-	NewVideoCls := &Widget{}
-	NewVideoCls.Ptr = NewVideoPtr
-	return NewVideoCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFileVideo func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @file.
 func NewForFileVideo(FileVar gio.File) *Widget {
-	NewForFileVideoPtr := xNewForFileVideo(FileVar.GoPointer())
-	if NewForFileVideoPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForFileVideo(FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForFileVideoPtr)
-
-	NewForFileVideoCls := &Widget{}
-	NewForFileVideoCls.Ptr = NewForFileVideoPtr
-	return NewForFileVideoCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFilenameVideo func(string) uintptr
@@ -75,32 +77,34 @@ var xNewForFilenameVideo func(string) uintptr
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file],
 // See that function for details.
 func NewForFilenameVideo(FilenameVar string) *Widget {
-	NewForFilenameVideoPtr := xNewForFilenameVideo(FilenameVar)
-	if NewForFilenameVideoPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForFilenameVideo(FilenameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForFilenameVideoPtr)
-
-	NewForFilenameVideoCls := &Widget{}
-	NewForFilenameVideoCls.Ptr = NewForFilenameVideoPtr
-	return NewForFilenameVideoCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForMediaStreamVideo func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @stream.
 func NewForMediaStreamVideo(StreamVar *MediaStream) *Widget {
-	NewForMediaStreamVideoPtr := xNewForMediaStreamVideo(StreamVar.GoPointer())
-	if NewForMediaStreamVideoPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForMediaStreamVideo(StreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForMediaStreamVideoPtr)
-
-	NewForMediaStreamVideoCls := &Widget{}
-	NewForMediaStreamVideoCls.Ptr = NewForMediaStreamVideoPtr
-	return NewForMediaStreamVideoCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForResourceVideo func(string) uintptr
@@ -110,16 +114,17 @@ var xNewForResourceVideo func(string) uintptr
 //
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file].
 func NewForResourceVideo(ResourcePathVar string) *Widget {
-	NewForResourceVideoPtr := xNewForResourceVideo(ResourcePathVar)
-	if NewForResourceVideoPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForResourceVideo(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForResourceVideoPtr)
-
-	NewForResourceVideoCls := &Widget{}
-	NewForResourceVideoCls.Ptr = NewForResourceVideoPtr
-	return NewForResourceVideoCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVideoGetAutoplay func(uintptr) bool
@@ -127,8 +132,8 @@ var xVideoGetAutoplay func(uintptr) bool
 // Returns %TRUE if videos have been set to loop.
 func (x *Video) GetAutoplay() bool {
 
-	return xVideoGetAutoplay(x.GoPointer())
-
+	cret := xVideoGetAutoplay(x.GoPointer())
+	return cret
 }
 
 var xVideoGetFile func(uintptr) uintptr
@@ -136,18 +141,17 @@ var xVideoGetFile func(uintptr) uintptr
 // Gets the file played by @self or %NULL if not playing back
 // a file.
 func (x *Video) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := xVideoGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xVideoGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilePtr)
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVideoGetLoop func(uintptr) bool
@@ -155,26 +159,25 @@ var xVideoGetLoop func(uintptr) bool
 // Returns %TRUE if videos have been set to loop.
 func (x *Video) GetLoop() bool {
 
-	return xVideoGetLoop(x.GoPointer())
-
+	cret := xVideoGetLoop(x.GoPointer())
+	return cret
 }
 
 var xVideoGetMediaStream func(uintptr) uintptr
 
 // Gets the media stream managed by @self or %NULL if none.
 func (x *Video) GetMediaStream() *MediaStream {
+	var cls *MediaStream
 
-	GetMediaStreamPtr := xVideoGetMediaStream(x.GoPointer())
-	if GetMediaStreamPtr == 0 {
-		return nil
+	cret := xVideoGetMediaStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMediaStreamPtr)
-
-	GetMediaStreamCls := &MediaStream{}
-	GetMediaStreamCls.Ptr = GetMediaStreamPtr
-	return GetMediaStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &MediaStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVideoSetAutoplay func(uintptr, bool)
@@ -254,8 +257,8 @@ func (c *Video) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Video) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -390,8 +393,8 @@ func (x *Video) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Video) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -50,16 +50,17 @@ var xNewAppChooserButton func(string) uintptr
 // Creates a new `GtkAppChooserButton` for applications
 // that can handle content of the given type.
 func NewAppChooserButton(ContentTypeVar string) *Widget {
-	NewAppChooserButtonPtr := xNewAppChooserButton(ContentTypeVar)
-	if NewAppChooserButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAppChooserButton(ContentTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAppChooserButtonPtr)
-
-	NewAppChooserButtonCls := &Widget{}
-	NewAppChooserButtonCls.Ptr = NewAppChooserButtonPtr
-	return NewAppChooserButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppChooserButtonAppendCustomItem func(uintptr, string, string, uintptr)
@@ -94,8 +95,8 @@ var xAppChooserButtonGetHeading func(uintptr) string
 // Returns the text to display at the top of the dialog.
 func (x *AppChooserButton) GetHeading() string {
 
-	return xAppChooserButtonGetHeading(x.GoPointer())
-
+	cret := xAppChooserButtonGetHeading(x.GoPointer())
+	return cret
 }
 
 var xAppChooserButtonGetModal func(uintptr) bool
@@ -103,8 +104,8 @@ var xAppChooserButtonGetModal func(uintptr) bool
 // Gets whether the dialog is modal.
 func (x *AppChooserButton) GetModal() bool {
 
-	return xAppChooserButtonGetModal(x.GoPointer())
-
+	cret := xAppChooserButtonGetModal(x.GoPointer())
+	return cret
 }
 
 var xAppChooserButtonGetShowDefaultItem func(uintptr) bool
@@ -113,8 +114,8 @@ var xAppChooserButtonGetShowDefaultItem func(uintptr) bool
 // application at the top.
 func (x *AppChooserButton) GetShowDefaultItem() bool {
 
-	return xAppChooserButtonGetShowDefaultItem(x.GoPointer())
-
+	cret := xAppChooserButtonGetShowDefaultItem(x.GoPointer())
+	return cret
 }
 
 var xAppChooserButtonGetShowDialogItem func(uintptr) bool
@@ -123,8 +124,8 @@ var xAppChooserButtonGetShowDialogItem func(uintptr) bool
 // for a `GtkAppChooserDialog`.
 func (x *AppChooserButton) GetShowDialogItem() bool {
 
-	return xAppChooserButtonGetShowDialogItem(x.GoPointer())
-
+	cret := xAppChooserButtonGetShowDialogItem(x.GoPointer())
+	return cret
 }
 
 var xAppChooserButtonSetActiveCustomItem func(uintptr, string)
@@ -234,8 +235,8 @@ func (x *AppChooserButton) ConnectCustomItemActivated(cb func(AppChooserButton, 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AppChooserButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -366,24 +367,24 @@ func (x *AppChooserButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, V
 
 // Returns the currently selected application.
 func (x *AppChooserButton) GetAppInfo() *gio.AppInfoBase {
+	var cls *gio.AppInfoBase
 
-	GetAppInfoPtr := XGtkAppChooserGetAppInfo(x.GoPointer())
-	if GetAppInfoPtr == 0 {
-		return nil
+	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetAppInfoCls := &gio.AppInfoBase{}
-	GetAppInfoCls.Ptr = GetAppInfoPtr
-	return GetAppInfoCls
-
+	cls = &gio.AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the content type for which the `GtkAppChooser`
 // shows applications.
 func (x *AppChooserButton) GetContentType() string {
 
-	return XGtkAppChooserGetContentType(x.GoPointer())
-
+	cret := XGtkAppChooserGetContentType(x.GoPointer())
+	return cret
 }
 
 // Reloads the list of applications.
@@ -399,8 +400,8 @@ func (x *AppChooserButton) Refresh() {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AppChooserButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

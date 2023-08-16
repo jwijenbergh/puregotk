@@ -42,16 +42,17 @@ var xNewCellView func() uintptr
 
 // Creates a new `GtkCellView` widget.
 func NewCellView() *Widget {
-	NewCellViewPtr := xNewCellView()
-	if NewCellViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewCellView()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellViewPtr)
-
-	NewCellViewCls := &Widget{}
-	NewCellViewCls.Ptr = NewCellViewPtr
-	return NewCellViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithContextCellView func(uintptr, uintptr) uintptr
@@ -64,16 +65,17 @@ var xNewWithContextCellView func(uintptr, uintptr) uintptr
 // in this way alignments with cellviews for other rows are
 // possible.
 func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *Widget {
-	NewWithContextCellViewPtr := xNewWithContextCellView(AreaVar.GoPointer(), ContextVar.GoPointer())
-	if NewWithContextCellViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithContextCellView(AreaVar.GoPointer(), ContextVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithContextCellViewPtr)
-
-	NewWithContextCellViewCls := &Widget{}
-	NewWithContextCellViewCls.Ptr = NewWithContextCellViewPtr
-	return NewWithContextCellViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMarkupCellView func(string) uintptr
@@ -82,16 +84,17 @@ var xNewWithMarkupCellView func(string) uintptr
 // to it, and makes it show @markup. The text can be marked up with
 // the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
 func NewWithMarkupCellView(MarkupVar string) *Widget {
-	NewWithMarkupCellViewPtr := xNewWithMarkupCellView(MarkupVar)
-	if NewWithMarkupCellViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMarkupCellView(MarkupVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMarkupCellViewPtr)
-
-	NewWithMarkupCellViewCls := &Widget{}
-	NewWithMarkupCellViewCls.Ptr = NewWithMarkupCellViewPtr
-	return NewWithMarkupCellViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithTextCellView func(string) uintptr
@@ -99,16 +102,17 @@ var xNewWithTextCellView func(string) uintptr
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
 // to it, and makes it show @text.
 func NewWithTextCellView(TextVar string) *Widget {
-	NewWithTextCellViewPtr := xNewWithTextCellView(TextVar)
-	if NewWithTextCellViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithTextCellView(TextVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithTextCellViewPtr)
-
-	NewWithTextCellViewCls := &Widget{}
-	NewWithTextCellViewCls.Ptr = NewWithTextCellViewPtr
-	return NewWithTextCellViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithTextureCellView func(uintptr) uintptr
@@ -116,16 +120,17 @@ var xNewWithTextureCellView func(uintptr) uintptr
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
 // to it, and makes it show @texture.
 func NewWithTextureCellView(TextureVar *gdk.Texture) *Widget {
-	NewWithTextureCellViewPtr := xNewWithTextureCellView(TextureVar.GoPointer())
-	if NewWithTextureCellViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithTextureCellView(TextureVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithTextureCellViewPtr)
-
-	NewWithTextureCellViewCls := &Widget{}
-	NewWithTextureCellViewCls.Ptr = NewWithTextureCellViewPtr
-	return NewWithTextureCellViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellViewGetDisplayedRow func(uintptr) *TreePath
@@ -135,8 +140,8 @@ var xCellViewGetDisplayedRow func(uintptr) *TreePath
 // %NULL is returned.
 func (x *CellView) GetDisplayedRow() *TreePath {
 
-	return xCellViewGetDisplayedRow(x.GoPointer())
-
+	cret := xCellViewGetDisplayedRow(x.GoPointer())
+	return cret
 }
 
 var xCellViewGetDrawSensitive func(uintptr) bool
@@ -145,8 +150,8 @@ var xCellViewGetDrawSensitive func(uintptr) bool
 // cells in a sensitive state.
 func (x *CellView) GetDrawSensitive() bool {
 
-	return xCellViewGetDrawSensitive(x.GoPointer())
-
+	cret := xCellViewGetDrawSensitive(x.GoPointer())
+	return cret
 }
 
 var xCellViewGetFitModel func(uintptr) bool
@@ -155,8 +160,8 @@ var xCellViewGetFitModel func(uintptr) bool
 // to fit the entire `GtkTreeModel`.
 func (x *CellView) GetFitModel() bool {
 
-	return xCellViewGetFitModel(x.GoPointer())
-
+	cret := xCellViewGetFitModel(x.GoPointer())
+	return cret
 }
 
 var xCellViewGetModel func(uintptr) uintptr
@@ -164,18 +169,17 @@ var xCellViewGetModel func(uintptr) uintptr
 // Returns the model for @cell_view. If no model is used %NULL is
 // returned.
 func (x *CellView) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
 
-	GetModelPtr := xCellViewGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xCellViewGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &TreeModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellViewSetDisplayedRow func(uintptr, *TreePath)
@@ -239,8 +243,8 @@ func (c *CellView) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *CellView) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -375,8 +379,8 @@ func (x *CellView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CellView) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds an attribute mapping to the list in @cell_layout.
@@ -412,25 +416,24 @@ func (x *CellView) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *CellView) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *CellView) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the
@@ -495,8 +498,8 @@ func (x *CellView) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutData
 // Retrieves the orientation of the @orientable.
 func (x *CellView) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

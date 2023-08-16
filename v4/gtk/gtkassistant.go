@@ -106,16 +106,17 @@ var xNewAssistant func() uintptr
 
 // Creates a new `GtkAssistant`.
 func NewAssistant() *Widget {
-	NewAssistantPtr := xNewAssistant()
-	if NewAssistantPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAssistant()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAssistantPtr)
-
-	NewAssistantCls := &Widget{}
-	NewAssistantCls.Ptr = NewAssistantPtr
-	return NewAssistantCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAssistantAddActionWidget func(uintptr, uintptr)
@@ -132,8 +133,8 @@ var xAssistantAppendPage func(uintptr, uintptr) int
 // Appends a page to the @assistant.
 func (x *Assistant) AppendPage(PageVar *Widget) int {
 
-	return xAssistantAppendPage(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xAssistantAppendPage(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xAssistantCommit func(uintptr)
@@ -159,8 +160,8 @@ var xAssistantGetCurrentPage func(uintptr) int
 // Returns the page number of the current page.
 func (x *Assistant) GetCurrentPage() int {
 
-	return xAssistantGetCurrentPage(x.GoPointer())
-
+	cret := xAssistantGetCurrentPage(x.GoPointer())
+	return cret
 }
 
 var xAssistantGetNPages func(uintptr) int
@@ -168,44 +169,42 @@ var xAssistantGetNPages func(uintptr) int
 // Returns the number of pages in the @assistant
 func (x *Assistant) GetNPages() int {
 
-	return xAssistantGetNPages(x.GoPointer())
-
+	cret := xAssistantGetNPages(x.GoPointer())
+	return cret
 }
 
 var xAssistantGetNthPage func(uintptr, int) uintptr
 
 // Returns the child widget contained in page number @page_num.
 func (x *Assistant) GetNthPage(PageNumVar int) *Widget {
+	var cls *Widget
 
-	GetNthPagePtr := xAssistantGetNthPage(x.GoPointer(), PageNumVar)
-	if GetNthPagePtr == 0 {
-		return nil
+	cret := xAssistantGetNthPage(x.GoPointer(), PageNumVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNthPagePtr)
-
-	GetNthPageCls := &Widget{}
-	GetNthPageCls.Ptr = GetNthPagePtr
-	return GetNthPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAssistantGetPage func(uintptr, uintptr) uintptr
 
 // Returns the `GtkAssistantPage` object for @child.
 func (x *Assistant) GetPage(ChildVar *Widget) *AssistantPage {
+	var cls *AssistantPage
 
-	GetPagePtr := xAssistantGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xAssistantGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &AssistantPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &AssistantPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAssistantGetPageComplete func(uintptr, uintptr) bool
@@ -213,8 +212,8 @@ var xAssistantGetPageComplete func(uintptr, uintptr) bool
 // Gets whether @page is complete.
 func (x *Assistant) GetPageComplete(PageVar *Widget) bool {
 
-	return xAssistantGetPageComplete(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xAssistantGetPageComplete(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xAssistantGetPageTitle func(uintptr, uintptr) string
@@ -222,8 +221,8 @@ var xAssistantGetPageTitle func(uintptr, uintptr) string
 // Gets the title for @page.
 func (x *Assistant) GetPageTitle(PageVar *Widget) string {
 
-	return xAssistantGetPageTitle(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xAssistantGetPageTitle(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xAssistantGetPageType func(uintptr, uintptr) AssistantPageType
@@ -231,24 +230,24 @@ var xAssistantGetPageType func(uintptr, uintptr) AssistantPageType
 // Gets the page type of @page.
 func (x *Assistant) GetPageType(PageVar *Widget) AssistantPageType {
 
-	return xAssistantGetPageType(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xAssistantGetPageType(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xAssistantGetPages func(uintptr) uintptr
 
 // Gets a list model of the assistant pages.
 func (x *Assistant) GetPages() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetPagesPtr := xAssistantGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xAssistantGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &gio.ListModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAssistantInsertPage func(uintptr, uintptr, int) int
@@ -256,8 +255,8 @@ var xAssistantInsertPage func(uintptr, uintptr, int) int
 // Inserts a page in the @assistant at a given position.
 func (x *Assistant) InsertPage(PageVar *Widget, PositionVar int) int {
 
-	return xAssistantInsertPage(x.GoPointer(), PageVar.GoPointer(), PositionVar)
-
+	cret := xAssistantInsertPage(x.GoPointer(), PageVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xAssistantNextPage func(uintptr)
@@ -280,8 +279,8 @@ var xAssistantPrependPage func(uintptr, uintptr) int
 // Prepends a page to the @assistant.
 func (x *Assistant) PrependPage(PageVar *Widget) int {
 
-	return xAssistantPrependPage(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xAssistantPrependPage(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xAssistantPreviousPage func(uintptr)
@@ -484,8 +483,8 @@ func (x *Assistant) ConnectPrepare(cb func(Assistant, uintptr)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Assistant) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -620,40 +619,38 @@ func (x *Assistant) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Assistant) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *Assistant) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *Assistant) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -686,18 +683,17 @@ func (x *Assistant) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *Assistant) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -707,18 +703,17 @@ func (x *Assistant) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *Assistant) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets
@@ -750,18 +745,17 @@ var xAssistantPageGetChild func(uintptr) uintptr
 
 // Returns the child to which @page belongs.
 func (x *AssistantPage) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xAssistantPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xAssistantPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *AssistantPage) GoPointer() uintptr {

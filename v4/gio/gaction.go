@@ -100,15 +100,15 @@ func (x *ActionBase) ChangeState(ValueVar *glib.Variant) {
 // have its state changed from outside callers.
 func (x *ActionBase) GetEnabled() bool {
 
-	return XGActionGetEnabled(x.GoPointer())
-
+	cret := XGActionGetEnabled(x.GoPointer())
+	return cret
 }
 
 // Queries the name of @action.
 func (x *ActionBase) GetName() string {
 
-	return XGActionGetName(x.GoPointer())
-
+	cret := XGActionGetName(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -121,8 +121,8 @@ func (x *ActionBase) GetName() string {
 // #GVariant, but %NULL instead.
 func (x *ActionBase) GetParameterType() *glib.VariantType {
 
-	return XGActionGetParameterType(x.GoPointer())
-
+	cret := XGActionGetParameterType(x.GoPointer())
+	return cret
 }
 
 // Queries the current state of @action.
@@ -135,8 +135,8 @@ func (x *ActionBase) GetParameterType() *glib.VariantType {
 // g_variant_unref() when it is no longer required.
 func (x *ActionBase) GetState() *glib.Variant {
 
-	return XGActionGetState(x.GoPointer())
-
+	cret := XGActionGetState(x.GoPointer())
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of
@@ -159,8 +159,8 @@ func (x *ActionBase) GetState() *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *ActionBase) GetStateHint() *glib.Variant {
 
-	return XGActionGetStateHint(x.GoPointer())
-
+	cret := XGActionGetStateHint(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the state of @action.
@@ -177,8 +177,8 @@ func (x *ActionBase) GetStateHint() *glib.Variant {
 // will return %NULL and you must not call g_action_change_state().
 func (x *ActionBase) GetStateType() *glib.VariantType {
 
-	return XGActionGetStateType(x.GoPointer())
-
+	cret := XGActionGetStateType(x.GoPointer())
+	return cret
 }
 
 var XGActionActivate func(uintptr, *glib.Variant)
@@ -201,11 +201,11 @@ var xActionNameIsValid func(string) bool
 // @action_name must not be %NULL.
 func ActionNameIsValid(ActionNameVar string) bool {
 
-	return xActionNameIsValid(ActionNameVar)
-
+	cret := xActionNameIsValid(ActionNameVar)
+	return cret
 }
 
-var xActionParseDetailedName func(string, string, **glib.Variant) bool
+var xActionParseDetailedName func(string, string, **glib.Variant, **glib.Error) bool
 
 // Parses a detailed action name into its separate name and target
 // components.
@@ -231,9 +231,14 @@ var xActionParseDetailedName func(string, string, **glib.Variant) bool
 // target can be specified this way as well: "app.action('target')".
 // For strings, this third format must be used if * target value is
 // empty or contains characters other than alphanumerics, '-' and '.'.
-func ActionParseDetailedName(DetailedNameVar string, ActionNameVar string, TargetValueVar **glib.Variant) bool {
+func ActionParseDetailedName(DetailedNameVar string, ActionNameVar string, TargetValueVar **glib.Variant) (bool, error) {
+	var cerr *glib.Error
 
-	return xActionParseDetailedName(DetailedNameVar, ActionNameVar, TargetValueVar)
+	cret := xActionParseDetailedName(DetailedNameVar, ActionNameVar, TargetValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -251,8 +256,8 @@ var xActionPrintDetailedName func(string, *glib.Variant) string
 // this function.
 func ActionPrintDetailedName(ActionNameVar string, TargetValueVar *glib.Variant) string {
 
-	return xActionPrintDetailedName(ActionNameVar, TargetValueVar)
-
+	cret := xActionPrintDetailedName(ActionNameVar, TargetValueVar)
+	return cret
 }
 
 func init() {

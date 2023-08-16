@@ -64,16 +64,21 @@ var xDisplayCreateGlContext func(uintptr) uintptr
 // If the creation of the `GdkGLContext` failed, @error will be set.
 // Before using the returned `GdkGLContext`, you will need to
 // call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
-func (x *Display) CreateGlContext() *GLContext {
+func (x *Display) CreateGlContext() (*GLContext, error) {
+	var cls *GLContext
+	var cerr *glib.Error
 
-	CreateGlContextPtr := xDisplayCreateGlContext(x.GoPointer())
-	if CreateGlContextPtr == 0 {
-		return nil
+	cret := xDisplayCreateGlContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CreateGlContextCls := &GLContext{}
-	CreateGlContextCls.Ptr = CreateGlContextPtr
-	return CreateGlContextCls
+	cls = &GLContext{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -82,8 +87,8 @@ var xDisplayDeviceIsGrabbed func(uintptr, uintptr) bool
 // Returns %TRUE if there is an ongoing grab on @device for @display.
 func (x *Display) DeviceIsGrabbed(DeviceVar *Device) bool {
 
-	return xDisplayDeviceIsGrabbed(x.GoPointer(), DeviceVar.GoPointer())
-
+	cret := xDisplayDeviceIsGrabbed(x.GoPointer(), DeviceVar.GoPointer())
+	return cret
 }
 
 var xDisplayFlush func(uintptr)
@@ -109,34 +114,33 @@ var xDisplayGetAppLaunchContext func(uintptr) uintptr
 // Returns a `GdkAppLaunchContext` suitable for launching
 // applications on the given display.
 func (x *Display) GetAppLaunchContext() *AppLaunchContext {
+	var cls *AppLaunchContext
 
-	GetAppLaunchContextPtr := xDisplayGetAppLaunchContext(x.GoPointer())
-	if GetAppLaunchContextPtr == 0 {
-		return nil
+	cret := xDisplayGetAppLaunchContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetAppLaunchContextCls := &AppLaunchContext{}
-	GetAppLaunchContextCls.Ptr = GetAppLaunchContextPtr
-	return GetAppLaunchContextCls
-
+	cls = &AppLaunchContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetClipboard func(uintptr) uintptr
 
 // Gets the clipboard used for copy/paste operations.
 func (x *Display) GetClipboard() *Clipboard {
+	var cls *Clipboard
 
-	GetClipboardPtr := xDisplayGetClipboard(x.GoPointer())
-	if GetClipboardPtr == 0 {
-		return nil
+	cret := xDisplayGetClipboard(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetClipboardPtr)
-
-	GetClipboardCls := &Clipboard{}
-	GetClipboardCls.Ptr = GetClipboardPtr
-	return GetClipboardCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Clipboard{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetDefaultSeat func(uintptr) uintptr
@@ -146,18 +150,17 @@ var xDisplayGetDefaultSeat func(uintptr) uintptr
 // Note that a display may not have a seat. In this case,
 // this function will return %NULL.
 func (x *Display) GetDefaultSeat() *Seat {
+	var cls *Seat
 
-	GetDefaultSeatPtr := xDisplayGetDefaultSeat(x.GoPointer())
-	if GetDefaultSeatPtr == 0 {
-		return nil
+	cret := xDisplayGetDefaultSeat(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDefaultSeatPtr)
-
-	GetDefaultSeatCls := &Seat{}
-	GetDefaultSeatCls.Ptr = GetDefaultSeatPtr
-	return GetDefaultSeatCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Seat{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetMonitorAtSurface func(uintptr, uintptr) uintptr
@@ -168,18 +171,17 @@ var xDisplayGetMonitorAtSurface func(uintptr, uintptr) uintptr
 // Returns a monitor close to @surface if it is outside
 // of all monitors.
 func (x *Display) GetMonitorAtSurface(SurfaceVar *Surface) *Monitor {
+	var cls *Monitor
 
-	GetMonitorAtSurfacePtr := xDisplayGetMonitorAtSurface(x.GoPointer(), SurfaceVar.GoPointer())
-	if GetMonitorAtSurfacePtr == 0 {
-		return nil
+	cret := xDisplayGetMonitorAtSurface(x.GoPointer(), SurfaceVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMonitorAtSurfacePtr)
-
-	GetMonitorAtSurfaceCls := &Monitor{}
-	GetMonitorAtSurfaceCls.Ptr = GetMonitorAtSurfacePtr
-	return GetMonitorAtSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Monitor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetMonitors func(uintptr) uintptr
@@ -192,18 +194,17 @@ var xDisplayGetMonitors func(uintptr) uintptr
 // You can listen to the GListModel::items-changed signal on
 // this list to monitor changes to the monitor of this display.
 func (x *Display) GetMonitors() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetMonitorsPtr := xDisplayGetMonitors(x.GoPointer())
-	if GetMonitorsPtr == 0 {
-		return nil
+	cret := xDisplayGetMonitors(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMonitorsPtr)
-
-	GetMonitorsCls := &gio.ListModelBase{}
-	GetMonitorsCls.Ptr = GetMonitorsPtr
-	return GetMonitorsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetName func(uintptr) string
@@ -211,8 +212,8 @@ var xDisplayGetName func(uintptr) string
 // Gets the name of the display.
 func (x *Display) GetName() string {
 
-	return xDisplayGetName(x.GoPointer())
-
+	cret := xDisplayGetName(x.GoPointer())
+	return cret
 }
 
 var xDisplayGetPrimaryClipboard func(uintptr) uintptr
@@ -222,18 +223,17 @@ var xDisplayGetPrimaryClipboard func(uintptr) uintptr
 // On backends where the primary clipboard is not supported natively,
 // GDK emulates this clipboard locally.
 func (x *Display) GetPrimaryClipboard() *Clipboard {
+	var cls *Clipboard
 
-	GetPrimaryClipboardPtr := xDisplayGetPrimaryClipboard(x.GoPointer())
-	if GetPrimaryClipboardPtr == 0 {
-		return nil
+	cret := xDisplayGetPrimaryClipboard(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrimaryClipboardPtr)
-
-	GetPrimaryClipboardCls := &Clipboard{}
-	GetPrimaryClipboardCls.Ptr = GetPrimaryClipboardPtr
-	return GetPrimaryClipboardCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Clipboard{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDisplayGetSetting func(uintptr, string, *gobject.Value) bool
@@ -242,8 +242,8 @@ var xDisplayGetSetting func(uintptr, string, *gobject.Value) bool
 // for the @display.
 func (x *Display) GetSetting(NameVar string, ValueVar *gobject.Value) bool {
 
-	return xDisplayGetSetting(x.GoPointer(), NameVar, ValueVar)
-
+	cret := xDisplayGetSetting(x.GoPointer(), NameVar, ValueVar)
+	return cret
 }
 
 var xDisplayGetStartupNotificationId func(uintptr) string
@@ -252,8 +252,8 @@ var xDisplayGetStartupNotificationId func(uintptr) string
 // if no ID has been defined.
 func (x *Display) GetStartupNotificationId() string {
 
-	return xDisplayGetStartupNotificationId(x.GoPointer())
-
+	cret := xDisplayGetStartupNotificationId(x.GoPointer())
+	return cret
 }
 
 var xDisplayIsClosed func(uintptr) bool
@@ -261,8 +261,8 @@ var xDisplayIsClosed func(uintptr) bool
 // Finds out if the display has been closed.
 func (x *Display) IsClosed() bool {
 
-	return xDisplayIsClosed(x.GoPointer())
-
+	cret := xDisplayIsClosed(x.GoPointer())
+	return cret
 }
 
 var xDisplayIsComposited func(uintptr) bool
@@ -279,8 +279,8 @@ var xDisplayIsComposited func(uintptr) bool
 // On modern displays, this value is always %TRUE.
 func (x *Display) IsComposited() bool {
 
-	return xDisplayIsComposited(x.GoPointer())
-
+	cret := xDisplayIsComposited(x.GoPointer())
+	return cret
 }
 
 var xDisplayIsRgba func(uintptr) bool
@@ -298,8 +298,8 @@ var xDisplayIsRgba func(uintptr) bool
 // On modern displays, this value is always %TRUE.
 func (x *Display) IsRgba() bool {
 
-	return xDisplayIsRgba(x.GoPointer())
-
+	cret := xDisplayIsRgba(x.GoPointer())
+	return cret
 }
 
 var xDisplayListSeats func(uintptr) *glib.List
@@ -307,8 +307,8 @@ var xDisplayListSeats func(uintptr) *glib.List
 // Returns the list of seats known to @display.
 func (x *Display) ListSeats() *glib.List {
 
-	return xDisplayListSeats(x.GoPointer())
-
+	cret := xDisplayListSeats(x.GoPointer())
+	return cret
 }
 
 var xDisplayMapKeycode func(uintptr, uint, uintptr, uintptr, int) bool
@@ -324,8 +324,8 @@ var xDisplayMapKeycode func(uintptr, uint, uintptr, uintptr, int) bool
 // Free the returned arrays with g_free().
 func (x *Display) MapKeycode(KeycodeVar uint, KeysVar uintptr, KeyvalsVar uintptr, NEntriesVar int) bool {
 
-	return xDisplayMapKeycode(x.GoPointer(), KeycodeVar, KeysVar, KeyvalsVar, NEntriesVar)
-
+	cret := xDisplayMapKeycode(x.GoPointer(), KeycodeVar, KeysVar, KeyvalsVar, NEntriesVar)
+	return cret
 }
 
 var xDisplayMapKeyval func(uintptr, uint, uintptr, int) bool
@@ -347,8 +347,8 @@ var xDisplayMapKeyval func(uintptr, uint, uintptr, int) bool
 // The returned array should be freed with g_free().
 func (x *Display) MapKeyval(KeyvalVar uint, KeysVar uintptr, NKeysVar int) bool {
 
-	return xDisplayMapKeyval(x.GoPointer(), KeyvalVar, KeysVar, NKeysVar)
-
+	cret := xDisplayMapKeyval(x.GoPointer(), KeyvalVar, KeysVar, NKeysVar)
+	return cret
 }
 
 var xDisplayNotifyStartupComplete func(uintptr, string)
@@ -382,9 +382,14 @@ var xDisplayPrepareGl func(uintptr) bool
 // You never need to call this function, GDK will call it automatically
 // as needed. But you can use it as a check when setting up code that
 // might make use of OpenGL.
-func (x *Display) PrepareGl() bool {
+func (x *Display) PrepareGl() (bool, error) {
+	var cerr *glib.Error
 
-	return xDisplayPrepareGl(x.GoPointer())
+	cret := xDisplayPrepareGl(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -411,8 +416,8 @@ var xDisplaySupportsInputShapes func(uintptr) bool
 // On modern displays, this value is always %TRUE.
 func (x *Display) SupportsInputShapes() bool {
 
-	return xDisplaySupportsInputShapes(x.GoPointer())
-
+	cret := xDisplaySupportsInputShapes(x.GoPointer())
+	return cret
 }
 
 var xDisplaySync func(uintptr)
@@ -456,8 +461,8 @@ var xDisplayTranslateKey func(uintptr, uint, ModifierType, int, uint, int, int, 
 // virtualized test environments.
 func (x *Display) TranslateKey(KeycodeVar uint, StateVar ModifierType, GroupVar int, KeyvalVar uint, EffectiveGroupVar int, LevelVar int, ConsumedVar *ModifierType) bool {
 
-	return xDisplayTranslateKey(x.GoPointer(), KeycodeVar, StateVar, GroupVar, KeyvalVar, EffectiveGroupVar, LevelVar, ConsumedVar)
-
+	cret := xDisplayTranslateKey(x.GoPointer(), KeycodeVar, StateVar, GroupVar, KeyvalVar, EffectiveGroupVar, LevelVar, ConsumedVar)
+	return cret
 }
 
 func (c *Display) GoPointer() uintptr {

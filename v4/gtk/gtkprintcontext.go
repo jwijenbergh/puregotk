@@ -96,16 +96,16 @@ var xPrintContextCreatePangoContext func(uintptr) uintptr
 // Creates a new `PangoContext` that can be used with the
 // `GtkPrintContext`.
 func (x *PrintContext) CreatePangoContext() *pango.Context {
+	var cls *pango.Context
 
-	CreatePangoContextPtr := xPrintContextCreatePangoContext(x.GoPointer())
-	if CreatePangoContextPtr == 0 {
-		return nil
+	cret := xPrintContextCreatePangoContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreatePangoContextCls := &pango.Context{}
-	CreatePangoContextCls.Ptr = CreatePangoContextPtr
-	return CreatePangoContextCls
-
+	cls = &pango.Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintContextCreatePangoLayout func(uintptr) uintptr
@@ -113,16 +113,16 @@ var xPrintContextCreatePangoLayout func(uintptr) uintptr
 // Creates a new `PangoLayout` that is suitable for use
 // with the `GtkPrintContext`.
 func (x *PrintContext) CreatePangoLayout() *pango.Layout {
+	var cls *pango.Layout
 
-	CreatePangoLayoutPtr := xPrintContextCreatePangoLayout(x.GoPointer())
-	if CreatePangoLayoutPtr == 0 {
-		return nil
+	cret := xPrintContextCreatePangoLayout(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreatePangoLayoutCls := &pango.Layout{}
-	CreatePangoLayoutCls.Ptr = CreatePangoLayoutPtr
-	return CreatePangoLayoutCls
-
+	cls = &pango.Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintContextGetCairoContext func(uintptr) *cairo.Context
@@ -131,8 +131,8 @@ var xPrintContextGetCairoContext func(uintptr) *cairo.Context
 // `GtkPrintContext`.
 func (x *PrintContext) GetCairoContext() *cairo.Context {
 
-	return xPrintContextGetCairoContext(x.GoPointer())
-
+	cret := xPrintContextGetCairoContext(x.GoPointer())
+	return cret
 }
 
 var xPrintContextGetDpiX func(uintptr) float64
@@ -141,8 +141,8 @@ var xPrintContextGetDpiX func(uintptr) float64
 // in dots per inch.
 func (x *PrintContext) GetDpiX() float64 {
 
-	return xPrintContextGetDpiX(x.GoPointer())
-
+	cret := xPrintContextGetDpiX(x.GoPointer())
+	return cret
 }
 
 var xPrintContextGetDpiY func(uintptr) float64
@@ -151,8 +151,8 @@ var xPrintContextGetDpiY func(uintptr) float64
 // in dots per inch.
 func (x *PrintContext) GetDpiY() float64 {
 
-	return xPrintContextGetDpiY(x.GoPointer())
-
+	cret := xPrintContextGetDpiY(x.GoPointer())
+	return cret
 }
 
 var xPrintContextGetHardMargins func(uintptr, float64, float64, float64, float64) bool
@@ -161,8 +161,8 @@ var xPrintContextGetHardMargins func(uintptr, float64, float64, float64, float64
 // in units.
 func (x *PrintContext) GetHardMargins(TopVar float64, BottomVar float64, LeftVar float64, RightVar float64) bool {
 
-	return xPrintContextGetHardMargins(x.GoPointer(), TopVar, BottomVar, LeftVar, RightVar)
-
+	cret := xPrintContextGetHardMargins(x.GoPointer(), TopVar, BottomVar, LeftVar, RightVar)
+	return cret
 }
 
 var xPrintContextGetHeight func(uintptr) float64
@@ -170,8 +170,8 @@ var xPrintContextGetHeight func(uintptr) float64
 // Obtains the height of the `GtkPrintContext`, in pixels.
 func (x *PrintContext) GetHeight() float64 {
 
-	return xPrintContextGetHeight(x.GoPointer())
-
+	cret := xPrintContextGetHeight(x.GoPointer())
+	return cret
 }
 
 var xPrintContextGetPageSetup func(uintptr) uintptr
@@ -179,18 +179,17 @@ var xPrintContextGetPageSetup func(uintptr) uintptr
 // Obtains the `GtkPageSetup` that determines the page
 // dimensions of the `GtkPrintContext`.
 func (x *PrintContext) GetPageSetup() *PageSetup {
+	var cls *PageSetup
 
-	GetPageSetupPtr := xPrintContextGetPageSetup(x.GoPointer())
-	if GetPageSetupPtr == 0 {
-		return nil
+	cret := xPrintContextGetPageSetup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPageSetupPtr)
-
-	GetPageSetupCls := &PageSetup{}
-	GetPageSetupCls.Ptr = GetPageSetupPtr
-	return GetPageSetupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintContextGetPangoFontmap func(uintptr) uintptr
@@ -198,18 +197,17 @@ var xPrintContextGetPangoFontmap func(uintptr) uintptr
 // Returns a `PangoFontMap` that is suitable for use
 // with the `GtkPrintContext`.
 func (x *PrintContext) GetPangoFontmap() *pango.FontMap {
+	var cls *pango.FontMap
 
-	GetPangoFontmapPtr := xPrintContextGetPangoFontmap(x.GoPointer())
-	if GetPangoFontmapPtr == 0 {
-		return nil
+	cret := xPrintContextGetPangoFontmap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPangoFontmapPtr)
-
-	GetPangoFontmapCls := &pango.FontMap{}
-	GetPangoFontmapCls.Ptr = GetPangoFontmapPtr
-	return GetPangoFontmapCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintContextGetWidth func(uintptr) float64
@@ -217,8 +215,8 @@ var xPrintContextGetWidth func(uintptr) float64
 // Obtains the width of the `GtkPrintContext`, in pixels.
 func (x *PrintContext) GetWidth() float64 {
 
-	return xPrintContextGetWidth(x.GoPointer())
-
+	cret := xPrintContextGetWidth(x.GoPointer())
+	return cret
 }
 
 var xPrintContextSetCairoContext func(uintptr, *cairo.Context, float64, float64)

@@ -65,8 +65,8 @@ var xUnitsFromDouble func(float64) int
 // rounding the result to nearest integer.
 func UnitsFromDouble(DVar float64) int {
 
-	return xUnitsFromDouble(DVar)
-
+	cret := xUnitsFromDouble(DVar)
+	return cret
 }
 
 var xUnitsToDouble func(int) float64
@@ -76,8 +76,8 @@ var xUnitsToDouble func(int) float64
 // The conversion is done by dividing @i by %PANGO_SCALE.
 func UnitsToDouble(IVar int) float64 {
 
-	return xUnitsToDouble(IVar)
-
+	cret := xUnitsToDouble(IVar)
+	return cret
 }
 
 func init() {

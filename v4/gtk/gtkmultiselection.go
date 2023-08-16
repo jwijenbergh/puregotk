@@ -28,32 +28,33 @@ var xNewMultiSelection func(uintptr) uintptr
 
 // Creates a new selection to handle @model.
 func NewMultiSelection(ModelVar gio.ListModel) *MultiSelection {
-	NewMultiSelectionPtr := xNewMultiSelection(ModelVar.GoPointer())
-	if NewMultiSelectionPtr == 0 {
-		return nil
-	}
+	var cls *MultiSelection
 
-	NewMultiSelectionCls := &MultiSelection{}
-	NewMultiSelectionCls.Ptr = NewMultiSelectionPtr
-	return NewMultiSelectionCls
+	cret := xNewMultiSelection(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MultiSelection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMultiSelectionGetModel func(uintptr) uintptr
 
 // Returns the underlying model of @self.
 func (x *MultiSelection) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xMultiSelectionGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xMultiSelectionGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMultiSelectionSetModel func(uintptr, uintptr)
@@ -86,8 +87,8 @@ func (c *MultiSelection) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *MultiSelection) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -100,8 +101,8 @@ func (x *MultiSelection) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *MultiSelection) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -111,8 +112,8 @@ func (x *MultiSelection) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *MultiSelection) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -128,16 +129,16 @@ func (x *MultiSelection) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *MultiSelection) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -173,8 +174,8 @@ func (x *MultiSelection) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVa
 // interested in a few, consider [method@Gtk.SelectionModel.get_selection_in_range].
 func (x *MultiSelection) GetSelection() *Bitset {
 
-	return XGtkSelectionModelGetSelection(x.GoPointer())
-
+	cret := XGtkSelectionModelGetSelection(x.GoPointer())
+	return cret
 }
 
 // Gets the set of selected items in a range.
@@ -186,36 +187,36 @@ func (x *MultiSelection) GetSelection() *Bitset {
 // signal.
 func (x *MultiSelection) GetSelectionInRange(PositionVar uint, NItemsVar uint) *Bitset {
 
-	return XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 // Checks if the given item is selected.
 func (x *MultiSelection) IsSelected(PositionVar uint) bool {
 
-	return XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to select all items in the model.
 func (x *MultiSelection) SelectAll() bool {
 
-	return XGtkSelectionModelSelectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelSelectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to select an item in the model.
 func (x *MultiSelection) SelectItem(PositionVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
+	return cret
 }
 
 // Requests to select a range of items in the model.
 func (x *MultiSelection) SelectRange(PositionVar uint, NItemsVar uint, UnselectRestVar bool) bool {
 
-	return XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
-
+	cret := XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
+	return cret
 }
 
 // Helper function for implementations of `GtkSelectionModel`.
@@ -266,29 +267,29 @@ func (x *MultiSelection) SelectionChanged(PositionVar uint, NItemsVar uint) {
 // be selected.
 func (x *MultiSelection) SetSelection(SelectedVar *Bitset, MaskVar *Bitset) bool {
 
-	return XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
-
+	cret := XGtkSelectionModelSetSelection(x.GoPointer(), SelectedVar, MaskVar)
+	return cret
 }
 
 // Requests to unselect all items in the model.
 func (x *MultiSelection) UnselectAll() bool {
 
-	return XGtkSelectionModelUnselectAll(x.GoPointer())
-
+	cret := XGtkSelectionModelUnselectAll(x.GoPointer())
+	return cret
 }
 
 // Requests to unselect an item in the model.
 func (x *MultiSelection) UnselectItem(PositionVar uint) bool {
 
-	return XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
-
+	cret := XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Requests to unselect a range of items in the model.
 func (x *MultiSelection) UnselectRange(PositionVar uint, NItemsVar uint) bool {
 
-	return XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
-
+	cret := XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
+	return cret
 }
 
 func init() {

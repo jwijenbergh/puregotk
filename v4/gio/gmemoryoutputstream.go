@@ -79,14 +79,16 @@ var xNewMemoryOutputStream func(uintptr, uint, uintptr, uintptr) uintptr
 // stream3 = g_memory_output_stream_new (data, 200, NULL, free);
 // ]|
 func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar ReallocFunc, DestroyFunctionVar glib.DestroyNotify) *OutputStream {
-	NewMemoryOutputStreamPtr := xNewMemoryOutputStream(DataVar, SizeVar, purego.NewCallback(ReallocFunctionVar), purego.NewCallback(DestroyFunctionVar))
-	if NewMemoryOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewMemoryOutputStreamCls := &OutputStream{}
-	NewMemoryOutputStreamCls.Ptr = NewMemoryOutputStreamPtr
-	return NewMemoryOutputStreamCls
+	cret := xNewMemoryOutputStream(DataVar, SizeVar, purego.NewCallback(ReallocFunctionVar), purego.NewCallback(DestroyFunctionVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewResizableMemoryOutputStream func() uintptr
@@ -94,14 +96,16 @@ var xNewResizableMemoryOutputStream func() uintptr
 // Creates a new #GMemoryOutputStream, using g_realloc() and g_free()
 // for memory allocation.
 func NewResizableMemoryOutputStream() *OutputStream {
-	NewResizableMemoryOutputStreamPtr := xNewResizableMemoryOutputStream()
-	if NewResizableMemoryOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewResizableMemoryOutputStreamCls := &OutputStream{}
-	NewResizableMemoryOutputStreamCls.Ptr = NewResizableMemoryOutputStreamPtr
-	return NewResizableMemoryOutputStreamCls
+	cret := xNewResizableMemoryOutputStream()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMemoryOutputStreamGetData func(uintptr) uintptr
@@ -112,8 +116,8 @@ var xMemoryOutputStreamGetData func(uintptr) uintptr
 // write or truncate operation on the stream.
 func (x *MemoryOutputStream) GetData() uintptr {
 
-	return xMemoryOutputStreamGetData(x.GoPointer())
-
+	cret := xMemoryOutputStreamGetData(x.GoPointer())
+	return cret
 }
 
 var xMemoryOutputStreamGetDataSize func(uintptr) uint
@@ -122,8 +126,8 @@ var xMemoryOutputStreamGetDataSize func(uintptr) uint
 // byte written in the stream that has not been truncated away.
 func (x *MemoryOutputStream) GetDataSize() uint {
 
-	return xMemoryOutputStreamGetDataSize(x.GoPointer())
-
+	cret := xMemoryOutputStreamGetDataSize(x.GoPointer())
+	return cret
 }
 
 var xMemoryOutputStreamGetSize func(uintptr) uint
@@ -145,8 +149,8 @@ var xMemoryOutputStreamGetSize func(uintptr) uint
 // stream, use g_memory_output_stream_get_data_size().
 func (x *MemoryOutputStream) GetSize() uint {
 
-	return xMemoryOutputStreamGetSize(x.GoPointer())
-
+	cret := xMemoryOutputStreamGetSize(x.GoPointer())
+	return cret
 }
 
 var xMemoryOutputStreamStealAsBytes func(uintptr) *glib.Bytes
@@ -155,8 +159,8 @@ var xMemoryOutputStreamStealAsBytes func(uintptr) *glib.Bytes
 // closed before calling this function.
 func (x *MemoryOutputStream) StealAsBytes() *glib.Bytes {
 
-	return xMemoryOutputStreamStealAsBytes(x.GoPointer())
-
+	cret := xMemoryOutputStreamStealAsBytes(x.GoPointer())
+	return cret
 }
 
 var xMemoryOutputStreamStealData func(uintptr) uintptr
@@ -169,8 +173,8 @@ var xMemoryOutputStreamStealData func(uintptr) uintptr
 // @ostream must be closed before calling this function.
 func (x *MemoryOutputStream) StealData() uintptr {
 
-	return xMemoryOutputStreamStealData(x.GoPointer())
-
+	cret := xMemoryOutputStreamStealData(x.GoPointer())
+	return cret
 }
 
 func (c *MemoryOutputStream) GoPointer() uintptr {
@@ -190,8 +194,8 @@ func (c *MemoryOutputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *MemoryOutputStream) CanPoll() bool {
 
-	return XGPollableOutputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableOutputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be written, or
@@ -204,8 +208,8 @@ func (x *MemoryOutputStream) CanPoll() bool {
 // rather than g_output_stream_write() from the callback.
 func (x *MemoryOutputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be written.
@@ -218,8 +222,8 @@ func (x *MemoryOutputStream) CreateSource(CancellableVar *Cancellable) *glib.Sou
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *MemoryOutputStream) IsWritable() bool {
 
-	return XGPollableOutputStreamIsWritable(x.GoPointer())
-
+	cret := XGPollableOutputStreamIsWritable(x.GoPointer())
+	return cret
 }
 
 // Attempts to write up to @count bytes from @buffer to @stream, as
@@ -237,9 +241,14 @@ func (x *MemoryOutputStream) IsWritable() bool {
 // Also note that if %G_IO_ERROR_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @buffer and
 // @count in the next write call.
-func (x *MemoryOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *MemoryOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -259,25 +268,30 @@ func (x *MemoryOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, 
 // Also note that if %G_POLLABLE_RETURN_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @vectors and
 // @n_vectors in the next write call.
-func (x *MemoryOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn {
+func (x *MemoryOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (PollableReturn, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tests if the stream supports the #GSeekableIface.
 func (x *MemoryOutputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *MemoryOutputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -294,17 +308,22 @@ func (x *MemoryOutputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *MemoryOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *MemoryOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *MemoryOutputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -316,9 +335,14 @@ func (x *MemoryOutputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *MemoryOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *MemoryOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

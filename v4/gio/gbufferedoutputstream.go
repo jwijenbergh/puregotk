@@ -42,28 +42,32 @@ var xNewBufferedOutputStream func(uintptr) uintptr
 
 // Creates a new buffered output stream for a base stream.
 func NewBufferedOutputStream(BaseStreamVar *OutputStream) *OutputStream {
-	NewBufferedOutputStreamPtr := xNewBufferedOutputStream(BaseStreamVar.GoPointer())
-	if NewBufferedOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewBufferedOutputStreamCls := &OutputStream{}
-	NewBufferedOutputStreamCls.Ptr = NewBufferedOutputStreamPtr
-	return NewBufferedOutputStreamCls
+	cret := xNewBufferedOutputStream(BaseStreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewSizedBufferedOutputStream func(uintptr, uint) uintptr
 
 // Creates a new buffered output stream with a given buffer size.
 func NewSizedBufferedOutputStream(BaseStreamVar *OutputStream, SizeVar uint) *OutputStream {
-	NewSizedBufferedOutputStreamPtr := xNewSizedBufferedOutputStream(BaseStreamVar.GoPointer(), SizeVar)
-	if NewSizedBufferedOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewSizedBufferedOutputStreamCls := &OutputStream{}
-	NewSizedBufferedOutputStreamCls.Ptr = NewSizedBufferedOutputStreamPtr
-	return NewSizedBufferedOutputStreamCls
+	cret := xNewSizedBufferedOutputStream(BaseStreamVar.GoPointer(), SizeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBufferedOutputStreamGetAutoGrow func(uintptr) bool
@@ -71,8 +75,8 @@ var xBufferedOutputStreamGetAutoGrow func(uintptr) bool
 // Checks if the buffer automatically grows as data is added.
 func (x *BufferedOutputStream) GetAutoGrow() bool {
 
-	return xBufferedOutputStreamGetAutoGrow(x.GoPointer())
-
+	cret := xBufferedOutputStreamGetAutoGrow(x.GoPointer())
+	return cret
 }
 
 var xBufferedOutputStreamGetBufferSize func(uintptr) uint
@@ -80,8 +84,8 @@ var xBufferedOutputStreamGetBufferSize func(uintptr) uint
 // Gets the size of the buffer in the @stream.
 func (x *BufferedOutputStream) GetBufferSize() uint {
 
-	return xBufferedOutputStreamGetBufferSize(x.GoPointer())
-
+	cret := xBufferedOutputStreamGetBufferSize(x.GoPointer())
+	return cret
 }
 
 var xBufferedOutputStreamSetAutoGrow func(uintptr, bool)
@@ -116,16 +120,16 @@ func (c *BufferedOutputStream) SetGoPointer(ptr uintptr) {
 // Tests if the stream supports the #GSeekableIface.
 func (x *BufferedOutputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *BufferedOutputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -142,17 +146,22 @@ func (x *BufferedOutputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *BufferedOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *BufferedOutputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *BufferedOutputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -164,9 +173,14 @@ func (x *BufferedOutputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *BufferedOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *BufferedOutputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

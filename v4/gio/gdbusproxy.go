@@ -72,51 +72,72 @@ func DBusProxyNewFromInternalPtr(ptr uintptr) *DBusProxy {
 	return cls
 }
 
-var xNewFinishDBusProxy func(uintptr) uintptr
+var xNewFinishDBusProxy func(uintptr, **glib.Error) uintptr
 
 // Finishes creating a #GDBusProxy.
-func NewFinishDBusProxy(ResVar AsyncResult) *DBusProxy {
-	NewFinishDBusProxyPtr := xNewFinishDBusProxy(ResVar.GoPointer())
-	if NewFinishDBusProxyPtr == 0 {
-		return nil
-	}
+func NewFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
+	var cls *DBusProxy
+	var cerr *glib.Error
 
-	NewFinishDBusProxyCls := &DBusProxy{}
-	NewFinishDBusProxyCls.Ptr = NewFinishDBusProxyPtr
-	return NewFinishDBusProxyCls
+	cret := xNewFinishDBusProxy(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusProxy{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForBusFinishDBusProxy func(uintptr) uintptr
+var xNewForBusFinishDBusProxy func(uintptr, **glib.Error) uintptr
 
 // Finishes creating a #GDBusProxy.
-func NewForBusFinishDBusProxy(ResVar AsyncResult) *DBusProxy {
-	NewForBusFinishDBusProxyPtr := xNewForBusFinishDBusProxy(ResVar.GoPointer())
-	if NewForBusFinishDBusProxyPtr == 0 {
-		return nil
-	}
+func NewForBusFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
+	var cls *DBusProxy
+	var cerr *glib.Error
 
-	NewForBusFinishDBusProxyCls := &DBusProxy{}
-	NewForBusFinishDBusProxyCls.Ptr = NewForBusFinishDBusProxyPtr
-	return NewForBusFinishDBusProxyCls
+	cret := xNewForBusFinishDBusProxy(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusProxy{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForBusSyncDBusProxy func(BusType, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr) uintptr
+var xNewForBusSyncDBusProxy func(BusType, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
 
 // Like g_dbus_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
 //
 // #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
-func NewForBusSyncDBusProxy(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) *DBusProxy {
-	NewForBusSyncDBusProxyPtr := xNewForBusSyncDBusProxy(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer())
-	if NewForBusSyncDBusProxyPtr == 0 {
-		return nil
-	}
+func NewForBusSyncDBusProxy(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
+	var cls *DBusProxy
+	var cerr *glib.Error
 
-	NewForBusSyncDBusProxyCls := &DBusProxy{}
-	NewForBusSyncDBusProxyCls.Ptr = NewForBusSyncDBusProxyPtr
-	return NewForBusSyncDBusProxyCls
+	cret := xNewForBusSyncDBusProxy(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusProxy{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewSyncDBusProxy func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr) uintptr
+var xNewSyncDBusProxy func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
 
 // Creates a proxy for accessing @interface_name on the remote object
 // at @object_path owned by @name at @connection and synchronously
@@ -140,15 +161,22 @@ var xNewSyncDBusProxy func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, 
 // and g_dbus_proxy_new_finish() for the asynchronous version.
 //
 // #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
-func NewSyncDBusProxy(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) *DBusProxy {
-	NewSyncDBusProxyPtr := xNewSyncDBusProxy(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer())
-	if NewSyncDBusProxyPtr == 0 {
-		return nil
-	}
+func NewSyncDBusProxy(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
+	var cls *DBusProxy
+	var cerr *glib.Error
 
-	NewSyncDBusProxyCls := &DBusProxy{}
-	NewSyncDBusProxyCls.Ptr = NewSyncDBusProxyPtr
-	return NewSyncDBusProxyCls
+	cret := xNewSyncDBusProxy(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusProxy{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xDBusProxyCall func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, uintptr, uintptr)
@@ -203,16 +231,21 @@ func (x *DBusProxy) Call(MethodNameVar string, ParametersVar *glib.Variant, Flag
 
 }
 
-var xDBusProxyCallFinish func(uintptr, uintptr) *glib.Variant
+var xDBusProxyCallFinish func(uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Finishes an operation started with g_dbus_proxy_call().
-func (x *DBusProxy) CallFinish(ResVar AsyncResult) *glib.Variant {
+func (x *DBusProxy) CallFinish(ResVar AsyncResult) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusProxyCallFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := xDBusProxyCallFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr) *glib.Variant
+var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, **glib.Error) *glib.Variant
 
 // Synchronously invokes the @method_name method on @proxy.
 //
@@ -250,9 +283,14 @@ var xDBusProxyCallSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, 
 // If @proxy has an expected interface (see
 // #GDBusProxy:g-interface-info) and @method_name is referenced by it,
 // then the return value is checked against the return type.
-func (x *DBusProxy) CallSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusProxy) CallSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusProxyCallSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer())
+	cret := xDBusProxyCallSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -267,23 +305,33 @@ func (x *DBusProxy) CallWithUnixFdList(MethodNameVar string, ParametersVar *glib
 
 }
 
-var xDBusProxyCallWithUnixFdListFinish func(uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusProxyCallWithUnixFdListFinish func(uintptr, *uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Finishes an operation started with g_dbus_proxy_call_with_unix_fd_list().
-func (x *DBusProxy) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, ResVar AsyncResult) *glib.Variant {
+func (x *DBusProxy) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, ResVar AsyncResult) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusProxyCallWithUnixFdListFinish(x.GoPointer(), gobject.ConvertPtr(OutFdListVar), ResVar.GoPointer())
+	cret := xDBusProxyCallWithUnixFdListFinish(x.GoPointer(), gobject.ConvertPtr(OutFdListVar), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusProxyCallWithUnixFdListSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusProxyCallWithUnixFdListSync func(uintptr, string, *glib.Variant, DBusCallFlags, int, uintptr, *uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Like g_dbus_proxy_call_sync() but also takes and returns #GUnixFDList objects.
 //
 // This method is only available on UNIX.
-func (x *DBusProxy) CallWithUnixFdListSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusProxy) CallWithUnixFdListSync(MethodNameVar string, ParametersVar *glib.Variant, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusProxyCallWithUnixFdListSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer())
+	cret := xDBusProxyCallWithUnixFdListSync(x.GoPointer(), MethodNameVar, ParametersVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -297,8 +345,8 @@ var xDBusProxyGetCachedProperty func(uintptr, string) *glib.Variant
 // it, then @value is checked against the type of the property.
 func (x *DBusProxy) GetCachedProperty(PropertyNameVar string) *glib.Variant {
 
-	return xDBusProxyGetCachedProperty(x.GoPointer(), PropertyNameVar)
-
+	cret := xDBusProxyGetCachedProperty(x.GoPointer(), PropertyNameVar)
+	return cret
 }
 
 var xDBusProxyGetCachedPropertyNames func(uintptr) uintptr
@@ -306,26 +354,25 @@ var xDBusProxyGetCachedPropertyNames func(uintptr) uintptr
 // Gets the names of all cached properties on @proxy.
 func (x *DBusProxy) GetCachedPropertyNames() uintptr {
 
-	return xDBusProxyGetCachedPropertyNames(x.GoPointer())
-
+	cret := xDBusProxyGetCachedPropertyNames(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetConnection func(uintptr) uintptr
 
 // Gets the connection @proxy is for.
 func (x *DBusProxy) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusProxyGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusProxyGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConnectionPtr)
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusProxyGetDefaultTimeout func(uintptr) int
@@ -337,8 +384,8 @@ var xDBusProxyGetDefaultTimeout func(uintptr) int
 // See the #GDBusProxy:g-default-timeout property for more details.
 func (x *DBusProxy) GetDefaultTimeout() int {
 
-	return xDBusProxyGetDefaultTimeout(x.GoPointer())
-
+	cret := xDBusProxyGetDefaultTimeout(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetFlags func(uintptr) DBusProxyFlags
@@ -346,8 +393,8 @@ var xDBusProxyGetFlags func(uintptr) DBusProxyFlags
 // Gets the flags that @proxy was constructed with.
 func (x *DBusProxy) GetFlags() DBusProxyFlags {
 
-	return xDBusProxyGetFlags(x.GoPointer())
-
+	cret := xDBusProxyGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetInterfaceInfo func(uintptr) *DBusInterfaceInfo
@@ -357,8 +404,8 @@ var xDBusProxyGetInterfaceInfo func(uintptr) *DBusInterfaceInfo
 // property for more details.
 func (x *DBusProxy) GetInterfaceInfo() *DBusInterfaceInfo {
 
-	return xDBusProxyGetInterfaceInfo(x.GoPointer())
-
+	cret := xDBusProxyGetInterfaceInfo(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetInterfaceName func(uintptr) string
@@ -366,8 +413,8 @@ var xDBusProxyGetInterfaceName func(uintptr) string
 // Gets the D-Bus interface name @proxy is for.
 func (x *DBusProxy) GetInterfaceName() string {
 
-	return xDBusProxyGetInterfaceName(x.GoPointer())
-
+	cret := xDBusProxyGetInterfaceName(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetName func(uintptr) string
@@ -379,8 +426,8 @@ var xDBusProxyGetName func(uintptr) string
 // pattern.
 func (x *DBusProxy) GetName() string {
 
-	return xDBusProxyGetName(x.GoPointer())
-
+	cret := xDBusProxyGetName(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetNameOwner func(uintptr) string
@@ -391,8 +438,8 @@ var xDBusProxyGetNameOwner func(uintptr) string
 // #GDBusProxy:g-name-owner property.
 func (x *DBusProxy) GetNameOwner() string {
 
-	return xDBusProxyGetNameOwner(x.GoPointer())
-
+	cret := xDBusProxyGetNameOwner(x.GoPointer())
+	return cret
 }
 
 var xDBusProxyGetObjectPath func(uintptr) string
@@ -400,8 +447,8 @@ var xDBusProxyGetObjectPath func(uintptr) string
 // Gets the object path @proxy is for.
 func (x *DBusProxy) GetObjectPath() string {
 
-	return xDBusProxyGetObjectPath(x.GoPointer())
-
+	cret := xDBusProxyGetObjectPath(x.GoPointer())
+	return cret
 }
 
 var xDBusProxySetCachedProperty func(uintptr, string, *glib.Variant)
@@ -562,47 +609,57 @@ func (x *DBusProxy) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, Ca
 
 // Finishes asynchronous initialization and returns the result.
 // See g_async_initable_init_async().
-func (x *DBusProxy) InitFinish(ResVar AsyncResult) bool {
+func (x *DBusProxy) InitFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes the async construction for the various g_async_initable_new
 // calls, returning the created object or %NULL on error.
-func (x *DBusProxy) NewFinish(ResVar AsyncResult) *gobject.Object {
+func (x *DBusProxy) NewFinish(ResVar AsyncResult) (*gobject.Object, error) {
+	var cls *gobject.Object
+	var cerr *glib.Error
 
-	NewFinishPtr := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer())
-	if NewFinishPtr == 0 {
-		return nil
+	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NewFinishCls := &gobject.Object{}
-	NewFinishCls.Ptr = NewFinishPtr
-	return NewFinishCls
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
 func (x *DBusProxy) DupObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	DupObjectPtr := XGDbusInterfaceDupObject(x.GoPointer())
-	if DupObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceDupObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupObjectCls := &DBusObjectBase{}
-	DupObjectCls.Ptr = DupObjectPtr
-	return DupObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets D-Bus introspection information for the D-Bus interface
 // implemented by @interface_.
 func (x *DBusProxy) GetInfo() *DBusInterfaceInfo {
 
-	return XGDbusInterfaceGetInfo(x.GoPointer())
-
+	cret := XGDbusInterfaceGetInfo(x.GoPointer())
+	return cret
 }
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
@@ -611,18 +668,17 @@ func (x *DBusProxy) GetInfo() *DBusInterfaceInfo {
 // the returned object is being used from other threads. See
 // g_dbus_interface_dup_object() for a thread-safe alternative.
 func (x *DBusProxy) GetObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusInterfaceGetObject(x.GoPointer())
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Sets the #GDBusObject for @interface_ to @object.
@@ -672,9 +728,14 @@ func (x *DBusProxy) SetObject(ObjectVar DBusObject) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *DBusProxy) Init(CancellableVar *Cancellable) bool {
+func (x *DBusProxy) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

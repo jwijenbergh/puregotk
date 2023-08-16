@@ -37,24 +37,24 @@ func (x *DBusInterfaceBase) SetGoPointer(ptr uintptr) {
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
 func (x *DBusInterfaceBase) DupObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	DupObjectPtr := XGDbusInterfaceDupObject(x.GoPointer())
-	if DupObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceDupObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupObjectCls := &DBusObjectBase{}
-	DupObjectCls.Ptr = DupObjectPtr
-	return DupObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets D-Bus introspection information for the D-Bus interface
 // implemented by @interface_.
 func (x *DBusInterfaceBase) GetInfo() *DBusInterfaceInfo {
 
-	return XGDbusInterfaceGetInfo(x.GoPointer())
-
+	cret := XGDbusInterfaceGetInfo(x.GoPointer())
+	return cret
 }
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
@@ -63,18 +63,17 @@ func (x *DBusInterfaceBase) GetInfo() *DBusInterfaceInfo {
 // the returned object is being used from other threads. See
 // g_dbus_interface_dup_object() for a thread-safe alternative.
 func (x *DBusInterfaceBase) GetObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusInterfaceGetObject(x.GoPointer())
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Sets the #GDBusObject for @interface_ to @object.

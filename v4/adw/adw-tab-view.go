@@ -78,36 +78,34 @@ var xTabPageGetChild func(uintptr) uintptr
 
 // Gets the child of @self.
 func (x *TabPage) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xTabPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xTabPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabPageGetIcon func(uintptr) uintptr
 
 // Gets the icon of @self.
 func (x *TabPage) GetIcon() *gio.IconBase {
+	var cls *gio.IconBase
 
-	GetIconPtr := xTabPageGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := xTabPageGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPtr)
-
-	GetIconCls := &gio.IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabPageGetIndicatorActivatable func(uintptr) bool
@@ -115,26 +113,25 @@ var xTabPageGetIndicatorActivatable func(uintptr) bool
 // Gets whether the indicator of @self is activatable.
 func (x *TabPage) GetIndicatorActivatable() bool {
 
-	return xTabPageGetIndicatorActivatable(x.GoPointer())
-
+	cret := xTabPageGetIndicatorActivatable(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetIndicatorIcon func(uintptr) uintptr
 
 // Gets the indicator icon of @self.
 func (x *TabPage) GetIndicatorIcon() *gio.IconBase {
+	var cls *gio.IconBase
 
-	GetIndicatorIconPtr := xTabPageGetIndicatorIcon(x.GoPointer())
-	if GetIndicatorIconPtr == 0 {
-		return nil
+	cret := xTabPageGetIndicatorIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIndicatorIconPtr)
-
-	GetIndicatorIconCls := &gio.IconBase{}
-	GetIndicatorIconCls.Ptr = GetIndicatorIconPtr
-	return GetIndicatorIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabPageGetIndicatorTooltip func(uintptr) string
@@ -142,8 +139,8 @@ var xTabPageGetIndicatorTooltip func(uintptr) string
 // Gets the tooltip of the indicator icon of @self.
 func (x *TabPage) GetIndicatorTooltip() string {
 
-	return xTabPageGetIndicatorTooltip(x.GoPointer())
-
+	cret := xTabPageGetIndicatorTooltip(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetKeyword func(uintptr) string
@@ -151,8 +148,8 @@ var xTabPageGetKeyword func(uintptr) string
 // Gets the search keyword of @self.
 func (x *TabPage) GetKeyword() string {
 
-	return xTabPageGetKeyword(x.GoPointer())
-
+	cret := xTabPageGetKeyword(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetLiveThumbnail func(uintptr) bool
@@ -160,8 +157,8 @@ var xTabPageGetLiveThumbnail func(uintptr) bool
 // Gets whether to live thumbnail is enabled @self.
 func (x *TabPage) GetLiveThumbnail() bool {
 
-	return xTabPageGetLiveThumbnail(x.GoPointer())
-
+	cret := xTabPageGetLiveThumbnail(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetLoading func(uintptr) bool
@@ -169,8 +166,8 @@ var xTabPageGetLoading func(uintptr) bool
 // Gets whether @self is loading.
 func (x *TabPage) GetLoading() bool {
 
-	return xTabPageGetLoading(x.GoPointer())
-
+	cret := xTabPageGetLoading(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetNeedsAttention func(uintptr) bool
@@ -178,8 +175,8 @@ var xTabPageGetNeedsAttention func(uintptr) bool
 // Gets whether @self needs attention.
 func (x *TabPage) GetNeedsAttention() bool {
 
-	return xTabPageGetNeedsAttention(x.GoPointer())
-
+	cret := xTabPageGetNeedsAttention(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetParent func(uintptr) uintptr
@@ -188,18 +185,17 @@ var xTabPageGetParent func(uintptr) uintptr
 //
 // See [method@TabView.add_page] and [method@TabView.close_page].
 func (x *TabPage) GetParent() *TabPage {
+	var cls *TabPage
 
-	GetParentPtr := xTabPageGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := xTabPageGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetParentPtr)
-
-	GetParentCls := &TabPage{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabPageGetPinned func(uintptr) bool
@@ -209,8 +205,8 @@ var xTabPageGetPinned func(uintptr) bool
 // See [method@TabView.set_page_pinned].
 func (x *TabPage) GetPinned() bool {
 
-	return xTabPageGetPinned(x.GoPointer())
-
+	cret := xTabPageGetPinned(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetSelected func(uintptr) bool
@@ -218,8 +214,8 @@ var xTabPageGetSelected func(uintptr) bool
 // Gets whether @self is selected.
 func (x *TabPage) GetSelected() bool {
 
-	return xTabPageGetSelected(x.GoPointer())
-
+	cret := xTabPageGetSelected(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetThumbnailXalign func(uintptr) float32
@@ -227,8 +223,8 @@ var xTabPageGetThumbnailXalign func(uintptr) float32
 // Gets the horizontal alignment of the thumbnail for @self.
 func (x *TabPage) GetThumbnailXalign() float32 {
 
-	return xTabPageGetThumbnailXalign(x.GoPointer())
-
+	cret := xTabPageGetThumbnailXalign(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetThumbnailYalign func(uintptr) float32
@@ -236,8 +232,8 @@ var xTabPageGetThumbnailYalign func(uintptr) float32
 // Gets the vertical alignment of the thumbnail for @self.
 func (x *TabPage) GetThumbnailYalign() float32 {
 
-	return xTabPageGetThumbnailYalign(x.GoPointer())
-
+	cret := xTabPageGetThumbnailYalign(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetTitle func(uintptr) string
@@ -245,8 +241,8 @@ var xTabPageGetTitle func(uintptr) string
 // Gets the title of @self.
 func (x *TabPage) GetTitle() string {
 
-	return xTabPageGetTitle(x.GoPointer())
-
+	cret := xTabPageGetTitle(x.GoPointer())
+	return cret
 }
 
 var xTabPageGetTooltip func(uintptr) string
@@ -254,8 +250,8 @@ var xTabPageGetTooltip func(uintptr) string
 // Gets the tooltip of @self.
 func (x *TabPage) GetTooltip() string {
 
-	return xTabPageGetTooltip(x.GoPointer())
-
+	cret := xTabPageGetTooltip(x.GoPointer())
+	return cret
 }
 
 var xTabPageInvalidateThumbnail func(uintptr)
@@ -483,8 +479,8 @@ func (c *TabPage) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TabPage) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -670,16 +666,17 @@ var xNewTabView func() uintptr
 
 // Creates a new `AdwTabView`.
 func NewTabView() *TabView {
-	NewTabViewPtr := xNewTabView()
-	if NewTabViewPtr == 0 {
-		return nil
+	var cls *TabView
+
+	cret := xNewTabView()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTabViewPtr)
-
-	NewTabViewCls := &TabView{}
-	NewTabViewCls.Ptr = NewTabViewPtr
-	return NewTabViewCls
+	gobject.IncreaseRef(cret)
+	cls = &TabView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewAddPage func(uintptr, uintptr, uintptr) uintptr
@@ -692,18 +689,17 @@ var xTabViewAddPage func(uintptr, uintptr, uintptr) uintptr
 //
 // If @parent is `NULL`, this function is equivalent to [method@TabView.append].
 func (x *TabView) AddPage(ChildVar *gtk.Widget, ParentVar *TabPage) *TabPage {
+	var cls *TabPage
 
-	AddPagePtr := xTabViewAddPage(x.GoPointer(), ChildVar.GoPointer(), ParentVar.GoPointer())
-	if AddPagePtr == 0 {
-		return nil
+	cret := xTabViewAddPage(x.GoPointer(), ChildVar.GoPointer(), ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddPagePtr)
-
-	AddPageCls := &TabPage{}
-	AddPageCls.Ptr = AddPagePtr
-	return AddPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewAddShortcuts func(uintptr, TabViewShortcuts)
@@ -721,36 +717,34 @@ var xTabViewAppend func(uintptr, uintptr) uintptr
 
 // Inserts @child as the last non-pinned page.
 func (x *TabView) Append(ChildVar *gtk.Widget) *TabPage {
+	var cls *TabPage
 
-	AppendPtr := xTabViewAppend(x.GoPointer(), ChildVar.GoPointer())
-	if AppendPtr == 0 {
-		return nil
+	cret := xTabViewAppend(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AppendPtr)
-
-	AppendCls := &TabPage{}
-	AppendCls.Ptr = AppendPtr
-	return AppendCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewAppendPinned func(uintptr, uintptr) uintptr
 
 // Inserts @child as the last pinned page.
 func (x *TabView) AppendPinned(ChildVar *gtk.Widget) *TabPage {
+	var cls *TabPage
 
-	AppendPinnedPtr := xTabViewAppendPinned(x.GoPointer(), ChildVar.GoPointer())
-	if AppendPinnedPtr == 0 {
-		return nil
+	cret := xTabViewAppendPinned(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AppendPinnedPtr)
-
-	AppendPinnedCls := &TabPage{}
-	AppendPinnedCls.Ptr = AppendPinnedPtr
-	return AppendPinnedCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewCloseOtherPages func(uintptr, uintptr)
@@ -830,18 +824,17 @@ var xTabViewGetDefaultIcon func(uintptr) uintptr
 
 // Gets the default icon of @self.
 func (x *TabView) GetDefaultIcon() *gio.IconBase {
+	var cls *gio.IconBase
 
-	GetDefaultIconPtr := xTabViewGetDefaultIcon(x.GoPointer())
-	if GetDefaultIconPtr == 0 {
-		return nil
+	cret := xTabViewGetDefaultIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDefaultIconPtr)
-
-	GetDefaultIconCls := &gio.IconBase{}
-	GetDefaultIconCls.Ptr = GetDefaultIconPtr
-	return GetDefaultIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetIsTransferringPage func(uintptr) bool
@@ -855,26 +848,25 @@ var xTabViewGetIsTransferringPage func(uintptr) bool
 // be safely dropped on the tab view.
 func (x *TabView) GetIsTransferringPage() bool {
 
-	return xTabViewGetIsTransferringPage(x.GoPointer())
-
+	cret := xTabViewGetIsTransferringPage(x.GoPointer())
+	return cret
 }
 
 var xTabViewGetMenuModel func(uintptr) uintptr
 
 // Gets the tab context menu model for @self.
 func (x *TabView) GetMenuModel() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenuModelPtr := xTabViewGetMenuModel(x.GoPointer())
-	if GetMenuModelPtr == 0 {
-		return nil
+	cret := xTabViewGetMenuModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuModelPtr)
-
-	GetMenuModelCls := &gio.MenuModel{}
-	GetMenuModelCls.Ptr = GetMenuModelPtr
-	return GetMenuModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetNPages func(uintptr) int
@@ -882,8 +874,8 @@ var xTabViewGetNPages func(uintptr) int
 // Gets the number of pages in @self.
 func (x *TabView) GetNPages() int {
 
-	return xTabViewGetNPages(x.GoPointer())
-
+	cret := xTabViewGetNPages(x.GoPointer())
+	return cret
 }
 
 var xTabViewGetNPinnedPages func(uintptr) int
@@ -893,44 +885,42 @@ var xTabViewGetNPinnedPages func(uintptr) int
 // See [method@TabView.set_page_pinned].
 func (x *TabView) GetNPinnedPages() int {
 
-	return xTabViewGetNPinnedPages(x.GoPointer())
-
+	cret := xTabViewGetNPinnedPages(x.GoPointer())
+	return cret
 }
 
 var xTabViewGetNthPage func(uintptr, int) uintptr
 
 // Gets the [class@TabPage] representing the child at @position.
 func (x *TabView) GetNthPage(PositionVar int) *TabPage {
+	var cls *TabPage
 
-	GetNthPagePtr := xTabViewGetNthPage(x.GoPointer(), PositionVar)
-	if GetNthPagePtr == 0 {
-		return nil
+	cret := xTabViewGetNthPage(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNthPagePtr)
-
-	GetNthPageCls := &TabPage{}
-	GetNthPageCls.Ptr = GetNthPagePtr
-	return GetNthPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetPage func(uintptr, uintptr) uintptr
 
 // Gets the [class@TabPage] object representing @child.
 func (x *TabView) GetPage(ChildVar *gtk.Widget) *TabPage {
+	var cls *TabPage
 
-	GetPagePtr := xTabViewGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xTabViewGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &TabPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetPagePosition func(uintptr, uintptr) int
@@ -938,8 +928,8 @@ var xTabViewGetPagePosition func(uintptr, uintptr) int
 // Finds the position of @page in @self, starting from 0.
 func (x *TabView) GetPagePosition(PageVar *TabPage) int {
 
-	return xTabViewGetPagePosition(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xTabViewGetPagePosition(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xTabViewGetPages func(uintptr) uintptr
@@ -950,34 +940,33 @@ var xTabViewGetPages func(uintptr) uintptr
 // [iface@Gtk.SelectionModel] and can be used to track and change the selected
 // page.
 func (x *TabView) GetPages() *gtk.SelectionModelBase {
+	var cls *gtk.SelectionModelBase
 
-	GetPagesPtr := xTabViewGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xTabViewGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &gtk.SelectionModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &gtk.SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetSelectedPage func(uintptr) uintptr
 
 // Gets the currently selected page in @self.
 func (x *TabView) GetSelectedPage() *TabPage {
+	var cls *TabPage
 
-	GetSelectedPagePtr := xTabViewGetSelectedPage(x.GoPointer())
-	if GetSelectedPagePtr == 0 {
-		return nil
+	cret := xTabViewGetSelectedPage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedPagePtr)
-
-	GetSelectedPageCls := &TabPage{}
-	GetSelectedPageCls.Ptr = GetSelectedPagePtr
-	return GetSelectedPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewGetShortcuts func(uintptr) TabViewShortcuts
@@ -985,8 +974,8 @@ var xTabViewGetShortcuts func(uintptr) TabViewShortcuts
 // Gets the enabled shortcuts for @self.
 func (x *TabView) GetShortcuts() TabViewShortcuts {
 
-	return xTabViewGetShortcuts(x.GoPointer())
-
+	cret := xTabViewGetShortcuts(x.GoPointer())
+	return cret
 }
 
 var xTabViewInsert func(uintptr, uintptr, int) uintptr
@@ -996,18 +985,17 @@ var xTabViewInsert func(uintptr, uintptr, int) uintptr
 // It's an error to try to insert a page before a pinned page, in that case
 // [method@TabView.insert_pinned] should be used instead.
 func (x *TabView) Insert(ChildVar *gtk.Widget, PositionVar int) *TabPage {
+	var cls *TabPage
 
-	InsertPtr := xTabViewInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
-	if InsertPtr == 0 {
-		return nil
+	cret := xTabViewInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(InsertPtr)
-
-	InsertCls := &TabPage{}
-	InsertCls.Ptr = InsertPtr
-	return InsertCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewInsertPinned func(uintptr, uintptr, int) uintptr
@@ -1017,18 +1005,17 @@ var xTabViewInsertPinned func(uintptr, uintptr, int) uintptr
 // It's an error to try to insert a pinned page after a non-pinned page, in
 // that case [method@TabView.insert] should be used instead.
 func (x *TabView) InsertPinned(ChildVar *gtk.Widget, PositionVar int) *TabPage {
+	var cls *TabPage
 
-	InsertPinnedPtr := xTabViewInsertPinned(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
-	if InsertPinnedPtr == 0 {
-		return nil
+	cret := xTabViewInsertPinned(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(InsertPinnedPtr)
-
-	InsertPinnedCls := &TabPage{}
-	InsertPinnedCls.Ptr = InsertPinnedPtr
-	return InsertPinnedCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewInvalidateThumbnails func(uintptr)
@@ -1047,36 +1034,34 @@ var xTabViewPrepend func(uintptr, uintptr) uintptr
 
 // Inserts @child as the first non-pinned page.
 func (x *TabView) Prepend(ChildVar *gtk.Widget) *TabPage {
+	var cls *TabPage
 
-	PrependPtr := xTabViewPrepend(x.GoPointer(), ChildVar.GoPointer())
-	if PrependPtr == 0 {
-		return nil
+	cret := xTabViewPrepend(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(PrependPtr)
-
-	PrependCls := &TabPage{}
-	PrependCls.Ptr = PrependPtr
-	return PrependCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewPrependPinned func(uintptr, uintptr) uintptr
 
 // Inserts @child as the first pinned page.
 func (x *TabView) PrependPinned(ChildVar *gtk.Widget) *TabPage {
+	var cls *TabPage
 
-	PrependPinnedPtr := xTabViewPrependPinned(x.GoPointer(), ChildVar.GoPointer())
-	if PrependPinnedPtr == 0 {
-		return nil
+	cret := xTabViewPrependPinned(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(PrependPinnedPtr)
-
-	PrependPinnedCls := &TabPage{}
-	PrependPinnedCls.Ptr = PrependPinnedPtr
-	return PrependPinnedCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabViewRemoveShortcuts func(uintptr, TabViewShortcuts)
@@ -1095,8 +1080,8 @@ var xTabViewReorderBackward func(uintptr, uintptr) bool
 // Reorders @page to before its previous page if possible.
 func (x *TabView) ReorderBackward(PageVar *TabPage) bool {
 
-	return xTabViewReorderBackward(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xTabViewReorderBackward(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xTabViewReorderFirst func(uintptr, uintptr) bool
@@ -1104,8 +1089,8 @@ var xTabViewReorderFirst func(uintptr, uintptr) bool
 // Reorders @page to the first possible position.
 func (x *TabView) ReorderFirst(PageVar *TabPage) bool {
 
-	return xTabViewReorderFirst(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xTabViewReorderFirst(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xTabViewReorderForward func(uintptr, uintptr) bool
@@ -1113,8 +1098,8 @@ var xTabViewReorderForward func(uintptr, uintptr) bool
 // Reorders @page to after its next page if possible.
 func (x *TabView) ReorderForward(PageVar *TabPage) bool {
 
-	return xTabViewReorderForward(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xTabViewReorderForward(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xTabViewReorderLast func(uintptr, uintptr) bool
@@ -1122,8 +1107,8 @@ var xTabViewReorderLast func(uintptr, uintptr) bool
 // Reorders @page to the last possible position.
 func (x *TabView) ReorderLast(PageVar *TabPage) bool {
 
-	return xTabViewReorderLast(x.GoPointer(), PageVar.GoPointer())
-
+	cret := xTabViewReorderLast(x.GoPointer(), PageVar.GoPointer())
+	return cret
 }
 
 var xTabViewReorderPage func(uintptr, uintptr, int) bool
@@ -1134,8 +1119,8 @@ var xTabViewReorderPage func(uintptr, uintptr, int) bool
 // one, or a non-pinned page before a pinned one.
 func (x *TabView) ReorderPage(PageVar *TabPage, PositionVar int) bool {
 
-	return xTabViewReorderPage(x.GoPointer(), PageVar.GoPointer(), PositionVar)
-
+	cret := xTabViewReorderPage(x.GoPointer(), PageVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xTabViewSelectNextPage func(uintptr) bool
@@ -1145,8 +1130,8 @@ var xTabViewSelectNextPage func(uintptr) bool
 // If the last page was already selected, this function does nothing.
 func (x *TabView) SelectNextPage() bool {
 
-	return xTabViewSelectNextPage(x.GoPointer())
-
+	cret := xTabViewSelectNextPage(x.GoPointer())
+	return cret
 }
 
 var xTabViewSelectPreviousPage func(uintptr) bool
@@ -1156,8 +1141,8 @@ var xTabViewSelectPreviousPage func(uintptr) bool
 // If the first page was already selected, this function does nothing.
 func (x *TabView) SelectPreviousPage() bool {
 
-	return xTabViewSelectPreviousPage(x.GoPointer())
-
+	cret := xTabViewSelectPreviousPage(x.GoPointer())
+	return cret
 }
 
 var xTabViewSetDefaultIcon func(uintptr, uintptr)
@@ -1416,8 +1401,8 @@ func (x *TabView) ConnectSetupMenu(cb func(TabView, uintptr)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TabView) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1552,8 +1537,8 @@ func (x *TabView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TabView) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

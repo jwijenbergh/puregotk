@@ -10,8 +10,8 @@ var xGtypeGetType func() []interface{}
 
 func GtypeGetType() []interface{} {
 
-	return xGtypeGetType()
-
+	cret := xGtypeGetType()
+	return cret
 }
 
 var xPointerTypeRegisterStatic func(string) []interface{}
@@ -20,8 +20,8 @@ var xPointerTypeRegisterStatic func(string) []interface{}
 // pointer type with name @name.
 func PointerTypeRegisterStatic(NameVar string) []interface{} {
 
-	return xPointerTypeRegisterStatic(NameVar)
-
+	cret := xPointerTypeRegisterStatic(NameVar)
+	return cret
 }
 
 var xStrdupValueContents func(*Value) string
@@ -32,8 +32,8 @@ var xStrdupValueContents func(*Value) string
 // described may change between different GLib versions.
 func StrdupValueContents(ValueVar *Value) string {
 
-	return xStrdupValueContents(ValueVar)
-
+	cret := xStrdupValueContents(ValueVar)
+	return cret
 }
 
 func init() {

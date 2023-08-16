@@ -30,14 +30,16 @@ var xNewDataInputStream func(uintptr) uintptr
 
 // Creates a new data input stream for the @base_stream.
 func NewDataInputStream(BaseStreamVar *InputStream) *DataInputStream {
-	NewDataInputStreamPtr := xNewDataInputStream(BaseStreamVar.GoPointer())
-	if NewDataInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *DataInputStream
 
-	NewDataInputStreamCls := &DataInputStream{}
-	NewDataInputStreamCls.Ptr = NewDataInputStreamPtr
-	return NewDataInputStreamCls
+	cret := xNewDataInputStream(BaseStreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DataInputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDataInputStreamGetByteOrder func(uintptr) DataStreamByteOrder
@@ -45,8 +47,8 @@ var xDataInputStreamGetByteOrder func(uintptr) DataStreamByteOrder
 // Gets the byte order for the data input stream.
 func (x *DataInputStream) GetByteOrder() DataStreamByteOrder {
 
-	return xDataInputStreamGetByteOrder(x.GoPointer())
-
+	cret := xDataInputStreamGetByteOrder(x.GoPointer())
+	return cret
 }
 
 var xDataInputStreamGetNewlineType func(uintptr) DataStreamNewlineType
@@ -54,32 +56,42 @@ var xDataInputStreamGetNewlineType func(uintptr) DataStreamNewlineType
 // Gets the current newline type for the @stream.
 func (x *DataInputStream) GetNewlineType() DataStreamNewlineType {
 
-	return xDataInputStreamGetNewlineType(x.GoPointer())
-
+	cret := xDataInputStreamGetNewlineType(x.GoPointer())
+	return cret
 }
 
-var xDataInputStreamReadByte func(uintptr, uintptr) byte
+var xDataInputStreamReadByte func(uintptr, uintptr, **glib.Error) byte
 
 // Reads an unsigned 8-bit/1-byte value from @stream.
-func (x *DataInputStream) ReadByte(CancellableVar *Cancellable) byte {
+func (x *DataInputStream) ReadByte(CancellableVar *Cancellable) (byte, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadInt16 func(uintptr, uintptr) int16
+var xDataInputStreamReadInt16 func(uintptr, uintptr, **glib.Error) int16
 
 // Reads a 16-bit/2-byte value from @stream.
 //
 // In order to get the correct byte order for this read operation,
 // see g_data_input_stream_get_byte_order() and g_data_input_stream_set_byte_order().
-func (x *DataInputStream) ReadInt16(CancellableVar *Cancellable) int16 {
+func (x *DataInputStream) ReadInt16(CancellableVar *Cancellable) (int16, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadInt16(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadInt16(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadInt32 func(uintptr, uintptr) int32
+var xDataInputStreamReadInt32 func(uintptr, uintptr, **glib.Error) int32
 
 // Reads a signed 32-bit/4-byte value from @stream.
 //
@@ -89,13 +101,18 @@ var xDataInputStreamReadInt32 func(uintptr, uintptr) int32
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadInt32(CancellableVar *Cancellable) int32 {
+func (x *DataInputStream) ReadInt32(CancellableVar *Cancellable) (int32, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadInt32(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadInt32(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadInt64 func(uintptr, uintptr) int64
+var xDataInputStreamReadInt64 func(uintptr, uintptr, **glib.Error) int64
 
 // Reads a 64-bit/8-byte value from @stream.
 //
@@ -105,13 +122,18 @@ var xDataInputStreamReadInt64 func(uintptr, uintptr) int64
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadInt64(CancellableVar *Cancellable) int64 {
+func (x *DataInputStream) ReadInt64(CancellableVar *Cancellable) (int64, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadInt64(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadInt64(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadLine func(uintptr, uint, uintptr) uintptr
+var xDataInputStreamReadLine func(uintptr, uint, uintptr, **glib.Error) uintptr
 
 // Reads a line from the data input stream.  Note that no encoding
 // checks or conversion is performed; the input is not guaranteed to
@@ -120,9 +142,14 @@ var xDataInputStreamReadLine func(uintptr, uint, uintptr) uintptr
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadLine(LengthVar uint, CancellableVar *Cancellable) uintptr {
+func (x *DataInputStream) ReadLine(LengthVar uint, CancellableVar *Cancellable) (uintptr, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadLine(x.GoPointer(), LengthVar, CancellableVar.GoPointer())
+	cret := xDataInputStreamReadLine(x.GoPointer(), LengthVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -140,54 +167,74 @@ func (x *DataInputStream) ReadLineAsync(IoPriorityVar int, CancellableVar *Cance
 
 }
 
-var xDataInputStreamReadLineFinish func(uintptr, uintptr, uint) uintptr
+var xDataInputStreamReadLineFinish func(uintptr, uintptr, uint, **glib.Error) uintptr
 
 // Finish an asynchronous call started by
 // g_data_input_stream_read_line_async().  Note the warning about
 // string encoding in g_data_input_stream_read_line() applies here as
 // well.
-func (x *DataInputStream) ReadLineFinish(ResultVar AsyncResult, LengthVar uint) uintptr {
+func (x *DataInputStream) ReadLineFinish(ResultVar AsyncResult, LengthVar uint) (uintptr, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadLineFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar)
+	cret := xDataInputStreamReadLineFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadLineFinishUtf8 func(uintptr, uintptr, uint) string
+var xDataInputStreamReadLineFinishUtf8 func(uintptr, uintptr, uint, **glib.Error) string
 
 // Finish an asynchronous call started by
 // g_data_input_stream_read_line_async().
-func (x *DataInputStream) ReadLineFinishUtf8(ResultVar AsyncResult, LengthVar uint) string {
+func (x *DataInputStream) ReadLineFinishUtf8(ResultVar AsyncResult, LengthVar uint) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadLineFinishUtf8(x.GoPointer(), ResultVar.GoPointer(), LengthVar)
+	cret := xDataInputStreamReadLineFinishUtf8(x.GoPointer(), ResultVar.GoPointer(), LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadLineUtf8 func(uintptr, uint, uintptr) string
+var xDataInputStreamReadLineUtf8 func(uintptr, uint, uintptr, **glib.Error) string
 
 // Reads a UTF-8 encoded line from the data input stream.
 //
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadLineUtf8(LengthVar uint, CancellableVar *Cancellable) string {
+func (x *DataInputStream) ReadLineUtf8(LengthVar uint, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadLineUtf8(x.GoPointer(), LengthVar, CancellableVar.GoPointer())
+	cret := xDataInputStreamReadLineUtf8(x.GoPointer(), LengthVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadUint16 func(uintptr, uintptr) uint16
+var xDataInputStreamReadUint16 func(uintptr, uintptr, **glib.Error) uint16
 
 // Reads an unsigned 16-bit/2-byte value from @stream.
 //
 // In order to get the correct byte order for this read operation,
 // see g_data_input_stream_get_byte_order() and g_data_input_stream_set_byte_order().
-func (x *DataInputStream) ReadUint16(CancellableVar *Cancellable) uint16 {
+func (x *DataInputStream) ReadUint16(CancellableVar *Cancellable) (uint16, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUint16(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadUint16(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadUint32 func(uintptr, uintptr) uint32
+var xDataInputStreamReadUint32 func(uintptr, uintptr, **glib.Error) uint32
 
 // Reads an unsigned 32-bit/4-byte value from @stream.
 //
@@ -197,13 +244,18 @@ var xDataInputStreamReadUint32 func(uintptr, uintptr) uint32
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadUint32(CancellableVar *Cancellable) uint32 {
+func (x *DataInputStream) ReadUint32(CancellableVar *Cancellable) (uint32, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUint32(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadUint32(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadUint64 func(uintptr, uintptr) uint64
+var xDataInputStreamReadUint64 func(uintptr, uintptr, **glib.Error) uint64
 
 // Reads an unsigned 64-bit/8-byte value from @stream.
 //
@@ -213,13 +265,18 @@ var xDataInputStreamReadUint64 func(uintptr, uintptr) uint64
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) ReadUint64(CancellableVar *Cancellable) uint64 {
+func (x *DataInputStream) ReadUint64(CancellableVar *Cancellable) (uint64, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUint64(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDataInputStreamReadUint64(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadUntil func(uintptr, string, uint, uintptr) string
+var xDataInputStreamReadUntil func(uintptr, string, uint, uintptr, **glib.Error) string
 
 // Reads a string from the data input stream, up to the first
 // occurrence of any of the stop characters.
@@ -232,9 +289,14 @@ var xDataInputStreamReadUntil func(uintptr, string, uint, uintptr) string
 // functions will be marked as deprecated in a future release.  Use
 // g_data_input_stream_read_upto() instead, but note that that function
 // does not consume the stop character.
-func (x *DataInputStream) ReadUntil(StopCharsVar string, LengthVar uint, CancellableVar *Cancellable) string {
+func (x *DataInputStream) ReadUntil(StopCharsVar string, LengthVar uint, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUntil(x.GoPointer(), StopCharsVar, LengthVar, CancellableVar.GoPointer())
+	cret := xDataInputStreamReadUntil(x.GoPointer(), StopCharsVar, LengthVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -261,17 +323,22 @@ func (x *DataInputStream) ReadUntilAsync(StopCharsVar string, IoPriorityVar int,
 
 }
 
-var xDataInputStreamReadUntilFinish func(uintptr, uintptr, uint) string
+var xDataInputStreamReadUntilFinish func(uintptr, uintptr, uint, **glib.Error) string
 
 // Finish an asynchronous call started by
 // g_data_input_stream_read_until_async().
-func (x *DataInputStream) ReadUntilFinish(ResultVar AsyncResult, LengthVar uint) string {
+func (x *DataInputStream) ReadUntilFinish(ResultVar AsyncResult, LengthVar uint) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUntilFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar)
+	cret := xDataInputStreamReadUntilFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDataInputStreamReadUpto func(uintptr, string, int, uint, uintptr) string
+var xDataInputStreamReadUpto func(uintptr, string, int, uint, uintptr, **glib.Error) string
 
 // Reads a string from the data input stream, up to the first
 // occurrence of any of the stop characters.
@@ -285,9 +352,14 @@ var xDataInputStreamReadUpto func(uintptr, string, int, uint, uintptr) string
 // specified.
 //
 // The returned string will always be nul-terminated on success.
-func (x *DataInputStream) ReadUpto(StopCharsVar string, StopCharsLenVar int, LengthVar uint, CancellableVar *Cancellable) string {
+func (x *DataInputStream) ReadUpto(StopCharsVar string, StopCharsLenVar int, LengthVar uint, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUpto(x.GoPointer(), StopCharsVar, StopCharsLenVar, LengthVar, CancellableVar.GoPointer())
+	cret := xDataInputStreamReadUpto(x.GoPointer(), StopCharsVar, StopCharsLenVar, LengthVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -313,7 +385,7 @@ func (x *DataInputStream) ReadUptoAsync(StopCharsVar string, StopCharsLenVar int
 
 }
 
-var xDataInputStreamReadUptoFinish func(uintptr, uintptr, uint) string
+var xDataInputStreamReadUptoFinish func(uintptr, uintptr, uint, **glib.Error) string
 
 // Finish an asynchronous call started by
 // g_data_input_stream_read_upto_async().
@@ -323,9 +395,14 @@ var xDataInputStreamReadUptoFinish func(uintptr, uintptr, uint) string
 // g_data_input_stream_read_upto_async() again.
 //
 // The returned string will always be nul-terminated on success.
-func (x *DataInputStream) ReadUptoFinish(ResultVar AsyncResult, LengthVar uint) string {
+func (x *DataInputStream) ReadUptoFinish(ResultVar AsyncResult, LengthVar uint) (string, error) {
+	var cerr *glib.Error
 
-	return xDataInputStreamReadUptoFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar)
+	cret := xDataInputStreamReadUptoFinish(x.GoPointer(), ResultVar.GoPointer(), LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -363,16 +440,16 @@ func (c *DataInputStream) SetGoPointer(ptr uintptr) {
 // Tests if the stream supports the #GSeekableIface.
 func (x *DataInputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *DataInputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -389,17 +466,22 @@ func (x *DataInputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *DataInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *DataInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *DataInputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -411,9 +493,14 @@ func (x *DataInputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *DataInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *DataInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

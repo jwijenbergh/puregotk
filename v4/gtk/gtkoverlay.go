@@ -53,16 +53,17 @@ var xNewOverlay func() uintptr
 
 // Creates a new `GtkOverlay`.
 func NewOverlay() *Widget {
-	NewOverlayPtr := xNewOverlay()
-	if NewOverlayPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewOverlay()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewOverlayPtr)
-
-	NewOverlayCls := &Widget{}
-	NewOverlayCls.Ptr = NewOverlayPtr
-	return NewOverlayCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xOverlayAddOverlay func(uintptr, uintptr)
@@ -85,18 +86,17 @@ var xOverlayGetChild func(uintptr) uintptr
 
 // Gets the child widget of @overlay.
 func (x *Overlay) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xOverlayGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xOverlayGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xOverlayGetClipOverlay func(uintptr, uintptr) bool
@@ -104,8 +104,8 @@ var xOverlayGetClipOverlay func(uintptr, uintptr) bool
 // Gets whether @widget should be clipped within the parent.
 func (x *Overlay) GetClipOverlay(WidgetVar *Widget) bool {
 
-	return xOverlayGetClipOverlay(x.GoPointer(), WidgetVar.GoPointer())
-
+	cret := xOverlayGetClipOverlay(x.GoPointer(), WidgetVar.GoPointer())
+	return cret
 }
 
 var xOverlayGetMeasureOverlay func(uintptr, uintptr) bool
@@ -114,8 +114,8 @@ var xOverlayGetMeasureOverlay func(uintptr, uintptr) bool
 // @overlay.
 func (x *Overlay) GetMeasureOverlay(WidgetVar *Widget) bool {
 
-	return xOverlayGetMeasureOverlay(x.GoPointer(), WidgetVar.GoPointer())
-
+	cret := xOverlayGetMeasureOverlay(x.GoPointer(), WidgetVar.GoPointer())
+	return cret
 }
 
 var xOverlayRemoveOverlay func(uintptr, uintptr)
@@ -194,8 +194,8 @@ func (x *Overlay) ConnectGetChildPosition(cb func(Overlay, uintptr, uintptr) boo
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Overlay) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -330,8 +330,8 @@ func (x *Overlay) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Overlay) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

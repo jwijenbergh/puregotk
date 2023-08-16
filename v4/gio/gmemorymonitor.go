@@ -80,16 +80,16 @@ var xMemoryMonitorDupDefault func() uintptr
 
 // Gets a reference to the default #GMemoryMonitor for the system.
 func MemoryMonitorDupDefault() *MemoryMonitorBase {
+	var cls *MemoryMonitorBase
 
-	MemoryMonitorDupDefaultPtr := xMemoryMonitorDupDefault()
-	if MemoryMonitorDupDefaultPtr == 0 {
-		return nil
+	cret := xMemoryMonitorDupDefault()
+
+	if cret == 0 {
+		return cls
 	}
-
-	MemoryMonitorDupDefaultCls := &MemoryMonitorBase{}
-	MemoryMonitorDupDefaultCls.Ptr = MemoryMonitorDupDefaultPtr
-	return MemoryMonitorDupDefaultCls
-
+	cls = &MemoryMonitorBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

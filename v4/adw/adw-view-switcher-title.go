@@ -90,34 +90,34 @@ var xNewViewSwitcherTitle func() uintptr
 
 // Creates a new `AdwViewSwitcherTitle`.
 func NewViewSwitcherTitle() *gtk.Widget {
-	NewViewSwitcherTitlePtr := xNewViewSwitcherTitle()
-	if NewViewSwitcherTitlePtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewViewSwitcherTitle()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewViewSwitcherTitlePtr)
-
-	NewViewSwitcherTitleCls := &gtk.Widget{}
-	NewViewSwitcherTitleCls.Ptr = NewViewSwitcherTitlePtr
-	return NewViewSwitcherTitleCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherTitleGetStack func(uintptr) uintptr
 
 // Gets the stack controlled by @self.
 func (x *ViewSwitcherTitle) GetStack() *ViewStack {
+	var cls *ViewStack
 
-	GetStackPtr := xViewSwitcherTitleGetStack(x.GoPointer())
-	if GetStackPtr == 0 {
-		return nil
+	cret := xViewSwitcherTitleGetStack(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStackPtr)
-
-	GetStackCls := &ViewStack{}
-	GetStackCls.Ptr = GetStackPtr
-	return GetStackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStack{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherTitleGetSubtitle func(uintptr) string
@@ -125,8 +125,8 @@ var xViewSwitcherTitleGetSubtitle func(uintptr) string
 // Gets the subtitle of @self.
 func (x *ViewSwitcherTitle) GetSubtitle() string {
 
-	return xViewSwitcherTitleGetSubtitle(x.GoPointer())
-
+	cret := xViewSwitcherTitleGetSubtitle(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherTitleGetTitle func(uintptr) string
@@ -134,8 +134,8 @@ var xViewSwitcherTitleGetTitle func(uintptr) string
 // Gets the title of @self.
 func (x *ViewSwitcherTitle) GetTitle() string {
 
-	return xViewSwitcherTitleGetTitle(x.GoPointer())
-
+	cret := xViewSwitcherTitleGetTitle(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherTitleGetTitleVisible func(uintptr) bool
@@ -146,8 +146,8 @@ var xViewSwitcherTitleGetTitleVisible func(uintptr) bool
 // wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
 func (x *ViewSwitcherTitle) GetTitleVisible() bool {
 
-	return xViewSwitcherTitleGetTitleVisible(x.GoPointer())
-
+	cret := xViewSwitcherTitleGetTitleVisible(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherTitleGetViewSwitcherEnabled func(uintptr) bool
@@ -155,8 +155,8 @@ var xViewSwitcherTitleGetViewSwitcherEnabled func(uintptr) bool
 // Gets whether @self's view switcher is enabled.
 func (x *ViewSwitcherTitle) GetViewSwitcherEnabled() bool {
 
-	return xViewSwitcherTitleGetViewSwitcherEnabled(x.GoPointer())
-
+	cret := xViewSwitcherTitleGetViewSwitcherEnabled(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherTitleSetStack func(uintptr, uintptr)
@@ -218,8 +218,8 @@ func (c *ViewSwitcherTitle) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ViewSwitcherTitle) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -354,8 +354,8 @@ func (x *ViewSwitcherTitle) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ViewSwitcherTitle) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

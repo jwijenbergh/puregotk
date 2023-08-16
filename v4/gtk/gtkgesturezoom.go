@@ -30,14 +30,16 @@ var xNewGestureZoom func() uintptr
 // Returns a newly created `GtkGesture` that recognizes
 // pinch/zoom gestures.
 func NewGestureZoom() *Gesture {
-	NewGestureZoomPtr := xNewGestureZoom()
-	if NewGestureZoomPtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureZoomCls := &Gesture{}
-	NewGestureZoomCls.Ptr = NewGestureZoomPtr
-	return NewGestureZoomCls
+	cret := xNewGestureZoom()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureZoomGetScaleDelta func(uintptr) float64
@@ -50,8 +52,8 @@ var xGestureZoomGetScaleDelta func(uintptr) float64
 // active, 1 is returned.
 func (x *GestureZoom) GetScaleDelta() float64 {
 
-	return xGestureZoomGetScaleDelta(x.GoPointer())
-
+	cret := xGestureZoomGetScaleDelta(x.GoPointer())
+	return cret
 }
 
 func (c *GestureZoom) GoPointer() uintptr {

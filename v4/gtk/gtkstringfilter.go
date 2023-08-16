@@ -57,14 +57,16 @@ var xNewStringFilter func(uintptr) uintptr
 // You will want to set up the filter by providing a string to search for
 // and by providing a property to look up on the item.
 func NewStringFilter(ExpressionVar *Expression) *StringFilter {
-	NewStringFilterPtr := xNewStringFilter(ExpressionVar.GoPointer())
-	if NewStringFilterPtr == 0 {
-		return nil
-	}
+	var cls *StringFilter
 
-	NewStringFilterCls := &StringFilter{}
-	NewStringFilterCls.Ptr = NewStringFilterPtr
-	return NewStringFilterCls
+	cret := xNewStringFilter(ExpressionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &StringFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringFilterGetExpression func(uintptr) uintptr
@@ -72,18 +74,17 @@ var xStringFilterGetExpression func(uintptr) uintptr
 // Gets the expression that the string filter uses to
 // obtain strings from items.
 func (x *StringFilter) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xStringFilterGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xStringFilterGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringFilterGetIgnoreCase func(uintptr) bool
@@ -91,8 +92,8 @@ var xStringFilterGetIgnoreCase func(uintptr) bool
 // Returns whether the filter ignores case differences.
 func (x *StringFilter) GetIgnoreCase() bool {
 
-	return xStringFilterGetIgnoreCase(x.GoPointer())
-
+	cret := xStringFilterGetIgnoreCase(x.GoPointer())
+	return cret
 }
 
 var xStringFilterGetMatchMode func(uintptr) StringFilterMatchMode
@@ -100,8 +101,8 @@ var xStringFilterGetMatchMode func(uintptr) StringFilterMatchMode
 // Returns the match mode that the filter is using.
 func (x *StringFilter) GetMatchMode() StringFilterMatchMode {
 
-	return xStringFilterGetMatchMode(x.GoPointer())
-
+	cret := xStringFilterGetMatchMode(x.GoPointer())
+	return cret
 }
 
 var xStringFilterGetSearch func(uintptr) string
@@ -109,8 +110,8 @@ var xStringFilterGetSearch func(uintptr) string
 // Gets the search term.
 func (x *StringFilter) GetSearch() string {
 
-	return xStringFilterGetSearch(x.GoPointer())
-
+	cret := xStringFilterGetSearch(x.GoPointer())
+	return cret
 }
 
 var xStringFilterSetExpression func(uintptr, uintptr)

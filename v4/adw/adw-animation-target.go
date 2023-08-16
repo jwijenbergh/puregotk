@@ -56,14 +56,16 @@ var xNewCallbackAnimationTarget func(uintptr, uintptr, uintptr) uintptr
 // Creates a new `AdwAnimationTarget` that calls the given @callback during
 // the animation.
 func NewCallbackAnimationTarget(CallbackVar AnimationTargetFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) *AnimationTarget {
-	NewCallbackAnimationTargetPtr := xNewCallbackAnimationTarget(purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DestroyVar))
-	if NewCallbackAnimationTargetPtr == 0 {
-		return nil
-	}
+	var cls *AnimationTarget
 
-	NewCallbackAnimationTargetCls := &AnimationTarget{}
-	NewCallbackAnimationTargetCls.Ptr = NewCallbackAnimationTargetPtr
-	return NewCallbackAnimationTargetCls
+	cret := xNewCallbackAnimationTarget(purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &AnimationTarget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CallbackAnimationTarget) GoPointer() uintptr {
@@ -91,14 +93,16 @@ var xNewPropertyAnimationTarget func(uintptr, string) uintptr
 // Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
 // @object.
 func NewPropertyAnimationTarget(ObjectVar *gobject.Object, PropertyNameVar string) *AnimationTarget {
-	NewPropertyAnimationTargetPtr := xNewPropertyAnimationTarget(ObjectVar.GoPointer(), PropertyNameVar)
-	if NewPropertyAnimationTargetPtr == 0 {
-		return nil
-	}
+	var cls *AnimationTarget
 
-	NewPropertyAnimationTargetCls := &AnimationTarget{}
-	NewPropertyAnimationTargetCls.Ptr = NewPropertyAnimationTargetPtr
-	return NewPropertyAnimationTargetCls
+	cret := xNewPropertyAnimationTarget(ObjectVar.GoPointer(), PropertyNameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &AnimationTarget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForPspecPropertyAnimationTarget func(uintptr, uintptr) uintptr
@@ -106,14 +110,16 @@ var xNewForPspecPropertyAnimationTarget func(uintptr, uintptr) uintptr
 // Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
 // @object.
 func NewForPspecPropertyAnimationTarget(ObjectVar *gobject.Object, PspecVar *gobject.ParamSpec) *AnimationTarget {
-	NewForPspecPropertyAnimationTargetPtr := xNewForPspecPropertyAnimationTarget(ObjectVar.GoPointer(), PspecVar.GoPointer())
-	if NewForPspecPropertyAnimationTargetPtr == 0 {
-		return nil
-	}
+	var cls *AnimationTarget
 
-	NewForPspecPropertyAnimationTargetCls := &AnimationTarget{}
-	NewForPspecPropertyAnimationTargetCls.Ptr = NewForPspecPropertyAnimationTargetPtr
-	return NewForPspecPropertyAnimationTargetCls
+	cret := xNewForPspecPropertyAnimationTarget(ObjectVar.GoPointer(), PspecVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &AnimationTarget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPropertyAnimationTargetGetObject func(uintptr) uintptr
@@ -124,36 +130,34 @@ var xPropertyAnimationTargetGetObject func(uintptr) uintptr
 // the object; make sure the object is kept alive throughout the target's
 // lifetime.
 func (x *PropertyAnimationTarget) GetObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := xPropertyAnimationTargetGetObject(x.GoPointer())
-	if GetObjectPtr == 0 {
-		return nil
+	cret := xPropertyAnimationTargetGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPropertyAnimationTargetGetPspec func(uintptr) uintptr
 
 // Gets the `GParamSpec` of the property animated by @self.
 func (x *PropertyAnimationTarget) GetPspec() *gobject.ParamSpec {
+	var cls *gobject.ParamSpec
 
-	GetPspecPtr := xPropertyAnimationTargetGetPspec(x.GoPointer())
-	if GetPspecPtr == 0 {
-		return nil
+	cret := xPropertyAnimationTargetGetPspec(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPspecPtr)
-
-	GetPspecCls := &gobject.ParamSpec{}
-	GetPspecCls.Ptr = GetPspecPtr
-	return GetPspecCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *PropertyAnimationTarget) GoPointer() uintptr {

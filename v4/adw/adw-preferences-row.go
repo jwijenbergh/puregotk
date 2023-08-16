@@ -38,16 +38,17 @@ var xNewPreferencesRow func() uintptr
 
 // Creates a new `AdwPreferencesRow`.
 func NewPreferencesRow() *gtk.Widget {
-	NewPreferencesRowPtr := xNewPreferencesRow()
-	if NewPreferencesRowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewPreferencesRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPreferencesRowPtr)
-
-	NewPreferencesRowCls := &gtk.Widget{}
-	NewPreferencesRowCls.Ptr = NewPreferencesRowPtr
-	return NewPreferencesRowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesRowGetTitle func(uintptr) string
@@ -55,8 +56,8 @@ var xPreferencesRowGetTitle func(uintptr) string
 // Gets the title of the preference represented by @self.
 func (x *PreferencesRow) GetTitle() string {
 
-	return xPreferencesRowGetTitle(x.GoPointer())
-
+	cret := xPreferencesRowGetTitle(x.GoPointer())
+	return cret
 }
 
 var xPreferencesRowGetTitleSelectable func(uintptr) bool
@@ -64,8 +65,8 @@ var xPreferencesRowGetTitleSelectable func(uintptr) bool
 // Gets whether the user can copy the title from the label
 func (x *PreferencesRow) GetTitleSelectable() bool {
 
-	return xPreferencesRowGetTitleSelectable(x.GoPointer())
-
+	cret := xPreferencesRowGetTitleSelectable(x.GoPointer())
+	return cret
 }
 
 var xPreferencesRowGetUseMarkup func(uintptr) bool
@@ -73,8 +74,8 @@ var xPreferencesRowGetUseMarkup func(uintptr) bool
 // Gets whether to use Pango markup for the title label.
 func (x *PreferencesRow) GetUseMarkup() bool {
 
-	return xPreferencesRowGetUseMarkup(x.GoPointer())
-
+	cret := xPreferencesRowGetUseMarkup(x.GoPointer())
+	return cret
 }
 
 var xPreferencesRowGetUseUnderline func(uintptr) bool
@@ -82,8 +83,8 @@ var xPreferencesRowGetUseUnderline func(uintptr) bool
 // Gets whether an embedded underline in the title indicates a mnemonic.
 func (x *PreferencesRow) GetUseUnderline() bool {
 
-	return xPreferencesRowGetUseUnderline(x.GoPointer())
-
+	cret := xPreferencesRowGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xPreferencesRowSetTitle func(uintptr, string)
@@ -142,8 +143,8 @@ func (c *PreferencesRow) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PreferencesRow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -275,15 +276,15 @@ func (x *PreferencesRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, Val
 // Gets the action name for @actionable.
 func (x *PreferencesRow) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *PreferencesRow) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -361,8 +362,8 @@ func (x *PreferencesRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PreferencesRow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

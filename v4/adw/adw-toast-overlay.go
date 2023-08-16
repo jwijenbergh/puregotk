@@ -69,16 +69,17 @@ var xNewToastOverlay func() uintptr
 
 // Creates a new `AdwToastOverlay`.
 func NewToastOverlay() *gtk.Widget {
-	NewToastOverlayPtr := xNewToastOverlay()
-	if NewToastOverlayPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewToastOverlay()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewToastOverlayPtr)
-
-	NewToastOverlayCls := &gtk.Widget{}
-	NewToastOverlayCls.Ptr = NewToastOverlayPtr
-	return NewToastOverlayCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xToastOverlayAddToast func(uintptr, uintptr)
@@ -103,18 +104,17 @@ var xToastOverlayGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *ToastOverlay) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xToastOverlayGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xToastOverlayGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xToastOverlaySetChild func(uintptr, uintptr)
@@ -137,8 +137,8 @@ func (c *ToastOverlay) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ToastOverlay) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -273,8 +273,8 @@ func (x *ToastOverlay) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ToastOverlay) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

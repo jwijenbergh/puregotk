@@ -55,16 +55,17 @@ var xNewEditableLabel func(string) uintptr
 
 // Creates a new `GtkEditableLabel` widget.
 func NewEditableLabel(StrVar string) *Widget {
-	NewEditableLabelPtr := xNewEditableLabel(StrVar)
-	if NewEditableLabelPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewEditableLabel(StrVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewEditableLabelPtr)
-
-	NewEditableLabelCls := &Widget{}
-	NewEditableLabelCls.Ptr = NewEditableLabelPtr
-	return NewEditableLabelCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEditableLabelGetEditing func(uintptr) bool
@@ -72,8 +73,8 @@ var xEditableLabelGetEditing func(uintptr) bool
 // Returns whether the label is currently in “editing mode”.
 func (x *EditableLabel) GetEditing() bool {
 
-	return xEditableLabelGetEditing(x.GoPointer())
-
+	cret := xEditableLabelGetEditing(x.GoPointer())
+	return cret
 }
 
 var xEditableLabelStartEditing func(uintptr)
@@ -110,8 +111,8 @@ func (c *EditableLabel) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *EditableLabel) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -246,8 +247,8 @@ func (x *EditableLabel) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *EditableLabel) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Deletes the currently selected text of the editable.
@@ -286,8 +287,8 @@ func (x *EditableLabel) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *EditableLabel) GetAlignment() float32 {
 
-	return XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -300,8 +301,8 @@ func (x *EditableLabel) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *EditableLabel) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -309,39 +310,38 @@ func (x *EditableLabel) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *EditableLabel) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *EditableLabel) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *EditableLabel) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *EditableLabel) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -350,8 +350,8 @@ func (x *EditableLabel) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *EditableLabel) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -363,8 +363,8 @@ func (x *EditableLabel) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *EditableLabel) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -372,16 +372,16 @@ func (x *EditableLabel) GetSelectionBounds(StartPosVar int, EndPosVar int) bool 
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *EditableLabel) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *EditableLabel) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

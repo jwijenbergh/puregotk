@@ -45,8 +45,8 @@ var xTabArrayFromString func(string) *TabArray
 // See that functions for details about the format.
 func TabArrayFromString(TextVar string) *TabArray {
 
-	return xTabArrayFromString(TextVar)
-
+	cret := xTabArrayFromString(TextVar)
+	return cret
 }
 
 func init() {

@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -184,30 +185,40 @@ func (x *AsyncInitableBase) InitAsync(IoPriorityVar int, CancellableVar *Cancell
 
 // Finishes asynchronous initialization and returns the result.
 // See g_async_initable_init_async().
-func (x *AsyncInitableBase) InitFinish(ResVar AsyncResult) bool {
+func (x *AsyncInitableBase) InitFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes the async construction for the various g_async_initable_new
 // calls, returning the created object or %NULL on error.
-func (x *AsyncInitableBase) NewFinish(ResVar AsyncResult) *gobject.Object {
+func (x *AsyncInitableBase) NewFinish(ResVar AsyncResult) (*gobject.Object, error) {
+	var cls *gobject.Object
+	var cerr *glib.Error
 
-	NewFinishPtr := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer())
-	if NewFinishPtr == 0 {
-		return nil
+	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NewFinishCls := &gobject.Object{}
-	NewFinishCls.Ptr = NewFinishPtr
-	return NewFinishCls
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
 var XGAsyncInitableInitAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGAsyncInitableInitFinish func(uintptr, uintptr) bool
-var XGAsyncInitableNewFinish func(uintptr, uintptr) uintptr
+var XGAsyncInitableInitFinish func(uintptr, uintptr, **glib.Error) bool
+var XGAsyncInitableNewFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 var xAsyncInitableNewvAsync func([]interface{}, uint, *gobject.Parameter, int, uintptr, uintptr, uintptr)
 

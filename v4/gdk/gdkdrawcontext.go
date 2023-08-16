@@ -79,18 +79,17 @@ var xDrawContextGetDisplay func(uintptr) uintptr
 
 // Retrieves the `GdkDisplay` the @context is created for
 func (x *DrawContext) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xDrawContextGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xDrawContextGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDrawContextGetFrameRegion func(uintptr) *cairo.Region
@@ -105,26 +104,25 @@ var xDrawContextGetFrameRegion func(uintptr) *cairo.Region
 // and [method@Gdk.DrawContext.end_frame], %NULL will be returned.
 func (x *DrawContext) GetFrameRegion() *cairo.Region {
 
-	return xDrawContextGetFrameRegion(x.GoPointer())
-
+	cret := xDrawContextGetFrameRegion(x.GoPointer())
+	return cret
 }
 
 var xDrawContextGetSurface func(uintptr) uintptr
 
 // Retrieves the surface that @context is bound to.
 func (x *DrawContext) GetSurface() *Surface {
+	var cls *Surface
 
-	GetSurfacePtr := xDrawContextGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := xDrawContextGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDrawContextIsInFrame func(uintptr) bool
@@ -136,8 +134,8 @@ var xDrawContextIsInFrame func(uintptr) bool
 // may be effecting the contents of the @context's surface.
 func (x *DrawContext) IsInFrame() bool {
 
-	return xDrawContextIsInFrame(x.GoPointer())
-
+	cret := xDrawContextIsInFrame(x.GoPointer())
+	return cret
 }
 
 func (c *DrawContext) GoPointer() uintptr {

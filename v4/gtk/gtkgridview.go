@@ -69,16 +69,17 @@ var xNewGridView func(uintptr, uintptr) uintptr
 //
 // ```
 func NewGridView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
-	NewGridViewPtr := xNewGridView(ModelVar.GoPointer(), FactoryVar.GoPointer())
-	if NewGridViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewGridView(ModelVar.GoPointer(), FactoryVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewGridViewPtr)
-
-	NewGridViewCls := &Widget{}
-	NewGridViewCls.Ptr = NewGridViewPtr
-	return NewGridViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridViewGetEnableRubberband func(uintptr) bool
@@ -86,26 +87,25 @@ var xGridViewGetEnableRubberband func(uintptr) bool
 // Returns whether rows can be selected by dragging with the mouse.
 func (x *GridView) GetEnableRubberband() bool {
 
-	return xGridViewGetEnableRubberband(x.GoPointer())
-
+	cret := xGridViewGetEnableRubberband(x.GoPointer())
+	return cret
 }
 
 var xGridViewGetFactory func(uintptr) uintptr
 
 // Gets the factory that's currently used to populate list items.
 func (x *GridView) GetFactory() *ListItemFactory {
+	var cls *ListItemFactory
 
-	GetFactoryPtr := xGridViewGetFactory(x.GoPointer())
-	if GetFactoryPtr == 0 {
-		return nil
+	cret := xGridViewGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFactoryPtr)
-
-	GetFactoryCls := &ListItemFactory{}
-	GetFactoryCls.Ptr = GetFactoryPtr
-	return GetFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridViewGetMaxColumns func(uintptr) uint
@@ -113,8 +113,8 @@ var xGridViewGetMaxColumns func(uintptr) uint
 // Gets the maximum number of columns that the grid will use.
 func (x *GridView) GetMaxColumns() uint {
 
-	return xGridViewGetMaxColumns(x.GoPointer())
-
+	cret := xGridViewGetMaxColumns(x.GoPointer())
+	return cret
 }
 
 var xGridViewGetMinColumns func(uintptr) uint
@@ -122,26 +122,25 @@ var xGridViewGetMinColumns func(uintptr) uint
 // Gets the minimum number of columns that the grid will use.
 func (x *GridView) GetMinColumns() uint {
 
-	return xGridViewGetMinColumns(x.GoPointer())
-
+	cret := xGridViewGetMinColumns(x.GoPointer())
+	return cret
 }
 
 var xGridViewGetModel func(uintptr) uintptr
 
 // Gets the model that's currently used to read the items displayed.
 func (x *GridView) GetModel() *SelectionModelBase {
+	var cls *SelectionModelBase
 
-	GetModelPtr := xGridViewGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xGridViewGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &SelectionModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridViewGetSingleClickActivate func(uintptr) bool
@@ -150,8 +149,8 @@ var xGridViewGetSingleClickActivate func(uintptr) bool
 // selected on hover.
 func (x *GridView) GetSingleClickActivate() bool {
 
-	return xGridViewGetSingleClickActivate(x.GoPointer())
-
+	cret := xGridViewGetSingleClickActivate(x.GoPointer())
+	return cret
 }
 
 var xGridViewSetEnableRubberband func(uintptr, bool)
@@ -249,8 +248,8 @@ func (x *GridView) ConnectActivate(cb func(GridView, uint)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *GridView) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -385,15 +384,15 @@ func (x *GridView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *GridView) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *GridView) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.
@@ -411,54 +410,52 @@ func (x *GridView) SetOrientation(OrientationVar Orientation) {
 // overshoot indication, at the right position.
 func (x *GridView) GetBorder(BorderVar *Border) bool {
 
-	return XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *GridView) GetHadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetHadjustmentPtr := XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *GridView) GetHscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *GridView) GetVadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetVadjustmentPtr := XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *GridView) GetVscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

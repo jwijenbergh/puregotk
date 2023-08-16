@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -41,7 +42,7 @@ func PermissionNewFromInternalPtr(ptr uintptr) *Permission {
 	return cls
 }
 
-var xPermissionAcquire func(uintptr, uintptr) bool
+var xPermissionAcquire func(uintptr, uintptr, **glib.Error) bool
 
 // Attempts to acquire the permission represented by @permission.
 //
@@ -58,9 +59,14 @@ var xPermissionAcquire func(uintptr, uintptr) bool
 // This call is blocking, likely for a very long time (in the case that
 // user interaction is required).  See g_permission_acquire_async() for
 // the non-blocking version.
-func (x *Permission) Acquire(CancellableVar *Cancellable) bool {
+func (x *Permission) Acquire(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xPermissionAcquire(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xPermissionAcquire(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -76,16 +82,21 @@ func (x *Permission) AcquireAsync(CancellableVar *Cancellable, CallbackVar Async
 
 }
 
-var xPermissionAcquireFinish func(uintptr, uintptr) bool
+var xPermissionAcquireFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Collects the result of attempting to acquire the permission
 // represented by @permission.
 //
 // This is the second half of the asynchronous version of
 // g_permission_acquire().
-func (x *Permission) AcquireFinish(ResultVar AsyncResult) bool {
+func (x *Permission) AcquireFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xPermissionAcquireFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xPermissionAcquireFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -96,8 +107,8 @@ var xPermissionGetAllowed func(uintptr) bool
 // @permission represents the permission to perform.
 func (x *Permission) GetAllowed() bool {
 
-	return xPermissionGetAllowed(x.GoPointer())
-
+	cret := xPermissionGetAllowed(x.GoPointer())
+	return cret
 }
 
 var xPermissionGetCanAcquire func(uintptr) bool
@@ -107,8 +118,8 @@ var xPermissionGetCanAcquire func(uintptr) bool
 // g_permission_acquire().
 func (x *Permission) GetCanAcquire() bool {
 
-	return xPermissionGetCanAcquire(x.GoPointer())
-
+	cret := xPermissionGetCanAcquire(x.GoPointer())
+	return cret
 }
 
 var xPermissionGetCanRelease func(uintptr) bool
@@ -118,8 +129,8 @@ var xPermissionGetCanRelease func(uintptr) bool
 // g_permission_release().
 func (x *Permission) GetCanRelease() bool {
 
-	return xPermissionGetCanRelease(x.GoPointer())
-
+	cret := xPermissionGetCanRelease(x.GoPointer())
+	return cret
 }
 
 var xPermissionImplUpdate func(uintptr, bool, bool, bool)
@@ -135,7 +146,7 @@ func (x *Permission) ImplUpdate(AllowedVar bool, CanAcquireVar bool, CanReleaseV
 
 }
 
-var xPermissionRelease func(uintptr, uintptr) bool
+var xPermissionRelease func(uintptr, uintptr, **glib.Error) bool
 
 // Attempts to release the permission represented by @permission.
 //
@@ -152,9 +163,14 @@ var xPermissionRelease func(uintptr, uintptr) bool
 // This call is blocking, likely for a very long time (in the case that
 // user interaction is required).  See g_permission_release_async() for
 // the non-blocking version.
-func (x *Permission) Release(CancellableVar *Cancellable) bool {
+func (x *Permission) Release(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xPermissionRelease(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xPermissionRelease(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -170,16 +186,21 @@ func (x *Permission) ReleaseAsync(CancellableVar *Cancellable, CallbackVar Async
 
 }
 
-var xPermissionReleaseFinish func(uintptr, uintptr) bool
+var xPermissionReleaseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Collects the result of attempting to release the permission
 // represented by @permission.
 //
 // This is the second half of the asynchronous version of
 // g_permission_release().
-func (x *Permission) ReleaseFinish(ResultVar AsyncResult) bool {
+func (x *Permission) ReleaseFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xPermissionReleaseFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xPermissionReleaseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

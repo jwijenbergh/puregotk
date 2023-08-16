@@ -129,8 +129,8 @@ var xCclosureNewObject func(uintptr, uintptr) *Closure
 // after the object is is freed.
 func CclosureNewObject(CallbackFuncVar Callback, ObjectVar *Object) *Closure {
 
-	return xCclosureNewObject(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
-
+	cret := xCclosureNewObject(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
+	return cret
 }
 
 var xCclosureNewObjectSwap func(uintptr, uintptr) *Closure
@@ -142,8 +142,8 @@ var xCclosureNewObjectSwap func(uintptr, uintptr) *Closure
 // after the object is is freed.
 func CclosureNewObjectSwap(CallbackFuncVar Callback, ObjectVar *Object) *Closure {
 
-	return xCclosureNewObjectSwap(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
-
+	cret := xCclosureNewObjectSwap(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
+	return cret
 }
 
 var xClearObject func(*uintptr)
@@ -176,8 +176,8 @@ var xSignalConnectObject func(*TypeInstance, string, uintptr, uintptr, ConnectFl
 // is not safe).
 func SignalConnectObject(InstanceVar *TypeInstance, DetailedSignalVar string, CHandlerVar Callback, GobjectVar *Object, ConnectFlagsVar ConnectFlags) uint32 {
 
-	return xSignalConnectObject(InstanceVar, DetailedSignalVar, purego.NewCallback(CHandlerVar), GobjectVar.GoPointer(), ConnectFlagsVar)
-
+	cret := xSignalConnectObject(InstanceVar, DetailedSignalVar, purego.NewCallback(CHandlerVar), GobjectVar.GoPointer(), ConnectFlagsVar)
+	return cret
 }
 
 // A type for objects that have an initially floating reference.
@@ -253,14 +253,16 @@ var xNewObject func([]interface{}, string, ...interface{}) uintptr
 // should allocate it on the heap (aligned), or arrange for your #GObject to be
 // appropriately padded.
 func NewObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, varArgs ...interface{}) *Object {
-	NewObjectPtr := xNewObject(ObjectTypeVar, FirstPropertyNameVar, varArgs...)
-	if NewObjectPtr == 0 {
-		return nil
-	}
+	var cls *Object
 
-	NewObjectCls := &Object{}
-	NewObjectCls.Ptr = NewObjectPtr
-	return NewObjectCls
+	cret := xNewObject(ObjectTypeVar, FirstPropertyNameVar, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewValistObject func([]interface{}, string, []interface{}) uintptr
@@ -270,14 +272,16 @@ var xNewValistObject func([]interface{}, string, []interface{}) uintptr
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
 func NewValistObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, VarArgsVar []interface{}) *Object {
-	NewValistObjectPtr := xNewValistObject(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
-	if NewValistObjectPtr == 0 {
-		return nil
-	}
+	var cls *Object
 
-	NewValistObjectCls := &Object{}
-	NewValistObjectCls.Ptr = NewValistObjectPtr
-	return NewValistObjectCls
+	cret := xNewValistObject(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithPropertiesObject func([]interface{}, uint, uintptr, uintptr) uintptr
@@ -289,14 +293,16 @@ var xNewWithPropertiesObject func([]interface{}, uint, uintptr, uintptr) uintptr
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
 func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar uintptr, ValuesVar uintptr) *Object {
-	NewWithPropertiesObjectPtr := xNewWithPropertiesObject(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
-	if NewWithPropertiesObjectPtr == 0 {
-		return nil
-	}
+	var cls *Object
 
-	NewWithPropertiesObjectCls := &Object{}
-	NewWithPropertiesObjectCls.Ptr = NewWithPropertiesObjectPtr
-	return NewWithPropertiesObjectCls
+	cret := xNewWithPropertiesObject(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewvObject func([]interface{}, uint, uintptr) uintptr
@@ -306,14 +312,16 @@ var xNewvObject func([]interface{}, uint, uintptr) uintptr
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
 func NewvObject(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr) *Object {
-	NewvObjectPtr := xNewvObject(ObjectTypeVar, NParametersVar, ParametersVar)
-	if NewvObjectPtr == 0 {
-		return nil
-	}
+	var cls *Object
 
-	NewvObjectCls := &Object{}
-	NewvObjectCls.Ptr = NewvObjectPtr
-	return NewvObjectCls
+	cret := xNewvObject(ObjectTypeVar, NParametersVar, ParametersVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectAddToggleRef func(uintptr, uintptr, uintptr)
@@ -405,18 +413,17 @@ var xObjectBindProperty func(uintptr, string, uintptr, string, BindingFlags) uin
 //
 // A #GObject can have multiple bindings.
 func (x *Object) BindProperty(SourcePropertyVar string, TargetVar *Object, TargetPropertyVar string, FlagsVar BindingFlags) *Binding {
+	var cls *Binding
 
-	BindPropertyPtr := xObjectBindProperty(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar)
-	if BindPropertyPtr == 0 {
-		return nil
+	cret := xObjectBindProperty(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(BindPropertyPtr)
-
-	BindPropertyCls := &Binding{}
-	BindPropertyCls.Ptr = BindPropertyPtr
-	return BindPropertyCls
-
+	IncreaseRef(cret)
+	cls = &Binding{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectBindPropertyFull func(uintptr, string, uintptr, string, BindingFlags, uintptr, uintptr, uintptr, uintptr) uintptr
@@ -447,18 +454,17 @@ var xObjectBindPropertyFull func(uintptr, string, uintptr, string, BindingFlags,
 // for each transformation function, please use
 // g_object_bind_property_with_closures() instead.
 func (x *Object) BindPropertyFull(SourcePropertyVar string, TargetVar *Object, TargetPropertyVar string, FlagsVar BindingFlags, TransformToVar BindingTransformFunc, TransformFromVar BindingTransformFunc, UserDataVar uintptr, NotifyVar glib.DestroyNotify) *Binding {
+	var cls *Binding
 
-	BindPropertyFullPtr := xObjectBindPropertyFull(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, purego.NewCallback(TransformToVar), purego.NewCallback(TransformFromVar), UserDataVar, purego.NewCallback(NotifyVar))
-	if BindPropertyFullPtr == 0 {
-		return nil
+	cret := xObjectBindPropertyFull(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, purego.NewCallback(TransformToVar), purego.NewCallback(TransformFromVar), UserDataVar, purego.NewCallback(NotifyVar))
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(BindPropertyFullPtr)
-
-	BindPropertyFullCls := &Binding{}
-	BindPropertyFullCls.Ptr = BindPropertyFullPtr
-	return BindPropertyFullCls
-
+	IncreaseRef(cret)
+	cls = &Binding{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectBindPropertyWithClosures func(uintptr, string, uintptr, string, BindingFlags, *Closure, *Closure) uintptr
@@ -471,18 +477,17 @@ var xObjectBindPropertyWithClosures func(uintptr, string, uintptr, string, Bindi
 // g_object_bind_property_full(), using #GClosures instead of
 // function pointers.
 func (x *Object) BindPropertyWithClosures(SourcePropertyVar string, TargetVar *Object, TargetPropertyVar string, FlagsVar BindingFlags, TransformToVar *Closure, TransformFromVar *Closure) *Binding {
+	var cls *Binding
 
-	BindPropertyWithClosuresPtr := xObjectBindPropertyWithClosures(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, TransformToVar, TransformFromVar)
-	if BindPropertyWithClosuresPtr == 0 {
-		return nil
+	cret := xObjectBindPropertyWithClosures(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, TransformToVar, TransformFromVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(BindPropertyWithClosuresPtr)
-
-	BindPropertyWithClosuresCls := &Binding{}
-	BindPropertyWithClosuresCls.Ptr = BindPropertyWithClosuresPtr
-	return BindPropertyWithClosuresCls
-
+	IncreaseRef(cret)
+	cls = &Binding{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectConnect func(uintptr, string, ...interface{}) uintptr
@@ -513,18 +518,17 @@ var xObjectConnect func(uintptr, string, ...interface{}) uintptr
 //
 // ]|
 func (x *Object) Connect(SignalSpecVar string, varArgs ...interface{}) *Object {
+	var cls *Object
 
-	ConnectPtr := xObjectConnect(x.GoPointer(), SignalSpecVar, varArgs...)
-	if ConnectPtr == 0 {
-		return nil
+	cret := xObjectConnect(x.GoPointer(), SignalSpecVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(ConnectPtr)
-
-	ConnectCls := &Object{}
-	ConnectCls.Ptr = ConnectPtr
-	return ConnectCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectDisconnect func(uintptr, string, ...interface{})
@@ -559,8 +563,8 @@ var xObjectDupData func(uintptr, string, uintptr, uintptr) uintptr
 // object.
 func (x *Object) DupData(KeyVar string, DupFuncVar glib.DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	return xObjectDupData(x.GoPointer(), KeyVar, purego.NewCallback(DupFuncVar), UserDataVar)
-
+	cret := xObjectDupData(x.GoPointer(), KeyVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	return cret
 }
 
 var xObjectDupQdata func(uintptr, glib.Quark, uintptr, uintptr) uintptr
@@ -581,8 +585,8 @@ var xObjectDupQdata func(uintptr, glib.Quark, uintptr, uintptr) uintptr
 // object.
 func (x *Object) DupQdata(QuarkVar glib.Quark, DupFuncVar glib.DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	return xObjectDupQdata(x.GoPointer(), QuarkVar, purego.NewCallback(DupFuncVar), UserDataVar)
-
+	cret := xObjectDupQdata(x.GoPointer(), QuarkVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	return cret
 }
 
 var xObjectForceFloating func(uintptr)
@@ -655,8 +659,8 @@ var xObjectGetData func(uintptr, string) uintptr
 // Gets a named field from the objects table of associations (see g_object_set_data()).
 func (x *Object) GetData(KeyVar string) uintptr {
 
-	return xObjectGetData(x.GoPointer(), KeyVar)
-
+	cret := xObjectGetData(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xObjectGetProperty func(uintptr, string, *Value)
@@ -689,8 +693,8 @@ var xObjectGetQdata func(uintptr, glib.Quark) uintptr
 // g_object_set_qdata().
 func (x *Object) GetQdata(QuarkVar glib.Quark) uintptr {
 
-	return xObjectGetQdata(x.GoPointer(), QuarkVar)
-
+	cret := xObjectGetQdata(x.GoPointer(), QuarkVar)
+	return cret
 }
 
 var xObjectGetValist func(uintptr, string, []interface{})
@@ -725,8 +729,8 @@ var xObjectIsFloating func(uintptr) bool
 // Checks whether @object has a [floating][floating-ref] reference.
 func (x *Object) IsFloating() bool {
 
-	return xObjectIsFloating(x.GoPointer())
-
+	cret := xObjectIsFloating(x.GoPointer())
+	return cret
 }
 
 var xObjectNotify func(uintptr, string)
@@ -806,18 +810,17 @@ var xObjectRef func(uintptr) uintptr
 // extension), so any casting the caller needs to do on the return type must be
 // explicit.
 func (x *Object) Ref() *Object {
+	var cls *Object
 
-	RefPtr := xObjectRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xObjectRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(RefPtr)
-
-	RefCls := &Object{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectRefSink func(uintptr) uintptr
@@ -834,18 +837,17 @@ var xObjectRefSink func(uintptr) uintptr
 // Since GLib 2.56, the type of @object will be propagated to the return type
 // under the same conditions as for g_object_ref().
 func (x *Object) RefSink() *Object {
+	var cls *Object
 
-	RefSinkPtr := xObjectRefSink(x.GoPointer())
-	if RefSinkPtr == 0 {
-		return nil
+	cret := xObjectRefSink(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(RefSinkPtr)
-
-	RefSinkCls := &Object{}
-	RefSinkCls.Ptr = RefSinkPtr
-	return RefSinkCls
-
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectRemoveToggleRef func(uintptr, uintptr, uintptr)
@@ -889,8 +891,8 @@ var xObjectReplaceData func(uintptr, string, uintptr, uintptr, uintptr, uintptr)
 // for @key.
 func (x *Object) ReplaceData(KeyVar string, OldvalVar uintptr, NewvalVar uintptr, DestroyVar glib.DestroyNotify, OldDestroyVar glib.DestroyNotify) bool {
 
-	return xObjectReplaceData(x.GoPointer(), KeyVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
-
+	cret := xObjectReplaceData(x.GoPointer(), KeyVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	return cret
 }
 
 var xObjectReplaceQdata func(uintptr, glib.Quark, uintptr, uintptr, uintptr, uintptr) bool
@@ -910,8 +912,8 @@ var xObjectReplaceQdata func(uintptr, glib.Quark, uintptr, uintptr, uintptr, uin
 // should not destroy the object in the normal way.
 func (x *Object) ReplaceQdata(QuarkVar glib.Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar glib.DestroyNotify, OldDestroyVar glib.DestroyNotify) bool {
 
-	return xObjectReplaceQdata(x.GoPointer(), QuarkVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
-
+	cret := xObjectReplaceQdata(x.GoPointer(), QuarkVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	return cret
 }
 
 var xObjectRunDispose func(uintptr)
@@ -1040,8 +1042,8 @@ var xObjectStealData func(uintptr, string) uintptr
 // without invoking the association's destroy handler.
 func (x *Object) StealData(KeyVar string) uintptr {
 
-	return xObjectStealData(x.GoPointer(), KeyVar)
-
+	cret := xObjectStealData(x.GoPointer(), KeyVar)
+	return cret
 }
 
 var xObjectStealQdata func(uintptr, glib.Quark) uintptr
@@ -1088,8 +1090,8 @@ var xObjectStealQdata func(uintptr, glib.Quark) uintptr
 // g_object_set_qdata_full().
 func (x *Object) StealQdata(QuarkVar glib.Quark) uintptr {
 
-	return xObjectStealQdata(x.GoPointer(), QuarkVar)
-
+	cret := xObjectStealQdata(x.GoPointer(), QuarkVar)
+	return cret
 }
 
 var xObjectTakeRef func(uintptr) uintptr
@@ -1130,16 +1132,16 @@ var xObjectTakeRef func(uintptr) uintptr
 // additional reference on top of that one is added. It is best to avoid
 // this situation.
 func (x *Object) TakeRef() *Object {
+	var cls *Object
 
-	TakeRefPtr := xObjectTakeRef(x.GoPointer())
-	if TakeRefPtr == 0 {
-		return nil
+	cret := xObjectTakeRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	TakeRefCls := &Object{}
-	TakeRefCls.Ptr = TakeRefPtr
-	return TakeRefCls
-
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xObjectThawNotify func(uintptr)

@@ -41,16 +41,17 @@ var xNewCellRendererPixbuf func() uintptr
 // in the model, thus rendering a different image in each row of the
 // `GtkTreeView`.
 func NewCellRendererPixbuf() *CellRenderer {
-	NewCellRendererPixbufPtr := xNewCellRendererPixbuf()
-	if NewCellRendererPixbufPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererPixbuf()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererPixbufPtr)
-
-	NewCellRendererPixbufCls := &CellRenderer{}
-	NewCellRendererPixbufCls.Ptr = NewCellRendererPixbufPtr
-	return NewCellRendererPixbufCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CellRendererPixbuf) GoPointer() uintptr {

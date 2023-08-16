@@ -244,8 +244,8 @@ var xFontDescriptionFromString func(string) *FontDescription
 //	"Cantarell Italic Light 15 \@wght=200"
 func FontDescriptionFromString(StrVar string) *FontDescription {
 
-	return xFontDescriptionFromString(StrVar)
-
+	cret := xFontDescriptionFromString(StrVar)
+	return cret
 }
 
 // A `PangoFont` is used to represent a font in a
@@ -268,8 +268,8 @@ var xFontDescribe func(uintptr) *FontDescription
 // the font size in device units.
 func (x *Font) Describe() *FontDescription {
 
-	return xFontDescribe(x.GoPointer())
-
+	cret := xFontDescribe(x.GoPointer())
+	return cret
 }
 
 var xFontDescribeWithAbsoluteSize func(uintptr) *FontDescription
@@ -280,42 +280,41 @@ var xFontDescribeWithAbsoluteSize func(uintptr) *FontDescription
 // Use [method@Pango.Font.describe] if you want the font size in points.
 func (x *Font) DescribeWithAbsoluteSize() *FontDescription {
 
-	return xFontDescribeWithAbsoluteSize(x.GoPointer())
-
+	cret := xFontDescribeWithAbsoluteSize(x.GoPointer())
+	return cret
 }
 
 var xFontGetCoverage func(uintptr, *Language) uintptr
 
 // Computes the coverage map for a given font and language tag.
 func (x *Font) GetCoverage(LanguageVar *Language) *Coverage {
+	var cls *Coverage
 
-	GetCoveragePtr := xFontGetCoverage(x.GoPointer(), LanguageVar)
-	if GetCoveragePtr == 0 {
-		return nil
+	cret := xFontGetCoverage(x.GoPointer(), LanguageVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCoverageCls := &Coverage{}
-	GetCoverageCls.Ptr = GetCoveragePtr
-	return GetCoverageCls
-
+	cls = &Coverage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontGetFace func(uintptr) uintptr
 
 // Gets the `PangoFontFace` to which @font belongs.
 func (x *Font) GetFace() *FontFace {
+	var cls *FontFace
 
-	GetFacePtr := xFontGetFace(x.GoPointer())
-	if GetFacePtr == 0 {
-		return nil
+	cret := xFontGetFace(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFacePtr)
-
-	GetFaceCls := &FontFace{}
-	GetFaceCls.Ptr = GetFacePtr
-	return GetFaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontFace{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontGetFeatures func(uintptr, uintptr, uint, uint)
@@ -347,18 +346,17 @@ var xFontGetFontMap func(uintptr) uintptr
 // font map is kept alive. In most uses this is not an issue
 // as a `PangoContext` holds a reference to the font map.
 func (x *Font) GetFontMap() *FontMap {
+	var cls *FontMap
 
-	GetFontMapPtr := xFontGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := xFontGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontMapPtr)
-
-	GetFontMapCls := &FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontGetGlyphExtents func(uintptr, Glyph, *Rectangle, *Rectangle)
@@ -389,8 +387,8 @@ var xFontGetHbFont func(uintptr) uintptr
 // use [hb_font_create_sub_font()](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-create-sub-font).
 func (x *Font) GetHbFont() uintptr {
 
-	return xFontGetHbFont(x.GoPointer())
-
+	cret := xFontGetHbFont(x.GoPointer())
+	return cret
 }
 
 var xFontGetLanguages func(uintptr) uintptr
@@ -405,8 +403,8 @@ var xFontGetLanguages func(uintptr) uintptr
 // and its fontmap are valid.
 func (x *Font) GetLanguages() uintptr {
 
-	return xFontGetLanguages(x.GoPointer())
-
+	cret := xFontGetLanguages(x.GoPointer())
+	return cret
 }
 
 var xFontGetMetrics func(uintptr, *Language) *FontMetrics
@@ -421,8 +419,8 @@ var xFontGetMetrics func(uintptr, *Language) *FontMetrics
 // output variables and returns.
 func (x *Font) GetMetrics(LanguageVar *Language) *FontMetrics {
 
-	return xFontGetMetrics(x.GoPointer(), LanguageVar)
-
+	cret := xFontGetMetrics(x.GoPointer(), LanguageVar)
+	return cret
 }
 
 var xFontHasChar func(uintptr, uint32) bool
@@ -432,8 +430,8 @@ var xFontHasChar func(uintptr, uint32) bool
 // Returns %TRUE if @font can render @wc
 func (x *Font) HasChar(WcVar uint32) bool {
 
-	return xFontHasChar(x.GoPointer(), WcVar)
-
+	cret := xFontHasChar(x.GoPointer(), WcVar)
+	return cret
 }
 
 var xFontSerialize func(uintptr) *glib.Bytes
@@ -449,8 +447,8 @@ var xFontSerialize func(uintptr) *glib.Bytes
 // To recreate a font from its serialized form, use [func@Pango.Font.deserialize].
 func (x *Font) Serialize() *glib.Bytes {
 
-	return xFontSerialize(x.GoPointer())
-
+	cret := xFontSerialize(x.GoPointer())
+	return cret
 }
 
 func (c *Font) GoPointer() uintptr {
@@ -482,8 +480,8 @@ var xFontFaceDescribe func(uintptr) *FontDescription
 // will be unset.
 func (x *FontFace) Describe() *FontDescription {
 
-	return xFontFaceDescribe(x.GoPointer())
-
+	cret := xFontFaceDescribe(x.GoPointer())
+	return cret
 }
 
 var xFontFaceGetFaceName func(uintptr) string
@@ -495,26 +493,25 @@ var xFontFaceGetFaceName func(uintptr) string
 // for displaying to users.
 func (x *FontFace) GetFaceName() string {
 
-	return xFontFaceGetFaceName(x.GoPointer())
-
+	cret := xFontFaceGetFaceName(x.GoPointer())
+	return cret
 }
 
 var xFontFaceGetFamily func(uintptr) uintptr
 
 // Gets the `PangoFontFamily` that @face belongs to.
 func (x *FontFace) GetFamily() *FontFamily {
+	var cls *FontFamily
 
-	GetFamilyPtr := xFontFaceGetFamily(x.GoPointer())
-	if GetFamilyPtr == 0 {
-		return nil
+	cret := xFontFaceGetFamily(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFamilyPtr)
-
-	GetFamilyCls := &FontFamily{}
-	GetFamilyCls.Ptr = GetFamilyPtr
-	return GetFamilyCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontFamily{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontFaceIsSynthesized func(uintptr) bool
@@ -526,8 +523,8 @@ var xFontFaceIsSynthesized func(uintptr) bool
 // lightening or modifying it in some other way.
 func (x *FontFace) IsSynthesized() bool {
 
-	return xFontFaceIsSynthesized(x.GoPointer())
-
+	cret := xFontFaceIsSynthesized(x.GoPointer())
+	return cret
 }
 
 var xFontFaceListSizes func(uintptr, uintptr, int)
@@ -571,18 +568,17 @@ var xFontFamilyGetFace func(uintptr, string) uintptr
 
 // Gets the `PangoFontFace` of @family with the given name.
 func (x *FontFamily) GetFace(NameVar string) *FontFace {
+	var cls *FontFace
 
-	GetFacePtr := xFontFamilyGetFace(x.GoPointer(), NameVar)
-	if GetFacePtr == 0 {
-		return nil
+	cret := xFontFamilyGetFace(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFacePtr)
-
-	GetFaceCls := &FontFace{}
-	GetFaceCls.Ptr = GetFacePtr
-	return GetFaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontFace{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontFamilyGetName func(uintptr) string
@@ -594,8 +590,8 @@ var xFontFamilyGetName func(uintptr) string
 // this family is desired.
 func (x *FontFamily) GetName() string {
 
-	return xFontFamilyGetName(x.GoPointer())
-
+	cret := xFontFamilyGetName(x.GoPointer())
+	return cret
 }
 
 var xFontFamilyIsMonospace func(uintptr) bool
@@ -616,8 +612,8 @@ var xFontFamilyIsMonospace func(uintptr) bool
 // be affected by double-width characters.
 func (x *FontFamily) IsMonospace() bool {
 
-	return xFontFamilyIsMonospace(x.GoPointer())
-
+	cret := xFontFamilyIsMonospace(x.GoPointer())
+	return cret
 }
 
 var xFontFamilyIsVariable func(uintptr) bool
@@ -629,8 +625,8 @@ var xFontFamilyIsVariable func(uintptr) bool
 // [method@Pango.FontDescription.set_variations] for more information.
 func (x *FontFamily) IsVariable() bool {
 
-	return xFontFamilyIsVariable(x.GoPointer())
-
+	cret := xFontFamilyIsVariable(x.GoPointer())
+	return cret
 }
 
 var xFontFamilyListFaces func(uintptr, uintptr, int)

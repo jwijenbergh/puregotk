@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -23,18 +24,25 @@ func CharsetConverterNewFromInternalPtr(ptr uintptr) *CharsetConverter {
 	return cls
 }
 
-var xNewCharsetConverter func(string, string) uintptr
+var xNewCharsetConverter func(string, string, **glib.Error) uintptr
 
 // Creates a new #GCharsetConverter.
-func NewCharsetConverter(ToCharsetVar string, FromCharsetVar string) *CharsetConverter {
-	NewCharsetConverterPtr := xNewCharsetConverter(ToCharsetVar, FromCharsetVar)
-	if NewCharsetConverterPtr == 0 {
-		return nil
-	}
+func NewCharsetConverter(ToCharsetVar string, FromCharsetVar string) (*CharsetConverter, error) {
+	var cls *CharsetConverter
+	var cerr *glib.Error
 
-	NewCharsetConverterCls := &CharsetConverter{}
-	NewCharsetConverterCls.Ptr = NewCharsetConverterPtr
-	return NewCharsetConverterCls
+	cret := xNewCharsetConverter(ToCharsetVar, FromCharsetVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &CharsetConverter{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xCharsetConverterGetNumFallbacks func(uintptr) uint
@@ -42,8 +50,8 @@ var xCharsetConverterGetNumFallbacks func(uintptr) uint
 // Gets the number of fallbacks that @converter has applied so far.
 func (x *CharsetConverter) GetNumFallbacks() uint {
 
-	return xCharsetConverterGetNumFallbacks(x.GoPointer())
-
+	cret := xCharsetConverterGetNumFallbacks(x.GoPointer())
+	return cret
 }
 
 var xCharsetConverterGetUseFallback func(uintptr) bool
@@ -51,8 +59,8 @@ var xCharsetConverterGetUseFallback func(uintptr) bool
 // Gets the #GCharsetConverter:use-fallback property.
 func (x *CharsetConverter) GetUseFallback() bool {
 
-	return xCharsetConverterGetUseFallback(x.GoPointer())
-
+	cret := xCharsetConverterGetUseFallback(x.GoPointer())
+	return cret
 }
 
 var xCharsetConverterSetUseFallback func(uintptr, bool)
@@ -154,9 +162,14 @@ func (c *CharsetConverter) SetGoPointer(ptr uintptr) {
 // at a partial multibyte sequence). Converters are supposed to try
 // to produce as much output as possible and then return an error
 // (typically %G_IO_ERROR_PARTIAL_INPUT).
-func (x *CharsetConverter) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult {
+func (x *CharsetConverter) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
+	var cerr *glib.Error
 
-	return XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar)
+	cret := XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -207,9 +220,14 @@ func (x *CharsetConverter) Reset() {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *CharsetConverter) Init(CancellableVar *Cancellable) bool {
+func (x *CharsetConverter) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

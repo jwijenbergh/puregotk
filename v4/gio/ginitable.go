@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -92,29 +93,39 @@ func (x *InitableBase) SetGoPointer(ptr uintptr) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *InitableBase) Init(CancellableVar *Cancellable) bool {
+func (x *InitableBase) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var XGInitableInit func(uintptr, uintptr) bool
+var XGInitableInit func(uintptr, uintptr, **glib.Error) bool
 
-var xInitableNewv func([]interface{}, uint, uintptr, uintptr) uintptr
+var xInitableNewv func([]interface{}, uint, uintptr, uintptr, **glib.Error) uintptr
 
 // Helper function for constructing #GInitable object. This is
 // similar to g_object_newv() but also initializes the object
 // and returns %NULL, setting an error on failure.
-func InitableNewv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr, CancellableVar *Cancellable) *gobject.Object {
+func InitableNewv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr, CancellableVar *Cancellable) (*gobject.Object, error) {
+	var cls *gobject.Object
+	var cerr *glib.Error
 
-	InitableNewvPtr := xInitableNewv(ObjectTypeVar, NParametersVar, ParametersVar, CancellableVar.GoPointer())
-	if InitableNewvPtr == 0 {
-		return nil
+	cret := xInitableNewv(ObjectTypeVar, NParametersVar, ParametersVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	InitableNewvCls := &gobject.Object{}
-	InitableNewvCls.Ptr = InitableNewvPtr
-	return InitableNewvCls
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

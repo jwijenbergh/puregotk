@@ -35,14 +35,16 @@ var xNewEmblemedIcon func(uintptr, uintptr) uintptr
 
 // Creates a new emblemed icon for @icon with the emblem @emblem.
 func NewEmblemedIcon(IconVar Icon, EmblemVar *Emblem) *EmblemedIcon {
-	NewEmblemedIconPtr := xNewEmblemedIcon(IconVar.GoPointer(), EmblemVar.GoPointer())
-	if NewEmblemedIconPtr == 0 {
-		return nil
-	}
+	var cls *EmblemedIcon
 
-	NewEmblemedIconCls := &EmblemedIcon{}
-	NewEmblemedIconCls.Ptr = NewEmblemedIconPtr
-	return NewEmblemedIconCls
+	cret := xNewEmblemedIcon(IconVar.GoPointer(), EmblemVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EmblemedIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEmblemedIconAddEmblem func(uintptr, uintptr)
@@ -68,26 +70,25 @@ var xEmblemedIconGetEmblems func(uintptr) *glib.List
 // Gets the list of emblems for the @icon.
 func (x *EmblemedIcon) GetEmblems() *glib.List {
 
-	return xEmblemedIconGetEmblems(x.GoPointer())
-
+	cret := xEmblemedIconGetEmblems(x.GoPointer())
+	return cret
 }
 
 var xEmblemedIconGetIcon func(uintptr) uintptr
 
 // Gets the main icon for @emblemed.
 func (x *EmblemedIcon) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := xEmblemedIconGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := xEmblemedIconGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPtr)
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *EmblemedIcon) GoPointer() uintptr {
@@ -101,8 +102,8 @@ func (c *EmblemedIcon) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *EmblemedIcon) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -112,8 +113,8 @@ func (x *EmblemedIcon) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *EmblemedIcon) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -134,8 +135,8 @@ func (x *EmblemedIcon) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *EmblemedIcon) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 func init() {

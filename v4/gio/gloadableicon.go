@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Interface for icons that can be loaded as a stream.
@@ -34,16 +35,21 @@ func (x *LoadableIconBase) SetGoPointer(ptr uintptr) {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *LoadableIconBase) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *LoadableIconBase) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
-	if LoadPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadCls := &InputStream{}
-	LoadCls.Ptr = LoadPtr
-	return LoadCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -57,22 +63,27 @@ func (x *LoadableIconBase) LoadAsync(SizeVar int, CancellableVar *Cancellable, C
 }
 
 // Finishes an asynchronous icon load started in g_loadable_icon_load_async().
-func (x *LoadableIconBase) LoadFinish(ResVar AsyncResult, TypeVar string) *InputStream {
+func (x *LoadableIconBase) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadFinishPtr := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar)
-	if LoadFinishPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadFinishCls := &InputStream{}
-	LoadFinishCls.Ptr = LoadFinishPtr
-	return LoadFinishCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var XGLoadableIconLoad func(uintptr, int, string, uintptr) uintptr
+var XGLoadableIconLoad func(uintptr, int, string, uintptr, **glib.Error) uintptr
 var XGLoadableIconLoadAsync func(uintptr, int, uintptr, uintptr, uintptr)
-var XGLoadableIconLoadFinish func(uintptr, uintptr, string) uintptr
+var XGLoadableIconLoadFinish func(uintptr, uintptr, string, **glib.Error) uintptr
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

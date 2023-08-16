@@ -12,8 +12,8 @@ var xSrvTargetListSort func(*glib.List) *glib.List
 // Sorts @targets in place according to the algorithm in RFC 2782.
 func SrvTargetListSort(TargetsVar *glib.List) *glib.List {
 
-	return xSrvTargetListSort(TargetsVar)
-
+	cret := xSrvTargetListSort(TargetsVar)
+	return cret
 }
 
 func init() {

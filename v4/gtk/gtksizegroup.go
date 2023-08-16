@@ -88,14 +88,16 @@ var xNewSizeGroup func(SizeGroupMode) uintptr
 
 // Create a new `GtkSizeGroup`.
 func NewSizeGroup(ModeVar SizeGroupMode) *SizeGroup {
-	NewSizeGroupPtr := xNewSizeGroup(ModeVar)
-	if NewSizeGroupPtr == 0 {
-		return nil
-	}
+	var cls *SizeGroup
 
-	NewSizeGroupCls := &SizeGroup{}
-	NewSizeGroupCls.Ptr = NewSizeGroupPtr
-	return NewSizeGroupCls
+	cret := xNewSizeGroup(ModeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SizeGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSizeGroupAddWidget func(uintptr, uintptr)
@@ -122,8 +124,8 @@ var xSizeGroupGetMode func(uintptr) SizeGroupMode
 // Gets the current mode of the size group.
 func (x *SizeGroup) GetMode() SizeGroupMode {
 
-	return xSizeGroupGetMode(x.GoPointer())
-
+	cret := xSizeGroupGetMode(x.GoPointer())
+	return cret
 }
 
 var xSizeGroupGetWidgets func(uintptr) *glib.SList
@@ -131,8 +133,8 @@ var xSizeGroupGetWidgets func(uintptr) *glib.SList
 // Returns the list of widgets associated with @size_group.
 func (x *SizeGroup) GetWidgets() *glib.SList {
 
-	return xSizeGroupGetWidgets(x.GoPointer())
-
+	cret := xSizeGroupGetWidgets(x.GoPointer())
+	return cret
 }
 
 var xSizeGroupRemoveWidget func(uintptr, uintptr)
@@ -173,8 +175,8 @@ func (c *SizeGroup) SetGoPointer(ptr uintptr) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *SizeGroup) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

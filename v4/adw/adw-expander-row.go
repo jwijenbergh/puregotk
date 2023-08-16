@@ -59,16 +59,17 @@ var xNewExpanderRow func() uintptr
 
 // Creates a new `AdwExpanderRow`.
 func NewExpanderRow() *gtk.Widget {
-	NewExpanderRowPtr := xNewExpanderRow()
-	if NewExpanderRowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewExpanderRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewExpanderRowPtr)
-
-	NewExpanderRowCls := &gtk.Widget{}
-	NewExpanderRowCls.Ptr = NewExpanderRowPtr
-	return NewExpanderRowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xExpanderRowAddAction func(uintptr, uintptr)
@@ -105,8 +106,8 @@ var xExpanderRowGetEnableExpansion func(uintptr) bool
 // Gets whether the expansion of @self is enabled.
 func (x *ExpanderRow) GetEnableExpansion() bool {
 
-	return xExpanderRowGetEnableExpansion(x.GoPointer())
-
+	cret := xExpanderRowGetEnableExpansion(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetExpanded func(uintptr) bool
@@ -114,8 +115,8 @@ var xExpanderRowGetExpanded func(uintptr) bool
 // Gets whether @self is expanded.
 func (x *ExpanderRow) GetExpanded() bool {
 
-	return xExpanderRowGetExpanded(x.GoPointer())
-
+	cret := xExpanderRowGetExpanded(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetIconName func(uintptr) string
@@ -123,8 +124,8 @@ var xExpanderRowGetIconName func(uintptr) string
 // Gets the icon name for @self.
 func (x *ExpanderRow) GetIconName() string {
 
-	return xExpanderRowGetIconName(x.GoPointer())
-
+	cret := xExpanderRowGetIconName(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetShowEnableSwitch func(uintptr) bool
@@ -132,8 +133,8 @@ var xExpanderRowGetShowEnableSwitch func(uintptr) bool
 // Gets whether the switch enabling the expansion of @self is visible.
 func (x *ExpanderRow) GetShowEnableSwitch() bool {
 
-	return xExpanderRowGetShowEnableSwitch(x.GoPointer())
-
+	cret := xExpanderRowGetShowEnableSwitch(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetSubtitle func(uintptr) string
@@ -141,8 +142,8 @@ var xExpanderRowGetSubtitle func(uintptr) string
 // Gets the subtitle for @self.
 func (x *ExpanderRow) GetSubtitle() string {
 
-	return xExpanderRowGetSubtitle(x.GoPointer())
-
+	cret := xExpanderRowGetSubtitle(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetSubtitleLines func(uintptr) bool
@@ -151,8 +152,8 @@ var xExpanderRowGetSubtitleLines func(uintptr) bool
 // ellipsized.
 func (x *ExpanderRow) GetSubtitleLines() bool {
 
-	return xExpanderRowGetSubtitleLines(x.GoPointer())
-
+	cret := xExpanderRowGetSubtitleLines(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowGetTitleLines func(uintptr) bool
@@ -161,8 +162,8 @@ var xExpanderRowGetTitleLines func(uintptr) bool
 // ellipsized.
 func (x *ExpanderRow) GetTitleLines() bool {
 
-	return xExpanderRowGetTitleLines(x.GoPointer())
-
+	cret := xExpanderRowGetTitleLines(x.GoPointer())
+	return cret
 }
 
 var xExpanderRowRemove func(uintptr, uintptr)
@@ -256,8 +257,8 @@ func (c *ExpanderRow) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ExpanderRow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -389,15 +390,15 @@ func (x *ExpanderRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // Gets the action name for @actionable.
 func (x *ExpanderRow) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ExpanderRow) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -475,8 +476,8 @@ func (x *ExpanderRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ExpanderRow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

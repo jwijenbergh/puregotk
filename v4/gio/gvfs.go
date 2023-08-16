@@ -35,16 +35,16 @@ var xVfsGetFileForPath func(uintptr, string) uintptr
 
 // Gets a #GFile for @path.
 func (x *Vfs) GetFileForPath(PathVar string) *FileBase {
+	var cls *FileBase
 
-	GetFileForPathPtr := xVfsGetFileForPath(x.GoPointer(), PathVar)
-	if GetFileForPathPtr == 0 {
-		return nil
+	cret := xVfsGetFileForPath(x.GoPointer(), PathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFileForPathCls := &FileBase{}
-	GetFileForPathCls.Ptr = GetFileForPathPtr
-	return GetFileForPathCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVfsGetFileForUri func(uintptr, string) uintptr
@@ -55,16 +55,16 @@ var xVfsGetFileForUri func(uintptr, string) uintptr
 // might not support any I/O operation if the URI
 // is malformed or if the URI scheme is not supported.
 func (x *Vfs) GetFileForUri(UriVar string) *FileBase {
+	var cls *FileBase
 
-	GetFileForUriPtr := xVfsGetFileForUri(x.GoPointer(), UriVar)
-	if GetFileForUriPtr == 0 {
-		return nil
+	cret := xVfsGetFileForUri(x.GoPointer(), UriVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFileForUriCls := &FileBase{}
-	GetFileForUriCls.Ptr = GetFileForUriPtr
-	return GetFileForUriCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVfsGetSupportedUriSchemes func(uintptr) uintptr
@@ -72,8 +72,8 @@ var xVfsGetSupportedUriSchemes func(uintptr) uintptr
 // Gets a list of URI schemes supported by @vfs.
 func (x *Vfs) GetSupportedUriSchemes() uintptr {
 
-	return xVfsGetSupportedUriSchemes(x.GoPointer())
-
+	cret := xVfsGetSupportedUriSchemes(x.GoPointer())
+	return cret
 }
 
 var xVfsIsActive func(uintptr) bool
@@ -81,8 +81,8 @@ var xVfsIsActive func(uintptr) bool
 // Checks if the VFS is active.
 func (x *Vfs) IsActive() bool {
 
-	return xVfsIsActive(x.GoPointer())
-
+	cret := xVfsIsActive(x.GoPointer())
+	return cret
 }
 
 var xVfsParseName func(uintptr, string) uintptr
@@ -91,16 +91,16 @@ var xVfsParseName func(uintptr, string) uintptr
 // not support any I/O operations if the @parse_name cannot
 // be parsed by the #GVfs module.
 func (x *Vfs) ParseName(ParseNameVar string) *FileBase {
+	var cls *FileBase
 
-	ParseNamePtr := xVfsParseName(x.GoPointer(), ParseNameVar)
-	if ParseNamePtr == 0 {
-		return nil
+	cret := xVfsParseName(x.GoPointer(), ParseNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ParseNameCls := &FileBase{}
-	ParseNameCls.Ptr = ParseNamePtr
-	return ParseNameCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVfsRegisterUriScheme func(uintptr, string, uintptr, uintptr, uintptr, uintptr, uintptr, uintptr) bool
@@ -127,8 +127,8 @@ var xVfsRegisterUriScheme func(uintptr, string, uintptr, uintptr, uintptr, uintp
 // a custom URI scheme, use g_vfs_unregister_uri_scheme().
 func (x *Vfs) RegisterUriScheme(SchemeVar string, UriFuncVar VfsFileLookupFunc, UriDataVar uintptr, UriDestroyVar glib.DestroyNotify, ParseNameFuncVar VfsFileLookupFunc, ParseNameDataVar uintptr, ParseNameDestroyVar glib.DestroyNotify) bool {
 
-	return xVfsRegisterUriScheme(x.GoPointer(), SchemeVar, purego.NewCallback(UriFuncVar), UriDataVar, purego.NewCallback(UriDestroyVar), purego.NewCallback(ParseNameFuncVar), ParseNameDataVar, purego.NewCallback(ParseNameDestroyVar))
-
+	cret := xVfsRegisterUriScheme(x.GoPointer(), SchemeVar, purego.NewCallback(UriFuncVar), UriDataVar, purego.NewCallback(UriDestroyVar), purego.NewCallback(ParseNameFuncVar), ParseNameDataVar, purego.NewCallback(ParseNameDestroyVar))
+	return cret
 }
 
 var xVfsUnregisterUriScheme func(uintptr, string) bool
@@ -137,8 +137,8 @@ var xVfsUnregisterUriScheme func(uintptr, string) bool
 // g_vfs_register_uri_scheme().
 func (x *Vfs) UnregisterUriScheme(SchemeVar string) bool {
 
-	return xVfsUnregisterUriScheme(x.GoPointer(), SchemeVar)
-
+	cret := xVfsUnregisterUriScheme(x.GoPointer(), SchemeVar)
+	return cret
 }
 
 func (c *Vfs) GoPointer() uintptr {

@@ -142,18 +142,17 @@ var xStyleContextGetDisplay func(uintptr) uintptr
 
 // Returns the `GdkDisplay` to which @context is attached.
 func (x *StyleContext) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := xStyleContextGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xStyleContextGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStyleContextGetMargin func(uintptr, *Border)
@@ -179,8 +178,8 @@ var xStyleContextGetScale func(uintptr) int
 // Returns the scale used for assets.
 func (x *StyleContext) GetScale() int {
 
-	return xStyleContextGetScale(x.GoPointer())
-
+	cret := xStyleContextGetScale(x.GoPointer())
+	return cret
 }
 
 var xStyleContextGetState func(uintptr) StateFlags
@@ -194,8 +193,8 @@ var xStyleContextGetState func(uintptr) StateFlags
 // [method@Gtk.Widget.get_state_flags].
 func (x *StyleContext) GetState() StateFlags {
 
-	return xStyleContextGetState(x.GoPointer())
-
+	cret := xStyleContextGetState(x.GoPointer())
+	return cret
 }
 
 var xStyleContextHasClass func(uintptr, string) bool
@@ -204,8 +203,8 @@ var xStyleContextHasClass func(uintptr, string) bool
 // given class name.
 func (x *StyleContext) HasClass(ClassNameVar string) bool {
 
-	return xStyleContextHasClass(x.GoPointer(), ClassNameVar)
-
+	cret := xStyleContextHasClass(x.GoPointer(), ClassNameVar)
+	return cret
 }
 
 var xStyleContextLookupColor func(uintptr, string, *gdk.RGBA) bool
@@ -213,8 +212,8 @@ var xStyleContextLookupColor func(uintptr, string, *gdk.RGBA) bool
 // Looks up and resolves a color name in the @context color map.
 func (x *StyleContext) LookupColor(ColorNameVar string, ColorVar *gdk.RGBA) bool {
 
-	return xStyleContextLookupColor(x.GoPointer(), ColorNameVar, ColorVar)
-
+	cret := xStyleContextLookupColor(x.GoPointer(), ColorNameVar, ColorVar)
+	return cret
 }
 
 var xStyleContextRemoveClass func(uintptr, string)
@@ -312,8 +311,8 @@ var xStyleContextToString func(uintptr, StyleContextPrintFlags) string
 // the format of the returned string, it may change.
 func (x *StyleContext) ToString(FlagsVar StyleContextPrintFlags) string {
 
-	return xStyleContextToString(x.GoPointer(), FlagsVar)
-
+	cret := xStyleContextToString(x.GoPointer(), FlagsVar)
+	return cret
 }
 
 func (c *StyleContext) GoPointer() uintptr {

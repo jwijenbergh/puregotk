@@ -74,16 +74,17 @@ var xNewPicture func() uintptr
 
 // Creates a new empty `GtkPicture` widget.
 func NewPicture() *Widget {
-	NewPicturePtr := xNewPicture()
-	if NewPicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPicture()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPicturePtr)
-
-	NewPictureCls := &Widget{}
-	NewPictureCls.Ptr = NewPicturePtr
-	return NewPictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFilePicture func(uintptr) uintptr
@@ -97,16 +98,17 @@ var xNewForFilePicture func(uintptr) uintptr
 // [ctor@Gdk.Texture.new_from_file] to load the file yourself,
 // then create the `GtkPicture` from the texture.
 func NewForFilePicture(FileVar gio.File) *Widget {
-	NewForFilePicturePtr := xNewForFilePicture(FileVar.GoPointer())
-	if NewForFilePicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForFilePicture(FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForFilePicturePtr)
-
-	NewForFilePictureCls := &Widget{}
-	NewForFilePictureCls.Ptr = NewForFilePicturePtr
-	return NewForFilePictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFilenamePicture func(string) uintptr
@@ -116,16 +118,17 @@ var xNewForFilenamePicture func(string) uintptr
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
 func NewForFilenamePicture(FilenameVar string) *Widget {
-	NewForFilenamePicturePtr := xNewForFilenamePicture(FilenameVar)
-	if NewForFilenamePicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForFilenamePicture(FilenameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForFilenamePicturePtr)
-
-	NewForFilenamePictureCls := &Widget{}
-	NewForFilenamePictureCls.Ptr = NewForFilenamePicturePtr
-	return NewForFilenamePictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForPaintablePicture func(uintptr) uintptr
@@ -135,16 +138,17 @@ var xNewForPaintablePicture func(uintptr) uintptr
 // The `GtkPicture` will track changes to the @paintable and update
 // its size and contents in response to it.
 func NewForPaintablePicture(PaintableVar gdk.Paintable) *Widget {
-	NewForPaintablePicturePtr := xNewForPaintablePicture(PaintableVar.GoPointer())
-	if NewForPaintablePicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForPaintablePicture(PaintableVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForPaintablePicturePtr)
-
-	NewForPaintablePictureCls := &Widget{}
-	NewForPaintablePictureCls.Ptr = NewForPaintablePicturePtr
-	return NewForPaintablePictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForPixbufPicture func(uintptr) uintptr
@@ -156,16 +160,17 @@ var xNewForPixbufPicture func(uintptr) uintptr
 //
 // The pixbuf must not be modified after passing it to this function.
 func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
-	NewForPixbufPicturePtr := xNewForPixbufPicture(PixbufVar.GoPointer())
-	if NewForPixbufPicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForPixbufPicture(PixbufVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForPixbufPicturePtr)
-
-	NewForPixbufPictureCls := &Widget{}
-	NewForPixbufPictureCls.Ptr = NewForPixbufPicturePtr
-	return NewForPixbufPictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForResourcePicture func(string) uintptr
@@ -175,16 +180,17 @@ var xNewForResourcePicture func(string) uintptr
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
 func NewForResourcePicture(ResourcePathVar string) *Widget {
-	NewForResourcePicturePtr := xNewForResourcePicture(ResourcePathVar)
-	if NewForResourcePicturePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForResourcePicture(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForResourcePicturePtr)
-
-	NewForResourcePictureCls := &Widget{}
-	NewForResourcePictureCls.Ptr = NewForResourcePicturePtr
-	return NewForResourcePictureCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPictureGetAlternativeText func(uintptr) string
@@ -194,8 +200,8 @@ var xPictureGetAlternativeText func(uintptr) string
 // The returned string will be %NULL if the picture cannot be described textually.
 func (x *Picture) GetAlternativeText() string {
 
-	return xPictureGetAlternativeText(x.GoPointer())
-
+	cret := xPictureGetAlternativeText(x.GoPointer())
+	return cret
 }
 
 var xPictureGetCanShrink func(uintptr) bool
@@ -203,8 +209,8 @@ var xPictureGetCanShrink func(uintptr) bool
 // Returns whether the `GtkPicture` respects its contents size.
 func (x *Picture) GetCanShrink() bool {
 
-	return xPictureGetCanShrink(x.GoPointer())
-
+	cret := xPictureGetCanShrink(x.GoPointer())
+	return cret
 }
 
 var xPictureGetContentFit func(uintptr) ContentFit
@@ -214,8 +220,8 @@ var xPictureGetContentFit func(uintptr) ContentFit
 // See [enum@Gtk.ContentFit] for details.
 func (x *Picture) GetContentFit() ContentFit {
 
-	return xPictureGetContentFit(x.GoPointer())
-
+	cret := xPictureGetContentFit(x.GoPointer())
+	return cret
 }
 
 var xPictureGetFile func(uintptr) uintptr
@@ -225,18 +231,17 @@ var xPictureGetFile func(uintptr) uintptr
 // If @self is not displaying a file, for example when
 // [method@Gtk.Picture.set_paintable] was used, then %NULL is returned.
 func (x *Picture) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := xPictureGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xPictureGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilePtr)
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPictureGetKeepAspectRatio func(uintptr) bool
@@ -244,26 +249,25 @@ var xPictureGetKeepAspectRatio func(uintptr) bool
 // Returns whether the `GtkPicture` preserves its contents aspect ratio.
 func (x *Picture) GetKeepAspectRatio() bool {
 
-	return xPictureGetKeepAspectRatio(x.GoPointer())
-
+	cret := xPictureGetKeepAspectRatio(x.GoPointer())
+	return cret
 }
 
 var xPictureGetPaintable func(uintptr) uintptr
 
 // Gets the `GdkPaintable` being displayed by the `GtkPicture`.
 func (x *Picture) GetPaintable() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetPaintablePtr := xPictureGetPaintable(x.GoPointer())
-	if GetPaintablePtr == 0 {
-		return nil
+	cret := xPictureGetPaintable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPaintablePtr)
-
-	GetPaintableCls := &gdk.PaintableBase{}
-	GetPaintableCls.Ptr = GetPaintablePtr
-	return GetPaintableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPictureSetAlternativeText func(uintptr, string)
@@ -397,8 +401,8 @@ func (c *Picture) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Picture) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -533,8 +537,8 @@ func (x *Picture) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Picture) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

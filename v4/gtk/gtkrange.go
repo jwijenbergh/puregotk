@@ -37,18 +37,17 @@ var xRangeGetAdjustment func(uintptr) uintptr
 
 // Get the adjustment which is the “model” object for `GtkRange`.
 func (x *Range) GetAdjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetAdjustmentPtr := xRangeGetAdjustment(x.GoPointer())
-	if GetAdjustmentPtr == 0 {
-		return nil
+	cret := xRangeGetAdjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAdjustmentPtr)
-
-	GetAdjustmentCls := &Adjustment{}
-	GetAdjustmentCls.Ptr = GetAdjustmentPtr
-	return GetAdjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRangeGetFillLevel func(uintptr) float64
@@ -56,8 +55,8 @@ var xRangeGetFillLevel func(uintptr) float64
 // Gets the current position of the fill level indicator.
 func (x *Range) GetFillLevel() float64 {
 
-	return xRangeGetFillLevel(x.GoPointer())
-
+	cret := xRangeGetFillLevel(x.GoPointer())
+	return cret
 }
 
 var xRangeGetFlippable func(uintptr) bool
@@ -67,8 +66,8 @@ var xRangeGetFlippable func(uintptr) bool
 // See [method@Gtk.Range.set_flippable].
 func (x *Range) GetFlippable() bool {
 
-	return xRangeGetFlippable(x.GoPointer())
-
+	cret := xRangeGetFlippable(x.GoPointer())
+	return cret
 }
 
 var xRangeGetInverted func(uintptr) bool
@@ -78,8 +77,8 @@ var xRangeGetInverted func(uintptr) bool
 // See [method@Gtk.Range.set_inverted].
 func (x *Range) GetInverted() bool {
 
-	return xRangeGetInverted(x.GoPointer())
-
+	cret := xRangeGetInverted(x.GoPointer())
+	return cret
 }
 
 var xRangeGetRangeRect func(uintptr, *gdk.Rectangle)
@@ -99,8 +98,8 @@ var xRangeGetRestrictToFillLevel func(uintptr) bool
 // Gets whether the range is restricted to the fill level.
 func (x *Range) GetRestrictToFillLevel() bool {
 
-	return xRangeGetRestrictToFillLevel(x.GoPointer())
-
+	cret := xRangeGetRestrictToFillLevel(x.GoPointer())
+	return cret
 }
 
 var xRangeGetRoundDigits func(uintptr) int
@@ -111,8 +110,8 @@ var xRangeGetRoundDigits func(uintptr) int
 // See [signal@Gtk.Range::change-value].
 func (x *Range) GetRoundDigits() int {
 
-	return xRangeGetRoundDigits(x.GoPointer())
-
+	cret := xRangeGetRoundDigits(x.GoPointer())
+	return cret
 }
 
 var xRangeGetShowFillLevel func(uintptr) bool
@@ -120,8 +119,8 @@ var xRangeGetShowFillLevel func(uintptr) bool
 // Gets whether the range displays the fill level graphically.
 func (x *Range) GetShowFillLevel() bool {
 
-	return xRangeGetShowFillLevel(x.GoPointer())
-
+	cret := xRangeGetShowFillLevel(x.GoPointer())
+	return cret
 }
 
 var xRangeGetSliderRange func(uintptr, int, int)
@@ -143,8 +142,8 @@ var xRangeGetSliderSizeFixed func(uintptr) bool
 // See [method@Gtk.Range.set_slider_size_fixed].
 func (x *Range) GetSliderSizeFixed() bool {
 
-	return xRangeGetSliderSizeFixed(x.GoPointer())
-
+	cret := xRangeGetSliderSizeFixed(x.GoPointer())
+	return cret
 }
 
 var xRangeGetValue func(uintptr) float64
@@ -152,8 +151,8 @@ var xRangeGetValue func(uintptr) float64
 // Gets the current value of the range.
 func (x *Range) GetValue() float64 {
 
-	return xRangeGetValue(x.GoPointer())
-
+	cret := xRangeGetValue(x.GoPointer())
+	return cret
 }
 
 var xRangeSetAdjustment func(uintptr, uintptr)
@@ -386,8 +385,8 @@ func (x *Range) ConnectValueChanged(cb func(Range)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Range) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -522,15 +521,15 @@ func (x *Range) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Range) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Range) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

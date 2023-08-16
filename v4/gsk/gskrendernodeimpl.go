@@ -28,14 +28,16 @@ var xNewBlendNode func(uintptr, uintptr, BlendMode) uintptr
 // Creates a `GskRenderNode` that will use @blend_mode to blend the @top
 // node onto the @bottom node.
 func NewBlendNode(BottomVar *RenderNode, TopVar *RenderNode, BlendModeVar BlendMode) *BlendNode {
-	NewBlendNodePtr := xNewBlendNode(BottomVar.GoPointer(), TopVar.GoPointer(), BlendModeVar)
-	if NewBlendNodePtr == 0 {
-		return nil
-	}
+	var cls *BlendNode
 
-	NewBlendNodeCls := &BlendNode{}
-	NewBlendNodeCls.Ptr = NewBlendNodePtr
-	return NewBlendNodeCls
+	cret := xNewBlendNode(BottomVar.GoPointer(), TopVar.GoPointer(), BlendModeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BlendNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBlendNodeGetBlendMode func(uintptr) BlendMode
@@ -43,44 +45,42 @@ var xBlendNodeGetBlendMode func(uintptr) BlendMode
 // Retrieves the blend mode used by @node.
 func (x *BlendNode) GetBlendMode() BlendMode {
 
-	return xBlendNodeGetBlendMode(x.GoPointer())
-
+	cret := xBlendNodeGetBlendMode(x.GoPointer())
+	return cret
 }
 
 var xBlendNodeGetBottomChild func(uintptr) uintptr
 
 // Retrieves the bottom `GskRenderNode` child of the @node.
 func (x *BlendNode) GetBottomChild() *RenderNode {
+	var cls *RenderNode
 
-	GetBottomChildPtr := xBlendNodeGetBottomChild(x.GoPointer())
-	if GetBottomChildPtr == 0 {
-		return nil
+	cret := xBlendNodeGetBottomChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBottomChildPtr)
-
-	GetBottomChildCls := &RenderNode{}
-	GetBottomChildCls.Ptr = GetBottomChildPtr
-	return GetBottomChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBlendNodeGetTopChild func(uintptr) uintptr
 
 // Retrieves the top `GskRenderNode` child of the @node.
 func (x *BlendNode) GetTopChild() *RenderNode {
+	var cls *RenderNode
 
-	GetTopChildPtr := xBlendNodeGetTopChild(x.GoPointer())
-	if GetTopChildPtr == 0 {
-		return nil
+	cret := xBlendNodeGetTopChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTopChildPtr)
-
-	GetTopChildCls := &RenderNode{}
-	GetTopChildCls.Ptr = GetTopChildPtr
-	return GetTopChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *BlendNode) GoPointer() uintptr {
@@ -106,32 +106,33 @@ var xNewBlurNode func(uintptr, float32) uintptr
 
 // Creates a render node that blurs the child.
 func NewBlurNode(ChildVar *RenderNode, RadiusVar float32) *BlurNode {
-	NewBlurNodePtr := xNewBlurNode(ChildVar.GoPointer(), RadiusVar)
-	if NewBlurNodePtr == 0 {
-		return nil
-	}
+	var cls *BlurNode
 
-	NewBlurNodeCls := &BlurNode{}
-	NewBlurNodeCls.Ptr = NewBlurNodePtr
-	return NewBlurNodeCls
+	cret := xNewBlurNode(ChildVar.GoPointer(), RadiusVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BlurNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBlurNodeGetChild func(uintptr) uintptr
 
 // Retrieves the child `GskRenderNode` of the blur @node.
 func (x *BlurNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xBlurNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xBlurNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBlurNodeGetRadius func(uintptr) float32
@@ -139,8 +140,8 @@ var xBlurNodeGetRadius func(uintptr) float32
 // Retrieves the blur radius of the @node.
 func (x *BlurNode) GetRadius() float32 {
 
-	return xBlurNodeGetRadius(x.GoPointer())
-
+	cret := xBlurNodeGetRadius(x.GoPointer())
+	return cret
 }
 
 func (c *BlurNode) GoPointer() uintptr {
@@ -169,14 +170,16 @@ var xNewBorderNode func(*RoundedRect, uintptr, uintptr) uintptr
 //
 // The 4 sides of the border can have different widths and colors.
 func NewBorderNode(OutlineVar *RoundedRect, BorderWidthVar uintptr, BorderColorVar uintptr) *BorderNode {
-	NewBorderNodePtr := xNewBorderNode(OutlineVar, BorderWidthVar, BorderColorVar)
-	if NewBorderNodePtr == 0 {
-		return nil
-	}
+	var cls *BorderNode
 
-	NewBorderNodeCls := &BorderNode{}
-	NewBorderNodeCls.Ptr = NewBorderNodePtr
-	return NewBorderNodeCls
+	cret := xNewBorderNode(OutlineVar, BorderWidthVar, BorderColorVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BorderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBorderNodeGetColors func(uintptr) *gdk.RGBA
@@ -184,8 +187,8 @@ var xBorderNodeGetColors func(uintptr) *gdk.RGBA
 // Retrieves the colors of the border.
 func (x *BorderNode) GetColors() *gdk.RGBA {
 
-	return xBorderNodeGetColors(x.GoPointer())
-
+	cret := xBorderNodeGetColors(x.GoPointer())
+	return cret
 }
 
 var xBorderNodeGetOutline func(uintptr) *RoundedRect
@@ -193,8 +196,8 @@ var xBorderNodeGetOutline func(uintptr) *RoundedRect
 // Retrieves the outline of the border.
 func (x *BorderNode) GetOutline() *RoundedRect {
 
-	return xBorderNodeGetOutline(x.GoPointer())
-
+	cret := xBorderNodeGetOutline(x.GoPointer())
+	return cret
 }
 
 var xBorderNodeGetWidths func(uintptr) uintptr
@@ -202,8 +205,8 @@ var xBorderNodeGetWidths func(uintptr) uintptr
 // Retrieves the stroke widths of the border.
 func (x *BorderNode) GetWidths() uintptr {
 
-	return xBorderNodeGetWidths(x.GoPointer())
-
+	cret := xBorderNodeGetWidths(x.GoPointer())
+	return cret
 }
 
 func (c *BorderNode) GoPointer() uintptr {
@@ -232,14 +235,16 @@ var xNewCairoNode func(*graphene.Rect) uintptr
 //
 // You can draw to the cairo surface using [method@Gsk.CairoNode.get_draw_context].
 func NewCairoNode(BoundsVar *graphene.Rect) *CairoNode {
-	NewCairoNodePtr := xNewCairoNode(BoundsVar)
-	if NewCairoNodePtr == 0 {
-		return nil
-	}
+	var cls *CairoNode
 
-	NewCairoNodeCls := &CairoNode{}
-	NewCairoNodeCls.Ptr = NewCairoNodePtr
-	return NewCairoNodeCls
+	cret := xNewCairoNode(BoundsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CairoNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCairoNodeGetDrawContext func(uintptr) *cairo.Context
@@ -251,8 +256,8 @@ var xCairoNodeGetDrawContext func(uintptr) *cairo.Context
 // rendering to @renderer.
 func (x *CairoNode) GetDrawContext() *cairo.Context {
 
-	return xCairoNodeGetDrawContext(x.GoPointer())
-
+	cret := xCairoNodeGetDrawContext(x.GoPointer())
+	return cret
 }
 
 var xCairoNodeGetSurface func(uintptr) *cairo.Surface
@@ -260,8 +265,8 @@ var xCairoNodeGetSurface func(uintptr) *cairo.Surface
 // Retrieves the Cairo surface used by the render node.
 func (x *CairoNode) GetSurface() *cairo.Surface {
 
-	return xCairoNodeGetSurface(x.GoPointer())
-
+	cret := xCairoNodeGetSurface(x.GoPointer())
+	return cret
 }
 
 func (c *CairoNode) GoPointer() uintptr {
@@ -288,32 +293,33 @@ var xNewClipNode func(uintptr, *graphene.Rect) uintptr
 // Creates a `GskRenderNode` that will clip the @child to the area
 // given by @clip.
 func NewClipNode(ChildVar *RenderNode, ClipVar *graphene.Rect) *ClipNode {
-	NewClipNodePtr := xNewClipNode(ChildVar.GoPointer(), ClipVar)
-	if NewClipNodePtr == 0 {
-		return nil
-	}
+	var cls *ClipNode
 
-	NewClipNodeCls := &ClipNode{}
-	NewClipNodeCls.Ptr = NewClipNodePtr
-	return NewClipNodeCls
+	cret := xNewClipNode(ChildVar.GoPointer(), ClipVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ClipNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClipNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting clipped by the given @node.
 func (x *ClipNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xClipNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xClipNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xClipNodeGetClip func(uintptr) *graphene.Rect
@@ -321,8 +327,8 @@ var xClipNodeGetClip func(uintptr) *graphene.Rect
 // Retrieves the clip rectangle for @node.
 func (x *ClipNode) GetClip() *graphene.Rect {
 
-	return xClipNodeGetClip(x.GoPointer())
-
+	cret := xClipNodeGetClip(x.GoPointer())
+	return cret
 }
 
 func (c *ClipNode) GoPointer() uintptr {
@@ -355,32 +361,33 @@ var xNewColorMatrixNode func(uintptr, *graphene.Matrix, *graphene.Vec4) uintptr
 //
 // for every pixel.
 func NewColorMatrixNode(ChildVar *RenderNode, ColorMatrixVar *graphene.Matrix, ColorOffsetVar *graphene.Vec4) *ColorMatrixNode {
-	NewColorMatrixNodePtr := xNewColorMatrixNode(ChildVar.GoPointer(), ColorMatrixVar, ColorOffsetVar)
-	if NewColorMatrixNodePtr == 0 {
-		return nil
-	}
+	var cls *ColorMatrixNode
 
-	NewColorMatrixNodeCls := &ColorMatrixNode{}
-	NewColorMatrixNodeCls.Ptr = NewColorMatrixNodePtr
-	return NewColorMatrixNodeCls
+	cret := xNewColorMatrixNode(ChildVar.GoPointer(), ColorMatrixVar, ColorOffsetVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ColorMatrixNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColorMatrixNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting its colors modified by the given @node.
 func (x *ColorMatrixNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xColorMatrixNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xColorMatrixNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColorMatrixNodeGetColorMatrix func(uintptr) *graphene.Matrix
@@ -388,8 +395,8 @@ var xColorMatrixNodeGetColorMatrix func(uintptr) *graphene.Matrix
 // Retrieves the color matrix used by the @node.
 func (x *ColorMatrixNode) GetColorMatrix() *graphene.Matrix {
 
-	return xColorMatrixNodeGetColorMatrix(x.GoPointer())
-
+	cret := xColorMatrixNodeGetColorMatrix(x.GoPointer())
+	return cret
 }
 
 var xColorMatrixNodeGetColorOffset func(uintptr) *graphene.Vec4
@@ -397,8 +404,8 @@ var xColorMatrixNodeGetColorOffset func(uintptr) *graphene.Vec4
 // Retrieves the color offset used by the @node.
 func (x *ColorMatrixNode) GetColorOffset() *graphene.Vec4 {
 
-	return xColorMatrixNodeGetColorOffset(x.GoPointer())
-
+	cret := xColorMatrixNodeGetColorOffset(x.GoPointer())
+	return cret
 }
 
 func (c *ColorMatrixNode) GoPointer() uintptr {
@@ -425,14 +432,16 @@ var xNewColorNode func(*gdk.RGBA, *graphene.Rect) uintptr
 // Creates a `GskRenderNode` that will render the color specified by @rgba into
 // the area given by @bounds.
 func NewColorNode(RgbaVar *gdk.RGBA, BoundsVar *graphene.Rect) *ColorNode {
-	NewColorNodePtr := xNewColorNode(RgbaVar, BoundsVar)
-	if NewColorNodePtr == 0 {
-		return nil
-	}
+	var cls *ColorNode
 
-	NewColorNodeCls := &ColorNode{}
-	NewColorNodeCls.Ptr = NewColorNodePtr
-	return NewColorNodeCls
+	cret := xNewColorNode(RgbaVar, BoundsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ColorNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColorNodeGetColor func(uintptr) *gdk.RGBA
@@ -440,8 +449,8 @@ var xColorNodeGetColor func(uintptr) *gdk.RGBA
 // Retrieves the color of the given @node.
 func (x *ColorNode) GetColor() *gdk.RGBA {
 
-	return xColorNodeGetColor(x.GoPointer())
-
+	cret := xColorNodeGetColor(x.GoPointer())
+	return cret
 }
 
 func (c *ColorNode) GoPointer() uintptr {
@@ -471,14 +480,16 @@ var xNewConicGradientNode func(*graphene.Rect, *graphene.Point, float32, uintptr
 // starts around @center in the direction of @rotation. A rotation of 0 means
 // that the gradient points up. Color stops are then added clockwise.
 func NewConicGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, RotationVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *ConicGradientNode {
-	NewConicGradientNodePtr := xNewConicGradientNode(BoundsVar, CenterVar, RotationVar, ColorStopsVar, NColorStopsVar)
-	if NewConicGradientNodePtr == 0 {
-		return nil
-	}
+	var cls *ConicGradientNode
 
-	NewConicGradientNodeCls := &ConicGradientNode{}
-	NewConicGradientNodeCls.Ptr = NewConicGradientNodePtr
-	return NewConicGradientNodeCls
+	cret := xNewConicGradientNode(BoundsVar, CenterVar, RotationVar, ColorStopsVar, NColorStopsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ConicGradientNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConicGradientNodeGetAngle func(uintptr) float32
@@ -491,8 +502,8 @@ var xConicGradientNodeGetAngle func(uintptr) float32
 //	angle = 90 - gsk_conic_gradient_node_get_rotation()
 func (x *ConicGradientNode) GetAngle() float32 {
 
-	return xConicGradientNodeGetAngle(x.GoPointer())
-
+	cret := xConicGradientNodeGetAngle(x.GoPointer())
+	return cret
 }
 
 var xConicGradientNodeGetCenter func(uintptr) *graphene.Point
@@ -500,8 +511,8 @@ var xConicGradientNodeGetCenter func(uintptr) *graphene.Point
 // Retrieves the center pointer for the gradient.
 func (x *ConicGradientNode) GetCenter() *graphene.Point {
 
-	return xConicGradientNodeGetCenter(x.GoPointer())
-
+	cret := xConicGradientNodeGetCenter(x.GoPointer())
+	return cret
 }
 
 var xConicGradientNodeGetColorStops func(uintptr, uint) uintptr
@@ -509,8 +520,8 @@ var xConicGradientNodeGetColorStops func(uintptr, uint) uintptr
 // Retrieves the color stops in the gradient.
 func (x *ConicGradientNode) GetColorStops(NStopsVar uint) uintptr {
 
-	return xConicGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
-
+	cret := xConicGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
+	return cret
 }
 
 var xConicGradientNodeGetNColorStops func(uintptr) uint
@@ -518,8 +529,8 @@ var xConicGradientNodeGetNColorStops func(uintptr) uint
 // Retrieves the number of color stops in the gradient.
 func (x *ConicGradientNode) GetNColorStops() uint {
 
-	return xConicGradientNodeGetNColorStops(x.GoPointer())
-
+	cret := xConicGradientNodeGetNColorStops(x.GoPointer())
+	return cret
 }
 
 var xConicGradientNodeGetRotation func(uintptr) float32
@@ -527,8 +538,8 @@ var xConicGradientNodeGetRotation func(uintptr) float32
 // Retrieves the rotation for the gradient in degrees.
 func (x *ConicGradientNode) GetRotation() float32 {
 
-	return xConicGradientNodeGetRotation(x.GoPointer())
-
+	cret := xConicGradientNodeGetRotation(x.GoPointer())
+	return cret
 }
 
 func (c *ConicGradientNode) GoPointer() uintptr {
@@ -556,32 +567,33 @@ var xNewContainerNode func(uintptr, uint) uintptr
 //
 // The new node will acquire a reference to each of the children.
 func NewContainerNode(ChildrenVar uintptr, NChildrenVar uint) *ContainerNode {
-	NewContainerNodePtr := xNewContainerNode(ChildrenVar, NChildrenVar)
-	if NewContainerNodePtr == 0 {
-		return nil
-	}
+	var cls *ContainerNode
 
-	NewContainerNodeCls := &ContainerNode{}
-	NewContainerNodeCls.Ptr = NewContainerNodePtr
-	return NewContainerNodeCls
+	cret := xNewContainerNode(ChildrenVar, NChildrenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ContainerNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContainerNodeGetChild func(uintptr, uint) uintptr
 
 // Gets one of the children of @container.
 func (x *ContainerNode) GetChild(IdxVar uint) *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xContainerNodeGetChild(x.GoPointer(), IdxVar)
-	if GetChildPtr == 0 {
-		return nil
+	cret := xContainerNodeGetChild(x.GoPointer(), IdxVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContainerNodeGetNChildren func(uintptr) uint
@@ -589,8 +601,8 @@ var xContainerNodeGetNChildren func(uintptr) uint
 // Retrieves the number of direct children of @node.
 func (x *ContainerNode) GetNChildren() uint {
 
-	return xContainerNodeGetNChildren(x.GoPointer())
-
+	cret := xContainerNodeGetNChildren(x.GoPointer())
+	return cret
 }
 
 func (c *ContainerNode) GoPointer() uintptr {
@@ -616,32 +628,33 @@ var xNewCrossFadeNode func(uintptr, uintptr, float32) uintptr
 
 // Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
 func NewCrossFadeNode(StartVar *RenderNode, EndVar *RenderNode, ProgressVar float32) *CrossFadeNode {
-	NewCrossFadeNodePtr := xNewCrossFadeNode(StartVar.GoPointer(), EndVar.GoPointer(), ProgressVar)
-	if NewCrossFadeNodePtr == 0 {
-		return nil
-	}
+	var cls *CrossFadeNode
 
-	NewCrossFadeNodeCls := &CrossFadeNode{}
-	NewCrossFadeNodeCls.Ptr = NewCrossFadeNodePtr
-	return NewCrossFadeNodeCls
+	cret := xNewCrossFadeNode(StartVar.GoPointer(), EndVar.GoPointer(), ProgressVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CrossFadeNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCrossFadeNodeGetEndChild func(uintptr) uintptr
 
 // Retrieves the child `GskRenderNode` at the end of the cross-fade.
 func (x *CrossFadeNode) GetEndChild() *RenderNode {
+	var cls *RenderNode
 
-	GetEndChildPtr := xCrossFadeNodeGetEndChild(x.GoPointer())
-	if GetEndChildPtr == 0 {
-		return nil
+	cret := xCrossFadeNodeGetEndChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEndChildPtr)
-
-	GetEndChildCls := &RenderNode{}
-	GetEndChildCls.Ptr = GetEndChildPtr
-	return GetEndChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCrossFadeNodeGetProgress func(uintptr) float32
@@ -649,26 +662,25 @@ var xCrossFadeNodeGetProgress func(uintptr) float32
 // Retrieves the progress value of the cross fade.
 func (x *CrossFadeNode) GetProgress() float32 {
 
-	return xCrossFadeNodeGetProgress(x.GoPointer())
-
+	cret := xCrossFadeNodeGetProgress(x.GoPointer())
+	return cret
 }
 
 var xCrossFadeNodeGetStartChild func(uintptr) uintptr
 
 // Retrieves the child `GskRenderNode` at the beginning of the cross-fade.
 func (x *CrossFadeNode) GetStartChild() *RenderNode {
+	var cls *RenderNode
 
-	GetStartChildPtr := xCrossFadeNodeGetStartChild(x.GoPointer())
-	if GetStartChildPtr == 0 {
-		return nil
+	cret := xCrossFadeNodeGetStartChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStartChildPtr)
-
-	GetStartChildCls := &RenderNode{}
-	GetStartChildCls.Ptr = GetStartChildPtr
-	return GetStartChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CrossFadeNode) GoPointer() uintptr {
@@ -698,32 +710,33 @@ var xNewDebugNode func(uintptr, string) uintptr
 //
 // Adding this node has no visual effect.
 func NewDebugNode(ChildVar *RenderNode, MessageVar string) *DebugNode {
-	NewDebugNodePtr := xNewDebugNode(ChildVar.GoPointer(), MessageVar)
-	if NewDebugNodePtr == 0 {
-		return nil
-	}
+	var cls *DebugNode
 
-	NewDebugNodeCls := &DebugNode{}
-	NewDebugNodeCls.Ptr = NewDebugNodePtr
-	return NewDebugNodeCls
+	cret := xNewDebugNode(ChildVar.GoPointer(), MessageVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DebugNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDebugNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting drawn by the given @node.
 func (x *DebugNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xDebugNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xDebugNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDebugNodeGetMessage func(uintptr) string
@@ -731,8 +744,8 @@ var xDebugNodeGetMessage func(uintptr) string
 // Gets the debug message that was set on this node
 func (x *DebugNode) GetMessage() string {
 
-	return xDebugNodeGetMessage(x.GoPointer())
-
+	cret := xDebugNodeGetMessage(x.GoPointer())
+	return cret
 }
 
 func (c *DebugNode) GoPointer() uintptr {
@@ -774,14 +787,16 @@ var xNewGLShaderNode func(uintptr, *graphene.Rect, *glib.Bytes, uintptr, uint) u
 // [method@Gsk.GLShader.compile] to ensure the @shader will work for the
 // renderer before using it.
 func NewGLShaderNode(ShaderVar *GLShader, BoundsVar *graphene.Rect, ArgsVar *glib.Bytes, ChildrenVar uintptr, NChildrenVar uint) *GLShaderNode {
-	NewGLShaderNodePtr := xNewGLShaderNode(ShaderVar.GoPointer(), BoundsVar, ArgsVar, ChildrenVar, NChildrenVar)
-	if NewGLShaderNodePtr == 0 {
-		return nil
-	}
+	var cls *GLShaderNode
 
-	NewGLShaderNodeCls := &GLShaderNode{}
-	NewGLShaderNodeCls.Ptr = NewGLShaderNodePtr
-	return NewGLShaderNodeCls
+	cret := xNewGLShaderNode(ShaderVar.GoPointer(), BoundsVar, ArgsVar, ChildrenVar, NChildrenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &GLShaderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLShaderNodeGetArgs func(uintptr) *glib.Bytes
@@ -789,26 +804,25 @@ var xGLShaderNodeGetArgs func(uintptr) *glib.Bytes
 // Gets args for the node.
 func (x *GLShaderNode) GetArgs() *glib.Bytes {
 
-	return xGLShaderNodeGetArgs(x.GoPointer())
-
+	cret := xGLShaderNodeGetArgs(x.GoPointer())
+	return cret
 }
 
 var xGLShaderNodeGetChild func(uintptr, uint) uintptr
 
 // Gets one of the children.
 func (x *GLShaderNode) GetChild(IdxVar uint) *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xGLShaderNodeGetChild(x.GoPointer(), IdxVar)
-	if GetChildPtr == 0 {
-		return nil
+	cret := xGLShaderNodeGetChild(x.GoPointer(), IdxVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLShaderNodeGetNChildren func(uintptr) uint
@@ -816,26 +830,25 @@ var xGLShaderNodeGetNChildren func(uintptr) uint
 // Returns the number of children
 func (x *GLShaderNode) GetNChildren() uint {
 
-	return xGLShaderNodeGetNChildren(x.GoPointer())
-
+	cret := xGLShaderNodeGetNChildren(x.GoPointer())
+	return cret
 }
 
 var xGLShaderNodeGetShader func(uintptr) uintptr
 
 // Gets shader code for the node.
 func (x *GLShaderNode) GetShader() *GLShader {
+	var cls *GLShader
 
-	GetShaderPtr := xGLShaderNodeGetShader(x.GoPointer())
-	if GetShaderPtr == 0 {
-		return nil
+	cret := xGLShaderNodeGetShader(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetShaderPtr)
-
-	GetShaderCls := &GLShader{}
-	GetShaderCls.Ptr = GetShaderPtr
-	return GetShaderCls
-
+	gobject.IncreaseRef(cret)
+	cls = &GLShader{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *GLShaderNode) GoPointer() uintptr {
@@ -862,14 +875,16 @@ var xNewInsetShadowNode func(*RoundedRect, *gdk.RGBA, float32, float32, float32,
 // Creates a `GskRenderNode` that will render an inset shadow
 // into the box given by @outline.
 func NewInsetShadowNode(OutlineVar *RoundedRect, ColorVar *gdk.RGBA, DxVar float32, DyVar float32, SpreadVar float32, BlurRadiusVar float32) *InsetShadowNode {
-	NewInsetShadowNodePtr := xNewInsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
-	if NewInsetShadowNodePtr == 0 {
-		return nil
-	}
+	var cls *InsetShadowNode
 
-	NewInsetShadowNodeCls := &InsetShadowNode{}
-	NewInsetShadowNodeCls.Ptr = NewInsetShadowNodePtr
-	return NewInsetShadowNodeCls
+	cret := xNewInsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InsetShadowNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInsetShadowNodeGetBlurRadius func(uintptr) float32
@@ -877,8 +892,8 @@ var xInsetShadowNodeGetBlurRadius func(uintptr) float32
 // Retrieves the blur radius to apply to the shadow.
 func (x *InsetShadowNode) GetBlurRadius() float32 {
 
-	return xInsetShadowNodeGetBlurRadius(x.GoPointer())
-
+	cret := xInsetShadowNodeGetBlurRadius(x.GoPointer())
+	return cret
 }
 
 var xInsetShadowNodeGetColor func(uintptr) *gdk.RGBA
@@ -886,8 +901,8 @@ var xInsetShadowNodeGetColor func(uintptr) *gdk.RGBA
 // Retrieves the color of the inset shadow.
 func (x *InsetShadowNode) GetColor() *gdk.RGBA {
 
-	return xInsetShadowNodeGetColor(x.GoPointer())
-
+	cret := xInsetShadowNodeGetColor(x.GoPointer())
+	return cret
 }
 
 var xInsetShadowNodeGetDx func(uintptr) float32
@@ -895,8 +910,8 @@ var xInsetShadowNodeGetDx func(uintptr) float32
 // Retrieves the horizontal offset of the inset shadow.
 func (x *InsetShadowNode) GetDx() float32 {
 
-	return xInsetShadowNodeGetDx(x.GoPointer())
-
+	cret := xInsetShadowNodeGetDx(x.GoPointer())
+	return cret
 }
 
 var xInsetShadowNodeGetDy func(uintptr) float32
@@ -904,8 +919,8 @@ var xInsetShadowNodeGetDy func(uintptr) float32
 // Retrieves the vertical offset of the inset shadow.
 func (x *InsetShadowNode) GetDy() float32 {
 
-	return xInsetShadowNodeGetDy(x.GoPointer())
-
+	cret := xInsetShadowNodeGetDy(x.GoPointer())
+	return cret
 }
 
 var xInsetShadowNodeGetOutline func(uintptr) *RoundedRect
@@ -913,8 +928,8 @@ var xInsetShadowNodeGetOutline func(uintptr) *RoundedRect
 // Retrieves the outline rectangle of the inset shadow.
 func (x *InsetShadowNode) GetOutline() *RoundedRect {
 
-	return xInsetShadowNodeGetOutline(x.GoPointer())
-
+	cret := xInsetShadowNodeGetOutline(x.GoPointer())
+	return cret
 }
 
 var xInsetShadowNodeGetSpread func(uintptr) float32
@@ -922,8 +937,8 @@ var xInsetShadowNodeGetSpread func(uintptr) float32
 // Retrieves how much the shadow spreads inwards.
 func (x *InsetShadowNode) GetSpread() float32 {
 
-	return xInsetShadowNodeGetSpread(x.GoPointer())
-
+	cret := xInsetShadowNodeGetSpread(x.GoPointer())
+	return cret
 }
 
 func (c *InsetShadowNode) GoPointer() uintptr {
@@ -950,14 +965,16 @@ var xNewLinearGradientNode func(*graphene.Rect, *graphene.Point, *graphene.Point
 // Creates a `GskRenderNode` that will create a linear gradient from the given
 // points and color stops, and render that into the area given by @bounds.
 func NewLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar uintptr, NColorStopsVar uint) *LinearGradientNode {
-	NewLinearGradientNodePtr := xNewLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
-	if NewLinearGradientNodePtr == 0 {
-		return nil
-	}
+	var cls *LinearGradientNode
 
-	NewLinearGradientNodeCls := &LinearGradientNode{}
-	NewLinearGradientNodeCls.Ptr = NewLinearGradientNodePtr
-	return NewLinearGradientNodeCls
+	cret := xNewLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LinearGradientNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLinearGradientNodeGetColorStops func(uintptr, uint) uintptr
@@ -965,8 +982,8 @@ var xLinearGradientNodeGetColorStops func(uintptr, uint) uintptr
 // Retrieves the color stops in the gradient.
 func (x *LinearGradientNode) GetColorStops(NStopsVar uint) uintptr {
 
-	return xLinearGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
-
+	cret := xLinearGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
+	return cret
 }
 
 var xLinearGradientNodeGetEnd func(uintptr) *graphene.Point
@@ -974,8 +991,8 @@ var xLinearGradientNodeGetEnd func(uintptr) *graphene.Point
 // Retrieves the final point of the linear gradient.
 func (x *LinearGradientNode) GetEnd() *graphene.Point {
 
-	return xLinearGradientNodeGetEnd(x.GoPointer())
-
+	cret := xLinearGradientNodeGetEnd(x.GoPointer())
+	return cret
 }
 
 var xLinearGradientNodeGetNColorStops func(uintptr) uint
@@ -983,8 +1000,8 @@ var xLinearGradientNodeGetNColorStops func(uintptr) uint
 // Retrieves the number of color stops in the gradient.
 func (x *LinearGradientNode) GetNColorStops() uint {
 
-	return xLinearGradientNodeGetNColorStops(x.GoPointer())
-
+	cret := xLinearGradientNodeGetNColorStops(x.GoPointer())
+	return cret
 }
 
 var xLinearGradientNodeGetStart func(uintptr) *graphene.Point
@@ -992,8 +1009,8 @@ var xLinearGradientNodeGetStart func(uintptr) *graphene.Point
 // Retrieves the initial point of the linear gradient.
 func (x *LinearGradientNode) GetStart() *graphene.Point {
 
-	return xLinearGradientNodeGetStart(x.GoPointer())
-
+	cret := xLinearGradientNodeGetStart(x.GoPointer())
+	return cret
 }
 
 func (c *LinearGradientNode) GoPointer() uintptr {
@@ -1020,32 +1037,33 @@ var xNewOpacityNode func(uintptr, float32) uintptr
 // Creates a `GskRenderNode` that will drawn the @child with reduced
 // @opacity.
 func NewOpacityNode(ChildVar *RenderNode, OpacityVar float32) *OpacityNode {
-	NewOpacityNodePtr := xNewOpacityNode(ChildVar.GoPointer(), OpacityVar)
-	if NewOpacityNodePtr == 0 {
-		return nil
-	}
+	var cls *OpacityNode
 
-	NewOpacityNodeCls := &OpacityNode{}
-	NewOpacityNodeCls.Ptr = NewOpacityNodePtr
-	return NewOpacityNodeCls
+	cret := xNewOpacityNode(ChildVar.GoPointer(), OpacityVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OpacityNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xOpacityNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting opacityed by the given @node.
 func (x *OpacityNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xOpacityNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xOpacityNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xOpacityNodeGetOpacity func(uintptr) float32
@@ -1053,8 +1071,8 @@ var xOpacityNodeGetOpacity func(uintptr) float32
 // Gets the transparency factor for an opacity node.
 func (x *OpacityNode) GetOpacity() float32 {
 
-	return xOpacityNodeGetOpacity(x.GoPointer())
-
+	cret := xOpacityNodeGetOpacity(x.GoPointer())
+	return cret
 }
 
 func (c *OpacityNode) GoPointer() uintptr {
@@ -1081,14 +1099,16 @@ var xNewOutsetShadowNode func(*RoundedRect, *gdk.RGBA, float32, float32, float32
 // Creates a `GskRenderNode` that will render an outset shadow
 // around the box given by @outline.
 func NewOutsetShadowNode(OutlineVar *RoundedRect, ColorVar *gdk.RGBA, DxVar float32, DyVar float32, SpreadVar float32, BlurRadiusVar float32) *OutsetShadowNode {
-	NewOutsetShadowNodePtr := xNewOutsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
-	if NewOutsetShadowNodePtr == 0 {
-		return nil
-	}
+	var cls *OutsetShadowNode
 
-	NewOutsetShadowNodeCls := &OutsetShadowNode{}
-	NewOutsetShadowNodeCls.Ptr = NewOutsetShadowNodePtr
-	return NewOutsetShadowNodeCls
+	cret := xNewOutsetShadowNode(OutlineVar, ColorVar, DxVar, DyVar, SpreadVar, BlurRadiusVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutsetShadowNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xOutsetShadowNodeGetBlurRadius func(uintptr) float32
@@ -1096,8 +1116,8 @@ var xOutsetShadowNodeGetBlurRadius func(uintptr) float32
 // Retrieves the blur radius of the shadow.
 func (x *OutsetShadowNode) GetBlurRadius() float32 {
 
-	return xOutsetShadowNodeGetBlurRadius(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetBlurRadius(x.GoPointer())
+	return cret
 }
 
 var xOutsetShadowNodeGetColor func(uintptr) *gdk.RGBA
@@ -1105,8 +1125,8 @@ var xOutsetShadowNodeGetColor func(uintptr) *gdk.RGBA
 // Retrieves the color of the outset shadow.
 func (x *OutsetShadowNode) GetColor() *gdk.RGBA {
 
-	return xOutsetShadowNodeGetColor(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetColor(x.GoPointer())
+	return cret
 }
 
 var xOutsetShadowNodeGetDx func(uintptr) float32
@@ -1114,8 +1134,8 @@ var xOutsetShadowNodeGetDx func(uintptr) float32
 // Retrieves the horizontal offset of the outset shadow.
 func (x *OutsetShadowNode) GetDx() float32 {
 
-	return xOutsetShadowNodeGetDx(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetDx(x.GoPointer())
+	return cret
 }
 
 var xOutsetShadowNodeGetDy func(uintptr) float32
@@ -1123,8 +1143,8 @@ var xOutsetShadowNodeGetDy func(uintptr) float32
 // Retrieves the vertical offset of the outset shadow.
 func (x *OutsetShadowNode) GetDy() float32 {
 
-	return xOutsetShadowNodeGetDy(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetDy(x.GoPointer())
+	return cret
 }
 
 var xOutsetShadowNodeGetOutline func(uintptr) *RoundedRect
@@ -1132,8 +1152,8 @@ var xOutsetShadowNodeGetOutline func(uintptr) *RoundedRect
 // Retrieves the outline rectangle of the outset shadow.
 func (x *OutsetShadowNode) GetOutline() *RoundedRect {
 
-	return xOutsetShadowNodeGetOutline(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetOutline(x.GoPointer())
+	return cret
 }
 
 var xOutsetShadowNodeGetSpread func(uintptr) float32
@@ -1141,8 +1161,8 @@ var xOutsetShadowNodeGetSpread func(uintptr) float32
 // Retrieves how much the shadow spreads outwards.
 func (x *OutsetShadowNode) GetSpread() float32 {
 
-	return xOutsetShadowNodeGetSpread(x.GoPointer())
-
+	cret := xOutsetShadowNodeGetSpread(x.GoPointer())
+	return cret
 }
 
 func (c *OutsetShadowNode) GoPointer() uintptr {
@@ -1172,14 +1192,16 @@ var xNewRadialGradientNode func(*graphene.Rect, *graphene.Point, float32, float3
 // starts around @center. The size of the gradient is dictated by @hradius
 // in horizontal orientation and by @vradius in vertial orientation.
 func NewRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *RadialGradientNode {
-	NewRadialGradientNodePtr := xNewRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
-	if NewRadialGradientNodePtr == 0 {
-		return nil
-	}
+	var cls *RadialGradientNode
 
-	NewRadialGradientNodeCls := &RadialGradientNode{}
-	NewRadialGradientNodeCls.Ptr = NewRadialGradientNodePtr
-	return NewRadialGradientNodeCls
+	cret := xNewRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RadialGradientNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRadialGradientNodeGetCenter func(uintptr) *graphene.Point
@@ -1187,8 +1209,8 @@ var xRadialGradientNodeGetCenter func(uintptr) *graphene.Point
 // Retrieves the center pointer for the gradient.
 func (x *RadialGradientNode) GetCenter() *graphene.Point {
 
-	return xRadialGradientNodeGetCenter(x.GoPointer())
-
+	cret := xRadialGradientNodeGetCenter(x.GoPointer())
+	return cret
 }
 
 var xRadialGradientNodeGetColorStops func(uintptr, uint) uintptr
@@ -1196,8 +1218,8 @@ var xRadialGradientNodeGetColorStops func(uintptr, uint) uintptr
 // Retrieves the color stops in the gradient.
 func (x *RadialGradientNode) GetColorStops(NStopsVar uint) uintptr {
 
-	return xRadialGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
-
+	cret := xRadialGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
+	return cret
 }
 
 var xRadialGradientNodeGetEnd func(uintptr) float32
@@ -1205,8 +1227,8 @@ var xRadialGradientNodeGetEnd func(uintptr) float32
 // Retrieves the end value for the gradient.
 func (x *RadialGradientNode) GetEnd() float32 {
 
-	return xRadialGradientNodeGetEnd(x.GoPointer())
-
+	cret := xRadialGradientNodeGetEnd(x.GoPointer())
+	return cret
 }
 
 var xRadialGradientNodeGetHradius func(uintptr) float32
@@ -1214,8 +1236,8 @@ var xRadialGradientNodeGetHradius func(uintptr) float32
 // Retrieves the horizonal radius for the gradient.
 func (x *RadialGradientNode) GetHradius() float32 {
 
-	return xRadialGradientNodeGetHradius(x.GoPointer())
-
+	cret := xRadialGradientNodeGetHradius(x.GoPointer())
+	return cret
 }
 
 var xRadialGradientNodeGetNColorStops func(uintptr) uint
@@ -1223,8 +1245,8 @@ var xRadialGradientNodeGetNColorStops func(uintptr) uint
 // Retrieves the number of color stops in the gradient.
 func (x *RadialGradientNode) GetNColorStops() uint {
 
-	return xRadialGradientNodeGetNColorStops(x.GoPointer())
-
+	cret := xRadialGradientNodeGetNColorStops(x.GoPointer())
+	return cret
 }
 
 var xRadialGradientNodeGetStart func(uintptr) float32
@@ -1232,8 +1254,8 @@ var xRadialGradientNodeGetStart func(uintptr) float32
 // Retrieves the start value for the gradient.
 func (x *RadialGradientNode) GetStart() float32 {
 
-	return xRadialGradientNodeGetStart(x.GoPointer())
-
+	cret := xRadialGradientNodeGetStart(x.GoPointer())
+	return cret
 }
 
 var xRadialGradientNodeGetVradius func(uintptr) float32
@@ -1241,8 +1263,8 @@ var xRadialGradientNodeGetVradius func(uintptr) float32
 // Retrieves the vertical radius for the gradient.
 func (x *RadialGradientNode) GetVradius() float32 {
 
-	return xRadialGradientNodeGetVradius(x.GoPointer())
-
+	cret := xRadialGradientNodeGetVradius(x.GoPointer())
+	return cret
 }
 
 func (c *RadialGradientNode) GoPointer() uintptr {
@@ -1269,32 +1291,33 @@ var xNewRepeatNode func(*graphene.Rect, uintptr, *graphene.Rect) uintptr
 // Creates a `GskRenderNode` that will repeat the drawing of @child across
 // the given @bounds.
 func NewRepeatNode(BoundsVar *graphene.Rect, ChildVar *RenderNode, ChildBoundsVar *graphene.Rect) *RepeatNode {
-	NewRepeatNodePtr := xNewRepeatNode(BoundsVar, ChildVar.GoPointer(), ChildBoundsVar)
-	if NewRepeatNodePtr == 0 {
-		return nil
-	}
+	var cls *RepeatNode
 
-	NewRepeatNodeCls := &RepeatNode{}
-	NewRepeatNodeCls.Ptr = NewRepeatNodePtr
-	return NewRepeatNodeCls
+	cret := xNewRepeatNode(BoundsVar, ChildVar.GoPointer(), ChildBoundsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RepeatNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRepeatNodeGetChild func(uintptr) uintptr
 
 // Retrieves the child of @node.
 func (x *RepeatNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xRepeatNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xRepeatNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRepeatNodeGetChildBounds func(uintptr) *graphene.Rect
@@ -1302,8 +1325,8 @@ var xRepeatNodeGetChildBounds func(uintptr) *graphene.Rect
 // Retrieves the bounding rectangle of the child of @node.
 func (x *RepeatNode) GetChildBounds() *graphene.Rect {
 
-	return xRepeatNodeGetChildBounds(x.GoPointer())
-
+	cret := xRepeatNodeGetChildBounds(x.GoPointer())
+	return cret
 }
 
 func (c *RepeatNode) GoPointer() uintptr {
@@ -1331,14 +1354,16 @@ var xNewRepeatingLinearGradientNode func(*graphene.Rect, *graphene.Point, *graph
 // from the given points and color stops, and render that into the area
 // given by @bounds.
 func NewRepeatingLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar uintptr, NColorStopsVar uint) *RepeatingLinearGradientNode {
-	NewRepeatingLinearGradientNodePtr := xNewRepeatingLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
-	if NewRepeatingLinearGradientNodePtr == 0 {
-		return nil
-	}
+	var cls *RepeatingLinearGradientNode
 
-	NewRepeatingLinearGradientNodeCls := &RepeatingLinearGradientNode{}
-	NewRepeatingLinearGradientNodeCls.Ptr = NewRepeatingLinearGradientNodePtr
-	return NewRepeatingLinearGradientNodeCls
+	cret := xNewRepeatingLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RepeatingLinearGradientNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *RepeatingLinearGradientNode) GoPointer() uintptr {
@@ -1368,14 +1393,16 @@ var xNewRepeatingRadialGradientNode func(*graphene.Rect, *graphene.Point, float3
 // is dictated by @hradius in horizontal orientation and by @vradius
 // in vertial orientation.
 func NewRepeatingRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *RepeatingRadialGradientNode {
-	NewRepeatingRadialGradientNodePtr := xNewRepeatingRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
-	if NewRepeatingRadialGradientNodePtr == 0 {
-		return nil
-	}
+	var cls *RepeatingRadialGradientNode
 
-	NewRepeatingRadialGradientNodeCls := &RepeatingRadialGradientNode{}
-	NewRepeatingRadialGradientNodeCls.Ptr = NewRepeatingRadialGradientNodePtr
-	return NewRepeatingRadialGradientNodeCls
+	cret := xNewRepeatingRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RepeatingRadialGradientNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *RepeatingRadialGradientNode) GoPointer() uintptr {
@@ -1402,32 +1429,33 @@ var xNewRoundedClipNode func(uintptr, *RoundedRect) uintptr
 // Creates a `GskRenderNode` that will clip the @child to the area
 // given by @clip.
 func NewRoundedClipNode(ChildVar *RenderNode, ClipVar *RoundedRect) *RoundedClipNode {
-	NewRoundedClipNodePtr := xNewRoundedClipNode(ChildVar.GoPointer(), ClipVar)
-	if NewRoundedClipNodePtr == 0 {
-		return nil
-	}
+	var cls *RoundedClipNode
 
-	NewRoundedClipNodeCls := &RoundedClipNode{}
-	NewRoundedClipNodeCls.Ptr = NewRoundedClipNodePtr
-	return NewRoundedClipNodeCls
+	cret := xNewRoundedClipNode(ChildVar.GoPointer(), ClipVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &RoundedClipNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRoundedClipNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting clipped by the given @node.
 func (x *RoundedClipNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xRoundedClipNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xRoundedClipNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRoundedClipNodeGetClip func(uintptr) *RoundedRect
@@ -1435,8 +1463,8 @@ var xRoundedClipNodeGetClip func(uintptr) *RoundedRect
 // Retrieves the rounded rectangle used to clip the contents of the @node.
 func (x *RoundedClipNode) GetClip() *RoundedRect {
 
-	return xRoundedClipNodeGetClip(x.GoPointer())
-
+	cret := xRoundedClipNodeGetClip(x.GoPointer())
+	return cret
 }
 
 func (c *RoundedClipNode) GoPointer() uintptr {
@@ -1463,32 +1491,33 @@ var xNewShadowNode func(uintptr, uintptr, uint) uintptr
 // Creates a `GskRenderNode` that will draw a @child with the given
 // @shadows below it.
 func NewShadowNode(ChildVar *RenderNode, ShadowsVar uintptr, NShadowsVar uint) *ShadowNode {
-	NewShadowNodePtr := xNewShadowNode(ChildVar.GoPointer(), ShadowsVar, NShadowsVar)
-	if NewShadowNodePtr == 0 {
-		return nil
-	}
+	var cls *ShadowNode
 
-	NewShadowNodeCls := &ShadowNode{}
-	NewShadowNodeCls.Ptr = NewShadowNodePtr
-	return NewShadowNodeCls
+	cret := xNewShadowNode(ChildVar.GoPointer(), ShadowsVar, NShadowsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ShadowNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShadowNodeGetChild func(uintptr) uintptr
 
 // Retrieves the child `GskRenderNode` of the shadow @node.
 func (x *ShadowNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xShadowNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xShadowNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShadowNodeGetNShadows func(uintptr) uint
@@ -1496,8 +1525,8 @@ var xShadowNodeGetNShadows func(uintptr) uint
 // Retrieves the number of shadows in the @node.
 func (x *ShadowNode) GetNShadows() uint {
 
-	return xShadowNodeGetNShadows(x.GoPointer())
-
+	cret := xShadowNodeGetNShadows(x.GoPointer())
+	return cret
 }
 
 var xShadowNodeGetShadow func(uintptr, uint) *Shadow
@@ -1505,8 +1534,8 @@ var xShadowNodeGetShadow func(uintptr, uint) *Shadow
 // Retrieves the shadow data at the given index @i.
 func (x *ShadowNode) GetShadow(IVar uint) *Shadow {
 
-	return xShadowNodeGetShadow(x.GoPointer(), IVar)
-
+	cret := xShadowNodeGetShadow(x.GoPointer(), IVar)
+	return cret
 }
 
 func (c *ShadowNode) GoPointer() uintptr {
@@ -1535,14 +1564,16 @@ var xNewTextNode func(uintptr, *pango.GlyphString, *gdk.RGBA, *graphene.Point) u
 // Note that @color may not be used if the font contains
 // color glyphs.
 func NewTextNode(FontVar *pango.Font, GlyphsVar *pango.GlyphString, ColorVar *gdk.RGBA, OffsetVar *graphene.Point) *TextNode {
-	NewTextNodePtr := xNewTextNode(FontVar.GoPointer(), GlyphsVar, ColorVar, OffsetVar)
-	if NewTextNodePtr == 0 {
-		return nil
-	}
+	var cls *TextNode
 
-	NewTextNodeCls := &TextNode{}
-	NewTextNodeCls.Ptr = NewTextNodePtr
-	return NewTextNodeCls
+	cret := xNewTextNode(FontVar.GoPointer(), GlyphsVar, ColorVar, OffsetVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextNodeGetColor func(uintptr) *gdk.RGBA
@@ -1550,26 +1581,25 @@ var xTextNodeGetColor func(uintptr) *gdk.RGBA
 // Retrieves the color used by the text @node.
 func (x *TextNode) GetColor() *gdk.RGBA {
 
-	return xTextNodeGetColor(x.GoPointer())
-
+	cret := xTextNodeGetColor(x.GoPointer())
+	return cret
 }
 
 var xTextNodeGetFont func(uintptr) uintptr
 
 // Returns the font used by the text @node.
 func (x *TextNode) GetFont() *pango.Font {
+	var cls *pango.Font
 
-	GetFontPtr := xTextNodeGetFont(x.GoPointer())
-	if GetFontPtr == 0 {
-		return nil
+	cret := xTextNodeGetFont(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontPtr)
-
-	GetFontCls := &pango.Font{}
-	GetFontCls.Ptr = GetFontPtr
-	return GetFontCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.Font{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextNodeGetGlyphs func(uintptr, uint) uintptr
@@ -1577,8 +1607,8 @@ var xTextNodeGetGlyphs func(uintptr, uint) uintptr
 // Retrieves the glyph information in the @node.
 func (x *TextNode) GetGlyphs(NGlyphsVar uint) uintptr {
 
-	return xTextNodeGetGlyphs(x.GoPointer(), NGlyphsVar)
-
+	cret := xTextNodeGetGlyphs(x.GoPointer(), NGlyphsVar)
+	return cret
 }
 
 var xTextNodeGetNumGlyphs func(uintptr) uint
@@ -1586,8 +1616,8 @@ var xTextNodeGetNumGlyphs func(uintptr) uint
 // Retrieves the number of glyphs in the text node.
 func (x *TextNode) GetNumGlyphs() uint {
 
-	return xTextNodeGetNumGlyphs(x.GoPointer())
-
+	cret := xTextNodeGetNumGlyphs(x.GoPointer())
+	return cret
 }
 
 var xTextNodeGetOffset func(uintptr) *graphene.Point
@@ -1595,8 +1625,8 @@ var xTextNodeGetOffset func(uintptr) *graphene.Point
 // Retrieves the offset applied to the text.
 func (x *TextNode) GetOffset() *graphene.Point {
 
-	return xTextNodeGetOffset(x.GoPointer())
-
+	cret := xTextNodeGetOffset(x.GoPointer())
+	return cret
 }
 
 var xTextNodeHasColorGlyphs func(uintptr) bool
@@ -1604,8 +1634,8 @@ var xTextNodeHasColorGlyphs func(uintptr) bool
 // Checks whether the text @node has color glyphs.
 func (x *TextNode) HasColorGlyphs() bool {
 
-	return xTextNodeHasColorGlyphs(x.GoPointer())
-
+	cret := xTextNodeHasColorGlyphs(x.GoPointer())
+	return cret
 }
 
 func (c *TextNode) GoPointer() uintptr {
@@ -1632,32 +1662,33 @@ var xNewTextureNode func(uintptr, *graphene.Rect) uintptr
 // Creates a `GskRenderNode` that will render the given
 // @texture into the area given by @bounds.
 func NewTextureNode(TextureVar *gdk.Texture, BoundsVar *graphene.Rect) *TextureNode {
-	NewTextureNodePtr := xNewTextureNode(TextureVar.GoPointer(), BoundsVar)
-	if NewTextureNodePtr == 0 {
-		return nil
-	}
+	var cls *TextureNode
 
-	NewTextureNodeCls := &TextureNode{}
-	NewTextureNodeCls.Ptr = NewTextureNodePtr
-	return NewTextureNodeCls
+	cret := xNewTextureNode(TextureVar.GoPointer(), BoundsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextureNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextureNodeGetTexture func(uintptr) uintptr
 
 // Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
 func (x *TextureNode) GetTexture() *gdk.Texture {
+	var cls *gdk.Texture
 
-	GetTexturePtr := xTextureNodeGetTexture(x.GoPointer())
-	if GetTexturePtr == 0 {
-		return nil
+	cret := xTextureNodeGetTexture(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTexturePtr)
-
-	GetTextureCls := &gdk.Texture{}
-	GetTextureCls.Ptr = GetTexturePtr
-	return GetTextureCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *TextureNode) GoPointer() uintptr {
@@ -1684,32 +1715,33 @@ var xNewTransformNode func(uintptr, *Transform) uintptr
 // Creates a `GskRenderNode` that will transform the given @child
 // with the given @transform.
 func NewTransformNode(ChildVar *RenderNode, TransformVar *Transform) *TransformNode {
-	NewTransformNodePtr := xNewTransformNode(ChildVar.GoPointer(), TransformVar)
-	if NewTransformNodePtr == 0 {
-		return nil
-	}
+	var cls *TransformNode
 
-	NewTransformNodeCls := &TransformNode{}
-	NewTransformNodeCls.Ptr = NewTransformNodePtr
-	return NewTransformNodeCls
+	cret := xNewTransformNode(ChildVar.GoPointer(), TransformVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TransformNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTransformNodeGetChild func(uintptr) uintptr
 
 // Gets the child node that is getting transformed by the given @node.
 func (x *TransformNode) GetChild() *RenderNode {
+	var cls *RenderNode
 
-	GetChildPtr := xTransformNodeGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xTransformNodeGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &RenderNode{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTransformNodeGetTransform func(uintptr) *Transform
@@ -1717,8 +1749,8 @@ var xTransformNodeGetTransform func(uintptr) *Transform
 // Retrieves the `GskTransform` used by the @node.
 func (x *TransformNode) GetTransform() *Transform {
 
-	return xTransformNodeGetTransform(x.GoPointer())
-
+	cret := xTransformNodeGetTransform(x.GoPointer())
+	return cret
 }
 
 func (c *TransformNode) GoPointer() uintptr {

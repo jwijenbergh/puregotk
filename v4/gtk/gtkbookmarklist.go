@@ -34,14 +34,16 @@ var xNewBookmarkList func(string, string) uintptr
 
 // Creates a new `GtkBookmarkList` with the given @attributes.
 func NewBookmarkList(FilenameVar string, AttributesVar string) *BookmarkList {
-	NewBookmarkListPtr := xNewBookmarkList(FilenameVar, AttributesVar)
-	if NewBookmarkListPtr == 0 {
-		return nil
-	}
+	var cls *BookmarkList
 
-	NewBookmarkListCls := &BookmarkList{}
-	NewBookmarkListCls.Ptr = NewBookmarkListPtr
-	return NewBookmarkListCls
+	cret := xNewBookmarkList(FilenameVar, AttributesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BookmarkList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBookmarkListGetAttributes func(uintptr) string
@@ -49,8 +51,8 @@ var xBookmarkListGetAttributes func(uintptr) string
 // Gets the attributes queried on the children.
 func (x *BookmarkList) GetAttributes() string {
 
-	return xBookmarkListGetAttributes(x.GoPointer())
-
+	cret := xBookmarkListGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xBookmarkListGetFilename func(uintptr) string
@@ -59,8 +61,8 @@ var xBookmarkListGetFilename func(uintptr) string
 // this list is loading.
 func (x *BookmarkList) GetFilename() string {
 
-	return xBookmarkListGetFilename(x.GoPointer())
-
+	cret := xBookmarkListGetFilename(x.GoPointer())
+	return cret
 }
 
 var xBookmarkListGetIoPriority func(uintptr) int
@@ -68,8 +70,8 @@ var xBookmarkListGetIoPriority func(uintptr) int
 // Gets the IO priority to use while loading file.
 func (x *BookmarkList) GetIoPriority() int {
 
-	return xBookmarkListGetIoPriority(x.GoPointer())
-
+	cret := xBookmarkListGetIoPriority(x.GoPointer())
+	return cret
 }
 
 var xBookmarkListIsLoading func(uintptr) bool
@@ -81,8 +83,8 @@ var xBookmarkListIsLoading func(uintptr) bool
 // in between runs.
 func (x *BookmarkList) IsLoading() bool {
 
-	return xBookmarkListIsLoading(x.GoPointer())
-
+	cret := xBookmarkListIsLoading(x.GoPointer())
+	return cret
 }
 
 var xBookmarkListSetAttributes func(uintptr, string)
@@ -127,8 +129,8 @@ func (c *BookmarkList) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *BookmarkList) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -141,8 +143,8 @@ func (x *BookmarkList) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *BookmarkList) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -152,8 +154,8 @@ func (x *BookmarkList) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *BookmarkList) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -169,16 +171,16 @@ func (x *BookmarkList) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *BookmarkList) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

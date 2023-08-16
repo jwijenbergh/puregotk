@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -60,7 +61,7 @@ func TlsInteractionNewFromInternalPtr(ptr uintptr) *TlsInteraction {
 	return cls
 }
 
-var xTlsInteractionAskPassword func(uintptr, uintptr, uintptr) TlsInteractionResult
+var xTlsInteractionAskPassword func(uintptr, uintptr, uintptr, **glib.Error) TlsInteractionResult
 
 // Run synchronous interaction to ask the user for a password. In general,
 // g_tls_interaction_invoke_ask_password() should be used instead of this
@@ -75,9 +76,14 @@ var xTlsInteractionAskPassword func(uintptr, uintptr, uintptr) TlsInteractionRes
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 // not support immediate cancellation.
-func (x *TlsInteraction) AskPassword(PasswordVar *TlsPassword, CancellableVar *Cancellable) TlsInteractionResult {
+func (x *TlsInteraction) AskPassword(PasswordVar *TlsPassword, CancellableVar *Cancellable) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionAskPassword(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer())
+	cret := xTlsInteractionAskPassword(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -104,7 +110,7 @@ func (x *TlsInteraction) AskPasswordAsync(PasswordVar *TlsPassword, CancellableV
 
 }
 
-var xTlsInteractionAskPasswordFinish func(uintptr, uintptr) TlsInteractionResult
+var xTlsInteractionAskPasswordFinish func(uintptr, uintptr, **glib.Error) TlsInteractionResult
 
 // Complete an ask password user interaction request. This should be once
 // the g_tls_interaction_ask_password_async() completion callback is called.
@@ -115,13 +121,18 @@ var xTlsInteractionAskPasswordFinish func(uintptr, uintptr) TlsInteractionResult
 // If the interaction is cancelled by the cancellation object, or by the
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code.
-func (x *TlsInteraction) AskPasswordFinish(ResultVar AsyncResult) TlsInteractionResult {
+func (x *TlsInteraction) AskPasswordFinish(ResultVar AsyncResult) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionAskPasswordFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xTlsInteractionAskPasswordFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xTlsInteractionInvokeAskPassword func(uintptr, uintptr, uintptr) TlsInteractionResult
+var xTlsInteractionInvokeAskPassword func(uintptr, uintptr, uintptr, **glib.Error) TlsInteractionResult
 
 // Invoke the interaction to ask the user for a password. It invokes this
 // interaction in the main loop, specifically the #GMainContext returned by
@@ -142,13 +153,18 @@ var xTlsInteractionInvokeAskPassword func(uintptr, uintptr, uintptr) TlsInteract
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 // not support immediate cancellation.
-func (x *TlsInteraction) InvokeAskPassword(PasswordVar *TlsPassword, CancellableVar *Cancellable) TlsInteractionResult {
+func (x *TlsInteraction) InvokeAskPassword(PasswordVar *TlsPassword, CancellableVar *Cancellable) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionInvokeAskPassword(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer())
+	cret := xTlsInteractionInvokeAskPassword(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xTlsInteractionInvokeRequestCertificate func(uintptr, uintptr, TlsCertificateRequestFlags, uintptr) TlsInteractionResult
+var xTlsInteractionInvokeRequestCertificate func(uintptr, uintptr, TlsCertificateRequestFlags, uintptr, **glib.Error) TlsInteractionResult
 
 // Invoke the interaction to ask the user to choose a certificate to
 // use with the connection. It invokes this interaction in the main
@@ -170,13 +186,18 @@ var xTlsInteractionInvokeRequestCertificate func(uintptr, uintptr, TlsCertificat
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 // not support immediate cancellation.
-func (x *TlsInteraction) InvokeRequestCertificate(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable) TlsInteractionResult {
+func (x *TlsInteraction) InvokeRequestCertificate(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionInvokeRequestCertificate(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := xTlsInteractionInvokeRequestCertificate(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xTlsInteractionRequestCertificate func(uintptr, uintptr, TlsCertificateRequestFlags, uintptr) TlsInteractionResult
+var xTlsInteractionRequestCertificate func(uintptr, uintptr, TlsCertificateRequestFlags, uintptr, **glib.Error) TlsInteractionResult
 
 // Run synchronous interaction to ask the user to choose a certificate to use
 // with the connection. In general, g_tls_interaction_invoke_request_certificate()
@@ -194,9 +215,14 @@ var xTlsInteractionRequestCertificate func(uintptr, uintptr, TlsCertificateReque
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 // not support immediate cancellation.
-func (x *TlsInteraction) RequestCertificate(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable) TlsInteractionResult {
+func (x *TlsInteraction) RequestCertificate(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionRequestCertificate(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := xTlsInteractionRequestCertificate(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -216,7 +242,7 @@ func (x *TlsInteraction) RequestCertificateAsync(ConnectionVar *TlsConnection, F
 
 }
 
-var xTlsInteractionRequestCertificateFinish func(uintptr, uintptr) TlsInteractionResult
+var xTlsInteractionRequestCertificateFinish func(uintptr, uintptr, **glib.Error) TlsInteractionResult
 
 // Complete a request certificate user interaction request. This should be once
 // the g_tls_interaction_request_certificate_async() completion callback is called.
@@ -228,9 +254,14 @@ var xTlsInteractionRequestCertificateFinish func(uintptr, uintptr) TlsInteractio
 // If the interaction is cancelled by the cancellation object, or by the
 // user then %G_TLS_INTERACTION_FAILED will be returned with an error that
 // contains a %G_IO_ERROR_CANCELLED error code.
-func (x *TlsInteraction) RequestCertificateFinish(ResultVar AsyncResult) TlsInteractionResult {
+func (x *TlsInteraction) RequestCertificateFinish(ResultVar AsyncResult) (TlsInteractionResult, error) {
+	var cerr *glib.Error
 
-	return xTlsInteractionRequestCertificateFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xTlsInteractionRequestCertificateFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

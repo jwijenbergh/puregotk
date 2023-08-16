@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -28,36 +29,50 @@ func InetAddressMaskNewFromInternalPtr(ptr uintptr) *InetAddressMask {
 	return cls
 }
 
-var xNewInetAddressMask func(uintptr, uint) uintptr
+var xNewInetAddressMask func(uintptr, uint, **glib.Error) uintptr
 
 // Creates a new #GInetAddressMask representing all addresses whose
 // first @length bits match @addr.
-func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint) *InetAddressMask {
-	NewInetAddressMaskPtr := xNewInetAddressMask(AddrVar.GoPointer(), LengthVar)
-	if NewInetAddressMaskPtr == 0 {
-		return nil
-	}
+func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint) (*InetAddressMask, error) {
+	var cls *InetAddressMask
+	var cerr *glib.Error
 
-	NewInetAddressMaskCls := &InetAddressMask{}
-	NewInetAddressMaskCls.Ptr = NewInetAddressMaskPtr
-	return NewInetAddressMaskCls
+	cret := xNewInetAddressMask(AddrVar.GoPointer(), LengthVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &InetAddressMask{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromStringInetAddressMask func(string) uintptr
+var xNewFromStringInetAddressMask func(string, **glib.Error) uintptr
 
 // Parses @mask_string as an IP address and (optional) length, and
 // creates a new #GInetAddressMask. The length, if present, is
 // delimited by a "/". If it is not present, then the length is
 // assumed to be the full length of the address.
-func NewFromStringInetAddressMask(MaskStringVar string) *InetAddressMask {
-	NewFromStringInetAddressMaskPtr := xNewFromStringInetAddressMask(MaskStringVar)
-	if NewFromStringInetAddressMaskPtr == 0 {
-		return nil
-	}
+func NewFromStringInetAddressMask(MaskStringVar string) (*InetAddressMask, error) {
+	var cls *InetAddressMask
+	var cerr *glib.Error
 
-	NewFromStringInetAddressMaskCls := &InetAddressMask{}
-	NewFromStringInetAddressMaskCls.Ptr = NewFromStringInetAddressMaskPtr
-	return NewFromStringInetAddressMaskCls
+	cret := xNewFromStringInetAddressMask(MaskStringVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &InetAddressMask{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xInetAddressMaskEqual func(uintptr, uintptr) bool
@@ -65,26 +80,25 @@ var xInetAddressMaskEqual func(uintptr, uintptr) bool
 // Tests if @mask and @mask2 are the same mask.
 func (x *InetAddressMask) Equal(Mask2Var *InetAddressMask) bool {
 
-	return xInetAddressMaskEqual(x.GoPointer(), Mask2Var.GoPointer())
-
+	cret := xInetAddressMaskEqual(x.GoPointer(), Mask2Var.GoPointer())
+	return cret
 }
 
 var xInetAddressMaskGetAddress func(uintptr) uintptr
 
 // Gets @mask's base address
 func (x *InetAddressMask) GetAddress() *InetAddress {
+	var cls *InetAddress
 
-	GetAddressPtr := xInetAddressMaskGetAddress(x.GoPointer())
-	if GetAddressPtr == 0 {
-		return nil
+	cret := xInetAddressMaskGetAddress(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAddressPtr)
-
-	GetAddressCls := &InetAddress{}
-	GetAddressCls.Ptr = GetAddressPtr
-	return GetAddressCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InetAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xInetAddressMaskGetFamily func(uintptr) SocketFamily
@@ -92,8 +106,8 @@ var xInetAddressMaskGetFamily func(uintptr) SocketFamily
 // Gets the #GSocketFamily of @mask's address
 func (x *InetAddressMask) GetFamily() SocketFamily {
 
-	return xInetAddressMaskGetFamily(x.GoPointer())
-
+	cret := xInetAddressMaskGetFamily(x.GoPointer())
+	return cret
 }
 
 var xInetAddressMaskGetLength func(uintptr) uint
@@ -101,8 +115,8 @@ var xInetAddressMaskGetLength func(uintptr) uint
 // Gets @mask's length
 func (x *InetAddressMask) GetLength() uint {
 
-	return xInetAddressMaskGetLength(x.GoPointer())
-
+	cret := xInetAddressMaskGetLength(x.GoPointer())
+	return cret
 }
 
 var xInetAddressMaskMatches func(uintptr, uintptr) bool
@@ -110,8 +124,8 @@ var xInetAddressMaskMatches func(uintptr, uintptr) bool
 // Tests if @address falls within the range described by @mask.
 func (x *InetAddressMask) Matches(AddressVar *InetAddress) bool {
 
-	return xInetAddressMaskMatches(x.GoPointer(), AddressVar.GoPointer())
-
+	cret := xInetAddressMaskMatches(x.GoPointer(), AddressVar.GoPointer())
+	return cret
 }
 
 var xInetAddressMaskToString func(uintptr) string
@@ -119,8 +133,8 @@ var xInetAddressMaskToString func(uintptr) string
 // Converts @mask back to its corresponding string form.
 func (x *InetAddressMask) ToString() string {
 
-	return xInetAddressMaskToString(x.GoPointer())
-
+	cret := xInetAddressMaskToString(x.GoPointer())
+	return cret
 }
 
 func (c *InetAddressMask) GoPointer() uintptr {
@@ -169,9 +183,14 @@ func (c *InetAddressMask) SetGoPointer(ptr uintptr) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *InetAddressMask) Init(CancellableVar *Cancellable) bool {
+func (x *InetAddressMask) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

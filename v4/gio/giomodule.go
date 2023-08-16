@@ -28,8 +28,8 @@ var xIoExtensionPointImplement func(string, []interface{}, string, int) *IOExten
 // extension point, the existing #GIOExtension object is returned.
 func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar []interface{}, ExtensionNameVar string, PriorityVar int) *IOExtension {
 
-	return xIoExtensionPointImplement(ExtensionPointNameVar, TypeVar, ExtensionNameVar, PriorityVar)
-
+	cret := xIoExtensionPointImplement(ExtensionPointNameVar, TypeVar, ExtensionNameVar, PriorityVar)
+	return cret
 }
 
 var xIoExtensionPointLookup func(string) *IOExtensionPoint
@@ -37,8 +37,8 @@ var xIoExtensionPointLookup func(string) *IOExtensionPoint
 // Looks up an existing extension point.
 func IoExtensionPointLookup(NameVar string) *IOExtensionPoint {
 
-	return xIoExtensionPointLookup(NameVar)
-
+	cret := xIoExtensionPointLookup(NameVar)
+	return cret
 }
 
 var xIoExtensionPointRegister func(string) *IOExtensionPoint
@@ -46,8 +46,8 @@ var xIoExtensionPointRegister func(string) *IOExtensionPoint
 // Registers an extension point.
 func IoExtensionPointRegister(NameVar string) *IOExtensionPoint {
 
-	return xIoExtensionPointRegister(NameVar)
-
+	cret := xIoExtensionPointRegister(NameVar)
+	return cret
 }
 
 var xIoModulesLoadAllInDirectory func(string) *glib.List
@@ -59,8 +59,8 @@ var xIoModulesLoadAllInDirectory func(string) *glib.List
 // which allows delayed/lazy loading of modules.
 func IoModulesLoadAllInDirectory(DirnameVar string) *glib.List {
 
-	return xIoModulesLoadAllInDirectory(DirnameVar)
-
+	cret := xIoModulesLoadAllInDirectory(DirnameVar)
+	return cret
 }
 
 var xIoModulesLoadAllInDirectoryWithScope func(string, *IOModuleScope) *glib.List
@@ -72,8 +72,8 @@ var xIoModulesLoadAllInDirectoryWithScope func(string, *IOModuleScope) *glib.Lis
 // which allows delayed/lazy loading of modules.
 func IoModulesLoadAllInDirectoryWithScope(DirnameVar string, ScopeVar *IOModuleScope) *glib.List {
 
-	return xIoModulesLoadAllInDirectoryWithScope(DirnameVar, ScopeVar)
-
+	cret := xIoModulesLoadAllInDirectoryWithScope(DirnameVar, ScopeVar)
+	return cret
 }
 
 var xIoModulesScanAllInDirectory func(string)
@@ -132,14 +132,16 @@ var xNewIOModule func(string) uintptr
 // Creates a new GIOModule that will load the specific
 // shared library when in use.
 func NewIOModule(FilenameVar string) *IOModule {
-	NewIOModulePtr := xNewIOModule(FilenameVar)
-	if NewIOModulePtr == 0 {
-		return nil
-	}
+	var cls *IOModule
 
-	NewIOModuleCls := &IOModule{}
-	NewIOModuleCls.Ptr = NewIOModulePtr
-	return NewIOModuleCls
+	cret := xNewIOModule(FilenameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IOModule{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIOModuleLoad func(uintptr)

@@ -31,46 +31,49 @@ var xNewEmblem func(uintptr) uintptr
 
 // Creates a new emblem for @icon.
 func NewEmblem(IconVar Icon) *Emblem {
-	NewEmblemPtr := xNewEmblem(IconVar.GoPointer())
-	if NewEmblemPtr == 0 {
-		return nil
-	}
+	var cls *Emblem
 
-	NewEmblemCls := &Emblem{}
-	NewEmblemCls.Ptr = NewEmblemPtr
-	return NewEmblemCls
+	cret := xNewEmblem(IconVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Emblem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithOriginEmblem func(uintptr, EmblemOrigin) uintptr
 
 // Creates a new emblem for @icon.
 func NewWithOriginEmblem(IconVar Icon, OriginVar EmblemOrigin) *Emblem {
-	NewWithOriginEmblemPtr := xNewWithOriginEmblem(IconVar.GoPointer(), OriginVar)
-	if NewWithOriginEmblemPtr == 0 {
-		return nil
-	}
+	var cls *Emblem
 
-	NewWithOriginEmblemCls := &Emblem{}
-	NewWithOriginEmblemCls.Ptr = NewWithOriginEmblemPtr
-	return NewWithOriginEmblemCls
+	cret := xNewWithOriginEmblem(IconVar.GoPointer(), OriginVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Emblem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEmblemGetIcon func(uintptr) uintptr
 
 // Gives back the icon from @emblem.
 func (x *Emblem) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := xEmblemGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := xEmblemGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPtr)
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEmblemGetOrigin func(uintptr) EmblemOrigin
@@ -78,8 +81,8 @@ var xEmblemGetOrigin func(uintptr) EmblemOrigin
 // Gets the origin of the emblem.
 func (x *Emblem) GetOrigin() EmblemOrigin {
 
-	return xEmblemGetOrigin(x.GoPointer())
-
+	cret := xEmblemGetOrigin(x.GoPointer())
+	return cret
 }
 
 func (c *Emblem) GoPointer() uintptr {
@@ -93,8 +96,8 @@ func (c *Emblem) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *Emblem) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -104,8 +107,8 @@ func (x *Emblem) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *Emblem) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -126,8 +129,8 @@ func (x *Emblem) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *Emblem) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 func init() {

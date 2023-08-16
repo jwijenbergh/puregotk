@@ -86,32 +86,34 @@ var xNewText func() uintptr
 
 // Creates a new `GtkText`.
 func NewText() *Widget {
-	NewTextPtr := xNewText()
-	if NewTextPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewText()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTextPtr)
-
-	NewTextCls := &Widget{}
-	NewTextCls.Ptr = NewTextPtr
-	return NewTextCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithBufferText func(uintptr) uintptr
 
 // Creates a new `GtkText` with the specified text buffer.
 func NewWithBufferText(BufferVar *EntryBuffer) *Widget {
-	NewWithBufferTextPtr := xNewWithBufferText(BufferVar.GoPointer())
-	if NewWithBufferTextPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithBufferText(BufferVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithBufferTextPtr)
-
-	NewWithBufferTextCls := &Widget{}
-	NewWithBufferTextCls.Ptr = NewWithBufferTextPtr
-	return NewWithBufferTextCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextComputeCursorExtents func(uintptr, uint, *graphene.Rect, *graphene.Rect)
@@ -140,8 +142,8 @@ var xTextGetActivatesDefault func(uintptr) bool
 // See [method@Gtk.Text.set_activates_default].
 func (x *Text) GetActivatesDefault() bool {
 
-	return xTextGetActivatesDefault(x.GoPointer())
-
+	cret := xTextGetActivatesDefault(x.GoPointer())
+	return cret
 }
 
 var xTextGetAttributes func(uintptr) *pango.AttrList
@@ -151,8 +153,8 @@ var xTextGetAttributes func(uintptr) *pango.AttrList
 // See [method@Gtk.Text.set_attributes].
 func (x *Text) GetAttributes() *pango.AttrList {
 
-	return xTextGetAttributes(x.GoPointer())
-
+	cret := xTextGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xTextGetBuffer func(uintptr) uintptr
@@ -160,18 +162,17 @@ var xTextGetBuffer func(uintptr) uintptr
 // Get the `GtkEntryBuffer` object which holds the text for
 // this widget.
 func (x *Text) GetBuffer() *EntryBuffer {
+	var cls *EntryBuffer
 
-	GetBufferPtr := xTextGetBuffer(x.GoPointer())
-	if GetBufferPtr == 0 {
-		return nil
+	cret := xTextGetBuffer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBufferPtr)
-
-	GetBufferCls := &EntryBuffer{}
-	GetBufferCls.Ptr = GetBufferPtr
-	return GetBufferCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EntryBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextGetEnableEmojiCompletion func(uintptr) bool
@@ -180,8 +181,8 @@ var xTextGetEnableEmojiCompletion func(uintptr) bool
 // `GtkText` widget.
 func (x *Text) GetEnableEmojiCompletion() bool {
 
-	return xTextGetEnableEmojiCompletion(x.GoPointer())
-
+	cret := xTextGetEnableEmojiCompletion(x.GoPointer())
+	return cret
 }
 
 var xTextGetExtraMenu func(uintptr) uintptr
@@ -190,18 +191,17 @@ var xTextGetExtraMenu func(uintptr) uintptr
 //
 // See [method@Gtk.Text.set_extra_menu].
 func (x *Text) GetExtraMenu() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetExtraMenuPtr := xTextGetExtraMenu(x.GoPointer())
-	if GetExtraMenuPtr == 0 {
-		return nil
+	cret := xTextGetExtraMenu(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExtraMenuPtr)
-
-	GetExtraMenuCls := &gio.MenuModel{}
-	GetExtraMenuCls.Ptr = GetExtraMenuPtr
-	return GetExtraMenuCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextGetInputHints func(uintptr) InputHints
@@ -209,8 +209,8 @@ var xTextGetInputHints func(uintptr) InputHints
 // Gets the input hints of the `GtkText`.
 func (x *Text) GetInputHints() InputHints {
 
-	return xTextGetInputHints(x.GoPointer())
-
+	cret := xTextGetInputHints(x.GoPointer())
+	return cret
 }
 
 var xTextGetInputPurpose func(uintptr) InputPurpose
@@ -218,8 +218,8 @@ var xTextGetInputPurpose func(uintptr) InputPurpose
 // Gets the input purpose of the `GtkText`.
 func (x *Text) GetInputPurpose() InputPurpose {
 
-	return xTextGetInputPurpose(x.GoPointer())
-
+	cret := xTextGetInputPurpose(x.GoPointer())
+	return cret
 }
 
 var xTextGetInvisibleChar func(uintptr) uint32
@@ -231,8 +231,8 @@ var xTextGetInvisibleChar func(uintptr) uint32
 // it has been explicitly set with [method@Gtk.Text.set_invisible_char].
 func (x *Text) GetInvisibleChar() uint32 {
 
-	return xTextGetInvisibleChar(x.GoPointer())
-
+	cret := xTextGetInvisibleChar(x.GoPointer())
+	return cret
 }
 
 var xTextGetMaxLength func(uintptr) int
@@ -245,8 +245,8 @@ var xTextGetMaxLength func(uintptr) int
 // calling [method@Gtk.EntryBuffer.get_max_length] on it.
 func (x *Text) GetMaxLength() int {
 
-	return xTextGetMaxLength(x.GoPointer())
-
+	cret := xTextGetMaxLength(x.GoPointer())
+	return cret
 }
 
 var xTextGetOverwriteMode func(uintptr) bool
@@ -256,8 +256,8 @@ var xTextGetOverwriteMode func(uintptr) bool
 // See [method@Gtk.Text.set_overwrite_mode].
 func (x *Text) GetOverwriteMode() bool {
 
-	return xTextGetOverwriteMode(x.GoPointer())
-
+	cret := xTextGetOverwriteMode(x.GoPointer())
+	return cret
 }
 
 var xTextGetPlaceholderText func(uintptr) string
@@ -268,8 +268,8 @@ var xTextGetPlaceholderText func(uintptr) string
 // If no placeholder text has been set, %NULL will be returned.
 func (x *Text) GetPlaceholderText() string {
 
-	return xTextGetPlaceholderText(x.GoPointer())
-
+	cret := xTextGetPlaceholderText(x.GoPointer())
+	return cret
 }
 
 var xTextGetPropagateTextWidth func(uintptr) bool
@@ -278,8 +278,8 @@ var xTextGetPropagateTextWidth func(uintptr) bool
 // with the content.
 func (x *Text) GetPropagateTextWidth() bool {
 
-	return xTextGetPropagateTextWidth(x.GoPointer())
-
+	cret := xTextGetPropagateTextWidth(x.GoPointer())
+	return cret
 }
 
 var xTextGetTabs func(uintptr) *pango.TabArray
@@ -289,8 +289,8 @@ var xTextGetTabs func(uintptr) *pango.TabArray
 // See [method@Gtk.Text.set_tabs].
 func (x *Text) GetTabs() *pango.TabArray {
 
-	return xTextGetTabs(x.GoPointer())
-
+	cret := xTextGetTabs(x.GoPointer())
+	return cret
 }
 
 var xTextGetTextLength func(uintptr) uint16
@@ -301,8 +301,8 @@ var xTextGetTextLength func(uintptr) uint16
 // and calling [method@Gtk.EntryBuffer.get_length] on it.
 func (x *Text) GetTextLength() uint16 {
 
-	return xTextGetTextLength(x.GoPointer())
-
+	cret := xTextGetTextLength(x.GoPointer())
+	return cret
 }
 
 var xTextGetTruncateMultiline func(uintptr) bool
@@ -311,8 +311,8 @@ var xTextGetTruncateMultiline func(uintptr) bool
 // that is pasted into the widget
 func (x *Text) GetTruncateMultiline() bool {
 
-	return xTextGetTruncateMultiline(x.GoPointer())
-
+	cret := xTextGetTruncateMultiline(x.GoPointer())
+	return cret
 }
 
 var xTextGetVisibility func(uintptr) bool
@@ -320,8 +320,8 @@ var xTextGetVisibility func(uintptr) bool
 // Retrieves whether the text in @self is visible.
 func (x *Text) GetVisibility() bool {
 
-	return xTextGetVisibility(x.GoPointer())
-
+	cret := xTextGetVisibility(x.GoPointer())
+	return cret
 }
 
 var xTextGrabFocusWithoutSelecting func(uintptr) bool
@@ -335,8 +335,8 @@ var xTextGrabFocusWithoutSelecting func(uintptr) bool
 // such as search-as-you-type entries.
 func (x *Text) GrabFocusWithoutSelecting() bool {
 
-	return xTextGrabFocusWithoutSelecting(x.GoPointer())
-
+	cret := xTextGrabFocusWithoutSelecting(x.GoPointer())
+	return cret
 }
 
 var xTextSetActivatesDefault func(uintptr, bool)
@@ -746,8 +746,8 @@ func (x *Text) ConnectToggleOverwrite(cb func(Text)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Text) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -882,8 +882,8 @@ func (x *Text) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uin
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Text) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Deletes the currently selected text of the editable.
@@ -922,8 +922,8 @@ func (x *Text) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *Text) GetAlignment() float32 {
 
-	return XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -936,8 +936,8 @@ func (x *Text) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *Text) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -945,39 +945,38 @@ func (x *Text) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *Text) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *Text) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *Text) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *Text) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -986,8 +985,8 @@ func (x *Text) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *Text) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -999,8 +998,8 @@ func (x *Text) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *Text) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -1008,16 +1007,16 @@ func (x *Text) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *Text) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *Text) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

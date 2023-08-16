@@ -19,7 +19,7 @@ const (
 	GShellErrorFailedValue ShellError = 2
 )
 
-var xShellParseArgv func(string, int, uintptr) bool
+var xShellParseArgv func(string, int, uintptr, **Error) bool
 
 // Parses a command line into an argument vector, in much the same way
 // the shell would, but without many of the expansions the shell would
@@ -39,9 +39,14 @@ var xShellParseArgv func(string, int, uintptr) bool
 // successfully.
 //
 // Free the returned vector with g_strfreev().
-func ShellParseArgv(CommandLineVar string, ArgcpVar int, ArgvpVar uintptr) bool {
+func ShellParseArgv(CommandLineVar string, ArgcpVar int, ArgvpVar uintptr) (bool, error) {
+	var cerr *Error
 
-	return xShellParseArgv(CommandLineVar, ArgcpVar, ArgvpVar)
+	cret := xShellParseArgv(CommandLineVar, ArgcpVar, ArgvpVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -59,11 +64,11 @@ var xShellQuote func(string) string
 // used).
 func ShellQuote(UnquotedStringVar string) string {
 
-	return xShellQuote(UnquotedStringVar)
-
+	cret := xShellQuote(UnquotedStringVar)
+	return cret
 }
 
-var xShellUnquote func(string) string
+var xShellUnquote func(string, **Error) string
 
 // Unquotes a string as the shell (/bin/sh) would.
 //
@@ -92,9 +97,14 @@ var xShellUnquote func(string) string
 // like `'foo'\”bar'`. Double quotes allow `$`, ```, `"`, `\`, and
 // newline to be escaped with backslash. Otherwise double quotes
 // preserve things literally.
-func ShellUnquote(QuotedStringVar string) string {
+func ShellUnquote(QuotedStringVar string) (string, error) {
+	var cerr *Error
 
-	return xShellUnquote(QuotedStringVar)
+	cret := xShellUnquote(QuotedStringVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

@@ -36,14 +36,16 @@ var xNewGestureSwipe func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes swipes.
 func NewGestureSwipe() *Gesture {
-	NewGestureSwipePtr := xNewGestureSwipe()
-	if NewGestureSwipePtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureSwipeCls := &Gesture{}
-	NewGestureSwipeCls.Ptr = NewGestureSwipePtr
-	return NewGestureSwipeCls
+	cret := xNewGestureSwipe()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureSwipeGetVelocity func(uintptr, float64, float64) bool
@@ -55,8 +57,8 @@ var xGestureSwipeGetVelocity func(uintptr, float64, float64) bool
 // last events processed.
 func (x *GestureSwipe) GetVelocity(VelocityXVar float64, VelocityYVar float64) bool {
 
-	return xGestureSwipeGetVelocity(x.GoPointer(), VelocityXVar, VelocityYVar)
-
+	cret := xGestureSwipeGetVelocity(x.GoPointer(), VelocityXVar, VelocityYVar)
+	return cret
 }
 
 func (c *GestureSwipe) GoPointer() uintptr {

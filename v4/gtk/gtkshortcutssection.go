@@ -54,8 +54,8 @@ func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, in
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ShortcutsSection) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -190,15 +190,15 @@ func (x *ShortcutsSection) UpdateStateValue(NStatesVar int, StatesVar uintptr, V
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ShortcutsSection) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ShortcutsSection) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

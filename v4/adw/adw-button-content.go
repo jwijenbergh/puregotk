@@ -76,16 +76,17 @@ var xNewButtonContent func() uintptr
 
 // Creates a new `AdwButtonContent`.
 func NewButtonContent() *gtk.Widget {
-	NewButtonContentPtr := xNewButtonContent()
-	if NewButtonContentPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewButtonContent()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewButtonContentPtr)
-
-	NewButtonContentCls := &gtk.Widget{}
-	NewButtonContentCls.Ptr = NewButtonContentPtr
-	return NewButtonContentCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xButtonContentGetIconName func(uintptr) string
@@ -93,8 +94,8 @@ var xButtonContentGetIconName func(uintptr) string
 // Gets the name of the displayed icon.
 func (x *ButtonContent) GetIconName() string {
 
-	return xButtonContentGetIconName(x.GoPointer())
-
+	cret := xButtonContentGetIconName(x.GoPointer())
+	return cret
 }
 
 var xButtonContentGetLabel func(uintptr) string
@@ -102,8 +103,8 @@ var xButtonContentGetLabel func(uintptr) string
 // Gets the displayed label.
 func (x *ButtonContent) GetLabel() string {
 
-	return xButtonContentGetLabel(x.GoPointer())
-
+	cret := xButtonContentGetLabel(x.GoPointer())
+	return cret
 }
 
 var xButtonContentGetUseUnderline func(uintptr) bool
@@ -111,8 +112,8 @@ var xButtonContentGetUseUnderline func(uintptr) bool
 // Gets whether an underline in the text indicates a mnemonic.
 func (x *ButtonContent) GetUseUnderline() bool {
 
-	return xButtonContentGetUseUnderline(x.GoPointer())
-
+	cret := xButtonContentGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xButtonContentSetIconName func(uintptr, string)
@@ -159,8 +160,8 @@ func (c *ButtonContent) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ButtonContent) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -295,8 +296,8 @@ func (x *ButtonContent) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ButtonContent) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

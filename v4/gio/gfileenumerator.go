@@ -51,7 +51,7 @@ func FileEnumeratorNewFromInternalPtr(ptr uintptr) *FileEnumerator {
 	return cls
 }
 
-var xFileEnumeratorClose func(uintptr, uintptr) bool
+var xFileEnumeratorClose func(uintptr, uintptr, **glib.Error) bool
 
 // Releases all resources used by this enumerator, making the
 // enumerator return %G_IO_ERROR_CLOSED on all calls.
@@ -59,9 +59,14 @@ var xFileEnumeratorClose func(uintptr, uintptr) bool
 // This will be automatically called when the last reference
 // is dropped, but you might want to call this function to make
 // sure resources are released as early as possible.
-func (x *FileEnumerator) Close(CancellableVar *Cancellable) bool {
+func (x *FileEnumerator) Close(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xFileEnumeratorClose(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xFileEnumeratorClose(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -79,7 +84,7 @@ func (x *FileEnumerator) CloseAsync(IoPriorityVar int, CancellableVar *Cancellab
 
 }
 
-var xFileEnumeratorCloseFinish func(uintptr, uintptr) bool
+var xFileEnumeratorCloseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes closing a file enumerator, started from g_file_enumerator_close_async().
 //
@@ -91,9 +96,14 @@ var xFileEnumeratorCloseFinish func(uintptr, uintptr) bool
 // cancelled by triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be set, and %FALSE will be
 // returned.
-func (x *FileEnumerator) CloseFinish(ResultVar AsyncResult) bool {
+func (x *FileEnumerator) CloseFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xFileEnumeratorCloseFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xFileEnumeratorCloseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -115,34 +125,33 @@ var xFileEnumeratorGetChild func(uintptr, uintptr) uintptr
 //
 // ]|
 func (x *FileEnumerator) GetChild(InfoVar *FileInfo) *FileBase {
+	var cls *FileBase
 
-	GetChildPtr := xFileEnumeratorGetChild(x.GoPointer(), InfoVar.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xFileEnumeratorGetChild(x.GoPointer(), InfoVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetChildCls := &FileBase{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileEnumeratorGetContainer func(uintptr) uintptr
 
 // Get the #GFile container which is being enumerated.
 func (x *FileEnumerator) GetContainer() *FileBase {
+	var cls *FileBase
 
-	GetContainerPtr := xFileEnumeratorGetContainer(x.GoPointer())
-	if GetContainerPtr == 0 {
-		return nil
+	cret := xFileEnumeratorGetContainer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContainerPtr)
-
-	GetContainerCls := &FileBase{}
-	GetContainerCls.Ptr = GetContainerPtr
-	return GetContainerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFileEnumeratorHasPending func(uintptr) bool
@@ -150,8 +159,8 @@ var xFileEnumeratorHasPending func(uintptr) bool
 // Checks if the file enumerator has pending operations.
 func (x *FileEnumerator) HasPending() bool {
 
-	return xFileEnumeratorHasPending(x.GoPointer())
-
+	cret := xFileEnumeratorHasPending(x.GoPointer())
+	return cret
 }
 
 var xFileEnumeratorIsClosed func(uintptr) bool
@@ -159,11 +168,11 @@ var xFileEnumeratorIsClosed func(uintptr) bool
 // Checks if the file enumerator has been closed.
 func (x *FileEnumerator) IsClosed() bool {
 
-	return xFileEnumeratorIsClosed(x.GoPointer())
-
+	cret := xFileEnumeratorIsClosed(x.GoPointer())
+	return cret
 }
 
-var xFileEnumeratorIterate func(uintptr, *uintptr, *uintptr, uintptr) bool
+var xFileEnumeratorIterate func(uintptr, *uintptr, *uintptr, uintptr, **glib.Error) bool
 
 // This is a version of g_file_enumerator_next_file() that's easier to
 // use correctly from C programs.  With g_file_enumerator_next_file(),
@@ -206,13 +215,18 @@ var xFileEnumeratorIterate func(uintptr, *uintptr, *uintptr, uintptr) bool
 //	g_object_unref (direnum); // Note: frees the last @info
 //
 // ]|
-func (x *FileEnumerator) Iterate(OutInfoVar **FileInfo, OutChildVar *File, CancellableVar *Cancellable) bool {
+func (x *FileEnumerator) Iterate(OutInfoVar **FileInfo, OutChildVar *File, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xFileEnumeratorIterate(x.GoPointer(), gobject.ConvertPtr(OutInfoVar), gobject.ConvertPtr(OutChildVar), CancellableVar.GoPointer())
+	cret := xFileEnumeratorIterate(x.GoPointer(), gobject.ConvertPtr(OutInfoVar), gobject.ConvertPtr(OutChildVar), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xFileEnumeratorNextFile func(uintptr, uintptr) uintptr
+var xFileEnumeratorNextFile func(uintptr, uintptr, **glib.Error) uintptr
 
 // Returns information for the next file in the enumerated object.
 // Will block until the information is available. The #GFileInfo
@@ -225,16 +239,21 @@ var xFileEnumeratorNextFile func(uintptr, uintptr) uintptr
 // On error, returns %NULL and sets @error to the error. If the
 // enumerator is at the end, %NULL will be returned and @error will
 // be unset.
-func (x *FileEnumerator) NextFile(CancellableVar *Cancellable) *FileInfo {
+func (x *FileEnumerator) NextFile(CancellableVar *Cancellable) (*FileInfo, error) {
+	var cls *FileInfo
+	var cerr *glib.Error
 
-	NextFilePtr := xFileEnumeratorNextFile(x.GoPointer(), CancellableVar.GoPointer())
-	if NextFilePtr == 0 {
-		return nil
+	cret := xFileEnumeratorNextFile(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NextFileCls := &FileInfo{}
-	NextFileCls.Ptr = NextFilePtr
-	return NextFileCls
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -265,12 +284,17 @@ func (x *FileEnumerator) NextFilesAsync(NumFilesVar int, IoPriorityVar int, Canc
 
 }
 
-var xFileEnumeratorNextFilesFinish func(uintptr, uintptr) *glib.List
+var xFileEnumeratorNextFilesFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Finishes the asynchronous operation started with g_file_enumerator_next_files_async().
-func (x *FileEnumerator) NextFilesFinish(ResultVar AsyncResult) *glib.List {
+func (x *FileEnumerator) NextFilesFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xFileEnumeratorNextFilesFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xFileEnumeratorNextFilesFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

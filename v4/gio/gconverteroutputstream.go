@@ -34,32 +34,33 @@ var xNewConverterOutputStream func(uintptr, uintptr) uintptr
 
 // Creates a new converter output stream for the @base_stream.
 func NewConverterOutputStream(BaseStreamVar *OutputStream, ConverterVar Converter) *OutputStream {
-	NewConverterOutputStreamPtr := xNewConverterOutputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
-	if NewConverterOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewConverterOutputStreamCls := &OutputStream{}
-	NewConverterOutputStreamCls.Ptr = NewConverterOutputStreamPtr
-	return NewConverterOutputStreamCls
+	cret := xNewConverterOutputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConverterOutputStreamGetConverter func(uintptr) uintptr
 
 // Gets the #GConverter that is used by @converter_stream.
 func (x *ConverterOutputStream) GetConverter() *ConverterBase {
+	var cls *ConverterBase
 
-	GetConverterPtr := xConverterOutputStreamGetConverter(x.GoPointer())
-	if GetConverterPtr == 0 {
-		return nil
+	cret := xConverterOutputStreamGetConverter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConverterPtr)
-
-	GetConverterCls := &ConverterBase{}
-	GetConverterCls.Ptr = GetConverterPtr
-	return GetConverterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ConverterBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ConverterOutputStream) GoPointer() uintptr {
@@ -79,8 +80,8 @@ func (c *ConverterOutputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *ConverterOutputStream) CanPoll() bool {
 
-	return XGPollableOutputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableOutputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be written, or
@@ -93,8 +94,8 @@ func (x *ConverterOutputStream) CanPoll() bool {
 // rather than g_output_stream_write() from the callback.
 func (x *ConverterOutputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be written.
@@ -107,8 +108,8 @@ func (x *ConverterOutputStream) CreateSource(CancellableVar *Cancellable) *glib.
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *ConverterOutputStream) IsWritable() bool {
 
-	return XGPollableOutputStreamIsWritable(x.GoPointer())
-
+	cret := XGPollableOutputStreamIsWritable(x.GoPointer())
+	return cret
 }
 
 // Attempts to write up to @count bytes from @buffer to @stream, as
@@ -126,9 +127,14 @@ func (x *ConverterOutputStream) IsWritable() bool {
 // Also note that if %G_IO_ERROR_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @buffer and
 // @count in the next write call.
-func (x *ConverterOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *ConverterOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -148,9 +154,14 @@ func (x *ConverterOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uin
 // Also note that if %G_POLLABLE_RETURN_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @vectors and
 // @n_vectors in the next write call.
-func (x *ConverterOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn {
+func (x *ConverterOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (PollableReturn, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

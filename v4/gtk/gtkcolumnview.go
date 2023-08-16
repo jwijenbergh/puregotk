@@ -93,16 +93,17 @@ var xNewColumnView func(uintptr) uintptr
 // You most likely want to call [method@Gtk.ColumnView.append_column]
 // to add columns next.
 func NewColumnView(ModelVar SelectionModel) *Widget {
-	NewColumnViewPtr := xNewColumnView(ModelVar.GoPointer())
-	if NewColumnViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewColumnView(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewColumnViewPtr)
-
-	NewColumnViewCls := &Widget{}
-	NewColumnViewCls.Ptr = NewColumnViewPtr
-	return NewColumnViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewAppendColumn func(uintptr, uintptr)
@@ -122,18 +123,17 @@ var xColumnViewGetColumns func(uintptr) uintptr
 // monitor changes to the columns of @self by connecting to the
 // ::items-changed signal.
 func (x *ColumnView) GetColumns() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetColumnsPtr := xColumnViewGetColumns(x.GoPointer())
-	if GetColumnsPtr == 0 {
-		return nil
+	cret := xColumnViewGetColumns(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetColumnsPtr)
-
-	GetColumnsCls := &gio.ListModelBase{}
-	GetColumnsCls.Ptr = GetColumnsPtr
-	return GetColumnsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewGetEnableRubberband func(uintptr) bool
@@ -141,26 +141,25 @@ var xColumnViewGetEnableRubberband func(uintptr) bool
 // Returns whether rows can be selected by dragging with the mouse.
 func (x *ColumnView) GetEnableRubberband() bool {
 
-	return xColumnViewGetEnableRubberband(x.GoPointer())
-
+	cret := xColumnViewGetEnableRubberband(x.GoPointer())
+	return cret
 }
 
 var xColumnViewGetModel func(uintptr) uintptr
 
 // Gets the model that's currently used to read the items displayed.
 func (x *ColumnView) GetModel() *SelectionModelBase {
+	var cls *SelectionModelBase
 
-	GetModelPtr := xColumnViewGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xColumnViewGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &SelectionModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewGetReorderable func(uintptr) bool
@@ -168,8 +167,8 @@ var xColumnViewGetReorderable func(uintptr) bool
 // Returns whether columns are reorderable.
 func (x *ColumnView) GetReorderable() bool {
 
-	return xColumnViewGetReorderable(x.GoPointer())
-
+	cret := xColumnViewGetReorderable(x.GoPointer())
+	return cret
 }
 
 var xColumnViewGetShowColumnSeparators func(uintptr) bool
@@ -178,8 +177,8 @@ var xColumnViewGetShowColumnSeparators func(uintptr) bool
 // between columns.
 func (x *ColumnView) GetShowColumnSeparators() bool {
 
-	return xColumnViewGetShowColumnSeparators(x.GoPointer())
-
+	cret := xColumnViewGetShowColumnSeparators(x.GoPointer())
+	return cret
 }
 
 var xColumnViewGetShowRowSeparators func(uintptr) bool
@@ -188,8 +187,8 @@ var xColumnViewGetShowRowSeparators func(uintptr) bool
 // between rows.
 func (x *ColumnView) GetShowRowSeparators() bool {
 
-	return xColumnViewGetShowRowSeparators(x.GoPointer())
-
+	cret := xColumnViewGetShowRowSeparators(x.GoPointer())
+	return cret
 }
 
 var xColumnViewGetSingleClickActivate func(uintptr) bool
@@ -198,8 +197,8 @@ var xColumnViewGetSingleClickActivate func(uintptr) bool
 // selected on hover.
 func (x *ColumnView) GetSingleClickActivate() bool {
 
-	return xColumnViewGetSingleClickActivate(x.GoPointer())
-
+	cret := xColumnViewGetSingleClickActivate(x.GoPointer())
+	return cret
 }
 
 var xColumnViewGetSorter func(uintptr) uintptr
@@ -224,18 +223,17 @@ var xColumnViewGetSorter func(uintptr) uintptr
 // gtk_column_view_set_model (view, selection);
 // ```
 func (x *ColumnView) GetSorter() *Sorter {
+	var cls *Sorter
 
-	GetSorterPtr := xColumnViewGetSorter(x.GoPointer())
-	if GetSorterPtr == 0 {
-		return nil
+	cret := xColumnViewGetSorter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSorterPtr)
-
-	GetSorterCls := &Sorter{}
-	GetSorterCls.Ptr = GetSorterPtr
-	return GetSorterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Sorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewInsertColumn func(uintptr, uint, uintptr)
@@ -365,8 +363,8 @@ func (x *ColumnView) ConnectActivate(cb func(ColumnView, uint)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ColumnView) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -501,8 +499,8 @@ func (x *ColumnView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ColumnView) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the size of a non-scrolling border around the
@@ -513,54 +511,52 @@ func (x *ColumnView) GetBuildableId() string {
 // overshoot indication, at the right position.
 func (x *ColumnView) GetBorder(BorderVar *Border) bool {
 
-	return XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *ColumnView) GetHadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetHadjustmentPtr := XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *ColumnView) GetHscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *ColumnView) GetVadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetVadjustmentPtr := XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *ColumnView) GetVscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

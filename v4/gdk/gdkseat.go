@@ -48,8 +48,8 @@ var xSeatGetCapabilities func(uintptr) SeatCapabilities
 // Returns the capabilities this `GdkSeat` currently has.
 func (x *Seat) GetCapabilities() SeatCapabilities {
 
-	return xSeatGetCapabilities(x.GoPointer())
-
+	cret := xSeatGetCapabilities(x.GoPointer())
+	return cret
 }
 
 var xSeatGetDevices func(uintptr, SeatCapabilities) *glib.List
@@ -57,62 +57,59 @@ var xSeatGetDevices func(uintptr, SeatCapabilities) *glib.List
 // Returns the devices that match the given capabilities.
 func (x *Seat) GetDevices(CapabilitiesVar SeatCapabilities) *glib.List {
 
-	return xSeatGetDevices(x.GoPointer(), CapabilitiesVar)
-
+	cret := xSeatGetDevices(x.GoPointer(), CapabilitiesVar)
+	return cret
 }
 
 var xSeatGetDisplay func(uintptr) uintptr
 
 // Returns the `GdkDisplay` this seat belongs to.
 func (x *Seat) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xSeatGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xSeatGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSeatGetKeyboard func(uintptr) uintptr
 
 // Returns the device that routes keyboard events.
 func (x *Seat) GetKeyboard() *Device {
+	var cls *Device
 
-	GetKeyboardPtr := xSeatGetKeyboard(x.GoPointer())
-	if GetKeyboardPtr == 0 {
-		return nil
+	cret := xSeatGetKeyboard(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetKeyboardPtr)
-
-	GetKeyboardCls := &Device{}
-	GetKeyboardCls.Ptr = GetKeyboardPtr
-	return GetKeyboardCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Device{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSeatGetPointer func(uintptr) uintptr
 
 // Returns the device that routes pointer events.
 func (x *Seat) GetPointer() *Device {
+	var cls *Device
 
-	GetPointerPtr := xSeatGetPointer(x.GoPointer())
-	if GetPointerPtr == 0 {
-		return nil
+	cret := xSeatGetPointer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPointerPtr)
-
-	GetPointerCls := &Device{}
-	GetPointerCls.Ptr = GetPointerPtr
-	return GetPointerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Device{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSeatGetTools func(uintptr) *glib.List
@@ -120,8 +117,8 @@ var xSeatGetTools func(uintptr) *glib.List
 // Returns all `GdkDeviceTools` that are known to the application.
 func (x *Seat) GetTools() *glib.List {
 
-	return xSeatGetTools(x.GoPointer())
-
+	cret := xSeatGetTools(x.GoPointer())
+	return cret
 }
 
 func (c *Seat) GoPointer() uintptr {

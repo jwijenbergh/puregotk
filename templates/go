@@ -2,6 +2,7 @@
 package {{.PkgName}}
 
 {{ $NotGObject := ne .PkgName "gobject" }}
+{{ $NotGLib := ne .PkgName "glib" }}
 
 {{if or .Imports .NeedsInit}}
 import (
@@ -55,23 +56,10 @@ func (x *{{.Name}}Base) SetGoPointer(ptr uintptr) {
 {{$outer := .}}
 {{range .Methods -}}
 {{.Doc}}
-func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
-     {{if .Ret.Class}}
-     {{.Name}}Ptr := {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     if {{.Name}}Ptr == 0 {
-     	return nil
-     }
-     {{if .Ret.RefSink}}
-     {{if $NotGObject}}gobject.{{end}}IncreaseRef({{.Name}}Ptr)
-     {{end}}
-     {{.Name}}Cls := {{.Ret.Instance}}{}
-     {{.Name}}Cls.Ptr = {{.Name}}Ptr
-     return {{.Name}}Cls
-     {{else if .Ret.Value}}
-     return {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{else}}
-     {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{end}}
+func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret := {{end}}{{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
 
@@ -101,23 +89,10 @@ const (
 var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 
 {{.Doc}}
-func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
-     {{if .Ret.Class}}
-     {{.Name}}Ptr := x{{.Name}}({{conv .Args.API.Call}})
-     if {{.Name}}Ptr == 0 {
-     	return nil
-     }
-     {{if .Ret.RefSink}}
-     {{if $NotGObject}}gobject.{{end}}IncreaseRef({{.Name}}Ptr)
-     {{end}}
-     {{.Name}}Cls := {{.Ret.Instance}}{}
-     {{.Name}}Cls.Ptr = {{.Name}}Ptr
-     return {{.Name}}Cls
-     {{else if .Ret.Value}}
-     return x{{.Name}}({{conv .Args.API.Call}})
-     {{else}}
-     x{{.Name}}({{conv .Args.API.Call}})
-     {{end}}
+func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
 
@@ -142,17 +117,10 @@ var x{{.Name}}{{$outer.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 
 
 {{.Doc}}
-func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
-     {{.Name}}{{$outer.Name}}Ptr := x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
-     if {{.Name}}{{$outer.Name}}Ptr == 0 {
-     	return nil
-     }
-     {{if .Ret.RefSink}}
-     {{if $NotGObject}}gobject.{{end}}IncreaseRef({{.Name}}{{$outer.Name}}Ptr)
-     {{end}}
-     {{.Name}}{{$outer.Name}}Cls := {{.Ret.Instance}}{}
-     {{.Name}}{{$outer.Name}}Cls.Ptr = {{.Name}}{{$outer.Name}}Ptr
-     return {{.Name}}{{$outer.Name}}Cls
+func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
 
@@ -161,23 +129,10 @@ func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
 var x{{$outer.Name}}{{.Name}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Raw}}
 
 {{.Doc}}
-func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
-     {{if .Ret.Class}}
-     {{.Name}}Ptr := x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
-     if {{.Name}}Ptr == 0 {
-     	return nil
-     }
-     {{if .Ret.RefSink}}
-     {{if $NotGObject}}gobject.{{end}}IncreaseRef({{.Name}}Ptr)
-     {{end}}
-     {{.Name}}Cls := {{.Ret.Instance}}{}
-     {{.Name}}Cls.Ptr = {{.Name}}Ptr
-     return {{.Name}}Cls
-     {{else if .Ret.Value}}
-     return x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{else}}
-     x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{end}}
+func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
 
@@ -212,23 +167,10 @@ func (x *{{$outer.Name}}) Connect{{.Name}}(cb func({{$outer.Name}} {{convc .Args
 {{range .Interfaces -}}
 {{range .Methods -}}
 {{.Doc}}
-func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}} {
-     {{if .Ret.Class}}
-     {{.Name}}Ptr := {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     if {{.Name}}Ptr == 0 {
-     	return nil
-     }
-     {{if .Ret.RefSink}}
-     {{if $NotGObject}}gobject.{{end}}IncreaseRef({{.Name}}Ptr)
-     {{end}}
-     {{.Name}}Cls := {{.Ret.Instance}}{}
-     {{.Name}}Cls.Ptr = {{.Name}}Ptr
-     return {{.Name}}Cls
-     {{else if .Ret.Value}}
-     return {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{else}}
-     {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
-     {{end}}
+func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret := {{end}} {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
 {{end}}

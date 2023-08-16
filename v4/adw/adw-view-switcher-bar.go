@@ -84,16 +84,17 @@ var xNewViewSwitcherBar func() uintptr
 
 // Creates a new `AdwViewSwitcherBar`.
 func NewViewSwitcherBar() *gtk.Widget {
-	NewViewSwitcherBarPtr := xNewViewSwitcherBar()
-	if NewViewSwitcherBarPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewViewSwitcherBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewViewSwitcherBarPtr)
-
-	NewViewSwitcherBarCls := &gtk.Widget{}
-	NewViewSwitcherBarCls.Ptr = NewViewSwitcherBarPtr
-	return NewViewSwitcherBarCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherBarGetReveal func(uintptr) bool
@@ -101,26 +102,25 @@ var xViewSwitcherBarGetReveal func(uintptr) bool
 // Gets whether @self should be revealed or hidden.
 func (x *ViewSwitcherBar) GetReveal() bool {
 
-	return xViewSwitcherBarGetReveal(x.GoPointer())
-
+	cret := xViewSwitcherBarGetReveal(x.GoPointer())
+	return cret
 }
 
 var xViewSwitcherBarGetStack func(uintptr) uintptr
 
 // Gets the stack controlled by @self.
 func (x *ViewSwitcherBar) GetStack() *ViewStack {
+	var cls *ViewStack
 
-	GetStackPtr := xViewSwitcherBarGetStack(x.GoPointer())
-	if GetStackPtr == 0 {
-		return nil
+	cret := xViewSwitcherBarGetStack(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStackPtr)
-
-	GetStackCls := &ViewStack{}
-	GetStackCls.Ptr = GetStackPtr
-	return GetStackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ViewStack{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewSwitcherBarSetReveal func(uintptr, bool)
@@ -152,8 +152,8 @@ func (c *ViewSwitcherBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ViewSwitcherBar) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -288,8 +288,8 @@ func (x *ViewSwitcherBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, Va
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ViewSwitcherBar) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

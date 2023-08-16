@@ -61,17 +61,19 @@ var xNewForPixbufTexture func(uintptr) uintptr
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
 func NewForPixbufTexture(PixbufVar *gdkpixbuf.Pixbuf) *Texture {
-	NewForPixbufTexturePtr := xNewForPixbufTexture(PixbufVar.GoPointer())
-	if NewForPixbufTexturePtr == 0 {
-		return nil
-	}
+	var cls *Texture
 
-	NewForPixbufTextureCls := &Texture{}
-	NewForPixbufTextureCls.Ptr = NewForPixbufTexturePtr
-	return NewForPixbufTextureCls
+	cret := xNewForPixbufTexture(PixbufVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewFromBytesTexture func(*glib.Bytes) uintptr
+var xNewFromBytesTexture func(*glib.Bytes, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from memory,
 //
@@ -83,18 +85,25 @@ var xNewFromBytesTexture func(*glib.Bytes) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromBytesTexture(BytesVar *glib.Bytes) *Texture {
-	NewFromBytesTexturePtr := xNewFromBytesTexture(BytesVar)
-	if NewFromBytesTexturePtr == 0 {
-		return nil
-	}
+func NewFromBytesTexture(BytesVar *glib.Bytes) (*Texture, error) {
+	var cls *Texture
+	var cerr *glib.Error
 
-	NewFromBytesTextureCls := &Texture{}
-	NewFromBytesTextureCls.Ptr = NewFromBytesTexturePtr
-	return NewFromBytesTextureCls
+	cret := xNewFromBytesTexture(BytesVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &Texture{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromFileTexture func(uintptr) uintptr
+var xNewFromFileTexture func(uintptr, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from a file.
 //
@@ -106,18 +115,25 @@ var xNewFromFileTexture func(uintptr) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromFileTexture(FileVar gio.File) *Texture {
-	NewFromFileTexturePtr := xNewFromFileTexture(FileVar.GoPointer())
-	if NewFromFileTexturePtr == 0 {
-		return nil
-	}
+func NewFromFileTexture(FileVar gio.File) (*Texture, error) {
+	var cls *Texture
+	var cerr *glib.Error
 
-	NewFromFileTextureCls := &Texture{}
-	NewFromFileTextureCls.Ptr = NewFromFileTexturePtr
-	return NewFromFileTextureCls
+	cret := xNewFromFileTexture(FileVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &Texture{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromFilenameTexture func(string) uintptr
+var xNewFromFilenameTexture func(string, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from a file.
 //
@@ -129,15 +145,22 @@ var xNewFromFilenameTexture func(string) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromFilenameTexture(PathVar string) *Texture {
-	NewFromFilenameTexturePtr := xNewFromFilenameTexture(PathVar)
-	if NewFromFilenameTexturePtr == 0 {
-		return nil
-	}
+func NewFromFilenameTexture(PathVar string) (*Texture, error) {
+	var cls *Texture
+	var cerr *glib.Error
 
-	NewFromFilenameTextureCls := &Texture{}
-	NewFromFilenameTextureCls.Ptr = NewFromFilenameTexturePtr
-	return NewFromFilenameTextureCls
+	cret := xNewFromFilenameTexture(PathVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &Texture{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xNewFromResourceTexture func(string) uintptr
@@ -156,14 +179,16 @@ var xNewFromResourceTexture func(string) uintptr
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
 func NewFromResourceTexture(ResourcePathVar string) *Texture {
-	NewFromResourceTexturePtr := xNewFromResourceTexture(ResourcePathVar)
-	if NewFromResourceTexturePtr == 0 {
-		return nil
-	}
+	var cls *Texture
 
-	NewFromResourceTextureCls := &Texture{}
-	NewFromResourceTextureCls.Ptr = NewFromResourceTexturePtr
-	return NewFromResourceTextureCls
+	cret := xNewFromResourceTexture(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextureDownload func(uintptr, uintptr, uint)
@@ -202,8 +227,8 @@ var xTextureGetHeight func(uintptr) int
 // Returns the height of the @texture, in pixels.
 func (x *Texture) GetHeight() int {
 
-	return xTextureGetHeight(x.GoPointer())
-
+	cret := xTextureGetHeight(x.GoPointer())
+	return cret
 }
 
 var xTextureGetWidth func(uintptr) int
@@ -211,8 +236,8 @@ var xTextureGetWidth func(uintptr) int
 // Returns the width of @texture, in pixels.
 func (x *Texture) GetWidth() int {
 
-	return xTextureGetWidth(x.GoPointer())
-
+	cret := xTextureGetWidth(x.GoPointer())
+	return cret
 }
 
 var xTextureSaveToPng func(uintptr, string) bool
@@ -226,8 +251,8 @@ var xTextureSaveToPng func(uintptr, string) bool
 // gdk-pixbuf library.
 func (x *Texture) SaveToPng(FilenameVar string) bool {
 
-	return xTextureSaveToPng(x.GoPointer(), FilenameVar)
-
+	cret := xTextureSaveToPng(x.GoPointer(), FilenameVar)
+	return cret
 }
 
 var xTextureSaveToPngBytes func(uintptr) *glib.Bytes
@@ -248,8 +273,8 @@ var xTextureSaveToPngBytes func(uintptr) *glib.Bytes
 // instead.
 func (x *Texture) SaveToPngBytes() *glib.Bytes {
 
-	return xTextureSaveToPngBytes(x.GoPointer())
-
+	cret := xTextureSaveToPngBytes(x.GoPointer())
+	return cret
 }
 
 var xTextureSaveToTiff func(uintptr, string) bool
@@ -259,8 +284,8 @@ var xTextureSaveToTiff func(uintptr, string) bool
 // GTK will attempt to store data without loss.
 func (x *Texture) SaveToTiff(FilenameVar string) bool {
 
-	return xTextureSaveToTiff(x.GoPointer(), FilenameVar)
-
+	cret := xTextureSaveToTiff(x.GoPointer(), FilenameVar)
+	return cret
 }
 
 var xTextureSaveToTiffBytes func(uintptr) *glib.Bytes
@@ -279,8 +304,8 @@ var xTextureSaveToTiffBytes func(uintptr) *glib.Bytes
 // use [method@Gdk.Texture.save_to_png_bytes].
 func (x *Texture) SaveToTiffBytes() *glib.Bytes {
 
-	return xTextureSaveToTiffBytes(x.GoPointer())
-
+	cret := xTextureSaveToTiffBytes(x.GoPointer())
+	return cret
 }
 
 func (c *Texture) GoPointer() uintptr {
@@ -314,16 +339,16 @@ func (x *Texture) ComputeConcreteSize(SpecifiedWidthVar float64, SpecifiedHeight
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *Texture) GetCurrentImage() *PaintableBase {
+	var cls *PaintableBase
 
-	GetCurrentImagePtr := XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -333,8 +358,8 @@ func (x *Texture) GetCurrentImage() *PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *Texture) GetFlags() PaintableFlags {
 
-	return XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -356,8 +381,8 @@ func (x *Texture) GetFlags() PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *Texture) GetIntrinsicAspectRatio() float64 {
 
-	return XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -372,8 +397,8 @@ func (x *Texture) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *Texture) GetIntrinsicHeight() int {
 
-	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -388,8 +413,8 @@ func (x *Texture) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *Texture) GetIntrinsicWidth() int {
 
-	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -438,8 +463,8 @@ func (x *Texture) Snapshot(SnapshotVar *Snapshot, WidthVar float64, HeightVar fl
 // Checks if two icons are equal.
 func (x *Texture) Equal(Icon2Var gio.Icon) bool {
 
-	return gio.XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := gio.XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -449,8 +474,8 @@ func (x *Texture) Equal(Icon2Var gio.Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *Texture) Serialize() *glib.Variant {
 
-	return gio.XGIconSerialize(x.GoPointer())
-
+	cret := gio.XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -471,22 +496,27 @@ func (x *Texture) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *Texture) ToString() string {
 
-	return gio.XGIconToString(x.GoPointer())
-
+	cret := gio.XGIconToString(x.GoPointer())
+	return cret
 }
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *Texture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
+func (x *Texture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) (*gio.InputStream, error) {
+	var cls *gio.InputStream
+	var cerr *glib.Error
 
-	LoadPtr := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
-	if LoadPtr == 0 {
-		return nil
+	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadCls := &gio.InputStream{}
-	LoadCls.Ptr = LoadPtr
-	return LoadCls
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -500,16 +530,21 @@ func (x *Texture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, Callba
 }
 
 // Finishes an asynchronous icon load started in g_loadable_icon_load_async().
-func (x *Texture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) *gio.InputStream {
+func (x *Texture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.InputStream, error) {
+	var cls *gio.InputStream
+	var cerr *glib.Error
 
-	LoadFinishPtr := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar)
-	if LoadFinishPtr == 0 {
-		return nil
+	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadFinishCls := &gio.InputStream{}
-	LoadFinishCls.Ptr = LoadFinishPtr
-	return LoadFinishCls
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

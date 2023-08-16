@@ -30,34 +30,34 @@ var xNewMediaControls func(uintptr) uintptr
 
 // Creates a new `GtkMediaControls` managing the @stream passed to it.
 func NewMediaControls(StreamVar *MediaStream) *Widget {
-	NewMediaControlsPtr := xNewMediaControls(StreamVar.GoPointer())
-	if NewMediaControlsPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewMediaControls(StreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewMediaControlsPtr)
-
-	NewMediaControlsCls := &Widget{}
-	NewMediaControlsCls.Ptr = NewMediaControlsPtr
-	return NewMediaControlsCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMediaControlsGetMediaStream func(uintptr) uintptr
 
 // Gets the media stream managed by @controls or %NULL if none.
 func (x *MediaControls) GetMediaStream() *MediaStream {
+	var cls *MediaStream
 
-	GetMediaStreamPtr := xMediaControlsGetMediaStream(x.GoPointer())
-	if GetMediaStreamPtr == 0 {
-		return nil
+	cret := xMediaControlsGetMediaStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMediaStreamPtr)
-
-	GetMediaStreamCls := &MediaStream{}
-	GetMediaStreamCls.Ptr = GetMediaStreamPtr
-	return GetMediaStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &MediaStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMediaControlsSetMediaStream func(uintptr, uintptr)
@@ -80,8 +80,8 @@ func (c *MediaControls) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *MediaControls) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -216,8 +216,8 @@ func (x *MediaControls) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MediaControls) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

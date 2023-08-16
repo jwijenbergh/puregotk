@@ -175,14 +175,16 @@ var xNewToast func(string) uintptr
 //
 // @title can be marked up with the Pango text markup language.
 func NewToast(TitleVar string) *Toast {
-	NewToastPtr := xNewToast(TitleVar)
-	if NewToastPtr == 0 {
-		return nil
-	}
+	var cls *Toast
 
-	NewToastCls := &Toast{}
-	NewToastCls.Ptr = NewToastPtr
-	return NewToastCls
+	cret := xNewToast(TitleVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Toast{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFormatToast func(string, ...interface{}) uintptr
@@ -193,14 +195,16 @@ var xNewFormatToast func(string, ...interface{}) uintptr
 //
 // See also: [ctor@Toast.new]
 func NewFormatToast(FormatVar string, varArgs ...interface{}) *Toast {
-	NewFormatToastPtr := xNewFormatToast(FormatVar, varArgs...)
-	if NewFormatToastPtr == 0 {
-		return nil
-	}
+	var cls *Toast
 
-	NewFormatToastCls := &Toast{}
-	NewFormatToastCls.Ptr = NewFormatToastPtr
-	return NewFormatToastCls
+	cret := xNewFormatToast(FormatVar, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Toast{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xToastDismiss func(uintptr)
@@ -220,8 +224,8 @@ var xToastGetActionName func(uintptr) string
 // Gets the name of the associated action.
 func (x *Toast) GetActionName() string {
 
-	return xToastGetActionName(x.GoPointer())
-
+	cret := xToastGetActionName(x.GoPointer())
+	return cret
 }
 
 var xToastGetActionTargetValue func(uintptr) *glib.Variant
@@ -229,8 +233,8 @@ var xToastGetActionTargetValue func(uintptr) *glib.Variant
 // Gets the parameter for action invocations.
 func (x *Toast) GetActionTargetValue() *glib.Variant {
 
-	return xToastGetActionTargetValue(x.GoPointer())
-
+	cret := xToastGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 var xToastGetButtonLabel func(uintptr) string
@@ -238,26 +242,25 @@ var xToastGetButtonLabel func(uintptr) string
 // Gets the label to show on the button.
 func (x *Toast) GetButtonLabel() string {
 
-	return xToastGetButtonLabel(x.GoPointer())
-
+	cret := xToastGetButtonLabel(x.GoPointer())
+	return cret
 }
 
 var xToastGetCustomTitle func(uintptr) uintptr
 
 // Gets the custom title widget of @self.
 func (x *Toast) GetCustomTitle() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetCustomTitlePtr := xToastGetCustomTitle(x.GoPointer())
-	if GetCustomTitlePtr == 0 {
-		return nil
+	cret := xToastGetCustomTitle(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCustomTitlePtr)
-
-	GetCustomTitleCls := &gtk.Widget{}
-	GetCustomTitleCls.Ptr = GetCustomTitlePtr
-	return GetCustomTitleCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xToastGetPriority func(uintptr) ToastPriority
@@ -265,8 +268,8 @@ var xToastGetPriority func(uintptr) ToastPriority
 // Gets priority for @self.
 func (x *Toast) GetPriority() ToastPriority {
 
-	return xToastGetPriority(x.GoPointer())
-
+	cret := xToastGetPriority(x.GoPointer())
+	return cret
 }
 
 var xToastGetTimeout func(uintptr) uint
@@ -274,8 +277,8 @@ var xToastGetTimeout func(uintptr) uint
 // Gets timeout for @self.
 func (x *Toast) GetTimeout() uint {
 
-	return xToastGetTimeout(x.GoPointer())
-
+	cret := xToastGetTimeout(x.GoPointer())
+	return cret
 }
 
 var xToastGetTitle func(uintptr) string
@@ -286,8 +289,8 @@ var xToastGetTitle func(uintptr) string
 // the return value will be %NULL.
 func (x *Toast) GetTitle() string {
 
-	return xToastGetTitle(x.GoPointer())
-
+	cret := xToastGetTitle(x.GoPointer())
+	return cret
 }
 
 var xToastSetActionName func(uintptr, string)

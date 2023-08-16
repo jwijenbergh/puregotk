@@ -25,9 +25,9 @@ type EnumClass struct {
 type EnumValue struct {
 	Value int32
 
-	ValueName string
+	ValueName uintptr
 
-	ValueNick string
+	ValueNick uintptr
 }
 
 // The class of a flags type holds information about its
@@ -47,9 +47,9 @@ type FlagsClass struct {
 type FlagsValue struct {
 	Value uint
 
-	ValueName string
+	ValueName uintptr
 
-	ValueNick string
+	ValueNick uintptr
 }
 
 var xEnumCompleteTypeInfo func([]interface{}, *TypeInfo, *EnumValue)
@@ -88,8 +88,8 @@ var xEnumGetValue func(*EnumClass, int) *EnumValue
 // Returns the #GEnumValue for a value.
 func EnumGetValue(EnumClassVar *EnumClass, ValueVar int) *EnumValue {
 
-	return xEnumGetValue(EnumClassVar, ValueVar)
-
+	cret := xEnumGetValue(EnumClassVar, ValueVar)
+	return cret
 }
 
 var xEnumGetValueByName func(*EnumClass, string) *EnumValue
@@ -97,8 +97,8 @@ var xEnumGetValueByName func(*EnumClass, string) *EnumValue
 // Looks up a #GEnumValue by name.
 func EnumGetValueByName(EnumClassVar *EnumClass, NameVar string) *EnumValue {
 
-	return xEnumGetValueByName(EnumClassVar, NameVar)
-
+	cret := xEnumGetValueByName(EnumClassVar, NameVar)
+	return cret
 }
 
 var xEnumGetValueByNick func(*EnumClass, string) *EnumValue
@@ -106,8 +106,8 @@ var xEnumGetValueByNick func(*EnumClass, string) *EnumValue
 // Looks up a #GEnumValue by nickname.
 func EnumGetValueByNick(EnumClassVar *EnumClass, NickVar string) *EnumValue {
 
-	return xEnumGetValueByNick(EnumClassVar, NickVar)
-
+	cret := xEnumGetValueByNick(EnumClassVar, NickVar)
+	return cret
 }
 
 var xEnumRegisterStatic func(string, *EnumValue) []interface{}
@@ -119,8 +119,8 @@ var xEnumRegisterStatic func(string, *EnumValue) []interface{}
 // definition  than to write one yourself using g_enum_register_static().
 func EnumRegisterStatic(NameVar string, ConstStaticValuesVar *EnumValue) []interface{} {
 
-	return xEnumRegisterStatic(NameVar, ConstStaticValuesVar)
-
+	cret := xEnumRegisterStatic(NameVar, ConstStaticValuesVar)
+	return cret
 }
 
 var xEnumToString func([]interface{}, int) string
@@ -131,8 +131,8 @@ var xEnumToString func([]interface{}, int) string
 // may change in the future.
 func EnumToString(GEnumTypeVar []interface{}, ValueVar int) string {
 
-	return xEnumToString(GEnumTypeVar, ValueVar)
-
+	cret := xEnumToString(GEnumTypeVar, ValueVar)
+	return cret
 }
 
 var xFlagsCompleteTypeInfo func([]interface{}, *TypeInfo, *FlagsValue)
@@ -151,8 +151,8 @@ var xFlagsGetFirstValue func(*FlagsClass, uint) *FlagsValue
 // Returns the first #GFlagsValue which is set in @value.
 func FlagsGetFirstValue(FlagsClassVar *FlagsClass, ValueVar uint) *FlagsValue {
 
-	return xFlagsGetFirstValue(FlagsClassVar, ValueVar)
-
+	cret := xFlagsGetFirstValue(FlagsClassVar, ValueVar)
+	return cret
 }
 
 var xFlagsGetValueByName func(*FlagsClass, string) *FlagsValue
@@ -160,8 +160,8 @@ var xFlagsGetValueByName func(*FlagsClass, string) *FlagsValue
 // Looks up a #GFlagsValue by name.
 func FlagsGetValueByName(FlagsClassVar *FlagsClass, NameVar string) *FlagsValue {
 
-	return xFlagsGetValueByName(FlagsClassVar, NameVar)
-
+	cret := xFlagsGetValueByName(FlagsClassVar, NameVar)
+	return cret
 }
 
 var xFlagsGetValueByNick func(*FlagsClass, string) *FlagsValue
@@ -169,8 +169,8 @@ var xFlagsGetValueByNick func(*FlagsClass, string) *FlagsValue
 // Looks up a #GFlagsValue by nickname.
 func FlagsGetValueByNick(FlagsClassVar *FlagsClass, NickVar string) *FlagsValue {
 
-	return xFlagsGetValueByNick(FlagsClassVar, NickVar)
-
+	cret := xFlagsGetValueByNick(FlagsClassVar, NickVar)
+	return cret
 }
 
 var xFlagsRegisterStatic func(string, *FlagsValue) []interface{}
@@ -182,8 +182,8 @@ var xFlagsRegisterStatic func(string, *FlagsValue) []interface{}
 // definition than to write one yourself using g_flags_register_static().
 func FlagsRegisterStatic(NameVar string, ConstStaticValuesVar *FlagsValue) []interface{} {
 
-	return xFlagsRegisterStatic(NameVar, ConstStaticValuesVar)
-
+	cret := xFlagsRegisterStatic(NameVar, ConstStaticValuesVar)
+	return cret
 }
 
 var xFlagsToString func([]interface{}, uint) string
@@ -195,8 +195,8 @@ var xFlagsToString func([]interface{}, uint) string
 // may change in the future.
 func FlagsToString(FlagsTypeVar []interface{}, ValueVar uint) string {
 
-	return xFlagsToString(FlagsTypeVar, ValueVar)
-
+	cret := xFlagsToString(FlagsTypeVar, ValueVar)
+	return cret
 }
 
 func init() {

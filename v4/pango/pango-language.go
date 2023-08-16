@@ -22,8 +22,8 @@ var xLanguageFromString func(string) *Language
 // `PangoLanguage` for the current locale of the process.
 func LanguageFromString(LanguageVar string) *Language {
 
-	return xLanguageFromString(LanguageVar)
-
+	cret := xLanguageFromString(LanguageVar)
+	return cret
 }
 
 var xLanguageGetDefault func() *Language
@@ -61,8 +61,8 @@ var xLanguageGetDefault func() *Language
 // just call pango_language_from_string() yourself.
 func LanguageGetDefault() *Language {
 
-	return xLanguageGetDefault()
-
+	cret := xLanguageGetDefault()
+	return cret
 }
 
 var xLanguageGetPreferred func() **Language
@@ -80,8 +80,8 @@ var xLanguageGetPreferred func() **Language
 // languages returned by this function.
 func LanguageGetPreferred() **Language {
 
-	return xLanguageGetPreferred()
-
+	cret := xLanguageGetPreferred()
+	return cret
 }
 
 func init() {

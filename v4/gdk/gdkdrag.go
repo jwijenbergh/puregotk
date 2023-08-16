@@ -29,8 +29,8 @@ var xDragActionIsUnique func(DragAction) bool
 // is returned.
 func DragActionIsUnique(ActionVar DragAction) bool {
 
-	return xDragActionIsUnique(ActionVar)
-
+	cret := xDragActionIsUnique(ActionVar)
+	return cret
 }
 
 // The `GdkDrag` object represents the source of an ongoing DND operation.
@@ -77,62 +77,59 @@ var xDragGetActions func(uintptr) DragAction
 // Determines the bitmask of possible actions proposed by the source.
 func (x *Drag) GetActions() DragAction {
 
-	return xDragGetActions(x.GoPointer())
-
+	cret := xDragGetActions(x.GoPointer())
+	return cret
 }
 
 var xDragGetContent func(uintptr) uintptr
 
 // Returns the `GdkContentProvider` associated to the `GdkDrag` object.
 func (x *Drag) GetContent() *ContentProvider {
+	var cls *ContentProvider
 
-	GetContentPtr := xDragGetContent(x.GoPointer())
-	if GetContentPtr == 0 {
-		return nil
+	cret := xDragGetContent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContentPtr)
-
-	GetContentCls := &ContentProvider{}
-	GetContentCls.Ptr = GetContentPtr
-	return GetContentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragGetDevice func(uintptr) uintptr
 
 // Returns the `GdkDevice` associated to the `GdkDrag` object.
 func (x *Drag) GetDevice() *Device {
+	var cls *Device
 
-	GetDevicePtr := xDragGetDevice(x.GoPointer())
-	if GetDevicePtr == 0 {
-		return nil
+	cret := xDragGetDevice(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDevicePtr)
-
-	GetDeviceCls := &Device{}
-	GetDeviceCls.Ptr = GetDevicePtr
-	return GetDeviceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Device{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragGetDisplay func(uintptr) uintptr
 
 // Gets the `GdkDisplay` that the drag object was created for.
 func (x *Drag) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xDragGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xDragGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragGetDragSurface func(uintptr) uintptr
@@ -145,18 +142,17 @@ var xDragGetDragSurface func(uintptr) uintptr
 // drag operation. The surface is owned by @drag and will be destroyed
 // when the drag operation is over.
 func (x *Drag) GetDragSurface() *Surface {
+	var cls *Surface
 
-	GetDragSurfacePtr := xDragGetDragSurface(x.GoPointer())
-	if GetDragSurfacePtr == 0 {
-		return nil
+	cret := xDragGetDragSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDragSurfacePtr)
-
-	GetDragSurfaceCls := &Surface{}
-	GetDragSurfaceCls.Ptr = GetDragSurfacePtr
-	return GetDragSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragGetFormats func(uintptr) *ContentFormats
@@ -164,8 +160,8 @@ var xDragGetFormats func(uintptr) *ContentFormats
 // Retrieves the formats supported by this `GdkDrag` object.
 func (x *Drag) GetFormats() *ContentFormats {
 
-	return xDragGetFormats(x.GoPointer())
-
+	cret := xDragGetFormats(x.GoPointer())
+	return cret
 }
 
 var xDragGetSelectedAction func(uintptr) DragAction
@@ -173,26 +169,25 @@ var xDragGetSelectedAction func(uintptr) DragAction
 // Determines the action chosen by the drag destination.
 func (x *Drag) GetSelectedAction() DragAction {
 
-	return xDragGetSelectedAction(x.GoPointer())
-
+	cret := xDragGetSelectedAction(x.GoPointer())
+	return cret
 }
 
 var xDragGetSurface func(uintptr) uintptr
 
 // Returns the `GdkSurface` where the drag originates.
 func (x *Drag) GetSurface() *Surface {
+	var cls *Surface
 
-	GetSurfacePtr := xDragGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := xDragGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDragSetHotspot func(uintptr, int, int)

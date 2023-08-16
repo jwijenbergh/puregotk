@@ -29,8 +29,8 @@ var xUnixIsMountPathSystemInternal func(string) bool
 // casual user.
 func UnixIsMountPathSystemInternal(MountPathVar string) bool {
 
-	return xUnixIsMountPathSystemInternal(MountPathVar)
-
+	cret := xUnixIsMountPathSystemInternal(MountPathVar)
+	return cret
 }
 
 var xUnixIsSystemDevicePath func(string) bool
@@ -44,8 +44,8 @@ var xUnixIsSystemDevicePath func(string) bool
 // The list of device paths considered ‘system’ ones may change over time.
 func UnixIsSystemDevicePath(DevicePathVar string) bool {
 
-	return xUnixIsSystemDevicePath(DevicePathVar)
-
+	cret := xUnixIsSystemDevicePath(DevicePathVar)
+	return cret
 }
 
 var xUnixIsSystemFsType func(string) bool
@@ -59,8 +59,8 @@ var xUnixIsSystemFsType func(string) bool
 // The list of file system types considered ‘system’ ones may change over time.
 func UnixIsSystemFsType(FsTypeVar string) bool {
 
-	return xUnixIsSystemFsType(FsTypeVar)
-
+	cret := xUnixIsSystemFsType(FsTypeVar)
+	return cret
 }
 
 var xUnixMountAt func(string, uint64) *UnixMountEntry
@@ -75,8 +75,8 @@ var xUnixMountAt func(string, uint64) *UnixMountEntry
 // This will return %NULL if there is no mount point at @mount_path.
 func UnixMountAt(MountPathVar string, TimeReadVar uint64) *UnixMountEntry {
 
-	return xUnixMountAt(MountPathVar, TimeReadVar)
-
+	cret := xUnixMountAt(MountPathVar, TimeReadVar)
+	return cret
 }
 
 var xUnixMountCompare func(*UnixMountEntry, *UnixMountEntry) int
@@ -84,8 +84,8 @@ var xUnixMountCompare func(*UnixMountEntry, *UnixMountEntry) int
 // Compares two unix mounts.
 func UnixMountCompare(Mount1Var *UnixMountEntry, Mount2Var *UnixMountEntry) int {
 
-	return xUnixMountCompare(Mount1Var, Mount2Var)
-
+	cret := xUnixMountCompare(Mount1Var, Mount2Var)
+	return cret
 }
 
 var xUnixMountCopy func(*UnixMountEntry) *UnixMountEntry
@@ -93,8 +93,8 @@ var xUnixMountCopy func(*UnixMountEntry) *UnixMountEntry
 // Makes a copy of @mount_entry.
 func UnixMountCopy(MountEntryVar *UnixMountEntry) *UnixMountEntry {
 
-	return xUnixMountCopy(MountEntryVar)
-
+	cret := xUnixMountCopy(MountEntryVar)
+	return cret
 }
 
 var xUnixMountFor func(string, uint64) *UnixMountEntry
@@ -110,8 +110,8 @@ var xUnixMountFor func(string, uint64) *UnixMountEntry
 // @file_path doesn’t exist or there is an I/O error.
 func UnixMountFor(FilePathVar string, TimeReadVar uint64) *UnixMountEntry {
 
-	return xUnixMountFor(FilePathVar, TimeReadVar)
-
+	cret := xUnixMountFor(FilePathVar, TimeReadVar)
+	return cret
 }
 
 var xUnixMountFree func(*UnixMountEntry)
@@ -128,8 +128,8 @@ var xUnixMountGetDevicePath func(*UnixMountEntry) string
 // Gets the device path for a unix mount.
 func UnixMountGetDevicePath(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGetDevicePath(MountEntryVar)
-
+	cret := xUnixMountGetDevicePath(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGetFsType func(*UnixMountEntry) string
@@ -137,8 +137,8 @@ var xUnixMountGetFsType func(*UnixMountEntry) string
 // Gets the filesystem type for the unix mount.
 func UnixMountGetFsType(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGetFsType(MountEntryVar)
-
+	cret := xUnixMountGetFsType(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGetMountPath func(*UnixMountEntry) string
@@ -146,8 +146,8 @@ var xUnixMountGetMountPath func(*UnixMountEntry) string
 // Gets the mount path for a unix mount.
 func UnixMountGetMountPath(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGetMountPath(MountEntryVar)
-
+	cret := xUnixMountGetMountPath(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGetOptions func(*UnixMountEntry) string
@@ -159,8 +159,8 @@ var xUnixMountGetOptions func(*UnixMountEntry) string
 // a #GUnixMountEntry as an argument.
 func UnixMountGetOptions(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGetOptions(MountEntryVar)
-
+	cret := xUnixMountGetOptions(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGetRootPath func(*UnixMountEntry) string
@@ -173,8 +173,8 @@ var xUnixMountGetRootPath func(*UnixMountEntry) string
 // "mount --bind /mnt/foo/bar /mnt/bar".
 func UnixMountGetRootPath(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGetRootPath(MountEntryVar)
-
+	cret := xUnixMountGetRootPath(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGuessCanEject func(*UnixMountEntry) bool
@@ -182,24 +182,24 @@ var xUnixMountGuessCanEject func(*UnixMountEntry) bool
 // Guesses whether a Unix mount can be ejected.
 func UnixMountGuessCanEject(MountEntryVar *UnixMountEntry) bool {
 
-	return xUnixMountGuessCanEject(MountEntryVar)
-
+	cret := xUnixMountGuessCanEject(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGuessIcon func(*UnixMountEntry) uintptr
 
 // Guesses the icon of a Unix mount.
 func UnixMountGuessIcon(MountEntryVar *UnixMountEntry) *IconBase {
+	var cls *IconBase
 
-	UnixMountGuessIconPtr := xUnixMountGuessIcon(MountEntryVar)
-	if UnixMountGuessIconPtr == 0 {
-		return nil
+	cret := xUnixMountGuessIcon(MountEntryVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	UnixMountGuessIconCls := &IconBase{}
-	UnixMountGuessIconCls.Ptr = UnixMountGuessIconPtr
-	return UnixMountGuessIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixMountGuessName func(*UnixMountEntry) string
@@ -208,8 +208,8 @@ var xUnixMountGuessName func(*UnixMountEntry) string
 // The result is a translated string.
 func UnixMountGuessName(MountEntryVar *UnixMountEntry) string {
 
-	return xUnixMountGuessName(MountEntryVar)
-
+	cret := xUnixMountGuessName(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGuessShouldDisplay func(*UnixMountEntry) bool
@@ -217,24 +217,24 @@ var xUnixMountGuessShouldDisplay func(*UnixMountEntry) bool
 // Guesses whether a Unix mount should be displayed in the UI.
 func UnixMountGuessShouldDisplay(MountEntryVar *UnixMountEntry) bool {
 
-	return xUnixMountGuessShouldDisplay(MountEntryVar)
-
+	cret := xUnixMountGuessShouldDisplay(MountEntryVar)
+	return cret
 }
 
 var xUnixMountGuessSymbolicIcon func(*UnixMountEntry) uintptr
 
 // Guesses the symbolic icon of a Unix mount.
 func UnixMountGuessSymbolicIcon(MountEntryVar *UnixMountEntry) *IconBase {
+	var cls *IconBase
 
-	UnixMountGuessSymbolicIconPtr := xUnixMountGuessSymbolicIcon(MountEntryVar)
-	if UnixMountGuessSymbolicIconPtr == 0 {
-		return nil
+	cret := xUnixMountGuessSymbolicIcon(MountEntryVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	UnixMountGuessSymbolicIconCls := &IconBase{}
-	UnixMountGuessSymbolicIconCls.Ptr = UnixMountGuessSymbolicIconPtr
-	return UnixMountGuessSymbolicIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixMountIsReadonly func(*UnixMountEntry) bool
@@ -242,8 +242,8 @@ var xUnixMountIsReadonly func(*UnixMountEntry) bool
 // Checks if a unix mount is mounted read only.
 func UnixMountIsReadonly(MountEntryVar *UnixMountEntry) bool {
 
-	return xUnixMountIsReadonly(MountEntryVar)
-
+	cret := xUnixMountIsReadonly(MountEntryVar)
+	return cret
 }
 
 var xUnixMountIsSystemInternal func(*UnixMountEntry) bool
@@ -256,8 +256,8 @@ var xUnixMountIsSystemInternal func(*UnixMountEntry) bool
 // file system types and device paths are ignored.
 func UnixMountIsSystemInternal(MountEntryVar *UnixMountEntry) bool {
 
-	return xUnixMountIsSystemInternal(MountEntryVar)
-
+	cret := xUnixMountIsSystemInternal(MountEntryVar)
+	return cret
 }
 
 var xUnixMountPointAt func(string, uint64) *UnixMountPoint
@@ -270,8 +270,8 @@ var xUnixMountPointAt func(string, uint64) *UnixMountPoint
 // is returned.
 func UnixMountPointAt(MountPathVar string, TimeReadVar uint64) *UnixMountPoint {
 
-	return xUnixMountPointAt(MountPathVar, TimeReadVar)
-
+	cret := xUnixMountPointAt(MountPathVar, TimeReadVar)
+	return cret
 }
 
 var xUnixMountPointsChangedSince func(uint64) bool
@@ -279,8 +279,8 @@ var xUnixMountPointsChangedSince func(uint64) bool
 // Checks if the unix mount points have changed since a given unix time.
 func UnixMountPointsChangedSince(TimeVar uint64) bool {
 
-	return xUnixMountPointsChangedSince(TimeVar)
-
+	cret := xUnixMountPointsChangedSince(TimeVar)
+	return cret
 }
 
 var xUnixMountPointsGet func(uint64) *glib.List
@@ -291,8 +291,8 @@ var xUnixMountPointsGet func(uint64) *glib.List
 // g_unix_mount_points_changed_since().
 func UnixMountPointsGet(TimeReadVar uint64) *glib.List {
 
-	return xUnixMountPointsGet(TimeReadVar)
-
+	cret := xUnixMountPointsGet(TimeReadVar)
+	return cret
 }
 
 var xUnixMountsChangedSince func(uint64) bool
@@ -300,8 +300,8 @@ var xUnixMountsChangedSince func(uint64) bool
 // Checks if the unix mounts have changed since a given unix time.
 func UnixMountsChangedSince(TimeVar uint64) bool {
 
-	return xUnixMountsChangedSince(TimeVar)
-
+	cret := xUnixMountsChangedSince(TimeVar)
+	return cret
 }
 
 var xUnixMountsGet func(uint64) *glib.List
@@ -312,8 +312,8 @@ var xUnixMountsGet func(uint64) *glib.List
 // with g_unix_mounts_changed_since().
 func UnixMountsGet(TimeReadVar uint64) *glib.List {
 
-	return xUnixMountsGet(TimeReadVar)
-
+	cret := xUnixMountsGet(TimeReadVar)
+	return cret
 }
 
 // Watches #GUnixMounts for changes.
@@ -334,14 +334,16 @@ var xNewUnixMountMonitor func() uintptr
 // This function was never a true constructor, which is why it was
 // renamed.
 func NewUnixMountMonitor() *UnixMountMonitor {
-	NewUnixMountMonitorPtr := xNewUnixMountMonitor()
-	if NewUnixMountMonitorPtr == 0 {
-		return nil
-	}
+	var cls *UnixMountMonitor
 
-	NewUnixMountMonitorCls := &UnixMountMonitor{}
-	NewUnixMountMonitorCls.Ptr = NewUnixMountMonitorPtr
-	return NewUnixMountMonitorCls
+	cret := xNewUnixMountMonitor()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &UnixMountMonitor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixMountMonitorSetRateLimit func(uintptr, int)

@@ -35,14 +35,16 @@ var xNewOverlayLayout func() uintptr
 
 // Creates a new `GtkOverlayLayout` instance.
 func NewOverlayLayout() *LayoutManager {
-	NewOverlayLayoutPtr := xNewOverlayLayout()
-	if NewOverlayLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewOverlayLayoutCls := &LayoutManager{}
-	NewOverlayLayoutCls.Ptr = NewOverlayLayoutPtr
-	return NewOverlayLayoutCls
+	cret := xNewOverlayLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *OverlayLayout) GoPointer() uintptr {
@@ -69,8 +71,8 @@ var xOverlayLayoutChildGetClipOverlay func(uintptr) bool
 // Retrieves whether the child is clipped.
 func (x *OverlayLayoutChild) GetClipOverlay() bool {
 
-	return xOverlayLayoutChildGetClipOverlay(x.GoPointer())
-
+	cret := xOverlayLayoutChildGetClipOverlay(x.GoPointer())
+	return cret
 }
 
 var xOverlayLayoutChildGetMeasure func(uintptr) bool
@@ -78,8 +80,8 @@ var xOverlayLayoutChildGetMeasure func(uintptr) bool
 // Retrieves whether the child is measured.
 func (x *OverlayLayoutChild) GetMeasure() bool {
 
-	return xOverlayLayoutChildGetMeasure(x.GoPointer())
-
+	cret := xOverlayLayoutChildGetMeasure(x.GoPointer())
+	return cret
 }
 
 var xOverlayLayoutChildSetClipOverlay func(uintptr, bool)

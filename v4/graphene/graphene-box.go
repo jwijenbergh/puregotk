@@ -21,8 +21,8 @@ var xBoxEmpty func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxEmpty() *Box {
 
-	return xBoxEmpty()
-
+	cret := xBoxEmpty()
+	return cret
 }
 
 var xBoxInfinite func() *Box
@@ -32,8 +32,8 @@ var xBoxInfinite func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxInfinite() *Box {
 
-	return xBoxInfinite()
-
+	cret := xBoxInfinite()
+	return cret
 }
 
 var xBoxMinusOne func() *Box
@@ -44,8 +44,8 @@ var xBoxMinusOne func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxMinusOne() *Box {
 
-	return xBoxMinusOne()
-
+	cret := xBoxMinusOne()
+	return cret
 }
 
 var xBoxOne func() *Box
@@ -56,8 +56,8 @@ var xBoxOne func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxOne() *Box {
 
-	return xBoxOne()
-
+	cret := xBoxOne()
+	return cret
 }
 
 var xBoxOneMinusOne func() *Box
@@ -68,8 +68,8 @@ var xBoxOneMinusOne func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxOneMinusOne() *Box {
 
-	return xBoxOneMinusOne()
-
+	cret := xBoxOneMinusOne()
+	return cret
 }
 
 var xBoxZero func() *Box
@@ -79,8 +79,8 @@ var xBoxZero func() *Box
 // The returned value is owned by Graphene and should not be modified or freed.
 func BoxZero() *Box {
 
-	return xBoxZero()
-
+	cret := xBoxZero()
+	return cret
 }
 
 func init() {

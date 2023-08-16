@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -38,14 +39,16 @@ var xNewUnixFDList func() uintptr
 
 // Creates a new #GUnixFDList containing no file descriptors.
 func NewUnixFDList() *UnixFDList {
-	NewUnixFDListPtr := xNewUnixFDList()
-	if NewUnixFDListPtr == 0 {
-		return nil
-	}
+	var cls *UnixFDList
 
-	NewUnixFDListCls := &UnixFDList{}
-	NewUnixFDListCls.Ptr = NewUnixFDListPtr
-	return NewUnixFDListCls
+	cret := xNewUnixFDList()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &UnixFDList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromArrayUnixFDList func(uintptr, int) uintptr
@@ -59,17 +62,19 @@ var xNewFromArrayUnixFDList func(uintptr, int) uintptr
 //
 // If @n_fds is -1 then @fds must be terminated with -1.
 func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int) *UnixFDList {
-	NewFromArrayUnixFDListPtr := xNewFromArrayUnixFDList(FdsVar, NFdsVar)
-	if NewFromArrayUnixFDListPtr == 0 {
-		return nil
-	}
+	var cls *UnixFDList
 
-	NewFromArrayUnixFDListCls := &UnixFDList{}
-	NewFromArrayUnixFDListCls.Ptr = NewFromArrayUnixFDListPtr
-	return NewFromArrayUnixFDListCls
+	cret := xNewFromArrayUnixFDList(FdsVar, NFdsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &UnixFDList{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xUnixFDListAppend func(uintptr, int) int
+var xUnixFDListAppend func(uintptr, int, **glib.Error) int
 
 // Adds a file descriptor to @list.
 //
@@ -83,13 +88,18 @@ var xUnixFDListAppend func(uintptr, int) int
 // The index of the file descriptor in the list is returned.  If you use
 // this index with g_unix_fd_list_get() then you will receive back a
 // duplicated copy of the same file descriptor.
-func (x *UnixFDList) Append(FdVar int) int {
+func (x *UnixFDList) Append(FdVar int) (int, error) {
+	var cerr *glib.Error
 
-	return xUnixFDListAppend(x.GoPointer(), FdVar)
+	cret := xUnixFDListAppend(x.GoPointer(), FdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xUnixFDListGet func(uintptr, int) int
+var xUnixFDListGet func(uintptr, int, **glib.Error) int
 
 // Gets a file descriptor out of @list.
 //
@@ -103,9 +113,14 @@ var xUnixFDListGet func(uintptr, int) int
 //
 // A possible cause of failure is exceeding the per-process or
 // system-wide file descriptor limit.
-func (x *UnixFDList) Get(IndexVar int) int {
+func (x *UnixFDList) Get(IndexVar int) (int, error) {
+	var cerr *glib.Error
 
-	return xUnixFDListGet(x.GoPointer(), IndexVar)
+	cret := xUnixFDListGet(x.GoPointer(), IndexVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -115,8 +130,8 @@ var xUnixFDListGetLength func(uintptr) int
 // contained within).
 func (x *UnixFDList) GetLength() int {
 
-	return xUnixFDListGetLength(x.GoPointer())
-
+	cret := xUnixFDListGetLength(x.GoPointer())
+	return cret
 }
 
 var xUnixFDListPeekFds func(uintptr, int) uintptr
@@ -136,8 +151,8 @@ var xUnixFDListPeekFds func(uintptr, int) uintptr
 // descriptors contained in @list, an empty array is returned.
 func (x *UnixFDList) PeekFds(LengthVar int) uintptr {
 
-	return xUnixFDListPeekFds(x.GoPointer(), LengthVar)
-
+	cret := xUnixFDListPeekFds(x.GoPointer(), LengthVar)
+	return cret
 }
 
 var xUnixFDListStealFds func(uintptr, int) uintptr
@@ -162,8 +177,8 @@ var xUnixFDListStealFds func(uintptr, int) uintptr
 // descriptors contained in @list, an empty array is returned.
 func (x *UnixFDList) StealFds(LengthVar int) uintptr {
 
-	return xUnixFDListStealFds(x.GoPointer(), LengthVar)
-
+	cret := xUnixFDListStealFds(x.GoPointer(), LengthVar)
+	return cret
 }
 
 func (c *UnixFDList) GoPointer() uintptr {

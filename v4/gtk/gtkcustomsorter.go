@@ -30,14 +30,16 @@ var xNewCustomSorter func(uintptr, uintptr, uintptr) uintptr
 //
 // If @sort_func is %NULL, all items are considered equal.
 func NewCustomSorter(SortFuncVar glib.CompareDataFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *CustomSorter {
-	NewCustomSorterPtr := xNewCustomSorter(purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-	if NewCustomSorterPtr == 0 {
-		return nil
-	}
+	var cls *CustomSorter
 
-	NewCustomSorterCls := &CustomSorter{}
-	NewCustomSorterCls.Ptr = NewCustomSorterPtr
-	return NewCustomSorterCls
+	cret := xNewCustomSorter(purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CustomSorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCustomSorterSetSortFunc func(uintptr, uintptr, uintptr, uintptr)

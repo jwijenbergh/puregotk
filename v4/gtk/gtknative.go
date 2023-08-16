@@ -50,34 +50,32 @@ func (x *NativeBase) SetGoPointer(ptr uintptr) {
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *NativeBase) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *NativeBase) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -118,18 +116,17 @@ var xNativeGetForSurface func(uintptr) uintptr
 
 // Finds the `GtkNative` associated with the surface.
 func NativeGetForSurface(SurfaceVar *gdk.Surface) *NativeBase {
+	var cls *NativeBase
 
-	NativeGetForSurfacePtr := xNativeGetForSurface(SurfaceVar.GoPointer())
-	if NativeGetForSurfacePtr == 0 {
-		return nil
+	cret := xNativeGetForSurface(SurfaceVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NativeGetForSurfacePtr)
-
-	NativeGetForSurfaceCls := &NativeBase{}
-	NativeGetForSurfaceCls.Ptr = NativeGetForSurfacePtr
-	return NativeGetForSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &NativeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

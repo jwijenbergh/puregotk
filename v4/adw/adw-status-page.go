@@ -46,34 +46,34 @@ var xNewStatusPage func() uintptr
 
 // Creates a new `AdwStatusPage`.
 func NewStatusPage() *gtk.Widget {
-	NewStatusPagePtr := xNewStatusPage()
-	if NewStatusPagePtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewStatusPage()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewStatusPagePtr)
-
-	NewStatusPageCls := &gtk.Widget{}
-	NewStatusPageCls.Ptr = NewStatusPagePtr
-	return NewStatusPageCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStatusPageGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *StatusPage) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xStatusPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xStatusPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStatusPageGetDescription func(uintptr) string
@@ -81,8 +81,8 @@ var xStatusPageGetDescription func(uintptr) string
 // Gets the description for @self.
 func (x *StatusPage) GetDescription() string {
 
-	return xStatusPageGetDescription(x.GoPointer())
-
+	cret := xStatusPageGetDescription(x.GoPointer())
+	return cret
 }
 
 var xStatusPageGetIconName func(uintptr) string
@@ -90,26 +90,25 @@ var xStatusPageGetIconName func(uintptr) string
 // Gets the icon name for @self.
 func (x *StatusPage) GetIconName() string {
 
-	return xStatusPageGetIconName(x.GoPointer())
-
+	cret := xStatusPageGetIconName(x.GoPointer())
+	return cret
 }
 
 var xStatusPageGetPaintable func(uintptr) uintptr
 
 // Gets the paintable for @self.
 func (x *StatusPage) GetPaintable() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetPaintablePtr := xStatusPageGetPaintable(x.GoPointer())
-	if GetPaintablePtr == 0 {
-		return nil
+	cret := xStatusPageGetPaintable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPaintablePtr)
-
-	GetPaintableCls := &gdk.PaintableBase{}
-	GetPaintableCls.Ptr = GetPaintablePtr
-	return GetPaintableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStatusPageGetTitle func(uintptr) string
@@ -117,8 +116,8 @@ var xStatusPageGetTitle func(uintptr) string
 // Gets the title for @self.
 func (x *StatusPage) GetTitle() string {
 
-	return xStatusPageGetTitle(x.GoPointer())
-
+	cret := xStatusPageGetTitle(x.GoPointer())
+	return cret
 }
 
 var xStatusPageSetChild func(uintptr, uintptr)
@@ -185,8 +184,8 @@ func (c *StatusPage) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *StatusPage) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -321,8 +320,8 @@ func (x *StatusPage) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *StatusPage) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

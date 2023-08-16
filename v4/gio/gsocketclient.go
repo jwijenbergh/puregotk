@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -41,14 +42,16 @@ var xNewSocketClient func() uintptr
 
 // Creates a new #GSocketClient with the default options.
 func NewSocketClient() *SocketClient {
-	NewSocketClientPtr := xNewSocketClient()
-	if NewSocketClientPtr == 0 {
-		return nil
-	}
+	var cls *SocketClient
 
-	NewSocketClientCls := &SocketClient{}
-	NewSocketClientCls.Ptr = NewSocketClientPtr
-	return NewSocketClientCls
+	cret := xNewSocketClient()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketClient{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketClientAddApplicationProxy func(uintptr, string)
@@ -78,7 +81,7 @@ func (x *SocketClient) AddApplicationProxy(ProtocolVar string) {
 
 }
 
-var xSocketClientConnect func(uintptr, uintptr, uintptr) uintptr
+var xSocketClientConnect func(uintptr, uintptr, uintptr, **glib.Error) uintptr
 
 // Tries to resolve the @connectable and make a network connection to it.
 //
@@ -98,16 +101,21 @@ var xSocketClientConnect func(uintptr, uintptr, uintptr) uintptr
 //
 // If a local address is specified with g_socket_client_set_local_address() the
 // socket will be bound to this address before connecting.
-func (x *SocketClient) Connect(ConnectableVar SocketConnectable, CancellableVar *Cancellable) *SocketConnection {
+func (x *SocketClient) Connect(ConnectableVar SocketConnectable, CancellableVar *Cancellable) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectPtr := xSocketClientConnect(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer())
-	if ConnectPtr == 0 {
-		return nil
+	cret := xSocketClientConnect(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectCls := &SocketConnection{}
-	ConnectCls.Ptr = ConnectPtr
-	return ConnectCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -133,23 +141,28 @@ func (x *SocketClient) ConnectAsync(ConnectableVar SocketConnectable, Cancellabl
 
 }
 
-var xSocketClientConnectFinish func(uintptr, uintptr) uintptr
+var xSocketClientConnectFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an async connect operation. See g_socket_client_connect_async()
-func (x *SocketClient) ConnectFinish(ResultVar AsyncResult) *SocketConnection {
+func (x *SocketClient) ConnectFinish(ResultVar AsyncResult) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectFinishPtr := xSocketClientConnectFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ConnectFinishPtr == 0 {
-		return nil
+	cret := xSocketClientConnectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectFinishCls := &SocketConnection{}
-	ConnectFinishCls.Ptr = ConnectFinishPtr
-	return ConnectFinishCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xSocketClientConnectToHost func(uintptr, string, uint16, uintptr) uintptr
+var xSocketClientConnectToHost func(uintptr, string, uint16, uintptr, **glib.Error) uintptr
 
 // This is a helper function for g_socket_client_connect().
 //
@@ -181,16 +194,21 @@ var xSocketClientConnectToHost func(uintptr, string, uint16, uintptr) uintptr
 // In the event of any failure (DNS error, service not found, no hosts
 // connectable) %NULL is returned and @error (if non-%NULL) is set
 // accordingly.
-func (x *SocketClient) ConnectToHost(HostAndPortVar string, DefaultPortVar uint16, CancellableVar *Cancellable) *SocketConnection {
+func (x *SocketClient) ConnectToHost(HostAndPortVar string, DefaultPortVar uint16, CancellableVar *Cancellable) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToHostPtr := xSocketClientConnectToHost(x.GoPointer(), HostAndPortVar, DefaultPortVar, CancellableVar.GoPointer())
-	if ConnectToHostPtr == 0 {
-		return nil
+	cret := xSocketClientConnectToHost(x.GoPointer(), HostAndPortVar, DefaultPortVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToHostCls := &SocketConnection{}
-	ConnectToHostCls.Ptr = ConnectToHostPtr
-	return ConnectToHostCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -207,23 +225,28 @@ func (x *SocketClient) ConnectToHostAsync(HostAndPortVar string, DefaultPortVar 
 
 }
 
-var xSocketClientConnectToHostFinish func(uintptr, uintptr) uintptr
+var xSocketClientConnectToHostFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an async connect operation. See g_socket_client_connect_to_host_async()
-func (x *SocketClient) ConnectToHostFinish(ResultVar AsyncResult) *SocketConnection {
+func (x *SocketClient) ConnectToHostFinish(ResultVar AsyncResult) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToHostFinishPtr := xSocketClientConnectToHostFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ConnectToHostFinishPtr == 0 {
-		return nil
+	cret := xSocketClientConnectToHostFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToHostFinishCls := &SocketConnection{}
-	ConnectToHostFinishCls.Ptr = ConnectToHostFinishPtr
-	return ConnectToHostFinishCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xSocketClientConnectToService func(uintptr, string, string, uintptr) uintptr
+var xSocketClientConnectToService func(uintptr, string, string, uintptr, **glib.Error) uintptr
 
 // Attempts to create a TCP connection to a service.
 //
@@ -239,16 +262,21 @@ var xSocketClientConnectToService func(uintptr, string, string, uintptr) uintptr
 // In the event of any failure (DNS error, service not found, no hosts
 // connectable) %NULL is returned and @error (if non-%NULL) is set
 // accordingly.
-func (x *SocketClient) ConnectToService(DomainVar string, ServiceVar string, CancellableVar *Cancellable) *SocketConnection {
+func (x *SocketClient) ConnectToService(DomainVar string, ServiceVar string, CancellableVar *Cancellable) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToServicePtr := xSocketClientConnectToService(x.GoPointer(), DomainVar, ServiceVar, CancellableVar.GoPointer())
-	if ConnectToServicePtr == 0 {
-		return nil
+	cret := xSocketClientConnectToService(x.GoPointer(), DomainVar, ServiceVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToServiceCls := &SocketConnection{}
-	ConnectToServiceCls.Ptr = ConnectToServicePtr
-	return ConnectToServiceCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -262,23 +290,28 @@ func (x *SocketClient) ConnectToServiceAsync(DomainVar string, ServiceVar string
 
 }
 
-var xSocketClientConnectToServiceFinish func(uintptr, uintptr) uintptr
+var xSocketClientConnectToServiceFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an async connect operation. See g_socket_client_connect_to_service_async()
-func (x *SocketClient) ConnectToServiceFinish(ResultVar AsyncResult) *SocketConnection {
+func (x *SocketClient) ConnectToServiceFinish(ResultVar AsyncResult) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToServiceFinishPtr := xSocketClientConnectToServiceFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ConnectToServiceFinishPtr == 0 {
-		return nil
+	cret := xSocketClientConnectToServiceFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToServiceFinishCls := &SocketConnection{}
-	ConnectToServiceFinishCls.Ptr = ConnectToServiceFinishPtr
-	return ConnectToServiceFinishCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xSocketClientConnectToUri func(uintptr, string, uint16, uintptr) uintptr
+var xSocketClientConnectToUri func(uintptr, string, uint16, uintptr, **glib.Error) uintptr
 
 // This is a helper function for g_socket_client_connect().
 //
@@ -301,16 +334,21 @@ var xSocketClientConnectToUri func(uintptr, string, uint16, uintptr) uintptr
 // In the event of any failure (DNS error, service not found, no hosts
 // connectable) %NULL is returned and @error (if non-%NULL) is set
 // accordingly.
-func (x *SocketClient) ConnectToUri(UriVar string, DefaultPortVar uint16, CancellableVar *Cancellable) *SocketConnection {
+func (x *SocketClient) ConnectToUri(UriVar string, DefaultPortVar uint16, CancellableVar *Cancellable) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToUriPtr := xSocketClientConnectToUri(x.GoPointer(), UriVar, DefaultPortVar, CancellableVar.GoPointer())
-	if ConnectToUriPtr == 0 {
-		return nil
+	cret := xSocketClientConnectToUri(x.GoPointer(), UriVar, DefaultPortVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToUriCls := &SocketConnection{}
-	ConnectToUriCls.Ptr = ConnectToUriPtr
-	return ConnectToUriCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -327,19 +365,24 @@ func (x *SocketClient) ConnectToUriAsync(UriVar string, DefaultPortVar uint16, C
 
 }
 
-var xSocketClientConnectToUriFinish func(uintptr, uintptr) uintptr
+var xSocketClientConnectToUriFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an async connect operation. See g_socket_client_connect_to_uri_async()
-func (x *SocketClient) ConnectToUriFinish(ResultVar AsyncResult) *SocketConnection {
+func (x *SocketClient) ConnectToUriFinish(ResultVar AsyncResult) (*SocketConnection, error) {
+	var cls *SocketConnection
+	var cerr *glib.Error
 
-	ConnectToUriFinishPtr := xSocketClientConnectToUriFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ConnectToUriFinishPtr == 0 {
-		return nil
+	cret := xSocketClientConnectToUriFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectToUriFinishCls := &SocketConnection{}
-	ConnectToUriFinishCls.Ptr = ConnectToUriFinishPtr
-	return ConnectToUriFinishCls
+	cls = &SocketConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -348,8 +391,8 @@ var xSocketClientGetEnableProxy func(uintptr) bool
 // Gets the proxy enable state; see g_socket_client_set_enable_proxy()
 func (x *SocketClient) GetEnableProxy() bool {
 
-	return xSocketClientGetEnableProxy(x.GoPointer())
-
+	cret := xSocketClientGetEnableProxy(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetFamily func(uintptr) SocketFamily
@@ -359,8 +402,8 @@ var xSocketClientGetFamily func(uintptr) SocketFamily
 // See g_socket_client_set_family() for details.
 func (x *SocketClient) GetFamily() SocketFamily {
 
-	return xSocketClientGetFamily(x.GoPointer())
-
+	cret := xSocketClientGetFamily(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetLocalAddress func(uintptr) uintptr
@@ -369,18 +412,17 @@ var xSocketClientGetLocalAddress func(uintptr) uintptr
 //
 // See g_socket_client_set_local_address() for details.
 func (x *SocketClient) GetLocalAddress() *SocketAddress {
+	var cls *SocketAddress
 
-	GetLocalAddressPtr := xSocketClientGetLocalAddress(x.GoPointer())
-	if GetLocalAddressPtr == 0 {
-		return nil
+	cret := xSocketClientGetLocalAddress(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLocalAddressPtr)
-
-	GetLocalAddressCls := &SocketAddress{}
-	GetLocalAddressCls.Ptr = GetLocalAddressPtr
-	return GetLocalAddressCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketClientGetProtocol func(uintptr) SocketProtocol
@@ -390,8 +432,8 @@ var xSocketClientGetProtocol func(uintptr) SocketProtocol
 // See g_socket_client_set_protocol() for details.
 func (x *SocketClient) GetProtocol() SocketProtocol {
 
-	return xSocketClientGetProtocol(x.GoPointer())
-
+	cret := xSocketClientGetProtocol(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetProxyResolver func(uintptr) uintptr
@@ -400,18 +442,17 @@ var xSocketClientGetProxyResolver func(uintptr) uintptr
 // be the resolver returned by g_proxy_resolver_get_default(), but you
 // can override it with g_socket_client_set_proxy_resolver().
 func (x *SocketClient) GetProxyResolver() *ProxyResolverBase {
+	var cls *ProxyResolverBase
 
-	GetProxyResolverPtr := xSocketClientGetProxyResolver(x.GoPointer())
-	if GetProxyResolverPtr == 0 {
-		return nil
+	cret := xSocketClientGetProxyResolver(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetProxyResolverPtr)
-
-	GetProxyResolverCls := &ProxyResolverBase{}
-	GetProxyResolverCls.Ptr = GetProxyResolverPtr
-	return GetProxyResolverCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ProxyResolverBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketClientGetSocketType func(uintptr) SocketType
@@ -421,8 +462,8 @@ var xSocketClientGetSocketType func(uintptr) SocketType
 // See g_socket_client_set_socket_type() for details.
 func (x *SocketClient) GetSocketType() SocketType {
 
-	return xSocketClientGetSocketType(x.GoPointer())
-
+	cret := xSocketClientGetSocketType(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetTimeout func(uintptr) uint
@@ -432,8 +473,8 @@ var xSocketClientGetTimeout func(uintptr) uint
 // See g_socket_client_set_timeout() for details.
 func (x *SocketClient) GetTimeout() uint {
 
-	return xSocketClientGetTimeout(x.GoPointer())
-
+	cret := xSocketClientGetTimeout(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetTls func(uintptr) bool
@@ -442,8 +483,8 @@ var xSocketClientGetTls func(uintptr) bool
 // g_socket_client_set_tls() for details.
 func (x *SocketClient) GetTls() bool {
 
-	return xSocketClientGetTls(x.GoPointer())
-
+	cret := xSocketClientGetTls(x.GoPointer())
+	return cret
 }
 
 var xSocketClientGetTlsValidationFlags func(uintptr) TlsCertificateFlags
@@ -456,8 +497,8 @@ var xSocketClientGetTlsValidationFlags func(uintptr) TlsCertificateFlags
 // information.
 func (x *SocketClient) GetTlsValidationFlags() TlsCertificateFlags {
 
-	return xSocketClientGetTlsValidationFlags(x.GoPointer())
-
+	cret := xSocketClientGetTlsValidationFlags(x.GoPointer())
+	return cret
 }
 
 var xSocketClientSetEnableProxy func(uintptr, bool)

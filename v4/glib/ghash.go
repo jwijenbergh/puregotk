@@ -51,8 +51,8 @@ var xDirectEqual func(uintptr, uintptr) bool
 // stored in pointers, such as `GINT_TO_POINTER (n)`.
 func DirectEqual(V1Var uintptr, V2Var uintptr) bool {
 
-	return xDirectEqual(V1Var, V2Var)
-
+	cret := xDirectEqual(V1Var, V2Var)
+	return cret
 }
 
 var xDirectHash func(uintptr) uint
@@ -66,8 +66,8 @@ var xDirectHash func(uintptr) uint
 // stored in pointers, such as `GINT_TO_POINTER (n)`.
 func DirectHash(VVar uintptr) uint {
 
-	return xDirectHash(VVar)
-
+	cret := xDirectHash(VVar)
+	return cret
 }
 
 var xDoubleEqual func(uintptr, uintptr) bool
@@ -79,8 +79,8 @@ var xDoubleEqual func(uintptr, uintptr) bool
 // #GHashTable.
 func DoubleEqual(V1Var uintptr, V2Var uintptr) bool {
 
-	return xDoubleEqual(V1Var, V2Var)
-
+	cret := xDoubleEqual(V1Var, V2Var)
+	return cret
 }
 
 var xDoubleHash func(uintptr) uint
@@ -91,8 +91,8 @@ var xDoubleHash func(uintptr) uint
 // when using non-%NULL pointers to doubles as keys in a #GHashTable.
 func DoubleHash(VVar uintptr) uint {
 
-	return xDoubleHash(VVar)
-
+	cret := xDoubleHash(VVar)
+	return cret
 }
 
 var xHashTableAdd func(*HashTable, uintptr) bool
@@ -114,8 +114,8 @@ var xHashTableAdd func(*HashTable, uintptr) bool
 // or not.
 func HashTableAdd(HashTableVar *HashTable, KeyVar uintptr) bool {
 
-	return xHashTableAdd(HashTableVar, KeyVar)
-
+	cret := xHashTableAdd(HashTableVar, KeyVar)
+	return cret
 }
 
 var xHashTableContains func(*HashTable, uintptr) bool
@@ -123,8 +123,8 @@ var xHashTableContains func(*HashTable, uintptr) bool
 // Checks if @key is in @hash_table.
 func HashTableContains(HashTableVar *HashTable, KeyVar uintptr) bool {
 
-	return xHashTableContains(HashTableVar, KeyVar)
-
+	cret := xHashTableContains(HashTableVar, KeyVar)
+	return cret
 }
 
 var xHashTableDestroy func(*HashTable)
@@ -157,8 +157,8 @@ var xHashTableInsert func(*HashTable, uintptr, uintptr) bool
 // or not.
 func HashTableInsert(HashTableVar *HashTable, KeyVar uintptr, ValueVar uintptr) bool {
 
-	return xHashTableInsert(HashTableVar, KeyVar, ValueVar)
-
+	cret := xHashTableInsert(HashTableVar, KeyVar, ValueVar)
+	return cret
 }
 
 var xHashTableLookup func(*HashTable, uintptr) uintptr
@@ -169,8 +169,8 @@ var xHashTableLookup func(*HashTable, uintptr) uintptr
 // g_hash_table_lookup_extended().
 func HashTableLookup(HashTableVar *HashTable, KeyVar uintptr) uintptr {
 
-	return xHashTableLookup(HashTableVar, KeyVar)
-
+	cret := xHashTableLookup(HashTableVar, KeyVar)
+	return cret
 }
 
 var xHashTableLookupExtended func(*HashTable, uintptr, uintptr, uintptr) bool
@@ -185,8 +185,8 @@ var xHashTableLookupExtended func(*HashTable, uintptr, uintptr, uintptr) bool
 // of @hash_table are %NULL-safe.
 func HashTableLookupExtended(HashTableVar *HashTable, LookupKeyVar uintptr, OrigKeyVar uintptr, ValueVar uintptr) bool {
 
-	return xHashTableLookupExtended(HashTableVar, LookupKeyVar, OrigKeyVar, ValueVar)
-
+	cret := xHashTableLookupExtended(HashTableVar, LookupKeyVar, OrigKeyVar, ValueVar)
+	return cret
 }
 
 var xHashTableNewSimilar func(*HashTable) *HashTable
@@ -201,8 +201,8 @@ var xHashTableNewSimilar func(*HashTable) *HashTable
 // or values from @other_hash_table.
 func HashTableNewSimilar(OtherHashTableVar *HashTable) *HashTable {
 
-	return xHashTableNewSimilar(OtherHashTableVar)
-
+	cret := xHashTableNewSimilar(OtherHashTableVar)
+	return cret
 }
 
 var xHashTableRemove func(*HashTable, uintptr) bool
@@ -215,8 +215,8 @@ var xHashTableRemove func(*HashTable, uintptr) bool
 // yourself.
 func HashTableRemove(HashTableVar *HashTable, KeyVar uintptr) bool {
 
-	return xHashTableRemove(HashTableVar, KeyVar)
-
+	cret := xHashTableRemove(HashTableVar, KeyVar)
+	return cret
 }
 
 var xHashTableRemoveAll func(*HashTable)
@@ -248,8 +248,8 @@ var xHashTableReplace func(*HashTable, uintptr, uintptr) bool
 // or not.
 func HashTableReplace(HashTableVar *HashTable, KeyVar uintptr, ValueVar uintptr) bool {
 
-	return xHashTableReplace(HashTableVar, KeyVar, ValueVar)
-
+	cret := xHashTableReplace(HashTableVar, KeyVar, ValueVar)
+	return cret
 }
 
 var xHashTableSize func(*HashTable) uint
@@ -257,8 +257,8 @@ var xHashTableSize func(*HashTable) uint
 // Returns the number of elements contained in the #GHashTable.
 func HashTableSize(HashTableVar *HashTable) uint {
 
-	return xHashTableSize(HashTableVar)
-
+	cret := xHashTableSize(HashTableVar)
+	return cret
 }
 
 var xHashTableSteal func(*HashTable, uintptr) bool
@@ -267,8 +267,8 @@ var xHashTableSteal func(*HashTable, uintptr) bool
 // calling the key and value destroy functions.
 func HashTableSteal(HashTableVar *HashTable, KeyVar uintptr) bool {
 
-	return xHashTableSteal(HashTableVar, KeyVar)
-
+	cret := xHashTableSteal(HashTableVar, KeyVar)
+	return cret
 }
 
 var xHashTableStealAll func(*HashTable)
@@ -295,8 +295,8 @@ var xHashTableStealExtended func(*HashTable, uintptr, uintptr, uintptr) bool
 // of @hash_table are %NULL-safe.
 func HashTableStealExtended(HashTableVar *HashTable, LookupKeyVar uintptr, StolenKeyVar uintptr, StolenValueVar uintptr) bool {
 
-	return xHashTableStealExtended(HashTableVar, LookupKeyVar, StolenKeyVar, StolenValueVar)
-
+	cret := xHashTableStealExtended(HashTableVar, LookupKeyVar, StolenKeyVar, StolenValueVar)
+	return cret
 }
 
 var xHashTableUnref func(*HashTable)
@@ -320,8 +320,8 @@ var xInt64Equal func(uintptr, uintptr) bool
 // #GHashTable.
 func Int64Equal(V1Var uintptr, V2Var uintptr) bool {
 
-	return xInt64Equal(V1Var, V2Var)
-
+	cret := xInt64Equal(V1Var, V2Var)
+	return cret
 }
 
 var xInt64Hash func(uintptr) uint
@@ -333,8 +333,8 @@ var xInt64Hash func(uintptr) uint
 // #GHashTable.
 func Int64Hash(VVar uintptr) uint {
 
-	return xInt64Hash(VVar)
-
+	cret := xInt64Hash(VVar)
+	return cret
 }
 
 var xIntEqual func(uintptr, uintptr) bool
@@ -350,8 +350,8 @@ var xIntEqual func(uintptr, uintptr) bool
 // `GINT_TO_POINTER (n)`, use g_direct_equal() instead.
 func IntEqual(V1Var uintptr, V2Var uintptr) bool {
 
-	return xIntEqual(V1Var, V2Var)
-
+	cret := xIntEqual(V1Var, V2Var)
+	return cret
 }
 
 var xIntHash func(uintptr) uint
@@ -365,8 +365,8 @@ var xIntHash func(uintptr) uint
 // `GINT_TO_POINTER (n)`, use g_direct_hash() instead.
 func IntHash(VVar uintptr) uint {
 
-	return xIntHash(VVar)
-
+	cret := xIntHash(VVar)
+	return cret
 }
 
 var xStrEqual func(uintptr, uintptr) bool
@@ -381,8 +381,8 @@ var xStrEqual func(uintptr, uintptr) bool
 // comparison function, see g_strcmp0().
 func StrEqual(V1Var uintptr, V2Var uintptr) bool {
 
-	return xStrEqual(V1Var, V2Var)
-
+	cret := xStrEqual(V1Var, V2Var)
+	return cret
 }
 
 var xStrHash func(uintptr) uint
@@ -403,8 +403,8 @@ var xStrHash func(uintptr) uint
 // as 2.
 func StrHash(VVar uintptr) uint {
 
-	return xStrHash(VVar)
-
+	cret := xStrHash(VVar)
+	return cret
 }
 
 func init() {

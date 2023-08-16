@@ -39,14 +39,16 @@ var xNewGestureLongPress func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes long presses.
 func NewGestureLongPress() *Gesture {
-	NewGestureLongPressPtr := xNewGestureLongPress()
-	if NewGestureLongPressPtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureLongPressCls := &Gesture{}
-	NewGestureLongPressCls.Ptr = NewGestureLongPressPtr
-	return NewGestureLongPressCls
+	cret := xNewGestureLongPress()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureLongPressGetDelayFactor func(uintptr) float64
@@ -54,8 +56,8 @@ var xGestureLongPressGetDelayFactor func(uintptr) float64
 // Returns the delay factor.
 func (x *GestureLongPress) GetDelayFactor() float64 {
 
-	return xGestureLongPressGetDelayFactor(x.GoPointer())
-
+	cret := xGestureLongPressGetDelayFactor(x.GoPointer())
+	return cret
 }
 
 var xGestureLongPressSetDelayFactor func(uintptr, float64)

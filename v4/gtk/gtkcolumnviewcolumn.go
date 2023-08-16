@@ -49,14 +49,16 @@ var xNewColumnViewColumn func(string, uintptr) uintptr
 //
 // ```
 func NewColumnViewColumn(TitleVar string, FactoryVar *ListItemFactory) *ColumnViewColumn {
-	NewColumnViewColumnPtr := xNewColumnViewColumn(TitleVar, FactoryVar.GoPointer())
-	if NewColumnViewColumnPtr == 0 {
-		return nil
-	}
+	var cls *ColumnViewColumn
 
-	NewColumnViewColumnCls := &ColumnViewColumn{}
-	NewColumnViewColumnCls.Ptr = NewColumnViewColumnPtr
-	return NewColumnViewColumnCls
+	cret := xNewColumnViewColumn(TitleVar, FactoryVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ColumnViewColumn{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewColumnGetColumnView func(uintptr) uintptr
@@ -65,18 +67,17 @@ var xColumnViewColumnGetColumnView func(uintptr) uintptr
 //
 // If @self has not been added to a column view yet, %NULL is returned.
 func (x *ColumnViewColumn) GetColumnView() *ColumnView {
+	var cls *ColumnView
 
-	GetColumnViewPtr := xColumnViewColumnGetColumnView(x.GoPointer())
-	if GetColumnViewPtr == 0 {
-		return nil
+	cret := xColumnViewColumnGetColumnView(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetColumnViewPtr)
-
-	GetColumnViewCls := &ColumnView{}
-	GetColumnViewCls.Ptr = GetColumnViewPtr
-	return GetColumnViewCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ColumnView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewColumnGetExpand func(uintptr) bool
@@ -84,8 +85,8 @@ var xColumnViewColumnGetExpand func(uintptr) bool
 // Returns whether this column should expand.
 func (x *ColumnViewColumn) GetExpand() bool {
 
-	return xColumnViewColumnGetExpand(x.GoPointer())
-
+	cret := xColumnViewColumnGetExpand(x.GoPointer())
+	return cret
 }
 
 var xColumnViewColumnGetFactory func(uintptr) uintptr
@@ -93,18 +94,17 @@ var xColumnViewColumnGetFactory func(uintptr) uintptr
 // Gets the factory that's currently used to populate list items for
 // this column.
 func (x *ColumnViewColumn) GetFactory() *ListItemFactory {
+	var cls *ListItemFactory
 
-	GetFactoryPtr := xColumnViewColumnGetFactory(x.GoPointer())
-	if GetFactoryPtr == 0 {
-		return nil
+	cret := xColumnViewColumnGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFactoryPtr)
-
-	GetFactoryCls := &ListItemFactory{}
-	GetFactoryCls.Ptr = GetFactoryPtr
-	return GetFactoryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewColumnGetFixedWidth func(uintptr) int
@@ -112,8 +112,8 @@ var xColumnViewColumnGetFixedWidth func(uintptr) int
 // Gets the fixed width of the column.
 func (x *ColumnViewColumn) GetFixedWidth() int {
 
-	return xColumnViewColumnGetFixedWidth(x.GoPointer())
-
+	cret := xColumnViewColumnGetFixedWidth(x.GoPointer())
+	return cret
 }
 
 var xColumnViewColumnGetHeaderMenu func(uintptr) uintptr
@@ -121,18 +121,17 @@ var xColumnViewColumnGetHeaderMenu func(uintptr) uintptr
 // Gets the menu model that is used to create the context menu
 // for the column header.
 func (x *ColumnViewColumn) GetHeaderMenu() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetHeaderMenuPtr := xColumnViewColumnGetHeaderMenu(x.GoPointer())
-	if GetHeaderMenuPtr == 0 {
-		return nil
+	cret := xColumnViewColumnGetHeaderMenu(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHeaderMenuPtr)
-
-	GetHeaderMenuCls := &gio.MenuModel{}
-	GetHeaderMenuCls.Ptr = GetHeaderMenuPtr
-	return GetHeaderMenuCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewColumnGetResizable func(uintptr) bool
@@ -140,26 +139,25 @@ var xColumnViewColumnGetResizable func(uintptr) bool
 // Returns whether this column is resizable.
 func (x *ColumnViewColumn) GetResizable() bool {
 
-	return xColumnViewColumnGetResizable(x.GoPointer())
-
+	cret := xColumnViewColumnGetResizable(x.GoPointer())
+	return cret
 }
 
 var xColumnViewColumnGetSorter func(uintptr) uintptr
 
 // Returns the sorter that is associated with the column.
 func (x *ColumnViewColumn) GetSorter() *Sorter {
+	var cls *Sorter
 
-	GetSorterPtr := xColumnViewColumnGetSorter(x.GoPointer())
-	if GetSorterPtr == 0 {
-		return nil
+	cret := xColumnViewColumnGetSorter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSorterPtr)
-
-	GetSorterCls := &Sorter{}
-	GetSorterCls.Ptr = GetSorterPtr
-	return GetSorterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Sorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xColumnViewColumnGetTitle func(uintptr) string
@@ -167,8 +165,8 @@ var xColumnViewColumnGetTitle func(uintptr) string
 // Returns the title set with gtk_column_view_column_set_title().
 func (x *ColumnViewColumn) GetTitle() string {
 
-	return xColumnViewColumnGetTitle(x.GoPointer())
-
+	cret := xColumnViewColumnGetTitle(x.GoPointer())
+	return cret
 }
 
 var xColumnViewColumnGetVisible func(uintptr) bool
@@ -176,8 +174,8 @@ var xColumnViewColumnGetVisible func(uintptr) bool
 // Returns whether this column is visible.
 func (x *ColumnViewColumn) GetVisible() bool {
 
-	return xColumnViewColumnGetVisible(x.GoPointer())
-
+	cret := xColumnViewColumnGetVisible(x.GoPointer())
+	return cret
 }
 
 var xColumnViewColumnSetExpand func(uintptr, bool)

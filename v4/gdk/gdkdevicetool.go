@@ -47,8 +47,8 @@ var xDeviceToolGetAxes func(uintptr) AxisFlags
 // Gets the axes of the tool.
 func (x *DeviceTool) GetAxes() AxisFlags {
 
-	return xDeviceToolGetAxes(x.GoPointer())
-
+	cret := xDeviceToolGetAxes(x.GoPointer())
+	return cret
 }
 
 var xDeviceToolGetHardwareId func(uintptr) uint64
@@ -66,8 +66,8 @@ var xDeviceToolGetHardwareId func(uintptr) uint64
 // `GdkDeviceToolType`, but different hardware identificators.
 func (x *DeviceTool) GetHardwareId() uint64 {
 
-	return xDeviceToolGetHardwareId(x.GoPointer())
-
+	cret := xDeviceToolGetHardwareId(x.GoPointer())
+	return cret
 }
 
 var xDeviceToolGetSerial func(uintptr) uint64
@@ -78,8 +78,8 @@ var xDeviceToolGetSerial func(uintptr) uint64
 // (eg. a tablet pen) across program executions.
 func (x *DeviceTool) GetSerial() uint64 {
 
-	return xDeviceToolGetSerial(x.GoPointer())
-
+	cret := xDeviceToolGetSerial(x.GoPointer())
+	return cret
 }
 
 var xDeviceToolGetToolType func(uintptr) DeviceToolType
@@ -87,8 +87,8 @@ var xDeviceToolGetToolType func(uintptr) DeviceToolType
 // Gets the `GdkDeviceToolType` of the tool.
 func (x *DeviceTool) GetToolType() DeviceToolType {
 
-	return xDeviceToolGetToolType(x.GoPointer())
-
+	cret := xDeviceToolGetToolType(x.GoPointer())
+	return cret
 }
 
 func (c *DeviceTool) GoPointer() uintptr {

@@ -564,14 +564,16 @@ var xNewTask func(uintptr, uintptr, uintptr, uintptr) uintptr
 // do not want this behavior, you can use
 // g_task_set_check_cancellable() to change it.
 func NewTask(SourceObjectVar *gobject.Object, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr) *Task {
-	NewTaskPtr := xNewTask(SourceObjectVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar)
-	if NewTaskPtr == 0 {
-		return nil
-	}
+	var cls *Task
 
-	NewTaskCls := &Task{}
-	NewTaskCls.Ptr = NewTaskPtr
-	return NewTaskCls
+	cret := xNewTask(SourceObjectVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Task{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTaskAttachSource func(uintptr, *glib.Source, uintptr)
@@ -595,18 +597,17 @@ var xTaskGetCancellable func(uintptr) uintptr
 
 // Gets @task's #GCancellable
 func (x *Task) GetCancellable() *Cancellable {
+	var cls *Cancellable
 
-	GetCancellablePtr := xTaskGetCancellable(x.GoPointer())
-	if GetCancellablePtr == 0 {
-		return nil
+	cret := xTaskGetCancellable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCancellablePtr)
-
-	GetCancellableCls := &Cancellable{}
-	GetCancellableCls.Ptr = GetCancellablePtr
-	return GetCancellableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Cancellable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTaskGetCheckCancellable func(uintptr) bool
@@ -615,8 +616,8 @@ var xTaskGetCheckCancellable func(uintptr) bool
 // g_task_set_check_cancellable() for more details.
 func (x *Task) GetCheckCancellable() bool {
 
-	return xTaskGetCheckCancellable(x.GoPointer())
-
+	cret := xTaskGetCheckCancellable(x.GoPointer())
+	return cret
 }
 
 var xTaskGetCompleted func(uintptr) bool
@@ -626,8 +627,8 @@ var xTaskGetCompleted func(uintptr) bool
 // the callback.
 func (x *Task) GetCompleted() bool {
 
-	return xTaskGetCompleted(x.GoPointer())
-
+	cret := xTaskGetCompleted(x.GoPointer())
+	return cret
 }
 
 var xTaskGetContext func(uintptr) *glib.MainContext
@@ -641,8 +642,8 @@ var xTaskGetContext func(uintptr) *glib.MainContext
 // context is the default #GMainContext.
 func (x *Task) GetContext() *glib.MainContext {
 
-	return xTaskGetContext(x.GoPointer())
-
+	cret := xTaskGetContext(x.GoPointer())
+	return cret
 }
 
 var xTaskGetName func(uintptr) string
@@ -650,8 +651,8 @@ var xTaskGetName func(uintptr) string
 // Gets @task’s name. See g_task_set_name().
 func (x *Task) GetName() string {
 
-	return xTaskGetName(x.GoPointer())
-
+	cret := xTaskGetName(x.GoPointer())
+	return cret
 }
 
 var xTaskGetPriority func(uintptr) int
@@ -659,8 +660,8 @@ var xTaskGetPriority func(uintptr) int
 // Gets @task's priority
 func (x *Task) GetPriority() int {
 
-	return xTaskGetPriority(x.GoPointer())
-
+	cret := xTaskGetPriority(x.GoPointer())
+	return cret
 }
 
 var xTaskGetReturnOnCancel func(uintptr) bool
@@ -669,8 +670,8 @@ var xTaskGetReturnOnCancel func(uintptr) bool
 // g_task_set_return_on_cancel() for more details.
 func (x *Task) GetReturnOnCancel() bool {
 
-	return xTaskGetReturnOnCancel(x.GoPointer())
-
+	cret := xTaskGetReturnOnCancel(x.GoPointer())
+	return cret
 }
 
 var xTaskGetSourceObject func(uintptr) uintptr
@@ -678,18 +679,17 @@ var xTaskGetSourceObject func(uintptr) uintptr
 // Gets the source object from @task. Like
 // g_async_result_get_source_object(), but does not ref the object.
 func (x *Task) GetSourceObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSourceObjectPtr := xTaskGetSourceObject(x.GoPointer())
-	if GetSourceObjectPtr == 0 {
-		return nil
+	cret := xTaskGetSourceObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSourceObjectPtr)
-
-	GetSourceObjectCls := &gobject.Object{}
-	GetSourceObjectCls.Ptr = GetSourceObjectPtr
-	return GetSourceObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTaskGetSourceTag func(uintptr) uintptr
@@ -697,8 +697,8 @@ var xTaskGetSourceTag func(uintptr) uintptr
 // Gets @task's source tag. See g_task_set_source_tag().
 func (x *Task) GetSourceTag() uintptr {
 
-	return xTaskGetSourceTag(x.GoPointer())
-
+	cret := xTaskGetSourceTag(x.GoPointer())
+	return cret
 }
 
 var xTaskGetTaskData func(uintptr) uintptr
@@ -706,8 +706,8 @@ var xTaskGetTaskData func(uintptr) uintptr
 // Gets @task's `task_data`.
 func (x *Task) GetTaskData() uintptr {
 
-	return xTaskGetTaskData(x.GoPointer())
-
+	cret := xTaskGetTaskData(x.GoPointer())
+	return cret
 }
 
 var xTaskHadError func(uintptr) bool
@@ -715,8 +715,8 @@ var xTaskHadError func(uintptr) bool
 // Tests if @task resulted in an error.
 func (x *Task) HadError() bool {
 
-	return xTaskHadError(x.GoPointer())
-
+	cret := xTaskHadError(x.GoPointer())
+	return cret
 }
 
 var xTaskPropagateBoolean func(uintptr) bool
@@ -728,9 +728,14 @@ var xTaskPropagateBoolean func(uintptr) bool
 //
 // Since this method transfers ownership of the return value (or
 // error) to the caller, you may only call it once.
-func (x *Task) PropagateBoolean() bool {
+func (x *Task) PropagateBoolean() (bool, error) {
+	var cerr *glib.Error
 
-	return xTaskPropagateBoolean(x.GoPointer())
+	cret := xTaskPropagateBoolean(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -743,9 +748,14 @@ var xTaskPropagateInt func(uintptr) int
 //
 // Since this method transfers ownership of the return value (or
 // error) to the caller, you may only call it once.
-func (x *Task) PropagateInt() int {
+func (x *Task) PropagateInt() (int, error) {
+	var cerr *glib.Error
 
-	return xTaskPropagateInt(x.GoPointer())
+	cret := xTaskPropagateInt(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -759,13 +769,18 @@ var xTaskPropagatePointer func(uintptr) uintptr
 //
 // Since this method transfers ownership of the return value (or
 // error) to the caller, you may only call it once.
-func (x *Task) PropagatePointer() uintptr {
+func (x *Task) PropagatePointer() (uintptr, error) {
+	var cerr *glib.Error
 
-	return xTaskPropagatePointer(x.GoPointer())
+	cret := xTaskPropagatePointer(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xTaskPropagateValue func(uintptr, *gobject.Value) bool
+var xTaskPropagateValue func(uintptr, *gobject.Value, **glib.Error) bool
 
 // Gets the result of @task as a #GValue, and transfers ownership of
 // that value to the caller. As with g_task_return_value(), this is
@@ -777,9 +792,14 @@ var xTaskPropagateValue func(uintptr, *gobject.Value) bool
 //
 // Since this method transfers ownership of the return value (or
 // error) to the caller, you may only call it once.
-func (x *Task) PropagateValue(ValueVar *gobject.Value) bool {
+func (x *Task) PropagateValue(ValueVar *gobject.Value) (bool, error) {
+	var cerr *glib.Error
 
-	return xTaskPropagateValue(x.GoPointer(), ValueVar)
+	cret := xTaskPropagateValue(x.GoPointer(), ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -821,8 +841,8 @@ var xTaskReturnErrorIfCancelled func(uintptr) bool
 // means).
 func (x *Task) ReturnErrorIfCancelled() bool {
 
-	return xTaskReturnErrorIfCancelled(x.GoPointer())
-
+	cret := xTaskReturnErrorIfCancelled(x.GoPointer())
+	return cret
 }
 
 var xTaskReturnInt func(uintptr, int)
@@ -1023,8 +1043,8 @@ var xTaskSetReturnOnCancel func(uintptr, bool) bool
 // will also be completed right away.
 func (x *Task) SetReturnOnCancel(ReturnOnCancelVar bool) bool {
 
-	return xTaskSetReturnOnCancel(x.GoPointer(), ReturnOnCancelVar)
-
+	cret := xTaskSetReturnOnCancel(x.GoPointer(), ReturnOnCancelVar)
+	return cret
 }
 
 var xTaskSetSourceTag func(uintptr, uintptr)
@@ -1067,16 +1087,16 @@ func (c *Task) SetGoPointer(ptr uintptr) {
 // Gets the user data from a #GAsyncResult.
 func (x *Task) GetUserData() uintptr {
 
-	return XGAsyncResultGetUserData(x.GoPointer())
-
+	cret := XGAsyncResultGetUserData(x.GoPointer())
+	return cret
 }
 
 // Checks if @res has the given @source_tag (generally a function
 // pointer indicating the function @res was created by).
 func (x *Task) IsTagged(SourceTagVar uintptr) bool {
 
-	return XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
-
+	cret := XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
+	return cret
 }
 
 // If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -1089,9 +1109,14 @@ func (x *Task) IsTagged(SourceTagVar uintptr) bool {
 // This should not be used in new code; #GAsyncResult errors that are
 // set by virtual methods should also be extracted by virtual methods,
 // to enable subclasses to chain up correctly.
-func (x *Task) LegacyPropagateError() bool {
+func (x *Task) LegacyPropagateError() (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncResultLegacyPropagateError(x.GoPointer())
+	cret := XGAsyncResultLegacyPropagateError(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

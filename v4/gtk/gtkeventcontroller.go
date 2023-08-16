@@ -39,18 +39,17 @@ var xEventControllerGetCurrentEvent func(uintptr) uintptr
 //
 // At other times, %NULL is returned.
 func (x *EventController) GetCurrentEvent() *gdk.Event {
+	var cls *gdk.Event
 
-	GetCurrentEventPtr := xEventControllerGetCurrentEvent(x.GoPointer())
-	if GetCurrentEventPtr == 0 {
-		return nil
+	cret := xEventControllerGetCurrentEvent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCurrentEventPtr)
-
-	GetCurrentEventCls := &gdk.Event{}
-	GetCurrentEventCls.Ptr = GetCurrentEventPtr
-	return GetCurrentEventCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Event{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerGetCurrentEventDevice func(uintptr) uintptr
@@ -60,18 +59,17 @@ var xEventControllerGetCurrentEventDevice func(uintptr) uintptr
 //
 // At other times, %NULL is returned.
 func (x *EventController) GetCurrentEventDevice() *gdk.Device {
+	var cls *gdk.Device
 
-	GetCurrentEventDevicePtr := xEventControllerGetCurrentEventDevice(x.GoPointer())
-	if GetCurrentEventDevicePtr == 0 {
-		return nil
+	cret := xEventControllerGetCurrentEventDevice(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCurrentEventDevicePtr)
-
-	GetCurrentEventDeviceCls := &gdk.Device{}
-	GetCurrentEventDeviceCls.Ptr = GetCurrentEventDevicePtr
-	return GetCurrentEventDeviceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Device{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerGetCurrentEventState func(uintptr) gdk.ModifierType
@@ -82,8 +80,8 @@ var xEventControllerGetCurrentEventState func(uintptr) gdk.ModifierType
 // At other times, 0 is returned.
 func (x *EventController) GetCurrentEventState() gdk.ModifierType {
 
-	return xEventControllerGetCurrentEventState(x.GoPointer())
-
+	cret := xEventControllerGetCurrentEventState(x.GoPointer())
+	return cret
 }
 
 var xEventControllerGetCurrentEventTime func(uintptr) uint32
@@ -94,8 +92,8 @@ var xEventControllerGetCurrentEventTime func(uintptr) uint32
 // At other times, 0 is returned.
 func (x *EventController) GetCurrentEventTime() uint32 {
 
-	return xEventControllerGetCurrentEventTime(x.GoPointer())
-
+	cret := xEventControllerGetCurrentEventTime(x.GoPointer())
+	return cret
 }
 
 var xEventControllerGetName func(uintptr) string
@@ -103,8 +101,8 @@ var xEventControllerGetName func(uintptr) string
 // Gets the name of @controller.
 func (x *EventController) GetName() string {
 
-	return xEventControllerGetName(x.GoPointer())
-
+	cret := xEventControllerGetName(x.GoPointer())
+	return cret
 }
 
 var xEventControllerGetPropagationLimit func(uintptr) PropagationLimit
@@ -112,8 +110,8 @@ var xEventControllerGetPropagationLimit func(uintptr) PropagationLimit
 // Gets the propagation limit of the event controller.
 func (x *EventController) GetPropagationLimit() PropagationLimit {
 
-	return xEventControllerGetPropagationLimit(x.GoPointer())
-
+	cret := xEventControllerGetPropagationLimit(x.GoPointer())
+	return cret
 }
 
 var xEventControllerGetPropagationPhase func(uintptr) PropagationPhase
@@ -121,26 +119,25 @@ var xEventControllerGetPropagationPhase func(uintptr) PropagationPhase
 // Gets the propagation phase at which @controller handles events.
 func (x *EventController) GetPropagationPhase() PropagationPhase {
 
-	return xEventControllerGetPropagationPhase(x.GoPointer())
-
+	cret := xEventControllerGetPropagationPhase(x.GoPointer())
+	return cret
 }
 
 var xEventControllerGetWidget func(uintptr) uintptr
 
 // Returns the `GtkWidget` this controller relates to.
 func (x *EventController) GetWidget() *Widget {
+	var cls *Widget
 
-	GetWidgetPtr := xEventControllerGetWidget(x.GoPointer())
-	if GetWidgetPtr == 0 {
-		return nil
+	cret := xEventControllerGetWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetPtr)
-
-	GetWidgetCls := &Widget{}
-	GetWidgetCls.Ptr = GetWidgetPtr
-	return GetWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerReset func(uintptr)

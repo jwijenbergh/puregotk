@@ -13,8 +13,8 @@ var xDbusEscapeObjectPath func(string) string
 // This is a language binding friendly version of g_dbus_escape_object_path_bytestring().
 func DbusEscapeObjectPath(SVar string) string {
 
-	return xDbusEscapeObjectPath(SVar)
-
+	cret := xDbusEscapeObjectPath(SVar)
+	return cret
 }
 
 var xDbusEscapeObjectPathBytestring func(uintptr) string
@@ -37,8 +37,8 @@ var xDbusEscapeObjectPathBytestring func(uintptr) string
 // This can be reversed with g_dbus_unescape_object_path().
 func DbusEscapeObjectPathBytestring(BytesVar uintptr) string {
 
-	return xDbusEscapeObjectPathBytestring(BytesVar)
-
+	cret := xDbusEscapeObjectPathBytestring(BytesVar)
+	return cret
 }
 
 var xDbusGenerateGuid func() string
@@ -56,8 +56,8 @@ var xDbusGenerateGuid func() string
 // [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122).
 func DbusGenerateGuid() string {
 
-	return xDbusGenerateGuid()
-
+	cret := xDbusGenerateGuid()
+	return cret
 }
 
 var xDbusGvalueToGvariant func(*gobject.Value, *glib.VariantType) *glib.Variant
@@ -92,8 +92,8 @@ var xDbusGvalueToGvariant func(*gobject.Value, *glib.VariantType) *glib.Variant
 // #GVariant to a #GValue.
 func DbusGvalueToGvariant(GvalueVar *gobject.Value, TypeVar *glib.VariantType) *glib.Variant {
 
-	return xDbusGvalueToGvariant(GvalueVar, TypeVar)
-
+	cret := xDbusGvalueToGvariant(GvalueVar, TypeVar)
+	return cret
 }
 
 var xDbusGvariantToGvalue func(*glib.Variant, *gobject.Value)
@@ -124,8 +124,8 @@ var xDbusIsErrorName func(string) bool
 // same syntax as interface names.
 func DbusIsErrorName(StringVar string) bool {
 
-	return xDbusIsErrorName(StringVar)
-
+	cret := xDbusIsErrorName(StringVar)
+	return cret
 }
 
 var xDbusIsGuid func(string) bool
@@ -136,8 +136,8 @@ var xDbusIsGuid func(string) bool
 // the format of a GUID.
 func DbusIsGuid(StringVar string) bool {
 
-	return xDbusIsGuid(StringVar)
-
+	cret := xDbusIsGuid(StringVar)
+	return cret
 }
 
 var xDbusIsInterfaceName func(string) bool
@@ -145,8 +145,8 @@ var xDbusIsInterfaceName func(string) bool
 // Checks if @string is a valid D-Bus interface name.
 func DbusIsInterfaceName(StringVar string) bool {
 
-	return xDbusIsInterfaceName(StringVar)
-
+	cret := xDbusIsInterfaceName(StringVar)
+	return cret
 }
 
 var xDbusIsMemberName func(string) bool
@@ -154,8 +154,8 @@ var xDbusIsMemberName func(string) bool
 // Checks if @string is a valid D-Bus member (e.g. signal or method) name.
 func DbusIsMemberName(StringVar string) bool {
 
-	return xDbusIsMemberName(StringVar)
-
+	cret := xDbusIsMemberName(StringVar)
+	return cret
 }
 
 var xDbusIsName func(string) bool
@@ -163,8 +163,8 @@ var xDbusIsName func(string) bool
 // Checks if @string is a valid D-Bus bus name (either unique or well-known).
 func DbusIsName(StringVar string) bool {
 
-	return xDbusIsName(StringVar)
-
+	cret := xDbusIsName(StringVar)
+	return cret
 }
 
 var xDbusIsUniqueName func(string) bool
@@ -172,8 +172,8 @@ var xDbusIsUniqueName func(string) bool
 // Checks if @string is a valid D-Bus unique bus name.
 func DbusIsUniqueName(StringVar string) bool {
 
-	return xDbusIsUniqueName(StringVar)
-
+	cret := xDbusIsUniqueName(StringVar)
+	return cret
 }
 
 var xDbusUnescapeObjectPath func(string) uintptr
@@ -188,8 +188,8 @@ var xDbusUnescapeObjectPath func(string) uintptr
 // should contain `c` instead).
 func DbusUnescapeObjectPath(SVar string) uintptr {
 
-	return xDbusUnescapeObjectPath(SVar)
-
+	cret := xDbusUnescapeObjectPath(SVar)
+	return cret
 }
 
 func init() {

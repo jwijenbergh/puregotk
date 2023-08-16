@@ -103,35 +103,49 @@ func DBusObjectManagerClientNewFromInternalPtr(ptr uintptr) *DBusObjectManagerCl
 	return cls
 }
 
-var xNewFinishDBusObjectManagerClient func(uintptr) uintptr
+var xNewFinishDBusObjectManagerClient func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_object_manager_client_new().
-func NewFinishDBusObjectManagerClient(ResVar AsyncResult) *DBusObjectManagerClient {
-	NewFinishDBusObjectManagerClientPtr := xNewFinishDBusObjectManagerClient(ResVar.GoPointer())
-	if NewFinishDBusObjectManagerClientPtr == 0 {
-		return nil
-	}
+func NewFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
+	var cls *DBusObjectManagerClient
+	var cerr *glib.Error
 
-	NewFinishDBusObjectManagerClientCls := &DBusObjectManagerClient{}
-	NewFinishDBusObjectManagerClientCls.Ptr = NewFinishDBusObjectManagerClientPtr
-	return NewFinishDBusObjectManagerClientCls
+	cret := xNewFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusObjectManagerClient{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForBusFinishDBusObjectManagerClient func(uintptr) uintptr
+var xNewForBusFinishDBusObjectManagerClient func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
-func NewForBusFinishDBusObjectManagerClient(ResVar AsyncResult) *DBusObjectManagerClient {
-	NewForBusFinishDBusObjectManagerClientPtr := xNewForBusFinishDBusObjectManagerClient(ResVar.GoPointer())
-	if NewForBusFinishDBusObjectManagerClientPtr == 0 {
-		return nil
-	}
+func NewForBusFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
+	var cls *DBusObjectManagerClient
+	var cerr *glib.Error
 
-	NewForBusFinishDBusObjectManagerClientCls := &DBusObjectManagerClient{}
-	NewForBusFinishDBusObjectManagerClientCls.Ptr = NewForBusFinishDBusObjectManagerClientPtr
-	return NewForBusFinishDBusObjectManagerClientCls
+	cret := xNewForBusFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusObjectManagerClient{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForBusSyncDBusObjectManagerClient func(BusType, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr) uintptr
+var xNewForBusSyncDBusObjectManagerClient func(BusType, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
 
 // Like g_dbus_object_manager_client_new_sync() but takes a #GBusType instead
 // of a #GDBusConnection.
@@ -139,51 +153,64 @@ var xNewForBusSyncDBusObjectManagerClient func(BusType, DBusObjectManagerClientF
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new_for_bus()
 // for the asynchronous version.
-func NewForBusSyncDBusObjectManagerClient(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) *DBusObjectManagerClient {
-	NewForBusSyncDBusObjectManagerClientPtr := xNewForBusSyncDBusObjectManagerClient(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer())
-	if NewForBusSyncDBusObjectManagerClientPtr == 0 {
-		return nil
-	}
+func NewForBusSyncDBusObjectManagerClient(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+	var cls *DBusObjectManagerClient
+	var cerr *glib.Error
 
-	NewForBusSyncDBusObjectManagerClientCls := &DBusObjectManagerClient{}
-	NewForBusSyncDBusObjectManagerClientCls.Ptr = NewForBusSyncDBusObjectManagerClientPtr
-	return NewForBusSyncDBusObjectManagerClientCls
+	cret := xNewForBusSyncDBusObjectManagerClient(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusObjectManagerClient{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewSyncDBusObjectManagerClient func(uintptr, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr) uintptr
+var xNewSyncDBusObjectManagerClient func(uintptr, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GDBusObjectManagerClient object.
 //
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new()
 // for the asynchronous version.
-func NewSyncDBusObjectManagerClient(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) *DBusObjectManagerClient {
-	NewSyncDBusObjectManagerClientPtr := xNewSyncDBusObjectManagerClient(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer())
-	if NewSyncDBusObjectManagerClientPtr == 0 {
-		return nil
-	}
+func NewSyncDBusObjectManagerClient(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+	var cls *DBusObjectManagerClient
+	var cerr *glib.Error
 
-	NewSyncDBusObjectManagerClientCls := &DBusObjectManagerClient{}
-	NewSyncDBusObjectManagerClientCls.Ptr = NewSyncDBusObjectManagerClientPtr
-	return NewSyncDBusObjectManagerClientCls
+	cret := xNewSyncDBusObjectManagerClient(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusObjectManagerClient{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xDBusObjectManagerClientGetConnection func(uintptr) uintptr
 
 // Gets the #GDBusConnection used by @manager.
 func (x *DBusObjectManagerClient) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusObjectManagerClientGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusObjectManagerClientGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConnectionPtr)
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusObjectManagerClientGetFlags func(uintptr) DBusObjectManagerClientFlags
@@ -191,8 +218,8 @@ var xDBusObjectManagerClientGetFlags func(uintptr) DBusObjectManagerClientFlags
 // Gets the flags that @manager was constructed with.
 func (x *DBusObjectManagerClient) GetFlags() DBusObjectManagerClientFlags {
 
-	return xDBusObjectManagerClientGetFlags(x.GoPointer())
-
+	cret := xDBusObjectManagerClientGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusObjectManagerClientGetName func(uintptr) string
@@ -201,8 +228,8 @@ var xDBusObjectManagerClientGetName func(uintptr) string
 // connection.
 func (x *DBusObjectManagerClient) GetName() string {
 
-	return xDBusObjectManagerClientGetName(x.GoPointer())
-
+	cret := xDBusObjectManagerClientGetName(x.GoPointer())
+	return cret
 }
 
 var xDBusObjectManagerClientGetNameOwner func(uintptr) string
@@ -213,8 +240,8 @@ var xDBusObjectManagerClientGetNameOwner func(uintptr) string
 // #GDBusObjectManagerClient:name-owner property.
 func (x *DBusObjectManagerClient) GetNameOwner() string {
 
-	return xDBusObjectManagerClientGetNameOwner(x.GoPointer())
-
+	cret := xDBusObjectManagerClientGetNameOwner(x.GoPointer())
+	return cret
 }
 
 func (c *DBusObjectManagerClient) GoPointer() uintptr {
@@ -310,68 +337,78 @@ func (x *DBusObjectManagerClient) InitAsync(IoPriorityVar int, CancellableVar *C
 
 // Finishes asynchronous initialization and returns the result.
 // See g_async_initable_init_async().
-func (x *DBusObjectManagerClient) InitFinish(ResVar AsyncResult) bool {
+func (x *DBusObjectManagerClient) InitFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes the async construction for the various g_async_initable_new
 // calls, returning the created object or %NULL on error.
-func (x *DBusObjectManagerClient) NewFinish(ResVar AsyncResult) *gobject.Object {
+func (x *DBusObjectManagerClient) NewFinish(ResVar AsyncResult) (*gobject.Object, error) {
+	var cls *gobject.Object
+	var cerr *glib.Error
 
-	NewFinishPtr := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer())
-	if NewFinishPtr == 0 {
-		return nil
+	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NewFinishCls := &gobject.Object{}
-	NewFinishCls.Ptr = NewFinishPtr
-	return NewFinishCls
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
 // Gets the interface proxy for @interface_name at @object_path, if
 // any.
 func (x *DBusObjectManagerClient) GetInterface(ObjectPathVar string, InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the #GDBusObject at @object_path, if any.
 func (x *DBusObjectManagerClient) GetObject(ObjectPathVar string) *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the object path that @manager is for.
 func (x *DBusObjectManagerClient) GetObjectPath() string {
 
-	return XGDbusObjectManagerGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjectPath(x.GoPointer())
+	return cret
 }
 
 // Gets all #GDBusObject objects known to @manager.
 func (x *DBusObjectManagerClient) GetObjects() *glib.List {
 
-	return XGDbusObjectManagerGetObjects(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjects(x.GoPointer())
+	return cret
 }
 
 // Initializes the object implementing the interface.
@@ -412,9 +449,14 @@ func (x *DBusObjectManagerClient) GetObjects() *glib.List {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *DBusObjectManagerClient) Init(CancellableVar *Cancellable) bool {
+func (x *DBusObjectManagerClient) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

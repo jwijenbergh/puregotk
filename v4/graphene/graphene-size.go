@@ -19,8 +19,8 @@ var xSizeZero func() *Size
 // equality checks and interpolations.
 func SizeZero() *Size {
 
-	return xSizeZero()
-
+	cret := xSizeZero()
+	return cret
 }
 
 func init() {

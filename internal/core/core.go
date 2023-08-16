@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"unsafe"
 
 	"github.com/jwijenbergh/purego"
 )
@@ -135,4 +136,24 @@ func GetPath(name string) string {
 	}
 
 	panic(fmt.Sprintf("Path for library: %s not found. Please set the path to this library shared object file manually with env variable: %s. Or make sure pkg-config is setup correctly", strings.ToLower(name), ev))
+}
+
+
+
+// GoString copies a char* to a Go string.
+// This function was copied from purego
+func GoString(c uintptr) string {
+	// We take the address and then dereference it to trick go vet from creating a possible misuse of unsafe.Pointer
+	ptr := *(*unsafe.Pointer)(unsafe.Pointer(&c))
+	if ptr == nil {
+		return ""
+	}
+	var length int
+	for {
+		if *(*byte)(unsafe.Add(ptr, uintptr(length))) == '\x00' {
+			break
+		}
+		length++
+	}
+	return string(unsafe.Slice((*byte)(ptr), length))
 }

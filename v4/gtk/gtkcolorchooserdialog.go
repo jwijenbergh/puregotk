@@ -35,16 +35,17 @@ var xNewColorChooserDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkColorChooserDialog`.
 func NewColorChooserDialog(TitleVar string, ParentVar *Window) *Widget {
-	NewColorChooserDialogPtr := xNewColorChooserDialog(TitleVar, ParentVar.GoPointer())
-	if NewColorChooserDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewColorChooserDialog(TitleVar, ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewColorChooserDialogPtr)
-
-	NewColorChooserDialogCls := &Widget{}
-	NewColorChooserDialogCls.Ptr = NewColorChooserDialogPtr
-	return NewColorChooserDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ColorChooserDialog) GoPointer() uintptr {
@@ -58,8 +59,8 @@ func (c *ColorChooserDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ColorChooserDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -194,8 +195,8 @@ func (x *ColorChooserDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr,
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ColorChooserDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds a palette to the color chooser.
@@ -231,8 +232,8 @@ func (x *ColorChooserDialog) GetRgba(ColorVar *gdk.RGBA) {
 // Returns whether the color chooser shows the alpha channel.
 func (x *ColorChooserDialog) GetUseAlpha() bool {
 
-	return XGtkColorChooserGetUseAlpha(x.GoPointer())
-
+	cret := XGtkColorChooserGetUseAlpha(x.GoPointer())
+	return cret
 }
 
 // Sets the color.
@@ -251,34 +252,32 @@ func (x *ColorChooserDialog) SetUseAlpha(UseAlphaVar bool) {
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *ColorChooserDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *ColorChooserDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -311,18 +310,17 @@ func (x *ColorChooserDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *ColorChooserDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -332,18 +330,17 @@ func (x *ColorChooserDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *ColorChooserDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

@@ -112,8 +112,8 @@ var xFrameClockGetCurrentTimings func(uintptr) *FrameTimings
 // Gets the frame timings for the current frame.
 func (x *FrameClock) GetCurrentTimings() *FrameTimings {
 
-	return xFrameClockGetCurrentTimings(x.GoPointer())
-
+	cret := xFrameClockGetCurrentTimings(x.GoPointer())
+	return cret
 }
 
 var xFrameClockGetFps func(uintptr) float64
@@ -122,8 +122,8 @@ var xFrameClockGetFps func(uintptr) float64
 // frame timings of @frame_clock.
 func (x *FrameClock) GetFps() float64 {
 
-	return xFrameClockGetFps(x.GoPointer())
-
+	cret := xFrameClockGetFps(x.GoPointer())
+	return cret
 }
 
 var xFrameClockGetFrameCounter func(uintptr) int64
@@ -132,8 +132,8 @@ var xFrameClockGetFrameCounter func(uintptr) int64
 // each frame drawn.
 func (x *FrameClock) GetFrameCounter() int64 {
 
-	return xFrameClockGetFrameCounter(x.GoPointer())
-
+	cret := xFrameClockGetFrameCounter(x.GoPointer())
+	return cret
 }
 
 var xFrameClockGetFrameTime func(uintptr) int64
@@ -147,8 +147,8 @@ var xFrameClockGetFrameTime func(uintptr) int64
 // time.
 func (x *FrameClock) GetFrameTime() int64 {
 
-	return xFrameClockGetFrameTime(x.GoPointer())
-
+	cret := xFrameClockGetFrameTime(x.GoPointer())
+	return cret
 }
 
 var xFrameClockGetHistoryStart func(uintptr) int64
@@ -163,8 +163,8 @@ var xFrameClockGetHistoryStart func(uintptr) int64
 // [method@Gdk.FrameClock.get_frame_counter], inclusive.
 func (x *FrameClock) GetHistoryStart() int64 {
 
-	return xFrameClockGetHistoryStart(x.GoPointer())
-
+	cret := xFrameClockGetHistoryStart(x.GoPointer())
+	return cret
 }
 
 var xFrameClockGetRefreshInfo func(uintptr, int64, int64, int64)
@@ -192,8 +192,8 @@ var xFrameClockGetTimings func(uintptr, int64) *FrameTimings
 // [method@Gdk.FrameClock.get_history_start].
 func (x *FrameClock) GetTimings(FrameCounterVar int64) *FrameTimings {
 
-	return xFrameClockGetTimings(x.GoPointer(), FrameCounterVar)
-
+	cret := xFrameClockGetTimings(x.GoPointer(), FrameCounterVar)
+	return cret
 }
 
 var xFrameClockRequestPhase func(uintptr, FrameClockPhase)

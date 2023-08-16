@@ -40,34 +40,34 @@ var xNewViewport func(uintptr, uintptr) uintptr
 // The new viewport uses the given adjustments, or default
 // adjustments if none are given.
 func NewViewport(HadjustmentVar *Adjustment, VadjustmentVar *Adjustment) *Widget {
-	NewViewportPtr := xNewViewport(HadjustmentVar.GoPointer(), VadjustmentVar.GoPointer())
-	if NewViewportPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewViewport(HadjustmentVar.GoPointer(), VadjustmentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewViewportPtr)
-
-	NewViewportCls := &Widget{}
-	NewViewportCls.Ptr = NewViewportPtr
-	return NewViewportCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewportGetChild func(uintptr) uintptr
 
 // Gets the child widget of @viewport.
 func (x *Viewport) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xViewportGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xViewportGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xViewportGetScrollToFocus func(uintptr) bool
@@ -76,8 +76,8 @@ var xViewportGetScrollToFocus func(uintptr) bool
 // child in view.
 func (x *Viewport) GetScrollToFocus() bool {
 
-	return xViewportGetScrollToFocus(x.GoPointer())
-
+	cret := xViewportGetScrollToFocus(x.GoPointer())
+	return cret
 }
 
 var xViewportSetChild func(uintptr, uintptr)
@@ -110,8 +110,8 @@ func (c *Viewport) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Viewport) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -246,8 +246,8 @@ func (x *Viewport) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Viewport) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the size of a non-scrolling border around the
@@ -258,54 +258,52 @@ func (x *Viewport) GetBuildableId() string {
 // overshoot indication, at the right position.
 func (x *Viewport) GetBorder(BorderVar *Border) bool {
 
-	return XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *Viewport) GetHadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetHadjustmentPtr := XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *Viewport) GetHscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *Viewport) GetVadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetVadjustmentPtr := XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *Viewport) GetVscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

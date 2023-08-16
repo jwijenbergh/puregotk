@@ -64,14 +64,16 @@ var xNewIMContextSimple func() uintptr
 
 // Creates a new `GtkIMContextSimple`.
 func NewIMContextSimple() *IMContext {
-	NewIMContextSimplePtr := xNewIMContextSimple()
-	if NewIMContextSimplePtr == 0 {
-		return nil
-	}
+	var cls *IMContext
 
-	NewIMContextSimpleCls := &IMContext{}
-	NewIMContextSimpleCls.Ptr = NewIMContextSimplePtr
-	return NewIMContextSimpleCls
+	cret := xNewIMContextSimple()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IMContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIMContextSimpleAddComposeFile func(uintptr, string)

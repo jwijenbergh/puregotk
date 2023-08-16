@@ -14,8 +14,8 @@ var xFprintf func(uintptr, string, ...interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Fprintf(FileVar uintptr, FormatVar string, varArgs ...interface{}) int {
 
-	return xFprintf(FileVar, FormatVar, varArgs...)
-
+	cret := xFprintf(FileVar, FormatVar, varArgs...)
+	return cret
 }
 
 var xPrintf func(string, ...interface{}) int
@@ -30,8 +30,8 @@ var xPrintf func(string, ...interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Printf(FormatVar string, varArgs ...interface{}) int {
 
-	return xPrintf(FormatVar, varArgs...)
-
+	cret := xPrintf(FormatVar, varArgs...)
+	return cret
 }
 
 var xSprintf func(string, string, ...interface{}) int
@@ -47,8 +47,8 @@ var xSprintf func(string, string, ...interface{}) int
 // See also g_strdup_printf().
 func Sprintf(StringVar string, FormatVar string, varArgs ...interface{}) int {
 
-	return xSprintf(StringVar, FormatVar, varArgs...)
-
+	cret := xSprintf(StringVar, FormatVar, varArgs...)
+	return cret
 }
 
 var xVasprintf func(string, string, []interface{}) int
@@ -66,8 +66,8 @@ var xVasprintf func(string, string, []interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Vasprintf(StringVar string, FormatVar string, ArgsVar []interface{}) int {
 
-	return xVasprintf(StringVar, FormatVar, ArgsVar)
-
+	cret := xVasprintf(StringVar, FormatVar, ArgsVar)
+	return cret
 }
 
 var xVfprintf func(uintptr, string, []interface{}) int
@@ -78,8 +78,8 @@ var xVfprintf func(uintptr, string, []interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Vfprintf(FileVar uintptr, FormatVar string, ArgsVar []interface{}) int {
 
-	return xVfprintf(FileVar, FormatVar, ArgsVar)
-
+	cret := xVfprintf(FileVar, FormatVar, ArgsVar)
+	return cret
 }
 
 var xVprintf func(string, []interface{}) int
@@ -90,8 +90,8 @@ var xVprintf func(string, []interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Vprintf(FormatVar string, ArgsVar []interface{}) int {
 
-	return xVprintf(FormatVar, ArgsVar)
-
+	cret := xVprintf(FormatVar, ArgsVar)
+	return cret
 }
 
 var xVsprintf func(string, string, []interface{}) int
@@ -102,8 +102,8 @@ var xVsprintf func(string, string, []interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 func Vsprintf(StringVar string, FormatVar string, ArgsVar []interface{}) int {
 
-	return xVsprintf(StringVar, FormatVar, ArgsVar)
-
+	cret := xVsprintf(StringVar, FormatVar, ArgsVar)
+	return cret
 }
 
 func init() {

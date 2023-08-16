@@ -71,17 +71,19 @@ var xNewPixbufLoader func() uintptr
 
 // Creates a new pixbuf loader object.
 func NewPixbufLoader() *PixbufLoader {
-	NewPixbufLoaderPtr := xNewPixbufLoader()
-	if NewPixbufLoaderPtr == 0 {
-		return nil
-	}
+	var cls *PixbufLoader
 
-	NewPixbufLoaderCls := &PixbufLoader{}
-	NewPixbufLoaderCls.Ptr = NewPixbufLoaderPtr
-	return NewPixbufLoaderCls
+	cret := xNewPixbufLoader()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PixbufLoader{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewWithMimeTypePixbufLoader func(string) uintptr
+var xNewWithMimeTypePixbufLoader func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf loader object that always attempts to parse
 // image data as if it were an image of MIME type @mime_type, instead of
@@ -98,18 +100,25 @@ var xNewWithMimeTypePixbufLoader func(string) uintptr
 // To obtain the full list of supported mime types, call
 // gdk_pixbuf_format_get_mime_types() on each of the #GdkPixbufFormat
 // structs returned by gdk_pixbuf_get_formats().
-func NewWithMimeTypePixbufLoader(MimeTypeVar string) *PixbufLoader {
-	NewWithMimeTypePixbufLoaderPtr := xNewWithMimeTypePixbufLoader(MimeTypeVar)
-	if NewWithMimeTypePixbufLoaderPtr == 0 {
-		return nil
-	}
+func NewWithMimeTypePixbufLoader(MimeTypeVar string) (*PixbufLoader, error) {
+	var cls *PixbufLoader
+	var cerr *glib.Error
 
-	NewWithMimeTypePixbufLoaderCls := &PixbufLoader{}
-	NewWithMimeTypePixbufLoaderCls.Ptr = NewWithMimeTypePixbufLoaderPtr
-	return NewWithMimeTypePixbufLoaderCls
+	cret := xNewWithMimeTypePixbufLoader(MimeTypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufLoader{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewWithTypePixbufLoader func(string) uintptr
+var xNewWithTypePixbufLoader func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf loader object that always attempts to parse
 // image data as if it were an image of type @image_type, instead of
@@ -125,15 +134,22 @@ var xNewWithTypePixbufLoader func(string) uintptr
 // "xpm" are among the supported formats. To obtain the full list of
 // supported image formats, call gdk_pixbuf_format_get_name() on each
 // of the #GdkPixbufFormat structs returned by gdk_pixbuf_get_formats().
-func NewWithTypePixbufLoader(ImageTypeVar string) *PixbufLoader {
-	NewWithTypePixbufLoaderPtr := xNewWithTypePixbufLoader(ImageTypeVar)
-	if NewWithTypePixbufLoaderPtr == 0 {
-		return nil
-	}
+func NewWithTypePixbufLoader(ImageTypeVar string) (*PixbufLoader, error) {
+	var cls *PixbufLoader
+	var cerr *glib.Error
 
-	NewWithTypePixbufLoaderCls := &PixbufLoader{}
-	NewWithTypePixbufLoaderCls.Ptr = NewWithTypePixbufLoaderPtr
-	return NewWithTypePixbufLoaderCls
+	cret := xNewWithTypePixbufLoader(ImageTypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PixbufLoader{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xPixbufLoaderClose func(uintptr) bool
@@ -153,9 +169,14 @@ var xPixbufLoaderClose func(uintptr) bool
 //
 // Remember that this function does not release a reference on the loader, so
 // you will need to explicitly release any reference you hold.
-func (x *PixbufLoader) Close() bool {
+func (x *PixbufLoader) Close() (bool, error) {
+	var cerr *glib.Error
 
-	return xPixbufLoaderClose(x.GoPointer())
+	cret := xPixbufLoaderClose(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -170,18 +191,17 @@ var xPixbufLoaderGetAnimation func(uintptr) uintptr
 // If the loader doesn't have enough bytes yet, and hasn't emitted the `area-prepared`
 // signal, this function will return `NULL`.
 func (x *PixbufLoader) GetAnimation() *PixbufAnimation {
+	var cls *PixbufAnimation
 
-	GetAnimationPtr := xPixbufLoaderGetAnimation(x.GoPointer())
-	if GetAnimationPtr == 0 {
-		return nil
+	cret := xPixbufLoaderGetAnimation(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAnimationPtr)
-
-	GetAnimationCls := &PixbufAnimation{}
-	GetAnimationCls.Ptr = GetAnimationPtr
-	return GetAnimationCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufLoaderGetFormat func(uintptr) *PixbufFormat
@@ -190,8 +210,8 @@ var xPixbufLoaderGetFormat func(uintptr) *PixbufFormat
 // currently loading image file.
 func (x *PixbufLoader) GetFormat() *PixbufFormat {
 
-	return xPixbufLoaderGetFormat(x.GoPointer())
-
+	cret := xPixbufLoaderGetFormat(x.GoPointer())
+	return cret
 }
 
 var xPixbufLoaderGetPixbuf func(uintptr) uintptr
@@ -212,18 +232,17 @@ var xPixbufLoaderGetPixbuf func(uintptr) uintptr
 // Additionally, if the loader is an animation, it will return the "static
 // image" of the animation (see gdk_pixbuf_animation_get_static_image()).
 func (x *PixbufLoader) GetPixbuf() *Pixbuf {
+	var cls *Pixbuf
 
-	GetPixbufPtr := xPixbufLoaderGetPixbuf(x.GoPointer())
-	if GetPixbufPtr == 0 {
-		return nil
+	cret := xPixbufLoaderGetPixbuf(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPixbufPtr)
-
-	GetPixbufCls := &Pixbuf{}
-	GetPixbufCls.Ptr = GetPixbufPtr
-	return GetPixbufCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Pixbuf{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufLoaderSetSize func(uintptr, int, int)
@@ -242,21 +261,31 @@ func (x *PixbufLoader) SetSize(WidthVar int, HeightVar int) {
 
 }
 
-var xPixbufLoaderWrite func(uintptr, uintptr, uint) bool
+var xPixbufLoaderWrite func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Parses the next `count` bytes in the given image buffer.
-func (x *PixbufLoader) Write(BufVar uintptr, CountVar uint) bool {
+func (x *PixbufLoader) Write(BufVar uintptr, CountVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xPixbufLoaderWrite(x.GoPointer(), BufVar, CountVar)
+	cret := xPixbufLoaderWrite(x.GoPointer(), BufVar, CountVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xPixbufLoaderWriteBytes func(uintptr, *glib.Bytes) bool
+var xPixbufLoaderWriteBytes func(uintptr, *glib.Bytes, **glib.Error) bool
 
 // Parses the next contents of the given image buffer.
-func (x *PixbufLoader) WriteBytes(BufferVar *glib.Bytes) bool {
+func (x *PixbufLoader) WriteBytes(BufferVar *glib.Bytes) (bool, error) {
+	var cerr *glib.Error
 
-	return xPixbufLoaderWriteBytes(x.GoPointer(), BufferVar)
+	cret := xPixbufLoaderWriteBytes(x.GoPointer(), BufferVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

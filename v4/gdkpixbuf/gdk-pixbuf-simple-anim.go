@@ -24,14 +24,16 @@ var xNewPixbufSimpleAnim func(int, int, float32) uintptr
 
 // Creates a new, empty animation.
 func NewPixbufSimpleAnim(WidthVar int, HeightVar int, RateVar float32) *PixbufSimpleAnim {
-	NewPixbufSimpleAnimPtr := xNewPixbufSimpleAnim(WidthVar, HeightVar, RateVar)
-	if NewPixbufSimpleAnimPtr == 0 {
-		return nil
-	}
+	var cls *PixbufSimpleAnim
 
-	NewPixbufSimpleAnimCls := &PixbufSimpleAnim{}
-	NewPixbufSimpleAnimCls.Ptr = NewPixbufSimpleAnimPtr
-	return NewPixbufSimpleAnimCls
+	cret := xNewPixbufSimpleAnim(WidthVar, HeightVar, RateVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PixbufSimpleAnim{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufSimpleAnimAddFrame func(uintptr, uintptr)
@@ -50,8 +52,8 @@ var xPixbufSimpleAnimGetLoop func(uintptr) bool
 // Gets whether @animation should loop indefinitely when it reaches the end.
 func (x *PixbufSimpleAnim) GetLoop() bool {
 
-	return xPixbufSimpleAnimGetLoop(x.GoPointer())
-
+	cret := xPixbufSimpleAnimGetLoop(x.GoPointer())
+	return cret
 }
 
 var xPixbufSimpleAnimSetLoop func(uintptr, bool)

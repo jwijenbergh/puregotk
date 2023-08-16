@@ -41,24 +41,24 @@ var xVolumeMonitorGetConnectedDrives func(uintptr) *glib.List
 // its elements have been unreffed with g_object_unref().
 func (x *VolumeMonitor) GetConnectedDrives() *glib.List {
 
-	return xVolumeMonitorGetConnectedDrives(x.GoPointer())
-
+	cret := xVolumeMonitorGetConnectedDrives(x.GoPointer())
+	return cret
 }
 
 var xVolumeMonitorGetMountForUuid func(uintptr, string) uintptr
 
 // Finds a #GMount object by its UUID (see g_mount_get_uuid())
 func (x *VolumeMonitor) GetMountForUuid(UuidVar string) *MountBase {
+	var cls *MountBase
 
-	GetMountForUuidPtr := xVolumeMonitorGetMountForUuid(x.GoPointer(), UuidVar)
-	if GetMountForUuidPtr == 0 {
-		return nil
+	cret := xVolumeMonitorGetMountForUuid(x.GoPointer(), UuidVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetMountForUuidCls := &MountBase{}
-	GetMountForUuidCls.Ptr = GetMountForUuidPtr
-	return GetMountForUuidCls
-
+	cls = &MountBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVolumeMonitorGetMounts func(uintptr) *glib.List
@@ -69,24 +69,24 @@ var xVolumeMonitorGetMounts func(uintptr) *glib.List
 // its elements have been unreffed with g_object_unref().
 func (x *VolumeMonitor) GetMounts() *glib.List {
 
-	return xVolumeMonitorGetMounts(x.GoPointer())
-
+	cret := xVolumeMonitorGetMounts(x.GoPointer())
+	return cret
 }
 
 var xVolumeMonitorGetVolumeForUuid func(uintptr, string) uintptr
 
 // Finds a #GVolume object by its UUID (see g_volume_get_uuid())
 func (x *VolumeMonitor) GetVolumeForUuid(UuidVar string) *VolumeBase {
+	var cls *VolumeBase
 
-	GetVolumeForUuidPtr := xVolumeMonitorGetVolumeForUuid(x.GoPointer(), UuidVar)
-	if GetVolumeForUuidPtr == 0 {
-		return nil
+	cret := xVolumeMonitorGetVolumeForUuid(x.GoPointer(), UuidVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetVolumeForUuidCls := &VolumeBase{}
-	GetVolumeForUuidCls.Ptr = GetVolumeForUuidPtr
-	return GetVolumeForUuidCls
-
+	cls = &VolumeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xVolumeMonitorGetVolumes func(uintptr) *glib.List
@@ -97,8 +97,8 @@ var xVolumeMonitorGetVolumes func(uintptr) *glib.List
 // its elements have been unreffed with g_object_unref().
 func (x *VolumeMonitor) GetVolumes() *glib.List {
 
-	return xVolumeMonitorGetVolumes(x.GoPointer())
-
+	cret := xVolumeMonitorGetVolumes(x.GoPointer())
+	return cret
 }
 
 func (c *VolumeMonitor) GoPointer() uintptr {

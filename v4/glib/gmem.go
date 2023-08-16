@@ -25,8 +25,8 @@ var xAlignedAlloc func(uint, uint, uint) uintptr
 // freed using g_aligned_free().
 func AlignedAlloc(NBlocksVar uint, NBlockBytesVar uint, AlignmentVar uint) uintptr {
 
-	return xAlignedAlloc(NBlocksVar, NBlockBytesVar, AlignmentVar)
-
+	cret := xAlignedAlloc(NBlocksVar, NBlockBytesVar, AlignmentVar)
+	return cret
 }
 
 var xAlignedAlloc0 func(uint, uint, uint) uintptr
@@ -35,8 +35,8 @@ var xAlignedAlloc0 func(uint, uint, uint) uintptr
 // also clear the allocated memory before returning it.
 func AlignedAlloc0(NBlocksVar uint, NBlockBytesVar uint, AlignmentVar uint) uintptr {
 
-	return xAlignedAlloc0(NBlocksVar, NBlockBytesVar, AlignmentVar)
-
+	cret := xAlignedAlloc0(NBlocksVar, NBlockBytesVar, AlignmentVar)
+	return cret
 }
 
 var xAlignedFree func(uintptr)
@@ -88,8 +88,8 @@ var xMalloc func(uint) uintptr
 // If @n_bytes is 0 it returns %NULL.
 func Malloc(NBytesVar uint) uintptr {
 
-	return xMalloc(NBytesVar)
-
+	cret := xMalloc(NBytesVar)
+	return cret
 }
 
 var xMalloc0 func(uint) uintptr
@@ -98,8 +98,8 @@ var xMalloc0 func(uint) uintptr
 // If @n_bytes is 0 it returns %NULL.
 func Malloc0(NBytesVar uint) uintptr {
 
-	return xMalloc0(NBytesVar)
-
+	cret := xMalloc0(NBytesVar)
+	return cret
 }
 
 var xMalloc0N func(uint, uint) uintptr
@@ -108,8 +108,8 @@ var xMalloc0N func(uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func Malloc0N(NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xMalloc0N(NBlocksVar, NBlockBytesVar)
-
+	cret := xMalloc0N(NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 var xMallocN func(uint, uint) uintptr
@@ -118,8 +118,8 @@ var xMallocN func(uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func MallocN(NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xMallocN(NBlocksVar, NBlockBytesVar)
-
+	cret := xMallocN(NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 var xMemIsSystemMalloc func() bool
@@ -131,8 +131,8 @@ var xMemIsSystemMalloc func() bool
 // by a non-GLib-based API.
 func MemIsSystemMalloc() bool {
 
-	return xMemIsSystemMalloc()
-
+	cret := xMemIsSystemMalloc()
+	return cret
 }
 
 var xMemProfile func()
@@ -167,8 +167,8 @@ var xRealloc func(uintptr, uint) uintptr
 // and @mem will be freed unless it is %NULL.
 func Realloc(MemVar uintptr, NBytesVar uint) uintptr {
 
-	return xRealloc(MemVar, NBytesVar)
-
+	cret := xRealloc(MemVar, NBytesVar)
+	return cret
 }
 
 var xReallocN func(uintptr, uint, uint) uintptr
@@ -177,8 +177,8 @@ var xReallocN func(uintptr, uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func ReallocN(MemVar uintptr, NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xReallocN(MemVar, NBlocksVar, NBlockBytesVar)
-
+	cret := xReallocN(MemVar, NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 var xTryMalloc func(uint) uintptr
@@ -187,8 +187,8 @@ var xTryMalloc func(uint) uintptr
 // Contrast with g_malloc(), which aborts the program on failure.
 func TryMalloc(NBytesVar uint) uintptr {
 
-	return xTryMalloc(NBytesVar)
-
+	cret := xTryMalloc(NBytesVar)
+	return cret
 }
 
 var xTryMalloc0 func(uint) uintptr
@@ -197,8 +197,8 @@ var xTryMalloc0 func(uint) uintptr
 // failure. Contrast with g_malloc0(), which aborts the program on failure.
 func TryMalloc0(NBytesVar uint) uintptr {
 
-	return xTryMalloc0(NBytesVar)
-
+	cret := xTryMalloc0(NBytesVar)
+	return cret
 }
 
 var xTryMalloc0N func(uint, uint) uintptr
@@ -207,8 +207,8 @@ var xTryMalloc0N func(uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func TryMalloc0N(NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xTryMalloc0N(NBlocksVar, NBlockBytesVar)
-
+	cret := xTryMalloc0N(NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 var xTryMallocN func(uint, uint) uintptr
@@ -217,8 +217,8 @@ var xTryMallocN func(uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func TryMallocN(NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xTryMallocN(NBlocksVar, NBlockBytesVar)
-
+	cret := xTryMallocN(NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 var xTryRealloc func(uintptr, uint) uintptr
@@ -230,8 +230,8 @@ var xTryRealloc func(uintptr, uint) uintptr
 // If @mem is %NULL, behaves the same as g_try_malloc().
 func TryRealloc(MemVar uintptr, NBytesVar uint) uintptr {
 
-	return xTryRealloc(MemVar, NBytesVar)
-
+	cret := xTryRealloc(MemVar, NBytesVar)
+	return cret
 }
 
 var xTryReallocN func(uintptr, uint, uint) uintptr
@@ -240,8 +240,8 @@ var xTryReallocN func(uintptr, uint, uint) uintptr
 // but care is taken to detect possible overflow during multiplication.
 func TryReallocN(MemVar uintptr, NBlocksVar uint, NBlockBytesVar uint) uintptr {
 
-	return xTryReallocN(MemVar, NBlocksVar, NBlockBytesVar)
-
+	cret := xTryReallocN(MemVar, NBlocksVar, NBlockBytesVar)
+	return cret
 }
 
 func init() {

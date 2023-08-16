@@ -33,14 +33,16 @@ var xNewGestureDrag func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes drags.
 func NewGestureDrag() *Gesture {
-	NewGestureDragPtr := xNewGestureDrag()
-	if NewGestureDragPtr == 0 {
-		return nil
-	}
+	var cls *Gesture
 
-	NewGestureDragCls := &Gesture{}
-	NewGestureDragCls.Ptr = NewGestureDragPtr
-	return NewGestureDragCls
+	cret := xNewGestureDrag()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Gesture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGestureDragGetOffset func(uintptr, float64, float64) bool
@@ -52,8 +54,8 @@ var xGestureDragGetOffset func(uintptr, float64, float64) bool
 // as an offset to the starting drag point.
 func (x *GestureDrag) GetOffset(XVar float64, YVar float64) bool {
 
-	return xGestureDragGetOffset(x.GoPointer(), XVar, YVar)
-
+	cret := xGestureDragGetOffset(x.GoPointer(), XVar, YVar)
+	return cret
 }
 
 var xGestureDragGetStartPoint func(uintptr, float64, float64) bool
@@ -65,8 +67,8 @@ var xGestureDragGetStartPoint func(uintptr, float64, float64) bool
 // in widget-relative coordinates.
 func (x *GestureDrag) GetStartPoint(XVar float64, YVar float64) bool {
 
-	return xGestureDragGetStartPoint(x.GoPointer(), XVar, YVar)
-
+	cret := xGestureDragGetStartPoint(x.GoPointer(), XVar, YVar)
+	return cret
 }
 
 func (c *GestureDrag) GoPointer() uintptr {

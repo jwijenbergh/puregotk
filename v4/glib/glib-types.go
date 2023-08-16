@@ -12,16 +12,16 @@ var xStrvGetType func() []interface{}
 
 func StrvGetType() []interface{} {
 
-	return xStrvGetType()
-
+	cret := xStrvGetType()
+	return cret
 }
 
 var xVariantGetGtype func() []interface{}
 
 func VariantGetGtype() []interface{} {
 
-	return xVariantGetGtype()
-
+	cret := xVariantGetGtype()
+	return cret
 }
 
 func init() {

@@ -58,8 +58,8 @@ func (x *BuildableBase) SetGoPointer(ptr uintptr) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *BuildableBase) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 var XGtkBuildableGetBuildableId func(uintptr) string

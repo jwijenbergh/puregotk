@@ -100,8 +100,8 @@ var xEasingEase func(Easing, float64) float64
 // @value should generally be in the [0, 1] range.
 func EasingEase(SelfVar Easing, ValueVar float64) float64 {
 
-	return xEasingEase(SelfVar, ValueVar)
-
+	cret := xEasingEase(SelfVar, ValueVar)
+	return cret
 }
 
 func init() {

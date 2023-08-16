@@ -70,8 +70,8 @@ var xBusOwnName func(BusType, string, BusNameOwnerFlags, uintptr, uintptr, uintp
 // unregister the objects (if any) in @name_lost_handler.
 func BusOwnName(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredHandlerVar BusAcquiredCallback, NameAcquiredHandlerVar BusNameAcquiredCallback, NameLostHandlerVar BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xBusOwnName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(BusAcquiredHandlerVar), purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xBusOwnName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(BusAcquiredHandlerVar), purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xBusOwnNameOnConnection func(uintptr, string, BusNameOwnerFlags, uintptr, uintptr, uintptr, uintptr) uint
@@ -80,8 +80,8 @@ var xBusOwnNameOnConnection func(uintptr, string, BusNameOwnerFlags, uintptr, ui
 // #GBusType.
 func BusOwnNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredHandlerVar BusNameAcquiredCallback, NameLostHandlerVar BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xBusOwnNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xBusOwnNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xBusOwnNameOnConnectionWithClosures func(uintptr, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure) uint
@@ -90,8 +90,8 @@ var xBusOwnNameOnConnectionWithClosures func(uintptr, string, BusNameOwnerFlags,
 // callbacks for easier binding in other languages.
 func BusOwnNameOnConnectionWithClosures(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint {
 
-	return xBusOwnNameOnConnectionWithClosures(ConnectionVar.GoPointer(), NameVar, FlagsVar, NameAcquiredClosureVar, NameLostClosureVar)
-
+	cret := xBusOwnNameOnConnectionWithClosures(ConnectionVar.GoPointer(), NameVar, FlagsVar, NameAcquiredClosureVar, NameLostClosureVar)
+	return cret
 }
 
 var xBusOwnNameWithClosures func(BusType, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure, *gobject.Closure) uint
@@ -100,8 +100,8 @@ var xBusOwnNameWithClosures func(BusType, string, BusNameOwnerFlags, *gobject.Cl
 // easier binding in other languages.
 func BusOwnNameWithClosures(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredClosureVar *gobject.Closure, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint {
 
-	return xBusOwnNameWithClosures(BusTypeVar, NameVar, FlagsVar, BusAcquiredClosureVar, NameAcquiredClosureVar, NameLostClosureVar)
-
+	cret := xBusOwnNameWithClosures(BusTypeVar, NameVar, FlagsVar, BusAcquiredClosureVar, NameAcquiredClosureVar, NameLostClosureVar)
+	return cret
 }
 
 var xBusUnownName func(uint)

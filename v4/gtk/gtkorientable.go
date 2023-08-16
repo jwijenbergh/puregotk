@@ -36,8 +36,8 @@ func (x *OrientableBase) SetGoPointer(ptr uintptr) {
 // Retrieves the orientation of the @orientable.
 func (x *OrientableBase) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

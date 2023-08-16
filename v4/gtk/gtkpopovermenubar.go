@@ -53,16 +53,17 @@ var xNewFromModelPopoverMenuBar func(uintptr) uintptr
 
 // Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
 func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *Widget {
-	NewFromModelPopoverMenuBarPtr := xNewFromModelPopoverMenuBar(ModelVar.GoPointer())
-	if NewFromModelPopoverMenuBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromModelPopoverMenuBar(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromModelPopoverMenuBarPtr)
-
-	NewFromModelPopoverMenuBarCls := &Widget{}
-	NewFromModelPopoverMenuBarCls.Ptr = NewFromModelPopoverMenuBarPtr
-	return NewFromModelPopoverMenuBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverMenuBarAddChild func(uintptr, uintptr, string) bool
@@ -73,26 +74,25 @@ var xPopoverMenuBarAddChild func(uintptr, uintptr, string) bool
 // item with a `custom` attribute that matches @id.
 func (x *PopoverMenuBar) AddChild(ChildVar *Widget, IdVar string) bool {
 
-	return xPopoverMenuBarAddChild(x.GoPointer(), ChildVar.GoPointer(), IdVar)
-
+	cret := xPopoverMenuBarAddChild(x.GoPointer(), ChildVar.GoPointer(), IdVar)
+	return cret
 }
 
 var xPopoverMenuBarGetMenuModel func(uintptr) uintptr
 
 // Returns the model from which the contents of @bar are taken.
 func (x *PopoverMenuBar) GetMenuModel() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenuModelPtr := xPopoverMenuBarGetMenuModel(x.GoPointer())
-	if GetMenuModelPtr == 0 {
-		return nil
+	cret := xPopoverMenuBarGetMenuModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuModelPtr)
-
-	GetMenuModelCls := &gio.MenuModel{}
-	GetMenuModelCls.Ptr = GetMenuModelPtr
-	return GetMenuModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverMenuBarRemoveChild func(uintptr, uintptr) bool
@@ -101,8 +101,8 @@ var xPopoverMenuBarRemoveChild func(uintptr, uintptr) bool
 // gtk_popover_menu_bar_add_child().
 func (x *PopoverMenuBar) RemoveChild(ChildVar *Widget) bool {
 
-	return xPopoverMenuBarRemoveChild(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xPopoverMenuBarRemoveChild(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xPopoverMenuBarSetMenuModel func(uintptr, uintptr)
@@ -126,8 +126,8 @@ func (c *PopoverMenuBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PopoverMenuBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -262,8 +262,8 @@ func (x *PopoverMenuBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, Val
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PopoverMenuBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

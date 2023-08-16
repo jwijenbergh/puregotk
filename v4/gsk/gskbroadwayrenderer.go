@@ -30,14 +30,16 @@ var xNewBroadwayRenderer func() uintptr
 // This function is only available when GTK was compiled with Broadway
 // support.
 func NewBroadwayRenderer() *Renderer {
-	NewBroadwayRendererPtr := xNewBroadwayRenderer()
-	if NewBroadwayRendererPtr == 0 {
-		return nil
-	}
+	var cls *Renderer
 
-	NewBroadwayRendererCls := &Renderer{}
-	NewBroadwayRendererCls.Ptr = NewBroadwayRendererPtr
-	return NewBroadwayRendererCls
+	cret := xNewBroadwayRenderer()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *BroadwayRenderer) GoPointer() uintptr {

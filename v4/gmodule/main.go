@@ -11,8 +11,8 @@ var xModuleErrorQuark func() glib.Quark
 
 func ModuleErrorQuark() glib.Quark {
 
-	return xModuleErrorQuark()
-
+	cret := xModuleErrorQuark()
+	return cret
 }
 
 func init() {

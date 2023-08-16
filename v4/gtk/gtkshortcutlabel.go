@@ -27,16 +27,17 @@ var xNewShortcutLabel func(string) uintptr
 
 // Creates a new `GtkShortcutLabel` with @accelerator set.
 func NewShortcutLabel(AcceleratorVar string) *Widget {
-	NewShortcutLabelPtr := xNewShortcutLabel(AcceleratorVar)
-	if NewShortcutLabelPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewShortcutLabel(AcceleratorVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewShortcutLabelPtr)
-
-	NewShortcutLabelCls := &Widget{}
-	NewShortcutLabelCls.Ptr = NewShortcutLabelPtr
-	return NewShortcutLabelCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutLabelGetAccelerator func(uintptr) string
@@ -44,8 +45,8 @@ var xShortcutLabelGetAccelerator func(uintptr) string
 // Retrieves the current accelerator of @self.
 func (x *ShortcutLabel) GetAccelerator() string {
 
-	return xShortcutLabelGetAccelerator(x.GoPointer())
-
+	cret := xShortcutLabelGetAccelerator(x.GoPointer())
+	return cret
 }
 
 var xShortcutLabelGetDisabledText func(uintptr) string
@@ -53,8 +54,8 @@ var xShortcutLabelGetDisabledText func(uintptr) string
 // Retrieves the text that is displayed when no accelerator is set.
 func (x *ShortcutLabel) GetDisabledText() string {
 
-	return xShortcutLabelGetDisabledText(x.GoPointer())
-
+	cret := xShortcutLabelGetDisabledText(x.GoPointer())
+	return cret
 }
 
 var xShortcutLabelSetAccelerator func(uintptr, string)
@@ -86,8 +87,8 @@ func (c *ShortcutLabel) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ShortcutLabel) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -222,8 +223,8 @@ func (x *ShortcutLabel) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ShortcutLabel) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -105,16 +105,17 @@ var xNewListBox func() uintptr
 
 // Creates a new `GtkListBox` container.
 func NewListBox() *Widget {
-	NewListBoxPtr := xNewListBox()
-	if NewListBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewListBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewListBoxPtr)
-
-	NewListBoxCls := &Widget{}
-	NewListBoxCls.Ptr = NewListBoxPtr
-	return NewListBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxAppend func(uintptr, uintptr)
@@ -184,8 +185,8 @@ var xListBoxGetActivateOnSingleClick func(uintptr) bool
 // Returns whether rows activate on single clicks.
 func (x *ListBox) GetActivateOnSingleClick() bool {
 
-	return xListBoxGetActivateOnSingleClick(x.GoPointer())
-
+	cret := xListBoxGetActivateOnSingleClick(x.GoPointer())
+	return cret
 }
 
 var xListBoxGetAdjustment func(uintptr) uintptr
@@ -193,18 +194,17 @@ var xListBoxGetAdjustment func(uintptr) uintptr
 // Gets the adjustment (if any) that the widget uses to
 // for vertical scrolling.
 func (x *ListBox) GetAdjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetAdjustmentPtr := xListBoxGetAdjustment(x.GoPointer())
-	if GetAdjustmentPtr == 0 {
-		return nil
+	cret := xListBoxGetAdjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAdjustmentPtr)
-
-	GetAdjustmentCls := &Adjustment{}
-	GetAdjustmentCls.Ptr = GetAdjustmentPtr
-	return GetAdjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxGetRowAtIndex func(uintptr, int) uintptr
@@ -214,36 +214,34 @@ var xListBoxGetRowAtIndex func(uintptr, int) uintptr
 // If @index_ is negative or larger than the number of items in the
 // list, %NULL is returned.
 func (x *ListBox) GetRowAtIndex(IndexVar int) *ListBoxRow {
+	var cls *ListBoxRow
 
-	GetRowAtIndexPtr := xListBoxGetRowAtIndex(x.GoPointer(), IndexVar)
-	if GetRowAtIndexPtr == 0 {
-		return nil
+	cret := xListBoxGetRowAtIndex(x.GoPointer(), IndexVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRowAtIndexPtr)
-
-	GetRowAtIndexCls := &ListBoxRow{}
-	GetRowAtIndexCls.Ptr = GetRowAtIndexPtr
-	return GetRowAtIndexCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListBoxRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxGetRowAtY func(uintptr, int) uintptr
 
 // Gets the row at the @y position.
 func (x *ListBox) GetRowAtY(YVar int) *ListBoxRow {
+	var cls *ListBoxRow
 
-	GetRowAtYPtr := xListBoxGetRowAtY(x.GoPointer(), YVar)
-	if GetRowAtYPtr == 0 {
-		return nil
+	cret := xListBoxGetRowAtY(x.GoPointer(), YVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRowAtYPtr)
-
-	GetRowAtYCls := &ListBoxRow{}
-	GetRowAtYCls.Ptr = GetRowAtYPtr
-	return GetRowAtYCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListBoxRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxGetSelectedRow func(uintptr) uintptr
@@ -254,18 +252,17 @@ var xListBoxGetSelectedRow func(uintptr) uintptr
 // case you should use [method@Gtk.ListBox.selected_foreach] to
 // find all selected rows.
 func (x *ListBox) GetSelectedRow() *ListBoxRow {
+	var cls *ListBoxRow
 
-	GetSelectedRowPtr := xListBoxGetSelectedRow(x.GoPointer())
-	if GetSelectedRowPtr == 0 {
-		return nil
+	cret := xListBoxGetSelectedRow(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectedRowPtr)
-
-	GetSelectedRowCls := &ListBoxRow{}
-	GetSelectedRowCls.Ptr = GetSelectedRowPtr
-	return GetSelectedRowCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ListBoxRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxGetSelectedRows func(uintptr) *glib.List
@@ -273,8 +270,8 @@ var xListBoxGetSelectedRows func(uintptr) *glib.List
 // Creates a list of all selected children.
 func (x *ListBox) GetSelectedRows() *glib.List {
 
-	return xListBoxGetSelectedRows(x.GoPointer())
-
+	cret := xListBoxGetSelectedRows(x.GoPointer())
+	return cret
 }
 
 var xListBoxGetSelectionMode func(uintptr) SelectionMode
@@ -282,8 +279,8 @@ var xListBoxGetSelectionMode func(uintptr) SelectionMode
 // Gets the selection mode of the listbox.
 func (x *ListBox) GetSelectionMode() SelectionMode {
 
-	return xListBoxGetSelectionMode(x.GoPointer())
-
+	cret := xListBoxGetSelectionMode(x.GoPointer())
+	return cret
 }
 
 var xListBoxGetShowSeparators func(uintptr) bool
@@ -292,8 +289,8 @@ var xListBoxGetShowSeparators func(uintptr) bool
 // between rows.
 func (x *ListBox) GetShowSeparators() bool {
 
-	return xListBoxGetShowSeparators(x.GoPointer())
-
+	cret := xListBoxGetShowSeparators(x.GoPointer())
+	return cret
 }
 
 var xListBoxInsert func(uintptr, uintptr, int)
@@ -671,8 +668,8 @@ func (x *ListBox) ConnectUnselectAll(cb func(ListBox)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ListBox) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -807,8 +804,8 @@ func (x *ListBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ListBox) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkListBoxRow` is the kind of widget that can be added to a `GtkListBox`.
@@ -826,16 +823,17 @@ var xNewListBoxRow func() uintptr
 
 // Creates a new `GtkListBoxRow`.
 func NewListBoxRow() *Widget {
-	NewListBoxRowPtr := xNewListBoxRow()
-	if NewListBoxRowPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewListBoxRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewListBoxRowPtr)
-
-	NewListBoxRowCls := &Widget{}
-	NewListBoxRowCls.Ptr = NewListBoxRowPtr
-	return NewListBoxRowCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxRowChanged func(uintptr)
@@ -869,26 +867,25 @@ var xListBoxRowGetActivatable func(uintptr) bool
 // Gets whether the row is activatable.
 func (x *ListBoxRow) GetActivatable() bool {
 
-	return xListBoxRowGetActivatable(x.GoPointer())
-
+	cret := xListBoxRowGetActivatable(x.GoPointer())
+	return cret
 }
 
 var xListBoxRowGetChild func(uintptr) uintptr
 
 // Gets the child widget of @row.
 func (x *ListBoxRow) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xListBoxRowGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xListBoxRowGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxRowGetHeader func(uintptr) uintptr
@@ -900,18 +897,17 @@ var xListBoxRowGetHeader func(uintptr) uintptr
 // there is a header set already, and if so to update
 // the state of it.
 func (x *ListBoxRow) GetHeader() *Widget {
+	var cls *Widget
 
-	GetHeaderPtr := xListBoxRowGetHeader(x.GoPointer())
-	if GetHeaderPtr == 0 {
-		return nil
+	cret := xListBoxRowGetHeader(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHeaderPtr)
-
-	GetHeaderCls := &Widget{}
-	GetHeaderCls.Ptr = GetHeaderPtr
-	return GetHeaderCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListBoxRowGetIndex func(uintptr) int
@@ -919,8 +915,8 @@ var xListBoxRowGetIndex func(uintptr) int
 // Gets the current index of the @row in its `GtkListBox` container.
 func (x *ListBoxRow) GetIndex() int {
 
-	return xListBoxRowGetIndex(x.GoPointer())
-
+	cret := xListBoxRowGetIndex(x.GoPointer())
+	return cret
 }
 
 var xListBoxRowGetSelectable func(uintptr) bool
@@ -928,8 +924,8 @@ var xListBoxRowGetSelectable func(uintptr) bool
 // Gets whether the row can be selected.
 func (x *ListBoxRow) GetSelectable() bool {
 
-	return xListBoxRowGetSelectable(x.GoPointer())
-
+	cret := xListBoxRowGetSelectable(x.GoPointer())
+	return cret
 }
 
 var xListBoxRowIsSelected func(uintptr) bool
@@ -938,8 +934,8 @@ var xListBoxRowIsSelected func(uintptr) bool
 // `GtkListBox` container.
 func (x *ListBoxRow) IsSelected() bool {
 
-	return xListBoxRowIsSelected(x.GoPointer())
-
+	cret := xListBoxRowIsSelected(x.GoPointer())
+	return cret
 }
 
 var xListBoxRowSetActivatable func(uintptr, bool)
@@ -1010,8 +1006,8 @@ func (x *ListBoxRow) ConnectActivate(cb func(ListBoxRow)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ListBoxRow) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1143,15 +1139,15 @@ func (x *ListBoxRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // Gets the action name for @actionable.
 func (x *ListBoxRow) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *ListBoxRow) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -1229,8 +1225,8 @@ func (x *ListBoxRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ListBoxRow) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

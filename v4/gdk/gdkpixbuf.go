@@ -18,16 +18,16 @@ var xPixbufGetFromSurface func(*cairo.Surface, int, int, int, int) uintptr
 // This function will create an RGB pixbuf with 8 bits per channel.
 // The pixbuf will contain an alpha channel if the @surface contains one.
 func PixbufGetFromSurface(SurfaceVar *cairo.Surface, SrcXVar int, SrcYVar int, WidthVar int, HeightVar int) *gdkpixbuf.Pixbuf {
+	var cls *gdkpixbuf.Pixbuf
 
-	PixbufGetFromSurfacePtr := xPixbufGetFromSurface(SurfaceVar, SrcXVar, SrcYVar, WidthVar, HeightVar)
-	if PixbufGetFromSurfacePtr == 0 {
-		return nil
+	cret := xPixbufGetFromSurface(SurfaceVar, SrcXVar, SrcYVar, WidthVar, HeightVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	PixbufGetFromSurfaceCls := &gdkpixbuf.Pixbuf{}
-	PixbufGetFromSurfaceCls.Ptr = PixbufGetFromSurfacePtr
-	return PixbufGetFromSurfaceCls
-
+	cls = &gdkpixbuf.Pixbuf{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPixbufGetFromTexture func(uintptr) uintptr
@@ -38,16 +38,16 @@ var xPixbufGetFromTexture func(uintptr) uintptr
 // stages will almost certainly convert the pixbuf back into a texture
 // to draw it on screen.
 func PixbufGetFromTexture(TextureVar *Texture) *gdkpixbuf.Pixbuf {
+	var cls *gdkpixbuf.Pixbuf
 
-	PixbufGetFromTexturePtr := xPixbufGetFromTexture(TextureVar.GoPointer())
-	if PixbufGetFromTexturePtr == 0 {
-		return nil
+	cret := xPixbufGetFromTexture(TextureVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	PixbufGetFromTextureCls := &gdkpixbuf.Pixbuf{}
-	PixbufGetFromTextureCls.Ptr = PixbufGetFromTexturePtr
-	return PixbufGetFromTextureCls
-
+	cls = &gdkpixbuf.Pixbuf{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

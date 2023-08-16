@@ -28,14 +28,16 @@ var xNewPasswordEntryBuffer func() uintptr
 
 // Creates a new `GtkEntryBuffer` using secure memory allocations.
 func NewPasswordEntryBuffer() *EntryBuffer {
-	NewPasswordEntryBufferPtr := xNewPasswordEntryBuffer()
-	if NewPasswordEntryBufferPtr == 0 {
-		return nil
-	}
+	var cls *EntryBuffer
 
-	NewPasswordEntryBufferCls := &EntryBuffer{}
-	NewPasswordEntryBufferCls.Ptr = NewPasswordEntryBufferPtr
-	return NewPasswordEntryBufferCls
+	cret := xNewPasswordEntryBuffer()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EntryBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *PasswordEntryBuffer) GoPointer() uintptr {

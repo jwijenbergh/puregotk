@@ -42,44 +42,44 @@ func (x *DBusObjectManagerBase) SetGoPointer(ptr uintptr) {
 // Gets the interface proxy for @interface_name at @object_path, if
 // any.
 func (x *DBusObjectManagerBase) GetInterface(ObjectPathVar string, InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetInterface(x.GoPointer(), ObjectPathVar, InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the #GDBusObject at @object_path, if any.
 func (x *DBusObjectManagerBase) GetObject(ObjectPathVar string) *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusObjectManagerGetObject(x.GoPointer(), ObjectPathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the object path that @manager is for.
 func (x *DBusObjectManagerBase) GetObjectPath() string {
 
-	return XGDbusObjectManagerGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjectPath(x.GoPointer())
+	return cret
 }
 
 // Gets all #GDBusObject objects known to @manager.
 func (x *DBusObjectManagerBase) GetObjects() *glib.List {
 
-	return XGDbusObjectManagerGetObjects(x.GoPointer())
-
+	cret := XGDbusObjectManagerGetObjects(x.GoPointer())
+	return cret
 }
 
 var XGDbusObjectManagerGetInterface func(uintptr, string, string) uintptr

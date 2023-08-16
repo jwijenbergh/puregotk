@@ -192,25 +192,24 @@ func (x *CellLayoutBase) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *CellLayoutBase) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *CellLayoutBase) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the

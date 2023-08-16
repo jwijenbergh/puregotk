@@ -22,8 +22,8 @@ var xAtomicIntAdd func(int, int) int
 // the pointer passed to it should not be `volatile`.
 func AtomicIntAdd(AtomicVar int, ValVar int) int {
 
-	return xAtomicIntAdd(AtomicVar, ValVar)
-
+	cret := xAtomicIntAdd(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicIntAnd func(uint, uint) uint
@@ -40,8 +40,8 @@ var xAtomicIntAnd func(uint, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicIntAnd(AtomicVar uint, ValVar uint) uint {
 
-	return xAtomicIntAnd(AtomicVar, ValVar)
-
+	cret := xAtomicIntAnd(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicIntCompareAndExchange func(int, int, int) bool
@@ -60,8 +60,8 @@ var xAtomicIntCompareAndExchange func(int, int, int) bool
 // the pointer passed to it should not be `volatile`.
 func AtomicIntCompareAndExchange(AtomicVar int, OldvalVar int, NewvalVar int) bool {
 
-	return xAtomicIntCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
-
+	cret := xAtomicIntCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
+	return cret
 }
 
 var xAtomicIntDecAndTest func(int) bool
@@ -77,8 +77,8 @@ var xAtomicIntDecAndTest func(int) bool
 // the pointer passed to it should not be `volatile`.
 func AtomicIntDecAndTest(AtomicVar int) bool {
 
-	return xAtomicIntDecAndTest(AtomicVar)
-
+	cret := xAtomicIntDecAndTest(AtomicVar)
+	return cret
 }
 
 var xAtomicIntExchangeAndAdd func(int, int) int
@@ -88,8 +88,8 @@ var xAtomicIntExchangeAndAdd func(int, int) int
 // compatibility reasons.  Don't use this function in new code.
 func AtomicIntExchangeAndAdd(AtomicVar int, ValVar int) int {
 
-	return xAtomicIntExchangeAndAdd(AtomicVar, ValVar)
-
+	cret := xAtomicIntExchangeAndAdd(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicIntGet func(int) int
@@ -103,8 +103,8 @@ var xAtomicIntGet func(int) int
 // the pointer passed to it should not be `volatile`.
 func AtomicIntGet(AtomicVar int) int {
 
-	return xAtomicIntGet(AtomicVar)
-
+	cret := xAtomicIntGet(AtomicVar)
+	return cret
 }
 
 var xAtomicIntInc func(int)
@@ -137,8 +137,8 @@ var xAtomicIntOr func(uint, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicIntOr(AtomicVar uint, ValVar uint) uint {
 
-	return xAtomicIntOr(AtomicVar, ValVar)
-
+	cret := xAtomicIntOr(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicIntSet func(int, int)
@@ -170,8 +170,8 @@ var xAtomicIntXor func(uint, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicIntXor(AtomicVar uint, ValVar uint) uint {
 
-	return xAtomicIntXor(AtomicVar, ValVar)
-
+	cret := xAtomicIntXor(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicPointerAdd func(uintptr, int) int
@@ -187,8 +187,8 @@ var xAtomicPointerAdd func(uintptr, int) int
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerAdd(AtomicVar uintptr, ValVar int) int {
 
-	return xAtomicPointerAdd(AtomicVar, ValVar)
-
+	cret := xAtomicPointerAdd(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicPointerAnd func(uintptr, uint) uint
@@ -205,8 +205,8 @@ var xAtomicPointerAnd func(uintptr, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerAnd(AtomicVar uintptr, ValVar uint) uint {
 
-	return xAtomicPointerAnd(AtomicVar, ValVar)
-
+	cret := xAtomicPointerAnd(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicPointerCompareAndExchange func(uintptr, uintptr, uintptr) bool
@@ -225,8 +225,8 @@ var xAtomicPointerCompareAndExchange func(uintptr, uintptr, uintptr) bool
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerCompareAndExchange(AtomicVar uintptr, OldvalVar uintptr, NewvalVar uintptr) bool {
 
-	return xAtomicPointerCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
-
+	cret := xAtomicPointerCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
+	return cret
 }
 
 var xAtomicPointerGet func(uintptr) uintptr
@@ -240,8 +240,8 @@ var xAtomicPointerGet func(uintptr) uintptr
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerGet(AtomicVar uintptr) uintptr {
 
-	return xAtomicPointerGet(AtomicVar)
-
+	cret := xAtomicPointerGet(AtomicVar)
+	return cret
 }
 
 var xAtomicPointerOr func(uintptr, uint) uint
@@ -258,8 +258,8 @@ var xAtomicPointerOr func(uintptr, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerOr(AtomicVar uintptr, ValVar uint) uint {
 
-	return xAtomicPointerOr(AtomicVar, ValVar)
-
+	cret := xAtomicPointerOr(AtomicVar, ValVar)
+	return cret
 }
 
 var xAtomicPointerSet func(uintptr, uintptr)
@@ -291,8 +291,8 @@ var xAtomicPointerXor func(uintptr, uint) uint
 // the pointer passed to it should not be `volatile`.
 func AtomicPointerXor(AtomicVar uintptr, ValVar uint) uint {
 
-	return xAtomicPointerXor(AtomicVar, ValVar)
-
+	cret := xAtomicPointerXor(AtomicVar, ValVar)
+	return cret
 }
 
 func init() {

@@ -113,9 +113,14 @@ func (x *AppInfoBase) SetGoPointer(ptr uintptr) {
 
 // Adds a content type to the application information to indicate the
 // application is capable of opening files with the given content type.
-func (x *AppInfoBase) AddSupportsType(ContentTypeVar string) bool {
+func (x *AppInfoBase) AddSupportsType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoAddSupportsType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoAddSupportsType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -123,15 +128,15 @@ func (x *AppInfoBase) AddSupportsType(ContentTypeVar string) bool {
 // See g_app_info_delete().
 func (x *AppInfoBase) CanDelete() bool {
 
-	return XGAppInfoCanDelete(x.GoPointer())
-
+	cret := XGAppInfoCanDelete(x.GoPointer())
+	return cret
 }
 
 // Checks if a supported content type can be removed from an application.
 func (x *AppInfoBase) CanRemoveSupportsType() bool {
 
-	return XGAppInfoCanRemoveSupportsType(x.GoPointer())
-
+	cret := XGAppInfoCanRemoveSupportsType(x.GoPointer())
+	return cret
 }
 
 // Tries to delete a #GAppInfo.
@@ -141,22 +146,22 @@ func (x *AppInfoBase) CanRemoveSupportsType() bool {
 // See g_app_info_can_delete().
 func (x *AppInfoBase) Delete() bool {
 
-	return XGAppInfoDelete(x.GoPointer())
-
+	cret := XGAppInfoDelete(x.GoPointer())
+	return cret
 }
 
 // Creates a duplicate of a #GAppInfo.
 func (x *AppInfoBase) Dup() *AppInfoBase {
+	var cls *AppInfoBase
 
-	DupPtr := XGAppInfoDup(x.GoPointer())
-	if DupPtr == 0 {
-		return nil
+	cret := XGAppInfoDup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupCls := &AppInfoBase{}
-	DupCls.Ptr = DupPtr
-	return DupCls
-
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Checks if two #GAppInfos are equal.
@@ -166,54 +171,53 @@ func (x *AppInfoBase) Dup() *AppInfoBase {
 // contents is needed, program code must additionally compare relevant fields.
 func (x *AppInfoBase) Equal(Appinfo2Var AppInfo) bool {
 
-	return XGAppInfoEqual(x.GoPointer(), Appinfo2Var.GoPointer())
-
+	cret := XGAppInfoEqual(x.GoPointer(), Appinfo2Var.GoPointer())
+	return cret
 }
 
 // Gets the commandline with which the application will be
 // started.
 func (x *AppInfoBase) GetCommandline() string {
 
-	return XGAppInfoGetCommandline(x.GoPointer())
-
+	cret := XGAppInfoGetCommandline(x.GoPointer())
+	return cret
 }
 
 // Gets a human-readable description of an installed application.
 func (x *AppInfoBase) GetDescription() string {
 
-	return XGAppInfoGetDescription(x.GoPointer())
-
+	cret := XGAppInfoGetDescription(x.GoPointer())
+	return cret
 }
 
 // Gets the display name of the application. The display name is often more
 // descriptive to the user than the name itself.
 func (x *AppInfoBase) GetDisplayName() string {
 
-	return XGAppInfoGetDisplayName(x.GoPointer())
-
+	cret := XGAppInfoGetDisplayName(x.GoPointer())
+	return cret
 }
 
 // Gets the executable's name for the installed application.
 func (x *AppInfoBase) GetExecutable() string {
 
-	return XGAppInfoGetExecutable(x.GoPointer())
-
+	cret := XGAppInfoGetExecutable(x.GoPointer())
+	return cret
 }
 
 // Gets the icon for the application.
 func (x *AppInfoBase) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := XGAppInfoGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := XGAppInfoGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIconPtr)
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the ID of an application. An id is a string that
@@ -225,15 +229,15 @@ func (x *AppInfoBase) GetIcon() *IconBase {
 // the @appinfo has been constructed.
 func (x *AppInfoBase) GetId() string {
 
-	return XGAppInfoGetId(x.GoPointer())
-
+	cret := XGAppInfoGetId(x.GoPointer())
+	return cret
 }
 
 // Gets the installed name of the application.
 func (x *AppInfoBase) GetName() string {
 
-	return XGAppInfoGetName(x.GoPointer())
-
+	cret := XGAppInfoGetName(x.GoPointer())
+	return cret
 }
 
 // Retrieves the list of content types that @app_info claims to support.
@@ -244,8 +248,8 @@ func (x *AppInfoBase) GetName() string {
 // the application.
 func (x *AppInfoBase) GetSupportedTypes() uintptr {
 
-	return XGAppInfoGetSupportedTypes(x.GoPointer())
-
+	cret := XGAppInfoGetSupportedTypes(x.GoPointer())
+	return cret
 }
 
 // Launches the application. Passes @files to the launched application
@@ -275,9 +279,14 @@ func (x *AppInfoBase) GetSupportedTypes() uintptr {
 // should it be inherited by further processes. The `DISPLAY` and
 // `DESKTOP_STARTUP_ID` environment variables are also set, based
 // on information provided in @context.
-func (x *AppInfoBase) Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) bool {
+func (x *AppInfoBase) Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunch(x.GoPointer(), FilesVar, ContextVar.GoPointer())
+	cret := XGAppInfoLaunch(x.GoPointer(), FilesVar, ContextVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -291,9 +300,14 @@ func (x *AppInfoBase) Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) 
 // Note that even if the launch is successful the application launched
 // can fail to start if it runs into problems during startup. There is
 // no way to detect this.
-func (x *AppInfoBase) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) bool {
+func (x *AppInfoBase) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunchUris(x.GoPointer(), UrisVar, ContextVar.GoPointer())
+	cret := XGAppInfoLaunchUris(x.GoPointer(), UrisVar, ContextVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -310,30 +324,50 @@ func (x *AppInfoBase) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchC
 }
 
 // Finishes a g_app_info_launch_uris_async() operation.
-func (x *AppInfoBase) LaunchUrisFinish(ResultVar AsyncResult) bool {
+func (x *AppInfoBase) LaunchUrisFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoLaunchUrisFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGAppInfoLaunchUrisFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Removes a supported type from an application, if possible.
-func (x *AppInfoBase) RemoveSupportsType(ContentTypeVar string) bool {
+func (x *AppInfoBase) RemoveSupportsType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoRemoveSupportsType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoRemoveSupportsType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Sets the application as the default handler for the given file extension.
-func (x *AppInfoBase) SetAsDefaultForExtension(ExtensionVar string) bool {
+func (x *AppInfoBase) SetAsDefaultForExtension(ExtensionVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsDefaultForExtension(x.GoPointer(), ExtensionVar)
+	cret := XGAppInfoSetAsDefaultForExtension(x.GoPointer(), ExtensionVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Sets the application as the default handler for a given type.
-func (x *AppInfoBase) SetAsDefaultForType(ContentTypeVar string) bool {
+func (x *AppInfoBase) SetAsDefaultForType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsDefaultForType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoSetAsDefaultForType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -341,9 +375,14 @@ func (x *AppInfoBase) SetAsDefaultForType(ContentTypeVar string) bool {
 // This will make the application appear as first in the list returned
 // by g_app_info_get_recommended_for_type(), regardless of the default
 // application for that content type.
-func (x *AppInfoBase) SetAsLastUsedForType(ContentTypeVar string) bool {
+func (x *AppInfoBase) SetAsLastUsedForType(ContentTypeVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAppInfoSetAsLastUsedForType(x.GoPointer(), ContentTypeVar)
+	cret := XGAppInfoSetAsLastUsedForType(x.GoPointer(), ContentTypeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -351,25 +390,25 @@ func (x *AppInfoBase) SetAsLastUsedForType(ContentTypeVar string) bool {
 // list available applications.
 func (x *AppInfoBase) ShouldShow() bool {
 
-	return XGAppInfoShouldShow(x.GoPointer())
-
+	cret := XGAppInfoShouldShow(x.GoPointer())
+	return cret
 }
 
 // Checks if the application accepts files as arguments.
 func (x *AppInfoBase) SupportsFiles() bool {
 
-	return XGAppInfoSupportsFiles(x.GoPointer())
-
+	cret := XGAppInfoSupportsFiles(x.GoPointer())
+	return cret
 }
 
 // Checks if the application supports reading files and directories from URIs.
 func (x *AppInfoBase) SupportsUris() bool {
 
-	return XGAppInfoSupportsUris(x.GoPointer())
-
+	cret := XGAppInfoSupportsUris(x.GoPointer())
+	return cret
 }
 
-var XGAppInfoAddSupportsType func(uintptr, string) bool
+var XGAppInfoAddSupportsType func(uintptr, string, **glib.Error) bool
 var XGAppInfoCanDelete func(uintptr) bool
 var XGAppInfoCanRemoveSupportsType func(uintptr) bool
 var XGAppInfoDelete func(uintptr) bool
@@ -383,19 +422,19 @@ var XGAppInfoGetIcon func(uintptr) uintptr
 var XGAppInfoGetId func(uintptr) string
 var XGAppInfoGetName func(uintptr) string
 var XGAppInfoGetSupportedTypes func(uintptr) uintptr
-var XGAppInfoLaunch func(uintptr, *glib.List, uintptr) bool
-var XGAppInfoLaunchUris func(uintptr, *glib.List, uintptr) bool
+var XGAppInfoLaunch func(uintptr, *glib.List, uintptr, **glib.Error) bool
+var XGAppInfoLaunchUris func(uintptr, *glib.List, uintptr, **glib.Error) bool
 var XGAppInfoLaunchUrisAsync func(uintptr, *glib.List, uintptr, uintptr, uintptr, uintptr)
-var XGAppInfoLaunchUrisFinish func(uintptr, uintptr) bool
-var XGAppInfoRemoveSupportsType func(uintptr, string) bool
-var XGAppInfoSetAsDefaultForExtension func(uintptr, string) bool
-var XGAppInfoSetAsDefaultForType func(uintptr, string) bool
-var XGAppInfoSetAsLastUsedForType func(uintptr, string) bool
+var XGAppInfoLaunchUrisFinish func(uintptr, uintptr, **glib.Error) bool
+var XGAppInfoRemoveSupportsType func(uintptr, string, **glib.Error) bool
+var XGAppInfoSetAsDefaultForExtension func(uintptr, string, **glib.Error) bool
+var XGAppInfoSetAsDefaultForType func(uintptr, string, **glib.Error) bool
+var XGAppInfoSetAsLastUsedForType func(uintptr, string, **glib.Error) bool
 var XGAppInfoShouldShow func(uintptr) bool
 var XGAppInfoSupportsFiles func(uintptr) bool
 var XGAppInfoSupportsUris func(uintptr) bool
 
-var xAppInfoCreateFromCommandline func(string, string, AppInfoCreateFlags) uintptr
+var xAppInfoCreateFromCommandline func(string, string, AppInfoCreateFlags, **glib.Error) uintptr
 
 // Creates a new #GAppInfo from the given information.
 //
@@ -404,16 +443,21 @@ var xAppInfoCreateFromCommandline func(string, string, AppInfoCreateFlags) uintp
 // are applied. For example, if the @commandline contains
 // percent-encoded URIs, the percent-character must be doubled in order to prevent it from
 // being swallowed by Exec key unquoting. See the specification for exact quoting rules.
-func AppInfoCreateFromCommandline(CommandlineVar string, ApplicationNameVar string, FlagsVar AppInfoCreateFlags) *AppInfoBase {
+func AppInfoCreateFromCommandline(CommandlineVar string, ApplicationNameVar string, FlagsVar AppInfoCreateFlags) (*AppInfoBase, error) {
+	var cls *AppInfoBase
+	var cerr *glib.Error
 
-	AppInfoCreateFromCommandlinePtr := xAppInfoCreateFromCommandline(CommandlineVar, ApplicationNameVar, FlagsVar)
-	if AppInfoCreateFromCommandlinePtr == 0 {
-		return nil
+	cret := xAppInfoCreateFromCommandline(CommandlineVar, ApplicationNameVar, FlagsVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	AppInfoCreateFromCommandlineCls := &AppInfoBase{}
-	AppInfoCreateFromCommandlineCls.Ptr = AppInfoCreateFromCommandlinePtr
-	return AppInfoCreateFromCommandlineCls
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -429,8 +473,8 @@ var xAppInfoGetAll func() *glib.List
 // the `Hidden` key set.
 func AppInfoGetAll() *glib.List {
 
-	return xAppInfoGetAll()
-
+	cret := xAppInfoGetAll()
+	return cret
 }
 
 var xAppInfoGetAllForType func(string) *glib.List
@@ -441,24 +485,24 @@ var xAppInfoGetAllForType func(string) *glib.List
 // g_app_info_get_fallback_for_type().
 func AppInfoGetAllForType(ContentTypeVar string) *glib.List {
 
-	return xAppInfoGetAllForType(ContentTypeVar)
-
+	cret := xAppInfoGetAllForType(ContentTypeVar)
+	return cret
 }
 
 var xAppInfoGetDefaultForType func(string, bool) uintptr
 
 // Gets the default #GAppInfo for a given content type.
 func AppInfoGetDefaultForType(ContentTypeVar string, MustSupportUrisVar bool) *AppInfoBase {
+	var cls *AppInfoBase
 
-	AppInfoGetDefaultForTypePtr := xAppInfoGetDefaultForType(ContentTypeVar, MustSupportUrisVar)
-	if AppInfoGetDefaultForTypePtr == 0 {
-		return nil
+	cret := xAppInfoGetDefaultForType(ContentTypeVar, MustSupportUrisVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	AppInfoGetDefaultForTypeCls := &AppInfoBase{}
-	AppInfoGetDefaultForTypeCls.Ptr = AppInfoGetDefaultForTypePtr
-	return AppInfoGetDefaultForTypeCls
-
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppInfoGetDefaultForUriScheme func(string) uintptr
@@ -468,16 +512,16 @@ var xAppInfoGetDefaultForUriScheme func(string) uintptr
 // of the URI, up to but not including the ':', e.g. "http",
 // "ftp" or "sip".
 func AppInfoGetDefaultForUriScheme(UriSchemeVar string) *AppInfoBase {
+	var cls *AppInfoBase
 
-	AppInfoGetDefaultForUriSchemePtr := xAppInfoGetDefaultForUriScheme(UriSchemeVar)
-	if AppInfoGetDefaultForUriSchemePtr == 0 {
-		return nil
+	cret := xAppInfoGetDefaultForUriScheme(UriSchemeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	AppInfoGetDefaultForUriSchemeCls := &AppInfoBase{}
-	AppInfoGetDefaultForUriSchemeCls.Ptr = AppInfoGetDefaultForUriSchemePtr
-	return AppInfoGetDefaultForUriSchemeCls
-
+	cls = &AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppInfoGetFallbackForType func(string) *glib.List
@@ -487,8 +531,8 @@ var xAppInfoGetFallbackForType func(string) *glib.List
 // by MIME type subclassing and not directly.
 func AppInfoGetFallbackForType(ContentTypeVar string) *glib.List {
 
-	return xAppInfoGetFallbackForType(ContentTypeVar)
-
+	cret := xAppInfoGetFallbackForType(ContentTypeVar)
+	return cret
 }
 
 var xAppInfoGetRecommendedForType func(string) *glib.List
@@ -501,11 +545,11 @@ var xAppInfoGetRecommendedForType func(string) *glib.List
 // called.
 func AppInfoGetRecommendedForType(ContentTypeVar string) *glib.List {
 
-	return xAppInfoGetRecommendedForType(ContentTypeVar)
-
+	cret := xAppInfoGetRecommendedForType(ContentTypeVar)
+	return cret
 }
 
-var xAppInfoLaunchDefaultForUri func(string, uintptr) bool
+var xAppInfoLaunchDefaultForUri func(string, uintptr, **glib.Error) bool
 
 // Utility function that launches the default application
 // registered to handle the specified uri. Synchronous I/O
@@ -515,9 +559,14 @@ var xAppInfoLaunchDefaultForUri func(string, uintptr) bool
 // The D-Bus–activated applications don't have to be started if your application
 // terminates too soon after this function. To prevent this, use
 // g_app_info_launch_default_for_uri_async() instead.
-func AppInfoLaunchDefaultForUri(UriVar string, ContextVar *AppLaunchContext) bool {
+func AppInfoLaunchDefaultForUri(UriVar string, ContextVar *AppLaunchContext) (bool, error) {
+	var cerr *glib.Error
 
-	return xAppInfoLaunchDefaultForUri(UriVar, ContextVar.GoPointer())
+	cret := xAppInfoLaunchDefaultForUri(UriVar, ContextVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -539,12 +588,17 @@ func AppInfoLaunchDefaultForUriAsync(UriVar string, ContextVar *AppLaunchContext
 
 }
 
-var xAppInfoLaunchDefaultForUriFinish func(uintptr) bool
+var xAppInfoLaunchDefaultForUriFinish func(uintptr, **glib.Error) bool
 
 // Finishes an asynchronous launch-default-for-uri operation.
-func AppInfoLaunchDefaultForUriFinish(ResultVar AsyncResult) bool {
+func AppInfoLaunchDefaultForUriFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xAppInfoLaunchDefaultForUriFinish(ResultVar.GoPointer())
+	cret := xAppInfoLaunchDefaultForUriFinish(ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -579,14 +633,16 @@ var xNewAppLaunchContext func() uintptr
 // Creates a new application launch context. This is not normally used,
 // instead you instantiate a subclass of this, such as #GdkAppLaunchContext.
 func NewAppLaunchContext() *AppLaunchContext {
-	NewAppLaunchContextPtr := xNewAppLaunchContext()
-	if NewAppLaunchContextPtr == 0 {
-		return nil
-	}
+	var cls *AppLaunchContext
 
-	NewAppLaunchContextCls := &AppLaunchContext{}
-	NewAppLaunchContextCls.Ptr = NewAppLaunchContextPtr
-	return NewAppLaunchContextCls
+	cret := xNewAppLaunchContext()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &AppLaunchContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppLaunchContextGetDisplay func(uintptr, uintptr, *glib.List) string
@@ -596,8 +652,8 @@ var xAppLaunchContextGetDisplay func(uintptr, uintptr, *glib.List) string
 // application, by setting the `DISPLAY` environment variable.
 func (x *AppLaunchContext) GetDisplay(InfoVar AppInfo, FilesVar *glib.List) string {
 
-	return xAppLaunchContextGetDisplay(x.GoPointer(), InfoVar.GoPointer(), FilesVar)
-
+	cret := xAppLaunchContextGetDisplay(x.GoPointer(), InfoVar.GoPointer(), FilesVar)
+	return cret
 }
 
 var xAppLaunchContextGetEnvironment func(uintptr) []string
@@ -608,8 +664,8 @@ var xAppLaunchContextGetEnvironment func(uintptr) []string
 // the form `KEY=VALUE`.
 func (x *AppLaunchContext) GetEnvironment() []string {
 
-	return xAppLaunchContextGetEnvironment(x.GoPointer())
-
+	cret := xAppLaunchContextGetEnvironment(x.GoPointer())
+	return cret
 }
 
 var xAppLaunchContextGetStartupNotifyId func(uintptr, uintptr, *glib.List) string
@@ -621,8 +677,8 @@ var xAppLaunchContextGetStartupNotifyId func(uintptr, uintptr, *glib.List) strin
 // [FreeDesktop.Org Startup Notifications standard](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).
 func (x *AppLaunchContext) GetStartupNotifyId(InfoVar AppInfo, FilesVar *glib.List) string {
 
-	return xAppLaunchContextGetStartupNotifyId(x.GoPointer(), InfoVar.GoPointer(), FilesVar)
-
+	cret := xAppLaunchContextGetStartupNotifyId(x.GoPointer(), InfoVar.GoPointer(), FilesVar)
+	return cret
 }
 
 var xAppLaunchContextLaunchFailed func(uintptr, string)

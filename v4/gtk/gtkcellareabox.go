@@ -41,16 +41,17 @@ var xNewCellAreaBox func() uintptr
 
 // Creates a new `GtkCellAreaBox`.
 func NewCellAreaBox() *CellArea {
-	NewCellAreaBoxPtr := xNewCellAreaBox()
-	if NewCellAreaBoxPtr == 0 {
-		return nil
+	var cls *CellArea
+
+	cret := xNewCellAreaBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellAreaBoxPtr)
-
-	NewCellAreaBoxCls := &CellArea{}
-	NewCellAreaBoxCls.Ptr = NewCellAreaBoxPtr
-	return NewCellAreaBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaBoxGetSpacing func(uintptr) int
@@ -58,8 +59,8 @@ var xCellAreaBoxGetSpacing func(uintptr) int
 // Gets the spacing added between cell renderers.
 func (x *CellAreaBox) GetSpacing() int {
 
-	return xCellAreaBoxGetSpacing(x.GoPointer())
-
+	cret := xCellAreaBoxGetSpacing(x.GoPointer())
+	return cret
 }
 
 var xCellAreaBoxPackEnd func(uintptr, uintptr, bool, bool, bool)
@@ -109,8 +110,8 @@ func (c *CellAreaBox) SetGoPointer(ptr uintptr) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CellAreaBox) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds an attribute mapping to the list in @cell_layout.
@@ -146,25 +147,24 @@ func (x *CellAreaBox) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *CellAreaBox) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *CellAreaBox) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Re-inserts @cell at @position.
@@ -207,8 +207,8 @@ func (x *CellAreaBox) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutD
 // Retrieves the orientation of the @orientable.
 func (x *CellAreaBox) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

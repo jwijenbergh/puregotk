@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -88,8 +89,8 @@ func (c *SimpleProxyResolver) SetGoPointer(ptr uintptr) {
 // resolver that returns %TRUE for this method.)
 func (x *SimpleProxyResolver) IsSupported() bool {
 
-	return XGProxyResolverIsSupported(x.GoPointer())
-
+	cret := XGProxyResolverIsSupported(x.GoPointer())
+	return cret
 }
 
 // Looks into the system proxy configuration to determine what proxy,
@@ -107,9 +108,14 @@ func (x *SimpleProxyResolver) IsSupported() bool {
 // `direct://` is used when no proxy is needed.
 // Direct connection should not be attempted unless it is part of the
 // returned array of proxies.
-func (x *SimpleProxyResolver) Lookup(UriVar string, CancellableVar *Cancellable) uintptr {
+func (x *SimpleProxyResolver) Lookup(UriVar string, CancellableVar *Cancellable) (uintptr, error) {
+	var cerr *glib.Error
 
-	return XGProxyResolverLookup(x.GoPointer(), UriVar, CancellableVar.GoPointer())
+	cret := XGProxyResolverLookup(x.GoPointer(), UriVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -124,9 +130,14 @@ func (x *SimpleProxyResolver) LookupAsync(UriVar string, CancellableVar *Cancell
 // Call this function to obtain the array of proxy URIs when
 // g_proxy_resolver_lookup_async() is complete. See
 // g_proxy_resolver_lookup() for more details.
-func (x *SimpleProxyResolver) LookupFinish(ResultVar AsyncResult) uintptr {
+func (x *SimpleProxyResolver) LookupFinish(ResultVar AsyncResult) (uintptr, error) {
+	var cerr *glib.Error
 
-	return XGProxyResolverLookupFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGProxyResolverLookupFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

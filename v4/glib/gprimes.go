@@ -16,8 +16,8 @@ var xSpacedPrimesClosest func(uint) uint
 // each prime is approximately 1.5-2 times the previous prime.
 func SpacedPrimesClosest(NumVar uint) uint {
 
-	return xSpacedPrimesClosest(NumVar)
-
+	cret := xSpacedPrimesClosest(NumVar)
+	return cret
 }
 
 func init() {

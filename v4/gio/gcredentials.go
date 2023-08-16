@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -63,14 +64,16 @@ var xNewCredentials func() uintptr
 // Creates a new #GCredentials object with credentials matching the
 // the current process.
 func NewCredentials() *Credentials {
-	NewCredentialsPtr := xNewCredentials()
-	if NewCredentialsPtr == 0 {
-		return nil
-	}
+	var cls *Credentials
 
-	NewCredentialsCls := &Credentials{}
-	NewCredentialsCls.Ptr = NewCredentialsPtr
-	return NewCredentialsCls
+	cret := xNewCredentials()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Credentials{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCredentialsGetNative func(uintptr, CredentialsType) uintptr
@@ -83,8 +86,8 @@ var xCredentialsGetNative func(uintptr, CredentialsType) uintptr
 // the OS or if @native_type isn't supported by the OS.
 func (x *Credentials) GetNative(NativeTypeVar CredentialsType) uintptr {
 
-	return xCredentialsGetNative(x.GoPointer(), NativeTypeVar)
-
+	cret := xCredentialsGetNative(x.GoPointer(), NativeTypeVar)
+	return cret
 }
 
 var xCredentialsGetUnixPid func(uintptr) int
@@ -95,9 +98,14 @@ var xCredentialsGetUnixPid func(uintptr) int
 // This operation can fail if #GCredentials is not supported on the
 // OS or if the native credentials type does not contain information
 // about the UNIX process ID.
-func (x *Credentials) GetUnixPid() int {
+func (x *Credentials) GetUnixPid() (int, error) {
+	var cerr *glib.Error
 
-	return xCredentialsGetUnixPid(x.GoPointer())
+	cret := xCredentialsGetUnixPid(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -109,21 +117,31 @@ var xCredentialsGetUnixUser func(uintptr) uint
 // This operation can fail if #GCredentials is not supported on the
 // OS or if the native credentials type does not contain information
 // about the UNIX user.
-func (x *Credentials) GetUnixUser() uint {
+func (x *Credentials) GetUnixUser() (uint, error) {
+	var cerr *glib.Error
 
-	return xCredentialsGetUnixUser(x.GoPointer())
+	cret := xCredentialsGetUnixUser(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xCredentialsIsSameUser func(uintptr, uintptr) bool
+var xCredentialsIsSameUser func(uintptr, uintptr, **glib.Error) bool
 
 // Checks if @credentials and @other_credentials is the same user.
 //
 // This operation can fail if #GCredentials is not supported on the
 // the OS.
-func (x *Credentials) IsSameUser(OtherCredentialsVar *Credentials) bool {
+func (x *Credentials) IsSameUser(OtherCredentialsVar *Credentials) (bool, error) {
+	var cerr *glib.Error
 
-	return xCredentialsIsSameUser(x.GoPointer(), OtherCredentialsVar.GoPointer())
+	cret := xCredentialsIsSameUser(x.GoPointer(), OtherCredentialsVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -141,7 +159,7 @@ func (x *Credentials) SetNative(NativeTypeVar CredentialsType, NativeVar uintptr
 
 }
 
-var xCredentialsSetUnixUser func(uintptr, uint) bool
+var xCredentialsSetUnixUser func(uintptr, uint, **glib.Error) bool
 
 // Tries to set the UNIX user identifier on @credentials. This method
 // is only available on UNIX platforms.
@@ -150,9 +168,14 @@ var xCredentialsSetUnixUser func(uintptr, uint) bool
 // OS or if the native credentials type does not contain information
 // about the UNIX user. It can also fail if the OS does not allow the
 // use of "spoofed" credentials.
-func (x *Credentials) SetUnixUser(UidVar uint) bool {
+func (x *Credentials) SetUnixUser(UidVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xCredentialsSetUnixUser(x.GoPointer(), UidVar)
+	cret := xCredentialsSetUnixUser(x.GoPointer(), UidVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -163,8 +186,8 @@ var xCredentialsToString func(uintptr) string
 // returned string may change in future GLib release.
 func (x *Credentials) ToString() string {
 
-	return xCredentialsToString(x.GoPointer())
-
+	cret := xCredentialsToString(x.GoPointer())
+	return cret
 }
 
 func (c *Credentials) GoPointer() uintptr {

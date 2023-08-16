@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -42,31 +43,35 @@ var xNewUnixFDMessage func() uintptr
 // Creates a new #GUnixFDMessage containing an empty file descriptor
 // list.
 func NewUnixFDMessage() *SocketControlMessage {
-	NewUnixFDMessagePtr := xNewUnixFDMessage()
-	if NewUnixFDMessagePtr == 0 {
-		return nil
-	}
+	var cls *SocketControlMessage
 
-	NewUnixFDMessageCls := &SocketControlMessage{}
-	NewUnixFDMessageCls.Ptr = NewUnixFDMessagePtr
-	return NewUnixFDMessageCls
+	cret := xNewUnixFDMessage()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketControlMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithFdListUnixFDMessage func(uintptr) uintptr
 
 // Creates a new #GUnixFDMessage containing @list.
 func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *SocketControlMessage {
-	NewWithFdListUnixFDMessagePtr := xNewWithFdListUnixFDMessage(FdListVar.GoPointer())
-	if NewWithFdListUnixFDMessagePtr == 0 {
-		return nil
-	}
+	var cls *SocketControlMessage
 
-	NewWithFdListUnixFDMessageCls := &SocketControlMessage{}
-	NewWithFdListUnixFDMessageCls.Ptr = NewWithFdListUnixFDMessagePtr
-	return NewWithFdListUnixFDMessageCls
+	cret := xNewWithFdListUnixFDMessage(FdListVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketControlMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xUnixFDMessageAppendFd func(uintptr, int) bool
+var xUnixFDMessageAppendFd func(uintptr, int, **glib.Error) bool
 
 // Adds a file descriptor to @message.
 //
@@ -76,9 +81,14 @@ var xUnixFDMessageAppendFd func(uintptr, int) bool
 //
 // A possible cause of failure is exceeding the per-process or
 // system-wide file descriptor limit.
-func (x *UnixFDMessage) AppendFd(FdVar int) bool {
+func (x *UnixFDMessage) AppendFd(FdVar int) (bool, error) {
+	var cerr *glib.Error
 
-	return xUnixFDMessageAppendFd(x.GoPointer(), FdVar)
+	cret := xUnixFDMessageAppendFd(x.GoPointer(), FdVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -88,18 +98,17 @@ var xUnixFDMessageGetFdList func(uintptr) uintptr
 // return a reference to the caller, but the returned list is valid for
 // the lifetime of @message.
 func (x *UnixFDMessage) GetFdList() *UnixFDList {
+	var cls *UnixFDList
 
-	GetFdListPtr := xUnixFDMessageGetFdList(x.GoPointer())
-	if GetFdListPtr == 0 {
-		return nil
+	cret := xUnixFDMessageGetFdList(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFdListPtr)
-
-	GetFdListCls := &UnixFDList{}
-	GetFdListCls.Ptr = GetFdListPtr
-	return GetFdListCls
-
+	gobject.IncreaseRef(cret)
+	cls = &UnixFDList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixFDMessageStealFds func(uintptr, int) uintptr
@@ -123,8 +132,8 @@ var xUnixFDMessageStealFds func(uintptr, int) uintptr
 // descriptors contained in @message, an empty array is returned.
 func (x *UnixFDMessage) StealFds(LengthVar int) uintptr {
 
-	return xUnixFDMessageStealFds(x.GoPointer(), LengthVar)
-
+	cret := xUnixFDMessageStealFds(x.GoPointer(), LengthVar)
+	return cret
 }
 
 func (c *UnixFDMessage) GoPointer() uintptr {

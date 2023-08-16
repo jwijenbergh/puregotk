@@ -62,14 +62,16 @@ var xNewApplication func(string, gio.ApplicationFlags) uintptr
 // If no application ID is given then some features (most notably application
 // uniqueness) will be disabled.
 func NewApplication(ApplicationIdVar string, FlagsVar gio.ApplicationFlags) *Application {
-	NewApplicationPtr := xNewApplication(ApplicationIdVar, FlagsVar)
-	if NewApplicationPtr == 0 {
-		return nil
-	}
+	var cls *Application
 
-	NewApplicationCls := &Application{}
-	NewApplicationCls.Ptr = NewApplicationPtr
-	return NewApplicationCls
+	cret := xNewApplication(ApplicationIdVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Application{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetStyleManager func(uintptr) uintptr
@@ -79,18 +81,17 @@ var xApplicationGetStyleManager func(uintptr) uintptr
 // This is a convenience property allowing to access `AdwStyleManager` through
 // property bindings or expressions.
 func (x *Application) GetStyleManager() *StyleManager {
+	var cls *StyleManager
 
-	GetStyleManagerPtr := xApplicationGetStyleManager(x.GoPointer())
-	if GetStyleManagerPtr == 0 {
-		return nil
+	cret := xApplicationGetStyleManager(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStyleManagerPtr)
-
-	GetStyleManagerCls := &StyleManager{}
-	GetStyleManagerCls.Ptr = GetStyleManagerPtr
-	return GetStyleManagerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StyleManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *Application) GoPointer() uintptr {
@@ -199,8 +200,8 @@ func (x *Application) ChangeActionState(ActionNameVar string, ValueVar *glib.Var
 // have its state changed from outside callers.
 func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 
-	return gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -218,8 +219,8 @@ func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *Application) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -232,8 +233,8 @@ func (x *Application) GetActionParameterType(ActionNameVar string) *glib.Variant
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -256,8 +257,8 @@ func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -278,15 +279,15 @@ func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 // with the same name but a different state type.
 func (x *Application) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *Application) HasAction(ActionNameVar string) bool {
 
-	return gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -295,8 +296,8 @@ func (x *Application) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *Application) ListActions() uintptr {
 
-	return gio.XGActionGroupListActions(x.GoPointer())
-
+	cret := gio.XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -328,8 +329,8 @@ func (x *Application) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *Application) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Adds an action to the @action_map.
@@ -397,18 +398,17 @@ func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, User
 //
 // If no such action exists, returns %NULL.
 func (x *Application) LookupAction(ActionNameVar string) *gio.ActionBase {
+	var cls *gio.ActionBase
 
-	LookupActionPtr := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &gio.ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.

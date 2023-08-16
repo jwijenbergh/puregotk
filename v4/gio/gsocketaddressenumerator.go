@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -36,7 +37,7 @@ func SocketAddressEnumeratorNewFromInternalPtr(ptr uintptr) *SocketAddressEnumer
 	return cls
 }
 
-var xSocketAddressEnumeratorNext func(uintptr, uintptr) uintptr
+var xSocketAddressEnumeratorNext func(uintptr, uintptr, **glib.Error) uintptr
 
 // Retrieves the next #GSocketAddress from @enumerator. Note that this
 // may block for some amount of time. (Eg, a #GNetworkAddress may need
@@ -51,16 +52,21 @@ var xSocketAddressEnumeratorNext func(uintptr, uintptr) uintptr
 // g_socket_address_enumerator_next() succeeds, then any further
 // internal errors (other than @cancellable being triggered) will be
 // ignored.
-func (x *SocketAddressEnumerator) Next(CancellableVar *Cancellable) *SocketAddress {
+func (x *SocketAddressEnumerator) Next(CancellableVar *Cancellable) (*SocketAddress, error) {
+	var cls *SocketAddress
+	var cerr *glib.Error
 
-	NextPtr := xSocketAddressEnumeratorNext(x.GoPointer(), CancellableVar.GoPointer())
-	if NextPtr == 0 {
-		return nil
+	cret := xSocketAddressEnumeratorNext(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NextCls := &SocketAddress{}
-	NextCls.Ptr = NextPtr
-	return NextCls
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -77,22 +83,27 @@ func (x *SocketAddressEnumerator) NextAsync(CancellableVar *Cancellable, Callbac
 
 }
 
-var xSocketAddressEnumeratorNextFinish func(uintptr, uintptr) uintptr
+var xSocketAddressEnumeratorNextFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Retrieves the result of a completed call to
 // g_socket_address_enumerator_next_async(). See
 // g_socket_address_enumerator_next() for more information about
 // error handling.
-func (x *SocketAddressEnumerator) NextFinish(ResultVar AsyncResult) *SocketAddress {
+func (x *SocketAddressEnumerator) NextFinish(ResultVar AsyncResult) (*SocketAddress, error) {
+	var cls *SocketAddress
+	var cerr *glib.Error
 
-	NextFinishPtr := xSocketAddressEnumeratorNextFinish(x.GoPointer(), ResultVar.GoPointer())
-	if NextFinishPtr == 0 {
-		return nil
+	cret := xSocketAddressEnumeratorNextFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NextFinishCls := &SocketAddress{}
-	NextFinishCls.Ptr = NextFinishPtr
-	return NextFinishCls
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

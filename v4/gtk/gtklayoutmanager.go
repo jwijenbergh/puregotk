@@ -101,18 +101,17 @@ var xLayoutManagerGetLayoutChild func(uintptr, uintptr) uintptr
 // and is guaranteed to exist as long as @child is a child of the
 // `GtkWidget` using the given `GtkLayoutManager`.
 func (x *LayoutManager) GetLayoutChild(ChildVar *Widget) *LayoutChild {
+	var cls *LayoutChild
 
-	GetLayoutChildPtr := xLayoutManagerGetLayoutChild(x.GoPointer(), ChildVar.GoPointer())
-	if GetLayoutChildPtr == 0 {
-		return nil
+	cret := xLayoutManagerGetLayoutChild(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLayoutChildPtr)
-
-	GetLayoutChildCls := &LayoutChild{}
-	GetLayoutChildCls.Ptr = GetLayoutChildPtr
-	return GetLayoutChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &LayoutChild{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutManagerGetRequestMode func(uintptr) SizeRequestMode
@@ -120,26 +119,25 @@ var xLayoutManagerGetRequestMode func(uintptr) SizeRequestMode
 // Retrieves the request mode of @manager.
 func (x *LayoutManager) GetRequestMode() SizeRequestMode {
 
-	return xLayoutManagerGetRequestMode(x.GoPointer())
-
+	cret := xLayoutManagerGetRequestMode(x.GoPointer())
+	return cret
 }
 
 var xLayoutManagerGetWidget func(uintptr) uintptr
 
 // Retrieves the `GtkWidget` using the given `GtkLayoutManager`.
 func (x *LayoutManager) GetWidget() *Widget {
+	var cls *Widget
 
-	GetWidgetPtr := xLayoutManagerGetWidget(x.GoPointer())
-	if GetWidgetPtr == 0 {
-		return nil
+	cret := xLayoutManagerGetWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetPtr)
-
-	GetWidgetCls := &Widget{}
-	GetWidgetCls.Ptr = GetWidgetPtr
-	return GetWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutManagerLayoutChanged func(uintptr)

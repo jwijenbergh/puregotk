@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
@@ -201,16 +202,17 @@ var xNewFileChooserDialog func(string, uintptr, FileChooserAction, string, ...in
 //
 // This function is analogous to [ctor@Gtk.Dialog.new_with_buttons].
 func NewFileChooserDialog(TitleVar string, ParentVar *Window, ActionVar FileChooserAction, FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	NewFileChooserDialogPtr := xNewFileChooserDialog(TitleVar, ParentVar.GoPointer(), ActionVar, FirstButtonTextVar, varArgs...)
-	if NewFileChooserDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFileChooserDialog(TitleVar, ParentVar.GoPointer(), ActionVar, FirstButtonTextVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFileChooserDialogPtr)
-
-	NewFileChooserDialogCls := &Widget{}
-	NewFileChooserDialogCls.Ptr = NewFileChooserDialogPtr
-	return NewFileChooserDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FileChooserDialog) GoPointer() uintptr {
@@ -224,8 +226,8 @@ func (c *FileChooserDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *FileChooserDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -360,8 +362,8 @@ func (x *FileChooserDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FileChooserDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds a 'choice' to the file chooser.
@@ -393,45 +395,50 @@ func (x *FileChooserDialog) AddFilter(FilterVar *FileFilter) {
 
 // Adds a folder to be displayed with the shortcut folders
 // in a file chooser.
-func (x *FileChooserDialog) AddShortcutFolder(FolderVar gio.File) bool {
+func (x *FileChooserDialog) AddShortcutFolder(FolderVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserAddShortcutFolder(x.GoPointer(), FolderVar.GoPointer())
+	cret := XGtkFileChooserAddShortcutFolder(x.GoPointer(), FolderVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Gets the type of operation that the file chooser is performing.
 func (x *FileChooserDialog) GetAction() FileChooserAction {
 
-	return XGtkFileChooserGetAction(x.GoPointer())
-
+	cret := XGtkFileChooserGetAction(x.GoPointer())
+	return cret
 }
 
 // Gets the currently selected option in the 'choice' with the given ID.
 func (x *FileChooserDialog) GetChoice(IdVar string) string {
 
-	return XGtkFileChooserGetChoice(x.GoPointer(), IdVar)
-
+	cret := XGtkFileChooserGetChoice(x.GoPointer(), IdVar)
+	return cret
 }
 
 // Gets whether file chooser will offer to create new folders.
 func (x *FileChooserDialog) GetCreateFolders() bool {
 
-	return XGtkFileChooserGetCreateFolders(x.GoPointer())
-
+	cret := XGtkFileChooserGetCreateFolders(x.GoPointer())
+	return cret
 }
 
 // Gets the current folder of @chooser as `GFile`.
 func (x *FileChooserDialog) GetCurrentFolder() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetCurrentFolderPtr := XGtkFileChooserGetCurrentFolder(x.GoPointer())
-	if GetCurrentFolderPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetCurrentFolder(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentFolderCls := &gio.FileBase{}
-	GetCurrentFolderCls.Ptr = GetCurrentFolderPtr
-	return GetCurrentFolderCls
-
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current name in the file selector, as entered by the user.
@@ -440,8 +447,8 @@ func (x *FileChooserDialog) GetCurrentFolder() *gio.FileBase {
 // filename when the file itself does not exist yet.
 func (x *FileChooserDialog) GetCurrentName() string {
 
-	return XGtkFileChooserGetCurrentName(x.GoPointer())
-
+	cret := XGtkFileChooserGetCurrentName(x.GoPointer())
+	return cret
 }
 
 // Gets the `GFile` for the currently selected file in
@@ -453,47 +460,46 @@ func (x *FileChooserDialog) GetCurrentName() string {
 // If the file chooser is in folder mode, this function returns
 // the selected folder.
 func (x *FileChooserDialog) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := XGtkFileChooserGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Lists all the selected files and subfolders in the current folder
 // of @chooser as `GFile`.
 func (x *FileChooserDialog) GetFiles() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetFilesPtr := XGtkFileChooserGetFiles(x.GoPointer())
-	if GetFilesPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFiles(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFilesCls := &gio.ListModelBase{}
-	GetFilesCls.Ptr = GetFilesPtr
-	return GetFilesCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current filter.
 func (x *FileChooserDialog) GetFilter() *FileFilter {
+	var cls *FileFilter
 
-	GetFilterPtr := XGtkFileChooserGetFilter(x.GoPointer())
-	if GetFilterPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFilter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilterPtr)
-
-	GetFilterCls := &FileFilter{}
-	GetFilterCls.Ptr = GetFilterPtr
-	return GetFilterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the current set of user-selectable filters, as a list model.
@@ -504,24 +510,24 @@ func (x *FileChooserDialog) GetFilter() *FileFilter {
 // You should not modify the returned list model. Future changes to
 // @chooser may or may not affect the returned model.
 func (x *FileChooserDialog) GetFilters() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetFiltersPtr := XGtkFileChooserGetFilters(x.GoPointer())
-	if GetFiltersPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetFilters(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFiltersCls := &gio.ListModelBase{}
-	GetFiltersCls.Ptr = GetFiltersPtr
-	return GetFiltersCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets whether multiple files can be selected in the file
 // chooser.
 func (x *FileChooserDialog) GetSelectMultiple() bool {
 
-	return XGtkFileChooserGetSelectMultiple(x.GoPointer())
-
+	cret := XGtkFileChooserGetSelectMultiple(x.GoPointer())
+	return cret
 }
 
 // Queries the list of shortcut folders in the file chooser.
@@ -529,16 +535,16 @@ func (x *FileChooserDialog) GetSelectMultiple() bool {
 // You should not modify the returned list model. Future changes to
 // @chooser may or may not affect the returned model.
 func (x *FileChooserDialog) GetShortcutFolders() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetShortcutFoldersPtr := XGtkFileChooserGetShortcutFolders(x.GoPointer())
-	if GetShortcutFoldersPtr == 0 {
-		return nil
+	cret := XGtkFileChooserGetShortcutFolders(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetShortcutFoldersCls := &gio.ListModelBase{}
-	GetShortcutFoldersCls.Ptr = GetShortcutFoldersPtr
-	return GetShortcutFoldersCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes a 'choice' that has been added with gtk_file_chooser_add_choice().
@@ -556,9 +562,14 @@ func (x *FileChooserDialog) RemoveFilter(FilterVar *FileFilter) {
 }
 
 // Removes a folder from the shortcut folders in a file chooser.
-func (x *FileChooserDialog) RemoveShortcutFolder(FolderVar gio.File) bool {
+func (x *FileChooserDialog) RemoveShortcutFolder(FolderVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserRemoveShortcutFolder(x.GoPointer(), FolderVar.GoPointer())
+	cret := XGtkFileChooserRemoveShortcutFolder(x.GoPointer(), FolderVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -596,9 +607,14 @@ func (x *FileChooserDialog) SetCreateFolders(CreateFoldersVar bool) {
 }
 
 // Sets the current folder for @chooser from a `GFile`.
-func (x *FileChooserDialog) SetCurrentFolder(FileVar gio.File) bool {
+func (x *FileChooserDialog) SetCurrentFolder(FileVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserSetCurrentFolder(x.GoPointer(), FileVar.GoPointer())
+	cret := XGtkFileChooserSetCurrentFolder(x.GoPointer(), FileVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -666,9 +682,14 @@ func (x *FileChooserDialog) SetCurrentName(NameVar string) {
 //	}
 //
 // ```
-func (x *FileChooserDialog) SetFile(FileVar gio.File) bool {
+func (x *FileChooserDialog) SetFile(FileVar gio.File) (bool, error) {
+	var cerr *glib.Error
 
-	return XGtkFileChooserSetFile(x.GoPointer(), FileVar.GoPointer())
+	cret := XGtkFileChooserSetFile(x.GoPointer(), FileVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -700,34 +721,32 @@ func (x *FileChooserDialog) SetSelectMultiple(SelectMultipleVar bool) {
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *FileChooserDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *FileChooserDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -760,18 +779,17 @@ func (x *FileChooserDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *FileChooserDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -781,18 +799,17 @@ func (x *FileChooserDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *FileChooserDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

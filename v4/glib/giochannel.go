@@ -19,13 +19,13 @@ type IOChannel struct {
 
 	Funcs *IOFuncs
 
-	Encoding string
+	Encoding uintptr
 
 	ReadCd uintptr
 
 	WriteCd uintptr
 
-	LineTerm string
+	LineTerm uintptr
 
 	LineTermLen uint
 
@@ -175,8 +175,8 @@ var xIoAddWatch func(*IOChannel, IOCondition, uintptr, uintptr) uint
 // with the default priority.
 func IoAddWatch(ChannelVar *IOChannel, ConditionVar IOCondition, FuncVar IOFunc, UserDataVar uintptr) uint {
 
-	return xIoAddWatch(ChannelVar, ConditionVar, purego.NewCallback(FuncVar), UserDataVar)
-
+	cret := xIoAddWatch(ChannelVar, ConditionVar, purego.NewCallback(FuncVar), UserDataVar)
+	return cret
 }
 
 var xIoAddWatchFull func(*IOChannel, int, IOCondition, uintptr, uintptr, uintptr) uint
@@ -189,8 +189,8 @@ var xIoAddWatchFull func(*IOChannel, int, IOCondition, uintptr, uintptr, uintptr
 // You can do these steps manually if you need greater control.
 func IoAddWatchFull(ChannelVar *IOChannel, PriorityVar int, ConditionVar IOCondition, FuncVar IOFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xIoAddWatchFull(ChannelVar, PriorityVar, ConditionVar, purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(NotifyVar))
-
+	cret := xIoAddWatchFull(ChannelVar, PriorityVar, ConditionVar, purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xIoChannelErrorFromErrno func(int) IOChannelError
@@ -198,8 +198,8 @@ var xIoChannelErrorFromErrno func(int) IOChannelError
 // Converts an `errno` error number to a #GIOChannelError.
 func IoChannelErrorFromErrno(EnVar int) IOChannelError {
 
-	return xIoChannelErrorFromErrno(EnVar)
-
+	cret := xIoChannelErrorFromErrno(EnVar)
+	return cret
 }
 
 var xIoCreateWatch func(*IOChannel, IOCondition) *Source
@@ -220,8 +220,8 @@ var xIoCreateWatch func(*IOChannel, IOCondition) *Source
 // implementation and unavoidable.
 func IoCreateWatch(ChannelVar *IOChannel, ConditionVar IOCondition) *Source {
 
-	return xIoCreateWatch(ChannelVar, ConditionVar)
-
+	cret := xIoCreateWatch(ChannelVar, ConditionVar)
+	return cret
 }
 
 func init() {

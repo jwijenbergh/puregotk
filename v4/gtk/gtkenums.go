@@ -1498,8 +1498,8 @@ var xOrderingFromCmpfunc func(int) Ordering
 // `GtkOrdering` value.
 func OrderingFromCmpfunc(CmpfuncResultVar int) Ordering {
 
-	return xOrderingFromCmpfunc(CmpfuncResultVar)
-
+	cret := xOrderingFromCmpfunc(CmpfuncResultVar)
+	return cret
 }
 
 func init() {

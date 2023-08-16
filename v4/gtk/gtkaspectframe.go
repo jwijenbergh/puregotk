@@ -29,34 +29,34 @@ var xNewAspectFrame func(float32, float32, float32, bool) uintptr
 
 // Create a new `GtkAspectFrame`.
 func NewAspectFrame(XalignVar float32, YalignVar float32, RatioVar float32, ObeyChildVar bool) *Widget {
-	NewAspectFramePtr := xNewAspectFrame(XalignVar, YalignVar, RatioVar, ObeyChildVar)
-	if NewAspectFramePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAspectFrame(XalignVar, YalignVar, RatioVar, ObeyChildVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAspectFramePtr)
-
-	NewAspectFrameCls := &Widget{}
-	NewAspectFrameCls.Ptr = NewAspectFramePtr
-	return NewAspectFrameCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAspectFrameGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *AspectFrame) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xAspectFrameGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xAspectFrameGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAspectFrameGetObeyChild func(uintptr) bool
@@ -65,8 +65,8 @@ var xAspectFrameGetObeyChild func(uintptr) bool
 // the set aspect ratio of the `GtkAspectFrame`.
 func (x *AspectFrame) GetObeyChild() bool {
 
-	return xAspectFrameGetObeyChild(x.GoPointer())
-
+	cret := xAspectFrameGetObeyChild(x.GoPointer())
+	return cret
 }
 
 var xAspectFrameGetRatio func(uintptr) float32
@@ -74,8 +74,8 @@ var xAspectFrameGetRatio func(uintptr) float32
 // Returns the desired aspect ratio of the child.
 func (x *AspectFrame) GetRatio() float32 {
 
-	return xAspectFrameGetRatio(x.GoPointer())
-
+	cret := xAspectFrameGetRatio(x.GoPointer())
+	return cret
 }
 
 var xAspectFrameGetXalign func(uintptr) float32
@@ -84,8 +84,8 @@ var xAspectFrameGetXalign func(uintptr) float32
 // allocation of the `GtkAspectFrame`.
 func (x *AspectFrame) GetXalign() float32 {
 
-	return xAspectFrameGetXalign(x.GoPointer())
-
+	cret := xAspectFrameGetXalign(x.GoPointer())
+	return cret
 }
 
 var xAspectFrameGetYalign func(uintptr) float32
@@ -94,8 +94,8 @@ var xAspectFrameGetYalign func(uintptr) float32
 // allocation of the `GtkAspectFrame`.
 func (x *AspectFrame) GetYalign() float32 {
 
-	return xAspectFrameGetYalign(x.GoPointer())
-
+	cret := xAspectFrameGetYalign(x.GoPointer())
+	return cret
 }
 
 var xAspectFrameSetChild func(uintptr, uintptr)
@@ -158,8 +158,8 @@ func (c *AspectFrame) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AspectFrame) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -294,8 +294,8 @@ func (x *AspectFrame) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AspectFrame) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

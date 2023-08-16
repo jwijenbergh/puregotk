@@ -63,16 +63,17 @@ var xNewWindow func() uintptr
 
 // Creates a new `AdwWindow`.
 func NewWindow() *gtk.Widget {
-	NewWindowPtr := xNewWindow()
-	if NewWindowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewWindow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWindowPtr)
-
-	NewWindowCls := &gtk.Widget{}
-	NewWindowCls.Ptr = NewWindowPtr
-	return NewWindowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGetContent func(uintptr) uintptr
@@ -81,18 +82,17 @@ var xWindowGetContent func(uintptr) uintptr
 //
 // This method should always be used instead of [method@Gtk.Window.get_child].
 func (x *Window) GetContent() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetContentPtr := xWindowGetContent(x.GoPointer())
-	if GetContentPtr == 0 {
-		return nil
+	cret := xWindowGetContent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetContentPtr)
-
-	GetContentCls := &gtk.Widget{}
-	GetContentCls.Ptr = GetContentPtr
-	return GetContentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowSetContent func(uintptr, uintptr)
@@ -117,8 +117,8 @@ func (c *Window) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Window) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -253,40 +253,38 @@ func (x *Window) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Window) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *Window) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := gtk.XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *Window) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := gtk.XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -319,18 +317,17 @@ func (x *Window) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *Window) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := gtk.XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -340,18 +337,17 @@ func (x *Window) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *Window) GetFocus() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetFocusPtr := gtk.XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &gtk.Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

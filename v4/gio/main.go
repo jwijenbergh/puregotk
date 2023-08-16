@@ -11,8 +11,8 @@ var xDbusErrorQuark func() glib.Quark
 
 func DbusErrorQuark() glib.Quark {
 
-	return xDbusErrorQuark()
-
+	cret := xDbusErrorQuark()
+	return cret
 }
 
 func init() {

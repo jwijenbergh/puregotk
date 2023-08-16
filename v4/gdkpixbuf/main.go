@@ -11,8 +11,8 @@ var xPixbufErrorQuark func() glib.Quark
 
 func PixbufErrorQuark() glib.Quark {
 
-	return xPixbufErrorQuark()
-
+	cret := xPixbufErrorQuark()
+	return cret
 }
 
 type PixbufNonAnim struct {
@@ -28,14 +28,16 @@ func PixbufNonAnimNewFromInternalPtr(ptr uintptr) *PixbufNonAnim {
 var xNewPixbufNonAnim func(uintptr) uintptr
 
 func NewPixbufNonAnim(PixbufVar *Pixbuf) *PixbufAnimation {
-	NewPixbufNonAnimPtr := xNewPixbufNonAnim(PixbufVar.GoPointer())
-	if NewPixbufNonAnimPtr == 0 {
-		return nil
-	}
+	var cls *PixbufAnimation
 
-	NewPixbufNonAnimCls := &PixbufAnimation{}
-	NewPixbufNonAnimCls.Ptr = NewPixbufNonAnimPtr
-	return NewPixbufNonAnimCls
+	cret := xNewPixbufNonAnim(PixbufVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PixbufAnimation{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *PixbufNonAnim) GoPointer() uintptr {

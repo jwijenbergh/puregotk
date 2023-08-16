@@ -32,14 +32,16 @@ var xNewCenterLayout func() uintptr
 
 // Creates a new `GtkCenterLayout`.
 func NewCenterLayout() *LayoutManager {
-	NewCenterLayoutPtr := xNewCenterLayout()
-	if NewCenterLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewCenterLayoutCls := &LayoutManager{}
-	NewCenterLayoutCls.Ptr = NewCenterLayoutPtr
-	return NewCenterLayoutCls
+	cret := xNewCenterLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterLayoutGetBaselinePosition func(uintptr) BaselinePosition
@@ -47,44 +49,42 @@ var xCenterLayoutGetBaselinePosition func(uintptr) BaselinePosition
 // Returns the baseline position of the layout.
 func (x *CenterLayout) GetBaselinePosition() BaselinePosition {
 
-	return xCenterLayoutGetBaselinePosition(x.GoPointer())
-
+	cret := xCenterLayoutGetBaselinePosition(x.GoPointer())
+	return cret
 }
 
 var xCenterLayoutGetCenterWidget func(uintptr) uintptr
 
 // Returns the center widget of the layout.
 func (x *CenterLayout) GetCenterWidget() *Widget {
+	var cls *Widget
 
-	GetCenterWidgetPtr := xCenterLayoutGetCenterWidget(x.GoPointer())
-	if GetCenterWidgetPtr == 0 {
-		return nil
+	cret := xCenterLayoutGetCenterWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCenterWidgetPtr)
-
-	GetCenterWidgetCls := &Widget{}
-	GetCenterWidgetCls.Ptr = GetCenterWidgetPtr
-	return GetCenterWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterLayoutGetEndWidget func(uintptr) uintptr
 
 // Returns the end widget of the layout.
 func (x *CenterLayout) GetEndWidget() *Widget {
+	var cls *Widget
 
-	GetEndWidgetPtr := xCenterLayoutGetEndWidget(x.GoPointer())
-	if GetEndWidgetPtr == 0 {
-		return nil
+	cret := xCenterLayoutGetEndWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEndWidgetPtr)
-
-	GetEndWidgetCls := &Widget{}
-	GetEndWidgetCls.Ptr = GetEndWidgetPtr
-	return GetEndWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterLayoutGetOrientation func(uintptr) Orientation
@@ -92,26 +92,25 @@ var xCenterLayoutGetOrientation func(uintptr) Orientation
 // Gets the current orienration of the layout manager.
 func (x *CenterLayout) GetOrientation() Orientation {
 
-	return xCenterLayoutGetOrientation(x.GoPointer())
-
+	cret := xCenterLayoutGetOrientation(x.GoPointer())
+	return cret
 }
 
 var xCenterLayoutGetStartWidget func(uintptr) uintptr
 
 // Returns the start widget fo the layout.
 func (x *CenterLayout) GetStartWidget() *Widget {
+	var cls *Widget
 
-	GetStartWidgetPtr := xCenterLayoutGetStartWidget(x.GoPointer())
-	if GetStartWidgetPtr == 0 {
-		return nil
+	cret := xCenterLayoutGetStartWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStartWidgetPtr)
-
-	GetStartWidgetCls := &Widget{}
-	GetStartWidgetCls.Ptr = GetStartWidgetPtr
-	return GetStartWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterLayoutSetBaselinePosition func(uintptr, BaselinePosition)

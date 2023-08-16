@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -27,32 +28,33 @@ var xNewZlibCompressor func(ZlibCompressorFormat, int) uintptr
 
 // Creates a new #GZlibCompressor.
 func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int) *ZlibCompressor {
-	NewZlibCompressorPtr := xNewZlibCompressor(FormatVar, LevelVar)
-	if NewZlibCompressorPtr == 0 {
-		return nil
-	}
+	var cls *ZlibCompressor
 
-	NewZlibCompressorCls := &ZlibCompressor{}
-	NewZlibCompressorCls.Ptr = NewZlibCompressorPtr
-	return NewZlibCompressorCls
+	cret := xNewZlibCompressor(FormatVar, LevelVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ZlibCompressor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xZlibCompressorGetFileInfo func(uintptr) uintptr
 
 // Returns the #GZlibCompressor:file-info property.
 func (x *ZlibCompressor) GetFileInfo() *FileInfo {
+	var cls *FileInfo
 
-	GetFileInfoPtr := xZlibCompressorGetFileInfo(x.GoPointer())
-	if GetFileInfoPtr == 0 {
-		return nil
+	cret := xZlibCompressorGetFileInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFileInfoPtr)
-
-	GetFileInfoCls := &FileInfo{}
-	GetFileInfoCls.Ptr = GetFileInfoPtr
-	return GetFileInfoCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FileInfo{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xZlibCompressorSetFileInfo func(uintptr, uintptr)
@@ -161,9 +163,14 @@ func (c *ZlibCompressor) SetGoPointer(ptr uintptr) {
 // at a partial multibyte sequence). Converters are supposed to try
 // to produce as much output as possible and then return an error
 // (typically %G_IO_ERROR_PARTIAL_INPUT).
-func (x *ZlibCompressor) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult {
+func (x *ZlibCompressor) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
+	var cerr *glib.Error
 
-	return XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar)
+	cret := XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

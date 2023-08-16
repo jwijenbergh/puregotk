@@ -43,14 +43,16 @@ var xNewMountOperation func(uintptr) uintptr
 
 // Creates a new `GtkMountOperation`.
 func NewMountOperation(ParentVar *Window) *gio.MountOperation {
-	NewMountOperationPtr := xNewMountOperation(ParentVar.GoPointer())
-	if NewMountOperationPtr == 0 {
-		return nil
-	}
+	var cls *gio.MountOperation
 
-	NewMountOperationCls := &gio.MountOperation{}
-	NewMountOperationCls.Ptr = NewMountOperationPtr
-	return NewMountOperationCls
+	cret := xNewMountOperation(ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &gio.MountOperation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMountOperationGetDisplay func(uintptr) uintptr
@@ -58,36 +60,34 @@ var xMountOperationGetDisplay func(uintptr) uintptr
 // Gets the display on which windows of the `GtkMountOperation`
 // will be shown.
 func (x *MountOperation) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := xMountOperationGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xMountOperationGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMountOperationGetParent func(uintptr) uintptr
 
 // Gets the transient parent used by the `GtkMountOperation`.
 func (x *MountOperation) GetParent() *Window {
+	var cls *Window
 
-	GetParentPtr := xMountOperationGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := xMountOperationGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetParentPtr)
-
-	GetParentCls := &Window{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Window{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMountOperationIsShowing func(uintptr) bool
@@ -96,8 +96,8 @@ var xMountOperationIsShowing func(uintptr) bool
 // a window.
 func (x *MountOperation) IsShowing() bool {
 
-	return xMountOperationIsShowing(x.GoPointer())
-
+	cret := xMountOperationIsShowing(x.GoPointer())
+	return cret
 }
 
 var xMountOperationSetDisplay func(uintptr, uintptr)

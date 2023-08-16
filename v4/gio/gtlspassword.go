@@ -33,14 +33,16 @@ var xNewTlsPassword func(TlsPasswordFlags, string) uintptr
 
 // Create a new #GTlsPassword object.
 func NewTlsPassword(FlagsVar TlsPasswordFlags, DescriptionVar string) *TlsPassword {
-	NewTlsPasswordPtr := xNewTlsPassword(FlagsVar, DescriptionVar)
-	if NewTlsPasswordPtr == 0 {
-		return nil
-	}
+	var cls *TlsPassword
 
-	NewTlsPasswordCls := &TlsPassword{}
-	NewTlsPasswordCls.Ptr = NewTlsPasswordPtr
-	return NewTlsPasswordCls
+	cret := xNewTlsPassword(FlagsVar, DescriptionVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TlsPassword{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTlsPasswordGetDescription func(uintptr) string
@@ -48,8 +50,8 @@ var xTlsPasswordGetDescription func(uintptr) string
 // Get a description string about what the password will be used for.
 func (x *TlsPassword) GetDescription() string {
 
-	return xTlsPasswordGetDescription(x.GoPointer())
-
+	cret := xTlsPasswordGetDescription(x.GoPointer())
+	return cret
 }
 
 var xTlsPasswordGetFlags func(uintptr) TlsPasswordFlags
@@ -57,8 +59,8 @@ var xTlsPasswordGetFlags func(uintptr) TlsPasswordFlags
 // Get flags about the password.
 func (x *TlsPassword) GetFlags() TlsPasswordFlags {
 
-	return xTlsPasswordGetFlags(x.GoPointer())
-
+	cret := xTlsPasswordGetFlags(x.GoPointer())
+	return cret
 }
 
 var xTlsPasswordGetValue func(uintptr, uint) uintptr
@@ -70,8 +72,8 @@ var xTlsPasswordGetValue func(uintptr, uint) uintptr
 // certain fixed length.)
 func (x *TlsPassword) GetValue(LengthVar uint) uintptr {
 
-	return xTlsPasswordGetValue(x.GoPointer(), LengthVar)
-
+	cret := xTlsPasswordGetValue(x.GoPointer(), LengthVar)
+	return cret
 }
 
 var xTlsPasswordGetWarning func(uintptr) string
@@ -81,8 +83,8 @@ var xTlsPasswordGetWarning func(uintptr) string
 // g_tls_password_get_flags().
 func (x *TlsPassword) GetWarning() string {
 
-	return xTlsPasswordGetWarning(x.GoPointer())
-
+	cret := xTlsPasswordGetWarning(x.GoPointer())
+	return cret
 }
 
 var xTlsPasswordSetDescription func(uintptr, string)

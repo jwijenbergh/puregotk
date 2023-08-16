@@ -579,7 +579,7 @@ func (p *Parameter) VarName() string {
 	return snaked + "Var"
 }
 
-func (p *Parameters) Template(ns string, ifacens string, kinds KindMap) funcArgsTemplate {
+func (p *Parameters) Template(ns string, ifacens string, kinds KindMap, throws bool) funcArgsTemplate {
 	if p == nil {
 		return funcArgsTemplate{}
 	}
@@ -590,6 +590,9 @@ func (p *Parameters) Template(ns string, ifacens string, kinds KindMap) funcArgs
 	args := funcArgsTemplate{}
 	for _, par := range params {
 		args.Add(par, ifacens, ns, kinds)
+	}
+	if throws {
+		args.AddThrows(ns)
 	}
 	return args
 }
@@ -659,7 +662,7 @@ type ReturnValue struct {
 	AnyType
 }
 
-func (r *ReturnValue) Template(ns string, ins string, kinds KindMap) funcRetTemplate {
+func (r *ReturnValue) Template(ns string, ins string, kinds KindMap, throws bool) funcRetTemplate {
 	val := r.AnyType.Translate(ns, kinds)
 	raw := val
 	class := false
@@ -691,5 +694,6 @@ func (r *ReturnValue) Template(ns string, ins string, kinds KindMap) funcRetTemp
 		Value:   val,
 		Class:   class,
 		RefSink: r.TransferOwnership.TransferOwnership == "none",
+		Throws: throws,
 	}
 }

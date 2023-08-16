@@ -40,12 +40,17 @@ func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, Valu
 
 }
 
-var xContentSerializeFinish func(uintptr) bool
+var xContentSerializeFinish func(uintptr, **glib.Error) bool
 
 // Finishes a content serialization operation.
-func ContentSerializeFinish(ResultVar gio.AsyncResult) bool {
+func ContentSerializeFinish(ResultVar gio.AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xContentSerializeFinish(ResultVar.GoPointer())
+	cret := xContentSerializeFinish(ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -77,18 +82,17 @@ var xContentSerializerGetCancellable func(uintptr) uintptr
 //
 // This is the `GCancellable` that was passed to [func@content_serialize_async].
 func (x *ContentSerializer) GetCancellable() *gio.Cancellable {
+	var cls *gio.Cancellable
 
-	GetCancellablePtr := xContentSerializerGetCancellable(x.GoPointer())
-	if GetCancellablePtr == 0 {
-		return nil
+	cret := xContentSerializerGetCancellable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCancellablePtr)
-
-	GetCancellableCls := &gio.Cancellable{}
-	GetCancellableCls.Ptr = GetCancellablePtr
-	return GetCancellableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.Cancellable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentSerializerGetGtype func(uintptr) []interface{}
@@ -96,8 +100,8 @@ var xContentSerializerGetGtype func(uintptr) []interface{}
 // Gets the `GType` to of the object to serialize.
 func (x *ContentSerializer) GetGtype() []interface{} {
 
-	return xContentSerializerGetGtype(x.GoPointer())
-
+	cret := xContentSerializerGetGtype(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerGetMimeType func(uintptr) string
@@ -105,8 +109,8 @@ var xContentSerializerGetMimeType func(uintptr) string
 // Gets the mime type to serialize to.
 func (x *ContentSerializer) GetMimeType() string {
 
-	return xContentSerializerGetMimeType(x.GoPointer())
-
+	cret := xContentSerializerGetMimeType(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerGetOutputStream func(uintptr) uintptr
@@ -115,18 +119,17 @@ var xContentSerializerGetOutputStream func(uintptr) uintptr
 //
 // This is the stream that was passed to [func@content_serialize_async].
 func (x *ContentSerializer) GetOutputStream() *gio.OutputStream {
+	var cls *gio.OutputStream
 
-	GetOutputStreamPtr := xContentSerializerGetOutputStream(x.GoPointer())
-	if GetOutputStreamPtr == 0 {
-		return nil
+	cret := xContentSerializerGetOutputStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetOutputStreamPtr)
-
-	GetOutputStreamCls := &gio.OutputStream{}
-	GetOutputStreamCls.Ptr = GetOutputStreamPtr
-	return GetOutputStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentSerializerGetPriority func(uintptr) int
@@ -136,8 +139,8 @@ var xContentSerializerGetPriority func(uintptr) int
 // This is the priority that was passed to [func@content_serialize_async].
 func (x *ContentSerializer) GetPriority() int {
 
-	return xContentSerializerGetPriority(x.GoPointer())
-
+	cret := xContentSerializerGetPriority(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerGetTaskData func(uintptr) uintptr
@@ -147,8 +150,8 @@ var xContentSerializerGetTaskData func(uintptr) uintptr
 // See [method@Gdk.ContentSerializer.set_task_data].
 func (x *ContentSerializer) GetTaskData() uintptr {
 
-	return xContentSerializerGetTaskData(x.GoPointer())
-
+	cret := xContentSerializerGetTaskData(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerGetUserData func(uintptr) uintptr
@@ -156,8 +159,8 @@ var xContentSerializerGetUserData func(uintptr) uintptr
 // Gets the user data that was passed when the serializer was registered.
 func (x *ContentSerializer) GetUserData() uintptr {
 
-	return xContentSerializerGetUserData(x.GoPointer())
-
+	cret := xContentSerializerGetUserData(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerGetValue func(uintptr) *gobject.Value
@@ -165,8 +168,8 @@ var xContentSerializerGetValue func(uintptr) *gobject.Value
 // Gets the `GValue` to read the object to serialize from.
 func (x *ContentSerializer) GetValue() *gobject.Value {
 
-	return xContentSerializerGetValue(x.GoPointer())
-
+	cret := xContentSerializerGetValue(x.GoPointer())
+	return cret
 }
 
 var xContentSerializerReturnError func(uintptr, *glib.Error)
@@ -208,24 +211,24 @@ func (c *ContentSerializer) SetGoPointer(ptr uintptr) {
 
 // Gets the source object from a #GAsyncResult.
 func (x *ContentSerializer) GetSourceObject() *gobject.Object {
+	var cls *gobject.Object
 
-	GetSourceObjectPtr := gio.XGAsyncResultGetSourceObject(x.GoPointer())
-	if GetSourceObjectPtr == 0 {
-		return nil
+	cret := gio.XGAsyncResultGetSourceObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSourceObjectCls := &gobject.Object{}
-	GetSourceObjectCls.Ptr = GetSourceObjectPtr
-	return GetSourceObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Checks if @res has the given @source_tag (generally a function
 // pointer indicating the function @res was created by).
 func (x *ContentSerializer) IsTagged(SourceTagVar uintptr) bool {
 
-	return gio.XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
-
+	cret := gio.XGAsyncResultIsTagged(x.GoPointer(), SourceTagVar)
+	return cret
 }
 
 // If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -238,9 +241,14 @@ func (x *ContentSerializer) IsTagged(SourceTagVar uintptr) bool {
 // This should not be used in new code; #GAsyncResult errors that are
 // set by virtual methods should also be extracted by virtual methods,
 // to enable subclasses to chain up correctly.
-func (x *ContentSerializer) LegacyPropagateError() bool {
+func (x *ContentSerializer) LegacyPropagateError() (bool, error) {
+	var cerr *glib.Error
 
-	return gio.XGAsyncResultLegacyPropagateError(x.GoPointer())
+	cret := gio.XGAsyncResultLegacyPropagateError(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

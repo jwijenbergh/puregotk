@@ -48,14 +48,16 @@ var xNewUnixSocketAddress func(string) uintptr
 // To create abstract socket addresses, on systems that support that,
 // use g_unix_socket_address_new_abstract().
 func NewUnixSocketAddress(PathVar string) *SocketAddress {
-	NewUnixSocketAddressPtr := xNewUnixSocketAddress(PathVar)
-	if NewUnixSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewUnixSocketAddressCls := &SocketAddress{}
-	NewUnixSocketAddressCls.Ptr = NewUnixSocketAddressPtr
-	return NewUnixSocketAddressCls
+	cret := xNewUnixSocketAddress(PathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewAbstractUnixSocketAddress func(uintptr, int) uintptr
@@ -63,14 +65,16 @@ var xNewAbstractUnixSocketAddress func(uintptr, int) uintptr
 // Creates a new %G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
 // #GUnixSocketAddress for @path.
 func NewAbstractUnixSocketAddress(PathVar uintptr, PathLenVar int) *SocketAddress {
-	NewAbstractUnixSocketAddressPtr := xNewAbstractUnixSocketAddress(PathVar, PathLenVar)
-	if NewAbstractUnixSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewAbstractUnixSocketAddressCls := &SocketAddress{}
-	NewAbstractUnixSocketAddressCls.Ptr = NewAbstractUnixSocketAddressPtr
-	return NewAbstractUnixSocketAddressCls
+	cret := xNewAbstractUnixSocketAddress(PathVar, PathLenVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithTypeUnixSocketAddress func(uintptr, int, UnixSocketAddressType) uintptr
@@ -107,14 +111,16 @@ var xNewWithTypeUnixSocketAddress func(uintptr, int, UnixSocketAddressType) uint
 // use the appropriate type corresponding to how that process created
 // its listening socket.
 func NewWithTypeUnixSocketAddress(PathVar uintptr, PathLenVar int, TypeVar UnixSocketAddressType) *SocketAddress {
-	NewWithTypeUnixSocketAddressPtr := xNewWithTypeUnixSocketAddress(PathVar, PathLenVar, TypeVar)
-	if NewWithTypeUnixSocketAddressPtr == 0 {
-		return nil
-	}
+	var cls *SocketAddress
 
-	NewWithTypeUnixSocketAddressCls := &SocketAddress{}
-	NewWithTypeUnixSocketAddressCls.Ptr = NewWithTypeUnixSocketAddressPtr
-	return NewWithTypeUnixSocketAddressCls
+	cret := xNewWithTypeUnixSocketAddress(PathVar, PathLenVar, TypeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixSocketAddressGetAddressType func(uintptr) UnixSocketAddressType
@@ -122,8 +128,8 @@ var xUnixSocketAddressGetAddressType func(uintptr) UnixSocketAddressType
 // Gets @address's type.
 func (x *UnixSocketAddress) GetAddressType() UnixSocketAddressType {
 
-	return xUnixSocketAddressGetAddressType(x.GoPointer())
-
+	cret := xUnixSocketAddressGetAddressType(x.GoPointer())
+	return cret
 }
 
 var xUnixSocketAddressGetIsAbstract func(uintptr) bool
@@ -131,8 +137,8 @@ var xUnixSocketAddressGetIsAbstract func(uintptr) bool
 // Tests if @address is abstract.
 func (x *UnixSocketAddress) GetIsAbstract() bool {
 
-	return xUnixSocketAddressGetIsAbstract(x.GoPointer())
-
+	cret := xUnixSocketAddressGetIsAbstract(x.GoPointer())
+	return cret
 }
 
 var xUnixSocketAddressGetPath func(uintptr) string
@@ -145,8 +151,8 @@ var xUnixSocketAddressGetPath func(uintptr) string
 // of this string.
 func (x *UnixSocketAddress) GetPath() string {
 
-	return xUnixSocketAddressGetPath(x.GoPointer())
-
+	cret := xUnixSocketAddressGetPath(x.GoPointer())
+	return cret
 }
 
 var xUnixSocketAddressGetPathLen func(uintptr) uint
@@ -156,8 +162,8 @@ var xUnixSocketAddressGetPathLen func(uintptr) uint
 // For details, see g_unix_socket_address_get_path().
 func (x *UnixSocketAddress) GetPathLen() uint {
 
-	return xUnixSocketAddressGetPathLen(x.GoPointer())
-
+	cret := xUnixSocketAddressGetPathLen(x.GoPointer())
+	return cret
 }
 
 func (c *UnixSocketAddress) GoPointer() uintptr {
@@ -170,16 +176,16 @@ func (c *UnixSocketAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *UnixSocketAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -190,16 +196,16 @@ func (x *UnixSocketAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *UnixSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -211,8 +217,8 @@ func (x *UnixSocketAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *UnixSocketAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

@@ -36,16 +36,17 @@ var xNewCellRendererSpin func() uintptr
 
 // Creates a new `GtkCellRendererSpin`.
 func NewCellRendererSpin() *CellRenderer {
-	NewCellRendererSpinPtr := xNewCellRendererSpin()
-	if NewCellRendererSpinPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererSpin()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererSpinPtr)
-
-	NewCellRendererSpinCls := &CellRenderer{}
-	NewCellRendererSpinCls.Ptr = NewCellRendererSpinPtr
-	return NewCellRendererSpinCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CellRendererSpin) GoPointer() uintptr {

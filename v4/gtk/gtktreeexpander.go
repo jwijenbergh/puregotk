@@ -64,34 +64,34 @@ var xNewTreeExpander func() uintptr
 
 // Creates a new `GtkTreeExpander`
 func NewTreeExpander() *Widget {
-	NewTreeExpanderPtr := xNewTreeExpander()
-	if NewTreeExpanderPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewTreeExpander()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTreeExpanderPtr)
-
-	NewTreeExpanderCls := &Widget{}
-	NewTreeExpanderCls.Ptr = NewTreeExpanderPtr
-	return NewTreeExpanderCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeExpanderGetChild func(uintptr) uintptr
 
 // Gets the child widget displayed by @self.
 func (x *TreeExpander) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xTreeExpanderGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xTreeExpanderGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeExpanderGetIndentForIcon func(uintptr) bool
@@ -99,8 +99,8 @@ var xTreeExpanderGetIndentForIcon func(uintptr) bool
 // TreeExpander indents the child by the width of an expander-icon if it is not expandable.
 func (x *TreeExpander) GetIndentForIcon() bool {
 
-	return xTreeExpanderGetIndentForIcon(x.GoPointer())
-
+	cret := xTreeExpanderGetIndentForIcon(x.GoPointer())
+	return cret
 }
 
 var xTreeExpanderGetItem func(uintptr) uintptr
@@ -113,34 +113,33 @@ var xTreeExpanderGetItem func(uintptr) uintptr
 // gtk_tree_list_row_get_item (gtk_tree_expander_get_list_row (@self));
 // ```
 func (x *TreeExpander) GetItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetItemPtr := xTreeExpanderGetItem(x.GoPointer())
-	if GetItemPtr == 0 {
-		return nil
+	cret := xTreeExpanderGetItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetItemCls := &gobject.Object{}
-	GetItemCls.Ptr = GetItemPtr
-	return GetItemCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeExpanderGetListRow func(uintptr) uintptr
 
 // Gets the list row managed by @self.
 func (x *TreeExpander) GetListRow() *TreeListRow {
+	var cls *TreeListRow
 
-	GetListRowPtr := xTreeExpanderGetListRow(x.GoPointer())
-	if GetListRowPtr == 0 {
-		return nil
+	cret := xTreeExpanderGetListRow(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetListRowPtr)
-
-	GetListRowCls := &TreeListRow{}
-	GetListRowCls.Ptr = GetListRowPtr
-	return GetListRowCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeListRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeExpanderSetChild func(uintptr, uintptr)
@@ -181,8 +180,8 @@ func (c *TreeExpander) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TreeExpander) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -317,8 +316,8 @@ func (x *TreeExpander) UpdateStateValue(NStatesVar int, StatesVar uintptr, Value
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TreeExpander) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

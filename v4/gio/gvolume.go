@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Interface for implementing operations for mountable volumes.
@@ -89,15 +90,15 @@ func (x *VolumeBase) SetGoPointer(ptr uintptr) {
 // Checks if a volume can be ejected.
 func (x *VolumeBase) CanEject() bool {
 
-	return XGVolumeCanEject(x.GoPointer())
-
+	cret := XGVolumeCanEject(x.GoPointer())
+	return cret
 }
 
 // Checks if a volume can be mounted.
 func (x *VolumeBase) CanMount() bool {
 
-	return XGVolumeCanMount(x.GoPointer())
-
+	cret := XGVolumeCanMount(x.GoPointer())
+	return cret
 }
 
 // Ejects a volume. This is an asynchronous operation, and is
@@ -111,9 +112,14 @@ func (x *VolumeBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellab
 
 // Finishes ejecting a volume. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *VolumeBase) EjectFinish(ResultVar AsyncResult) bool {
+func (x *VolumeBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGVolumeEjectFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGVolumeEjectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -128,9 +134,14 @@ func (x *VolumeBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperati
 
 // Finishes ejecting a volume. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *VolumeBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *VolumeBase) EjectWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGVolumeEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGVolumeEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -138,8 +149,8 @@ func (x *VolumeBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
 // Use g_volume_get_identifier() to obtain the identifiers themselves.
 func (x *VolumeBase) EnumerateIdentifiers() []string {
 
-	return XGVolumeEnumerateIdentifiers(x.GoPointer())
-
+	cret := XGVolumeEnumerateIdentifiers(x.GoPointer())
+	return cret
 }
 
 // Gets the activation root for a #GVolume if it is known ahead of
@@ -173,44 +184,44 @@ func (x *VolumeBase) EnumerateIdentifiers() []string {
 // implementations to find the underlying mount to shadow, see
 // g_mount_is_shadowed() for more details.
 func (x *VolumeBase) GetActivationRoot() *FileBase {
+	var cls *FileBase
 
-	GetActivationRootPtr := XGVolumeGetActivationRoot(x.GoPointer())
-	if GetActivationRootPtr == 0 {
-		return nil
+	cret := XGVolumeGetActivationRoot(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetActivationRootCls := &FileBase{}
-	GetActivationRootCls.Ptr = GetActivationRootPtr
-	return GetActivationRootCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the drive for the @volume.
 func (x *VolumeBase) GetDrive() *DriveBase {
+	var cls *DriveBase
 
-	GetDrivePtr := XGVolumeGetDrive(x.GoPointer())
-	if GetDrivePtr == 0 {
-		return nil
+	cret := XGVolumeGetDrive(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDriveCls := &DriveBase{}
-	GetDriveCls.Ptr = GetDrivePtr
-	return GetDriveCls
-
+	cls = &DriveBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the icon for @volume.
 func (x *VolumeBase) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := XGVolumeGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := XGVolumeGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the identifier of the given kind for @volume.
@@ -218,50 +229,50 @@ func (x *VolumeBase) GetIcon() *IconBase {
 // information about volume identifiers.
 func (x *VolumeBase) GetIdentifier(KindVar string) string {
 
-	return XGVolumeGetIdentifier(x.GoPointer(), KindVar)
-
+	cret := XGVolumeGetIdentifier(x.GoPointer(), KindVar)
+	return cret
 }
 
 // Gets the mount for the @volume.
 func (x *VolumeBase) GetMount() *MountBase {
+	var cls *MountBase
 
-	GetMountPtr := XGVolumeGetMount(x.GoPointer())
-	if GetMountPtr == 0 {
-		return nil
+	cret := XGVolumeGetMount(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetMountCls := &MountBase{}
-	GetMountCls.Ptr = GetMountPtr
-	return GetMountCls
-
+	cls = &MountBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the name of @volume.
 func (x *VolumeBase) GetName() string {
 
-	return XGVolumeGetName(x.GoPointer())
-
+	cret := XGVolumeGetName(x.GoPointer())
+	return cret
 }
 
 // Gets the sort key for @volume, if any.
 func (x *VolumeBase) GetSortKey() string {
 
-	return XGVolumeGetSortKey(x.GoPointer())
-
+	cret := XGVolumeGetSortKey(x.GoPointer())
+	return cret
 }
 
 // Gets the symbolic icon for @volume.
 func (x *VolumeBase) GetSymbolicIcon() *IconBase {
+	var cls *IconBase
 
-	GetSymbolicIconPtr := XGVolumeGetSymbolicIcon(x.GoPointer())
-	if GetSymbolicIconPtr == 0 {
-		return nil
+	cret := XGVolumeGetSymbolicIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSymbolicIconCls := &IconBase{}
-	GetSymbolicIconCls.Ptr = GetSymbolicIconPtr
-	return GetSymbolicIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the UUID for the @volume. The reference is typically based on
@@ -270,8 +281,8 @@ func (x *VolumeBase) GetSymbolicIcon() *IconBase {
 // available.
 func (x *VolumeBase) GetUuid() string {
 
-	return XGVolumeGetUuid(x.GoPointer())
-
+	cret := XGVolumeGetUuid(x.GoPointer())
+	return cret
 }
 
 // Mounts a volume. This is an asynchronous operation, and is
@@ -290,25 +301,30 @@ func (x *VolumeBase) Mount(FlagsVar MountMountFlags, MountOperationVar *MountOpe
 // is guaranteed to return the mount right after calling this
 // function; there's no need to listen for the 'mount-added' signal on
 // #GVolumeMonitor.
-func (x *VolumeBase) MountFinish(ResultVar AsyncResult) bool {
+func (x *VolumeBase) MountFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGVolumeMountFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGVolumeMountFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Returns whether the volume should be automatically mounted.
 func (x *VolumeBase) ShouldAutomount() bool {
 
-	return XGVolumeShouldAutomount(x.GoPointer())
-
+	cret := XGVolumeShouldAutomount(x.GoPointer())
+	return cret
 }
 
 var XGVolumeCanEject func(uintptr) bool
 var XGVolumeCanMount func(uintptr) bool
 var XGVolumeEject func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGVolumeEjectFinish func(uintptr, uintptr) bool
+var XGVolumeEjectFinish func(uintptr, uintptr, **glib.Error) bool
 var XGVolumeEjectWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGVolumeEjectWithOperationFinish func(uintptr, uintptr) bool
+var XGVolumeEjectWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
 var XGVolumeEnumerateIdentifiers func(uintptr) []string
 var XGVolumeGetActivationRoot func(uintptr) uintptr
 var XGVolumeGetDrive func(uintptr) uintptr
@@ -320,7 +336,7 @@ var XGVolumeGetSortKey func(uintptr) string
 var XGVolumeGetSymbolicIcon func(uintptr) uintptr
 var XGVolumeGetUuid func(uintptr) string
 var XGVolumeMount func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGVolumeMountFinish func(uintptr, uintptr) bool
+var XGVolumeMountFinish func(uintptr, uintptr, **glib.Error) bool
 var XGVolumeShouldAutomount func(uintptr) bool
 
 func init() {

@@ -36,16 +36,17 @@ var xNewAdjustment func(float64, float64, float64, float64, float64, float64) ui
 
 // Creates a new `GtkAdjustment`.
 func NewAdjustment(ValueVar float64, LowerVar float64, UpperVar float64, StepIncrementVar float64, PageIncrementVar float64, PageSizeVar float64) *Adjustment {
-	NewAdjustmentPtr := xNewAdjustment(ValueVar, LowerVar, UpperVar, StepIncrementVar, PageIncrementVar, PageSizeVar)
-	if NewAdjustmentPtr == 0 {
-		return nil
+	var cls *Adjustment
+
+	cret := xNewAdjustment(ValueVar, LowerVar, UpperVar, StepIncrementVar, PageIncrementVar, PageSizeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAdjustmentPtr)
-
-	NewAdjustmentCls := &Adjustment{}
-	NewAdjustmentCls.Ptr = NewAdjustmentPtr
-	return NewAdjustmentCls
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAdjustmentClampPage func(uintptr, float64, float64)
@@ -85,8 +86,8 @@ var xAdjustmentGetLower func(uintptr) float64
 // Retrieves the minimum value of the adjustment.
 func (x *Adjustment) GetLower() float64 {
 
-	return xAdjustmentGetLower(x.GoPointer())
-
+	cret := xAdjustmentGetLower(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetMinimumIncrement func(uintptr) float64
@@ -94,8 +95,8 @@ var xAdjustmentGetMinimumIncrement func(uintptr) float64
 // Gets the smaller of step increment and page increment.
 func (x *Adjustment) GetMinimumIncrement() float64 {
 
-	return xAdjustmentGetMinimumIncrement(x.GoPointer())
-
+	cret := xAdjustmentGetMinimumIncrement(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetPageIncrement func(uintptr) float64
@@ -103,8 +104,8 @@ var xAdjustmentGetPageIncrement func(uintptr) float64
 // Retrieves the page increment of the adjustment.
 func (x *Adjustment) GetPageIncrement() float64 {
 
-	return xAdjustmentGetPageIncrement(x.GoPointer())
-
+	cret := xAdjustmentGetPageIncrement(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetPageSize func(uintptr) float64
@@ -112,8 +113,8 @@ var xAdjustmentGetPageSize func(uintptr) float64
 // Retrieves the page size of the adjustment.
 func (x *Adjustment) GetPageSize() float64 {
 
-	return xAdjustmentGetPageSize(x.GoPointer())
-
+	cret := xAdjustmentGetPageSize(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetStepIncrement func(uintptr) float64
@@ -121,8 +122,8 @@ var xAdjustmentGetStepIncrement func(uintptr) float64
 // Retrieves the step increment of the adjustment.
 func (x *Adjustment) GetStepIncrement() float64 {
 
-	return xAdjustmentGetStepIncrement(x.GoPointer())
-
+	cret := xAdjustmentGetStepIncrement(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetUpper func(uintptr) float64
@@ -130,8 +131,8 @@ var xAdjustmentGetUpper func(uintptr) float64
 // Retrieves the maximum value of the adjustment.
 func (x *Adjustment) GetUpper() float64 {
 
-	return xAdjustmentGetUpper(x.GoPointer())
-
+	cret := xAdjustmentGetUpper(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentGetValue func(uintptr) float64
@@ -139,8 +140,8 @@ var xAdjustmentGetValue func(uintptr) float64
 // Gets the current value of the adjustment.
 func (x *Adjustment) GetValue() float64 {
 
-	return xAdjustmentGetValue(x.GoPointer())
-
+	cret := xAdjustmentGetValue(x.GoPointer())
+	return cret
 }
 
 var xAdjustmentSetLower func(uintptr, float64)

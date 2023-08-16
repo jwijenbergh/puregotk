@@ -47,16 +47,17 @@ var xNewPreferencesPage func() uintptr
 
 // Creates a new `AdwPreferencesPage`.
 func NewPreferencesPage() *gtk.Widget {
-	NewPreferencesPagePtr := xNewPreferencesPage()
-	if NewPreferencesPagePtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewPreferencesPage()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPreferencesPagePtr)
-
-	NewPreferencesPageCls := &gtk.Widget{}
-	NewPreferencesPageCls.Ptr = NewPreferencesPagePtr
-	return NewPreferencesPageCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesPageAdd func(uintptr, uintptr)
@@ -73,8 +74,8 @@ var xPreferencesPageGetIconName func(uintptr) string
 // Gets the icon name for @self.
 func (x *PreferencesPage) GetIconName() string {
 
-	return xPreferencesPageGetIconName(x.GoPointer())
-
+	cret := xPreferencesPageGetIconName(x.GoPointer())
+	return cret
 }
 
 var xPreferencesPageGetName func(uintptr) string
@@ -82,8 +83,8 @@ var xPreferencesPageGetName func(uintptr) string
 // Gets the name of @self.
 func (x *PreferencesPage) GetName() string {
 
-	return xPreferencesPageGetName(x.GoPointer())
-
+	cret := xPreferencesPageGetName(x.GoPointer())
+	return cret
 }
 
 var xPreferencesPageGetTitle func(uintptr) string
@@ -91,8 +92,8 @@ var xPreferencesPageGetTitle func(uintptr) string
 // Gets the title of @self.
 func (x *PreferencesPage) GetTitle() string {
 
-	return xPreferencesPageGetTitle(x.GoPointer())
-
+	cret := xPreferencesPageGetTitle(x.GoPointer())
+	return cret
 }
 
 var xPreferencesPageGetUseUnderline func(uintptr) bool
@@ -100,8 +101,8 @@ var xPreferencesPageGetUseUnderline func(uintptr) bool
 // Gets whether an embedded underline in the title indicates a mnemonic.
 func (x *PreferencesPage) GetUseUnderline() bool {
 
-	return xPreferencesPageGetUseUnderline(x.GoPointer())
-
+	cret := xPreferencesPageGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xPreferencesPageRemove func(uintptr, uintptr)
@@ -169,8 +170,8 @@ func (c *PreferencesPage) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PreferencesPage) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -305,8 +306,8 @@ func (x *PreferencesPage) UpdateStateValue(NStatesVar int, StatesVar uintptr, Va
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PreferencesPage) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

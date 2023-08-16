@@ -37,8 +37,8 @@ func (x *FileDescriptorBasedBase) SetGoPointer(ptr uintptr) {
 // Gets the underlying file descriptor.
 func (x *FileDescriptorBasedBase) GetFd() int {
 
-	return XGFileDescriptorBasedGetFd(x.GoPointer())
-
+	cret := XGFileDescriptorBasedGetFd(x.GoPointer())
+	return cret
 }
 
 var XGFileDescriptorBasedGetFd func(uintptr) int

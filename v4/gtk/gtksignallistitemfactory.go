@@ -66,14 +66,16 @@ var xNewSignalListItemFactory func() uintptr
 //
 // You need to connect signal handlers before you use it.
 func NewSignalListItemFactory() *ListItemFactory {
-	NewSignalListItemFactoryPtr := xNewSignalListItemFactory()
-	if NewSignalListItemFactoryPtr == 0 {
-		return nil
-	}
+	var cls *ListItemFactory
 
-	NewSignalListItemFactoryCls := &ListItemFactory{}
-	NewSignalListItemFactoryCls.Ptr = NewSignalListItemFactoryPtr
-	return NewSignalListItemFactoryCls
+	cret := xNewSignalListItemFactory()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *SignalListItemFactory) GoPointer() uintptr {

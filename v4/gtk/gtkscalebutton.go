@@ -40,16 +40,17 @@ var xNewScaleButton func(float64, float64, float64, uintptr) uintptr
 // The new scale button has a range between @min and @max,
 // with a stepping of @step.
 func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar uintptr) *Widget {
-	NewScaleButtonPtr := xNewScaleButton(MinVar, MaxVar, StepVar, IconsVar)
-	if NewScaleButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewScaleButton(MinVar, MaxVar, StepVar, IconsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewScaleButtonPtr)
-
-	NewScaleButtonCls := &Widget{}
-	NewScaleButtonCls.Ptr = NewScaleButtonPtr
-	return NewScaleButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleButtonGetAdjustment func(uintptr) uintptr
@@ -58,72 +59,68 @@ var xScaleButtonGetAdjustment func(uintptr) uintptr
 //
 // See [method@Gtk.Range.get_adjustment] for details.
 func (x *ScaleButton) GetAdjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetAdjustmentPtr := xScaleButtonGetAdjustment(x.GoPointer())
-	if GetAdjustmentPtr == 0 {
-		return nil
+	cret := xScaleButtonGetAdjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAdjustmentPtr)
-
-	GetAdjustmentCls := &Adjustment{}
-	GetAdjustmentCls.Ptr = GetAdjustmentPtr
-	return GetAdjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleButtonGetMinusButton func(uintptr) uintptr
 
 // Retrieves the minus button of the `GtkScaleButton`.
 func (x *ScaleButton) GetMinusButton() *Button {
+	var cls *Button
 
-	GetMinusButtonPtr := xScaleButtonGetMinusButton(x.GoPointer())
-	if GetMinusButtonPtr == 0 {
-		return nil
+	cret := xScaleButtonGetMinusButton(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMinusButtonPtr)
-
-	GetMinusButtonCls := &Button{}
-	GetMinusButtonCls.Ptr = GetMinusButtonPtr
-	return GetMinusButtonCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Button{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleButtonGetPlusButton func(uintptr) uintptr
 
 // Retrieves the plus button of the `GtkScaleButton.`
 func (x *ScaleButton) GetPlusButton() *Button {
+	var cls *Button
 
-	GetPlusButtonPtr := xScaleButtonGetPlusButton(x.GoPointer())
-	if GetPlusButtonPtr == 0 {
-		return nil
+	cret := xScaleButtonGetPlusButton(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPlusButtonPtr)
-
-	GetPlusButtonCls := &Button{}
-	GetPlusButtonCls.Ptr = GetPlusButtonPtr
-	return GetPlusButtonCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Button{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleButtonGetPopup func(uintptr) uintptr
 
 // Retrieves the popup of the `GtkScaleButton`.
 func (x *ScaleButton) GetPopup() *Widget {
+	var cls *Widget
 
-	GetPopupPtr := xScaleButtonGetPopup(x.GoPointer())
-	if GetPopupPtr == 0 {
-		return nil
+	cret := xScaleButtonGetPopup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPopupPtr)
-
-	GetPopupCls := &Widget{}
-	GetPopupCls.Ptr = GetPopupPtr
-	return GetPopupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleButtonGetValue func(uintptr) float64
@@ -131,8 +128,8 @@ var xScaleButtonGetValue func(uintptr) float64
 // Gets the current value of the scale button.
 func (x *ScaleButton) GetValue() float64 {
 
-	return xScaleButtonGetValue(x.GoPointer())
-
+	cret := xScaleButtonGetValue(x.GoPointer())
+	return cret
 }
 
 var xScaleButtonSetAdjustment func(uintptr, uintptr)
@@ -227,8 +224,8 @@ func (x *ScaleButton) ConnectValueChanged(cb func(ScaleButton, float64)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ScaleButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -363,15 +360,15 @@ func (x *ScaleButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ScaleButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ScaleButton) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

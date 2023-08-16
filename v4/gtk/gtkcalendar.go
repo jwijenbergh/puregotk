@@ -73,16 +73,17 @@ var xNewCalendar func() uintptr
 
 // Creates a new calendar, with the current date being selected.
 func NewCalendar() *Widget {
-	NewCalendarPtr := xNewCalendar()
-	if NewCalendarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewCalendar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCalendarPtr)
-
-	NewCalendarCls := &Widget{}
-	NewCalendarCls.Ptr = NewCalendarPtr
-	return NewCalendarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCalendarClearMarks func(uintptr)
@@ -102,8 +103,8 @@ var xCalendarGetDate func(uintptr) *glib.DateTime
 // The returned date is in the local time zone.
 func (x *Calendar) GetDate() *glib.DateTime {
 
-	return xCalendarGetDate(x.GoPointer())
-
+	cret := xCalendarGetDate(x.GoPointer())
+	return cret
 }
 
 var xCalendarGetDayIsMarked func(uintptr, uint) bool
@@ -111,8 +112,8 @@ var xCalendarGetDayIsMarked func(uintptr, uint) bool
 // Returns if the @day of the @calendar is already marked.
 func (x *Calendar) GetDayIsMarked(DayVar uint) bool {
 
-	return xCalendarGetDayIsMarked(x.GoPointer(), DayVar)
-
+	cret := xCalendarGetDayIsMarked(x.GoPointer(), DayVar)
+	return cret
 }
 
 var xCalendarGetShowDayNames func(uintptr) bool
@@ -124,8 +125,8 @@ var xCalendarGetShowDayNames func(uintptr) bool
 // property.
 func (x *Calendar) GetShowDayNames() bool {
 
-	return xCalendarGetShowDayNames(x.GoPointer())
-
+	cret := xCalendarGetShowDayNames(x.GoPointer())
+	return cret
 }
 
 var xCalendarGetShowHeading func(uintptr) bool
@@ -136,8 +137,8 @@ var xCalendarGetShowHeading func(uintptr) bool
 // property.
 func (x *Calendar) GetShowHeading() bool {
 
-	return xCalendarGetShowHeading(x.GoPointer())
-
+	cret := xCalendarGetShowHeading(x.GoPointer())
+	return cret
 }
 
 var xCalendarGetShowWeekNumbers func(uintptr) bool
@@ -149,8 +150,8 @@ var xCalendarGetShowWeekNumbers func(uintptr) bool
 // property.
 func (x *Calendar) GetShowWeekNumbers() bool {
 
-	return xCalendarGetShowWeekNumbers(x.GoPointer())
-
+	cret := xCalendarGetShowWeekNumbers(x.GoPointer())
+	return cret
 }
 
 var xCalendarMarkDay func(uintptr, uint)
@@ -281,8 +282,8 @@ func (x *Calendar) ConnectPrevYear(cb func(Calendar)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Calendar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -417,8 +418,8 @@ func (x *Calendar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Calendar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

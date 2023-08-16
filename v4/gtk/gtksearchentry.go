@@ -65,34 +65,34 @@ var xNewSearchEntry func() uintptr
 
 // Creates a `GtkSearchEntry`.
 func NewSearchEntry() *Widget {
-	NewSearchEntryPtr := xNewSearchEntry()
-	if NewSearchEntryPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewSearchEntry()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSearchEntryPtr)
-
-	NewSearchEntryCls := &Widget{}
-	NewSearchEntryCls.Ptr = NewSearchEntryPtr
-	return NewSearchEntryCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSearchEntryGetKeyCaptureWidget func(uintptr) uintptr
 
 // Gets the widget that @entry is capturing key events from.
 func (x *SearchEntry) GetKeyCaptureWidget() *Widget {
+	var cls *Widget
 
-	GetKeyCaptureWidgetPtr := xSearchEntryGetKeyCaptureWidget(x.GoPointer())
-	if GetKeyCaptureWidgetPtr == 0 {
-		return nil
+	cret := xSearchEntryGetKeyCaptureWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetKeyCaptureWidgetPtr)
-
-	GetKeyCaptureWidgetCls := &Widget{}
-	GetKeyCaptureWidgetCls.Ptr = GetKeyCaptureWidgetPtr
-	return GetKeyCaptureWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSearchEntryGetSearchDelay func(uintptr) uint
@@ -101,8 +101,8 @@ var xSearchEntryGetSearchDelay func(uintptr) uint
 // [signal@Gtk.SearchEntry::search-changed] signal being emitted.
 func (x *SearchEntry) GetSearchDelay() uint {
 
-	return xSearchEntryGetSearchDelay(x.GoPointer())
-
+	cret := xSearchEntryGetSearchDelay(x.GoPointer())
+	return cret
 }
 
 var xSearchEntrySetKeyCaptureWidget func(uintptr, uintptr)
@@ -250,8 +250,8 @@ func (x *SearchEntry) ConnectStopSearch(cb func(SearchEntry)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *SearchEntry) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -386,8 +386,8 @@ func (x *SearchEntry) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *SearchEntry) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Deletes the currently selected text of the editable.
@@ -426,8 +426,8 @@ func (x *SearchEntry) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *SearchEntry) GetAlignment() float32 {
 
-	return XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -440,8 +440,8 @@ func (x *SearchEntry) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *SearchEntry) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -449,39 +449,38 @@ func (x *SearchEntry) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *SearchEntry) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *SearchEntry) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *SearchEntry) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *SearchEntry) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -490,8 +489,8 @@ func (x *SearchEntry) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *SearchEntry) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -503,8 +502,8 @@ func (x *SearchEntry) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *SearchEntry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -512,16 +511,16 @@ func (x *SearchEntry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *SearchEntry) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *SearchEntry) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

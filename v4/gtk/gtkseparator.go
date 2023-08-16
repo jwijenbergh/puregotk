@@ -37,16 +37,17 @@ var xNewSeparator func(Orientation) uintptr
 
 // Creates a new `GtkSeparator` with the given orientation.
 func NewSeparator(OrientationVar Orientation) *Widget {
-	NewSeparatorPtr := xNewSeparator(OrientationVar)
-	if NewSeparatorPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewSeparator(OrientationVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSeparatorPtr)
-
-	NewSeparatorCls := &Widget{}
-	NewSeparatorCls.Ptr = NewSeparatorPtr
-	return NewSeparatorCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *Separator) GoPointer() uintptr {
@@ -60,8 +61,8 @@ func (c *Separator) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Separator) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -196,15 +197,15 @@ func (x *Separator) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Separator) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Separator) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

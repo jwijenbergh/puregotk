@@ -21,8 +21,8 @@ var xComputeHmacForBytes func(ChecksumType, *Bytes, *Bytes) string
 // The hexadecimal string returned will be in lower case.
 func ComputeHmacForBytes(DigestTypeVar ChecksumType, KeyVar *Bytes, DataVar *Bytes) string {
 
-	return xComputeHmacForBytes(DigestTypeVar, KeyVar, DataVar)
-
+	cret := xComputeHmacForBytes(DigestTypeVar, KeyVar, DataVar)
+	return cret
 }
 
 var xComputeHmacForData func(ChecksumType, uintptr, uint, uintptr, uint) string
@@ -34,8 +34,8 @@ var xComputeHmacForData func(ChecksumType, uintptr, uint, uintptr, uint) string
 // The hexadecimal string returned will be in lower case.
 func ComputeHmacForData(DigestTypeVar ChecksumType, KeyVar uintptr, KeyLenVar uint, DataVar uintptr, LengthVar uint) string {
 
-	return xComputeHmacForData(DigestTypeVar, KeyVar, KeyLenVar, DataVar, LengthVar)
-
+	cret := xComputeHmacForData(DigestTypeVar, KeyVar, KeyLenVar, DataVar, LengthVar)
+	return cret
 }
 
 var xComputeHmacForString func(ChecksumType, uintptr, uint, string, int) string
@@ -45,8 +45,8 @@ var xComputeHmacForString func(ChecksumType, uintptr, uint, string, int) string
 // The hexadecimal string returned will be in lower case.
 func ComputeHmacForString(DigestTypeVar ChecksumType, KeyVar uintptr, KeyLenVar uint, StrVar string, LengthVar int) string {
 
-	return xComputeHmacForString(DigestTypeVar, KeyVar, KeyLenVar, StrVar, LengthVar)
-
+	cret := xComputeHmacForString(DigestTypeVar, KeyVar, KeyLenVar, StrVar, LengthVar)
+	return cret
 }
 
 func init() {

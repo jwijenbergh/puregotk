@@ -34,14 +34,16 @@ var xNewCairoRenderer func() uintptr
 // content and will instead render an error marker. Its usage should be
 // avoided.
 func NewCairoRenderer() *Renderer {
-	NewCairoRendererPtr := xNewCairoRenderer()
-	if NewCairoRendererPtr == 0 {
-		return nil
-	}
+	var cls *Renderer
 
-	NewCairoRendererCls := &Renderer{}
-	NewCairoRendererCls.Ptr = NewCairoRendererPtr
-	return NewCairoRendererCls
+	cret := xNewCairoRenderer()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CairoRenderer) GoPointer() uintptr {

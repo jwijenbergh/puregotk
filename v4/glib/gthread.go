@@ -316,8 +316,8 @@ var xGetNumProcessors func() uint
 // similar cases.
 func GetNumProcessors() uint {
 
-	return xGetNumProcessors()
-
+	cret := xGetNumProcessors()
+	return cret
 }
 
 var xOnceInitEnter func(uintptr) bool
@@ -351,8 +351,8 @@ var xOnceInitEnter func(uintptr) bool
 // the pointer passed to it should not be `volatile`.
 func OnceInitEnter(LocationVar uintptr) bool {
 
-	return xOnceInitEnter(LocationVar)
-
+	cret := xOnceInitEnter(LocationVar)
+	return cret
 }
 
 var xOnceInitLeave func(uintptr, uint)
@@ -405,8 +405,8 @@ var xThreadSelf func() *Thread
 // as g_thread_join()) on these threads.
 func ThreadSelf() *Thread {
 
-	return xThreadSelf()
-
+	cret := xThreadSelf()
+	return cret
 }
 
 var xThreadYield func()

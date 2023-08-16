@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -79,7 +80,7 @@ func (x *IOStream) ClearPending() {
 
 }
 
-var xIOStreamClose func(uintptr, uintptr) bool
+var xIOStreamClose func(uintptr, uintptr, **glib.Error) bool
 
 // Closes the stream, releasing resources related to it. This will also
 // close the individual input and output streams, if they are not already
@@ -114,9 +115,14 @@ var xIOStreamClose func(uintptr, uintptr) bool
 //
 // The default implementation of this method just calls close on the
 // individual input/output streams.
-func (x *IOStream) Close(CancellableVar *Cancellable) bool {
+func (x *IOStream) Close(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xIOStreamClose(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xIOStreamClose(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -138,12 +144,17 @@ func (x *IOStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, Ca
 
 }
 
-var xIOStreamCloseFinish func(uintptr, uintptr) bool
+var xIOStreamCloseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Closes a stream.
-func (x *IOStream) CloseFinish(ResultVar AsyncResult) bool {
+func (x *IOStream) CloseFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xIOStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xIOStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -152,18 +163,17 @@ var xIOStreamGetInputStream func(uintptr) uintptr
 // Gets the input stream for this object. This is used
 // for reading.
 func (x *IOStream) GetInputStream() *InputStream {
+	var cls *InputStream
 
-	GetInputStreamPtr := xIOStreamGetInputStream(x.GoPointer())
-	if GetInputStreamPtr == 0 {
-		return nil
+	cret := xIOStreamGetInputStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetInputStreamPtr)
-
-	GetInputStreamCls := &InputStream{}
-	GetInputStreamCls.Ptr = GetInputStreamPtr
-	return GetInputStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIOStreamGetOutputStream func(uintptr) uintptr
@@ -171,18 +181,17 @@ var xIOStreamGetOutputStream func(uintptr) uintptr
 // Gets the output stream for this object. This is used for
 // writing.
 func (x *IOStream) GetOutputStream() *OutputStream {
+	var cls *OutputStream
 
-	GetOutputStreamPtr := xIOStreamGetOutputStream(x.GoPointer())
-	if GetOutputStreamPtr == 0 {
-		return nil
+	cret := xIOStreamGetOutputStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetOutputStreamPtr)
-
-	GetOutputStreamCls := &OutputStream{}
-	GetOutputStreamCls.Ptr = GetOutputStreamPtr
-	return GetOutputStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xIOStreamHasPending func(uintptr) bool
@@ -190,8 +199,8 @@ var xIOStreamHasPending func(uintptr) bool
 // Checks if a stream has pending actions.
 func (x *IOStream) HasPending() bool {
 
-	return xIOStreamHasPending(x.GoPointer())
-
+	cret := xIOStreamHasPending(x.GoPointer())
+	return cret
 }
 
 var xIOStreamIsClosed func(uintptr) bool
@@ -199,8 +208,8 @@ var xIOStreamIsClosed func(uintptr) bool
 // Checks if a stream is closed.
 func (x *IOStream) IsClosed() bool {
 
-	return xIOStreamIsClosed(x.GoPointer())
-
+	cret := xIOStreamIsClosed(x.GoPointer())
+	return cret
 }
 
 var xIOStreamSetPending func(uintptr) bool
@@ -208,9 +217,14 @@ var xIOStreamSetPending func(uintptr) bool
 // Sets @stream to have actions pending. If the pending flag is
 // already set or @stream is closed, it will return %FALSE and set
 // @error.
-func (x *IOStream) SetPending() bool {
+func (x *IOStream) SetPending() (bool, error) {
+	var cerr *glib.Error
 
-	return xIOStreamSetPending(x.GoPointer())
+	cret := xIOStreamSetPending(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

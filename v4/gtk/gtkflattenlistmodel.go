@@ -31,50 +31,50 @@ var xNewFlattenListModel func(uintptr) uintptr
 
 // Creates a new `GtkFlattenListModel` that flattens @list.
 func NewFlattenListModel(ModelVar gio.ListModel) *FlattenListModel {
-	NewFlattenListModelPtr := xNewFlattenListModel(ModelVar.GoPointer())
-	if NewFlattenListModelPtr == 0 {
-		return nil
-	}
+	var cls *FlattenListModel
 
-	NewFlattenListModelCls := &FlattenListModel{}
-	NewFlattenListModelCls.Ptr = NewFlattenListModelPtr
-	return NewFlattenListModelCls
+	cret := xNewFlattenListModel(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FlattenListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlattenListModelGetModel func(uintptr) uintptr
 
 // Gets the model set via gtk_flatten_list_model_set_model().
 func (x *FlattenListModel) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xFlattenListModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xFlattenListModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlattenListModelGetModelForItem func(uintptr, uint) uintptr
 
 // Returns the model containing the item at the given position.
 func (x *FlattenListModel) GetModelForItem(PositionVar uint) *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelForItemPtr := xFlattenListModelGetModelForItem(x.GoPointer(), PositionVar)
-	if GetModelForItemPtr == 0 {
-		return nil
+	cret := xFlattenListModelGetModelForItem(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelForItemPtr)
-
-	GetModelForItemCls := &gio.ListModelBase{}
-	GetModelForItemCls.Ptr = GetModelForItemPtr
-	return GetModelForItemCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFlattenListModelSetModel func(uintptr, uintptr)
@@ -105,8 +105,8 @@ func (c *FlattenListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *FlattenListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -119,8 +119,8 @@ func (x *FlattenListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *FlattenListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -130,8 +130,8 @@ func (x *FlattenListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *FlattenListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -147,16 +147,16 @@ func (x *FlattenListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *FlattenListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

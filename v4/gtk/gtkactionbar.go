@@ -61,34 +61,34 @@ var xNewActionBar func() uintptr
 
 // Creates a new `GtkActionBar` widget.
 func NewActionBar() *Widget {
-	NewActionBarPtr := xNewActionBar()
-	if NewActionBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewActionBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewActionBarPtr)
-
-	NewActionBarCls := &Widget{}
-	NewActionBarCls.Ptr = NewActionBarPtr
-	return NewActionBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xActionBarGetCenterWidget func(uintptr) uintptr
 
 // Retrieves the center bar widget of the bar.
 func (x *ActionBar) GetCenterWidget() *Widget {
+	var cls *Widget
 
-	GetCenterWidgetPtr := xActionBarGetCenterWidget(x.GoPointer())
-	if GetCenterWidgetPtr == 0 {
-		return nil
+	cret := xActionBarGetCenterWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCenterWidgetPtr)
-
-	GetCenterWidgetCls := &Widget{}
-	GetCenterWidgetCls.Ptr = GetCenterWidgetPtr
-	return GetCenterWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xActionBarGetRevealed func(uintptr) bool
@@ -96,8 +96,8 @@ var xActionBarGetRevealed func(uintptr) bool
 // Gets whether the contents of the action bar are revealed.
 func (x *ActionBar) GetRevealed() bool {
 
-	return xActionBarGetRevealed(x.GoPointer())
-
+	cret := xActionBarGetRevealed(x.GoPointer())
+	return cret
 }
 
 var xActionBarPackEnd func(uintptr, uintptr)
@@ -162,8 +162,8 @@ func (c *ActionBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ActionBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -298,8 +298,8 @@ func (x *ActionBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ActionBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

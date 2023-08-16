@@ -67,14 +67,16 @@ var xNewConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, uintpt
 // Creates a new constraint representing a relation between a layout
 // attribute on a source and a layout attribute on a target.
 func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, SourceVar ConstraintTarget, SourceAttributeVar ConstraintAttribute, MultiplierVar float64, ConstantVar float64, StrengthVar int) *Constraint {
-	NewConstraintPtr := xNewConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, SourceVar.GoPointer(), SourceAttributeVar, MultiplierVar, ConstantVar, StrengthVar)
-	if NewConstraintPtr == 0 {
-		return nil
-	}
+	var cls *Constraint
 
-	NewConstraintCls := &Constraint{}
-	NewConstraintCls.Ptr = NewConstraintPtr
-	return NewConstraintCls
+	cret := xNewConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, SourceVar.GoPointer(), SourceAttributeVar, MultiplierVar, ConstantVar, StrengthVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Constraint{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewConstantConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, float64, int) uintptr
@@ -82,14 +84,16 @@ var xNewConstantConstraint func(uintptr, ConstraintAttribute, ConstraintRelation
 // Creates a new constraint representing a relation between a layout
 // attribute on a target and a constant value.
 func NewConstantConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, ConstantVar float64, StrengthVar int) *Constraint {
-	NewConstantConstraintPtr := xNewConstantConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
-	if NewConstantConstraintPtr == 0 {
-		return nil
-	}
+	var cls *Constraint
 
-	NewConstantConstraintCls := &Constraint{}
-	NewConstantConstraintCls.Ptr = NewConstantConstraintPtr
-	return NewConstantConstraintCls
+	cret := xNewConstantConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Constraint{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintGetConstant func(uintptr) float64
@@ -97,8 +101,8 @@ var xConstraintGetConstant func(uintptr) float64
 // Retrieves the constant factor added to the source attributes' value.
 func (x *Constraint) GetConstant() float64 {
 
-	return xConstraintGetConstant(x.GoPointer())
-
+	cret := xConstraintGetConstant(x.GoPointer())
+	return cret
 }
 
 var xConstraintGetMultiplier func(uintptr) float64
@@ -107,8 +111,8 @@ var xConstraintGetMultiplier func(uintptr) float64
 // attribute's value.
 func (x *Constraint) GetMultiplier() float64 {
 
-	return xConstraintGetMultiplier(x.GoPointer())
-
+	cret := xConstraintGetMultiplier(x.GoPointer())
+	return cret
 }
 
 var xConstraintGetRelation func(uintptr) ConstraintRelation
@@ -116,8 +120,8 @@ var xConstraintGetRelation func(uintptr) ConstraintRelation
 // The order relation between the terms of the constraint.
 func (x *Constraint) GetRelation() ConstraintRelation {
 
-	return xConstraintGetRelation(x.GoPointer())
-
+	cret := xConstraintGetRelation(x.GoPointer())
+	return cret
 }
 
 var xConstraintGetSource func(uintptr) uintptr
@@ -128,18 +132,17 @@ var xConstraintGetSource func(uintptr) uintptr
 // If the source is set to `NULL` at creation, the constraint will use
 // the widget using the [class@Gtk.ConstraintLayout] as the source.
 func (x *Constraint) GetSource() *ConstraintTargetBase {
+	var cls *ConstraintTargetBase
 
-	GetSourcePtr := xConstraintGetSource(x.GoPointer())
-	if GetSourcePtr == 0 {
-		return nil
+	cret := xConstraintGetSource(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSourcePtr)
-
-	GetSourceCls := &ConstraintTargetBase{}
-	GetSourceCls.Ptr = GetSourcePtr
-	return GetSourceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ConstraintTargetBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintGetSourceAttribute func(uintptr) ConstraintAttribute
@@ -147,8 +150,8 @@ var xConstraintGetSourceAttribute func(uintptr) ConstraintAttribute
 // Retrieves the attribute of the source to be read by the constraint.
 func (x *Constraint) GetSourceAttribute() ConstraintAttribute {
 
-	return xConstraintGetSourceAttribute(x.GoPointer())
-
+	cret := xConstraintGetSourceAttribute(x.GoPointer())
+	return cret
 }
 
 var xConstraintGetStrength func(uintptr) int
@@ -156,8 +159,8 @@ var xConstraintGetStrength func(uintptr) int
 // Retrieves the strength of the constraint.
 func (x *Constraint) GetStrength() int {
 
-	return xConstraintGetStrength(x.GoPointer())
-
+	cret := xConstraintGetStrength(x.GoPointer())
+	return cret
 }
 
 var xConstraintGetTarget func(uintptr) uintptr
@@ -168,18 +171,17 @@ var xConstraintGetTarget func(uintptr) uintptr
 // If the targe is set to `NULL` at creation, the constraint will use
 // the widget using the [class@Gtk.ConstraintLayout] as the target.
 func (x *Constraint) GetTarget() *ConstraintTargetBase {
+	var cls *ConstraintTargetBase
 
-	GetTargetPtr := xConstraintGetTarget(x.GoPointer())
-	if GetTargetPtr == 0 {
-		return nil
+	cret := xConstraintGetTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTargetPtr)
-
-	GetTargetCls := &ConstraintTargetBase{}
-	GetTargetCls.Ptr = GetTargetPtr
-	return GetTargetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ConstraintTargetBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintGetTargetAttribute func(uintptr) ConstraintAttribute
@@ -187,8 +189,8 @@ var xConstraintGetTargetAttribute func(uintptr) ConstraintAttribute
 // Retrieves the attribute of the target to be set by the constraint.
 func (x *Constraint) GetTargetAttribute() ConstraintAttribute {
 
-	return xConstraintGetTargetAttribute(x.GoPointer())
-
+	cret := xConstraintGetTargetAttribute(x.GoPointer())
+	return cret
 }
 
 var xConstraintIsAttached func(uintptr) bool
@@ -197,8 +199,8 @@ var xConstraintIsAttached func(uintptr) bool
 // and it is contributing to the layout.
 func (x *Constraint) IsAttached() bool {
 
-	return xConstraintIsAttached(x.GoPointer())
-
+	cret := xConstraintIsAttached(x.GoPointer())
+	return cret
 }
 
 var xConstraintIsConstant func(uintptr) bool
@@ -207,8 +209,8 @@ var xConstraintIsConstant func(uintptr) bool
 // on the [property@Gtk.Constraint:target] and a constant value.
 func (x *Constraint) IsConstant() bool {
 
-	return xConstraintIsConstant(x.GoPointer())
-
+	cret := xConstraintIsConstant(x.GoPointer())
+	return cret
 }
 
 var xConstraintIsRequired func(uintptr) bool
@@ -217,8 +219,8 @@ var xConstraintIsRequired func(uintptr) bool
 // constraint layout.
 func (x *Constraint) IsRequired() bool {
 
-	return xConstraintIsRequired(x.GoPointer())
-
+	cret := xConstraintIsRequired(x.GoPointer())
+	return cret
 }
 
 func (c *Constraint) GoPointer() uintptr {

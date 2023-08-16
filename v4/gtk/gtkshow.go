@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 var xShowUri func(uintptr, string, uint32)
@@ -33,13 +34,18 @@ func ShowUriFull(ParentVar *Window, UriVar string, TimestampVar uint32, Cancella
 
 }
 
-var xShowUriFullFinish func(uintptr, uintptr) bool
+var xShowUriFullFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes the gtk_show_uri() call and returns the result
 // of the operation.
-func ShowUriFullFinish(ParentVar *Window, ResultVar gio.AsyncResult) bool {
+func ShowUriFullFinish(ParentVar *Window, ResultVar gio.AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xShowUriFullFinish(ParentVar.GoPointer(), ResultVar.GoPointer())
+	cret := xShowUriFullFinish(ParentVar.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

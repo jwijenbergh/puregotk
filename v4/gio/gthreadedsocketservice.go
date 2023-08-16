@@ -44,14 +44,16 @@ var xNewThreadedSocketService func(int) uintptr
 // Creates a new #GThreadedSocketService with no listeners. Listeners
 // must be added with one of the #GSocketListener "add" methods.
 func NewThreadedSocketService(MaxThreadsVar int) *SocketService {
-	NewThreadedSocketServicePtr := xNewThreadedSocketService(MaxThreadsVar)
-	if NewThreadedSocketServicePtr == 0 {
-		return nil
-	}
+	var cls *SocketService
 
-	NewThreadedSocketServiceCls := &SocketService{}
-	NewThreadedSocketServiceCls.Ptr = NewThreadedSocketServicePtr
-	return NewThreadedSocketServiceCls
+	cret := xNewThreadedSocketService(MaxThreadsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketService{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ThreadedSocketService) GoPointer() uintptr {

@@ -38,16 +38,17 @@ var xNewCellRendererAccel func() uintptr
 
 // Creates a new `GtkCellRendererAccel`.
 func NewCellRendererAccel() *CellRenderer {
-	NewCellRendererAccelPtr := xNewCellRendererAccel()
-	if NewCellRendererAccelPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererAccel()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererAccelPtr)
-
-	NewCellRendererAccelCls := &CellRenderer{}
-	NewCellRendererAccelCls.Ptr = NewCellRendererAccelPtr
-	return NewCellRendererAccelCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CellRendererAccel) GoPointer() uintptr {

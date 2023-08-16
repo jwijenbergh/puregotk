@@ -32,8 +32,8 @@ var xEnumListItemGetName func(uintptr) string
 // Gets the enum value name.
 func (x *EnumListItem) GetName() string {
 
-	return xEnumListItemGetName(x.GoPointer())
-
+	cret := xEnumListItemGetName(x.GoPointer())
+	return cret
 }
 
 var xEnumListItemGetNick func(uintptr) string
@@ -41,8 +41,8 @@ var xEnumListItemGetNick func(uintptr) string
 // Gets the enum value nick.
 func (x *EnumListItem) GetNick() string {
 
-	return xEnumListItemGetNick(x.GoPointer())
-
+	cret := xEnumListItemGetNick(x.GoPointer())
+	return cret
 }
 
 var xEnumListItemGetValue func(uintptr) int
@@ -50,8 +50,8 @@ var xEnumListItemGetValue func(uintptr) int
 // Gets the enum value.
 func (x *EnumListItem) GetValue() int {
 
-	return xEnumListItemGetValue(x.GoPointer())
-
+	cret := xEnumListItemGetValue(x.GoPointer())
+	return cret
 }
 
 func (c *EnumListItem) GoPointer() uintptr {
@@ -79,14 +79,16 @@ var xNewEnumListModel func([]interface{}) uintptr
 
 // Creates a new `AdwEnumListModel` for @enum_type.
 func NewEnumListModel(EnumTypeVar []interface{}) *EnumListModel {
-	NewEnumListModelPtr := xNewEnumListModel(EnumTypeVar)
-	if NewEnumListModelPtr == 0 {
-		return nil
-	}
+	var cls *EnumListModel
 
-	NewEnumListModelCls := &EnumListModel{}
-	NewEnumListModelCls.Ptr = NewEnumListModelPtr
-	return NewEnumListModelCls
+	cret := xNewEnumListModel(EnumTypeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EnumListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEnumListModelFindPosition func(uintptr, int) uint
@@ -94,8 +96,8 @@ var xEnumListModelFindPosition func(uintptr, int) uint
 // Finds the position of a given enum value in @self.
 func (x *EnumListModel) FindPosition(ValueVar int) uint {
 
-	return xEnumListModelFindPosition(x.GoPointer(), ValueVar)
-
+	cret := xEnumListModelFindPosition(x.GoPointer(), ValueVar)
+	return cret
 }
 
 var xEnumListModelGetEnumType func(uintptr) []interface{}
@@ -103,8 +105,8 @@ var xEnumListModelGetEnumType func(uintptr) []interface{}
 // Gets the type of the enum represented by @self.
 func (x *EnumListModel) GetEnumType() []interface{} {
 
-	return xEnumListModelGetEnumType(x.GoPointer())
-
+	cret := xEnumListModelGetEnumType(x.GoPointer())
+	return cret
 }
 
 func (c *EnumListModel) GoPointer() uintptr {
@@ -126,8 +128,8 @@ func (c *EnumListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *EnumListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -140,8 +142,8 @@ func (x *EnumListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *EnumListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -151,8 +153,8 @@ func (x *EnumListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *EnumListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -168,16 +170,16 @@ func (x *EnumListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *EnumListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

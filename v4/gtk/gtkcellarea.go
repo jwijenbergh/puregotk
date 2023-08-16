@@ -365,8 +365,8 @@ var xCellAreaActivate func(uintptr, uintptr, uintptr, *gdk.Rectangle, CellRender
 // can also activate a widget if it currently has the focus.
 func (x *CellArea) Activate(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState, EditOnlyVar bool) bool {
 
-	return xCellAreaActivate(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, FlagsVar, EditOnlyVar)
-
+	cret := xCellAreaActivate(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, FlagsVar, EditOnlyVar)
+	return cret
 }
 
 var xCellAreaActivateCell func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangle, CellRendererState) bool
@@ -377,8 +377,8 @@ var xCellAreaActivateCell func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangl
 // implementation.
 func (x *CellArea) ActivateCell(WidgetVar *Widget, RendererVar *CellRenderer, EventVar *gdk.Event, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) bool {
 
-	return xCellAreaActivateCell(x.GoPointer(), WidgetVar.GoPointer(), RendererVar.GoPointer(), EventVar.GoPointer(), CellAreaVar, FlagsVar)
-
+	cret := xCellAreaActivateCell(x.GoPointer(), WidgetVar.GoPointer(), RendererVar.GoPointer(), EventVar.GoPointer(), CellAreaVar, FlagsVar)
+	return cret
 }
 
 var xCellAreaAdd func(uintptr, uintptr)
@@ -451,8 +451,8 @@ var xCellAreaAttributeGetColumn func(uintptr, uintptr, string) int
 // or -1 if the attribute is not mapped.
 func (x *CellArea) AttributeGetColumn(RendererVar *CellRenderer, AttributeVar string) int {
 
-	return xCellAreaAttributeGetColumn(x.GoPointer(), RendererVar.GoPointer(), AttributeVar)
-
+	cret := xCellAreaAttributeGetColumn(x.GoPointer(), RendererVar.GoPointer(), AttributeVar)
+	return cret
 }
 
 var xCellAreaCellGet func(uintptr, uintptr, string, ...interface{})
@@ -523,16 +523,16 @@ var xCellAreaCopyContext func(uintptr, uintptr) uintptr
 // was already used to request all the row widths that are
 // to be displayed.
 func (x *CellArea) CopyContext(ContextVar *CellAreaContext) *CellAreaContext {
+	var cls *CellAreaContext
 
-	CopyContextPtr := xCellAreaCopyContext(x.GoPointer(), ContextVar.GoPointer())
-	if CopyContextPtr == 0 {
-		return nil
+	cret := xCellAreaCopyContext(x.GoPointer(), ContextVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CopyContextCls := &CellAreaContext{}
-	CopyContextCls.Ptr = CopyContextPtr
-	return CopyContextCls
-
+	cls = &CellAreaContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaCreateContext func(uintptr) uintptr
@@ -544,16 +544,16 @@ var xCellAreaCreateContext func(uintptr) uintptr
 // one should render and handle events with the same `GtkCellArea`Context
 // which was used to request the size of those rows of data).
 func (x *CellArea) CreateContext() *CellAreaContext {
+	var cls *CellAreaContext
 
-	CreateContextPtr := xCellAreaCreateContext(x.GoPointer())
-	if CreateContextPtr == 0 {
-		return nil
+	cret := xCellAreaCreateContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateContextCls := &CellAreaContext{}
-	CreateContextCls.Ptr = CreateContextPtr
-	return CreateContextCls
-
+	cls = &CellAreaContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaEvent func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangle, CellRendererState) int
@@ -561,8 +561,8 @@ var xCellAreaEvent func(uintptr, uintptr, uintptr, uintptr, *gdk.Rectangle, Cell
 // Delegates event handling to a `GtkCellArea`.
 func (x *CellArea) Event(ContextVar *CellAreaContext, WidgetVar *Widget, EventVar *gdk.Event, CellAreaVar *gdk.Rectangle, FlagsVar CellRendererState) int {
 
-	return xCellAreaEvent(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), EventVar.GoPointer(), CellAreaVar, FlagsVar)
-
+	cret := xCellAreaEvent(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), EventVar.GoPointer(), CellAreaVar, FlagsVar)
+	return cret
 }
 
 var xCellAreaFocus func(uintptr, DirectionType) bool
@@ -576,8 +576,8 @@ var xCellAreaFocus func(uintptr, DirectionType) bool
 // to how it lays out cells.
 func (x *CellArea) Focus(DirectionVar DirectionType) bool {
 
-	return xCellAreaFocus(x.GoPointer(), DirectionVar)
-
+	cret := xCellAreaFocus(x.GoPointer(), DirectionVar)
+	return cret
 }
 
 var xCellAreaForeach func(uintptr, uintptr, uintptr)
@@ -614,18 +614,17 @@ var xCellAreaGetCellAtPosition func(uintptr, uintptr, uintptr, *gdk.Rectangle, i
 // Gets the `GtkCellRenderer` at @x and @y coordinates inside @area and optionally
 // returns the full cell allocation for it inside @cell_area.
 func (x *CellArea) GetCellAtPosition(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, XVar int, YVar int, AllocAreaVar *gdk.Rectangle) *CellRenderer {
+	var cls *CellRenderer
 
-	GetCellAtPositionPtr := xCellAreaGetCellAtPosition(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, XVar, YVar, AllocAreaVar)
-	if GetCellAtPositionPtr == 0 {
-		return nil
+	cret := xCellAreaGetCellAtPosition(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, XVar, YVar, AllocAreaVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCellAtPositionPtr)
-
-	GetCellAtPositionCls := &CellRenderer{}
-	GetCellAtPositionCls.Ptr = GetCellAtPositionPtr
-	return GetCellAtPositionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaGetCurrentPathString func(uintptr) string
@@ -637,8 +636,8 @@ var xCellAreaGetCurrentPathString func(uintptr) string
 // subclasses.
 func (x *CellArea) GetCurrentPathString() string {
 
-	return xCellAreaGetCurrentPathString(x.GoPointer())
-
+	cret := xCellAreaGetCurrentPathString(x.GoPointer())
+	return cret
 }
 
 var xCellAreaGetEditWidget func(uintptr) uintptr
@@ -646,18 +645,17 @@ var xCellAreaGetEditWidget func(uintptr) uintptr
 // Gets the `GtkCellEditable` widget currently used
 // to edit the currently edited cell.
 func (x *CellArea) GetEditWidget() *CellEditableBase {
+	var cls *CellEditableBase
 
-	GetEditWidgetPtr := xCellAreaGetEditWidget(x.GoPointer())
-	if GetEditWidgetPtr == 0 {
-		return nil
+	cret := xCellAreaGetEditWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEditWidgetPtr)
-
-	GetEditWidgetCls := &CellEditableBase{}
-	GetEditWidgetCls.Ptr = GetEditWidgetPtr
-	return GetEditWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellEditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaGetEditedCell func(uintptr) uintptr
@@ -665,36 +663,34 @@ var xCellAreaGetEditedCell func(uintptr) uintptr
 // Gets the `GtkCellRenderer` in @area that is currently
 // being edited.
 func (x *CellArea) GetEditedCell() *CellRenderer {
+	var cls *CellRenderer
 
-	GetEditedCellPtr := xCellAreaGetEditedCell(x.GoPointer())
-	if GetEditedCellPtr == 0 {
-		return nil
+	cret := xCellAreaGetEditedCell(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEditedCellPtr)
-
-	GetEditedCellCls := &CellRenderer{}
-	GetEditedCellCls.Ptr = GetEditedCellPtr
-	return GetEditedCellCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaGetFocusCell func(uintptr) uintptr
 
 // Retrieves the currently focused cell for @area
 func (x *CellArea) GetFocusCell() *CellRenderer {
+	var cls *CellRenderer
 
-	GetFocusCellPtr := xCellAreaGetFocusCell(x.GoPointer())
-	if GetFocusCellPtr == 0 {
-		return nil
+	cret := xCellAreaGetFocusCell(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusCellPtr)
-
-	GetFocusCellCls := &CellRenderer{}
-	GetFocusCellCls.Ptr = GetFocusCellPtr
-	return GetFocusCellCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaGetFocusFromSibling func(uintptr, uintptr) uintptr
@@ -707,18 +703,17 @@ var xCellAreaGetFocusFromSibling func(uintptr, uintptr) uintptr
 // then chose to activate the focus cell for which the event
 // cell may have been a sibling.
 func (x *CellArea) GetFocusFromSibling(RendererVar *CellRenderer) *CellRenderer {
+	var cls *CellRenderer
 
-	GetFocusFromSiblingPtr := xCellAreaGetFocusFromSibling(x.GoPointer(), RendererVar.GoPointer())
-	if GetFocusFromSiblingPtr == 0 {
-		return nil
+	cret := xCellAreaGetFocusFromSibling(x.GoPointer(), RendererVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusFromSiblingPtr)
-
-	GetFocusFromSiblingCls := &CellRenderer{}
-	GetFocusFromSiblingCls.Ptr = GetFocusFromSiblingPtr
-	return GetFocusFromSiblingCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellAreaGetFocusSiblings func(uintptr, uintptr) *glib.List
@@ -726,8 +721,8 @@ var xCellAreaGetFocusSiblings func(uintptr, uintptr) *glib.List
 // Gets the focus sibling cell renderers for @renderer.
 func (x *CellArea) GetFocusSiblings(RendererVar *CellRenderer) *glib.List {
 
-	return xCellAreaGetFocusSiblings(x.GoPointer(), RendererVar.GoPointer())
-
+	cret := xCellAreaGetFocusSiblings(x.GoPointer(), RendererVar.GoPointer())
+	return cret
 }
 
 var xCellAreaGetPreferredHeight func(uintptr, uintptr, uintptr, int, int)
@@ -810,8 +805,8 @@ var xCellAreaGetRequestMode func(uintptr) SizeRequestMode
 // or a width-for-height layout.
 func (x *CellArea) GetRequestMode() SizeRequestMode {
 
-	return xCellAreaGetRequestMode(x.GoPointer())
-
+	cret := xCellAreaGetRequestMode(x.GoPointer())
+	return cret
 }
 
 var xCellAreaHasRenderer func(uintptr, uintptr) bool
@@ -819,8 +814,8 @@ var xCellAreaHasRenderer func(uintptr, uintptr) bool
 // Checks if @area contains @renderer.
 func (x *CellArea) HasRenderer(RendererVar *CellRenderer) bool {
 
-	return xCellAreaHasRenderer(x.GoPointer(), RendererVar.GoPointer())
-
+	cret := xCellAreaHasRenderer(x.GoPointer(), RendererVar.GoPointer())
+	return cret
 }
 
 var xCellAreaInnerCellArea func(uintptr, uintptr, *gdk.Rectangle, *gdk.Rectangle)
@@ -840,8 +835,8 @@ var xCellAreaIsActivatable func(uintptr) bool
 // after applying new attributes to @area.
 func (x *CellArea) IsActivatable() bool {
 
-	return xCellAreaIsActivatable(x.GoPointer())
-
+	cret := xCellAreaIsActivatable(x.GoPointer())
+	return cret
 }
 
 var xCellAreaIsFocusSibling func(uintptr, uintptr, uintptr) bool
@@ -850,8 +845,8 @@ var xCellAreaIsFocusSibling func(uintptr, uintptr, uintptr) bool
 // (see gtk_cell_area_add_focus_sibling()).
 func (x *CellArea) IsFocusSibling(RendererVar *CellRenderer, SiblingVar *CellRenderer) bool {
 
-	return xCellAreaIsFocusSibling(x.GoPointer(), RendererVar.GoPointer(), SiblingVar.GoPointer())
-
+	cret := xCellAreaIsFocusSibling(x.GoPointer(), RendererVar.GoPointer(), SiblingVar.GoPointer())
+	return cret
 }
 
 var xCellAreaRemove func(uintptr, uintptr)
@@ -997,8 +992,8 @@ func (x *CellArea) ConnectRemoveEditable(cb func(CellArea, uintptr, uintptr)) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CellArea) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Adds an attribute mapping to the list in @cell_layout.
@@ -1034,25 +1029,24 @@ func (x *CellArea) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *CellArea) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *CellArea) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the

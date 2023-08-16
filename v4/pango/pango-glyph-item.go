@@ -65,7 +65,7 @@ type GlyphItem struct {
 type GlyphItemIter struct {
 	GlyphItem *GlyphItem
 
-	Text string
+	Text uintptr
 
 	StartGlyph int
 

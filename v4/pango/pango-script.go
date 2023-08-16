@@ -280,8 +280,8 @@ var xScriptForUnichar func(uint32) Script
 // prepared to handle unknown values.
 func ScriptForUnichar(ChVar uint32) Script {
 
-	return xScriptForUnichar(ChVar)
-
+	cret := xScriptForUnichar(ChVar)
+	return cret
 }
 
 var xScriptGetSampleLanguage func(Script) *Language
@@ -317,8 +317,8 @@ var xScriptGetSampleLanguage func(Script) *Language
 // context language is not feasible.
 func ScriptGetSampleLanguage(ScriptVar Script) *Language {
 
-	return xScriptGetSampleLanguage(ScriptVar)
-
+	cret := xScriptGetSampleLanguage(ScriptVar)
+	return cret
 }
 
 func init() {

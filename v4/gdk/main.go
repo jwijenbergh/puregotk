@@ -21,24 +21,24 @@ var xGlErrorQuark func() glib.Quark
 
 func GlErrorQuark() glib.Quark {
 
-	return xGlErrorQuark()
-
+	cret := xGlErrorQuark()
+	return cret
 }
 
 var xTextureErrorQuark func() glib.Quark
 
 func TextureErrorQuark() glib.Quark {
 
-	return xTextureErrorQuark()
-
+	cret := xTextureErrorQuark()
+	return cret
 }
 
 var xVulkanErrorQuark func() glib.Quark
 
 func VulkanErrorQuark() glib.Quark {
 
-	return xVulkanErrorQuark()
-
+	cret := xVulkanErrorQuark()
+	return cret
 }
 
 func init() {

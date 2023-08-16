@@ -36,16 +36,17 @@ var xNewSpinner func() uintptr
 
 // Returns a new spinner widget. Not yet started.
 func NewSpinner() *Widget {
-	NewSpinnerPtr := xNewSpinner()
-	if NewSpinnerPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewSpinner()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSpinnerPtr)
-
-	NewSpinnerCls := &Widget{}
-	NewSpinnerCls.Ptr = NewSpinnerPtr
-	return NewSpinnerCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSpinnerGetSpinning func(uintptr) bool
@@ -53,8 +54,8 @@ var xSpinnerGetSpinning func(uintptr) bool
 // Returns whether the spinner is spinning.
 func (x *Spinner) GetSpinning() bool {
 
-	return xSpinnerGetSpinning(x.GoPointer())
-
+	cret := xSpinnerGetSpinning(x.GoPointer())
+	return cret
 }
 
 var xSpinnerSetSpinning func(uintptr, bool)
@@ -95,8 +96,8 @@ func (c *Spinner) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Spinner) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -231,8 +232,8 @@ func (x *Spinner) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Spinner) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

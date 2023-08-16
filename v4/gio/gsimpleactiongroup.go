@@ -33,14 +33,16 @@ var xNewSimpleActionGroup func() uintptr
 
 // Creates a new, empty, #GSimpleActionGroup.
 func NewSimpleActionGroup() *SimpleActionGroup {
-	NewSimpleActionGroupPtr := xNewSimpleActionGroup()
-	if NewSimpleActionGroupPtr == 0 {
-		return nil
-	}
+	var cls *SimpleActionGroup
 
-	NewSimpleActionGroupCls := &SimpleActionGroup{}
-	NewSimpleActionGroupCls.Ptr = NewSimpleActionGroupPtr
-	return NewSimpleActionGroupCls
+	cret := xNewSimpleActionGroup()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SimpleActionGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSimpleActionGroupAddEntries func(uintptr, uintptr, int, uintptr)
@@ -73,18 +75,17 @@ var xSimpleActionGroupLookup func(uintptr, string) uintptr
 //
 // If no such action exists, returns %NULL.
 func (x *SimpleActionGroup) Lookup(ActionNameVar string) *ActionBase {
+	var cls *ActionBase
 
-	LookupPtr := xSimpleActionGroupLookup(x.GoPointer(), ActionNameVar)
-	if LookupPtr == 0 {
-		return nil
+	cret := xSimpleActionGroupLookup(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupPtr)
-
-	LookupCls := &ActionBase{}
-	LookupCls.Ptr = LookupPtr
-	return LookupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSimpleActionGroupRemove func(uintptr, string)
@@ -204,8 +205,8 @@ func (x *SimpleActionGroup) ChangeActionState(ActionNameVar string, ValueVar *gl
 // have its state changed from outside callers.
 func (x *SimpleActionGroup) GetActionEnabled(ActionNameVar string) bool {
 
-	return XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -223,8 +224,8 @@ func (x *SimpleActionGroup) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *SimpleActionGroup) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -237,8 +238,8 @@ func (x *SimpleActionGroup) GetActionParameterType(ActionNameVar string) *glib.V
 // g_variant_unref() when it is no longer required.
 func (x *SimpleActionGroup) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -261,8 +262,8 @@ func (x *SimpleActionGroup) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *SimpleActionGroup) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -283,15 +284,15 @@ func (x *SimpleActionGroup) GetActionStateHint(ActionNameVar string) *glib.Varia
 // with the same name but a different state type.
 func (x *SimpleActionGroup) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *SimpleActionGroup) HasAction(ActionNameVar string) bool {
 
-	return XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -300,8 +301,8 @@ func (x *SimpleActionGroup) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *SimpleActionGroup) ListActions() uintptr {
 
-	return XGActionGroupListActions(x.GoPointer())
-
+	cret := XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -333,8 +334,8 @@ func (x *SimpleActionGroup) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *SimpleActionGroup) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Adds an action to the @action_map.
@@ -402,18 +403,17 @@ func (x *SimpleActionGroup) AddActionEntries(EntriesVar uintptr, NEntriesVar int
 //
 // If no such action exists, returns %NULL.
 func (x *SimpleActionGroup) LookupAction(ActionNameVar string) *ActionBase {
+	var cls *ActionBase
 
-	LookupActionPtr := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.

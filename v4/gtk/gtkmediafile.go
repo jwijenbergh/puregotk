@@ -35,28 +35,32 @@ var xNewMediaFile func() uintptr
 
 // Creates a new empty media file.
 func NewMediaFile() *MediaFile {
-	NewMediaFilePtr := xNewMediaFile()
-	if NewMediaFilePtr == 0 {
-		return nil
-	}
+	var cls *MediaFile
 
-	NewMediaFileCls := &MediaFile{}
-	NewMediaFileCls.Ptr = NewMediaFilePtr
-	return NewMediaFileCls
+	cret := xNewMediaFile()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MediaFile{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFileMediaFile func(uintptr) uintptr
 
 // Creates a new media file to play @file.
 func NewForFileMediaFile(FileVar gio.File) *MediaFile {
-	NewForFileMediaFilePtr := xNewForFileMediaFile(FileVar.GoPointer())
-	if NewForFileMediaFilePtr == 0 {
-		return nil
-	}
+	var cls *MediaFile
 
-	NewForFileMediaFileCls := &MediaFile{}
-	NewForFileMediaFileCls.Ptr = NewForFileMediaFilePtr
-	return NewForFileMediaFileCls
+	cret := xNewForFileMediaFile(FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MediaFile{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForFilenameMediaFile func(string) uintptr
@@ -66,14 +70,16 @@ var xNewForFilenameMediaFile func(string) uintptr
 // This is a utility function that converts the given @filename
 // to a `GFile` and calls [ctor@Gtk.MediaFile.new_for_file].
 func NewForFilenameMediaFile(FilenameVar string) *MediaFile {
-	NewForFilenameMediaFilePtr := xNewForFilenameMediaFile(FilenameVar)
-	if NewForFilenameMediaFilePtr == 0 {
-		return nil
-	}
+	var cls *MediaFile
 
-	NewForFilenameMediaFileCls := &MediaFile{}
-	NewForFilenameMediaFileCls.Ptr = NewForFilenameMediaFilePtr
-	return NewForFilenameMediaFileCls
+	cret := xNewForFilenameMediaFile(FilenameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MediaFile{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForInputStreamMediaFile func(uintptr) uintptr
@@ -83,14 +89,16 @@ var xNewForInputStreamMediaFile func(uintptr) uintptr
 // If you want the resulting media to be seekable,
 // the stream should implement the `GSeekable` interface.
 func NewForInputStreamMediaFile(StreamVar *gio.InputStream) *MediaFile {
-	NewForInputStreamMediaFilePtr := xNewForInputStreamMediaFile(StreamVar.GoPointer())
-	if NewForInputStreamMediaFilePtr == 0 {
-		return nil
-	}
+	var cls *MediaFile
 
-	NewForInputStreamMediaFileCls := &MediaFile{}
-	NewForInputStreamMediaFileCls.Ptr = NewForInputStreamMediaFilePtr
-	return NewForInputStreamMediaFileCls
+	cret := xNewForInputStreamMediaFile(StreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MediaFile{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForResourceMediaFile func(string) uintptr
@@ -100,14 +108,16 @@ var xNewForResourceMediaFile func(string) uintptr
 // This is a utility function that converts the given @resource
 // to a `GFile` and calls [ctor@Gtk.MediaFile.new_for_file].
 func NewForResourceMediaFile(ResourcePathVar string) *MediaFile {
-	NewForResourceMediaFilePtr := xNewForResourceMediaFile(ResourcePathVar)
-	if NewForResourceMediaFilePtr == 0 {
-		return nil
-	}
+	var cls *MediaFile
 
-	NewForResourceMediaFileCls := &MediaFile{}
-	NewForResourceMediaFileCls.Ptr = NewForResourceMediaFilePtr
-	return NewForResourceMediaFileCls
+	cret := xNewForResourceMediaFile(ResourcePathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MediaFile{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMediaFileClear func(uintptr)
@@ -126,18 +136,17 @@ var xMediaFileGetFile func(uintptr) uintptr
 // When @self is not playing or not playing from a file,
 // %NULL is returned.
 func (x *MediaFile) GetFile() *gio.FileBase {
+	var cls *gio.FileBase
 
-	GetFilePtr := xMediaFileGetFile(x.GoPointer())
-	if GetFilePtr == 0 {
-		return nil
+	cret := xMediaFileGetFile(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFilePtr)
-
-	GetFileCls := &gio.FileBase{}
-	GetFileCls.Ptr = GetFilePtr
-	return GetFileCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMediaFileGetInputStream func(uintptr) uintptr
@@ -147,18 +156,17 @@ var xMediaFileGetInputStream func(uintptr) uintptr
 // When @self is not playing or not playing from a stream,
 // %NULL is returned.
 func (x *MediaFile) GetInputStream() *gio.InputStream {
+	var cls *gio.InputStream
 
-	GetInputStreamPtr := xMediaFileGetInputStream(x.GoPointer())
-	if GetInputStreamPtr == 0 {
-		return nil
+	cret := xMediaFileGetInputStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetInputStreamPtr)
-
-	GetInputStreamCls := &gio.InputStream{}
-	GetInputStreamCls.Ptr = GetInputStreamPtr
-	return GetInputStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMediaFileSetFile func(uintptr, uintptr)
@@ -241,16 +249,16 @@ func (x *MediaFile) ComputeConcreteSize(SpecifiedWidthVar float64, SpecifiedHeig
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *MediaFile) GetCurrentImage() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetCurrentImagePtr := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &gdk.PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -260,8 +268,8 @@ func (x *MediaFile) GetCurrentImage() *gdk.PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *MediaFile) GetFlags() gdk.PaintableFlags {
 
-	return gdk.XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -283,8 +291,8 @@ func (x *MediaFile) GetFlags() gdk.PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *MediaFile) GetIntrinsicAspectRatio() float64 {
 
-	return gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -299,8 +307,8 @@ func (x *MediaFile) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *MediaFile) GetIntrinsicHeight() int {
 
-	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -315,8 +323,8 @@ func (x *MediaFile) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *MediaFile) GetIntrinsicWidth() int {
 
-	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.

@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Provides an interface for handling proxy connection and payload.
@@ -41,16 +42,21 @@ func (x *ProxyBase) SetGoPointer(ptr uintptr) {
 // #GSocketConnection that is connected to the proxy server), this
 // does the necessary handshake to connect to @proxy_address, and if
 // required, wraps the #GIOStream to handle proxy payload.
-func (x *ProxyBase) Connect(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable) *IOStream {
+func (x *ProxyBase) Connect(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable) (*IOStream, error) {
+	var cls *IOStream
+	var cerr *glib.Error
 
-	ConnectPtr := XGProxyConnect(x.GoPointer(), ConnectionVar.GoPointer(), ProxyAddressVar.GoPointer(), CancellableVar.GoPointer())
-	if ConnectPtr == 0 {
-		return nil
+	cret := XGProxyConnect(x.GoPointer(), ConnectionVar.GoPointer(), ProxyAddressVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectCls := &IOStream{}
-	ConnectCls.Ptr = ConnectPtr
-	return ConnectCls
+	cls = &IOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -62,16 +68,21 @@ func (x *ProxyBase) ConnectAsync(ConnectionVar *IOStream, ProxyAddressVar *Proxy
 }
 
 // See g_proxy_connect().
-func (x *ProxyBase) ConnectFinish(ResultVar AsyncResult) *IOStream {
+func (x *ProxyBase) ConnectFinish(ResultVar AsyncResult) (*IOStream, error) {
+	var cls *IOStream
+	var cerr *glib.Error
 
-	ConnectFinishPtr := XGProxyConnectFinish(x.GoPointer(), ResultVar.GoPointer())
-	if ConnectFinishPtr == 0 {
-		return nil
+	cret := XGProxyConnectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	ConnectFinishCls := &IOStream{}
-	ConnectFinishCls.Ptr = ConnectFinishPtr
-	return ConnectFinishCls
+	cls = &IOStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -84,13 +95,13 @@ func (x *ProxyBase) ConnectFinish(ResultVar AsyncResult) *IOStream {
 // g_proxy_connect() or g_proxy_connect_async().
 func (x *ProxyBase) SupportsHostname() bool {
 
-	return XGProxySupportsHostname(x.GoPointer())
-
+	cret := XGProxySupportsHostname(x.GoPointer())
+	return cret
 }
 
-var XGProxyConnect func(uintptr, uintptr, uintptr, uintptr) uintptr
+var XGProxyConnect func(uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
 var XGProxyConnectAsync func(uintptr, uintptr, uintptr, uintptr, uintptr, uintptr)
-var XGProxyConnectFinish func(uintptr, uintptr) uintptr
+var XGProxyConnectFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGProxySupportsHostname func(uintptr) bool
 
 var xProxyGetDefaultForProtocol func(string) uintptr
@@ -98,16 +109,16 @@ var xProxyGetDefaultForProtocol func(string) uintptr
 // Find the `gio-proxy` extension point for a proxy implementation that supports
 // the specified protocol.
 func ProxyGetDefaultForProtocol(ProtocolVar string) *ProxyBase {
+	var cls *ProxyBase
 
-	ProxyGetDefaultForProtocolPtr := xProxyGetDefaultForProtocol(ProtocolVar)
-	if ProxyGetDefaultForProtocolPtr == 0 {
-		return nil
+	cret := xProxyGetDefaultForProtocol(ProtocolVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyGetDefaultForProtocolCls := &ProxyBase{}
-	ProxyGetDefaultForProtocolCls.Ptr = ProxyGetDefaultForProtocolPtr
-	return ProxyGetDefaultForProtocolCls
-
+	cls = &ProxyBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func init() {

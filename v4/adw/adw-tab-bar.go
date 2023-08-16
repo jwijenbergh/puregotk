@@ -49,16 +49,17 @@ var xNewTabBar func() uintptr
 
 // Creates a new `AdwTabBar`.
 func NewTabBar() *TabBar {
-	NewTabBarPtr := xNewTabBar()
-	if NewTabBarPtr == 0 {
-		return nil
+	var cls *TabBar
+
+	cret := xNewTabBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTabBarPtr)
-
-	NewTabBarCls := &TabBar{}
-	NewTabBarCls.Ptr = NewTabBarPtr
-	return NewTabBarCls
+	gobject.IncreaseRef(cret)
+	cls = &TabBar{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabBarGetAutohide func(uintptr) bool
@@ -66,26 +67,25 @@ var xTabBarGetAutohide func(uintptr) bool
 // Gets whether the tabs automatically hide.
 func (x *TabBar) GetAutohide() bool {
 
-	return xTabBarGetAutohide(x.GoPointer())
-
+	cret := xTabBarGetAutohide(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetEndActionWidget func(uintptr) uintptr
 
 // Gets the widget shown after the tabs.
 func (x *TabBar) GetEndActionWidget() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetEndActionWidgetPtr := xTabBarGetEndActionWidget(x.GoPointer())
-	if GetEndActionWidgetPtr == 0 {
-		return nil
+	cret := xTabBarGetEndActionWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEndActionWidgetPtr)
-
-	GetEndActionWidgetCls := &gtk.Widget{}
-	GetEndActionWidgetCls.Ptr = GetEndActionWidgetPtr
-	return GetEndActionWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabBarGetExpandTabs func(uintptr) bool
@@ -93,8 +93,8 @@ var xTabBarGetExpandTabs func(uintptr) bool
 // Gets whether tabs expand to full width.
 func (x *TabBar) GetExpandTabs() bool {
 
-	return xTabBarGetExpandTabs(x.GoPointer())
-
+	cret := xTabBarGetExpandTabs(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetExtraDragPreload func(uintptr) bool
@@ -102,8 +102,8 @@ var xTabBarGetExtraDragPreload func(uintptr) bool
 // Gets whether drop data should be preloaded on hover.
 func (x *TabBar) GetExtraDragPreload() bool {
 
-	return xTabBarGetExtraDragPreload(x.GoPointer())
-
+	cret := xTabBarGetExtraDragPreload(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetInverted func(uintptr) bool
@@ -111,8 +111,8 @@ var xTabBarGetInverted func(uintptr) bool
 // Gets whether tabs use inverted layout.
 func (x *TabBar) GetInverted() bool {
 
-	return xTabBarGetInverted(x.GoPointer())
-
+	cret := xTabBarGetInverted(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetIsOverflowing func(uintptr) bool
@@ -122,26 +122,25 @@ var xTabBarGetIsOverflowing func(uintptr) bool
 // If `TRUE`, all tabs cannot be displayed at once and require scrolling.
 func (x *TabBar) GetIsOverflowing() bool {
 
-	return xTabBarGetIsOverflowing(x.GoPointer())
-
+	cret := xTabBarGetIsOverflowing(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetStartActionWidget func(uintptr) uintptr
 
 // Gets the widget shown before the tabs.
 func (x *TabBar) GetStartActionWidget() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetStartActionWidgetPtr := xTabBarGetStartActionWidget(x.GoPointer())
-	if GetStartActionWidgetPtr == 0 {
-		return nil
+	cret := xTabBarGetStartActionWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStartActionWidgetPtr)
-
-	GetStartActionWidgetCls := &gtk.Widget{}
-	GetStartActionWidgetCls.Ptr = GetStartActionWidgetPtr
-	return GetStartActionWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabBarGetTabsRevealed func(uintptr) bool
@@ -151,26 +150,25 @@ var xTabBarGetTabsRevealed func(uintptr) bool
 // See [property@TabBar:autohide].
 func (x *TabBar) GetTabsRevealed() bool {
 
-	return xTabBarGetTabsRevealed(x.GoPointer())
-
+	cret := xTabBarGetTabsRevealed(x.GoPointer())
+	return cret
 }
 
 var xTabBarGetView func(uintptr) uintptr
 
 // Gets the tab view @self controls.
 func (x *TabBar) GetView() *TabView {
+	var cls *TabView
 
-	GetViewPtr := xTabBarGetView(x.GoPointer())
-	if GetViewPtr == 0 {
-		return nil
+	cret := xTabBarGetView(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetViewPtr)
-
-	GetViewCls := &TabView{}
-	GetViewCls.Ptr = GetViewPtr
-	return GetViewCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabBarSetAutohide func(uintptr, bool)
@@ -316,8 +314,8 @@ func (x *TabBar) ConnectExtraDragValue(cb func(TabBar, uintptr, uintptr) gdk.Dra
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TabBar) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -452,8 +450,8 @@ func (x *TabBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TabBar) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

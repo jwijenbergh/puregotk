@@ -48,8 +48,8 @@ func (x *PrintOperationPreviewBase) EndPreview() {
 // have been selected for printing.
 func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int) bool {
 
-	return XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
-
+	cret := XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
+	return cret
 }
 
 // Renders a page to the preview.

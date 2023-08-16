@@ -74,16 +74,16 @@ var xKeyfileSettingsBackendNew func(string, string, string) uintptr
 // and a list of locked keys from a text file with the name `locks` in
 // the same location.
 func KeyfileSettingsBackendNew(FilenameVar string, RootPathVar string, RootGroupVar string) *SettingsBackend {
+	var cls *SettingsBackend
 
-	KeyfileSettingsBackendNewPtr := xKeyfileSettingsBackendNew(FilenameVar, RootPathVar, RootGroupVar)
-	if KeyfileSettingsBackendNewPtr == 0 {
-		return nil
+	cret := xKeyfileSettingsBackendNew(FilenameVar, RootPathVar, RootGroupVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	KeyfileSettingsBackendNewCls := &SettingsBackend{}
-	KeyfileSettingsBackendNewCls.Ptr = KeyfileSettingsBackendNewPtr
-	return KeyfileSettingsBackendNewCls
-
+	cls = &SettingsBackend{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMemorySettingsBackendNew func() uintptr
@@ -94,16 +94,16 @@ var xMemorySettingsBackendNew func() uintptr
 // to any backing storage, so the next time you run your application,
 // the memory backend will start out with the default values again.
 func MemorySettingsBackendNew() *SettingsBackend {
+	var cls *SettingsBackend
 
-	MemorySettingsBackendNewPtr := xMemorySettingsBackendNew()
-	if MemorySettingsBackendNewPtr == 0 {
-		return nil
+	cret := xMemorySettingsBackendNew()
+
+	if cret == 0 {
+		return cls
 	}
-
-	MemorySettingsBackendNewCls := &SettingsBackend{}
-	MemorySettingsBackendNewCls.Ptr = MemorySettingsBackendNewPtr
-	return MemorySettingsBackendNewCls
-
+	cls = &SettingsBackend{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNullSettingsBackendNew func() uintptr
@@ -113,16 +113,16 @@ var xNullSettingsBackendNew func() uintptr
 // This backend does not allow changes to settings, so all settings
 // will always have their default values.
 func NullSettingsBackendNew() *SettingsBackend {
+	var cls *SettingsBackend
 
-	NullSettingsBackendNewPtr := xNullSettingsBackendNew()
-	if NullSettingsBackendNewPtr == 0 {
-		return nil
+	cret := xNullSettingsBackendNew()
+
+	if cret == 0 {
+		return cls
 	}
-
-	NullSettingsBackendNewCls := &SettingsBackend{}
-	NullSettingsBackendNewCls.Ptr = NullSettingsBackendNewPtr
-	return NullSettingsBackendNewCls
-
+	cls = &SettingsBackend{}
+	cls.Ptr = cret
+	return cls
 }
 
 // The #GSettingsBackend interface defines a generic interface for

@@ -65,16 +65,17 @@ var xNewFixed func() uintptr
 
 // Creates a new `GtkFixed`.
 func NewFixed() *Widget {
-	NewFixedPtr := xNewFixed()
-	if NewFixedPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFixed()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFixedPtr)
-
-	NewFixedCls := &Widget{}
-	NewFixedCls.Ptr = NewFixedPtr
-	return NewFixedCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFixedGetChildPosition func(uintptr, uintptr, float64, float64)
@@ -95,8 +96,8 @@ var xFixedGetChildTransform func(uintptr, uintptr) *gsk.Transform
 // gtk_fixed_set_child_transform().
 func (x *Fixed) GetChildTransform(WidgetVar *Widget) *gsk.Transform {
 
-	return xFixedGetChildTransform(x.GoPointer(), WidgetVar.GoPointer())
-
+	cret := xFixedGetChildTransform(x.GoPointer(), WidgetVar.GoPointer())
+	return cret
 }
 
 var xFixedMove func(uintptr, uintptr, float64, float64)
@@ -151,8 +152,8 @@ func (c *Fixed) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Fixed) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -287,8 +288,8 @@ func (x *Fixed) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Fixed) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

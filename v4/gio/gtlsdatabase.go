@@ -51,11 +51,11 @@ var xTlsDatabaseCreateCertificateHandle func(uintptr, uintptr) string
 // then it is not guaranteed that this handle will continue to point to it.
 func (x *TlsDatabase) CreateCertificateHandle(CertificateVar *TlsCertificate) string {
 
-	return xTlsDatabaseCreateCertificateHandle(x.GoPointer(), CertificateVar.GoPointer())
-
+	cret := xTlsDatabaseCreateCertificateHandle(x.GoPointer(), CertificateVar.GoPointer())
+	return cret
 }
 
-var xTlsDatabaseLookupCertificateForHandle func(uintptr, string, uintptr, TlsDatabaseLookupFlags, uintptr) uintptr
+var xTlsDatabaseLookupCertificateForHandle func(uintptr, string, uintptr, TlsDatabaseLookupFlags, uintptr, **glib.Error) uintptr
 
 // Look up a certificate by its handle.
 //
@@ -69,16 +69,21 @@ var xTlsDatabaseLookupCertificateForHandle func(uintptr, string, uintptr, TlsDat
 //
 // This function can block, use g_tls_database_lookup_certificate_for_handle_async() to perform
 // the lookup operation asynchronously.
-func (x *TlsDatabase) LookupCertificateForHandle(HandleVar string, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) *TlsCertificate {
+func (x *TlsDatabase) LookupCertificateForHandle(HandleVar string, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	LookupCertificateForHandlePtr := xTlsDatabaseLookupCertificateForHandle(x.GoPointer(), HandleVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if LookupCertificateForHandlePtr == 0 {
-		return nil
+	cret := xTlsDatabaseLookupCertificateForHandle(x.GoPointer(), HandleVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LookupCertificateForHandleCls := &TlsCertificate{}
-	LookupCertificateForHandleCls.Ptr = LookupCertificateForHandlePtr
-	return LookupCertificateForHandleCls
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -92,27 +97,32 @@ func (x *TlsDatabase) LookupCertificateForHandleAsync(HandleVar string, Interact
 
 }
 
-var xTlsDatabaseLookupCertificateForHandleFinish func(uintptr, uintptr) uintptr
+var xTlsDatabaseLookupCertificateForHandleFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finish an asynchronous lookup of a certificate by its handle. See
 // g_tls_database_lookup_certificate_for_handle() for more information.
 //
 // If the handle is no longer valid, or does not point to a certificate in
 // this database, then %NULL will be returned.
-func (x *TlsDatabase) LookupCertificateForHandleFinish(ResultVar AsyncResult) *TlsCertificate {
+func (x *TlsDatabase) LookupCertificateForHandleFinish(ResultVar AsyncResult) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	LookupCertificateForHandleFinishPtr := xTlsDatabaseLookupCertificateForHandleFinish(x.GoPointer(), ResultVar.GoPointer())
-	if LookupCertificateForHandleFinishPtr == 0 {
-		return nil
+	cret := xTlsDatabaseLookupCertificateForHandleFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LookupCertificateForHandleFinishCls := &TlsCertificate{}
-	LookupCertificateForHandleFinishCls.Ptr = LookupCertificateForHandleFinishPtr
-	return LookupCertificateForHandleFinishCls
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xTlsDatabaseLookupCertificateIssuer func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr) uintptr
+var xTlsDatabaseLookupCertificateIssuer func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr, **glib.Error) uintptr
 
 // Look up the issuer of @certificate in the database. The
 // #GTlsCertificate:issuer property of @certificate is not modified, and
@@ -134,16 +144,21 @@ var xTlsDatabaseLookupCertificateIssuer func(uintptr, uintptr, uintptr, TlsDatab
 // certificate. Accordingly, this function cannot be used to make
 // security-related decisions. Only GLib itself should make security
 // decisions about TLS certificates.
-func (x *TlsDatabase) LookupCertificateIssuer(CertificateVar *TlsCertificate, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) *TlsCertificate {
+func (x *TlsDatabase) LookupCertificateIssuer(CertificateVar *TlsCertificate, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	LookupCertificateIssuerPtr := xTlsDatabaseLookupCertificateIssuer(x.GoPointer(), CertificateVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
-	if LookupCertificateIssuerPtr == 0 {
-		return nil
+	cret := xTlsDatabaseLookupCertificateIssuer(x.GoPointer(), CertificateVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LookupCertificateIssuerCls := &TlsCertificate{}
-	LookupCertificateIssuerCls.Ptr = LookupCertificateIssuerPtr
-	return LookupCertificateIssuerCls
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -157,32 +172,42 @@ func (x *TlsDatabase) LookupCertificateIssuerAsync(CertificateVar *TlsCertificat
 
 }
 
-var xTlsDatabaseLookupCertificateIssuerFinish func(uintptr, uintptr) uintptr
+var xTlsDatabaseLookupCertificateIssuerFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finish an asynchronous lookup issuer operation. See
 // g_tls_database_lookup_certificate_issuer() for more information.
-func (x *TlsDatabase) LookupCertificateIssuerFinish(ResultVar AsyncResult) *TlsCertificate {
+func (x *TlsDatabase) LookupCertificateIssuerFinish(ResultVar AsyncResult) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	LookupCertificateIssuerFinishPtr := xTlsDatabaseLookupCertificateIssuerFinish(x.GoPointer(), ResultVar.GoPointer())
-	if LookupCertificateIssuerFinishPtr == 0 {
-		return nil
+	cret := xTlsDatabaseLookupCertificateIssuerFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LookupCertificateIssuerFinishCls := &TlsCertificate{}
-	LookupCertificateIssuerFinishCls.Ptr = LookupCertificateIssuerFinishPtr
-	return LookupCertificateIssuerFinishCls
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xTlsDatabaseLookupCertificatesIssuedBy func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr) *glib.List
+var xTlsDatabaseLookupCertificatesIssuedBy func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr, **glib.Error) *glib.List
 
 // Look up certificates issued by this issuer in the database.
 //
 // This function can block, use g_tls_database_lookup_certificates_issued_by_async() to perform
 // the lookup operation asynchronously.
-func (x *TlsDatabase) LookupCertificatesIssuedBy(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) *glib.List {
+func (x *TlsDatabase) LookupCertificatesIssuedBy(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xTlsDatabaseLookupCertificatesIssuedBy(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := xTlsDatabaseLookupCertificatesIssuedBy(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -200,17 +225,22 @@ func (x *TlsDatabase) LookupCertificatesIssuedByAsync(IssuerRawDnVar uintptr, In
 
 }
 
-var xTlsDatabaseLookupCertificatesIssuedByFinish func(uintptr, uintptr) *glib.List
+var xTlsDatabaseLookupCertificatesIssuedByFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Finish an asynchronous lookup of certificates. See
 // g_tls_database_lookup_certificates_issued_by() for more information.
-func (x *TlsDatabase) LookupCertificatesIssuedByFinish(ResultVar AsyncResult) *glib.List {
+func (x *TlsDatabase) LookupCertificatesIssuedByFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xTlsDatabaseLookupCertificatesIssuedByFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xTlsDatabaseLookupCertificatesIssuedByFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xTlsDatabaseVerifyChain func(uintptr, uintptr, string, uintptr, uintptr, TlsDatabaseVerifyFlags, uintptr) TlsCertificateFlags
+var xTlsDatabaseVerifyChain func(uintptr, uintptr, string, uintptr, uintptr, TlsDatabaseVerifyFlags, uintptr, **glib.Error) TlsCertificateFlags
 
 // Determines the validity of a certificate chain, outside the context
 // of a TLS session.
@@ -272,9 +302,14 @@ var xTlsDatabaseVerifyChain func(uintptr, uintptr, string, uintptr, uintptr, Tls
 //
 // This function can block. Use g_tls_database_verify_chain_async() to
 // perform the verification operation asynchronously.
-func (x *TlsDatabase) VerifyChain(ChainVar *TlsCertificate, PurposeVar string, IdentityVar SocketConnectable, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseVerifyFlags, CancellableVar *Cancellable) TlsCertificateFlags {
+func (x *TlsDatabase) VerifyChain(ChainVar *TlsCertificate, PurposeVar string, IdentityVar SocketConnectable, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseVerifyFlags, CancellableVar *Cancellable) (TlsCertificateFlags, error) {
+	var cerr *glib.Error
 
-	return xTlsDatabaseVerifyChain(x.GoPointer(), ChainVar.GoPointer(), PurposeVar, IdentityVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := xTlsDatabaseVerifyChain(x.GoPointer(), ChainVar.GoPointer(), PurposeVar, IdentityVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -289,7 +324,7 @@ func (x *TlsDatabase) VerifyChainAsync(ChainVar *TlsCertificate, PurposeVar stri
 
 }
 
-var xTlsDatabaseVerifyChainFinish func(uintptr, uintptr) TlsCertificateFlags
+var xTlsDatabaseVerifyChainFinish func(uintptr, uintptr, **glib.Error) TlsCertificateFlags
 
 // Finish an asynchronous verify chain operation. See
 // g_tls_database_verify_chain() for more information.
@@ -302,9 +337,14 @@ var xTlsDatabaseVerifyChainFinish func(uintptr, uintptr) TlsCertificateFlags
 // %G_TLS_CERTIFICATE_GENERIC_ERROR and @error will be set
 // accordingly. @error is not set when @chain is successfully analyzed
 // but found to be invalid.
-func (x *TlsDatabase) VerifyChainFinish(ResultVar AsyncResult) TlsCertificateFlags {
+func (x *TlsDatabase) VerifyChainFinish(ResultVar AsyncResult) (TlsCertificateFlags, error) {
+	var cerr *glib.Error
 
-	return xTlsDatabaseVerifyChainFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xTlsDatabaseVerifyChainFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

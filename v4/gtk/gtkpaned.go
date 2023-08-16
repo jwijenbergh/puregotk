@@ -88,34 +88,34 @@ var xNewPaned func(Orientation) uintptr
 
 // Creates a new `GtkPaned` widget.
 func NewPaned(OrientationVar Orientation) *Widget {
-	NewPanedPtr := xNewPaned(OrientationVar)
-	if NewPanedPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPaned(OrientationVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPanedPtr)
-
-	NewPanedCls := &Widget{}
-	NewPanedCls.Ptr = NewPanedPtr
-	return NewPanedCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPanedGetEndChild func(uintptr) uintptr
 
 // Retrieves the end child of the given `GtkPaned`.
 func (x *Paned) GetEndChild() *Widget {
+	var cls *Widget
 
-	GetEndChildPtr := xPanedGetEndChild(x.GoPointer())
-	if GetEndChildPtr == 0 {
-		return nil
+	cret := xPanedGetEndChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEndChildPtr)
-
-	GetEndChildCls := &Widget{}
-	GetEndChildCls.Ptr = GetEndChildPtr
-	return GetEndChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPanedGetPosition func(uintptr) int
@@ -123,8 +123,8 @@ var xPanedGetPosition func(uintptr) int
 // Obtains the position of the divider between the two panes.
 func (x *Paned) GetPosition() int {
 
-	return xPanedGetPosition(x.GoPointer())
-
+	cret := xPanedGetPosition(x.GoPointer())
+	return cret
 }
 
 var xPanedGetResizeEndChild func(uintptr) bool
@@ -132,8 +132,8 @@ var xPanedGetResizeEndChild func(uintptr) bool
 // Returns whether the [property@Gtk.Paned:end-child] can be resized.
 func (x *Paned) GetResizeEndChild() bool {
 
-	return xPanedGetResizeEndChild(x.GoPointer())
-
+	cret := xPanedGetResizeEndChild(x.GoPointer())
+	return cret
 }
 
 var xPanedGetResizeStartChild func(uintptr) bool
@@ -141,8 +141,8 @@ var xPanedGetResizeStartChild func(uintptr) bool
 // Returns whether the [property@Gtk.Paned:start-child] can be resized.
 func (x *Paned) GetResizeStartChild() bool {
 
-	return xPanedGetResizeStartChild(x.GoPointer())
-
+	cret := xPanedGetResizeStartChild(x.GoPointer())
+	return cret
 }
 
 var xPanedGetShrinkEndChild func(uintptr) bool
@@ -150,8 +150,8 @@ var xPanedGetShrinkEndChild func(uintptr) bool
 // Returns whether the [property@Gtk.Paned:end-child] can shrink.
 func (x *Paned) GetShrinkEndChild() bool {
 
-	return xPanedGetShrinkEndChild(x.GoPointer())
-
+	cret := xPanedGetShrinkEndChild(x.GoPointer())
+	return cret
 }
 
 var xPanedGetShrinkStartChild func(uintptr) bool
@@ -159,26 +159,25 @@ var xPanedGetShrinkStartChild func(uintptr) bool
 // Returns whether the [property@Gtk.Paned:start-child] can shrink.
 func (x *Paned) GetShrinkStartChild() bool {
 
-	return xPanedGetShrinkStartChild(x.GoPointer())
-
+	cret := xPanedGetShrinkStartChild(x.GoPointer())
+	return cret
 }
 
 var xPanedGetStartChild func(uintptr) uintptr
 
 // Retrieves the start child of the given `GtkPaned`.
 func (x *Paned) GetStartChild() *Widget {
+	var cls *Widget
 
-	GetStartChildPtr := xPanedGetStartChild(x.GoPointer())
-	if GetStartChildPtr == 0 {
-		return nil
+	cret := xPanedGetStartChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStartChildPtr)
-
-	GetStartChildCls := &Widget{}
-	GetStartChildCls.Ptr = GetStartChildPtr
-	return GetStartChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPanedGetWideHandle func(uintptr) bool
@@ -186,8 +185,8 @@ var xPanedGetWideHandle func(uintptr) bool
 // Gets whether the separator should be wide.
 func (x *Paned) GetWideHandle() bool {
 
-	return xPanedGetWideHandle(x.GoPointer())
-
+	cret := xPanedGetWideHandle(x.GoPointer())
+	return cret
 }
 
 var xPanedSetEndChild func(uintptr, uintptr)
@@ -379,8 +378,8 @@ func (x *Paned) ConnectToggleHandleFocus(cb func(Paned) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Paned) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -515,15 +514,15 @@ func (x *Paned) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Paned) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Paned) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

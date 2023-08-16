@@ -72,8 +72,8 @@ var xModuleBuildPath func(string, string) string
 // directory it will return `\Windows\mylibrary.dll`.
 func ModuleBuildPath(DirectoryVar string, ModuleNameVar string) string {
 
-	return xModuleBuildPath(DirectoryVar, ModuleNameVar)
-
+	cret := xModuleBuildPath(DirectoryVar, ModuleNameVar)
+	return cret
 }
 
 var xNewModuleError func() string
@@ -81,8 +81,8 @@ var xNewModuleError func() string
 // Gets a string describing the last module error.
 func NewModuleError() string {
 
-	return xNewModuleError()
-
+	cret := xNewModuleError()
+	return cret
 }
 
 var xModuleSupported func() bool
@@ -90,8 +90,8 @@ var xModuleSupported func() bool
 // Checks if modules are supported on the current platform.
 func ModuleSupported() bool {
 
-	return xModuleSupported()
-
+	cret := xModuleSupported()
+	return cret
 }
 
 func init() {

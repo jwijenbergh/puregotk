@@ -39,14 +39,16 @@ var xNewTextBuffer func(uintptr) uintptr
 
 // Creates a new text buffer.
 func NewTextBuffer(TableVar *TextTagTable) *TextBuffer {
-	NewTextBufferPtr := xNewTextBuffer(TableVar.GoPointer())
-	if NewTextBufferPtr == 0 {
-		return nil
-	}
+	var cls *TextBuffer
 
-	NewTextBufferCls := &TextBuffer{}
-	NewTextBufferCls.Ptr = NewTextBufferPtr
-	return NewTextBufferCls
+	cret := xNewTextBuffer(TableVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferAddMark func(uintptr, uintptr, *TextIter)
@@ -119,8 +121,8 @@ var xTextBufferBackspace func(uintptr, *TextIter, bool, bool) bool
 // re-initialized to point to the location where text was deleted.
 func (x *TextBuffer) Backspace(IterVar *TextIter, InteractiveVar bool, DefaultEditableVar bool) bool {
 
-	return xTextBufferBackspace(x.GoPointer(), IterVar, InteractiveVar, DefaultEditableVar)
-
+	cret := xTextBufferBackspace(x.GoPointer(), IterVar, InteractiveVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferBeginIrreversibleAction func(uintptr)
@@ -188,18 +190,17 @@ var xTextBufferCreateChildAnchor func(uintptr, *TextIter) uintptr
 // The new anchor is owned by the buffer; no reference count is
 // returned to the caller of this function.
 func (x *TextBuffer) CreateChildAnchor(IterVar *TextIter) *TextChildAnchor {
+	var cls *TextChildAnchor
 
-	CreateChildAnchorPtr := xTextBufferCreateChildAnchor(x.GoPointer(), IterVar)
-	if CreateChildAnchorPtr == 0 {
-		return nil
+	cret := xTextBufferCreateChildAnchor(x.GoPointer(), IterVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(CreateChildAnchorPtr)
-
-	CreateChildAnchorCls := &TextChildAnchor{}
-	CreateChildAnchorCls.Ptr = CreateChildAnchorPtr
-	return CreateChildAnchorCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextChildAnchor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferCreateMark func(uintptr, string, *TextIter, bool) uintptr
@@ -224,18 +225,17 @@ var xTextBufferCreateMark func(uintptr, string, *TextIter, bool) uintptr
 // Emits the [signal@Gtk.TextBuffer::mark-set] signal as notification
 // of the mark's initial placement.
 func (x *TextBuffer) CreateMark(MarkNameVar string, WhereVar *TextIter, LeftGravityVar bool) *TextMark {
+	var cls *TextMark
 
-	CreateMarkPtr := xTextBufferCreateMark(x.GoPointer(), MarkNameVar, WhereVar, LeftGravityVar)
-	if CreateMarkPtr == 0 {
-		return nil
+	cret := xTextBufferCreateMark(x.GoPointer(), MarkNameVar, WhereVar, LeftGravityVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(CreateMarkPtr)
-
-	CreateMarkCls := &TextMark{}
-	CreateMarkCls.Ptr = CreateMarkPtr
-	return CreateMarkCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextMark{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferCreateTag func(uintptr, string, string, ...interface{}) uintptr
@@ -254,18 +254,17 @@ var xTextBufferCreateTag func(uintptr, string, string, ...interface{}) uintptr
 // The @first_property_name argument and subsequent arguments are a list
 // of properties to set on the tag, as with g_object_set().
 func (x *TextBuffer) CreateTag(TagNameVar string, FirstPropertyNameVar string, varArgs ...interface{}) *TextTag {
+	var cls *TextTag
 
-	CreateTagPtr := xTextBufferCreateTag(x.GoPointer(), TagNameVar, FirstPropertyNameVar, varArgs...)
-	if CreateTagPtr == 0 {
-		return nil
+	cret := xTextBufferCreateTag(x.GoPointer(), TagNameVar, FirstPropertyNameVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(CreateTagPtr)
-
-	CreateTagCls := &TextTag{}
-	CreateTagCls.Ptr = CreateTagPtr
-	return CreateTagCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextTag{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferCutClipboard func(uintptr, uintptr, bool)
@@ -306,8 +305,8 @@ var xTextBufferDeleteInteractive func(uintptr, *TextIter, *TextIter, bool) bool
 // untouched if no text was deleted.
 func (x *TextBuffer) DeleteInteractive(StartIterVar *TextIter, EndIterVar *TextIter, DefaultEditableVar bool) bool {
 
-	return xTextBufferDeleteInteractive(x.GoPointer(), StartIterVar, EndIterVar, DefaultEditableVar)
-
+	cret := xTextBufferDeleteInteractive(x.GoPointer(), StartIterVar, EndIterVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferDeleteMark func(uintptr, uintptr)
@@ -350,8 +349,8 @@ var xTextBufferDeleteSelection func(uintptr, bool, bool) bool
 // considered (users can’t delete uneditable text).
 func (x *TextBuffer) DeleteSelection(InteractiveVar bool, DefaultEditableVar bool) bool {
 
-	return xTextBufferDeleteSelection(x.GoPointer(), InteractiveVar, DefaultEditableVar)
-
+	cret := xTextBufferDeleteSelection(x.GoPointer(), InteractiveVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferEndIrreversibleAction func(uintptr)
@@ -401,8 +400,8 @@ var xTextBufferGetCanRedo func(uintptr) bool
 // Gets whether there is a redoable action in the history.
 func (x *TextBuffer) GetCanRedo() bool {
 
-	return xTextBufferGetCanRedo(x.GoPointer())
-
+	cret := xTextBufferGetCanRedo(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetCanUndo func(uintptr) bool
@@ -410,8 +409,8 @@ var xTextBufferGetCanUndo func(uintptr) bool
 // Gets whether there is an undoable action in the history.
 func (x *TextBuffer) GetCanUndo() bool {
 
-	return xTextBufferGetCanUndo(x.GoPointer())
-
+	cret := xTextBufferGetCanUndo(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetCharCount func(uintptr) int
@@ -425,8 +424,8 @@ var xTextBufferGetCharCount func(uintptr) int
 // The character count is cached, so this function is very fast.
 func (x *TextBuffer) GetCharCount() int {
 
-	return xTextBufferGetCharCount(x.GoPointer())
-
+	cret := xTextBufferGetCharCount(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetEnableUndo func(uintptr) bool
@@ -439,8 +438,8 @@ var xTextBufferGetEnableUndo func(uintptr) bool
 // changes to the buffer that cannot be undone.
 func (x *TextBuffer) GetEnableUndo() bool {
 
-	return xTextBufferGetEnableUndo(x.GoPointer())
-
+	cret := xTextBufferGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetEndIter func(uintptr, *TextIter)
@@ -464,8 +463,8 @@ var xTextBufferGetHasSelection func(uintptr) bool
 // Indicates whether the buffer has some text currently selected.
 func (x *TextBuffer) GetHasSelection() bool {
 
-	return xTextBufferGetHasSelection(x.GoPointer())
-
+	cret := xTextBufferGetHasSelection(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetInsert func(uintptr) uintptr
@@ -476,18 +475,17 @@ var xTextBufferGetInsert func(uintptr) uintptr
 // to get the mark named “insert”, but very slightly more
 // efficient, and involves less typing.
 func (x *TextBuffer) GetInsert() *TextMark {
+	var cls *TextMark
 
-	GetInsertPtr := xTextBufferGetInsert(x.GoPointer())
-	if GetInsertPtr == 0 {
-		return nil
+	cret := xTextBufferGetInsert(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetInsertPtr)
-
-	GetInsertCls := &TextMark{}
-	GetInsertCls.Ptr = GetInsertPtr
-	return GetInsertCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextMark{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferGetIterAtChildAnchor func(uintptr, *TextIter, uintptr)
@@ -507,8 +505,8 @@ var xTextBufferGetIterAtLine func(uintptr, *TextIter, int) bool
 // in the @buffer, the end iterator is returned.
 func (x *TextBuffer) GetIterAtLine(IterVar *TextIter, LineNumberVar int) bool {
 
-	return xTextBufferGetIterAtLine(x.GoPointer(), IterVar, LineNumberVar)
-
+	cret := xTextBufferGetIterAtLine(x.GoPointer(), IterVar, LineNumberVar)
+	return cret
 }
 
 var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int, int) bool
@@ -523,8 +521,8 @@ var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int, int) bool
 // end of the line, the iterator at the end of the line is returned.
 func (x *TextBuffer) GetIterAtLineIndex(IterVar *TextIter, LineNumberVar int, ByteIndexVar int) bool {
 
-	return xTextBufferGetIterAtLineIndex(x.GoPointer(), IterVar, LineNumberVar, ByteIndexVar)
-
+	cret := xTextBufferGetIterAtLineIndex(x.GoPointer(), IterVar, LineNumberVar, ByteIndexVar)
+	return cret
 }
 
 var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int, int) bool
@@ -539,8 +537,8 @@ var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int, int) bool
 // end of the line, the iterator at the end of the line is returned.
 func (x *TextBuffer) GetIterAtLineOffset(IterVar *TextIter, LineNumberVar int, CharOffsetVar int) bool {
 
-	return xTextBufferGetIterAtLineOffset(x.GoPointer(), IterVar, LineNumberVar, CharOffsetVar)
-
+	cret := xTextBufferGetIterAtLineOffset(x.GoPointer(), IterVar, LineNumberVar, CharOffsetVar)
+	return cret
 }
 
 var xTextBufferGetIterAtMark func(uintptr, *TextIter, uintptr)
@@ -573,8 +571,8 @@ var xTextBufferGetLineCount func(uintptr) int
 // This value is cached, so the function is very fast.
 func (x *TextBuffer) GetLineCount() int {
 
-	return xTextBufferGetLineCount(x.GoPointer())
-
+	cret := xTextBufferGetLineCount(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetMark func(uintptr, string) uintptr
@@ -582,18 +580,17 @@ var xTextBufferGetMark func(uintptr, string) uintptr
 // Returns the mark named @name in buffer @buffer, or %NULL if no such
 // mark exists in the buffer.
 func (x *TextBuffer) GetMark(NameVar string) *TextMark {
+	var cls *TextMark
 
-	GetMarkPtr := xTextBufferGetMark(x.GoPointer(), NameVar)
-	if GetMarkPtr == 0 {
-		return nil
+	cret := xTextBufferGetMark(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMarkPtr)
-
-	GetMarkCls := &TextMark{}
-	GetMarkCls.Ptr = GetMarkPtr
-	return GetMarkCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextMark{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferGetMaxUndoLevels func(uintptr) uint
@@ -605,8 +602,8 @@ var xTextBufferGetMaxUndoLevels func(uintptr) uint
 // copy of the inserted or removed text within the text buffer.
 func (x *TextBuffer) GetMaxUndoLevels() uint {
 
-	return xTextBufferGetMaxUndoLevels(x.GoPointer())
-
+	cret := xTextBufferGetMaxUndoLevels(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetModified func(uintptr) bool
@@ -618,8 +615,8 @@ var xTextBufferGetModified func(uintptr) bool
 // Used for example to enable a “save” function in a text editor.
 func (x *TextBuffer) GetModified() bool {
 
-	return xTextBufferGetModified(x.GoPointer())
-
+	cret := xTextBufferGetModified(x.GoPointer())
+	return cret
 }
 
 var xTextBufferGetSelectionBound func(uintptr) uintptr
@@ -637,18 +634,17 @@ var xTextBufferGetSelectionBound func(uintptr) uintptr
 // function for handling the selection, if you just want to know whether
 // there’s a selection and what its bounds are.
 func (x *TextBuffer) GetSelectionBound() *TextMark {
+	var cls *TextMark
 
-	GetSelectionBoundPtr := xTextBufferGetSelectionBound(x.GoPointer())
-	if GetSelectionBoundPtr == 0 {
-		return nil
+	cret := xTextBufferGetSelectionBound(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectionBoundPtr)
-
-	GetSelectionBoundCls := &TextMark{}
-	GetSelectionBoundCls.Ptr = GetSelectionBoundPtr
-	return GetSelectionBoundCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextMark{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferGetSelectionBounds func(uintptr, *TextIter, *TextIter) bool
@@ -662,8 +658,8 @@ var xTextBufferGetSelectionBounds func(uintptr, *TextIter, *TextIter) bool
 // return value still indicates whether text is selected.
 func (x *TextBuffer) GetSelectionBounds(StartVar *TextIter, EndVar *TextIter) bool {
 
-	return xTextBufferGetSelectionBounds(x.GoPointer(), StartVar, EndVar)
-
+	cret := xTextBufferGetSelectionBounds(x.GoPointer(), StartVar, EndVar)
+	return cret
 }
 
 var xTextBufferGetSelectionContent func(uintptr) uintptr
@@ -673,16 +669,16 @@ var xTextBufferGetSelectionContent func(uintptr) uintptr
 // It can be used to make the content of @buffer available
 // in a `GdkClipboard`, see [method@Gdk.Clipboard.set_content].
 func (x *TextBuffer) GetSelectionContent() *gdk.ContentProvider {
+	var cls *gdk.ContentProvider
 
-	GetSelectionContentPtr := xTextBufferGetSelectionContent(x.GoPointer())
-	if GetSelectionContentPtr == 0 {
-		return nil
+	cret := xTextBufferGetSelectionContent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSelectionContentCls := &gdk.ContentProvider{}
-	GetSelectionContentCls.Ptr = GetSelectionContentPtr
-	return GetSelectionContentCls
-
+	cls = &gdk.ContentProvider{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferGetSlice func(uintptr, *TextIter, *TextIter, bool) string
@@ -699,8 +695,8 @@ var xTextBufferGetSlice func(uintptr, *TextIter, *TextIter, bool) string
 // reliable indicator that a paintable or widget is in the buffer.
 func (x *TextBuffer) GetSlice(StartVar *TextIter, EndVar *TextIter, IncludeHiddenCharsVar bool) string {
 
-	return xTextBufferGetSlice(x.GoPointer(), StartVar, EndVar, IncludeHiddenCharsVar)
-
+	cret := xTextBufferGetSlice(x.GoPointer(), StartVar, EndVar, IncludeHiddenCharsVar)
+	return cret
 }
 
 var xTextBufferGetStartIter func(uintptr, *TextIter)
@@ -719,18 +715,17 @@ var xTextBufferGetTagTable func(uintptr) uintptr
 
 // Get the `GtkTextTagTable` associated with this buffer.
 func (x *TextBuffer) GetTagTable() *TextTagTable {
+	var cls *TextTagTable
 
-	GetTagTablePtr := xTextBufferGetTagTable(x.GoPointer())
-	if GetTagTablePtr == 0 {
-		return nil
+	cret := xTextBufferGetTagTable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTagTablePtr)
-
-	GetTagTableCls := &TextTagTable{}
-	GetTagTableCls.Ptr = GetTagTablePtr
-	return GetTagTableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextTagTable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextBufferGetText func(uintptr, *TextIter, *TextIter, bool) string
@@ -745,8 +740,8 @@ var xTextBufferGetText func(uintptr, *TextIter, *TextIter, bool) string
 // Contrast with [method@Gtk.TextBuffer.get_slice].
 func (x *TextBuffer) GetText(StartVar *TextIter, EndVar *TextIter, IncludeHiddenCharsVar bool) string {
 
-	return xTextBufferGetText(x.GoPointer(), StartVar, EndVar, IncludeHiddenCharsVar)
-
+	cret := xTextBufferGetText(x.GoPointer(), StartVar, EndVar, IncludeHiddenCharsVar)
+	return cret
 }
 
 var xTextBufferInsert func(uintptr, *TextIter, string, int)
@@ -812,8 +807,8 @@ var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int, bool) boo
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
 func (x *TextBuffer) InsertInteractive(IterVar *TextIter, TextVar string, LenVar int, DefaultEditableVar bool) bool {
 
-	return xTextBufferInsertInteractive(x.GoPointer(), IterVar, TextVar, LenVar, DefaultEditableVar)
-
+	cret := xTextBufferInsertInteractive(x.GoPointer(), IterVar, TextVar, LenVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int, bool) bool
@@ -828,8 +823,8 @@ var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int, bool) bool
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
 func (x *TextBuffer) InsertInteractiveAtCursor(TextVar string, LenVar int, DefaultEditableVar bool) bool {
 
-	return xTextBufferInsertInteractiveAtCursor(x.GoPointer(), TextVar, LenVar, DefaultEditableVar)
-
+	cret := xTextBufferInsertInteractiveAtCursor(x.GoPointer(), TextVar, LenVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int)
@@ -894,8 +889,8 @@ var xTextBufferInsertRangeInteractive func(uintptr, *TextIter, *TextIter, *TextI
 // of [method@Gtk.TextView.get_editable] is appropriate here.
 func (x *TextBuffer) InsertRangeInteractive(IterVar *TextIter, StartVar *TextIter, EndVar *TextIter, DefaultEditableVar bool) bool {
 
-	return xTextBufferInsertRangeInteractive(x.GoPointer(), IterVar, StartVar, EndVar, DefaultEditableVar)
-
+	cret := xTextBufferInsertRangeInteractive(x.GoPointer(), IterVar, StartVar, EndVar, DefaultEditableVar)
+	return cret
 }
 
 var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int, uintptr, ...interface{})

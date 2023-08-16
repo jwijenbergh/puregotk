@@ -205,7 +205,7 @@ func BusGet(BusTypeVar BusType, CancellableVar *Cancellable, CallbackVar AsyncRe
 
 }
 
-var xBusGetFinish func(uintptr) uintptr
+var xBusGetFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_bus_get().
 //
@@ -219,20 +219,25 @@ var xBusGetFinish func(uintptr) uintptr
 //
 // Note that the returned #GDBusConnection object will (usually) have
 // the #GDBusConnection:exit-on-close property set to %TRUE.
-func BusGetFinish(ResVar AsyncResult) *DBusConnection {
+func BusGetFinish(ResVar AsyncResult) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	BusGetFinishPtr := xBusGetFinish(ResVar.GoPointer())
-	if BusGetFinishPtr == 0 {
-		return nil
+	cret := xBusGetFinish(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	BusGetFinishCls := &DBusConnection{}
-	BusGetFinishCls.Ptr = BusGetFinishPtr
-	return BusGetFinishCls
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xBusGetSync func(BusType, uintptr) uintptr
+var xBusGetSync func(BusType, uintptr, **glib.Error) uintptr
 
 // Synchronously connects to the message bus specified by @bus_type.
 // Note that the returned object may shared with other callers,
@@ -252,16 +257,21 @@ var xBusGetSync func(BusType, uintptr) uintptr
 //
 // Note that the returned #GDBusConnection object will (usually) have
 // the #GDBusConnection:exit-on-close property set to %TRUE.
-func BusGetSync(BusTypeVar BusType, CancellableVar *Cancellable) *DBusConnection {
+func BusGetSync(BusTypeVar BusType, CancellableVar *Cancellable) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	BusGetSyncPtr := xBusGetSync(BusTypeVar, CancellableVar.GoPointer())
-	if BusGetSyncPtr == 0 {
-		return nil
+	cret := xBusGetSync(BusTypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	BusGetSyncCls := &DBusConnection{}
-	BusGetSyncCls.Ptr = BusGetSyncPtr
-	return BusGetSyncCls
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

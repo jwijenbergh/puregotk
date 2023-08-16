@@ -58,8 +58,8 @@ var xDatalistGetData func(**Data, string) uintptr
 // g_datalist_id_get_data() because it compares strings.
 func DatalistGetData(DatalistVar **Data, KeyVar string) uintptr {
 
-	return xDatalistGetData(DatalistVar, KeyVar)
-
+	cret := xDatalistGetData(DatalistVar, KeyVar)
+	return cret
 }
 
 var xDatalistGetFlags func(**Data) uint
@@ -68,8 +68,8 @@ var xDatalistGetFlags func(**Data) uint
 // See g_datalist_set_flags().
 func DatalistGetFlags(DatalistVar **Data) uint {
 
-	return xDatalistGetFlags(DatalistVar)
-
+	cret := xDatalistGetFlags(DatalistVar)
+	return cret
 }
 
 var xDatalistIdDupData func(**Data, Quark, uintptr, uintptr) uintptr
@@ -89,8 +89,8 @@ var xDatalistIdDupData func(**Data, Quark, uintptr, uintptr) uintptr
 // threads are using the same datalist and the same key.
 func DatalistIdDupData(DatalistVar **Data, KeyIdVar Quark, DupFuncVar DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	return xDatalistIdDupData(DatalistVar, KeyIdVar, purego.NewCallback(DupFuncVar), UserDataVar)
-
+	cret := xDatalistIdDupData(DatalistVar, KeyIdVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	return cret
 }
 
 var xDatalistIdGetData func(**Data, Quark) uintptr
@@ -98,8 +98,8 @@ var xDatalistIdGetData func(**Data, Quark) uintptr
 // Retrieves the data element corresponding to @key_id.
 func DatalistIdGetData(DatalistVar **Data, KeyIdVar Quark) uintptr {
 
-	return xDatalistIdGetData(DatalistVar, KeyIdVar)
-
+	cret := xDatalistIdGetData(DatalistVar, KeyIdVar)
+	return cret
 }
 
 var xDatalistIdRemoveNoNotify func(**Data, Quark) uintptr
@@ -108,8 +108,8 @@ var xDatalistIdRemoveNoNotify func(**Data, Quark) uintptr
 // function.
 func DatalistIdRemoveNoNotify(DatalistVar **Data, KeyIdVar Quark) uintptr {
 
-	return xDatalistIdRemoveNoNotify(DatalistVar, KeyIdVar)
-
+	cret := xDatalistIdRemoveNoNotify(DatalistVar, KeyIdVar)
+	return cret
 }
 
 var xDatalistIdReplaceData func(**Data, Quark, uintptr, uintptr, uintptr, uintptr) bool
@@ -129,8 +129,8 @@ var xDatalistIdReplaceData func(**Data, Quark, uintptr, uintptr, uintptr, uintpt
 // should not destroy the object in the normal way.
 func DatalistIdReplaceData(DatalistVar **Data, KeyIdVar Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar DestroyNotify, OldDestroyVar DestroyNotify) bool {
 
-	return xDatalistIdReplaceData(DatalistVar, KeyIdVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
-
+	cret := xDatalistIdReplaceData(DatalistVar, KeyIdVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	return cret
 }
 
 var xDatalistIdSetDataFull func(**Data, Quark, uintptr, uintptr)
@@ -209,8 +209,8 @@ var xDatasetIdGetData func(uintptr, Quark) uintptr
 // Gets the data element corresponding to a #GQuark.
 func DatasetIdGetData(DatasetLocationVar uintptr, KeyIdVar Quark) uintptr {
 
-	return xDatasetIdGetData(DatasetLocationVar, KeyIdVar)
-
+	cret := xDatasetIdGetData(DatasetLocationVar, KeyIdVar)
+	return cret
 }
 
 var xDatasetIdRemoveNoNotify func(uintptr, Quark) uintptr
@@ -219,8 +219,8 @@ var xDatasetIdRemoveNoNotify func(uintptr, Quark) uintptr
 // function.
 func DatasetIdRemoveNoNotify(DatasetLocationVar uintptr, KeyIdVar Quark) uintptr {
 
-	return xDatasetIdRemoveNoNotify(DatasetLocationVar, KeyIdVar)
-
+	cret := xDatasetIdRemoveNoNotify(DatasetLocationVar, KeyIdVar)
+	return cret
 }
 
 var xDatasetIdSetDataFull func(uintptr, Quark, uintptr, uintptr)

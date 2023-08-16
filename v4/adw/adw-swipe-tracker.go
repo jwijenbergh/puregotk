@@ -36,14 +36,16 @@ var xNewSwipeTracker func(uintptr) uintptr
 
 // Creates a new `AdwSwipeTracker` for @widget.
 func NewSwipeTracker(SwipeableVar Swipeable) *SwipeTracker {
-	NewSwipeTrackerPtr := xNewSwipeTracker(SwipeableVar.GoPointer())
-	if NewSwipeTrackerPtr == 0 {
-		return nil
-	}
+	var cls *SwipeTracker
 
-	NewSwipeTrackerCls := &SwipeTracker{}
-	NewSwipeTrackerCls.Ptr = NewSwipeTrackerPtr
-	return NewSwipeTrackerCls
+	cret := xNewSwipeTracker(SwipeableVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SwipeTracker{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSwipeTrackerGetAllowLongSwipes func(uintptr) bool
@@ -51,8 +53,8 @@ var xSwipeTrackerGetAllowLongSwipes func(uintptr) bool
 // Gets whether to allow swiping for more than one snap point at a time.
 func (x *SwipeTracker) GetAllowLongSwipes() bool {
 
-	return xSwipeTrackerGetAllowLongSwipes(x.GoPointer())
-
+	cret := xSwipeTrackerGetAllowLongSwipes(x.GoPointer())
+	return cret
 }
 
 var xSwipeTrackerGetAllowMouseDrag func(uintptr) bool
@@ -60,8 +62,8 @@ var xSwipeTrackerGetAllowMouseDrag func(uintptr) bool
 // Gets whether @self can be dragged with mouse pointer.
 func (x *SwipeTracker) GetAllowMouseDrag() bool {
 
-	return xSwipeTrackerGetAllowMouseDrag(x.GoPointer())
-
+	cret := xSwipeTrackerGetAllowMouseDrag(x.GoPointer())
+	return cret
 }
 
 var xSwipeTrackerGetEnabled func(uintptr) bool
@@ -69,8 +71,8 @@ var xSwipeTrackerGetEnabled func(uintptr) bool
 // Gets whether @self is enabled.
 func (x *SwipeTracker) GetEnabled() bool {
 
-	return xSwipeTrackerGetEnabled(x.GoPointer())
-
+	cret := xSwipeTrackerGetEnabled(x.GoPointer())
+	return cret
 }
 
 var xSwipeTrackerGetReversed func(uintptr) bool
@@ -78,26 +80,25 @@ var xSwipeTrackerGetReversed func(uintptr) bool
 // Gets whether @self is reversing the swipe direction.
 func (x *SwipeTracker) GetReversed() bool {
 
-	return xSwipeTrackerGetReversed(x.GoPointer())
-
+	cret := xSwipeTrackerGetReversed(x.GoPointer())
+	return cret
 }
 
 var xSwipeTrackerGetSwipeable func(uintptr) uintptr
 
 // Get the widget @self is attached to.
 func (x *SwipeTracker) GetSwipeable() *SwipeableBase {
+	var cls *SwipeableBase
 
-	GetSwipeablePtr := xSwipeTrackerGetSwipeable(x.GoPointer())
-	if GetSwipeablePtr == 0 {
-		return nil
+	cret := xSwipeTrackerGetSwipeable(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSwipeablePtr)
-
-	GetSwipeableCls := &SwipeableBase{}
-	GetSwipeableCls.Ptr = GetSwipeablePtr
-	return GetSwipeableCls
-
+	gobject.IncreaseRef(cret)
+	cls = &SwipeableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSwipeTrackerSetAllowLongSwipes func(uintptr, bool)
@@ -225,8 +226,8 @@ func (x *SwipeTracker) ConnectUpdateSwipe(cb func(SwipeTracker, float64)) {
 // Retrieves the orientation of the @orientable.
 func (x *SwipeTracker) GetOrientation() gtk.Orientation {
 
-	return gtk.XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := gtk.XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

@@ -38,16 +38,17 @@ var xNewAppChooserDialog func(uintptr, DialogFlags, uintptr) uintptr
 //
 // The dialog will show applications that can open the file.
 func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.File) *Widget {
-	NewAppChooserDialogPtr := xNewAppChooserDialog(ParentVar.GoPointer(), FlagsVar, FileVar.GoPointer())
-	if NewAppChooserDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAppChooserDialog(ParentVar.GoPointer(), FlagsVar, FileVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAppChooserDialogPtr)
-
-	NewAppChooserDialogCls := &Widget{}
-	NewAppChooserDialogCls.Ptr = NewAppChooserDialogPtr
-	return NewAppChooserDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForContentTypeAppChooserDialog func(uintptr, DialogFlags, string) uintptr
@@ -56,16 +57,17 @@ var xNewForContentTypeAppChooserDialog func(uintptr, DialogFlags, string) uintpt
 //
 // The dialog will show applications that can open the content type.
 func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, ContentTypeVar string) *Widget {
-	NewForContentTypeAppChooserDialogPtr := xNewForContentTypeAppChooserDialog(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
-	if NewForContentTypeAppChooserDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForContentTypeAppChooserDialog(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForContentTypeAppChooserDialogPtr)
-
-	NewForContentTypeAppChooserDialogCls := &Widget{}
-	NewForContentTypeAppChooserDialogCls.Ptr = NewForContentTypeAppChooserDialogPtr
-	return NewForContentTypeAppChooserDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppChooserDialogGetHeading func(uintptr) string
@@ -73,26 +75,25 @@ var xAppChooserDialogGetHeading func(uintptr) string
 // Returns the text to display at the top of the dialog.
 func (x *AppChooserDialog) GetHeading() string {
 
-	return xAppChooserDialogGetHeading(x.GoPointer())
-
+	cret := xAppChooserDialogGetHeading(x.GoPointer())
+	return cret
 }
 
 var xAppChooserDialogGetWidget func(uintptr) uintptr
 
 // Returns the `GtkAppChooserWidget` of this dialog.
 func (x *AppChooserDialog) GetWidget() *Widget {
+	var cls *Widget
 
-	GetWidgetPtr := xAppChooserDialogGetWidget(x.GoPointer())
-	if GetWidgetPtr == 0 {
-		return nil
+	cret := xAppChooserDialogGetWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetPtr)
-
-	GetWidgetCls := &Widget{}
-	GetWidgetCls.Ptr = GetWidgetPtr
-	return GetWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppChooserDialogSetHeading func(uintptr, string)
@@ -117,8 +118,8 @@ func (c *AppChooserDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AppChooserDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -249,24 +250,24 @@ func (x *AppChooserDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, V
 
 // Returns the currently selected application.
 func (x *AppChooserDialog) GetAppInfo() *gio.AppInfoBase {
+	var cls *gio.AppInfoBase
 
-	GetAppInfoPtr := XGtkAppChooserGetAppInfo(x.GoPointer())
-	if GetAppInfoPtr == 0 {
-		return nil
+	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetAppInfoCls := &gio.AppInfoBase{}
-	GetAppInfoCls.Ptr = GetAppInfoPtr
-	return GetAppInfoCls
-
+	cls = &gio.AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the content type for which the `GtkAppChooser`
 // shows applications.
 func (x *AppChooserDialog) GetContentType() string {
 
-	return XGtkAppChooserGetContentType(x.GoPointer())
-
+	cret := XGtkAppChooserGetContentType(x.GoPointer())
+	return cret
 }
 
 // Reloads the list of applications.
@@ -282,40 +283,38 @@ func (x *AppChooserDialog) Refresh() {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AppChooserDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *AppChooserDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *AppChooserDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -348,18 +347,17 @@ func (x *AppChooserDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *AppChooserDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -369,18 +367,17 @@ func (x *AppChooserDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *AppChooserDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

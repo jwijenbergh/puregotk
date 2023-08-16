@@ -27,8 +27,8 @@ var xDistributeNaturalAllocation func(int, uint, uintptr) int
 // the remaining space is returned.
 func DistributeNaturalAllocation(ExtraSpaceVar int, NRequestedSizesVar uint, SizesVar uintptr) int {
 
-	return xDistributeNaturalAllocation(ExtraSpaceVar, NRequestedSizesVar, SizesVar)
-
+	cret := xDistributeNaturalAllocation(ExtraSpaceVar, NRequestedSizesVar, SizesVar)
+	return cret
 }
 
 func init() {

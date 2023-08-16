@@ -56,30 +56,32 @@ var xNewCoverage func() uintptr
 
 // Create a new `PangoCoverage`
 func NewCoverage() *Coverage {
-	NewCoveragePtr := xNewCoverage()
-	if NewCoveragePtr == 0 {
-		return nil
-	}
+	var cls *Coverage
 
-	NewCoverageCls := &Coverage{}
-	NewCoverageCls.Ptr = NewCoveragePtr
-	return NewCoverageCls
+	cret := xNewCoverage()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Coverage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCoverageCopy func(uintptr) uintptr
 
 // Copy an existing `PangoCoverage`.
 func (x *Coverage) Copy() *Coverage {
+	var cls *Coverage
 
-	CopyPtr := xCoverageCopy(x.GoPointer())
-	if CopyPtr == 0 {
-		return nil
+	cret := xCoverageCopy(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CopyCls := &Coverage{}
-	CopyCls.Ptr = CopyPtr
-	return CopyCls
-
+	cls = &Coverage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCoverageGet func(uintptr, int) CoverageLevel
@@ -87,8 +89,8 @@ var xCoverageGet func(uintptr, int) CoverageLevel
 // Determine whether a particular index is covered by @coverage.
 func (x *Coverage) Get(IndexVar int) CoverageLevel {
 
-	return xCoverageGet(x.GoPointer(), IndexVar)
-
+	cret := xCoverageGet(x.GoPointer(), IndexVar)
+	return cret
 }
 
 var xCoverageMax func(uintptr, uintptr)
@@ -106,16 +108,16 @@ var xCoverageRef func(uintptr) uintptr
 
 // Increase the reference count on the `PangoCoverage` by one.
 func (x *Coverage) Ref() *Coverage {
+	var cls *Coverage
 
-	RefPtr := xCoverageRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xCoverageRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefCls := &Coverage{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	cls = &Coverage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCoverageSet func(uintptr, int, CoverageLevel)

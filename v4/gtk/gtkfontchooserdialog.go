@@ -39,16 +39,17 @@ var xNewFontChooserDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkFontChooserDialog`.
 func NewFontChooserDialog(TitleVar string, ParentVar *Window) *Widget {
-	NewFontChooserDialogPtr := xNewFontChooserDialog(TitleVar, ParentVar.GoPointer())
-	if NewFontChooserDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFontChooserDialog(TitleVar, ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFontChooserDialogPtr)
-
-	NewFontChooserDialogCls := &Widget{}
-	NewFontChooserDialogCls.Ptr = NewFontChooserDialogPtr
-	return NewFontChooserDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FontChooserDialog) GoPointer() uintptr {
@@ -62,8 +63,8 @@ func (c *FontChooserDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *FontChooserDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -198,8 +199,8 @@ func (x *FontChooserDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *FontChooserDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Gets the currently-selected font name.
@@ -214,8 +215,8 @@ func (x *FontChooserDialog) GetBuildableId() string {
 // font descriptions.
 func (x *FontChooserDialog) GetFont() string {
 
-	return XGtkFontChooserGetFont(x.GoPointer())
-
+	cret := XGtkFontChooserGetFont(x.GoPointer())
+	return cret
 }
 
 // Gets the currently-selected font.
@@ -230,8 +231,8 @@ func (x *FontChooserDialog) GetFont() string {
 // font descriptions.
 func (x *FontChooserDialog) GetFontDesc() *pango.FontDescription {
 
-	return XGtkFontChooserGetFontDesc(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontDesc(x.GoPointer())
+	return cret
 }
 
 // Gets the `PangoFontFace` representing the selected font group
@@ -239,18 +240,17 @@ func (x *FontChooserDialog) GetFontDesc() *pango.FontDescription {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserDialog) GetFontFace() *pango.FontFace {
+	var cls *pango.FontFace
 
-	GetFontFacePtr := XGtkFontChooserGetFontFace(x.GoPointer())
-	if GetFontFacePtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFace(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFacePtr)
-
-	GetFontFaceCls := &pango.FontFace{}
-	GetFontFaceCls.Ptr = GetFontFacePtr
-	return GetFontFaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFace{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the `PangoFontFamily` representing the selected font family.
@@ -259,18 +259,17 @@ func (x *FontChooserDialog) GetFontFace() *pango.FontFace {
 //
 // If the selected font is not installed, returns %NULL.
 func (x *FontChooserDialog) GetFontFamily() *pango.FontFamily {
+	var cls *pango.FontFamily
 
-	GetFontFamilyPtr := XGtkFontChooserGetFontFamily(x.GoPointer())
-	if GetFontFamilyPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontFamily(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontFamilyPtr)
-
-	GetFontFamilyCls := &pango.FontFamily{}
-	GetFontFamilyCls.Ptr = GetFontFamilyPtr
-	return GetFontFamilyCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.FontFamily{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the currently-selected font features.
@@ -280,58 +279,58 @@ func (x *FontChooserDialog) GetFontFamily() *pango.FontFamily {
 // It can be passed to [func@Pango.AttrFontFeatures.new].
 func (x *FontChooserDialog) GetFontFeatures() string {
 
-	return XGtkFontChooserGetFontFeatures(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontFeatures(x.GoPointer())
+	return cret
 }
 
 // Gets the custom font map of this font chooser widget,
 // or %NULL if it does not have one.
 func (x *FontChooserDialog) GetFontMap() *pango.FontMap {
+	var cls *pango.FontMap
 
-	GetFontMapPtr := XGtkFontChooserGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := XGtkFontChooserGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFontMapCls := &pango.FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	cls = &pango.FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 // The selected font size.
 func (x *FontChooserDialog) GetFontSize() int {
 
-	return XGtkFontChooserGetFontSize(x.GoPointer())
-
+	cret := XGtkFontChooserGetFontSize(x.GoPointer())
+	return cret
 }
 
 // Gets the language that is used for font features.
 func (x *FontChooserDialog) GetLanguage() string {
 
-	return XGtkFontChooserGetLanguage(x.GoPointer())
-
+	cret := XGtkFontChooserGetLanguage(x.GoPointer())
+	return cret
 }
 
 // Returns the current level of granularity for selecting fonts.
 func (x *FontChooserDialog) GetLevel() FontChooserLevel {
 
-	return XGtkFontChooserGetLevel(x.GoPointer())
-
+	cret := XGtkFontChooserGetLevel(x.GoPointer())
+	return cret
 }
 
 // Gets the text displayed in the preview area.
 func (x *FontChooserDialog) GetPreviewText() string {
 
-	return XGtkFontChooserGetPreviewText(x.GoPointer())
-
+	cret := XGtkFontChooserGetPreviewText(x.GoPointer())
+	return cret
 }
 
 // Returns whether the preview entry is shown or not.
 func (x *FontChooserDialog) GetShowPreviewEntry() bool {
 
-	return XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
-
+	cret := XGtkFontChooserGetShowPreviewEntry(x.GoPointer())
+	return cret
 }
 
 // Adds a filter function that decides which fonts to display
@@ -419,34 +418,32 @@ func (x *FontChooserDialog) SetShowPreviewEntry(ShowPreviewEntryVar bool) {
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *FontChooserDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *FontChooserDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -479,18 +476,17 @@ func (x *FontChooserDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *FontChooserDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -500,18 +496,17 @@ func (x *FontChooserDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *FontChooserDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

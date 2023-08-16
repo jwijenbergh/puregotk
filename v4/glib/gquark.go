@@ -22,8 +22,8 @@ var xInternStaticString func(string) string
 // variables in C++.
 func InternStaticString(StringVar string) string {
 
-	return xInternStaticString(StringVar)
-
+	cret := xInternStaticString(StringVar)
+	return cret
 }
 
 var xInternString func(string) string
@@ -37,8 +37,8 @@ var xInternString func(string) string
 // variables in C++.
 func InternString(StringVar string) string {
 
-	return xInternString(StringVar)
-
+	cret := xInternString(StringVar)
+	return cret
 }
 
 var xQuarkFromStaticString func(string) Quark
@@ -61,8 +61,8 @@ var xQuarkFromStaticString func(string) Quark
 // variables in C++.
 func QuarkFromStaticString(StringVar string) Quark {
 
-	return xQuarkFromStaticString(StringVar)
-
+	cret := xQuarkFromStaticString(StringVar)
+	return cret
 }
 
 var xQuarkFromString func(string) Quark
@@ -76,8 +76,8 @@ var xQuarkFromString func(string) Quark
 // variables in C++.
 func QuarkFromString(StringVar string) Quark {
 
-	return xQuarkFromString(StringVar)
-
+	cret := xQuarkFromString(StringVar)
+	return cret
 }
 
 var xQuarkToString func(Quark) string
@@ -85,8 +85,8 @@ var xQuarkToString func(Quark) string
 // Gets the string associated with the given #GQuark.
 func QuarkToString(QuarkVar Quark) string {
 
-	return xQuarkToString(QuarkVar)
-
+	cret := xQuarkToString(QuarkVar)
+	return cret
 }
 
 var xQuarkTryString func(string) Quark
@@ -101,8 +101,8 @@ var xQuarkTryString func(string) Quark
 // running.
 func QuarkTryString(StringVar string) Quark {
 
-	return xQuarkTryString(StringVar)
-
+	cret := xQuarkTryString(StringVar)
+	return cret
 }
 
 func init() {

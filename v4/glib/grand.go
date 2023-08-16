@@ -16,8 +16,8 @@ var xRandomDouble func() float64
 // Returns a random #gdouble equally distributed over the range [0..1).
 func RandomDouble() float64 {
 
-	return xRandomDouble()
-
+	cret := xRandomDouble()
+	return cret
 }
 
 var xRandomDoubleRange func(float64, float64) float64
@@ -26,8 +26,8 @@ var xRandomDoubleRange func(float64, float64) float64
 // [@begin..@end).
 func RandomDoubleRange(BeginVar float64, EndVar float64) float64 {
 
-	return xRandomDoubleRange(BeginVar, EndVar)
-
+	cret := xRandomDoubleRange(BeginVar, EndVar)
+	return cret
 }
 
 var xRandomInt func() uint32
@@ -36,8 +36,8 @@ var xRandomInt func() uint32
 // [0..2^32-1].
 func RandomInt() uint32 {
 
-	return xRandomInt()
-
+	cret := xRandomInt()
+	return cret
 }
 
 var xRandomIntRange func(int32, int32) int32
@@ -46,8 +46,8 @@ var xRandomIntRange func(int32, int32) int32
 // [@begin..@end-1].
 func RandomIntRange(BeginVar int32, EndVar int32) int32 {
 
-	return xRandomIntRange(BeginVar, EndVar)
-
+	cret := xRandomIntRange(BeginVar, EndVar)
+	return cret
 }
 
 var xRandomSetSeed func(uint32)

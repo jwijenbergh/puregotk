@@ -42,18 +42,17 @@ var xAppLaunchContextGetDisplay func(uintptr) uintptr
 
 // Gets the `GdkDisplay` that @context is for.
 func (x *AppLaunchContext) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xAppLaunchContextGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xAppLaunchContextGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAppLaunchContextSetDesktop func(uintptr, int)

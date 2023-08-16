@@ -61,14 +61,16 @@ var xNewSocketService func() uintptr
 // g_socket_service_start(), unless g_socket_service_stop() has been
 // called before.
 func NewSocketService() *SocketService {
-	NewSocketServicePtr := xNewSocketService()
-	if NewSocketServicePtr == 0 {
-		return nil
-	}
+	var cls *SocketService
 
-	NewSocketServiceCls := &SocketService{}
-	NewSocketServiceCls.Ptr = NewSocketServicePtr
-	return NewSocketServiceCls
+	cret := xNewSocketService()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SocketService{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSocketServiceIsActive func(uintptr) bool
@@ -79,8 +81,8 @@ var xSocketServiceIsActive func(uintptr) bool
 // up until the service is started.
 func (x *SocketService) IsActive() bool {
 
-	return xSocketServiceIsActive(x.GoPointer())
-
+	cret := xSocketServiceIsActive(x.GoPointer())
+	return cret
 }
 
 var xSocketServiceStart func(uintptr)

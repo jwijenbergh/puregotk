@@ -29,14 +29,16 @@ var xNewEventControllerLegacy func() uintptr
 
 // Creates a new legacy event controller.
 func NewEventControllerLegacy() *EventController {
-	NewEventControllerLegacyPtr := xNewEventControllerLegacy()
-	if NewEventControllerLegacyPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewEventControllerLegacyCls := &EventController{}
-	NewEventControllerLegacyCls.Ptr = NewEventControllerLegacyPtr
-	return NewEventControllerLegacyCls
+	cret := xNewEventControllerLegacy()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *EventControllerLegacy) GoPointer() uintptr {

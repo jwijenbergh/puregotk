@@ -50,14 +50,16 @@ var xNewTextTagTable func() uintptr
 //
 // The table contains no tags by default.
 func NewTextTagTable() *TextTagTable {
-	NewTextTagTablePtr := xNewTextTagTable()
-	if NewTextTagTablePtr == 0 {
-		return nil
-	}
+	var cls *TextTagTable
 
-	NewTextTagTableCls := &TextTagTable{}
-	NewTextTagTableCls.Ptr = NewTextTagTablePtr
-	return NewTextTagTableCls
+	cret := xNewTextTagTable()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextTagTable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextTagTableAdd func(uintptr, uintptr) bool
@@ -70,8 +72,8 @@ var xTextTagTableAdd func(uintptr, uintptr) bool
 // the same name as an already-added tag.
 func (x *TextTagTable) Add(TagVar *TextTag) bool {
 
-	return xTextTagTableAdd(x.GoPointer(), TagVar.GoPointer())
-
+	cret := xTextTagTableAdd(x.GoPointer(), TagVar.GoPointer())
+	return cret
 }
 
 var xTextTagTableForeach func(uintptr, uintptr, uintptr)
@@ -91,26 +93,25 @@ var xTextTagTableGetSize func(uintptr) int
 // Returns the size of the table (number of tags)
 func (x *TextTagTable) GetSize() int {
 
-	return xTextTagTableGetSize(x.GoPointer())
-
+	cret := xTextTagTableGetSize(x.GoPointer())
+	return cret
 }
 
 var xTextTagTableLookup func(uintptr, string) uintptr
 
 // Look up a named tag.
 func (x *TextTagTable) Lookup(NameVar string) *TextTag {
+	var cls *TextTag
 
-	LookupPtr := xTextTagTableLookup(x.GoPointer(), NameVar)
-	if LookupPtr == 0 {
-		return nil
+	cret := xTextTagTableLookup(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupPtr)
-
-	LookupCls := &TextTag{}
-	LookupCls.Ptr = LookupPtr
-	return LookupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TextTag{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextTagTableRemove func(uintptr, uintptr)
@@ -180,8 +181,8 @@ func (x *TextTagTable) ConnectTagRemoved(cb func(TextTagTable, uintptr)) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TextTagTable) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

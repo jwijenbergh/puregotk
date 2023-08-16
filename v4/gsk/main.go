@@ -11,8 +11,8 @@ var xSerializationErrorQuark func() glib.Quark
 
 func SerializationErrorQuark() glib.Quark {
 
-	return xSerializationErrorQuark()
-
+	cret := xSerializationErrorQuark()
+	return cret
 }
 
 type NglRenderer struct {
@@ -29,14 +29,16 @@ var xNewNglRenderer func() uintptr
 
 // Same as gsk_gl_renderer_new().
 func NewNglRenderer() *Renderer {
-	NewNglRendererPtr := xNewNglRenderer()
-	if NewNglRendererPtr == 0 {
-		return nil
-	}
+	var cls *Renderer
 
-	NewNglRendererCls := &Renderer{}
-	NewNglRendererCls.Ptr = NewNglRendererPtr
-	return NewNglRendererCls
+	cret := xNewNglRenderer()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *NglRenderer) GoPointer() uintptr {

@@ -75,8 +75,8 @@ func (x *ColorChooserBase) GetRgba(ColorVar *gdk.RGBA) {
 // Returns whether the color chooser shows the alpha channel.
 func (x *ColorChooserBase) GetUseAlpha() bool {
 
-	return XGtkColorChooserGetUseAlpha(x.GoPointer())
-
+	cret := XGtkColorChooserGetUseAlpha(x.GoPointer())
+	return cret
 }
 
 // Sets the color.

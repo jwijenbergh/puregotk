@@ -122,32 +122,34 @@ var xNewLevelBar func() uintptr
 
 // Creates a new `GtkLevelBar`.
 func NewLevelBar() *Widget {
-	NewLevelBarPtr := xNewLevelBar()
-	if NewLevelBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewLevelBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewLevelBarPtr)
-
-	NewLevelBarCls := &Widget{}
-	NewLevelBarCls.Ptr = NewLevelBarPtr
-	return NewLevelBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewForIntervalLevelBar func(float64, float64) uintptr
 
 // Creates a new `GtkLevelBar` for the specified interval.
 func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *Widget {
-	NewForIntervalLevelBarPtr := xNewForIntervalLevelBar(MinValueVar, MaxValueVar)
-	if NewForIntervalLevelBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewForIntervalLevelBar(MinValueVar, MaxValueVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewForIntervalLevelBarPtr)
-
-	NewForIntervalLevelBarCls := &Widget{}
-	NewForIntervalLevelBarCls.Ptr = NewForIntervalLevelBarPtr
-	return NewForIntervalLevelBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLevelBarAddOffsetValue func(uintptr, string, float64)
@@ -172,8 +174,8 @@ var xLevelBarGetInverted func(uintptr) bool
 // Returns whether the levelbar is inverted.
 func (x *LevelBar) GetInverted() bool {
 
-	return xLevelBarGetInverted(x.GoPointer())
-
+	cret := xLevelBarGetInverted(x.GoPointer())
+	return cret
 }
 
 var xLevelBarGetMaxValue func(uintptr) float64
@@ -181,8 +183,8 @@ var xLevelBarGetMaxValue func(uintptr) float64
 // Returns the `max-value` of the `GtkLevelBar`.
 func (x *LevelBar) GetMaxValue() float64 {
 
-	return xLevelBarGetMaxValue(x.GoPointer())
-
+	cret := xLevelBarGetMaxValue(x.GoPointer())
+	return cret
 }
 
 var xLevelBarGetMinValue func(uintptr) float64
@@ -190,8 +192,8 @@ var xLevelBarGetMinValue func(uintptr) float64
 // Returns the `min-value of the `GtkLevelBar`.
 func (x *LevelBar) GetMinValue() float64 {
 
-	return xLevelBarGetMinValue(x.GoPointer())
-
+	cret := xLevelBarGetMinValue(x.GoPointer())
+	return cret
 }
 
 var xLevelBarGetMode func(uintptr) LevelBarMode
@@ -199,8 +201,8 @@ var xLevelBarGetMode func(uintptr) LevelBarMode
 // Returns the `mode` of the `GtkLevelBar`.
 func (x *LevelBar) GetMode() LevelBarMode {
 
-	return xLevelBarGetMode(x.GoPointer())
-
+	cret := xLevelBarGetMode(x.GoPointer())
+	return cret
 }
 
 var xLevelBarGetOffsetValue func(uintptr, string, float64) bool
@@ -208,8 +210,8 @@ var xLevelBarGetOffsetValue func(uintptr, string, float64) bool
 // Fetches the value specified for the offset marker @name in @self.
 func (x *LevelBar) GetOffsetValue(NameVar string, ValueVar float64) bool {
 
-	return xLevelBarGetOffsetValue(x.GoPointer(), NameVar, ValueVar)
-
+	cret := xLevelBarGetOffsetValue(x.GoPointer(), NameVar, ValueVar)
+	return cret
 }
 
 var xLevelBarGetValue func(uintptr) float64
@@ -217,8 +219,8 @@ var xLevelBarGetValue func(uintptr) float64
 // Returns the `value` of the `GtkLevelBar`.
 func (x *LevelBar) GetValue() float64 {
 
-	return xLevelBarGetValue(x.GoPointer())
-
+	cret := xLevelBarGetValue(x.GoPointer())
+	return cret
 }
 
 var xLevelBarRemoveOffsetValue func(uintptr, string)
@@ -314,8 +316,8 @@ func (x *LevelBar) ConnectOffsetChanged(cb func(LevelBar, string)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *LevelBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -450,15 +452,15 @@ func (x *LevelBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *LevelBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *LevelBar) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

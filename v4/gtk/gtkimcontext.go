@@ -73,8 +73,8 @@ var xIMContextDeleteSurrounding func(uintptr, int, int) bool
 // It is not useful for applications.
 func (x *IMContext) DeleteSurrounding(OffsetVar int, NCharsVar int) bool {
 
-	return xIMContextDeleteSurrounding(x.GoPointer(), OffsetVar, NCharsVar)
-
+	cret := xIMContextDeleteSurrounding(x.GoPointer(), OffsetVar, NCharsVar)
+	return cret
 }
 
 var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint, gdk.ModifierType, int) bool
@@ -84,8 +84,8 @@ var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint, gdk.
 // available.
 func (x *IMContext) FilterKey(PressVar bool, SurfaceVar *gdk.Surface, DeviceVar *gdk.Device, TimeVar uint32, KeycodeVar uint, StateVar gdk.ModifierType, GroupVar int) bool {
 
-	return xIMContextFilterKey(x.GoPointer(), PressVar, SurfaceVar.GoPointer(), DeviceVar.GoPointer(), TimeVar, KeycodeVar, StateVar, GroupVar)
-
+	cret := xIMContextFilterKey(x.GoPointer(), PressVar, SurfaceVar.GoPointer(), DeviceVar.GoPointer(), TimeVar, KeycodeVar, StateVar, GroupVar)
+	return cret
 }
 
 var xIMContextFilterKeypress func(uintptr, uintptr) bool
@@ -97,8 +97,8 @@ var xIMContextFilterKeypress func(uintptr, uintptr) bool
 // should be done for this key event.
 func (x *IMContext) FilterKeypress(EventVar *gdk.Event) bool {
 
-	return xIMContextFilterKeypress(x.GoPointer(), EventVar.GoPointer())
-
+	cret := xIMContextFilterKeypress(x.GoPointer(), EventVar.GoPointer())
+	return cret
 }
 
 var xIMContextFocusIn func(uintptr)
@@ -158,8 +158,8 @@ var xIMContextGetSurrounding func(uintptr, string, int) bool
 // function without context.
 func (x *IMContext) GetSurrounding(TextVar string, CursorIndexVar int) bool {
 
-	return xIMContextGetSurrounding(x.GoPointer(), TextVar, CursorIndexVar)
-
+	cret := xIMContextGetSurrounding(x.GoPointer(), TextVar, CursorIndexVar)
+	return cret
 }
 
 var xIMContextGetSurroundingWithSelection func(uintptr, string, int, int) bool
@@ -181,8 +181,8 @@ var xIMContextGetSurroundingWithSelection func(uintptr, string, int, int) bool
 // function without context.
 func (x *IMContext) GetSurroundingWithSelection(TextVar string, CursorIndexVar int, AnchorIndexVar int) bool {
 
-	return xIMContextGetSurroundingWithSelection(x.GoPointer(), TextVar, CursorIndexVar, AnchorIndexVar)
-
+	cret := xIMContextGetSurroundingWithSelection(x.GoPointer(), TextVar, CursorIndexVar, AnchorIndexVar)
+	return cret
 }
 
 var xIMContextReset func(uintptr)

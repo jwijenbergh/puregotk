@@ -52,16 +52,17 @@ var xNewAvatar func(int, string, bool) uintptr
 
 // Creates a new `AdwAvatar`.
 func NewAvatar(SizeVar int, TextVar string, ShowInitialsVar bool) *gtk.Widget {
-	NewAvatarPtr := xNewAvatar(SizeVar, TextVar, ShowInitialsVar)
-	if NewAvatarPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewAvatar(SizeVar, TextVar, ShowInitialsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAvatarPtr)
-
-	NewAvatarCls := &gtk.Widget{}
-	NewAvatarCls.Ptr = NewAvatarPtr
-	return NewAvatarCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAvatarDrawToTexture func(uintptr, int) uintptr
@@ -70,34 +71,33 @@ var xAvatarDrawToTexture func(uintptr, int) uintptr
 //
 // This can be used to export the fallback avatar.
 func (x *Avatar) DrawToTexture(ScaleFactorVar int) *gdk.Texture {
+	var cls *gdk.Texture
 
-	DrawToTexturePtr := xAvatarDrawToTexture(x.GoPointer(), ScaleFactorVar)
-	if DrawToTexturePtr == 0 {
-		return nil
+	cret := xAvatarDrawToTexture(x.GoPointer(), ScaleFactorVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	DrawToTextureCls := &gdk.Texture{}
-	DrawToTextureCls.Ptr = DrawToTexturePtr
-	return DrawToTextureCls
-
+	cls = &gdk.Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAvatarGetCustomImage func(uintptr) uintptr
 
 // Gets the custom image paintable.
 func (x *Avatar) GetCustomImage() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetCustomImagePtr := xAvatarGetCustomImage(x.GoPointer())
-	if GetCustomImagePtr == 0 {
-		return nil
+	cret := xAvatarGetCustomImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCustomImagePtr)
-
-	GetCustomImageCls := &gdk.PaintableBase{}
-	GetCustomImageCls.Ptr = GetCustomImagePtr
-	return GetCustomImageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAvatarGetIconName func(uintptr) string
@@ -105,8 +105,8 @@ var xAvatarGetIconName func(uintptr) string
 // Gets the name of an icon to use as a fallback.
 func (x *Avatar) GetIconName() string {
 
-	return xAvatarGetIconName(x.GoPointer())
-
+	cret := xAvatarGetIconName(x.GoPointer())
+	return cret
 }
 
 var xAvatarGetShowInitials func(uintptr) bool
@@ -114,8 +114,8 @@ var xAvatarGetShowInitials func(uintptr) bool
 // Gets whether initials are used instead of an icon on the fallback avatar.
 func (x *Avatar) GetShowInitials() bool {
 
-	return xAvatarGetShowInitials(x.GoPointer())
-
+	cret := xAvatarGetShowInitials(x.GoPointer())
+	return cret
 }
 
 var xAvatarGetSize func(uintptr) int
@@ -123,8 +123,8 @@ var xAvatarGetSize func(uintptr) int
 // Gets the size of the avatar.
 func (x *Avatar) GetSize() int {
 
-	return xAvatarGetSize(x.GoPointer())
-
+	cret := xAvatarGetSize(x.GoPointer())
+	return cret
 }
 
 var xAvatarGetText func(uintptr) string
@@ -132,8 +132,8 @@ var xAvatarGetText func(uintptr) string
 // Gets the text used to generate the fallback initials and color.
 func (x *Avatar) GetText() string {
 
-	return xAvatarGetText(x.GoPointer())
-
+	cret := xAvatarGetText(x.GoPointer())
+	return cret
 }
 
 var xAvatarSetCustomImage func(uintptr, uintptr)
@@ -201,8 +201,8 @@ func (c *Avatar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Avatar) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -337,8 +337,8 @@ func (x *Avatar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Avatar) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

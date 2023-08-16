@@ -45,7 +45,7 @@ type ParamSpecTypeInfo struct {
 // The GParameter struct is an auxiliary structure used
 // to hand parameter name/value pairs to g_object_newv().
 type Parameter struct {
-	Name string
+	Name uintptr
 
 	Value uintptr
 }
@@ -110,8 +110,8 @@ var xParamTypeRegisterStatic func(string, *ParamSpecTypeInfo) []interface{}
 // instances.
 func ParamTypeRegisterStatic(NameVar string, PspecInfoVar *ParamSpecTypeInfo) []interface{} {
 
-	return xParamTypeRegisterStatic(NameVar, PspecInfoVar)
-
+	cret := xParamTypeRegisterStatic(NameVar, PspecInfoVar)
+	return cret
 }
 
 var xParamValueConvert func(uintptr, *Value, *Value, bool) bool
@@ -125,8 +125,8 @@ var xParamValueConvert func(uintptr, *Value, *Value, bool) bool
 // g_param_value_validate().
 func ParamValueConvert(PspecVar *ParamSpec, SrcValueVar *Value, DestValueVar *Value, StrictValidationVar bool) bool {
 
-	return xParamValueConvert(PspecVar.GoPointer(), SrcValueVar, DestValueVar, StrictValidationVar)
-
+	cret := xParamValueConvert(PspecVar.GoPointer(), SrcValueVar, DestValueVar, StrictValidationVar)
+	return cret
 }
 
 var xParamValueDefaults func(uintptr, *Value) bool
@@ -134,8 +134,8 @@ var xParamValueDefaults func(uintptr, *Value) bool
 // Checks whether @value contains the default value as specified in @pspec.
 func ParamValueDefaults(PspecVar *ParamSpec, ValueVar *Value) bool {
 
-	return xParamValueDefaults(PspecVar.GoPointer(), ValueVar)
-
+	cret := xParamValueDefaults(PspecVar.GoPointer(), ValueVar)
+	return cret
 }
 
 var xParamValueSetDefault func(uintptr, *Value)
@@ -157,8 +157,8 @@ var xParamValueValidate func(uintptr, *Value) bool
 // range -42 .. +42.
 func ParamValueValidate(PspecVar *ParamSpec, ValueVar *Value) bool {
 
-	return xParamValueValidate(PspecVar.GoPointer(), ValueVar)
-
+	cret := xParamValueValidate(PspecVar.GoPointer(), ValueVar)
+	return cret
 }
 
 var xParamValuesCmp func(uintptr, *Value, *Value) int
@@ -168,8 +168,8 @@ var xParamValuesCmp func(uintptr, *Value, *Value) int
 // respectively.
 func ParamValuesCmp(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int {
 
-	return xParamValuesCmp(PspecVar.GoPointer(), Value1Var, Value2Var)
-
+	cret := xParamValuesCmp(PspecVar.GoPointer(), Value1Var, Value2Var)
+	return cret
 }
 
 // #GParamSpec is an object structure that encapsulates the metadata
@@ -200,8 +200,8 @@ var xParamSpecGetBlurb func(uintptr) string
 // Get the short description of a #GParamSpec.
 func (x *ParamSpec) GetBlurb() string {
 
-	return xParamSpecGetBlurb(x.GoPointer())
-
+	cret := xParamSpecGetBlurb(x.GoPointer())
+	return cret
 }
 
 var xParamSpecGetDefaultValue func(uintptr) *Value
@@ -211,8 +211,8 @@ var xParamSpecGetDefaultValue func(uintptr) *Value
 // The #GValue will remain valid for the life of @pspec.
 func (x *ParamSpec) GetDefaultValue() *Value {
 
-	return xParamSpecGetDefaultValue(x.GoPointer())
-
+	cret := xParamSpecGetDefaultValue(x.GoPointer())
+	return cret
 }
 
 var xParamSpecGetName func(uintptr) string
@@ -223,8 +223,8 @@ var xParamSpecGetName func(uintptr) string
 // This allows for pointer-value comparisons.
 func (x *ParamSpec) GetName() string {
 
-	return xParamSpecGetName(x.GoPointer())
-
+	cret := xParamSpecGetName(x.GoPointer())
+	return cret
 }
 
 var xParamSpecGetNameQuark func(uintptr) glib.Quark
@@ -232,8 +232,8 @@ var xParamSpecGetNameQuark func(uintptr) glib.Quark
 // Gets the GQuark for the name.
 func (x *ParamSpec) GetNameQuark() glib.Quark {
 
-	return xParamSpecGetNameQuark(x.GoPointer())
-
+	cret := xParamSpecGetNameQuark(x.GoPointer())
+	return cret
 }
 
 var xParamSpecGetNick func(uintptr) string
@@ -241,8 +241,8 @@ var xParamSpecGetNick func(uintptr) string
 // Get the nickname of a #GParamSpec.
 func (x *ParamSpec) GetNick() string {
 
-	return xParamSpecGetNick(x.GoPointer())
-
+	cret := xParamSpecGetNick(x.GoPointer())
+	return cret
 }
 
 var xParamSpecGetQdata func(uintptr, glib.Quark) uintptr
@@ -250,8 +250,8 @@ var xParamSpecGetQdata func(uintptr, glib.Quark) uintptr
 // Gets back user data pointers stored via g_param_spec_set_qdata().
 func (x *ParamSpec) GetQdata(QuarkVar glib.Quark) uintptr {
 
-	return xParamSpecGetQdata(x.GoPointer(), QuarkVar)
-
+	cret := xParamSpecGetQdata(x.GoPointer(), QuarkVar)
+	return cret
 }
 
 var xParamSpecGetRedirectTarget func(uintptr) uintptr
@@ -264,50 +264,49 @@ var xParamSpecGetRedirectTarget func(uintptr) uintptr
 // of type #GParamSpecOverride. See g_object_class_override_property()
 // for an example of the use of this capability.
 func (x *ParamSpec) GetRedirectTarget() *ParamSpec {
+	var cls *ParamSpec
 
-	GetRedirectTargetPtr := xParamSpecGetRedirectTarget(x.GoPointer())
-	if GetRedirectTargetPtr == 0 {
-		return nil
+	cret := xParamSpecGetRedirectTarget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	IncreaseRef(GetRedirectTargetPtr)
-
-	GetRedirectTargetCls := &ParamSpec{}
-	GetRedirectTargetCls.Ptr = GetRedirectTargetPtr
-	return GetRedirectTargetCls
-
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecRef func(uintptr) uintptr
 
 // Increments the reference count of @pspec.
 func (x *ParamSpec) Ref() *ParamSpec {
+	var cls *ParamSpec
 
-	RefPtr := xParamSpecRef(x.GoPointer())
-	if RefPtr == 0 {
-		return nil
+	cret := xParamSpecRef(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefCls := &ParamSpec{}
-	RefCls.Ptr = RefPtr
-	return RefCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecRefSink func(uintptr) uintptr
 
 // Convenience function to ref and sink a #GParamSpec.
 func (x *ParamSpec) RefSink() *ParamSpec {
+	var cls *ParamSpec
 
-	RefSinkPtr := xParamSpecRefSink(x.GoPointer())
-	if RefSinkPtr == 0 {
-		return nil
+	cret := xParamSpecRefSink(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	RefSinkCls := &ParamSpec{}
-	RefSinkCls.Ptr = RefSinkPtr
-	return RefSinkCls
-
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xParamSpecSetQdata func(uintptr, glib.Quark, uintptr)
@@ -360,8 +359,8 @@ var xParamSpecStealQdata func(uintptr, glib.Quark) uintptr
 // required to update user data pointers with a destroy notifier.
 func (x *ParamSpec) StealQdata(QuarkVar glib.Quark) uintptr {
 
-	return xParamSpecStealQdata(x.GoPointer(), QuarkVar)
-
+	cret := xParamSpecStealQdata(x.GoPointer(), QuarkVar)
+	return cret
 }
 
 var xParamSpecUnref func(uintptr)

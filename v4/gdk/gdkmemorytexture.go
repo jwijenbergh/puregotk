@@ -29,14 +29,16 @@ var xNewMemoryTexture func(int, int, MemoryFormat, *glib.Bytes, uint) uintptr
 // The `GBytes` must contain @stride × @height pixels
 // in the given format.
 func NewMemoryTexture(WidthVar int, HeightVar int, FormatVar MemoryFormat, BytesVar *glib.Bytes, StrideVar uint) *MemoryTexture {
-	NewMemoryTexturePtr := xNewMemoryTexture(WidthVar, HeightVar, FormatVar, BytesVar, StrideVar)
-	if NewMemoryTexturePtr == 0 {
-		return nil
-	}
+	var cls *MemoryTexture
 
-	NewMemoryTextureCls := &MemoryTexture{}
-	NewMemoryTextureCls.Ptr = NewMemoryTexturePtr
-	return NewMemoryTextureCls
+	cret := xNewMemoryTexture(WidthVar, HeightVar, FormatVar, BytesVar, StrideVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MemoryTexture{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *MemoryTexture) GoPointer() uintptr {
@@ -70,16 +72,16 @@ func (x *MemoryTexture) ComputeConcreteSize(SpecifiedWidthVar float64, Specified
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *MemoryTexture) GetCurrentImage() *PaintableBase {
+	var cls *PaintableBase
 
-	GetCurrentImagePtr := XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -89,8 +91,8 @@ func (x *MemoryTexture) GetCurrentImage() *PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *MemoryTexture) GetFlags() PaintableFlags {
 
-	return XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -112,8 +114,8 @@ func (x *MemoryTexture) GetFlags() PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *MemoryTexture) GetIntrinsicAspectRatio() float64 {
 
-	return XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -128,8 +130,8 @@ func (x *MemoryTexture) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *MemoryTexture) GetIntrinsicHeight() int {
 
-	return XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -144,8 +146,8 @@ func (x *MemoryTexture) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *MemoryTexture) GetIntrinsicWidth() int {
 
-	return XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.
@@ -194,8 +196,8 @@ func (x *MemoryTexture) Snapshot(SnapshotVar *Snapshot, WidthVar float64, Height
 // Checks if two icons are equal.
 func (x *MemoryTexture) Equal(Icon2Var gio.Icon) bool {
 
-	return gio.XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := gio.XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -205,8 +207,8 @@ func (x *MemoryTexture) Equal(Icon2Var gio.Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *MemoryTexture) Serialize() *glib.Variant {
 
-	return gio.XGIconSerialize(x.GoPointer())
-
+	cret := gio.XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -227,22 +229,27 @@ func (x *MemoryTexture) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *MemoryTexture) ToString() string {
 
-	return gio.XGIconToString(x.GoPointer())
-
+	cret := gio.XGIconToString(x.GoPointer())
+	return cret
 }
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *MemoryTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) *gio.InputStream {
+func (x *MemoryTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellable) (*gio.InputStream, error) {
+	var cls *gio.InputStream
+	var cerr *glib.Error
 
-	LoadPtr := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
-	if LoadPtr == 0 {
-		return nil
+	cret := gio.XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadCls := &gio.InputStream{}
-	LoadCls.Ptr = LoadPtr
-	return LoadCls
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -256,16 +263,21 @@ func (x *MemoryTexture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, 
 }
 
 // Finishes an asynchronous icon load started in g_loadable_icon_load_async().
-func (x *MemoryTexture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) *gio.InputStream {
+func (x *MemoryTexture) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.InputStream, error) {
+	var cls *gio.InputStream
+	var cerr *glib.Error
 
-	LoadFinishPtr := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar)
-	if LoadFinishPtr == 0 {
-		return nil
+	cret := gio.XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadFinishCls := &gio.InputStream{}
-	LoadFinishCls.Ptr = LoadFinishPtr
-	return LoadFinishCls
+	cls = &gio.InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

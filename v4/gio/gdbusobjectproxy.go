@@ -37,32 +37,33 @@ var xNewDBusObjectProxy func(uintptr, string) uintptr
 // Creates a new #GDBusObjectProxy for the given connection and
 // object path.
 func NewDBusObjectProxy(ConnectionVar *DBusConnection, ObjectPathVar string) *DBusObjectProxy {
-	NewDBusObjectProxyPtr := xNewDBusObjectProxy(ConnectionVar.GoPointer(), ObjectPathVar)
-	if NewDBusObjectProxyPtr == 0 {
-		return nil
-	}
+	var cls *DBusObjectProxy
 
-	NewDBusObjectProxyCls := &DBusObjectProxy{}
-	NewDBusObjectProxyCls.Ptr = NewDBusObjectProxyPtr
-	return NewDBusObjectProxyCls
+	cret := xNewDBusObjectProxy(ConnectionVar.GoPointer(), ObjectPathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusObjectProxy{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusObjectProxyGetConnection func(uintptr) uintptr
 
 // Gets the connection that @proxy is for.
 func (x *DBusObjectProxy) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusObjectProxyGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusObjectProxyGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConnectionPtr)
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *DBusObjectProxy) GoPointer() uintptr {
@@ -76,30 +77,30 @@ func (c *DBusObjectProxy) SetGoPointer(ptr uintptr) {
 // Gets the D-Bus interface with name @interface_name associated with
 // @object, if any.
 func (x *DBusObjectProxy) GetInterface(InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the D-Bus interfaces associated with @object.
 func (x *DBusObjectProxy) GetInterfaces() *glib.List {
 
-	return XGDbusObjectGetInterfaces(x.GoPointer())
-
+	cret := XGDbusObjectGetInterfaces(x.GoPointer())
+	return cret
 }
 
 // Gets the object path for @object.
 func (x *DBusObjectProxy) GetObjectPath() string {
 
-	return XGDbusObjectGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectGetObjectPath(x.GoPointer())
+	return cret
 }
 
 func init() {

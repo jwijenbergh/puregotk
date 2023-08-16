@@ -111,16 +111,17 @@ var xNewGrid func() uintptr
 
 // Creates a new grid widget.
 func NewGrid() *Widget {
-	NewGridPtr := xNewGrid()
-	if NewGridPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewGrid()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewGridPtr)
-
-	NewGridCls := &Widget{}
-	NewGridCls.Ptr = NewGridPtr
-	return NewGridCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridAttach func(uintptr, uintptr, int, int, int, int)
@@ -158,8 +159,8 @@ var xGridGetBaselineRow func(uintptr) int
 // Returns which row defines the global baseline of @grid.
 func (x *Grid) GetBaselineRow() int {
 
-	return xGridGetBaselineRow(x.GoPointer())
-
+	cret := xGridGetBaselineRow(x.GoPointer())
+	return cret
 }
 
 var xGridGetChildAt func(uintptr, int, int) uintptr
@@ -167,18 +168,17 @@ var xGridGetChildAt func(uintptr, int, int) uintptr
 // Gets the child of @grid whose area covers the grid
 // cell at @column, @row.
 func (x *Grid) GetChildAt(ColumnVar int, RowVar int) *Widget {
+	var cls *Widget
 
-	GetChildAtPtr := xGridGetChildAt(x.GoPointer(), ColumnVar, RowVar)
-	if GetChildAtPtr == 0 {
-		return nil
+	cret := xGridGetChildAt(x.GoPointer(), ColumnVar, RowVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildAtPtr)
-
-	GetChildAtCls := &Widget{}
-	GetChildAtCls.Ptr = GetChildAtPtr
-	return GetChildAtCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGridGetColumnHomogeneous func(uintptr) bool
@@ -186,8 +186,8 @@ var xGridGetColumnHomogeneous func(uintptr) bool
 // Returns whether all columns of @grid have the same width.
 func (x *Grid) GetColumnHomogeneous() bool {
 
-	return xGridGetColumnHomogeneous(x.GoPointer())
-
+	cret := xGridGetColumnHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xGridGetColumnSpacing func(uintptr) uint
@@ -195,8 +195,8 @@ var xGridGetColumnSpacing func(uintptr) uint
 // Returns the amount of space between the columns of @grid.
 func (x *Grid) GetColumnSpacing() uint {
 
-	return xGridGetColumnSpacing(x.GoPointer())
-
+	cret := xGridGetColumnSpacing(x.GoPointer())
+	return cret
 }
 
 var xGridGetRowBaselinePosition func(uintptr, int) BaselinePosition
@@ -206,8 +206,8 @@ var xGridGetRowBaselinePosition func(uintptr, int) BaselinePosition
 // See [method@Gtk.Grid.set_row_baseline_position].
 func (x *Grid) GetRowBaselinePosition(RowVar int) BaselinePosition {
 
-	return xGridGetRowBaselinePosition(x.GoPointer(), RowVar)
-
+	cret := xGridGetRowBaselinePosition(x.GoPointer(), RowVar)
+	return cret
 }
 
 var xGridGetRowHomogeneous func(uintptr) bool
@@ -215,8 +215,8 @@ var xGridGetRowHomogeneous func(uintptr) bool
 // Returns whether all rows of @grid have the same height.
 func (x *Grid) GetRowHomogeneous() bool {
 
-	return xGridGetRowHomogeneous(x.GoPointer())
-
+	cret := xGridGetRowHomogeneous(x.GoPointer())
+	return cret
 }
 
 var xGridGetRowSpacing func(uintptr) uint
@@ -224,8 +224,8 @@ var xGridGetRowSpacing func(uintptr) uint
 // Returns the amount of space between the rows of @grid.
 func (x *Grid) GetRowSpacing() uint {
 
-	return xGridGetRowSpacing(x.GoPointer())
-
+	cret := xGridGetRowSpacing(x.GoPointer())
+	return cret
 }
 
 var xGridInsertColumn func(uintptr, int)
@@ -389,8 +389,8 @@ func (c *Grid) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Grid) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -525,15 +525,15 @@ func (x *Grid) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uin
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Grid) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Grid) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

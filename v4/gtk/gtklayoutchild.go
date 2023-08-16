@@ -34,18 +34,17 @@ var xLayoutChildGetChildWidget func(uintptr) uintptr
 
 // Retrieves the `GtkWidget` associated to the given @layout_child.
 func (x *LayoutChild) GetChildWidget() *Widget {
+	var cls *Widget
 
-	GetChildWidgetPtr := xLayoutChildGetChildWidget(x.GoPointer())
-	if GetChildWidgetPtr == 0 {
-		return nil
+	cret := xLayoutChildGetChildWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildWidgetPtr)
-
-	GetChildWidgetCls := &Widget{}
-	GetChildWidgetCls.Ptr = GetChildWidgetPtr
-	return GetChildWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xLayoutChildGetLayoutManager func(uintptr) uintptr
@@ -53,18 +52,17 @@ var xLayoutChildGetLayoutManager func(uintptr) uintptr
 // Retrieves the `GtkLayoutManager` instance that created the
 // given @layout_child.
 func (x *LayoutChild) GetLayoutManager() *LayoutManager {
+	var cls *LayoutManager
 
-	GetLayoutManagerPtr := xLayoutChildGetLayoutManager(x.GoPointer())
-	if GetLayoutManagerPtr == 0 {
-		return nil
+	cret := xLayoutChildGetLayoutManager(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLayoutManagerPtr)
-
-	GetLayoutManagerCls := &LayoutManager{}
-	GetLayoutManagerCls.Ptr = GetLayoutManagerPtr
-	return GetLayoutManagerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *LayoutChild) GoPointer() uintptr {

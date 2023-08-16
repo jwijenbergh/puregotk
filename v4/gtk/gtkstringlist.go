@@ -58,14 +58,16 @@ var xNewStringList func(uintptr) uintptr
 
 // Creates a new `GtkStringList` with the given @strings.
 func NewStringList(StringsVar uintptr) *StringList {
-	NewStringListPtr := xNewStringList(StringsVar)
-	if NewStringListPtr == 0 {
-		return nil
-	}
+	var cls *StringList
 
-	NewStringListCls := &StringList{}
-	NewStringListCls.Ptr = NewStringListPtr
-	return NewStringListCls
+	cret := xNewStringList(StringsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &StringList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringListAppend func(uintptr, string)
@@ -90,8 +92,8 @@ var xStringListGetString func(uintptr, uint) string
 // object wrapping it, use g_list_model_get_item().
 func (x *StringList) GetString(PositionVar uint) string {
 
-	return xStringListGetString(x.GoPointer(), PositionVar)
-
+	cret := xStringListGetString(x.GoPointer(), PositionVar)
+	return cret
 }
 
 var xStringListRemove func(uintptr, uint)
@@ -162,8 +164,8 @@ func (c *StringList) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *StringList) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -176,8 +178,8 @@ func (x *StringList) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *StringList) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -187,8 +189,8 @@ func (x *StringList) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *StringList) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -204,16 +206,16 @@ func (x *StringList) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *StringList) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -248,8 +250,8 @@ func (x *StringList) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *StringList) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkStringObject` is the type of items in a `GtkStringList`.
@@ -270,14 +272,16 @@ var xNewStringObject func(string) uintptr
 
 // Wraps a string in an object for use with `GListModel`.
 func NewStringObject(StringVar string) *StringObject {
-	NewStringObjectPtr := xNewStringObject(StringVar)
-	if NewStringObjectPtr == 0 {
-		return nil
-	}
+	var cls *StringObject
 
-	NewStringObjectCls := &StringObject{}
-	NewStringObjectCls.Ptr = NewStringObjectPtr
-	return NewStringObjectCls
+	cret := xNewStringObject(StringVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &StringObject{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringObjectGetString func(uintptr) string
@@ -285,8 +289,8 @@ var xStringObjectGetString func(uintptr) string
 // Returns the string contained in a `GtkStringObject`.
 func (x *StringObject) GetString() string {
 
-	return xStringObjectGetString(x.GoPointer())
-
+	cret := xStringObjectGetString(x.GoPointer())
+	return cret
 }
 
 func (c *StringObject) GoPointer() uintptr {

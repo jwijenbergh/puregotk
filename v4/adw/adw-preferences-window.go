@@ -46,16 +46,17 @@ var xNewPreferencesWindow func() uintptr
 
 // Creates a new `AdwPreferencesWindow`.
 func NewPreferencesWindow() *gtk.Widget {
-	NewPreferencesWindowPtr := xNewPreferencesWindow()
-	if NewPreferencesWindowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewPreferencesWindow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPreferencesWindowPtr)
-
-	NewPreferencesWindowCls := &gtk.Widget{}
-	NewPreferencesWindowCls.Ptr = NewPreferencesWindowPtr
-	return NewPreferencesWindowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesWindowAdd func(uintptr, uintptr)
@@ -94,8 +95,8 @@ var xPreferencesWindowGetCanNavigateBack func(uintptr) bool
 // Gets whether gestures and shortcuts for closing subpages are enabled.
 func (x *PreferencesWindow) GetCanNavigateBack() bool {
 
-	return xPreferencesWindowGetCanNavigateBack(x.GoPointer())
-
+	cret := xPreferencesWindowGetCanNavigateBack(x.GoPointer())
+	return cret
 }
 
 var xPreferencesWindowGetSearchEnabled func(uintptr) bool
@@ -103,26 +104,25 @@ var xPreferencesWindowGetSearchEnabled func(uintptr) bool
 // Gets whether search is enabled for @self.
 func (x *PreferencesWindow) GetSearchEnabled() bool {
 
-	return xPreferencesWindowGetSearchEnabled(x.GoPointer())
-
+	cret := xPreferencesWindowGetSearchEnabled(x.GoPointer())
+	return cret
 }
 
 var xPreferencesWindowGetVisiblePage func(uintptr) uintptr
 
 // Gets the currently visible page of @self.
 func (x *PreferencesWindow) GetVisiblePage() *PreferencesPage {
+	var cls *PreferencesPage
 
-	GetVisiblePagePtr := xPreferencesWindowGetVisiblePage(x.GoPointer())
-	if GetVisiblePagePtr == 0 {
-		return nil
+	cret := xPreferencesWindowGetVisiblePage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVisiblePagePtr)
-
-	GetVisiblePageCls := &PreferencesPage{}
-	GetVisiblePageCls.Ptr = GetVisiblePagePtr
-	return GetVisiblePageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PreferencesPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesWindowGetVisiblePageName func(uintptr) string
@@ -130,8 +130,8 @@ var xPreferencesWindowGetVisiblePageName func(uintptr) string
 // Gets the name of currently visible page of @self.
 func (x *PreferencesWindow) GetVisiblePageName() string {
 
-	return xPreferencesWindowGetVisiblePageName(x.GoPointer())
-
+	cret := xPreferencesWindowGetVisiblePageName(x.GoPointer())
+	return cret
 }
 
 var xPreferencesWindowPresentSubpage func(uintptr, uintptr)
@@ -215,8 +215,8 @@ func (c *PreferencesWindow) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PreferencesWindow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -351,40 +351,38 @@ func (x *PreferencesWindow) UpdateStateValue(NStatesVar int, StatesVar uintptr, 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PreferencesWindow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *PreferencesWindow) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := gtk.XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *PreferencesWindow) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := gtk.XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := gtk.XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -417,18 +415,17 @@ func (x *PreferencesWindow) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *PreferencesWindow) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := gtk.XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -438,18 +435,17 @@ func (x *PreferencesWindow) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *PreferencesWindow) GetFocus() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetFocusPtr := gtk.XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := gtk.XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &gtk.Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

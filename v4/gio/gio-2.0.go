@@ -13,8 +13,8 @@ var xIoErrorQuark func() glib.Quark
 // Gets the GIO Error Quark.
 func IoErrorQuark() glib.Quark {
 
-	return xIoErrorQuark()
-
+	cret := xIoErrorQuark()
+	return cret
 }
 
 var xResolverErrorQuark func() glib.Quark
@@ -22,8 +22,8 @@ var xResolverErrorQuark func() glib.Quark
 // Gets the #GResolver Error Quark.
 func ResolverErrorQuark() glib.Quark {
 
-	return xResolverErrorQuark()
-
+	cret := xResolverErrorQuark()
+	return cret
 }
 
 var xResourceErrorQuark func() glib.Quark
@@ -31,8 +31,8 @@ var xResourceErrorQuark func() glib.Quark
 // Gets the #GResource Error Quark.
 func ResourceErrorQuark() glib.Quark {
 
-	return xResourceErrorQuark()
-
+	cret := xResourceErrorQuark()
+	return cret
 }
 
 var xTlsChannelBindingErrorQuark func() glib.Quark
@@ -40,8 +40,8 @@ var xTlsChannelBindingErrorQuark func() glib.Quark
 // Gets the TLS channel binding error quark.
 func TlsChannelBindingErrorQuark() glib.Quark {
 
-	return xTlsChannelBindingErrorQuark()
-
+	cret := xTlsChannelBindingErrorQuark()
+	return cret
 }
 
 var xTlsErrorQuark func() glib.Quark
@@ -49,8 +49,8 @@ var xTlsErrorQuark func() glib.Quark
 // Gets the TLS error quark.
 func TlsErrorQuark() glib.Quark {
 
-	return xTlsErrorQuark()
-
+	cret := xTlsErrorQuark()
+	return cret
 }
 
 // #GAppInfoMonitor is a very simple object used for monitoring the app
@@ -120,14 +120,16 @@ var xNewBytesIcon func(*glib.Bytes) uintptr
 // This cannot fail, but loading and interpreting the bytes may fail later on
 // (for example, if g_loadable_icon_load() is called) if the image is invalid.
 func NewBytesIcon(BytesVar *glib.Bytes) *BytesIcon {
-	NewBytesIconPtr := xNewBytesIcon(BytesVar)
-	if NewBytesIconPtr == 0 {
-		return nil
-	}
+	var cls *BytesIcon
 
-	NewBytesIconCls := &BytesIcon{}
-	NewBytesIconCls.Ptr = NewBytesIconPtr
-	return NewBytesIconCls
+	cret := xNewBytesIcon(BytesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &BytesIcon{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBytesIconGetBytes func(uintptr) *glib.Bytes
@@ -135,8 +137,8 @@ var xBytesIconGetBytes func(uintptr) *glib.Bytes
 // Gets the #GBytes associated with the given @icon.
 func (x *BytesIcon) GetBytes() *glib.Bytes {
 
-	return xBytesIconGetBytes(x.GoPointer())
-
+	cret := xBytesIconGetBytes(x.GoPointer())
+	return cret
 }
 
 func (c *BytesIcon) GoPointer() uintptr {
@@ -150,8 +152,8 @@ func (c *BytesIcon) SetGoPointer(ptr uintptr) {
 // Checks if two icons are equal.
 func (x *BytesIcon) Equal(Icon2Var Icon) bool {
 
-	return XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
-
+	cret := XGIconEqual(x.GoPointer(), Icon2Var.GoPointer())
+	return cret
 }
 
 // Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -161,8 +163,8 @@ func (x *BytesIcon) Equal(Icon2Var Icon) bool {
 // (as opposed to over the network), and within the same file system namespace.
 func (x *BytesIcon) Serialize() *glib.Variant {
 
-	return XGIconSerialize(x.GoPointer())
-
+	cret := XGIconSerialize(x.GoPointer())
+	return cret
 }
 
 // Generates a textual representation of @icon that can be used for
@@ -183,22 +185,27 @@ func (x *BytesIcon) Serialize() *glib.Variant {
 //     the encoding is simply the name (such as `network-server`).
 func (x *BytesIcon) ToString() string {
 
-	return XGIconToString(x.GoPointer())
-
+	cret := XGIconToString(x.GoPointer())
+	return cret
 }
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *BytesIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) *InputStream {
+func (x *BytesIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellable) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadPtr := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
-	if LoadPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoad(x.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadCls := &InputStream{}
-	LoadCls.Ptr = LoadPtr
-	return LoadCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -212,16 +219,21 @@ func (x *BytesIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, Callback
 }
 
 // Finishes an asynchronous icon load started in g_loadable_icon_load_async().
-func (x *BytesIcon) LoadFinish(ResVar AsyncResult, TypeVar string) *InputStream {
+func (x *BytesIcon) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream, error) {
+	var cls *InputStream
+	var cerr *glib.Error
 
-	LoadFinishPtr := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar)
-	if LoadFinishPtr == 0 {
-		return nil
+	cret := XGLoadableIconLoadFinish(x.GoPointer(), ResVar.GoPointer(), TypeVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	LoadFinishCls := &InputStream{}
-	LoadFinishCls.Ptr = LoadFinishPtr
-	return LoadFinishCls
+	cls = &InputStream{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -344,8 +356,8 @@ func (x *DBusActionGroup) ChangeActionState(ActionNameVar string, ValueVar *glib
 // have its state changed from outside callers.
 func (x *DBusActionGroup) GetActionEnabled(ActionNameVar string) bool {
 
-	return XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -363,8 +375,8 @@ func (x *DBusActionGroup) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *DBusActionGroup) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -377,8 +389,8 @@ func (x *DBusActionGroup) GetActionParameterType(ActionNameVar string) *glib.Var
 // g_variant_unref() when it is no longer required.
 func (x *DBusActionGroup) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -401,8 +413,8 @@ func (x *DBusActionGroup) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *DBusActionGroup) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -423,15 +435,15 @@ func (x *DBusActionGroup) GetActionStateHint(ActionNameVar string) *glib.Variant
 // with the same name but a different state type.
 func (x *DBusActionGroup) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *DBusActionGroup) HasAction(ActionNameVar string) bool {
 
-	return XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -440,8 +452,8 @@ func (x *DBusActionGroup) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *DBusActionGroup) ListActions() uintptr {
 
-	return XGActionGroupListActions(x.GoPointer())
-
+	cret := XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -473,8 +485,8 @@ func (x *DBusActionGroup) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *DBusActionGroup) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Activates the remote action.
@@ -589,14 +601,16 @@ var xNewDBusAuthObserver func() uintptr
 
 // Creates a new #GDBusAuthObserver object.
 func NewDBusAuthObserver() *DBusAuthObserver {
-	NewDBusAuthObserverPtr := xNewDBusAuthObserver()
-	if NewDBusAuthObserverPtr == 0 {
-		return nil
-	}
+	var cls *DBusAuthObserver
 
-	NewDBusAuthObserverCls := &DBusAuthObserver{}
-	NewDBusAuthObserverCls.Ptr = NewDBusAuthObserverPtr
-	return NewDBusAuthObserverCls
+	cret := xNewDBusAuthObserver()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusAuthObserver{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusAuthObserverAllowMechanism func(uintptr, string) bool
@@ -604,8 +618,8 @@ var xDBusAuthObserverAllowMechanism func(uintptr, string) bool
 // Emits the #GDBusAuthObserver::allow-mechanism signal on @observer.
 func (x *DBusAuthObserver) AllowMechanism(MechanismVar string) bool {
 
-	return xDBusAuthObserverAllowMechanism(x.GoPointer(), MechanismVar)
-
+	cret := xDBusAuthObserverAllowMechanism(x.GoPointer(), MechanismVar)
+	return cret
 }
 
 var xDBusAuthObserverAuthorizeAuthenticatedPeer func(uintptr, uintptr, uintptr) bool
@@ -613,8 +627,8 @@ var xDBusAuthObserverAuthorizeAuthenticatedPeer func(uintptr, uintptr, uintptr) 
 // Emits the #GDBusAuthObserver::authorize-authenticated-peer signal on @observer.
 func (x *DBusAuthObserver) AuthorizeAuthenticatedPeer(StreamVar *IOStream, CredentialsVar *Credentials) bool {
 
-	return xDBusAuthObserverAuthorizeAuthenticatedPeer(x.GoPointer(), StreamVar.GoPointer(), CredentialsVar.GoPointer())
-
+	cret := xDBusAuthObserverAuthorizeAuthenticatedPeer(x.GoPointer(), StreamVar.GoPointer(), CredentialsVar.GoPointer())
+	return cret
 }
 
 func (c *DBusAuthObserver) GoPointer() uintptr {
@@ -709,35 +723,49 @@ func DBusConnectionNewFromInternalPtr(ptr uintptr) *DBusConnection {
 	return cls
 }
 
-var xNewFinishDBusConnection func(uintptr) uintptr
+var xNewFinishDBusConnection func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_connection_new().
-func NewFinishDBusConnection(ResVar AsyncResult) *DBusConnection {
-	NewFinishDBusConnectionPtr := xNewFinishDBusConnection(ResVar.GoPointer())
-	if NewFinishDBusConnectionPtr == 0 {
-		return nil
-	}
+func NewFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	NewFinishDBusConnectionCls := &DBusConnection{}
-	NewFinishDBusConnectionCls.Ptr = NewFinishDBusConnectionPtr
-	return NewFinishDBusConnectionCls
+	cret := xNewFinishDBusConnection(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForAddressFinishDBusConnection func(uintptr) uintptr
+var xNewForAddressFinishDBusConnection func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_connection_new_for_address().
-func NewForAddressFinishDBusConnection(ResVar AsyncResult) *DBusConnection {
-	NewForAddressFinishDBusConnectionPtr := xNewForAddressFinishDBusConnection(ResVar.GoPointer())
-	if NewForAddressFinishDBusConnectionPtr == 0 {
-		return nil
-	}
+func NewForAddressFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	NewForAddressFinishDBusConnectionCls := &DBusConnection{}
-	NewForAddressFinishDBusConnectionCls.Ptr = NewForAddressFinishDBusConnectionPtr
-	return NewForAddressFinishDBusConnectionCls
+	cret := xNewForAddressFinishDBusConnection(ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewForAddressSyncDBusConnection func(string, DBusConnectionFlags, uintptr, uintptr) uintptr
+var xNewForAddressSyncDBusConnection func(string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
 
 // Synchronously connects and sets up a D-Bus client connection for
 // exchanging D-Bus messages with an endpoint specified by @address
@@ -756,18 +784,25 @@ var xNewForAddressSyncDBusConnection func(string, DBusConnectionFlags, uintptr, 
 //
 // If @observer is not %NULL it may be used to control the
 // authentication process.
-func NewForAddressSyncDBusConnection(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) *DBusConnection {
-	NewForAddressSyncDBusConnectionPtr := xNewForAddressSyncDBusConnection(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer())
-	if NewForAddressSyncDBusConnectionPtr == 0 {
-		return nil
-	}
+func NewForAddressSyncDBusConnection(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	NewForAddressSyncDBusConnectionCls := &DBusConnection{}
-	NewForAddressSyncDBusConnectionCls.Ptr = NewForAddressSyncDBusConnectionPtr
-	return NewForAddressSyncDBusConnectionCls
+	cret := xNewForAddressSyncDBusConnection(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewSyncDBusConnection func(uintptr, string, DBusConnectionFlags, uintptr, uintptr) uintptr
+var xNewSyncDBusConnection func(uintptr, string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
 
 // Synchronously sets up a D-Bus connection for exchanging D-Bus messages
 // with the end represented by @stream.
@@ -784,15 +819,22 @@ var xNewSyncDBusConnection func(uintptr, string, DBusConnectionFlags, uintptr, u
 //
 // This is a synchronous failable constructor. See
 // g_dbus_connection_new() for the asynchronous version.
-func NewSyncDBusConnection(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) *DBusConnection {
-	NewSyncDBusConnectionPtr := xNewSyncDBusConnection(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer())
-	if NewSyncDBusConnectionPtr == 0 {
-		return nil
-	}
+func NewSyncDBusConnection(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
+	var cls *DBusConnection
+	var cerr *glib.Error
 
-	NewSyncDBusConnectionCls := &DBusConnection{}
-	NewSyncDBusConnectionCls.Ptr = NewSyncDBusConnectionPtr
-	return NewSyncDBusConnectionCls
+	cret := xNewSyncDBusConnection(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xDBusConnectionAddFilter func(uintptr, uintptr, uintptr, uintptr) uint
@@ -826,8 +868,8 @@ var xDBusConnectionAddFilter func(uintptr, uintptr, uintptr, uintptr) uint
 // destroyed.)
 func (x *DBusConnection) AddFilter(FilterFunctionVar DBusMessageFilterFunction, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xDBusConnectionAddFilter(x.GoPointer(), purego.NewCallback(FilterFunctionVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xDBusConnectionAddFilter(x.GoPointer(), purego.NewCallback(FilterFunctionVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xDBusConnectionCall func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, uintptr, uintptr)
@@ -885,16 +927,21 @@ func (x *DBusConnection) Call(BusNameVar string, ObjectPathVar string, Interface
 
 }
 
-var xDBusConnectionCallFinish func(uintptr, uintptr) *glib.Variant
+var xDBusConnectionCallFinish func(uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Finishes an operation started with g_dbus_connection_call().
-func (x *DBusConnection) CallFinish(ResVar AsyncResult) *glib.Variant {
+func (x *DBusConnection) CallFinish(ResVar AsyncResult) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCallFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := xDBusConnectionCallFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr) *glib.Variant
+var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, **glib.Error) *glib.Variant
 
 // Synchronously invokes the @method_name method on the
 // @interface_name D-Bus interface on the remote object at
@@ -934,9 +981,14 @@ var xDBusConnectionCallSync func(uintptr, string, string, string, string, *glib.
 // The calling thread is blocked until a reply is received. See
 // g_dbus_connection_call() for the asynchronous version of
 // this method.
-func (x *DBusConnection) CallSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusConnection) CallSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCallSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer())
+	cret := xDBusConnectionCallSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -963,7 +1015,7 @@ func (x *DBusConnection) CallWithUnixFdList(BusNameVar string, ObjectPathVar str
 
 }
 
-var xDBusConnectionCallWithUnixFdListFinish func(uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusConnectionCallWithUnixFdListFinish func(uintptr, *uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Finishes an operation started with g_dbus_connection_call_with_unix_fd_list().
 //
@@ -977,22 +1029,32 @@ var xDBusConnectionCallWithUnixFdListFinish func(uintptr, *uintptr, uintptr) *gl
 // please note that non-GDBus implementations of D-Bus can usually only
 // access file descriptors if they are referenced in this way by a
 // value of type %G_VARIANT_TYPE_HANDLE in the body of the message.
-func (x *DBusConnection) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, ResVar AsyncResult) *glib.Variant {
+func (x *DBusConnection) CallWithUnixFdListFinish(OutFdListVar **UnixFDList, ResVar AsyncResult) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCallWithUnixFdListFinish(x.GoPointer(), gobject.ConvertPtr(OutFdListVar), ResVar.GoPointer())
+	cret := xDBusConnectionCallWithUnixFdListFinish(x.GoPointer(), gobject.ConvertPtr(OutFdListVar), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionCallWithUnixFdListSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, *uintptr, uintptr) *glib.Variant
+var xDBusConnectionCallWithUnixFdListSync func(uintptr, string, string, string, string, *glib.Variant, *glib.VariantType, DBusCallFlags, int, uintptr, *uintptr, uintptr, **glib.Error) *glib.Variant
 
 // Like g_dbus_connection_call_sync() but also takes and returns #GUnixFDList objects.
 // See g_dbus_connection_call_with_unix_fd_list() and
 // g_dbus_connection_call_with_unix_fd_list_finish() for more details.
 //
 // This method is only available on UNIX.
-func (x *DBusConnection) CallWithUnixFdListSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) *glib.Variant {
+func (x *DBusConnection) CallWithUnixFdListSync(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, OutFdListVar **UnixFDList, CancellableVar *Cancellable) (*glib.Variant, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCallWithUnixFdListSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer())
+	cret := xDBusConnectionCallWithUnixFdListSync(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), gobject.ConvertPtr(OutFdListVar), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1028,28 +1090,38 @@ func (x *DBusConnection) Close(CancellableVar *Cancellable, CallbackVar AsyncRea
 
 }
 
-var xDBusConnectionCloseFinish func(uintptr, uintptr) bool
+var xDBusConnectionCloseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes an operation started with g_dbus_connection_close().
-func (x *DBusConnection) CloseFinish(ResVar AsyncResult) bool {
+func (x *DBusConnection) CloseFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCloseFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := xDBusConnectionCloseFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionCloseSync func(uintptr, uintptr) bool
+var xDBusConnectionCloseSync func(uintptr, uintptr, **glib.Error) bool
 
 // Synchronously closes @connection. The calling thread is blocked
 // until this is done. See g_dbus_connection_close() for the
 // asynchronous version of this method and more details about what it
 // does.
-func (x *DBusConnection) CloseSync(CancellableVar *Cancellable) bool {
+func (x *DBusConnection) CloseSync(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionCloseSync(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDBusConnectionCloseSync(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionEmitSignal func(uintptr, string, string, string, string, *glib.Variant) bool
+var xDBusConnectionEmitSignal func(uintptr, string, string, string, string, *glib.Variant, **glib.Error) bool
 
 // Emits a signal.
 //
@@ -1058,13 +1130,18 @@ var xDBusConnectionEmitSignal func(uintptr, string, string, string, string, *gli
 // This can only fail if @parameters is not compatible with the D-Bus protocol
 // (%G_IO_ERROR_INVALID_ARGUMENT), or if @connection has been closed
 // (%G_IO_ERROR_CLOSED).
-func (x *DBusConnection) EmitSignal(DestinationBusNameVar string, ObjectPathVar string, InterfaceNameVar string, SignalNameVar string, ParametersVar *glib.Variant) bool {
+func (x *DBusConnection) EmitSignal(DestinationBusNameVar string, ObjectPathVar string, InterfaceNameVar string, SignalNameVar string, ParametersVar *glib.Variant) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionEmitSignal(x.GoPointer(), DestinationBusNameVar, ObjectPathVar, InterfaceNameVar, SignalNameVar, ParametersVar)
+	cret := xDBusConnectionEmitSignal(x.GoPointer(), DestinationBusNameVar, ObjectPathVar, InterfaceNameVar, SignalNameVar, ParametersVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionExportActionGroup func(uintptr, string, uintptr) uint
+var xDBusConnectionExportActionGroup func(uintptr, string, uintptr, **glib.Error) uint
 
 // Exports @action_group on @connection at @object_path.
 //
@@ -1087,13 +1164,18 @@ var xDBusConnectionExportActionGroup func(uintptr, string, uintptr) uint
 // rather likely to cause changes on the action group, this effectively
 // limits a given action group to being exported from only one main
 // context.
-func (x *DBusConnection) ExportActionGroup(ObjectPathVar string, ActionGroupVar ActionGroup) uint {
+func (x *DBusConnection) ExportActionGroup(ObjectPathVar string, ActionGroupVar ActionGroup) (uint, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionExportActionGroup(x.GoPointer(), ObjectPathVar, ActionGroupVar.GoPointer())
+	cret := xDBusConnectionExportActionGroup(x.GoPointer(), ObjectPathVar, ActionGroupVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionExportMenuModel func(uintptr, string, uintptr) uint
+var xDBusConnectionExportMenuModel func(uintptr, string, uintptr, **glib.Error) uint
 
 // Exports @menu on @connection at @object_path.
 //
@@ -1107,9 +1189,14 @@ var xDBusConnectionExportMenuModel func(uintptr, string, uintptr) uint
 // You can unexport the menu model using
 // g_dbus_connection_unexport_menu_model() with the return value of
 // this function.
-func (x *DBusConnection) ExportMenuModel(ObjectPathVar string, MenuVar *MenuModel) uint {
+func (x *DBusConnection) ExportMenuModel(ObjectPathVar string, MenuVar *MenuModel) (uint, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionExportMenuModel(x.GoPointer(), ObjectPathVar, MenuVar.GoPointer())
+	cret := xDBusConnectionExportMenuModel(x.GoPointer(), ObjectPathVar, MenuVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1135,24 +1222,34 @@ func (x *DBusConnection) Flush(CancellableVar *Cancellable, CallbackVar AsyncRea
 
 }
 
-var xDBusConnectionFlushFinish func(uintptr, uintptr) bool
+var xDBusConnectionFlushFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes an operation started with g_dbus_connection_flush().
-func (x *DBusConnection) FlushFinish(ResVar AsyncResult) bool {
+func (x *DBusConnection) FlushFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionFlushFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := xDBusConnectionFlushFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionFlushSync func(uintptr, uintptr) bool
+var xDBusConnectionFlushSync func(uintptr, uintptr, **glib.Error) bool
 
 // Synchronously flushes @connection. The calling thread is blocked
 // until this is done. See g_dbus_connection_flush() for the
 // asynchronous version of this method and more details about what it
 // does.
-func (x *DBusConnection) FlushSync(CancellableVar *Cancellable) bool {
+func (x *DBusConnection) FlushSync(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionFlushSync(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xDBusConnectionFlushSync(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1161,8 +1258,8 @@ var xDBusConnectionGetCapabilities func(uintptr) DBusCapabilityFlags
 // Gets the capabilities negotiated with the remote peer
 func (x *DBusConnection) GetCapabilities() DBusCapabilityFlags {
 
-	return xDBusConnectionGetCapabilities(x.GoPointer())
-
+	cret := xDBusConnectionGetCapabilities(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionGetExitOnClose func(uintptr) bool
@@ -1172,8 +1269,8 @@ var xDBusConnectionGetExitOnClose func(uintptr) bool
 // #GDBusConnection:exit-on-close for more details.
 func (x *DBusConnection) GetExitOnClose() bool {
 
-	return xDBusConnectionGetExitOnClose(x.GoPointer())
-
+	cret := xDBusConnectionGetExitOnClose(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionGetFlags func(uintptr) DBusConnectionFlags
@@ -1181,8 +1278,8 @@ var xDBusConnectionGetFlags func(uintptr) DBusConnectionFlags
 // Gets the flags used to construct this connection
 func (x *DBusConnection) GetFlags() DBusConnectionFlags {
 
-	return xDBusConnectionGetFlags(x.GoPointer())
-
+	cret := xDBusConnectionGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionGetGuid func(uintptr) string
@@ -1191,8 +1288,8 @@ var xDBusConnectionGetGuid func(uintptr) string
 // authenticating. See #GDBusConnection:guid for more details.
 func (x *DBusConnection) GetGuid() string {
 
-	return xDBusConnectionGetGuid(x.GoPointer())
-
+	cret := xDBusConnectionGetGuid(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionGetLastSerial func(uintptr) uint32
@@ -1204,8 +1301,8 @@ var xDBusConnectionGetLastSerial func(uintptr) uint32
 // g_dbus_connection_call() or g_dbus_proxy_call().
 func (x *DBusConnection) GetLastSerial() uint32 {
 
-	return xDBusConnectionGetLastSerial(x.GoPointer())
-
+	cret := xDBusConnectionGetLastSerial(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionGetPeerCredentials func(uintptr) uintptr
@@ -1220,18 +1317,17 @@ var xDBusConnectionGetPeerCredentials func(uintptr) uintptr
 // each application is a client. So this method will always return
 // %NULL for message bus clients.
 func (x *DBusConnection) GetPeerCredentials() *Credentials {
+	var cls *Credentials
 
-	GetPeerCredentialsPtr := xDBusConnectionGetPeerCredentials(x.GoPointer())
-	if GetPeerCredentialsPtr == 0 {
-		return nil
+	cret := xDBusConnectionGetPeerCredentials(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPeerCredentialsPtr)
-
-	GetPeerCredentialsCls := &Credentials{}
-	GetPeerCredentialsCls.Ptr = GetPeerCredentialsPtr
-	return GetPeerCredentialsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Credentials{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusConnectionGetStream func(uintptr) uintptr
@@ -1242,18 +1338,17 @@ var xDBusConnectionGetStream func(uintptr) uintptr
 // stream from a worker thread, so it is not safe to interact with
 // the stream directly.
 func (x *DBusConnection) GetStream() *IOStream {
+	var cls *IOStream
 
-	GetStreamPtr := xDBusConnectionGetStream(x.GoPointer())
-	if GetStreamPtr == 0 {
-		return nil
+	cret := xDBusConnectionGetStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStreamPtr)
-
-	GetStreamCls := &IOStream{}
-	GetStreamCls.Ptr = GetStreamPtr
-	return GetStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IOStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusConnectionGetUniqueName func(uintptr) string
@@ -1263,8 +1358,8 @@ var xDBusConnectionGetUniqueName func(uintptr) string
 // message bus connection.
 func (x *DBusConnection) GetUniqueName() string {
 
-	return xDBusConnectionGetUniqueName(x.GoPointer())
-
+	cret := xDBusConnectionGetUniqueName(x.GoPointer())
+	return cret
 }
 
 var xDBusConnectionIsClosed func(uintptr) bool
@@ -1272,11 +1367,11 @@ var xDBusConnectionIsClosed func(uintptr) bool
 // Gets whether @connection is closed.
 func (x *DBusConnection) IsClosed() bool {
 
-	return xDBusConnectionIsClosed(x.GoPointer())
-
+	cret := xDBusConnectionIsClosed(x.GoPointer())
+	return cret
 }
 
-var xDBusConnectionRegisterObject func(uintptr, string, *DBusInterfaceInfo, *DBusInterfaceVTable, uintptr, uintptr) uint
+var xDBusConnectionRegisterObject func(uintptr, string, *DBusInterfaceInfo, *DBusInterfaceVTable, uintptr, uintptr, **glib.Error) uint
 
 // Registers callbacks for exported objects at @object_path with the
 // D-Bus interface that is described in @interface_info.
@@ -1316,23 +1411,33 @@ var xDBusConnectionRegisterObject func(uintptr, string, *DBusInterfaceInfo, *DBu
 // as the object is exported. Also note that @vtable will be copied.
 //
 // See this [server][gdbus-server] for an example of how to use this method.
-func (x *DBusConnection) RegisterObject(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, VtableVar *DBusInterfaceVTable, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func (x *DBusConnection) RegisterObject(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, VtableVar *DBusInterfaceVTable, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) (uint, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionRegisterObject(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, VtableVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xDBusConnectionRegisterObject(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, VtableVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionRegisterObjectWithClosures func(uintptr, string, *DBusInterfaceInfo, *gobject.Closure, *gobject.Closure, *gobject.Closure) uint
+var xDBusConnectionRegisterObjectWithClosures func(uintptr, string, *DBusInterfaceInfo, *gobject.Closure, *gobject.Closure, *gobject.Closure, **glib.Error) uint
 
 // Version of g_dbus_connection_register_object() using closures instead of a
 // #GDBusInterfaceVTable for easier binding in other languages.
-func (x *DBusConnection) RegisterObjectWithClosures(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, MethodCallClosureVar *gobject.Closure, GetPropertyClosureVar *gobject.Closure, SetPropertyClosureVar *gobject.Closure) uint {
+func (x *DBusConnection) RegisterObjectWithClosures(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, MethodCallClosureVar *gobject.Closure, GetPropertyClosureVar *gobject.Closure, SetPropertyClosureVar *gobject.Closure) (uint, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionRegisterObjectWithClosures(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, MethodCallClosureVar, GetPropertyClosureVar, SetPropertyClosureVar)
+	cret := xDBusConnectionRegisterObjectWithClosures(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, MethodCallClosureVar, GetPropertyClosureVar, SetPropertyClosureVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xDBusConnectionRegisterSubtree func(uintptr, string, *DBusSubtreeVTable, DBusSubtreeFlags, uintptr, uintptr) uint
+var xDBusConnectionRegisterSubtree func(uintptr, string, *DBusSubtreeVTable, DBusSubtreeFlags, uintptr, uintptr, **glib.Error) uint
 
 // Registers a whole subtree of dynamic objects.
 //
@@ -1368,9 +1473,14 @@ var xDBusConnectionRegisterSubtree func(uintptr, string, *DBusSubtreeVTable, DBu
 //
 // See this [server][gdbus-subtree-server] for an example of how to use
 // this method.
-func (x *DBusConnection) RegisterSubtree(ObjectPathVar string, VtableVar *DBusSubtreeVTable, FlagsVar DBusSubtreeFlags, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func (x *DBusConnection) RegisterSubtree(ObjectPathVar string, VtableVar *DBusSubtreeVTable, FlagsVar DBusSubtreeFlags, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) (uint, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionRegisterSubtree(x.GoPointer(), ObjectPathVar, VtableVar, FlagsVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xDBusConnectionRegisterSubtree(x.GoPointer(), ObjectPathVar, VtableVar, FlagsVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1390,7 +1500,7 @@ func (x *DBusConnection) RemoveFilter(FilterIdVar uint) {
 
 }
 
-var xDBusConnectionSendMessage func(uintptr, uintptr, DBusSendMessageFlags, uint32) bool
+var xDBusConnectionSendMessage func(uintptr, uintptr, DBusSendMessageFlags, uint32, **glib.Error) bool
 
 // Asynchronously sends @message to the peer represented by @connection.
 //
@@ -1413,9 +1523,14 @@ var xDBusConnectionSendMessage func(uintptr, uintptr, DBusSendMessageFlags, uint
 //
 // Note that @message must be unlocked, unless @flags contain the
 // %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
-func (x *DBusConnection) SendMessage(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, OutSerialVar uint32) bool {
+func (x *DBusConnection) SendMessage(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, OutSerialVar uint32) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusConnectionSendMessage(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, OutSerialVar)
+	cret := xDBusConnectionSendMessage(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, OutSerialVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1456,7 +1571,7 @@ func (x *DBusConnection) SendMessageWithReply(MessageVar *DBusMessage, FlagsVar 
 
 }
 
-var xDBusConnectionSendMessageWithReplyFinish func(uintptr, uintptr) uintptr
+var xDBusConnectionSendMessageWithReplyFinish func(uintptr, uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_connection_send_message_with_reply().
 //
@@ -1468,20 +1583,25 @@ var xDBusConnectionSendMessageWithReplyFinish func(uintptr, uintptr) uintptr
 // See this [server][gdbus-server] and [client][gdbus-unix-fd-client]
 // for an example of how to use this low-level API to send and receive
 // UNIX file descriptors.
-func (x *DBusConnection) SendMessageWithReplyFinish(ResVar AsyncResult) *DBusMessage {
+func (x *DBusConnection) SendMessageWithReplyFinish(ResVar AsyncResult) (*DBusMessage, error) {
+	var cls *DBusMessage
+	var cerr *glib.Error
 
-	SendMessageWithReplyFinishPtr := xDBusConnectionSendMessageWithReplyFinish(x.GoPointer(), ResVar.GoPointer())
-	if SendMessageWithReplyFinishPtr == 0 {
-		return nil
+	cret := xDBusConnectionSendMessageWithReplyFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	SendMessageWithReplyFinishCls := &DBusMessage{}
-	SendMessageWithReplyFinishCls.Ptr = SendMessageWithReplyFinishPtr
-	return SendMessageWithReplyFinishCls
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
-var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessageFlags, int, uint32, uintptr) uintptr
+var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessageFlags, int, uint32, uintptr, **glib.Error) uintptr
 
 // Synchronously sends @message to the peer represented by @connection
 // and blocks the calling thread until a reply is received or the
@@ -1513,16 +1633,21 @@ var xDBusConnectionSendMessageWithReplySync func(uintptr, uintptr, DBusSendMessa
 //
 // Note that @message must be unlocked, unless @flags contain the
 // %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
-func (x *DBusConnection) SendMessageWithReplySync(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable) *DBusMessage {
+func (x *DBusConnection) SendMessageWithReplySync(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable) (*DBusMessage, error) {
+	var cls *DBusMessage
+	var cerr *glib.Error
 
-	SendMessageWithReplySyncPtr := xDBusConnectionSendMessageWithReplySync(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer())
-	if SendMessageWithReplySyncPtr == 0 {
-		return nil
+	cret := xDBusConnectionSendMessageWithReplySync(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	SendMessageWithReplySyncCls := &DBusMessage{}
-	SendMessageWithReplySyncCls.Ptr = SendMessageWithReplySyncPtr
-	return SendMessageWithReplySyncCls
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1597,8 +1722,8 @@ var xDBusConnectionSignalSubscribe func(uintptr, string, string, string, string,
 // This function can never fail.
 func (x *DBusConnection) SignalSubscribe(SenderVar string, InterfaceNameVar string, MemberVar string, ObjectPathVar string, Arg0Var string, FlagsVar DBusSignalFlags, CallbackVar DBusSignalCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xDBusConnectionSignalSubscribe(x.GoPointer(), SenderVar, InterfaceNameVar, MemberVar, ObjectPathVar, Arg0Var, FlagsVar, purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xDBusConnectionSignalSubscribe(x.GoPointer(), SenderVar, InterfaceNameVar, MemberVar, ObjectPathVar, Arg0Var, FlagsVar, purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xDBusConnectionSignalUnsubscribe func(uintptr, uint)
@@ -1666,8 +1791,8 @@ var xDBusConnectionUnregisterObject func(uintptr, uint) bool
 // Unregisters an object.
 func (x *DBusConnection) UnregisterObject(RegistrationIdVar uint) bool {
 
-	return xDBusConnectionUnregisterObject(x.GoPointer(), RegistrationIdVar)
-
+	cret := xDBusConnectionUnregisterObject(x.GoPointer(), RegistrationIdVar)
+	return cret
 }
 
 var xDBusConnectionUnregisterSubtree func(uintptr, uint) bool
@@ -1675,8 +1800,8 @@ var xDBusConnectionUnregisterSubtree func(uintptr, uint) bool
 // Unregisters a subtree.
 func (x *DBusConnection) UnregisterSubtree(RegistrationIdVar uint) bool {
 
-	return xDBusConnectionUnregisterSubtree(x.GoPointer(), RegistrationIdVar)
-
+	cret := xDBusConnectionUnregisterSubtree(x.GoPointer(), RegistrationIdVar)
+	return cret
 }
 
 func (c *DBusConnection) GoPointer() uintptr {
@@ -1758,24 +1883,34 @@ func (x *DBusConnection) InitAsync(IoPriorityVar int, CancellableVar *Cancellabl
 
 // Finishes asynchronous initialization and returns the result.
 // See g_async_initable_init_async().
-func (x *DBusConnection) InitFinish(ResVar AsyncResult) bool {
+func (x *DBusConnection) InitFinish(ResVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer())
+	cret := XGAsyncInitableInitFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Finishes the async construction for the various g_async_initable_new
 // calls, returning the created object or %NULL on error.
-func (x *DBusConnection) NewFinish(ResVar AsyncResult) *gobject.Object {
+func (x *DBusConnection) NewFinish(ResVar AsyncResult) (*gobject.Object, error) {
+	var cls *gobject.Object
+	var cerr *glib.Error
 
-	NewFinishPtr := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer())
-	if NewFinishPtr == 0 {
-		return nil
+	cret := XGAsyncInitableNewFinish(x.GoPointer(), ResVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	NewFinishCls := &gobject.Object{}
-	NewFinishCls.Ptr = NewFinishPtr
-	return NewFinishCls
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1817,9 +1952,14 @@ func (x *DBusConnection) NewFinish(ResVar AsyncResult) *gobject.Object {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *DBusConnection) Init(CancellableVar *Cancellable) bool {
+func (x *DBusConnection) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -1860,17 +2000,19 @@ var xNewDBusMessage func() uintptr
 
 // Creates a new empty #GDBusMessage.
 func NewDBusMessage() *DBusMessage {
-	NewDBusMessagePtr := xNewDBusMessage()
-	if NewDBusMessagePtr == 0 {
-		return nil
-	}
+	var cls *DBusMessage
 
-	NewDBusMessageCls := &DBusMessage{}
-	NewDBusMessageCls.Ptr = NewDBusMessagePtr
-	return NewDBusMessageCls
+	cret := xNewDBusMessage()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewFromBlobDBusMessage func(uintptr, uint, DBusCapabilityFlags) uintptr
+var xNewFromBlobDBusMessage func(uintptr, uint, DBusCapabilityFlags, **glib.Error) uintptr
 
 // Creates a new #GDBusMessage from the data stored at @blob. The byte
 // order that the message was in can be retrieved using
@@ -1878,43 +2020,54 @@ var xNewFromBlobDBusMessage func(uintptr, uint, DBusCapabilityFlags) uintptr
 //
 // If the @blob cannot be parsed, contains invalid fields, or contains invalid
 // headers, %G_IO_ERROR_INVALID_ARGUMENT will be returned.
-func NewFromBlobDBusMessage(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DBusCapabilityFlags) *DBusMessage {
-	NewFromBlobDBusMessagePtr := xNewFromBlobDBusMessage(BlobVar, BlobLenVar, CapabilitiesVar)
-	if NewFromBlobDBusMessagePtr == 0 {
-		return nil
-	}
+func NewFromBlobDBusMessage(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DBusCapabilityFlags) (*DBusMessage, error) {
+	var cls *DBusMessage
+	var cerr *glib.Error
 
-	NewFromBlobDBusMessageCls := &DBusMessage{}
-	NewFromBlobDBusMessageCls.Ptr = NewFromBlobDBusMessagePtr
-	return NewFromBlobDBusMessageCls
+	cret := xNewFromBlobDBusMessage(BlobVar, BlobLenVar, CapabilitiesVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xNewMethodCallDBusMessage func(string, string, string, string) uintptr
 
 // Creates a new #GDBusMessage for a method call.
 func NewMethodCallDBusMessage(NameVar string, PathVar string, InterfaceVar string, MethodVar string) *DBusMessage {
-	NewMethodCallDBusMessagePtr := xNewMethodCallDBusMessage(NameVar, PathVar, InterfaceVar, MethodVar)
-	if NewMethodCallDBusMessagePtr == 0 {
-		return nil
-	}
+	var cls *DBusMessage
 
-	NewMethodCallDBusMessageCls := &DBusMessage{}
-	NewMethodCallDBusMessageCls.Ptr = NewMethodCallDBusMessagePtr
-	return NewMethodCallDBusMessageCls
+	cret := xNewMethodCallDBusMessage(NameVar, PathVar, InterfaceVar, MethodVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewSignalDBusMessage func(string, string, string) uintptr
 
 // Creates a new #GDBusMessage for a signal emission.
 func NewSignalDBusMessage(PathVar string, InterfaceVar string, SignalVar string) *DBusMessage {
-	NewSignalDBusMessagePtr := xNewSignalDBusMessage(PathVar, InterfaceVar, SignalVar)
-	if NewSignalDBusMessagePtr == 0 {
-		return nil
-	}
+	var cls *DBusMessage
 
-	NewSignalDBusMessageCls := &DBusMessage{}
-	NewSignalDBusMessageCls.Ptr = NewSignalDBusMessagePtr
-	return NewSignalDBusMessageCls
+	cret := xNewSignalDBusMessage(PathVar, InterfaceVar, SignalVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessageCopy func(uintptr) uintptr
@@ -1925,16 +2078,21 @@ var xDBusMessageCopy func(uintptr) uintptr
 //
 // This operation can fail if e.g. @message contains file descriptors
 // and the per-process or system-wide open files limit is reached.
-func (x *DBusMessage) Copy() *DBusMessage {
+func (x *DBusMessage) Copy() (*DBusMessage, error) {
+	var cls *DBusMessage
+	var cerr *glib.Error
 
-	CopyPtr := xDBusMessageCopy(x.GoPointer())
-	if CopyPtr == 0 {
-		return nil
+	cret := xDBusMessageCopy(x.GoPointer())
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	CopyCls := &DBusMessage{}
-	CopyCls.Ptr = CopyPtr
-	return CopyCls
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -1943,8 +2101,8 @@ var xDBusMessageGetArg0 func(uintptr) string
 // Convenience to get the first item in the body of @message.
 func (x *DBusMessage) GetArg0() string {
 
-	return xDBusMessageGetArg0(x.GoPointer())
-
+	cret := xDBusMessageGetArg0(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetBody func(uintptr) *glib.Variant
@@ -1952,8 +2110,8 @@ var xDBusMessageGetBody func(uintptr) *glib.Variant
 // Gets the body of a message.
 func (x *DBusMessage) GetBody() *glib.Variant {
 
-	return xDBusMessageGetBody(x.GoPointer())
-
+	cret := xDBusMessageGetBody(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetByteOrder func(uintptr) DBusMessageByteOrder
@@ -1961,8 +2119,8 @@ var xDBusMessageGetByteOrder func(uintptr) DBusMessageByteOrder
 // Gets the byte order of @message.
 func (x *DBusMessage) GetByteOrder() DBusMessageByteOrder {
 
-	return xDBusMessageGetByteOrder(x.GoPointer())
-
+	cret := xDBusMessageGetByteOrder(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetDestination func(uintptr) string
@@ -1970,8 +2128,8 @@ var xDBusMessageGetDestination func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
 func (x *DBusMessage) GetDestination() string {
 
-	return xDBusMessageGetDestination(x.GoPointer())
-
+	cret := xDBusMessageGetDestination(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetErrorName func(uintptr) string
@@ -1979,8 +2137,8 @@ var xDBusMessageGetErrorName func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field.
 func (x *DBusMessage) GetErrorName() string {
 
-	return xDBusMessageGetErrorName(x.GoPointer())
-
+	cret := xDBusMessageGetErrorName(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetFlags func(uintptr) DBusMessageFlags
@@ -1988,8 +2146,8 @@ var xDBusMessageGetFlags func(uintptr) DBusMessageFlags
 // Gets the flags for @message.
 func (x *DBusMessage) GetFlags() DBusMessageFlags {
 
-	return xDBusMessageGetFlags(x.GoPointer())
-
+	cret := xDBusMessageGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetHeader func(uintptr, DBusMessageHeaderField) *glib.Variant
@@ -2000,8 +2158,8 @@ var xDBusMessageGetHeader func(uintptr, DBusMessageHeaderField) *glib.Variant
 // matches what is expected.
 func (x *DBusMessage) GetHeader(HeaderFieldVar DBusMessageHeaderField) *glib.Variant {
 
-	return xDBusMessageGetHeader(x.GoPointer(), HeaderFieldVar)
-
+	cret := xDBusMessageGetHeader(x.GoPointer(), HeaderFieldVar)
+	return cret
 }
 
 var xDBusMessageGetHeaderFields func(uintptr) uintptr
@@ -2009,8 +2167,8 @@ var xDBusMessageGetHeaderFields func(uintptr) uintptr
 // Gets an array of all header fields on @message that are set.
 func (x *DBusMessage) GetHeaderFields() uintptr {
 
-	return xDBusMessageGetHeaderFields(x.GoPointer())
-
+	cret := xDBusMessageGetHeaderFields(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetInterface func(uintptr) string
@@ -2018,8 +2176,8 @@ var xDBusMessageGetInterface func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
 func (x *DBusMessage) GetInterface() string {
 
-	return xDBusMessageGetInterface(x.GoPointer())
-
+	cret := xDBusMessageGetInterface(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetLocked func(uintptr) bool
@@ -2029,8 +2187,8 @@ var xDBusMessageGetLocked func(uintptr) bool
 // on the #GDBusMessage:locked property.
 func (x *DBusMessage) GetLocked() bool {
 
-	return xDBusMessageGetLocked(x.GoPointer())
-
+	cret := xDBusMessageGetLocked(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetMember func(uintptr) string
@@ -2038,8 +2196,8 @@ var xDBusMessageGetMember func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_MEMBER header field.
 func (x *DBusMessage) GetMember() string {
 
-	return xDBusMessageGetMember(x.GoPointer())
-
+	cret := xDBusMessageGetMember(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetMessageType func(uintptr) DBusMessageType
@@ -2047,8 +2205,8 @@ var xDBusMessageGetMessageType func(uintptr) DBusMessageType
 // Gets the type of @message.
 func (x *DBusMessage) GetMessageType() DBusMessageType {
 
-	return xDBusMessageGetMessageType(x.GoPointer())
-
+	cret := xDBusMessageGetMessageType(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetNumUnixFds func(uintptr) uint32
@@ -2056,8 +2214,8 @@ var xDBusMessageGetNumUnixFds func(uintptr) uint32
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header field.
 func (x *DBusMessage) GetNumUnixFds() uint32 {
 
-	return xDBusMessageGetNumUnixFds(x.GoPointer())
-
+	cret := xDBusMessageGetNumUnixFds(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetPath func(uintptr) string
@@ -2065,8 +2223,8 @@ var xDBusMessageGetPath func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
 func (x *DBusMessage) GetPath() string {
 
-	return xDBusMessageGetPath(x.GoPointer())
-
+	cret := xDBusMessageGetPath(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetReplySerial func(uintptr) uint32
@@ -2074,8 +2232,8 @@ var xDBusMessageGetReplySerial func(uintptr) uint32
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL header field.
 func (x *DBusMessage) GetReplySerial() uint32 {
 
-	return xDBusMessageGetReplySerial(x.GoPointer())
-
+	cret := xDBusMessageGetReplySerial(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetSender func(uintptr) string
@@ -2083,8 +2241,8 @@ var xDBusMessageGetSender func(uintptr) string
 // Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
 func (x *DBusMessage) GetSender() string {
 
-	return xDBusMessageGetSender(x.GoPointer())
-
+	cret := xDBusMessageGetSender(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetSerial func(uintptr) uint32
@@ -2092,8 +2250,8 @@ var xDBusMessageGetSerial func(uintptr) uint32
 // Gets the serial for @message.
 func (x *DBusMessage) GetSerial() uint32 {
 
-	return xDBusMessageGetSerial(x.GoPointer())
-
+	cret := xDBusMessageGetSerial(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetSignature func(uintptr) string
@@ -2103,8 +2261,8 @@ var xDBusMessageGetSignature func(uintptr) string
 // This will always be non-%NULL, but may be an empty string.
 func (x *DBusMessage) GetSignature() string {
 
-	return xDBusMessageGetSignature(x.GoPointer())
-
+	cret := xDBusMessageGetSignature(x.GoPointer())
+	return cret
 }
 
 var xDBusMessageGetUnixFdList func(uintptr) uintptr
@@ -2119,18 +2277,17 @@ var xDBusMessageGetUnixFdList func(uintptr) uintptr
 // to the file descriptor that can be accessed by
 // `g_unix_fd_list_get (list, 5, ...)`.
 func (x *DBusMessage) GetUnixFdList() *UnixFDList {
+	var cls *UnixFDList
 
-	GetUnixFdListPtr := xDBusMessageGetUnixFdList(x.GoPointer())
-	if GetUnixFdListPtr == 0 {
-		return nil
+	cret := xDBusMessageGetUnixFdList(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetUnixFdListPtr)
-
-	GetUnixFdListCls := &UnixFDList{}
-	GetUnixFdListCls.Ptr = GetUnixFdListPtr
-	return GetUnixFdListCls
-
+	gobject.IncreaseRef(cret)
+	cls = &UnixFDList{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessageLock func(uintptr)
@@ -2146,64 +2303,64 @@ var xDBusMessageNewMethodError func(uintptr, string, string, ...interface{}) uin
 
 // Creates a new #GDBusMessage that is an error reply to @method_call_message.
 func (x *DBusMessage) NewMethodError(ErrorNameVar string, ErrorMessageFormatVar string, varArgs ...interface{}) *DBusMessage {
+	var cls *DBusMessage
 
-	NewMethodErrorPtr := xDBusMessageNewMethodError(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, varArgs...)
-	if NewMethodErrorPtr == 0 {
-		return nil
+	cret := xDBusMessageNewMethodError(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewMethodErrorCls := &DBusMessage{}
-	NewMethodErrorCls.Ptr = NewMethodErrorPtr
-	return NewMethodErrorCls
-
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessageNewMethodErrorLiteral func(uintptr, string, string) uintptr
 
 // Creates a new #GDBusMessage that is an error reply to @method_call_message.
 func (x *DBusMessage) NewMethodErrorLiteral(ErrorNameVar string, ErrorMessageVar string) *DBusMessage {
+	var cls *DBusMessage
 
-	NewMethodErrorLiteralPtr := xDBusMessageNewMethodErrorLiteral(x.GoPointer(), ErrorNameVar, ErrorMessageVar)
-	if NewMethodErrorLiteralPtr == 0 {
-		return nil
+	cret := xDBusMessageNewMethodErrorLiteral(x.GoPointer(), ErrorNameVar, ErrorMessageVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewMethodErrorLiteralCls := &DBusMessage{}
-	NewMethodErrorLiteralCls.Ptr = NewMethodErrorLiteralPtr
-	return NewMethodErrorLiteralCls
-
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessageNewMethodErrorValist func(uintptr, string, string, []interface{}) uintptr
 
 // Like g_dbus_message_new_method_error() but intended for language bindings.
 func (x *DBusMessage) NewMethodErrorValist(ErrorNameVar string, ErrorMessageFormatVar string, VarArgsVar []interface{}) *DBusMessage {
+	var cls *DBusMessage
 
-	NewMethodErrorValistPtr := xDBusMessageNewMethodErrorValist(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, VarArgsVar)
-	if NewMethodErrorValistPtr == 0 {
-		return nil
+	cret := xDBusMessageNewMethodErrorValist(x.GoPointer(), ErrorNameVar, ErrorMessageFormatVar, VarArgsVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewMethodErrorValistCls := &DBusMessage{}
-	NewMethodErrorValistCls.Ptr = NewMethodErrorValistPtr
-	return NewMethodErrorValistCls
-
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessageNewMethodReply func(uintptr) uintptr
 
 // Creates a new #GDBusMessage that is a reply to @method_call_message.
 func (x *DBusMessage) NewMethodReply() *DBusMessage {
+	var cls *DBusMessage
 
-	NewMethodReplyPtr := xDBusMessageNewMethodReply(x.GoPointer())
-	if NewMethodReplyPtr == 0 {
-		return nil
+	cret := xDBusMessageNewMethodReply(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	NewMethodReplyCls := &DBusMessage{}
-	NewMethodReplyCls.Ptr = NewMethodReplyPtr
-	return NewMethodReplyCls
-
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMessagePrint func(uintptr, uint) string
@@ -2250,8 +2407,8 @@ var xDBusMessagePrint func(uintptr, uint) string
 // ]|
 func (x *DBusMessage) Print(IndentVar uint) string {
 
-	return xDBusMessagePrint(x.GoPointer(), IndentVar)
-
+	cret := xDBusMessagePrint(x.GoPointer(), IndentVar)
+	return cret
 }
 
 var xDBusMessageSetBody func(uintptr, *glib.Variant)
@@ -2414,13 +2571,18 @@ func (x *DBusMessage) SetUnixFdList(FdListVar *UnixFDList) {
 
 }
 
-var xDBusMessageToBlob func(uintptr, uint, DBusCapabilityFlags) uintptr
+var xDBusMessageToBlob func(uintptr, uint, DBusCapabilityFlags, **glib.Error) uintptr
 
 // Serializes @message to a blob. The byte order returned by
 // g_dbus_message_get_byte_order() will be used.
-func (x *DBusMessage) ToBlob(OutSizeVar uint, CapabilitiesVar DBusCapabilityFlags) uintptr {
+func (x *DBusMessage) ToBlob(OutSizeVar uint, CapabilitiesVar DBusCapabilityFlags) (uintptr, error) {
+	var cerr *glib.Error
 
-	return xDBusMessageToBlob(x.GoPointer(), OutSizeVar, CapabilitiesVar)
+	cret := xDBusMessageToBlob(x.GoPointer(), OutSizeVar, CapabilitiesVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2433,9 +2595,14 @@ var xDBusMessageToGerror func(uintptr) bool
 // using g_dbus_error_set_dbus_error() using the information in the
 // %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field of @message as
 // well as the first string item in @message's body.
-func (x *DBusMessage) ToGerror() bool {
+func (x *DBusMessage) ToGerror() (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusMessageToGerror(x.GoPointer())
+	cret := xDBusMessageToGerror(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2468,18 +2635,17 @@ var xDBusMethodInvocationGetConnection func(uintptr) uintptr
 
 // Gets the #GDBusConnection the method was invoked on.
 func (x *DBusMethodInvocation) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusMethodInvocationGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusMethodInvocationGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConnectionPtr)
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMethodInvocationGetInterfaceName func(uintptr) string
@@ -2492,8 +2658,8 @@ var xDBusMethodInvocationGetInterfaceName func(uintptr) string
 // #GDBusInterfaceVTable for more information.
 func (x *DBusMethodInvocation) GetInterfaceName() string {
 
-	return xDBusMethodInvocationGetInterfaceName(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetInterfaceName(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetMessage func(uintptr) uintptr
@@ -2507,18 +2673,17 @@ var xDBusMethodInvocationGetMessage func(uintptr) uintptr
 // for an example of how to use this low-level API to send and receive
 // UNIX file descriptors.
 func (x *DBusMethodInvocation) GetMessage() *DBusMessage {
+	var cls *DBusMessage
 
-	GetMessagePtr := xDBusMethodInvocationGetMessage(x.GoPointer())
-	if GetMessagePtr == 0 {
-		return nil
+	cret := xDBusMethodInvocationGetMessage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMessagePtr)
-
-	GetMessageCls := &DBusMessage{}
-	GetMessageCls.Ptr = GetMessagePtr
-	return GetMessageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusMessage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusMethodInvocationGetMethodInfo func(uintptr) *DBusMethodInfo
@@ -2531,8 +2696,8 @@ var xDBusMethodInvocationGetMethodInfo func(uintptr) *DBusMethodInfo
 // #GDBusInterfaceVTable for more information.
 func (x *DBusMethodInvocation) GetMethodInfo() *DBusMethodInfo {
 
-	return xDBusMethodInvocationGetMethodInfo(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetMethodInfo(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetMethodName func(uintptr) string
@@ -2540,8 +2705,8 @@ var xDBusMethodInvocationGetMethodName func(uintptr) string
 // Gets the name of the method that was invoked.
 func (x *DBusMethodInvocation) GetMethodName() string {
 
-	return xDBusMethodInvocationGetMethodName(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetMethodName(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetObjectPath func(uintptr) string
@@ -2549,8 +2714,8 @@ var xDBusMethodInvocationGetObjectPath func(uintptr) string
 // Gets the object path the method was invoked on.
 func (x *DBusMethodInvocation) GetObjectPath() string {
 
-	return xDBusMethodInvocationGetObjectPath(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetObjectPath(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetParameters func(uintptr) *glib.Variant
@@ -2559,8 +2724,8 @@ var xDBusMethodInvocationGetParameters func(uintptr) *glib.Variant
 // parameters then this will return a GVariant with 0 children rather than NULL.
 func (x *DBusMethodInvocation) GetParameters() *glib.Variant {
 
-	return xDBusMethodInvocationGetParameters(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetParameters(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetPropertyInfo func(uintptr) *DBusPropertyInfo
@@ -2578,8 +2743,8 @@ var xDBusMethodInvocationGetPropertyInfo func(uintptr) *DBusPropertyInfo
 // If the call was GetAll, %NULL will be returned.
 func (x *DBusMethodInvocation) GetPropertyInfo() *DBusPropertyInfo {
 
-	return xDBusMethodInvocationGetPropertyInfo(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetPropertyInfo(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetSender func(uintptr) string
@@ -2587,8 +2752,8 @@ var xDBusMethodInvocationGetSender func(uintptr) string
 // Gets the bus name that invoked the method.
 func (x *DBusMethodInvocation) GetSender() string {
 
-	return xDBusMethodInvocationGetSender(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetSender(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationGetUserData func(uintptr) uintptr
@@ -2596,8 +2761,8 @@ var xDBusMethodInvocationGetUserData func(uintptr) uintptr
 // Gets the @user_data #gpointer passed to g_dbus_connection_register_object().
 func (x *DBusMethodInvocation) GetUserData() uintptr {
 
-	return xDBusMethodInvocationGetUserData(x.GoPointer())
-
+	cret := xDBusMethodInvocationGetUserData(x.GoPointer())
+	return cret
 }
 
 var xDBusMethodInvocationReturnDbusError func(uintptr, string, string)
@@ -2790,7 +2955,7 @@ func DBusServerNewFromInternalPtr(ptr uintptr) *DBusServer {
 	return cls
 }
 
-var xNewSyncDBusServer func(string, DBusServerFlags, string, uintptr, uintptr) uintptr
+var xNewSyncDBusServer func(string, DBusServerFlags, string, uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new D-Bus server that listens on the first address in
 // @address that works.
@@ -2812,15 +2977,22 @@ var xNewSyncDBusServer func(string, DBusServerFlags, string, uintptr, uintptr) u
 //
 // This is a synchronous failable constructor. There is currently no
 // asynchronous version.
-func NewSyncDBusServer(AddressVar string, FlagsVar DBusServerFlags, GuidVar string, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) *DBusServer {
-	NewSyncDBusServerPtr := xNewSyncDBusServer(AddressVar, FlagsVar, GuidVar, ObserverVar.GoPointer(), CancellableVar.GoPointer())
-	if NewSyncDBusServerPtr == 0 {
-		return nil
-	}
+func NewSyncDBusServer(AddressVar string, FlagsVar DBusServerFlags, GuidVar string, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusServer, error) {
+	var cls *DBusServer
+	var cerr *glib.Error
 
-	NewSyncDBusServerCls := &DBusServer{}
-	NewSyncDBusServerCls.Ptr = NewSyncDBusServerPtr
-	return NewSyncDBusServerCls
+	cret := xNewSyncDBusServer(AddressVar, FlagsVar, GuidVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &DBusServer{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xDBusServerGetClientAddress func(uintptr) string
@@ -2832,8 +3004,8 @@ var xDBusServerGetClientAddress func(uintptr) string
 // This is valid and non-empty if initializing the #GDBusServer succeeded.
 func (x *DBusServer) GetClientAddress() string {
 
-	return xDBusServerGetClientAddress(x.GoPointer())
-
+	cret := xDBusServerGetClientAddress(x.GoPointer())
+	return cret
 }
 
 var xDBusServerGetFlags func(uintptr) DBusServerFlags
@@ -2841,8 +3013,8 @@ var xDBusServerGetFlags func(uintptr) DBusServerFlags
 // Gets the flags for @server.
 func (x *DBusServer) GetFlags() DBusServerFlags {
 
-	return xDBusServerGetFlags(x.GoPointer())
-
+	cret := xDBusServerGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusServerGetGuid func(uintptr) string
@@ -2850,8 +3022,8 @@ var xDBusServerGetGuid func(uintptr) string
 // Gets the GUID for @server, as provided to g_dbus_server_new_sync().
 func (x *DBusServer) GetGuid() string {
 
-	return xDBusServerGetGuid(x.GoPointer())
-
+	cret := xDBusServerGetGuid(x.GoPointer())
+	return cret
 }
 
 var xDBusServerIsActive func(uintptr) bool
@@ -2859,8 +3031,8 @@ var xDBusServerIsActive func(uintptr) bool
 // Gets whether @server is active.
 func (x *DBusServer) IsActive() bool {
 
-	return xDBusServerIsActive(x.GoPointer())
-
+	cret := xDBusServerIsActive(x.GoPointer())
+	return cret
 }
 
 var xDBusServerStart func(uintptr)
@@ -2959,9 +3131,14 @@ func (x *DBusServer) ConnectNewConnection(cb func(DBusServer, uintptr) bool) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *DBusServer) Init(CancellableVar *Cancellable) bool {
+func (x *DBusServer) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -2989,14 +3166,16 @@ var xNewMenu func() uintptr
 //
 // The new menu has no items.
 func NewMenu() *Menu {
-	NewMenuPtr := xNewMenu()
-	if NewMenuPtr == 0 {
-		return nil
-	}
+	var cls *Menu
 
-	NewMenuCls := &Menu{}
-	NewMenuCls.Ptr = NewMenuPtr
-	return NewMenuCls
+	cret := xNewMenu()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Menu{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuAppend func(uintptr, string, string)
@@ -3219,14 +3398,16 @@ var xNewMenuItem func(string, string) uintptr
 // possibly the "target" attribute of the new item.  See
 // g_menu_item_set_detailed_action() for more information.
 func NewMenuItem(LabelVar string, DetailedActionVar string) *MenuItem {
-	NewMenuItemPtr := xNewMenuItem(LabelVar, DetailedActionVar)
-	if NewMenuItemPtr == 0 {
-		return nil
-	}
+	var cls *MenuItem
 
-	NewMenuItemCls := &MenuItem{}
-	NewMenuItemCls.Ptr = NewMenuItemPtr
-	return NewMenuItemCls
+	cret := xNewMenuItem(LabelVar, DetailedActionVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MenuItem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromModelMenuItem func(uintptr, int) uintptr
@@ -3237,14 +3418,16 @@ var xNewFromModelMenuItem func(uintptr, int) uintptr
 // @item_index must be valid (ie: be sure to call
 // g_menu_model_get_n_items() first).
 func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
-	NewFromModelMenuItemPtr := xNewFromModelMenuItem(ModelVar.GoPointer(), ItemIndexVar)
-	if NewFromModelMenuItemPtr == 0 {
-		return nil
-	}
+	var cls *MenuItem
 
-	NewFromModelMenuItemCls := &MenuItem{}
-	NewFromModelMenuItemCls.Ptr = NewFromModelMenuItemPtr
-	return NewFromModelMenuItemCls
+	cret := xNewFromModelMenuItem(ModelVar.GoPointer(), ItemIndexVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MenuItem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewSectionMenuItem func(string, uintptr) uintptr
@@ -3314,14 +3497,16 @@ var xNewSectionMenuItem func(string, uintptr) uintptr
 // &lt;/menu&gt;
 // ]|
 func NewSectionMenuItem(LabelVar string, SectionVar *MenuModel) *MenuItem {
-	NewSectionMenuItemPtr := xNewSectionMenuItem(LabelVar, SectionVar.GoPointer())
-	if NewSectionMenuItemPtr == 0 {
-		return nil
-	}
+	var cls *MenuItem
 
-	NewSectionMenuItemCls := &MenuItem{}
-	NewSectionMenuItemCls.Ptr = NewSectionMenuItemPtr
-	return NewSectionMenuItemCls
+	cret := xNewSectionMenuItem(LabelVar, SectionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MenuItem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewSubmenuMenuItem func(string, uintptr) uintptr
@@ -3331,14 +3516,16 @@ var xNewSubmenuMenuItem func(string, uintptr) uintptr
 // This is a convenience API around g_menu_item_new() and
 // g_menu_item_set_submenu().
 func NewSubmenuMenuItem(LabelVar string, SubmenuVar *MenuModel) *MenuItem {
-	NewSubmenuMenuItemPtr := xNewSubmenuMenuItem(LabelVar, SubmenuVar.GoPointer())
-	if NewSubmenuMenuItemPtr == 0 {
-		return nil
-	}
+	var cls *MenuItem
 
-	NewSubmenuMenuItemCls := &MenuItem{}
-	NewSubmenuMenuItemCls.Ptr = NewSubmenuMenuItemPtr
-	return NewSubmenuMenuItemCls
+	cret := xNewSubmenuMenuItem(LabelVar, SubmenuVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MenuItem{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuItemGetAttribute func(uintptr, string, string, ...interface{}) bool
@@ -3354,8 +3541,8 @@ var xMenuItemGetAttribute func(uintptr, string, string, ...interface{}) bool
 // returned.
 func (x *MenuItem) GetAttribute(AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
 
-	return xMenuItemGetAttribute(x.GoPointer(), AttributeVar, FormatStringVar, varArgs...)
-
+	cret := xMenuItemGetAttribute(x.GoPointer(), AttributeVar, FormatStringVar, varArgs...)
+	return cret
 }
 
 var xMenuItemGetAttributeValue func(uintptr, string, *glib.VariantType) *glib.Variant
@@ -3367,24 +3554,24 @@ var xMenuItemGetAttributeValue func(uintptr, string, *glib.VariantType) *glib.Va
 // simply does not exist.
 func (x *MenuItem) GetAttributeValue(AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
 
-	return xMenuItemGetAttributeValue(x.GoPointer(), AttributeVar, ExpectedTypeVar)
-
+	cret := xMenuItemGetAttributeValue(x.GoPointer(), AttributeVar, ExpectedTypeVar)
+	return cret
 }
 
 var xMenuItemGetLink func(uintptr, string) uintptr
 
 // Queries the named @link on @menu_item.
 func (x *MenuItem) GetLink(LinkVar string) *MenuModel {
+	var cls *MenuModel
 
-	GetLinkPtr := xMenuItemGetLink(x.GoPointer(), LinkVar)
-	if GetLinkPtr == 0 {
-		return nil
+	cret := xMenuItemGetLink(x.GoPointer(), LinkVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetLinkCls := &MenuModel{}
-	GetLinkCls.Ptr = GetLinkPtr
-	return GetLinkCls
-
+	cls = &MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuItemSetActionAndTarget func(uintptr, string, string, ...interface{})
@@ -3682,14 +3869,16 @@ var xNewNotification func(string) uintptr
 // any properties after this call will not have any effect until
 // resending @notification.
 func NewNotification(TitleVar string) *Notification {
-	NewNotificationPtr := xNewNotification(TitleVar)
-	if NewNotificationPtr == 0 {
-		return nil
-	}
+	var cls *Notification
 
-	NewNotificationCls := &Notification{}
-	NewNotificationCls.Ptr = NewNotificationPtr
-	return NewNotificationCls
+	cret := xNewNotification(TitleVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Notification{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotificationAddButton func(uintptr, string, string)
@@ -3931,14 +4120,16 @@ var xNewPropertyAction func(string, uintptr, string) uintptr
 // This function takes a reference on @object and doesn't release it
 // until the action is destroyed.
 func NewPropertyAction(NameVar string, ObjectVar *gobject.Object, PropertyNameVar string) *PropertyAction {
-	NewPropertyActionPtr := xNewPropertyAction(NameVar, ObjectVar.GoPointer(), PropertyNameVar)
-	if NewPropertyActionPtr == 0 {
-		return nil
-	}
+	var cls *PropertyAction
 
-	NewPropertyActionCls := &PropertyAction{}
-	NewPropertyActionCls.Ptr = NewPropertyActionPtr
-	return NewPropertyActionCls
+	cret := xNewPropertyAction(NameVar, ObjectVar.GoPointer(), PropertyNameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PropertyAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *PropertyAction) GoPointer() uintptr {
@@ -3984,15 +4175,15 @@ func (x *PropertyAction) ChangeState(ValueVar *glib.Variant) {
 // have its state changed from outside callers.
 func (x *PropertyAction) GetEnabled() bool {
 
-	return XGActionGetEnabled(x.GoPointer())
-
+	cret := XGActionGetEnabled(x.GoPointer())
+	return cret
 }
 
 // Queries the name of @action.
 func (x *PropertyAction) GetName() string {
 
-	return XGActionGetName(x.GoPointer())
-
+	cret := XGActionGetName(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -4005,8 +4196,8 @@ func (x *PropertyAction) GetName() string {
 // #GVariant, but %NULL instead.
 func (x *PropertyAction) GetParameterType() *glib.VariantType {
 
-	return XGActionGetParameterType(x.GoPointer())
-
+	cret := XGActionGetParameterType(x.GoPointer())
+	return cret
 }
 
 // Queries the current state of @action.
@@ -4019,8 +4210,8 @@ func (x *PropertyAction) GetParameterType() *glib.VariantType {
 // g_variant_unref() when it is no longer required.
 func (x *PropertyAction) GetState() *glib.Variant {
 
-	return XGActionGetState(x.GoPointer())
-
+	cret := XGActionGetState(x.GoPointer())
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of
@@ -4043,8 +4234,8 @@ func (x *PropertyAction) GetState() *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *PropertyAction) GetStateHint() *glib.Variant {
 
-	return XGActionGetStateHint(x.GoPointer())
-
+	cret := XGActionGetStateHint(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the state of @action.
@@ -4061,8 +4252,8 @@ func (x *PropertyAction) GetStateHint() *glib.Variant {
 // will return %NULL and you must not call g_action_change_state().
 func (x *PropertyAction) GetStateType() *glib.VariantType {
 
-	return XGActionGetStateType(x.GoPointer())
-
+	cret := XGActionGetStateType(x.GoPointer())
+	return cret
 }
 
 // A #GSimpleAction is the obvious simple implementation of the #GAction
@@ -4087,14 +4278,16 @@ var xNewSimpleAction func(string, *glib.VariantType) uintptr
 // The created action is stateless. See g_simple_action_new_stateful() to create
 // an action that has state.
 func NewSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType) *SimpleAction {
-	NewSimpleActionPtr := xNewSimpleAction(NameVar, ParameterTypeVar)
-	if NewSimpleActionPtr == 0 {
-		return nil
-	}
+	var cls *SimpleAction
 
-	NewSimpleActionCls := &SimpleAction{}
-	NewSimpleActionCls.Ptr = NewSimpleActionPtr
-	return NewSimpleActionCls
+	cret := xNewSimpleAction(NameVar, ParameterTypeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SimpleAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewStatefulSimpleAction func(string, *glib.VariantType, *glib.Variant) uintptr
@@ -4106,14 +4299,16 @@ var xNewStatefulSimpleAction func(string, *glib.VariantType, *glib.Variant) uint
 //
 // If the @state #GVariant is floating, it is consumed.
 func NewStatefulSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType, StateVar *glib.Variant) *SimpleAction {
-	NewStatefulSimpleActionPtr := xNewStatefulSimpleAction(NameVar, ParameterTypeVar, StateVar)
-	if NewStatefulSimpleActionPtr == 0 {
-		return nil
-	}
+	var cls *SimpleAction
 
-	NewStatefulSimpleActionCls := &SimpleAction{}
-	NewStatefulSimpleActionCls.Ptr = NewStatefulSimpleActionPtr
-	return NewStatefulSimpleActionCls
+	cret := xNewStatefulSimpleAction(NameVar, ParameterTypeVar, StateVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SimpleAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSimpleActionSetEnabled func(uintptr, bool)
@@ -4275,15 +4470,15 @@ func (x *SimpleAction) ChangeState(ValueVar *glib.Variant) {
 // have its state changed from outside callers.
 func (x *SimpleAction) GetEnabled() bool {
 
-	return XGActionGetEnabled(x.GoPointer())
-
+	cret := XGActionGetEnabled(x.GoPointer())
+	return cret
 }
 
 // Queries the name of @action.
 func (x *SimpleAction) GetName() string {
 
-	return XGActionGetName(x.GoPointer())
-
+	cret := XGActionGetName(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -4296,8 +4491,8 @@ func (x *SimpleAction) GetName() string {
 // #GVariant, but %NULL instead.
 func (x *SimpleAction) GetParameterType() *glib.VariantType {
 
-	return XGActionGetParameterType(x.GoPointer())
-
+	cret := XGActionGetParameterType(x.GoPointer())
+	return cret
 }
 
 // Queries the current state of @action.
@@ -4310,8 +4505,8 @@ func (x *SimpleAction) GetParameterType() *glib.VariantType {
 // g_variant_unref() when it is no longer required.
 func (x *SimpleAction) GetState() *glib.Variant {
 
-	return XGActionGetState(x.GoPointer())
-
+	cret := XGActionGetState(x.GoPointer())
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of
@@ -4334,8 +4529,8 @@ func (x *SimpleAction) GetState() *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *SimpleAction) GetStateHint() *glib.Variant {
 
-	return XGActionGetStateHint(x.GoPointer())
-
+	cret := XGActionGetStateHint(x.GoPointer())
+	return cret
 }
 
 // Queries the type of the state of @action.
@@ -4352,8 +4547,8 @@ func (x *SimpleAction) GetStateHint() *glib.Variant {
 // will return %NULL and you must not call g_action_change_state().
 func (x *SimpleAction) GetStateType() *glib.VariantType {
 
-	return XGActionGetStateType(x.GoPointer())
-
+	cret := XGActionGetStateType(x.GoPointer())
+	return cret
 }
 
 // GSimpleIOStream creates a #GIOStream from an arbitrary #GInputStream and
@@ -4379,14 +4574,16 @@ var xNewSimpleIOStream func(uintptr, uintptr) uintptr
 // Creates a new #GSimpleIOStream wrapping @input_stream and @output_stream.
 // See also #GIOStream.
 func NewSimpleIOStream(InputStreamVar *InputStream, OutputStreamVar *OutputStream) *IOStream {
-	NewSimpleIOStreamPtr := xNewSimpleIOStream(InputStreamVar.GoPointer(), OutputStreamVar.GoPointer())
-	if NewSimpleIOStreamPtr == 0 {
-		return nil
-	}
+	var cls *IOStream
 
-	NewSimpleIOStreamCls := &IOStream{}
-	NewSimpleIOStreamCls.Ptr = NewSimpleIOStreamPtr
-	return NewSimpleIOStreamCls
+	cret := xNewSimpleIOStream(InputStreamVar.GoPointer(), OutputStreamVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &IOStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *SimpleIOStream) GoPointer() uintptr {
@@ -4417,14 +4614,16 @@ var xNewSimplePermission func(bool) uintptr
 // Creates a new #GPermission instance that represents an action that is
 // either always or never allowed.
 func NewSimplePermission(AllowedVar bool) *Permission {
-	NewSimplePermissionPtr := xNewSimplePermission(AllowedVar)
-	if NewSimplePermissionPtr == 0 {
-		return nil
-	}
+	var cls *Permission
 
-	NewSimplePermissionCls := &Permission{}
-	NewSimplePermissionCls.Ptr = NewSimplePermissionPtr
-	return NewSimplePermissionCls
+	cret := xNewSimplePermission(AllowedVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Permission{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *SimplePermission) GoPointer() uintptr {
@@ -4512,33 +4711,42 @@ var xNewSubprocess func(SubprocessFlags, **glib.Error, string, ...interface{}) u
 //
 // The argument list must be terminated with %NULL.
 func NewSubprocess(FlagsVar SubprocessFlags, ErrorVar **glib.Error, Argv0Var string, varArgs ...interface{}) *Subprocess {
-	NewSubprocessPtr := xNewSubprocess(FlagsVar, ErrorVar, Argv0Var, varArgs...)
-	if NewSubprocessPtr == 0 {
-		return nil
-	}
+	var cls *Subprocess
 
-	NewSubprocessCls := &Subprocess{}
-	NewSubprocessCls.Ptr = NewSubprocessPtr
-	return NewSubprocessCls
+	cret := xNewSubprocess(FlagsVar, ErrorVar, Argv0Var, varArgs...)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Subprocess{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewvSubprocess func(uintptr, SubprocessFlags) uintptr
+var xNewvSubprocess func(uintptr, SubprocessFlags, **glib.Error) uintptr
 
 // Create a new process with the given flags and argument list.
 //
 // The argument list is expected to be %NULL-terminated.
-func NewvSubprocess(ArgvVar uintptr, FlagsVar SubprocessFlags) *Subprocess {
-	NewvSubprocessPtr := xNewvSubprocess(ArgvVar, FlagsVar)
-	if NewvSubprocessPtr == 0 {
-		return nil
-	}
+func NewvSubprocess(ArgvVar uintptr, FlagsVar SubprocessFlags) (*Subprocess, error) {
+	var cls *Subprocess
+	var cerr *glib.Error
 
-	NewvSubprocessCls := &Subprocess{}
-	NewvSubprocessCls.Ptr = NewvSubprocessPtr
-	return NewvSubprocessCls
+	cret := xNewvSubprocess(ArgvVar, FlagsVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &Subprocess{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xSubprocessCommunicate func(uintptr, *glib.Bytes, uintptr, **glib.Bytes, **glib.Bytes) bool
+var xSubprocessCommunicate func(uintptr, *glib.Bytes, uintptr, **glib.Bytes, **glib.Bytes, **glib.Error) bool
 
 // Communicate with the subprocess until it terminates, and all input
 // and output has been completed.
@@ -4581,9 +4789,14 @@ var xSubprocessCommunicate func(uintptr, *glib.Bytes, uintptr, **glib.Bytes, **g
 // even if the operation was cancelled.  You should especially not
 // attempt to interact with the pipes while the operation is in progress
 // (either from another thread or if using the asynchronous version).
-func (x *Subprocess) Communicate(StdinBufVar *glib.Bytes, CancellableVar *Cancellable, StdoutBufVar **glib.Bytes, StderrBufVar **glib.Bytes) bool {
+func (x *Subprocess) Communicate(StdinBufVar *glib.Bytes, CancellableVar *Cancellable, StdoutBufVar **glib.Bytes, StderrBufVar **glib.Bytes) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessCommunicate(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), StdoutBufVar, StderrBufVar)
+	cret := xSubprocessCommunicate(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), StdoutBufVar, StderrBufVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4597,25 +4810,35 @@ func (x *Subprocess) CommunicateAsync(StdinBufVar *glib.Bytes, CancellableVar *C
 
 }
 
-var xSubprocessCommunicateFinish func(uintptr, uintptr, **glib.Bytes, **glib.Bytes) bool
+var xSubprocessCommunicateFinish func(uintptr, uintptr, **glib.Bytes, **glib.Bytes, **glib.Error) bool
 
 // Complete an invocation of g_subprocess_communicate_async().
-func (x *Subprocess) CommunicateFinish(ResultVar AsyncResult, StdoutBufVar **glib.Bytes, StderrBufVar **glib.Bytes) bool {
+func (x *Subprocess) CommunicateFinish(ResultVar AsyncResult, StdoutBufVar **glib.Bytes, StderrBufVar **glib.Bytes) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessCommunicateFinish(x.GoPointer(), ResultVar.GoPointer(), StdoutBufVar, StderrBufVar)
+	cret := xSubprocessCommunicateFinish(x.GoPointer(), ResultVar.GoPointer(), StdoutBufVar, StderrBufVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSubprocessCommunicateUtf8 func(uintptr, string, uintptr, string, string) bool
+var xSubprocessCommunicateUtf8 func(uintptr, string, uintptr, string, string, **glib.Error) bool
 
 // Like g_subprocess_communicate(), but validates the output of the
 // process as UTF-8, and returns it as a regular NUL terminated string.
 //
 // On error, @stdout_buf and @stderr_buf will be set to undefined values and
 // should not be used.
-func (x *Subprocess) CommunicateUtf8(StdinBufVar string, CancellableVar *Cancellable, StdoutBufVar string, StderrBufVar string) bool {
+func (x *Subprocess) CommunicateUtf8(StdinBufVar string, CancellableVar *Cancellable, StdoutBufVar string, StderrBufVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessCommunicateUtf8(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), StdoutBufVar, StderrBufVar)
+	cret := xSubprocessCommunicateUtf8(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), StdoutBufVar, StderrBufVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4629,12 +4852,17 @@ func (x *Subprocess) CommunicateUtf8Async(StdinBufVar string, CancellableVar *Ca
 
 }
 
-var xSubprocessCommunicateUtf8Finish func(uintptr, uintptr, string, string) bool
+var xSubprocessCommunicateUtf8Finish func(uintptr, uintptr, string, string, **glib.Error) bool
 
 // Complete an invocation of g_subprocess_communicate_utf8_async().
-func (x *Subprocess) CommunicateUtf8Finish(ResultVar AsyncResult, StdoutBufVar string, StderrBufVar string) bool {
+func (x *Subprocess) CommunicateUtf8Finish(ResultVar AsyncResult, StdoutBufVar string, StderrBufVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessCommunicateUtf8Finish(x.GoPointer(), ResultVar.GoPointer(), StdoutBufVar, StderrBufVar)
+	cret := xSubprocessCommunicateUtf8Finish(x.GoPointer(), ResultVar.GoPointer(), StdoutBufVar, StderrBufVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4665,8 +4893,8 @@ var xSubprocessGetExitStatus func(uintptr) int
 // unless g_subprocess_get_if_exited() returned %TRUE.
 func (x *Subprocess) GetExitStatus() int {
 
-	return xSubprocessGetExitStatus(x.GoPointer())
-
+	cret := xSubprocessGetExitStatus(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetIdentifier func(uintptr) string
@@ -4676,8 +4904,8 @@ var xSubprocessGetIdentifier func(uintptr) string
 // If the subprocess has terminated, this will return %NULL.
 func (x *Subprocess) GetIdentifier() string {
 
-	return xSubprocessGetIdentifier(x.GoPointer())
-
+	cret := xSubprocessGetIdentifier(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetIfExited func(uintptr) bool
@@ -4691,8 +4919,8 @@ var xSubprocessGetIfExited func(uintptr) bool
 // returned.
 func (x *Subprocess) GetIfExited() bool {
 
-	return xSubprocessGetIfExited(x.GoPointer())
-
+	cret := xSubprocessGetIfExited(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetIfSignaled func(uintptr) bool
@@ -4705,8 +4933,8 @@ var xSubprocessGetIfSignaled func(uintptr) bool
 // returned.
 func (x *Subprocess) GetIfSignaled() bool {
 
-	return xSubprocessGetIfSignaled(x.GoPointer())
-
+	cret := xSubprocessGetIfSignaled(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetStatus func(uintptr) int
@@ -4724,8 +4952,8 @@ var xSubprocessGetStatus func(uintptr) int
 // returned.
 func (x *Subprocess) GetStatus() int {
 
-	return xSubprocessGetStatus(x.GoPointer())
-
+	cret := xSubprocessGetStatus(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetStderrPipe func(uintptr) uintptr
@@ -4736,18 +4964,17 @@ var xSubprocessGetStderrPipe func(uintptr) uintptr
 // The process must have been created with %G_SUBPROCESS_FLAGS_STDERR_PIPE,
 // otherwise %NULL will be returned.
 func (x *Subprocess) GetStderrPipe() *InputStream {
+	var cls *InputStream
 
-	GetStderrPipePtr := xSubprocessGetStderrPipe(x.GoPointer())
-	if GetStderrPipePtr == 0 {
-		return nil
+	cret := xSubprocessGetStderrPipe(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStderrPipePtr)
-
-	GetStderrPipeCls := &InputStream{}
-	GetStderrPipeCls.Ptr = GetStderrPipePtr
-	return GetStderrPipeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSubprocessGetStdinPipe func(uintptr) uintptr
@@ -4758,18 +4985,17 @@ var xSubprocessGetStdinPipe func(uintptr) uintptr
 // The process must have been created with %G_SUBPROCESS_FLAGS_STDIN_PIPE and
 // not %G_SUBPROCESS_FLAGS_STDIN_INHERIT, otherwise %NULL will be returned.
 func (x *Subprocess) GetStdinPipe() *OutputStream {
+	var cls *OutputStream
 
-	GetStdinPipePtr := xSubprocessGetStdinPipe(x.GoPointer())
-	if GetStdinPipePtr == 0 {
-		return nil
+	cret := xSubprocessGetStdinPipe(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStdinPipePtr)
-
-	GetStdinPipeCls := &OutputStream{}
-	GetStdinPipeCls.Ptr = GetStdinPipePtr
-	return GetStdinPipeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSubprocessGetStdoutPipe func(uintptr) uintptr
@@ -4780,18 +5006,17 @@ var xSubprocessGetStdoutPipe func(uintptr) uintptr
 // The process must have been created with %G_SUBPROCESS_FLAGS_STDOUT_PIPE,
 // otherwise %NULL will be returned.
 func (x *Subprocess) GetStdoutPipe() *InputStream {
+	var cls *InputStream
 
-	GetStdoutPipePtr := xSubprocessGetStdoutPipe(x.GoPointer())
-	if GetStdoutPipePtr == 0 {
-		return nil
+	cret := xSubprocessGetStdoutPipe(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStdoutPipePtr)
-
-	GetStdoutPipeCls := &InputStream{}
-	GetStdoutPipeCls.Ptr = GetStdoutPipePtr
-	return GetStdoutPipeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSubprocessGetSuccessful func(uintptr) bool
@@ -4804,8 +5029,8 @@ var xSubprocessGetSuccessful func(uintptr) bool
 // returned.
 func (x *Subprocess) GetSuccessful() bool {
 
-	return xSubprocessGetSuccessful(x.GoPointer())
-
+	cret := xSubprocessGetSuccessful(x.GoPointer())
+	return cret
 }
 
 var xSubprocessGetTermSig func(uintptr) int
@@ -4819,8 +5044,8 @@ var xSubprocessGetTermSig func(uintptr) int
 // unless g_subprocess_get_if_signaled() returned %TRUE.
 func (x *Subprocess) GetTermSig() int {
 
-	return xSubprocessGetTermSig(x.GoPointer())
-
+	cret := xSubprocessGetTermSig(x.GoPointer())
+	return cret
 }
 
 var xSubprocessSendSignal func(uintptr, int)
@@ -4838,7 +5063,7 @@ func (x *Subprocess) SendSignal(SignalNumVar int) {
 
 }
 
-var xSubprocessWait func(uintptr, uintptr) bool
+var xSubprocessWait func(uintptr, uintptr, **glib.Error) bool
 
 // Synchronously wait for the subprocess to terminate.
 //
@@ -4851,9 +5076,14 @@ var xSubprocessWait func(uintptr, uintptr) bool
 //
 // Cancelling @cancellable doesn't kill the subprocess.  Call
 // g_subprocess_force_exit() if it is desirable.
-func (x *Subprocess) Wait(CancellableVar *Cancellable) bool {
+func (x *Subprocess) Wait(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessWait(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xSubprocessWait(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4868,12 +5098,17 @@ func (x *Subprocess) WaitAsync(CancellableVar *Cancellable, CallbackVar AsyncRea
 
 }
 
-var xSubprocessWaitCheck func(uintptr, uintptr) bool
+var xSubprocessWaitCheck func(uintptr, uintptr, **glib.Error) bool
 
 // Combines g_subprocess_wait() with g_spawn_check_wait_status().
-func (x *Subprocess) WaitCheck(CancellableVar *Cancellable) bool {
+func (x *Subprocess) WaitCheck(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessWaitCheck(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xSubprocessWaitCheck(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4888,23 +5123,33 @@ func (x *Subprocess) WaitCheckAsync(CancellableVar *Cancellable, CallbackVar Asy
 
 }
 
-var xSubprocessWaitCheckFinish func(uintptr, uintptr) bool
+var xSubprocessWaitCheckFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Collects the result of a previous call to
 // g_subprocess_wait_check_async().
-func (x *Subprocess) WaitCheckFinish(ResultVar AsyncResult) bool {
+func (x *Subprocess) WaitCheckFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessWaitCheckFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xSubprocessWaitCheckFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xSubprocessWaitFinish func(uintptr, uintptr) bool
+var xSubprocessWaitFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Collects the result of a previous call to
 // g_subprocess_wait_async().
-func (x *Subprocess) WaitFinish(ResultVar AsyncResult) bool {
+func (x *Subprocess) WaitFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xSubprocessWaitFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xSubprocessWaitFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4954,9 +5199,14 @@ func (c *Subprocess) SetGoPointer(ptr uintptr) {
 // In this pattern, a caller would expect to be able to call g_initable_init()
 // on the result of g_object_new(), regardless of whether it is in fact a new
 // instance.
-func (x *Subprocess) Init(CancellableVar *Cancellable) bool {
+func (x *Subprocess) Init(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGInitableInit(x.GoPointer(), CancellableVar.GoPointer())
+	cret := XGInitableInit(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -4986,14 +5236,16 @@ var xNewSubprocessLauncher func(SubprocessFlags) uintptr
 // environment of the calling process is made at the time of this call
 // and will be used as the environment that the process is launched in.
 func NewSubprocessLauncher(FlagsVar SubprocessFlags) *SubprocessLauncher {
-	NewSubprocessLauncherPtr := xNewSubprocessLauncher(FlagsVar)
-	if NewSubprocessLauncherPtr == 0 {
-		return nil
-	}
+	var cls *SubprocessLauncher
 
-	NewSubprocessLauncherCls := &SubprocessLauncher{}
-	NewSubprocessLauncherCls.Ptr = NewSubprocessLauncherPtr
-	return NewSubprocessLauncherCls
+	cret := xNewSubprocessLauncher(FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SubprocessLauncher{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSubprocessLauncherClose func(uintptr)
@@ -5023,8 +5275,8 @@ var xSubprocessLauncherGetenv func(uintptr, string) string
 // On Windows, it will be UTF-8.
 func (x *SubprocessLauncher) Getenv(VariableVar string) string {
 
-	return xSubprocessLauncherGetenv(x.GoPointer(), VariableVar)
-
+	cret := xSubprocessLauncherGetenv(x.GoPointer(), VariableVar)
+	return cret
 }
 
 var xSubprocessLauncherSetChildSetup func(uintptr, uintptr, uintptr, uintptr)
@@ -5185,31 +5437,36 @@ var xSubprocessLauncherSpawn func(uintptr, **glib.Error, string, ...interface{})
 
 // Creates a #GSubprocess given a provided varargs list of arguments.
 func (x *SubprocessLauncher) Spawn(ErrorVar **glib.Error, Argv0Var string, varArgs ...interface{}) *Subprocess {
+	var cls *Subprocess
 
-	SpawnPtr := xSubprocessLauncherSpawn(x.GoPointer(), ErrorVar, Argv0Var, varArgs...)
-	if SpawnPtr == 0 {
-		return nil
+	cret := xSubprocessLauncherSpawn(x.GoPointer(), ErrorVar, Argv0Var, varArgs...)
+
+	if cret == 0 {
+		return cls
 	}
-
-	SpawnCls := &Subprocess{}
-	SpawnCls.Ptr = SpawnPtr
-	return SpawnCls
-
+	cls = &Subprocess{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xSubprocessLauncherSpawnv func(uintptr, uintptr) uintptr
+var xSubprocessLauncherSpawnv func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a #GSubprocess given a provided array of arguments.
-func (x *SubprocessLauncher) Spawnv(ArgvVar uintptr) *Subprocess {
+func (x *SubprocessLauncher) Spawnv(ArgvVar uintptr) (*Subprocess, error) {
+	var cls *Subprocess
+	var cerr *glib.Error
 
-	SpawnvPtr := xSubprocessLauncherSpawnv(x.GoPointer(), ArgvVar)
-	if SpawnvPtr == 0 {
-		return nil
+	cret := xSubprocessLauncherSpawnv(x.GoPointer(), ArgvVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	SpawnvCls := &Subprocess{}
-	SpawnvCls.Ptr = SpawnvPtr
-	return SpawnvCls
+	cls = &Subprocess{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 
@@ -5423,14 +5680,16 @@ var xNewTestDBus func(TestDBusFlags) uintptr
 
 // Create a new #GTestDBus object.
 func NewTestDBus(FlagsVar TestDBusFlags) *TestDBus {
-	NewTestDBusPtr := xNewTestDBus(FlagsVar)
-	if NewTestDBusPtr == 0 {
-		return nil
-	}
+	var cls *TestDBus
 
-	NewTestDBusCls := &TestDBus{}
-	NewTestDBusCls.Ptr = NewTestDBusPtr
-	return NewTestDBusCls
+	cret := xNewTestDBus(FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TestDBus{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTestDBusAddServiceDir func(uintptr, string)
@@ -5463,8 +5722,8 @@ var xTestDBusGetBusAddress func(uintptr) string
 // g_dbus_connection_new_for_address().
 func (x *TestDBus) GetBusAddress() string {
 
-	return xTestDBusGetBusAddress(x.GoPointer())
-
+	cret := xTestDBusGetBusAddress(x.GoPointer())
+	return cret
 }
 
 var xTestDBusGetFlags func(uintptr) TestDBusFlags
@@ -5472,8 +5731,8 @@ var xTestDBusGetFlags func(uintptr) TestDBusFlags
 // Get the flags of the #GTestDBus object.
 func (x *TestDBus) GetFlags() TestDBusFlags {
 
-	return xTestDBusGetFlags(x.GoPointer())
-
+	cret := xTestDBusGetFlags(x.GoPointer())
+	return cret
 }
 
 var xTestDBusStop func(uintptr)

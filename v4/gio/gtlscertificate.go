@@ -32,7 +32,7 @@ func TlsCertificateNewFromInternalPtr(ptr uintptr) *TlsCertificate {
 	return cls
 }
 
-var xNewFromFileTlsCertificate func(string) uintptr
+var xNewFromFileTlsCertificate func(string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the data in @file.
 //
@@ -43,18 +43,25 @@ var xNewFromFileTlsCertificate func(string) uintptr
 //
 // If @file cannot be read or parsed, the function will return %NULL and
 // set @error.
-func NewFromFileTlsCertificate(FileVar string) *TlsCertificate {
-	NewFromFileTlsCertificatePtr := xNewFromFileTlsCertificate(FileVar)
-	if NewFromFileTlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromFileTlsCertificate(FileVar string) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromFileTlsCertificateCls := &TlsCertificate{}
-	NewFromFileTlsCertificateCls.Ptr = NewFromFileTlsCertificatePtr
-	return NewFromFileTlsCertificateCls
+	cret := xNewFromFileTlsCertificate(FileVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromFileWithPasswordTlsCertificate func(string, string) uintptr
+var xNewFromFileWithPasswordTlsCertificate func(string, string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the data in @file.
 //
@@ -64,18 +71,25 @@ var xNewFromFileWithPasswordTlsCertificate func(string, string) uintptr
 // Any unknown file types will error with %G_IO_ERROR_NOT_SUPPORTED.
 // Currently only `.p12` and `.pfx` files are supported.
 // See g_tls_certificate_new_from_pkcs12() for more details.
-func NewFromFileWithPasswordTlsCertificate(FileVar string, PasswordVar string) *TlsCertificate {
-	NewFromFileWithPasswordTlsCertificatePtr := xNewFromFileWithPasswordTlsCertificate(FileVar, PasswordVar)
-	if NewFromFileWithPasswordTlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromFileWithPasswordTlsCertificate(FileVar string, PasswordVar string) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromFileWithPasswordTlsCertificateCls := &TlsCertificate{}
-	NewFromFileWithPasswordTlsCertificateCls.Ptr = NewFromFileWithPasswordTlsCertificatePtr
-	return NewFromFileWithPasswordTlsCertificateCls
+	cret := xNewFromFileWithPasswordTlsCertificate(FileVar, PasswordVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromFilesTlsCertificate func(string, string) uintptr
+var xNewFromFilesTlsCertificate func(string, string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the PEM-encoded data in @cert_file
 // and @key_file. The returned certificate will be the first certificate
@@ -91,18 +105,25 @@ var xNewFromFilesTlsCertificate func(string, string) uintptr
 // If either file cannot be read or parsed, the function will return
 // %NULL and set @error. Otherwise, this behaves like
 // g_tls_certificate_new_from_pem().
-func NewFromFilesTlsCertificate(CertFileVar string, KeyFileVar string) *TlsCertificate {
-	NewFromFilesTlsCertificatePtr := xNewFromFilesTlsCertificate(CertFileVar, KeyFileVar)
-	if NewFromFilesTlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromFilesTlsCertificate(CertFileVar string, KeyFileVar string) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromFilesTlsCertificateCls := &TlsCertificate{}
-	NewFromFilesTlsCertificateCls.Ptr = NewFromFilesTlsCertificatePtr
-	return NewFromFilesTlsCertificateCls
+	cret := xNewFromFilesTlsCertificate(CertFileVar, KeyFileVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromPemTlsCertificate func(string, int) uintptr
+var xNewFromPemTlsCertificate func(string, int, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the PEM-encoded data in @data. If
 // @data includes both a certificate and a private key, then the
@@ -118,18 +139,25 @@ var xNewFromPemTlsCertificate func(string, int) uintptr
 // will be set accordingly if the verification succeeds. If any
 // certificate in the chain cannot be verified, the first certificate in
 // the file will still be returned.
-func NewFromPemTlsCertificate(DataVar string, LengthVar int) *TlsCertificate {
-	NewFromPemTlsCertificatePtr := xNewFromPemTlsCertificate(DataVar, LengthVar)
-	if NewFromPemTlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromPemTlsCertificate(DataVar string, LengthVar int) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromPemTlsCertificateCls := &TlsCertificate{}
-	NewFromPemTlsCertificateCls.Ptr = NewFromPemTlsCertificatePtr
-	return NewFromPemTlsCertificateCls
+	cret := xNewFromPemTlsCertificate(DataVar, LengthVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromPkcs11UrisTlsCertificate func(string, string) uintptr
+var xNewFromPkcs11UrisTlsCertificate func(string, string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from a
 // [PKCS \#11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html) URI.
@@ -158,18 +186,25 @@ var xNewFromPkcs11UrisTlsCertificate func(string, string) uintptr
 // @private_key_pkcs11_uri allows using a private key exposed under a different URI.
 //
 // Note that the private key is not accessed until usage and may fail or require a PIN later.
-func NewFromPkcs11UrisTlsCertificate(Pkcs11UriVar string, PrivateKeyPkcs11UriVar string) *TlsCertificate {
-	NewFromPkcs11UrisTlsCertificatePtr := xNewFromPkcs11UrisTlsCertificate(Pkcs11UriVar, PrivateKeyPkcs11UriVar)
-	if NewFromPkcs11UrisTlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromPkcs11UrisTlsCertificate(Pkcs11UriVar string, PrivateKeyPkcs11UriVar string) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromPkcs11UrisTlsCertificateCls := &TlsCertificate{}
-	NewFromPkcs11UrisTlsCertificateCls.Ptr = NewFromPkcs11UrisTlsCertificatePtr
-	return NewFromPkcs11UrisTlsCertificateCls
+	cret := xNewFromPkcs11UrisTlsCertificate(Pkcs11UriVar, PrivateKeyPkcs11UriVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
-var xNewFromPkcs12TlsCertificate func(uintptr, uint, string) uintptr
+var xNewFromPkcs12TlsCertificate func(uintptr, uint, string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the data in @data. It must contain
 // a certificate and matching private key.
@@ -188,15 +223,22 @@ var xNewFromPkcs12TlsCertificate func(uintptr, uint, string) uintptr
 // %G_IO_ERROR_NOT_SUPPORTED.
 //
 // Other parsing failures will error with %G_TLS_ERROR_BAD_CERTIFICATE.
-func NewFromPkcs12TlsCertificate(DataVar uintptr, LengthVar uint, PasswordVar string) *TlsCertificate {
-	NewFromPkcs12TlsCertificatePtr := xNewFromPkcs12TlsCertificate(DataVar, LengthVar, PasswordVar)
-	if NewFromPkcs12TlsCertificatePtr == 0 {
-		return nil
-	}
+func NewFromPkcs12TlsCertificate(DataVar uintptr, LengthVar uint, PasswordVar string) (*TlsCertificate, error) {
+	var cls *TlsCertificate
+	var cerr *glib.Error
 
-	NewFromPkcs12TlsCertificateCls := &TlsCertificate{}
-	NewFromPkcs12TlsCertificateCls.Ptr = NewFromPkcs12TlsCertificatePtr
-	return NewFromPkcs12TlsCertificateCls
+	cret := xNewFromPkcs12TlsCertificate(DataVar, LengthVar, PasswordVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xTlsCertificateGetDnsNames func(uintptr) uintptr
@@ -204,8 +246,8 @@ var xTlsCertificateGetDnsNames func(uintptr) uintptr
 // Gets the value of #GTlsCertificate:dns-names.
 func (x *TlsCertificate) GetDnsNames() uintptr {
 
-	return xTlsCertificateGetDnsNames(x.GoPointer())
-
+	cret := xTlsCertificateGetDnsNames(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateGetIpAddresses func(uintptr) uintptr
@@ -213,26 +255,25 @@ var xTlsCertificateGetIpAddresses func(uintptr) uintptr
 // Gets the value of #GTlsCertificate:ip-addresses.
 func (x *TlsCertificate) GetIpAddresses() uintptr {
 
-	return xTlsCertificateGetIpAddresses(x.GoPointer())
-
+	cret := xTlsCertificateGetIpAddresses(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateGetIssuer func(uintptr) uintptr
 
 // Gets the #GTlsCertificate representing @cert's issuer, if known
 func (x *TlsCertificate) GetIssuer() *TlsCertificate {
+	var cls *TlsCertificate
 
-	GetIssuerPtr := xTlsCertificateGetIssuer(x.GoPointer())
-	if GetIssuerPtr == 0 {
-		return nil
+	cret := xTlsCertificateGetIssuer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetIssuerPtr)
-
-	GetIssuerCls := &TlsCertificate{}
-	GetIssuerCls.Ptr = GetIssuerPtr
-	return GetIssuerCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TlsCertificate{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTlsCertificateGetIssuerName func(uintptr) string
@@ -240,8 +281,8 @@ var xTlsCertificateGetIssuerName func(uintptr) string
 // Returns the issuer name from the certificate.
 func (x *TlsCertificate) GetIssuerName() string {
 
-	return xTlsCertificateGetIssuerName(x.GoPointer())
-
+	cret := xTlsCertificateGetIssuerName(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateGetNotValidAfter func(uintptr) *glib.DateTime
@@ -249,8 +290,8 @@ var xTlsCertificateGetNotValidAfter func(uintptr) *glib.DateTime
 // Returns the time at which the certificate became or will become invalid.
 func (x *TlsCertificate) GetNotValidAfter() *glib.DateTime {
 
-	return xTlsCertificateGetNotValidAfter(x.GoPointer())
-
+	cret := xTlsCertificateGetNotValidAfter(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateGetNotValidBefore func(uintptr) *glib.DateTime
@@ -258,8 +299,8 @@ var xTlsCertificateGetNotValidBefore func(uintptr) *glib.DateTime
 // Returns the time at which the certificate became or will become valid.
 func (x *TlsCertificate) GetNotValidBefore() *glib.DateTime {
 
-	return xTlsCertificateGetNotValidBefore(x.GoPointer())
-
+	cret := xTlsCertificateGetNotValidBefore(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateGetSubjectName func(uintptr) string
@@ -267,8 +308,8 @@ var xTlsCertificateGetSubjectName func(uintptr) string
 // Returns the subject name from the certificate.
 func (x *TlsCertificate) GetSubjectName() string {
 
-	return xTlsCertificateGetSubjectName(x.GoPointer())
-
+	cret := xTlsCertificateGetSubjectName(x.GoPointer())
+	return cret
 }
 
 var xTlsCertificateIsSame func(uintptr, uintptr) bool
@@ -280,8 +321,8 @@ var xTlsCertificateIsSame func(uintptr, uintptr) bool
 // #GTlsCertificate:private-key-pem properties differ.
 func (x *TlsCertificate) IsSame(CertTwoVar *TlsCertificate) bool {
 
-	return xTlsCertificateIsSame(x.GoPointer(), CertTwoVar.GoPointer())
-
+	cret := xTlsCertificateIsSame(x.GoPointer(), CertTwoVar.GoPointer())
+	return cret
 }
 
 var xTlsCertificateVerify func(uintptr, uintptr, uintptr) TlsCertificateFlags
@@ -319,8 +360,8 @@ var xTlsCertificateVerify func(uintptr, uintptr, uintptr) TlsCertificateFlags
 // handle the verification.
 func (x *TlsCertificate) Verify(IdentityVar SocketConnectable, TrustedCaVar *TlsCertificate) TlsCertificateFlags {
 
-	return xTlsCertificateVerify(x.GoPointer(), IdentityVar.GoPointer(), TrustedCaVar.GoPointer())
-
+	cret := xTlsCertificateVerify(x.GoPointer(), IdentityVar.GoPointer(), TrustedCaVar.GoPointer())
+	return cret
 }
 
 func (c *TlsCertificate) GoPointer() uintptr {

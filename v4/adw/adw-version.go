@@ -18,8 +18,8 @@ var xGetMajorVersion func() uint
 // included when compiling your code.
 func GetMajorVersion() uint {
 
-	return xGetMajorVersion()
-
+	cret := xGetMajorVersion()
+	return cret
 }
 
 var xGetMicroVersion func() uint
@@ -34,8 +34,8 @@ var xGetMicroVersion func() uint
 // included when compiling your code.
 func GetMicroVersion() uint {
 
-	return xGetMicroVersion()
-
+	cret := xGetMicroVersion()
+	return cret
 }
 
 var xGetMinorVersion func() uint
@@ -50,8 +50,8 @@ var xGetMinorVersion func() uint
 // included when compiling your code.
 func GetMinorVersion() uint {
 
-	return xGetMinorVersion()
-
+	cret := xGetMinorVersion()
+	return cret
 }
 
 func init() {

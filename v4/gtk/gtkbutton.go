@@ -63,16 +63,17 @@ var xNewButton func() uintptr
 //
 // To add a child widget to the button, use [method@Gtk.Button.set_child].
 func NewButton() *Widget {
-	NewButtonPtr := xNewButton()
-	if NewButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewButtonPtr)
-
-	NewButtonCls := &Widget{}
-	NewButtonCls.Ptr = NewButtonPtr
-	return NewButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromIconNameButton func(string) uintptr
@@ -83,32 +84,34 @@ var xNewFromIconNameButton func(string) uintptr
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
 func NewFromIconNameButton(IconNameVar string) *Widget {
-	NewFromIconNameButtonPtr := xNewFromIconNameButton(IconNameVar)
-	if NewFromIconNameButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewFromIconNameButton(IconNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewFromIconNameButtonPtr)
-
-	NewFromIconNameButtonCls := &Widget{}
-	NewFromIconNameButtonCls.Ptr = NewFromIconNameButtonPtr
-	return NewFromIconNameButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithLabelButton func(string) uintptr
 
 // Creates a `GtkButton` widget with a `GtkLabel` child.
 func NewWithLabelButton(LabelVar string) *Widget {
-	NewWithLabelButtonPtr := xNewWithLabelButton(LabelVar)
-	if NewWithLabelButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithLabelButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithLabelButtonPtr)
-
-	NewWithLabelButtonCls := &Widget{}
-	NewWithLabelButtonCls.Ptr = NewWithLabelButtonPtr
-	return NewWithLabelButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithMnemonicButton func(string) uintptr
@@ -120,34 +123,34 @@ var xNewWithMnemonicButton func(string) uintptr
 // underscores). The first underlined character represents a keyboard
 // accelerator called a mnemonic. Pressing Alt and that key activates the button.
 func NewWithMnemonicButton(LabelVar string) *Widget {
-	NewWithMnemonicButtonPtr := xNewWithMnemonicButton(LabelVar)
-	if NewWithMnemonicButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithMnemonicButton(LabelVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithMnemonicButtonPtr)
-
-	NewWithMnemonicButtonCls := &Widget{}
-	NewWithMnemonicButtonCls.Ptr = NewWithMnemonicButtonPtr
-	return NewWithMnemonicButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xButtonGetChild func(uintptr) uintptr
 
 // Gets the child widget of @button.
 func (x *Button) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xButtonGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xButtonGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xButtonGetHasFrame func(uintptr) bool
@@ -155,8 +158,8 @@ var xButtonGetHasFrame func(uintptr) bool
 // Returns whether the button has a frame.
 func (x *Button) GetHasFrame() bool {
 
-	return xButtonGetHasFrame(x.GoPointer())
-
+	cret := xButtonGetHasFrame(x.GoPointer())
+	return cret
 }
 
 var xButtonGetIconName func(uintptr) string
@@ -168,8 +171,8 @@ var xButtonGetIconName func(uintptr) string
 // an empty button with [ctor@Gtk.Button.new] to use as a container.
 func (x *Button) GetIconName() string {
 
-	return xButtonGetIconName(x.GoPointer())
-
+	cret := xButtonGetIconName(x.GoPointer())
+	return cret
 }
 
 var xButtonGetLabel func(uintptr) string
@@ -181,8 +184,8 @@ var xButtonGetLabel func(uintptr) string
 // an empty button with [ctor@Gtk.Button.new] to use as a container.
 func (x *Button) GetLabel() string {
 
-	return xButtonGetLabel(x.GoPointer())
-
+	cret := xButtonGetLabel(x.GoPointer())
+	return cret
 }
 
 var xButtonGetUseUnderline func(uintptr) bool
@@ -192,8 +195,8 @@ var xButtonGetUseUnderline func(uintptr) bool
 // See [method@Gtk.Button.set_use_underline].
 func (x *Button) GetUseUnderline() bool {
 
-	return xButtonGetUseUnderline(x.GoPointer())
-
+	cret := xButtonGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xButtonSetChild func(uintptr, uintptr)
@@ -295,8 +298,8 @@ func (x *Button) ConnectClicked(cb func(Button)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Button) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -428,15 +431,15 @@ func (x *Button) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // Gets the action name for @actionable.
 func (x *Button) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *Button) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -514,8 +517,8 @@ func (x *Button) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Button) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

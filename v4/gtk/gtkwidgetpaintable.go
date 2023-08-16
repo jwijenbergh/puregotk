@@ -46,32 +46,33 @@ var xNewWidgetPaintable func(uintptr) uintptr
 
 // Creates a new widget paintable observing the given widget.
 func NewWidgetPaintable(WidgetVar *Widget) *WidgetPaintable {
-	NewWidgetPaintablePtr := xNewWidgetPaintable(WidgetVar.GoPointer())
-	if NewWidgetPaintablePtr == 0 {
-		return nil
-	}
+	var cls *WidgetPaintable
 
-	NewWidgetPaintableCls := &WidgetPaintable{}
-	NewWidgetPaintableCls.Ptr = NewWidgetPaintablePtr
-	return NewWidgetPaintableCls
+	cret := xNewWidgetPaintable(WidgetVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &WidgetPaintable{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetPaintableGetWidget func(uintptr) uintptr
 
 // Returns the widget that is observed or %NULL if none.
 func (x *WidgetPaintable) GetWidget() *Widget {
+	var cls *Widget
 
-	GetWidgetPtr := xWidgetPaintableGetWidget(x.GoPointer())
-	if GetWidgetPtr == 0 {
-		return nil
+	cret := xWidgetPaintableGetWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWidgetPtr)
-
-	GetWidgetCls := &Widget{}
-	GetWidgetCls.Ptr = GetWidgetPtr
-	return GetWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWidgetPaintableSetWidget func(uintptr, uintptr)
@@ -114,16 +115,16 @@ func (x *WidgetPaintable) ComputeConcreteSize(SpecifiedWidthVar float64, Specifi
 //
 // If the @paintable is already immutable, it will return itself.
 func (x *WidgetPaintable) GetCurrentImage() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetCurrentImagePtr := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
-	if GetCurrentImagePtr == 0 {
-		return nil
+	cret := gdk.XGdkPaintableGetCurrentImage(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetCurrentImageCls := &gdk.PaintableBase{}
-	GetCurrentImageCls.Ptr = GetCurrentImagePtr
-	return GetCurrentImageCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get flags for the paintable.
@@ -133,8 +134,8 @@ func (x *WidgetPaintable) GetCurrentImage() *gdk.PaintableBase {
 // See [flags@Gdk.PaintableFlags] for the flags and what they mean.
 func (x *WidgetPaintable) GetFlags() gdk.PaintableFlags {
 
-	return gdk.XGdkPaintableGetFlags(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetFlags(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred aspect ratio the @paintable would like to be displayed at.
@@ -156,8 +157,8 @@ func (x *WidgetPaintable) GetFlags() gdk.PaintableFlags {
 // it returns 0. Negative values are never returned.
 func (x *WidgetPaintable) GetIntrinsicAspectRatio() float64 {
 
-	return gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicAspectRatio(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred height the @paintable would like to be displayed at.
@@ -172,8 +173,8 @@ func (x *WidgetPaintable) GetIntrinsicAspectRatio() float64 {
 // Negative values are never returned.
 func (x *WidgetPaintable) GetIntrinsicHeight() int {
 
-	return gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
+	return cret
 }
 
 // Gets the preferred width the @paintable would like to be displayed at.
@@ -188,8 +189,8 @@ func (x *WidgetPaintable) GetIntrinsicHeight() int {
 // Negative values are never returned.
 func (x *WidgetPaintable) GetIntrinsicWidth() int {
 
-	return gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
-
+	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
+	return cret
 }
 
 // Called by implementations of `GdkPaintable` to invalidate their contents.

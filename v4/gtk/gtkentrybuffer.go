@@ -37,14 +37,16 @@ var xNewEntryBuffer func(string, int) uintptr
 //
 // Optionally, specify initial text to set in the buffer.
 func NewEntryBuffer(InitialCharsVar string, NInitialCharsVar int) *EntryBuffer {
-	NewEntryBufferPtr := xNewEntryBuffer(InitialCharsVar, NInitialCharsVar)
-	if NewEntryBufferPtr == 0 {
-		return nil
-	}
+	var cls *EntryBuffer
 
-	NewEntryBufferCls := &EntryBuffer{}
-	NewEntryBufferCls.Ptr = NewEntryBufferPtr
-	return NewEntryBufferCls
+	cret := xNewEntryBuffer(InitialCharsVar, NInitialCharsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EntryBuffer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryBufferDeleteText func(uintptr, uint, int) uint
@@ -62,8 +64,8 @@ var xEntryBufferDeleteText func(uintptr, uint, int) uint
 // not bytes.
 func (x *EntryBuffer) DeleteText(PositionVar uint, NCharsVar int) uint {
 
-	return xEntryBufferDeleteText(x.GoPointer(), PositionVar, NCharsVar)
-
+	cret := xEntryBufferDeleteText(x.GoPointer(), PositionVar, NCharsVar)
+	return cret
 }
 
 var xEntryBufferEmitDeletedText func(uintptr, uint, uint)
@@ -91,8 +93,8 @@ var xEntryBufferGetBytes func(uintptr) uint
 // See [method@Gtk.EntryBuffer.get_length].
 func (x *EntryBuffer) GetBytes() uint {
 
-	return xEntryBufferGetBytes(x.GoPointer())
-
+	cret := xEntryBufferGetBytes(x.GoPointer())
+	return cret
 }
 
 var xEntryBufferGetLength func(uintptr) uint
@@ -100,8 +102,8 @@ var xEntryBufferGetLength func(uintptr) uint
 // Retrieves the length in characters of the buffer.
 func (x *EntryBuffer) GetLength() uint {
 
-	return xEntryBufferGetLength(x.GoPointer())
-
+	cret := xEntryBufferGetLength(x.GoPointer())
+	return cret
 }
 
 var xEntryBufferGetMaxLength func(uintptr) int
@@ -109,8 +111,8 @@ var xEntryBufferGetMaxLength func(uintptr) int
 // Retrieves the maximum allowed length of the text in @buffer.
 func (x *EntryBuffer) GetMaxLength() int {
 
-	return xEntryBufferGetMaxLength(x.GoPointer())
-
+	cret := xEntryBufferGetMaxLength(x.GoPointer())
+	return cret
 }
 
 var xEntryBufferGetText func(uintptr) string
@@ -121,8 +123,8 @@ var xEntryBufferGetText func(uintptr) string
 // unless this object emits a signal, or is finalized.
 func (x *EntryBuffer) GetText() string {
 
-	return xEntryBufferGetText(x.GoPointer())
-
+	cret := xEntryBufferGetText(x.GoPointer())
+	return cret
 }
 
 var xEntryBufferInsertText func(uintptr, uint, string, int) uint
@@ -138,8 +140,8 @@ var xEntryBufferInsertText func(uintptr, uint, string, int) uint
 // Note that the position and length are in characters, not in bytes.
 func (x *EntryBuffer) InsertText(PositionVar uint, CharsVar string, NCharsVar int) uint {
 
-	return xEntryBufferInsertText(x.GoPointer(), PositionVar, CharsVar, NCharsVar)
-
+	cret := xEntryBufferInsertText(x.GoPointer(), PositionVar, CharsVar, NCharsVar)
+	return cret
 }
 
 var xEntryBufferSetMaxLength func(uintptr, int)

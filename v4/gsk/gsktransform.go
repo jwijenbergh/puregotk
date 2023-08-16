@@ -18,8 +18,8 @@ var xTransformParse func(string, **Transform) bool
 // returned and %NULL is put in @out_transform.
 func TransformParse(StringVar string, OutTransformVar **Transform) bool {
 
-	return xTransformParse(StringVar, OutTransformVar)
-
+	cret := xTransformParse(StringVar, OutTransformVar)
+	return cret
 }
 
 func init() {

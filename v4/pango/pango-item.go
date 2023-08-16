@@ -59,8 +59,8 @@ var xItemize func(uintptr, string, int, int, *AttrList, *AttrIterator) *glib.Lis
 // in the same @cached_iter).
 func Itemize(ContextVar *Context, TextVar string, StartIndexVar int, LengthVar int, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
 
-	return xItemize(ContextVar.GoPointer(), TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
-
+	cret := xItemize(ContextVar.GoPointer(), TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
+	return cret
 }
 
 var xItemizeWithBaseDir func(uintptr, Direction, string, int, int, *AttrList, *AttrIterator) *glib.List
@@ -72,8 +72,8 @@ var xItemizeWithBaseDir func(uintptr, Direction, string, int, int, *AttrList, *A
 // (see [method@Pango.Context.set_base_dir]).
 func ItemizeWithBaseDir(ContextVar *Context, BaseDirVar Direction, TextVar string, StartIndexVar int, LengthVar int, AttrsVar *AttrList, CachedIterVar *AttrIterator) *glib.List {
 
-	return xItemizeWithBaseDir(ContextVar.GoPointer(), BaseDirVar, TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
-
+	cret := xItemizeWithBaseDir(ContextVar.GoPointer(), BaseDirVar, TextVar, StartIndexVar, LengthVar, AttrsVar, CachedIterVar)
+	return cret
 }
 
 var xReorderItems func(*glib.List) *glib.List
@@ -89,8 +89,8 @@ var xReorderItems func(*glib.List) *glib.List
 //	is duplicated elsewhere in Pango for that reason.)
 func ReorderItems(ItemsVar *glib.List) *glib.List {
 
-	return xReorderItems(ItemsVar)
-
+	cret := xReorderItems(ItemsVar)
+	return cret
 }
 
 func init() {

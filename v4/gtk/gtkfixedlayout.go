@@ -60,14 +60,16 @@ var xNewFixedLayout func() uintptr
 
 // Creates a new `GtkFixedLayout`.
 func NewFixedLayout() *LayoutManager {
-	NewFixedLayoutPtr := xNewFixedLayout()
-	if NewFixedLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewFixedLayoutCls := &LayoutManager{}
-	NewFixedLayoutCls.Ptr = NewFixedLayoutPtr
-	return NewFixedLayoutCls
+	cret := xNewFixedLayout()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *FixedLayout) GoPointer() uintptr {
@@ -94,8 +96,8 @@ var xFixedLayoutChildGetTransform func(uintptr) *gsk.Transform
 // Retrieves the transformation of the child.
 func (x *FixedLayoutChild) GetTransform() *gsk.Transform {
 
-	return xFixedLayoutChildGetTransform(x.GoPointer())
-
+	cret := xFixedLayoutChildGetTransform(x.GoPointer())
+	return cret
 }
 
 var xFixedLayoutChildSetTransform func(uintptr, *gsk.Transform)

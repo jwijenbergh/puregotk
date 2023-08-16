@@ -45,14 +45,16 @@ var xNewNetworkAddress func(string, uint16) uintptr
 // g_network_address_new_loopback() to create a #GNetworkAddress that
 // is guaranteed to resolve to both addresses.
 func NewNetworkAddress(HostnameVar string, PortVar uint16) *NetworkAddress {
-	NewNetworkAddressPtr := xNewNetworkAddress(HostnameVar, PortVar)
-	if NewNetworkAddressPtr == 0 {
-		return nil
-	}
+	var cls *NetworkAddress
 
-	NewNetworkAddressCls := &NetworkAddress{}
-	NewNetworkAddressCls.Ptr = NewNetworkAddressPtr
-	return NewNetworkAddressCls
+	cret := xNewNetworkAddress(HostnameVar, PortVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &NetworkAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewLoopbackNetworkAddress func(uint16) uintptr
@@ -70,14 +72,16 @@ var xNewLoopbackNetworkAddress func(uint16) uintptr
 // g_network_address_get_hostname() will always return `localhost` for
 // a #GNetworkAddress created with this constructor.
 func NewLoopbackNetworkAddress(PortVar uint16) *NetworkAddress {
-	NewLoopbackNetworkAddressPtr := xNewLoopbackNetworkAddress(PortVar)
-	if NewLoopbackNetworkAddressPtr == 0 {
-		return nil
-	}
+	var cls *NetworkAddress
 
-	NewLoopbackNetworkAddressCls := &NetworkAddress{}
-	NewLoopbackNetworkAddressCls.Ptr = NewLoopbackNetworkAddressPtr
-	return NewLoopbackNetworkAddressCls
+	cret := xNewLoopbackNetworkAddress(PortVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &NetworkAddress{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNetworkAddressGetHostname func(uintptr) string
@@ -86,8 +90,8 @@ var xNetworkAddressGetHostname func(uintptr) string
 // depending on what @addr was created with.
 func (x *NetworkAddress) GetHostname() string {
 
-	return xNetworkAddressGetHostname(x.GoPointer())
-
+	cret := xNetworkAddressGetHostname(x.GoPointer())
+	return cret
 }
 
 var xNetworkAddressGetPort func(uintptr) uint16
@@ -95,8 +99,8 @@ var xNetworkAddressGetPort func(uintptr) uint16
 // Gets @addr's port number
 func (x *NetworkAddress) GetPort() uint16 {
 
-	return xNetworkAddressGetPort(x.GoPointer())
-
+	cret := xNetworkAddressGetPort(x.GoPointer())
+	return cret
 }
 
 var xNetworkAddressGetScheme func(uintptr) string
@@ -104,8 +108,8 @@ var xNetworkAddressGetScheme func(uintptr) string
 // Gets @addr's scheme
 func (x *NetworkAddress) GetScheme() string {
 
-	return xNetworkAddressGetScheme(x.GoPointer())
-
+	cret := xNetworkAddressGetScheme(x.GoPointer())
+	return cret
 }
 
 func (c *NetworkAddress) GoPointer() uintptr {
@@ -118,16 +122,16 @@ func (c *NetworkAddress) SetGoPointer(ptr uintptr) {
 
 // Creates a #GSocketAddressEnumerator for @connectable.
 func (x *NetworkAddress) Enumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	EnumeratePtr := XGSocketConnectableEnumerate(x.GoPointer())
-	if EnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	EnumerateCls := &SocketAddressEnumerator{}
-	EnumerateCls.Ptr = EnumeratePtr
-	return EnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable that will
@@ -138,16 +142,16 @@ func (x *NetworkAddress) Enumerate() *SocketAddressEnumerator {
 // g_socket_connectable_proxy_enumerate(), this will fall back to
 // calling g_socket_connectable_enumerate().
 func (x *NetworkAddress) ProxyEnumerate() *SocketAddressEnumerator {
+	var cls *SocketAddressEnumerator
 
-	ProxyEnumeratePtr := XGSocketConnectableProxyEnumerate(x.GoPointer())
-	if ProxyEnumeratePtr == 0 {
-		return nil
+	cret := XGSocketConnectableProxyEnumerate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ProxyEnumerateCls := &SocketAddressEnumerator{}
-	ProxyEnumerateCls.Ptr = ProxyEnumeratePtr
-	return ProxyEnumerateCls
-
+	cls = &SocketAddressEnumerator{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -159,8 +163,8 @@ func (x *NetworkAddress) ProxyEnumerate() *SocketAddressEnumerator {
 // the implementation’s type name will be returned as a fallback.
 func (x *NetworkAddress) ToString() string {
 
-	return XGSocketConnectableToString(x.GoPointer())
-
+	cret := XGSocketConnectableToString(x.GoPointer())
+	return cret
 }
 
 func init() {

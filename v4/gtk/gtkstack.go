@@ -125,34 +125,34 @@ var xNewStack func() uintptr
 
 // Creates a new `GtkStack`.
 func NewStack() *Widget {
-	NewStackPtr := xNewStack()
-	if NewStackPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewStack()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewStackPtr)
-
-	NewStackCls := &Widget{}
-	NewStackCls.Ptr = NewStackPtr
-	return NewStackCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackAddChild func(uintptr, uintptr) uintptr
 
 // Adds a child to @stack.
 func (x *Stack) AddChild(ChildVar *Widget) *StackPage {
+	var cls *StackPage
 
-	AddChildPtr := xStackAddChild(x.GoPointer(), ChildVar.GoPointer())
-	if AddChildPtr == 0 {
-		return nil
+	cret := xStackAddChild(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddChildPtr)
-
-	AddChildCls := &StackPage{}
-	AddChildCls.Ptr = AddChildPtr
-	return AddChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackAddNamed func(uintptr, uintptr, string) uintptr
@@ -161,18 +161,17 @@ var xStackAddNamed func(uintptr, uintptr, string) uintptr
 //
 // The child is identified by the @name.
 func (x *Stack) AddNamed(ChildVar *Widget, NameVar string) *StackPage {
+	var cls *StackPage
 
-	AddNamedPtr := xStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
-	if AddNamedPtr == 0 {
-		return nil
+	cret := xStackAddNamed(x.GoPointer(), ChildVar.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddNamedPtr)
-
-	AddNamedCls := &StackPage{}
-	AddNamedCls.Ptr = AddNamedPtr
-	return AddNamedCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackAddTitled func(uintptr, uintptr, string, string) uintptr
@@ -183,18 +182,17 @@ var xStackAddTitled func(uintptr, uintptr, string, string) uintptr
 // will be used by `GtkStackSwitcher` to represent
 // @child in a tab bar, so it should be short.
 func (x *Stack) AddTitled(ChildVar *Widget, NameVar string, TitleVar string) *StackPage {
+	var cls *StackPage
 
-	AddTitledPtr := xStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
-	if AddTitledPtr == 0 {
-		return nil
+	cret := xStackAddTitled(x.GoPointer(), ChildVar.GoPointer(), NameVar, TitleVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(AddTitledPtr)
-
-	AddTitledCls := &StackPage{}
-	AddTitledCls.Ptr = AddTitledPtr
-	return AddTitledCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackGetChildByName func(uintptr, string) uintptr
@@ -203,18 +201,17 @@ var xStackGetChildByName func(uintptr, string) uintptr
 //
 // Returns %NULL if there is no child with this name.
 func (x *Stack) GetChildByName(NameVar string) *Widget {
+	var cls *Widget
 
-	GetChildByNamePtr := xStackGetChildByName(x.GoPointer(), NameVar)
-	if GetChildByNamePtr == 0 {
-		return nil
+	cret := xStackGetChildByName(x.GoPointer(), NameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildByNamePtr)
-
-	GetChildByNameCls := &Widget{}
-	GetChildByNameCls.Ptr = GetChildByNamePtr
-	return GetChildByNameCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackGetHhomogeneous func(uintptr) bool
@@ -222,8 +219,8 @@ var xStackGetHhomogeneous func(uintptr) bool
 // Gets whether @stack is horizontally homogeneous.
 func (x *Stack) GetHhomogeneous() bool {
 
-	return xStackGetHhomogeneous(x.GoPointer())
-
+	cret := xStackGetHhomogeneous(x.GoPointer())
+	return cret
 }
 
 var xStackGetInterpolateSize func(uintptr) bool
@@ -232,26 +229,25 @@ var xStackGetInterpolateSize func(uintptr) bool
 // the sizes of children on page switch.
 func (x *Stack) GetInterpolateSize() bool {
 
-	return xStackGetInterpolateSize(x.GoPointer())
-
+	cret := xStackGetInterpolateSize(x.GoPointer())
+	return cret
 }
 
 var xStackGetPage func(uintptr, uintptr) uintptr
 
 // Returns the `GtkStackPage` object for @child.
 func (x *Stack) GetPage(ChildVar *Widget) *StackPage {
+	var cls *StackPage
 
-	GetPagePtr := xStackGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xStackGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &StackPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &StackPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackGetPages func(uintptr) uintptr
@@ -262,16 +258,16 @@ var xStackGetPages func(uintptr) uintptr
 // implements [iface@Gtk.SelectionModel] and can be used to track
 // and modify the visible page.
 func (x *Stack) GetPages() *SelectionModelBase {
+	var cls *SelectionModelBase
 
-	GetPagesPtr := xStackGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xStackGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &SelectionModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &SelectionModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackGetTransitionDuration func(uintptr) uint
@@ -280,8 +276,8 @@ var xStackGetTransitionDuration func(uintptr) uint
 // transitions between pages in @stack will take.
 func (x *Stack) GetTransitionDuration() uint {
 
-	return xStackGetTransitionDuration(x.GoPointer())
-
+	cret := xStackGetTransitionDuration(x.GoPointer())
+	return cret
 }
 
 var xStackGetTransitionRunning func(uintptr) bool
@@ -290,8 +286,8 @@ var xStackGetTransitionRunning func(uintptr) bool
 // another.
 func (x *Stack) GetTransitionRunning() bool {
 
-	return xStackGetTransitionRunning(x.GoPointer())
-
+	cret := xStackGetTransitionRunning(x.GoPointer())
+	return cret
 }
 
 var xStackGetTransitionType func(uintptr) StackTransitionType
@@ -300,8 +296,8 @@ var xStackGetTransitionType func(uintptr) StackTransitionType
 // for transitions between pages in @stack.
 func (x *Stack) GetTransitionType() StackTransitionType {
 
-	return xStackGetTransitionType(x.GoPointer())
-
+	cret := xStackGetTransitionType(x.GoPointer())
+	return cret
 }
 
 var xStackGetVhomogeneous func(uintptr) bool
@@ -309,8 +305,8 @@ var xStackGetVhomogeneous func(uintptr) bool
 // Gets whether @stack is vertically homogeneous.
 func (x *Stack) GetVhomogeneous() bool {
 
-	return xStackGetVhomogeneous(x.GoPointer())
-
+	cret := xStackGetVhomogeneous(x.GoPointer())
+	return cret
 }
 
 var xStackGetVisibleChild func(uintptr) uintptr
@@ -319,18 +315,17 @@ var xStackGetVisibleChild func(uintptr) uintptr
 //
 // Returns %NULL if there are no visible children.
 func (x *Stack) GetVisibleChild() *Widget {
+	var cls *Widget
 
-	GetVisibleChildPtr := xStackGetVisibleChild(x.GoPointer())
-	if GetVisibleChildPtr == 0 {
-		return nil
+	cret := xStackGetVisibleChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVisibleChildPtr)
-
-	GetVisibleChildCls := &Widget{}
-	GetVisibleChildCls.Ptr = GetVisibleChildPtr
-	return GetVisibleChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackGetVisibleChildName func(uintptr) string
@@ -340,8 +335,8 @@ var xStackGetVisibleChildName func(uintptr) string
 // Returns %NULL if there is no visible child.
 func (x *Stack) GetVisibleChildName() string {
 
-	return xStackGetVisibleChildName(x.GoPointer())
-
+	cret := xStackGetVisibleChildName(x.GoPointer())
+	return cret
 }
 
 var xStackRemove func(uintptr, uintptr)
@@ -478,8 +473,8 @@ func (c *Stack) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Stack) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -614,8 +609,8 @@ func (x *Stack) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Stack) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkStackPage` is an auxiliary class used by `GtkStack`.
@@ -633,18 +628,17 @@ var xStackPageGetChild func(uintptr) uintptr
 
 // Returns the stack child to which @self belongs.
 func (x *StackPage) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xStackPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xStackPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStackPageGetIconName func(uintptr) string
@@ -652,8 +646,8 @@ var xStackPageGetIconName func(uintptr) string
 // Returns the icon name of the page.
 func (x *StackPage) GetIconName() string {
 
-	return xStackPageGetIconName(x.GoPointer())
-
+	cret := xStackPageGetIconName(x.GoPointer())
+	return cret
 }
 
 var xStackPageGetName func(uintptr) string
@@ -661,8 +655,8 @@ var xStackPageGetName func(uintptr) string
 // Returns the name of the page.
 func (x *StackPage) GetName() string {
 
-	return xStackPageGetName(x.GoPointer())
-
+	cret := xStackPageGetName(x.GoPointer())
+	return cret
 }
 
 var xStackPageGetNeedsAttention func(uintptr) bool
@@ -670,8 +664,8 @@ var xStackPageGetNeedsAttention func(uintptr) bool
 // Returns whether the page is marked as “needs attention”.
 func (x *StackPage) GetNeedsAttention() bool {
 
-	return xStackPageGetNeedsAttention(x.GoPointer())
-
+	cret := xStackPageGetNeedsAttention(x.GoPointer())
+	return cret
 }
 
 var xStackPageGetTitle func(uintptr) string
@@ -679,8 +673,8 @@ var xStackPageGetTitle func(uintptr) string
 // Gets the page title.
 func (x *StackPage) GetTitle() string {
 
-	return xStackPageGetTitle(x.GoPointer())
-
+	cret := xStackPageGetTitle(x.GoPointer())
+	return cret
 }
 
 var xStackPageGetUseUnderline func(uintptr) bool
@@ -688,8 +682,8 @@ var xStackPageGetUseUnderline func(uintptr) bool
 // Gets whether underlines in the page title indicate mnemonics.
 func (x *StackPage) GetUseUnderline() bool {
 
-	return xStackPageGetUseUnderline(x.GoPointer())
-
+	cret := xStackPageGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xStackPageGetVisible func(uintptr) bool
@@ -700,8 +694,8 @@ var xStackPageGetVisible func(uintptr) bool
 // property of its widget.
 func (x *StackPage) GetVisible() bool {
 
-	return xStackPageGetVisible(x.GoPointer())
-
+	cret := xStackPageGetVisible(x.GoPointer())
+	return cret
 }
 
 var xStackPageSetIconName func(uintptr, string)
@@ -769,8 +763,8 @@ func (c *StackPage) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *StackPage) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.

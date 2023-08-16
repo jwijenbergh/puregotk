@@ -14,8 +14,8 @@ var xDcgettext func(string, string, int) string
 // dcgettext() directly.
 func Dcgettext(DomainVar string, MsgidVar string, CategoryVar int) string {
 
-	return xDcgettext(DomainVar, MsgidVar, CategoryVar)
-
+	cret := xDcgettext(DomainVar, MsgidVar, CategoryVar)
+	return cret
 }
 
 var xDgettext func(string, string) string
@@ -54,8 +54,8 @@ var xDgettext func(string, string) string
 // but use the _() macro for translations.
 func Dgettext(DomainVar string, MsgidVar string) string {
 
-	return xDgettext(DomainVar, MsgidVar)
-
+	cret := xDgettext(DomainVar, MsgidVar)
+	return cret
 }
 
 var xDngettext func(string, string, string, uint32) string
@@ -68,8 +68,8 @@ var xDngettext func(string, string, string, uint32) string
 // proper.
 func Dngettext(DomainVar string, MsgidVar string, MsgidPluralVar string, NVar uint32) string {
 
-	return xDngettext(DomainVar, MsgidVar, MsgidPluralVar, NVar)
-
+	cret := xDngettext(DomainVar, MsgidVar, MsgidPluralVar, NVar)
+	return cret
 }
 
 var xDpgettext func(string, string, uint) string
@@ -89,8 +89,8 @@ var xDpgettext func(string, string, uint) string
 // but use the C_() macro for translations with context.
 func Dpgettext(DomainVar string, MsgctxtidVar string, MsgidoffsetVar uint) string {
 
-	return xDpgettext(DomainVar, MsgctxtidVar, MsgidoffsetVar)
-
+	cret := xDpgettext(DomainVar, MsgctxtidVar, MsgidoffsetVar)
+	return cret
 }
 
 var xDpgettext2 func(string, string, string) string
@@ -107,8 +107,8 @@ var xDpgettext2 func(string, string, string) string
 // thus you may use non-string-literals as context and msgid arguments.
 func Dpgettext2(DomainVar string, ContextVar string, MsgidVar string) string {
 
-	return xDpgettext2(DomainVar, ContextVar, MsgidVar)
-
+	cret := xDpgettext2(DomainVar, ContextVar, MsgidVar)
+	return cret
 }
 
 var xStripContext func(string, string) string
@@ -116,8 +116,8 @@ var xStripContext func(string, string) string
 // An auxiliary function for gettext() support (see Q_()).
 func StripContext(MsgidVar string, MsgvalVar string) string {
 
-	return xStripContext(MsgidVar, MsgvalVar)
-
+	cret := xStripContext(MsgidVar, MsgvalVar)
+	return cret
 }
 
 func init() {

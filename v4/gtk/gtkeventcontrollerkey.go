@@ -27,14 +27,16 @@ var xNewEventControllerKey func() uintptr
 
 // Creates a new event controller that will handle key events.
 func NewEventControllerKey() *EventController {
-	NewEventControllerKeyPtr := xNewEventControllerKey()
-	if NewEventControllerKeyPtr == 0 {
-		return nil
-	}
+	var cls *EventController
 
-	NewEventControllerKeyCls := &EventController{}
-	NewEventControllerKeyCls.Ptr = NewEventControllerKeyPtr
-	return NewEventControllerKeyCls
+	cret := xNewEventControllerKey()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EventController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerKeyForward func(uintptr, uintptr) bool
@@ -47,8 +49,8 @@ var xEventControllerKeyForward func(uintptr, uintptr) bool
 // or [signal@Gtk.EventControllerKey::modifiers] signals.
 func (x *EventControllerKey) Forward(WidgetVar *Widget) bool {
 
-	return xEventControllerKeyForward(x.GoPointer(), WidgetVar.GoPointer())
-
+	cret := xEventControllerKeyForward(x.GoPointer(), WidgetVar.GoPointer())
+	return cret
 }
 
 var xEventControllerKeyGetGroup func(uintptr) uint
@@ -58,26 +60,25 @@ var xEventControllerKeyGetGroup func(uintptr) uint
 // See [method@Gdk.KeyEvent.get_layout].
 func (x *EventControllerKey) GetGroup() uint {
 
-	return xEventControllerKeyGetGroup(x.GoPointer())
-
+	cret := xEventControllerKeyGetGroup(x.GoPointer())
+	return cret
 }
 
 var xEventControllerKeyGetImContext func(uintptr) uintptr
 
 // Gets the input method context of the key @controller.
 func (x *EventControllerKey) GetImContext() *IMContext {
+	var cls *IMContext
 
-	GetImContextPtr := xEventControllerKeyGetImContext(x.GoPointer())
-	if GetImContextPtr == 0 {
-		return nil
+	cret := xEventControllerKeyGetImContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetImContextPtr)
-
-	GetImContextCls := &IMContext{}
-	GetImContextCls.Ptr = GetImContextPtr
-	return GetImContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &IMContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEventControllerKeySetImContext func(uintptr, uintptr)

@@ -27,8 +27,8 @@ var xContentFormatsParse func(string) *ContentFormats
 // is returned.
 func ContentFormatsParse(StringVar string) *ContentFormats {
 
-	return xContentFormatsParse(StringVar)
-
+	cret := xContentFormatsParse(StringVar)
+	return cret
 }
 
 var xInternMimeType func(string) string
@@ -39,8 +39,8 @@ var xInternMimeType func(string) string
 // See RFC 2048 for the syntax if mime types.
 func InternMimeType(StringVar string) string {
 
-	return xInternMimeType(StringVar)
-
+	cret := xInternMimeType(StringVar)
+	return cret
 }
 
 func init() {

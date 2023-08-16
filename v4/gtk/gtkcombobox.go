@@ -89,16 +89,17 @@ var xNewComboBox func() uintptr
 
 // Creates a new empty `GtkComboBox`.
 func NewComboBox() *Widget {
-	NewComboBoxPtr := xNewComboBox()
-	if NewComboBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewComboBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewComboBoxPtr)
-
-	NewComboBoxCls := &Widget{}
-	NewComboBoxCls.Ptr = NewComboBoxPtr
-	return NewComboBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithEntryComboBox func() uintptr
@@ -109,32 +110,34 @@ var xNewWithEntryComboBox func() uintptr
 // which column of the model contains the text for the entry
 // by calling [method@Gtk.ComboBox.set_entry_text_column].
 func NewWithEntryComboBox() *Widget {
-	NewWithEntryComboBoxPtr := xNewWithEntryComboBox()
-	if NewWithEntryComboBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithEntryComboBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithEntryComboBoxPtr)
-
-	NewWithEntryComboBoxCls := &Widget{}
-	NewWithEntryComboBoxCls.Ptr = NewWithEntryComboBoxPtr
-	return NewWithEntryComboBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithModelComboBox func(uintptr) uintptr
 
 // Creates a new `GtkComboBox` with a model.
 func NewWithModelComboBox(ModelVar TreeModel) *Widget {
-	NewWithModelComboBoxPtr := xNewWithModelComboBox(ModelVar.GoPointer())
-	if NewWithModelComboBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithModelComboBox(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithModelComboBoxPtr)
-
-	NewWithModelComboBoxCls := &Widget{}
-	NewWithModelComboBoxCls.Ptr = NewWithModelComboBoxPtr
-	return NewWithModelComboBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithModelAndEntryComboBox func(uintptr) uintptr
@@ -143,16 +146,17 @@ var xNewWithModelAndEntryComboBox func(uintptr) uintptr
 //
 // See also [ctor@Gtk.ComboBox.new_with_entry].
 func NewWithModelAndEntryComboBox(ModelVar TreeModel) *Widget {
-	NewWithModelAndEntryComboBoxPtr := xNewWithModelAndEntryComboBox(ModelVar.GoPointer())
-	if NewWithModelAndEntryComboBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithModelAndEntryComboBox(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithModelAndEntryComboBoxPtr)
-
-	NewWithModelAndEntryComboBoxCls := &Widget{}
-	NewWithModelAndEntryComboBoxCls.Ptr = NewWithModelAndEntryComboBoxPtr
-	return NewWithModelAndEntryComboBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboBoxGetActive func(uintptr) int
@@ -165,8 +169,8 @@ var xComboBoxGetActive func(uintptr) int
 // [struct@Gtk.TreePath] of the active item.
 func (x *ComboBox) GetActive() int {
 
-	return xComboBoxGetActive(x.GoPointer())
-
+	cret := xComboBoxGetActive(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetActiveId func(uintptr) string
@@ -186,8 +190,8 @@ var xComboBoxGetActiveId func(uintptr) string
 // ID value, then %NULL is returned.
 func (x *ComboBox) GetActiveId() string {
 
-	return xComboBoxGetActiveId(x.GoPointer())
-
+	cret := xComboBoxGetActiveId(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetActiveIter func(uintptr, *TreeIter) bool
@@ -197,8 +201,8 @@ var xComboBoxGetActiveIter func(uintptr, *TreeIter) bool
 // If no item is active, @iter is left unchanged.
 func (x *ComboBox) GetActiveIter(IterVar *TreeIter) bool {
 
-	return xComboBoxGetActiveIter(x.GoPointer(), IterVar)
-
+	cret := xComboBoxGetActiveIter(x.GoPointer(), IterVar)
+	return cret
 }
 
 var xComboBoxGetButtonSensitivity func(uintptr) SensitivityType
@@ -207,26 +211,25 @@ var xComboBoxGetButtonSensitivity func(uintptr) SensitivityType
 // sensitive or not when there are no items in the model.
 func (x *ComboBox) GetButtonSensitivity() SensitivityType {
 
-	return xComboBoxGetButtonSensitivity(x.GoPointer())
-
+	cret := xComboBoxGetButtonSensitivity(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetChild func(uintptr) uintptr
 
 // Gets the child widget of @combo_box.
 func (x *ComboBox) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xComboBoxGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xComboBoxGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboBoxGetEntryTextColumn func(uintptr) int
@@ -235,8 +238,8 @@ var xComboBoxGetEntryTextColumn func(uintptr) int
 // from to display in the internal entry.
 func (x *ComboBox) GetEntryTextColumn() int {
 
-	return xComboBoxGetEntryTextColumn(x.GoPointer())
-
+	cret := xComboBoxGetEntryTextColumn(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetHasEntry func(uintptr) bool
@@ -244,8 +247,8 @@ var xComboBoxGetHasEntry func(uintptr) bool
 // Returns whether the combo box has an entry.
 func (x *ComboBox) GetHasEntry() bool {
 
-	return xComboBoxGetHasEntry(x.GoPointer())
-
+	cret := xComboBoxGetHasEntry(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetIdColumn func(uintptr) int
@@ -254,26 +257,25 @@ var xComboBoxGetIdColumn func(uintptr) int
 // for values from.
 func (x *ComboBox) GetIdColumn() int {
 
-	return xComboBoxGetIdColumn(x.GoPointer())
-
+	cret := xComboBoxGetIdColumn(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetModel func(uintptr) uintptr
 
 // Returns the `GtkTreeModel` of @combo_box.
 func (x *ComboBox) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
 
-	GetModelPtr := xComboBoxGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xComboBoxGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &TreeModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xComboBoxGetPopupFixedWidth func(uintptr) bool
@@ -281,8 +283,8 @@ var xComboBoxGetPopupFixedWidth func(uintptr) bool
 // Gets whether the popup uses a fixed width.
 func (x *ComboBox) GetPopupFixedWidth() bool {
 
-	return xComboBoxGetPopupFixedWidth(x.GoPointer())
-
+	cret := xComboBoxGetPopupFixedWidth(x.GoPointer())
+	return cret
 }
 
 var xComboBoxGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
@@ -290,8 +292,8 @@ var xComboBoxGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
 // Returns the current row separator function.
 func (x *ComboBox) GetRowSeparatorFunc() TreeViewRowSeparatorFunc {
 
-	return xComboBoxGetRowSeparatorFunc(x.GoPointer())
-
+	cret := xComboBoxGetRowSeparatorFunc(x.GoPointer())
+	return cret
 }
 
 var xComboBoxPopdown func(uintptr)
@@ -356,8 +358,8 @@ var xComboBoxSetActiveId func(uintptr, string) bool
 // and returns %FALSE.
 func (x *ComboBox) SetActiveId(ActiveIdVar string) bool {
 
-	return xComboBoxSetActiveId(x.GoPointer(), ActiveIdVar)
-
+	cret := xComboBoxSetActiveId(x.GoPointer(), ActiveIdVar)
+	return cret
 }
 
 var xComboBoxSetActiveIter func(uintptr, *TreeIter)
@@ -596,8 +598,8 @@ func (x *ComboBox) ConnectPopup(cb func(ComboBox)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ComboBox) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -732,8 +734,8 @@ func (x *ComboBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ComboBox) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Emits the `GtkCellEditable::editing-done` signal.
@@ -799,25 +801,24 @@ func (x *ComboBox) ClearAttributes(CellVar *CellRenderer) {
 // if called on a `GtkCellArea` or might be %NULL if no `GtkCellArea`
 // is used by @cell_layout.
 func (x *ComboBox) GetArea() *CellArea {
+	var cls *CellArea
 
-	GetAreaPtr := XGtkCellLayoutGetArea(x.GoPointer())
-	if GetAreaPtr == 0 {
-		return nil
+	cret := XGtkCellLayoutGetArea(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetAreaPtr)
-
-	GetAreaCls := &CellArea{}
-	GetAreaCls.Ptr = GetAreaPtr
-	return GetAreaCls
-
+	gobject.IncreaseRef(cret)
+	cls = &CellArea{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the cell renderers which have been added to @cell_layout.
 func (x *ComboBox) GetCells() *glib.List {
 
-	return XGtkCellLayoutGetCells(x.GoPointer())
-
+	cret := XGtkCellLayoutGetCells(x.GoPointer())
+	return cret
 }
 
 // Adds the @cell to the end of @cell_layout. If @expand is %FALSE, then the

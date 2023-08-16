@@ -86,14 +86,16 @@ var xNewPrinter func(string, *PrintBackend, bool) uintptr
 
 // Creates a new `GtkPrinter`.
 func NewPrinter(NameVar string, BackendVar *PrintBackend, VirtualVar bool) *Printer {
-	NewPrinterPtr := xNewPrinter(NameVar, BackendVar, VirtualVar)
-	if NewPrinterPtr == 0 {
-		return nil
-	}
+	var cls *Printer
 
-	NewPrinterCls := &Printer{}
-	NewPrinterCls.Ptr = NewPrinterPtr
-	return NewPrinterCls
+	cret := xNewPrinter(NameVar, BackendVar, VirtualVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Printer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrinterAcceptsPdf func(uintptr) bool
@@ -102,8 +104,8 @@ var xPrinterAcceptsPdf func(uintptr) bool
 // PDF format.
 func (x *Printer) AcceptsPdf() bool {
 
-	return xPrinterAcceptsPdf(x.GoPointer())
-
+	cret := xPrinterAcceptsPdf(x.GoPointer())
+	return cret
 }
 
 var xPrinterAcceptsPs func(uintptr) bool
@@ -112,8 +114,8 @@ var xPrinterAcceptsPs func(uintptr) bool
 // PostScript format.
 func (x *Printer) AcceptsPs() bool {
 
-	return xPrinterAcceptsPs(x.GoPointer())
-
+	cret := xPrinterAcceptsPs(x.GoPointer())
+	return cret
 }
 
 var xPrinterCompare func(uintptr, uintptr) int
@@ -121,8 +123,8 @@ var xPrinterCompare func(uintptr, uintptr) int
 // Compares two printers.
 func (x *Printer) Compare(BVar *Printer) int {
 
-	return xPrinterCompare(x.GoPointer(), BVar.GoPointer())
-
+	cret := xPrinterCompare(x.GoPointer(), BVar.GoPointer())
+	return cret
 }
 
 var xPrinterGetBackend func(uintptr) *PrintBackend
@@ -130,8 +132,8 @@ var xPrinterGetBackend func(uintptr) *PrintBackend
 // Returns the backend of the printer.
 func (x *Printer) GetBackend() *PrintBackend {
 
-	return xPrinterGetBackend(x.GoPointer())
-
+	cret := xPrinterGetBackend(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetCapabilities func(uintptr) PrintCapabilities
@@ -147,24 +149,24 @@ var xPrinterGetCapabilities func(uintptr) PrintCapabilities
 // [method@Gtk.Printer.request_details].
 func (x *Printer) GetCapabilities() PrintCapabilities {
 
-	return xPrinterGetCapabilities(x.GoPointer())
-
+	cret := xPrinterGetCapabilities(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetDefaultPageSize func(uintptr) uintptr
 
 // Returns default page size of @printer.
 func (x *Printer) GetDefaultPageSize() *PageSetup {
+	var cls *PageSetup
 
-	GetDefaultPageSizePtr := xPrinterGetDefaultPageSize(x.GoPointer())
-	if GetDefaultPageSizePtr == 0 {
-		return nil
+	cret := xPrinterGetDefaultPageSize(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetDefaultPageSizeCls := &PageSetup{}
-	GetDefaultPageSizeCls.Ptr = GetDefaultPageSizePtr
-	return GetDefaultPageSizeCls
-
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrinterGetDescription func(uintptr) string
@@ -172,8 +174,8 @@ var xPrinterGetDescription func(uintptr) string
 // Gets the description of the printer.
 func (x *Printer) GetDescription() string {
 
-	return xPrinterGetDescription(x.GoPointer())
-
+	cret := xPrinterGetDescription(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetHardMargins func(uintptr, float64, float64, float64, float64) bool
@@ -188,8 +190,8 @@ var xPrinterGetHardMargins func(uintptr, float64, float64, float64, float64) boo
 // [method@Gtk.Printer.request_details].
 func (x *Printer) GetHardMargins(TopVar float64, BottomVar float64, LeftVar float64, RightVar float64) bool {
 
-	return xPrinterGetHardMargins(x.GoPointer(), TopVar, BottomVar, LeftVar, RightVar)
-
+	cret := xPrinterGetHardMargins(x.GoPointer(), TopVar, BottomVar, LeftVar, RightVar)
+	return cret
 }
 
 var xPrinterGetHardMarginsForPaperSize func(uintptr, *PaperSize, float64, float64, float64, float64) bool
@@ -204,8 +206,8 @@ var xPrinterGetHardMarginsForPaperSize func(uintptr, *PaperSize, float64, float6
 // [method@Gtk.Printer.request_details].
 func (x *Printer) GetHardMarginsForPaperSize(PaperSizeVar *PaperSize, TopVar float64, BottomVar float64, LeftVar float64, RightVar float64) bool {
 
-	return xPrinterGetHardMarginsForPaperSize(x.GoPointer(), PaperSizeVar, TopVar, BottomVar, LeftVar, RightVar)
-
+	cret := xPrinterGetHardMarginsForPaperSize(x.GoPointer(), PaperSizeVar, TopVar, BottomVar, LeftVar, RightVar)
+	return cret
 }
 
 var xPrinterGetIconName func(uintptr) string
@@ -213,8 +215,8 @@ var xPrinterGetIconName func(uintptr) string
 // Gets the name of the icon to use for the printer.
 func (x *Printer) GetIconName() string {
 
-	return xPrinterGetIconName(x.GoPointer())
-
+	cret := xPrinterGetIconName(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetJobCount func(uintptr) int
@@ -222,8 +224,8 @@ var xPrinterGetJobCount func(uintptr) int
 // Gets the number of jobs currently queued on the printer.
 func (x *Printer) GetJobCount() int {
 
-	return xPrinterGetJobCount(x.GoPointer())
-
+	cret := xPrinterGetJobCount(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetLocation func(uintptr) string
@@ -231,8 +233,8 @@ var xPrinterGetLocation func(uintptr) string
 // Returns a description of the location of the printer.
 func (x *Printer) GetLocation() string {
 
-	return xPrinterGetLocation(x.GoPointer())
-
+	cret := xPrinterGetLocation(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetName func(uintptr) string
@@ -240,8 +242,8 @@ var xPrinterGetName func(uintptr) string
 // Returns the name of the printer.
 func (x *Printer) GetName() string {
 
-	return xPrinterGetName(x.GoPointer())
-
+	cret := xPrinterGetName(x.GoPointer())
+	return cret
 }
 
 var xPrinterGetStateMessage func(uintptr) string
@@ -250,8 +252,8 @@ var xPrinterGetStateMessage func(uintptr) string
 // of the printer.
 func (x *Printer) GetStateMessage() string {
 
-	return xPrinterGetStateMessage(x.GoPointer())
-
+	cret := xPrinterGetStateMessage(x.GoPointer())
+	return cret
 }
 
 var xPrinterHasDetails func(uintptr) bool
@@ -259,8 +261,8 @@ var xPrinterHasDetails func(uintptr) bool
 // Returns whether the printer details are available.
 func (x *Printer) HasDetails() bool {
 
-	return xPrinterHasDetails(x.GoPointer())
-
+	cret := xPrinterHasDetails(x.GoPointer())
+	return cret
 }
 
 var xPrinterIsAcceptingJobs func(uintptr) bool
@@ -268,8 +270,8 @@ var xPrinterIsAcceptingJobs func(uintptr) bool
 // Returns whether the printer is accepting jobs
 func (x *Printer) IsAcceptingJobs() bool {
 
-	return xPrinterIsAcceptingJobs(x.GoPointer())
-
+	cret := xPrinterIsAcceptingJobs(x.GoPointer())
+	return cret
 }
 
 var xPrinterIsActive func(uintptr) bool
@@ -278,8 +280,8 @@ var xPrinterIsActive func(uintptr) bool
 // accepts new jobs).
 func (x *Printer) IsActive() bool {
 
-	return xPrinterIsActive(x.GoPointer())
-
+	cret := xPrinterIsActive(x.GoPointer())
+	return cret
 }
 
 var xPrinterIsDefault func(uintptr) bool
@@ -287,8 +289,8 @@ var xPrinterIsDefault func(uintptr) bool
 // Returns whether the printer is the default printer.
 func (x *Printer) IsDefault() bool {
 
-	return xPrinterIsDefault(x.GoPointer())
-
+	cret := xPrinterIsDefault(x.GoPointer())
+	return cret
 }
 
 var xPrinterIsPaused func(uintptr) bool
@@ -299,8 +301,8 @@ var xPrinterIsPaused func(uintptr) bool
 // printing them.
 func (x *Printer) IsPaused() bool {
 
-	return xPrinterIsPaused(x.GoPointer())
-
+	cret := xPrinterIsPaused(x.GoPointer())
+	return cret
 }
 
 var xPrinterIsVirtual func(uintptr) bool
@@ -310,8 +312,8 @@ var xPrinterIsVirtual func(uintptr) bool
 // a CUPS class).
 func (x *Printer) IsVirtual() bool {
 
-	return xPrinterIsVirtual(x.GoPointer())
-
+	cret := xPrinterIsVirtual(x.GoPointer())
+	return cret
 }
 
 var xPrinterListPapers func(uintptr) *glib.List
@@ -323,8 +325,8 @@ var xPrinterListPapers func(uintptr) *glib.List
 // [method@Gtk.Printer.request_details].
 func (x *Printer) ListPapers() *glib.List {
 
-	return xPrinterListPapers(x.GoPointer())
-
+	cret := xPrinterListPapers(x.GoPointer())
+	return cret
 }
 
 var xPrinterRequestDetails func(uintptr)

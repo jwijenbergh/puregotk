@@ -40,8 +40,8 @@ var xGetDefaultLanguage func() *pango.Language
 // See that function for details.
 func GetDefaultLanguage() *pango.Language {
 
-	return xGetDefaultLanguage()
-
+	cret := xGetDefaultLanguage()
+	return cret
 }
 
 var xGetLocaleDirection func() TextDirection
@@ -77,8 +77,8 @@ var xGetLocaleDirection func() TextDirection
 // ]|
 func GetLocaleDirection() TextDirection {
 
-	return xGetLocaleDirection()
-
+	cret := xGetLocaleDirection()
+	return cret
 }
 
 var xInit func()
@@ -119,8 +119,8 @@ var xInitCheck func() bool
 // interface.
 func InitCheck() bool {
 
-	return xInitCheck()
-
+	cret := xInitCheck()
+	return cret
 }
 
 var xIsInitialized func() bool
@@ -129,8 +129,8 @@ var xIsInitialized func() bool
 // or gtk_init_check().
 func IsInitialized() bool {
 
-	return xIsInitialized()
-
+	cret := xIsInitialized()
+	return cret
 }
 
 func init() {

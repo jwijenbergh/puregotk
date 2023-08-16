@@ -43,14 +43,16 @@ var xNewCustomLayout func(uintptr, uintptr, uintptr) uintptr
 // virtual functions, and are meant to be used during the transition
 // from layout containers to layout manager delegates.
 func NewCustomLayout(RequestModeVar CustomRequestModeFunc, MeasureVar CustomMeasureFunc, AllocateVar CustomAllocateFunc) *LayoutManager {
-	NewCustomLayoutPtr := xNewCustomLayout(purego.NewCallback(RequestModeVar), purego.NewCallback(MeasureVar), purego.NewCallback(AllocateVar))
-	if NewCustomLayoutPtr == 0 {
-		return nil
-	}
+	var cls *LayoutManager
 
-	NewCustomLayoutCls := &LayoutManager{}
-	NewCustomLayoutCls.Ptr = NewCustomLayoutPtr
-	return NewCustomLayoutCls
+	cret := xNewCustomLayout(purego.NewCallback(RequestModeVar), purego.NewCallback(MeasureVar), purego.NewCallback(AllocateVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &LayoutManager{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CustomLayout) GoPointer() uintptr {

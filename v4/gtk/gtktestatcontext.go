@@ -20,8 +20,8 @@ var xTestAccessibleCheckProperty func(uintptr, AccessibleProperty, ...interface{
 // a specific value.
 func TestAccessibleCheckProperty(AccessibleVar Accessible, PropertyVar AccessibleProperty, varArgs ...interface{}) string {
 
-	return xTestAccessibleCheckProperty(AccessibleVar.GoPointer(), PropertyVar, varArgs...)
-
+	cret := xTestAccessibleCheckProperty(AccessibleVar.GoPointer(), PropertyVar, varArgs...)
+	return cret
 }
 
 var xTestAccessibleCheckRelation func(uintptr, AccessibleRelation, ...interface{}) string
@@ -30,8 +30,8 @@ var xTestAccessibleCheckRelation func(uintptr, AccessibleRelation, ...interface{
 // a specific value.
 func TestAccessibleCheckRelation(AccessibleVar Accessible, RelationVar AccessibleRelation, varArgs ...interface{}) string {
 
-	return xTestAccessibleCheckRelation(AccessibleVar.GoPointer(), RelationVar, varArgs...)
-
+	cret := xTestAccessibleCheckRelation(AccessibleVar.GoPointer(), RelationVar, varArgs...)
+	return cret
 }
 
 var xTestAccessibleCheckState func(uintptr, AccessibleState, ...interface{}) string
@@ -40,8 +40,8 @@ var xTestAccessibleCheckState func(uintptr, AccessibleState, ...interface{}) str
 // a specific value.
 func TestAccessibleCheckState(AccessibleVar Accessible, StateVar AccessibleState, varArgs ...interface{}) string {
 
-	return xTestAccessibleCheckState(AccessibleVar.GoPointer(), StateVar, varArgs...)
-
+	cret := xTestAccessibleCheckState(AccessibleVar.GoPointer(), StateVar, varArgs...)
+	return cret
 }
 
 var xTestAccessibleHasProperty func(uintptr, AccessibleProperty) bool
@@ -49,8 +49,8 @@ var xTestAccessibleHasProperty func(uintptr, AccessibleProperty) bool
 // Checks whether the `GtkAccessible` has @property set.
 func TestAccessibleHasProperty(AccessibleVar Accessible, PropertyVar AccessibleProperty) bool {
 
-	return xTestAccessibleHasProperty(AccessibleVar.GoPointer(), PropertyVar)
-
+	cret := xTestAccessibleHasProperty(AccessibleVar.GoPointer(), PropertyVar)
+	return cret
 }
 
 var xTestAccessibleHasRelation func(uintptr, AccessibleRelation) bool
@@ -58,8 +58,8 @@ var xTestAccessibleHasRelation func(uintptr, AccessibleRelation) bool
 // Checks whether the `GtkAccessible` has @relation set.
 func TestAccessibleHasRelation(AccessibleVar Accessible, RelationVar AccessibleRelation) bool {
 
-	return xTestAccessibleHasRelation(AccessibleVar.GoPointer(), RelationVar)
-
+	cret := xTestAccessibleHasRelation(AccessibleVar.GoPointer(), RelationVar)
+	return cret
 }
 
 var xTestAccessibleHasRole func(uintptr, AccessibleRole) bool
@@ -68,8 +68,8 @@ var xTestAccessibleHasRole func(uintptr, AccessibleRole) bool
 // is @role.
 func TestAccessibleHasRole(AccessibleVar Accessible, RoleVar AccessibleRole) bool {
 
-	return xTestAccessibleHasRole(AccessibleVar.GoPointer(), RoleVar)
-
+	cret := xTestAccessibleHasRole(AccessibleVar.GoPointer(), RoleVar)
+	return cret
 }
 
 var xTestAccessibleHasState func(uintptr, AccessibleState) bool
@@ -77,8 +77,8 @@ var xTestAccessibleHasState func(uintptr, AccessibleState) bool
 // Checks whether the `GtkAccessible` has @state set.
 func TestAccessibleHasState(AccessibleVar Accessible, StateVar AccessibleState) bool {
 
-	return xTestAccessibleHasState(AccessibleVar.GoPointer(), StateVar)
-
+	cret := xTestAccessibleHasState(AccessibleVar.GoPointer(), StateVar)
+	return cret
 }
 
 func init() {

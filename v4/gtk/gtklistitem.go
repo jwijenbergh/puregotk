@@ -40,8 +40,8 @@ var xListItemGetActivatable func(uintptr) bool
 // gtk_list_item_set_activatable().
 func (x *ListItem) GetActivatable() bool {
 
-	return xListItemGetActivatable(x.GoPointer())
-
+	cret := xListItemGetActivatable(x.GoPointer())
+	return cret
 }
 
 var xListItemGetChild func(uintptr) uintptr
@@ -49,18 +49,17 @@ var xListItemGetChild func(uintptr) uintptr
 // Gets the child previously set via gtk_list_item_set_child() or
 // %NULL if none was set.
 func (x *ListItem) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xListItemGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xListItemGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListItemGetItem func(uintptr) uintptr
@@ -69,18 +68,17 @@ var xListItemGetItem func(uintptr) uintptr
 //
 // If @self is unbound, this function returns %NULL.
 func (x *ListItem) GetItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetItemPtr := xListItemGetItem(x.GoPointer())
-	if GetItemPtr == 0 {
-		return nil
+	cret := xListItemGetItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetItemPtr)
-
-	GetItemCls := &gobject.Object{}
-	GetItemCls.Ptr = GetItemPtr
-	return GetItemCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListItemGetPosition func(uintptr) uint
@@ -90,8 +88,8 @@ var xListItemGetPosition func(uintptr) uint
 // If @self is unbound, %GTK_INVALID_LIST_POSITION is returned.
 func (x *ListItem) GetPosition() uint {
 
-	return xListItemGetPosition(x.GoPointer())
-
+	cret := xListItemGetPosition(x.GoPointer())
+	return cret
 }
 
 var xListItemGetSelectable func(uintptr) bool
@@ -102,8 +100,8 @@ var xListItemGetSelectable func(uintptr) bool
 // Do not confuse this function with [method@Gtk.ListItem.get_selected].
 func (x *ListItem) GetSelectable() bool {
 
-	return xListItemGetSelectable(x.GoPointer())
-
+	cret := xListItemGetSelectable(x.GoPointer())
+	return cret
 }
 
 var xListItemGetSelected func(uintptr) bool
@@ -114,8 +112,8 @@ var xListItemGetSelected func(uintptr) bool
 // and cannot be set otherwise.
 func (x *ListItem) GetSelected() bool {
 
-	return xListItemGetSelected(x.GoPointer())
-
+	cret := xListItemGetSelected(x.GoPointer())
+	return cret
 }
 
 var xListItemSetActivatable func(uintptr, bool)

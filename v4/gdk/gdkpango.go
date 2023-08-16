@@ -22,8 +22,8 @@ var xPangoLayoutGetClipRegion func(uintptr, int, int, int, int) *cairo.Region
 // of text, such as when text is selected.
 func PangoLayoutGetClipRegion(LayoutVar *pango.Layout, XOriginVar int, YOriginVar int, IndexRangesVar int, NRangesVar int) *cairo.Region {
 
-	return xPangoLayoutGetClipRegion(LayoutVar.GoPointer(), XOriginVar, YOriginVar, IndexRangesVar, NRangesVar)
-
+	cret := xPangoLayoutGetClipRegion(LayoutVar.GoPointer(), XOriginVar, YOriginVar, IndexRangesVar, NRangesVar)
+	return cret
 }
 
 var xPangoLayoutLineGetClipRegion func(*pango.LayoutLine, int, int, uintptr, int) *cairo.Region
@@ -45,8 +45,8 @@ var xPangoLayoutLineGetClipRegion func(*pango.LayoutLine, int, int, uintptr, int
 // of text, such as when text is selected.
 func PangoLayoutLineGetClipRegion(LineVar *pango.LayoutLine, XOriginVar int, YOriginVar int, IndexRangesVar uintptr, NRangesVar int) *cairo.Region {
 
-	return xPangoLayoutLineGetClipRegion(LineVar, XOriginVar, YOriginVar, IndexRangesVar, NRangesVar)
-
+	cret := xPangoLayoutLineGetClipRegion(LineVar, XOriginVar, YOriginVar, IndexRangesVar, NRangesVar)
+	return cret
 }
 
 func init() {

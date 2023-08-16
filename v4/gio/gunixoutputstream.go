@@ -40,14 +40,16 @@ var xNewUnixOutputStream func(int, bool) uintptr
 // If @close_fd, is %TRUE, the file descriptor will be closed when
 // the output stream is destroyed.
 func NewUnixOutputStream(FdVar int, CloseFdVar bool) *OutputStream {
-	NewUnixOutputStreamPtr := xNewUnixOutputStream(FdVar, CloseFdVar)
-	if NewUnixOutputStreamPtr == 0 {
-		return nil
-	}
+	var cls *OutputStream
 
-	NewUnixOutputStreamCls := &OutputStream{}
-	NewUnixOutputStreamCls.Ptr = NewUnixOutputStreamPtr
-	return NewUnixOutputStreamCls
+	cret := xNewUnixOutputStream(FdVar, CloseFdVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &OutputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xUnixOutputStreamGetCloseFd func(uintptr) bool
@@ -56,8 +58,8 @@ var xUnixOutputStreamGetCloseFd func(uintptr) bool
 // closed when the stream is closed.
 func (x *UnixOutputStream) GetCloseFd() bool {
 
-	return xUnixOutputStreamGetCloseFd(x.GoPointer())
-
+	cret := xUnixOutputStreamGetCloseFd(x.GoPointer())
+	return cret
 }
 
 var xUnixOutputStreamGetFd func(uintptr) int
@@ -65,8 +67,8 @@ var xUnixOutputStreamGetFd func(uintptr) int
 // Return the UNIX file descriptor that the stream writes to.
 func (x *UnixOutputStream) GetFd() int {
 
-	return xUnixOutputStreamGetFd(x.GoPointer())
-
+	cret := xUnixOutputStreamGetFd(x.GoPointer())
+	return cret
 }
 
 var xUnixOutputStreamSetCloseFd func(uintptr, bool)
@@ -96,8 +98,8 @@ func (c *UnixOutputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *UnixOutputStream) CanPoll() bool {
 
-	return XGPollableOutputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableOutputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be written, or
@@ -110,8 +112,8 @@ func (x *UnixOutputStream) CanPoll() bool {
 // rather than g_output_stream_write() from the callback.
 func (x *UnixOutputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableOutputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be written.
@@ -124,8 +126,8 @@ func (x *UnixOutputStream) CreateSource(CancellableVar *Cancellable) *glib.Sourc
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *UnixOutputStream) IsWritable() bool {
 
-	return XGPollableOutputStreamIsWritable(x.GoPointer())
-
+	cret := XGPollableOutputStreamIsWritable(x.GoPointer())
+	return cret
 }
 
 // Attempts to write up to @count bytes from @buffer to @stream, as
@@ -143,9 +145,14 @@ func (x *UnixOutputStream) IsWritable() bool {
 // Also note that if %G_IO_ERROR_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @buffer and
 // @count in the next write call.
-func (x *UnixOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *UnixOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWriteNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -165,9 +172,14 @@ func (x *UnixOutputStream) WriteNonblocking(BufferVar uintptr, CountVar uint, Ca
 // Also note that if %G_POLLABLE_RETURN_WOULD_BLOCK is returned some underlying
 // transports like D/TLS require that you re-send the same @vectors and
 // @n_vectors in the next write call.
-func (x *UnixOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn {
+func (x *UnixOutputStream) WritevNonblocking(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (PollableReturn, error) {
+	var cerr *glib.Error
 
-	return XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := XGPollableOutputStreamWritevNonblocking(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

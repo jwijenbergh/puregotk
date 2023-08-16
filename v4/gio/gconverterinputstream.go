@@ -34,32 +34,33 @@ var xNewConverterInputStream func(uintptr, uintptr) uintptr
 
 // Creates a new converter input stream for the @base_stream.
 func NewConverterInputStream(BaseStreamVar *InputStream, ConverterVar Converter) *InputStream {
-	NewConverterInputStreamPtr := xNewConverterInputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
-	if NewConverterInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewConverterInputStreamCls := &InputStream{}
-	NewConverterInputStreamCls.Ptr = NewConverterInputStreamPtr
-	return NewConverterInputStreamCls
+	cret := xNewConverterInputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConverterInputStreamGetConverter func(uintptr) uintptr
 
 // Gets the #GConverter that is used by @converter_stream.
 func (x *ConverterInputStream) GetConverter() *ConverterBase {
+	var cls *ConverterBase
 
-	GetConverterPtr := xConverterInputStreamGetConverter(x.GoPointer())
-	if GetConverterPtr == 0 {
-		return nil
+	cret := xConverterInputStreamGetConverter(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConverterPtr)
-
-	GetConverterCls := &ConverterBase{}
-	GetConverterCls.Ptr = GetConverterPtr
-	return GetConverterCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ConverterBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *ConverterInputStream) GoPointer() uintptr {
@@ -79,8 +80,8 @@ func (c *ConverterInputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *ConverterInputStream) CanPoll() bool {
 
-	return XGPollableInputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableInputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be read, or
@@ -93,8 +94,8 @@ func (x *ConverterInputStream) CanPoll() bool {
 // rather than g_input_stream_read() from the callback.
 func (x *ConverterInputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be read.
@@ -107,8 +108,8 @@ func (x *ConverterInputStream) CreateSource(CancellableVar *Cancellable) *glib.S
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *ConverterInputStream) IsReadable() bool {
 
-	return XGPollableInputStreamIsReadable(x.GoPointer())
-
+	cret := XGPollableInputStreamIsReadable(x.GoPointer())
+	return cret
 }
 
 // Attempts to read up to @count bytes from @stream into @buffer, as
@@ -122,9 +123,14 @@ func (x *ConverterInputStream) IsReadable() bool {
 // if @cancellable has already been cancelled when you call, which
 // may happen if you call this method after a source triggers due
 // to having been cancelled.
-func (x *ConverterInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *ConverterInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

@@ -27,8 +27,8 @@ var xThreadPoolGetMaxIdleTime func() uint
 // pool for new work are not stopped.
 func ThreadPoolGetMaxIdleTime() uint {
 
-	return xThreadPoolGetMaxIdleTime()
-
+	cret := xThreadPoolGetMaxIdleTime()
+	return cret
 }
 
 var xThreadPoolGetMaxUnusedThreads func() int
@@ -36,8 +36,8 @@ var xThreadPoolGetMaxUnusedThreads func() int
 // Returns the maximal allowed number of unused threads.
 func ThreadPoolGetMaxUnusedThreads() int {
 
-	return xThreadPoolGetMaxUnusedThreads()
-
+	cret := xThreadPoolGetMaxUnusedThreads()
+	return cret
 }
 
 var xThreadPoolGetNumUnusedThreads func() uint
@@ -45,8 +45,8 @@ var xThreadPoolGetNumUnusedThreads func() uint
 // Returns the number of currently unused threads.
 func ThreadPoolGetNumUnusedThreads() uint {
 
-	return xThreadPoolGetNumUnusedThreads()
-
+	cret := xThreadPoolGetNumUnusedThreads()
+	return cret
 }
 
 var xThreadPoolSetMaxIdleTime func(uint)

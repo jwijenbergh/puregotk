@@ -34,14 +34,16 @@ var xNewTextChildAnchor func() uintptr
 // creation and insertion in one step, use the convenience
 // function [method@Gtk.TextBuffer.create_child_anchor].
 func NewTextChildAnchor() *TextChildAnchor {
-	NewTextChildAnchorPtr := xNewTextChildAnchor()
-	if NewTextChildAnchorPtr == 0 {
-		return nil
-	}
+	var cls *TextChildAnchor
 
-	NewTextChildAnchorCls := &TextChildAnchor{}
-	NewTextChildAnchorCls.Ptr = NewTextChildAnchorPtr
-	return NewTextChildAnchorCls
+	cret := xNewTextChildAnchor()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextChildAnchor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithReplacementTextChildAnchor func(string) uintptr
@@ -51,14 +53,16 @@ var xNewWithReplacementTextChildAnchor func(string) uintptr
 // Usually you would then insert it into a `GtkTextBuffer` with
 // [method@Gtk.TextBuffer.insert_child_anchor].
 func NewWithReplacementTextChildAnchor(CharacterVar string) *TextChildAnchor {
-	NewWithReplacementTextChildAnchorPtr := xNewWithReplacementTextChildAnchor(CharacterVar)
-	if NewWithReplacementTextChildAnchorPtr == 0 {
-		return nil
-	}
+	var cls *TextChildAnchor
 
-	NewWithReplacementTextChildAnchorCls := &TextChildAnchor{}
-	NewWithReplacementTextChildAnchorCls.Ptr = NewWithReplacementTextChildAnchorPtr
-	return NewWithReplacementTextChildAnchorCls
+	cret := xNewWithReplacementTextChildAnchor(CharacterVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextChildAnchor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextChildAnchorGetDeleted func(uintptr) bool
@@ -73,8 +77,8 @@ var xTextChildAnchorGetDeleted func(uintptr) bool
 // be finalized.
 func (x *TextChildAnchor) GetDeleted() bool {
 
-	return xTextChildAnchorGetDeleted(x.GoPointer())
-
+	cret := xTextChildAnchorGetDeleted(x.GoPointer())
+	return cret
 }
 
 var xTextChildAnchorGetWidgets func(uintptr, uint) uintptr
@@ -84,8 +88,8 @@ var xTextChildAnchorGetWidgets func(uintptr, uint) uintptr
 // The order in which the widgets are returned is not defined.
 func (x *TextChildAnchor) GetWidgets(OutLenVar uint) uintptr {
 
-	return xTextChildAnchorGetWidgets(x.GoPointer(), OutLenVar)
-
+	cret := xTextChildAnchorGetWidgets(x.GoPointer(), OutLenVar)
+	return cret
 }
 
 func (c *TextChildAnchor) GoPointer() uintptr {

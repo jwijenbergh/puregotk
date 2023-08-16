@@ -42,14 +42,16 @@ var xNewContext func() uintptr
 // For instance, the GTK toolkit has, among others,
 // `gtk_widget_get_pango_context()`. Use those instead.
 func NewContext() *Context {
-	NewContextPtr := xNewContext()
-	if NewContextPtr == 0 {
-		return nil
-	}
+	var cls *Context
 
-	NewContextCls := &Context{}
-	NewContextCls.Ptr = NewContextPtr
-	return NewContextCls
+	cret := xNewContext()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Context{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContextChanged func(uintptr)
@@ -74,8 +76,8 @@ var xContextGetBaseDir func(uintptr) Direction
 // See [method@Pango.Context.set_base_dir].
 func (x *Context) GetBaseDir() Direction {
 
-	return xContextGetBaseDir(x.GoPointer())
-
+	cret := xContextGetBaseDir(x.GoPointer())
+	return cret
 }
 
 var xContextGetBaseGravity func(uintptr) Gravity
@@ -85,8 +87,8 @@ var xContextGetBaseGravity func(uintptr) Gravity
 // See [method@Pango.Context.set_base_gravity].
 func (x *Context) GetBaseGravity() Gravity {
 
-	return xContextGetBaseGravity(x.GoPointer())
-
+	cret := xContextGetBaseGravity(x.GoPointer())
+	return cret
 }
 
 var xContextGetFontDescription func(uintptr) *FontDescription
@@ -94,26 +96,25 @@ var xContextGetFontDescription func(uintptr) *FontDescription
 // Retrieve the default font description for the context.
 func (x *Context) GetFontDescription() *FontDescription {
 
-	return xContextGetFontDescription(x.GoPointer())
-
+	cret := xContextGetFontDescription(x.GoPointer())
+	return cret
 }
 
 var xContextGetFontMap func(uintptr) uintptr
 
 // Gets the `PangoFontMap` used to look up fonts for this context.
 func (x *Context) GetFontMap() *FontMap {
+	var cls *FontMap
 
-	GetFontMapPtr := xContextGetFontMap(x.GoPointer())
-	if GetFontMapPtr == 0 {
-		return nil
+	cret := xContextGetFontMap(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFontMapPtr)
-
-	GetFontMapCls := &FontMap{}
-	GetFontMapCls.Ptr = GetFontMapPtr
-	return GetFontMapCls
-
+	gobject.IncreaseRef(cret)
+	cls = &FontMap{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContextGetGravity func(uintptr) Gravity
@@ -126,8 +127,8 @@ var xContextGetGravity func(uintptr) Gravity
 // gravity from the current context matrix.
 func (x *Context) GetGravity() Gravity {
 
-	return xContextGetGravity(x.GoPointer())
-
+	cret := xContextGetGravity(x.GoPointer())
+	return cret
 }
 
 var xContextGetGravityHint func(uintptr) GravityHint
@@ -137,8 +138,8 @@ var xContextGetGravityHint func(uintptr) GravityHint
 // See [method@Pango.Context.set_gravity_hint] for details.
 func (x *Context) GetGravityHint() GravityHint {
 
-	return xContextGetGravityHint(x.GoPointer())
-
+	cret := xContextGetGravityHint(x.GoPointer())
+	return cret
 }
 
 var xContextGetLanguage func(uintptr) *Language
@@ -146,8 +147,8 @@ var xContextGetLanguage func(uintptr) *Language
 // Retrieves the global language tag for the context.
 func (x *Context) GetLanguage() *Language {
 
-	return xContextGetLanguage(x.GoPointer())
-
+	cret := xContextGetLanguage(x.GoPointer())
+	return cret
 }
 
 var xContextGetMatrix func(uintptr) *Matrix
@@ -158,8 +159,8 @@ var xContextGetMatrix func(uintptr) *Matrix
 // See [method@Pango.Context.set_matrix].
 func (x *Context) GetMatrix() *Matrix {
 
-	return xContextGetMatrix(x.GoPointer())
-
+	cret := xContextGetMatrix(x.GoPointer())
+	return cret
 }
 
 var xContextGetMetrics func(uintptr, *FontDescription, *Language) *FontMetrics
@@ -177,8 +178,8 @@ var xContextGetMetrics func(uintptr, *FontDescription, *Language) *FontMetrics
 // for the individual families.
 func (x *Context) GetMetrics(DescVar *FontDescription, LanguageVar *Language) *FontMetrics {
 
-	return xContextGetMetrics(x.GoPointer(), DescVar, LanguageVar)
-
+	cret := xContextGetMetrics(x.GoPointer(), DescVar, LanguageVar)
+	return cret
 }
 
 var xContextGetRoundGlyphPositions func(uintptr) bool
@@ -187,8 +188,8 @@ var xContextGetRoundGlyphPositions func(uintptr) bool
 // round glyph positions and widths.
 func (x *Context) GetRoundGlyphPositions() bool {
 
-	return xContextGetRoundGlyphPositions(x.GoPointer())
-
+	cret := xContextGetRoundGlyphPositions(x.GoPointer())
+	return cret
 }
 
 var xContextGetSerial func(uintptr) uint
@@ -207,8 +208,8 @@ var xContextGetSerial func(uintptr) uint
 // `PangoContext` changes, like `PangoLayout`.
 func (x *Context) GetSerial() uint {
 
-	return xContextGetSerial(x.GoPointer())
-
+	cret := xContextGetSerial(x.GoPointer())
+	return cret
 }
 
 var xContextListFamilies func(uintptr, uintptr, int)
@@ -225,16 +226,16 @@ var xContextLoadFont func(uintptr, *FontDescription) uintptr
 // Loads the font in one of the fontmaps in the context
 // that is the closest match for @desc.
 func (x *Context) LoadFont(DescVar *FontDescription) *Font {
+	var cls *Font
 
-	LoadFontPtr := xContextLoadFont(x.GoPointer(), DescVar)
-	if LoadFontPtr == 0 {
-		return nil
+	cret := xContextLoadFont(x.GoPointer(), DescVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LoadFontCls := &Font{}
-	LoadFontCls.Ptr = LoadFontPtr
-	return LoadFontCls
-
+	cls = &Font{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContextLoadFontset func(uintptr, *FontDescription, *Language) uintptr
@@ -242,16 +243,16 @@ var xContextLoadFontset func(uintptr, *FontDescription, *Language) uintptr
 // Load a set of fonts in the context that can be used to render
 // a font matching @desc.
 func (x *Context) LoadFontset(DescVar *FontDescription, LanguageVar *Language) *Fontset {
+	var cls *Fontset
 
-	LoadFontsetPtr := xContextLoadFontset(x.GoPointer(), DescVar, LanguageVar)
-	if LoadFontsetPtr == 0 {
-		return nil
+	cret := xContextLoadFontset(x.GoPointer(), DescVar, LanguageVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	LoadFontsetCls := &Fontset{}
-	LoadFontsetCls.Ptr = LoadFontsetPtr
-	return LoadFontsetCls
-
+	cls = &Fontset{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContextSetBaseDir func(uintptr, Direction)

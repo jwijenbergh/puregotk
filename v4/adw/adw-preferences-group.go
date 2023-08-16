@@ -61,16 +61,17 @@ var xNewPreferencesGroup func() uintptr
 
 // Creates a new `AdwPreferencesGroup`.
 func NewPreferencesGroup() *gtk.Widget {
-	NewPreferencesGroupPtr := xNewPreferencesGroup()
-	if NewPreferencesGroupPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewPreferencesGroup()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPreferencesGroupPtr)
-
-	NewPreferencesGroupCls := &gtk.Widget{}
-	NewPreferencesGroupCls.Ptr = NewPreferencesGroupPtr
-	return NewPreferencesGroupCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesGroupAdd func(uintptr, uintptr)
@@ -87,26 +88,25 @@ var xPreferencesGroupGetDescription func(uintptr) string
 // Gets the description of @self.
 func (x *PreferencesGroup) GetDescription() string {
 
-	return xPreferencesGroupGetDescription(x.GoPointer())
-
+	cret := xPreferencesGroupGetDescription(x.GoPointer())
+	return cret
 }
 
 var xPreferencesGroupGetHeaderSuffix func(uintptr) uintptr
 
 // Gets the suffix for @self's header.
 func (x *PreferencesGroup) GetHeaderSuffix() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetHeaderSuffixPtr := xPreferencesGroupGetHeaderSuffix(x.GoPointer())
-	if GetHeaderSuffixPtr == 0 {
-		return nil
+	cret := xPreferencesGroupGetHeaderSuffix(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHeaderSuffixPtr)
-
-	GetHeaderSuffixCls := &gtk.Widget{}
-	GetHeaderSuffixCls.Ptr = GetHeaderSuffixPtr
-	return GetHeaderSuffixCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPreferencesGroupGetTitle func(uintptr) string
@@ -114,8 +114,8 @@ var xPreferencesGroupGetTitle func(uintptr) string
 // Gets the title of @self.
 func (x *PreferencesGroup) GetTitle() string {
 
-	return xPreferencesGroupGetTitle(x.GoPointer())
-
+	cret := xPreferencesGroupGetTitle(x.GoPointer())
+	return cret
 }
 
 var xPreferencesGroupRemove func(uintptr, uintptr)
@@ -169,8 +169,8 @@ func (c *PreferencesGroup) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PreferencesGroup) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -305,8 +305,8 @@ func (x *PreferencesGroup) UpdateStateValue(NStatesVar int, StatesVar uintptr, V
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PreferencesGroup) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

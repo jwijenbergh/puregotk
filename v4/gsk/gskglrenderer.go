@@ -23,14 +23,16 @@ var xNewGLRenderer func() uintptr
 
 // Creates a new `GskRenderer` using the new OpenGL renderer.
 func NewGLRenderer() *Renderer {
-	NewGLRendererPtr := xNewGLRenderer()
-	if NewGLRendererPtr == 0 {
-		return nil
-	}
+	var cls *Renderer
 
-	NewGLRendererCls := &Renderer{}
-	NewGLRendererCls.Ptr = NewGLRendererPtr
-	return NewGLRendererCls
+	cret := xNewGLRenderer()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *GLRenderer) GoPointer() uintptr {

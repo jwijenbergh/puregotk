@@ -59,34 +59,34 @@ var xNewPasswordEntry func() uintptr
 
 // Creates a `GtkPasswordEntry`.
 func NewPasswordEntry() *Widget {
-	NewPasswordEntryPtr := xNewPasswordEntry()
-	if NewPasswordEntryPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPasswordEntry()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPasswordEntryPtr)
-
-	NewPasswordEntryCls := &Widget{}
-	NewPasswordEntryCls.Ptr = NewPasswordEntryPtr
-	return NewPasswordEntryCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPasswordEntryGetExtraMenu func(uintptr) uintptr
 
 // Gets the menu model set with gtk_password_entry_set_extra_menu().
 func (x *PasswordEntry) GetExtraMenu() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetExtraMenuPtr := xPasswordEntryGetExtraMenu(x.GoPointer())
-	if GetExtraMenuPtr == 0 {
-		return nil
+	cret := xPasswordEntryGetExtraMenu(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExtraMenuPtr)
-
-	GetExtraMenuCls := &gio.MenuModel{}
-	GetExtraMenuCls.Ptr = GetExtraMenuPtr
-	return GetExtraMenuCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPasswordEntryGetShowPeekIcon func(uintptr) bool
@@ -95,8 +95,8 @@ var xPasswordEntryGetShowPeekIcon func(uintptr) bool
 // reveal the contents.
 func (x *PasswordEntry) GetShowPeekIcon() bool {
 
-	return xPasswordEntryGetShowPeekIcon(x.GoPointer())
-
+	cret := xPasswordEntryGetShowPeekIcon(x.GoPointer())
+	return cret
 }
 
 var xPasswordEntrySetExtraMenu func(uintptr, uintptr)
@@ -146,8 +146,8 @@ func (x *PasswordEntry) ConnectActivate(cb func(PasswordEntry)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PasswordEntry) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -282,8 +282,8 @@ func (x *PasswordEntry) UpdateStateValue(NStatesVar int, StatesVar uintptr, Valu
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PasswordEntry) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Deletes the currently selected text of the editable.
@@ -322,8 +322,8 @@ func (x *PasswordEntry) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *PasswordEntry) GetAlignment() float32 {
 
-	return XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -336,8 +336,8 @@ func (x *PasswordEntry) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *PasswordEntry) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -345,39 +345,38 @@ func (x *PasswordEntry) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *PasswordEntry) GetDelegate() *EditableBase {
+	var cls *EditableBase
 
-	GetDelegatePtr := XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *PasswordEntry) GetEditable() bool {
 
-	return XGtkEditableGetEditable(x.GoPointer())
-
+	cret := XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *PasswordEntry) GetEnableUndo() bool {
 
-	return XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *PasswordEntry) GetMaxWidthChars() int {
 
-	return XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -386,8 +385,8 @@ func (x *PasswordEntry) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *PasswordEntry) GetPosition() int {
 
-	return XGtkEditableGetPosition(x.GoPointer())
-
+	cret := XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -399,8 +398,8 @@ func (x *PasswordEntry) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *PasswordEntry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -408,16 +407,16 @@ func (x *PasswordEntry) GetSelectionBounds(StartPosVar int, EndPosVar int) bool 
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *PasswordEntry) GetText() string {
 
-	return XGtkEditableGetText(x.GoPointer())
-
+	cret := XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *PasswordEntry) GetWidthChars() int {
 
-	return XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

@@ -33,16 +33,17 @@ var xNewCellRendererToggle func() uintptr
 // in the model, thus causing the check button to reflect the state of
 // the model.
 func NewCellRendererToggle() *CellRenderer {
-	NewCellRendererTogglePtr := xNewCellRendererToggle()
-	if NewCellRendererTogglePtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererToggle()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererTogglePtr)
-
-	NewCellRendererToggleCls := &CellRenderer{}
-	NewCellRendererToggleCls.Ptr = NewCellRendererTogglePtr
-	return NewCellRendererToggleCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCellRendererToggleGetActivatable func(uintptr) bool
@@ -51,8 +52,8 @@ var xCellRendererToggleGetActivatable func(uintptr) bool
 // gtk_cell_renderer_toggle_set_activatable().
 func (x *CellRendererToggle) GetActivatable() bool {
 
-	return xCellRendererToggleGetActivatable(x.GoPointer())
-
+	cret := xCellRendererToggleGetActivatable(x.GoPointer())
+	return cret
 }
 
 var xCellRendererToggleGetActive func(uintptr) bool
@@ -61,8 +62,8 @@ var xCellRendererToggleGetActive func(uintptr) bool
 // gtk_cell_renderer_toggle_set_active().
 func (x *CellRendererToggle) GetActive() bool {
 
-	return xCellRendererToggleGetActive(x.GoPointer())
-
+	cret := xCellRendererToggleGetActive(x.GoPointer())
+	return cret
 }
 
 var xCellRendererToggleGetRadio func(uintptr) bool
@@ -70,8 +71,8 @@ var xCellRendererToggleGetRadio func(uintptr) bool
 // Returns whether we’re rendering radio toggles rather than checkboxes.
 func (x *CellRendererToggle) GetRadio() bool {
 
-	return xCellRendererToggleGetRadio(x.GoPointer())
-
+	cret := xCellRendererToggleGetRadio(x.GoPointer())
+	return cret
 }
 
 var xCellRendererToggleSetActivatable func(uintptr, bool)

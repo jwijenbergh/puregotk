@@ -209,16 +209,16 @@ var xApplicationCommandLineCreateFileForArg func(uintptr, string) uintptr
 // resolves relative pathnames using the current working directory of
 // the invoking process rather than the local process.
 func (x *ApplicationCommandLine) CreateFileForArg(ArgVar string) *FileBase {
+	var cls *FileBase
 
-	CreateFileForArgPtr := xApplicationCommandLineCreateFileForArg(x.GoPointer(), ArgVar)
-	if CreateFileForArgPtr == 0 {
-		return nil
+	cret := xApplicationCommandLineCreateFileForArg(x.GoPointer(), ArgVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateFileForArgCls := &FileBase{}
-	CreateFileForArgCls.Ptr = CreateFileForArgPtr
-	return CreateFileForArgCls
-
+	cls = &FileBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationCommandLineGetArguments func(uintptr, int) uintptr
@@ -236,8 +236,8 @@ var xApplicationCommandLineGetArguments func(uintptr, int) uintptr
 // g_strfreev().
 func (x *ApplicationCommandLine) GetArguments(ArgcVar int) uintptr {
 
-	return xApplicationCommandLineGetArguments(x.GoPointer(), ArgcVar)
-
+	cret := xApplicationCommandLineGetArguments(x.GoPointer(), ArgcVar)
+	return cret
 }
 
 var xApplicationCommandLineGetCwd func(uintptr) string
@@ -252,8 +252,8 @@ var xApplicationCommandLineGetCwd func(uintptr) string
 // long as @cmdline exists.
 func (x *ApplicationCommandLine) GetCwd() string {
 
-	return xApplicationCommandLineGetCwd(x.GoPointer())
-
+	cret := xApplicationCommandLineGetCwd(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetEnviron func(uintptr) uintptr
@@ -275,8 +275,8 @@ var xApplicationCommandLineGetEnviron func(uintptr) uintptr
 // in the value of a single environment variable.
 func (x *ApplicationCommandLine) GetEnviron() uintptr {
 
-	return xApplicationCommandLineGetEnviron(x.GoPointer())
-
+	cret := xApplicationCommandLineGetEnviron(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetExitStatus func(uintptr) int
@@ -285,8 +285,8 @@ var xApplicationCommandLineGetExitStatus func(uintptr) int
 // g_application_command_line_set_exit_status() for more information.
 func (x *ApplicationCommandLine) GetExitStatus() int {
 
-	return xApplicationCommandLineGetExitStatus(x.GoPointer())
-
+	cret := xApplicationCommandLineGetExitStatus(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetIsRemote func(uintptr) bool
@@ -294,8 +294,8 @@ var xApplicationCommandLineGetIsRemote func(uintptr) bool
 // Determines if @cmdline represents a remote invocation.
 func (x *ApplicationCommandLine) GetIsRemote() bool {
 
-	return xApplicationCommandLineGetIsRemote(x.GoPointer())
-
+	cret := xApplicationCommandLineGetIsRemote(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetOptionsDict func(uintptr) *glib.VariantDict
@@ -311,8 +311,8 @@ var xApplicationCommandLineGetOptionsDict func(uintptr) *glib.VariantDict
 // you don't need to check for %NULL.
 func (x *ApplicationCommandLine) GetOptionsDict() *glib.VariantDict {
 
-	return xApplicationCommandLineGetOptionsDict(x.GoPointer())
-
+	cret := xApplicationCommandLineGetOptionsDict(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetPlatformData func(uintptr) *glib.Variant
@@ -327,8 +327,8 @@ var xApplicationCommandLineGetPlatformData func(uintptr) *glib.Variant
 // For local invocation, it will be %NULL.
 func (x *ApplicationCommandLine) GetPlatformData() *glib.Variant {
 
-	return xApplicationCommandLineGetPlatformData(x.GoPointer())
-
+	cret := xApplicationCommandLineGetPlatformData(x.GoPointer())
+	return cret
 }
 
 var xApplicationCommandLineGetStdin func(uintptr) uintptr
@@ -344,16 +344,16 @@ var xApplicationCommandLineGetStdin func(uintptr) uintptr
 //
 // You must only call this function once per commandline invocation.
 func (x *ApplicationCommandLine) GetStdin() *InputStream {
+	var cls *InputStream
 
-	GetStdinPtr := xApplicationCommandLineGetStdin(x.GoPointer())
-	if GetStdinPtr == 0 {
-		return nil
+	cret := xApplicationCommandLineGetStdin(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetStdinCls := &InputStream{}
-	GetStdinCls.Ptr = GetStdinPtr
-	return GetStdinCls
-
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationCommandLineGetenv func(uintptr, string) string
@@ -371,8 +371,8 @@ var xApplicationCommandLineGetenv func(uintptr, string) string
 // long as @cmdline exists.
 func (x *ApplicationCommandLine) Getenv(NameVar string) string {
 
-	return xApplicationCommandLineGetenv(x.GoPointer(), NameVar)
-
+	cret := xApplicationCommandLineGetenv(x.GoPointer(), NameVar)
+	return cret
 }
 
 var xApplicationCommandLinePrint func(uintptr, string, ...interface{})

@@ -33,42 +33,48 @@ var xNewMemoryInputStream func() uintptr
 
 // Creates a new empty #GMemoryInputStream.
 func NewMemoryInputStream() *InputStream {
-	NewMemoryInputStreamPtr := xNewMemoryInputStream()
-	if NewMemoryInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewMemoryInputStreamCls := &InputStream{}
-	NewMemoryInputStreamCls.Ptr = NewMemoryInputStreamPtr
-	return NewMemoryInputStreamCls
+	cret := xNewMemoryInputStream()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromBytesMemoryInputStream func(*glib.Bytes) uintptr
 
 // Creates a new #GMemoryInputStream with data from the given @bytes.
 func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *InputStream {
-	NewFromBytesMemoryInputStreamPtr := xNewFromBytesMemoryInputStream(BytesVar)
-	if NewFromBytesMemoryInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewFromBytesMemoryInputStreamCls := &InputStream{}
-	NewFromBytesMemoryInputStreamCls.Ptr = NewFromBytesMemoryInputStreamPtr
-	return NewFromBytesMemoryInputStreamCls
+	cret := xNewFromBytesMemoryInputStream(BytesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromDataMemoryInputStream func(uintptr, int, uintptr) uintptr
 
 // Creates a new #GMemoryInputStream with data in memory of a given size.
 func NewFromDataMemoryInputStream(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *InputStream {
-	NewFromDataMemoryInputStreamPtr := xNewFromDataMemoryInputStream(DataVar, LenVar, purego.NewCallback(DestroyVar))
-	if NewFromDataMemoryInputStreamPtr == 0 {
-		return nil
-	}
+	var cls *InputStream
 
-	NewFromDataMemoryInputStreamCls := &InputStream{}
-	NewFromDataMemoryInputStreamCls.Ptr = NewFromDataMemoryInputStreamPtr
-	return NewFromDataMemoryInputStreamCls
+	cret := xNewFromDataMemoryInputStream(DataVar, LenVar, purego.NewCallback(DestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMemoryInputStreamAddBytes func(uintptr, *glib.Bytes)
@@ -106,8 +112,8 @@ func (c *MemoryInputStream) SetGoPointer(ptr uintptr) {
 // a stream cannot switch from pollable to non-pollable or vice versa.
 func (x *MemoryInputStream) CanPoll() bool {
 
-	return XGPollableInputStreamCanPoll(x.GoPointer())
-
+	cret := XGPollableInputStreamCanPoll(x.GoPointer())
+	return cret
 }
 
 // Creates a #GSource that triggers when @stream can be read, or
@@ -120,8 +126,8 @@ func (x *MemoryInputStream) CanPoll() bool {
 // rather than g_input_stream_read() from the callback.
 func (x *MemoryInputStream) CreateSource(CancellableVar *Cancellable) *glib.Source {
 
-	return XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
-
+	cret := XGPollableInputStreamCreateSource(x.GoPointer(), CancellableVar.GoPointer())
+	return cret
 }
 
 // Checks if @stream can be read.
@@ -134,8 +140,8 @@ func (x *MemoryInputStream) CreateSource(CancellableVar *Cancellable) *glib.Sour
 // %G_IO_ERROR_WOULD_BLOCK error rather than blocking.
 func (x *MemoryInputStream) IsReadable() bool {
 
-	return XGPollableInputStreamIsReadable(x.GoPointer())
-
+	cret := XGPollableInputStreamIsReadable(x.GoPointer())
+	return cret
 }
 
 // Attempts to read up to @count bytes from @stream into @buffer, as
@@ -149,25 +155,30 @@ func (x *MemoryInputStream) IsReadable() bool {
 // if @cancellable has already been cancelled when you call, which
 // may happen if you call this method after a source triggers due
 // to having been cancelled.
-func (x *MemoryInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *MemoryInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tests if the stream supports the #GSeekableIface.
 func (x *MemoryInputStream) CanSeek() bool {
 
-	return XGSeekableCanSeek(x.GoPointer())
-
+	cret := XGSeekableCanSeek(x.GoPointer())
+	return cret
 }
 
 // Tests if the length of the stream can be adjusted with
 // g_seekable_truncate().
 func (x *MemoryInputStream) CanTruncate() bool {
 
-	return XGSeekableCanTruncate(x.GoPointer())
-
+	cret := XGSeekableCanTruncate(x.GoPointer())
+	return cret
 }
 
 // Seeks in the stream by the given @offset, modified by @type.
@@ -184,17 +195,22 @@ func (x *MemoryInputStream) CanTruncate() bool {
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *MemoryInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) bool {
+func (x *MemoryInputStream) Seek(OffsetVar int64, TypeVar glib.SeekType, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer())
+	cret := XGSeekableSeek(x.GoPointer(), OffsetVar, TypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
 // Tells the current position within the stream.
 func (x *MemoryInputStream) Tell() int64 {
 
-	return XGSeekableTell(x.GoPointer())
-
+	cret := XGSeekableTell(x.GoPointer())
+	return cret
 }
 
 // Sets the length of the stream to @offset. If the stream was previously
@@ -206,9 +222,14 @@ func (x *MemoryInputStream) Tell() int64 {
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
 // operation was partially finished when the operation was cancelled the
 // partial result will be returned, without an error.
-func (x *MemoryInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) bool {
+func (x *MemoryInputStream) Truncate(OffsetVar int64, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer())
+	cret := XGSeekableTruncate(x.GoPointer(), OffsetVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

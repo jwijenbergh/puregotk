@@ -45,14 +45,16 @@ var xNewWindowGroup func() uintptr
 // Modality of windows only affects windows
 // within the same `GtkWindowGroup`.
 func NewWindowGroup() *WindowGroup {
-	NewWindowGroupPtr := xNewWindowGroup()
-	if NewWindowGroupPtr == 0 {
-		return nil
-	}
+	var cls *WindowGroup
 
-	NewWindowGroupCls := &WindowGroup{}
-	NewWindowGroupCls.Ptr = NewWindowGroupPtr
-	return NewWindowGroupCls
+	cret := xNewWindowGroup()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &WindowGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowGroupAddWindow func(uintptr, uintptr)
@@ -69,8 +71,8 @@ var xWindowGroupListWindows func(uintptr) *glib.List
 // Returns a list of the `GtkWindows` that belong to @window_group.
 func (x *WindowGroup) ListWindows() *glib.List {
 
-	return xWindowGroupListWindows(x.GoPointer())
-
+	cret := xWindowGroupListWindows(x.GoPointer())
+	return cret
 }
 
 var xWindowGroupRemoveWindow func(uintptr, uintptr)

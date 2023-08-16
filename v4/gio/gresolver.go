@@ -46,7 +46,7 @@ func ResolverNewFromInternalPtr(ptr uintptr) *Resolver {
 	return cls
 }
 
-var xResolverLookupByAddress func(uintptr, uintptr, uintptr) string
+var xResolverLookupByAddress func(uintptr, uintptr, uintptr, **glib.Error) string
 
 // Synchronously reverse-resolves @address to determine its
 // associated hostname.
@@ -57,9 +57,14 @@ var xResolverLookupByAddress func(uintptr, uintptr, uintptr) string
 // If @cancellable is non-%NULL, it can be used to cancel the
 // operation, in which case @error (if non-%NULL) will be set to
 // %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupByAddress(AddressVar *InetAddress, CancellableVar *Cancellable) string {
+func (x *Resolver) LookupByAddress(AddressVar *InetAddress, CancellableVar *Cancellable) (string, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByAddress(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer())
+	cret := xResolverLookupByAddress(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -74,7 +79,7 @@ func (x *Resolver) LookupByAddressAsync(AddressVar *InetAddress, CancellableVar 
 
 }
 
-var xResolverLookupByAddressFinish func(uintptr, uintptr) string
+var xResolverLookupByAddressFinish func(uintptr, uintptr, **glib.Error) string
 
 // Retrieves the result of a previous call to
 // g_resolver_lookup_by_address_async().
@@ -82,13 +87,18 @@ var xResolverLookupByAddressFinish func(uintptr, uintptr) string
 // If the DNS resolution failed, @error (if non-%NULL) will be set to
 // a value from #GResolverError. If the operation was cancelled,
 // @error will be set to %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupByAddressFinish(ResultVar AsyncResult) string {
+func (x *Resolver) LookupByAddressFinish(ResultVar AsyncResult) (string, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByAddressFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xResolverLookupByAddressFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResolverLookupByName func(uintptr, string, uintptr) *glib.List
+var xResolverLookupByName func(uintptr, string, uintptr, **glib.Error) *glib.List
 
 // Synchronously resolves @hostname to determine its associated IP
 // address(es). @hostname may be an ASCII-only or UTF-8 hostname, or
@@ -113,9 +123,14 @@ var xResolverLookupByName func(uintptr, string, uintptr) *glib.List
 // If you are planning to connect to a socket on the resolved IP
 // address, it may be easier to create a #GNetworkAddress and use its
 // #GSocketConnectable interface.
-func (x *Resolver) LookupByName(HostnameVar string, CancellableVar *Cancellable) *glib.List {
+func (x *Resolver) LookupByName(HostnameVar string, CancellableVar *Cancellable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByName(x.GoPointer(), HostnameVar, CancellableVar.GoPointer())
+	cret := xResolverLookupByName(x.GoPointer(), HostnameVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -131,7 +146,7 @@ func (x *Resolver) LookupByNameAsync(HostnameVar string, CancellableVar *Cancell
 
 }
 
-var xResolverLookupByNameFinish func(uintptr, uintptr) *glib.List
+var xResolverLookupByNameFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Retrieves the result of a call to
 // g_resolver_lookup_by_name_async().
@@ -139,20 +154,30 @@ var xResolverLookupByNameFinish func(uintptr, uintptr) *glib.List
 // If the DNS resolution failed, @error (if non-%NULL) will be set to
 // a value from #GResolverError. If the operation was cancelled,
 // @error will be set to %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupByNameFinish(ResultVar AsyncResult) *glib.List {
+func (x *Resolver) LookupByNameFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByNameFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xResolverLookupByNameFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResolverLookupByNameWithFlags func(uintptr, string, ResolverNameLookupFlags, uintptr) *glib.List
+var xResolverLookupByNameWithFlags func(uintptr, string, ResolverNameLookupFlags, uintptr, **glib.Error) *glib.List
 
 // This differs from g_resolver_lookup_by_name() in that you can modify
 // the lookup behavior with @flags. For example this can be used to limit
 // results with %G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY.
-func (x *Resolver) LookupByNameWithFlags(HostnameVar string, FlagsVar ResolverNameLookupFlags, CancellableVar *Cancellable) *glib.List {
+func (x *Resolver) LookupByNameWithFlags(HostnameVar string, FlagsVar ResolverNameLookupFlags, CancellableVar *Cancellable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByNameWithFlags(x.GoPointer(), HostnameVar, FlagsVar, CancellableVar.GoPointer())
+	cret := xResolverLookupByNameWithFlags(x.GoPointer(), HostnameVar, FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -168,7 +193,7 @@ func (x *Resolver) LookupByNameWithFlagsAsync(HostnameVar string, FlagsVar Resol
 
 }
 
-var xResolverLookupByNameWithFlagsFinish func(uintptr, uintptr) *glib.List
+var xResolverLookupByNameWithFlagsFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Retrieves the result of a call to
 // g_resolver_lookup_by_name_with_flags_async().
@@ -176,13 +201,18 @@ var xResolverLookupByNameWithFlagsFinish func(uintptr, uintptr) *glib.List
 // If the DNS resolution failed, @error (if non-%NULL) will be set to
 // a value from #GResolverError. If the operation was cancelled,
 // @error will be set to %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupByNameWithFlagsFinish(ResultVar AsyncResult) *glib.List {
+func (x *Resolver) LookupByNameWithFlagsFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupByNameWithFlagsFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xResolverLookupByNameWithFlagsFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResolverLookupRecords func(uintptr, string, ResolverRecordType, uintptr) *glib.List
+var xResolverLookupRecords func(uintptr, string, ResolverRecordType, uintptr, **glib.Error) *glib.List
 
 // Synchronously performs a DNS record lookup for the given @rrname and returns
 // a list of records as #GVariant tuples. See #GResolverRecordType for
@@ -194,9 +224,14 @@ var xResolverLookupRecords func(uintptr, string, ResolverRecordType, uintptr) *g
 // If @cancellable is non-%NULL, it can be used to cancel the
 // operation, in which case @error (if non-%NULL) will be set to
 // %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupRecords(RrnameVar string, RecordTypeVar ResolverRecordType, CancellableVar *Cancellable) *glib.List {
+func (x *Resolver) LookupRecords(RrnameVar string, RecordTypeVar ResolverRecordType, CancellableVar *Cancellable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupRecords(x.GoPointer(), RrnameVar, RecordTypeVar, CancellableVar.GoPointer())
+	cret := xResolverLookupRecords(x.GoPointer(), RrnameVar, RecordTypeVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -212,7 +247,7 @@ func (x *Resolver) LookupRecordsAsync(RrnameVar string, RecordTypeVar ResolverRe
 
 }
 
-var xResolverLookupRecordsFinish func(uintptr, uintptr) *glib.List
+var xResolverLookupRecordsFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Retrieves the result of a previous call to
 // g_resolver_lookup_records_async(). Returns a non-empty list of records as
@@ -222,13 +257,18 @@ var xResolverLookupRecordsFinish func(uintptr, uintptr) *glib.List
 // If the DNS resolution failed, @error (if non-%NULL) will be set to
 // a value from #GResolverError. If the operation was cancelled,
 // @error will be set to %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupRecordsFinish(ResultVar AsyncResult) *glib.List {
+func (x *Resolver) LookupRecordsFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupRecordsFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xResolverLookupRecordsFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xResolverLookupService func(uintptr, string, string, string, uintptr) *glib.List
+var xResolverLookupService func(uintptr, string, string, string, uintptr, **glib.Error) *glib.List
 
 // Synchronously performs a DNS SRV lookup for the given @service and
 // @protocol in the given @domain and returns an array of #GSrvTarget.
@@ -251,9 +291,14 @@ var xResolverLookupService func(uintptr, string, string, string, uintptr) *glib.
 // If you are planning to connect to the service, it is usually easier
 // to create a #GNetworkService and use its #GSocketConnectable
 // interface.
-func (x *Resolver) LookupService(ServiceVar string, ProtocolVar string, DomainVar string, CancellableVar *Cancellable) *glib.List {
+func (x *Resolver) LookupService(ServiceVar string, ProtocolVar string, DomainVar string, CancellableVar *Cancellable) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupService(x.GoPointer(), ServiceVar, ProtocolVar, DomainVar, CancellableVar.GoPointer())
+	cret := xResolverLookupService(x.GoPointer(), ServiceVar, ProtocolVar, DomainVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -270,7 +315,7 @@ func (x *Resolver) LookupServiceAsync(ServiceVar string, ProtocolVar string, Dom
 
 }
 
-var xResolverLookupServiceFinish func(uintptr, uintptr) *glib.List
+var xResolverLookupServiceFinish func(uintptr, uintptr, **glib.Error) *glib.List
 
 // Retrieves the result of a previous call to
 // g_resolver_lookup_service_async().
@@ -278,9 +323,14 @@ var xResolverLookupServiceFinish func(uintptr, uintptr) *glib.List
 // If the DNS resolution failed, @error (if non-%NULL) will be set to
 // a value from #GResolverError. If the operation was cancelled,
 // @error will be set to %G_IO_ERROR_CANCELLED.
-func (x *Resolver) LookupServiceFinish(ResultVar AsyncResult) *glib.List {
+func (x *Resolver) LookupServiceFinish(ResultVar AsyncResult) (*glib.List, error) {
+	var cerr *glib.Error
 
-	return xResolverLookupServiceFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xResolverLookupServiceFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

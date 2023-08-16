@@ -66,32 +66,41 @@ var xNewPageSetup func() uintptr
 
 // Creates a new `GtkPageSetup`.
 func NewPageSetup() *PageSetup {
-	NewPageSetupPtr := xNewPageSetup()
-	if NewPageSetupPtr == 0 {
-		return nil
-	}
+	var cls *PageSetup
 
-	NewPageSetupCls := &PageSetup{}
-	NewPageSetupCls.Ptr = NewPageSetupPtr
-	return NewPageSetupCls
+	cret := xNewPageSetup()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewFromFilePageSetup func(string) uintptr
+var xNewFromFilePageSetup func(string, **glib.Error) uintptr
 
 // Reads the page setup from the file @file_name.
 //
 // Returns a new `GtkPageSetup` object with the restored
 // page setup, or %NULL if an error occurred.
 // See [method@Gtk.PageSetup.to_file].
-func NewFromFilePageSetup(FileNameVar string) *PageSetup {
-	NewFromFilePageSetupPtr := xNewFromFilePageSetup(FileNameVar)
-	if NewFromFilePageSetupPtr == 0 {
-		return nil
-	}
+func NewFromFilePageSetup(FileNameVar string) (*PageSetup, error) {
+	var cls *PageSetup
+	var cerr *glib.Error
 
-	NewFromFilePageSetupCls := &PageSetup{}
-	NewFromFilePageSetupCls.Ptr = NewFromFilePageSetupPtr
-	return NewFromFilePageSetupCls
+	cret := xNewFromFilePageSetup(FileNameVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xNewFromGvariantPageSetup func(*glib.Variant) uintptr
@@ -101,48 +110,57 @@ var xNewFromGvariantPageSetup func(*glib.Variant) uintptr
 // The variant must be in the format produced by
 // [method@Gtk.PageSetup.to_gvariant].
 func NewFromGvariantPageSetup(VariantVar *glib.Variant) *PageSetup {
-	NewFromGvariantPageSetupPtr := xNewFromGvariantPageSetup(VariantVar)
-	if NewFromGvariantPageSetupPtr == 0 {
-		return nil
-	}
+	var cls *PageSetup
 
-	NewFromGvariantPageSetupCls := &PageSetup{}
-	NewFromGvariantPageSetupCls.Ptr = NewFromGvariantPageSetupPtr
-	return NewFromGvariantPageSetupCls
+	cret := xNewFromGvariantPageSetup(VariantVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
-var xNewFromKeyFilePageSetup func(*glib.KeyFile, string) uintptr
+var xNewFromKeyFilePageSetup func(*glib.KeyFile, string, **glib.Error) uintptr
 
 // Reads the page setup from the group @group_name in the key file
 // @key_file.
 //
 // Returns a new `GtkPageSetup` object with the restored
 // page setup, or %NULL if an error occurred.
-func NewFromKeyFilePageSetup(KeyFileVar *glib.KeyFile, GroupNameVar string) *PageSetup {
-	NewFromKeyFilePageSetupPtr := xNewFromKeyFilePageSetup(KeyFileVar, GroupNameVar)
-	if NewFromKeyFilePageSetupPtr == 0 {
-		return nil
-	}
+func NewFromKeyFilePageSetup(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PageSetup, error) {
+	var cls *PageSetup
+	var cerr *glib.Error
 
-	NewFromKeyFilePageSetupCls := &PageSetup{}
-	NewFromKeyFilePageSetupCls.Ptr = NewFromKeyFilePageSetupPtr
-	return NewFromKeyFilePageSetupCls
+	cret := xNewFromKeyFilePageSetup(KeyFileVar, GroupNameVar, &cerr)
+
+	if cret == 0 {
+		return cls, cerr
+	}
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
 }
 
 var xPageSetupCopy func(uintptr) uintptr
 
 // Copies a `GtkPageSetup`.
 func (x *PageSetup) Copy() *PageSetup {
+	var cls *PageSetup
 
-	CopyPtr := xPageSetupCopy(x.GoPointer())
-	if CopyPtr == 0 {
-		return nil
+	cret := xPageSetupCopy(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	CopyCls := &PageSetup{}
-	CopyCls.Ptr = CopyPtr
-	return CopyCls
-
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPageSetupGetBottomMargin func(uintptr, Unit) float64
@@ -150,8 +168,8 @@ var xPageSetupGetBottomMargin func(uintptr, Unit) float64
 // Gets the bottom margin in units of @unit.
 func (x *PageSetup) GetBottomMargin(UnitVar Unit) float64 {
 
-	return xPageSetupGetBottomMargin(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetBottomMargin(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetLeftMargin func(uintptr, Unit) float64
@@ -159,8 +177,8 @@ var xPageSetupGetLeftMargin func(uintptr, Unit) float64
 // Gets the left margin in units of @unit.
 func (x *PageSetup) GetLeftMargin(UnitVar Unit) float64 {
 
-	return xPageSetupGetLeftMargin(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetLeftMargin(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetOrientation func(uintptr) PageOrientation
@@ -168,8 +186,8 @@ var xPageSetupGetOrientation func(uintptr) PageOrientation
 // Gets the page orientation of the `GtkPageSetup`.
 func (x *PageSetup) GetOrientation() PageOrientation {
 
-	return xPageSetupGetOrientation(x.GoPointer())
-
+	cret := xPageSetupGetOrientation(x.GoPointer())
+	return cret
 }
 
 var xPageSetupGetPageHeight func(uintptr, Unit) float64
@@ -181,8 +199,8 @@ var xPageSetupGetPageHeight func(uintptr, Unit) float64
 // See [method@Gtk.PageSetup.get_paper_height].
 func (x *PageSetup) GetPageHeight(UnitVar Unit) float64 {
 
-	return xPageSetupGetPageHeight(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetPageHeight(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetPageWidth func(uintptr, Unit) float64
@@ -194,8 +212,8 @@ var xPageSetupGetPageWidth func(uintptr, Unit) float64
 // See [method@Gtk.PageSetup.get_paper_width].
 func (x *PageSetup) GetPageWidth(UnitVar Unit) float64 {
 
-	return xPageSetupGetPageWidth(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetPageWidth(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetPaperHeight func(uintptr, Unit) float64
@@ -207,8 +225,8 @@ var xPageSetupGetPaperHeight func(uintptr, Unit) float64
 // See [method@Gtk.PageSetup.get_page_height].
 func (x *PageSetup) GetPaperHeight(UnitVar Unit) float64 {
 
-	return xPageSetupGetPaperHeight(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetPaperHeight(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetPaperSize func(uintptr) *PaperSize
@@ -216,8 +234,8 @@ var xPageSetupGetPaperSize func(uintptr) *PaperSize
 // Gets the paper size of the `GtkPageSetup`.
 func (x *PageSetup) GetPaperSize() *PaperSize {
 
-	return xPageSetupGetPaperSize(x.GoPointer())
-
+	cret := xPageSetupGetPaperSize(x.GoPointer())
+	return cret
 }
 
 var xPageSetupGetPaperWidth func(uintptr, Unit) float64
@@ -229,8 +247,8 @@ var xPageSetupGetPaperWidth func(uintptr, Unit) float64
 // See [method@Gtk.PageSetup.get_page_width].
 func (x *PageSetup) GetPaperWidth(UnitVar Unit) float64 {
 
-	return xPageSetupGetPaperWidth(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetPaperWidth(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetRightMargin func(uintptr, Unit) float64
@@ -238,8 +256,8 @@ var xPageSetupGetRightMargin func(uintptr, Unit) float64
 // Gets the right margin in units of @unit.
 func (x *PageSetup) GetRightMargin(UnitVar Unit) float64 {
 
-	return xPageSetupGetRightMargin(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetRightMargin(x.GoPointer(), UnitVar)
+	return cret
 }
 
 var xPageSetupGetTopMargin func(uintptr, Unit) float64
@@ -247,28 +265,38 @@ var xPageSetupGetTopMargin func(uintptr, Unit) float64
 // Gets the top margin in units of @unit.
 func (x *PageSetup) GetTopMargin(UnitVar Unit) float64 {
 
-	return xPageSetupGetTopMargin(x.GoPointer(), UnitVar)
-
+	cret := xPageSetupGetTopMargin(x.GoPointer(), UnitVar)
+	return cret
 }
 
-var xPageSetupLoadFile func(uintptr, string) bool
+var xPageSetupLoadFile func(uintptr, string, **glib.Error) bool
 
 // Reads the page setup from the file @file_name.
 //
 // See [method@Gtk.PageSetup.to_file].
-func (x *PageSetup) LoadFile(FileNameVar string) bool {
+func (x *PageSetup) LoadFile(FileNameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xPageSetupLoadFile(x.GoPointer(), FileNameVar)
+	cret := xPageSetupLoadFile(x.GoPointer(), FileNameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xPageSetupLoadKeyFile func(uintptr, *glib.KeyFile, string) bool
+var xPageSetupLoadKeyFile func(uintptr, *glib.KeyFile, string, **glib.Error) bool
 
 // Reads the page setup from the group @group_name in the key file
 // @key_file.
-func (x *PageSetup) LoadKeyFile(KeyFileVar *glib.KeyFile, GroupNameVar string) bool {
+func (x *PageSetup) LoadKeyFile(KeyFileVar *glib.KeyFile, GroupNameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xPageSetupLoadKeyFile(x.GoPointer(), KeyFileVar, GroupNameVar)
+	cret := xPageSetupLoadKeyFile(x.GoPointer(), KeyFileVar, GroupNameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -339,12 +367,17 @@ func (x *PageSetup) SetTopMargin(MarginVar float64, UnitVar Unit) {
 
 }
 
-var xPageSetupToFile func(uintptr, string) bool
+var xPageSetupToFile func(uintptr, string, **glib.Error) bool
 
 // This function saves the information from @setup to @file_name.
-func (x *PageSetup) ToFile(FileNameVar string) bool {
+func (x *PageSetup) ToFile(FileNameVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xPageSetupToFile(x.GoPointer(), FileNameVar)
+	cret := xPageSetupToFile(x.GoPointer(), FileNameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -353,8 +386,8 @@ var xPageSetupToGvariant func(uintptr) *glib.Variant
 // Serialize page setup to an a{sv} variant.
 func (x *PageSetup) ToGvariant() *glib.Variant {
 
-	return xPageSetupToGvariant(x.GoPointer())
-
+	cret := xPageSetupToGvariant(x.GoPointer())
+	return cret
 }
 
 var xPageSetupToKeyFile func(uintptr, *glib.KeyFile, string)

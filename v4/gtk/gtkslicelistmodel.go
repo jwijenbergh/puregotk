@@ -34,32 +34,33 @@ var xNewSliceListModel func(uintptr, uint, uint) uintptr
 // It presents the slice from @offset to offset + @size
 // of the given @model.
 func NewSliceListModel(ModelVar gio.ListModel, OffsetVar uint, SizeVar uint) *SliceListModel {
-	NewSliceListModelPtr := xNewSliceListModel(ModelVar.GoPointer(), OffsetVar, SizeVar)
-	if NewSliceListModelPtr == 0 {
-		return nil
-	}
+	var cls *SliceListModel
 
-	NewSliceListModelCls := &SliceListModel{}
-	NewSliceListModelCls.Ptr = NewSliceListModelPtr
-	return NewSliceListModelCls
+	cret := xNewSliceListModel(ModelVar.GoPointer(), OffsetVar, SizeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SliceListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSliceListModelGetModel func(uintptr) uintptr
 
 // Gets the model that is currently being used or %NULL if none.
 func (x *SliceListModel) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xSliceListModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xSliceListModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSliceListModelGetOffset func(uintptr) uint
@@ -67,8 +68,8 @@ var xSliceListModelGetOffset func(uintptr) uint
 // Gets the offset set via gtk_slice_list_model_set_offset().
 func (x *SliceListModel) GetOffset() uint {
 
-	return xSliceListModelGetOffset(x.GoPointer())
-
+	cret := xSliceListModelGetOffset(x.GoPointer())
+	return cret
 }
 
 var xSliceListModelGetSize func(uintptr) uint
@@ -76,8 +77,8 @@ var xSliceListModelGetSize func(uintptr) uint
 // Gets the size set via gtk_slice_list_model_set_size().
 func (x *SliceListModel) GetSize() uint {
 
-	return xSliceListModelGetSize(x.GoPointer())
-
+	cret := xSliceListModelGetSize(x.GoPointer())
+	return cret
 }
 
 var xSliceListModelSetModel func(uintptr, uintptr)
@@ -135,8 +136,8 @@ func (c *SliceListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *SliceListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -149,8 +150,8 @@ func (x *SliceListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *SliceListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -160,8 +161,8 @@ func (x *SliceListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *SliceListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -177,16 +178,16 @@ func (x *SliceListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *SliceListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

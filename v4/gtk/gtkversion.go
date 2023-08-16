@@ -33,8 +33,8 @@ var xCheckVersion func(uint, uint, uint) string
 // into an application using a newer version of GTK.
 func CheckVersion(RequiredMajorVar uint, RequiredMinorVar uint, RequiredMicroVar uint) string {
 
-	return xCheckVersion(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
-
+	cret := xCheckVersion(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
+	return cret
 }
 
 var xGetBinaryAge func() uint
@@ -44,8 +44,8 @@ var xGetBinaryAge func() uint
 // If `libtool` means nothing to you, don't worry about it.
 func GetBinaryAge() uint {
 
-	return xGetBinaryAge()
-
+	cret := xGetBinaryAge()
+	return cret
 }
 
 var xGetInterfaceAge func() uint
@@ -55,8 +55,8 @@ var xGetInterfaceAge func() uint
 // If `libtool` means nothing to you, don't worry about it.
 func GetInterfaceAge() uint {
 
-	return xGetInterfaceAge()
-
+	cret := xGetInterfaceAge()
+	return cret
 }
 
 var xGetMajorVersion func() uint
@@ -71,8 +71,8 @@ var xGetMajorVersion func() uint
 // have included when compiling your code.
 func GetMajorVersion() uint {
 
-	return xGetMajorVersion()
-
+	cret := xGetMajorVersion()
+	return cret
 }
 
 var xGetMicroVersion func() uint
@@ -87,8 +87,8 @@ var xGetMicroVersion func() uint
 // GTK headers you have included when compiling your code.
 func GetMicroVersion() uint {
 
-	return xGetMicroVersion()
-
+	cret := xGetMicroVersion()
+	return cret
 }
 
 var xGetMinorVersion func() uint
@@ -103,8 +103,8 @@ var xGetMinorVersion func() uint
 // GTK headers you have included when compiling your code.
 func GetMinorVersion() uint {
 
-	return xGetMinorVersion()
-
+	cret := xGetMinorVersion()
+	return cret
 }
 
 func init() {

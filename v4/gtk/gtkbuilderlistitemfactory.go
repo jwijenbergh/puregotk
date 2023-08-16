@@ -51,14 +51,16 @@ var xNewFromBytesBuilderListItemFactory func(uintptr, *glib.Bytes) uintptr
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using @bytes as the data to pass to `GtkBuilder`.
 func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.Bytes) *ListItemFactory {
-	NewFromBytesBuilderListItemFactoryPtr := xNewFromBytesBuilderListItemFactory(ScopeVar.GoPointer(), BytesVar)
-	if NewFromBytesBuilderListItemFactoryPtr == 0 {
-		return nil
-	}
+	var cls *ListItemFactory
 
-	NewFromBytesBuilderListItemFactoryCls := &ListItemFactory{}
-	NewFromBytesBuilderListItemFactoryCls.Ptr = NewFromBytesBuilderListItemFactoryPtr
-	return NewFromBytesBuilderListItemFactoryCls
+	cret := xNewFromBytesBuilderListItemFactory(ScopeVar.GoPointer(), BytesVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromResourceBuilderListItemFactory func(uintptr, string) uintptr
@@ -66,14 +68,16 @@ var xNewFromResourceBuilderListItemFactory func(uintptr, string) uintptr
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using data read from the given @resource_path to pass to `GtkBuilder`.
 func NewFromResourceBuilderListItemFactory(ScopeVar BuilderScope, ResourcePathVar string) *ListItemFactory {
-	NewFromResourceBuilderListItemFactoryPtr := xNewFromResourceBuilderListItemFactory(ScopeVar.GoPointer(), ResourcePathVar)
-	if NewFromResourceBuilderListItemFactoryPtr == 0 {
-		return nil
-	}
+	var cls *ListItemFactory
 
-	NewFromResourceBuilderListItemFactoryCls := &ListItemFactory{}
-	NewFromResourceBuilderListItemFactoryCls.Ptr = NewFromResourceBuilderListItemFactoryPtr
-	return NewFromResourceBuilderListItemFactoryCls
+	cret := xNewFromResourceBuilderListItemFactory(ScopeVar.GoPointer(), ResourcePathVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ListItemFactory{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBuilderListItemFactoryGetBytes func(uintptr) *glib.Bytes
@@ -82,8 +86,8 @@ var xBuilderListItemFactoryGetBytes func(uintptr) *glib.Bytes
 // listitems.
 func (x *BuilderListItemFactory) GetBytes() *glib.Bytes {
 
-	return xBuilderListItemFactoryGetBytes(x.GoPointer())
-
+	cret := xBuilderListItemFactoryGetBytes(x.GoPointer())
+	return cret
 }
 
 var xBuilderListItemFactoryGetResource func(uintptr) string
@@ -91,26 +95,25 @@ var xBuilderListItemFactoryGetResource func(uintptr) string
 // If the data references a resource, gets the path of that resource.
 func (x *BuilderListItemFactory) GetResource() string {
 
-	return xBuilderListItemFactoryGetResource(x.GoPointer())
-
+	cret := xBuilderListItemFactoryGetResource(x.GoPointer())
+	return cret
 }
 
 var xBuilderListItemFactoryGetScope func(uintptr) uintptr
 
 // Gets the scope used when constructing listitems.
 func (x *BuilderListItemFactory) GetScope() *BuilderScopeBase {
+	var cls *BuilderScopeBase
 
-	GetScopePtr := xBuilderListItemFactoryGetScope(x.GoPointer())
-	if GetScopePtr == 0 {
-		return nil
+	cret := xBuilderListItemFactoryGetScope(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetScopePtr)
-
-	GetScopeCls := &BuilderScopeBase{}
-	GetScopeCls.Ptr = GetScopePtr
-	return GetScopeCls
-
+	gobject.IncreaseRef(cret)
+	cls = &BuilderScopeBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *BuilderListItemFactory) GoPointer() uintptr {

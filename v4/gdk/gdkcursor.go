@@ -70,28 +70,32 @@ var xNewFromNameCursor func(string, uintptr) uintptr
 // | ![](se_resize_cursor.png) "se-resize" | ![](ew_resize_cursor.png) "ew-resize" | ![](ns_resize_cursor.png) "ns-resize" | ![](nesw_resize_cursor.png) "nesw-resize" |
 // | ![](nwse_resize_cursor.png) "nwse-resize" | ![](zoom_in_cursor.png) "zoom-in" | ![](zoom_out_cursor.png) "zoom-out" | |
 func NewFromNameCursor(NameVar string, FallbackVar *Cursor) *Cursor {
-	NewFromNameCursorPtr := xNewFromNameCursor(NameVar, FallbackVar.GoPointer())
-	if NewFromNameCursorPtr == 0 {
-		return nil
-	}
+	var cls *Cursor
 
-	NewFromNameCursorCls := &Cursor{}
-	NewFromNameCursorCls.Ptr = NewFromNameCursorPtr
-	return NewFromNameCursorCls
+	cret := xNewFromNameCursor(NameVar, FallbackVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewFromTextureCursor func(uintptr, int, int, uintptr) uintptr
 
 // Creates a new cursor from a `GdkTexture`.
 func NewFromTextureCursor(TextureVar *Texture, HotspotXVar int, HotspotYVar int, FallbackVar *Cursor) *Cursor {
-	NewFromTextureCursorPtr := xNewFromTextureCursor(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
-	if NewFromTextureCursorPtr == 0 {
-		return nil
-	}
+	var cls *Cursor
 
-	NewFromTextureCursorCls := &Cursor{}
-	NewFromTextureCursorCls.Ptr = NewFromTextureCursorPtr
-	return NewFromTextureCursorCls
+	cret := xNewFromTextureCursor(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCursorGetFallback func(uintptr) uintptr
@@ -104,18 +108,17 @@ var xCursorGetFallback func(uintptr) uintptr
 // this can happen when the texture is too large or when the `GdkDisplay`
 // it is used on does not support textured cursors.
 func (x *Cursor) GetFallback() *Cursor {
+	var cls *Cursor
 
-	GetFallbackPtr := xCursorGetFallback(x.GoPointer())
-	if GetFallbackPtr == 0 {
-		return nil
+	cret := xCursorGetFallback(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFallbackPtr)
-
-	GetFallbackCls := &Cursor{}
-	GetFallbackCls.Ptr = GetFallbackPtr
-	return GetFallbackCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Cursor{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCursorGetHotspotX func(uintptr) int
@@ -129,8 +132,8 @@ var xCursorGetHotspotX func(uintptr) int
 // [ctor@Gdk.Cursor.new_from_texture].
 func (x *Cursor) GetHotspotX() int {
 
-	return xCursorGetHotspotX(x.GoPointer())
-
+	cret := xCursorGetHotspotX(x.GoPointer())
+	return cret
 }
 
 var xCursorGetHotspotY func(uintptr) int
@@ -144,8 +147,8 @@ var xCursorGetHotspotY func(uintptr) int
 // [ctor@Gdk.Cursor.new_from_texture].
 func (x *Cursor) GetHotspotY() int {
 
-	return xCursorGetHotspotY(x.GoPointer())
-
+	cret := xCursorGetHotspotY(x.GoPointer())
+	return cret
 }
 
 var xCursorGetName func(uintptr) string
@@ -155,8 +158,8 @@ var xCursorGetName func(uintptr) string
 // If the cursor is not a named cursor, %NULL will be returned.
 func (x *Cursor) GetName() string {
 
-	return xCursorGetName(x.GoPointer())
-
+	cret := xCursorGetName(x.GoPointer())
+	return cret
 }
 
 var xCursorGetTexture func(uintptr) uintptr
@@ -165,18 +168,17 @@ var xCursorGetTexture func(uintptr) uintptr
 //
 // If the cursor is a named cursor, %NULL will be returned.
 func (x *Cursor) GetTexture() *Texture {
+	var cls *Texture
 
-	GetTexturePtr := xCursorGetTexture(x.GoPointer())
-	if GetTexturePtr == 0 {
-		return nil
+	cret := xCursorGetTexture(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTexturePtr)
-
-	GetTextureCls := &Texture{}
-	GetTextureCls.Ptr = GetTexturePtr
-	return GetTextureCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Texture{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *Cursor) GoPointer() uintptr {

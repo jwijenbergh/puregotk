@@ -53,16 +53,16 @@ var xFontsetGetFont func(uintptr, uint) uintptr
 // Returns the font in the fontset that contains the best glyph for a
 // Unicode character.
 func (x *Fontset) GetFont(WcVar uint) *Font {
+	var cls *Font
 
-	GetFontPtr := xFontsetGetFont(x.GoPointer(), WcVar)
-	if GetFontPtr == 0 {
-		return nil
+	cret := xFontsetGetFont(x.GoPointer(), WcVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetFontCls := &Font{}
-	GetFontCls.Ptr = GetFontPtr
-	return GetFontCls
-
+	cls = &Font{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontsetGetMetrics func(uintptr) *FontMetrics
@@ -70,8 +70,8 @@ var xFontsetGetMetrics func(uintptr) *FontMetrics
 // Get overall metric information for the fonts in the fontset.
 func (x *Fontset) GetMetrics() *FontMetrics {
 
-	return xFontsetGetMetrics(x.GoPointer())
-
+	cret := xFontsetGetMetrics(x.GoPointer())
+	return cret
 }
 
 func (c *Fontset) GoPointer() uintptr {
@@ -101,14 +101,16 @@ var xNewFontsetSimple func(*Language) uintptr
 
 // Creates a new `PangoFontsetSimple` for the given language.
 func NewFontsetSimple(LanguageVar *Language) *FontsetSimple {
-	NewFontsetSimplePtr := xNewFontsetSimple(LanguageVar)
-	if NewFontsetSimplePtr == 0 {
-		return nil
-	}
+	var cls *FontsetSimple
 
-	NewFontsetSimpleCls := &FontsetSimple{}
-	NewFontsetSimpleCls.Ptr = NewFontsetSimplePtr
-	return NewFontsetSimpleCls
+	cret := xNewFontsetSimple(LanguageVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &FontsetSimple{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFontsetSimpleAppend func(uintptr, uintptr)
@@ -127,8 +129,8 @@ var xFontsetSimpleSize func(uintptr) int
 // Returns the number of fonts in the fontset.
 func (x *FontsetSimple) Size() int {
 
-	return xFontsetSimpleSize(x.GoPointer())
-
+	cret := xFontsetSimpleSize(x.GoPointer())
+	return cret
 }
 
 func (c *FontsetSimple) GoPointer() uintptr {

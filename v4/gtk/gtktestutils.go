@@ -29,8 +29,8 @@ var xTestListAllTypes func(uint) uintptr
 // calling gtk_test_register_all_types().
 func TestListAllTypes(NTypesVar uint) uintptr {
 
-	return xTestListAllTypes(NTypesVar)
-
+	cret := xTestListAllTypes(NTypesVar)
+	return cret
 }
 
 var xTestRegisterAllTypes func()

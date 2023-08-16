@@ -130,16 +130,17 @@ var xNewAboutDialog func() uintptr
 
 // Creates a new `GtkAboutDialog`.
 func NewAboutDialog() *Widget {
-	NewAboutDialogPtr := xNewAboutDialog()
-	if NewAboutDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewAboutDialog()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewAboutDialogPtr)
-
-	NewAboutDialogCls := &Widget{}
-	NewAboutDialogCls.Ptr = NewAboutDialogPtr
-	return NewAboutDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAboutDialogAddCreditSection func(uintptr, string, uintptr)
@@ -157,8 +158,8 @@ var xAboutDialogGetArtists func(uintptr) uintptr
 // in the credits page.
 func (x *AboutDialog) GetArtists() uintptr {
 
-	return xAboutDialogGetArtists(x.GoPointer())
-
+	cret := xAboutDialogGetArtists(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetAuthors func(uintptr) uintptr
@@ -167,8 +168,8 @@ var xAboutDialogGetAuthors func(uintptr) uintptr
 // in the credits page.
 func (x *AboutDialog) GetAuthors() uintptr {
 
-	return xAboutDialogGetAuthors(x.GoPointer())
-
+	cret := xAboutDialogGetAuthors(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetComments func(uintptr) string
@@ -176,8 +177,8 @@ var xAboutDialogGetComments func(uintptr) string
 // Returns the comments string.
 func (x *AboutDialog) GetComments() string {
 
-	return xAboutDialogGetComments(x.GoPointer())
-
+	cret := xAboutDialogGetComments(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetCopyright func(uintptr) string
@@ -185,8 +186,8 @@ var xAboutDialogGetCopyright func(uintptr) string
 // Returns the copyright string.
 func (x *AboutDialog) GetCopyright() string {
 
-	return xAboutDialogGetCopyright(x.GoPointer())
-
+	cret := xAboutDialogGetCopyright(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetDocumenters func(uintptr) uintptr
@@ -195,8 +196,8 @@ var xAboutDialogGetDocumenters func(uintptr) uintptr
 // in the credits page.
 func (x *AboutDialog) GetDocumenters() uintptr {
 
-	return xAboutDialogGetDocumenters(x.GoPointer())
-
+	cret := xAboutDialogGetDocumenters(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetLicense func(uintptr) string
@@ -204,8 +205,8 @@ var xAboutDialogGetLicense func(uintptr) string
 // Returns the license information.
 func (x *AboutDialog) GetLicense() string {
 
-	return xAboutDialogGetLicense(x.GoPointer())
-
+	cret := xAboutDialogGetLicense(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetLicenseType func(uintptr) License
@@ -213,26 +214,25 @@ var xAboutDialogGetLicenseType func(uintptr) License
 // Retrieves the license type.
 func (x *AboutDialog) GetLicenseType() License {
 
-	return xAboutDialogGetLicenseType(x.GoPointer())
-
+	cret := xAboutDialogGetLicenseType(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetLogo func(uintptr) uintptr
 
 // Returns the paintable displayed as logo in the about dialog.
 func (x *AboutDialog) GetLogo() *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	GetLogoPtr := xAboutDialogGetLogo(x.GoPointer())
-	if GetLogoPtr == 0 {
-		return nil
+	cret := xAboutDialogGetLogo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLogoPtr)
-
-	GetLogoCls := &gdk.PaintableBase{}
-	GetLogoCls.Ptr = GetLogoPtr
-	return GetLogoCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xAboutDialogGetLogoIconName func(uintptr) string
@@ -240,8 +240,8 @@ var xAboutDialogGetLogoIconName func(uintptr) string
 // Returns the icon name displayed as logo in the about dialog.
 func (x *AboutDialog) GetLogoIconName() string {
 
-	return xAboutDialogGetLogoIconName(x.GoPointer())
-
+	cret := xAboutDialogGetLogoIconName(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetProgramName func(uintptr) string
@@ -249,8 +249,8 @@ var xAboutDialogGetProgramName func(uintptr) string
 // Returns the program name displayed in the about dialog.
 func (x *AboutDialog) GetProgramName() string {
 
-	return xAboutDialogGetProgramName(x.GoPointer())
-
+	cret := xAboutDialogGetProgramName(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetSystemInformation func(uintptr) string
@@ -258,8 +258,8 @@ var xAboutDialogGetSystemInformation func(uintptr) string
 // Returns the system information that is shown in the about dialog.
 func (x *AboutDialog) GetSystemInformation() string {
 
-	return xAboutDialogGetSystemInformation(x.GoPointer())
-
+	cret := xAboutDialogGetSystemInformation(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetTranslatorCredits func(uintptr) string
@@ -268,8 +268,8 @@ var xAboutDialogGetTranslatorCredits func(uintptr) string
 // in the credits page.
 func (x *AboutDialog) GetTranslatorCredits() string {
 
-	return xAboutDialogGetTranslatorCredits(x.GoPointer())
-
+	cret := xAboutDialogGetTranslatorCredits(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetVersion func(uintptr) string
@@ -277,8 +277,8 @@ var xAboutDialogGetVersion func(uintptr) string
 // Returns the version string.
 func (x *AboutDialog) GetVersion() string {
 
-	return xAboutDialogGetVersion(x.GoPointer())
-
+	cret := xAboutDialogGetVersion(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetWebsite func(uintptr) string
@@ -286,8 +286,8 @@ var xAboutDialogGetWebsite func(uintptr) string
 // Returns the website URL.
 func (x *AboutDialog) GetWebsite() string {
 
-	return xAboutDialogGetWebsite(x.GoPointer())
-
+	cret := xAboutDialogGetWebsite(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetWebsiteLabel func(uintptr) string
@@ -295,8 +295,8 @@ var xAboutDialogGetWebsiteLabel func(uintptr) string
 // Returns the label used for the website link.
 func (x *AboutDialog) GetWebsiteLabel() string {
 
-	return xAboutDialogGetWebsiteLabel(x.GoPointer())
-
+	cret := xAboutDialogGetWebsiteLabel(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogGetWrapLicense func(uintptr) bool
@@ -305,8 +305,8 @@ var xAboutDialogGetWrapLicense func(uintptr) bool
 // automatically wrapped.
 func (x *AboutDialog) GetWrapLicense() bool {
 
-	return xAboutDialogGetWrapLicense(x.GoPointer())
-
+	cret := xAboutDialogGetWrapLicense(x.GoPointer())
+	return cret
 }
 
 var xAboutDialogSetArtists func(uintptr, uintptr)
@@ -522,8 +522,8 @@ func (x *AboutDialog) ConnectActivateLink(cb func(AboutDialog, string) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *AboutDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -658,40 +658,38 @@ func (x *AboutDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AboutDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *AboutDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *AboutDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -724,18 +722,17 @@ func (x *AboutDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *AboutDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -745,18 +742,17 @@ func (x *AboutDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *AboutDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

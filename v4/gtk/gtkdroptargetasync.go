@@ -59,14 +59,16 @@ var xNewDropTargetAsync func(*gdk.ContentFormats, gdk.DragAction) uintptr
 
 // Creates a new `GtkDropTargetAsync` object.
 func NewDropTargetAsync(FormatsVar *gdk.ContentFormats, ActionsVar gdk.DragAction) *DropTargetAsync {
-	NewDropTargetAsyncPtr := xNewDropTargetAsync(FormatsVar, ActionsVar)
-	if NewDropTargetAsyncPtr == 0 {
-		return nil
-	}
+	var cls *DropTargetAsync
 
-	NewDropTargetAsyncCls := &DropTargetAsync{}
-	NewDropTargetAsyncCls.Ptr = NewDropTargetAsyncPtr
-	return NewDropTargetAsyncCls
+	cret := xNewDropTargetAsync(FormatsVar, ActionsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &DropTargetAsync{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDropTargetAsyncGetActions func(uintptr) gdk.DragAction
@@ -74,8 +76,8 @@ var xDropTargetAsyncGetActions func(uintptr) gdk.DragAction
 // Gets the actions that this drop target supports.
 func (x *DropTargetAsync) GetActions() gdk.DragAction {
 
-	return xDropTargetAsyncGetActions(x.GoPointer())
-
+	cret := xDropTargetAsyncGetActions(x.GoPointer())
+	return cret
 }
 
 var xDropTargetAsyncGetFormats func(uintptr) *gdk.ContentFormats
@@ -85,8 +87,8 @@ var xDropTargetAsyncGetFormats func(uintptr) *gdk.ContentFormats
 // If the result is %NULL, all formats are expected to be supported.
 func (x *DropTargetAsync) GetFormats() *gdk.ContentFormats {
 
-	return xDropTargetAsyncGetFormats(x.GoPointer())
-
+	cret := xDropTargetAsyncGetFormats(x.GoPointer())
+	return cret
 }
 
 var xDropTargetAsyncRejectDrop func(uintptr, uintptr)

@@ -70,16 +70,17 @@ var xNewProgressBar func() uintptr
 
 // Creates a new `GtkProgressBar`.
 func NewProgressBar() *Widget {
-	NewProgressBarPtr := xNewProgressBar()
-	if NewProgressBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewProgressBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewProgressBarPtr)
-
-	NewProgressBarCls := &Widget{}
-	NewProgressBarCls.Ptr = NewProgressBarPtr
-	return NewProgressBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xProgressBarGetEllipsize func(uintptr) pango.EllipsizeMode
@@ -89,8 +90,8 @@ var xProgressBarGetEllipsize func(uintptr) pango.EllipsizeMode
 // See [method@Gtk.ProgressBar.set_ellipsize].
 func (x *ProgressBar) GetEllipsize() pango.EllipsizeMode {
 
-	return xProgressBarGetEllipsize(x.GoPointer())
-
+	cret := xProgressBarGetEllipsize(x.GoPointer())
+	return cret
 }
 
 var xProgressBarGetFraction func(uintptr) float64
@@ -98,8 +99,8 @@ var xProgressBarGetFraction func(uintptr) float64
 // Returns the current fraction of the task that’s been completed.
 func (x *ProgressBar) GetFraction() float64 {
 
-	return xProgressBarGetFraction(x.GoPointer())
-
+	cret := xProgressBarGetFraction(x.GoPointer())
+	return cret
 }
 
 var xProgressBarGetInverted func(uintptr) bool
@@ -107,8 +108,8 @@ var xProgressBarGetInverted func(uintptr) bool
 // Returns whether the progress bar is inverted.
 func (x *ProgressBar) GetInverted() bool {
 
-	return xProgressBarGetInverted(x.GoPointer())
-
+	cret := xProgressBarGetInverted(x.GoPointer())
+	return cret
 }
 
 var xProgressBarGetPulseStep func(uintptr) float64
@@ -118,8 +119,8 @@ var xProgressBarGetPulseStep func(uintptr) float64
 // See [method@Gtk.ProgressBar.set_pulse_step].
 func (x *ProgressBar) GetPulseStep() float64 {
 
-	return xProgressBarGetPulseStep(x.GoPointer())
-
+	cret := xProgressBarGetPulseStep(x.GoPointer())
+	return cret
 }
 
 var xProgressBarGetShowText func(uintptr) bool
@@ -129,8 +130,8 @@ var xProgressBarGetShowText func(uintptr) bool
 // See [method@Gtk.ProgressBar.set_show_text].
 func (x *ProgressBar) GetShowText() bool {
 
-	return xProgressBarGetShowText(x.GoPointer())
-
+	cret := xProgressBarGetShowText(x.GoPointer())
+	return cret
 }
 
 var xProgressBarGetText func(uintptr) string
@@ -141,8 +142,8 @@ var xProgressBarGetText func(uintptr) string
 // so will become invalid if you change the text in the progress bar.
 func (x *ProgressBar) GetText() string {
 
-	return xProgressBarGetText(x.GoPointer())
-
+	cret := xProgressBarGetText(x.GoPointer())
+	return cret
 }
 
 var xProgressBarPulse func(uintptr)
@@ -255,8 +256,8 @@ func (c *ProgressBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *ProgressBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -391,15 +392,15 @@ func (x *ProgressBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *ProgressBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *ProgressBar) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

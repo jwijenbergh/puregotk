@@ -41,14 +41,16 @@ var xNewSnapshot func() uintptr
 
 // Creates a new `GtkSnapshot`.
 func NewSnapshot() *Snapshot {
-	NewSnapshotPtr := xNewSnapshot()
-	if NewSnapshotPtr == 0 {
-		return nil
-	}
+	var cls *Snapshot
 
-	NewSnapshotCls := &Snapshot{}
-	NewSnapshotCls.Ptr = NewSnapshotPtr
-	return NewSnapshotCls
+	cret := xNewSnapshot()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Snapshot{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSnapshotAppendBorder func(uintptr, *gsk.RoundedRect, uintptr, uintptr)
@@ -68,8 +70,8 @@ var xSnapshotAppendCairo func(uintptr, *graphene.Rect) *cairo.Context
 // render node of @snapshot, without changing the current node.
 func (x *Snapshot) AppendCairo(BoundsVar *graphene.Rect) *cairo.Context {
 
-	return xSnapshotAppendCairo(x.GoPointer(), BoundsVar)
-
+	cret := xSnapshotAppendCairo(x.GoPointer(), BoundsVar)
+	return cret
 }
 
 var xSnapshotAppendColor func(uintptr, *gdk.RGBA, *graphene.Rect)
@@ -186,16 +188,16 @@ var xSnapshotFreeToNode func(uintptr) uintptr
 // Returns the node that was constructed by @snapshot
 // and frees @snapshot.
 func (x *Snapshot) FreeToNode() *gsk.RenderNode {
+	var cls *gsk.RenderNode
 
-	FreeToNodePtr := xSnapshotFreeToNode(x.GoPointer())
-	if FreeToNodePtr == 0 {
-		return nil
+	cret := xSnapshotFreeToNode(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	FreeToNodeCls := &gsk.RenderNode{}
-	FreeToNodeCls.Ptr = FreeToNodePtr
-	return FreeToNodeCls
-
+	cls = &gsk.RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSnapshotFreeToPaintable func(uintptr, *graphene.Size) uintptr
@@ -203,16 +205,16 @@ var xSnapshotFreeToPaintable func(uintptr, *graphene.Size) uintptr
 // Returns a paintable for the node that was
 // constructed by @snapshot and frees @snapshot.
 func (x *Snapshot) FreeToPaintable(SizeVar *graphene.Size) *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	FreeToPaintablePtr := xSnapshotFreeToPaintable(x.GoPointer(), SizeVar)
-	if FreeToPaintablePtr == 0 {
-		return nil
+	cret := xSnapshotFreeToPaintable(x.GoPointer(), SizeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	FreeToPaintableCls := &gdk.PaintableBase{}
-	FreeToPaintableCls.Ptr = FreeToPaintablePtr
-	return FreeToPaintableCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSnapshotGlShaderPopTexture func(uintptr)
@@ -553,16 +555,16 @@ var xSnapshotToNode func(uintptr) uintptr
 // add more nodes to @snapshot. The only function that should
 // be called after this is [method@GObject.Object.unref].
 func (x *Snapshot) ToNode() *gsk.RenderNode {
+	var cls *gsk.RenderNode
 
-	ToNodePtr := xSnapshotToNode(x.GoPointer())
-	if ToNodePtr == 0 {
-		return nil
+	cret := xSnapshotToNode(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	ToNodeCls := &gsk.RenderNode{}
-	ToNodeCls.Ptr = ToNodePtr
-	return ToNodeCls
-
+	cls = &gsk.RenderNode{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSnapshotToPaintable func(uintptr, *graphene.Size) uintptr
@@ -574,16 +576,16 @@ var xSnapshotToPaintable func(uintptr, *graphene.Size) uintptr
 // add more nodes to @snapshot. The only function that should
 // be called after this is [method@GObject.Object.unref].
 func (x *Snapshot) ToPaintable(SizeVar *graphene.Size) *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	ToPaintablePtr := xSnapshotToPaintable(x.GoPointer(), SizeVar)
-	if ToPaintablePtr == 0 {
-		return nil
+	cret := xSnapshotToPaintable(x.GoPointer(), SizeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ToPaintableCls := &gdk.PaintableBase{}
-	ToPaintableCls.Ptr = ToPaintablePtr
-	return ToPaintableCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSnapshotTransform func(uintptr, *gsk.Transform)

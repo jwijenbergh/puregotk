@@ -185,8 +185,8 @@ func (x *ActionGroupBase) ChangeActionState(ActionNameVar string, ValueVar *glib
 // have its state changed from outside callers.
 func (x *ActionGroupBase) GetActionEnabled(ActionNameVar string) bool {
 
-	return XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -204,8 +204,8 @@ func (x *ActionGroupBase) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *ActionGroupBase) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -218,8 +218,8 @@ func (x *ActionGroupBase) GetActionParameterType(ActionNameVar string) *glib.Var
 // g_variant_unref() when it is no longer required.
 func (x *ActionGroupBase) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -242,8 +242,8 @@ func (x *ActionGroupBase) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *ActionGroupBase) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -264,15 +264,15 @@ func (x *ActionGroupBase) GetActionStateHint(ActionNameVar string) *glib.Variant
 // with the same name but a different state type.
 func (x *ActionGroupBase) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *ActionGroupBase) HasAction(ActionNameVar string) bool {
 
-	return XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -281,8 +281,8 @@ func (x *ActionGroupBase) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *ActionGroupBase) ListActions() uintptr {
 
-	return XGActionGroupListActions(x.GoPointer())
-
+	cret := XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -314,8 +314,8 @@ func (x *ActionGroupBase) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *ActionGroupBase) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 var XGActionGroupActionAdded func(uintptr, string)

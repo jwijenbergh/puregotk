@@ -48,16 +48,17 @@ var xNewSwitch func() uintptr
 
 // Creates a new `GtkSwitch` widget.
 func NewSwitch() *Widget {
-	NewSwitchPtr := xNewSwitch()
-	if NewSwitchPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewSwitch()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSwitchPtr)
-
-	NewSwitchCls := &Widget{}
-	NewSwitchCls.Ptr = NewSwitchPtr
-	return NewSwitchCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSwitchGetActive func(uintptr) bool
@@ -65,8 +66,8 @@ var xSwitchGetActive func(uintptr) bool
 // Gets whether the `GtkSwitch` is in its “on” or “off” state.
 func (x *Switch) GetActive() bool {
 
-	return xSwitchGetActive(x.GoPointer())
-
+	cret := xSwitchGetActive(x.GoPointer())
+	return cret
 }
 
 var xSwitchGetState func(uintptr) bool
@@ -74,8 +75,8 @@ var xSwitchGetState func(uintptr) bool
 // Gets the underlying state of the `GtkSwitch`.
 func (x *Switch) GetState() bool {
 
-	return xSwitchGetState(x.GoPointer())
-
+	cret := xSwitchGetState(x.GoPointer())
+	return cret
 }
 
 var xSwitchSetActive func(uintptr, bool)
@@ -154,8 +155,8 @@ func (x *Switch) ConnectStateSet(cb func(Switch, bool) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Switch) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -287,15 +288,15 @@ func (x *Switch) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // Gets the action name for @actionable.
 func (x *Switch) GetActionName() string {
 
-	return XGtkActionableGetActionName(x.GoPointer())
-
+	cret := XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *Switch) GetActionTargetValue() *glib.Variant {
 
-	return XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -373,8 +374,8 @@ func (x *Switch) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Switch) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

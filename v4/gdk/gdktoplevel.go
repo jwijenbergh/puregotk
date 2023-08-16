@@ -82,8 +82,8 @@ func (x *ToplevelBase) Focus(TimestampVar uint32) {
 // from the `GdkToplevelState` enumeration.
 func (x *ToplevelBase) GetState() ToplevelState {
 
-	return XGdkToplevelGetState(x.GoPointer())
-
+	cret := XGdkToplevelGetState(x.GoPointer())
+	return cret
 }
 
 // Requests that the @toplevel inhibit the system shortcuts.
@@ -118,8 +118,8 @@ func (x *ToplevelBase) InhibitSystemShortcuts(EventVar *Event) {
 // The windowing system may choose to ignore the request.
 func (x *ToplevelBase) Lower() bool {
 
-	return XGdkToplevelLower(x.GoPointer())
-
+	cret := XGdkToplevelLower(x.GoPointer())
+	return cret
 }
 
 // Asks to minimize the @toplevel.
@@ -127,8 +127,8 @@ func (x *ToplevelBase) Lower() bool {
 // The windowing system may choose to ignore the request.
 func (x *ToplevelBase) Minimize() bool {
 
-	return XGdkToplevelMinimize(x.GoPointer())
-
+	cret := XGdkToplevelMinimize(x.GoPointer())
+	return cret
 }
 
 // Present @toplevel after having processed the `GdkToplevelLayout` rules.
@@ -253,22 +253,22 @@ func (x *ToplevelBase) SetTransientFor(ParentVar *Surface) {
 // right-click on the window decorations.
 func (x *ToplevelBase) ShowWindowMenu(EventVar *Event) bool {
 
-	return XGdkToplevelShowWindowMenu(x.GoPointer(), EventVar.GoPointer())
-
+	cret := XGdkToplevelShowWindowMenu(x.GoPointer(), EventVar.GoPointer())
+	return cret
 }
 
 // Returns whether the desktop environment supports
 // tiled window states.
 func (x *ToplevelBase) SupportsEdgeConstraints() bool {
 
-	return XGdkToplevelSupportsEdgeConstraints(x.GoPointer())
-
+	cret := XGdkToplevelSupportsEdgeConstraints(x.GoPointer())
+	return cret
 }
 
 func (x *ToplevelBase) TitlebarGesture(GestureVar TitlebarGesture) bool {
 
-	return XGdkToplevelTitlebarGesture(x.GoPointer(), GestureVar)
-
+	cret := XGdkToplevelTitlebarGesture(x.GoPointer(), GestureVar)
+	return cret
 }
 
 var XGdkToplevelBeginMove func(uintptr, uintptr, int, float64, float64, uint32)

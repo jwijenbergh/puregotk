@@ -37,32 +37,33 @@ var xNewStringSorter func(uintptr) uintptr
 // Unless an expression is set on it, this sorter will always
 // compare items as invalid.
 func NewStringSorter(ExpressionVar *Expression) *StringSorter {
-	NewStringSorterPtr := xNewStringSorter(ExpressionVar.GoPointer())
-	if NewStringSorterPtr == 0 {
-		return nil
-	}
+	var cls *StringSorter
 
-	NewStringSorterCls := &StringSorter{}
-	NewStringSorterCls.Ptr = NewStringSorterPtr
-	return NewStringSorterCls
+	cret := xNewStringSorter(ExpressionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &StringSorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringSorterGetExpression func(uintptr) uintptr
 
 // Gets the expression that is evaluated to obtain strings from items.
 func (x *StringSorter) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xStringSorterGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xStringSorterGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xStringSorterGetIgnoreCase func(uintptr) bool
@@ -70,8 +71,8 @@ var xStringSorterGetIgnoreCase func(uintptr) bool
 // Gets whether the sorter ignores case differences.
 func (x *StringSorter) GetIgnoreCase() bool {
 
-	return xStringSorterGetIgnoreCase(x.GoPointer())
-
+	cret := xStringSorterGetIgnoreCase(x.GoPointer())
+	return cret
 }
 
 var xStringSorterSetExpression func(uintptr, uintptr)

@@ -59,34 +59,34 @@ var xNewTabButton func() uintptr
 
 // Creates a new `AdwTabButton`.
 func NewTabButton() *gtk.Widget {
-	NewTabButtonPtr := xNewTabButton()
-	if NewTabButtonPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewTabButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTabButtonPtr)
-
-	NewTabButtonCls := &gtk.Widget{}
-	NewTabButtonCls.Ptr = NewTabButtonPtr
-	return NewTabButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabButtonGetView func(uintptr) uintptr
 
 // Gets the tab view @self displays.
 func (x *TabButton) GetView() *TabView {
+	var cls *TabView
 
-	GetViewPtr := xTabButtonGetView(x.GoPointer())
-	if GetViewPtr == 0 {
-		return nil
+	cret := xTabButtonGetView(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetViewPtr)
-
-	GetViewCls := &TabView{}
-	GetViewCls.Ptr = GetViewPtr
-	return GetViewCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabButtonSetView func(uintptr, uintptr)
@@ -136,8 +136,8 @@ func (x *TabButton) ConnectClicked(cb func(TabButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TabButton) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -269,15 +269,15 @@ func (x *TabButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // Gets the action name for @actionable.
 func (x *TabButton) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *TabButton) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -355,8 +355,8 @@ func (x *TabButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TabButton) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

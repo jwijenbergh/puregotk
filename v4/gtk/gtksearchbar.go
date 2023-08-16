@@ -70,16 +70,17 @@ var xNewSearchBar func() uintptr
 // You will need to tell it about which widget is going to be your text
 // entry using [method@Gtk.SearchBar.connect_entry].
 func NewSearchBar() *Widget {
-	NewSearchBarPtr := xNewSearchBar()
-	if NewSearchBarPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewSearchBar()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSearchBarPtr)
-
-	NewSearchBarCls := &Widget{}
-	NewSearchBarCls.Ptr = NewSearchBarPtr
-	return NewSearchBarCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSearchBarConnectEntry func(uintptr, uintptr)
@@ -100,36 +101,34 @@ var xSearchBarGetChild func(uintptr) uintptr
 
 // Gets the child widget of @bar.
 func (x *SearchBar) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xSearchBarGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xSearchBarGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSearchBarGetKeyCaptureWidget func(uintptr) uintptr
 
 // Gets the widget that @bar is capturing key events from.
 func (x *SearchBar) GetKeyCaptureWidget() *Widget {
+	var cls *Widget
 
-	GetKeyCaptureWidgetPtr := xSearchBarGetKeyCaptureWidget(x.GoPointer())
-	if GetKeyCaptureWidgetPtr == 0 {
-		return nil
+	cret := xSearchBarGetKeyCaptureWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetKeyCaptureWidgetPtr)
-
-	GetKeyCaptureWidgetCls := &Widget{}
-	GetKeyCaptureWidgetCls.Ptr = GetKeyCaptureWidgetPtr
-	return GetKeyCaptureWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSearchBarGetSearchMode func(uintptr) bool
@@ -137,8 +136,8 @@ var xSearchBarGetSearchMode func(uintptr) bool
 // Returns whether the search mode is on or off.
 func (x *SearchBar) GetSearchMode() bool {
 
-	return xSearchBarGetSearchMode(x.GoPointer())
-
+	cret := xSearchBarGetSearchMode(x.GoPointer())
+	return cret
 }
 
 var xSearchBarGetShowCloseButton func(uintptr) bool
@@ -146,8 +145,8 @@ var xSearchBarGetShowCloseButton func(uintptr) bool
 // Returns whether the close button is shown.
 func (x *SearchBar) GetShowCloseButton() bool {
 
-	return xSearchBarGetShowCloseButton(x.GoPointer())
-
+	cret := xSearchBarGetShowCloseButton(x.GoPointer())
+	return cret
 }
 
 var xSearchBarSetChild func(uintptr, uintptr)
@@ -212,8 +211,8 @@ func (c *SearchBar) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *SearchBar) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -348,8 +347,8 @@ func (x *SearchBar) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *SearchBar) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

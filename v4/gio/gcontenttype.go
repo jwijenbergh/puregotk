@@ -13,8 +13,8 @@ var xContentTypeCanBeExecutable func(string) bool
 // things like text files can be executables (i.e. scripts and batch files).
 func ContentTypeCanBeExecutable(TypeVar string) bool {
 
-	return xContentTypeCanBeExecutable(TypeVar)
-
+	cret := xContentTypeCanBeExecutable(TypeVar)
+	return cret
 }
 
 var xContentTypeEquals func(string, string) bool
@@ -22,8 +22,8 @@ var xContentTypeEquals func(string, string) bool
 // Compares two content types for equality.
 func ContentTypeEquals(Type1Var string, Type2Var string) bool {
 
-	return xContentTypeEquals(Type1Var, Type2Var)
-
+	cret := xContentTypeEquals(Type1Var, Type2Var)
+	return cret
 }
 
 var xContentTypeFromMimeType func(string) string
@@ -31,8 +31,8 @@ var xContentTypeFromMimeType func(string) string
 // Tries to find a content type based on the mime type name.
 func ContentTypeFromMimeType(MimeTypeVar string) string {
 
-	return xContentTypeFromMimeType(MimeTypeVar)
-
+	cret := xContentTypeFromMimeType(MimeTypeVar)
+	return cret
 }
 
 var xContentTypeGetDescription func(string) string
@@ -40,8 +40,8 @@ var xContentTypeGetDescription func(string) string
 // Gets the human readable description of the content type.
 func ContentTypeGetDescription(TypeVar string) string {
 
-	return xContentTypeGetDescription(TypeVar)
-
+	cret := xContentTypeGetDescription(TypeVar)
+	return cret
 }
 
 var xContentTypeGetGenericIconName func(string) string
@@ -53,24 +53,24 @@ var xContentTypeGetGenericIconName func(string) string
 // specification for more on the generic icon name.
 func ContentTypeGetGenericIconName(TypeVar string) string {
 
-	return xContentTypeGetGenericIconName(TypeVar)
-
+	cret := xContentTypeGetGenericIconName(TypeVar)
+	return cret
 }
 
 var xContentTypeGetIcon func(string) uintptr
 
 // Gets the icon for a content type.
 func ContentTypeGetIcon(TypeVar string) *IconBase {
+	var cls *IconBase
 
-	ContentTypeGetIconPtr := xContentTypeGetIcon(TypeVar)
-	if ContentTypeGetIconPtr == 0 {
-		return nil
+	cret := xContentTypeGetIcon(TypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ContentTypeGetIconCls := &IconBase{}
-	ContentTypeGetIconCls.Ptr = ContentTypeGetIconPtr
-	return ContentTypeGetIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentTypeGetMimeDirs func() uintptr
@@ -79,8 +79,8 @@ var xContentTypeGetMimeDirs func() uintptr
 // g_content_type_set_mime_dirs() for details.
 func ContentTypeGetMimeDirs() uintptr {
 
-	return xContentTypeGetMimeDirs()
-
+	cret := xContentTypeGetMimeDirs()
+	return cret
 }
 
 var xContentTypeGetMimeType func(string) string
@@ -88,24 +88,24 @@ var xContentTypeGetMimeType func(string) string
 // Gets the mime type for the content type, if one is registered.
 func ContentTypeGetMimeType(TypeVar string) string {
 
-	return xContentTypeGetMimeType(TypeVar)
-
+	cret := xContentTypeGetMimeType(TypeVar)
+	return cret
 }
 
 var xContentTypeGetSymbolicIcon func(string) uintptr
 
 // Gets the symbolic icon for a content type.
 func ContentTypeGetSymbolicIcon(TypeVar string) *IconBase {
+	var cls *IconBase
 
-	ContentTypeGetSymbolicIconPtr := xContentTypeGetSymbolicIcon(TypeVar)
-	if ContentTypeGetSymbolicIconPtr == 0 {
-		return nil
+	cret := xContentTypeGetSymbolicIcon(TypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	ContentTypeGetSymbolicIconCls := &IconBase{}
-	ContentTypeGetSymbolicIconCls.Ptr = ContentTypeGetSymbolicIconPtr
-	return ContentTypeGetSymbolicIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xContentTypeGuess func(string, uintptr, uint, bool) string
@@ -116,8 +116,8 @@ var xContentTypeGuess func(string, uintptr, uint, bool) string
 // on the other argument.
 func ContentTypeGuess(FilenameVar string, DataVar uintptr, DataSizeVar uint, ResultUncertainVar bool) string {
 
-	return xContentTypeGuess(FilenameVar, DataVar, DataSizeVar, ResultUncertainVar)
-
+	cret := xContentTypeGuess(FilenameVar, DataVar, DataSizeVar, ResultUncertainVar)
+	return cret
 }
 
 var xContentTypeGuessForTree func(uintptr) uintptr
@@ -136,8 +136,8 @@ var xContentTypeGuessForTree func(uintptr) uintptr
 // g_mount_guess_content_type().
 func ContentTypeGuessForTree(RootVar File) uintptr {
 
-	return xContentTypeGuessForTree(RootVar.GoPointer())
-
+	cret := xContentTypeGuessForTree(RootVar.GoPointer())
+	return cret
 }
 
 var xContentTypeIsA func(string, string) bool
@@ -145,8 +145,8 @@ var xContentTypeIsA func(string, string) bool
 // Determines if @type is a subset of @supertype.
 func ContentTypeIsA(TypeVar string, SupertypeVar string) bool {
 
-	return xContentTypeIsA(TypeVar, SupertypeVar)
-
+	cret := xContentTypeIsA(TypeVar, SupertypeVar)
+	return cret
 }
 
 var xContentTypeIsMimeType func(string, string) bool
@@ -155,8 +155,8 @@ var xContentTypeIsMimeType func(string, string) bool
 // Convenience wrapper around g_content_type_is_a().
 func ContentTypeIsMimeType(TypeVar string, MimeTypeVar string) bool {
 
-	return xContentTypeIsMimeType(TypeVar, MimeTypeVar)
-
+	cret := xContentTypeIsMimeType(TypeVar, MimeTypeVar)
+	return cret
 }
 
 var xContentTypeIsUnknown func(string) bool
@@ -167,8 +167,8 @@ var xContentTypeIsUnknown func(string) bool
 // or octet-stream.
 func ContentTypeIsUnknown(TypeVar string) bool {
 
-	return xContentTypeIsUnknown(TypeVar)
-
+	cret := xContentTypeIsUnknown(TypeVar)
+	return cret
 }
 
 var xContentTypeSetMimeDirs func(uintptr)
@@ -211,8 +211,8 @@ var xContentTypesGetRegistered func() *glib.List
 // `g_list_free_full (list, g_free)`.
 func ContentTypesGetRegistered() *glib.List {
 
-	return xContentTypesGetRegistered()
-
+	cret := xContentTypesGetRegistered()
+	return cret
 }
 
 func init() {

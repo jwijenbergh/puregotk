@@ -116,8 +116,8 @@ var xPrintErrorQuark func() glib.Quark
 // Registers an error quark for `GtkPrintOperation` if necessary.
 func PrintErrorQuark() glib.Quark {
 
-	return xPrintErrorQuark()
-
+	cret := xPrintErrorQuark()
+	return cret
 }
 
 var xPrintRunPageSetupDialog func(uintptr, uintptr, uintptr) uintptr
@@ -131,16 +131,16 @@ var xPrintRunPageSetupDialog func(uintptr, uintptr, uintptr) uintptr
 // setup dialog. See gtk_print_run_page_setup_dialog_async() if this is
 // a problem.
 func PrintRunPageSetupDialog(ParentVar *Window, PageSetupVar *PageSetup, SettingsVar *PrintSettings) *PageSetup {
+	var cls *PageSetup
 
-	PrintRunPageSetupDialogPtr := xPrintRunPageSetupDialog(ParentVar.GoPointer(), PageSetupVar.GoPointer(), SettingsVar.GoPointer())
-	if PrintRunPageSetupDialogPtr == 0 {
-		return nil
+	cret := xPrintRunPageSetupDialog(ParentVar.GoPointer(), PageSetupVar.GoPointer(), SettingsVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	PrintRunPageSetupDialogCls := &PageSetup{}
-	PrintRunPageSetupDialogCls.Ptr = PrintRunPageSetupDialogPtr
-	return PrintRunPageSetupDialogCls
-
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintRunPageSetupDialogAsync func(uintptr, uintptr, uintptr, uintptr, uintptr)
@@ -234,14 +234,16 @@ var xNewPrintOperation func() uintptr
 
 // Creates a new `GtkPrintOperation`.
 func NewPrintOperation() *PrintOperation {
-	NewPrintOperationPtr := xNewPrintOperation()
-	if NewPrintOperationPtr == 0 {
-		return nil
-	}
+	var cls *PrintOperation
 
-	NewPrintOperationCls := &PrintOperation{}
-	NewPrintOperationCls.Ptr = NewPrintOperationPtr
-	return NewPrintOperationCls
+	cret := xNewPrintOperation()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PrintOperation{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintOperationCancel func(uintptr)
@@ -275,18 +277,17 @@ var xPrintOperationGetDefaultPageSetup func(uintptr) uintptr
 
 // Returns the default page setup.
 func (x *PrintOperation) GetDefaultPageSetup() *PageSetup {
+	var cls *PageSetup
 
-	GetDefaultPageSetupPtr := xPrintOperationGetDefaultPageSetup(x.GoPointer())
-	if GetDefaultPageSetupPtr == 0 {
-		return nil
+	cret := xPrintOperationGetDefaultPageSetup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDefaultPageSetupPtr)
-
-	GetDefaultPageSetupCls := &PageSetup{}
-	GetDefaultPageSetupCls.Ptr = GetDefaultPageSetupPtr
-	return GetDefaultPageSetupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintOperationGetEmbedPageSetup func(uintptr) bool
@@ -294,8 +295,8 @@ var xPrintOperationGetEmbedPageSetup func(uintptr) bool
 // Gets whether page setup selection combos are embedded
 func (x *PrintOperation) GetEmbedPageSetup() bool {
 
-	return xPrintOperationGetEmbedPageSetup(x.GoPointer())
-
+	cret := xPrintOperationGetEmbedPageSetup(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationGetError func(uintptr)
@@ -308,9 +309,14 @@ var xPrintOperationGetError func(uintptr)
 // handler.
 //
 // The returned `GError` will contain more details on what went wrong.
-func (x *PrintOperation) GetError() {
+func (x *PrintOperation) GetError() error {
+	var cerr *glib.Error
 
 	xPrintOperationGetError(x.GoPointer())
+	if cerr == nil {
+		return nil
+	}
+	return cerr
 
 }
 
@@ -319,8 +325,8 @@ var xPrintOperationGetHasSelection func(uintptr) bool
 // Gets whether there is a selection.
 func (x *PrintOperation) GetHasSelection() bool {
 
-	return xPrintOperationGetHasSelection(x.GoPointer())
-
+	cret := xPrintOperationGetHasSelection(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationGetNPagesToPrint func(uintptr) int
@@ -337,8 +343,8 @@ var xPrintOperationGetNPagesToPrint func(uintptr) int
 // This is typically used to track the progress of print operation.
 func (x *PrintOperation) GetNPagesToPrint() int {
 
-	return xPrintOperationGetNPagesToPrint(x.GoPointer())
-
+	cret := xPrintOperationGetNPagesToPrint(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationGetPrintSettings func(uintptr) uintptr
@@ -349,18 +355,17 @@ var xPrintOperationGetPrintSettings func(uintptr) uintptr
 // [method@Gtk.PrintOperation.set_print_settings] or
 // [method@Gtk.PrintOperation.run] have been called.
 func (x *PrintOperation) GetPrintSettings() *PrintSettings {
+	var cls *PrintSettings
 
-	GetPrintSettingsPtr := xPrintOperationGetPrintSettings(x.GoPointer())
-	if GetPrintSettingsPtr == 0 {
-		return nil
+	cret := xPrintOperationGetPrintSettings(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrintSettingsPtr)
-
-	GetPrintSettingsCls := &PrintSettings{}
-	GetPrintSettingsCls.Ptr = GetPrintSettingsPtr
-	return GetPrintSettingsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PrintSettings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPrintOperationGetStatus func(uintptr) PrintStatus
@@ -370,8 +375,8 @@ var xPrintOperationGetStatus func(uintptr) PrintStatus
 // Also see [method@Gtk.PrintOperation.get_status_string].
 func (x *PrintOperation) GetStatus() PrintStatus {
 
-	return xPrintOperationGetStatus(x.GoPointer())
-
+	cret := xPrintOperationGetStatus(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationGetStatusString func(uintptr) string
@@ -386,8 +391,8 @@ var xPrintOperationGetStatusString func(uintptr) string
 // a status value that is suitable for programmatic use.
 func (x *PrintOperation) GetStatusString() string {
 
-	return xPrintOperationGetStatusString(x.GoPointer())
-
+	cret := xPrintOperationGetStatusString(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationGetSupportSelection func(uintptr) bool
@@ -395,8 +400,8 @@ var xPrintOperationGetSupportSelection func(uintptr) bool
 // Gets whether the application supports print of selection
 func (x *PrintOperation) GetSupportSelection() bool {
 
-	return xPrintOperationGetSupportSelection(x.GoPointer())
-
+	cret := xPrintOperationGetSupportSelection(x.GoPointer())
+	return cret
 }
 
 var xPrintOperationIsFinished func(uintptr) bool
@@ -412,11 +417,11 @@ var xPrintOperationIsFinished func(uintptr) bool
 // the operation status then tracks the print job status on the printer.
 func (x *PrintOperation) IsFinished() bool {
 
-	return xPrintOperationIsFinished(x.GoPointer())
-
+	cret := xPrintOperationIsFinished(x.GoPointer())
+	return cret
 }
 
-var xPrintOperationRun func(uintptr, PrintOperationAction, uintptr) PrintOperationResult
+var xPrintOperationRun func(uintptr, PrintOperationAction, uintptr, **glib.Error) PrintOperationResult
 
 // Runs the print operation.
 //
@@ -485,9 +490,14 @@ var xPrintOperationRun func(uintptr, PrintOperationAction, uintptr) PrintOperati
 //
 // Note that gtk_print_operation_run() can only be called once on a
 // given `GtkPrintOperation`.
-func (x *PrintOperation) Run(ActionVar PrintOperationAction, ParentVar *Window) PrintOperationResult {
+func (x *PrintOperation) Run(ActionVar PrintOperationAction, ParentVar *Window) (PrintOperationResult, error) {
+	var cerr *glib.Error
 
-	return xPrintOperationRun(x.GoPointer(), ActionVar, ParentVar.GoPointer())
+	cret := xPrintOperationRun(x.GoPointer(), ActionVar, ParentVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -984,8 +994,8 @@ func (x *PrintOperation) EndPreview() {
 // have been selected for printing.
 func (x *PrintOperation) IsSelected(PageNrVar int) bool {
 
-	return XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
-
+	cret := XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
+	return cret
 }
 
 // Renders a page to the preview.

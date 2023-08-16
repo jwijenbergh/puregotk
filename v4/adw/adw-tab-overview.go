@@ -86,34 +86,34 @@ var xNewTabOverview func() uintptr
 
 // Creates a new `AdwTabOverview`.
 func NewTabOverview() *gtk.Widget {
-	NewTabOverviewPtr := xNewTabOverview()
-	if NewTabOverviewPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewTabOverview()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTabOverviewPtr)
-
-	NewTabOverviewCls := &gtk.Widget{}
-	NewTabOverviewCls.Ptr = NewTabOverviewPtr
-	return NewTabOverviewCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabOverviewGetChild func(uintptr) uintptr
 
 // Gets the child widget of @self.
 func (x *TabOverview) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xTabOverviewGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xTabOverviewGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabOverviewGetEnableNewTab func(uintptr) bool
@@ -121,8 +121,8 @@ var xTabOverviewGetEnableNewTab func(uintptr) bool
 // Gets whether to new tab button is enabled for @self.
 func (x *TabOverview) GetEnableNewTab() bool {
 
-	return xTabOverviewGetEnableNewTab(x.GoPointer())
-
+	cret := xTabOverviewGetEnableNewTab(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetEnableSearch func(uintptr) bool
@@ -130,8 +130,8 @@ var xTabOverviewGetEnableSearch func(uintptr) bool
 // Gets whether search in tabs is enabled for @self.
 func (x *TabOverview) GetEnableSearch() bool {
 
-	return xTabOverviewGetEnableSearch(x.GoPointer())
-
+	cret := xTabOverviewGetEnableSearch(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetExtraDragPreload func(uintptr) bool
@@ -139,8 +139,8 @@ var xTabOverviewGetExtraDragPreload func(uintptr) bool
 // Gets whether drop data should be preloaded on hover.
 func (x *TabOverview) GetExtraDragPreload() bool {
 
-	return xTabOverviewGetExtraDragPreload(x.GoPointer())
-
+	cret := xTabOverviewGetExtraDragPreload(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetInverted func(uintptr) bool
@@ -148,8 +148,8 @@ var xTabOverviewGetInverted func(uintptr) bool
 // Gets whether thumbnails use inverted layout.
 func (x *TabOverview) GetInverted() bool {
 
-	return xTabOverviewGetInverted(x.GoPointer())
-
+	cret := xTabOverviewGetInverted(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetOpen func(uintptr) bool
@@ -157,8 +157,8 @@ var xTabOverviewGetOpen func(uintptr) bool
 // Gets whether @self is open.
 func (x *TabOverview) GetOpen() bool {
 
-	return xTabOverviewGetOpen(x.GoPointer())
-
+	cret := xTabOverviewGetOpen(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetSearchActive func(uintptr) bool
@@ -168,26 +168,25 @@ var xTabOverviewGetSearchActive func(uintptr) bool
 // See [property@TabOverview:enable-search].
 func (x *TabOverview) GetSearchActive() bool {
 
-	return xTabOverviewGetSearchActive(x.GoPointer())
-
+	cret := xTabOverviewGetSearchActive(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetSecondaryMenu func(uintptr) uintptr
 
 // Gets the secondary menu model for @self.
 func (x *TabOverview) GetSecondaryMenu() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetSecondaryMenuPtr := xTabOverviewGetSecondaryMenu(x.GoPointer())
-	if GetSecondaryMenuPtr == 0 {
-		return nil
+	cret := xTabOverviewGetSecondaryMenu(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSecondaryMenuPtr)
-
-	GetSecondaryMenuCls := &gio.MenuModel{}
-	GetSecondaryMenuCls.Ptr = GetSecondaryMenuPtr
-	return GetSecondaryMenuCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabOverviewGetShowEndTitleButtons func(uintptr) bool
@@ -195,8 +194,8 @@ var xTabOverviewGetShowEndTitleButtons func(uintptr) bool
 // Gets whether end title buttons are shown in @self's header bar.
 func (x *TabOverview) GetShowEndTitleButtons() bool {
 
-	return xTabOverviewGetShowEndTitleButtons(x.GoPointer())
-
+	cret := xTabOverviewGetShowEndTitleButtons(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetShowStartTitleButtons func(uintptr) bool
@@ -204,26 +203,25 @@ var xTabOverviewGetShowStartTitleButtons func(uintptr) bool
 // Gets whether start title buttons are shown in @self's header bar.
 func (x *TabOverview) GetShowStartTitleButtons() bool {
 
-	return xTabOverviewGetShowStartTitleButtons(x.GoPointer())
-
+	cret := xTabOverviewGetShowStartTitleButtons(x.GoPointer())
+	return cret
 }
 
 var xTabOverviewGetView func(uintptr) uintptr
 
 // Gets the tab view @self controls.
 func (x *TabOverview) GetView() *TabView {
+	var cls *TabView
 
-	GetViewPtr := xTabOverviewGetView(x.GoPointer())
-	if GetViewPtr == 0 {
-		return nil
+	cret := xTabOverviewGetView(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetViewPtr)
-
-	GetViewCls := &TabView{}
-	GetViewCls.Ptr = GetViewPtr
-	return GetViewCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TabView{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTabOverviewSetChild func(uintptr, uintptr)
@@ -427,8 +425,8 @@ func (x *TabOverview) ConnectExtraDragValue(cb func(TabOverview, uintptr, uintpt
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TabOverview) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -563,8 +561,8 @@ func (x *TabOverview) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TabOverview) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

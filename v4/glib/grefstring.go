@@ -20,8 +20,8 @@ var xRefStringAcquire func(string) string
 // Acquires a reference on a string.
 func RefStringAcquire(StrVar string) string {
 
-	return xRefStringAcquire(StrVar)
-
+	cret := xRefStringAcquire(StrVar)
+	return cret
 }
 
 var xRefStringLength func(string) uint
@@ -29,8 +29,8 @@ var xRefStringLength func(string) uint
 // Retrieves the length of @str.
 func RefStringLength(StrVar string) uint {
 
-	return xRefStringLength(StrVar)
-
+	cret := xRefStringLength(StrVar)
+	return cret
 }
 
 var xRefStringNew func(string) string
@@ -39,8 +39,8 @@ var xRefStringNew func(string) string
 // into it.
 func RefStringNew(StrVar string) string {
 
-	return xRefStringNew(StrVar)
-
+	cret := xRefStringNew(StrVar)
+	return cret
 }
 
 var xRefStringNewIntern func(string) string
@@ -53,8 +53,8 @@ var xRefStringNewIntern func(string) string
 // creating a new string.
 func RefStringNewIntern(StrVar string) string {
 
-	return xRefStringNewIntern(StrVar)
-
+	cret := xRefStringNewIntern(StrVar)
+	return cret
 }
 
 var xRefStringNewLen func(string, int) string
@@ -66,8 +66,8 @@ var xRefStringNewLen func(string, int) string
 // responsibility to ensure that @str has at least @len addressable bytes.
 func RefStringNewLen(StrVar string, LenVar int) string {
 
-	return xRefStringNewLen(StrVar, LenVar)
-
+	cret := xRefStringNewLen(StrVar, LenVar)
+	return cret
 }
 
 var xRefStringRelease func(string)

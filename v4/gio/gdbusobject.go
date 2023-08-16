@@ -38,30 +38,30 @@ func (x *DBusObjectBase) SetGoPointer(ptr uintptr) {
 // Gets the D-Bus interface with name @interface_name associated with
 // @object, if any.
 func (x *DBusObjectBase) GetInterface(InterfaceNameVar string) *DBusInterfaceBase {
+	var cls *DBusInterfaceBase
 
-	GetInterfacePtr := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
-	if GetInterfacePtr == 0 {
-		return nil
+	cret := XGDbusObjectGetInterface(x.GoPointer(), InterfaceNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetInterfaceCls := &DBusInterfaceBase{}
-	GetInterfaceCls.Ptr = GetInterfacePtr
-	return GetInterfaceCls
-
+	cls = &DBusInterfaceBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the D-Bus interfaces associated with @object.
 func (x *DBusObjectBase) GetInterfaces() *glib.List {
 
-	return XGDbusObjectGetInterfaces(x.GoPointer())
-
+	cret := XGDbusObjectGetInterfaces(x.GoPointer())
+	return cret
 }
 
 // Gets the object path for @object.
 func (x *DBusObjectBase) GetObjectPath() string {
 
-	return XGDbusObjectGetObjectPath(x.GoPointer())
-
+	cret := XGDbusObjectGetObjectPath(x.GoPointer())
+	return cret
 }
 
 var XGDbusObjectGetInterface func(uintptr, string) uintptr

@@ -64,16 +64,17 @@ var xNewEntryRow func() uintptr
 
 // Creates a new `AdwEntryRow`.
 func NewEntryRow() *gtk.Widget {
-	NewEntryRowPtr := xNewEntryRow()
-	if NewEntryRowPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewEntryRow()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewEntryRowPtr)
-
-	NewEntryRowCls := &gtk.Widget{}
-	NewEntryRowCls.Ptr = NewEntryRowPtr
-	return NewEntryRowCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xEntryRowAddPrefix func(uintptr, uintptr)
@@ -99,8 +100,8 @@ var xEntryRowGetActivatesDefault func(uintptr) bool
 // Gets whether activating the embedded entry can activate the default widget.
 func (x *EntryRow) GetActivatesDefault() bool {
 
-	return xEntryRowGetActivatesDefault(x.GoPointer())
-
+	cret := xEntryRowGetActivatesDefault(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGetAttributes func(uintptr) *pango.AttrList
@@ -108,8 +109,8 @@ var xEntryRowGetAttributes func(uintptr) *pango.AttrList
 // Gets Pango attributes applied to the text of the embedded entry.
 func (x *EntryRow) GetAttributes() *pango.AttrList {
 
-	return xEntryRowGetAttributes(x.GoPointer())
-
+	cret := xEntryRowGetAttributes(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGetEnableEmojiCompletion func(uintptr) bool
@@ -117,8 +118,8 @@ var xEntryRowGetEnableEmojiCompletion func(uintptr) bool
 // Gets whether to suggest emoji replacements on @self.
 func (x *EntryRow) GetEnableEmojiCompletion() bool {
 
-	return xEntryRowGetEnableEmojiCompletion(x.GoPointer())
-
+	cret := xEntryRowGetEnableEmojiCompletion(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGetInputHints func(uintptr) gtk.InputHints
@@ -126,8 +127,8 @@ var xEntryRowGetInputHints func(uintptr) gtk.InputHints
 // Gets the additional input hints of @self.
 func (x *EntryRow) GetInputHints() gtk.InputHints {
 
-	return xEntryRowGetInputHints(x.GoPointer())
-
+	cret := xEntryRowGetInputHints(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGetInputPurpose func(uintptr) gtk.InputPurpose
@@ -135,8 +136,8 @@ var xEntryRowGetInputPurpose func(uintptr) gtk.InputPurpose
 // Gets the input purpose of @self.
 func (x *EntryRow) GetInputPurpose() gtk.InputPurpose {
 
-	return xEntryRowGetInputPurpose(x.GoPointer())
-
+	cret := xEntryRowGetInputPurpose(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGetShowApplyButton func(uintptr) bool
@@ -144,8 +145,8 @@ var xEntryRowGetShowApplyButton func(uintptr) bool
 // Gets whether @self can show the apply button.
 func (x *EntryRow) GetShowApplyButton() bool {
 
-	return xEntryRowGetShowApplyButton(x.GoPointer())
-
+	cret := xEntryRowGetShowApplyButton(x.GoPointer())
+	return cret
 }
 
 var xEntryRowGrabFocusWithoutSelecting func(uintptr) bool
@@ -155,8 +156,8 @@ var xEntryRowGrabFocusWithoutSelecting func(uintptr) bool
 // See [method@Gtk.Text.grab_focus_without_selecting] for more information.
 func (x *EntryRow) GrabFocusWithoutSelecting() bool {
 
-	return xEntryRowGrabFocusWithoutSelecting(x.GoPointer())
-
+	cret := xEntryRowGrabFocusWithoutSelecting(x.GoPointer())
+	return cret
 }
 
 var xEntryRowRemove func(uintptr, uintptr)
@@ -278,8 +279,8 @@ func (x *EntryRow) ConnectEntryActivated(cb func(EntryRow)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *EntryRow) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -411,15 +412,15 @@ func (x *EntryRow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // Gets the action name for @actionable.
 func (x *EntryRow) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *EntryRow) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -497,8 +498,8 @@ func (x *EntryRow) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *EntryRow) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Deletes the currently selected text of the editable.
@@ -537,8 +538,8 @@ func (x *EntryRow) FinishDelegate() {
 // Gets the alignment of the editable.
 func (x *EntryRow) GetAlignment() float32 {
 
-	return gtk.XGtkEditableGetAlignment(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetAlignment(x.GoPointer())
+	return cret
 }
 
 // Retrieves a sequence of characters.
@@ -551,8 +552,8 @@ func (x *EntryRow) GetAlignment() float32 {
 // Note that positions are specified in characters, not bytes.
 func (x *EntryRow) GetChars(StartPosVar int, EndPosVar int) string {
 
-	return gtk.XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := gtk.XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Gets the `GtkEditable` that @editable is delegating its
@@ -560,39 +561,38 @@ func (x *EntryRow) GetChars(StartPosVar int, EndPosVar int) string {
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
 func (x *EntryRow) GetDelegate() *gtk.EditableBase {
+	var cls *gtk.EditableBase
 
-	GetDelegatePtr := gtk.XGtkEditableGetDelegate(x.GoPointer())
-	if GetDelegatePtr == 0 {
-		return nil
+	cret := gtk.XGtkEditableGetDelegate(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDelegatePtr)
-
-	GetDelegateCls := &gtk.EditableBase{}
-	GetDelegateCls.Ptr = GetDelegatePtr
-	return GetDelegateCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves whether @editable is editable.
 func (x *EntryRow) GetEditable() bool {
 
-	return gtk.XGtkEditableGetEditable(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetEditable(x.GoPointer())
+	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
 func (x *EntryRow) GetEnableUndo() bool {
 
-	return gtk.XGtkEditableGetEnableUndo(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetEnableUndo(x.GoPointer())
+	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
 func (x *EntryRow) GetMaxWidthChars() int {
 
-	return gtk.XGtkEditableGetMaxWidthChars(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetMaxWidthChars(x.GoPointer())
+	return cret
 }
 
 // Retrieves the current position of the cursor relative
@@ -601,8 +601,8 @@ func (x *EntryRow) GetMaxWidthChars() int {
 // Note that this position is in characters, not in bytes.
 func (x *EntryRow) GetPosition() int {
 
-	return gtk.XGtkEditableGetPosition(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetPosition(x.GoPointer())
+	return cret
 }
 
 // Retrieves the selection bound of the editable.
@@ -614,8 +614,8 @@ func (x *EntryRow) GetPosition() int {
 // Note that positions are specified in characters, not bytes.
 func (x *EntryRow) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
-	return gtk.XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
-
+	cret := gtk.XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
+	return cret
 }
 
 // Retrieves the contents of @editable.
@@ -623,16 +623,16 @@ func (x *EntryRow) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // The returned string is owned by GTK and must not be modified or freed.
 func (x *EntryRow) GetText() string {
 
-	return gtk.XGtkEditableGetText(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetText(x.GoPointer())
+	return cret
 }
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
 func (x *EntryRow) GetWidthChars() int {
 
-	return gtk.XGtkEditableGetWidthChars(x.GoPointer())
-
+	cret := gtk.XGtkEditableGetWidthChars(x.GoPointer())
+	return cret
 }
 
 // Sets up a delegate for `GtkEditable`.

@@ -41,8 +41,8 @@ var xGestureSingleGetButton func(uintptr) uint
 // If this is 0, the gesture reacts to any button press.
 func (x *GestureSingle) GetButton() uint {
 
-	return xGestureSingleGetButton(x.GoPointer())
-
+	cret := xGestureSingleGetButton(x.GoPointer())
+	return cret
 }
 
 var xGestureSingleGetCurrentButton func(uintptr) uint
@@ -51,8 +51,8 @@ var xGestureSingleGetCurrentButton func(uintptr) uint
 // with @gesture, or 0 if there is none.
 func (x *GestureSingle) GetCurrentButton() uint {
 
-	return xGestureSingleGetCurrentButton(x.GoPointer())
-
+	cret := xGestureSingleGetCurrentButton(x.GoPointer())
+	return cret
 }
 
 var xGestureSingleGetCurrentSequence func(uintptr) *gdk.EventSequence
@@ -63,8 +63,8 @@ var xGestureSingleGetCurrentSequence func(uintptr) *gdk.EventSequence
 // returns %TRUE.
 func (x *GestureSingle) GetCurrentSequence() *gdk.EventSequence {
 
-	return xGestureSingleGetCurrentSequence(x.GoPointer())
-
+	cret := xGestureSingleGetCurrentSequence(x.GoPointer())
+	return cret
 }
 
 var xGestureSingleGetExclusive func(uintptr) bool
@@ -74,8 +74,8 @@ var xGestureSingleGetExclusive func(uintptr) bool
 // For more information, see [method@Gtk.GestureSingle.set_exclusive].
 func (x *GestureSingle) GetExclusive() bool {
 
-	return xGestureSingleGetExclusive(x.GoPointer())
-
+	cret := xGestureSingleGetExclusive(x.GoPointer())
+	return cret
 }
 
 var xGestureSingleGetTouchOnly func(uintptr) bool
@@ -83,8 +83,8 @@ var xGestureSingleGetTouchOnly func(uintptr) bool
 // Returns %TRUE if the gesture is only triggered by touch events.
 func (x *GestureSingle) GetTouchOnly() bool {
 
-	return xGestureSingleGetTouchOnly(x.GoPointer())
-
+	cret := xGestureSingleGetTouchOnly(x.GoPointer())
+	return cret
 }
 
 var xGestureSingleSetButton func(uintptr, uint)

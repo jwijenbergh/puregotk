@@ -171,8 +171,8 @@ var xBasename func(string) string
 // string.
 func Basename(FileNameVar string) string {
 
-	return xBasename(FileNameVar)
-
+	cret := xBasename(FileNameVar)
+	return cret
 }
 
 var xBuildFilename func(string, ...interface{}) string
@@ -194,8 +194,8 @@ var xBuildFilename func(string, ...interface{}) string
 // be a relative path.
 func BuildFilename(FirstElementVar string, varArgs ...interface{}) string {
 
-	return xBuildFilename(FirstElementVar, varArgs...)
-
+	cret := xBuildFilename(FirstElementVar, varArgs...)
+	return cret
 }
 
 var xBuildFilenameValist func(string, []interface{}) string
@@ -204,8 +204,8 @@ var xBuildFilenameValist func(string, []interface{}) string
 // as a va_list. This function is mainly meant for language bindings.
 func BuildFilenameValist(FirstElementVar string, ArgsVar []interface{}) string {
 
-	return xBuildFilenameValist(FirstElementVar, ArgsVar)
-
+	cret := xBuildFilenameValist(FirstElementVar, ArgsVar)
+	return cret
 }
 
 var xBuildFilenamev func(uintptr) string
@@ -215,8 +215,8 @@ var xBuildFilenamev func(uintptr) string
 // meant for language bindings.
 func BuildFilenamev(ArgsVar uintptr) string {
 
-	return xBuildFilenamev(ArgsVar)
-
+	cret := xBuildFilenamev(ArgsVar)
+	return cret
 }
 
 var xBuildPath func(string, string, ...interface{}) string
@@ -249,8 +249,8 @@ var xBuildPath func(string, string, ...interface{}) string
 // of the separator are ignored.
 func BuildPath(SeparatorVar string, FirstElementVar string, varArgs ...interface{}) string {
 
-	return xBuildPath(SeparatorVar, FirstElementVar, varArgs...)
-
+	cret := xBuildPath(SeparatorVar, FirstElementVar, varArgs...)
+	return cret
 }
 
 var xBuildPathv func(string, uintptr) string
@@ -260,8 +260,8 @@ var xBuildPathv func(string, uintptr) string
 // meant for language bindings.
 func BuildPathv(SeparatorVar string, ArgsVar uintptr) string {
 
-	return xBuildPathv(SeparatorVar, ArgsVar)
-
+	cret := xBuildPathv(SeparatorVar, ArgsVar)
+	return cret
 }
 
 var xCanonicalizeFilename func(string, string) string
@@ -282,11 +282,11 @@ var xCanonicalizeFilename func(string, string) string
 // No file system I/O is done.
 func CanonicalizeFilename(FilenameVar string, RelativeToVar string) string {
 
-	return xCanonicalizeFilename(FilenameVar, RelativeToVar)
-
+	cret := xCanonicalizeFilename(FilenameVar, RelativeToVar)
+	return cret
 }
 
-var xDirMakeTmp func(string) string
+var xDirMakeTmp func(string, **Error) string
 
 // Creates a subdirectory in the preferred directory for temporary
 // files (as returned by g_get_tmp_dir()).
@@ -299,9 +299,14 @@ var xDirMakeTmp func(string) string
 //
 // Note that in contrast to g_mkdtemp() (and mkdtemp()) @tmpl is not
 // modified, and might thus be a read-only literal string.
-func DirMakeTmp(TmplVar string) string {
+func DirMakeTmp(TmplVar string) (string, error) {
+	var cerr *Error
 
-	return xDirMakeTmp(TmplVar)
+	cret := xDirMakeTmp(TmplVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -318,11 +323,11 @@ var xFileErrorFromErrno func(int) FileError
 // g_file_error_from_errno() when constructing a #GError.
 func FileErrorFromErrno(ErrNoVar int) FileError {
 
-	return xFileErrorFromErrno(ErrNoVar)
-
+	cret := xFileErrorFromErrno(ErrNoVar)
+	return cret
 }
 
-var xFileGetContents func(string, uintptr, uint) bool
+var xFileGetContents func(string, uintptr, uint, **Error) bool
 
 // Reads an entire file into allocated memory, with good error
 // checking.
@@ -334,13 +339,18 @@ var xFileGetContents func(string, uintptr, uint) bool
 // %FALSE and sets @error. The error domain is %G_FILE_ERROR. Possible error
 // codes are those in the #GFileError enumeration. In the error case,
 // @contents is set to %NULL and @length is set to zero.
-func FileGetContents(FilenameVar string, ContentsVar uintptr, LengthVar uint) bool {
+func FileGetContents(FilenameVar string, ContentsVar uintptr, LengthVar uint) (bool, error) {
+	var cerr *Error
 
-	return xFileGetContents(FilenameVar, ContentsVar, LengthVar)
+	cret := xFileGetContents(FilenameVar, ContentsVar, LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xFileOpenTmp func(string, string) int
+var xFileOpenTmp func(string, string, **Error) int
 
 // Opens a file for writing in the preferred directory for temporary
 // files (as returned by g_get_tmp_dir()).
@@ -358,36 +368,51 @@ var xFileOpenTmp func(string, string) int
 // is returned in @name_used. This string should be freed with g_free()
 // when not needed any longer. The returned name is in the GLib file
 // name encoding.
-func FileOpenTmp(TmplVar string, NameUsedVar string) int {
+func FileOpenTmp(TmplVar string, NameUsedVar string) (int, error) {
+	var cerr *Error
 
-	return xFileOpenTmp(TmplVar, NameUsedVar)
+	cret := xFileOpenTmp(TmplVar, NameUsedVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xFileReadLink func(string) string
+var xFileReadLink func(string, **Error) string
 
 // Reads the contents of the symbolic link @filename like the POSIX
 // readlink() function.  The returned string is in the encoding used
 // for filenames. Use g_filename_to_utf8() to convert it to UTF-8.
-func FileReadLink(FilenameVar string) string {
+func FileReadLink(FilenameVar string) (string, error) {
+	var cerr *Error
 
-	return xFileReadLink(FilenameVar)
+	cret := xFileReadLink(FilenameVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xFileSetContents func(string, uintptr, int) bool
+var xFileSetContents func(string, uintptr, int, **Error) bool
 
 // Writes all of @contents to a file named @filename. This is a convenience
 // wrapper around calling g_file_set_contents_full() with `flags` set to
 // `G_FILE_SET_CONTENTS_CONSISTENT | G_FILE_SET_CONTENTS_ONLY_EXISTING` and
 // `mode` set to `0666`.
-func FileSetContents(FilenameVar string, ContentsVar uintptr, LengthVar int) bool {
+func FileSetContents(FilenameVar string, ContentsVar uintptr, LengthVar int) (bool, error) {
+	var cerr *Error
 
-	return xFileSetContents(FilenameVar, ContentsVar, LengthVar)
+	cret := xFileSetContents(FilenameVar, ContentsVar, LengthVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xFileSetContentsFull func(string, uintptr, int, FileSetContentsFlags, int) bool
+var xFileSetContentsFull func(string, uintptr, int, FileSetContentsFlags, int, **Error) bool
 
 // Writes all of @contents to a file named @filename, with good error checking.
 // If a file called @filename already exists it will be overwritten.
@@ -443,9 +468,14 @@ var xFileSetContentsFull func(string, uintptr, int, FileSetContentsFlags, int) b
 // If the file didn’t exist before and is created, it will be given the
 // permissions from @mode. Otherwise, the permissions of the existing file may
 // be changed to @mode depending on @flags, or they may remain unchanged.
-func FileSetContentsFull(FilenameVar string, ContentsVar uintptr, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int) bool {
+func FileSetContentsFull(FilenameVar string, ContentsVar uintptr, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int) (bool, error) {
+	var cerr *Error
 
-	return xFileSetContentsFull(FilenameVar, ContentsVar, LengthVar, FlagsVar, ModeVar)
+	cret := xFileSetContentsFull(FilenameVar, ContentsVar, LengthVar, FlagsVar, ModeVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -496,8 +526,8 @@ var xNewFileTest func(string, FileTest) bool
 // extensions and those listed in the `PATHEXT` environment variable.
 func NewFileTest(FilenameVar string, TestVar FileTest) bool {
 
-	return xNewFileTest(FilenameVar, TestVar)
-
+	cret := xNewFileTest(FilenameVar, TestVar)
+	return cret
 }
 
 var xGetCurrentDir func() string
@@ -514,8 +544,8 @@ var xGetCurrentDir func() string
 // the current directory is the target of a symbolic link.
 func GetCurrentDir() string {
 
-	return xGetCurrentDir()
-
+	cret := xGetCurrentDir()
+	return cret
 }
 
 var xMkdirWithParents func(string, int) int
@@ -524,8 +554,8 @@ var xMkdirWithParents func(string, int) int
 // parent directories as needed, too.
 func MkdirWithParents(PathnameVar string, ModeVar int) int {
 
-	return xMkdirWithParents(PathnameVar, ModeVar)
-
+	cret := xMkdirWithParents(PathnameVar, ModeVar)
+	return cret
 }
 
 var xMkdtemp func(string) string
@@ -547,8 +577,8 @@ var xMkdtemp func(string) string
 // g_dir_make_tmp() instead.
 func Mkdtemp(TmplVar string) string {
 
-	return xMkdtemp(TmplVar)
-
+	cret := xMkdtemp(TmplVar)
+	return cret
 }
 
 var xMkdtempFull func(string, int) string
@@ -570,8 +600,8 @@ var xMkdtempFull func(string, int) string
 // g_dir_make_tmp() instead.
 func MkdtempFull(TmplVar string, ModeVar int) string {
 
-	return xMkdtempFull(TmplVar, ModeVar)
-
+	cret := xMkdtempFull(TmplVar, ModeVar)
+	return cret
 }
 
 var xMkstemp func(string) int
@@ -588,8 +618,8 @@ var xMkstemp func(string) int
 // Most importantly, on Windows it should be in UTF-8.
 func Mkstemp(TmplVar string) int {
 
-	return xMkstemp(TmplVar)
-
+	cret := xMkstemp(TmplVar)
+	return cret
 }
 
 var xMkstempFull func(string, int, int) int
@@ -607,8 +637,8 @@ var xMkstempFull func(string, int, int) int
 // on Windows it should be in UTF-8.
 func MkstempFull(TmplVar string, FlagsVar int, ModeVar int) int {
 
-	return xMkstempFull(TmplVar, FlagsVar, ModeVar)
-
+	cret := xMkstempFull(TmplVar, FlagsVar, ModeVar)
+	return cret
 }
 
 var xPathGetBasename func(string) string
@@ -621,8 +651,8 @@ var xPathGetBasename func(string) string
 // separator is returned. If @file_name is empty, it gets ".".
 func PathGetBasename(FileNameVar string) string {
 
-	return xPathGetBasename(FileNameVar)
-
+	cret := xPathGetBasename(FileNameVar)
+	return cret
 }
 
 var xPathGetDirname func(string) string
@@ -635,8 +665,8 @@ var xPathGetDirname func(string) string
 // The returned string should be freed when no longer needed.
 func PathGetDirname(FileNameVar string) string {
 
-	return xPathGetDirname(FileNameVar)
-
+	cret := xPathGetDirname(FileNameVar)
+	return cret
 }
 
 var xPathIsAbsolute func(string) bool
@@ -667,8 +697,8 @@ var xPathIsAbsolute func(string) bool
 // Windows-specific code.
 func PathIsAbsolute(FileNameVar string) bool {
 
-	return xPathIsAbsolute(FileNameVar)
-
+	cret := xPathIsAbsolute(FileNameVar)
+	return cret
 }
 
 var xPathSkipRoot func(string) string
@@ -678,8 +708,8 @@ var xPathSkipRoot func(string) string
 // is not an absolute path it returns %NULL.
 func PathSkipRoot(FileNameVar string) string {
 
-	return xPathSkipRoot(FileNameVar)
-
+	cret := xPathSkipRoot(FileNameVar)
+	return cret
 }
 
 func init() {

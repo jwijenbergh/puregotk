@@ -16,9 +16,9 @@ type PadActionEntry struct {
 
 	Mode int
 
-	Label string
+	Label uintptr
 
-	ActionName string
+	ActionName uintptr
 }
 
 type PadControllerClass struct {
@@ -112,14 +112,16 @@ var xNewPadController func(uintptr, uintptr) uintptr
 // Be aware that pad events will only be delivered to `GtkWindow`s, so adding
 // a pad controller to any other type of widget will not have an effect.
 func NewPadController(GroupVar gio.ActionGroup, PadVar *gdk.Device) *PadController {
-	NewPadControllerPtr := xNewPadController(GroupVar.GoPointer(), PadVar.GoPointer())
-	if NewPadControllerPtr == 0 {
-		return nil
-	}
+	var cls *PadController
 
-	NewPadControllerCls := &PadController{}
-	NewPadControllerCls.Ptr = NewPadControllerPtr
-	return NewPadControllerCls
+	cret := xNewPadController(GroupVar.GoPointer(), PadVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &PadController{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPadControllerSetAction func(uintptr, PadActionType, int, int, string, string)

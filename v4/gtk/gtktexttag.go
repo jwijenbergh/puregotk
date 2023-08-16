@@ -48,14 +48,16 @@ var xNewTextTag func(string) uintptr
 
 // Creates a `GtkTextTag`.
 func NewTextTag(NameVar string) *TextTag {
-	NewTextTagPtr := xNewTextTag(NameVar)
-	if NewTextTagPtr == 0 {
-		return nil
-	}
+	var cls *TextTag
 
-	NewTextTagCls := &TextTag{}
-	NewTextTagCls.Ptr = NewTextTagPtr
-	return NewTextTagCls
+	cret := xNewTextTag(NameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TextTag{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTextTagChanged func(uintptr, bool)
@@ -76,8 +78,8 @@ var xTextTagGetPriority func(uintptr) int
 // Get the tag priority.
 func (x *TextTag) GetPriority() int {
 
-	return xTextTagGetPriority(x.GoPointer())
-
+	cret := xTextTagGetPriority(x.GoPointer())
+	return cret
 }
 
 var xTextTagSetPriority func(uintptr, int)

@@ -56,16 +56,17 @@ var xNewCenterBox func() uintptr
 
 // Creates a new `GtkCenterBox`.
 func NewCenterBox() *Widget {
-	NewCenterBoxPtr := xNewCenterBox()
-	if NewCenterBoxPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewCenterBox()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCenterBoxPtr)
-
-	NewCenterBoxCls := &Widget{}
-	NewCenterBoxCls.Ptr = NewCenterBoxPtr
-	return NewCenterBoxCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterBoxGetBaselinePosition func(uintptr) BaselinePosition
@@ -73,62 +74,59 @@ var xCenterBoxGetBaselinePosition func(uintptr) BaselinePosition
 // Gets the value set by gtk_center_box_set_baseline_position().
 func (x *CenterBox) GetBaselinePosition() BaselinePosition {
 
-	return xCenterBoxGetBaselinePosition(x.GoPointer())
-
+	cret := xCenterBoxGetBaselinePosition(x.GoPointer())
+	return cret
 }
 
 var xCenterBoxGetCenterWidget func(uintptr) uintptr
 
 // Gets the center widget, or %NULL if there is none.
 func (x *CenterBox) GetCenterWidget() *Widget {
+	var cls *Widget
 
-	GetCenterWidgetPtr := xCenterBoxGetCenterWidget(x.GoPointer())
-	if GetCenterWidgetPtr == 0 {
-		return nil
+	cret := xCenterBoxGetCenterWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetCenterWidgetPtr)
-
-	GetCenterWidgetCls := &Widget{}
-	GetCenterWidgetCls.Ptr = GetCenterWidgetPtr
-	return GetCenterWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterBoxGetEndWidget func(uintptr) uintptr
 
 // Gets the end widget, or %NULL if there is none.
 func (x *CenterBox) GetEndWidget() *Widget {
+	var cls *Widget
 
-	GetEndWidgetPtr := xCenterBoxGetEndWidget(x.GoPointer())
-	if GetEndWidgetPtr == 0 {
-		return nil
+	cret := xCenterBoxGetEndWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetEndWidgetPtr)
-
-	GetEndWidgetCls := &Widget{}
-	GetEndWidgetCls.Ptr = GetEndWidgetPtr
-	return GetEndWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterBoxGetStartWidget func(uintptr) uintptr
 
 // Gets the start widget, or %NULL if there is none.
 func (x *CenterBox) GetStartWidget() *Widget {
+	var cls *Widget
 
-	GetStartWidgetPtr := xCenterBoxGetStartWidget(x.GoPointer())
-	if GetStartWidgetPtr == 0 {
-		return nil
+	cret := xCenterBoxGetStartWidget(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetStartWidgetPtr)
-
-	GetStartWidgetCls := &Widget{}
-	GetStartWidgetCls.Ptr = GetStartWidgetPtr
-	return GetStartWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xCenterBoxSetBaselinePosition func(uintptr, BaselinePosition)
@@ -190,8 +188,8 @@ func (c *CenterBox) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *CenterBox) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -326,15 +324,15 @@ func (x *CenterBox) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVa
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *CenterBox) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *CenterBox) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

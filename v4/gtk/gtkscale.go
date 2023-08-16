@@ -113,16 +113,17 @@ var xNewScale func(Orientation, uintptr) uintptr
 
 // Creates a new `GtkScale`.
 func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
-	NewScalePtr := xNewScale(OrientationVar, AdjustmentVar.GoPointer())
-	if NewScalePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewScale(OrientationVar, AdjustmentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewScalePtr)
-
-	NewScaleCls := &Widget{}
-	NewScaleCls.Ptr = NewScalePtr
-	return NewScaleCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithRangeScale func(Orientation, float64, float64, float64) uintptr
@@ -139,16 +140,17 @@ var xNewWithRangeScale func(Orientation, float64, float64, float64) uintptr
 // @step is a power of ten. If the resulting precision is not suitable
 // for your needs, use [method@Gtk.Scale.set_digits] to correct it.
 func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float64, StepVar float64) *Widget {
-	NewWithRangeScalePtr := xNewWithRangeScale(OrientationVar, MinVar, MaxVar, StepVar)
-	if NewWithRangeScalePtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithRangeScale(OrientationVar, MinVar, MaxVar, StepVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithRangeScalePtr)
-
-	NewWithRangeScaleCls := &Widget{}
-	NewWithRangeScaleCls.Ptr = NewWithRangeScalePtr
-	return NewWithRangeScaleCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleAddMark func(uintptr, float64, PositionType, string)
@@ -182,8 +184,8 @@ var xScaleGetDigits func(uintptr) int
 // Gets the number of decimal places that are displayed in the value.
 func (x *Scale) GetDigits() int {
 
-	return xScaleGetDigits(x.GoPointer())
-
+	cret := xScaleGetDigits(x.GoPointer())
+	return cret
 }
 
 var xScaleGetDrawValue func(uintptr) bool
@@ -192,8 +194,8 @@ var xScaleGetDrawValue func(uintptr) bool
 // next to the slider.
 func (x *Scale) GetDrawValue() bool {
 
-	return xScaleGetDrawValue(x.GoPointer())
-
+	cret := xScaleGetDrawValue(x.GoPointer())
+	return cret
 }
 
 var xScaleGetHasOrigin func(uintptr) bool
@@ -201,8 +203,8 @@ var xScaleGetHasOrigin func(uintptr) bool
 // Returns whether the scale has an origin.
 func (x *Scale) GetHasOrigin() bool {
 
-	return xScaleGetHasOrigin(x.GoPointer())
-
+	cret := xScaleGetHasOrigin(x.GoPointer())
+	return cret
 }
 
 var xScaleGetLayout func(uintptr) uintptr
@@ -212,18 +214,17 @@ var xScaleGetLayout func(uintptr) uintptr
 // The returned object is owned by the scale so does not need
 // to be freed by the caller.
 func (x *Scale) GetLayout() *pango.Layout {
+	var cls *pango.Layout
 
-	GetLayoutPtr := xScaleGetLayout(x.GoPointer())
-	if GetLayoutPtr == 0 {
-		return nil
+	cret := xScaleGetLayout(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLayoutPtr)
-
-	GetLayoutCls := &pango.Layout{}
-	GetLayoutCls.Ptr = GetLayoutPtr
-	return GetLayoutCls
-
+	gobject.IncreaseRef(cret)
+	cls = &pango.Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xScaleGetLayoutOffsets func(uintptr, int, int)
@@ -247,8 +248,8 @@ var xScaleGetValuePos func(uintptr) PositionType
 // Gets the position in which the current value is displayed.
 func (x *Scale) GetValuePos() PositionType {
 
-	return xScaleGetValuePos(x.GoPointer())
-
+	cret := xScaleGetValuePos(x.GoPointer())
+	return cret
 }
 
 var xScaleSetDigits func(uintptr, int)
@@ -330,8 +331,8 @@ func (c *Scale) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Scale) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -466,15 +467,15 @@ func (x *Scale) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar ui
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Scale) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Retrieves the orientation of the @orientable.
 func (x *Scale) GetOrientation() Orientation {
 
-	return XGtkOrientableGetOrientation(x.GoPointer())
-
+	cret := XGtkOrientableGetOrientation(x.GoPointer())
+	return cret
 }
 
 // Sets the orientation of the @orientable.

@@ -36,14 +36,16 @@ var xNewMultiSorter func() uintptr
 // no sorter has been added to it, it will always compare
 // items as equal.
 func NewMultiSorter() *MultiSorter {
-	NewMultiSorterPtr := xNewMultiSorter()
-	if NewMultiSorterPtr == 0 {
-		return nil
-	}
+	var cls *MultiSorter
 
-	NewMultiSorterCls := &MultiSorter{}
-	NewMultiSorterCls.Ptr = NewMultiSorterPtr
-	return NewMultiSorterCls
+	cret := xNewMultiSorter()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &MultiSorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMultiSorterAppend func(uintptr, uintptr)
@@ -89,8 +91,8 @@ func (c *MultiSorter) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *MultiSorter) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -103,8 +105,8 @@ func (x *MultiSorter) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *MultiSorter) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -114,8 +116,8 @@ func (x *MultiSorter) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *MultiSorter) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -131,16 +133,16 @@ func (x *MultiSorter) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *MultiSorter) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -175,8 +177,8 @@ func (x *MultiSorter) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MultiSorter) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

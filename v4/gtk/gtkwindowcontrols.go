@@ -77,16 +77,17 @@ var xNewWindowControls func(PackType) uintptr
 
 // Creates a new `GtkWindowControls`.
 func NewWindowControls(SideVar PackType) *Widget {
-	NewWindowControlsPtr := xNewWindowControls(SideVar)
-	if NewWindowControlsPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWindowControls(SideVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWindowControlsPtr)
-
-	NewWindowControlsCls := &Widget{}
-	NewWindowControlsCls.Ptr = NewWindowControlsPtr
-	return NewWindowControlsCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xWindowControlsGetDecorationLayout func(uintptr) string
@@ -94,8 +95,8 @@ var xWindowControlsGetDecorationLayout func(uintptr) string
 // Gets the decoration layout of this `GtkWindowControls`.
 func (x *WindowControls) GetDecorationLayout() string {
 
-	return xWindowControlsGetDecorationLayout(x.GoPointer())
-
+	cret := xWindowControlsGetDecorationLayout(x.GoPointer())
+	return cret
 }
 
 var xWindowControlsGetEmpty func(uintptr) bool
@@ -103,8 +104,8 @@ var xWindowControlsGetEmpty func(uintptr) bool
 // Gets whether the widget has any window buttons.
 func (x *WindowControls) GetEmpty() bool {
 
-	return xWindowControlsGetEmpty(x.GoPointer())
-
+	cret := xWindowControlsGetEmpty(x.GoPointer())
+	return cret
 }
 
 var xWindowControlsGetSide func(uintptr) PackType
@@ -112,8 +113,8 @@ var xWindowControlsGetSide func(uintptr) PackType
 // Gets the side to which this `GtkWindowControls` instance belongs.
 func (x *WindowControls) GetSide() PackType {
 
-	return xWindowControlsGetSide(x.GoPointer())
-
+	cret := xWindowControlsGetSide(x.GoPointer())
+	return cret
 }
 
 var xWindowControlsSetDecorationLayout func(uintptr, string)
@@ -161,8 +162,8 @@ func (c *WindowControls) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *WindowControls) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -297,8 +298,8 @@ func (x *WindowControls) UpdateStateValue(NStatesVar int, StatesVar uintptr, Val
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *WindowControls) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

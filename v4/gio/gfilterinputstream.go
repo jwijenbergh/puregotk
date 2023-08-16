@@ -29,18 +29,17 @@ var xFilterInputStreamGetBaseStream func(uintptr) uintptr
 
 // Gets the base stream for the filter stream.
 func (x *FilterInputStream) GetBaseStream() *InputStream {
+	var cls *InputStream
 
-	GetBaseStreamPtr := xFilterInputStreamGetBaseStream(x.GoPointer())
-	if GetBaseStreamPtr == 0 {
-		return nil
+	cret := xFilterInputStreamGetBaseStream(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetBaseStreamPtr)
-
-	GetBaseStreamCls := &InputStream{}
-	GetBaseStreamCls.Ptr = GetBaseStreamPtr
-	return GetBaseStreamCls
-
+	gobject.IncreaseRef(cret)
+	cls = &InputStream{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xFilterInputStreamGetCloseBaseStream func(uintptr) bool
@@ -49,8 +48,8 @@ var xFilterInputStreamGetCloseBaseStream func(uintptr) bool
 // closed.
 func (x *FilterInputStream) GetCloseBaseStream() bool {
 
-	return xFilterInputStreamGetCloseBaseStream(x.GoPointer())
-
+	cret := xFilterInputStreamGetCloseBaseStream(x.GoPointer())
+	return cret
 }
 
 var xFilterInputStreamSetCloseBaseStream func(uintptr, bool)

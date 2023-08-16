@@ -99,16 +99,17 @@ var xNewMenuButton func() uintptr
 // You can replace the child widget with another `GtkWidget`
 // should you wish to.
 func NewMenuButton() *Widget {
-	NewMenuButtonPtr := xNewMenuButton()
-	if NewMenuButtonPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewMenuButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewMenuButtonPtr)
-
-	NewMenuButtonCls := &Widget{}
-	NewMenuButtonCls.Ptr = NewMenuButtonPtr
-	return NewMenuButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuButtonGetAlwaysShowArrow func(uintptr) bool
@@ -116,26 +117,25 @@ var xMenuButtonGetAlwaysShowArrow func(uintptr) bool
 // Gets whether to show a dropdown arrow even when using an icon.
 func (x *MenuButton) GetAlwaysShowArrow() bool {
 
-	return xMenuButtonGetAlwaysShowArrow(x.GoPointer())
-
+	cret := xMenuButtonGetAlwaysShowArrow(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetChild func(uintptr) uintptr
 
 // Gets the child widget of @menu_button.
 func (x *MenuButton) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xMenuButtonGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xMenuButtonGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuButtonGetDirection func(uintptr) ArrowType
@@ -143,8 +143,8 @@ var xMenuButtonGetDirection func(uintptr) ArrowType
 // Returns the direction the popup will be pointing at when popped up.
 func (x *MenuButton) GetDirection() ArrowType {
 
-	return xMenuButtonGetDirection(x.GoPointer())
-
+	cret := xMenuButtonGetDirection(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetHasFrame func(uintptr) bool
@@ -152,8 +152,8 @@ var xMenuButtonGetHasFrame func(uintptr) bool
 // Returns whether the button has a frame.
 func (x *MenuButton) GetHasFrame() bool {
 
-	return xMenuButtonGetHasFrame(x.GoPointer())
-
+	cret := xMenuButtonGetHasFrame(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetIconName func(uintptr) string
@@ -161,8 +161,8 @@ var xMenuButtonGetIconName func(uintptr) string
 // Gets the name of the icon shown in the button.
 func (x *MenuButton) GetIconName() string {
 
-	return xMenuButtonGetIconName(x.GoPointer())
-
+	cret := xMenuButtonGetIconName(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetLabel func(uintptr) string
@@ -170,26 +170,25 @@ var xMenuButtonGetLabel func(uintptr) string
 // Gets the label shown in the button
 func (x *MenuButton) GetLabel() string {
 
-	return xMenuButtonGetLabel(x.GoPointer())
-
+	cret := xMenuButtonGetLabel(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetMenuModel func(uintptr) uintptr
 
 // Returns the `GMenuModel` used to generate the popup.
 func (x *MenuButton) GetMenuModel() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenuModelPtr := xMenuButtonGetMenuModel(x.GoPointer())
-	if GetMenuModelPtr == 0 {
-		return nil
+	cret := xMenuButtonGetMenuModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuModelPtr)
-
-	GetMenuModelCls := &gio.MenuModel{}
-	GetMenuModelCls.Ptr = GetMenuModelPtr
-	return GetMenuModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuButtonGetPopover func(uintptr) uintptr
@@ -199,18 +198,17 @@ var xMenuButtonGetPopover func(uintptr) uintptr
 // If the button is not using a `GtkPopover`, this function
 // returns %NULL.
 func (x *MenuButton) GetPopover() *Popover {
+	var cls *Popover
 
-	GetPopoverPtr := xMenuButtonGetPopover(x.GoPointer())
-	if GetPopoverPtr == 0 {
-		return nil
+	cret := xMenuButtonGetPopover(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPopoverPtr)
-
-	GetPopoverCls := &Popover{}
-	GetPopoverCls.Ptr = GetPopoverPtr
-	return GetPopoverCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Popover{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xMenuButtonGetPrimary func(uintptr) bool
@@ -218,8 +216,8 @@ var xMenuButtonGetPrimary func(uintptr) bool
 // Returns whether the menu button acts as a primary menu.
 func (x *MenuButton) GetPrimary() bool {
 
-	return xMenuButtonGetPrimary(x.GoPointer())
-
+	cret := xMenuButtonGetPrimary(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonGetUseUnderline func(uintptr) bool
@@ -228,8 +226,8 @@ var xMenuButtonGetUseUnderline func(uintptr) bool
 // mnemonic.
 func (x *MenuButton) GetUseUnderline() bool {
 
-	return xMenuButtonGetUseUnderline(x.GoPointer())
-
+	cret := xMenuButtonGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xMenuButtonPopdown func(uintptr)
@@ -432,8 +430,8 @@ func (x *MenuButton) ConnectActivate(cb func(MenuButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *MenuButton) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -568,8 +566,8 @@ func (x *MenuButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesV
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MenuButton) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

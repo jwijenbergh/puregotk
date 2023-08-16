@@ -31,52 +31,51 @@ var xNewPageSetupUnixDialog func(string, uintptr) uintptr
 
 // Creates a new page setup dialog.
 func NewPageSetupUnixDialog(TitleVar string, ParentVar *Window) *Widget {
-	NewPageSetupUnixDialogPtr := xNewPageSetupUnixDialog(TitleVar, ParentVar.GoPointer())
-	if NewPageSetupUnixDialogPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPageSetupUnixDialog(TitleVar, ParentVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPageSetupUnixDialogPtr)
-
-	NewPageSetupUnixDialogCls := &Widget{}
-	NewPageSetupUnixDialogCls.Ptr = NewPageSetupUnixDialogPtr
-	return NewPageSetupUnixDialogCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPageSetupUnixDialogGetPageSetup func(uintptr) uintptr
 
 // Gets the currently selected page setup from the dialog.
 func (x *PageSetupUnixDialog) GetPageSetup() *PageSetup {
+	var cls *PageSetup
 
-	GetPageSetupPtr := xPageSetupUnixDialogGetPageSetup(x.GoPointer())
-	if GetPageSetupPtr == 0 {
-		return nil
+	cret := xPageSetupUnixDialogGetPageSetup(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPageSetupPtr)
-
-	GetPageSetupCls := &PageSetup{}
-	GetPageSetupCls.Ptr = GetPageSetupPtr
-	return GetPageSetupCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PageSetup{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPageSetupUnixDialogGetPrintSettings func(uintptr) uintptr
 
 // Gets the current print settings from the dialog.
 func (x *PageSetupUnixDialog) GetPrintSettings() *PrintSettings {
+	var cls *PrintSettings
 
-	GetPrintSettingsPtr := xPageSetupUnixDialogGetPrintSettings(x.GoPointer())
-	if GetPrintSettingsPtr == 0 {
-		return nil
+	cret := xPageSetupUnixDialogGetPrintSettings(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPrintSettingsPtr)
-
-	GetPrintSettingsCls := &PrintSettings{}
-	GetPrintSettingsCls.Ptr = GetPrintSettingsPtr
-	return GetPrintSettingsCls
-
+	gobject.IncreaseRef(cret)
+	cls = &PrintSettings{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPageSetupUnixDialogSetPageSetup func(uintptr, uintptr)
@@ -110,8 +109,8 @@ func (c *PageSetupUnixDialog) SetGoPointer(ptr uintptr) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *PageSetupUnixDialog) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -246,40 +245,38 @@ func (x *PageSetupUnixDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *PageSetupUnixDialog) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *PageSetupUnixDialog) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *PageSetupUnixDialog) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.
@@ -312,18 +309,17 @@ func (x *PageSetupUnixDialog) Unrealize() {
 
 // Returns the display that this `GtkRoot` is on.
 func (x *PageSetupUnixDialog) GetDisplay() *gdk.Display {
+	var cls *gdk.Display
 
-	GetDisplayPtr := XGtkRootGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := XGtkRootGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &gdk.Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the current focused widget within the root.
@@ -333,18 +329,17 @@ func (x *PageSetupUnixDialog) GetDisplay() *gdk.Display {
 // `gtk_widget_has_focus (widget)` will be %FALSE for the
 // widget.
 func (x *PageSetupUnixDialog) GetFocus() *Widget {
+	var cls *Widget
 
-	GetFocusPtr := XGtkRootGetFocus(x.GoPointer())
-	if GetFocusPtr == 0 {
-		return nil
+	cret := XGtkRootGetFocus(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetFocusPtr)
-
-	GetFocusCls := &Widget{}
-	GetFocusCls.Ptr = GetFocusPtr
-	return GetFocusCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 // If @focus is not the current focus widget, and is focusable, sets

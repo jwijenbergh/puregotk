@@ -3,7 +3,7 @@ package glib
 
 // The GString struct contains the public fields of a GString.
 type String struct {
-	Str string
+	Str uintptr
 
 	Len uint
 

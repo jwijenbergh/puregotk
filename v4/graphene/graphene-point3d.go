@@ -20,8 +20,8 @@ var xPoint3dZero func() *Point3D
 // Retrieves a constant point with all three coordinates set to 0.
 func Point3dZero() *Point3D {
 
-	return xPoint3dZero()
-
+	cret := xPoint3dZero()
+	return cret
 }
 
 func init() {

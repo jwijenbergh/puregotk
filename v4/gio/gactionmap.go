@@ -18,11 +18,11 @@ import (
 //
 // See g_action_map_add_action_entries() for an example.
 type ActionEntry struct {
-	Name string
+	Name uintptr
 
-	ParameterType string
+	ParameterType uintptr
 
-	State string
+	State uintptr
 
 	Padding uintptr
 }
@@ -126,18 +126,17 @@ func (x *ActionMapBase) AddActionEntries(EntriesVar uintptr, NEntriesVar int, Us
 //
 // If no such action exists, returns %NULL.
 func (x *ActionMapBase) LookupAction(ActionNameVar string) *ActionBase {
+	var cls *ActionBase
 
-	LookupActionPtr := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.

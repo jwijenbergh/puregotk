@@ -42,14 +42,16 @@ var xNewTreeListModel func(uintptr, bool, bool, uintptr, uintptr, uintptr) uintp
 // Creates a new empty `GtkTreeListModel` displaying @root
 // with all rows collapsed.
 func NewTreeListModel(RootVar gio.ListModel, PassthroughVar bool, AutoexpandVar bool, CreateFuncVar TreeListModelCreateModelFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *TreeListModel {
-	NewTreeListModelPtr := xNewTreeListModel(RootVar.GoPointer(), PassthroughVar, AutoexpandVar, purego.NewCallback(CreateFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
-	if NewTreeListModelPtr == 0 {
-		return nil
-	}
+	var cls *TreeListModel
 
-	NewTreeListModelCls := &TreeListModel{}
-	NewTreeListModelCls.Ptr = NewTreeListModelPtr
-	return NewTreeListModelCls
+	cret := xNewTreeListModel(RootVar.GoPointer(), PassthroughVar, AutoexpandVar, purego.NewCallback(CreateFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &TreeListModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListModelGetAutoexpand func(uintptr) bool
@@ -61,8 +63,8 @@ var xTreeListModelGetAutoexpand func(uintptr) bool
 // models or via [method@Gtk.TreeListRow.set_expanded].
 func (x *TreeListModel) GetAutoexpand() bool {
 
-	return xTreeListModelGetAutoexpand(x.GoPointer())
-
+	cret := xTreeListModelGetAutoexpand(x.GoPointer())
+	return cret
 }
 
 var xTreeListModelGetChildRow func(uintptr, uint) uintptr
@@ -75,34 +77,33 @@ var xTreeListModelGetChildRow func(uintptr, uint) uintptr
 //
 // Do not confuse this function with [method@Gtk.TreeListModel.get_row].
 func (x *TreeListModel) GetChildRow(PositionVar uint) *TreeListRow {
+	var cls *TreeListRow
 
-	GetChildRowPtr := xTreeListModelGetChildRow(x.GoPointer(), PositionVar)
-	if GetChildRowPtr == 0 {
-		return nil
+	cret := xTreeListModelGetChildRow(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetChildRowCls := &TreeListRow{}
-	GetChildRowCls.Ptr = GetChildRowPtr
-	return GetChildRowCls
-
+	cls = &TreeListRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListModelGetModel func(uintptr) uintptr
 
 // Gets the root model that @self was created with.
 func (x *TreeListModel) GetModel() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetModelPtr := xTreeListModelGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xTreeListModelGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &gio.ListModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListModelGetPassthrough func(uintptr) bool
@@ -119,8 +120,8 @@ var xTreeListModelGetPassthrough func(uintptr) bool
 // to get the custom `GtkTreeListRow`s.
 func (x *TreeListModel) GetPassthrough() bool {
 
-	return xTreeListModelGetPassthrough(x.GoPointer())
-
+	cret := xTreeListModelGetPassthrough(x.GoPointer())
+	return cret
 }
 
 var xTreeListModelGetRow func(uintptr, uint) uintptr
@@ -143,16 +144,16 @@ var xTreeListModelGetRow func(uintptr, uint) uintptr
 //
 // Do not confuse this function with [method@Gtk.TreeListModel.get_child_row].
 func (x *TreeListModel) GetRow(PositionVar uint) *TreeListRow {
+	var cls *TreeListRow
 
-	GetRowPtr := xTreeListModelGetRow(x.GoPointer(), PositionVar)
-	if GetRowPtr == 0 {
-		return nil
+	cret := xTreeListModelGetRow(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetRowCls := &TreeListRow{}
-	GetRowCls.Ptr = GetRowPtr
-	return GetRowCls
-
+	cls = &TreeListRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListModelSetAutoexpand func(uintptr, bool)
@@ -187,8 +188,8 @@ func (c *TreeListModel) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *TreeListModel) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -201,8 +202,8 @@ func (x *TreeListModel) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *TreeListModel) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -212,8 +213,8 @@ func (x *TreeListModel) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *TreeListModel) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -229,16 +230,16 @@ func (x *TreeListModel) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *TreeListModel) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -293,16 +294,16 @@ var xTreeListRowGetChildRow func(uintptr, uint) uintptr
 // If @self is not expanded or @position is greater than the
 // number of children, %NULL is returned.
 func (x *TreeListRow) GetChildRow(PositionVar uint) *TreeListRow {
+	var cls *TreeListRow
 
-	GetChildRowPtr := xTreeListRowGetChildRow(x.GoPointer(), PositionVar)
-	if GetChildRowPtr == 0 {
-		return nil
+	cret := xTreeListRowGetChildRow(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetChildRowCls := &TreeListRow{}
-	GetChildRowCls.Ptr = GetChildRowPtr
-	return GetChildRowCls
-
+	cls = &TreeListRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowGetChildren func(uintptr) uintptr
@@ -314,18 +315,17 @@ var xTreeListRowGetChildren func(uintptr) uintptr
 // and contains the original items, no matter what value
 // [property@Gtk.TreeListModel:passthrough] is set to.
 func (x *TreeListRow) GetChildren() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetChildrenPtr := xTreeListRowGetChildren(x.GoPointer())
-	if GetChildrenPtr == 0 {
-		return nil
+	cret := xTreeListRowGetChildren(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildrenPtr)
-
-	GetChildrenCls := &gio.ListModelBase{}
-	GetChildrenCls.Ptr = GetChildrenPtr
-	return GetChildrenCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowGetDepth func(uintptr) uint
@@ -339,8 +339,8 @@ var xTreeListRowGetDepth func(uintptr) uint
 // The depth of a row never changes until the row is destroyed.
 func (x *TreeListRow) GetDepth() uint {
 
-	return xTreeListRowGetDepth(x.GoPointer())
-
+	cret := xTreeListRowGetDepth(x.GoPointer())
+	return cret
 }
 
 var xTreeListRowGetExpanded func(uintptr) bool
@@ -348,8 +348,8 @@ var xTreeListRowGetExpanded func(uintptr) bool
 // Gets if a row is currently expanded.
 func (x *TreeListRow) GetExpanded() bool {
 
-	return xTreeListRowGetExpanded(x.GoPointer())
-
+	cret := xTreeListRowGetExpanded(x.GoPointer())
+	return cret
 }
 
 var xTreeListRowGetItem func(uintptr) uintptr
@@ -359,16 +359,16 @@ var xTreeListRowGetItem func(uintptr) uintptr
 // The value returned by this function never changes until the
 // row is destroyed.
 func (x *TreeListRow) GetItem() *gobject.Object {
+	var cls *gobject.Object
 
-	GetItemPtr := xTreeListRowGetItem(x.GoPointer())
-	if GetItemPtr == 0 {
-		return nil
+	cret := xTreeListRowGetItem(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetItemCls := &gobject.Object{}
-	GetItemCls.Ptr = GetItemPtr
-	return GetItemCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowGetParent func(uintptr) uintptr
@@ -384,16 +384,16 @@ var xTreeListRowGetParent func(uintptr) uintptr
 // The value returned by this function never changes
 // until the row is destroyed.
 func (x *TreeListRow) GetParent() *TreeListRow {
+	var cls *TreeListRow
 
-	GetParentPtr := xTreeListRowGetParent(x.GoPointer())
-	if GetParentPtr == 0 {
-		return nil
+	cret := xTreeListRowGetParent(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetParentCls := &TreeListRow{}
-	GetParentCls.Ptr = GetParentPtr
-	return GetParentCls
-
+	cls = &TreeListRow{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeListRowGetPosition func(uintptr) uint
@@ -402,8 +402,8 @@ var xTreeListRowGetPosition func(uintptr) uint
 // at the moment.
 func (x *TreeListRow) GetPosition() uint {
 
-	return xTreeListRowGetPosition(x.GoPointer())
-
+	cret := xTreeListRowGetPosition(x.GoPointer())
+	return cret
 }
 
 var xTreeListRowIsExpandable func(uintptr) bool
@@ -416,8 +416,8 @@ var xTreeListRowIsExpandable func(uintptr) bool
 // If a row is expandable never changes until the row is destroyed.
 func (x *TreeListRow) IsExpandable() bool {
 
-	return xTreeListRowIsExpandable(x.GoPointer())
-
+	cret := xTreeListRowIsExpandable(x.GoPointer())
+	return cret
 }
 
 var xTreeListRowSetExpanded func(uintptr, bool)

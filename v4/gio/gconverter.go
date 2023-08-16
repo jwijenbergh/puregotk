@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // Provides an interface for converting data from one type
@@ -120,9 +121,14 @@ func (x *ConverterBase) SetGoPointer(ptr uintptr) {
 // at a partial multibyte sequence). Converters are supposed to try
 // to produce as much output as possible and then return an error
 // (typically %G_IO_ERROR_PARTIAL_INPUT).
-func (x *ConverterBase) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult {
+func (x *ConverterBase) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
+	var cerr *glib.Error
 
-	return XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar)
+	cret := XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -135,7 +141,7 @@ func (x *ConverterBase) Reset() {
 
 }
 
-var XGConverterConvert func(uintptr, uintptr, uint, uintptr, uint, ConverterFlags, uint, uint) ConverterResult
+var XGConverterConvert func(uintptr, uintptr, uint, uintptr, uint, ConverterFlags, uint, uint, **glib.Error) ConverterResult
 var XGConverterReset func(uintptr)
 
 func init() {

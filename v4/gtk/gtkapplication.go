@@ -129,14 +129,16 @@ var xNewApplication func(string, gio.ApplicationFlags) uintptr
 // If no application ID is given then some features (most notably application
 // uniqueness) will be disabled.
 func NewApplication(ApplicationIdVar string, FlagsVar gio.ApplicationFlags) *Application {
-	NewApplicationPtr := xNewApplication(ApplicationIdVar, FlagsVar)
-	if NewApplicationPtr == 0 {
-		return nil
-	}
+	var cls *Application
 
-	NewApplicationCls := &Application{}
-	NewApplicationCls.Ptr = NewApplicationPtr
-	return NewApplicationCls
+	cret := xNewApplication(ApplicationIdVar, FlagsVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &Application{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationAddWindow func(uintptr, uintptr)
@@ -168,8 +170,8 @@ var xApplicationGetAccelsForAction func(uintptr, string) []string
 // the given action.
 func (x *Application) GetAccelsForAction(DetailedActionNameVar string) []string {
 
-	return xApplicationGetAccelsForAction(x.GoPointer(), DetailedActionNameVar)
-
+	cret := xApplicationGetAccelsForAction(x.GoPointer(), DetailedActionNameVar)
+	return cret
 }
 
 var xApplicationGetActionsForAccel func(uintptr, string) []string
@@ -193,8 +195,8 @@ var xApplicationGetActionsForAccel func(uintptr, string) []string
 // If you are unsure, check it with [func@Gtk.accelerator_parse] first.
 func (x *Application) GetActionsForAccel(AccelVar string) []string {
 
-	return xApplicationGetActionsForAccel(x.GoPointer(), AccelVar)
-
+	cret := xApplicationGetActionsForAccel(x.GoPointer(), AccelVar)
+	return cret
 }
 
 var xApplicationGetActiveWindow func(uintptr) uintptr
@@ -206,18 +208,17 @@ var xApplicationGetActiveWindow func(uintptr) uintptr
 // if another application has it — this is just the most
 // recently-focused window within this application.
 func (x *Application) GetActiveWindow() *Window {
+	var cls *Window
 
-	GetActiveWindowPtr := xApplicationGetActiveWindow(x.GoPointer())
-	if GetActiveWindowPtr == 0 {
-		return nil
+	cret := xApplicationGetActiveWindow(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetActiveWindowPtr)
-
-	GetActiveWindowCls := &Window{}
-	GetActiveWindowCls.Ptr = GetActiveWindowPtr
-	return GetActiveWindowCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Window{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetMenuById func(uintptr, string) uintptr
@@ -227,18 +228,17 @@ var xApplicationGetMenuById func(uintptr, string) uintptr
 // See [the section on Automatic resources](class.Application.html#automatic-resources)
 // for more information.
 func (x *Application) GetMenuById(IdVar string) *gio.Menu {
+	var cls *gio.Menu
 
-	GetMenuByIdPtr := xApplicationGetMenuById(x.GoPointer(), IdVar)
-	if GetMenuByIdPtr == 0 {
-		return nil
+	cret := xApplicationGetMenuById(x.GoPointer(), IdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuByIdPtr)
-
-	GetMenuByIdCls := &gio.Menu{}
-	GetMenuByIdCls.Ptr = GetMenuByIdPtr
-	return GetMenuByIdCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.Menu{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetMenubar func(uintptr) uintptr
@@ -246,18 +246,17 @@ var xApplicationGetMenubar func(uintptr) uintptr
 // Returns the menu model that has been set with
 // [method@Gtk.Application.set_menubar].
 func (x *Application) GetMenubar() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenubarPtr := xApplicationGetMenubar(x.GoPointer())
-	if GetMenubarPtr == 0 {
-		return nil
+	cret := xApplicationGetMenubar(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenubarPtr)
-
-	GetMenubarCls := &gio.MenuModel{}
-	GetMenubarCls.Ptr = GetMenubarPtr
-	return GetMenubarCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetWindowById func(uintptr, uint) uintptr
@@ -267,18 +266,17 @@ var xApplicationGetWindowById func(uintptr, uint) uintptr
 // The ID of a `GtkApplicationWindow` can be retrieved with
 // [method@Gtk.ApplicationWindow.get_id].
 func (x *Application) GetWindowById(IdVar uint) *Window {
+	var cls *Window
 
-	GetWindowByIdPtr := xApplicationGetWindowById(x.GoPointer(), IdVar)
-	if GetWindowByIdPtr == 0 {
-		return nil
+	cret := xApplicationGetWindowById(x.GoPointer(), IdVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetWindowByIdPtr)
-
-	GetWindowByIdCls := &Window{}
-	GetWindowByIdCls.Ptr = GetWindowByIdPtr
-	return GetWindowByIdCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Window{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xApplicationGetWindows func(uintptr) *glib.List
@@ -294,8 +292,8 @@ var xApplicationGetWindows func(uintptr) *glib.List
 // deletion.
 func (x *Application) GetWindows() *glib.List {
 
-	return xApplicationGetWindows(x.GoPointer())
-
+	cret := xApplicationGetWindows(x.GoPointer())
+	return cret
 }
 
 var xApplicationInhibit func(uintptr, uintptr, ApplicationInhibitFlags, string) uint
@@ -325,8 +323,8 @@ var xApplicationInhibit func(uintptr, uintptr, ApplicationInhibitFlags, string) 
 // this window to find out more about why the action is inhibited.
 func (x *Application) Inhibit(WindowVar *Window, FlagsVar ApplicationInhibitFlags, ReasonVar string) uint {
 
-	return xApplicationInhibit(x.GoPointer(), WindowVar.GoPointer(), FlagsVar, ReasonVar)
-
+	cret := xApplicationInhibit(x.GoPointer(), WindowVar.GoPointer(), FlagsVar, ReasonVar)
+	return cret
 }
 
 var xApplicationListActionDescriptions func(uintptr) []string
@@ -336,8 +334,8 @@ var xApplicationListActionDescriptions func(uintptr) []string
 // See [method@Gtk.Application.set_accels_for_action].
 func (x *Application) ListActionDescriptions() []string {
 
-	return xApplicationListActionDescriptions(x.GoPointer())
-
+	cret := xApplicationListActionDescriptions(x.GoPointer())
+	return cret
 }
 
 var xApplicationRemoveWindow func(uintptr, uintptr)
@@ -565,8 +563,8 @@ func (x *Application) ChangeActionState(ActionNameVar string, ValueVar *glib.Var
 // have its state changed from outside callers.
 func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 
-	return gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionEnabled(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the parameter that must be given when activating
@@ -584,8 +582,8 @@ func (x *Application) GetActionEnabled(ActionNameVar string) bool {
 // with the same name but a different parameter type.
 func (x *Application) GetActionParameterType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionParameterType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the current state of the named action within @action_group.
@@ -598,8 +596,8 @@ func (x *Application) GetActionParameterType(ActionNameVar string) *glib.Variant
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionState(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Requests a hint about the valid range of values for the state of the
@@ -622,8 +620,8 @@ func (x *Application) GetActionState(ActionNameVar string) *glib.Variant {
 // g_variant_unref() when it is no longer required.
 func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 
-	return gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateHint(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Queries the type of the state of the named action within
@@ -644,15 +642,15 @@ func (x *Application) GetActionStateHint(ActionNameVar string) *glib.Variant {
 // with the same name but a different state type.
 func (x *Application) GetActionStateType(ActionNameVar string) *glib.VariantType {
 
-	return gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupGetActionStateType(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Checks if the named action exists within @action_group.
 func (x *Application) HasAction(ActionNameVar string) bool {
 
-	return gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
-
+	cret := gio.XGActionGroupHasAction(x.GoPointer(), ActionNameVar)
+	return cret
 }
 
 // Lists the actions contained within @action_group.
@@ -661,8 +659,8 @@ func (x *Application) HasAction(ActionNameVar string) bool {
 // it is no longer required.
 func (x *Application) ListActions() uintptr {
 
-	return gio.XGActionGroupListActions(x.GoPointer())
-
+	cret := gio.XGActionGroupListActions(x.GoPointer())
+	return cret
 }
 
 // Queries all aspects of the named action within an @action_group.
@@ -694,8 +692,8 @@ func (x *Application) ListActions() uintptr {
 // fields may or may not have been modified.
 func (x *Application) QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool {
 
-	return gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
-
+	cret := gio.XGActionGroupQueryAction(x.GoPointer(), ActionNameVar, EnabledVar, ParameterTypeVar, StateTypeVar, StateHintVar, StateVar)
+	return cret
 }
 
 // Adds an action to the @action_map.
@@ -763,18 +761,17 @@ func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, User
 //
 // If no such action exists, returns %NULL.
 func (x *Application) LookupAction(ActionNameVar string) *gio.ActionBase {
+	var cls *gio.ActionBase
 
-	LookupActionPtr := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
-	if LookupActionPtr == 0 {
-		return nil
+	cret := gio.XGActionMapLookupAction(x.GoPointer(), ActionNameVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(LookupActionPtr)
-
-	LookupActionCls := &gio.ActionBase{}
-	LookupActionCls.Ptr = LookupActionPtr
-	return LookupActionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.ActionBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Removes the named action from the action map.

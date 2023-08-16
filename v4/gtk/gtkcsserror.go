@@ -11,8 +11,8 @@ var xCssParserWarningQuark func() glib.Quark
 
 func CssParserWarningQuark() glib.Quark {
 
-	return xCssParserWarningQuark()
-
+	cret := xCssParserWarningQuark()
+	return cret
 }
 
 func init() {

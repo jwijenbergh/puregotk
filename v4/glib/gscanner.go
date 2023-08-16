@@ -25,7 +25,7 @@ type Scanner struct {
 
 	ParseErrors uint
 
-	InputName string
+	InputName uintptr
 
 	Qdata *Data
 
@@ -51,11 +51,11 @@ type Scanner struct {
 
 	InputFd int32
 
-	Text string
+	Text uintptr
 
-	TextEnd string
+	TextEnd uintptr
 
-	Buffer string
+	Buffer uintptr
 
 	ScopeId uint
 
@@ -66,13 +66,13 @@ type Scanner struct {
 // be changed during the parsing phase and will affect the lexical
 // parsing of the next unpeeked token.
 type ScannerConfig struct {
-	CsetSkipCharacters string
+	CsetSkipCharacters uintptr
 
-	CsetIdentifierFirst string
+	CsetIdentifierFirst uintptr
 
-	CsetIdentifierNth string
+	CsetIdentifierNth uintptr
 
-	CpairCommentSingle string
+	CpairCommentSingle uintptr
 
 	CaseSensitive uint
 

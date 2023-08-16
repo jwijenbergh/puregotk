@@ -47,24 +47,24 @@ func (x *AppChooserBase) SetGoPointer(ptr uintptr) {
 
 // Returns the currently selected application.
 func (x *AppChooserBase) GetAppInfo() *gio.AppInfoBase {
+	var cls *gio.AppInfoBase
 
-	GetAppInfoPtr := XGtkAppChooserGetAppInfo(x.GoPointer())
-	if GetAppInfoPtr == 0 {
-		return nil
+	cret := XGtkAppChooserGetAppInfo(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetAppInfoCls := &gio.AppInfoBase{}
-	GetAppInfoCls.Ptr = GetAppInfoPtr
-	return GetAppInfoCls
-
+	cls = &gio.AppInfoBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the content type for which the `GtkAppChooser`
 // shows applications.
 func (x *AppChooserBase) GetContentType() string {
 
-	return XGtkAppChooserGetContentType(x.GoPointer())
-
+	cret := XGtkAppChooserGetContentType(x.GoPointer())
+	return cret
 }
 
 // Reloads the list of applications.

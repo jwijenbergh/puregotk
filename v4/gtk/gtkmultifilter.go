@@ -40,14 +40,16 @@ var xNewAnyFilter func() uintptr
 // matches the item. In particular, this means that if no filter
 // has been added to it, the filter matches no item.
 func NewAnyFilter() *AnyFilter {
-	NewAnyFilterPtr := xNewAnyFilter()
-	if NewAnyFilterPtr == 0 {
-		return nil
-	}
+	var cls *AnyFilter
 
-	NewAnyFilterCls := &AnyFilter{}
-	NewAnyFilterCls.Ptr = NewAnyFilterPtr
-	return NewAnyFilterCls
+	cret := xNewAnyFilter()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &AnyFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *AnyFilter) GoPointer() uintptr {
@@ -69,8 +71,8 @@ func (c *AnyFilter) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *AnyFilter) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -83,8 +85,8 @@ func (x *AnyFilter) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *AnyFilter) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -94,8 +96,8 @@ func (x *AnyFilter) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *AnyFilter) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -111,16 +113,16 @@ func (x *AnyFilter) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *AnyFilter) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -155,8 +157,8 @@ func (x *AnyFilter) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uin
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *AnyFilter) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkEveryFilter` matches an item when each of its filters matches.
@@ -182,14 +184,16 @@ var xNewEveryFilter func() uintptr
 // matches the item. In particular, this means that if no filter
 // has been added to it, the filter matches every item.
 func NewEveryFilter() *EveryFilter {
-	NewEveryFilterPtr := xNewEveryFilter()
-	if NewEveryFilterPtr == 0 {
-		return nil
-	}
+	var cls *EveryFilter
 
-	NewEveryFilterCls := &EveryFilter{}
-	NewEveryFilterCls.Ptr = NewEveryFilterPtr
-	return NewEveryFilterCls
+	cret := xNewEveryFilter()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &EveryFilter{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *EveryFilter) GoPointer() uintptr {
@@ -211,8 +215,8 @@ func (c *EveryFilter) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *EveryFilter) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -225,8 +229,8 @@ func (x *EveryFilter) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *EveryFilter) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -236,8 +240,8 @@ func (x *EveryFilter) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *EveryFilter) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -253,16 +257,16 @@ func (x *EveryFilter) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *EveryFilter) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -297,8 +301,8 @@ func (x *EveryFilter) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *EveryFilter) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkMultiFilter` is the base class for filters that combine multiple filters.
@@ -353,8 +357,8 @@ func (c *MultiFilter) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *MultiFilter) GetItem(PositionVar uint) uintptr {
 
-	return gio.XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -367,8 +371,8 @@ func (x *MultiFilter) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *MultiFilter) GetItemType() []interface{} {
 
-	return gio.XGListModelGetItemType(x.GoPointer())
-
+	cret := gio.XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -378,8 +382,8 @@ func (x *MultiFilter) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *MultiFilter) GetNItems() uint {
 
-	return gio.XGListModelGetNItems(x.GoPointer())
-
+	cret := gio.XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -395,16 +399,16 @@ func (x *MultiFilter) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *MultiFilter) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.
@@ -439,8 +443,8 @@ func (x *MultiFilter) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar u
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *MultiFilter) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

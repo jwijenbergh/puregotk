@@ -467,8 +467,8 @@ var xVariantIsObjectPath func(string) bool
 // (including the one following the final `/` character) may be empty.
 func VariantIsObjectPath(StringVar string) bool {
 
-	return xVariantIsObjectPath(StringVar)
-
+	cret := xVariantIsObjectPath(StringVar)
+	return cret
 }
 
 var xVariantIsSignature func(string) bool
@@ -481,11 +481,11 @@ var xVariantIsSignature func(string) bool
 // strings in sequence.
 func VariantIsSignature(StringVar string) bool {
 
-	return xVariantIsSignature(StringVar)
-
+	cret := xVariantIsSignature(StringVar)
+	return cret
 }
 
-var xVariantParse func(*VariantType, string, string, string) *Variant
+var xVariantParse func(*VariantType, string, string, string, **Error) *Variant
 
 // Parses a #GVariant from a text representation.
 //
@@ -522,9 +522,14 @@ var xVariantParse func(*VariantType, string, string, string) *Variant
 // There may be implementation specific restrictions on deeply nested values,
 // which would result in a %G_VARIANT_PARSE_ERROR_RECURSION error. #GVariant is
 // guaranteed to handle nesting up to at least 64 levels.
-func VariantParse(TypeVar *VariantType, TextVar string, LimitVar string, EndptrVar string) *Variant {
+func VariantParse(TypeVar *VariantType, TextVar string, LimitVar string, EndptrVar string) (*Variant, error) {
+	var cerr *Error
 
-	return xVariantParse(TypeVar, TextVar, LimitVar, EndptrVar)
+	cret := xVariantParse(TypeVar, TextVar, LimitVar, EndptrVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -565,8 +570,8 @@ var xVariantParseErrorPrintContext func(*Error, string) string
 // function.
 func VariantParseErrorPrintContext(ErrorVar *Error, SourceStrVar string) string {
 
-	return xVariantParseErrorPrintContext(ErrorVar, SourceStrVar)
-
+	cret := xVariantParseErrorPrintContext(ErrorVar, SourceStrVar)
+	return cret
 }
 
 func init() {

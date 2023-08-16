@@ -109,16 +109,17 @@ var xNewPopover func() uintptr
 
 // Creates a new `GtkPopover`.
 func NewPopover() *Widget {
-	NewPopoverPtr := xNewPopover()
-	if NewPopoverPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewPopover()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewPopoverPtr)
-
-	NewPopoverCls := &Widget{}
-	NewPopoverCls.Ptr = NewPopoverPtr
-	return NewPopoverCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverGetAutohide func(uintptr) bool
@@ -129,8 +130,8 @@ var xPopoverGetAutohide func(uintptr) bool
 // implications of this.
 func (x *Popover) GetAutohide() bool {
 
-	return xPopoverGetAutohide(x.GoPointer())
-
+	cret := xPopoverGetAutohide(x.GoPointer())
+	return cret
 }
 
 var xPopoverGetCascadePopdown func(uintptr) bool
@@ -138,26 +139,25 @@ var xPopoverGetCascadePopdown func(uintptr) bool
 // Returns whether the popover will close after a modal child is closed.
 func (x *Popover) GetCascadePopdown() bool {
 
-	return xPopoverGetCascadePopdown(x.GoPointer())
-
+	cret := xPopoverGetCascadePopdown(x.GoPointer())
+	return cret
 }
 
 var xPopoverGetChild func(uintptr) uintptr
 
 // Gets the child widget of @popover.
 func (x *Popover) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xPopoverGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xPopoverGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xPopoverGetHasArrow func(uintptr) bool
@@ -166,8 +166,8 @@ var xPopoverGetHasArrow func(uintptr) bool
 // pointing at the widget that it is relative to.
 func (x *Popover) GetHasArrow() bool {
 
-	return xPopoverGetHasArrow(x.GoPointer())
-
+	cret := xPopoverGetHasArrow(x.GoPointer())
+	return cret
 }
 
 var xPopoverGetMnemonicsVisible func(uintptr) bool
@@ -175,8 +175,8 @@ var xPopoverGetMnemonicsVisible func(uintptr) bool
 // Gets whether mnemonics are visible.
 func (x *Popover) GetMnemonicsVisible() bool {
 
-	return xPopoverGetMnemonicsVisible(x.GoPointer())
-
+	cret := xPopoverGetMnemonicsVisible(x.GoPointer())
+	return cret
 }
 
 var xPopoverGetOffset func(uintptr, int, int)
@@ -198,8 +198,8 @@ var xPopoverGetPointingTo func(uintptr, *gdk.Rectangle) bool
 // widget coordinates.
 func (x *Popover) GetPointingTo(RectVar *gdk.Rectangle) bool {
 
-	return xPopoverGetPointingTo(x.GoPointer(), RectVar)
-
+	cret := xPopoverGetPointingTo(x.GoPointer(), RectVar)
+	return cret
 }
 
 var xPopoverGetPosition func(uintptr) PositionType
@@ -207,8 +207,8 @@ var xPopoverGetPosition func(uintptr) PositionType
 // Returns the preferred position of @popover.
 func (x *Popover) GetPosition() PositionType {
 
-	return xPopoverGetPosition(x.GoPointer())
-
+	cret := xPopoverGetPosition(x.GoPointer())
+	return cret
 }
 
 var xPopoverPopdown func(uintptr)
@@ -388,8 +388,8 @@ func (x *Popover) ConnectClosed(cb func(Popover)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Popover) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -524,40 +524,38 @@ func (x *Popover) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar 
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Popover) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the renderer that is used for this `GtkNative`.
 func (x *Popover) GetRenderer() *gsk.Renderer {
+	var cls *gsk.Renderer
 
-	GetRendererPtr := XGtkNativeGetRenderer(x.GoPointer())
-	if GetRendererPtr == 0 {
-		return nil
+	cret := XGtkNativeGetRenderer(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetRendererPtr)
-
-	GetRendererCls := &gsk.Renderer{}
-	GetRendererCls.Ptr = GetRendererPtr
-	return GetRendererCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gsk.Renderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Returns the surface of this `GtkNative`.
 func (x *Popover) GetSurface() *gdk.Surface {
+	var cls *gdk.Surface
 
-	GetSurfacePtr := XGtkNativeGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := XGtkNativeGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &gdk.Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gdk.Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Retrieves the surface transform of @self.

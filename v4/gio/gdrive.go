@@ -85,36 +85,36 @@ func (x *DriveBase) SetGoPointer(ptr uintptr) {
 // Checks if a drive can be ejected.
 func (x *DriveBase) CanEject() bool {
 
-	return XGDriveCanEject(x.GoPointer())
-
+	cret := XGDriveCanEject(x.GoPointer())
+	return cret
 }
 
 // Checks if a drive can be polled for media changes.
 func (x *DriveBase) CanPollForMedia() bool {
 
-	return XGDriveCanPollForMedia(x.GoPointer())
-
+	cret := XGDriveCanPollForMedia(x.GoPointer())
+	return cret
 }
 
 // Checks if a drive can be started.
 func (x *DriveBase) CanStart() bool {
 
-	return XGDriveCanStart(x.GoPointer())
-
+	cret := XGDriveCanStart(x.GoPointer())
+	return cret
 }
 
 // Checks if a drive can be started degraded.
 func (x *DriveBase) CanStartDegraded() bool {
 
-	return XGDriveCanStartDegraded(x.GoPointer())
-
+	cret := XGDriveCanStartDegraded(x.GoPointer())
+	return cret
 }
 
 // Checks if a drive can be stopped.
 func (x *DriveBase) CanStop() bool {
 
-	return XGDriveCanStop(x.GoPointer())
-
+	cret := XGDriveCanStop(x.GoPointer())
+	return cret
 }
 
 // Asynchronously ejects a drive.
@@ -129,9 +129,14 @@ func (x *DriveBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellabl
 }
 
 // Finishes ejecting a drive.
-func (x *DriveBase) EjectFinish(ResultVar AsyncResult) bool {
+func (x *DriveBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDriveEjectFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGDriveEjectFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -146,9 +151,14 @@ func (x *DriveBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperatio
 
 // Finishes ejecting a drive. If any errors occurred during the operation,
 // @error will be set to contain the errors and %FALSE will be returned.
-func (x *DriveBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
+func (x *DriveBase) EjectWithOperationFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDriveEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGDriveEjectWithOperationFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -157,22 +167,22 @@ func (x *DriveBase) EjectWithOperationFinish(ResultVar AsyncResult) bool {
 // themselves.
 func (x *DriveBase) EnumerateIdentifiers() []string {
 
-	return XGDriveEnumerateIdentifiers(x.GoPointer())
-
+	cret := XGDriveEnumerateIdentifiers(x.GoPointer())
+	return cret
 }
 
 // Gets the icon for @drive.
 func (x *DriveBase) GetIcon() *IconBase {
+	var cls *IconBase
 
-	GetIconPtr := XGDriveGetIcon(x.GoPointer())
-	if GetIconPtr == 0 {
-		return nil
+	cret := XGDriveGetIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetIconCls := &IconBase{}
-	GetIconCls.Ptr = GetIconPtr
-	return GetIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the identifier of the given kind for @drive. The only
@@ -180,43 +190,43 @@ func (x *DriveBase) GetIcon() *IconBase {
 // %G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE.
 func (x *DriveBase) GetIdentifier(KindVar string) string {
 
-	return XGDriveGetIdentifier(x.GoPointer(), KindVar)
-
+	cret := XGDriveGetIdentifier(x.GoPointer(), KindVar)
+	return cret
 }
 
 // Gets the name of @drive.
 func (x *DriveBase) GetName() string {
 
-	return XGDriveGetName(x.GoPointer())
-
+	cret := XGDriveGetName(x.GoPointer())
+	return cret
 }
 
 // Gets the sort key for @drive, if any.
 func (x *DriveBase) GetSortKey() string {
 
-	return XGDriveGetSortKey(x.GoPointer())
-
+	cret := XGDriveGetSortKey(x.GoPointer())
+	return cret
 }
 
 // Gets a hint about how a drive can be started/stopped.
 func (x *DriveBase) GetStartStopType() DriveStartStopType {
 
-	return XGDriveGetStartStopType(x.GoPointer())
-
+	cret := XGDriveGetStartStopType(x.GoPointer())
+	return cret
 }
 
 // Gets the icon for @drive.
 func (x *DriveBase) GetSymbolicIcon() *IconBase {
+	var cls *IconBase
 
-	GetSymbolicIconPtr := XGDriveGetSymbolicIcon(x.GoPointer())
-	if GetSymbolicIconPtr == 0 {
-		return nil
+	cret := XGDriveGetSymbolicIcon(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetSymbolicIconCls := &IconBase{}
-	GetSymbolicIconCls.Ptr = GetSymbolicIconPtr
-	return GetSymbolicIconCls
-
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Get a list of mountable volumes for @drive.
@@ -225,8 +235,8 @@ func (x *DriveBase) GetSymbolicIcon() *IconBase {
 // its elements have been unreffed with g_object_unref().
 func (x *DriveBase) GetVolumes() *glib.List {
 
-	return XGDriveGetVolumes(x.GoPointer())
-
+	cret := XGDriveGetVolumes(x.GoPointer())
+	return cret
 }
 
 // Checks if the @drive has media. Note that the OS may not be polling
@@ -234,37 +244,37 @@ func (x *DriveBase) GetVolumes() *glib.List {
 // for more details.
 func (x *DriveBase) HasMedia() bool {
 
-	return XGDriveHasMedia(x.GoPointer())
-
+	cret := XGDriveHasMedia(x.GoPointer())
+	return cret
 }
 
 // Check if @drive has any mountable volumes.
 func (x *DriveBase) HasVolumes() bool {
 
-	return XGDriveHasVolumes(x.GoPointer())
-
+	cret := XGDriveHasVolumes(x.GoPointer())
+	return cret
 }
 
 // Checks if @drive is capable of automatically detecting media changes.
 func (x *DriveBase) IsMediaCheckAutomatic() bool {
 
-	return XGDriveIsMediaCheckAutomatic(x.GoPointer())
-
+	cret := XGDriveIsMediaCheckAutomatic(x.GoPointer())
+	return cret
 }
 
 // Checks if the @drive supports removable media.
 func (x *DriveBase) IsMediaRemovable() bool {
 
-	return XGDriveIsMediaRemovable(x.GoPointer())
-
+	cret := XGDriveIsMediaRemovable(x.GoPointer())
+	return cret
 }
 
 // Checks if the #GDrive and/or its media is considered removable by the user.
 // See g_drive_is_media_removable().
 func (x *DriveBase) IsRemovable() bool {
 
-	return XGDriveIsRemovable(x.GoPointer())
-
+	cret := XGDriveIsRemovable(x.GoPointer())
+	return cret
 }
 
 // Asynchronously polls @drive to see if media has been inserted or removed.
@@ -279,9 +289,14 @@ func (x *DriveBase) PollForMedia(CancellableVar *Cancellable, CallbackVar AsyncR
 }
 
 // Finishes an operation started with g_drive_poll_for_media() on a drive.
-func (x *DriveBase) PollForMediaFinish(ResultVar AsyncResult) bool {
+func (x *DriveBase) PollForMediaFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDrivePollForMediaFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGDrivePollForMediaFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -297,9 +312,14 @@ func (x *DriveBase) Start(FlagsVar DriveStartFlags, MountOperationVar *MountOper
 }
 
 // Finishes starting a drive.
-func (x *DriveBase) StartFinish(ResultVar AsyncResult) bool {
+func (x *DriveBase) StartFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDriveStartFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGDriveStartFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -315,9 +335,14 @@ func (x *DriveBase) Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOpe
 }
 
 // Finishes stopping a drive.
-func (x *DriveBase) StopFinish(ResultVar AsyncResult) bool {
+func (x *DriveBase) StopFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return XGDriveStopFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := XGDriveStopFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -327,9 +352,9 @@ var XGDriveCanStart func(uintptr) bool
 var XGDriveCanStartDegraded func(uintptr) bool
 var XGDriveCanStop func(uintptr) bool
 var XGDriveEject func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr)
-var XGDriveEjectFinish func(uintptr, uintptr) bool
+var XGDriveEjectFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDriveEjectWithOperation func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGDriveEjectWithOperationFinish func(uintptr, uintptr) bool
+var XGDriveEjectWithOperationFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDriveEnumerateIdentifiers func(uintptr) []string
 var XGDriveGetIcon func(uintptr) uintptr
 var XGDriveGetIdentifier func(uintptr, string) string
@@ -344,11 +369,11 @@ var XGDriveIsMediaCheckAutomatic func(uintptr) bool
 var XGDriveIsMediaRemovable func(uintptr) bool
 var XGDriveIsRemovable func(uintptr) bool
 var XGDrivePollForMedia func(uintptr, uintptr, uintptr, uintptr)
-var XGDrivePollForMediaFinish func(uintptr, uintptr) bool
+var XGDrivePollForMediaFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDriveStart func(uintptr, DriveStartFlags, uintptr, uintptr, uintptr, uintptr)
-var XGDriveStartFinish func(uintptr, uintptr) bool
+var XGDriveStartFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDriveStop func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
-var XGDriveStopFinish func(uintptr, uintptr) bool
+var XGDriveStopFinish func(uintptr, uintptr, **glib.Error) bool
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

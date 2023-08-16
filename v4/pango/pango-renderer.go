@@ -206,8 +206,8 @@ var xRendererGetAlpha func(uintptr, RenderPart) uint16
 // Gets the current alpha for the specified part.
 func (x *Renderer) GetAlpha(PartVar RenderPart) uint16 {
 
-	return xRendererGetAlpha(x.GoPointer(), PartVar)
-
+	cret := xRendererGetAlpha(x.GoPointer(), PartVar)
+	return cret
 }
 
 var xRendererGetColor func(uintptr, RenderPart) *Color
@@ -215,8 +215,8 @@ var xRendererGetColor func(uintptr, RenderPart) *Color
 // Gets the current rendering color for the specified part.
 func (x *Renderer) GetColor(PartVar RenderPart) *Color {
 
-	return xRendererGetColor(x.GoPointer(), PartVar)
-
+	cret := xRendererGetColor(x.GoPointer(), PartVar)
+	return cret
 }
 
 var xRendererGetLayout func(uintptr) uintptr
@@ -229,18 +229,17 @@ var xRendererGetLayout func(uintptr) uintptr
 // The returned layout should not be modified while still being
 // rendered.
 func (x *Renderer) GetLayout() *Layout {
+	var cls *Layout
 
-	GetLayoutPtr := xRendererGetLayout(x.GoPointer())
-	if GetLayoutPtr == 0 {
-		return nil
+	cret := xRendererGetLayout(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetLayoutPtr)
-
-	GetLayoutCls := &Layout{}
-	GetLayoutCls.Ptr = GetLayoutPtr
-	return GetLayoutCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Layout{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xRendererGetLayoutLine func(uintptr) *LayoutLine
@@ -254,8 +253,8 @@ var xRendererGetLayoutLine func(uintptr) *LayoutLine
 // rendered.
 func (x *Renderer) GetLayoutLine() *LayoutLine {
 
-	return xRendererGetLayoutLine(x.GoPointer())
-
+	cret := xRendererGetLayoutLine(x.GoPointer())
+	return cret
 }
 
 var xRendererGetMatrix func(uintptr) *Matrix
@@ -266,8 +265,8 @@ var xRendererGetMatrix func(uintptr) *Matrix
 // See [method@Pango.Renderer.set_matrix].
 func (x *Renderer) GetMatrix() *Matrix {
 
-	return xRendererGetMatrix(x.GoPointer())
-
+	cret := xRendererGetMatrix(x.GoPointer())
+	return cret
 }
 
 var xRendererPartChanged func(uintptr, RenderPart)

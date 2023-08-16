@@ -4,6 +4,7 @@ package gio
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // vtable for a #GDtlsServerConnection implementation.
@@ -29,19 +30,24 @@ func (x *DtlsServerConnectionBase) SetGoPointer(ptr uintptr) {
 	x.Ptr = ptr
 }
 
-var xDtlsServerConnectionNew func(uintptr, uintptr) uintptr
+var xDtlsServerConnectionNew func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GDtlsServerConnection wrapping @base_socket.
-func DtlsServerConnectionNew(BaseSocketVar DatagramBased, CertificateVar *TlsCertificate) *DtlsServerConnectionBase {
+func DtlsServerConnectionNew(BaseSocketVar DatagramBased, CertificateVar *TlsCertificate) (*DtlsServerConnectionBase, error) {
+	var cls *DtlsServerConnectionBase
+	var cerr *glib.Error
 
-	DtlsServerConnectionNewPtr := xDtlsServerConnectionNew(BaseSocketVar.GoPointer(), CertificateVar.GoPointer())
-	if DtlsServerConnectionNewPtr == 0 {
-		return nil
+	cret := xDtlsServerConnectionNew(BaseSocketVar.GoPointer(), CertificateVar.GoPointer(), &cerr)
+
+	if cret == 0 {
+		return cls, cerr
 	}
-
-	DtlsServerConnectionNewCls := &DtlsServerConnectionBase{}
-	DtlsServerConnectionNewCls.Ptr = DtlsServerConnectionNewPtr
-	return DtlsServerConnectionNewCls
+	cls = &DtlsServerConnectionBase{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
 
 }
 

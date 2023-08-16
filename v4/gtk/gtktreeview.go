@@ -157,32 +157,34 @@ var xNewTreeView func() uintptr
 
 // Creates a new `GtkTreeView` widget.
 func NewTreeView() *Widget {
-	NewTreeViewPtr := xNewTreeView()
-	if NewTreeViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewTreeView()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewTreeViewPtr)
-
-	NewTreeViewCls := &Widget{}
-	NewTreeViewCls.Ptr = NewTreeViewPtr
-	return NewTreeViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNewWithModelTreeView func(uintptr) uintptr
 
 // Creates a new `GtkTreeView` widget with the model initialized to @model.
 func NewWithModelTreeView(ModelVar TreeModel) *Widget {
-	NewWithModelTreeViewPtr := xNewWithModelTreeView(ModelVar.GoPointer())
-	if NewWithModelTreeViewPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewWithModelTreeView(ModelVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewWithModelTreeViewPtr)
-
-	NewWithModelTreeViewCls := &Widget{}
-	NewWithModelTreeViewCls.Ptr = NewWithModelTreeViewPtr
-	return NewWithModelTreeViewCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewAppendColumn func(uintptr, uintptr) int
@@ -192,8 +194,8 @@ var xTreeViewAppendColumn func(uintptr, uintptr) int
 // GTK_TREE_VIEW_COLUMN_FIXED.
 func (x *TreeView) AppendColumn(ColumnVar *TreeViewColumn) int {
 
-	return xTreeViewAppendColumn(x.GoPointer(), ColumnVar.GoPointer())
-
+	cret := xTreeViewAppendColumn(x.GoPointer(), ColumnVar.GoPointer())
+	return cret
 }
 
 var xTreeViewCollapseAll func(uintptr)
@@ -210,8 +212,8 @@ var xTreeViewCollapseRow func(uintptr, *TreePath) bool
 // Collapses a row (hides its child rows, if they exist).
 func (x *TreeView) CollapseRow(PathVar *TreePath) bool {
 
-	return xTreeViewCollapseRow(x.GoPointer(), PathVar)
-
+	cret := xTreeViewCollapseRow(x.GoPointer(), PathVar)
+	return cret
 }
 
 var xTreeViewColumnsAutosize func(uintptr)
@@ -287,16 +289,16 @@ var xTreeViewCreateRowDragIcon func(uintptr, *TreePath) uintptr
 // Creates a `cairo_surface_t` representation of the row at @path.
 // This image is used for a drag icon.
 func (x *TreeView) CreateRowDragIcon(PathVar *TreePath) *gdk.PaintableBase {
+	var cls *gdk.PaintableBase
 
-	CreateRowDragIconPtr := xTreeViewCreateRowDragIcon(x.GoPointer(), PathVar)
-	if CreateRowDragIconPtr == 0 {
-		return nil
+	cret := xTreeViewCreateRowDragIcon(x.GoPointer(), PathVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	CreateRowDragIconCls := &gdk.PaintableBase{}
-	CreateRowDragIconCls.Ptr = CreateRowDragIconPtr
-	return CreateRowDragIconCls
-
+	cls = &gdk.PaintableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewEnableModelDragDest func(uintptr, *gdk.ContentFormats, gdk.DragAction)
@@ -333,8 +335,8 @@ var xTreeViewExpandRow func(uintptr, *TreePath, bool) bool
 // Opens the row so its children are visible.
 func (x *TreeView) ExpandRow(PathVar *TreePath, OpenAllVar bool) bool {
 
-	return xTreeViewExpandRow(x.GoPointer(), PathVar, OpenAllVar)
-
+	cret := xTreeViewExpandRow(x.GoPointer(), PathVar, OpenAllVar)
+	return cret
 }
 
 var xTreeViewExpandToPath func(uintptr, *TreePath)
@@ -352,8 +354,8 @@ var xTreeViewGetActivateOnSingleClick func(uintptr) bool
 // Gets the setting set by gtk_tree_view_set_activate_on_single_click().
 func (x *TreeView) GetActivateOnSingleClick() bool {
 
-	return xTreeViewGetActivateOnSingleClick(x.GoPointer())
-
+	cret := xTreeViewGetActivateOnSingleClick(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetBackgroundArea func(uintptr, *TreePath, uintptr, *gdk.Rectangle)
@@ -394,18 +396,17 @@ var xTreeViewGetColumn func(uintptr, int) uintptr
 
 // Gets the `GtkTreeViewColumn` at the given position in the #tree_view.
 func (x *TreeView) GetColumn(NVar int) *TreeViewColumn {
+	var cls *TreeViewColumn
 
-	GetColumnPtr := xTreeViewGetColumn(x.GoPointer(), NVar)
-	if GetColumnPtr == 0 {
-		return nil
+	cret := xTreeViewGetColumn(x.GoPointer(), NVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetColumnPtr)
-
-	GetColumnCls := &TreeViewColumn{}
-	GetColumnCls.Ptr = GetColumnPtr
-	return GetColumnCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeViewColumn{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewGetColumns func(uintptr) *glib.List
@@ -414,8 +415,8 @@ var xTreeViewGetColumns func(uintptr) *glib.List
 // The returned list must be freed with g_list_free ().
 func (x *TreeView) GetColumns() *glib.List {
 
-	return xTreeViewGetColumns(x.GoPointer())
-
+	cret := xTreeViewGetColumns(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetCursor func(uintptr, **TreePath, *uintptr)
@@ -440,8 +441,8 @@ var xTreeViewGetDestRowAtPos func(uintptr, int, int, **TreePath, *TreeViewDropPo
 // return %FALSE if @tree_view is not realized or does not have a model.
 func (x *TreeView) GetDestRowAtPos(DragXVar int, DragYVar int, PathVar **TreePath, PosVar *TreeViewDropPosition) bool {
 
-	return xTreeViewGetDestRowAtPos(x.GoPointer(), DragXVar, DragYVar, PathVar, PosVar)
-
+	cret := xTreeViewGetDestRowAtPos(x.GoPointer(), DragXVar, DragYVar, PathVar, PosVar)
+	return cret
 }
 
 var xTreeViewGetDragDestRow func(uintptr, **TreePath, *TreeViewDropPosition)
@@ -459,8 +460,8 @@ var xTreeViewGetEnableSearch func(uintptr) bool
 // by typing in text.
 func (x *TreeView) GetEnableSearch() bool {
 
-	return xTreeViewGetEnableSearch(x.GoPointer())
-
+	cret := xTreeViewGetEnableSearch(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetEnableTreeLines func(uintptr) bool
@@ -468,8 +469,8 @@ var xTreeViewGetEnableTreeLines func(uintptr) bool
 // Returns whether or not tree lines are drawn in @tree_view.
 func (x *TreeView) GetEnableTreeLines() bool {
 
-	return xTreeViewGetEnableTreeLines(x.GoPointer())
-
+	cret := xTreeViewGetEnableTreeLines(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetExpanderColumn func(uintptr) uintptr
@@ -478,18 +479,17 @@ var xTreeViewGetExpanderColumn func(uintptr) uintptr
 // or %NULL if none has been set.
 // This column has the expander arrow drawn next to it.
 func (x *TreeView) GetExpanderColumn() *TreeViewColumn {
+	var cls *TreeViewColumn
 
-	GetExpanderColumnPtr := xTreeViewGetExpanderColumn(x.GoPointer())
-	if GetExpanderColumnPtr == 0 {
-		return nil
+	cret := xTreeViewGetExpanderColumn(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpanderColumnPtr)
-
-	GetExpanderColumnCls := &TreeViewColumn{}
-	GetExpanderColumnCls.Ptr = GetExpanderColumnPtr
-	return GetExpanderColumnCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeViewColumn{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewGetFixedHeightMode func(uintptr) bool
@@ -497,8 +497,8 @@ var xTreeViewGetFixedHeightMode func(uintptr) bool
 // Returns whether fixed height mode is turned on for @tree_view.
 func (x *TreeView) GetFixedHeightMode() bool {
 
-	return xTreeViewGetFixedHeightMode(x.GoPointer())
-
+	cret := xTreeViewGetFixedHeightMode(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetGridLines func(uintptr) TreeViewGridLines
@@ -506,8 +506,8 @@ var xTreeViewGetGridLines func(uintptr) TreeViewGridLines
 // Returns which grid lines are enabled in @tree_view.
 func (x *TreeView) GetGridLines() TreeViewGridLines {
 
-	return xTreeViewGetGridLines(x.GoPointer())
-
+	cret := xTreeViewGetGridLines(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetHeadersClickable func(uintptr) bool
@@ -515,8 +515,8 @@ var xTreeViewGetHeadersClickable func(uintptr) bool
 // Returns whether all header columns are clickable.
 func (x *TreeView) GetHeadersClickable() bool {
 
-	return xTreeViewGetHeadersClickable(x.GoPointer())
-
+	cret := xTreeViewGetHeadersClickable(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetHeadersVisible func(uintptr) bool
@@ -524,8 +524,8 @@ var xTreeViewGetHeadersVisible func(uintptr) bool
 // Returns %TRUE if the headers on the @tree_view are visible.
 func (x *TreeView) GetHeadersVisible() bool {
 
-	return xTreeViewGetHeadersVisible(x.GoPointer())
-
+	cret := xTreeViewGetHeadersVisible(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetHoverExpand func(uintptr) bool
@@ -533,8 +533,8 @@ var xTreeViewGetHoverExpand func(uintptr) bool
 // Returns whether hover expansion mode is turned on for @tree_view.
 func (x *TreeView) GetHoverExpand() bool {
 
-	return xTreeViewGetHoverExpand(x.GoPointer())
-
+	cret := xTreeViewGetHoverExpand(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetHoverSelection func(uintptr) bool
@@ -542,8 +542,8 @@ var xTreeViewGetHoverSelection func(uintptr) bool
 // Returns whether hover selection mode is turned on for @tree_view.
 func (x *TreeView) GetHoverSelection() bool {
 
-	return xTreeViewGetHoverSelection(x.GoPointer())
-
+	cret := xTreeViewGetHoverSelection(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetLevelIndentation func(uintptr) int
@@ -552,8 +552,8 @@ var xTreeViewGetLevelIndentation func(uintptr) int
 // in @tree_view.
 func (x *TreeView) GetLevelIndentation() int {
 
-	return xTreeViewGetLevelIndentation(x.GoPointer())
-
+	cret := xTreeViewGetLevelIndentation(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetModel func(uintptr) uintptr
@@ -561,18 +561,17 @@ var xTreeViewGetModel func(uintptr) uintptr
 // Returns the model the `GtkTreeView` is based on.  Returns %NULL if the
 // model is unset.
 func (x *TreeView) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
 
-	GetModelPtr := xTreeViewGetModel(x.GoPointer())
-	if GetModelPtr == 0 {
-		return nil
+	cret := xTreeViewGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetModelPtr)
-
-	GetModelCls := &TreeModelBase{}
-	GetModelCls.Ptr = GetModelPtr
-	return GetModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewGetNColumns func(uintptr) uint
@@ -580,8 +579,8 @@ var xTreeViewGetNColumns func(uintptr) uint
 // Queries the number of columns in the given @tree_view.
 func (x *TreeView) GetNColumns() uint {
 
-	return xTreeViewGetNColumns(x.GoPointer())
-
+	cret := xTreeViewGetNColumns(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetPathAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int) bool
@@ -604,8 +603,8 @@ var xTreeViewGetPathAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int
 // gtk_tree_view_convert_widget_to_bin_window_coords().
 func (x *TreeView) GetPathAtPos(XVar int, YVar int, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int, CellYVar int) bool {
 
-	return xTreeViewGetPathAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
-
+	cret := xTreeViewGetPathAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
+	return cret
 }
 
 var xTreeViewGetReorderable func(uintptr) bool
@@ -614,8 +613,8 @@ var xTreeViewGetReorderable func(uintptr) bool
 // gtk_tree_view_set_reorderable().
 func (x *TreeView) GetReorderable() bool {
 
-	return xTreeViewGetReorderable(x.GoPointer())
-
+	cret := xTreeViewGetReorderable(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
@@ -623,8 +622,8 @@ var xTreeViewGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
 // Returns the current row separator function.
 func (x *TreeView) GetRowSeparatorFunc() TreeViewRowSeparatorFunc {
 
-	return xTreeViewGetRowSeparatorFunc(x.GoPointer())
-
+	cret := xTreeViewGetRowSeparatorFunc(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetRubberBanding func(uintptr) bool
@@ -634,8 +633,8 @@ var xTreeViewGetRubberBanding func(uintptr) bool
 // user to select multiple rows by dragging the mouse.
 func (x *TreeView) GetRubberBanding() bool {
 
-	return xTreeViewGetRubberBanding(x.GoPointer())
-
+	cret := xTreeViewGetRubberBanding(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetSearchColumn func(uintptr) int
@@ -643,8 +642,8 @@ var xTreeViewGetSearchColumn func(uintptr) int
 // Gets the column searched on by the interactive search code.
 func (x *TreeView) GetSearchColumn() int {
 
-	return xTreeViewGetSearchColumn(x.GoPointer())
-
+	cret := xTreeViewGetSearchColumn(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetSearchEntry func(uintptr) uintptr
@@ -653,18 +652,17 @@ var xTreeViewGetSearchEntry func(uintptr) uintptr
 // entry for @tree_view.  In case the built-in entry is being used, %NULL
 // will be returned.
 func (x *TreeView) GetSearchEntry() *EditableBase {
+	var cls *EditableBase
 
-	GetSearchEntryPtr := xTreeViewGetSearchEntry(x.GoPointer())
-	if GetSearchEntryPtr == 0 {
-		return nil
+	cret := xTreeViewGetSearchEntry(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSearchEntryPtr)
-
-	GetSearchEntryCls := &EditableBase{}
-	GetSearchEntryCls.Ptr = GetSearchEntryPtr
-	return GetSearchEntryCls
-
+	gobject.IncreaseRef(cret)
+	cls = &EditableBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewGetSearchEqualFunc func(uintptr) TreeViewSearchEqualFunc
@@ -672,26 +670,25 @@ var xTreeViewGetSearchEqualFunc func(uintptr) TreeViewSearchEqualFunc
 // Returns the compare function currently in use.
 func (x *TreeView) GetSearchEqualFunc() TreeViewSearchEqualFunc {
 
-	return xTreeViewGetSearchEqualFunc(x.GoPointer())
-
+	cret := xTreeViewGetSearchEqualFunc(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetSelection func(uintptr) uintptr
 
 // Gets the `GtkTreeSelection` associated with @tree_view.
 func (x *TreeView) GetSelection() *TreeSelection {
+	var cls *TreeSelection
 
-	GetSelectionPtr := xTreeViewGetSelection(x.GoPointer())
-	if GetSelectionPtr == 0 {
-		return nil
+	cret := xTreeViewGetSelection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSelectionPtr)
-
-	GetSelectionCls := &TreeSelection{}
-	GetSelectionCls.Ptr = GetSelectionPtr
-	return GetSelectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &TreeSelection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xTreeViewGetShowExpanders func(uintptr) bool
@@ -699,8 +696,8 @@ var xTreeViewGetShowExpanders func(uintptr) bool
 // Returns whether or not expanders are drawn in @tree_view.
 func (x *TreeView) GetShowExpanders() bool {
 
-	return xTreeViewGetShowExpanders(x.GoPointer())
-
+	cret := xTreeViewGetShowExpanders(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetTooltipColumn func(uintptr) int
@@ -709,8 +706,8 @@ var xTreeViewGetTooltipColumn func(uintptr) int
 // displaying tooltips on @tree_view’s rows.
 func (x *TreeView) GetTooltipColumn() int {
 
-	return xTreeViewGetTooltipColumn(x.GoPointer())
-
+	cret := xTreeViewGetTooltipColumn(x.GoPointer())
+	return cret
 }
 
 var xTreeViewGetTooltipContext func(uintptr, int, int, bool, *uintptr, **TreePath, *TreeIter) bool
@@ -728,8 +725,8 @@ var xTreeViewGetTooltipContext func(uintptr, int, int, bool, *uintptr, **TreePat
 // to be relative to @tree_view’s bin_window if @keyboard_tooltip is %FALSE.
 func (x *TreeView) GetTooltipContext(XVar int, YVar int, KeyboardTipVar bool, ModelVar *TreeModel, PathVar **TreePath, IterVar *TreeIter) bool {
 
-	return xTreeViewGetTooltipContext(x.GoPointer(), XVar, YVar, KeyboardTipVar, gobject.ConvertPtr(ModelVar), PathVar, IterVar)
-
+	cret := xTreeViewGetTooltipContext(x.GoPointer(), XVar, YVar, KeyboardTipVar, gobject.ConvertPtr(ModelVar), PathVar, IterVar)
+	return cret
 }
 
 var xTreeViewGetVisibleRange func(uintptr, **TreePath, **TreePath) bool
@@ -740,8 +737,8 @@ var xTreeViewGetVisibleRange func(uintptr, **TreePath, **TreePath) bool
 // The paths should be freed with gtk_tree_path_free() after use.
 func (x *TreeView) GetVisibleRange(StartPathVar **TreePath, EndPathVar **TreePath) bool {
 
-	return xTreeViewGetVisibleRange(x.GoPointer(), StartPathVar, EndPathVar)
-
+	cret := xTreeViewGetVisibleRange(x.GoPointer(), StartPathVar, EndPathVar)
+	return cret
 }
 
 var xTreeViewGetVisibleRect func(uintptr, *gdk.Rectangle)
@@ -765,8 +762,8 @@ var xTreeViewInsertColumn func(uintptr, uintptr, int) int
 // set to be GTK_TREE_VIEW_COLUMN_FIXED.
 func (x *TreeView) InsertColumn(ColumnVar *TreeViewColumn, PositionVar int) int {
 
-	return xTreeViewInsertColumn(x.GoPointer(), ColumnVar.GoPointer(), PositionVar)
-
+	cret := xTreeViewInsertColumn(x.GoPointer(), ColumnVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xTreeViewInsertColumnWithAttributes func(uintptr, int, string, uintptr, ...interface{}) int
@@ -778,8 +775,8 @@ var xTreeViewInsertColumnWithAttributes func(uintptr, int, string, uintptr, ...i
 // property set to be GTK_TREE_VIEW_COLUMN_FIXED.
 func (x *TreeView) InsertColumnWithAttributes(PositionVar int, TitleVar string, CellVar *CellRenderer, varArgs ...interface{}) int {
 
-	return xTreeViewInsertColumnWithAttributes(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), varArgs...)
-
+	cret := xTreeViewInsertColumnWithAttributes(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), varArgs...)
+	return cret
 }
 
 var xTreeViewInsertColumnWithDataFunc func(uintptr, int, string, uintptr, uintptr, uintptr, uintptr) int
@@ -792,8 +789,8 @@ var xTreeViewInsertColumnWithDataFunc func(uintptr, int, string, uintptr, uintpt
 // “sizing” property set to be GTK_TREE_VIEW_COLUMN_FIXED.
 func (x *TreeView) InsertColumnWithDataFunc(PositionVar int, TitleVar string, CellVar *CellRenderer, FuncVar TreeCellDataFunc, DataVar uintptr, DnotifyVar glib.DestroyNotify) int {
 
-	return xTreeViewInsertColumnWithDataFunc(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DnotifyVar))
-
+	cret := xTreeViewInsertColumnWithDataFunc(x.GoPointer(), PositionVar, TitleVar, CellVar.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DnotifyVar))
+	return cret
 }
 
 var xTreeViewIsBlankAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int) bool
@@ -817,8 +814,8 @@ var xTreeViewIsBlankAtPos func(uintptr, int, int, **TreePath, *uintptr, int, int
 // gtk_tree_view_get_path_at_pos() for more information.
 func (x *TreeView) IsBlankAtPos(XVar int, YVar int, PathVar **TreePath, ColumnVar **TreeViewColumn, CellXVar int, CellYVar int) bool {
 
-	return xTreeViewIsBlankAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
-
+	cret := xTreeViewIsBlankAtPos(x.GoPointer(), XVar, YVar, PathVar, gobject.ConvertPtr(ColumnVar), CellXVar, CellYVar)
+	return cret
 }
 
 var xTreeViewIsRubberBandingActive func(uintptr) bool
@@ -827,8 +824,8 @@ var xTreeViewIsRubberBandingActive func(uintptr) bool
 // in @tree_view.
 func (x *TreeView) IsRubberBandingActive() bool {
 
-	return xTreeViewIsRubberBandingActive(x.GoPointer())
-
+	cret := xTreeViewIsRubberBandingActive(x.GoPointer())
+	return cret
 }
 
 var xTreeViewMapExpandedRows func(uintptr, uintptr, uintptr)
@@ -855,8 +852,8 @@ var xTreeViewRemoveColumn func(uintptr, uintptr) int
 // Removes @column from @tree_view.
 func (x *TreeView) RemoveColumn(ColumnVar *TreeViewColumn) int {
 
-	return xTreeViewRemoveColumn(x.GoPointer(), ColumnVar.GoPointer())
-
+	cret := xTreeViewRemoveColumn(x.GoPointer(), ColumnVar.GoPointer())
+	return cret
 }
 
 var xTreeViewRowActivated func(uintptr, *TreePath, uintptr)
@@ -873,8 +870,8 @@ var xTreeViewRowExpanded func(uintptr, *TreePath) bool
 // Returns %TRUE if the node pointed to by @path is expanded in @tree_view.
 func (x *TreeView) RowExpanded(PathVar *TreePath) bool {
 
-	return xTreeViewRowExpanded(x.GoPointer(), PathVar)
-
+	cret := xTreeViewRowExpanded(x.GoPointer(), PathVar)
+	return cret
 }
 
 var xTreeViewScrollToCell func(uintptr, *TreePath, uintptr, bool, float32, float32)
@@ -1495,8 +1492,8 @@ func (x *TreeView) ConnectUnselectAll(cb func(TreeView) bool) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *TreeView) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -1631,8 +1628,8 @@ func (x *TreeView) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *TreeView) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // Returns the size of a non-scrolling border around the
@@ -1643,54 +1640,52 @@ func (x *TreeView) GetBuildableId() string {
 // overshoot indication, at the right position.
 func (x *TreeView) GetBorder(BorderVar *Border) bool {
 
-	return XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
-
+	cret := XGtkScrollableGetBorder(x.GoPointer(), BorderVar)
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for horizontal scrolling.
 func (x *TreeView) GetHadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetHadjustmentPtr := XGtkScrollableGetHadjustment(x.GoPointer())
-	if GetHadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetHadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetHadjustmentPtr)
-
-	GetHadjustmentCls := &Adjustment{}
-	GetHadjustmentCls.Ptr = GetHadjustmentPtr
-	return GetHadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the horizontal `GtkScrollablePolicy`.
 func (x *TreeView) GetHscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetHscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetHscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Retrieves the `GtkAdjustment` used for vertical scrolling.
 func (x *TreeView) GetVadjustment() *Adjustment {
+	var cls *Adjustment
 
-	GetVadjustmentPtr := XGtkScrollableGetVadjustment(x.GoPointer())
-	if GetVadjustmentPtr == 0 {
-		return nil
+	cret := XGtkScrollableGetVadjustment(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetVadjustmentPtr)
-
-	GetVadjustmentCls := &Adjustment{}
-	GetVadjustmentCls.Ptr = GetVadjustmentPtr
-	return GetVadjustmentCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Adjustment{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the vertical `GtkScrollablePolicy`.
 func (x *TreeView) GetVscrollPolicy() ScrollablePolicy {
 
-	return XGtkScrollableGetVscrollPolicy(x.GoPointer())
-
+	cret := XGtkScrollableGetVscrollPolicy(x.GoPointer())
+	return cret
 }
 
 // Sets the horizontal adjustment of the `GtkScrollable`.

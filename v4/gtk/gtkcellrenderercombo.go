@@ -39,16 +39,17 @@ var xNewCellRendererCombo func() uintptr
 // on the cell renderer to a string value in the model, thus rendering
 // a different string in each row of the `GtkTreeView`.
 func NewCellRendererCombo() *CellRenderer {
-	NewCellRendererComboPtr := xNewCellRendererCombo()
-	if NewCellRendererComboPtr == 0 {
-		return nil
+	var cls *CellRenderer
+
+	cret := xNewCellRendererCombo()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewCellRendererComboPtr)
-
-	NewCellRendererComboCls := &CellRenderer{}
-	NewCellRendererComboCls.Ptr = NewCellRendererComboPtr
-	return NewCellRendererComboCls
+	gobject.IncreaseRef(cret)
+	cls = &CellRenderer{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CellRendererCombo) GoPointer() uintptr {

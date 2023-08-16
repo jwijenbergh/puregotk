@@ -68,34 +68,34 @@ var xNewSplitButton func() uintptr
 
 // Creates a new `AdwSplitButton`.
 func NewSplitButton() *gtk.Widget {
-	NewSplitButtonPtr := xNewSplitButton()
-	if NewSplitButtonPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewSplitButton()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewSplitButtonPtr)
-
-	NewSplitButtonCls := &gtk.Widget{}
-	NewSplitButtonCls.Ptr = NewSplitButtonPtr
-	return NewSplitButtonCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSplitButtonGetChild func(uintptr) uintptr
 
 // Gets the child widget.
 func (x *SplitButton) GetChild() *gtk.Widget {
+	var cls *gtk.Widget
 
-	GetChildPtr := xSplitButtonGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xSplitButtonGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &gtk.Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSplitButtonGetDirection func(uintptr) gtk.ArrowType
@@ -103,8 +103,8 @@ var xSplitButtonGetDirection func(uintptr) gtk.ArrowType
 // Gets the direction in which the popup will be popped up.
 func (x *SplitButton) GetDirection() gtk.ArrowType {
 
-	return xSplitButtonGetDirection(x.GoPointer())
-
+	cret := xSplitButtonGetDirection(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonGetDropdownTooltip func(uintptr) string
@@ -112,8 +112,8 @@ var xSplitButtonGetDropdownTooltip func(uintptr) string
 // Gets the tooltip of the dropdown button of @self.
 func (x *SplitButton) GetDropdownTooltip() string {
 
-	return xSplitButtonGetDropdownTooltip(x.GoPointer())
-
+	cret := xSplitButtonGetDropdownTooltip(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonGetIconName func(uintptr) string
@@ -121,8 +121,8 @@ var xSplitButtonGetIconName func(uintptr) string
 // Gets the name of the icon used to automatically populate the button.
 func (x *SplitButton) GetIconName() string {
 
-	return xSplitButtonGetIconName(x.GoPointer())
-
+	cret := xSplitButtonGetIconName(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonGetLabel func(uintptr) string
@@ -130,44 +130,42 @@ var xSplitButtonGetLabel func(uintptr) string
 // Gets the label for @self.
 func (x *SplitButton) GetLabel() string {
 
-	return xSplitButtonGetLabel(x.GoPointer())
-
+	cret := xSplitButtonGetLabel(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonGetMenuModel func(uintptr) uintptr
 
 // Gets the menu model from which the popup will be created.
 func (x *SplitButton) GetMenuModel() *gio.MenuModel {
+	var cls *gio.MenuModel
 
-	GetMenuModelPtr := xSplitButtonGetMenuModel(x.GoPointer())
-	if GetMenuModelPtr == 0 {
-		return nil
+	cret := xSplitButtonGetMenuModel(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuModelPtr)
-
-	GetMenuModelCls := &gio.MenuModel{}
-	GetMenuModelCls.Ptr = GetMenuModelPtr
-	return GetMenuModelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gio.MenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSplitButtonGetPopover func(uintptr) uintptr
 
 // Gets the popover that will be popped up when the dropdown is clicked.
 func (x *SplitButton) GetPopover() *gtk.Popover {
+	var cls *gtk.Popover
 
-	GetPopoverPtr := xSplitButtonGetPopover(x.GoPointer())
-	if GetPopoverPtr == 0 {
-		return nil
+	cret := xSplitButtonGetPopover(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPopoverPtr)
-
-	GetPopoverCls := &gtk.Popover{}
-	GetPopoverCls.Ptr = GetPopoverPtr
-	return GetPopoverCls
-
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Popover{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSplitButtonGetUseUnderline func(uintptr) bool
@@ -175,8 +173,8 @@ var xSplitButtonGetUseUnderline func(uintptr) bool
 // Gets whether an underline in the text indicates a mnemonic.
 func (x *SplitButton) GetUseUnderline() bool {
 
-	return xSplitButtonGetUseUnderline(x.GoPointer())
-
+	cret := xSplitButtonGetUseUnderline(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonPopdown func(uintptr)
@@ -341,8 +339,8 @@ func (x *SplitButton) ConnectClicked(cb func(SplitButton)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *SplitButton) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -474,15 +472,15 @@ func (x *SplitButton) UpdateStateValue(NStatesVar int, StatesVar uintptr, Values
 // Gets the action name for @actionable.
 func (x *SplitButton) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *SplitButton) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -560,8 +558,8 @@ func (x *SplitButton) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *SplitButton) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

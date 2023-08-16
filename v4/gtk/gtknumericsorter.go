@@ -32,32 +32,33 @@ var xNewNumericSorter func(uintptr) uintptr
 // Smaller numbers will be sorted first. You can call
 // [method@Gtk.NumericSorter.set_sort_order] to change this.
 func NewNumericSorter(ExpressionVar *Expression) *NumericSorter {
-	NewNumericSorterPtr := xNewNumericSorter(ExpressionVar.GoPointer())
-	if NewNumericSorterPtr == 0 {
-		return nil
-	}
+	var cls *NumericSorter
 
-	NewNumericSorterCls := &NumericSorter{}
-	NewNumericSorterCls.Ptr = NewNumericSorterPtr
-	return NewNumericSorterCls
+	cret := xNewNumericSorter(ExpressionVar.GoPointer())
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &NumericSorter{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNumericSorterGetExpression func(uintptr) uintptr
 
 // Gets the expression that is evaluated to obtain numbers from items.
 func (x *NumericSorter) GetExpression() *Expression {
+	var cls *Expression
 
-	GetExpressionPtr := xNumericSorterGetExpression(x.GoPointer())
-	if GetExpressionPtr == 0 {
-		return nil
+	cret := xNumericSorterGetExpression(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetExpressionPtr)
-
-	GetExpressionCls := &Expression{}
-	GetExpressionCls.Ptr = GetExpressionPtr
-	return GetExpressionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Expression{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNumericSorterGetSortOrder func(uintptr) SortType
@@ -65,8 +66,8 @@ var xNumericSorterGetSortOrder func(uintptr) SortType
 // Gets whether this sorter will sort smaller numbers first.
 func (x *NumericSorter) GetSortOrder() SortType {
 
-	return xNumericSorterGetSortOrder(x.GoPointer())
-
+	cret := xNumericSorterGetSortOrder(x.GoPointer())
+	return cret
 }
 
 var xNumericSorterSetExpression func(uintptr, uintptr)

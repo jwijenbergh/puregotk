@@ -51,16 +51,17 @@ var xNewBanner func(string) uintptr
 
 // Creates a new `AdwBanner`.
 func NewBanner(TitleVar string) *gtk.Widget {
-	NewBannerPtr := xNewBanner(TitleVar)
-	if NewBannerPtr == 0 {
-		return nil
+	var cls *gtk.Widget
+
+	cret := xNewBanner(TitleVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewBannerPtr)
-
-	NewBannerCls := &gtk.Widget{}
-	NewBannerCls.Ptr = NewBannerPtr
-	return NewBannerCls
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xBannerGetButtonLabel func(uintptr) string
@@ -68,8 +69,8 @@ var xBannerGetButtonLabel func(uintptr) string
 // Gets the button label for @self.
 func (x *Banner) GetButtonLabel() string {
 
-	return xBannerGetButtonLabel(x.GoPointer())
-
+	cret := xBannerGetButtonLabel(x.GoPointer())
+	return cret
 }
 
 var xBannerGetRevealed func(uintptr) bool
@@ -77,8 +78,8 @@ var xBannerGetRevealed func(uintptr) bool
 // Gets if a banner is revealed
 func (x *Banner) GetRevealed() bool {
 
-	return xBannerGetRevealed(x.GoPointer())
-
+	cret := xBannerGetRevealed(x.GoPointer())
+	return cret
 }
 
 var xBannerGetTitle func(uintptr) string
@@ -86,8 +87,8 @@ var xBannerGetTitle func(uintptr) string
 // Gets the title for @self.
 func (x *Banner) GetTitle() string {
 
-	return xBannerGetTitle(x.GoPointer())
-
+	cret := xBannerGetTitle(x.GoPointer())
+	return cret
 }
 
 var xBannerGetUseMarkup func(uintptr) bool
@@ -95,8 +96,8 @@ var xBannerGetUseMarkup func(uintptr) bool
 // Gets whether to use Pango markup for the banner title.
 func (x *Banner) GetUseMarkup() bool {
 
-	return xBannerGetUseMarkup(x.GoPointer())
-
+	cret := xBannerGetUseMarkup(x.GoPointer())
+	return cret
 }
 
 var xBannerSetButtonLabel func(uintptr, string)
@@ -169,8 +170,8 @@ func (x *Banner) ConnectButtonClicked(cb func(Banner)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Banner) GetAccessibleRole() gtk.AccessibleRole {
 
-	return gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -302,15 +303,15 @@ func (x *Banner) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar u
 // Gets the action name for @actionable.
 func (x *Banner) GetActionName() string {
 
-	return gtk.XGtkActionableGetActionName(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
+	return cret
 }
 
 // Gets the current target value of @actionable.
 func (x *Banner) GetActionTargetValue() *glib.Variant {
 
-	return gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
-
+	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
+	return cret
 }
 
 // Specifies the name of the action with which this widget should be
@@ -388,8 +389,8 @@ func (x *Banner) SetDetailedActionName(DetailedActionNameVar string) {
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Banner) GetBuildableId() string {
 
-	return gtk.XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 func init() {

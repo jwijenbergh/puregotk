@@ -43,8 +43,8 @@ func (x *SwipeableBase) SetGoPointer(ptr uintptr) {
 // Gets the progress @self will snap back to after the gesture is canceled.
 func (x *SwipeableBase) GetCancelProgress() float64 {
 
-	return XAdwSwipeableGetCancelProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetCancelProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the swipe distance of @self.
@@ -52,15 +52,15 @@ func (x *SwipeableBase) GetCancelProgress() float64 {
 // This corresponds to how many pixels 1 unit represents.
 func (x *SwipeableBase) GetDistance() float64 {
 
-	return XAdwSwipeableGetDistance(x.GoPointer())
-
+	cret := XAdwSwipeableGetDistance(x.GoPointer())
+	return cret
 }
 
 // Gets the current progress of @self.
 func (x *SwipeableBase) GetProgress() float64 {
 
-	return XAdwSwipeableGetProgress(x.GoPointer())
-
+	cret := XAdwSwipeableGetProgress(x.GoPointer())
+	return cret
 }
 
 // Gets the snap points of @self.
@@ -69,8 +69,8 @@ func (x *SwipeableBase) GetProgress() float64 {
 // end the swipe on.
 func (x *SwipeableBase) GetSnapPoints(NSnapPointsVar int) uintptr {
 
-	return XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
-
+	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
+	return cret
 }
 
 // Gets the area @self can start a swipe from for the given direction and

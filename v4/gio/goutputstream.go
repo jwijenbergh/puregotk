@@ -45,7 +45,7 @@ func (x *OutputStream) ClearPending() {
 
 }
 
-var xOutputStreamClose func(uintptr, uintptr) bool
+var xOutputStreamClose func(uintptr, uintptr, **glib.Error) bool
 
 // Closes the stream, releasing resources related to it.
 //
@@ -76,9 +76,14 @@ var xOutputStreamClose func(uintptr, uintptr) bool
 // can use a faster close that doesn't block to e.g. check errors. On
 // cancellation (as with any error) there is no guarantee that all written
 // data will reach the target.
-func (x *OutputStream) Close(CancellableVar *Cancellable) bool {
+func (x *OutputStream) Close(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamClose(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xOutputStreamClose(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -100,16 +105,21 @@ func (x *OutputStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable
 
 }
 
-var xOutputStreamCloseFinish func(uintptr, uintptr) bool
+var xOutputStreamCloseFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Closes an output stream.
-func (x *OutputStream) CloseFinish(ResultVar AsyncResult) bool {
+func (x *OutputStream) CloseFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xOutputStreamCloseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamFlush func(uintptr, uintptr) bool
+var xOutputStreamFlush func(uintptr, uintptr, **glib.Error) bool
 
 // Forces a write of all user-space buffered data for the given
 // @stream. Will block during the operation. Closing the stream will
@@ -120,9 +130,14 @@ var xOutputStreamFlush func(uintptr, uintptr) bool
 // If @cancellable is not %NULL, then the operation can be cancelled by
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-func (x *OutputStream) Flush(CancellableVar *Cancellable) bool {
+func (x *OutputStream) Flush(CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamFlush(x.GoPointer(), CancellableVar.GoPointer())
+	cret := xOutputStreamFlush(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -141,12 +156,17 @@ func (x *OutputStream) FlushAsync(IoPriorityVar int, CancellableVar *Cancellable
 
 }
 
-var xOutputStreamFlushFinish func(uintptr, uintptr) bool
+var xOutputStreamFlushFinish func(uintptr, uintptr, **glib.Error) bool
 
 // Finishes flushing an output stream.
-func (x *OutputStream) FlushFinish(ResultVar AsyncResult) bool {
+func (x *OutputStream) FlushFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamFlushFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xOutputStreamFlushFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -155,8 +175,8 @@ var xOutputStreamHasPending func(uintptr) bool
 // Checks if an output stream has pending actions.
 func (x *OutputStream) HasPending() bool {
 
-	return xOutputStreamHasPending(x.GoPointer())
-
+	cret := xOutputStreamHasPending(x.GoPointer())
+	return cret
 }
 
 var xOutputStreamIsClosed func(uintptr) bool
@@ -164,8 +184,8 @@ var xOutputStreamIsClosed func(uintptr) bool
 // Checks if an output stream has already been closed.
 func (x *OutputStream) IsClosed() bool {
 
-	return xOutputStreamIsClosed(x.GoPointer())
-
+	cret := xOutputStreamIsClosed(x.GoPointer())
+	return cret
 }
 
 var xOutputStreamIsClosing func(uintptr) bool
@@ -176,8 +196,8 @@ var xOutputStreamIsClosing func(uintptr) bool
 // the closing operation.
 func (x *OutputStream) IsClosing() bool {
 
-	return xOutputStreamIsClosing(x.GoPointer())
-
+	cret := xOutputStreamIsClosing(x.GoPointer())
+	return cret
 }
 
 var xOutputStreamPrintf func(uintptr, uint, uintptr, **glib.Error, string, ...interface{}) bool
@@ -196,8 +216,8 @@ var xOutputStreamPrintf func(uintptr, uint, uintptr, **glib.Error, string, ...in
 // or g_output_stream_write_all().
 func (x *OutputStream) Printf(BytesWrittenVar uint, CancellableVar *Cancellable, ErrorVar **glib.Error, FormatVar string, varArgs ...interface{}) bool {
 
-	return xOutputStreamPrintf(x.GoPointer(), BytesWrittenVar, CancellableVar.GoPointer(), ErrorVar, FormatVar, varArgs...)
-
+	cret := xOutputStreamPrintf(x.GoPointer(), BytesWrittenVar, CancellableVar.GoPointer(), ErrorVar, FormatVar, varArgs...)
+	return cret
 }
 
 var xOutputStreamSetPending func(uintptr) bool
@@ -205,18 +225,28 @@ var xOutputStreamSetPending func(uintptr) bool
 // Sets @stream to have actions pending. If the pending flag is
 // already set or @stream is closed, it will return %FALSE and set
 // @error.
-func (x *OutputStream) SetPending() bool {
+func (x *OutputStream) SetPending() (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamSetPending(x.GoPointer())
+	cret := xOutputStreamSetPending(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamSplice func(uintptr, uintptr, OutputStreamSpliceFlags, uintptr) int
+var xOutputStreamSplice func(uintptr, uintptr, OutputStreamSpliceFlags, uintptr, **glib.Error) int
 
 // Splices an input stream into an output stream.
-func (x *OutputStream) Splice(SourceVar *InputStream, FlagsVar OutputStreamSpliceFlags, CancellableVar *Cancellable) int {
+func (x *OutputStream) Splice(SourceVar *InputStream, FlagsVar OutputStreamSpliceFlags, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamSplice(x.GoPointer(), SourceVar.GoPointer(), FlagsVar, CancellableVar.GoPointer())
+	cret := xOutputStreamSplice(x.GoPointer(), SourceVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -235,12 +265,17 @@ func (x *OutputStream) SpliceAsync(SourceVar *InputStream, FlagsVar OutputStream
 
 }
 
-var xOutputStreamSpliceFinish func(uintptr, uintptr) int
+var xOutputStreamSpliceFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes an asynchronous stream splice operation.
-func (x *OutputStream) SpliceFinish(ResultVar AsyncResult) int {
+func (x *OutputStream) SpliceFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamSpliceFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xOutputStreamSpliceFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -260,11 +295,11 @@ var xOutputStreamVprintf func(uintptr, uint, uintptr, **glib.Error, string, []in
 // or g_output_stream_write_all().
 func (x *OutputStream) Vprintf(BytesWrittenVar uint, CancellableVar *Cancellable, ErrorVar **glib.Error, FormatVar string, ArgsVar []interface{}) bool {
 
-	return xOutputStreamVprintf(x.GoPointer(), BytesWrittenVar, CancellableVar.GoPointer(), ErrorVar, FormatVar, ArgsVar)
-
+	cret := xOutputStreamVprintf(x.GoPointer(), BytesWrittenVar, CancellableVar.GoPointer(), ErrorVar, FormatVar, ArgsVar)
+	return cret
 }
 
-var xOutputStreamWrite func(uintptr, uintptr, uint, uintptr) int
+var xOutputStreamWrite func(uintptr, uintptr, uint, uintptr, **glib.Error) int
 
 // Tries to write @count bytes from @buffer into the stream. Will block
 // during the operation.
@@ -286,13 +321,18 @@ var xOutputStreamWrite func(uintptr, uintptr, uint, uintptr) int
 // partial result will be returned, without an error.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *OutputStream) Write(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) int {
+func (x *OutputStream) Write(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWrite(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer())
+	cret := xOutputStreamWrite(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamWriteAll func(uintptr, uintptr, uint, uint, uintptr) bool
+var xOutputStreamWriteAll func(uintptr, uintptr, uint, uint, uintptr, **glib.Error) bool
 
 // Tries to write @count bytes from @buffer into the stream. Will block
 // during the operation.
@@ -313,9 +353,14 @@ var xOutputStreamWriteAll func(uintptr, uintptr, uint, uint, uintptr) bool
 // functionality is only available from C.  If you need it from another
 // language then you must write your own loop around
 // g_output_stream_write().
-func (x *OutputStream) WriteAll(BufferVar uintptr, CountVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) bool {
+func (x *OutputStream) WriteAll(BufferVar uintptr, CountVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWriteAll(x.GoPointer(), BufferVar, CountVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := xOutputStreamWriteAll(x.GoPointer(), BufferVar, CountVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -342,7 +387,7 @@ func (x *OutputStream) WriteAllAsync(BufferVar uintptr, CountVar uint, IoPriorit
 
 }
 
-var xOutputStreamWriteAllFinish func(uintptr, uintptr, uint) bool
+var xOutputStreamWriteAllFinish func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Finishes an asynchronous stream write operation started with
 // g_output_stream_write_all_async().
@@ -354,9 +399,14 @@ var xOutputStreamWriteAllFinish func(uintptr, uintptr, uint) bool
 // functionality is only available from C.  If you need it from another
 // language then you must write your own loop around
 // g_output_stream_write_async().
-func (x *OutputStream) WriteAllFinish(ResultVar AsyncResult, BytesWrittenVar uint) bool {
+func (x *OutputStream) WriteAllFinish(ResultVar AsyncResult, BytesWrittenVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWriteAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar)
+	cret := xOutputStreamWriteAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -403,7 +453,7 @@ func (x *OutputStream) WriteAsync(BufferVar uintptr, CountVar uint, IoPriorityVa
 
 }
 
-var xOutputStreamWriteBytes func(uintptr, *glib.Bytes, uintptr) int
+var xOutputStreamWriteBytes func(uintptr, *glib.Bytes, uintptr, **glib.Error) int
 
 // A wrapper function for g_output_stream_write() which takes a
 // #GBytes as input.  This can be more convenient for use by language
@@ -416,9 +466,14 @@ var xOutputStreamWriteBytes func(uintptr, *glib.Bytes, uintptr) int
 // remaining bytes, using g_bytes_new_from_bytes(). Passing the same
 // #GBytes instance multiple times potentially can result in duplicated
 // data in the output stream.
-func (x *OutputStream) WriteBytes(BytesVar *glib.Bytes, CancellableVar *Cancellable) int {
+func (x *OutputStream) WriteBytes(BytesVar *glib.Bytes, CancellableVar *Cancellable) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWriteBytes(x.GoPointer(), BytesVar, CancellableVar.GoPointer())
+	cret := xOutputStreamWriteBytes(x.GoPointer(), BytesVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -443,25 +498,35 @@ func (x *OutputStream) WriteBytesAsync(BytesVar *glib.Bytes, IoPriorityVar int, 
 
 }
 
-var xOutputStreamWriteBytesFinish func(uintptr, uintptr) int
+var xOutputStreamWriteBytesFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes a stream write-from-#GBytes operation.
-func (x *OutputStream) WriteBytesFinish(ResultVar AsyncResult) int {
+func (x *OutputStream) WriteBytesFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWriteBytesFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xOutputStreamWriteBytesFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamWriteFinish func(uintptr, uintptr) int
+var xOutputStreamWriteFinish func(uintptr, uintptr, **glib.Error) int
 
 // Finishes a stream write operation.
-func (x *OutputStream) WriteFinish(ResultVar AsyncResult) int {
+func (x *OutputStream) WriteFinish(ResultVar AsyncResult) (int, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWriteFinish(x.GoPointer(), ResultVar.GoPointer())
+	cret := xOutputStreamWriteFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamWritev func(uintptr, uintptr, uint, uint, uintptr) bool
+var xOutputStreamWritev func(uintptr, uintptr, uint, uint, uintptr, **glib.Error) bool
 
 // Tries to write the bytes contained in the @n_vectors @vectors into the
 // stream. Will block during the operation.
@@ -486,13 +551,18 @@ var xOutputStreamWritev func(uintptr, uintptr, uint, uint, uintptr) bool
 // aggregate buffer size, and will return %G_IO_ERROR_INVALID_ARGUMENT if these
 // are exceeded. For example, when writing to a local file on UNIX platforms,
 // the aggregate buffer size must not exceed %G_MAXSSIZE bytes.
-func (x *OutputStream) Writev(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) bool {
+func (x *OutputStream) Writev(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWritev(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := xOutputStreamWritev(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
-var xOutputStreamWritevAll func(uintptr, uintptr, uint, uint, uintptr) bool
+var xOutputStreamWritevAll func(uintptr, uintptr, uint, uint, uintptr, **glib.Error) bool
 
 // Tries to write the bytes contained in the @n_vectors @vectors into the
 // stream. Will block during the operation.
@@ -516,9 +586,14 @@ var xOutputStreamWritevAll func(uintptr, uintptr, uint, uint, uintptr) bool
 //
 // The content of the individual elements of @vectors might be changed by this
 // function.
-func (x *OutputStream) WritevAll(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) bool {
+func (x *OutputStream) WritevAll(VectorsVar uintptr, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWritevAll(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer())
+	cret := xOutputStreamWritevAll(x.GoPointer(), VectorsVar, NVectorsVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -546,7 +621,7 @@ func (x *OutputStream) WritevAllAsync(VectorsVar uintptr, NVectorsVar uint, IoPr
 
 }
 
-var xOutputStreamWritevAllFinish func(uintptr, uintptr, uint) bool
+var xOutputStreamWritevAllFinish func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Finishes an asynchronous stream write operation started with
 // g_output_stream_writev_all_async().
@@ -558,9 +633,14 @@ var xOutputStreamWritevAllFinish func(uintptr, uintptr, uint) bool
 // functionality is only available from C.  If you need it from another
 // language then you must write your own loop around
 // g_output_stream_writev_async().
-func (x *OutputStream) WritevAllFinish(ResultVar AsyncResult, BytesWrittenVar uint) bool {
+func (x *OutputStream) WritevAllFinish(ResultVar AsyncResult, BytesWrittenVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWritevAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar)
+	cret := xOutputStreamWritevAllFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -602,12 +682,17 @@ func (x *OutputStream) WritevAsync(VectorsVar uintptr, NVectorsVar uint, IoPrior
 
 }
 
-var xOutputStreamWritevFinish func(uintptr, uintptr, uint) bool
+var xOutputStreamWritevFinish func(uintptr, uintptr, uint, **glib.Error) bool
 
 // Finishes a stream writev operation.
-func (x *OutputStream) WritevFinish(ResultVar AsyncResult, BytesWrittenVar uint) bool {
+func (x *OutputStream) WritevFinish(ResultVar AsyncResult, BytesWrittenVar uint) (bool, error) {
+	var cerr *glib.Error
 
-	return xOutputStreamWritevFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar)
+	cret := xOutputStreamWritevFinish(x.GoPointer(), ResultVar.GoPointer(), BytesWrittenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

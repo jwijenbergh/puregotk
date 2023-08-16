@@ -80,14 +80,16 @@ var xNewCallbackAction func(uintptr, uintptr, uintptr) uintptr
 // Create a custom action that calls the given @callback when
 // activated.
 func NewCallbackAction(CallbackVar ShortcutFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) *CallbackAction {
-	NewCallbackActionPtr := xNewCallbackAction(purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DestroyVar))
-	if NewCallbackActionPtr == 0 {
-		return nil
-	}
+	var cls *CallbackAction
 
-	NewCallbackActionCls := &CallbackAction{}
-	NewCallbackActionCls.Ptr = NewCallbackActionPtr
-	return NewCallbackActionCls
+	cret := xNewCallbackAction(purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DestroyVar))
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &CallbackAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *CallbackAction) GoPointer() uintptr {
@@ -138,14 +140,16 @@ var xNewNamedAction func(string) uintptr
 // See [method@Gtk.Widget.insert_action_group] for
 // how to add actions to widgets.
 func NewNamedAction(NameVar string) *NamedAction {
-	NewNamedActionPtr := xNewNamedAction(NameVar)
-	if NewNamedActionPtr == 0 {
-		return nil
-	}
+	var cls *NamedAction
 
-	NewNamedActionCls := &NamedAction{}
-	NewNamedActionCls.Ptr = NewNamedActionPtr
-	return NewNamedActionCls
+	cret := xNewNamedAction(NameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &NamedAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNamedActionGetActionName func(uintptr) string
@@ -153,8 +157,8 @@ var xNamedActionGetActionName func(uintptr) string
 // Returns the name of the action that will be activated.
 func (x *NamedAction) GetActionName() string {
 
-	return xNamedActionGetActionName(x.GoPointer())
-
+	cret := xNamedActionGetActionName(x.GoPointer())
+	return cret
 }
 
 func (c *NamedAction) GoPointer() uintptr {
@@ -236,14 +240,16 @@ var xParseStringShortcutAction func(string) uintptr
 // - `action(NAME)`, for a `GtkNamedAction` for the action named `NAME`
 // - `signal(NAME)`, for a `GtkSignalAction` for the signal `NAME`
 func ParseStringShortcutAction(StringVar string) *ShortcutAction {
-	ParseStringShortcutActionPtr := xParseStringShortcutAction(StringVar)
-	if ParseStringShortcutActionPtr == 0 {
-		return nil
-	}
+	var cls *ShortcutAction
 
-	ParseStringShortcutActionCls := &ShortcutAction{}
-	ParseStringShortcutActionCls.Ptr = ParseStringShortcutActionPtr
-	return ParseStringShortcutActionCls
+	cret := xParseStringShortcutAction(StringVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ShortcutAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xShortcutActionActivate func(uintptr, ShortcutActionFlags, uintptr, *glib.Variant) bool
@@ -257,8 +263,8 @@ var xShortcutActionActivate func(uintptr, ShortcutActionFlags, uintptr, *glib.Va
 // or if the activation otherwise had no effect, %FALSE will be returned.
 func (x *ShortcutAction) Activate(FlagsVar ShortcutActionFlags, WidgetVar *Widget, ArgsVar *glib.Variant) bool {
 
-	return xShortcutActionActivate(x.GoPointer(), FlagsVar, WidgetVar.GoPointer(), ArgsVar)
-
+	cret := xShortcutActionActivate(x.GoPointer(), FlagsVar, WidgetVar.GoPointer(), ArgsVar)
+	return cret
 }
 
 var xShortcutActionPrint func(uintptr, *glib.String)
@@ -283,8 +289,8 @@ var xShortcutActionToString func(uintptr) string
 // to help when debugging.
 func (x *ShortcutAction) ToString() string {
 
-	return xShortcutActionToString(x.GoPointer())
-
+	cret := xShortcutActionToString(x.GoPointer())
+	return cret
 }
 
 func (c *ShortcutAction) GoPointer() uintptr {
@@ -316,14 +322,16 @@ var xNewSignalAction func(string) uintptr
 //
 // It will also unpack the args into arguments passed to the signal.
 func NewSignalAction(SignalNameVar string) *SignalAction {
-	NewSignalActionPtr := xNewSignalAction(SignalNameVar)
-	if NewSignalActionPtr == 0 {
-		return nil
-	}
+	var cls *SignalAction
 
-	NewSignalActionCls := &SignalAction{}
-	NewSignalActionCls.Ptr = NewSignalActionPtr
-	return NewSignalActionCls
+	cret := xNewSignalAction(SignalNameVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &SignalAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xSignalActionGetSignalName func(uintptr) string
@@ -331,8 +339,8 @@ var xSignalActionGetSignalName func(uintptr) string
 // Returns the name of the signal that will be emitted.
 func (x *SignalAction) GetSignalName() string {
 
-	return xSignalActionGetSignalName(x.GoPointer())
-
+	cret := xSignalActionGetSignalName(x.GoPointer())
+	return cret
 }
 
 func (c *SignalAction) GoPointer() uintptr {

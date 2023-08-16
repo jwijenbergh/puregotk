@@ -16,8 +16,8 @@ var xAcceleratorGetDefaultModMask func() gdk.ModifierType
 // for %GDK_LOCK_MASK.
 func AcceleratorGetDefaultModMask() gdk.ModifierType {
 
-	return xAcceleratorGetDefaultModMask()
-
+	cret := xAcceleratorGetDefaultModMask()
+	return cret
 }
 
 var xAcceleratorGetLabel func(uint, gdk.ModifierType) string
@@ -26,8 +26,8 @@ var xAcceleratorGetLabel func(uint, gdk.ModifierType) string
 // which can be used to represent the accelerator to the user.
 func AcceleratorGetLabel(AcceleratorKeyVar uint, AcceleratorModsVar gdk.ModifierType) string {
 
-	return xAcceleratorGetLabel(AcceleratorKeyVar, AcceleratorModsVar)
-
+	cret := xAcceleratorGetLabel(AcceleratorKeyVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorGetLabelWithKeycode func(uintptr, uint, uint, gdk.ModifierType) string
@@ -43,8 +43,8 @@ var xAcceleratorGetLabelWithKeycode func(uintptr, uint, uint, gdk.ModifierType) 
 // instead.
 func AcceleratorGetLabelWithKeycode(DisplayVar *gdk.Display, AcceleratorKeyVar uint, KeycodeVar uint, AcceleratorModsVar gdk.ModifierType) string {
 
-	return xAcceleratorGetLabelWithKeycode(DisplayVar.GoPointer(), AcceleratorKeyVar, KeycodeVar, AcceleratorModsVar)
-
+	cret := xAcceleratorGetLabelWithKeycode(DisplayVar.GoPointer(), AcceleratorKeyVar, KeycodeVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorName func(uint, gdk.ModifierType) string
@@ -59,8 +59,8 @@ var xAcceleratorName func(uint, gdk.ModifierType) string
 // see [func@Gtk.accelerator_get_label].
 func AcceleratorName(AcceleratorKeyVar uint, AcceleratorModsVar gdk.ModifierType) string {
 
-	return xAcceleratorName(AcceleratorKeyVar, AcceleratorModsVar)
-
+	cret := xAcceleratorName(AcceleratorKeyVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorNameWithKeycode func(uintptr, uint, uint, gdk.ModifierType) string
@@ -73,8 +73,8 @@ var xAcceleratorNameWithKeycode func(uintptr, uint, uint, gdk.ModifierType) stri
 // should use [func@Gtk.accelerator_name] instead.
 func AcceleratorNameWithKeycode(DisplayVar *gdk.Display, AcceleratorKeyVar uint, KeycodeVar uint, AcceleratorModsVar gdk.ModifierType) string {
 
-	return xAcceleratorNameWithKeycode(DisplayVar.GoPointer(), AcceleratorKeyVar, KeycodeVar, AcceleratorModsVar)
-
+	cret := xAcceleratorNameWithKeycode(DisplayVar.GoPointer(), AcceleratorKeyVar, KeycodeVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorParse func(string, uint, *gdk.ModifierType) bool
@@ -104,8 +104,8 @@ var xAcceleratorParse func(string, uint, *gdk.ModifierType) bool
 // be set to 0 (zero).
 func AcceleratorParse(AcceleratorVar string, AcceleratorKeyVar uint, AcceleratorModsVar *gdk.ModifierType) bool {
 
-	return xAcceleratorParse(AcceleratorVar, AcceleratorKeyVar, AcceleratorModsVar)
-
+	cret := xAcceleratorParse(AcceleratorVar, AcceleratorKeyVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorParseWithKeycode func(string, uintptr, uint, uintptr, *gdk.ModifierType) bool
@@ -126,8 +126,8 @@ var xAcceleratorParseWithKeycode func(string, uintptr, uint, uintptr, *gdk.Modif
 // @accelerator_codes will be set to 0 (zero).
 func AcceleratorParseWithKeycode(AcceleratorVar string, DisplayVar *gdk.Display, AcceleratorKeyVar uint, AcceleratorCodesVar uintptr, AcceleratorModsVar *gdk.ModifierType) bool {
 
-	return xAcceleratorParseWithKeycode(AcceleratorVar, DisplayVar.GoPointer(), AcceleratorKeyVar, AcceleratorCodesVar, AcceleratorModsVar)
-
+	cret := xAcceleratorParseWithKeycode(AcceleratorVar, DisplayVar.GoPointer(), AcceleratorKeyVar, AcceleratorCodesVar, AcceleratorModsVar)
+	return cret
 }
 
 var xAcceleratorValid func(uint, gdk.ModifierType) bool
@@ -140,8 +140,8 @@ var xAcceleratorValid func(uint, gdk.ModifierType) bool
 // the %GDK_KEY_Control_L keyval as an accelerator.
 func AcceleratorValid(KeyvalVar uint, ModifiersVar gdk.ModifierType) bool {
 
-	return xAcceleratorValid(KeyvalVar, ModifiersVar)
-
+	cret := xAcceleratorValid(KeyvalVar, ModifiersVar)
+	return cret
 }
 
 func init() {

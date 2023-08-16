@@ -72,7 +72,7 @@ type Source struct {
 
 	Next *Source
 
-	Name string
+	Name uintptr
 
 	Priv *SourcePrivate
 }
@@ -153,8 +153,8 @@ var xChildWatchAdd func(Pid, uintptr, uintptr) uint
 // need greater control.
 func ChildWatchAdd(PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr) uint {
 
-	return xChildWatchAdd(PidVar, purego.NewCallback(FunctionVar), DataVar)
-
+	cret := xChildWatchAdd(PidVar, purego.NewCallback(FunctionVar), DataVar)
+	return cret
 }
 
 var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
@@ -185,8 +185,8 @@ var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
 // need greater control.
 func ChildWatchAddFull(PriorityVar int, PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xChildWatchAddFull(PriorityVar, PidVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
-
+	cret := xChildWatchAddFull(PriorityVar, PidVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xChildWatchSourceNew func(Pid) *Source
@@ -225,8 +225,8 @@ var xChildWatchSourceNew func(Pid) *Source
 // valid thing to do.
 func ChildWatchSourceNew(PidVar Pid) *Source {
 
-	return xChildWatchSourceNew(PidVar)
-
+	cret := xChildWatchSourceNew(PidVar)
+	return cret
 }
 
 var xClearHandleId func(uint, uintptr)
@@ -272,8 +272,8 @@ var xGetMonotonicTime func() int64
 // may not always be possible to do this.
 func GetMonotonicTime() int64 {
 
-	return xGetMonotonicTime()
-
+	cret := xGetMonotonicTime()
+	return cret
 }
 
 var xGetRealTime func() int64
@@ -289,8 +289,8 @@ var xGetRealTime func() int64
 // measuring intervals.
 func GetRealTime() int64 {
 
-	return xGetRealTime()
-
+	cret := xGetRealTime()
+	return cret
 }
 
 var xIdleAdd func(uintptr, uintptr) uint
@@ -311,8 +311,8 @@ var xIdleAdd func(uintptr, uintptr) uint
 // use a custom main context.
 func IdleAdd(FunctionVar SourceFunc, DataVar uintptr) uint {
 
-	return xIdleAdd(purego.NewCallback(FunctionVar), DataVar)
-
+	cret := xIdleAdd(purego.NewCallback(FunctionVar), DataVar)
+	return cret
 }
 
 var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
@@ -333,8 +333,8 @@ var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
 // use a custom main context.
 func IdleAddFull(PriorityVar int, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xIdleAddFull(PriorityVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
-
+	cret := xIdleAddFull(PriorityVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xIdleRemoveByData func(uintptr) bool
@@ -342,8 +342,8 @@ var xIdleRemoveByData func(uintptr) bool
 // Removes the idle function with the given data.
 func IdleRemoveByData(DataVar uintptr) bool {
 
-	return xIdleRemoveByData(DataVar)
-
+	cret := xIdleRemoveByData(DataVar)
+	return cret
 }
 
 var xIdleSourceNew func() *Source
@@ -357,8 +357,8 @@ var xIdleSourceNew func() *Source
 // have a default priority of %G_PRIORITY_DEFAULT.
 func IdleSourceNew() *Source {
 
-	return xIdleSourceNew()
-
+	cret := xIdleSourceNew()
+	return cret
 }
 
 var xMainContextDefault func() *MainContext
@@ -369,8 +369,8 @@ var xMainContextDefault func() *MainContext
 // g_main_context_get_thread_default().
 func MainContextDefault() *MainContext {
 
-	return xMainContextDefault()
-
+	cret := xMainContextDefault()
+	return cret
 }
 
 var xMainContextGetThreadDefault func() *MainContext
@@ -388,8 +388,8 @@ var xMainContextGetThreadDefault func() *MainContext
 // g_main_context_ref_thread_default() instead.
 func MainContextGetThreadDefault() *MainContext {
 
-	return xMainContextGetThreadDefault()
-
+	cret := xMainContextGetThreadDefault()
+	return cret
 }
 
 var xMainContextRefThreadDefault func() *MainContext
@@ -402,8 +402,8 @@ var xMainContextRefThreadDefault func() *MainContext
 // (with a ref added to it) rather than returning %NULL.
 func MainContextRefThreadDefault() *MainContext {
 
-	return xMainContextRefThreadDefault()
-
+	cret := xMainContextRefThreadDefault()
+	return cret
 }
 
 var xMainCurrentSource func() *Source
@@ -411,8 +411,8 @@ var xMainCurrentSource func() *Source
 // Returns the currently firing source for this thread.
 func MainCurrentSource() *Source {
 
-	return xMainCurrentSource()
-
+	cret := xMainCurrentSource()
+	return cret
 }
 
 var xMainDepth func() int
@@ -529,8 +529,8 @@ var xMainDepth func() int
 //     there is more work to do.
 func MainDepth() int {
 
-	return xMainDepth()
-
+	cret := xMainDepth()
+	return cret
 }
 
 var xSourceRemove func(uint) bool
@@ -556,8 +556,8 @@ var xSourceRemove func(uint) bool
 // wrong source.
 func SourceRemove(TagVar uint) bool {
 
-	return xSourceRemove(TagVar)
-
+	cret := xSourceRemove(TagVar)
+	return cret
 }
 
 var xSourceRemoveByFuncsUserData func(*SourceFuncs, uintptr) bool
@@ -567,8 +567,8 @@ var xSourceRemoveByFuncsUserData func(*SourceFuncs, uintptr) bool
 // same source functions and user data, only one will be destroyed.
 func SourceRemoveByFuncsUserData(FuncsVar *SourceFuncs, UserDataVar uintptr) bool {
 
-	return xSourceRemoveByFuncsUserData(FuncsVar, UserDataVar)
-
+	cret := xSourceRemoveByFuncsUserData(FuncsVar, UserDataVar)
+	return cret
 }
 
 var xSourceRemoveByUserData func(uintptr) bool
@@ -578,8 +578,8 @@ var xSourceRemoveByUserData func(uintptr) bool
 // data, only one will be destroyed.
 func SourceRemoveByUserData(UserDataVar uintptr) bool {
 
-	return xSourceRemoveByUserData(UserDataVar)
-
+	cret := xSourceRemoveByUserData(UserDataVar)
+	return cret
 }
 
 var xSourceSetNameById func(uint, string)
@@ -642,8 +642,8 @@ var xTimeoutAdd func(uint, uintptr, uintptr) uint
 // time.  See g_get_monotonic_time().
 func TimeoutAdd(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr) uint {
 
-	return xTimeoutAdd(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
-
+	cret := xTimeoutAdd(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
+	return cret
 }
 
 var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
@@ -674,8 +674,8 @@ var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
 // See g_get_monotonic_time().
 func TimeoutAddFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xTimeoutAddFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
-
+	cret := xTimeoutAddFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xTimeoutAddSeconds func(uint, uintptr, uintptr) uint
@@ -705,8 +705,8 @@ var xTimeoutAddSeconds func(uint, uintptr, uintptr) uint
 // time.  See g_get_monotonic_time().
 func TimeoutAddSeconds(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr) uint {
 
-	return xTimeoutAddSeconds(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
-
+	cret := xTimeoutAddSeconds(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
+	return cret
 }
 
 var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
@@ -752,8 +752,8 @@ var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
 // time.  See g_get_monotonic_time().
 func TimeoutAddSecondsFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
 
-	return xTimeoutAddSecondsFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
-
+	cret := xTimeoutAddSecondsFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	return cret
 }
 
 var xTimeoutSourceNew func(uint) *Source
@@ -768,8 +768,8 @@ var xTimeoutSourceNew func(uint) *Source
 // time.  See g_get_monotonic_time().
 func TimeoutSourceNew(IntervalVar uint) *Source {
 
-	return xTimeoutSourceNew(IntervalVar)
-
+	cret := xTimeoutSourceNew(IntervalVar)
+	return cret
 }
 
 var xTimeoutSourceNewSeconds func(uint) *Source
@@ -787,8 +787,8 @@ var xTimeoutSourceNewSeconds func(uint) *Source
 // See g_get_monotonic_time().
 func TimeoutSourceNewSeconds(IntervalVar uint) *Source {
 
-	return xTimeoutSourceNewSeconds(IntervalVar)
-
+	cret := xTimeoutSourceNewSeconds(IntervalVar)
+	return cret
 }
 
 func init() {

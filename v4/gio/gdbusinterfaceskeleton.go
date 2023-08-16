@@ -31,7 +31,7 @@ func DBusInterfaceSkeletonNewFromInternalPtr(ptr uintptr) *DBusInterfaceSkeleton
 	return cls
 }
 
-var xDBusInterfaceSkeletonExport func(uintptr, uintptr, string) bool
+var xDBusInterfaceSkeletonExport func(uintptr, uintptr, string, **glib.Error) bool
 
 // Exports @interface_ at @object_path on @connection.
 //
@@ -40,9 +40,14 @@ var xDBusInterfaceSkeletonExport func(uintptr, uintptr, string) bool
 // the same for all connections.
 //
 // Use g_dbus_interface_skeleton_unexport() to unexport the object.
-func (x *DBusInterfaceSkeleton) Export(ConnectionVar *DBusConnection, ObjectPathVar string) bool {
+func (x *DBusInterfaceSkeleton) Export(ConnectionVar *DBusConnection, ObjectPathVar string) (bool, error) {
+	var cerr *glib.Error
 
-	return xDBusInterfaceSkeletonExport(x.GoPointer(), ConnectionVar.GoPointer(), ObjectPathVar)
+	cret := xDBusInterfaceSkeletonExport(x.GoPointer(), ConnectionVar.GoPointer(), ObjectPathVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 
@@ -66,18 +71,17 @@ var xDBusInterfaceSkeletonGetConnection func(uintptr) uintptr
 
 // Gets the first connection that @interface_ is exported on, if any.
 func (x *DBusInterfaceSkeleton) GetConnection() *DBusConnection {
+	var cls *DBusConnection
 
-	GetConnectionPtr := xDBusInterfaceSkeletonGetConnection(x.GoPointer())
-	if GetConnectionPtr == 0 {
-		return nil
+	cret := xDBusInterfaceSkeletonGetConnection(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetConnectionPtr)
-
-	GetConnectionCls := &DBusConnection{}
-	GetConnectionCls.Ptr = GetConnectionPtr
-	return GetConnectionCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusConnection{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xDBusInterfaceSkeletonGetConnections func(uintptr) *glib.List
@@ -85,8 +89,8 @@ var xDBusInterfaceSkeletonGetConnections func(uintptr) *glib.List
 // Gets a list of the connections that @interface_ is exported on.
 func (x *DBusInterfaceSkeleton) GetConnections() *glib.List {
 
-	return xDBusInterfaceSkeletonGetConnections(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetConnections(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonGetFlags func(uintptr) DBusInterfaceSkeletonFlags
@@ -95,8 +99,8 @@ var xDBusInterfaceSkeletonGetFlags func(uintptr) DBusInterfaceSkeletonFlags
 // of @interface_
 func (x *DBusInterfaceSkeleton) GetFlags() DBusInterfaceSkeletonFlags {
 
-	return xDBusInterfaceSkeletonGetFlags(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetFlags(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonGetInfo func(uintptr) *DBusInterfaceInfo
@@ -105,8 +109,8 @@ var xDBusInterfaceSkeletonGetInfo func(uintptr) *DBusInterfaceInfo
 // implemented by @interface_.
 func (x *DBusInterfaceSkeleton) GetInfo() *DBusInterfaceInfo {
 
-	return xDBusInterfaceSkeletonGetInfo(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetInfo(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonGetObjectPath func(uintptr) string
@@ -114,8 +118,8 @@ var xDBusInterfaceSkeletonGetObjectPath func(uintptr) string
 // Gets the object path that @interface_ is exported on, if any.
 func (x *DBusInterfaceSkeleton) GetObjectPath() string {
 
-	return xDBusInterfaceSkeletonGetObjectPath(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetObjectPath(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonGetProperties func(uintptr) *glib.Variant
@@ -123,8 +127,8 @@ var xDBusInterfaceSkeletonGetProperties func(uintptr) *glib.Variant
 // Gets all D-Bus properties for @interface_.
 func (x *DBusInterfaceSkeleton) GetProperties() *glib.Variant {
 
-	return xDBusInterfaceSkeletonGetProperties(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetProperties(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonGetVtable func(uintptr) *DBusInterfaceVTable
@@ -134,8 +138,8 @@ var xDBusInterfaceSkeletonGetVtable func(uintptr) *DBusInterfaceVTable
 // itself to be passed as @user_data.
 func (x *DBusInterfaceSkeleton) GetVtable() *DBusInterfaceVTable {
 
-	return xDBusInterfaceSkeletonGetVtable(x.GoPointer())
-
+	cret := xDBusInterfaceSkeletonGetVtable(x.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonHasConnection func(uintptr, uintptr) bool
@@ -143,8 +147,8 @@ var xDBusInterfaceSkeletonHasConnection func(uintptr, uintptr) bool
 // Checks if @interface_ is exported on @connection.
 func (x *DBusInterfaceSkeleton) HasConnection(ConnectionVar *DBusConnection) bool {
 
-	return xDBusInterfaceSkeletonHasConnection(x.GoPointer(), ConnectionVar.GoPointer())
-
+	cret := xDBusInterfaceSkeletonHasConnection(x.GoPointer(), ConnectionVar.GoPointer())
+	return cret
 }
 
 var xDBusInterfaceSkeletonSetFlags func(uintptr, DBusInterfaceSkeletonFlags)
@@ -234,16 +238,16 @@ func (x *DBusInterfaceSkeleton) ConnectGAuthorizeMethod(cb func(DBusInterfaceSke
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
 func (x *DBusInterfaceSkeleton) DupObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	DupObjectPtr := XGDbusInterfaceDupObject(x.GoPointer())
-	if DupObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceDupObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	DupObjectCls := &DBusObjectBase{}
-	DupObjectCls.Ptr = DupObjectPtr
-	return DupObjectCls
-
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.
@@ -252,18 +256,17 @@ func (x *DBusInterfaceSkeleton) DupObject() *DBusObjectBase {
 // the returned object is being used from other threads. See
 // g_dbus_interface_dup_object() for a thread-safe alternative.
 func (x *DBusInterfaceSkeleton) GetObject() *DBusObjectBase {
+	var cls *DBusObjectBase
 
-	GetObjectPtr := XGDbusInterfaceGetObject(x.GoPointer())
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGDbusInterfaceGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetObjectPtr)
-
-	GetObjectCls := &DBusObjectBase{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	gobject.IncreaseRef(cret)
+	cls = &DBusObjectBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Sets the #GDBusObject for @interface_ to @object.

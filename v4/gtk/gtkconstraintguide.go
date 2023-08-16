@@ -37,14 +37,16 @@ var xNewConstraintGuide func() uintptr
 
 // Creates a new `GtkConstraintGuide` object.
 func NewConstraintGuide() *ConstraintGuide {
-	NewConstraintGuidePtr := xNewConstraintGuide()
-	if NewConstraintGuidePtr == 0 {
-		return nil
-	}
+	var cls *ConstraintGuide
 
-	NewConstraintGuideCls := &ConstraintGuide{}
-	NewConstraintGuideCls.Ptr = NewConstraintGuidePtr
-	return NewConstraintGuideCls
+	cret := xNewConstraintGuide()
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ConstraintGuide{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xConstraintGuideGetMaxSize func(uintptr, int, int)
@@ -70,8 +72,8 @@ var xConstraintGuideGetName func(uintptr) string
 // Retrieves the name set using gtk_constraint_guide_set_name().
 func (x *ConstraintGuide) GetName() string {
 
-	return xConstraintGuideGetName(x.GoPointer())
-
+	cret := xConstraintGuideGetName(x.GoPointer())
+	return cret
 }
 
 var xConstraintGuideGetNatSize func(uintptr, int, int)
@@ -88,8 +90,8 @@ var xConstraintGuideGetStrength func(uintptr) ConstraintStrength
 // Retrieves the strength set using gtk_constraint_guide_set_strength().
 func (x *ConstraintGuide) GetStrength() ConstraintStrength {
 
-	return xConstraintGuideGetStrength(x.GoPointer())
-
+	cret := xConstraintGuideGetStrength(x.GoPointer())
+	return cret
 }
 
 var xConstraintGuideSetMaxSize func(uintptr, int, int)

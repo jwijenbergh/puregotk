@@ -32,14 +32,16 @@ var xNewListStore func([]interface{}) uintptr
 // Creates a new #GListStore with items of type @item_type. @item_type
 // must be a subclass of #GObject.
 func NewListStore(ItemTypeVar []interface{}) *ListStore {
-	NewListStorePtr := xNewListStore(ItemTypeVar)
-	if NewListStorePtr == 0 {
-		return nil
-	}
+	var cls *ListStore
 
-	NewListStoreCls := &ListStore{}
-	NewListStoreCls.Ptr = NewListStorePtr
-	return NewListStoreCls
+	cret := xNewListStore(ItemTypeVar)
+
+	if cret == 0 {
+		return cls
+	}
+	cls = &ListStore{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xListStoreAppend func(uintptr, uintptr)
@@ -66,8 +68,8 @@ var xListStoreFind func(uintptr, uintptr, uint) bool
 // g_list_store_find_with_equal_func() with a custom #GEqualFunc instead.
 func (x *ListStore) Find(ItemVar *gobject.Object, PositionVar uint) bool {
 
-	return xListStoreFind(x.GoPointer(), ItemVar.GoPointer(), PositionVar)
-
+	cret := xListStoreFind(x.GoPointer(), ItemVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xListStoreFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
@@ -78,8 +80,8 @@ var xListStoreFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
 // method will return %FALSE.
 func (x *ListStore) FindWithEqualFunc(ItemVar *gobject.Object, EqualFuncVar glib.EqualFunc, PositionVar uint) bool {
 
-	return xListStoreFindWithEqualFunc(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(EqualFuncVar), PositionVar)
-
+	cret := xListStoreFindWithEqualFunc(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(EqualFuncVar), PositionVar)
+	return cret
 }
 
 var xListStoreInsert func(uintptr, uint, uintptr)
@@ -110,8 +112,8 @@ var xListStoreInsertSorted func(uintptr, uintptr, uintptr, uintptr) uint
 // This function takes a ref on @item.
 func (x *ListStore) InsertSorted(ItemVar *gobject.Object, CompareFuncVar glib.CompareDataFunc, UserDataVar uintptr) uint {
 
-	return xListStoreInsertSorted(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
-
+	cret := xListStoreInsertSorted(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
+	return cret
 }
 
 var xListStoreRemove func(uintptr, uint)
@@ -185,8 +187,8 @@ func (c *ListStore) SetGoPointer(ptr uintptr) {
 // See also: g_list_model_get_n_items()
 func (x *ListStore) GetItem(PositionVar uint) uintptr {
 
-	return XGListModelGetItem(x.GoPointer(), PositionVar)
-
+	cret := XGListModelGetItem(x.GoPointer(), PositionVar)
+	return cret
 }
 
 // Gets the type of the items in @list.
@@ -199,8 +201,8 @@ func (x *ListStore) GetItem(PositionVar uint) uintptr {
 // model.
 func (x *ListStore) GetItemType() []interface{} {
 
-	return XGListModelGetItemType(x.GoPointer())
-
+	cret := XGListModelGetItemType(x.GoPointer())
+	return cret
 }
 
 // Gets the number of items in @list.
@@ -210,8 +212,8 @@ func (x *ListStore) GetItemType() []interface{} {
 // @position until g_list_model_get_item() returns %NULL.
 func (x *ListStore) GetNItems() uint {
 
-	return XGListModelGetNItems(x.GoPointer())
-
+	cret := XGListModelGetNItems(x.GoPointer())
+	return cret
 }
 
 // Get the item at @position.
@@ -227,16 +229,16 @@ func (x *ListStore) GetNItems() uint {
 //
 // See also: g_list_model_get_n_items()
 func (x *ListStore) GetObject(PositionVar uint) *gobject.Object {
+	var cls *gobject.Object
 
-	GetObjectPtr := XGListModelGetObject(x.GoPointer(), PositionVar)
-	if GetObjectPtr == 0 {
-		return nil
+	cret := XGListModelGetObject(x.GoPointer(), PositionVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetObjectCls := &gobject.Object{}
-	GetObjectCls.Ptr = GetObjectPtr
-	return GetObjectCls
-
+	cls = &gobject.Object{}
+	cls.Ptr = cret
+	return cls
 }
 
 // Emits the #GListModel::items-changed signal on @list.

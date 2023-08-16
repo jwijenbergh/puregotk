@@ -4,6 +4,7 @@ package gdk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -82,8 +83,8 @@ var xGLContextGetAllowedApis func(uintptr) GLAPI
 // Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
 func (x *GLContext) GetAllowedApis() GLAPI {
 
-	return xGLContextGetAllowedApis(x.GoPointer())
-
+	cret := xGLContextGetAllowedApis(x.GoPointer())
+	return cret
 }
 
 var xGLContextGetApi func(uintptr) GLAPI
@@ -93,8 +94,8 @@ var xGLContextGetApi func(uintptr) GLAPI
 // If the renderer has not been realized yet, 0 is returned.
 func (x *GLContext) GetApi() GLAPI {
 
-	return xGLContextGetApi(x.GoPointer())
-
+	cret := xGLContextGetApi(x.GoPointer())
+	return cret
 }
 
 var xGLContextGetDebugEnabled func(uintptr) bool
@@ -104,26 +105,25 @@ var xGLContextGetDebugEnabled func(uintptr) bool
 // See [method@Gdk.GLContext.set_debug_enabled].
 func (x *GLContext) GetDebugEnabled() bool {
 
-	return xGLContextGetDebugEnabled(x.GoPointer())
-
+	cret := xGLContextGetDebugEnabled(x.GoPointer())
+	return cret
 }
 
 var xGLContextGetDisplay func(uintptr) uintptr
 
 // Retrieves the display the @context is created for
 func (x *GLContext) GetDisplay() *Display {
+	var cls *Display
 
-	GetDisplayPtr := xGLContextGetDisplay(x.GoPointer())
-	if GetDisplayPtr == 0 {
-		return nil
+	cret := xGLContextGetDisplay(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetDisplayPtr)
-
-	GetDisplayCls := &Display{}
-	GetDisplayCls.Ptr = GetDisplayPtr
-	return GetDisplayCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLContextGetForwardCompatible func(uintptr) bool
@@ -133,8 +133,8 @@ var xGLContextGetForwardCompatible func(uintptr) bool
 // See [method@Gdk.GLContext.set_forward_compatible].
 func (x *GLContext) GetForwardCompatible() bool {
 
-	return xGLContextGetForwardCompatible(x.GoPointer())
-
+	cret := xGLContextGetForwardCompatible(x.GoPointer())
+	return cret
 }
 
 var xGLContextGetRequiredVersion func(uintptr, int, int)
@@ -158,36 +158,34 @@ var xGLContextGetSharedContext func(uintptr) uintptr
 // As many contexts can share data now and no single shared context exists
 // anymore, this function has been deprecated and now always returns %NULL.
 func (x *GLContext) GetSharedContext() *GLContext {
+	var cls *GLContext
 
-	GetSharedContextPtr := xGLContextGetSharedContext(x.GoPointer())
-	if GetSharedContextPtr == 0 {
-		return nil
+	cret := xGLContextGetSharedContext(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSharedContextPtr)
-
-	GetSharedContextCls := &GLContext{}
-	GetSharedContextCls.Ptr = GetSharedContextPtr
-	return GetSharedContextCls
-
+	gobject.IncreaseRef(cret)
+	cls = &GLContext{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLContextGetSurface func(uintptr) uintptr
 
 // Retrieves the surface used by the @context.
 func (x *GLContext) GetSurface() *Surface {
+	var cls *Surface
 
-	GetSurfacePtr := xGLContextGetSurface(x.GoPointer())
-	if GetSurfacePtr == 0 {
-		return nil
+	cret := xGLContextGetSurface(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetSurfacePtr)
-
-	GetSurfaceCls := &Surface{}
-	GetSurfaceCls.Ptr = GetSurfacePtr
-	return GetSurfaceCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Surface{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xGLContextGetUseEs func(uintptr) bool
@@ -195,8 +193,8 @@ var xGLContextGetUseEs func(uintptr) bool
 // Checks whether the @context is using an OpenGL or OpenGL ES profile.
 func (x *GLContext) GetUseEs() bool {
 
-	return xGLContextGetUseEs(x.GoPointer())
-
+	cret := xGLContextGetUseEs(x.GoPointer())
+	return cret
 }
 
 var xGLContextGetVersion func(uintptr, int, int)
@@ -233,8 +231,8 @@ var xGLContextIsLegacy func(uintptr) bool
 // kind of shader programs to load.
 func (x *GLContext) IsLegacy() bool {
 
-	return xGLContextIsLegacy(x.GoPointer())
-
+	cret := xGLContextIsLegacy(x.GoPointer())
+	return cret
 }
 
 var xGLContextIsShared func(uintptr, uintptr) bool
@@ -253,8 +251,8 @@ var xGLContextIsShared func(uintptr, uintptr) bool
 // is not, this function will return %FALSE.
 func (x *GLContext) IsShared(OtherVar *GLContext) bool {
 
-	return xGLContextIsShared(x.GoPointer(), OtherVar.GoPointer())
-
+	cret := xGLContextIsShared(x.GoPointer(), OtherVar.GoPointer())
+	return cret
 }
 
 var xGLContextMakeCurrent func(uintptr)
@@ -271,9 +269,14 @@ var xGLContextRealize func(uintptr) bool
 // Realizes the given `GdkGLContext`.
 //
 // It is safe to call this function on a realized `GdkGLContext`.
-func (x *GLContext) Realize() bool {
+func (x *GLContext) Realize() (bool, error) {
+	var cerr *glib.Error
 
-	return xGLContextRealize(x.GoPointer())
+	cret := xGLContextRealize(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
 
 }
 

@@ -51,8 +51,8 @@ var xSocketControlMessageGetLevel func(uintptr) int
 // This is often SOL_SOCKET.
 func (x *SocketControlMessage) GetLevel() int {
 
-	return xSocketControlMessageGetLevel(x.GoPointer())
-
+	cret := xSocketControlMessageGetLevel(x.GoPointer())
+	return cret
 }
 
 var xSocketControlMessageGetMsgType func(uintptr) int
@@ -61,8 +61,8 @@ var xSocketControlMessageGetMsgType func(uintptr) int
 // For instance, for UNIX fd passing this would be SCM_RIGHTS.
 func (x *SocketControlMessage) GetMsgType() int {
 
-	return xSocketControlMessageGetMsgType(x.GoPointer())
-
+	cret := xSocketControlMessageGetMsgType(x.GoPointer())
+	return cret
 }
 
 var xSocketControlMessageGetSize func(uintptr) uint
@@ -71,8 +71,8 @@ var xSocketControlMessageGetSize func(uintptr) uint
 // headers or alignment.
 func (x *SocketControlMessage) GetSize() uint {
 
-	return xSocketControlMessageGetSize(x.GoPointer())
-
+	cret := xSocketControlMessageGetSize(x.GoPointer())
+	return cret
 }
 
 var xSocketControlMessageSerialize func(uintptr, uintptr)

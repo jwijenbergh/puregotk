@@ -3,13 +3,13 @@ package glib
 
 // The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
 // options.
-type OptionArgFunc func(string, string, uintptr) bool
+type OptionArgFunc func(string, string, uintptr, **Error) bool
 
 // The type of function to be used as callback when a parse error occurs.
-type OptionErrorFunc func(*OptionContext, *OptionGroup, uintptr)
+type OptionErrorFunc func(*OptionContext, *OptionGroup, uintptr, **Error)
 
 // The type of function that can be called before and after parsing.
-type OptionParseFunc func(*OptionContext, *OptionGroup, uintptr) bool
+type OptionParseFunc func(*OptionContext, *OptionGroup, uintptr, **Error) bool
 
 // A `GOptionContext` struct defines which options
 // are accepted by the commandline option parser. The struct has only private
@@ -21,7 +21,7 @@ type OptionContext struct {
 // must be added to a #GOptionGroup with g_option_context_add_main_entries()
 // or g_option_group_add_entries().
 type OptionEntry struct {
-	LongName string
+	LongName uintptr
 
 	ShortName byte
 
@@ -31,9 +31,9 @@ type OptionEntry struct {
 
 	ArgData uintptr
 
-	Description string
+	Description uintptr
 
-	ArgDescription string
+	ArgDescription uintptr
 }
 
 // A `GOptionGroup` struct defines the options in a single

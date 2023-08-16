@@ -129,16 +129,17 @@ var xNewNotebook func() uintptr
 
 // Creates a new `GtkNotebook` widget with no pages.
 func NewNotebook() *Widget {
-	NewNotebookPtr := xNewNotebook()
-	if NewNotebookPtr == 0 {
-		return nil
+	var cls *Widget
+
+	cret := xNewNotebook()
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(NewNotebookPtr)
-
-	NewNotebookCls := &Widget{}
-	NewNotebookCls.Ptr = NewNotebookPtr
-	return NewNotebookCls
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookAppendPage func(uintptr, uintptr, uintptr) int
@@ -146,8 +147,8 @@ var xNotebookAppendPage func(uintptr, uintptr, uintptr) int
 // Appends a page to @notebook.
 func (x *Notebook) AppendPage(ChildVar *Widget, TabLabelVar *Widget) int {
 
-	return xNotebookAppendPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
-
+	cret := xNotebookAppendPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
+	return cret
 }
 
 var xNotebookAppendPageMenu func(uintptr, uintptr, uintptr, uintptr) int
@@ -156,8 +157,8 @@ var xNotebookAppendPageMenu func(uintptr, uintptr, uintptr, uintptr) int
 // label in the popup menu.
 func (x *Notebook) AppendPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int {
 
-	return xNotebookAppendPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
-
+	cret := xNotebookAppendPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
+	return cret
 }
 
 var xNotebookDetachTab func(uintptr, uintptr)
@@ -180,18 +181,17 @@ var xNotebookGetActionWidget func(uintptr, PackType) uintptr
 //
 // See [method@Gtk.Notebook.set_action_widget].
 func (x *Notebook) GetActionWidget(PackTypeVar PackType) *Widget {
+	var cls *Widget
 
-	GetActionWidgetPtr := xNotebookGetActionWidget(x.GoPointer(), PackTypeVar)
-	if GetActionWidgetPtr == 0 {
-		return nil
+	cret := xNotebookGetActionWidget(x.GoPointer(), PackTypeVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetActionWidgetPtr)
-
-	GetActionWidgetCls := &Widget{}
-	GetActionWidgetCls.Ptr = GetActionWidgetPtr
-	return GetActionWidgetCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetCurrentPage func(uintptr) int
@@ -199,8 +199,8 @@ var xNotebookGetCurrentPage func(uintptr) int
 // Returns the page number of the current page.
 func (x *Notebook) GetCurrentPage() int {
 
-	return xNotebookGetCurrentPage(x.GoPointer())
-
+	cret := xNotebookGetCurrentPage(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetGroupName func(uintptr) string
@@ -208,26 +208,25 @@ var xNotebookGetGroupName func(uintptr) string
 // Gets the current group name for @notebook.
 func (x *Notebook) GetGroupName() string {
 
-	return xNotebookGetGroupName(x.GoPointer())
-
+	cret := xNotebookGetGroupName(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetMenuLabel func(uintptr, uintptr) uintptr
 
 // Retrieves the menu label widget of the page containing @child.
 func (x *Notebook) GetMenuLabel(ChildVar *Widget) *Widget {
+	var cls *Widget
 
-	GetMenuLabelPtr := xNotebookGetMenuLabel(x.GoPointer(), ChildVar.GoPointer())
-	if GetMenuLabelPtr == 0 {
-		return nil
+	cret := xNotebookGetMenuLabel(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetMenuLabelPtr)
-
-	GetMenuLabelCls := &Widget{}
-	GetMenuLabelCls.Ptr = GetMenuLabelPtr
-	return GetMenuLabelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetMenuLabelText func(uintptr, uintptr) string
@@ -236,8 +235,8 @@ var xNotebookGetMenuLabelText func(uintptr, uintptr) string
 // @child.
 func (x *Notebook) GetMenuLabelText(ChildVar *Widget) string {
 
-	return xNotebookGetMenuLabelText(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xNotebookGetMenuLabelText(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xNotebookGetNPages func(uintptr) int
@@ -245,44 +244,42 @@ var xNotebookGetNPages func(uintptr) int
 // Gets the number of pages in a notebook.
 func (x *Notebook) GetNPages() int {
 
-	return xNotebookGetNPages(x.GoPointer())
-
+	cret := xNotebookGetNPages(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetNthPage func(uintptr, int) uintptr
 
 // Returns the child widget contained in page number @page_num.
 func (x *Notebook) GetNthPage(PageNumVar int) *Widget {
+	var cls *Widget
 
-	GetNthPagePtr := xNotebookGetNthPage(x.GoPointer(), PageNumVar)
-	if GetNthPagePtr == 0 {
-		return nil
+	cret := xNotebookGetNthPage(x.GoPointer(), PageNumVar)
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetNthPagePtr)
-
-	GetNthPageCls := &Widget{}
-	GetNthPageCls.Ptr = GetNthPagePtr
-	return GetNthPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetPage func(uintptr, uintptr) uintptr
 
 // Returns the `GtkNotebookPage` for @child.
 func (x *Notebook) GetPage(ChildVar *Widget) *NotebookPage {
+	var cls *NotebookPage
 
-	GetPagePtr := xNotebookGetPage(x.GoPointer(), ChildVar.GoPointer())
-	if GetPagePtr == 0 {
-		return nil
+	cret := xNotebookGetPage(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetPagePtr)
-
-	GetPageCls := &NotebookPage{}
-	GetPageCls.Ptr = GetPagePtr
-	return GetPageCls
-
+	gobject.IncreaseRef(cret)
+	cls = &NotebookPage{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetPages func(uintptr) uintptr
@@ -293,16 +290,16 @@ var xNotebookGetPages func(uintptr) uintptr
 // implements [iface@Gtk.SelectionModel] and can be used to track
 // and modify the visible page.
 func (x *Notebook) GetPages() *gio.ListModelBase {
+	var cls *gio.ListModelBase
 
-	GetPagesPtr := xNotebookGetPages(x.GoPointer())
-	if GetPagesPtr == 0 {
-		return nil
+	cret := xNotebookGetPages(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	GetPagesCls := &gio.ListModelBase{}
-	GetPagesCls.Ptr = GetPagesPtr
-	return GetPagesCls
-
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetScrollable func(uintptr) bool
@@ -310,8 +307,8 @@ var xNotebookGetScrollable func(uintptr) bool
 // Returns whether the tab label area has arrows for scrolling.
 func (x *Notebook) GetScrollable() bool {
 
-	return xNotebookGetScrollable(x.GoPointer())
-
+	cret := xNotebookGetScrollable(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetShowBorder func(uintptr) bool
@@ -319,8 +316,8 @@ var xNotebookGetShowBorder func(uintptr) bool
 // Returns whether a bevel will be drawn around the notebook pages.
 func (x *Notebook) GetShowBorder() bool {
 
-	return xNotebookGetShowBorder(x.GoPointer())
-
+	cret := xNotebookGetShowBorder(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetShowTabs func(uintptr) bool
@@ -328,8 +325,8 @@ var xNotebookGetShowTabs func(uintptr) bool
 // Returns whether the tabs of the notebook are shown.
 func (x *Notebook) GetShowTabs() bool {
 
-	return xNotebookGetShowTabs(x.GoPointer())
-
+	cret := xNotebookGetShowTabs(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetTabDetachable func(uintptr, uintptr) bool
@@ -337,8 +334,8 @@ var xNotebookGetTabDetachable func(uintptr, uintptr) bool
 // Returns whether the tab contents can be detached from @notebook.
 func (x *Notebook) GetTabDetachable(ChildVar *Widget) bool {
 
-	return xNotebookGetTabDetachable(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xNotebookGetTabDetachable(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xNotebookGetTabLabel func(uintptr, uintptr) uintptr
@@ -348,18 +345,17 @@ var xNotebookGetTabLabel func(uintptr, uintptr) uintptr
 // %NULL is returned if @child is not in @notebook or
 // if no tab label has specifically been set for @child.
 func (x *Notebook) GetTabLabel(ChildVar *Widget) *Widget {
+	var cls *Widget
 
-	GetTabLabelPtr := xNotebookGetTabLabel(x.GoPointer(), ChildVar.GoPointer())
-	if GetTabLabelPtr == 0 {
-		return nil
+	cret := xNotebookGetTabLabel(x.GoPointer(), ChildVar.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetTabLabelPtr)
-
-	GetTabLabelCls := &Widget{}
-	GetTabLabelCls.Ptr = GetTabLabelPtr
-	return GetTabLabelCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 var xNotebookGetTabLabelText func(uintptr, uintptr) string
@@ -368,8 +364,8 @@ var xNotebookGetTabLabelText func(uintptr, uintptr) string
 // @child.
 func (x *Notebook) GetTabLabelText(ChildVar *Widget) string {
 
-	return xNotebookGetTabLabelText(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xNotebookGetTabLabelText(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xNotebookGetTabPos func(uintptr) PositionType
@@ -377,8 +373,8 @@ var xNotebookGetTabPos func(uintptr) PositionType
 // Gets the edge at which the tabs are drawn.
 func (x *Notebook) GetTabPos() PositionType {
 
-	return xNotebookGetTabPos(x.GoPointer())
-
+	cret := xNotebookGetTabPos(x.GoPointer())
+	return cret
 }
 
 var xNotebookGetTabReorderable func(uintptr, uintptr) bool
@@ -386,8 +382,8 @@ var xNotebookGetTabReorderable func(uintptr, uintptr) bool
 // Gets whether the tab can be reordered via drag and drop or not.
 func (x *Notebook) GetTabReorderable(ChildVar *Widget) bool {
 
-	return xNotebookGetTabReorderable(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xNotebookGetTabReorderable(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xNotebookInsertPage func(uintptr, uintptr, uintptr, int) int
@@ -395,8 +391,8 @@ var xNotebookInsertPage func(uintptr, uintptr, uintptr, int) int
 // Insert a page into @notebook at the given position.
 func (x *Notebook) InsertPage(ChildVar *Widget, TabLabelVar *Widget, PositionVar int) int {
 
-	return xNotebookInsertPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), PositionVar)
-
+	cret := xNotebookInsertPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xNotebookInsertPageMenu func(uintptr, uintptr, uintptr, uintptr, int) int
@@ -405,8 +401,8 @@ var xNotebookInsertPageMenu func(uintptr, uintptr, uintptr, uintptr, int) int
 // the widget to use as the label in the popup menu.
 func (x *Notebook) InsertPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget, PositionVar int) int {
 
-	return xNotebookInsertPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer(), PositionVar)
-
+	cret := xNotebookInsertPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer(), PositionVar)
+	return cret
 }
 
 var xNotebookNextPage func(uintptr)
@@ -426,8 +422,8 @@ var xNotebookPageNum func(uintptr, uintptr) int
 // widget.
 func (x *Notebook) PageNum(ChildVar *Widget) int {
 
-	return xNotebookPageNum(x.GoPointer(), ChildVar.GoPointer())
-
+	cret := xNotebookPageNum(x.GoPointer(), ChildVar.GoPointer())
+	return cret
 }
 
 var xNotebookPopupDisable func(uintptr)
@@ -456,8 +452,8 @@ var xNotebookPrependPage func(uintptr, uintptr, uintptr) int
 // Prepends a page to @notebook.
 func (x *Notebook) PrependPage(ChildVar *Widget, TabLabelVar *Widget) int {
 
-	return xNotebookPrependPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
-
+	cret := xNotebookPrependPage(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer())
+	return cret
 }
 
 var xNotebookPrependPageMenu func(uintptr, uintptr, uintptr, uintptr) int
@@ -466,8 +462,8 @@ var xNotebookPrependPageMenu func(uintptr, uintptr, uintptr, uintptr) int
 // label in the popup menu.
 func (x *Notebook) PrependPageMenu(ChildVar *Widget, TabLabelVar *Widget, MenuLabelVar *Widget) int {
 
-	return xNotebookPrependPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
-
+	cret := xNotebookPrependPageMenu(x.GoPointer(), ChildVar.GoPointer(), TabLabelVar.GoPointer(), MenuLabelVar.GoPointer())
+	return cret
 }
 
 var xNotebookPrevPage func(uintptr)
@@ -825,8 +821,8 @@ func (x *Notebook) ConnectSwitchPage(cb func(Notebook, uintptr, uint)) {
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
 func (x *Notebook) GetAccessibleRole() AccessibleRole {
 
-	return XGtkAccessibleGetAccessibleRole(x.GoPointer())
-
+	cret := XGtkAccessibleGetAccessibleRole(x.GoPointer())
+	return cret
 }
 
 // Resets the accessible @property to its default value.
@@ -961,8 +957,8 @@ func (x *Notebook) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar
 // of the &lt;object&gt; tag used to construct the @buildable.
 func (x *Notebook) GetBuildableId() string {
 
-	return XGtkBuildableGetBuildableId(x.GoPointer())
-
+	cret := XGtkBuildableGetBuildableId(x.GoPointer())
+	return cret
 }
 
 // `GtkNotebookPage` is an auxiliary object used by `GtkNotebook`.
@@ -980,18 +976,17 @@ var xNotebookPageGetChild func(uintptr) uintptr
 
 // Returns the notebook child to which @page belongs.
 func (x *NotebookPage) GetChild() *Widget {
+	var cls *Widget
 
-	GetChildPtr := xNotebookPageGetChild(x.GoPointer())
-	if GetChildPtr == 0 {
-		return nil
+	cret := xNotebookPageGetChild(x.GoPointer())
+
+	if cret == 0 {
+		return cls
 	}
-
-	gobject.IncreaseRef(GetChildPtr)
-
-	GetChildCls := &Widget{}
-	GetChildCls.Ptr = GetChildPtr
-	return GetChildCls
-
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
 }
 
 func (c *NotebookPage) GoPointer() uintptr {

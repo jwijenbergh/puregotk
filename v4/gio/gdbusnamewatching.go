@@ -67,8 +67,8 @@ var xBusWatchName func(BusType, string, BusNameWatcherFlags, uintptr, uintptr, u
 // @name_vanished_handler.
 func BusWatchName(BusTypeVar BusType, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar BusNameAppearedCallback, NameVanishedHandlerVar BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xBusWatchName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xBusWatchName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xBusWatchNameOnConnection func(uintptr, string, BusNameWatcherFlags, uintptr, uintptr, uintptr, uintptr) uint
@@ -77,8 +77,8 @@ var xBusWatchNameOnConnection func(uintptr, string, BusNameWatcherFlags, uintptr
 // #GBusType.
 func BusWatchNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar BusNameAppearedCallback, NameVanishedHandlerVar BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
 
-	return xBusWatchNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
-
+	cret := xBusWatchNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	return cret
 }
 
 var xBusWatchNameOnConnectionWithClosures func(uintptr, string, BusNameWatcherFlags, *gobject.Closure, *gobject.Closure) uint
@@ -87,8 +87,8 @@ var xBusWatchNameOnConnectionWithClosures func(uintptr, string, BusNameWatcherFl
 // easier binding in other languages.
 func BusWatchNameOnConnectionWithClosures(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedClosureVar *gobject.Closure, NameVanishedClosureVar *gobject.Closure) uint {
 
-	return xBusWatchNameOnConnectionWithClosures(ConnectionVar.GoPointer(), NameVar, FlagsVar, NameAppearedClosureVar, NameVanishedClosureVar)
-
+	cret := xBusWatchNameOnConnectionWithClosures(ConnectionVar.GoPointer(), NameVar, FlagsVar, NameAppearedClosureVar, NameVanishedClosureVar)
+	return cret
 }
 
 var xBusWatchNameWithClosures func(BusType, string, BusNameWatcherFlags, *gobject.Closure, *gobject.Closure) uint
@@ -97,8 +97,8 @@ var xBusWatchNameWithClosures func(BusType, string, BusNameWatcherFlags, *gobjec
 // easier binding in other languages.
 func BusWatchNameWithClosures(BusTypeVar BusType, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedClosureVar *gobject.Closure, NameVanishedClosureVar *gobject.Closure) uint {
 
-	return xBusWatchNameWithClosures(BusTypeVar, NameVar, FlagsVar, NameAppearedClosureVar, NameVanishedClosureVar)
-
+	cret := xBusWatchNameWithClosures(BusTypeVar, NameVar, FlagsVar, NameAppearedClosureVar, NameVanishedClosureVar)
+	return cret
 }
 
 func init() {

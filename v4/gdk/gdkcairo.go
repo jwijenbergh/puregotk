@@ -61,8 +61,8 @@ var xCairoRegionCreateFromSurface func(*cairo.Surface) *cairo.Region
 // set with cairo_surface_set_device_offset().
 func CairoRegionCreateFromSurface(SurfaceVar *cairo.Surface) *cairo.Region {
 
-	return xCairoRegionCreateFromSurface(SurfaceVar)
-
+	cret := xCairoRegionCreateFromSurface(SurfaceVar)
+	return cret
 }
 
 var xCairoSetSourcePixbuf func(*cairo.Context, uintptr, float64, float64)
