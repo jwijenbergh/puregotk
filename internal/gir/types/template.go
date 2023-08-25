@@ -73,7 +73,7 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string) {
 func (f *funcArgsTemplate) AddPure(t string, n string, k Kind) {
 	n += "p"
 	c := n
-        stars := strings.Count(t, "*")
+	stars := strings.Count(t, "*")
 	switch k {
 	case RecordsType:
 		if stars == 0 {
@@ -82,7 +82,7 @@ func (f *funcArgsTemplate) AddPure(t string, n string, k Kind) {
 	case CallbackType:
 		t = "uintptr"
 	case ClassesType:
-		if stars == 0  {
+		if stars == 0 {
 			c = n
 			t = "uintptr"
 		} else {
@@ -212,7 +212,7 @@ type funcRetTemplate struct {
 func (fr *funcRetTemplate) Instance() string {
 	val := fr.Value + "{}"
 	if strings.HasPrefix(fr.Value, "*") {
-		return "&"+val[1:]
+		return "&" + val[1:]
 	}
 	return val
 }
@@ -287,14 +287,14 @@ func (fr *funcRetTemplate) Fmt(ngo bool) string {
 			after.WriteString(val)
 			after.WriteString(",")
 		}
-		after.WriteString( "nil\n")
+		after.WriteString("nil\n")
 		after.WriteString("}\n")
 		after.WriteString("return ")
 		if fr.Value != "" {
 			after.WriteString(val)
 			after.WriteString(",")
 		}
-		after.WriteString( "cerr\n")
+		after.WriteString("cerr\n")
 		return after.String()
 	}
 	after.WriteString("return ")
@@ -322,11 +322,11 @@ type InterfaceFuncTemplate struct {
 }
 
 type SignalsTemplate struct {
-	Doc        string
-	Name       string
-	CName      string
-	Args       funcArgsTemplate
-	Ret        funcRetTemplate
+	Doc   string
+	Name  string
+	CName string
+	Args  funcArgsTemplate
+	Ret   funcRetTemplate
 }
 
 type ClassTemplate struct {

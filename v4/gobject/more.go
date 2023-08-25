@@ -72,10 +72,10 @@ const (
 	TypeReservedUserFirstVal      = 49 << 2
 )
 
-var xValueDupString func(*Value) string
+var xValueGetString func(*Value) string
 
 func (v *Value) String() string {
-	return xValueDupString(v)
+	return xValueGetString(v)
 }
 
 var xValueGetInt func(*Value) int
@@ -84,11 +84,18 @@ func (v *Value) Int() int {
 	return xValueGetInt(v)
 }
 
+var xValueUnset func(*Value)
+
+func (x *Value) Unset() {
+	xValueUnset(x)
+}
+
 func init() {
 	lib, err := purego.Dlopen(os.Getenv("PUREGOTK_GTK_PATH"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
 		panic(err)
 	}
-	core.PuregoSafeRegister(&xValueDupString, lib, "g_value_dup_string")
+	core.PuregoSafeRegister(&xValueGetString, lib, "g_value_get_string")
 	core.PuregoSafeRegister(&xValueGetInt, lib, "g_value_get_int")
+	core.PuregoSafeRegister(&xValueUnset, lib, "g_value_unset")
 }

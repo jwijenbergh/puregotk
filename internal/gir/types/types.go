@@ -694,6 +694,6 @@ func (r *ReturnValue) Template(ns string, ins string, kinds KindMap, throws bool
 		Value:   val,
 		Class:   class,
 		RefSink: r.TransferOwnership.TransferOwnership == "none",
-		Throws: throws,
+		Throws:  throws,
 	}
 }

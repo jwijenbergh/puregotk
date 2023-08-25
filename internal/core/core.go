@@ -72,7 +72,7 @@ func findSo(path string, name string) string {
 		fn := filepath.Join(path, n)
 		for _, s := range suffixes {
 			if _, err := os.Stat(fn + s); err == nil {
-				return fn+s
+				return fn + s
 			}
 		}
 	}
@@ -137,8 +137,6 @@ func GetPath(name string) string {
 
 	panic(fmt.Sprintf("Path for library: %s not found. Please set the path to this library shared object file manually with env variable: %s. Or make sure pkg-config is setup correctly", strings.ToLower(name), ev))
 }
-
-
 
 // GoString copies a char* to a Go string.
 // This function was copied from purego
