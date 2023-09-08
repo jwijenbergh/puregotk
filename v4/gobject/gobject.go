@@ -284,7 +284,7 @@ func NewValistObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, V
 	return cls
 }
 
-var xNewWithPropertiesObject func([]interface{}, uint, uintptr, uintptr) uintptr
+var xNewWithPropertiesObject func([]interface{}, uint, []string, uintptr) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties using
 // the provided arrays. Both arrays must have exactly @n_properties elements,
@@ -292,7 +292,7 @@ var xNewWithPropertiesObject func([]interface{}, uint, uintptr, uintptr) uintptr
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar uintptr, ValuesVar uintptr) *Object {
+func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar []string, ValuesVar uintptr) *Object {
 	var cls *Object
 
 	cret := xNewWithPropertiesObject(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)

@@ -2415,11 +2415,11 @@ func (x *Widget) SetChildVisible(ChildVisibleVar bool) {
 
 }
 
-var xWidgetSetCssClasses func(uintptr, uintptr)
+var xWidgetSetCssClasses func(uintptr, []string)
 
 // Clear all style classes applied to @widget
 // and replace them with @classes.
-func (x *Widget) SetCssClasses(ClassesVar uintptr) {
+func (x *Widget) SetCssClasses(ClassesVar []string) {
 
 	xWidgetSetCssClasses(x.GoPointer(), ClassesVar)
 

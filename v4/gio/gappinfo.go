@@ -86,7 +86,7 @@ type AppInfo interface {
 	GetIcon() *IconBase
 	GetId() string
 	GetName() string
-	GetSupportedTypes() uintptr
+	GetSupportedTypes() []string
 	Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) bool
 	LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) bool
 	LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
@@ -246,7 +246,7 @@ func (x *AppInfoBase) GetName() string {
 // This function does not take in consideration associations added with
 // g_app_info_add_supports_type(), but only those exported directly by
 // the application.
-func (x *AppInfoBase) GetSupportedTypes() uintptr {
+func (x *AppInfoBase) GetSupportedTypes() []string {
 
 	cret := XGAppInfoGetSupportedTypes(x.GoPointer())
 	return cret
@@ -421,7 +421,7 @@ var XGAppInfoGetExecutable func(uintptr) string
 var XGAppInfoGetIcon func(uintptr) uintptr
 var XGAppInfoGetId func(uintptr) string
 var XGAppInfoGetName func(uintptr) string
-var XGAppInfoGetSupportedTypes func(uintptr) uintptr
+var XGAppInfoGetSupportedTypes func(uintptr) []string
 var XGAppInfoLaunch func(uintptr, *glib.List, uintptr, **glib.Error) bool
 var XGAppInfoLaunchUris func(uintptr, *glib.List, uintptr, **glib.Error) bool
 var XGAppInfoLaunchUrisAsync func(uintptr, *glib.List, uintptr, uintptr, uintptr, uintptr)

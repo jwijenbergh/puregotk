@@ -522,7 +522,7 @@ func (x *DesktopAppInfo) GetName() string {
 // This function does not take in consideration associations added with
 // g_app_info_add_supports_type(), but only those exported directly by
 // the application.
-func (x *DesktopAppInfo) GetSupportedTypes() uintptr {
+func (x *DesktopAppInfo) GetSupportedTypes() []string {
 
 	cret := XGAppInfoGetSupportedTypes(x.GoPointer())
 	return cret

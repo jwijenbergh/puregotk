@@ -221,7 +221,7 @@ func NewAboutWindow() *gtk.Widget {
 	return cls
 }
 
-var xAboutWindowAddAcknowledgementSection func(uintptr, string, uintptr)
+var xAboutWindowAddAcknowledgementSection func(uintptr, string, []string)
 
 // Adds a section to the Acknowledgements page.
 //
@@ -240,13 +240,13 @@ var xAboutWindowAddAcknowledgementSection func(uintptr, string, uintptr)
 // * [property@AboutWindow:documenters]
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_credit_section]
-func (x *AboutWindow) AddAcknowledgementSection(NameVar string, PeopleVar uintptr) {
+func (x *AboutWindow) AddAcknowledgementSection(NameVar string, PeopleVar []string) {
 
 	xAboutWindowAddAcknowledgementSection(x.GoPointer(), NameVar, PeopleVar)
 
 }
 
-var xAboutWindowAddCreditSection func(uintptr, string, uintptr)
+var xAboutWindowAddCreditSection func(uintptr, string, []string)
 
 // Adds an extra section to the Credits page.
 //
@@ -263,7 +263,7 @@ var xAboutWindowAddCreditSection func(uintptr, string, uintptr)
 // * [property@AboutWindow:documenters]
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_acknowledgement_section]
-func (x *AboutWindow) AddCreditSection(NameVar string, PeopleVar uintptr) {
+func (x *AboutWindow) AddCreditSection(NameVar string, PeopleVar []string) {
 
 	xAboutWindowAddCreditSection(x.GoPointer(), NameVar, PeopleVar)
 
@@ -539,7 +539,7 @@ func (x *AboutWindow) SetApplicationName(ApplicationNameVar string) {
 
 }
 
-var xAboutWindowSetArtists func(uintptr, uintptr)
+var xAboutWindowSetArtists func(uintptr, []string)
 
 // Sets the list of artists of the application.
 //
@@ -556,7 +556,7 @@ var xAboutWindowSetArtists func(uintptr, uintptr)
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_credit_section]
 // * [method@AboutWindow.add_acknowledgement_section]
-func (x *AboutWindow) SetArtists(ArtistsVar uintptr) {
+func (x *AboutWindow) SetArtists(ArtistsVar []string) {
 
 	xAboutWindowSetArtists(x.GoPointer(), ArtistsVar)
 
@@ -627,7 +627,7 @@ func (x *AboutWindow) SetDebugInfoFilename(FilenameVar string) {
 
 }
 
-var xAboutWindowSetDesigners func(uintptr, uintptr)
+var xAboutWindowSetDesigners func(uintptr, []string)
 
 // Sets the list of designers of the application.
 //
@@ -644,7 +644,7 @@ var xAboutWindowSetDesigners func(uintptr, uintptr)
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_credit_section]
 // * [method@AboutWindow.add_acknowledgement_section]
-func (x *AboutWindow) SetDesigners(DesignersVar uintptr) {
+func (x *AboutWindow) SetDesigners(DesignersVar []string) {
 
 	xAboutWindowSetDesigners(x.GoPointer(), DesignersVar)
 
@@ -666,7 +666,7 @@ func (x *AboutWindow) SetDeveloperName(DeveloperNameVar string) {
 
 }
 
-var xAboutWindowSetDevelopers func(uintptr, uintptr)
+var xAboutWindowSetDevelopers func(uintptr, []string)
 
 // Sets the list of developers of the application.
 //
@@ -683,13 +683,13 @@ var xAboutWindowSetDevelopers func(uintptr, uintptr)
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_credit_section]
 // * [method@AboutWindow.add_acknowledgement_section]
-func (x *AboutWindow) SetDevelopers(DevelopersVar uintptr) {
+func (x *AboutWindow) SetDevelopers(DevelopersVar []string) {
 
 	xAboutWindowSetDevelopers(x.GoPointer(), DevelopersVar)
 
 }
 
-var xAboutWindowSetDocumenters func(uintptr, uintptr)
+var xAboutWindowSetDocumenters func(uintptr, []string)
 
 // Sets the list of documenters of the application.
 //
@@ -706,7 +706,7 @@ var xAboutWindowSetDocumenters func(uintptr, uintptr)
 // * [property@AboutWindow:translator-credits]
 // * [method@AboutWindow.add_credit_section]
 // * [method@AboutWindow.add_acknowledgement_section]
-func (x *AboutWindow) SetDocumenters(DocumentersVar uintptr) {
+func (x *AboutWindow) SetDocumenters(DocumentersVar []string) {
 
 	xAboutWindowSetDocumenters(x.GoPointer(), DocumentersVar)
 

@@ -97,7 +97,7 @@ func (x *Clipboard) IsLocal() bool {
 	return cret
 }
 
-var xClipboardReadAsync func(uintptr, uintptr, int, uintptr, uintptr, uintptr)
+var xClipboardReadAsync func(uintptr, []string, int, uintptr, uintptr, uintptr)
 
 // Asynchronously requests an input stream to read the @clipboard's
 // contents from.
@@ -107,7 +107,7 @@ var xClipboardReadAsync func(uintptr, uintptr, int, uintptr, uintptr, uintptr)
 //
 // The clipboard will choose the most suitable mime type from the given list
 // to fulfill the request, preferring the ones listed first.
-func (x *Clipboard) ReadAsync(MimeTypesVar uintptr, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Clipboard) ReadAsync(MimeTypesVar []string, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xClipboardReadAsync(x.GoPointer(), MimeTypesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

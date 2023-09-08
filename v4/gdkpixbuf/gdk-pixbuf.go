@@ -542,13 +542,13 @@ func NewFromStreamFinishPixbuf(AsyncResultVar gio.AsyncResult) (*Pixbuf, error) 
 
 }
 
-var xNewFromXpmDataPixbuf func(uintptr) uintptr
+var xNewFromXpmDataPixbuf func([]string) uintptr
 
 // Creates a new pixbuf by parsing XPM data in memory.
 //
 // This data is commonly the result of including an XPM file into a
 // program's C source.
-func NewFromXpmDataPixbuf(DataVar uintptr) *Pixbuf {
+func NewFromXpmDataPixbuf(DataVar []string) *Pixbuf {
 	var cls *Pixbuf
 
 	cret := xNewFromXpmDataPixbuf(DataVar)

@@ -448,7 +448,7 @@ func (x *FileChooserWidget) GetBuildableId() string {
 // and you can obtain the user-selected value in the
 // [signal@Gtk.Dialog::response] signal handler using
 // [method@Gtk.FileChooser.get_choice].
-func (x *FileChooserWidget) AddChoice(IdVar string, LabelVar string, OptionsVar uintptr, OptionLabelsVar uintptr) {
+func (x *FileChooserWidget) AddChoice(IdVar string, LabelVar string, OptionsVar []string, OptionLabelsVar []string) {
 
 	XGtkFileChooserAddChoice(x.GoPointer(), IdVar, LabelVar, OptionsVar, OptionLabelsVar)
 

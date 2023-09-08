@@ -47,6 +47,7 @@ var convList = map[string]string{
 	"gpointer":    "uintptr",
 	"GType":       "[]interface{}",
 	"const char*": "string",
+	"const char**": "[]string",
 	"char**":      "[]string",
 	// not exported
 	"HarfBuzz.font_t": "uintptr",

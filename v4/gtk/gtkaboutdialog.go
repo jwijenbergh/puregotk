@@ -143,10 +143,10 @@ func NewAboutDialog() *Widget {
 	return cls
 }
 
-var xAboutDialogAddCreditSection func(uintptr, string, uintptr)
+var xAboutDialogAddCreditSection func(uintptr, string, []string)
 
 // Creates a new section in the "Credits" page.
-func (x *AboutDialog) AddCreditSection(SectionNameVar string, PeopleVar uintptr) {
+func (x *AboutDialog) AddCreditSection(SectionNameVar string, PeopleVar []string) {
 
 	xAboutDialogAddCreditSection(x.GoPointer(), SectionNameVar, PeopleVar)
 
@@ -309,21 +309,21 @@ func (x *AboutDialog) GetWrapLicense() bool {
 	return cret
 }
 
-var xAboutDialogSetArtists func(uintptr, uintptr)
+var xAboutDialogSetArtists func(uintptr, []string)
 
 // Sets the names of the artists to be displayed
 // in the "Credits" page.
-func (x *AboutDialog) SetArtists(ArtistsVar uintptr) {
+func (x *AboutDialog) SetArtists(ArtistsVar []string) {
 
 	xAboutDialogSetArtists(x.GoPointer(), ArtistsVar)
 
 }
 
-var xAboutDialogSetAuthors func(uintptr, uintptr)
+var xAboutDialogSetAuthors func(uintptr, []string)
 
 // Sets the names of the authors which are displayed
 // in the "Credits" page of the about dialog.
-func (x *AboutDialog) SetAuthors(AuthorsVar uintptr) {
+func (x *AboutDialog) SetAuthors(AuthorsVar []string) {
 
 	xAboutDialogSetAuthors(x.GoPointer(), AuthorsVar)
 
@@ -351,11 +351,11 @@ func (x *AboutDialog) SetCopyright(CopyrightVar string) {
 
 }
 
-var xAboutDialogSetDocumenters func(uintptr, uintptr)
+var xAboutDialogSetDocumenters func(uintptr, []string)
 
 // Sets the names of the documenters which are displayed
 // in the "Credits" page.
-func (x *AboutDialog) SetDocumenters(DocumentersVar uintptr) {
+func (x *AboutDialog) SetDocumenters(DocumentersVar []string) {
 
 	xAboutDialogSetDocumenters(x.GoPointer(), DocumentersVar)
 

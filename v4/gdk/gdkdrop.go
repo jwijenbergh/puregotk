@@ -148,11 +148,11 @@ func (x *Drop) GetSurface() *Surface {
 	return cls
 }
 
-var xDropReadAsync func(uintptr, uintptr, int, uintptr, uintptr, uintptr)
+var xDropReadAsync func(uintptr, []string, int, uintptr, uintptr, uintptr)
 
 // Asynchronously read the dropped data from a `GdkDrop`
 // in a format that complies with one of the mime types.
-func (x *Drop) ReadAsync(MimeTypesVar uintptr, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Drop) ReadAsync(MimeTypesVar []string, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDropReadAsync(x.GoPointer(), MimeTypesVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
 

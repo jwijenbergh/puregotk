@@ -52,7 +52,7 @@ import (
 type FileChooser interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	AddChoice(IdVar string, LabelVar string, OptionsVar uintptr, OptionLabelsVar uintptr)
+	AddChoice(IdVar string, LabelVar string, OptionsVar []string, OptionLabelsVar []string)
 	AddFilter(FilterVar *FileFilter)
 	AddShortcutFolder(FolderVar gio.File) bool
 	GetAction() FileChooserAction
@@ -98,7 +98,7 @@ func (x *FileChooserBase) SetGoPointer(ptr uintptr) {
 // and you can obtain the user-selected value in the
 // [signal@Gtk.Dialog::response] signal handler using
 // [method@Gtk.FileChooser.get_choice].
-func (x *FileChooserBase) AddChoice(IdVar string, LabelVar string, OptionsVar uintptr, OptionLabelsVar uintptr) {
+func (x *FileChooserBase) AddChoice(IdVar string, LabelVar string, OptionsVar []string, OptionLabelsVar []string) {
 
 	XGtkFileChooserAddChoice(x.GoPointer(), IdVar, LabelVar, OptionsVar, OptionLabelsVar)
 
@@ -443,7 +443,7 @@ func (x *FileChooserBase) SetSelectMultiple(SelectMultipleVar bool) {
 
 }
 
-var XGtkFileChooserAddChoice func(uintptr, string, string, uintptr, uintptr)
+var XGtkFileChooserAddChoice func(uintptr, string, string, []string, []string)
 var XGtkFileChooserAddFilter func(uintptr, uintptr)
 var XGtkFileChooserAddShortcutFolder func(uintptr, uintptr, **glib.Error) bool
 var XGtkFileChooserGetAction func(uintptr) FileChooserAction

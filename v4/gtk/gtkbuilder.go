@@ -422,7 +422,7 @@ func (x *Builder) AddFromString(BufferVar string, LengthVar int) (bool, error) {
 
 }
 
-var xBuilderAddObjectsFromFile func(uintptr, string, uintptr, **glib.Error) bool
+var xBuilderAddObjectsFromFile func(uintptr, string, []string, **glib.Error) bool
 
 // Parses a file containing a UI definition building only the
 // requested objects and merges them with the current contents
@@ -435,7 +435,7 @@ var xBuilderAddObjectsFromFile func(uintptr, string, uintptr, **glib.Error) bool
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromFile(FilenameVar string, ObjectIdsVar uintptr) (bool, error) {
+func (x *Builder) AddObjectsFromFile(FilenameVar string, ObjectIdsVar []string) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xBuilderAddObjectsFromFile(x.GoPointer(), FilenameVar, ObjectIdsVar, &cerr)
@@ -446,7 +446,7 @@ func (x *Builder) AddObjectsFromFile(FilenameVar string, ObjectIdsVar uintptr) (
 
 }
 
-var xBuilderAddObjectsFromResource func(uintptr, string, uintptr, **glib.Error) bool
+var xBuilderAddObjectsFromResource func(uintptr, string, []string, **glib.Error) bool
 
 // Parses a resource file containing a UI definition, building
 // only the requested objects and merges them with the current
@@ -459,7 +459,7 @@ var xBuilderAddObjectsFromResource func(uintptr, string, uintptr, **glib.Error) 
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromResource(ResourcePathVar string, ObjectIdsVar uintptr) (bool, error) {
+func (x *Builder) AddObjectsFromResource(ResourcePathVar string, ObjectIdsVar []string) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xBuilderAddObjectsFromResource(x.GoPointer(), ResourcePathVar, ObjectIdsVar, &cerr)
@@ -470,7 +470,7 @@ func (x *Builder) AddObjectsFromResource(ResourcePathVar string, ObjectIdsVar ui
 
 }
 
-var xBuilderAddObjectsFromString func(uintptr, string, int, uintptr, **glib.Error) bool
+var xBuilderAddObjectsFromString func(uintptr, string, int, []string, **glib.Error) bool
 
 // Parses a string containing a UI definition, building only the
 // requested objects and merges them with the current contents of
@@ -482,7 +482,7 @@ var xBuilderAddObjectsFromString func(uintptr, string, int, uintptr, **glib.Erro
 // If you are adding an object that depends on an object that is not
 // its child (for instance a `GtkTreeView` that depends on its
 // `GtkTreeModel`), you have to explicitly list all of them in @object_ids.
-func (x *Builder) AddObjectsFromString(BufferVar string, LengthVar int, ObjectIdsVar uintptr) (bool, error) {
+func (x *Builder) AddObjectsFromString(BufferVar string, LengthVar int, ObjectIdsVar []string) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xBuilderAddObjectsFromString(x.GoPointer(), BufferVar, LengthVar, ObjectIdsVar, &cerr)

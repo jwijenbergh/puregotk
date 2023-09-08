@@ -39,7 +39,7 @@ type PixbufModuleLoadAnimationFunc func(uintptr, **glib.Error) uintptr
 type PixbufModuleLoadFunc func(uintptr, **glib.Error) uintptr
 
 // Loads XPM data into a new `GdkPixbuf`.
-type PixbufModuleLoadXpmDataFunc func(uintptr) uintptr
+type PixbufModuleLoadXpmDataFunc func([]string) uintptr
 
 // Defines the type of the function that gets called once the initial
 // setup of @pixbuf is done.

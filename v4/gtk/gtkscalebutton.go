@@ -33,13 +33,13 @@ func ScaleButtonNewFromInternalPtr(ptr uintptr) *ScaleButton {
 	return cls
 }
 
-var xNewScaleButton func(float64, float64, float64, uintptr) uintptr
+var xNewScaleButton func(float64, float64, float64, []string) uintptr
 
 // Creates a `GtkScaleButton`.
 //
 // The new scale button has a range between @min and @max,
 // with a stepping of @step.
-func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar uintptr) *Widget {
+func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar []string) *Widget {
 	var cls *Widget
 
 	cret := xNewScaleButton(MinVar, MaxVar, StepVar, IconsVar)
@@ -144,10 +144,10 @@ func (x *ScaleButton) SetAdjustment(AdjustmentVar *Adjustment) {
 
 }
 
-var xScaleButtonSetIcons func(uintptr, uintptr)
+var xScaleButtonSetIcons func(uintptr, []string)
 
 // Sets the icons to be used by the scale button.
-func (x *ScaleButton) SetIcons(IconsVar uintptr) {
+func (x *ScaleButton) SetIcons(IconsVar []string) {
 
 	xScaleButtonSetIcons(x.GoPointer(), IconsVar)
 

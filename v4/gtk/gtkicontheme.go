@@ -482,7 +482,7 @@ func (x *IconTheme) LookupByGicon(IconVar gio.Icon, SizeVar int, ScaleVar int, D
 	return cls
 }
 
-var xIconThemeLookupIcon func(uintptr, string, uintptr, int, int, TextDirection, IconLookupFlags) uintptr
+var xIconThemeLookupIcon func(uintptr, string, []string, int, int, TextDirection, IconLookupFlags) uintptr
 
 // Looks up a named icon for a desired size and window scale,
 // returning a `GtkIconPaintable`.
@@ -500,7 +500,7 @@ var xIconThemeLookupIcon func(uintptr, string, uintptr, int, int, TextDirection,
 // Note that you probably want to listen for icon theme changes and
 // update the icon. This is usually done by overriding the
 // GtkWidgetClass.css-changed() function.
-func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar uintptr, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
+func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar []string, SizeVar int, ScaleVar int, DirectionVar TextDirection, FlagsVar IconLookupFlags) *IconPaintable {
 	var cls *IconPaintable
 
 	cret := xIconThemeLookupIcon(x.GoPointer(), IconNameVar, FallbacksVar, SizeVar, ScaleVar, DirectionVar, FlagsVar)

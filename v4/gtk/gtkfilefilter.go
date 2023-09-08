@@ -163,7 +163,7 @@ func (x *FileFilter) AddSuffix(SuffixVar string) {
 
 }
 
-var xFileFilterGetAttributes func(uintptr) uintptr
+var xFileFilterGetAttributes func(uintptr) []string
 
 // Gets the attributes that need to be filled in for the `GFileInfo`
 // passed to this filter.
@@ -171,7 +171,7 @@ var xFileFilterGetAttributes func(uintptr) uintptr
 // This function will not typically be used by applications;
 // it is intended principally for use in the implementation
 // of `GtkFileChooser`.
-func (x *FileFilter) GetAttributes() uintptr {
+func (x *FileFilter) GetAttributes() []string {
 
 	cret := xFileFilterGetAttributes(x.GoPointer())
 	return cret
