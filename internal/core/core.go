@@ -119,7 +119,7 @@ func findPkgConf(name string) string {
 
 // GetPath gets a shared object file from a library name
 // it does it in the following order
-// see if PUREGOTK_LIBNAME_FOLDER is set (full path to the lib)
+// see if PUREGOTK_LIBNAME_PATH is set (full path to the lib)
 // - e.g. PUREGOTK_GTK_PATH
 // see if PUREGOTK_LIB_FOLDER is set (root folder where to look for libs)
 // go over the hardcoded paths
