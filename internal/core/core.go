@@ -70,7 +70,7 @@ var pkgConfNames = map[string]string{
 	"GMODULE":    "gmodule-2.0",
 	"GOBJECT":    "gobject-2.0",
 	"GRAPHENE":   "graphene-gobject-1.0",
-	"GSK":        "gtk4",
+	"GTK":        "gtk4",
 	"PANGO":      "pango",
 	"PANGOCAIRO": "pangocairo",
 }
