@@ -42,13 +42,13 @@ var convList = map[string]string{
 	"filename": "string",
 
 	// these are probably not correct but needed to compile
-	"long double": "float64",
-	"va_list":     "[]interface{}",
-	"gpointer":    "uintptr",
-	"GType":       "[]interface{}",
-	"const char*": "string",
+	"long double":  "float64",
+	"va_list":      "[]interface{}",
+	"gpointer":     "uintptr",
+	"GType":        "[]interface{}",
+	"const char*":  "string",
 	"const char**": "[]string",
-	"char**":      "[]string",
+	"char**":       "[]string",
 	// not exported
 	"HarfBuzz.font_t": "uintptr",
 	//"GLib.Quark": "byte",
