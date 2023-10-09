@@ -121,7 +121,7 @@ func (c *GestureStylus) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the stylus touches the device.
-func (x *GestureStylus) ConnectDown(cb func(GestureStylus, float64, float64)) {
+func (x *GestureStylus) ConnectDown(cb func(GestureStylus, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := GestureStylus{}
 		fa.Ptr = clsPtr
@@ -129,11 +129,11 @@ func (x *GestureStylus) ConnectDown(cb func(GestureStylus, float64, float64)) {
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::down", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "down", purego.NewCallback(fcb))
 }
 
 // Emitted when the stylus moves while touching the device.
-func (x *GestureStylus) ConnectMotion(cb func(GestureStylus, float64, float64)) {
+func (x *GestureStylus) ConnectMotion(cb func(GestureStylus, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := GestureStylus{}
 		fa.Ptr = clsPtr
@@ -141,11 +141,11 @@ func (x *GestureStylus) ConnectMotion(cb func(GestureStylus, float64, float64)) 
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::motion", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "motion", purego.NewCallback(fcb))
 }
 
 // Emitted when the stylus is in proximity of the device.
-func (x *GestureStylus) ConnectProximity(cb func(GestureStylus, float64, float64)) {
+func (x *GestureStylus) ConnectProximity(cb func(GestureStylus, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := GestureStylus{}
 		fa.Ptr = clsPtr
@@ -153,11 +153,11 @@ func (x *GestureStylus) ConnectProximity(cb func(GestureStylus, float64, float64
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::proximity", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "proximity", purego.NewCallback(fcb))
 }
 
 // Emitted when the stylus no longer touches the device.
-func (x *GestureStylus) ConnectUp(cb func(GestureStylus, float64, float64)) {
+func (x *GestureStylus) ConnectUp(cb func(GestureStylus, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := GestureStylus{}
 		fa.Ptr = clsPtr
@@ -165,7 +165,7 @@ func (x *GestureStylus) ConnectUp(cb func(GestureStylus, float64, float64)) {
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::up", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "up", purego.NewCallback(fcb))
 }
 
 func init() {

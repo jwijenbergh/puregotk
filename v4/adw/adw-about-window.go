@@ -899,7 +899,7 @@ func (c *AboutWindow) SetGoPointer(ptr uintptr) {
 //
 // Applications may connect to it to override the default behavior, which is
 // to call [func@Gtk.show_uri].
-func (x *AboutWindow) ConnectActivateLink(cb func(AboutWindow, string) bool) {
+func (x *AboutWindow) ConnectActivateLink(cb func(AboutWindow, string) bool) uint32 {
 	fcb := func(clsPtr uintptr, UriVarp string) bool {
 		fa := AboutWindow{}
 		fa.Ptr = clsPtr
@@ -907,7 +907,7 @@ func (x *AboutWindow) ConnectActivateLink(cb func(AboutWindow, string) bool) {
 		return cb(fa, UriVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-link", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

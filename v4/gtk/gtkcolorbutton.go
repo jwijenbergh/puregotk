@@ -126,7 +126,7 @@ func (c *ColorButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkMenuButton` is an action signal and
 // emitting it causes the button to pop up its dialog.
-func (x *ColorButton) ConnectActivate(cb func(ColorButton)) {
+func (x *ColorButton) ConnectActivate(cb func(ColorButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ColorButton{}
 		fa.Ptr = clsPtr
@@ -134,7 +134,7 @@ func (x *ColorButton) ConnectActivate(cb func(ColorButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the user selects a color.
@@ -145,7 +145,7 @@ func (x *ColorButton) ConnectActivate(cb func(ColorButton)) {
 // Note that this signal is only emitted when the user changes the color.
 // If you need to react to programmatic color changes as well, use
 // the notify::rgba signal.
-func (x *ColorButton) ConnectColorSet(cb func(ColorButton)) {
+func (x *ColorButton) ConnectColorSet(cb func(ColorButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ColorButton{}
 		fa.Ptr = clsPtr
@@ -153,7 +153,7 @@ func (x *ColorButton) ConnectColorSet(cb func(ColorButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::color-set", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "color-set", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

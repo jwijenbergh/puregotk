@@ -234,7 +234,7 @@ func (c *GridView) SetGoPointer(ptr uintptr) {
 // This allows for a convenient way to handle activation in a gridview.
 // See [property@Gtk.ListItem:activatable] for details on how to use
 // this signal.
-func (x *GridView) ConnectActivate(cb func(GridView, uint)) {
+func (x *GridView) ConnectActivate(cb func(GridView, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PositionVarp uint) {
 		fa := GridView{}
 		fa.Ptr = clsPtr
@@ -242,7 +242,7 @@ func (x *GridView) ConnectActivate(cb func(GridView, uint)) {
 		cb(fa, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

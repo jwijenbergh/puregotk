@@ -391,7 +391,7 @@ func (c *PrintJob) SetGoPointer(ptr uintptr) {
 //
 // The signal handler can use [method@Gtk.PrintJob.get_status]
 // to obtain the new status.
-func (x *PrintJob) ConnectStatusChanged(cb func(PrintJob)) {
+func (x *PrintJob) ConnectStatusChanged(cb func(PrintJob)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := PrintJob{}
 		fa.Ptr = clsPtr
@@ -399,7 +399,7 @@ func (x *PrintJob) ConnectStatusChanged(cb func(PrintJob)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::status-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "status-changed", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -117,7 +117,7 @@ func (c *FileMonitor) SetGoPointer(ptr uintptr) {
 // old path, and @other_file will be set to a #GFile containing the new path.
 //
 // In all the other cases, @other_file will be set to #NULL.
-func (x *FileMonitor) ConnectChanged(cb func(FileMonitor, uintptr, uintptr, FileMonitorEvent)) {
+func (x *FileMonitor) ConnectChanged(cb func(FileMonitor, uintptr, uintptr, FileMonitorEvent)) uint32 {
 	fcb := func(clsPtr uintptr, FileVarp uintptr, OtherFileVarp uintptr, EventTypeVarp FileMonitorEvent) {
 		fa := FileMonitor{}
 		fa.Ptr = clsPtr
@@ -125,7 +125,7 @@ func (x *FileMonitor) ConnectChanged(cb func(FileMonitor, uintptr, uintptr, File
 		cb(fa, FileVarp, OtherFileVarp, EventTypeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

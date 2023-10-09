@@ -81,7 +81,7 @@ func (c *CellRendererText) SetGoPointer(ptr uintptr) {
 //
 // It is the responsibility of the application to update the model
 // and store @new_text at the position indicated by @path.
-func (x *CellRendererText) ConnectEdited(cb func(CellRendererText, string, string)) {
+func (x *CellRendererText) ConnectEdited(cb func(CellRendererText, string, string)) uint32 {
 	fcb := func(clsPtr uintptr, PathVarp string, NewTextVarp string) {
 		fa := CellRendererText{}
 		fa.Ptr = clsPtr
@@ -89,7 +89,7 @@ func (x *CellRendererText) ConnectEdited(cb func(CellRendererText, string, strin
 		cb(fa, PathVarp, NewTextVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::edited", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "edited", purego.NewCallback(fcb))
 }
 
 func init() {

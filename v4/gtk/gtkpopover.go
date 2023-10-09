@@ -362,7 +362,7 @@ func (c *Popover) SetGoPointer(ptr uintptr) {
 // Emitted whend the user activates the default widget.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Popover) ConnectActivateDefault(cb func(Popover)) {
+func (x *Popover) ConnectActivateDefault(cb func(Popover)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Popover{}
 		fa.Ptr = clsPtr
@@ -370,11 +370,11 @@ func (x *Popover) ConnectActivateDefault(cb func(Popover)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-default", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-default", purego.NewCallback(fcb))
 }
 
 // Emitted when the popover is closed.
-func (x *Popover) ConnectClosed(cb func(Popover)) {
+func (x *Popover) ConnectClosed(cb func(Popover)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Popover{}
 		fa.Ptr = clsPtr
@@ -382,7 +382,7 @@ func (x *Popover) ConnectClosed(cb func(Popover)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::closed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "closed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

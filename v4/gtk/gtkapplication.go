@@ -426,7 +426,7 @@ func (c *Application) SetGoPointer(ptr uintptr) {
 // is `TRUE`. Applications can connect to this signal and call
 // [method@Gtk.Application.inhibit] with `GTK_APPLICATION_INHIBIT_LOGOUT`
 // to delay the end of the session until state has been saved.
-func (x *Application) ConnectQueryEnd(cb func(Application)) {
+func (x *Application) ConnectQueryEnd(cb func(Application)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -434,12 +434,12 @@ func (x *Application) ConnectQueryEnd(cb func(Application)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::query-end", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "query-end", purego.NewCallback(fcb))
 }
 
 // Emitted when a [class@Gtk.Window] is added to `application` through
 // [method@Gtk.Application.add_window].
-func (x *Application) ConnectWindowAdded(cb func(Application, uintptr)) {
+func (x *Application) ConnectWindowAdded(cb func(Application, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, WindowVarp uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -447,14 +447,14 @@ func (x *Application) ConnectWindowAdded(cb func(Application, uintptr)) {
 		cb(fa, WindowVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::window-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "window-added", purego.NewCallback(fcb))
 }
 
 // Emitted when a [class@Gtk.Window] is removed from `application`.
 //
 // This can happen as a side-effect of the window being destroyed
 // or explicitly through [method@Gtk.Application.remove_window].
-func (x *Application) ConnectWindowRemoved(cb func(Application, uintptr)) {
+func (x *Application) ConnectWindowRemoved(cb func(Application, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, WindowVarp uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -462,7 +462,7 @@ func (x *Application) ConnectWindowRemoved(cb func(Application, uintptr)) {
 		cb(fa, WindowVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::window-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "window-removed", purego.NewCallback(fcb))
 }
 
 // Emits the #GActionGroup::action-added signal on @action_group.

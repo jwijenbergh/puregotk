@@ -137,7 +137,7 @@ func (c *TextTagTable) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted every time a new tag is added in the `GtkTextTagTable`.
-func (x *TextTagTable) ConnectTagAdded(cb func(TextTagTable, uintptr)) {
+func (x *TextTagTable) ConnectTagAdded(cb func(TextTagTable, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, TagVarp uintptr) {
 		fa := TextTagTable{}
 		fa.Ptr = clsPtr
@@ -145,11 +145,11 @@ func (x *TextTagTable) ConnectTagAdded(cb func(TextTagTable, uintptr)) {
 		cb(fa, TagVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tag-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tag-added", purego.NewCallback(fcb))
 }
 
 // Emitted every time a tag in the `GtkTextTagTable` changes.
-func (x *TextTagTable) ConnectTagChanged(cb func(TextTagTable, uintptr, bool)) {
+func (x *TextTagTable) ConnectTagChanged(cb func(TextTagTable, uintptr, bool)) uint32 {
 	fcb := func(clsPtr uintptr, TagVarp uintptr, SizeChangedVarp bool) {
 		fa := TextTagTable{}
 		fa.Ptr = clsPtr
@@ -157,14 +157,14 @@ func (x *TextTagTable) ConnectTagChanged(cb func(TextTagTable, uintptr, bool)) {
 		cb(fa, TagVarp, SizeChangedVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tag-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tag-changed", purego.NewCallback(fcb))
 }
 
 // Emitted every time a tag is removed from the `GtkTextTagTable`.
 //
 // The @tag is still valid by the time the signal is emitted, but
 // it is not associated with a tag table any more.
-func (x *TextTagTable) ConnectTagRemoved(cb func(TextTagTable, uintptr)) {
+func (x *TextTagTable) ConnectTagRemoved(cb func(TextTagTable, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, TagVarp uintptr) {
 		fa := TextTagTable{}
 		fa.Ptr = clsPtr
@@ -172,7 +172,7 @@ func (x *TextTagTable) ConnectTagRemoved(cb func(TextTagTable, uintptr)) {
 		cb(fa, TagVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tag-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tag-removed", purego.NewCallback(fcb))
 }
 
 // Gets the ID of the @buildable object.

@@ -213,7 +213,7 @@ func (c *DebugControllerDBus) SetGoPointer(ptr uintptr) {
 // Signal handlers must not modify @invocation, or cause it to return a value.
 //
 // The default class handler just returns %TRUE.
-func (x *DebugControllerDBus) ConnectAuthorize(cb func(DebugControllerDBus, uintptr) bool) {
+func (x *DebugControllerDBus) ConnectAuthorize(cb func(DebugControllerDBus, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, InvocationVarp uintptr) bool {
 		fa := DebugControllerDBus{}
 		fa.Ptr = clsPtr
@@ -221,7 +221,7 @@ func (x *DebugControllerDBus) ConnectAuthorize(cb func(DebugControllerDBus, uint
 		return cb(fa, InvocationVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::authorize", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "authorize", purego.NewCallback(fcb))
 }
 
 // Get the value of #GDebugController:debug-enabled.

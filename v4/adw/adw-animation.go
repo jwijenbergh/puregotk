@@ -272,7 +272,7 @@ func (c *Animation) SetGoPointer(ptr uintptr) {
 
 // This signal is emitted when the animation has been completed, either on its
 // own or via calling [method@Animation.skip].
-func (x *Animation) ConnectDone(cb func(Animation)) {
+func (x *Animation) ConnectDone(cb func(Animation)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Animation{}
 		fa.Ptr = clsPtr
@@ -280,7 +280,7 @@ func (x *Animation) ConnectDone(cb func(Animation)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::done", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "done", purego.NewCallback(fcb))
 }
 
 func init() {

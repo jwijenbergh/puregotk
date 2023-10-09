@@ -321,7 +321,7 @@ func (c *Device) SetGoPointer(ptr uintptr) {
 // example, user switches from the USB mouse to a tablet); in
 // that case the logical device will change to reflect the axes
 // and keys on the new physical device.
-func (x *Device) ConnectChanged(cb func(Device)) {
+func (x *Device) ConnectChanged(cb func(Device)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Device{}
 		fa.Ptr = clsPtr
@@ -329,11 +329,11 @@ func (x *Device) ConnectChanged(cb func(Device)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 // Emitted on pen/eraser devices whenever tools enter or leave proximity.
-func (x *Device) ConnectToolChanged(cb func(Device, uintptr)) {
+func (x *Device) ConnectToolChanged(cb func(Device, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ToolVarp uintptr) {
 		fa := Device{}
 		fa.Ptr = clsPtr
@@ -341,7 +341,7 @@ func (x *Device) ConnectToolChanged(cb func(Device, uintptr)) {
 		cb(fa, ToolVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tool-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tool-changed", purego.NewCallback(fcb))
 }
 
 func init() {

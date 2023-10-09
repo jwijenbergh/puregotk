@@ -263,7 +263,7 @@ func (c *DBusObjectManagerClient) SetGoPointer(ptr uintptr) {
 // This signal is emitted in the
 // [thread-default main context][g-main-context-push-thread-default]
 // that @manager was constructed in.
-func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func(DBusObjectManagerClient, uintptr, uintptr, uintptr, uintptr)) {
+func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func(DBusObjectManagerClient, uintptr, uintptr, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp uintptr) {
 		fa := DBusObjectManagerClient{}
 		fa.Ptr = clsPtr
@@ -271,7 +271,7 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func
 		cb(fa, ObjectProxyVarp, InterfaceProxyVarp, ChangedPropertiesVarp, InvalidatedPropertiesVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::interface-proxy-properties-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-properties-changed", purego.NewCallback(fcb))
 }
 
 // Emitted when a D-Bus signal is received on @interface_proxy.
@@ -282,7 +282,7 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func
 // This signal is emitted in the
 // [thread-default main context][g-main-context-push-thread-default]
 // that @manager was constructed in.
-func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObjectManagerClient, uintptr, uintptr, string, string, uintptr)) {
+func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObjectManagerClient, uintptr, uintptr, string, string, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, SenderNameVarp string, SignalNameVarp string, ParametersVarp uintptr) {
 		fa := DBusObjectManagerClient{}
 		fa.Ptr = clsPtr
@@ -290,7 +290,7 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObject
 		cb(fa, ObjectProxyVarp, InterfaceProxyVarp, SenderNameVarp, SignalNameVarp, ParametersVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::interface-proxy-signal", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-signal", purego.NewCallback(fcb))
 }
 
 // Starts asynchronous initialization of the object implementing the

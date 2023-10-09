@@ -220,7 +220,7 @@ func (c *Calendar) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the user selects a day.
-func (x *Calendar) ConnectDaySelected(cb func(Calendar)) {
+func (x *Calendar) ConnectDaySelected(cb func(Calendar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
@@ -228,11 +228,11 @@ func (x *Calendar) ConnectDaySelected(cb func(Calendar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::day-selected", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "day-selected", purego.NewCallback(fcb))
 }
 
 // Emitted when the user switched to the next month.
-func (x *Calendar) ConnectNextMonth(cb func(Calendar)) {
+func (x *Calendar) ConnectNextMonth(cb func(Calendar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
@@ -240,11 +240,11 @@ func (x *Calendar) ConnectNextMonth(cb func(Calendar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::next-month", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "next-month", purego.NewCallback(fcb))
 }
 
 // Emitted when user switched to the next year.
-func (x *Calendar) ConnectNextYear(cb func(Calendar)) {
+func (x *Calendar) ConnectNextYear(cb func(Calendar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
@@ -252,11 +252,11 @@ func (x *Calendar) ConnectNextYear(cb func(Calendar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::next-year", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "next-year", purego.NewCallback(fcb))
 }
 
 // Emitted when the user switched to the previous month.
-func (x *Calendar) ConnectPrevMonth(cb func(Calendar)) {
+func (x *Calendar) ConnectPrevMonth(cb func(Calendar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
@@ -264,11 +264,11 @@ func (x *Calendar) ConnectPrevMonth(cb func(Calendar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::prev-month", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "prev-month", purego.NewCallback(fcb))
 }
 
 // Emitted when user switched to the previous year.
-func (x *Calendar) ConnectPrevYear(cb func(Calendar)) {
+func (x *Calendar) ConnectPrevYear(cb func(Calendar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
@@ -276,7 +276,7 @@ func (x *Calendar) ConnectPrevYear(cb func(Calendar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::prev-year", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "prev-year", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

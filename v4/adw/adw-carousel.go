@@ -314,7 +314,7 @@ func (c *Carousel) SetGoPointer(ptr uintptr) {
 // It can be used to implement "infinite scrolling" by amending the pages
 // after every scroll. Note that an empty carousel is indicated by
 // `(int)index == -1`.
-func (x *Carousel) ConnectPageChanged(cb func(Carousel, uint)) {
+func (x *Carousel) ConnectPageChanged(cb func(Carousel, uint)) uint32 {
 	fcb := func(clsPtr uintptr, IndexVarp uint) {
 		fa := Carousel{}
 		fa.Ptr = clsPtr
@@ -322,7 +322,7 @@ func (x *Carousel) ConnectPageChanged(cb func(Carousel, uint)) {
 		cb(fa, IndexVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-changed", purego.NewCallback(fcb))
 }
 
 // Gets the progress @self will snap back to after the gesture is canceled.

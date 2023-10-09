@@ -217,7 +217,7 @@ func (c *ContentProvider) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever the content provided by this provider has changed.
-func (x *ContentProvider) ConnectContentChanged(cb func(ContentProvider)) {
+func (x *ContentProvider) ConnectContentChanged(cb func(ContentProvider)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ContentProvider{}
 		fa.Ptr = clsPtr
@@ -225,7 +225,7 @@ func (x *ContentProvider) ConnectContentChanged(cb func(ContentProvider)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::content-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "content-changed", purego.NewCallback(fcb))
 }
 
 func init() {

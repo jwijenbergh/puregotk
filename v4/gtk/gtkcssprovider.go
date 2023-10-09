@@ -163,7 +163,7 @@ func (c *CssProvider) SetGoPointer(ptr uintptr) {
 // Note that this signal may be emitted at any time as the css provider
 // may opt to defer parsing parts or all of the input to a later time
 // than when a loading function was called.
-func (x *CssProvider) ConnectParsingError(cb func(CssProvider, uintptr, uintptr)) {
+func (x *CssProvider) ConnectParsingError(cb func(CssProvider, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SectionVarp uintptr, ErrorVarp uintptr) {
 		fa := CssProvider{}
 		fa.Ptr = clsPtr
@@ -171,7 +171,7 @@ func (x *CssProvider) ConnectParsingError(cb func(CssProvider, uintptr, uintptr)
 		cb(fa, SectionVarp, ErrorVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::parsing-error", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "parsing-error", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -185,7 +185,7 @@ func (c *NativeDialog) SetGoPointer(ptr uintptr) {
 //
 // If you call [method@Gtk.NativeDialog.hide] before the user
 // responds to the dialog this signal will not be emitted.
-func (x *NativeDialog) ConnectResponse(cb func(NativeDialog, int)) {
+func (x *NativeDialog) ConnectResponse(cb func(NativeDialog, int)) uint32 {
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := NativeDialog{}
 		fa.Ptr = clsPtr
@@ -193,7 +193,7 @@ func (x *NativeDialog) ConnectResponse(cb func(NativeDialog, int)) {
 		cb(fa, ResponseIdVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::response", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
 }
 
 func init() {

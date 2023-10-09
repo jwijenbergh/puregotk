@@ -250,7 +250,7 @@ func (c *Adjustment) SetGoPointer(ptr uintptr) {
 //
 // Note that the [property@Gtk.Adjustment:value] property is
 // covered by the [signal@Gtk.Adjustment::value-changed] signal.
-func (x *Adjustment) ConnectChanged(cb func(Adjustment)) {
+func (x *Adjustment) ConnectChanged(cb func(Adjustment)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Adjustment{}
 		fa.Ptr = clsPtr
@@ -258,11 +258,11 @@ func (x *Adjustment) ConnectChanged(cb func(Adjustment)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 // Emitted when the value has been changed.
-func (x *Adjustment) ConnectValueChanged(cb func(Adjustment)) {
+func (x *Adjustment) ConnectValueChanged(cb func(Adjustment)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Adjustment{}
 		fa.Ptr = clsPtr
@@ -270,7 +270,7 @@ func (x *Adjustment) ConnectValueChanged(cb func(Adjustment)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::value-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
 }
 
 func init() {

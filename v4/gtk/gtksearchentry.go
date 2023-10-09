@@ -151,7 +151,7 @@ func (c *SearchEntry) SetGoPointer(ptr uintptr) {
 // Emitted when the entry is activated.
 //
 // The keybindings for this signal are all forms of the Enter key.
-func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -159,7 +159,7 @@ func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the user initiates a move to the next match
@@ -171,7 +171,7 @@ func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) {
 // between matches.
 //
 // The default bindings for this signal is Ctrl-g.
-func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -179,7 +179,7 @@ func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::next-match", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "next-match", purego.NewCallback(fcb))
 }
 
 // Emitted when the user initiates a move to the previous match
@@ -191,7 +191,7 @@ func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) {
 // between matches.
 //
 // The default bindings for this signal is Ctrl-Shift-g.
-func (x *SearchEntry) ConnectPreviousMatch(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectPreviousMatch(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -199,13 +199,13 @@ func (x *SearchEntry) ConnectPreviousMatch(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::previous-match", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "previous-match", purego.NewCallback(fcb))
 }
 
 // Emitted with a delay. The length of the delay can be
 // changed with the [property@Gtk.SearchEntry:search-delay]
 // property.
-func (x *SearchEntry) ConnectSearchChanged(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectSearchChanged(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -213,11 +213,11 @@ func (x *SearchEntry) ConnectSearchChanged(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::search-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "search-changed", purego.NewCallback(fcb))
 }
 
 // Emitted when the user initiated a search on the entry.
-func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -225,7 +225,7 @@ func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::search-started", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "search-started", purego.NewCallback(fcb))
 }
 
 // Emitted when the user stops a search via keyboard input.
@@ -236,7 +236,7 @@ func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) {
 // the search entry in this case.
 //
 // The default bindings for this signal is Escape.
-func (x *SearchEntry) ConnectStopSearch(cb func(SearchEntry)) {
+func (x *SearchEntry) ConnectStopSearch(cb func(SearchEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
@@ -244,7 +244,7 @@ func (x *SearchEntry) ConnectStopSearch(cb func(SearchEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::stop-search", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "stop-search", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

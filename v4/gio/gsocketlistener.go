@@ -335,7 +335,7 @@ func (c *SocketListener) SetGoPointer(ptr uintptr) {
 // Note that when @listener is used to listen on both IPv4 and
 // IPv6, a separate set of signals will be emitted for each, and
 // the order they happen in is undefined.
-func (x *SocketListener) ConnectEvent(cb func(SocketListener, SocketListenerEvent, uintptr)) {
+func (x *SocketListener) ConnectEvent(cb func(SocketListener, SocketListenerEvent, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, EventVarp SocketListenerEvent, SocketVarp uintptr) {
 		fa := SocketListener{}
 		fa.Ptr = clsPtr
@@ -343,7 +343,7 @@ func (x *SocketListener) ConnectEvent(cb func(SocketListener, SocketListenerEven
 		cb(fa, EventVarp, SocketVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::event", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
 }
 
 func init() {

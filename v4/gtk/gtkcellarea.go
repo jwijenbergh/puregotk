@@ -931,7 +931,7 @@ func (c *CellArea) SetGoPointer(ptr uintptr) {
 
 // Indicates that editing has started on @renderer and that @editable
 // should be added to the owning cell-layouting widget at @cell_area.
-func (x *CellArea) ConnectAddEditable(cb func(CellArea, uintptr, uintptr, uintptr, string)) {
+func (x *CellArea) ConnectAddEditable(cb func(CellArea, uintptr, uintptr, uintptr, string)) uint32 {
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, EditableVarp uintptr, CellAreaVarp uintptr, PathVarp string) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
@@ -939,11 +939,11 @@ func (x *CellArea) ConnectAddEditable(cb func(CellArea, uintptr, uintptr, uintpt
 		cb(fa, RendererVarp, EditableVarp, CellAreaVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::add-editable", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "add-editable", purego.NewCallback(fcb))
 }
 
 // This signal is emitted whenever applying attributes to @area from @model
-func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bool, bool)) {
+func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bool, bool)) uint32 {
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr, IsExpanderVarp bool, IsExpandedVarp bool) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
@@ -951,7 +951,7 @@ func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bo
 		cb(fa, ModelVarp, IterVarp, IsExpanderVarp, IsExpandedVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::apply-attributes", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "apply-attributes", purego.NewCallback(fcb))
 }
 
 // Indicates that focus changed on this @area. This signal
@@ -962,7 +962,7 @@ func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bo
 // currently focused renderer did not change, this is
 // because focus may change to the same renderer in the
 // same cell area for a different row of data.
-func (x *CellArea) ConnectFocusChanged(cb func(CellArea, uintptr, string)) {
+func (x *CellArea) ConnectFocusChanged(cb func(CellArea, uintptr, string)) uint32 {
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, PathVarp string) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
@@ -970,12 +970,12 @@ func (x *CellArea) ConnectFocusChanged(cb func(CellArea, uintptr, string)) {
 		cb(fa, RendererVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::focus-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "focus-changed", purego.NewCallback(fcb))
 }
 
 // Indicates that editing finished on @renderer and that @editable
 // should be removed from the owning cell-layouting widget.
-func (x *CellArea) ConnectRemoveEditable(cb func(CellArea, uintptr, uintptr)) {
+func (x *CellArea) ConnectRemoveEditable(cb func(CellArea, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, EditableVarp uintptr) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
@@ -983,7 +983,7 @@ func (x *CellArea) ConnectRemoveEditable(cb func(CellArea, uintptr, uintptr)) {
 		cb(fa, RendererVarp, EditableVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::remove-editable", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "remove-editable", purego.NewCallback(fcb))
 }
 
 // Gets the ID of the @buildable object.

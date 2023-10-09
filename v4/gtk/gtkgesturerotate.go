@@ -63,7 +63,7 @@ func (c *GestureRotate) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the angle between both tracked points changes.
-func (x *GestureRotate) ConnectAngleChanged(cb func(GestureRotate, float64, float64)) {
+func (x *GestureRotate) ConnectAngleChanged(cb func(GestureRotate, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, AngleVarp float64, AngleDeltaVarp float64) {
 		fa := GestureRotate{}
 		fa.Ptr = clsPtr
@@ -71,7 +71,7 @@ func (x *GestureRotate) ConnectAngleChanged(cb func(GestureRotate, float64, floa
 		cb(fa, AngleVarp, AngleDeltaVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::angle-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "angle-changed", purego.NewCallback(fcb))
 }
 
 func init() {

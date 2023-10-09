@@ -72,7 +72,7 @@ func (c *ShortcutsWindow) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) {
+func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ShortcutsWindow{}
 		fa.Ptr = clsPtr
@@ -80,7 +80,7 @@ func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
 }
 
 // Emitted when the user uses a keybinding to start a search.
@@ -88,7 +88,7 @@ func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is Control-F.
-func (x *ShortcutsWindow) ConnectSearch(cb func(ShortcutsWindow)) {
+func (x *ShortcutsWindow) ConnectSearch(cb func(ShortcutsWindow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ShortcutsWindow{}
 		fa.Ptr = clsPtr
@@ -96,7 +96,7 @@ func (x *ShortcutsWindow) ConnectSearch(cb func(ShortcutsWindow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::search", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "search", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

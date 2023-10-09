@@ -326,7 +326,7 @@ func (c *Expander) SetGoPointer(ptr uintptr) {
 }
 
 // Activates the `GtkExpander`.
-func (x *Expander) ConnectActivate(cb func(Expander)) {
+func (x *Expander) ConnectActivate(cb func(Expander)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Expander{}
 		fa.Ptr = clsPtr
@@ -334,7 +334,7 @@ func (x *Expander) ConnectActivate(cb func(Expander)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -938,7 +938,7 @@ func (c *Window) SetGoPointer(ptr uintptr) {
 // of @window.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Window) ConnectActivateDefault(cb func(Window)) {
+func (x *Window) ConnectActivateDefault(cb func(Window)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
@@ -946,14 +946,14 @@ func (x *Window) ConnectActivateDefault(cb func(Window)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-default", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-default", purego.NewCallback(fcb))
 }
 
 // Emitted when the user activates the currently focused
 // widget of @window.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Window) ConnectActivateFocus(cb func(Window)) {
+func (x *Window) ConnectActivateFocus(cb func(Window)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
@@ -961,11 +961,11 @@ func (x *Window) ConnectActivateFocus(cb func(Window)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-focus", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-focus", purego.NewCallback(fcb))
 }
 
 // Emitted when the user clicks on the close button of the window.
-func (x *Window) ConnectCloseRequest(cb func(Window) bool) {
+func (x *Window) ConnectCloseRequest(cb func(Window) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := Window{}
 		fa.Ptr = clsPtr
@@ -973,7 +973,7 @@ func (x *Window) ConnectCloseRequest(cb func(Window) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close-request", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close-request", purego.NewCallback(fcb))
 }
 
 // Emitted when the user enables or disables interactive debugging.
@@ -986,7 +986,7 @@ func (x *Window) ConnectCloseRequest(cb func(Window) bool) {
 //
 // The default bindings for this signal are Ctrl-Shift-I
 // and Ctrl-Shift-D.
-func (x *Window) ConnectEnableDebugging(cb func(Window, bool) bool) {
+func (x *Window) ConnectEnableDebugging(cb func(Window, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ToggleVarp bool) bool {
 		fa := Window{}
 		fa.Ptr = clsPtr
@@ -994,12 +994,12 @@ func (x *Window) ConnectEnableDebugging(cb func(Window, bool) bool) {
 		return cb(fa, ToggleVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::enable-debugging", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "enable-debugging", purego.NewCallback(fcb))
 }
 
 // emitted when the set of accelerators or mnemonics that
 // are associated with @window changes.
-func (x *Window) ConnectKeysChanged(cb func(Window)) {
+func (x *Window) ConnectKeysChanged(cb func(Window)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
@@ -1007,7 +1007,7 @@ func (x *Window) ConnectKeysChanged(cb func(Window)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::keys-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "keys-changed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

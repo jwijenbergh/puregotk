@@ -396,7 +396,7 @@ func (c *Gesture) SetGoPointer(ptr uintptr) {
 // (eg. a third touch on a 2-touches gesture) is lifted, in that
 // situation @sequence won't pertain to the current set of active
 // touches, so don't rely on this being true.
-func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) {
+func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
@@ -404,7 +404,7 @@ func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) {
 		cb(fa, SequenceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::begin", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "begin", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a sequence is cancelled.
@@ -417,7 +417,7 @@ func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) {
 //
 // @gesture must forget everything about @sequence as in
 // response to this signal.
-func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) {
+func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
@@ -425,7 +425,7 @@ func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) {
 		cb(fa, SequenceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancel", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
 }
 
 // Emitted when @gesture either stopped recognizing the event
@@ -437,7 +437,7 @@ func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) {
 // pressed touch sequence that exceeds [property@Gtk.Gesture:n-points]).
 // This situation may be detected by checking through
 // [method@Gtk.Gesture.handles_sequence].
-func (x *Gesture) ConnectEnd(cb func(Gesture, uintptr)) {
+func (x *Gesture) ConnectEnd(cb func(Gesture, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
@@ -445,14 +445,14 @@ func (x *Gesture) ConnectEnd(cb func(Gesture, uintptr)) {
 		cb(fa, SequenceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::end", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "end", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a sequence state changes.
 //
 // See [method@Gtk.Gesture.set_sequence_state] to know
 // more about the expectable sequence lifetimes.
-func (x *Gesture) ConnectSequenceStateChanged(cb func(Gesture, uintptr, EventSequenceState)) {
+func (x *Gesture) ConnectSequenceStateChanged(cb func(Gesture, uintptr, EventSequenceState)) uint32 {
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr, StateVarp EventSequenceState) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
@@ -460,13 +460,13 @@ func (x *Gesture) ConnectSequenceStateChanged(cb func(Gesture, uintptr, EventSeq
 		cb(fa, SequenceVarp, StateVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::sequence-state-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "sequence-state-changed", purego.NewCallback(fcb))
 }
 
 // Emitted whenever an event is handled while the gesture is recognized.
 //
 // @sequence is guaranteed to pertain to the set of active touches.
-func (x *Gesture) ConnectUpdate(cb func(Gesture, uintptr)) {
+func (x *Gesture) ConnectUpdate(cb func(Gesture, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
@@ -474,7 +474,7 @@ func (x *Gesture) ConnectUpdate(cb func(Gesture, uintptr)) {
 		cb(fa, SequenceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::update", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "update", purego.NewCallback(fcb))
 }
 
 func init() {

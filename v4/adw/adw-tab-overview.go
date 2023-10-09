@@ -373,7 +373,7 @@ func (c *TabOverview) SetGoPointer(ptr uintptr) {
 //
 // The signal handler is expected to create a new page in the corresponding
 // [class@TabView] and return it.
-func (x *TabOverview) ConnectCreateTab(cb func(TabOverview) TabPage) {
+func (x *TabOverview) ConnectCreateTab(cb func(TabOverview) TabPage) uint32 {
 	fcb := func(clsPtr uintptr) uintptr {
 		fa := TabOverview{}
 		fa.Ptr = clsPtr
@@ -382,7 +382,7 @@ func (x *TabOverview) ConnectCreateTab(cb func(TabOverview) TabPage) {
 		return CreateTabCls.Ptr
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::create-tab", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "create-tab", purego.NewCallback(fcb))
 }
 
 // This signal is emitted when content is dropped onto a tab.
@@ -391,7 +391,7 @@ func (x *TabOverview) ConnectCreateTab(cb func(TabOverview) TabPage) {
 // [method@TabOverview.setup_extra_drop_target].
 //
 // See [signal@Gtk.DropTarget::drop].
-func (x *TabOverview) ConnectExtraDragDrop(cb func(TabOverview, uintptr, uintptr) bool) {
+func (x *TabOverview) ConnectExtraDragDrop(cb func(TabOverview, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, ValueVarp uintptr) bool {
 		fa := TabOverview{}
 		fa.Ptr = clsPtr
@@ -399,7 +399,7 @@ func (x *TabOverview) ConnectExtraDragDrop(cb func(TabOverview, uintptr, uintptr
 		return cb(fa, PageVarp, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::extra-drag-drop", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "extra-drag-drop", purego.NewCallback(fcb))
 }
 
 // This signal is emitted when the dropped content is preloaded.
@@ -411,7 +411,7 @@ func (x *TabOverview) ConnectExtraDragDrop(cb func(TabOverview, uintptr, uintptr
 // [method@TabOverview.setup_extra_drop_target].
 //
 // See [property@Gtk.DropTarget:value].
-func (x *TabOverview) ConnectExtraDragValue(cb func(TabOverview, uintptr, uintptr) gdk.DragAction) {
+func (x *TabOverview) ConnectExtraDragValue(cb func(TabOverview, uintptr, uintptr) gdk.DragAction) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, ValueVarp uintptr) gdk.DragAction {
 		fa := TabOverview{}
 		fa.Ptr = clsPtr
@@ -419,7 +419,7 @@ func (x *TabOverview) ConnectExtraDragValue(cb func(TabOverview, uintptr, uintpt
 		return cb(fa, PageVarp, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::extra-drag-value", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "extra-drag-value", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

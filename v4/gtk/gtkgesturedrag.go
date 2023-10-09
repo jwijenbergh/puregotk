@@ -80,7 +80,7 @@ func (c *GestureDrag) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever dragging starts.
-func (x *GestureDrag) ConnectDragBegin(cb func(GestureDrag, float64, float64)) {
+func (x *GestureDrag) ConnectDragBegin(cb func(GestureDrag, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, StartXVarp float64, StartYVarp float64) {
 		fa := GestureDrag{}
 		fa.Ptr = clsPtr
@@ -88,11 +88,11 @@ func (x *GestureDrag) ConnectDragBegin(cb func(GestureDrag, float64, float64)) {
 		cb(fa, StartXVarp, StartYVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::drag-begin", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "drag-begin", purego.NewCallback(fcb))
 }
 
 // Emitted whenever the dragging is finished.
-func (x *GestureDrag) ConnectDragEnd(cb func(GestureDrag, float64, float64)) {
+func (x *GestureDrag) ConnectDragEnd(cb func(GestureDrag, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, OffsetXVarp float64, OffsetYVarp float64) {
 		fa := GestureDrag{}
 		fa.Ptr = clsPtr
@@ -100,11 +100,11 @@ func (x *GestureDrag) ConnectDragEnd(cb func(GestureDrag, float64, float64)) {
 		cb(fa, OffsetXVarp, OffsetYVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::drag-end", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "drag-end", purego.NewCallback(fcb))
 }
 
 // Emitted whenever the dragging point moves.
-func (x *GestureDrag) ConnectDragUpdate(cb func(GestureDrag, float64, float64)) {
+func (x *GestureDrag) ConnectDragUpdate(cb func(GestureDrag, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, OffsetXVarp float64, OffsetYVarp float64) {
 		fa := GestureDrag{}
 		fa.Ptr = clsPtr
@@ -112,7 +112,7 @@ func (x *GestureDrag) ConnectDragUpdate(cb func(GestureDrag, float64, float64)) 
 		cb(fa, OffsetXVarp, OffsetYVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::drag-update", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "drag-update", purego.NewCallback(fcb))
 }
 
 func init() {

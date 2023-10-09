@@ -489,7 +489,7 @@ func (c *TlsConnection) SetGoPointer(ptr uintptr) {
 // If you are doing I/O in another thread, you do not
 // need to worry about this, and can simply block in the signal
 // handler until the UI thread returns an answer.
-func (x *TlsConnection) ConnectAcceptCertificate(cb func(TlsConnection, uintptr, TlsCertificateFlags) bool) {
+func (x *TlsConnection) ConnectAcceptCertificate(cb func(TlsConnection, uintptr, TlsCertificateFlags) bool) uint32 {
 	fcb := func(clsPtr uintptr, PeerCertVarp uintptr, ErrorsVarp TlsCertificateFlags) bool {
 		fa := TlsConnection{}
 		fa.Ptr = clsPtr
@@ -497,7 +497,7 @@ func (x *TlsConnection) ConnectAcceptCertificate(cb func(TlsConnection, uintptr,
 		return cb(fa, PeerCertVarp, ErrorsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::accept-certificate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "accept-certificate", purego.NewCallback(fcb))
 }
 
 func init() {

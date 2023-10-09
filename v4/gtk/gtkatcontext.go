@@ -83,7 +83,7 @@ func (c *ATContext) SetGoPointer(ptr uintptr) {
 
 // Emitted when the attributes of the accessible for the
 // `GtkATContext` instance change.
-func (x *ATContext) ConnectStateChange(cb func(ATContext)) {
+func (x *ATContext) ConnectStateChange(cb func(ATContext)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ATContext{}
 		fa.Ptr = clsPtr
@@ -91,7 +91,7 @@ func (x *ATContext) ConnectStateChange(cb func(ATContext)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::state-change", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "state-change", purego.NewCallback(fcb))
 }
 
 func init() {

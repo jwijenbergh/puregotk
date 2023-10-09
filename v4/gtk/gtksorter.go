@@ -151,7 +151,7 @@ func (c *Sorter) SetGoPointer(ptr uintptr) {
 // Depending on the @change parameter, it may be possible to update
 // the sort order without a full resorting. Refer to the
 // [enum@Gtk.SorterChange] documentation for details.
-func (x *Sorter) ConnectChanged(cb func(Sorter, SorterChange)) {
+func (x *Sorter) ConnectChanged(cb func(Sorter, SorterChange)) uint32 {
 	fcb := func(clsPtr uintptr, ChangeVarp SorterChange) {
 		fa := Sorter{}
 		fa.Ptr = clsPtr
@@ -159,7 +159,7 @@ func (x *Sorter) ConnectChanged(cb func(Sorter, SorterChange)) {
 		cb(fa, ChangeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

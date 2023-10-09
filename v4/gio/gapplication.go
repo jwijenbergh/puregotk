@@ -897,7 +897,7 @@ func (c *Application) SetGoPointer(ptr uintptr) {
 
 // The ::activate signal is emitted on the primary instance when an
 // activation occurs. See g_application_activate().
-func (x *Application) ConnectActivate(cb func(Application)) {
+func (x *Application) ConnectActivate(cb func(Application)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -905,13 +905,13 @@ func (x *Application) ConnectActivate(cb func(Application)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // The ::command-line signal is emitted on the primary instance when
 // a commandline is not handled locally. See g_application_run() and
 // the #GApplicationCommandLine documentation for more information.
-func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int) {
+func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int) uint32 {
 	fcb := func(clsPtr uintptr, CommandLineVarp uintptr) int {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -919,7 +919,7 @@ func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int) {
 		return cb(fa, CommandLineVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::command-line", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "command-line", purego.NewCallback(fcb))
 }
 
 // The ::handle-local-options signal is emitted on the local instance
@@ -963,7 +963,7 @@ func (x *Application) ConnectCommandLine(cb func(Application, uintptr) int) {
 // You can override local_command_line() if you need more powerful
 // capabilities than what is provided here, but this should not
 // normally be required.
-func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) int) {
+func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) int) uint32 {
 	fcb := func(clsPtr uintptr, OptionsVarp uintptr) int {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -971,7 +971,7 @@ func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) in
 		return cb(fa, OptionsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::handle-local-options", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "handle-local-options", purego.NewCallback(fcb))
 }
 
 // The ::name-lost signal is emitted only on the registered primary instance
@@ -979,7 +979,7 @@ func (x *Application) ConnectHandleLocalOptions(cb func(Application, uintptr) in
 // is using the %G_APPLICATION_ALLOW_REPLACEMENT flag.
 //
 // The default handler for this signal calls g_application_quit().
-func (x *Application) ConnectNameLost(cb func(Application) bool) {
+func (x *Application) ConnectNameLost(cb func(Application) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -987,12 +987,12 @@ func (x *Application) ConnectNameLost(cb func(Application) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::name-lost", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "name-lost", purego.NewCallback(fcb))
 }
 
 // The ::open signal is emitted on the primary instance when there are
 // files to open. See g_application_open() for more information.
-func (x *Application) ConnectOpen(cb func(Application, uintptr, int, string)) {
+func (x *Application) ConnectOpen(cb func(Application, uintptr, int, string)) uint32 {
 	fcb := func(clsPtr uintptr, FilesVarp uintptr, NFilesVarp int, HintVarp string) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -1000,12 +1000,12 @@ func (x *Application) ConnectOpen(cb func(Application, uintptr, int, string)) {
 		cb(fa, FilesVarp, NFilesVarp, HintVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::open", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "open", purego.NewCallback(fcb))
 }
 
 // The ::shutdown signal is emitted only on the registered primary instance
 // immediately after the main loop terminates.
-func (x *Application) ConnectShutdown(cb func(Application)) {
+func (x *Application) ConnectShutdown(cb func(Application)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -1013,12 +1013,12 @@ func (x *Application) ConnectShutdown(cb func(Application)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::shutdown", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "shutdown", purego.NewCallback(fcb))
 }
 
 // The ::startup signal is emitted on the primary instance immediately
 // after registration. See g_application_register().
-func (x *Application) ConnectStartup(cb func(Application)) {
+func (x *Application) ConnectStartup(cb func(Application)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Application{}
 		fa.Ptr = clsPtr
@@ -1026,7 +1026,7 @@ func (x *Application) ConnectStartup(cb func(Application)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::startup", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "startup", purego.NewCallback(fcb))
 }
 
 // Emits the #GActionGroup::action-added signal on @action_group.

@@ -82,7 +82,7 @@ func (c *GestureLongPress) SetGoPointer(ptr uintptr) {
 
 // Emitted whenever a press moved too far, or was released
 // before [signal@Gtk.GestureLongPress::pressed] happened.
-func (x *GestureLongPress) ConnectCancelled(cb func(GestureLongPress)) {
+func (x *GestureLongPress) ConnectCancelled(cb func(GestureLongPress)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := GestureLongPress{}
 		fa.Ptr = clsPtr
@@ -90,12 +90,12 @@ func (x *GestureLongPress) ConnectCancelled(cb func(GestureLongPress)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancelled", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancelled", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a press goes unmoved/unreleased longer than
 // what the GTK defaults tell.
-func (x *GestureLongPress) ConnectPressed(cb func(GestureLongPress, float64, float64)) {
+func (x *GestureLongPress) ConnectPressed(cb func(GestureLongPress, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := GestureLongPress{}
 		fa.Ptr = clsPtr
@@ -103,7 +103,7 @@ func (x *GestureLongPress) ConnectPressed(cb func(GestureLongPress, float64, flo
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::pressed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "pressed", purego.NewCallback(fcb))
 }
 
 func init() {

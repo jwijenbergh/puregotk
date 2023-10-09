@@ -78,7 +78,7 @@ func (c *EmojiChooser) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the user selects an Emoji.
-func (x *EmojiChooser) ConnectEmojiPicked(cb func(EmojiChooser, string)) {
+func (x *EmojiChooser) ConnectEmojiPicked(cb func(EmojiChooser, string)) uint32 {
 	fcb := func(clsPtr uintptr, TextVarp string) {
 		fa := EmojiChooser{}
 		fa.Ptr = clsPtr
@@ -86,7 +86,7 @@ func (x *EmojiChooser) ConnectEmojiPicked(cb func(EmojiChooser, string)) {
 		cb(fa, TextVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::emoji-picked", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "emoji-picked", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

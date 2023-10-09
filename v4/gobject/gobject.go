@@ -1255,7 +1255,7 @@ func (c *Object) SetGoPointer(ptr uintptr) {
 // It is important to note that you must use
 // [canonical parameter names][canonical-parameter-names] as
 // detail strings for the notify signal.
-func (x *Object) ConnectNotify(cb func(Object, uintptr)) {
+func (x *Object) ConnectNotify(cb func(Object, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PspecVarp uintptr) {
 		fa := Object{}
 		fa.Ptr = clsPtr
@@ -1263,7 +1263,7 @@ func (x *Object) ConnectNotify(cb func(Object, uintptr)) {
 		cb(fa, PspecVarp)
 
 	}
-	ObjectConnect(x.GoPointer(), "signal::notify", purego.NewCallback(fcb))
+	return SignalConnect(x.GoPointer(), "notify", purego.NewCallback(fcb))
 }
 
 func init() {

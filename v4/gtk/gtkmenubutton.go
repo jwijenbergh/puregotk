@@ -416,7 +416,7 @@ func (c *MenuButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkMenuButton` is an action signal and
 // emitting it causes the button to pop up its menu.
-func (x *MenuButton) ConnectActivate(cb func(MenuButton)) {
+func (x *MenuButton) ConnectActivate(cb func(MenuButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := MenuButton{}
 		fa.Ptr = clsPtr
@@ -424,7 +424,7 @@ func (x *MenuButton) ConnectActivate(cb func(MenuButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

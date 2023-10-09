@@ -226,7 +226,7 @@ func (c *FrameClock) SetGoPointer(ptr uintptr) {
 // This signal ends processing of the frame.
 //
 // Applications should generally not handle this signal.
-func (x *FrameClock) ConnectAfterPaint(cb func(FrameClock)) {
+func (x *FrameClock) ConnectAfterPaint(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -234,13 +234,13 @@ func (x *FrameClock) ConnectAfterPaint(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::after-paint", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "after-paint", purego.NewCallback(fcb))
 }
 
 // Begins processing of the frame.
 //
 // Applications should generally not handle this signal.
-func (x *FrameClock) ConnectBeforePaint(cb func(FrameClock)) {
+func (x *FrameClock) ConnectBeforePaint(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -248,14 +248,14 @@ func (x *FrameClock) ConnectBeforePaint(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::before-paint", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "before-paint", purego.NewCallback(fcb))
 }
 
 // Used to flush pending motion events that are being batched up and
 // compressed together.
 //
 // Applications should not handle this signal.
-func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) {
+func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -263,7 +263,7 @@ func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::flush-events", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "flush-events", purego.NewCallback(fcb))
 }
 
 // Emitted as the second step of toolkit and application processing
@@ -271,7 +271,7 @@ func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) {
 //
 // Any work to update sizes and positions of application elements
 // should be performed. GTK normally handles this internally.
-func (x *FrameClock) ConnectLayout(cb func(FrameClock)) {
+func (x *FrameClock) ConnectLayout(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -279,7 +279,7 @@ func (x *FrameClock) ConnectLayout(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::layout", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "layout", purego.NewCallback(fcb))
 }
 
 // Emitted as the third step of toolkit and application processing
@@ -288,7 +288,7 @@ func (x *FrameClock) ConnectLayout(cb func(FrameClock)) {
 // The frame is repainted. GDK normally handles this internally and
 // emits [signal@Gdk.Surface::render] signals which are turned into
 // [signal@Gtk.Widget::snapshot] signals by GTK.
-func (x *FrameClock) ConnectPaint(cb func(FrameClock)) {
+func (x *FrameClock) ConnectPaint(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -296,14 +296,14 @@ func (x *FrameClock) ConnectPaint(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::paint", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "paint", purego.NewCallback(fcb))
 }
 
 // Emitted after processing of the frame is finished.
 //
 // This signal is handled internally by GTK to resume normal
 // event processing. Applications should not handle this signal.
-func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) {
+func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -311,7 +311,7 @@ func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::resume-events", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "resume-events", purego.NewCallback(fcb))
 }
 
 // Emitted as the first step of toolkit and application processing
@@ -320,7 +320,7 @@ func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) {
 // Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
 // Applications can connect directly to this signal, or use
 // [method@Gtk.Widget.add_tick_callback] as a more convenient interface.
-func (x *FrameClock) ConnectUpdate(cb func(FrameClock)) {
+func (x *FrameClock) ConnectUpdate(cb func(FrameClock)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
@@ -328,7 +328,7 @@ func (x *FrameClock) ConnectUpdate(cb func(FrameClock)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::update", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "update", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -581,7 +581,7 @@ func (c *IconTheme) SetGoPointer(ptr uintptr) {
 // This can happen becuase current icon theme is switched or
 // because GTK detects that a change has occurred in the
 // contents of the current icon theme.
-func (x *IconTheme) ConnectChanged(cb func(IconTheme)) {
+func (x *IconTheme) ConnectChanged(cb func(IconTheme)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := IconTheme{}
 		fa.Ptr = clsPtr
@@ -589,7 +589,7 @@ func (x *IconTheme) ConnectChanged(cb func(IconTheme)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

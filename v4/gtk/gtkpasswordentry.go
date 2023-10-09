@@ -132,7 +132,7 @@ func (c *PasswordEntry) SetGoPointer(ptr uintptr) {
 // Emitted when the entry is activated.
 //
 // The keybindings for this signal are all forms of the Enter key.
-func (x *PasswordEntry) ConnectActivate(cb func(PasswordEntry)) {
+func (x *PasswordEntry) ConnectActivate(cb func(PasswordEntry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := PasswordEntry{}
 		fa.Ptr = clsPtr
@@ -140,7 +140,7 @@ func (x *PasswordEntry) ConnectActivate(cb func(PasswordEntry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

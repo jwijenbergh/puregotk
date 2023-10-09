@@ -121,7 +121,7 @@ func (c *CellRendererToggle) SetGoPointer(ptr uintptr) {
 // It is the responsibility of the application to update the model
 // with the correct value to store at @path.  Often this is simply the
 // opposite of the value currently stored at @path.
-func (x *CellRendererToggle) ConnectToggled(cb func(CellRendererToggle, string)) {
+func (x *CellRendererToggle) ConnectToggled(cb func(CellRendererToggle, string)) uint32 {
 	fcb := func(clsPtr uintptr, PathVarp string) {
 		fa := CellRendererToggle{}
 		fa.Ptr = clsPtr
@@ -129,7 +129,7 @@ func (x *CellRendererToggle) ConnectToggled(cb func(CellRendererToggle, string))
 		cb(fa, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggled", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggled", purego.NewCallback(fcb))
 }
 
 func init() {

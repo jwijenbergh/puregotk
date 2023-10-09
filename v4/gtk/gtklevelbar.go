@@ -302,7 +302,7 @@ func (c *LevelBar) SetGoPointer(ptr uintptr) {
 // The signal supports detailed connections; you can connect to the
 // detailed signal "changed::x" in order to only receive callbacks when
 // the value of offset "x" changes.
-func (x *LevelBar) ConnectOffsetChanged(cb func(LevelBar, string)) {
+func (x *LevelBar) ConnectOffsetChanged(cb func(LevelBar, string)) uint32 {
 	fcb := func(clsPtr uintptr, NameVarp string) {
 		fa := LevelBar{}
 		fa.Ptr = clsPtr
@@ -310,7 +310,7 @@ func (x *LevelBar) ConnectOffsetChanged(cb func(LevelBar, string)) {
 		cb(fa, NameVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::offset-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "offset-changed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

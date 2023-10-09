@@ -322,7 +322,7 @@ func (c *Range) SetGoPointer(ptr uintptr) {
 
 // Emitted before clamping a value, to give the application a
 // chance to adjust the bounds.
-func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) {
+func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) uint32 {
 	fcb := func(clsPtr uintptr, ValueVarp float64) {
 		fa := Range{}
 		fa.Ptr = clsPtr
@@ -330,7 +330,7 @@ func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) {
 		cb(fa, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::adjust-bounds", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "adjust-bounds", purego.NewCallback(fcb))
 }
 
 // Emitted when a scroll action is performed on a range.
@@ -345,7 +345,7 @@ func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) {
 // the ::change-value signal is responsible for clamping the value
 // to the desired number of decimal digits; the default GTK
 // handler clamps the value based on [property@Gtk.Range:round-digits].
-func (x *Range) ConnectChangeValue(cb func(Range, ScrollType, float64) bool) {
+func (x *Range) ConnectChangeValue(cb func(Range, ScrollType, float64) bool) uint32 {
 	fcb := func(clsPtr uintptr, ScrollVarp ScrollType, ValueVarp float64) bool {
 		fa := Range{}
 		fa.Ptr = clsPtr
@@ -353,13 +353,13 @@ func (x *Range) ConnectChangeValue(cb func(Range, ScrollType, float64) bool) {
 		return cb(fa, ScrollVarp, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-value", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-value", purego.NewCallback(fcb))
 }
 
 // Virtual function that moves the slider.
 //
 // Used for keybindings.
-func (x *Range) ConnectMoveSlider(cb func(Range, ScrollType)) {
+func (x *Range) ConnectMoveSlider(cb func(Range, ScrollType)) uint32 {
 	fcb := func(clsPtr uintptr, StepVarp ScrollType) {
 		fa := Range{}
 		fa.Ptr = clsPtr
@@ -367,11 +367,11 @@ func (x *Range) ConnectMoveSlider(cb func(Range, ScrollType)) {
 		cb(fa, StepVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-slider", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-slider", purego.NewCallback(fcb))
 }
 
 // Emitted when the range value changes.
-func (x *Range) ConnectValueChanged(cb func(Range)) {
+func (x *Range) ConnectValueChanged(cb func(Range)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Range{}
 		fa.Ptr = clsPtr
@@ -379,7 +379,7 @@ func (x *Range) ConnectValueChanged(cb func(Range)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::value-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

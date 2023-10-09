@@ -374,7 +374,7 @@ func (c *EntryCompletion) SetGoPointer(ptr uintptr) {
 //
 // Note that @model is the model that was passed to
 // [method@Gtk.EntryCompletion.set_model].
-func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr, uintptr) bool) {
+func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
@@ -382,7 +382,7 @@ func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr,
 		return cb(fa, ModelVarp, IterVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cursor-on-match", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cursor-on-match", purego.NewCallback(fcb))
 }
 
 // Emitted when the inline autocompletion is triggered.
@@ -394,7 +394,7 @@ func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr,
 // smaller part of the @prefix into the entry - e.g. the entry used in
 // the `GtkFileChooser` inserts only the part of the prefix up to the
 // next '/'.
-func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) bool) {
+func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) bool) uint32 {
 	fcb := func(clsPtr uintptr, PrefixVarp string) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
@@ -402,7 +402,7 @@ func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) b
 		return cb(fa, PrefixVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::insert-prefix", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "insert-prefix", purego.NewCallback(fcb))
 }
 
 // Emitted when a match from the list is selected.
@@ -413,7 +413,7 @@ func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) b
 //
 // Note that @model is the model that was passed to
 // [method@Gtk.EntryCompletion.set_model].
-func (x *EntryCompletion) ConnectMatchSelected(cb func(EntryCompletion, uintptr, uintptr) bool) {
+func (x *EntryCompletion) ConnectMatchSelected(cb func(EntryCompletion, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
@@ -421,14 +421,14 @@ func (x *EntryCompletion) ConnectMatchSelected(cb func(EntryCompletion, uintptr,
 		return cb(fa, ModelVarp, IterVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::match-selected", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "match-selected", purego.NewCallback(fcb))
 }
 
 // Emitted when the filter model has zero
 // number of rows in completion_complete method.
 //
 // In other words when `GtkEntryCompletion` is out of suggestions.
-func (x *EntryCompletion) ConnectNoMatches(cb func(EntryCompletion)) {
+func (x *EntryCompletion) ConnectNoMatches(cb func(EntryCompletion)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
@@ -436,7 +436,7 @@ func (x *EntryCompletion) ConnectNoMatches(cb func(EntryCompletion)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::no-matches", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "no-matches", purego.NewCallback(fcb))
 }
 
 // Gets the ID of the @buildable object.

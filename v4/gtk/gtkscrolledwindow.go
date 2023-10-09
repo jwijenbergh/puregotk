@@ -557,7 +557,7 @@ func (c *ScrolledWindow) SetGoPointer(ptr uintptr) {
 //
 // Note: The @pos argument is LTR/RTL aware, so callers should be
 // aware too if intending to provide behavior on horizontal edges.
-func (x *ScrolledWindow) ConnectEdgeOvershot(cb func(ScrolledWindow, PositionType)) {
+func (x *ScrolledWindow) ConnectEdgeOvershot(cb func(ScrolledWindow, PositionType)) uint32 {
 	fcb := func(clsPtr uintptr, PosVarp PositionType) {
 		fa := ScrolledWindow{}
 		fa.Ptr = clsPtr
@@ -565,7 +565,7 @@ func (x *ScrolledWindow) ConnectEdgeOvershot(cb func(ScrolledWindow, PositionTyp
 		cb(fa, PosVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::edge-overshot", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "edge-overshot", purego.NewCallback(fcb))
 }
 
 // Emitted whenever user-initiated scrolling makes the scrolled
@@ -577,7 +577,7 @@ func (x *ScrolledWindow) ConnectEdgeOvershot(cb func(ScrolledWindow, PositionTyp
 //
 // Note: The @pos argument is LTR/RTL aware, so callers should be
 // aware too if intending to provide behavior on horizontal edges.
-func (x *ScrolledWindow) ConnectEdgeReached(cb func(ScrolledWindow, PositionType)) {
+func (x *ScrolledWindow) ConnectEdgeReached(cb func(ScrolledWindow, PositionType)) uint32 {
 	fcb := func(clsPtr uintptr, PosVarp PositionType) {
 		fa := ScrolledWindow{}
 		fa.Ptr = clsPtr
@@ -585,7 +585,7 @@ func (x *ScrolledWindow) ConnectEdgeReached(cb func(ScrolledWindow, PositionType
 		cb(fa, PosVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::edge-reached", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "edge-reached", purego.NewCallback(fcb))
 }
 
 // Emitted when focus is moved away from the scrolled window by a
@@ -596,7 +596,7 @@ func (x *ScrolledWindow) ConnectEdgeReached(cb func(ScrolledWindow, PositionType
 // The default bindings for this signal are
 // `Ctrl + Tab` to move forward and `Ctrl + Shift + Tab` to
 // move backward.
-func (x *ScrolledWindow) ConnectMoveFocusOut(cb func(ScrolledWindow, DirectionType)) {
+func (x *ScrolledWindow) ConnectMoveFocusOut(cb func(ScrolledWindow, DirectionType)) uint32 {
 	fcb := func(clsPtr uintptr, DirectionTypeVarp DirectionType) {
 		fa := ScrolledWindow{}
 		fa.Ptr = clsPtr
@@ -604,7 +604,7 @@ func (x *ScrolledWindow) ConnectMoveFocusOut(cb func(ScrolledWindow, DirectionTy
 		cb(fa, DirectionTypeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-focus-out", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-focus-out", purego.NewCallback(fcb))
 }
 
 // Emitted when a keybinding that scrolls is pressed.
@@ -613,7 +613,7 @@ func (x *ScrolledWindow) ConnectMoveFocusOut(cb func(ScrolledWindow, DirectionTy
 //
 // The horizontal or vertical adjustment is updated which triggers a
 // signal that the scrolled window’s child may listen to and scroll itself.
-func (x *ScrolledWindow) ConnectScrollChild(cb func(ScrolledWindow, ScrollType, bool) bool) {
+func (x *ScrolledWindow) ConnectScrollChild(cb func(ScrolledWindow, ScrollType, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ScrollVarp ScrollType, HorizontalVarp bool) bool {
 		fa := ScrolledWindow{}
 		fa.Ptr = clsPtr
@@ -621,7 +621,7 @@ func (x *ScrolledWindow) ConnectScrollChild(cb func(ScrolledWindow, ScrollType, 
 		return cb(fa, ScrollVarp, HorizontalVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::scroll-child", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "scroll-child", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

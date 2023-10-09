@@ -493,7 +493,7 @@ func (c *SpinButton) SetGoPointer(ptr uintptr) {
 // programmatically.
 //
 // The default bindings for this signal are Up/Down and PageUp/PageDown.
-func (x *SpinButton) ConnectChangeValue(cb func(SpinButton, ScrollType)) {
+func (x *SpinButton) ConnectChangeValue(cb func(SpinButton, ScrollType)) uint32 {
 	fcb := func(clsPtr uintptr, ScrollVarp ScrollType) {
 		fa := SpinButton{}
 		fa.Ptr = clsPtr
@@ -501,7 +501,7 @@ func (x *SpinButton) ConnectChangeValue(cb func(SpinButton, ScrollType)) {
 		cb(fa, ScrollVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-value", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-value", purego.NewCallback(fcb))
 }
 
 // Emitted to convert the users input into a double value.
@@ -511,7 +511,7 @@ func (x *SpinButton) ConnectChangeValue(cb func(SpinButton, ScrollType)) {
 // new value.
 //
 // The default conversion uses g_strtod().
-func (x *SpinButton) ConnectInput(cb func(SpinButton, float64) int) {
+func (x *SpinButton) ConnectInput(cb func(SpinButton, float64) int) uint32 {
 	fcb := func(clsPtr uintptr, NewValueVarp float64) int {
 		fa := SpinButton{}
 		fa.Ptr = clsPtr
@@ -519,7 +519,7 @@ func (x *SpinButton) ConnectInput(cb func(SpinButton, float64) int) {
 		return cb(fa, NewValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::input", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "input", purego.NewCallback(fcb))
 }
 
 // Emitted to tweak the formatting of the value for display.
@@ -546,7 +546,7 @@ func (x *SpinButton) ConnectInput(cb func(SpinButton, float64) int) {
 //	}
 //
 // ```
-func (x *SpinButton) ConnectOutput(cb func(SpinButton) bool) {
+func (x *SpinButton) ConnectOutput(cb func(SpinButton) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := SpinButton{}
 		fa.Ptr = clsPtr
@@ -554,13 +554,13 @@ func (x *SpinButton) ConnectOutput(cb func(SpinButton) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::output", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "output", purego.NewCallback(fcb))
 }
 
 // Emitted when the value is changed.
 //
 // Also see the [signal@Gtk.SpinButton::output] signal.
-func (x *SpinButton) ConnectValueChanged(cb func(SpinButton)) {
+func (x *SpinButton) ConnectValueChanged(cb func(SpinButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SpinButton{}
 		fa.Ptr = clsPtr
@@ -568,12 +568,12 @@ func (x *SpinButton) ConnectValueChanged(cb func(SpinButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::value-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
 }
 
 // Emitted right after the spinbutton wraps from its maximum
 // to its minimum value or vice-versa.
-func (x *SpinButton) ConnectWrapped(cb func(SpinButton)) {
+func (x *SpinButton) ConnectWrapped(cb func(SpinButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SpinButton{}
 		fa.Ptr = clsPtr
@@ -581,7 +581,7 @@ func (x *SpinButton) ConnectWrapped(cb func(SpinButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::wrapped", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "wrapped", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

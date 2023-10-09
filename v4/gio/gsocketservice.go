@@ -138,7 +138,7 @@ func (c *SocketService) SetGoPointer(ptr uintptr) {
 //
 // @connection will be unreffed once the signal handler returns,
 // so you need to ref it yourself if you are planning to use it.
-func (x *SocketService) ConnectIncoming(cb func(SocketService, uintptr, uintptr) bool) {
+func (x *SocketService) ConnectIncoming(cb func(SocketService, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr, SourceObjectVarp uintptr) bool {
 		fa := SocketService{}
 		fa.Ptr = clsPtr
@@ -146,7 +146,7 @@ func (x *SocketService) ConnectIncoming(cb func(SocketService, uintptr, uintptr)
 		return cb(fa, ConnectionVarp, SourceObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::incoming", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "incoming", purego.NewCallback(fcb))
 }
 
 func init() {

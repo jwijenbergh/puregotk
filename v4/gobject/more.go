@@ -30,12 +30,20 @@ func IncreaseRef(a uintptr) {
 	xObjectRefSink(a)
 }
 
-func ObjectConnect(a uintptr, b string, c ...interface{}) uintptr {
-	return xObjectConnect(a, b, c...)
+func SignalConnect(a uintptr, b string, c uintptr) uint32 {
+	return xSignalConnectData(a, b, c, 0, 0, 0)
 }
 
 func (o Object) Cast(v Ptr) {
 	v.SetGoPointer(o.GoPointer())
+}
+
+func (o Object) ConnectSignal(signal string, cb func()) uint32 {
+	return SignalConnect(o.GoPointer(), signal, purego.NewCallback(cb))
+}
+
+func (o Object) DisconnectSignal(handler uint32) {
+	SignalHandlerDisconnect(&o, handler)
 }
 
 // NewCallback is an alias to purego.NewCallback

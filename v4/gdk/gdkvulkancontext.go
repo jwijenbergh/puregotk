@@ -39,7 +39,7 @@ func (c *VulkanContext) SetGoPointer(ptr uintptr) {
 //
 // Usually this means that the swapchain had to be recreated,
 // for example in response to a change of the surface size.
-func (x *VulkanContext) ConnectImagesUpdated(cb func(VulkanContext)) {
+func (x *VulkanContext) ConnectImagesUpdated(cb func(VulkanContext)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := VulkanContext{}
 		fa.Ptr = clsPtr
@@ -47,7 +47,7 @@ func (x *VulkanContext) ConnectImagesUpdated(cb func(VulkanContext)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::images-updated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "images-updated", purego.NewCallback(fcb))
 }
 
 // Initializes the object implementing the interface.

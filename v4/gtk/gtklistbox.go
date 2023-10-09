@@ -556,7 +556,7 @@ func (c *ListBox) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *ListBox) ConnectActivateCursorRow(cb func(ListBox)) {
+func (x *ListBox) ConnectActivateCursorRow(cb func(ListBox)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -564,10 +564,10 @@ func (x *ListBox) ConnectActivateCursorRow(cb func(ListBox)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-cursor-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-cursor-row", purego.NewCallback(fcb))
 }
 
-func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int, bool, bool)) {
+func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int, bool, bool)) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp MovementStep, P0Varp int, P1Varp bool, P2Varp bool) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -575,11 +575,11 @@ func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int, bool, bo
 		cb(fa, ObjectVarp, P0Varp, P1Varp, P2Varp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
 }
 
 // Emitted when a row has been activated by the user.
-func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) {
+func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, RowVarp uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -587,7 +587,7 @@ func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) {
 		cb(fa, RowVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::row-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "row-activated", purego.NewCallback(fcb))
 }
 
 // Emitted when a new row is selected, or (with a %NULL @row)
@@ -596,7 +596,7 @@ func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) {
 // When the @box is using %GTK_SELECTION_MULTIPLE, this signal will not
 // give you the full picture of selection changes, and you should use
 // the [signal@Gtk.ListBox::selected-rows-changed] signal instead.
-func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) {
+func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, RowVarp uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -604,7 +604,7 @@ func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) {
 		cb(fa, RowVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::row-selected", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "row-selected", purego.NewCallback(fcb))
 }
 
 // Emitted to select all children of the box, if the selection
@@ -613,7 +613,7 @@ func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *ListBox) ConnectSelectAll(cb func(ListBox)) {
+func (x *ListBox) ConnectSelectAll(cb func(ListBox)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -621,11 +621,11 @@ func (x *ListBox) ConnectSelectAll(cb func(ListBox)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-all", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-all", purego.NewCallback(fcb))
 }
 
 // Emitted when the set of selected rows changes.
-func (x *ListBox) ConnectSelectedRowsChanged(cb func(ListBox)) {
+func (x *ListBox) ConnectSelectedRowsChanged(cb func(ListBox)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -633,10 +633,10 @@ func (x *ListBox) ConnectSelectedRowsChanged(cb func(ListBox)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::selected-rows-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "selected-rows-changed", purego.NewCallback(fcb))
 }
 
-func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) {
+func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -644,7 +644,7 @@ func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggle-cursor-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-row", purego.NewCallback(fcb))
 }
 
 // Emitted to unselect all children of the box, if the selection
@@ -654,7 +654,7 @@ func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) {
 //
 // The default binding for this signal is
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *ListBox) ConnectUnselectAll(cb func(ListBox)) {
+func (x *ListBox) ConnectUnselectAll(cb func(ListBox)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
@@ -662,7 +662,7 @@ func (x *ListBox) ConnectUnselectAll(cb func(ListBox)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::unselect-all", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "unselect-all", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
@@ -992,7 +992,7 @@ func (c *ListBoxRow) SetGoPointer(ptr uintptr) {
 // If you want to be notified when the user activates a row (by key or not),
 // use the [signal@Gtk.ListBox::row-activated] signal on the row’s parent
 // `GtkListBox`.
-func (x *ListBoxRow) ConnectActivate(cb func(ListBoxRow)) {
+func (x *ListBoxRow) ConnectActivate(cb func(ListBoxRow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ListBoxRow{}
 		fa.Ptr = clsPtr
@@ -1000,7 +1000,7 @@ func (x *ListBoxRow) ConnectActivate(cb func(ListBoxRow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

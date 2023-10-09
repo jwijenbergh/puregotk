@@ -60,7 +60,7 @@ func (c *CellRendererAccel) SetGoPointer(ptr uintptr) {
 }
 
 // Gets emitted when the user has removed the accelerator.
-func (x *CellRendererAccel) ConnectAccelCleared(cb func(CellRendererAccel, string)) {
+func (x *CellRendererAccel) ConnectAccelCleared(cb func(CellRendererAccel, string)) uint32 {
 	fcb := func(clsPtr uintptr, PathStringVarp string) {
 		fa := CellRendererAccel{}
 		fa.Ptr = clsPtr
@@ -68,11 +68,11 @@ func (x *CellRendererAccel) ConnectAccelCleared(cb func(CellRendererAccel, strin
 		cb(fa, PathStringVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::accel-cleared", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "accel-cleared", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user has selected a new accelerator.
-func (x *CellRendererAccel) ConnectAccelEdited(cb func(CellRendererAccel, string, uint, gdk.ModifierType, uint)) {
+func (x *CellRendererAccel) ConnectAccelEdited(cb func(CellRendererAccel, string, uint, gdk.ModifierType, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PathStringVarp string, AccelKeyVarp uint, AccelModsVarp gdk.ModifierType, HardwareKeycodeVarp uint) {
 		fa := CellRendererAccel{}
 		fa.Ptr = clsPtr
@@ -80,7 +80,7 @@ func (x *CellRendererAccel) ConnectAccelEdited(cb func(CellRendererAccel, string
 		cb(fa, PathStringVarp, AccelKeyVarp, AccelModsVarp, HardwareKeycodeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::accel-edited", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "accel-edited", purego.NewCallback(fcb))
 }
 
 func init() {

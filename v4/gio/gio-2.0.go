@@ -90,7 +90,7 @@ func (c *AppInfoMonitor) SetGoPointer(ptr uintptr) {
 
 // Signal emitted when the app info database for changes (ie: newly installed
 // or removed applications).
-func (x *AppInfoMonitor) ConnectChanged(cb func(AppInfoMonitor)) {
+func (x *AppInfoMonitor) ConnectChanged(cb func(AppInfoMonitor)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := AppInfoMonitor{}
 		fa.Ptr = clsPtr
@@ -98,7 +98,7 @@ func (x *AppInfoMonitor) ConnectChanged(cb func(AppInfoMonitor)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 // #GBytesIcon specifies an image held in memory in a common format (usually
@@ -640,7 +640,7 @@ func (c *DBusAuthObserver) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted to check if @mechanism is allowed to be used.
-func (x *DBusAuthObserver) ConnectAllowMechanism(cb func(DBusAuthObserver, string) bool) {
+func (x *DBusAuthObserver) ConnectAllowMechanism(cb func(DBusAuthObserver, string) bool) uint32 {
 	fcb := func(clsPtr uintptr, MechanismVarp string) bool {
 		fa := DBusAuthObserver{}
 		fa.Ptr = clsPtr
@@ -648,12 +648,12 @@ func (x *DBusAuthObserver) ConnectAllowMechanism(cb func(DBusAuthObserver, strin
 		return cb(fa, MechanismVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::allow-mechanism", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "allow-mechanism", purego.NewCallback(fcb))
 }
 
 // Emitted to check if a peer that is successfully authenticated
 // is authorized.
-func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb func(DBusAuthObserver, uintptr, uintptr) bool) {
+func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb func(DBusAuthObserver, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, StreamVarp uintptr, CredentialsVarp uintptr) bool {
 		fa := DBusAuthObserver{}
 		fa.Ptr = clsPtr
@@ -661,7 +661,7 @@ func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb func(DBusAuthObs
 		return cb(fa, StreamVarp, CredentialsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::authorize-authenticated-peer", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "authorize-authenticated-peer", purego.NewCallback(fcb))
 }
 
 // The #GDBusConnection type is used for D-Bus connections to remote
@@ -1828,7 +1828,7 @@ func (c *DBusConnection) SetGoPointer(ptr uintptr) {
 // Upon receiving this signal, you should give up your reference to
 // @connection. You are guaranteed that this signal is emitted only
 // once.
-func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) {
+func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, RemotePeerVanishedVarp bool, ErrorVarp uintptr) {
 		fa := DBusConnection{}
 		fa.Ptr = clsPtr
@@ -1836,7 +1836,7 @@ func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) {
 		cb(fa, RemotePeerVanishedVarp, ErrorVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::closed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "closed", purego.NewCallback(fcb))
 }
 
 // Starts asynchronous initialization of the object implementing the
@@ -3082,7 +3082,7 @@ func (c *DBusServer) SetGoPointer(ptr uintptr) {
 // before incoming messages on @connection are processed. This means
 // that it's suitable to call g_dbus_connection_register_object() or
 // similar from the signal handler.
-func (x *DBusServer) ConnectNewConnection(cb func(DBusServer, uintptr) bool) {
+func (x *DBusServer) ConnectNewConnection(cb func(DBusServer, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr) bool {
 		fa := DBusServer{}
 		fa.Ptr = clsPtr
@@ -3090,7 +3090,7 @@ func (x *DBusServer) ConnectNewConnection(cb func(DBusServer, uintptr) bool) {
 		return cb(fa, ConnectionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::new-connection", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "new-connection", purego.NewCallback(fcb))
 }
 
 // Initializes the object implementing the interface.
@@ -4377,7 +4377,7 @@ func (c *SimpleAction) SetGoPointer(ptr uintptr) {
 // type, the default is to forward them directly to
 // #GSimpleAction::change-state.  This should allow almost all users
 // of #GSimpleAction to connect only one handler or the other.
-func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) {
+func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ParameterVarp uintptr) {
 		fa := SimpleAction{}
 		fa.Ptr = clsPtr
@@ -4385,7 +4385,7 @@ func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) {
 		cb(fa, ParameterVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Indicates that the action just received a request to change its
@@ -4424,7 +4424,7 @@ func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) {
 //
 // The handler need not set the state to the requested value.
 // It could set it to any value at all, or take some other action.
-func (x *SimpleAction) ConnectChangeState(cb func(SimpleAction, uintptr)) {
+func (x *SimpleAction) ConnectChangeState(cb func(SimpleAction, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ValueVarp uintptr) {
 		fa := SimpleAction{}
 		fa.Ptr = clsPtr
@@ -4432,7 +4432,7 @@ func (x *SimpleAction) ConnectChangeState(cb func(SimpleAction, uintptr)) {
 		cb(fa, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-state", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-state", purego.NewCallback(fcb))
 }
 
 // Activates the action.

@@ -372,7 +372,7 @@ func (c *GLArea) SetGoPointer(ptr uintptr) {
 // If context creation fails then the signal handler can use
 // [method@Gtk.GLArea.set_error] to register a more detailed error
 // of how the construction failed.
-func (x *GLArea) ConnectCreateContext(cb func(GLArea) gdk.GLContext) {
+func (x *GLArea) ConnectCreateContext(cb func(GLArea) gdk.GLContext) uint32 {
 	fcb := func(clsPtr uintptr) uintptr {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
@@ -381,14 +381,14 @@ func (x *GLArea) ConnectCreateContext(cb func(GLArea) gdk.GLContext) {
 		return CreateContextCls.Ptr
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::create-context", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "create-context", purego.NewCallback(fcb))
 }
 
 // Emitted every time the contents of the `GtkGLArea` should be redrawn.
 //
 // The @context is bound to the @area prior to emitting this function,
 // and the buffers are painted to the window once the emission terminates.
-func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) {
+func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ContextVarp uintptr) bool {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
@@ -396,7 +396,7 @@ func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) {
 		return cb(fa, ContextVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::render", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "render", purego.NewCallback(fcb))
 }
 
 // Emitted once when the widget is realized, and then each time the widget
@@ -410,7 +410,7 @@ func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) {
 // is emitted.
 //
 // The default handler sets up the GL viewport.
-func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) {
+func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) uint32 {
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
@@ -418,7 +418,7 @@ func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) {
 		cb(fa, WidthVarp, HeightVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::resize", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "resize", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

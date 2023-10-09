@@ -147,7 +147,7 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{range .Signals -}}
 
 {{.Doc}}
-func (x *{{$outer.Name}}) Connect{{.Name}}(cb func({{$outer.Name}} {{convc .Args.API.Types}}) {{.Ret.Value}}) {
+func (x *{{$outer.Name}}) Connect{{.Name}}(cb func({{$outer.Name}} {{convc .Args.API.Types}}) {{.Ret.Value}}) uint32 {
      fcb := func(clsPtr uintptr {{convc .Args.Pure.Full}}) {{.Ret.Raw}} {
          fa := {{$outer.Name}}{}
          fa.Ptr = clsPtr
@@ -160,7 +160,7 @@ func (x *{{$outer.Name}}) Connect{{.Name}}(cb func({{$outer.Name}} {{convc .Args
          cb(fa {{convc .Args.Pure.Call}})
          {{end}}
      }
-     {{if $NotGObject}}gobject.{{end}}ObjectConnect(x.GoPointer(), "signal::{{.CName}}", purego.NewCallback(fcb))
+     return {{if $NotGObject}}gobject.{{end}}SignalConnect(x.GoPointer(), "{{.CName}}", purego.NewCallback(fcb))
 }
 {{end}}
 

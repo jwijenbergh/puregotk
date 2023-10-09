@@ -134,7 +134,7 @@ func (c *Statusbar) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a new message is popped off a statusbar's stack.
-func (x *Statusbar) ConnectTextPopped(cb func(Statusbar, uint, string)) {
+func (x *Statusbar) ConnectTextPopped(cb func(Statusbar, uint, string)) uint32 {
 	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
@@ -142,11 +142,11 @@ func (x *Statusbar) ConnectTextPopped(cb func(Statusbar, uint, string)) {
 		cb(fa, ContextIdVarp, TextVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::text-popped", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "text-popped", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a new message gets pushed onto a statusbar's stack.
-func (x *Statusbar) ConnectTextPushed(cb func(Statusbar, uint, string)) {
+func (x *Statusbar) ConnectTextPushed(cb func(Statusbar, uint, string)) uint32 {
 	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
@@ -154,7 +154,7 @@ func (x *Statusbar) ConnectTextPushed(cb func(Statusbar, uint, string)) {
 		cb(fa, ContextIdVarp, TextVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::text-pushed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "text-pushed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

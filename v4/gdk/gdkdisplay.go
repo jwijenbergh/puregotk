@@ -474,7 +474,7 @@ func (c *Display) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the connection to the windowing system for @display is closed.
-func (x *Display) ConnectClosed(cb func(Display, bool)) {
+func (x *Display) ConnectClosed(cb func(Display, bool)) uint32 {
 	fcb := func(clsPtr uintptr, IsErrorVarp bool) {
 		fa := Display{}
 		fa.Ptr = clsPtr
@@ -482,11 +482,11 @@ func (x *Display) ConnectClosed(cb func(Display, bool)) {
 		cb(fa, IsErrorVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::closed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "closed", purego.NewCallback(fcb))
 }
 
 // Emitted when the connection to the windowing system for @display is opened.
-func (x *Display) ConnectOpened(cb func(Display)) {
+func (x *Display) ConnectOpened(cb func(Display)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Display{}
 		fa.Ptr = clsPtr
@@ -494,11 +494,11 @@ func (x *Display) ConnectOpened(cb func(Display)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::opened", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "opened", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a new seat is made known to the windowing system.
-func (x *Display) ConnectSeatAdded(cb func(Display, uintptr)) {
+func (x *Display) ConnectSeatAdded(cb func(Display, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SeatVarp uintptr) {
 		fa := Display{}
 		fa.Ptr = clsPtr
@@ -506,11 +506,11 @@ func (x *Display) ConnectSeatAdded(cb func(Display, uintptr)) {
 		cb(fa, SeatVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::seat-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "seat-added", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a seat is removed by the windowing system.
-func (x *Display) ConnectSeatRemoved(cb func(Display, uintptr)) {
+func (x *Display) ConnectSeatRemoved(cb func(Display, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SeatVarp uintptr) {
 		fa := Display{}
 		fa.Ptr = clsPtr
@@ -518,11 +518,11 @@ func (x *Display) ConnectSeatRemoved(cb func(Display, uintptr)) {
 		cb(fa, SeatVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::seat-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "seat-removed", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a setting changes its value.
-func (x *Display) ConnectSettingChanged(cb func(Display, string)) {
+func (x *Display) ConnectSettingChanged(cb func(Display, string)) uint32 {
 	fcb := func(clsPtr uintptr, SettingVarp string) {
 		fa := Display{}
 		fa.Ptr = clsPtr
@@ -530,7 +530,7 @@ func (x *Display) ConnectSettingChanged(cb func(Display, string)) {
 		cb(fa, SettingVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::setting-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "setting-changed", purego.NewCallback(fcb))
 }
 
 func init() {

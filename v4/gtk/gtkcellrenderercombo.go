@@ -71,7 +71,7 @@ func (c *CellRendererCombo) SetGoPointer(ptr uintptr) {
 // the tree view will immediately cease the editing operating.  This
 // means that you most probably want to refrain from changing the model
 // until the combo cell renderer emits the edited or editing_canceled signal.
-func (x *CellRendererCombo) ConnectChanged(cb func(CellRendererCombo, string, uintptr)) {
+func (x *CellRendererCombo) ConnectChanged(cb func(CellRendererCombo, string, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PathStringVarp string, NewIterVarp uintptr) {
 		fa := CellRendererCombo{}
 		fa.Ptr = clsPtr
@@ -79,7 +79,7 @@ func (x *CellRendererCombo) ConnectChanged(cb func(CellRendererCombo, string, ui
 		cb(fa, PathStringVarp, NewIterVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

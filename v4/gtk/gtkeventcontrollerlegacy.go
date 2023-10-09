@@ -50,7 +50,7 @@ func (c *EventControllerLegacy) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted for each GDK event delivered to @controller.
-func (x *EventControllerLegacy) ConnectEvent(cb func(EventControllerLegacy, uintptr) bool) {
+func (x *EventControllerLegacy) ConnectEvent(cb func(EventControllerLegacy, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, EventVarp uintptr) bool {
 		fa := EventControllerLegacy{}
 		fa.Ptr = clsPtr
@@ -58,7 +58,7 @@ func (x *EventControllerLegacy) ConnectEvent(cb func(EventControllerLegacy, uint
 		return cb(fa, EventVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::event", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
 }
 
 func init() {

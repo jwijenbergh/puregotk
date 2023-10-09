@@ -334,7 +334,7 @@ func (c *Cancellable) SetGoPointer(ptr uintptr) {
 // Note that the cancelled signal is emitted in the thread that
 // the user cancelled from, which may be the main thread. So, the
 // cancellable signal should not do something that can block.
-func (x *Cancellable) ConnectCancelled(cb func(Cancellable)) {
+func (x *Cancellable) ConnectCancelled(cb func(Cancellable)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Cancellable{}
 		fa.Ptr = clsPtr
@@ -342,7 +342,7 @@ func (x *Cancellable) ConnectCancelled(cb func(Cancellable)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancelled", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancelled", purego.NewCallback(fcb))
 }
 
 func init() {

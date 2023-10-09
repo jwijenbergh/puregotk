@@ -168,7 +168,7 @@ func (c *SwipeTracker) SetGoPointer(ptr uintptr) {
 
 // This signal is emitted right before a swipe will be started, after the
 // drag threshold has been passed.
-func (x *SwipeTracker) ConnectBeginSwipe(cb func(SwipeTracker)) {
+func (x *SwipeTracker) ConnectBeginSwipe(cb func(SwipeTracker)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SwipeTracker{}
 		fa.Ptr = clsPtr
@@ -176,7 +176,7 @@ func (x *SwipeTracker) ConnectBeginSwipe(cb func(SwipeTracker)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::begin-swipe", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "begin-swipe", purego.NewCallback(fcb))
 }
 
 // This signal is emitted as soon as the gesture has stopped.
@@ -185,7 +185,7 @@ func (x *SwipeTracker) ConnectBeginSwipe(cb func(SwipeTracker)) {
 // value to @to with an animation using @velocity as the initial velocity,
 // provided in pixels per second. [class@SpringAnimation] is usually a good
 // fit for this.
-func (x *SwipeTracker) ConnectEndSwipe(cb func(SwipeTracker, float64, float64)) {
+func (x *SwipeTracker) ConnectEndSwipe(cb func(SwipeTracker, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, VelocityVarp float64, ToVarp float64) {
 		fa := SwipeTracker{}
 		fa.Ptr = clsPtr
@@ -193,14 +193,14 @@ func (x *SwipeTracker) ConnectEndSwipe(cb func(SwipeTracker, float64, float64)) 
 		cb(fa, VelocityVarp, ToVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::end-swipe", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "end-swipe", purego.NewCallback(fcb))
 }
 
 // This signal is emitted when a possible swipe is detected.
 //
 // The @direction value can be used to restrict the swipe to a certain
 // direction.
-func (x *SwipeTracker) ConnectPrepare(cb func(SwipeTracker, NavigationDirection)) {
+func (x *SwipeTracker) ConnectPrepare(cb func(SwipeTracker, NavigationDirection)) uint32 {
 	fcb := func(clsPtr uintptr, DirectionVarp NavigationDirection) {
 		fa := SwipeTracker{}
 		fa.Ptr = clsPtr
@@ -208,11 +208,11 @@ func (x *SwipeTracker) ConnectPrepare(cb func(SwipeTracker, NavigationDirection)
 		cb(fa, DirectionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::prepare", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "prepare", purego.NewCallback(fcb))
 }
 
 // This signal is emitted every time the progress value changes.
-func (x *SwipeTracker) ConnectUpdateSwipe(cb func(SwipeTracker, float64)) {
+func (x *SwipeTracker) ConnectUpdateSwipe(cb func(SwipeTracker, float64)) uint32 {
 	fcb := func(clsPtr uintptr, ProgressVarp float64) {
 		fa := SwipeTracker{}
 		fa.Ptr = clsPtr
@@ -220,7 +220,7 @@ func (x *SwipeTracker) ConnectUpdateSwipe(cb func(SwipeTracker, float64)) {
 		cb(fa, ProgressVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::update-swipe", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "update-swipe", purego.NewCallback(fcb))
 }
 
 // Retrieves the orientation of the @orientable.

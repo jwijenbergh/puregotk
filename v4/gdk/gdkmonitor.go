@@ -189,7 +189,7 @@ func (c *Monitor) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the output represented by @monitor gets disconnected.
-func (x *Monitor) ConnectInvalidate(cb func(Monitor)) {
+func (x *Monitor) ConnectInvalidate(cb func(Monitor)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Monitor{}
 		fa.Ptr = clsPtr
@@ -197,7 +197,7 @@ func (x *Monitor) ConnectInvalidate(cb func(Monitor)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::invalidate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "invalidate", purego.NewCallback(fcb))
 }
 
 func init() {

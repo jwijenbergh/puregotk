@@ -130,7 +130,7 @@ func (c *Seat) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when a new input device is related to this seat.
-func (x *Seat) ConnectDeviceAdded(cb func(Seat, uintptr)) {
+func (x *Seat) ConnectDeviceAdded(cb func(Seat, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, DeviceVarp uintptr) {
 		fa := Seat{}
 		fa.Ptr = clsPtr
@@ -138,11 +138,11 @@ func (x *Seat) ConnectDeviceAdded(cb func(Seat, uintptr)) {
 		cb(fa, DeviceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::device-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "device-added", purego.NewCallback(fcb))
 }
 
 // Emitted when an input device is removed (e.g. unplugged).
-func (x *Seat) ConnectDeviceRemoved(cb func(Seat, uintptr)) {
+func (x *Seat) ConnectDeviceRemoved(cb func(Seat, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, DeviceVarp uintptr) {
 		fa := Seat{}
 		fa.Ptr = clsPtr
@@ -150,7 +150,7 @@ func (x *Seat) ConnectDeviceRemoved(cb func(Seat, uintptr)) {
 		cb(fa, DeviceVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::device-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "device-removed", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a new tool is made known to the seat.
@@ -160,7 +160,7 @@ func (x *Seat) ConnectDeviceRemoved(cb func(Seat, uintptr)) {
 // [signal@Gdk.Device::tool-changed] signal accordingly.
 //
 // A same tool may be used by several devices.
-func (x *Seat) ConnectToolAdded(cb func(Seat, uintptr)) {
+func (x *Seat) ConnectToolAdded(cb func(Seat, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ToolVarp uintptr) {
 		fa := Seat{}
 		fa.Ptr = clsPtr
@@ -168,11 +168,11 @@ func (x *Seat) ConnectToolAdded(cb func(Seat, uintptr)) {
 		cb(fa, ToolVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tool-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tool-added", purego.NewCallback(fcb))
 }
 
 // Emitted whenever a tool is no longer known to this @seat.
-func (x *Seat) ConnectToolRemoved(cb func(Seat, uintptr)) {
+func (x *Seat) ConnectToolRemoved(cb func(Seat, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ToolVarp uintptr) {
 		fa := Seat{}
 		fa.Ptr = clsPtr
@@ -180,7 +180,7 @@ func (x *Seat) ConnectToolRemoved(cb func(Seat, uintptr)) {
 		cb(fa, ToolVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::tool-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "tool-removed", purego.NewCallback(fcb))
 }
 
 func init() {

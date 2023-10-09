@@ -349,7 +349,7 @@ func (c *ColumnView) SetGoPointer(ptr uintptr) {
 // This allows for a convenient way to handle activation in a columnview.
 // See [method@Gtk.ListItem.set_activatable] for details on how to use this
 // signal.
-func (x *ColumnView) ConnectActivate(cb func(ColumnView, uint)) {
+func (x *ColumnView) ConnectActivate(cb func(ColumnView, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PositionVarp uint) {
 		fa := ColumnView{}
 		fa.Ptr = clsPtr
@@ -357,7 +357,7 @@ func (x *ColumnView) ConnectActivate(cb func(ColumnView, uint)) {
 		cb(fa, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

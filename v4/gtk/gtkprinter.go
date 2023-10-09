@@ -355,7 +355,7 @@ func (c *Printer) SetGoPointer(ptr uintptr) {
 //
 // The @success parameter indicates if the information was
 // actually obtained.
-func (x *Printer) ConnectDetailsAcquired(cb func(Printer, bool)) {
+func (x *Printer) ConnectDetailsAcquired(cb func(Printer, bool)) uint32 {
 	fcb := func(clsPtr uintptr, SuccessVarp bool) {
 		fa := Printer{}
 		fa.Ptr = clsPtr
@@ -363,7 +363,7 @@ func (x *Printer) ConnectDetailsAcquired(cb func(Printer, bool)) {
 		cb(fa, SuccessVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::details-acquired", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "details-acquired", purego.NewCallback(fcb))
 }
 
 func init() {

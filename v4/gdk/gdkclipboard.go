@@ -361,7 +361,7 @@ func (c *Clipboard) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the clipboard changes ownership.
-func (x *Clipboard) ConnectChanged(cb func(Clipboard)) {
+func (x *Clipboard) ConnectChanged(cb func(Clipboard)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Clipboard{}
 		fa.Ptr = clsPtr
@@ -369,7 +369,7 @@ func (x *Clipboard) ConnectChanged(cb func(Clipboard)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

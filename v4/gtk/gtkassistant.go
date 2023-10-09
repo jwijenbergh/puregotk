@@ -415,7 +415,7 @@ func (c *Assistant) SetGoPointer(ptr uintptr) {
 // %GTK_ASSISTANT_PAGE_PROGRESS after the confirmation page and handle
 // this operation within the [signal@Gtk.Assistant::prepare] signal of
 // the progress page.
-func (x *Assistant) ConnectApply(cb func(Assistant)) {
+func (x *Assistant) ConnectApply(cb func(Assistant)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
@@ -423,11 +423,11 @@ func (x *Assistant) ConnectApply(cb func(Assistant)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::apply", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "apply", purego.NewCallback(fcb))
 }
 
 // Emitted when then the cancel button is clicked.
-func (x *Assistant) ConnectCancel(cb func(Assistant)) {
+func (x *Assistant) ConnectCancel(cb func(Assistant)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
@@ -435,13 +435,13 @@ func (x *Assistant) ConnectCancel(cb func(Assistant)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancel", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
 }
 
 // Emitted either when the close button of a summary page is clicked,
 // or when the apply button in the last page in the flow (of type
 // %GTK_ASSISTANT_PAGE_CONFIRM) is clicked.
-func (x *Assistant) ConnectClose(cb func(Assistant)) {
+func (x *Assistant) ConnectClose(cb func(Assistant)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
@@ -449,11 +449,11 @@ func (x *Assistant) ConnectClose(cb func(Assistant)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
 }
 
 // The action signal for the Escape binding.
-func (x *Assistant) ConnectEscape(cb func(Assistant)) {
+func (x *Assistant) ConnectEscape(cb func(Assistant)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
@@ -461,7 +461,7 @@ func (x *Assistant) ConnectEscape(cb func(Assistant)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::escape", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "escape", purego.NewCallback(fcb))
 }
 
 // Emitted when a new page is set as the assistant's current page,
@@ -469,7 +469,7 @@ func (x *Assistant) ConnectEscape(cb func(Assistant)) {
 //
 // A handler for this signal can do any preparations which are
 // necessary before showing @page.
-func (x *Assistant) ConnectPrepare(cb func(Assistant, uintptr)) {
+func (x *Assistant) ConnectPrepare(cb func(Assistant, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
@@ -477,7 +477,7 @@ func (x *Assistant) ConnectPrepare(cb func(Assistant, uintptr)) {
 		cb(fa, PageVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::prepare", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "prepare", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

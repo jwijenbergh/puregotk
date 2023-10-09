@@ -181,7 +181,7 @@ func (c *ScaleButton) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Escape&lt;/kbd&gt;.
-func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) {
+func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
@@ -189,7 +189,7 @@ func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::popdown", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "popdown", purego.NewCallback(fcb))
 }
 
 // Emitted to popup the scale widget.
@@ -198,7 +198,7 @@ func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) {
 //
 // The default bindings for this signal are &lt;kbd&gt;Space&lt;/kbd&gt;,
 // &lt;kbd&gt;Enter&lt;/kbd&gt; and &lt;kbd&gt;Return&lt;/kbd&gt;.
-func (x *ScaleButton) ConnectPopup(cb func(ScaleButton)) {
+func (x *ScaleButton) ConnectPopup(cb func(ScaleButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
@@ -206,11 +206,11 @@ func (x *ScaleButton) ConnectPopup(cb func(ScaleButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::popup", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "popup", purego.NewCallback(fcb))
 }
 
 // Emitted when the value field has changed.
-func (x *ScaleButton) ConnectValueChanged(cb func(ScaleButton, float64)) {
+func (x *ScaleButton) ConnectValueChanged(cb func(ScaleButton, float64)) uint32 {
 	fcb := func(clsPtr uintptr, ValueVarp float64) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
@@ -218,7 +218,7 @@ func (x *ScaleButton) ConnectValueChanged(cb func(ScaleButton, float64)) {
 		cb(fa, ValueVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::value-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

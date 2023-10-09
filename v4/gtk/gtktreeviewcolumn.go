@@ -699,7 +699,7 @@ func (c *TreeViewColumn) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the column's header has been clicked.
-func (x *TreeViewColumn) ConnectClicked(cb func(TreeViewColumn)) {
+func (x *TreeViewColumn) ConnectClicked(cb func(TreeViewColumn)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TreeViewColumn{}
 		fa.Ptr = clsPtr
@@ -707,7 +707,7 @@ func (x *TreeViewColumn) ConnectClicked(cb func(TreeViewColumn)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::clicked", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "clicked", purego.NewCallback(fcb))
 }
 
 // Gets the ID of the @buildable object.

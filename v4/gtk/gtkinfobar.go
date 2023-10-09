@@ -331,7 +331,7 @@ func (c *InfoBar) SetGoPointer(ptr uintptr) {
 // The ::close signal is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *InfoBar) ConnectClose(cb func(InfoBar)) {
+func (x *InfoBar) ConnectClose(cb func(InfoBar)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := InfoBar{}
 		fa.Ptr = clsPtr
@@ -339,7 +339,7 @@ func (x *InfoBar) ConnectClose(cb func(InfoBar)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
 }
 
 // Emitted when an action widget is clicked.
@@ -347,7 +347,7 @@ func (x *InfoBar) ConnectClose(cb func(InfoBar)) {
 // The signal is also emitted when the application programmer
 // calls [method@Gtk.InfoBar.response]. The @response_id depends
 // on which action widget was clicked.
-func (x *InfoBar) ConnectResponse(cb func(InfoBar, int)) {
+func (x *InfoBar) ConnectResponse(cb func(InfoBar, int)) uint32 {
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := InfoBar{}
 		fa.Ptr = clsPtr
@@ -355,7 +355,7 @@ func (x *InfoBar) ConnectResponse(cb func(InfoBar, int)) {
 		cb(fa, ResponseIdVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::response", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

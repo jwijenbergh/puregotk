@@ -1121,7 +1121,7 @@ func (c *TextView) SetGoPointer(ptr uintptr) {
 //
 // The default bindings for this signal are
 // &lt;kbd&gt;Backspace&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;Backspace&lt;/kbd&gt;.
-func (x *TextView) ConnectBackspace(cb func(TextView)) {
+func (x *TextView) ConnectBackspace(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1129,7 +1129,7 @@ func (x *TextView) ConnectBackspace(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::backspace", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "backspace", purego.NewCallback(fcb))
 }
 
 // Gets emitted to copy the selection to the clipboard.
@@ -1139,7 +1139,7 @@ func (x *TextView) ConnectBackspace(cb func(TextView)) {
 // The default bindings for this signal are
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;c&lt;/kbd&gt; and
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Insert&lt;/kbd&gt;.
-func (x *TextView) ConnectCopyClipboard(cb func(TextView)) {
+func (x *TextView) ConnectCopyClipboard(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1147,7 +1147,7 @@ func (x *TextView) ConnectCopyClipboard(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::copy-clipboard", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "copy-clipboard", purego.NewCallback(fcb))
 }
 
 // Gets emitted to cut the selection to the clipboard.
@@ -1157,7 +1157,7 @@ func (x *TextView) ConnectCopyClipboard(cb func(TextView)) {
 // The default bindings for this signal are
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;x&lt;/kbd&gt; and
 // &lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;Delete&lt;/kbd&gt;.
-func (x *TextView) ConnectCutClipboard(cb func(TextView)) {
+func (x *TextView) ConnectCutClipboard(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1165,7 +1165,7 @@ func (x *TextView) ConnectCutClipboard(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cut-clipboard", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cut-clipboard", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user initiates a text deletion.
@@ -1180,7 +1180,7 @@ func (x *TextView) ConnectCutClipboard(cb func(TextView)) {
 // deleting a character, &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Delete&lt;/kbd&gt; for
 // deleting a word and &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Backspace&lt;/kbd&gt; for
 // deleting a word backwards.
-func (x *TextView) ConnectDeleteFromCursor(cb func(TextView, DeleteType, int)) {
+func (x *TextView) ConnectDeleteFromCursor(cb func(TextView, DeleteType, int)) uint32 {
 	fcb := func(clsPtr uintptr, TypeVarp DeleteType, CountVarp int) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1188,11 +1188,11 @@ func (x *TextView) ConnectDeleteFromCursor(cb func(TextView, DeleteType, int)) {
 		cb(fa, TypeVarp, CountVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::delete-from-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "delete-from-cursor", purego.NewCallback(fcb))
 }
 
 // Emitted when the selection needs to be extended at @location.
-func (x *TextView) ConnectExtendSelection(cb func(TextView, TextExtendSelection, uintptr, uintptr, uintptr) bool) {
+func (x *TextView) ConnectExtendSelection(cb func(TextView, TextExtendSelection, uintptr, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, GranularityVarp TextExtendSelection, LocationVarp uintptr, StartVarp uintptr, EndVarp uintptr) bool {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1200,7 +1200,7 @@ func (x *TextView) ConnectExtendSelection(cb func(TextView, TextExtendSelection,
 		return cb(fa, GranularityVarp, LocationVarp, StartVarp, EndVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::extend-selection", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "extend-selection", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user initiates the insertion of a
@@ -1209,7 +1209,7 @@ func (x *TextView) ConnectExtendSelection(cb func(TextView, TextExtendSelection,
 // The ::insert-at-cursor signal is a [keybinding signal](class.SignalAction.html).
 //
 // This signal has no default bindings.
-func (x *TextView) ConnectInsertAtCursor(cb func(TextView, string)) {
+func (x *TextView) ConnectInsertAtCursor(cb func(TextView, string)) uint32 {
 	fcb := func(clsPtr uintptr, StringVarp string) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1217,7 +1217,7 @@ func (x *TextView) ConnectInsertAtCursor(cb func(TextView, string)) {
 		cb(fa, StringVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::insert-at-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "insert-at-cursor", purego.NewCallback(fcb))
 }
 
 // Gets emitted to present the Emoji chooser for the @text_view.
@@ -1227,7 +1227,7 @@ func (x *TextView) ConnectInsertAtCursor(cb func(TextView, string)) {
 // The default bindings for this signal are
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;.&lt;/kbd&gt; and
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;;&lt;/kbd&gt;
-func (x *TextView) ConnectInsertEmoji(cb func(TextView)) {
+func (x *TextView) ConnectInsertEmoji(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1235,7 +1235,7 @@ func (x *TextView) ConnectInsertEmoji(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::insert-emoji", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "insert-emoji", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user initiates a cursor movement.
@@ -1260,7 +1260,7 @@ func (x *TextView) ConnectInsertEmoji(cb func(TextView)) {
 //   - &lt;kbd&gt;PgUp&lt;/kbd&gt;, &lt;kbd&gt;PgDn&lt;/kbd&gt; move vertically by pages
 //   - &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;PgUp&lt;/kbd&gt;, &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;PgDn&lt;/kbd&gt;
 //     move horizontally by pages
-func (x *TextView) ConnectMoveCursor(cb func(TextView, MovementStep, int, bool)) {
+func (x *TextView) ConnectMoveCursor(cb func(TextView, MovementStep, int, bool)) uint32 {
 	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendSelectionVarp bool) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1268,7 +1268,7 @@ func (x *TextView) ConnectMoveCursor(cb func(TextView, MovementStep, int, bool))
 		cb(fa, StepVarp, CountVarp, ExtendSelectionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
 }
 
 // Gets emitted to move the viewport.
@@ -1279,7 +1279,7 @@ func (x *TextView) ConnectMoveCursor(cb func(TextView, MovementStep, int, bool))
 // window.
 //
 // There are no default bindings for this signal.
-func (x *TextView) ConnectMoveViewport(cb func(TextView, ScrollStep, int)) {
+func (x *TextView) ConnectMoveViewport(cb func(TextView, ScrollStep, int)) uint32 {
 	fcb := func(clsPtr uintptr, StepVarp ScrollStep, CountVarp int) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1287,7 +1287,7 @@ func (x *TextView) ConnectMoveViewport(cb func(TextView, ScrollStep, int)) {
 		cb(fa, StepVarp, CountVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-viewport", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-viewport", purego.NewCallback(fcb))
 }
 
 // Gets emitted to paste the contents of the clipboard
@@ -1298,7 +1298,7 @@ func (x *TextView) ConnectMoveViewport(cb func(TextView, ScrollStep, int)) {
 // The default bindings for this signal are
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;v&lt;/kbd&gt; and
 // &lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;Insert&lt;/kbd&gt;.
-func (x *TextView) ConnectPasteClipboard(cb func(TextView)) {
+func (x *TextView) ConnectPasteClipboard(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1306,7 +1306,7 @@ func (x *TextView) ConnectPasteClipboard(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::paste-clipboard", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "paste-clipboard", purego.NewCallback(fcb))
 }
 
 // Emitted when preedit text of the active IM changes.
@@ -1317,7 +1317,7 @@ func (x *TextView) ConnectPasteClipboard(cb func(TextView)) {
 //
 // This signal is only emitted if the text at the given position
 // is actually editable.
-func (x *TextView) ConnectPreeditChanged(cb func(TextView, string)) {
+func (x *TextView) ConnectPreeditChanged(cb func(TextView, string)) uint32 {
 	fcb := func(clsPtr uintptr, PreeditVarp string) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1325,7 +1325,7 @@ func (x *TextView) ConnectPreeditChanged(cb func(TextView, string)) {
 		cb(fa, PreeditVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::preedit-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "preedit-changed", purego.NewCallback(fcb))
 }
 
 // Gets emitted to select or unselect the complete contents of the text view.
@@ -1337,7 +1337,7 @@ func (x *TextView) ConnectPreeditChanged(cb func(TextView, string)) {
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;/&lt;/kbd&gt; for selecting and
 // &lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt; and
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;\&lt;/kbd&gt; for unselecting.
-func (x *TextView) ConnectSelectAll(cb func(TextView, bool)) {
+func (x *TextView) ConnectSelectAll(cb func(TextView, bool)) uint32 {
 	fcb := func(clsPtr uintptr, SelectVarp bool) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1345,7 +1345,7 @@ func (x *TextView) ConnectSelectAll(cb func(TextView, bool)) {
 		cb(fa, SelectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-all", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-all", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user initiates settings the "anchor" mark.
@@ -1356,7 +1356,7 @@ func (x *TextView) ConnectSelectAll(cb func(TextView, bool)) {
 // "insert" mark.
 //
 // This signal has no default bindings.
-func (x *TextView) ConnectSetAnchor(cb func(TextView)) {
+func (x *TextView) ConnectSetAnchor(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1364,7 +1364,7 @@ func (x *TextView) ConnectSetAnchor(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::set-anchor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "set-anchor", purego.NewCallback(fcb))
 }
 
 // Gets emitted to toggle the `cursor-visible` property.
@@ -1373,7 +1373,7 @@ func (x *TextView) ConnectSetAnchor(cb func(TextView)) {
 // [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;F7&lt;/kbd&gt;.
-func (x *TextView) ConnectToggleCursorVisible(cb func(TextView)) {
+func (x *TextView) ConnectToggleCursorVisible(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1381,7 +1381,7 @@ func (x *TextView) ConnectToggleCursorVisible(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggle-cursor-visible", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-visible", purego.NewCallback(fcb))
 }
 
 // Gets emitted to toggle the overwrite mode of the text view.
@@ -1389,7 +1389,7 @@ func (x *TextView) ConnectToggleCursorVisible(cb func(TextView)) {
 // The ::toggle-overwrite signal is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Insert&lt;/kbd&gt;.
-func (x *TextView) ConnectToggleOverwrite(cb func(TextView)) {
+func (x *TextView) ConnectToggleOverwrite(cb func(TextView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TextView{}
 		fa.Ptr = clsPtr
@@ -1397,7 +1397,7 @@ func (x *TextView) ConnectToggleOverwrite(cb func(TextView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggle-overwrite", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggle-overwrite", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

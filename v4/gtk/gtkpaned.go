@@ -280,7 +280,7 @@ func (c *Paned) SetGoPointer(ptr uintptr) {
 //
 // The default binding for this signal is &lt;kbd&gt;Return&lt;/kbd&gt; or
 // &lt;kbd&gt;Space&lt;/kbd&gt;.
-func (x *Paned) ConnectAcceptPosition(cb func(Paned) bool) {
+func (x *Paned) ConnectAcceptPosition(cb func(Paned) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -288,7 +288,7 @@ func (x *Paned) ConnectAcceptPosition(cb func(Paned) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::accept-position", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "accept-position", purego.NewCallback(fcb))
 }
 
 // Emitted to cancel moving the position of the handle using key
@@ -300,7 +300,7 @@ func (x *Paned) ConnectAcceptPosition(cb func(Paned) bool) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Escape&lt;/kbd&gt;.
-func (x *Paned) ConnectCancelPosition(cb func(Paned) bool) {
+func (x *Paned) ConnectCancelPosition(cb func(Paned) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -308,7 +308,7 @@ func (x *Paned) ConnectCancelPosition(cb func(Paned) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancel-position", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancel-position", purego.NewCallback(fcb))
 }
 
 // Emitted to cycle the focus between the children of the paned.
@@ -316,7 +316,7 @@ func (x *Paned) ConnectCancelPosition(cb func(Paned) bool) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding is &lt;kbd&gt;F6&lt;/kbd&gt;.
-func (x *Paned) ConnectCycleChildFocus(cb func(Paned, bool) bool) {
+func (x *Paned) ConnectCycleChildFocus(cb func(Paned, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ReversedVarp bool) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -324,7 +324,7 @@ func (x *Paned) ConnectCycleChildFocus(cb func(Paned, bool) bool) {
 		return cb(fa, ReversedVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cycle-child-focus", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cycle-child-focus", purego.NewCallback(fcb))
 }
 
 // Emitted to cycle whether the paned should grab focus to allow
@@ -333,7 +333,7 @@ func (x *Paned) ConnectCycleChildFocus(cb func(Paned, bool) bool) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;F8&lt;/kbd&gt;.
-func (x *Paned) ConnectCycleHandleFocus(cb func(Paned, bool) bool) {
+func (x *Paned) ConnectCycleHandleFocus(cb func(Paned, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ReversedVarp bool) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -341,13 +341,13 @@ func (x *Paned) ConnectCycleHandleFocus(cb func(Paned, bool) bool) {
 		return cb(fa, ReversedVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cycle-handle-focus", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cycle-handle-focus", purego.NewCallback(fcb))
 }
 
 // Emitted to move the handle with key bindings.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Paned) ConnectMoveHandle(cb func(Paned, ScrollType) bool) {
+func (x *Paned) ConnectMoveHandle(cb func(Paned, ScrollType) bool) uint32 {
 	fcb := func(clsPtr uintptr, ScrollTypeVarp ScrollType) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -355,7 +355,7 @@ func (x *Paned) ConnectMoveHandle(cb func(Paned, ScrollType) bool) {
 		return cb(fa, ScrollTypeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-handle", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-handle", purego.NewCallback(fcb))
 }
 
 // Emitted to accept the current position of the handle and then
@@ -364,7 +364,7 @@ func (x *Paned) ConnectMoveHandle(cb func(Paned, ScrollType) bool) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding is &lt;kbd&gt;Tab&lt;/kbd&gt;.
-func (x *Paned) ConnectToggleHandleFocus(cb func(Paned) bool) {
+func (x *Paned) ConnectToggleHandleFocus(cb func(Paned) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := Paned{}
 		fa.Ptr = clsPtr
@@ -372,7 +372,7 @@ func (x *Paned) ConnectToggleHandleFocus(cb func(Paned) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggle-handle-focus", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggle-handle-focus", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

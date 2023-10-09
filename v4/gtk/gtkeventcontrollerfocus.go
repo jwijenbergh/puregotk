@@ -81,7 +81,7 @@ func (c *EventControllerFocus) SetGoPointer(ptr uintptr) {
 // in these cases, you can monitor the
 // [property@Gtk.EventControllerFocus:is-focus]
 // property for changes.
-func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) {
+func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerFocus{}
 		fa.Ptr = clsPtr
@@ -89,7 +89,7 @@ func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::enter", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "enter", purego.NewCallback(fcb))
 }
 
 // Emitted whenever the focus leaves the widget hierarchy
@@ -101,7 +101,7 @@ func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) {
 // to a descendent). If you are interested in these cases, you
 // can monitor the [property@Gtk.EventControllerFocus:is-focus]
 // property for changes.
-func (x *EventControllerFocus) ConnectLeave(cb func(EventControllerFocus)) {
+func (x *EventControllerFocus) ConnectLeave(cb func(EventControllerFocus)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerFocus{}
 		fa.Ptr = clsPtr
@@ -109,7 +109,7 @@ func (x *EventControllerFocus) ConnectLeave(cb func(EventControllerFocus)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::leave", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "leave", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -1294,7 +1294,7 @@ func (c *TreeView) SetGoPointer(ptr uintptr) {
 }
 
 // The number of columns of the treeview has changed.
-func (x *TreeView) ConnectColumnsChanged(cb func(TreeView)) {
+func (x *TreeView) ConnectColumnsChanged(cb func(TreeView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1302,11 +1302,11 @@ func (x *TreeView) ConnectColumnsChanged(cb func(TreeView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::columns-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "columns-changed", purego.NewCallback(fcb))
 }
 
 // The position of the cursor (focused cell) has changed.
-func (x *TreeView) ConnectCursorChanged(cb func(TreeView)) {
+func (x *TreeView) ConnectCursorChanged(cb func(TreeView)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1314,10 +1314,10 @@ func (x *TreeView) ConnectCursorChanged(cb func(TreeView)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cursor-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cursor-changed", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectExpandCollapseCursorRow(cb func(TreeView, bool, bool, bool) bool) {
+func (x *TreeView) ConnectExpandCollapseCursorRow(cb func(TreeView, bool, bool, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp bool, P0Varp bool, P1Varp bool) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1325,7 +1325,7 @@ func (x *TreeView) ConnectExpandCollapseCursorRow(cb func(TreeView, bool, bool, 
 		return cb(fa, ObjectVarp, P0Varp, P1Varp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::expand-collapse-cursor-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "expand-collapse-cursor-row", purego.NewCallback(fcb))
 }
 
 // The `GtkTreeView`::move-cursor signal is a [keybinding
@@ -1337,7 +1337,7 @@ func (x *TreeView) ConnectExpandCollapseCursorRow(cb func(TreeView, bool, bool, 
 // programmatically. In contrast to gtk_tree_view_set_cursor() and
 // gtk_tree_view_set_cursor_on_cell() when moving horizontally
 // `GtkTreeView`::move-cursor does not reset the current selection.
-func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int, bool, bool) bool) {
+func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int, bool, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, StepVarp MovementStep, DirectionVarp int, ExtendVarp bool, ModifyVarp bool) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1345,7 +1345,7 @@ func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int, bool, 
 		return cb(fa, StepVarp, DirectionVarp, ExtendVarp, ModifyVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
 }
 
 // The "row-activated" signal is emitted when the method
@@ -1362,7 +1362,7 @@ func (x *TreeView) ConnectMoveCursor(cb func(TreeView, MovementStep, int, bool, 
 // For selection handling refer to the
 // [tree widget conceptual overview](section-tree-widget.html)
 // as well as `GtkTreeSelection`.
-func (x *TreeView) ConnectRowActivated(cb func(TreeView, uintptr, uintptr)) {
+func (x *TreeView) ConnectRowActivated(cb func(TreeView, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PathVarp uintptr, ColumnVarp uintptr) {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1370,11 +1370,11 @@ func (x *TreeView) ConnectRowActivated(cb func(TreeView, uintptr, uintptr)) {
 		cb(fa, PathVarp, ColumnVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::row-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "row-activated", purego.NewCallback(fcb))
 }
 
 // The given row has been collapsed (child nodes are hidden).
-func (x *TreeView) ConnectRowCollapsed(cb func(TreeView, uintptr, uintptr)) {
+func (x *TreeView) ConnectRowCollapsed(cb func(TreeView, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, IterVarp uintptr, PathVarp uintptr) {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1382,11 +1382,11 @@ func (x *TreeView) ConnectRowCollapsed(cb func(TreeView, uintptr, uintptr)) {
 		cb(fa, IterVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::row-collapsed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "row-collapsed", purego.NewCallback(fcb))
 }
 
 // The given row has been expanded (child nodes are shown).
-func (x *TreeView) ConnectRowExpanded(cb func(TreeView, uintptr, uintptr)) {
+func (x *TreeView) ConnectRowExpanded(cb func(TreeView, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, IterVarp uintptr, PathVarp uintptr) {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1394,10 +1394,10 @@ func (x *TreeView) ConnectRowExpanded(cb func(TreeView, uintptr, uintptr)) {
 		cb(fa, IterVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::row-expanded", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "row-expanded", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectSelectAll(cb func(TreeView) bool) {
+func (x *TreeView) ConnectSelectAll(cb func(TreeView) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1405,10 +1405,10 @@ func (x *TreeView) ConnectSelectAll(cb func(TreeView) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-all", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-all", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectSelectCursorParent(cb func(TreeView) bool) {
+func (x *TreeView) ConnectSelectCursorParent(cb func(TreeView) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1416,10 +1416,10 @@ func (x *TreeView) ConnectSelectCursorParent(cb func(TreeView) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-cursor-parent", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-cursor-parent", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectSelectCursorRow(cb func(TreeView, bool) bool) {
+func (x *TreeView) ConnectSelectCursorRow(cb func(TreeView, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp bool) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1427,10 +1427,10 @@ func (x *TreeView) ConnectSelectCursorRow(cb func(TreeView, bool) bool) {
 		return cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-cursor-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-cursor-row", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectStartInteractiveSearch(cb func(TreeView) bool) {
+func (x *TreeView) ConnectStartInteractiveSearch(cb func(TreeView) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1438,12 +1438,12 @@ func (x *TreeView) ConnectStartInteractiveSearch(cb func(TreeView) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::start-interactive-search", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "start-interactive-search", purego.NewCallback(fcb))
 }
 
 // The given row is about to be collapsed (hide its children nodes). Use this
 // signal if you need to control the collapsibility of individual rows.
-func (x *TreeView) ConnectTestCollapseRow(cb func(TreeView, uintptr, uintptr) bool) {
+func (x *TreeView) ConnectTestCollapseRow(cb func(TreeView, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, IterVarp uintptr, PathVarp uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1451,12 +1451,12 @@ func (x *TreeView) ConnectTestCollapseRow(cb func(TreeView, uintptr, uintptr) bo
 		return cb(fa, IterVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::test-collapse-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "test-collapse-row", purego.NewCallback(fcb))
 }
 
 // The given row is about to be expanded (show its children nodes). Use this
 // signal if you need to control the expandability of individual rows.
-func (x *TreeView) ConnectTestExpandRow(cb func(TreeView, uintptr, uintptr) bool) {
+func (x *TreeView) ConnectTestExpandRow(cb func(TreeView, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, IterVarp uintptr, PathVarp uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1464,10 +1464,10 @@ func (x *TreeView) ConnectTestExpandRow(cb func(TreeView, uintptr, uintptr) bool
 		return cb(fa, IterVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::test-expand-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "test-expand-row", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectToggleCursorRow(cb func(TreeView) bool) {
+func (x *TreeView) ConnectToggleCursorRow(cb func(TreeView) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1475,10 +1475,10 @@ func (x *TreeView) ConnectToggleCursorRow(cb func(TreeView) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::toggle-cursor-row", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-row", purego.NewCallback(fcb))
 }
 
-func (x *TreeView) ConnectUnselectAll(cb func(TreeView) bool) {
+func (x *TreeView) ConnectUnselectAll(cb func(TreeView) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := TreeView{}
 		fa.Ptr = clsPtr
@@ -1486,7 +1486,7 @@ func (x *TreeView) ConnectUnselectAll(cb func(TreeView) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::unselect-all", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "unselect-all", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

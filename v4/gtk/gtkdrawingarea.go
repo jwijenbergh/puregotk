@@ -218,7 +218,7 @@ func (c *DrawingArea) SetGoPointer(ptr uintptr) {
 //
 // This is useful in order to keep state up to date with the widget size,
 // like for instance a backing surface.
-func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) {
+func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) uint32 {
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := DrawingArea{}
 		fa.Ptr = clsPtr
@@ -226,7 +226,7 @@ func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) {
 		cb(fa, WidthVarp, HeightVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::resize", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "resize", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

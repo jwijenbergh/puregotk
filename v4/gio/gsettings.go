@@ -1230,7 +1230,7 @@ func (c *Settings) SetGoPointer(ptr uintptr) {
 // The default handler for this signal invokes the "changed" signal
 // for each affected key.  If any other connected handler returns
 // %TRUE then this default functionality will be suppressed.
-func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) {
+func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) uint32 {
 	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
@@ -1238,7 +1238,7 @@ func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) {
 		return cb(fa, KeysVarp, NKeysVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-event", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-event", purego.NewCallback(fcb))
 }
 
 // The "changed" signal is emitted when a key has potentially changed.
@@ -1251,7 +1251,7 @@ func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) {
 //
 // Note that @settings only emits this signal if you have read @key at
 // least once while a signal handler was already connected for @key.
-func (x *Settings) ConnectChanged(cb func(Settings, string)) {
+func (x *Settings) ConnectChanged(cb func(Settings, string)) uint32 {
 	fcb := func(clsPtr uintptr, KeyVarp string) {
 		fa := Settings{}
 		fa.Ptr = clsPtr
@@ -1259,7 +1259,7 @@ func (x *Settings) ConnectChanged(cb func(Settings, string)) {
 		cb(fa, KeyVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 // The "writable-change-event" signal is emitted once per writability
@@ -1280,7 +1280,7 @@ func (x *Settings) ConnectChanged(cb func(Settings, string)) {
 // example, a new mandatory setting is introduced).  If any other
 // connected handler returns %TRUE then this default functionality
 // will be suppressed.
-func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) {
+func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) uint32 {
 	fcb := func(clsPtr uintptr, KeyVarp uint) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
@@ -1288,7 +1288,7 @@ func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) {
 		return cb(fa, KeyVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::writable-change-event", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "writable-change-event", purego.NewCallback(fcb))
 }
 
 // The "writable-changed" signal is emitted when the writability of a
@@ -1298,7 +1298,7 @@ func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) {
 // This signal supports detailed connections.  You can connect to the
 // detailed signal "writable-changed::x" in order to only receive
 // callbacks when the writability of "x" changes.
-func (x *Settings) ConnectWritableChanged(cb func(Settings, string)) {
+func (x *Settings) ConnectWritableChanged(cb func(Settings, string)) uint32 {
 	fcb := func(clsPtr uintptr, KeyVarp string) {
 		fa := Settings{}
 		fa.Ptr = clsPtr
@@ -1306,7 +1306,7 @@ func (x *Settings) ConnectWritableChanged(cb func(Settings, string)) {
 		cb(fa, KeyVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::writable-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "writable-changed", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -121,7 +121,7 @@ func (c *DBusObjectSkeleton) SetGoPointer(ptr uintptr) {
 // except that it is for the enclosing object.
 //
 // The default class handler just returns %TRUE.
-func (x *DBusObjectSkeleton) ConnectAuthorizeMethod(cb func(DBusObjectSkeleton, uintptr, uintptr) bool) {
+func (x *DBusObjectSkeleton) ConnectAuthorizeMethod(cb func(DBusObjectSkeleton, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, InterfaceVarp uintptr, InvocationVarp uintptr) bool {
 		fa := DBusObjectSkeleton{}
 		fa.Ptr = clsPtr
@@ -129,7 +129,7 @@ func (x *DBusObjectSkeleton) ConnectAuthorizeMethod(cb func(DBusObjectSkeleton, 
 		return cb(fa, InterfaceVarp, InvocationVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::authorize-method", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "authorize-method", purego.NewCallback(fcb))
 }
 
 // Gets the D-Bus interface with name @interface_name associated with

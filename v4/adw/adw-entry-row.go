@@ -253,7 +253,7 @@ func (c *EntryRow) SetGoPointer(ptr uintptr) {
 // Emitted when the apply button is pressed.
 //
 // See [property@EntryRow:show-apply-button].
-func (x *EntryRow) ConnectApply(cb func(EntryRow)) {
+func (x *EntryRow) ConnectApply(cb func(EntryRow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EntryRow{}
 		fa.Ptr = clsPtr
@@ -261,11 +261,11 @@ func (x *EntryRow) ConnectApply(cb func(EntryRow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::apply", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "apply", purego.NewCallback(fcb))
 }
 
 // Emitted when the embedded entry is activated.
-func (x *EntryRow) ConnectEntryActivated(cb func(EntryRow)) {
+func (x *EntryRow) ConnectEntryActivated(cb func(EntryRow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EntryRow{}
 		fa.Ptr = clsPtr
@@ -273,7 +273,7 @@ func (x *EntryRow) ConnectEntryActivated(cb func(EntryRow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::entry-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "entry-activated", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

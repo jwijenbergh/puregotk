@@ -77,7 +77,7 @@ func (c *FilenameCompleter) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the file name completion information comes available.
-func (x *FilenameCompleter) ConnectGotCompletionData(cb func(FilenameCompleter)) {
+func (x *FilenameCompleter) ConnectGotCompletionData(cb func(FilenameCompleter)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FilenameCompleter{}
 		fa.Ptr = clsPtr
@@ -85,7 +85,7 @@ func (x *FilenameCompleter) ConnectGotCompletionData(cb func(FilenameCompleter))
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::got-completion-data", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "got-completion-data", purego.NewCallback(fcb))
 }
 
 func init() {

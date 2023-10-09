@@ -313,7 +313,7 @@ func (c *SplitButton) SetGoPointer(ptr uintptr) {
 //
 // This is an action signal. Applications should never connect to this signal,
 // but use the [signal@SplitButton::clicked] signal.
-func (x *SplitButton) ConnectActivate(cb func(SplitButton)) {
+func (x *SplitButton) ConnectActivate(cb func(SplitButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SplitButton{}
 		fa.Ptr = clsPtr
@@ -321,11 +321,11 @@ func (x *SplitButton) ConnectActivate(cb func(SplitButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the button has been activated (pressed and released).
-func (x *SplitButton) ConnectClicked(cb func(SplitButton)) {
+func (x *SplitButton) ConnectClicked(cb func(SplitButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SplitButton{}
 		fa.Ptr = clsPtr
@@ -333,7 +333,7 @@ func (x *SplitButton) ConnectClicked(cb func(SplitButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::clicked", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "clicked", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

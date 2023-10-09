@@ -434,7 +434,7 @@ func (c *Dialog) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *Dialog) ConnectClose(cb func(Dialog)) {
+func (x *Dialog) ConnectClose(cb func(Dialog)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Dialog{}
 		fa.Ptr = clsPtr
@@ -442,7 +442,7 @@ func (x *Dialog) ConnectClose(cb func(Dialog)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
 }
 
 // Emitted when an action widget is clicked.
@@ -451,7 +451,7 @@ func (x *Dialog) ConnectClose(cb func(Dialog)) {
 // delete event, and when [method@Gtk.Dialog.response] is called.
 // On a delete event, the response ID is %GTK_RESPONSE_DELETE_EVENT.
 // Otherwise, it depends on which action widget was clicked.
-func (x *Dialog) ConnectResponse(cb func(Dialog, int)) {
+func (x *Dialog) ConnectResponse(cb func(Dialog, int)) uint32 {
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := Dialog{}
 		fa.Ptr = clsPtr
@@ -459,7 +459,7 @@ func (x *Dialog) ConnectResponse(cb func(Dialog, int)) {
 		cb(fa, ResponseIdVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::response", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

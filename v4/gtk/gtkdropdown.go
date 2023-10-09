@@ -304,7 +304,7 @@ func (c *DropDown) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkDropDown` is an action signal and
 // emitting it causes the drop down to pop up its dropdown.
-func (x *DropDown) ConnectActivate(cb func(DropDown)) {
+func (x *DropDown) ConnectActivate(cb func(DropDown)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := DropDown{}
 		fa.Ptr = clsPtr
@@ -312,7 +312,7 @@ func (x *DropDown) ConnectActivate(cb func(DropDown)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -281,7 +281,7 @@ func (c *TreeSelection) SetGoPointer(ptr uintptr) {
 // this signal is mostly a hint.  It may only be emitted once when a range
 // of rows are selected, and it may occasionally be emitted when nothing
 // has happened.
-func (x *TreeSelection) ConnectChanged(cb func(TreeSelection)) {
+func (x *TreeSelection) ConnectChanged(cb func(TreeSelection)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TreeSelection{}
 		fa.Ptr = clsPtr
@@ -289,7 +289,7 @@ func (x *TreeSelection) ConnectChanged(cb func(TreeSelection)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

@@ -277,7 +277,7 @@ func (c *ListView) SetGoPointer(ptr uintptr) {
 // This allows for a convenient way to handle activation in a listview.
 // See [method@Gtk.ListItem.set_activatable] for details on how to use
 // this signal.
-func (x *ListView) ConnectActivate(cb func(ListView, uint)) {
+func (x *ListView) ConnectActivate(cb func(ListView, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PositionVarp uint) {
 		fa := ListView{}
 		fa.Ptr = clsPtr
@@ -285,7 +285,7 @@ func (x *ListView) ConnectActivate(cb func(ListView, uint)) {
 		cb(fa, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

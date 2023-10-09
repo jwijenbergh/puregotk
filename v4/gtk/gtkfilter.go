@@ -146,7 +146,7 @@ func (c *Filter) SetGoPointer(ptr uintptr) {
 // Depending on the @change parameter, not all items need
 // to be checked, but only some. Refer to the [enum@Gtk.FilterChange]
 // documentation for details.
-func (x *Filter) ConnectChanged(cb func(Filter, FilterChange)) {
+func (x *Filter) ConnectChanged(cb func(Filter, FilterChange)) uint32 {
 	fcb := func(clsPtr uintptr, ChangeVarp FilterChange) {
 		fa := Filter{}
 		fa.Ptr = clsPtr
@@ -154,7 +154,7 @@ func (x *Filter) ConnectChanged(cb func(Filter, FilterChange)) {
 		cb(fa, ChangeVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 func init() {

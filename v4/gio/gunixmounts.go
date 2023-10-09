@@ -370,7 +370,7 @@ func (c *UnixMountMonitor) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the unix mount points have changed.
-func (x *UnixMountMonitor) ConnectMountpointsChanged(cb func(UnixMountMonitor)) {
+func (x *UnixMountMonitor) ConnectMountpointsChanged(cb func(UnixMountMonitor)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := UnixMountMonitor{}
 		fa.Ptr = clsPtr
@@ -378,11 +378,11 @@ func (x *UnixMountMonitor) ConnectMountpointsChanged(cb func(UnixMountMonitor)) 
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::mountpoints-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "mountpoints-changed", purego.NewCallback(fcb))
 }
 
 // Emitted when the unix mounts have changed.
-func (x *UnixMountMonitor) ConnectMountsChanged(cb func(UnixMountMonitor)) {
+func (x *UnixMountMonitor) ConnectMountsChanged(cb func(UnixMountMonitor)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := UnixMountMonitor{}
 		fa.Ptr = clsPtr
@@ -390,7 +390,7 @@ func (x *UnixMountMonitor) ConnectMountsChanged(cb func(UnixMountMonitor)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::mounts-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "mounts-changed", purego.NewCallback(fcb))
 }
 
 func init() {

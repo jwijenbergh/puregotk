@@ -910,7 +910,7 @@ func (c *Entry) SetGoPointer(ptr uintptr) {
 // Emitted when the entry is activated.
 //
 // The keybindings for this signal are all forms of the Enter key.
-func (x *Entry) ConnectActivate(cb func(Entry)) {
+func (x *Entry) ConnectActivate(cb func(Entry)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
@@ -918,11 +918,11 @@ func (x *Entry) ConnectActivate(cb func(Entry)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when an activatable icon is clicked.
-func (x *Entry) ConnectIconPress(cb func(Entry, EntryIconPosition)) {
+func (x *Entry) ConnectIconPress(cb func(Entry, EntryIconPosition)) uint32 {
 	fcb := func(clsPtr uintptr, IconPosVarp EntryIconPosition) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
@@ -930,12 +930,12 @@ func (x *Entry) ConnectIconPress(cb func(Entry, EntryIconPosition)) {
 		cb(fa, IconPosVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::icon-press", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "icon-press", purego.NewCallback(fcb))
 }
 
 // Emitted on the button release from a mouse click
 // over an activatable icon.
-func (x *Entry) ConnectIconRelease(cb func(Entry, EntryIconPosition)) {
+func (x *Entry) ConnectIconRelease(cb func(Entry, EntryIconPosition)) uint32 {
 	fcb := func(clsPtr uintptr, IconPosVarp EntryIconPosition) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
@@ -943,7 +943,7 @@ func (x *Entry) ConnectIconRelease(cb func(Entry, EntryIconPosition)) {
 		cb(fa, IconPosVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::icon-release", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "icon-release", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

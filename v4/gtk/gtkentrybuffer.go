@@ -183,7 +183,7 @@ func (c *EntryBuffer) SetGoPointer(ptr uintptr) {
 //
 // If you want access to the text after the text has been modified,
 // use %G_CONNECT_AFTER.
-func (x *EntryBuffer) ConnectDeletedText(cb func(EntryBuffer, uint, uint)) {
+func (x *EntryBuffer) ConnectDeletedText(cb func(EntryBuffer, uint, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PositionVarp uint, NCharsVarp uint) {
 		fa := EntryBuffer{}
 		fa.Ptr = clsPtr
@@ -191,11 +191,11 @@ func (x *EntryBuffer) ConnectDeletedText(cb func(EntryBuffer, uint, uint)) {
 		cb(fa, PositionVarp, NCharsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::deleted-text", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "deleted-text", purego.NewCallback(fcb))
 }
 
 // This signal is emitted after text is inserted into the buffer.
-func (x *EntryBuffer) ConnectInsertedText(cb func(EntryBuffer, uint, string, uint)) {
+func (x *EntryBuffer) ConnectInsertedText(cb func(EntryBuffer, uint, string, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PositionVarp uint, CharsVarp string, NCharsVarp uint) {
 		fa := EntryBuffer{}
 		fa.Ptr = clsPtr
@@ -203,7 +203,7 @@ func (x *EntryBuffer) ConnectInsertedText(cb func(EntryBuffer, uint, string, uin
 		cb(fa, PositionVarp, CharsVarp, NCharsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::inserted-text", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "inserted-text", purego.NewCallback(fcb))
 }
 
 func init() {

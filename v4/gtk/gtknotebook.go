@@ -692,7 +692,7 @@ func (c *Notebook) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int) bool) {
+func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp int) bool {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -700,7 +700,7 @@ func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int) bool) {
 		return cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-current-page", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-current-page", purego.NewCallback(fcb))
 }
 
 // The ::create-window signal is emitted when a detachable
@@ -711,7 +711,7 @@ func (x *Notebook) ConnectChangeCurrentPage(cb func(Notebook, int) bool) {
 // responsible for moving/resizing the window and adding the
 // necessary properties to the notebook (e.g. the
 // `GtkNotebook`:group-name ).
-func (x *Notebook) ConnectCreateWindow(cb func(Notebook, uintptr) Notebook) {
+func (x *Notebook) ConnectCreateWindow(cb func(Notebook, uintptr) Notebook) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr) uintptr {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -720,10 +720,10 @@ func (x *Notebook) ConnectCreateWindow(cb func(Notebook, uintptr) Notebook) {
 		return CreateWindowCls.Ptr
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::create-window", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "create-window", purego.NewCallback(fcb))
 }
 
-func (x *Notebook) ConnectFocusTab(cb func(Notebook, NotebookTab) bool) {
+func (x *Notebook) ConnectFocusTab(cb func(Notebook, NotebookTab) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp NotebookTab) bool {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -731,10 +731,10 @@ func (x *Notebook) ConnectFocusTab(cb func(Notebook, NotebookTab) bool) {
 		return cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::focus-tab", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "focus-tab", purego.NewCallback(fcb))
 }
 
-func (x *Notebook) ConnectMoveFocusOut(cb func(Notebook, DirectionType)) {
+func (x *Notebook) ConnectMoveFocusOut(cb func(Notebook, DirectionType)) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp DirectionType) {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -742,12 +742,12 @@ func (x *Notebook) ConnectMoveFocusOut(cb func(Notebook, DirectionType)) {
 		cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-focus-out", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-focus-out", purego.NewCallback(fcb))
 }
 
 // the ::page-added signal is emitted in the notebook
 // right after a page is added to the notebook.
-func (x *Notebook) ConnectPageAdded(cb func(Notebook, uintptr, uint)) {
+func (x *Notebook) ConnectPageAdded(cb func(Notebook, uintptr, uint)) uint32 {
 	fcb := func(clsPtr uintptr, ChildVarp uintptr, PageNumVarp uint) {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -755,12 +755,12 @@ func (x *Notebook) ConnectPageAdded(cb func(Notebook, uintptr, uint)) {
 		cb(fa, ChildVarp, PageNumVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-added", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-added", purego.NewCallback(fcb))
 }
 
 // the ::page-removed signal is emitted in the notebook
 // right after a page is removed from the notebook.
-func (x *Notebook) ConnectPageRemoved(cb func(Notebook, uintptr, uint)) {
+func (x *Notebook) ConnectPageRemoved(cb func(Notebook, uintptr, uint)) uint32 {
 	fcb := func(clsPtr uintptr, ChildVarp uintptr, PageNumVarp uint) {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -768,12 +768,12 @@ func (x *Notebook) ConnectPageRemoved(cb func(Notebook, uintptr, uint)) {
 		cb(fa, ChildVarp, PageNumVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-removed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-removed", purego.NewCallback(fcb))
 }
 
 // the ::page-reordered signal is emitted in the notebook
 // right after a page has been reordered.
-func (x *Notebook) ConnectPageReordered(cb func(Notebook, uintptr, uint)) {
+func (x *Notebook) ConnectPageReordered(cb func(Notebook, uintptr, uint)) uint32 {
 	fcb := func(clsPtr uintptr, ChildVarp uintptr, PageNumVarp uint) {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -781,10 +781,10 @@ func (x *Notebook) ConnectPageReordered(cb func(Notebook, uintptr, uint)) {
 		cb(fa, ChildVarp, PageNumVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-reordered", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-reordered", purego.NewCallback(fcb))
 }
 
-func (x *Notebook) ConnectReorderTab(cb func(Notebook, DirectionType, bool) bool) {
+func (x *Notebook) ConnectReorderTab(cb func(Notebook, DirectionType, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp DirectionType, P0Varp bool) bool {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -792,10 +792,10 @@ func (x *Notebook) ConnectReorderTab(cb func(Notebook, DirectionType, bool) bool
 		return cb(fa, ObjectVarp, P0Varp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::reorder-tab", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "reorder-tab", purego.NewCallback(fcb))
 }
 
-func (x *Notebook) ConnectSelectPage(cb func(Notebook, bool) bool) {
+func (x *Notebook) ConnectSelectPage(cb func(Notebook, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp bool) bool {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -803,11 +803,11 @@ func (x *Notebook) ConnectSelectPage(cb func(Notebook, bool) bool) {
 		return cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::select-page", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "select-page", purego.NewCallback(fcb))
 }
 
 // Emitted when the user or a function changes the current page.
-func (x *Notebook) ConnectSwitchPage(cb func(Notebook, uintptr, uint)) {
+func (x *Notebook) ConnectSwitchPage(cb func(Notebook, uintptr, uint)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, PageNumVarp uint) {
 		fa := Notebook{}
 		fa.Ptr = clsPtr
@@ -815,7 +815,7 @@ func (x *Notebook) ConnectSwitchPage(cb func(Notebook, uintptr, uint)) {
 		cb(fa, PageVarp, PageNumVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::switch-page", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "switch-page", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

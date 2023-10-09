@@ -538,7 +538,7 @@ func (c *DBusProxy) SetGoPointer(ptr uintptr) {
 // This signal corresponds to the
 // `PropertiesChanged` D-Bus signal on the
 // `org.freedesktop.DBus.Properties` interface.
-func (x *DBusProxy) ConnectGPropertiesChanged(cb func(DBusProxy, uintptr, uintptr)) {
+func (x *DBusProxy) ConnectGPropertiesChanged(cb func(DBusProxy, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp uintptr) {
 		fa := DBusProxy{}
 		fa.Ptr = clsPtr
@@ -546,7 +546,7 @@ func (x *DBusProxy) ConnectGPropertiesChanged(cb func(DBusProxy, uintptr, uintpt
 		cb(fa, ChangedPropertiesVarp, InvalidatedPropertiesVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::g-properties-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "g-properties-changed", purego.NewCallback(fcb))
 }
 
 // Emitted when a signal from the remote object and interface that @proxy is for, has been received.
@@ -554,7 +554,7 @@ func (x *DBusProxy) ConnectGPropertiesChanged(cb func(DBusProxy, uintptr, uintpt
 // Since 2.72 this signal supports detailed connections. You can connect to
 // the detailed signal `g-signal::x` in order to receive callbacks only when
 // signal `x` is received from the remote object.
-func (x *DBusProxy) ConnectGSignal(cb func(DBusProxy, string, string, uintptr)) {
+func (x *DBusProxy) ConnectGSignal(cb func(DBusProxy, string, string, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, SenderNameVarp string, SignalNameVarp string, ParametersVarp uintptr) {
 		fa := DBusProxy{}
 		fa.Ptr = clsPtr
@@ -562,7 +562,7 @@ func (x *DBusProxy) ConnectGSignal(cb func(DBusProxy, string, string, uintptr)) 
 		cb(fa, SenderNameVarp, SignalNameVarp, ParametersVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::g-signal", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "g-signal", purego.NewCallback(fcb))
 }
 
 // Starts asynchronous initialization of the object implementing the

@@ -40,7 +40,7 @@ func (c *ShortcutsSection) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, int) bool) {
+func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, int) bool) uint32 {
 	fcb := func(clsPtr uintptr, ObjectVarp int) bool {
 		fa := ShortcutsSection{}
 		fa.Ptr = clsPtr
@@ -48,7 +48,7 @@ func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, in
 		return cb(fa, ObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::change-current-page", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "change-current-page", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

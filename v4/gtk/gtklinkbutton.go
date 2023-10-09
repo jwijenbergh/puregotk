@@ -139,7 +139,7 @@ func (c *LinkButton) SetGoPointer(ptr uintptr) {
 // To override the default behavior, you can connect to the
 // ::activate-link signal and stop the propagation of the signal
 // by returning %TRUE from your handler.
-func (x *LinkButton) ConnectActivateLink(cb func(LinkButton) bool) {
+func (x *LinkButton) ConnectActivateLink(cb func(LinkButton) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := LinkButton{}
 		fa.Ptr = clsPtr
@@ -147,7 +147,7 @@ func (x *LinkButton) ConnectActivateLink(cb func(LinkButton) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-link", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

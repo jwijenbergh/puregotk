@@ -621,7 +621,7 @@ func (c *MessageDialog) SetGoPointer(ptr uintptr) {
 // if the dialog was closed by pressing &lt;kbd&gt;Escape&lt;/kbd&gt; or with a system
 // action, @response will be set to the value of
 // [property@MessageDialog:close-response].
-func (x *MessageDialog) ConnectResponse(cb func(MessageDialog, string)) {
+func (x *MessageDialog) ConnectResponse(cb func(MessageDialog, string)) uint32 {
 	fcb := func(clsPtr uintptr, ResponseVarp string) {
 		fa := MessageDialog{}
 		fa.Ptr = clsPtr
@@ -629,7 +629,7 @@ func (x *MessageDialog) ConnectResponse(cb func(MessageDialog, string)) {
 		cb(fa, ResponseVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::response", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -925,7 +925,7 @@ func (c *Label) SetGoPointer(ptr uintptr) {
 // if they need to control activation of URIs programmatically.
 //
 // The default bindings for this signal are all forms of the Enter key.
-func (x *Label) ConnectActivateCurrentLink(cb func(Label)) {
+func (x *Label) ConnectActivateCurrentLink(cb func(Label)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Label{}
 		fa.Ptr = clsPtr
@@ -933,14 +933,14 @@ func (x *Label) ConnectActivateCurrentLink(cb func(Label)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-current-link", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-current-link", purego.NewCallback(fcb))
 }
 
 // Gets emitted to activate a URI.
 //
 // Applications may connect to it to override the default behaviour,
 // which is to call gtk_show_uri().
-func (x *Label) ConnectActivateLink(cb func(Label, string) bool) {
+func (x *Label) ConnectActivateLink(cb func(Label, string) bool) uint32 {
 	fcb := func(clsPtr uintptr, UriVarp string) bool {
 		fa := Label{}
 		fa.Ptr = clsPtr
@@ -948,7 +948,7 @@ func (x *Label) ConnectActivateLink(cb func(Label, string) bool) {
 		return cb(fa, UriVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate-link", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
 }
 
 // Gets emitted to copy the slection to the clipboard.
@@ -956,7 +956,7 @@ func (x *Label) ConnectActivateLink(cb func(Label, string) bool) {
 // The ::copy-clipboard signal is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is Ctrl-c.
-func (x *Label) ConnectCopyClipboard(cb func(Label)) {
+func (x *Label) ConnectCopyClipboard(cb func(Label)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Label{}
 		fa.Ptr = clsPtr
@@ -964,7 +964,7 @@ func (x *Label) ConnectCopyClipboard(cb func(Label)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::copy-clipboard", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "copy-clipboard", purego.NewCallback(fcb))
 }
 
 // Gets emitted when the user initiates a cursor movement.
@@ -984,7 +984,7 @@ func (x *Label) ConnectCopyClipboard(cb func(Label)) {
 // - Arrow keys move by individual characters/lines
 // - Ctrl-arrow key combinations move by words/paragraphs
 // - Home/End keys move to the ends of the buffer
-func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int, bool)) {
+func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int, bool)) uint32 {
 	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendSelectionVarp bool) {
 		fa := Label{}
 		fa.Ptr = clsPtr
@@ -992,7 +992,7 @@ func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int, bool)) {
 		cb(fa, StepVarp, CountVarp, ExtendSelectionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::move-cursor", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

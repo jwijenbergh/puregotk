@@ -278,7 +278,7 @@ func (c *IMContext) SetGoPointer(ptr uintptr) {
 //
 // This can be a single character immediately after a key press or
 // the final result of preediting.
-func (x *IMContext) ConnectCommit(cb func(IMContext, string)) {
+func (x *IMContext) ConnectCommit(cb func(IMContext, string)) uint32 {
 	fcb := func(clsPtr uintptr, StrVarp string) {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -286,12 +286,12 @@ func (x *IMContext) ConnectCommit(cb func(IMContext, string)) {
 		cb(fa, StrVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::commit", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "commit", purego.NewCallback(fcb))
 }
 
 // The ::delete-surrounding signal is emitted when the input method
 // needs to delete all or part of the context surrounding the cursor.
-func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int, int) bool) {
+func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int, int) bool) uint32 {
 	fcb := func(clsPtr uintptr, OffsetVarp int, NCharsVarp int) bool {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -299,7 +299,7 @@ func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int, int) bool) 
 		return cb(fa, OffsetVarp, NCharsVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::delete-surrounding", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "delete-surrounding", purego.NewCallback(fcb))
 }
 
 // The ::preedit-changed signal is emitted whenever the preedit sequence
@@ -307,7 +307,7 @@ func (x *IMContext) ConnectDeleteSurrounding(cb func(IMContext, int, int) bool) 
 //
 // It is also emitted at the end of a preedit sequence, in which case
 // [method@Gtk.IMContext.get_preedit_string] returns the empty string.
-func (x *IMContext) ConnectPreeditChanged(cb func(IMContext)) {
+func (x *IMContext) ConnectPreeditChanged(cb func(IMContext)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -315,12 +315,12 @@ func (x *IMContext) ConnectPreeditChanged(cb func(IMContext)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::preedit-changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "preedit-changed", purego.NewCallback(fcb))
 }
 
 // The ::preedit-end signal is emitted when a preediting sequence
 // has been completed or canceled.
-func (x *IMContext) ConnectPreeditEnd(cb func(IMContext)) {
+func (x *IMContext) ConnectPreeditEnd(cb func(IMContext)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -328,12 +328,12 @@ func (x *IMContext) ConnectPreeditEnd(cb func(IMContext)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::preedit-end", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "preedit-end", purego.NewCallback(fcb))
 }
 
 // The ::preedit-start signal is emitted when a new preediting sequence
 // starts.
-func (x *IMContext) ConnectPreeditStart(cb func(IMContext)) {
+func (x *IMContext) ConnectPreeditStart(cb func(IMContext)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -341,7 +341,7 @@ func (x *IMContext) ConnectPreeditStart(cb func(IMContext)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::preedit-start", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "preedit-start", purego.NewCallback(fcb))
 }
 
 // The ::retrieve-surrounding signal is emitted when the input method
@@ -349,7 +349,7 @@ func (x *IMContext) ConnectPreeditStart(cb func(IMContext)) {
 //
 // The callback should set the input method surrounding context by
 // calling the [method@Gtk.IMContext.set_surrounding] method.
-func (x *IMContext) ConnectRetrieveSurrounding(cb func(IMContext) bool) {
+func (x *IMContext) ConnectRetrieveSurrounding(cb func(IMContext) bool) uint32 {
 	fcb := func(clsPtr uintptr) bool {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
@@ -357,7 +357,7 @@ func (x *IMContext) ConnectRetrieveSurrounding(cb func(IMContext) bool) {
 		return cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::retrieve-surrounding", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "retrieve-surrounding", purego.NewCallback(fcb))
 }
 
 func init() {

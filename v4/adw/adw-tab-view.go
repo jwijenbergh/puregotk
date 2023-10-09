@@ -1290,7 +1290,7 @@ func (c *TabView) SetGoPointer(ptr uintptr) {
 //
 // A typical reason to connect to this signal is to show a confirmation dialog
 // for closing a tab.
-func (x *TabView) ConnectClosePage(cb func(TabView, uintptr) bool) {
+func (x *TabView) ConnectClosePage(cb func(TabView, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr) bool {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1298,7 +1298,7 @@ func (x *TabView) ConnectClosePage(cb func(TabView, uintptr) bool) {
 		return cb(fa, PageVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::close-page", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "close-page", purego.NewCallback(fcb))
 }
 
 // Emitted when a tab should be transferred into a new window.
@@ -1307,7 +1307,7 @@ func (x *TabView) ConnectClosePage(cb func(TabView, uintptr) bool) {
 //
 // The signal handler is expected to create a new window, position it as
 // needed and return its `AdwTabView` that the page will be transferred into.
-func (x *TabView) ConnectCreateWindow(cb func(TabView) TabView) {
+func (x *TabView) ConnectCreateWindow(cb func(TabView) TabView) uint32 {
 	fcb := func(clsPtr uintptr) uintptr {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1316,14 +1316,14 @@ func (x *TabView) ConnectCreateWindow(cb func(TabView) TabView) {
 		return CreateWindowCls.Ptr
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::create-window", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "create-window", purego.NewCallback(fcb))
 }
 
 // Emitted after the indicator icon on @page has been activated.
 //
 // See [property@TabPage:indicator-icon] and
 // [property@TabPage:indicator-activatable].
-func (x *TabView) ConnectIndicatorActivated(cb func(TabView, uintptr)) {
+func (x *TabView) ConnectIndicatorActivated(cb func(TabView, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr) {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1331,14 +1331,14 @@ func (x *TabView) ConnectIndicatorActivated(cb func(TabView, uintptr)) {
 		cb(fa, PageVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::indicator-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "indicator-activated", purego.NewCallback(fcb))
 }
 
 // Emitted when a page has been created or transferred to @self.
 //
 // A typical reason to connect to this signal would be to connect to page
 // signals for things such as updating window title.
-func (x *TabView) ConnectPageAttached(cb func(TabView, uintptr, int)) {
+func (x *TabView) ConnectPageAttached(cb func(TabView, uintptr, int)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, PositionVarp int) {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1346,7 +1346,7 @@ func (x *TabView) ConnectPageAttached(cb func(TabView, uintptr, int)) {
 		cb(fa, PageVarp, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-attached", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-attached", purego.NewCallback(fcb))
 }
 
 // Emitted when a page has been removed or transferred to another view.
@@ -1358,7 +1358,7 @@ func (x *TabView) ConnectPageAttached(cb func(TabView, uintptr, int)) {
 // this function as the child might merely be moved to another window; use
 // child dispose handler for that or do it in sync with your
 // [method@TabView.close_page_finish] calls.
-func (x *TabView) ConnectPageDetached(cb func(TabView, uintptr, int)) {
+func (x *TabView) ConnectPageDetached(cb func(TabView, uintptr, int)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, PositionVarp int) {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1366,11 +1366,11 @@ func (x *TabView) ConnectPageDetached(cb func(TabView, uintptr, int)) {
 		cb(fa, PageVarp, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-detached", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-detached", purego.NewCallback(fcb))
 }
 
 // Emitted after @page has been reordered to @position.
-func (x *TabView) ConnectPageReordered(cb func(TabView, uintptr, int)) {
+func (x *TabView) ConnectPageReordered(cb func(TabView, uintptr, int)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr, PositionVarp int) {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1378,7 +1378,7 @@ func (x *TabView) ConnectPageReordered(cb func(TabView, uintptr, int)) {
 		cb(fa, PageVarp, PositionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::page-reordered", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "page-reordered", purego.NewCallback(fcb))
 }
 
 // Emitted when a context menu is opened or closed for @page.
@@ -1387,7 +1387,7 @@ func (x *TabView) ConnectPageReordered(cb func(TabView, uintptr, int)) {
 //
 // It can be used to set up menu actions before showing the menu, for example
 // disable actions not applicable to @page.
-func (x *TabView) ConnectSetupMenu(cb func(TabView, uintptr)) {
+func (x *TabView) ConnectSetupMenu(cb func(TabView, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, PageVarp uintptr) {
 		fa := TabView{}
 		fa.Ptr = clsPtr
@@ -1395,7 +1395,7 @@ func (x *TabView) ConnectSetupMenu(cb func(TabView, uintptr)) {
 		cb(fa, PageVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::setup-menu", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "setup-menu", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -72,7 +72,7 @@ func (c *EventControllerMotion) SetGoPointer(ptr uintptr) {
 }
 
 // Signals that the pointer has entered the widget.
-func (x *EventControllerMotion) ConnectEnter(cb func(EventControllerMotion, float64, float64)) {
+func (x *EventControllerMotion) ConnectEnter(cb func(EventControllerMotion, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
@@ -80,11 +80,11 @@ func (x *EventControllerMotion) ConnectEnter(cb func(EventControllerMotion, floa
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::enter", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "enter", purego.NewCallback(fcb))
 }
 
 // Signals that the pointer has left the widget.
-func (x *EventControllerMotion) ConnectLeave(cb func(EventControllerMotion)) {
+func (x *EventControllerMotion) ConnectLeave(cb func(EventControllerMotion)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
@@ -92,11 +92,11 @@ func (x *EventControllerMotion) ConnectLeave(cb func(EventControllerMotion)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::leave", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "leave", purego.NewCallback(fcb))
 }
 
 // Emitted when the pointer moves inside the widget.
-func (x *EventControllerMotion) ConnectMotion(cb func(EventControllerMotion, float64, float64)) {
+func (x *EventControllerMotion) ConnectMotion(cb func(EventControllerMotion, float64, float64)) uint32 {
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
@@ -104,7 +104,7 @@ func (x *EventControllerMotion) ConnectMotion(cb func(EventControllerMotion, flo
 		cb(fa, XVarp, YVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::motion", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "motion", purego.NewCallback(fcb))
 }
 
 func init() {

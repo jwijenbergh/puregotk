@@ -700,7 +700,7 @@ func (c *SocketClient) SetGoPointer(ptr uintptr) {
 //
 // Note that there may be additional #GSocketClientEvent values in
 // the future; unrecognized @event values should be ignored.
-func (x *SocketClient) ConnectEvent(cb func(SocketClient, SocketClientEvent, uintptr, uintptr)) {
+func (x *SocketClient) ConnectEvent(cb func(SocketClient, SocketClientEvent, uintptr, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, EventVarp SocketClientEvent, ConnectableVarp uintptr, ConnectionVarp uintptr) {
 		fa := SocketClient{}
 		fa.Ptr = clsPtr
@@ -708,7 +708,7 @@ func (x *SocketClient) ConnectEvent(cb func(SocketClient, SocketClientEvent, uin
 		cb(fa, EventVarp, ConnectableVarp, ConnectionVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::event", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
 }
 
 func init() {

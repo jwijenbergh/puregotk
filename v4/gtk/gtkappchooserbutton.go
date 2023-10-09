@@ -194,7 +194,7 @@ func (c *AppChooserButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkAppChooserButton` is an action signal and
 // emitting it causes the button to pop up its dialog.
-func (x *AppChooserButton) ConnectActivate(cb func(AppChooserButton)) {
+func (x *AppChooserButton) ConnectActivate(cb func(AppChooserButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
@@ -202,11 +202,11 @@ func (x *AppChooserButton) ConnectActivate(cb func(AppChooserButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the active application changes.
-func (x *AppChooserButton) ConnectChanged(cb func(AppChooserButton)) {
+func (x *AppChooserButton) ConnectChanged(cb func(AppChooserButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
@@ -214,14 +214,14 @@ func (x *AppChooserButton) ConnectChanged(cb func(AppChooserButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::changed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
 // Emitted when a custom item is activated.
 //
 // Use [method@Gtk.AppChooserButton.append_custom_item],
 // to add custom items.
-func (x *AppChooserButton) ConnectCustomItemActivated(cb func(AppChooserButton, string)) {
+func (x *AppChooserButton) ConnectCustomItemActivated(cb func(AppChooserButton, string)) uint32 {
 	fcb := func(clsPtr uintptr, ItemNameVarp string) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
@@ -229,7 +229,7 @@ func (x *AppChooserButton) ConnectCustomItemActivated(cb func(AppChooserButton, 
 		cb(fa, ItemNameVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::custom-item-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "custom-item-activated", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

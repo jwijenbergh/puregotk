@@ -654,7 +654,7 @@ func (c *SignalGroup) SetGoPointer(ptr uintptr) {
 // other than %NULL. It is similar to #GObject::notify on `target` except it
 // will not emit when #GSignalGroup:target is %NULL and also allows for
 // receiving the #GObject without a data-race.
-func (x *SignalGroup) ConnectBind(cb func(SignalGroup, uintptr)) {
+func (x *SignalGroup) ConnectBind(cb func(SignalGroup, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, InstanceVarp uintptr) {
 		fa := SignalGroup{}
 		fa.Ptr = clsPtr
@@ -662,7 +662,7 @@ func (x *SignalGroup) ConnectBind(cb func(SignalGroup, uintptr)) {
 		cb(fa, InstanceVarp)
 
 	}
-	ObjectConnect(x.GoPointer(), "signal::bind", purego.NewCallback(fcb))
+	return SignalConnect(x.GoPointer(), "bind", purego.NewCallback(fcb))
 }
 
 // This signal is emitted when the target instance of @self is set to a
@@ -670,7 +670,7 @@ func (x *SignalGroup) ConnectBind(cb func(SignalGroup, uintptr)) {
 //
 // This signal will only be emitted if the previous target of @self is
 // non-%NULL.
-func (x *SignalGroup) ConnectUnbind(cb func(SignalGroup)) {
+func (x *SignalGroup) ConnectUnbind(cb func(SignalGroup)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := SignalGroup{}
 		fa.Ptr = clsPtr
@@ -678,7 +678,7 @@ func (x *SignalGroup) ConnectUnbind(cb func(SignalGroup)) {
 		cb(fa)
 
 	}
-	ObjectConnect(x.GoPointer(), "signal::unbind", purego.NewCallback(fcb))
+	return SignalConnect(x.GoPointer(), "unbind", purego.NewCallback(fcb))
 }
 
 func init() {

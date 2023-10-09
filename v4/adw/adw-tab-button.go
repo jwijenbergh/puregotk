@@ -110,7 +110,7 @@ func (c *TabButton) SetGoPointer(ptr uintptr) {
 //
 // This is an action signal. Applications should never connect to this signal,
 // but use the [signal@TabButton::clicked] signal.
-func (x *TabButton) ConnectActivate(cb func(TabButton)) {
+func (x *TabButton) ConnectActivate(cb func(TabButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TabButton{}
 		fa.Ptr = clsPtr
@@ -118,11 +118,11 @@ func (x *TabButton) ConnectActivate(cb func(TabButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the button has been activated (pressed and released).
-func (x *TabButton) ConnectClicked(cb func(TabButton)) {
+func (x *TabButton) ConnectClicked(cb func(TabButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := TabButton{}
 		fa.Ptr = clsPtr
@@ -130,7 +130,7 @@ func (x *TabButton) ConnectClicked(cb func(TabButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::clicked", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "clicked", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

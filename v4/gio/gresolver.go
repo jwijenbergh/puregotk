@@ -361,7 +361,7 @@ func (c *Resolver) SetGoPointer(ptr uintptr) {
 
 // Emitted when the resolver notices that the system resolver
 // configuration has changed.
-func (x *Resolver) ConnectReload(cb func(Resolver)) {
+func (x *Resolver) ConnectReload(cb func(Resolver)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Resolver{}
 		fa.Ptr = clsPtr
@@ -369,7 +369,7 @@ func (x *Resolver) ConnectReload(cb func(Resolver)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::reload", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "reload", purego.NewCallback(fcb))
 }
 
 func init() {

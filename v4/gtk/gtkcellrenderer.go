@@ -391,7 +391,7 @@ func (c *CellRenderer) SetGoPointer(ptr uintptr) {
 // editing when the user presses Escape.
 //
 // See also: gtk_cell_renderer_stop_editing().
-func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) {
+func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := CellRenderer{}
 		fa.Ptr = clsPtr
@@ -399,7 +399,7 @@ func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::editing-canceled", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "editing-canceled", purego.NewCallback(fcb))
 }
 
 // This signal gets emitted when a cell starts to be edited.
@@ -434,7 +434,7 @@ func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) {
 //	}
 //
 // ]|
-func (x *CellRenderer) ConnectEditingStarted(cb func(CellRenderer, uintptr, string)) {
+func (x *CellRenderer) ConnectEditingStarted(cb func(CellRenderer, uintptr, string)) uint32 {
 	fcb := func(clsPtr uintptr, EditableVarp uintptr, PathVarp string) {
 		fa := CellRenderer{}
 		fa.Ptr = clsPtr
@@ -442,7 +442,7 @@ func (x *CellRenderer) ConnectEditingStarted(cb func(CellRenderer, uintptr, stri
 		cb(fa, EditableVarp, PathVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::editing-started", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "editing-started", purego.NewCallback(fcb))
 }
 
 func init() {

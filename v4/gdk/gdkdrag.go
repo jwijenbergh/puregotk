@@ -211,7 +211,7 @@ func (c *Drag) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the drag operation is cancelled.
-func (x *Drag) ConnectCancel(cb func(Drag, DragCancelReason)) {
+func (x *Drag) ConnectCancel(cb func(Drag, DragCancelReason)) uint32 {
 	fcb := func(clsPtr uintptr, ReasonVarp DragCancelReason) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
@@ -219,13 +219,13 @@ func (x *Drag) ConnectCancel(cb func(Drag, DragCancelReason)) {
 		cb(fa, ReasonVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::cancel", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
 }
 
 // Emitted when the destination side has finished reading all data.
 //
 // The drag object can now free all miscellaneous data.
-func (x *Drag) ConnectDndFinished(cb func(Drag)) {
+func (x *Drag) ConnectDndFinished(cb func(Drag)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
@@ -233,11 +233,11 @@ func (x *Drag) ConnectDndFinished(cb func(Drag)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::dnd-finished", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "dnd-finished", purego.NewCallback(fcb))
 }
 
 // Emitted when the drop operation is performed on an accepting client.
-func (x *Drag) ConnectDropPerformed(cb func(Drag)) {
+func (x *Drag) ConnectDropPerformed(cb func(Drag)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
@@ -245,7 +245,7 @@ func (x *Drag) ConnectDropPerformed(cb func(Drag)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::drop-performed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "drop-performed", purego.NewCallback(fcb))
 }
 
 func init() {

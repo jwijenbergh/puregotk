@@ -168,7 +168,7 @@ func (c *DisplayManager) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when a display is opened.
-func (x *DisplayManager) ConnectDisplayOpened(cb func(DisplayManager, uintptr)) {
+func (x *DisplayManager) ConnectDisplayOpened(cb func(DisplayManager, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, DisplayVarp uintptr) {
 		fa := DisplayManager{}
 		fa.Ptr = clsPtr
@@ -176,7 +176,7 @@ func (x *DisplayManager) ConnectDisplayOpened(cb func(DisplayManager, uintptr)) 
 		cb(fa, DisplayVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::display-opened", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "display-opened", purego.NewCallback(fcb))
 }
 
 func init() {

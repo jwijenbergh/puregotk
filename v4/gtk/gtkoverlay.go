@@ -180,7 +180,7 @@ func (c *Overlay) SetGoPointer(ptr uintptr) {
 // be full-width/height). If the main child is a
 // `GtkScrolledWindow`, the overlays are placed relative
 // to its contents.
-func (x *Overlay) ConnectGetChildPosition(cb func(Overlay, uintptr, uintptr) bool) {
+func (x *Overlay) ConnectGetChildPosition(cb func(Overlay, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, WidgetVarp uintptr, AllocationVarp uintptr) bool {
 		fa := Overlay{}
 		fa.Ptr = clsPtr
@@ -188,7 +188,7 @@ func (x *Overlay) ConnectGetChildPosition(cb func(Overlay, uintptr, uintptr) boo
 		return cb(fa, WidgetVarp, AllocationVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::get-child-position", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "get-child-position", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -434,7 +434,7 @@ func (c *Toast) SetGoPointer(ptr uintptr) {
 // Emitted after the button has been clicked.
 //
 // It can be used as an alternative to setting an action.
-func (x *Toast) ConnectButtonClicked(cb func(Toast)) {
+func (x *Toast) ConnectButtonClicked(cb func(Toast)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Toast{}
 		fa.Ptr = clsPtr
@@ -442,11 +442,11 @@ func (x *Toast) ConnectButtonClicked(cb func(Toast)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::button-clicked", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "button-clicked", purego.NewCallback(fcb))
 }
 
 // Emitted when the toast has been dismissed.
-func (x *Toast) ConnectDismissed(cb func(Toast)) {
+func (x *Toast) ConnectDismissed(cb func(Toast)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Toast{}
 		fa.Ptr = clsPtr
@@ -454,7 +454,7 @@ func (x *Toast) ConnectDismissed(cb func(Toast)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::dismissed", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "dismissed", purego.NewCallback(fcb))
 }
 
 func init() {

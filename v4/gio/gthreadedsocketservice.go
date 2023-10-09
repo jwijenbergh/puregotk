@@ -68,7 +68,7 @@ func (c *ThreadedSocketService) SetGoPointer(ptr uintptr) {
 // incoming connection. This thread is dedicated to handling
 // @connection and may perform blocking IO. The signal handler need
 // not return until the connection is closed.
-func (x *ThreadedSocketService) ConnectRun(cb func(ThreadedSocketService, uintptr, uintptr) bool) {
+func (x *ThreadedSocketService) ConnectRun(cb func(ThreadedSocketService, uintptr, uintptr) bool) uint32 {
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr, SourceObjectVarp uintptr) bool {
 		fa := ThreadedSocketService{}
 		fa.Ptr = clsPtr
@@ -76,7 +76,7 @@ func (x *ThreadedSocketService) ConnectRun(cb func(ThreadedSocketService, uintpt
 		return cb(fa, ConnectionVarp, SourceObjectVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::run", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "run", purego.NewCallback(fcb))
 }
 
 func init() {

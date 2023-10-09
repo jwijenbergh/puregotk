@@ -115,7 +115,7 @@ func (c *Switch) SetGoPointer(ptr uintptr) {
 //
 // Applications should never connect to this signal,
 // but use the [property@Gtk.Switch:active] property.
-func (x *Switch) ConnectActivate(cb func(Switch)) {
+func (x *Switch) ConnectActivate(cb func(Switch)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := Switch{}
 		fa.Ptr = clsPtr
@@ -123,7 +123,7 @@ func (x *Switch) ConnectActivate(cb func(Switch)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted to change the underlying state.
@@ -141,7 +141,7 @@ func (x *Switch) ConnectActivate(cb func(Switch)) {
 // Visually, the underlying state is represented by the trough color of
 // the switch, while the [property@Gtk.Switch:active] property is
 // represented by the position of the switch.
-func (x *Switch) ConnectStateSet(cb func(Switch, bool) bool) {
+func (x *Switch) ConnectStateSet(cb func(Switch, bool) bool) uint32 {
 	fcb := func(clsPtr uintptr, StateVarp bool) bool {
 		fa := Switch{}
 		fa.Ptr = clsPtr
@@ -149,7 +149,7 @@ func (x *Switch) ConnectStateSet(cb func(Switch, bool) bool) {
 		return cb(fa, StateVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::state-set", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "state-set", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

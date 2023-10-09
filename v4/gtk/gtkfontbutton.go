@@ -158,7 +158,7 @@ func (c *FontButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkFontButton` is an action signal and
 // emitting it causes the button to present its dialog.
-func (x *FontButton) ConnectActivate(cb func(FontButton)) {
+func (x *FontButton) ConnectActivate(cb func(FontButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FontButton{}
 		fa.Ptr = clsPtr
@@ -166,7 +166,7 @@ func (x *FontButton) ConnectActivate(cb func(FontButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activate", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
 }
 
 // Emitted when the user selects a font.
@@ -177,7 +177,7 @@ func (x *FontButton) ConnectActivate(cb func(FontButton)) {
 // Note that this signal is only emitted when the user changes the font.
 // If you need to react to programmatic font changes as well, use
 // the notify::font signal.
-func (x *FontButton) ConnectFontSet(cb func(FontButton)) {
+func (x *FontButton) ConnectFontSet(cb func(FontButton)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := FontButton{}
 		fa.Ptr = clsPtr
@@ -185,7 +185,7 @@ func (x *FontButton) ConnectFontSet(cb func(FontButton)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::font-set", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "font-set", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

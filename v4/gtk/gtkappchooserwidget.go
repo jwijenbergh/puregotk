@@ -192,7 +192,7 @@ func (c *AppChooserWidget) SetGoPointer(ptr uintptr) {
 // This usually happens when the user double clicks an item, or an item
 // is selected and the user presses one of the keys Space, Shift+Space,
 // Return or Enter.
-func (x *AppChooserWidget) ConnectApplicationActivated(cb func(AppChooserWidget, uintptr)) {
+func (x *AppChooserWidget) ConnectApplicationActivated(cb func(AppChooserWidget, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ApplicationVarp uintptr) {
 		fa := AppChooserWidget{}
 		fa.Ptr = clsPtr
@@ -200,11 +200,11 @@ func (x *AppChooserWidget) ConnectApplicationActivated(cb func(AppChooserWidget,
 		cb(fa, ApplicationVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::application-activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "application-activated", purego.NewCallback(fcb))
 }
 
 // Emitted when an application item is selected from the widget's list.
-func (x *AppChooserWidget) ConnectApplicationSelected(cb func(AppChooserWidget, uintptr)) {
+func (x *AppChooserWidget) ConnectApplicationSelected(cb func(AppChooserWidget, uintptr)) uint32 {
 	fcb := func(clsPtr uintptr, ApplicationVarp uintptr) {
 		fa := AppChooserWidget{}
 		fa.Ptr = clsPtr
@@ -212,7 +212,7 @@ func (x *AppChooserWidget) ConnectApplicationSelected(cb func(AppChooserWidget, 
 		cb(fa, ApplicationVarp)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::application-selected", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "application-selected", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

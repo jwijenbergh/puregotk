@@ -259,7 +259,7 @@ func (c *ActionRow) SetGoPointer(ptr uintptr) {
 }
 
 // This signal is emitted after the row has been activated.
-func (x *ActionRow) ConnectActivated(cb func(ActionRow)) {
+func (x *ActionRow) ConnectActivated(cb func(ActionRow)) uint32 {
 	fcb := func(clsPtr uintptr) {
 		fa := ActionRow{}
 		fa.Ptr = clsPtr
@@ -267,7 +267,7 @@ func (x *ActionRow) ConnectActivated(cb func(ActionRow)) {
 		cb(fa)
 
 	}
-	gobject.ObjectConnect(x.GoPointer(), "signal::activated", purego.NewCallback(fcb))
+	return gobject.SignalConnect(x.GoPointer(), "activated", purego.NewCallback(fcb))
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
