@@ -689,6 +689,12 @@ func (r *ReturnValue) Template(ns string, ins string, kinds KindMap, throws bool
 		raw = "uintptr"
 		val += "Base"
 		class = true
+	// callback returns should always be uintptr
+	// I needed this for glib.LogSetDefaultHandler
+	// Otherwise I got 'panic: reflect.MakeFunc: value of type *glib.LogFunc is not assignable to type glib.LogFunc'
+	case CallbackType:
+		raw = "uintptr"
+		val = "uintptr"
 	}
 	return funcRetTemplate{
 		Raw:     raw,

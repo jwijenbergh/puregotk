@@ -287,10 +287,10 @@ func (x *ComboBox) GetPopupFixedWidth() bool {
 	return cret
 }
 
-var xComboBoxGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
+var xComboBoxGetRowSeparatorFunc func(uintptr) uintptr
 
 // Returns the current row separator function.
-func (x *ComboBox) GetRowSeparatorFunc() TreeViewRowSeparatorFunc {
+func (x *ComboBox) GetRowSeparatorFunc() uintptr {
 
 	cret := xComboBoxGetRowSeparatorFunc(x.GoPointer())
 	return cret

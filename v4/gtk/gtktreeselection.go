@@ -74,10 +74,10 @@ func (x *TreeSelection) GetMode() SelectionMode {
 	return cret
 }
 
-var xTreeSelectionGetSelectFunction func(uintptr) TreeSelectionFunc
+var xTreeSelectionGetSelectFunction func(uintptr) uintptr
 
 // Returns the current selection function.
-func (x *TreeSelection) GetSelectFunction() TreeSelectionFunc {
+func (x *TreeSelection) GetSelectFunction() uintptr {
 
 	cret := xTreeSelectionGetSelectFunction(x.GoPointer())
 	return cret

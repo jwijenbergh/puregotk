@@ -233,7 +233,7 @@ func LogSetDebugEnabled(EnabledVar bool) {
 
 }
 
-var xLogSetDefaultHandler func(uintptr, uintptr) LogFunc
+var xLogSetDefaultHandler func(uintptr, uintptr) uintptr
 
 // Installs a default log handler which is used if no
 // log handler has been set for the particular log domain
@@ -242,7 +242,7 @@ var xLogSetDefaultHandler func(uintptr, uintptr) LogFunc
 //
 // This has no effect if structured logging is enabled; see
 // [Using Structured Logging][using-structured-logging].
-func LogSetDefaultHandler(LogFuncVar LogFunc, UserDataVar uintptr) LogFunc {
+func LogSetDefaultHandler(LogFuncVar LogFunc, UserDataVar uintptr) uintptr {
 
 	cret := xLogSetDefaultHandler(purego.NewCallback(LogFuncVar), UserDataVar)
 	return cret
@@ -734,7 +734,7 @@ func ReturnIfFailWarning(LogDomainVar string, PrettyFunctionVar string, Expressi
 
 }
 
-var xSetPrintHandler func(uintptr) PrintFunc
+var xSetPrintHandler func(uintptr) uintptr
 
 // Sets the print handler.
 //
@@ -743,13 +743,13 @@ var xSetPrintHandler func(uintptr) PrintFunc
 // the message to stdout. By providing your own handler
 // you can redirect the output, to a GTK+ widget or a
 // log file for example.
-func SetPrintHandler(FuncVar PrintFunc) PrintFunc {
+func SetPrintHandler(FuncVar PrintFunc) uintptr {
 
 	cret := xSetPrintHandler(purego.NewCallback(FuncVar))
 	return cret
 }
 
-var xSetPrinterrHandler func(uintptr) PrintFunc
+var xSetPrinterrHandler func(uintptr) uintptr
 
 // Sets the handler for printing error messages.
 //
@@ -758,7 +758,7 @@ var xSetPrinterrHandler func(uintptr) PrintFunc
 // message to stderr. By providing your own handler you can
 // redirect the output, to a GTK+ widget or a log file for
 // example.
-func SetPrinterrHandler(FuncVar PrintFunc) PrintFunc {
+func SetPrinterrHandler(FuncVar PrintFunc) uintptr {
 
 	cret := xSetPrinterrHandler(purego.NewCallback(FuncVar))
 	return cret

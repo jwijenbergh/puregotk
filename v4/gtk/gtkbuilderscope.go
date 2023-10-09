@@ -137,11 +137,11 @@ func (x *BuilderCScope) AddCallbackSymbols(FirstCallbackNameVar string, FirstCal
 
 }
 
-var xBuilderCScopeLookupCallbackSymbol func(uintptr, string) gobject.Callback
+var xBuilderCScopeLookupCallbackSymbol func(uintptr, string) uintptr
 
 // Fetches a symbol previously added with
 // gtk_builder_cscope_add_callback_symbol().
-func (x *BuilderCScope) LookupCallbackSymbol(CallbackNameVar string) gobject.Callback {
+func (x *BuilderCScope) LookupCallbackSymbol(CallbackNameVar string) uintptr {
 
 	cret := xBuilderCScopeLookupCallbackSymbol(x.GoPointer(), CallbackNameVar)
 	return cret

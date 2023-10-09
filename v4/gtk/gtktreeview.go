@@ -617,10 +617,10 @@ func (x *TreeView) GetReorderable() bool {
 	return cret
 }
 
-var xTreeViewGetRowSeparatorFunc func(uintptr) TreeViewRowSeparatorFunc
+var xTreeViewGetRowSeparatorFunc func(uintptr) uintptr
 
 // Returns the current row separator function.
-func (x *TreeView) GetRowSeparatorFunc() TreeViewRowSeparatorFunc {
+func (x *TreeView) GetRowSeparatorFunc() uintptr {
 
 	cret := xTreeViewGetRowSeparatorFunc(x.GoPointer())
 	return cret
@@ -665,10 +665,10 @@ func (x *TreeView) GetSearchEntry() *EditableBase {
 	return cls
 }
 
-var xTreeViewGetSearchEqualFunc func(uintptr) TreeViewSearchEqualFunc
+var xTreeViewGetSearchEqualFunc func(uintptr) uintptr
 
 // Returns the compare function currently in use.
-func (x *TreeView) GetSearchEqualFunc() TreeViewSearchEqualFunc {
+func (x *TreeView) GetSearchEqualFunc() uintptr {
 
 	cret := xTreeViewGetSearchEqualFunc(x.GoPointer())
 	return cret
