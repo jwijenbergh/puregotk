@@ -14,5 +14,8 @@ rm -r "$tmp"
 echo "formatting files..."
 go fmt "github.com/jwijenbergh/puregotk/v4/..."
 
+echo "running a second pass for goimports..."
+goimports -w v4
+
 echo "running go vet..."
 go vet ./v4/...
