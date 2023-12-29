@@ -345,6 +345,8 @@ type ClassTemplate struct {
 	Receivers []FuncTemplate
 	// Interfaces are receiver methods that are implemented because it needs to satisfy a certain interface
 	Interfaces []InterfaceTemplate
+	// Functions are the Go function declarations
+	Functions []FuncTemplate
 	// Signals are helpers for ConnectX receivers
 	Signals []SignalsTemplate
 }

@@ -212,6 +212,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	for _, cls := range ns.Classes {
 		implemented := make(map[string]bool)
 		constructors := make([]types.FuncTemplate, len(cls.Constructors))
+		functions := make([]types.FuncTemplate, len(cls.Functions))
 		fn := cls.FilenameSafe()
 		files = append(files, fn)
 
@@ -248,6 +249,16 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			}
 		}
 		var interfaces []types.InterfaceTemplate
+		for i, f := range cls.Functions {
+			name := fmt.Sprintf("%s%s", util.SnakeToCamel(cls.Name), util.SnakeToCamel(f.Name))
+			functions[i] = types.FuncTemplate{
+				Name:  name,
+				CName: f.CIdentifier,
+				Doc:   f.Doc.StringSafe(),
+				Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
+			}
+		}
 		for _, impl := range cls.Implements {
 			interfaces = append(interfaces, types.GetInterfaceFuncs(ns.Name, impl.Name, implemented, p.Types))
 		}
@@ -258,6 +269,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Constructors: constructors,
 			Receivers:    receivers,
 			Interfaces:   interfaces,
+			Functions:    functions,
 			Signals:      signals,
 		})
 	}
@@ -275,22 +287,15 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		//}
 		methods := 0
 		for _, i := range interfaces[fn] {
-			for range i.Methods {
-				methods += 1
-			}
+			methods += len(i.Methods)
 		}
 		for _, i := range records[fn] {
-			for range i.Constructors {
-				methods += 1
-			}
+			methods += len(i.Constructors)
 		}
 		for _, i := range classes[fn] {
-			for range i.Constructors {
-				methods += 1
-			}
-			for range i.Receivers {
-				methods += 1
-			}
+			methods += len(i.Constructors)
+			methods += len(i.Receivers)
+			methods += len(i.Functions)
 		}
 		// we do not need to add the length of interfaces in here
 		// as they should only be loaded when there are classes

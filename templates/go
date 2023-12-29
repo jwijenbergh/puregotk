@@ -190,6 +190,17 @@ func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
 {{end}}
 {{end}}
 
+{{range .Functions -}}
+var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
+
+{{.Doc}}
+func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
 {{end}}
 
 
@@ -218,6 +229,9 @@ func init() {
     {{end}}
     {{range .Receivers -}}
     core.PuregoSafeRegister(&x{{$cls.Name}}{{.Name}}, lib, "{{.CName}}")
+    {{end}}
+    {{range .Functions -}}
+    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
     {{end}}
 
