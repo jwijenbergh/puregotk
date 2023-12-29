@@ -96,9 +96,20 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	recordLookup := make(map[string]bool)
 	for _, rec := range ns.Records {
 		name := util.SnakeToCamel(rec.Name)
+		constructors := make([]types.FuncTemplate, len(rec.Constructors))
 		fields := make([]types.RecordField, len(rec.Fields))
 		fn := rec.FilenameSafe()
 		files = append(files, fn)
+		for i, c := range rec.Constructors {
+			name := util.SnakeToCamel(c.Name)
+			constructors[i] = types.FuncTemplate{
+				Name:  name,
+				CName: c.CIdentifier,
+				Doc:   c.Doc.StringSafe(),
+				Args:  c.Parameters.Template(ns.Name, "", p.Types, c.Throws),
+				Ret:   c.ReturnValue.Template(ns.Name, "", p.Types, c.Throws),
+			}
+		}
 		for _, f := range rec.Fields {
 			_type := f.Translate(ns.Name, p.Types)
 			if _type == "" {
@@ -121,9 +132,10 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			})
 		}
 		records[fn] = append(records[fn], types.RecordTemplate{
-			Name:   name,
-			Doc:    rec.Doc.StringSafe(),
-			Fields: fields,
+			Name:         name,
+			Doc:          rec.Doc.StringSafe(),
+			Constructors: constructors,
+			Fields:       fields,
 		})
 		recordLookup[name] = true
 	}
@@ -264,6 +276,11 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		methods := 0
 		for _, i := range interfaces[fn] {
 			for range i.Methods {
+				methods += 1
+			}
+		}
+		for _, i := range records[fn] {
+			for range i.Constructors {
 				methods += 1
 			}
 		}

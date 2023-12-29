@@ -174,6 +174,9 @@ type RecordTemplate struct {
 	// Doc is the documentation of the alias
 	Doc string
 
+	// Constructors is the slice of functions that create the class struct
+	Constructors []FuncTemplate
+
 	// Fields is the list of record fields
 	Fields []RecordField
 }
