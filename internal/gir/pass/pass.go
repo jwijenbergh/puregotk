@@ -97,7 +97,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	for _, rec := range ns.Records {
 		name := util.SnakeToCamel(rec.Name)
 		constructors := make([]types.FuncTemplate, len(rec.Constructors))
-		fields := make([]types.RecordField, len(rec.Fields))
+		receivers := make([]types.FuncTemplate, 0, len(rec.Methods))
+		fields := make([]types.RecordField, 0, len(rec.Fields))
 		fn := rec.FilenameSafe()
 		files = append(files, fn)
 		for i, c := range rec.Constructors {
@@ -131,10 +132,30 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				Type: _type,
 			})
 		}
+		for _, f := range rec.Methods {
+			name := util.SnakeToCamel(f.Name)
+			if name == "" {
+				name = util.SnakeToCamel(f.CIdentifier)
+			}
+			for _, f := range fields {
+				if f.Name == name {
+					name = name + "Fn"
+					break
+				}
+			}
+			receivers = append(receivers, types.FuncTemplate{
+				Doc:   f.Doc.StringSafe(),
+				Name:  name,
+				CName: f.CIdentifier,
+				Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
+			})
+		}
 		records[fn] = append(records[fn], types.RecordTemplate{
 			Name:         name,
 			Doc:          rec.Doc.StringSafe(),
 			Constructors: constructors,
+			Receivers:    receivers,
 			Fields:       fields,
 		})
 		recordLookup[name] = true
@@ -291,6 +312,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		}
 		for _, i := range records[fn] {
 			methods += len(i.Constructors)
+			methods += len(i.Receivers)
 		}
 		for _, i := range classes[fn] {
 			methods += len(i.Constructors)

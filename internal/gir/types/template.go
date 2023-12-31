@@ -177,6 +177,9 @@ type RecordTemplate struct {
 	// Constructors is the slice of functions that create the class struct
 	Constructors []FuncTemplate
 
+	// Receivers is the slice of functions that have value receivers to the struct
+	Receivers []FuncTemplate
+
 	// Fields is the list of record fields
 	Fields []RecordField
 }

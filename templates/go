@@ -31,6 +31,10 @@ type {{.Name}} struct {
      {{end}}
 }
 
+func (x *{{.Name}}) GoPointer() uintptr {
+     return uintptr(unsafe.Pointer(x))
+}
+
 {{$outer := .}}
 
 {{range .Constructors -}}
@@ -41,6 +45,18 @@ var x{{.Name}}{{$outer.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
      {{if .Ret.Value}}cret :={{end}}x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
+{{$outer := .}}
+{{range .Receivers -}}
+var x{{$outer.Name}}{{.Name}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Raw}}
+
+{{.Doc}}
+func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -216,9 +232,12 @@ func init() {
     {{end}}
 
     {{range .Records -}}
-    {{$cls := .}}
+    {{$rec := .}}
     {{range .Constructors -}}
-    core.PuregoSafeRegister(&x{{.Name}}{{$cls.Name}}, lib, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}{{$rec.Name}}, lib, "{{.CName}}")
+    {{end}}
+    {{range .Receivers -}}
+    core.PuregoSafeRegister(&x{{$rec.Name}}{{.Name}}, lib, "{{.CName}}")
     {{end}}
     {{end}}
 
