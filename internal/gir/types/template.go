@@ -202,6 +202,17 @@ type EnumTemplate struct {
 	Values []enumValues
 }
 
+type ConstantTemplate struct {
+	// Name is the name of the constant
+	Name string
+	// Doc is the documentation for the constant
+	Doc string
+	// Type is the Go type for the constant
+	Type string
+	// Values are the list of values for the constant
+	Value string
+}
+
 type funcRetTemplate struct {
 	// Raw is the raw value for the underlying purego function
 	Raw string
@@ -380,6 +391,8 @@ type TemplateArg struct {
 	Callbacks []CallbackTemplate
 	// Enums are enumerations declared as const ... .... = ....
 	Enums []EnumTemplate
+	// Constants are declared as const ... .... = ....
+	Constants []ConstantTemplate
 	// Functions are the Go function declarations
 	Functions []FuncTemplate
 	// Interfaces is the list of interfaces that this package implements

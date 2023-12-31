@@ -92,6 +92,13 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		enums[fn] = append(enums[fn], temp)
 	}
 
+	constants := make(map[string][]types.ConstantTemplate)
+	for _, con := range ns.Constants {
+		fn := con.FilenameSafe()
+		files = append(files, fn)
+		constants[fn] = append(constants[fn], con.Template(ns.Name, p.Types))
+	}
+
 	records := make(map[string][]types.RecordTemplate)
 	recordLookup := make(map[string]bool)
 	for _, rec := range ns.Records {
@@ -332,6 +339,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Callbacks:  callbacks[fn],
 			Records:    records[fn],
 			Enums:      enums[fn],
+			Constants:  constants[fn],
 			Functions:  functions[fn],
 			Interfaces: interfaces[fn],
 			Classes:    classes[fn],

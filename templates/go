@@ -104,6 +104,15 @@ var {{.Namespace}}X{{.FullName}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret
 type {{.Name}} = {{.Value}}
 {{end}}
 
+{{if .Constants -}}
+const (
+{{range .Constants -}}
+	{{.Doc}}
+	{{.Name}} {{.Type}} = {{.Value}}
+{{end}}
+)
+{{end}}
+
 {{range .Enums -}}
 {{.Doc}}
 type {{.Name}} int
