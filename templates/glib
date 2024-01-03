@@ -1,14 +1,62 @@
 package glib
 
 import (
-       "fmt"
-       "github.com/jwijenbergh/puregotk/internal/core"
+	"fmt"
+	"reflect"
+	"sync"
+
+	"github.com/jwijenbergh/purego"
+	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
+var callbacks = struct {
+	sync.RWMutex
+	refs map[uintptr]uintptr
+}{
+	refs: make(map[uintptr]uintptr),
+}
+
+// GetCallback retrives a callback reference by value.
+// Users should not need to call this.
+func GetCallback(cbPtr uintptr) (uintptr, bool) {
+	callbacks.RLock()
+	defer callbacks.RUnlock()
+	refPtr, ok := callbacks.refs[cbPtr]
+	return refPtr, ok
+}
+
+// SaveCallback saves a reference to the callback value.
+// Users should not need to call this.
+func SaveCallback(cbPtr uintptr, refPtr uintptr) {
+	callbacks.Lock()
+	callbacks.refs[cbPtr] = refPtr
+	callbacks.Unlock()
+}
+
+// UnrefCallbackValue unreferences the provided callback by reflect.value to free a purego slot
+func UnrefCallback(fn interface{}) error {
+	cbPtr := reflect.ValueOf(fn).Pointer()
+	refPtr, ok := GetCallback(cbPtr)
+	if !ok {
+		return purego.UnrefCallback(fn)
+	}
+	defer func() {
+		callbacks.Lock()
+		delete(callbacks.refs, cbPtr)
+		callbacks.Unlock()
+	}()
+	return purego.UnrefCallbackPtr(refPtr)
+}
+
+// NewCallback is an alias to purego.NewCallback
+func NewCallback(fn interface{}) uintptr {
+	return purego.NewCallback(fn)
+}
+
 func (e *Error) Error() string {
-     return fmt.Sprintf("Gtk reported an error with message: '%s', domain: '%v' and code: '%v'", e.MessageGo(), e.Domain, e.Code)
+	return fmt.Sprintf("Gtk reported an error with message: '%s', domain: '%v' and code: '%v'", e.MessageGo(), e.Domain, e.Code)
 }
 
 func (e *Error) MessageGo() string {
-     return core.GoString(e.Message)
+	return core.GoString(e.Message)
 }
