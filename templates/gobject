@@ -4,6 +4,7 @@ import (
 	"reflect"
 
 	"github.com/jwijenbergh/purego"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 type Ptr interface {
@@ -46,7 +47,7 @@ func (o Object) DisconnectSignal(handler uint32) {
 
 // NewCallback is an alias to purego.NewCallback
 func NewCallback(fn interface{}) uintptr {
-	return purego.NewCallback(fn)
+	return glib.NewCallback(fn)
 }
 
 // types
