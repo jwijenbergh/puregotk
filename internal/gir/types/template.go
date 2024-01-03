@@ -36,9 +36,13 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string) {
 	if strings.ToLower(ns) == "gobject" {
 		gobjectNs = ""
 	}
+	glibNs := "glib."
+	if strings.ToLower(ns) == "glib" {
+		glibNs = ""
+	}
 	switch k {
 	case CallbackType:
-		c = fmt.Sprintf("purego.NewCallback(%s)", n)
+		c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
 	case ClassesType:
 		if stars == 0 {
 			c = n
