@@ -184,20 +184,21 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{range .Signals -}}
 
 {{.Doc}}
-func (x *{{$outer.Name}}) Connect{{.Name}}(cb func({{$outer.Name}} {{convc .Args.API.Types}}) {{.Ret.Value}}) uint32 {
-     cbPtr := reflect.ValueOf(cb).Pointer()
+func (x *{{$outer.Name}}) Connect{{.Name}}(cb *func({{$outer.Name}} {{convc .Args.API.Types}}) {{.Ret.Value}}) uint32 {
+     cbPtr := uintptr(unsafe.Pointer(cb))
      cbRefPtr, ok := {{if $NotGLib}}glib.{{end}}GetCallback(cbPtr)
      if !ok {
           fcb := func(clsPtr uintptr {{convc .Args.Pure.Full}}) {{.Ret.Raw}} {
                fa := {{$outer.Name}}{}
                fa.Ptr = clsPtr
+               cbFn := *cb
                {{if .Ret.Class}}
-               {{.Name}}Cls := cb(fa {{convc .Args.Pure.Call}})
+               {{.Name}}Cls := cbFn(fa {{convc .Args.Pure.Call}})
                return {{.Name}}Cls.Ptr
                {{else if .Ret.Value}}
-               return cb(fa {{convc .Args.Pure.Call}})
+               return cbFn(fa {{convc .Args.Pure.Call}})
                {{else}}
-               cb(fa {{convc .Args.Pure.Call}})
+               cbFn(fa {{convc .Args.Pure.Call}})
                {{end}}
           }
           cbRefPtr = purego.NewCallback(fcb)
