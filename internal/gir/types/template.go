@@ -43,6 +43,7 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string) {
 	switch k {
 	case CallbackType:
 		c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
+		t = "*" + t
 	case ClassesType:
 		if stars == 0 {
 			c = n
