@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -13,6 +15,10 @@ type ComboBoxClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ComboBoxClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkComboBox` is a widget that allows the user to choose from a list of

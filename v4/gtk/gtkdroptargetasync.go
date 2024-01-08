@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -9,6 +11,10 @@ import (
 )
 
 type DropTargetAsyncClass struct {
+}
+
+func (x *DropTargetAsyncClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkDropTargetAsync` is an event controller to receive Drag-and-Drop

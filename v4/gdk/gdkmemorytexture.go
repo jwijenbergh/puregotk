@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -9,6 +11,10 @@ import (
 )
 
 type MemoryTextureClass struct {
+}
+
+func (x *MemoryTextureClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GdkTexture` representing image data in memory.

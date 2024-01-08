@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -27,9 +29,17 @@ type ActionEntry struct {
 	Padding uintptr
 }
 
+func (x *ActionEntry) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The virtual function table for #GActionMap.
 type ActionMapInterface struct {
 	GIface uintptr
+}
+
+func (x *ActionMapInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The GActionMap interface is implemented by #GActionGroup

@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -12,8 +14,16 @@ type EnumListItemClass struct {
 	ParentClass uintptr
 }
 
+func (x *EnumListItemClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type EnumListModelClass struct {
 	ParentClass uintptr
+}
+
+func (x *EnumListModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `AdwEnumListItem` is the type of items in a [class@EnumListModel].

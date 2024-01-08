@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -117,6 +119,204 @@ import (
 type Uri struct {
 }
 
+func (x *Uri) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xUriGetAuthParams func(uintptr) string
+
+// Gets @uri's authentication parameters, which may contain
+// `%`-encoding, depending on the flags with which @uri was created.
+// (If @uri was not created with %G_URI_FLAGS_HAS_AUTH_PARAMS then this will
+// be %NULL.)
+//
+// Depending on the URI scheme, g_uri_parse_params() may be useful for
+// further parsing this information.
+func (x *Uri) GetAuthParams() string {
+
+	cret := xUriGetAuthParams(x.GoPointer())
+	return cret
+}
+
+var xUriGetFlags func(uintptr) UriFlags
+
+// Gets @uri's flags set upon construction.
+func (x *Uri) GetFlags() UriFlags {
+
+	cret := xUriGetFlags(x.GoPointer())
+	return cret
+}
+
+var xUriGetFragment func(uintptr) string
+
+// Gets @uri's fragment, which may contain `%`-encoding, depending on
+// the flags with which @uri was created.
+func (x *Uri) GetFragment() string {
+
+	cret := xUriGetFragment(x.GoPointer())
+	return cret
+}
+
+var xUriGetHost func(uintptr) string
+
+// Gets @uri's host. This will never have `%`-encoded characters,
+// unless it is non-UTF-8 (which can only be the case if @uri was
+// created with %G_URI_FLAGS_NON_DNS).
+//
+// If @uri contained an IPv6 address literal, this value will be just
+// that address, without the brackets around it that are necessary in
+// the string form of the URI. Note that in this case there may also
+// be a scope ID attached to the address. Eg, `fe80::1234%“em1` (or
+// `fe80::1234%“25em1` if the string is still encoded).
+func (x *Uri) GetHost() string {
+
+	cret := xUriGetHost(x.GoPointer())
+	return cret
+}
+
+var xUriGetPassword func(uintptr) string
+
+// Gets @uri's password, which may contain `%`-encoding, depending on
+// the flags with which @uri was created. (If @uri was not created
+// with %G_URI_FLAGS_HAS_PASSWORD then this will be %NULL.)
+func (x *Uri) GetPassword() string {
+
+	cret := xUriGetPassword(x.GoPointer())
+	return cret
+}
+
+var xUriGetPath func(uintptr) string
+
+// Gets @uri's path, which may contain `%`-encoding, depending on the
+// flags with which @uri was created.
+func (x *Uri) GetPath() string {
+
+	cret := xUriGetPath(x.GoPointer())
+	return cret
+}
+
+var xUriGetPort func(uintptr) int
+
+// Gets @uri's port.
+func (x *Uri) GetPort() int {
+
+	cret := xUriGetPort(x.GoPointer())
+	return cret
+}
+
+var xUriGetQuery func(uintptr) string
+
+// Gets @uri's query, which may contain `%`-encoding, depending on the
+// flags with which @uri was created.
+//
+// For queries consisting of a series of `name=value` parameters,
+// #GUriParamsIter or g_uri_parse_params() may be useful.
+func (x *Uri) GetQuery() string {
+
+	cret := xUriGetQuery(x.GoPointer())
+	return cret
+}
+
+var xUriGetScheme func(uintptr) string
+
+// Gets @uri's scheme. Note that this will always be all-lowercase,
+// regardless of the string or strings that @uri was created from.
+func (x *Uri) GetScheme() string {
+
+	cret := xUriGetScheme(x.GoPointer())
+	return cret
+}
+
+var xUriGetUser func(uintptr) string
+
+// Gets the ‘username’ component of @uri's userinfo, which may contain
+// `%`-encoding, depending on the flags with which @uri was created.
+// If @uri was not created with %G_URI_FLAGS_HAS_PASSWORD or
+// %G_URI_FLAGS_HAS_AUTH_PARAMS, this is the same as g_uri_get_userinfo().
+func (x *Uri) GetUser() string {
+
+	cret := xUriGetUser(x.GoPointer())
+	return cret
+}
+
+var xUriGetUserinfo func(uintptr) string
+
+// Gets @uri's userinfo, which may contain `%`-encoding, depending on
+// the flags with which @uri was created.
+func (x *Uri) GetUserinfo() string {
+
+	cret := xUriGetUserinfo(x.GoPointer())
+	return cret
+}
+
+var xUriParseRelative func(uintptr, string, UriFlags, **Error) *Uri
+
+// Parses @uri_ref according to @flags and, if it is a
+// [relative URI][relative-absolute-uris], resolves it relative to @base_uri.
+// If the result is not a valid absolute URI, it will be discarded, and an error
+// returned.
+func (x *Uri) ParseRelative(UriRefVar string, FlagsVar UriFlags) (*Uri, error) {
+	var cerr *Error
+
+	cret := xUriParseRelative(x.GoPointer(), UriRefVar, FlagsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xUriRef func(uintptr) *Uri
+
+// Increments the reference count of @uri by one.
+func (x *Uri) Ref() *Uri {
+
+	cret := xUriRef(x.GoPointer())
+	return cret
+}
+
+var xUriToString func(uintptr) string
+
+// Returns a string representing @uri.
+//
+// This is not guaranteed to return a string which is identical to the
+// string that @uri was parsed from. However, if the source URI was
+// syntactically correct (according to RFC 3986), and it was parsed
+// with %G_URI_FLAGS_ENCODED, then g_uri_to_string() is guaranteed to return
+// a string which is at least semantically equivalent to the source
+// URI (according to RFC 3986).
+//
+// If @uri might contain sensitive details, such as authentication parameters,
+// or private data in its query string, and the returned string is going to be
+// logged, then consider using g_uri_to_string_partial() to redact parts.
+func (x *Uri) ToString() string {
+
+	cret := xUriToString(x.GoPointer())
+	return cret
+}
+
+var xUriToStringPartial func(uintptr, UriHideFlags) string
+
+// Returns a string representing @uri, subject to the options in
+// @flags. See g_uri_to_string() and #GUriHideFlags for more details.
+func (x *Uri) ToStringPartial(FlagsVar UriHideFlags) string {
+
+	cret := xUriToStringPartial(x.GoPointer(), FlagsVar)
+	return cret
+}
+
+var xUriUnref func(uintptr)
+
+// Atomically decrements the reference count of @uri by one.
+//
+// When the reference count reaches zero, the resources allocated by
+// @uri are freed
+func (x *Uri) Unref() {
+
+	xUriUnref(x.GoPointer())
+
+}
+
 // Many URI schemes include one or more attribute/value pairs as part of the URI
 // value. For example `scheme://server/path?query=string&amp;is=there` has two
 // attributes – `query=string` and `is=there` – in its query part.
@@ -135,6 +335,86 @@ type UriParamsIter struct {
 
 	Dummy3 uintptr
 }
+
+func (x *UriParamsIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xUriParamsIterInit func(uintptr, string, int, string, UriParamsFlags)
+
+// Initializes an attribute/value pair iterator.
+//
+// The iterator keeps pointers to the @params and @separators arguments, those
+// variables must thus outlive the iterator and not be modified during the
+// iteration.
+//
+// If %G_URI_PARAMS_WWW_FORM is passed in @flags, `+` characters in the param
+// string will be replaced with spaces in the output. For example, `foo=bar+baz`
+// will give attribute `foo` with value `bar baz`. This is commonly used on the
+// web (the `https` and `http` schemes only), but is deprecated in favour of
+// the equivalent of encoding spaces as `%20`.
+//
+// Unlike with g_uri_parse_params(), %G_URI_PARAMS_CASE_INSENSITIVE has no
+// effect if passed to @flags for g_uri_params_iter_init(). The caller is
+// responsible for doing their own case-insensitive comparisons.
+//
+// |[&lt;!-- language="C" --&gt;
+// GUriParamsIter iter;
+// GError *error = NULL;
+// gchar *unowned_attr, *unowned_value;
+//
+// g_uri_params_iter_init (&amp;iter, "foo=bar&amp;baz=bar&amp;Foo=frob&amp;baz=bar2", -1, "&amp;", G_URI_PARAMS_NONE);
+// while (g_uri_params_iter_next (&amp;iter, &amp;unowned_attr, &amp;unowned_value, &amp;error))
+//
+//	{
+//	  g_autofree gchar *attr = g_steal_pointer (&amp;unowned_attr);
+//	  g_autofree gchar *value = g_steal_pointer (&amp;unowned_value);
+//	  // do something with attr and value; this code will be called 4 times
+//	  // for the params string in this example: once with attr=foo and value=bar,
+//	  // then with baz/bar, then Foo/frob, then baz/bar2.
+//	}
+//
+// if (error)
+//
+//	// handle parsing error
+//
+// ]|
+func (x *UriParamsIter) Init(ParamsVar string, LengthVar int, SeparatorsVar string, FlagsVar UriParamsFlags) {
+
+	xUriParamsIterInit(x.GoPointer(), ParamsVar, LengthVar, SeparatorsVar, FlagsVar)
+
+}
+
+var xUriParamsIterNext func(uintptr, string, string, **Error) bool
+
+// Advances @iter and retrieves the next attribute/value. %FALSE is returned if
+// an error has occurred (in which case @error is set), or if the end of the
+// iteration is reached (in which case @attribute and @value are set to %NULL
+// and the iterator becomes invalid). If %TRUE is returned,
+// g_uri_params_iter_next() may be called again to receive another
+// attribute/value pair.
+//
+// Note that the same @attribute may be returned multiple times, since URIs
+// allow repeated attributes.
+func (x *UriParamsIter) Next(AttributeVar string, ValueVar string) (bool, error) {
+	var cerr *Error
+
+	cret := xUriParamsIterNext(x.GoPointer(), AttributeVar, ValueVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+const (
+	// Generic delimiters characters as defined in
+	// [RFC 3986](https://tools.ietf.org/html/rfc3986). Includes `:/?#[]@`.
+	URI_RESERVED_CHARS_GENERIC_DELIMITERS string = ":/?#[]@"
+	// Subcomponent delimiter characters as defined in
+	// [RFC 3986](https://tools.ietf.org/html/rfc3986). Includes `!$&amp;'()*+,;=`.
+	URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS string = "!$&'()*+,;="
+)
 
 // Flags that describe a URI.
 //
@@ -636,5 +916,25 @@ func init() {
 	core.PuregoSafeRegister(&xUriUnescapeBytes, lib, "g_uri_unescape_bytes")
 	core.PuregoSafeRegister(&xUriUnescapeSegment, lib, "g_uri_unescape_segment")
 	core.PuregoSafeRegister(&xUriUnescapeString, lib, "g_uri_unescape_string")
+
+	core.PuregoSafeRegister(&xUriGetAuthParams, lib, "g_uri_get_auth_params")
+	core.PuregoSafeRegister(&xUriGetFlags, lib, "g_uri_get_flags")
+	core.PuregoSafeRegister(&xUriGetFragment, lib, "g_uri_get_fragment")
+	core.PuregoSafeRegister(&xUriGetHost, lib, "g_uri_get_host")
+	core.PuregoSafeRegister(&xUriGetPassword, lib, "g_uri_get_password")
+	core.PuregoSafeRegister(&xUriGetPath, lib, "g_uri_get_path")
+	core.PuregoSafeRegister(&xUriGetPort, lib, "g_uri_get_port")
+	core.PuregoSafeRegister(&xUriGetQuery, lib, "g_uri_get_query")
+	core.PuregoSafeRegister(&xUriGetScheme, lib, "g_uri_get_scheme")
+	core.PuregoSafeRegister(&xUriGetUser, lib, "g_uri_get_user")
+	core.PuregoSafeRegister(&xUriGetUserinfo, lib, "g_uri_get_userinfo")
+	core.PuregoSafeRegister(&xUriParseRelative, lib, "g_uri_parse_relative")
+	core.PuregoSafeRegister(&xUriRef, lib, "g_uri_ref")
+	core.PuregoSafeRegister(&xUriToString, lib, "g_uri_to_string")
+	core.PuregoSafeRegister(&xUriToStringPartial, lib, "g_uri_to_string_partial")
+	core.PuregoSafeRegister(&xUriUnref, lib, "g_uri_unref")
+
+	core.PuregoSafeRegister(&xUriParamsIterInit, lib, "g_uri_params_iter_init")
+	core.PuregoSafeRegister(&xUriParamsIterNext, lib, "g_uri_params_iter_next")
 
 }

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type ConverterInputStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *ConverterInputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ConverterInputStreamPrivate struct {
+}
+
+func (x *ConverterInputStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Converter input stream implements #GInputStream and allows

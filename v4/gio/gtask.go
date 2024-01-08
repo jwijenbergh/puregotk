@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -26,6 +28,10 @@ import (
 type TaskThreadFunc func(uintptr, uintptr, uintptr, uintptr)
 
 type TaskClass struct {
+}
+
+func (x *TaskClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GTask represents and manages a cancellable "task".
@@ -1120,6 +1126,50 @@ func (x *Task) LegacyPropagateError() (bool, error) {
 
 }
 
+var xTaskIsValid func(uintptr, uintptr) bool
+
+// Checks that @result is a #GTask, and that @source_object is its
+// source object (or that @source_object is %NULL and @result has no
+// source object). This can be used in g_return_if_fail() checks.
+func TaskIsValid(ResultVar AsyncResult, SourceObjectVar *gobject.Object) bool {
+
+	cret := xTaskIsValid(ResultVar.GoPointer(), SourceObjectVar.GoPointer())
+	return cret
+}
+
+var xTaskReportError func(uintptr, uintptr, uintptr, uintptr, *glib.Error)
+
+// Creates a #GTask and then immediately calls g_task_return_error()
+// on it. Use this in the wrapper function of an asynchronous method
+// when you want to avoid even calling the virtual method. You can
+// then use g_async_result_is_tagged() in the finish method wrapper to
+// check if the result there is tagged as having been created by the
+// wrapper method, and deal with it appropriately if so.
+//
+// See also g_task_report_new_error().
+func TaskReportError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, ErrorVar *glib.Error) {
+
+	xTaskReportError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, ErrorVar)
+
+}
+
+var xTaskReportNewError func(uintptr, uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{})
+
+// Creates a #GTask and then immediately calls
+// g_task_return_new_error() on it. Use this in the wrapper function
+// of an asynchronous method when you want to avoid even calling the
+// virtual method. You can then use g_async_result_is_tagged() in the
+// finish method wrapper to check if the result there is tagged as
+// having been created by the wrapper method, and deal with it
+// appropriately if so.
+//
+// See also g_task_report_error().
+func TaskReportNewError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+
+	xTaskReportNewError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, DomainVar, CodeVar, FormatVar, varArgs...)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1159,5 +1209,9 @@ func init() {
 	core.PuregoSafeRegister(&xTaskSetReturnOnCancel, lib, "g_task_set_return_on_cancel")
 	core.PuregoSafeRegister(&xTaskSetSourceTag, lib, "g_task_set_source_tag")
 	core.PuregoSafeRegister(&xTaskSetTaskData, lib, "g_task_set_task_data")
+
+	core.PuregoSafeRegister(&xTaskIsValid, lib, "g_task_is_valid")
+	core.PuregoSafeRegister(&xTaskReportError, lib, "g_task_report_error")
+	core.PuregoSafeRegister(&xTaskReportNewError, lib, "g_task_report_new_error")
 
 }

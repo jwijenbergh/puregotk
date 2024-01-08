@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -12,8 +14,16 @@ type ConstraintLayoutChildClass struct {
 	ParentClass uintptr
 }
 
+func (x *ConstraintLayoutChildClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ConstraintLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *ConstraintLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A layout manager using constraints to describe relations between widgets.

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type FileMonitorClass struct {
 	ParentClass uintptr
 }
 
+func (x *FileMonitorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FileMonitorPrivate struct {
+}
+
+func (x *FileMonitorPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Monitors a file or directory for changes.

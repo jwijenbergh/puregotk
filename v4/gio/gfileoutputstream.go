@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,7 +13,15 @@ type FileOutputStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *FileOutputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FileOutputStreamPrivate struct {
+}
+
+func (x *FileOutputStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // GFileOutputStream provides output streams that write their

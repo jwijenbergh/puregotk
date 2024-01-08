@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Interface for implementing operations for mountable volumes.
 type VolumeIface struct {
 	GIface uintptr
+}
+
+func (x *VolumeIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The #GVolume interface represents user-visible objects that can be
@@ -338,6 +344,29 @@ var XGVolumeGetUuid func(uintptr) string
 var XGVolumeMount func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
 var XGVolumeMountFinish func(uintptr, uintptr, **glib.Error) bool
 var XGVolumeShouldAutomount func(uintptr) bool
+
+const (
+	// The string used to obtain the volume class with g_volume_get_identifier().
+	//
+	// Known volume classes include `device`, `network`, and `loop`. Other
+	// classes may be added in the future.
+	//
+	// This is intended to be used by applications to classify #GVolume
+	// instances into different sections - for example a file manager or
+	// file chooser can use this information to show `network` volumes under
+	// a "Network" heading and `device` volumes under a "Devices" heading.
+	VOLUME_IDENTIFIER_KIND_CLASS string = "class"
+	// The string used to obtain a Hal UDI with g_volume_get_identifier().
+	VOLUME_IDENTIFIER_KIND_HAL_UDI string = "hal-udi"
+	// The string used to obtain a filesystem label with g_volume_get_identifier().
+	VOLUME_IDENTIFIER_KIND_LABEL string = "label"
+	// The string used to obtain a NFS mount with g_volume_get_identifier().
+	VOLUME_IDENTIFIER_KIND_NFS_MOUNT string = "nfs-mount"
+	// The string used to obtain a Unix device path with g_volume_get_identifier().
+	VOLUME_IDENTIFIER_KIND_UNIX_DEVICE string = "unix-device"
+	// The string used to obtain a UUID with g_volume_get_identifier().
+	VOLUME_IDENTIFIER_KIND_UUID string = "uuid"
+)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

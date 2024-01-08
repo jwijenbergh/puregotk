@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -14,6 +16,308 @@ import (
 type MarkupParseContext struct {
 }
 
+func (x *MarkupParseContext) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewMarkupParseContext func(*MarkupParser, MarkupParseFlags, uintptr, uintptr) *MarkupParseContext
+
+// Creates a new parse context. A parse context is used to parse
+// marked-up documents. You can feed any number of documents into
+// a context, as long as no errors occur; once an error occurs,
+// the parse context can't continue to parse text (you have to
+// free it and create a new parse context).
+func NewMarkupParseContext(ParserVar *MarkupParser, FlagsVar MarkupParseFlags, UserDataVar uintptr, UserDataDnotifyVar DestroyNotify) *MarkupParseContext {
+
+	cret := xNewMarkupParseContext(ParserVar, FlagsVar, UserDataVar, purego.NewCallback(UserDataDnotifyVar))
+	return cret
+}
+
+var xMarkupParseContextEndParse func(uintptr) bool
+
+// Signals to the #GMarkupParseContext that all data has been
+// fed into the parse context with g_markup_parse_context_parse().
+//
+// This function reports an error if the document isn't complete,
+// for example if elements are still open.
+func (x *MarkupParseContext) EndParse() (bool, error) {
+	var cerr *Error
+
+	cret := xMarkupParseContextEndParse(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xMarkupParseContextFree func(uintptr)
+
+// Frees a #GMarkupParseContext.
+//
+// This function can't be called from inside one of the
+// #GMarkupParser functions or while a subparser is pushed.
+func (x *MarkupParseContext) Free() {
+
+	xMarkupParseContextFree(x.GoPointer())
+
+}
+
+var xMarkupParseContextGetElement func(uintptr) string
+
+// Retrieves the name of the currently open element.
+//
+// If called from the start_element or end_element handlers this will
+// give the element_name as passed to those functions. For the parent
+// elements, see g_markup_parse_context_get_element_stack().
+func (x *MarkupParseContext) GetElement() string {
+
+	cret := xMarkupParseContextGetElement(x.GoPointer())
+	return cret
+}
+
+var xMarkupParseContextGetElementStack func(uintptr) *SList
+
+// Retrieves the element stack from the internal state of the parser.
+//
+// The returned #GSList is a list of strings where the first item is
+// the currently open tag (as would be returned by
+// g_markup_parse_context_get_element()) and the next item is its
+// immediate parent.
+//
+// This function is intended to be used in the start_element and
+// end_element handlers where g_markup_parse_context_get_element()
+// would merely return the name of the element that is being
+// processed.
+func (x *MarkupParseContext) GetElementStack() *SList {
+
+	cret := xMarkupParseContextGetElementStack(x.GoPointer())
+	return cret
+}
+
+var xMarkupParseContextGetPosition func(uintptr, int, int)
+
+// Retrieves the current line number and the number of the character on
+// that line. Intended for use in error messages; there are no strict
+// semantics for what constitutes the "current" line number other than
+// "the best number we could come up with for error messages."
+func (x *MarkupParseContext) GetPosition(LineNumberVar int, CharNumberVar int) {
+
+	xMarkupParseContextGetPosition(x.GoPointer(), LineNumberVar, CharNumberVar)
+
+}
+
+var xMarkupParseContextGetUserData func(uintptr) uintptr
+
+// Returns the user_data associated with @context.
+//
+// This will either be the user_data that was provided to
+// g_markup_parse_context_new() or to the most recent call
+// of g_markup_parse_context_push().
+func (x *MarkupParseContext) GetUserData() uintptr {
+
+	cret := xMarkupParseContextGetUserData(x.GoPointer())
+	return cret
+}
+
+var xMarkupParseContextParse func(uintptr, string, int, **Error) bool
+
+// Feed some data to the #GMarkupParseContext.
+//
+// The data need not be valid UTF-8; an error will be signaled if
+// it's invalid. The data need not be an entire document; you can
+// feed a document into the parser incrementally, via multiple calls
+// to this function. Typically, as you receive data from a network
+// connection or file, you feed each received chunk of data into this
+// function, aborting the process if an error occurs. Once an error
+// is reported, no further data may be fed to the #GMarkupParseContext;
+// all errors are fatal.
+func (x *MarkupParseContext) Parse(TextVar string, TextLenVar int) (bool, error) {
+	var cerr *Error
+
+	cret := xMarkupParseContextParse(x.GoPointer(), TextVar, TextLenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xMarkupParseContextPop func(uintptr) uintptr
+
+// Completes the process of a temporary sub-parser redirection.
+//
+// This function exists to collect the user_data allocated by a
+// matching call to g_markup_parse_context_push(). It must be called
+// in the end_element handler corresponding to the start_element
+// handler during which g_markup_parse_context_push() was called.
+// You must not call this function from the error callback -- the
+// @user_data is provided directly to the callback in that case.
+//
+// This function is not intended to be directly called by users
+// interested in invoking subparsers. Instead, it is intended to
+// be used by the subparsers themselves to implement a higher-level
+// interface.
+func (x *MarkupParseContext) Pop() uintptr {
+
+	cret := xMarkupParseContextPop(x.GoPointer())
+	return cret
+}
+
+var xMarkupParseContextPush func(uintptr, *MarkupParser, uintptr)
+
+// Temporarily redirects markup data to a sub-parser.
+//
+// This function may only be called from the start_element handler of
+// a #GMarkupParser. It must be matched with a corresponding call to
+// g_markup_parse_context_pop() in the matching end_element handler
+// (except in the case that the parser aborts due to an error).
+//
+// All tags, text and other data between the matching tags is
+// redirected to the subparser given by @parser. @user_data is used
+// as the user_data for that parser. @user_data is also passed to the
+// error callback in the event that an error occurs. This includes
+// errors that occur in subparsers of the subparser.
+//
+// The end tag matching the start tag for which this call was made is
+// handled by the previous parser (which is given its own user_data)
+// which is why g_markup_parse_context_pop() is provided to allow "one
+// last access" to the @user_data provided to this function. In the
+// case of error, the @user_data provided here is passed directly to
+// the error callback of the subparser and g_markup_parse_context_pop()
+// should not be called. In either case, if @user_data was allocated
+// then it ought to be freed from both of these locations.
+//
+// This function is not intended to be directly called by users
+// interested in invoking subparsers. Instead, it is intended to be
+// used by the subparsers themselves to implement a higher-level
+// interface.
+//
+// As an example, see the following implementation of a simple
+// parser that counts the number of tags encountered.
+//
+// |[&lt;!-- language="C" --&gt;
+// typedef struct
+//
+//	{
+//	  gint tag_count;
+//	} CounterData;
+//
+// static void
+// counter_start_element (GMarkupParseContext  *context,
+//
+//	const gchar          *element_name,
+//	const gchar         **attribute_names,
+//	const gchar         **attribute_values,
+//	gpointer              user_data,
+//	GError              **error)
+//
+//	{
+//	  CounterData *data = user_data;
+//
+//	  data-&gt;tag_count++;
+//	}
+//
+// static void
+// counter_error (GMarkupParseContext *context,
+//
+//	GError              *error,
+//	gpointer             user_data)
+//
+//	{
+//	  CounterData *data = user_data;
+//
+//	  g_slice_free (CounterData, data);
+//	}
+//
+// static GMarkupParser counter_subparser =
+//
+//	{
+//	  counter_start_element,
+//	  NULL,
+//	  NULL,
+//	  NULL,
+//	  counter_error
+//	};
+//
+// ]|
+//
+// In order to allow this parser to be easily used as a subparser, the
+// following interface is provided:
+//
+// |[&lt;!-- language="C" --&gt;
+// void
+// start_counting (GMarkupParseContext *context)
+//
+//	{
+//	  CounterData *data = g_slice_new (CounterData);
+//
+//	  data-&gt;tag_count = 0;
+//	  g_markup_parse_context_push (context, &amp;counter_subparser, data);
+//	}
+//
+// gint
+// end_counting (GMarkupParseContext *context)
+//
+//	{
+//	  CounterData *data = g_markup_parse_context_pop (context);
+//	  int result;
+//
+//	  result = data-&gt;tag_count;
+//	  g_slice_free (CounterData, data);
+//
+//	  return result;
+//	}
+//
+// ]|
+//
+// The subparser would then be used as follows:
+//
+// |[&lt;!-- language="C" --&gt;
+// static void start_element (context, element_name, ...)
+//
+//	{
+//	  if (strcmp (element_name, "count-these") == 0)
+//	    start_counting (context);
+//
+//	  // else, handle other tags...
+//	}
+//
+// static void end_element (context, element_name, ...)
+//
+//	{
+//	  if (strcmp (element_name, "count-these") == 0)
+//	    g_print ("Counted %d tags\n", end_counting (context));
+//
+//	  // else, handle other tags...
+//	}
+//
+// ]|
+func (x *MarkupParseContext) Push(ParserVar *MarkupParser, UserDataVar uintptr) {
+
+	xMarkupParseContextPush(x.GoPointer(), ParserVar, UserDataVar)
+
+}
+
+var xMarkupParseContextRef func(uintptr) *MarkupParseContext
+
+// Increases the reference count of @context.
+func (x *MarkupParseContext) Ref() *MarkupParseContext {
+
+	cret := xMarkupParseContextRef(x.GoPointer())
+	return cret
+}
+
+var xMarkupParseContextUnref func(uintptr)
+
+// Decreases the reference count of @context.  When its reference count
+// drops to 0, it is freed.
+func (x *MarkupParseContext) Unref() {
+
+	xMarkupParseContextUnref(x.GoPointer())
+
+}
+
 // Any of the fields in #GMarkupParser can be %NULL, in which case they
 // will be ignored. Except for the @error function, any of these callbacks
 // can set an error; in particular the %G_MARKUP_ERROR_UNKNOWN_ELEMENT,
@@ -22,6 +326,10 @@ type MarkupParseContext struct {
 // from a callback, g_markup_parse_context_parse() will report that error
 // back to its caller.
 type MarkupParser struct {
+}
+
+func (x *MarkupParser) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A mixed enumerated type and flags field. You must specify one type
@@ -224,5 +532,19 @@ func init() {
 	core.PuregoSafeRegister(&xMarkupEscapeText, lib, "g_markup_escape_text")
 	core.PuregoSafeRegister(&xMarkupPrintfEscaped, lib, "g_markup_printf_escaped")
 	core.PuregoSafeRegister(&xMarkupVprintfEscaped, lib, "g_markup_vprintf_escaped")
+
+	core.PuregoSafeRegister(&xNewMarkupParseContext, lib, "g_markup_parse_context_new")
+
+	core.PuregoSafeRegister(&xMarkupParseContextEndParse, lib, "g_markup_parse_context_end_parse")
+	core.PuregoSafeRegister(&xMarkupParseContextFree, lib, "g_markup_parse_context_free")
+	core.PuregoSafeRegister(&xMarkupParseContextGetElement, lib, "g_markup_parse_context_get_element")
+	core.PuregoSafeRegister(&xMarkupParseContextGetElementStack, lib, "g_markup_parse_context_get_element_stack")
+	core.PuregoSafeRegister(&xMarkupParseContextGetPosition, lib, "g_markup_parse_context_get_position")
+	core.PuregoSafeRegister(&xMarkupParseContextGetUserData, lib, "g_markup_parse_context_get_user_data")
+	core.PuregoSafeRegister(&xMarkupParseContextParse, lib, "g_markup_parse_context_parse")
+	core.PuregoSafeRegister(&xMarkupParseContextPop, lib, "g_markup_parse_context_pop")
+	core.PuregoSafeRegister(&xMarkupParseContextPush, lib, "g_markup_parse_context_push")
+	core.PuregoSafeRegister(&xMarkupParseContextRef, lib, "g_markup_parse_context_ref")
+	core.PuregoSafeRegister(&xMarkupParseContextUnref, lib, "g_markup_parse_context_unref")
 
 }

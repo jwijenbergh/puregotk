@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type AdjustmentClass struct {
 	ParentClass uintptr
+}
+
+func (x *AdjustmentClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkAdjustment` is a model for a numeric value.

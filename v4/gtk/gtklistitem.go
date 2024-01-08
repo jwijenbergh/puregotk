@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type ListItemClass struct {
+}
+
+func (x *ListItemClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkListItem` is used by list widgets to represent items in a `GListModel`.

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -9,6 +11,10 @@ import (
 
 type CustomSorterClass struct {
 	ParentClass uintptr
+}
+
+func (x *CustomSorterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkCustomSorter` is a `GtkSorter` implementation that sorts via a callback

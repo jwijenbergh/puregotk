@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,10 @@ import (
 // The virtual function table for #GPowerProfileMonitor.
 type PowerProfileMonitorInterface struct {
 	GIface uintptr
+}
+
+func (x *PowerProfileMonitorInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GPowerProfileMonitor makes it possible for applications as well as OS components
@@ -62,6 +68,12 @@ func (x *PowerProfileMonitorBase) GetPowerSaverEnabled() bool {
 }
 
 var XGPowerProfileMonitorGetPowerSaverEnabled func(uintptr) bool
+
+const (
+	// Extension point for power profile usage monitoring functionality.
+	// See [Extending GIO][extending-gio].
+	POWER_PROFILE_MONITOR_EXTENSION_POINT_NAME string = "gio-power-profile-monitor"
+)
 
 var xPowerProfileMonitorDupDefault func() uintptr
 

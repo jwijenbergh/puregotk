@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -29,6 +31,441 @@ type Date struct {
 	Month uint
 
 	Year uint
+}
+
+func (x *Date) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewDate func() *Date
+
+// Allocates a #GDate and initializes
+// it to a safe state. The new date will
+// be cleared (as if you'd called g_date_clear()) but invalid (it won't
+// represent an existing day). Free the return value with g_date_free().
+func NewDate() *Date {
+
+	cret := xNewDate()
+	return cret
+}
+
+var xNewDmyDate func(DateDay, DateMonth, DateYear) *Date
+
+// Create a new #GDate representing the given day-month-year triplet.
+//
+// The triplet you pass in must represent a valid date. Use g_date_valid_dmy()
+// if needed to validate it. The returned #GDate is guaranteed to be non-%NULL
+// and valid.
+func NewDmyDate(DayVar DateDay, MonthVar DateMonth, YearVar DateYear) *Date {
+
+	cret := xNewDmyDate(DayVar, MonthVar, YearVar)
+	return cret
+}
+
+var xNewJulianDate func(uint32) *Date
+
+// Create a new #GDate representing the given Julian date.
+//
+// The @julian_day you pass in must be valid. Use g_date_valid_julian() if
+// needed to validate it. The returned #GDate is guaranteed to be non-%NULL and
+// valid.
+func NewJulianDate(JulianDayVar uint32) *Date {
+
+	cret := xNewJulianDate(JulianDayVar)
+	return cret
+}
+
+var xDateAddDays func(uintptr, uint)
+
+// Increments a date some number of days.
+// To move forward by weeks, add weeks*7 days.
+// The date must be valid.
+func (x *Date) AddDays(NDaysVar uint) {
+
+	xDateAddDays(x.GoPointer(), NDaysVar)
+
+}
+
+var xDateAddMonths func(uintptr, uint)
+
+// Increments a date by some number of months.
+// If the day of the month is greater than 28,
+// this routine may change the day of the month
+// (because the destination month may not have
+// the current day in it). The date must be valid.
+func (x *Date) AddMonths(NMonthsVar uint) {
+
+	xDateAddMonths(x.GoPointer(), NMonthsVar)
+
+}
+
+var xDateAddYears func(uintptr, uint)
+
+// Increments a date by some number of years.
+// If the date is February 29, and the destination
+// year is not a leap year, the date will be changed
+// to February 28. The date must be valid.
+func (x *Date) AddYears(NYearsVar uint) {
+
+	xDateAddYears(x.GoPointer(), NYearsVar)
+
+}
+
+var xDateClamp func(uintptr, *Date, *Date)
+
+// If @date is prior to @min_date, sets @date equal to @min_date.
+// If @date falls after @max_date, sets @date equal to @max_date.
+// Otherwise, @date is unchanged.
+// Either of @min_date and @max_date may be %NULL.
+// All non-%NULL dates must be valid.
+func (x *Date) Clamp(MinDateVar *Date, MaxDateVar *Date) {
+
+	xDateClamp(x.GoPointer(), MinDateVar, MaxDateVar)
+
+}
+
+var xDateClear func(uintptr, uint)
+
+// Initializes one or more #GDate structs to a safe but invalid
+// state. The cleared dates will not represent an existing date, but will
+// not contain garbage. Useful to init a date declared on the stack.
+// Validity can be tested with g_date_valid().
+func (x *Date) Clear(NDatesVar uint) {
+
+	xDateClear(x.GoPointer(), NDatesVar)
+
+}
+
+var xDateCompare func(uintptr, *Date) int
+
+// qsort()-style comparison function for dates.
+// Both dates must be valid.
+func (x *Date) Compare(RhsVar *Date) int {
+
+	cret := xDateCompare(x.GoPointer(), RhsVar)
+	return cret
+}
+
+var xDateCopy func(uintptr) *Date
+
+// Copies a GDate to a newly-allocated GDate. If the input was invalid
+// (as determined by g_date_valid()), the invalid state will be copied
+// as is into the new object.
+func (x *Date) Copy() *Date {
+
+	cret := xDateCopy(x.GoPointer())
+	return cret
+}
+
+var xDateDaysBetween func(uintptr, *Date) int
+
+// Computes the number of days between two dates.
+// If @date2 is prior to @date1, the returned value is negative.
+// Both dates must be valid.
+func (x *Date) DaysBetween(Date2Var *Date) int {
+
+	cret := xDateDaysBetween(x.GoPointer(), Date2Var)
+	return cret
+}
+
+var xDateFree func(uintptr)
+
+// Frees a #GDate returned from g_date_new().
+func (x *Date) Free() {
+
+	xDateFree(x.GoPointer())
+
+}
+
+var xDateGetDay func(uintptr) DateDay
+
+// Returns the day of the month. The date must be valid.
+func (x *Date) GetDay() DateDay {
+
+	cret := xDateGetDay(x.GoPointer())
+	return cret
+}
+
+var xDateGetDayOfYear func(uintptr) uint
+
+// Returns the day of the year, where Jan 1 is the first day of the
+// year. The date must be valid.
+func (x *Date) GetDayOfYear() uint {
+
+	cret := xDateGetDayOfYear(x.GoPointer())
+	return cret
+}
+
+var xDateGetIso8601WeekOfYear func(uintptr) uint
+
+// Returns the week of the year, where weeks are interpreted according
+// to ISO 8601.
+func (x *Date) GetIso8601WeekOfYear() uint {
+
+	cret := xDateGetIso8601WeekOfYear(x.GoPointer())
+	return cret
+}
+
+var xDateGetJulian func(uintptr) uint32
+
+// Returns the Julian day or "serial number" of the #GDate. The
+// Julian day is simply the number of days since January 1, Year 1; i.e.,
+// January 1, Year 1 is Julian day 1; January 2, Year 1 is Julian day 2,
+// etc. The date must be valid.
+func (x *Date) GetJulian() uint32 {
+
+	cret := xDateGetJulian(x.GoPointer())
+	return cret
+}
+
+var xDateGetMondayWeekOfYear func(uintptr) uint
+
+// Returns the week of the year, where weeks are understood to start on
+// Monday. If the date is before the first Monday of the year, return 0.
+// The date must be valid.
+func (x *Date) GetMondayWeekOfYear() uint {
+
+	cret := xDateGetMondayWeekOfYear(x.GoPointer())
+	return cret
+}
+
+var xDateGetMonth func(uintptr) DateMonth
+
+// Returns the month of the year. The date must be valid.
+func (x *Date) GetMonth() DateMonth {
+
+	cret := xDateGetMonth(x.GoPointer())
+	return cret
+}
+
+var xDateGetSundayWeekOfYear func(uintptr) uint
+
+// Returns the week of the year during which this date falls, if
+// weeks are understood to begin on Sunday. The date must be valid.
+// Can return 0 if the day is before the first Sunday of the year.
+func (x *Date) GetSundayWeekOfYear() uint {
+
+	cret := xDateGetSundayWeekOfYear(x.GoPointer())
+	return cret
+}
+
+var xDateGetWeekday func(uintptr) DateWeekday
+
+// Returns the day of the week for a #GDate. The date must be valid.
+func (x *Date) GetWeekday() DateWeekday {
+
+	cret := xDateGetWeekday(x.GoPointer())
+	return cret
+}
+
+var xDateGetYear func(uintptr) DateYear
+
+// Returns the year of a #GDate. The date must be valid.
+func (x *Date) GetYear() DateYear {
+
+	cret := xDateGetYear(x.GoPointer())
+	return cret
+}
+
+var xDateIsFirstOfMonth func(uintptr) bool
+
+// Returns %TRUE if the date is on the first of a month.
+// The date must be valid.
+func (x *Date) IsFirstOfMonth() bool {
+
+	cret := xDateIsFirstOfMonth(x.GoPointer())
+	return cret
+}
+
+var xDateIsLastOfMonth func(uintptr) bool
+
+// Returns %TRUE if the date is the last day of the month.
+// The date must be valid.
+func (x *Date) IsLastOfMonth() bool {
+
+	cret := xDateIsLastOfMonth(x.GoPointer())
+	return cret
+}
+
+var xDateOrder func(uintptr, *Date)
+
+// Checks if @date1 is less than or equal to @date2,
+// and swap the values if this is not the case.
+func (x *Date) Order(Date2Var *Date) {
+
+	xDateOrder(x.GoPointer(), Date2Var)
+
+}
+
+var xDateSetDay func(uintptr, DateDay)
+
+// Sets the day of the month for a #GDate. If the resulting
+// day-month-year triplet is invalid, the date will be invalid.
+func (x *Date) SetDay(DayVar DateDay) {
+
+	xDateSetDay(x.GoPointer(), DayVar)
+
+}
+
+var xDateSetDmy func(uintptr, DateDay, DateMonth, DateYear)
+
+// Sets the value of a #GDate from a day, month, and year.
+// The day-month-year triplet must be valid; if you aren't
+// sure it is, call g_date_valid_dmy() to check before you
+// set it.
+func (x *Date) SetDmy(DayVar DateDay, MonthVar DateMonth, YVar DateYear) {
+
+	xDateSetDmy(x.GoPointer(), DayVar, MonthVar, YVar)
+
+}
+
+var xDateSetJulian func(uintptr, uint32)
+
+// Sets the value of a #GDate from a Julian day number.
+func (x *Date) SetJulian(JulianDateVar uint32) {
+
+	xDateSetJulian(x.GoPointer(), JulianDateVar)
+
+}
+
+var xDateSetMonth func(uintptr, DateMonth)
+
+// Sets the month of the year for a #GDate.  If the resulting
+// day-month-year triplet is invalid, the date will be invalid.
+func (x *Date) SetMonth(MonthVar DateMonth) {
+
+	xDateSetMonth(x.GoPointer(), MonthVar)
+
+}
+
+var xDateSetParse func(uintptr, string)
+
+// Parses a user-inputted string @str, and try to figure out what date it
+// represents, taking the [current locale][setlocale] into account. If the
+// string is successfully parsed, the date will be valid after the call.
+// Otherwise, it will be invalid. You should check using g_date_valid()
+// to see whether the parsing succeeded.
+//
+// This function is not appropriate for file formats and the like; it
+// isn't very precise, and its exact behavior varies with the locale.
+// It's intended to be a heuristic routine that guesses what the user
+// means by a given string (and it does work pretty well in that
+// capacity).
+func (x *Date) SetParse(StrVar string) {
+
+	xDateSetParse(x.GoPointer(), StrVar)
+
+}
+
+var xDateSetTime func(uintptr, Time)
+
+// Sets the value of a date from a #GTime value.
+// The time to date conversion is done using the user's current timezone.
+func (x *Date) SetTime(TimeVar Time) {
+
+	xDateSetTime(x.GoPointer(), TimeVar)
+
+}
+
+var xDateSetTimeT func(uintptr, int32)
+
+// Sets the value of a date to the date corresponding to a time
+// specified as a time_t. The time to date conversion is done using
+// the user's current timezone.
+//
+// To set the value of a date to the current day, you could write:
+// |[&lt;!-- language="C" --&gt;
+//
+//	time_t now = time (NULL);
+//	if (now == (time_t) -1)
+//	  // handle the error
+//	g_date_set_time_t (date, now);
+//
+// ]|
+func (x *Date) SetTimeT(TimetVar int32) {
+
+	xDateSetTimeT(x.GoPointer(), TimetVar)
+
+}
+
+var xDateSetTimeVal func(uintptr, *TimeVal)
+
+// Sets the value of a date from a #GTimeVal value.  Note that the
+// @tv_usec member is ignored, because #GDate can't make use of the
+// additional precision.
+//
+// The time to date conversion is done using the user's current timezone.
+func (x *Date) SetTimeVal(TimevalVar *TimeVal) {
+
+	xDateSetTimeVal(x.GoPointer(), TimevalVar)
+
+}
+
+var xDateSetYear func(uintptr, DateYear)
+
+// Sets the year for a #GDate. If the resulting day-month-year
+// triplet is invalid, the date will be invalid.
+func (x *Date) SetYear(YearVar DateYear) {
+
+	xDateSetYear(x.GoPointer(), YearVar)
+
+}
+
+var xDateSubtractDays func(uintptr, uint)
+
+// Moves a date some number of days into the past.
+// To move by weeks, just move by weeks*7 days.
+// The date must be valid.
+func (x *Date) SubtractDays(NDaysVar uint) {
+
+	xDateSubtractDays(x.GoPointer(), NDaysVar)
+
+}
+
+var xDateSubtractMonths func(uintptr, uint)
+
+// Moves a date some number of months into the past.
+// If the current day of the month doesn't exist in
+// the destination month, the day of the month
+// may change. The date must be valid.
+func (x *Date) SubtractMonths(NMonthsVar uint) {
+
+	xDateSubtractMonths(x.GoPointer(), NMonthsVar)
+
+}
+
+var xDateSubtractYears func(uintptr, uint)
+
+// Moves a date some number of years into the past.
+// If the current day doesn't exist in the destination
+// year (i.e. it's February 29 and you move to a non-leap-year)
+// then the day is changed to February 29. The date
+// must be valid.
+func (x *Date) SubtractYears(NYearsVar uint) {
+
+	xDateSubtractYears(x.GoPointer(), NYearsVar)
+
+}
+
+var xDateToStructTm func(uintptr, uintptr)
+
+// Fills in the date-related bits of a struct tm using the @date value.
+// Initializes the non-date parts with something safe but meaningless.
+func (x *Date) ToStructTm(TmVar uintptr) {
+
+	xDateToStructTm(x.GoPointer(), TmVar)
+
+}
+
+var xDateValid func(uintptr) bool
+
+// Returns %TRUE if the #GDate represents an existing day. The date must not
+// contain garbage; it should have been initialized with g_date_clear()
+// if it wasn't allocated by one of the g_date_new() variants.
+func (x *Date) Valid() bool {
+
+	cret := xDateValid(x.GoPointer())
+	return cret
 }
 
 // Integer representing a day of the month; between 1 and 31.
@@ -67,6 +504,15 @@ type DateYear = uint16
 // gtime = (GTime)ttime;
 // ]|
 type Time = int32
+
+const (
+	// Represents an invalid #GDateDay.
+	DATE_BAD_DAY int = 0
+	// Represents an invalid Julian day number.
+	DATE_BAD_JULIAN int = 0
+	// Represents an invalid year.
+	DATE_BAD_YEAR int = 0
+)
 
 // This enumeration isn't used in the API, but may be useful if you need
 // to mark a number as a day, month, or year.
@@ -292,5 +738,45 @@ func init() {
 	core.PuregoSafeRegister(&xDateValidMonth, lib, "g_date_valid_month")
 	core.PuregoSafeRegister(&xDateValidWeekday, lib, "g_date_valid_weekday")
 	core.PuregoSafeRegister(&xDateValidYear, lib, "g_date_valid_year")
+
+	core.PuregoSafeRegister(&xNewDate, lib, "g_date_new")
+	core.PuregoSafeRegister(&xNewDmyDate, lib, "g_date_new_dmy")
+	core.PuregoSafeRegister(&xNewJulianDate, lib, "g_date_new_julian")
+
+	core.PuregoSafeRegister(&xDateAddDays, lib, "g_date_add_days")
+	core.PuregoSafeRegister(&xDateAddMonths, lib, "g_date_add_months")
+	core.PuregoSafeRegister(&xDateAddYears, lib, "g_date_add_years")
+	core.PuregoSafeRegister(&xDateClamp, lib, "g_date_clamp")
+	core.PuregoSafeRegister(&xDateClear, lib, "g_date_clear")
+	core.PuregoSafeRegister(&xDateCompare, lib, "g_date_compare")
+	core.PuregoSafeRegister(&xDateCopy, lib, "g_date_copy")
+	core.PuregoSafeRegister(&xDateDaysBetween, lib, "g_date_days_between")
+	core.PuregoSafeRegister(&xDateFree, lib, "g_date_free")
+	core.PuregoSafeRegister(&xDateGetDay, lib, "g_date_get_day")
+	core.PuregoSafeRegister(&xDateGetDayOfYear, lib, "g_date_get_day_of_year")
+	core.PuregoSafeRegister(&xDateGetIso8601WeekOfYear, lib, "g_date_get_iso8601_week_of_year")
+	core.PuregoSafeRegister(&xDateGetJulian, lib, "g_date_get_julian")
+	core.PuregoSafeRegister(&xDateGetMondayWeekOfYear, lib, "g_date_get_monday_week_of_year")
+	core.PuregoSafeRegister(&xDateGetMonth, lib, "g_date_get_month")
+	core.PuregoSafeRegister(&xDateGetSundayWeekOfYear, lib, "g_date_get_sunday_week_of_year")
+	core.PuregoSafeRegister(&xDateGetWeekday, lib, "g_date_get_weekday")
+	core.PuregoSafeRegister(&xDateGetYear, lib, "g_date_get_year")
+	core.PuregoSafeRegister(&xDateIsFirstOfMonth, lib, "g_date_is_first_of_month")
+	core.PuregoSafeRegister(&xDateIsLastOfMonth, lib, "g_date_is_last_of_month")
+	core.PuregoSafeRegister(&xDateOrder, lib, "g_date_order")
+	core.PuregoSafeRegister(&xDateSetDay, lib, "g_date_set_day")
+	core.PuregoSafeRegister(&xDateSetDmy, lib, "g_date_set_dmy")
+	core.PuregoSafeRegister(&xDateSetJulian, lib, "g_date_set_julian")
+	core.PuregoSafeRegister(&xDateSetMonth, lib, "g_date_set_month")
+	core.PuregoSafeRegister(&xDateSetParse, lib, "g_date_set_parse")
+	core.PuregoSafeRegister(&xDateSetTime, lib, "g_date_set_time")
+	core.PuregoSafeRegister(&xDateSetTimeT, lib, "g_date_set_time_t")
+	core.PuregoSafeRegister(&xDateSetTimeVal, lib, "g_date_set_time_val")
+	core.PuregoSafeRegister(&xDateSetYear, lib, "g_date_set_year")
+	core.PuregoSafeRegister(&xDateSubtractDays, lib, "g_date_subtract_days")
+	core.PuregoSafeRegister(&xDateSubtractMonths, lib, "g_date_subtract_months")
+	core.PuregoSafeRegister(&xDateSubtractYears, lib, "g_date_subtract_years")
+	core.PuregoSafeRegister(&xDateToStructTm, lib, "g_date_to_struct_tm")
+	core.PuregoSafeRegister(&xDateValid, lib, "g_date_valid")
 
 }

@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,7 +12,15 @@ import (
 type FrameClockClass struct {
 }
 
+func (x *FrameClockClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FrameClockPrivate struct {
+}
+
+func (x *FrameClockPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Used to represent the different paint clock phases that can be requested.

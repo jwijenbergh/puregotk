@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type SocketClientClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketClientClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketClientPrivate struct {
+}
+
+func (x *SocketClientPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSocketClient is a lightweight high-level utility class for connecting to

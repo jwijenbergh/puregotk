@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -41,6 +43,78 @@ type Error struct {
 	Code int32
 
 	Message uintptr
+}
+
+func (x *Error) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewError func(Quark, int, string, ...interface{}) *Error
+
+// Creates a new #GError with the given @domain and @code,
+// and a message formatted with @format.
+func NewError(DomainVar Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *Error {
+
+	cret := xNewError(DomainVar, CodeVar, FormatVar, varArgs...)
+	return cret
+}
+
+var xNewLiteralError func(Quark, int, string) *Error
+
+// Creates a new #GError; unlike g_error_new(), @message is
+// not a printf()-style format string. Use this function if
+// @message contains text you don't have control over,
+// that could include printf() escape sequences.
+func NewLiteralError(DomainVar Quark, CodeVar int, MessageVar string) *Error {
+
+	cret := xNewLiteralError(DomainVar, CodeVar, MessageVar)
+	return cret
+}
+
+var xNewValistError func(Quark, int, string, []interface{}) *Error
+
+// Creates a new #GError with the given @domain and @code,
+// and a message formatted with @format.
+func NewValistError(DomainVar Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) *Error {
+
+	cret := xNewValistError(DomainVar, CodeVar, FormatVar, ArgsVar)
+	return cret
+}
+
+var xErrorCopy func(uintptr) *Error
+
+// Makes a copy of @error.
+func (x *Error) Copy() *Error {
+
+	cret := xErrorCopy(x.GoPointer())
+	return cret
+}
+
+var xErrorFree func(uintptr)
+
+// Frees a #GError and associated resources.
+func (x *Error) Free() {
+
+	xErrorFree(x.GoPointer())
+
+}
+
+var xErrorMatches func(uintptr, Quark, int) bool
+
+// Returns %TRUE if @error matches @domain and @code, %FALSE
+// otherwise. In particular, when @error is %NULL, %FALSE will
+// be returned.
+//
+// If @domain contains a `FAILED` (or otherwise generic) error code,
+// you should generally not check for it explicitly, but should
+// instead treat any not-explicitly-recognized error code as being
+// equivalent to the `FAILED` code. This way, if the domain is
+// extended in the future to provide a more specific error code for
+// a certain case, your code will still work.
+func (x *Error) Matches(DomainVar Quark, CodeVar int) bool {
+
+	cret := xErrorMatches(x.GoPointer(), DomainVar, CodeVar)
+	return cret
 }
 
 var xClearError func()
@@ -144,5 +218,13 @@ func init() {
 	core.PuregoSafeRegister(&xPropagatePrefixedError, lib, "g_propagate_prefixed_error")
 	core.PuregoSafeRegister(&xSetError, lib, "g_set_error")
 	core.PuregoSafeRegister(&xSetErrorLiteral, lib, "g_set_error_literal")
+
+	core.PuregoSafeRegister(&xNewError, lib, "g_error_new")
+	core.PuregoSafeRegister(&xNewLiteralError, lib, "g_error_new_literal")
+	core.PuregoSafeRegister(&xNewValistError, lib, "g_error_new_valist")
+
+	core.PuregoSafeRegister(&xErrorCopy, lib, "g_error_copy")
+	core.PuregoSafeRegister(&xErrorFree, lib, "g_error_free")
+	core.PuregoSafeRegister(&xErrorMatches, lib, "g_error_matches")
 
 }

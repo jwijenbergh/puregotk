@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -9,6 +11,10 @@ import (
 
 type CellEditableIface struct {
 	GIface uintptr
+}
+
+func (x *CellEditableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Interface for widgets that can be used for editing cells

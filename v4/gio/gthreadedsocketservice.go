@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type ThreadedSocketServiceClass struct {
 	ParentClass uintptr
 }
 
+func (x *ThreadedSocketServiceClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ThreadedSocketServicePrivate struct {
+}
+
+func (x *ThreadedSocketServicePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GThreadedSocketService is a simple subclass of #GSocketService

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 
 // Class structure for #GCredentials.
 type CredentialsClass struct {
+}
+
+func (x *CredentialsClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The #GCredentials type is a reference-counted wrapper for native

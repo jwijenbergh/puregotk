@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,10 @@ import (
 // An interface for file descriptor based io objects.
 type FileDescriptorBasedIface struct {
 	GIface uintptr
+}
+
+func (x *FileDescriptorBasedIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GFileDescriptorBased is implemented by streams (implementations of

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 
 type ZlibDecompressorClass struct {
 	ParentClass uintptr
+}
+
+func (x *ZlibDecompressorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GZlibDecompressor is an implementation of #GConverter that

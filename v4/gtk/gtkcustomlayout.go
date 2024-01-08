@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -17,6 +19,10 @@ type CustomRequestModeFunc func(uintptr) SizeRequestMode
 
 type CustomLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *CustomLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkCustomLayout` uses closures for size negotiation.

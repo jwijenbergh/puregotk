@@ -2,6 +2,10 @@
 package gdkpixbuf
 
 import (
+	"unsafe"
+
+	"github.com/jwijenbergh/purego"
+	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gmodule"
 )
@@ -119,6 +123,138 @@ type PixbufFormat struct {
 	License uintptr
 }
 
+func (x *PixbufFormat) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xPixbufFormatCopy func(uintptr) *PixbufFormat
+
+// Creates a copy of `format`.
+func (x *PixbufFormat) Copy() *PixbufFormat {
+
+	cret := xPixbufFormatCopy(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatFree func(uintptr)
+
+// Frees the resources allocated when copying a `GdkPixbufFormat`
+// using gdk_pixbuf_format_copy()
+func (x *PixbufFormat) Free() {
+
+	xPixbufFormatFree(x.GoPointer())
+
+}
+
+var xPixbufFormatGetDescription func(uintptr) string
+
+// Returns a description of the format.
+func (x *PixbufFormat) GetDescription() string {
+
+	cret := xPixbufFormatGetDescription(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatGetExtensions func(uintptr) uintptr
+
+// Returns the filename extensions typically used for files in the
+// given format.
+func (x *PixbufFormat) GetExtensions() uintptr {
+
+	cret := xPixbufFormatGetExtensions(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatGetLicense func(uintptr) string
+
+// Returns information about the license of the image loader for the format.
+//
+// The returned string should be a shorthand for a well known license, e.g.
+// "LGPL", "GPL", "QPL", "GPL/QPL", or "other" to indicate some other license.
+func (x *PixbufFormat) GetLicense() string {
+
+	cret := xPixbufFormatGetLicense(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatGetMimeTypes func(uintptr) uintptr
+
+// Returns the mime types supported by the format.
+func (x *PixbufFormat) GetMimeTypes() uintptr {
+
+	cret := xPixbufFormatGetMimeTypes(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatGetName func(uintptr) string
+
+// Returns the name of the format.
+func (x *PixbufFormat) GetName() string {
+
+	cret := xPixbufFormatGetName(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatIsDisabled func(uintptr) bool
+
+// Returns whether this image format is disabled.
+//
+// See gdk_pixbuf_format_set_disabled().
+func (x *PixbufFormat) IsDisabled() bool {
+
+	cret := xPixbufFormatIsDisabled(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatIsSaveOptionSupported func(uintptr, string) bool
+
+// Returns `TRUE` if the save option specified by @option_key is supported when
+// saving a pixbuf using the module implementing @format.
+//
+// See gdk_pixbuf_save() for more information about option keys.
+func (x *PixbufFormat) IsSaveOptionSupported(OptionKeyVar string) bool {
+
+	cret := xPixbufFormatIsSaveOptionSupported(x.GoPointer(), OptionKeyVar)
+	return cret
+}
+
+var xPixbufFormatIsScalable func(uintptr) bool
+
+// Returns whether this image format is scalable.
+//
+// If a file is in a scalable format, it is preferable to load it at
+// the desired size, rather than loading it at the default size and
+// scaling the resulting pixbuf to the desired size.
+func (x *PixbufFormat) IsScalable() bool {
+
+	cret := xPixbufFormatIsScalable(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatIsWritable func(uintptr) bool
+
+// Returns whether pixbufs can be saved in the given format.
+func (x *PixbufFormat) IsWritable() bool {
+
+	cret := xPixbufFormatIsWritable(x.GoPointer())
+	return cret
+}
+
+var xPixbufFormatSetDisabled func(uintptr, bool)
+
+// Disables or enables an image format.
+//
+// If a format is disabled, GdkPixbuf won't use the image loader for
+// this format to load images.
+//
+// Applications can use this to avoid using image loaders with an
+// inappropriate license, see gdk_pixbuf_format_get_license().
+func (x *PixbufFormat) SetDisabled(DisabledVar bool) {
+
+	xPixbufFormatSetDisabled(x.GoPointer(), DisabledVar)
+
+}
+
 // A `GdkPixbufModule` contains the necessary functions to load and save
 // images in a certain file format.
 //
@@ -192,6 +328,10 @@ type PixbufModule struct {
 	IsSaveOptionSupported PixbufModuleSaveOptionSupportedFunc
 }
 
+func (x *PixbufModule) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The signature prefix for a module.
 //
 // The signature of a module is a set of prefixes. Prefixes are encoded as
@@ -232,6 +372,10 @@ type PixbufModulePattern struct {
 	Relevance int
 }
 
+func (x *PixbufModulePattern) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Flags which allow a module to specify further details about the supported
 // operations.
 type PixbufFormatFlags int
@@ -246,3 +390,24 @@ const (
 	//     ignores modules that are not marked as threadsafe. (Since 2.28).
 	GdkPixbufFormatThreadsafeValue PixbufFormatFlags = 4
 )
+
+func init() {
+	lib, err := purego.Dlopen(core.GetPath("GDKPIXBUF"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
+	if err != nil {
+		panic(err)
+	}
+
+	core.PuregoSafeRegister(&xPixbufFormatCopy, lib, "gdk_pixbuf_format_copy")
+	core.PuregoSafeRegister(&xPixbufFormatFree, lib, "gdk_pixbuf_format_free")
+	core.PuregoSafeRegister(&xPixbufFormatGetDescription, lib, "gdk_pixbuf_format_get_description")
+	core.PuregoSafeRegister(&xPixbufFormatGetExtensions, lib, "gdk_pixbuf_format_get_extensions")
+	core.PuregoSafeRegister(&xPixbufFormatGetLicense, lib, "gdk_pixbuf_format_get_license")
+	core.PuregoSafeRegister(&xPixbufFormatGetMimeTypes, lib, "gdk_pixbuf_format_get_mime_types")
+	core.PuregoSafeRegister(&xPixbufFormatGetName, lib, "gdk_pixbuf_format_get_name")
+	core.PuregoSafeRegister(&xPixbufFormatIsDisabled, lib, "gdk_pixbuf_format_is_disabled")
+	core.PuregoSafeRegister(&xPixbufFormatIsSaveOptionSupported, lib, "gdk_pixbuf_format_is_save_option_supported")
+	core.PuregoSafeRegister(&xPixbufFormatIsScalable, lib, "gdk_pixbuf_format_is_scalable")
+	core.PuregoSafeRegister(&xPixbufFormatIsWritable, lib, "gdk_pixbuf_format_is_writable")
+	core.PuregoSafeRegister(&xPixbufFormatSetDisabled, lib, "gdk_pixbuf_format_set_disabled")
+
+}

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type SocketConnectionClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketConnectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketConnectionPrivate struct {
+}
+
+func (x *SocketConnectionPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSocketConnection is a #GIOStream for a connected socket. They
@@ -169,6 +179,30 @@ func (c *SocketConnection) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xSocketConnectionFactoryLookupType func(SocketFamily, SocketType, int) []interface{}
+
+// Looks up the #GType to be used when creating socket connections on
+// sockets with the specified @family, @type and @protocol_id.
+//
+// If no type is registered, the #GSocketConnection base type is returned.
+func SocketConnectionFactoryLookupType(FamilyVar SocketFamily, TypeVar SocketType, ProtocolIdVar int) []interface{} {
+
+	cret := xSocketConnectionFactoryLookupType(FamilyVar, TypeVar, ProtocolIdVar)
+	return cret
+}
+
+var xSocketConnectionFactoryRegisterType func([]interface{}, SocketFamily, SocketType, int)
+
+// Looks up the #GType to be used when creating socket connections on
+// sockets with the specified @family, @type and @protocol.
+//
+// If no type is registered, the #GSocketConnection base type is returned.
+func SocketConnectionFactoryRegisterType(GTypeVar []interface{}, FamilyVar SocketFamily, TypeVar SocketType, ProtocolVar int) {
+
+	xSocketConnectionFactoryRegisterType(GTypeVar, FamilyVar, TypeVar, ProtocolVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -182,5 +216,8 @@ func init() {
 	core.PuregoSafeRegister(&xSocketConnectionGetRemoteAddress, lib, "g_socket_connection_get_remote_address")
 	core.PuregoSafeRegister(&xSocketConnectionGetSocket, lib, "g_socket_connection_get_socket")
 	core.PuregoSafeRegister(&xSocketConnectionIsConnected, lib, "g_socket_connection_is_connected")
+
+	core.PuregoSafeRegister(&xSocketConnectionFactoryLookupType, lib, "g_socket_connection_factory_lookup_type")
+	core.PuregoSafeRegister(&xSocketConnectionFactoryRegisterType, lib, "g_socket_connection_factory_register_type")
 
 }

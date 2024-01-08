@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type GestureDragClass struct {
+}
+
+func (x *GestureDragClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkGestureDrag` is a `GtkGesture` implementation for drags.

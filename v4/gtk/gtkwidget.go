@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -32,6 +34,39 @@ type Requisition struct {
 	Height int
 }
 
+func (x *Requisition) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewRequisition func() *Requisition
+
+// Allocates a new `GtkRequisition`.
+//
+// The struct is initialized to zero.
+func NewRequisition() *Requisition {
+
+	cret := xNewRequisition()
+	return cret
+}
+
+var xRequisitionCopy func(uintptr) *Requisition
+
+// Copies a `GtkRequisition`.
+func (x *Requisition) Copy() *Requisition {
+
+	cret := xRequisitionCopy(x.GoPointer())
+	return cret
+}
+
+var xRequisitionFree func(uintptr)
+
+// Frees a `GtkRequisition`.
+func (x *Requisition) Free() {
+
+	xRequisitionFree(x.GoPointer())
+
+}
+
 type WidgetClass struct {
 	ParentClass uintptr
 
@@ -40,10 +75,361 @@ type WidgetClass struct {
 	Padding uintptr
 }
 
+func (x *WidgetClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xWidgetClassAddBinding func(uintptr, uint, gdk.ModifierType, uintptr, string, ...interface{})
+
+// Creates a new shortcut for @widget_class that calls the given @callback
+// with arguments read according to @format_string.
+//
+// The arguments and format string must be provided in the same way as
+// with g_variant_new().
+//
+// This function is a convenience wrapper around
+// [method@Gtk.WidgetClass.add_shortcut] and must be called during class
+// initialization. It does not provide for user_data, if you need that,
+// you will have to use [method@GtkWidgetClass.add_shortcut] with a custom
+// shortcut.
+func (x *WidgetClass) AddBinding(KeyvalVar uint, ModsVar gdk.ModifierType, CallbackVar ShortcutFunc, FormatStringVar string, varArgs ...interface{}) {
+
+	xWidgetClassAddBinding(x.GoPointer(), KeyvalVar, ModsVar, purego.NewCallback(CallbackVar), FormatStringVar, varArgs...)
+
+}
+
+var xWidgetClassAddBindingAction func(uintptr, uint, gdk.ModifierType, string, string, ...interface{})
+
+// Creates a new shortcut for @widget_class that activates the given
+// @action_name with arguments read according to @format_string.
+//
+// The arguments and format string must be provided in the same way as
+// with g_variant_new().
+//
+// This function is a convenience wrapper around
+// [method@Gtk.WidgetClass.add_shortcut] and must be called during class
+// initialization.
+func (x *WidgetClass) AddBindingAction(KeyvalVar uint, ModsVar gdk.ModifierType, ActionNameVar string, FormatStringVar string, varArgs ...interface{}) {
+
+	xWidgetClassAddBindingAction(x.GoPointer(), KeyvalVar, ModsVar, ActionNameVar, FormatStringVar, varArgs...)
+
+}
+
+var xWidgetClassAddBindingSignal func(uintptr, uint, gdk.ModifierType, string, string, ...interface{})
+
+// Creates a new shortcut for @widget_class that emits the given action
+// @signal with arguments read according to @format_string.
+//
+// The arguments and format string must be provided in the same way as
+// with g_variant_new().
+//
+// This function is a convenience wrapper around
+// [method@Gtk.WidgetClass.add_shortcut] and must be called during class
+// initialization.
+func (x *WidgetClass) AddBindingSignal(KeyvalVar uint, ModsVar gdk.ModifierType, SignalVar string, FormatStringVar string, varArgs ...interface{}) {
+
+	xWidgetClassAddBindingSignal(x.GoPointer(), KeyvalVar, ModsVar, SignalVar, FormatStringVar, varArgs...)
+
+}
+
+var xWidgetClassAddShortcut func(uintptr, uintptr)
+
+// Installs a shortcut in @widget_class.
+//
+// Every instance created for @widget_class or its subclasses will
+// inherit this shortcut and trigger it.
+//
+// Shortcuts added this way will be triggered in the %GTK_PHASE_BUBBLE
+// phase, which means they may also trigger if child widgets have focus.
+//
+// This function must only be used in class initialization functions
+// otherwise it is not guaranteed that the shortcut will be installed.
+func (x *WidgetClass) AddShortcut(ShortcutVar *Shortcut) {
+
+	xWidgetClassAddShortcut(x.GoPointer(), ShortcutVar.GoPointer())
+
+}
+
+var xWidgetClassBindTemplateCallbackFull func(uintptr, string, uintptr)
+
+// Declares a @callback_symbol to handle @callback_name from
+// the template XML defined for @widget_type.
+//
+// This function is not supported after [method@Gtk.WidgetClass.set_template_scope]
+// has been used on @widget_class. See [method@Gtk.BuilderCScope.add_callback_symbol].
+//
+// Note that this must be called from a composite widget classes
+// class initializer after calling [method@Gtk.WidgetClass.set_template].
+func (x *WidgetClass) BindTemplateCallbackFull(CallbackNameVar string, CallbackSymbolVar gobject.Callback) {
+
+	xWidgetClassBindTemplateCallbackFull(x.GoPointer(), CallbackNameVar, purego.NewCallback(CallbackSymbolVar))
+
+}
+
+var xWidgetClassBindTemplateChildFull func(uintptr, string, bool, int)
+
+// Automatically assign an object declared in the class template XML to
+// be set to a location on a freshly built instance’s private data, or
+// alternatively accessible via [method@Gtk.Widget.get_template_child].
+//
+// The struct can point either into the public instance, then you should
+// use `G_STRUCT_OFFSET(WidgetType, member)` for @struct_offset, or in the
+// private struct, then you should use `G_PRIVATE_OFFSET(WidgetType, member)`.
+//
+// An explicit strong reference will be held automatically for the duration
+// of your instance’s life cycle, it will be released automatically when
+// `GObjectClass.dispose()` runs on your instance and if a @struct_offset
+// that is `!= 0` is specified, then the automatic location in your instance
+// public or private data will be set to %NULL. You can however access an
+// automated child pointer the first time your classes `GObjectClass.dispose()`
+// runs, or alternatively in [signal@Gtk.Widget::destroy].
+//
+// If @internal_child is specified, [vfunc@Gtk.Buildable.get_internal_child]
+// will be automatically implemented by the `GtkWidget` class so there is no
+// need to implement it manually.
+//
+// The wrapper macros [func@Gtk.widget_class_bind_template_child],
+// [func@Gtk.widget_class_bind_template_child_internal],
+// [func@Gtk.widget_class_bind_template_child_private] and
+// [func@Gtk.widget_class_bind_template_child_internal_private]
+// might be more convenient to use.
+//
+// Note that this must be called from a composite widget classes class
+// initializer after calling [method@Gtk.WidgetClass.set_template].
+func (x *WidgetClass) BindTemplateChildFull(NameVar string, InternalChildVar bool, StructOffsetVar int) {
+
+	xWidgetClassBindTemplateChildFull(x.GoPointer(), NameVar, InternalChildVar, StructOffsetVar)
+
+}
+
+var xWidgetClassGetAccessibleRole func(uintptr) AccessibleRole
+
+// Retrieves the accessible role used by the given `GtkWidget` class.
+//
+// Different accessible roles have different states, and are rendered
+// differently by assistive technologies.
+//
+// See also: [method@Gtk.Accessible.get_accessible_role].
+func (x *WidgetClass) GetAccessibleRole() AccessibleRole {
+
+	cret := xWidgetClassGetAccessibleRole(x.GoPointer())
+	return cret
+}
+
+var xWidgetClassGetActivateSignal func(uintptr) uint
+
+// Retrieves the signal id for the activation signal.
+//
+// the activation signal is set using
+// [method@Gtk.WidgetClass.set_activate_signal].
+func (x *WidgetClass) GetActivateSignal() uint {
+
+	cret := xWidgetClassGetActivateSignal(x.GoPointer())
+	return cret
+}
+
+var xWidgetClassGetCssName func(uintptr) string
+
+// Gets the name used by this class for matching in CSS code.
+//
+// See [method@Gtk.WidgetClass.set_css_name] for details.
+func (x *WidgetClass) GetCssName() string {
+
+	cret := xWidgetClassGetCssName(x.GoPointer())
+	return cret
+}
+
+var xWidgetClassGetLayoutManagerType func(uintptr) []interface{}
+
+// Retrieves the type of the [class@Gtk.LayoutManager]
+// used by widgets of class @widget_class.
+//
+// See also: [method@Gtk.WidgetClass.set_layout_manager_type].
+func (x *WidgetClass) GetLayoutManagerType() []interface{} {
+
+	cret := xWidgetClassGetLayoutManagerType(x.GoPointer())
+	return cret
+}
+
+var xWidgetClassInstallAction func(uintptr, string, string, uintptr)
+
+// This should be called at class initialization time to specify
+// actions to be added for all instances of this class.
+//
+// Actions installed by this function are stateless. The only state
+// they have is whether they are enabled or not.
+func (x *WidgetClass) InstallAction(ActionNameVar string, ParameterTypeVar string, ActivateVar WidgetActionActivateFunc) {
+
+	xWidgetClassInstallAction(x.GoPointer(), ActionNameVar, ParameterTypeVar, purego.NewCallback(ActivateVar))
+
+}
+
+var xWidgetClassInstallPropertyAction func(uintptr, string, string)
+
+// Installs an action called @action_name on @widget_class and
+// binds its state to the value of the @property_name property.
+//
+// This function will perform a few santity checks on the property selected
+// via @property_name. Namely, the property must exist, must be readable,
+// writable and must not be construct-only. There are also restrictions
+// on the type of the given property, it must be boolean, int, unsigned int,
+// double or string. If any of these conditions are not met, a critical
+// warning will be printed and no action will be added.
+//
+// The state type of the action matches the property type.
+//
+// If the property is boolean, the action will have no parameter and
+// toggle the property value. Otherwise, the action will have a parameter
+// of the same type as the property.
+func (x *WidgetClass) InstallPropertyAction(ActionNameVar string, PropertyNameVar string) {
+
+	xWidgetClassInstallPropertyAction(x.GoPointer(), ActionNameVar, PropertyNameVar)
+
+}
+
+var xWidgetClassQueryAction func(uintptr, uint, []interface{}, string, **glib.VariantType, string) bool
+
+// Returns details about the @index_-th action that has been
+// installed for @widget_class during class initialization.
+//
+// See [method@Gtk.WidgetClass.install_action] for details on
+// how to install actions.
+//
+// Note that this function will also return actions defined
+// by parent classes. You can identify those by looking
+// at @owner.
+func (x *WidgetClass) QueryAction(IndexVar uint, OwnerVar []interface{}, ActionNameVar string, ParameterTypeVar **glib.VariantType, PropertyNameVar string) bool {
+
+	cret := xWidgetClassQueryAction(x.GoPointer(), IndexVar, OwnerVar, ActionNameVar, ParameterTypeVar, PropertyNameVar)
+	return cret
+}
+
+var xWidgetClassSetAccessibleRole func(uintptr, AccessibleRole)
+
+// Sets the accessible role used by the given `GtkWidget` class.
+//
+// Different accessible roles have different states, and are
+// rendered differently by assistive technologies.
+func (x *WidgetClass) SetAccessibleRole(AccessibleRoleVar AccessibleRole) {
+
+	xWidgetClassSetAccessibleRole(x.GoPointer(), AccessibleRoleVar)
+
+}
+
+var xWidgetClassSetActivateSignal func(uintptr, uint)
+
+// Sets the `GtkWidgetClass.activate_signal` field with the
+// given @signal_id.
+//
+// The signal will be emitted when calling [method@Gtk.Widget.activate].
+//
+// The @signal_id must have been registered with `g_signal_new()`
+// or g_signal_newv() before calling this function.
+func (x *WidgetClass) SetActivateSignal(SignalIdVar uint) {
+
+	xWidgetClassSetActivateSignal(x.GoPointer(), SignalIdVar)
+
+}
+
+var xWidgetClassSetActivateSignalFromName func(uintptr, string)
+
+// Sets the `GtkWidgetClass.activate_signal` field with the signal id for
+// the given @signal_name.
+//
+// The signal will be emitted when calling [method@Gtk.Widget.activate].
+//
+// The @signal_name of @widget_type must have been registered with
+// g_signal_new() or g_signal_newv() before calling this function.
+func (x *WidgetClass) SetActivateSignalFromName(SignalNameVar string) {
+
+	xWidgetClassSetActivateSignalFromName(x.GoPointer(), SignalNameVar)
+
+}
+
+var xWidgetClassSetCssName func(uintptr, string)
+
+// Sets the name to be used for CSS matching of widgets.
+//
+// If this function is not called for a given class, the name
+// set on the parent class is used. By default, `GtkWidget`
+// uses the name "widget".
+func (x *WidgetClass) SetCssName(NameVar string) {
+
+	xWidgetClassSetCssName(x.GoPointer(), NameVar)
+
+}
+
+var xWidgetClassSetLayoutManagerType func(uintptr, []interface{})
+
+// Sets the type to be used for creating layout managers for
+// widgets of @widget_class.
+//
+// The given @type must be a subtype of [class@Gtk.LayoutManager].
+//
+// This function should only be called from class init functions
+// of widgets.
+func (x *WidgetClass) SetLayoutManagerType(TypeVar []interface{}) {
+
+	xWidgetClassSetLayoutManagerType(x.GoPointer(), TypeVar)
+
+}
+
+var xWidgetClassSetTemplate func(uintptr, *glib.Bytes)
+
+// This should be called at class initialization time to specify
+// the `GtkBuilder` XML to be used to extend a widget.
+//
+// For convenience, [method@Gtk.WidgetClass.set_template_from_resource]
+// is also provided.
+//
+// Note that any class that installs templates must call
+// [method@Gtk.Widget.init_template] in the widget’s instance initializer.
+func (x *WidgetClass) SetTemplate(TemplateBytesVar *glib.Bytes) {
+
+	xWidgetClassSetTemplate(x.GoPointer(), TemplateBytesVar)
+
+}
+
+var xWidgetClassSetTemplateFromResource func(uintptr, string)
+
+// A convenience function that calls [method@Gtk.WidgetClass.set_template]
+// with the contents of a `GResource`.
+//
+// Note that any class that installs templates must call
+// [method@Gtk.Widget.init_template] in the widget’s instance
+// initializer.
+func (x *WidgetClass) SetTemplateFromResource(ResourceNameVar string) {
+
+	xWidgetClassSetTemplateFromResource(x.GoPointer(), ResourceNameVar)
+
+}
+
+var xWidgetClassSetTemplateScope func(uintptr, uintptr)
+
+// For use in language bindings, this will override the default
+// `GtkBuilderScope` to be used when parsing GtkBuilder XML from
+// this class’s template data.
+//
+// Note that this must be called from a composite widget classes class
+// initializer after calling [method@GtkWidgetClass.set_template].
+func (x *WidgetClass) SetTemplateScope(ScopeVar BuilderScope) {
+
+	xWidgetClassSetTemplateScope(x.GoPointer(), ScopeVar.GoPointer())
+
+}
+
 type WidgetClassPrivate struct {
 }
 
+func (x *WidgetClassPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type WidgetPrivate struct {
+}
+
+func (x *WidgetPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The rectangle representing the area allocated for a widget by its parent.
@@ -3413,11 +3799,60 @@ func (x *Widget) GetBuildableId() string {
 	return cret
 }
 
+var xWidgetGetDefaultDirection func() TextDirection
+
+// Obtains the current default reading direction.
+//
+// See [func@Gtk.Widget.set_default_direction].
+func WidgetGetDefaultDirection() TextDirection {
+
+	cret := xWidgetGetDefaultDirection()
+	return cret
+}
+
+var xWidgetSetDefaultDirection func(TextDirection)
+
+// Sets the default reading direction for widgets.
+//
+// See [method@Gtk.Widget.set_direction].
+func WidgetSetDefaultDirection(DirVar TextDirection) {
+
+	xWidgetSetDefaultDirection(DirVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNewRequisition, lib, "gtk_requisition_new")
+
+	core.PuregoSafeRegister(&xRequisitionCopy, lib, "gtk_requisition_copy")
+	core.PuregoSafeRegister(&xRequisitionFree, lib, "gtk_requisition_free")
+
+	core.PuregoSafeRegister(&xWidgetClassAddBinding, lib, "gtk_widget_class_add_binding")
+	core.PuregoSafeRegister(&xWidgetClassAddBindingAction, lib, "gtk_widget_class_add_binding_action")
+	core.PuregoSafeRegister(&xWidgetClassAddBindingSignal, lib, "gtk_widget_class_add_binding_signal")
+	core.PuregoSafeRegister(&xWidgetClassAddShortcut, lib, "gtk_widget_class_add_shortcut")
+	core.PuregoSafeRegister(&xWidgetClassBindTemplateCallbackFull, lib, "gtk_widget_class_bind_template_callback_full")
+	core.PuregoSafeRegister(&xWidgetClassBindTemplateChildFull, lib, "gtk_widget_class_bind_template_child_full")
+	core.PuregoSafeRegister(&xWidgetClassGetAccessibleRole, lib, "gtk_widget_class_get_accessible_role")
+	core.PuregoSafeRegister(&xWidgetClassGetActivateSignal, lib, "gtk_widget_class_get_activate_signal")
+	core.PuregoSafeRegister(&xWidgetClassGetCssName, lib, "gtk_widget_class_get_css_name")
+	core.PuregoSafeRegister(&xWidgetClassGetLayoutManagerType, lib, "gtk_widget_class_get_layout_manager_type")
+	core.PuregoSafeRegister(&xWidgetClassInstallAction, lib, "gtk_widget_class_install_action")
+	core.PuregoSafeRegister(&xWidgetClassInstallPropertyAction, lib, "gtk_widget_class_install_property_action")
+	core.PuregoSafeRegister(&xWidgetClassQueryAction, lib, "gtk_widget_class_query_action")
+	core.PuregoSafeRegister(&xWidgetClassSetAccessibleRole, lib, "gtk_widget_class_set_accessible_role")
+	core.PuregoSafeRegister(&xWidgetClassSetActivateSignal, lib, "gtk_widget_class_set_activate_signal")
+	core.PuregoSafeRegister(&xWidgetClassSetActivateSignalFromName, lib, "gtk_widget_class_set_activate_signal_from_name")
+	core.PuregoSafeRegister(&xWidgetClassSetCssName, lib, "gtk_widget_class_set_css_name")
+	core.PuregoSafeRegister(&xWidgetClassSetLayoutManagerType, lib, "gtk_widget_class_set_layout_manager_type")
+	core.PuregoSafeRegister(&xWidgetClassSetTemplate, lib, "gtk_widget_class_set_template")
+	core.PuregoSafeRegister(&xWidgetClassSetTemplateFromResource, lib, "gtk_widget_class_set_template_from_resource")
+	core.PuregoSafeRegister(&xWidgetClassSetTemplateScope, lib, "gtk_widget_class_set_template_scope")
 
 	core.PuregoSafeRegister(&xWidgetActionSetEnabled, lib, "gtk_widget_action_set_enabled")
 	core.PuregoSafeRegister(&xWidgetActivate, lib, "gtk_widget_activate")
@@ -3579,5 +4014,8 @@ func init() {
 	core.PuregoSafeRegister(&xWidgetUnparent, lib, "gtk_widget_unparent")
 	core.PuregoSafeRegister(&xWidgetUnrealize, lib, "gtk_widget_unrealize")
 	core.PuregoSafeRegister(&xWidgetUnsetStateFlags, lib, "gtk_widget_unset_state_flags")
+
+	core.PuregoSafeRegister(&xWidgetGetDefaultDirection, lib, "gtk_widget_get_default_direction")
+	core.PuregoSafeRegister(&xWidgetSetDefaultDirection, lib, "gtk_widget_set_default_direction")
 
 }

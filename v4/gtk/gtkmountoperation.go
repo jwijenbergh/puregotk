@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -13,7 +15,15 @@ type MountOperationClass struct {
 	ParentClass uintptr
 }
 
+func (x *MountOperationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MountOperationPrivate struct {
+}
+
+func (x *MountOperationPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkMountOperation` is an implementation of `GMountOperation`.

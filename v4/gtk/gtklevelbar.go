@@ -7,6 +7,15 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
+const (
+	// The name used for the stock full offset included by `GtkLevelBar`.
+	LEVEL_BAR_OFFSET_FULL string = "full"
+	// The name used for the stock high offset included by `GtkLevelBar`.
+	LEVEL_BAR_OFFSET_HIGH string = "high"
+	// The name used for the stock low offset included by `GtkLevelBar`.
+	LEVEL_BAR_OFFSET_LOW string = "low"
+)
+
 // `GtkLevelBar` is a widget that can be used as a level indicator.
 //
 // Typical use cases are displaying the strength of a password, or

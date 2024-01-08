@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -17,7 +19,15 @@ type FontsetClass struct {
 	ParentClass uintptr
 }
 
+func (x *FontsetClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FontsetSimpleClass struct {
+}
+
+func (x *FontsetSimpleClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoFontset` represents a set of `PangoFont` to use when rendering text.

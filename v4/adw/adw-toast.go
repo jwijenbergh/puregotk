@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 
 type ToastClass struct {
 	ParentClass uintptr
+}
+
+func (x *ToastClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // [class@Toast] behavior when another toast is already displayed.

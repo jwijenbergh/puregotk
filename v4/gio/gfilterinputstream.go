@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type FilterInputStreamClass struct {
 	ParentClass uintptr
+}
+
+func (x *FilterInputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Base class for input stream implementations that perform some

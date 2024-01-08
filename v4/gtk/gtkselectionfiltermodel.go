@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -10,6 +12,10 @@ import (
 
 type SelectionFilterModelClass struct {
 	ParentClass uintptr
+}
+
+func (x *SelectionFilterModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkSelectionFilterModel` is a list model that presents the selection from

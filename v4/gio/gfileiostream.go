@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,7 +13,15 @@ type FileIOStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *FileIOStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FileIOStreamPrivate struct {
+}
+
+func (x *FileIOStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // GFileIOStream provides io streams that both read and write to the same

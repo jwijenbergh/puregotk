@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -35,6 +37,10 @@ type SignalInvocationHint struct {
 	RunType SignalFlags
 }
 
+func (x *SignalInvocationHint) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A structure holding in-depth information for a specific signal.
 //
 // See also: g_signal_query()
@@ -54,6 +60,10 @@ type SignalQuery struct {
 	ParamTypes uintptr
 }
 
+func (x *SignalQuery) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // This is the signature of marshaller functions, required to marshall
 // arrays of parameter values to signal emissions into C language callback
 // invocations.
@@ -67,6 +77,13 @@ type SignalCMarshaller = ClosureMarshal
 // marshaller that can be used in some situations to avoid
 // marshalling the signal argument into GValues.
 type SignalCVaMarshaller = VaClosureMarshal
+
+const (
+	// A mask for all #GSignalFlags bits.
+	SIGNAL_FLAGS_MASK int = 511
+	// A mask for all #GSignalMatchType bits.
+	SIGNAL_MATCH_MASK int = 63
+)
 
 // The connection flags are used to specify the behaviour of a signal's
 // connection.

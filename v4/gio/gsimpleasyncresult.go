@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -9,6 +11,10 @@ import (
 )
 
 type SimpleAsyncResultClass struct {
+}
+
+func (x *SimpleAsyncResultClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xSimpleAsyncReportErrorInIdle func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{})
@@ -559,6 +565,26 @@ func (x *SimpleAsyncResult) LegacyPropagateError() (bool, error) {
 
 }
 
+var xSimpleAsyncResultIsValid func(uintptr, uintptr, uintptr) bool
+
+// Ensures that the data passed to the _finish function of an async
+// operation is consistent.  Three checks are performed.
+//
+// First, @result is checked to ensure that it is really a
+// #GSimpleAsyncResult.  Second, @source is checked to ensure that it
+// matches the source object of @result.  Third, @source_tag is
+// checked to ensure that it is equal to the @source_tag argument given
+// to g_simple_async_result_new() (which, by convention, is a pointer
+// to the _async function corresponding to the _finish function from
+// which this function is called).  (Alternatively, if either
+// @source_tag or @result's source tag is %NULL, then the source tag
+// check is skipped.)
+func SimpleAsyncResultIsValid(ResultVar AsyncResult, SourceVar *gobject.Object, SourceTagVar uintptr) bool {
+
+	cret := xSimpleAsyncResultIsValid(ResultVar.GoPointer(), SourceVar.GoPointer(), SourceTagVar)
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -590,5 +616,7 @@ func init() {
 	core.PuregoSafeRegister(&xSimpleAsyncResultSetOpResGpointer, lib, "g_simple_async_result_set_op_res_gpointer")
 	core.PuregoSafeRegister(&xSimpleAsyncResultSetOpResGssize, lib, "g_simple_async_result_set_op_res_gssize")
 	core.PuregoSafeRegister(&xSimpleAsyncResultTakeError, lib, "g_simple_async_result_take_error")
+
+	core.PuregoSafeRegister(&xSimpleAsyncResultIsValid, lib, "g_simple_async_result_is_valid")
 
 }

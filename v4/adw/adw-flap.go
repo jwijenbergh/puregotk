@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 
 type FlapClass struct {
 	ParentClass uintptr
+}
+
+func (x *FlapClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes the possible folding behavior of a [class@Flap] widget.

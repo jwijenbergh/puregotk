@@ -8,6 +8,14 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
+const (
+	// Constant to return from a signal handler for the ::input
+	// signal in case of conversion failure.
+	//
+	// See [signal@Gtk.SpinButton::input].
+	INPUT_ERROR int = -1
+)
+
 // Determines whether the spin button displays values outside the adjustment
 // bounds.
 //

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,6 +14,10 @@ type TlsFileDatabaseInterface struct {
 	GIface uintptr
 
 	Padding uintptr
+}
+
+func (x *TlsFileDatabaseInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GTlsFileDatabase is implemented by #GTlsDatabase objects which load

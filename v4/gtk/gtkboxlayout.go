@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type BoxLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *BoxLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkBoxLayout` is a layout manager that arranges children in a single

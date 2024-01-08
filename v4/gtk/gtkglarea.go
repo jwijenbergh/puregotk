@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -14,6 +16,10 @@ type GLAreaClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *GLAreaClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkGLArea` is a widget that allows drawing with OpenGL.

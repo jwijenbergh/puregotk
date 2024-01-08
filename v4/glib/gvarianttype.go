@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -177,6 +179,388 @@ import (
 type VariantType struct {
 }
 
+func (x *VariantType) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewVariantType func(string) *VariantType
+
+// Creates a new #GVariantType corresponding to the type string given
+// by @type_string.  It is appropriate to call g_variant_type_free() on
+// the return value.
+//
+// It is a programmer error to call this function with an invalid type
+// string.  Use g_variant_type_string_is_valid() if you are unsure.
+func NewVariantType(TypeStringVar string) *VariantType {
+
+	cret := xNewVariantType(TypeStringVar)
+	return cret
+}
+
+var xNewArrayVariantType func(*VariantType) *VariantType
+
+// Constructs the type corresponding to an array of elements of the
+// type @type.
+//
+// It is appropriate to call g_variant_type_free() on the return value.
+func NewArrayVariantType(ElementVar *VariantType) *VariantType {
+
+	cret := xNewArrayVariantType(ElementVar)
+	return cret
+}
+
+var xNewDictEntryVariantType func(*VariantType, *VariantType) *VariantType
+
+// Constructs the type corresponding to a dictionary entry with a key
+// of type @key and a value of type @value.
+//
+// It is appropriate to call g_variant_type_free() on the return value.
+func NewDictEntryVariantType(KeyVar *VariantType, ValueVar *VariantType) *VariantType {
+
+	cret := xNewDictEntryVariantType(KeyVar, ValueVar)
+	return cret
+}
+
+var xNewMaybeVariantType func(*VariantType) *VariantType
+
+// Constructs the type corresponding to a maybe instance containing
+// type @type or Nothing.
+//
+// It is appropriate to call g_variant_type_free() on the return value.
+func NewMaybeVariantType(ElementVar *VariantType) *VariantType {
+
+	cret := xNewMaybeVariantType(ElementVar)
+	return cret
+}
+
+var xNewTupleVariantType func(uintptr, int) *VariantType
+
+// Constructs a new tuple type, from @items.
+//
+// @length is the number of items in @items, or -1 to indicate that
+// @items is %NULL-terminated.
+//
+// It is appropriate to call g_variant_type_free() on the return value.
+func NewTupleVariantType(ItemsVar uintptr, LengthVar int) *VariantType {
+
+	cret := xNewTupleVariantType(ItemsVar, LengthVar)
+	return cret
+}
+
+var xVariantTypeCopy func(uintptr) *VariantType
+
+// Makes a copy of a #GVariantType.  It is appropriate to call
+// g_variant_type_free() on the return value.  @type may not be %NULL.
+func (x *VariantType) Copy() *VariantType {
+
+	cret := xVariantTypeCopy(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeDupString func(uintptr) string
+
+// Returns a newly-allocated copy of the type string corresponding to
+// @type.  The returned string is nul-terminated.  It is appropriate to
+// call g_free() on the return value.
+func (x *VariantType) DupString() string {
+
+	cret := xVariantTypeDupString(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeElement func(uintptr) *VariantType
+
+// Determines the element type of an array or maybe type.
+//
+// This function may only be used with array or maybe types.
+func (x *VariantType) Element() *VariantType {
+
+	cret := xVariantTypeElement(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeEqual func(uintptr, uintptr) bool
+
+// Compares @type1 and @type2 for equality.
+//
+// Only returns %TRUE if the types are exactly equal.  Even if one type
+// is an indefinite type and the other is a subtype of it, %FALSE will
+// be returned if they are not exactly equal.  If you want to check for
+// subtypes, use g_variant_type_is_subtype_of().
+//
+// The argument types of @type1 and @type2 are only #gconstpointer to
+// allow use with #GHashTable without function pointer casting.  For
+// both arguments, a valid #GVariantType must be provided.
+func (x *VariantType) Equal(Type2Var uintptr) bool {
+
+	cret := xVariantTypeEqual(x.GoPointer(), Type2Var)
+	return cret
+}
+
+var xVariantTypeFirst func(uintptr) *VariantType
+
+// Determines the first item type of a tuple or dictionary entry
+// type.
+//
+// This function may only be used with tuple or dictionary entry types,
+// but must not be used with the generic tuple type
+// %G_VARIANT_TYPE_TUPLE.
+//
+// In the case of a dictionary entry type, this returns the type of
+// the key.
+//
+// %NULL is returned in case of @type being %G_VARIANT_TYPE_UNIT.
+//
+// This call, together with g_variant_type_next() provides an iterator
+// interface over tuple and dictionary entry types.
+func (x *VariantType) First() *VariantType {
+
+	cret := xVariantTypeFirst(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeFree func(uintptr)
+
+// Frees a #GVariantType that was allocated with
+// g_variant_type_copy(), g_variant_type_new() or one of the container
+// type constructor functions.
+//
+// In the case that @type is %NULL, this function does nothing.
+//
+// Since 2.24
+func (x *VariantType) Free() {
+
+	xVariantTypeFree(x.GoPointer())
+
+}
+
+var xVariantTypeGetStringLength func(uintptr) uint
+
+// Returns the length of the type string corresponding to the given
+// @type.  This function must be used to determine the valid extent of
+// the memory region returned by g_variant_type_peek_string().
+func (x *VariantType) GetStringLength() uint {
+
+	cret := xVariantTypeGetStringLength(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeHash func(uintptr) uint
+
+// Hashes @type.
+//
+// The argument type of @type is only #gconstpointer to allow use with
+// #GHashTable without function pointer casting.  A valid
+// #GVariantType must be provided.
+func (x *VariantType) Hash() uint {
+
+	cret := xVariantTypeHash(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsArray func(uintptr) bool
+
+// Determines if the given @type is an array type.  This is true if the
+// type string for @type starts with an 'a'.
+//
+// This function returns %TRUE for any indefinite type for which every
+// definite subtype is an array type -- %G_VARIANT_TYPE_ARRAY, for
+// example.
+func (x *VariantType) IsArray() bool {
+
+	cret := xVariantTypeIsArray(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsBasic func(uintptr) bool
+
+// Determines if the given @type is a basic type.
+//
+// Basic types are booleans, bytes, integers, doubles, strings, object
+// paths and signatures.
+//
+// Only a basic type may be used as the key of a dictionary entry.
+//
+// This function returns %FALSE for all indefinite types except
+// %G_VARIANT_TYPE_BASIC.
+func (x *VariantType) IsBasic() bool {
+
+	cret := xVariantTypeIsBasic(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsContainer func(uintptr) bool
+
+// Determines if the given @type is a container type.
+//
+// Container types are any array, maybe, tuple, or dictionary
+// entry types plus the variant type.
+//
+// This function returns %TRUE for any indefinite type for which every
+// definite subtype is a container -- %G_VARIANT_TYPE_ARRAY, for
+// example.
+func (x *VariantType) IsContainer() bool {
+
+	cret := xVariantTypeIsContainer(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsDefinite func(uintptr) bool
+
+// Determines if the given @type is definite (ie: not indefinite).
+//
+// A type is definite if its type string does not contain any indefinite
+// type characters ('*', '?', or 'r').
+//
+// A #GVariant instance may not have an indefinite type, so calling
+// this function on the result of g_variant_get_type() will always
+// result in %TRUE being returned.  Calling this function on an
+// indefinite type like %G_VARIANT_TYPE_ARRAY, however, will result in
+// %FALSE being returned.
+func (x *VariantType) IsDefinite() bool {
+
+	cret := xVariantTypeIsDefinite(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsDictEntry func(uintptr) bool
+
+// Determines if the given @type is a dictionary entry type.  This is
+// true if the type string for @type starts with a '{'.
+//
+// This function returns %TRUE for any indefinite type for which every
+// definite subtype is a dictionary entry type --
+// %G_VARIANT_TYPE_DICT_ENTRY, for example.
+func (x *VariantType) IsDictEntry() bool {
+
+	cret := xVariantTypeIsDictEntry(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsMaybe func(uintptr) bool
+
+// Determines if the given @type is a maybe type.  This is true if the
+// type string for @type starts with an 'm'.
+//
+// This function returns %TRUE for any indefinite type for which every
+// definite subtype is a maybe type -- %G_VARIANT_TYPE_MAYBE, for
+// example.
+func (x *VariantType) IsMaybe() bool {
+
+	cret := xVariantTypeIsMaybe(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsSubtypeOf func(uintptr, *VariantType) bool
+
+// Checks if @type is a subtype of @supertype.
+//
+// This function returns %TRUE if @type is a subtype of @supertype.  All
+// types are considered to be subtypes of themselves.  Aside from that,
+// only indefinite types can have subtypes.
+func (x *VariantType) IsSubtypeOf(SupertypeVar *VariantType) bool {
+
+	cret := xVariantTypeIsSubtypeOf(x.GoPointer(), SupertypeVar)
+	return cret
+}
+
+var xVariantTypeIsTuple func(uintptr) bool
+
+// Determines if the given @type is a tuple type.  This is true if the
+// type string for @type starts with a '(' or if @type is
+// %G_VARIANT_TYPE_TUPLE.
+//
+// This function returns %TRUE for any indefinite type for which every
+// definite subtype is a tuple type -- %G_VARIANT_TYPE_TUPLE, for
+// example.
+func (x *VariantType) IsTuple() bool {
+
+	cret := xVariantTypeIsTuple(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeIsVariant func(uintptr) bool
+
+// Determines if the given @type is the variant type.
+func (x *VariantType) IsVariant() bool {
+
+	cret := xVariantTypeIsVariant(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeKey func(uintptr) *VariantType
+
+// Determines the key type of a dictionary entry type.
+//
+// This function may only be used with a dictionary entry type.  Other
+// than the additional restriction, this call is equivalent to
+// g_variant_type_first().
+func (x *VariantType) Key() *VariantType {
+
+	cret := xVariantTypeKey(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeNItems func(uintptr) uint
+
+// Determines the number of items contained in a tuple or
+// dictionary entry type.
+//
+// This function may only be used with tuple or dictionary entry types,
+// but must not be used with the generic tuple type
+// %G_VARIANT_TYPE_TUPLE.
+//
+// In the case of a dictionary entry type, this function will always
+// return 2.
+func (x *VariantType) NItems() uint {
+
+	cret := xVariantTypeNItems(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeNext func(uintptr) *VariantType
+
+// Determines the next item type of a tuple or dictionary entry
+// type.
+//
+// @type must be the result of a previous call to
+// g_variant_type_first() or g_variant_type_next().
+//
+// If called on the key type of a dictionary entry then this call
+// returns the value type.  If called on the value type of a dictionary
+// entry then this call returns %NULL.
+//
+// For tuples, %NULL is returned when @type is the last item in a tuple.
+func (x *VariantType) Next() *VariantType {
+
+	cret := xVariantTypeNext(x.GoPointer())
+	return cret
+}
+
+var xVariantTypePeekString func(uintptr) string
+
+// Returns the type string corresponding to the given @type.  The
+// result is not nul-terminated; in order to determine its length you
+// must call g_variant_type_get_string_length().
+//
+// To get a nul-terminated string, see g_variant_type_dup_string().
+func (x *VariantType) PeekString() string {
+
+	cret := xVariantTypePeekString(x.GoPointer())
+	return cret
+}
+
+var xVariantTypeValue func(uintptr) *VariantType
+
+// Determines the value type of a dictionary entry type.
+//
+// This function may only be used with a dictionary entry type.
+func (x *VariantType) Value() *VariantType {
+
+	cret := xVariantTypeValue(x.GoPointer())
+	return cret
+}
+
 var xVariantTypeChecked func(string) *VariantType
 
 func VariantTypeChecked(Arg0Var string) *VariantType {
@@ -234,5 +618,34 @@ func init() {
 	core.PuregoSafeRegister(&xVariantTypeStringGetDepth, lib, "g_variant_type_string_get_depth_")
 	core.PuregoSafeRegister(&xVariantTypeStringIsValid, lib, "g_variant_type_string_is_valid")
 	core.PuregoSafeRegister(&xVariantTypeStringScan, lib, "g_variant_type_string_scan")
+
+	core.PuregoSafeRegister(&xNewVariantType, lib, "g_variant_type_new")
+	core.PuregoSafeRegister(&xNewArrayVariantType, lib, "g_variant_type_new_array")
+	core.PuregoSafeRegister(&xNewDictEntryVariantType, lib, "g_variant_type_new_dict_entry")
+	core.PuregoSafeRegister(&xNewMaybeVariantType, lib, "g_variant_type_new_maybe")
+	core.PuregoSafeRegister(&xNewTupleVariantType, lib, "g_variant_type_new_tuple")
+
+	core.PuregoSafeRegister(&xVariantTypeCopy, lib, "g_variant_type_copy")
+	core.PuregoSafeRegister(&xVariantTypeDupString, lib, "g_variant_type_dup_string")
+	core.PuregoSafeRegister(&xVariantTypeElement, lib, "g_variant_type_element")
+	core.PuregoSafeRegister(&xVariantTypeEqual, lib, "g_variant_type_equal")
+	core.PuregoSafeRegister(&xVariantTypeFirst, lib, "g_variant_type_first")
+	core.PuregoSafeRegister(&xVariantTypeFree, lib, "g_variant_type_free")
+	core.PuregoSafeRegister(&xVariantTypeGetStringLength, lib, "g_variant_type_get_string_length")
+	core.PuregoSafeRegister(&xVariantTypeHash, lib, "g_variant_type_hash")
+	core.PuregoSafeRegister(&xVariantTypeIsArray, lib, "g_variant_type_is_array")
+	core.PuregoSafeRegister(&xVariantTypeIsBasic, lib, "g_variant_type_is_basic")
+	core.PuregoSafeRegister(&xVariantTypeIsContainer, lib, "g_variant_type_is_container")
+	core.PuregoSafeRegister(&xVariantTypeIsDefinite, lib, "g_variant_type_is_definite")
+	core.PuregoSafeRegister(&xVariantTypeIsDictEntry, lib, "g_variant_type_is_dict_entry")
+	core.PuregoSafeRegister(&xVariantTypeIsMaybe, lib, "g_variant_type_is_maybe")
+	core.PuregoSafeRegister(&xVariantTypeIsSubtypeOf, lib, "g_variant_type_is_subtype_of")
+	core.PuregoSafeRegister(&xVariantTypeIsTuple, lib, "g_variant_type_is_tuple")
+	core.PuregoSafeRegister(&xVariantTypeIsVariant, lib, "g_variant_type_is_variant")
+	core.PuregoSafeRegister(&xVariantTypeKey, lib, "g_variant_type_key")
+	core.PuregoSafeRegister(&xVariantTypeNItems, lib, "g_variant_type_n_items")
+	core.PuregoSafeRegister(&xVariantTypeNext, lib, "g_variant_type_next")
+	core.PuregoSafeRegister(&xVariantTypePeekString, lib, "g_variant_type_peek_string")
+	core.PuregoSafeRegister(&xVariantTypeValue, lib, "g_variant_type_value")
 
 }

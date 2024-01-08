@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,8 +12,16 @@ type GridLayoutChildClass struct {
 	ParentClass uintptr
 }
 
+func (x *GridLayoutChildClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type GridLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *GridLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkGridLayout` is a layout manager which arranges child widgets in

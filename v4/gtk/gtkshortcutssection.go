@@ -2,11 +2,17 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type ShortcutsSectionClass struct {
+}
+
+func (x *ShortcutsSectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkShortcutsSection` collects all the keyboard shortcuts and gestures

@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -13,8 +15,16 @@ type TabPageClass struct {
 	ParentClass uintptr
 }
 
+func (x *TabPageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TabViewClass struct {
 	ParentClass uintptr
+}
+
+func (x *TabViewClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes available shortcuts in an [class@TabView].

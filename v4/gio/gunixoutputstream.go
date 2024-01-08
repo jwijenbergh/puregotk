@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,7 +13,15 @@ type UnixOutputStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *UnixOutputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type UnixOutputStreamPrivate struct {
+}
+
+func (x *UnixOutputStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GUnixOutputStream implements #GOutputStream for writing to a UNIX

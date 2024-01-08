@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,6 +14,10 @@ type PreferencesGroupClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *PreferencesGroupClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A group of preference rows.

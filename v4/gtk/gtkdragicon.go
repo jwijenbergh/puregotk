@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 
 type DragIconClass struct {
 	ParentClass uintptr
+}
+
+func (x *DragIconClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkDragIcon` is a `GtkRoot` implementation for drag icons.
@@ -318,6 +324,64 @@ func (x *DragIcon) SetFocus(FocusVar *Widget) {
 
 }
 
+var xDragIconCreateWidgetForValue func(*gobject.Value) uintptr
+
+// Creates a widget that can be used as a drag icon for the given
+// @value.
+//
+// Supported types include strings, `GdkRGBA` and `GtkTextBuffer`.
+// If GTK does not know how to create a widget for a given value,
+// it will return %NULL.
+//
+// This method is used to set the default drag icon on drag-and-drop
+// operations started by `GtkDragSource`, so you don't need to set
+// a drag icon using this function there.
+func DragIconCreateWidgetForValue(ValueVar *gobject.Value) *Widget {
+	var cls *Widget
+
+	cret := xDragIconCreateWidgetForValue(ValueVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xDragIconGetForDrag func(uintptr) uintptr
+
+// Gets the `GtkDragIcon` in use with @drag.
+//
+// If no drag icon exists yet, a new one will be created
+// and shown.
+func DragIconGetForDrag(DragVar *gdk.Drag) *Widget {
+	var cls *Widget
+
+	cret := xDragIconGetForDrag(DragVar.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Widget{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xDragIconSetFromPaintable func(uintptr, uintptr, int, int)
+
+// Creates a `GtkDragIcon` that shows @paintable, and associates
+// it with the drag operation.
+//
+// The hotspot position on the paintable is aligned with the
+// hotspot of the cursor.
+func DragIconSetFromPaintable(DragVar *gdk.Drag, PaintableVar gdk.Paintable, HotXVar int, HotYVar int) {
+
+	xDragIconSetFromPaintable(DragVar.GoPointer(), PaintableVar.GoPointer(), HotXVar, HotYVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -326,5 +390,9 @@ func init() {
 
 	core.PuregoSafeRegister(&xDragIconGetChild, lib, "gtk_drag_icon_get_child")
 	core.PuregoSafeRegister(&xDragIconSetChild, lib, "gtk_drag_icon_set_child")
+
+	core.PuregoSafeRegister(&xDragIconCreateWidgetForValue, lib, "gtk_drag_icon_create_widget_for_value")
+	core.PuregoSafeRegister(&xDragIconGetForDrag, lib, "gtk_drag_icon_get_for_drag")
+	core.PuregoSafeRegister(&xDragIconSetFromPaintable, lib, "gtk_drag_icon_set_from_paintable")
 
 }

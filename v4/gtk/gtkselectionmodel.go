@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -20,6 +22,10 @@ import (
 // support.
 type SelectionModelInterface struct {
 	GIface uintptr
+}
+
+func (x *SelectionModelInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkSelectionModel` is an interface that add support for selection to list models.

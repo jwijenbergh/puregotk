@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,16 +14,36 @@ import (
 type AlternativeTriggerClass struct {
 }
 
+func (x *AlternativeTriggerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type KeyvalTriggerClass struct {
+}
+
+func (x *KeyvalTriggerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type MnemonicTriggerClass struct {
 }
 
+func (x *MnemonicTriggerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type NeverTriggerClass struct {
 }
 
+func (x *NeverTriggerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ShortcutTriggerClass struct {
+}
+
+func (x *ShortcutTriggerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkShortcutTrigger` that combines two triggers.
@@ -235,6 +257,27 @@ func (c *NeverTrigger) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xNeverTriggerGet func() uintptr
+
+// Gets the never trigger.
+//
+// This is a singleton for a trigger that never triggers.
+// Use this trigger instead of %NULL because it implements
+// all virtual functions.
+func NeverTriggerGet() *NeverTrigger {
+	var cls *NeverTrigger
+
+	cret := xNeverTriggerGet()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &NeverTrigger{}
+	cls.Ptr = cret
+	return cls
+}
+
 // `GtkShortcutTrigger` tracks how a `GtkShortcut` should be activated.
 //
 // To find out if a `GtkShortcutTrigger` triggers, you can call
@@ -428,6 +471,8 @@ func init() {
 	core.PuregoSafeRegister(&xNewMnemonicTrigger, lib, "gtk_mnemonic_trigger_new")
 
 	core.PuregoSafeRegister(&xMnemonicTriggerGetKeyval, lib, "gtk_mnemonic_trigger_get_keyval")
+
+	core.PuregoSafeRegister(&xNeverTriggerGet, lib, "gtk_never_trigger_get")
 
 	core.PuregoSafeRegister(&xParseStringShortcutTrigger, lib, "gtk_shortcut_trigger_parse_string")
 

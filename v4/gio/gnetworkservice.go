@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type NetworkServiceClass struct {
 	ParentClass uintptr
 }
 
+func (x *NetworkServiceClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type NetworkServicePrivate struct {
+}
+
+func (x *NetworkServicePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Like #GNetworkAddress does with hostnames, #GNetworkService

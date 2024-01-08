@@ -2,6 +2,8 @@
 package graphene
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -11,6 +13,131 @@ type Point struct {
 	X float32
 
 	Y float32
+}
+
+func (x *Point) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xAllocPoint func() *Point
+
+// Allocates a new #graphene_point_t structure.
+//
+// The coordinates of the returned point are (0, 0).
+//
+// It's possible to chain this function with graphene_point_init()
+// or graphene_point_init_from_point(), e.g.:
+//
+// |[&lt;!-- language="C" --&gt;
+//
+//	graphene_point_t *
+//	point_new (float x, float y)
+//	{
+//	  return graphene_point_init (graphene_point_alloc (), x, y);
+//	}
+//
+//	graphene_point_t *
+//	point_copy (const graphene_point_t *p)
+//	{
+//	  return graphene_point_init_from_point (graphene_point_alloc (), p);
+//	}
+//
+// ]|
+func AllocPoint() *Point {
+
+	cret := xAllocPoint()
+	return cret
+}
+
+var xPointDistance func(uintptr, *Point, float32, float32) float32
+
+// Computes the distance between @a and @b.
+func (x *Point) Distance(BVar *Point, DXVar float32, DYVar float32) float32 {
+
+	cret := xPointDistance(x.GoPointer(), BVar, DXVar, DYVar)
+	return cret
+}
+
+var xPointEqual func(uintptr, *Point) bool
+
+// Checks if the two points @a and @b point to the same
+// coordinates.
+//
+// This function accounts for floating point fluctuations; if
+// you want to control the fuzziness of the match, you can use
+// graphene_point_near() instead.
+func (x *Point) Equal(BVar *Point) bool {
+
+	cret := xPointEqual(x.GoPointer(), BVar)
+	return cret
+}
+
+var xPointFree func(uintptr)
+
+// Frees the resources allocated by graphene_point_alloc().
+func (x *Point) Free() {
+
+	xPointFree(x.GoPointer())
+
+}
+
+var xPointInit func(uintptr, float32, float32) *Point
+
+// Initializes @p to the given @x and @y coordinates.
+//
+// It's safe to call this function multiple times.
+func (x *Point) Init(XVar float32, YVar float32) *Point {
+
+	cret := xPointInit(x.GoPointer(), XVar, YVar)
+	return cret
+}
+
+var xPointInitFromPoint func(uintptr, *Point) *Point
+
+// Initializes @p with the same coordinates of @src.
+func (x *Point) InitFromPoint(SrcVar *Point) *Point {
+
+	cret := xPointInitFromPoint(x.GoPointer(), SrcVar)
+	return cret
+}
+
+var xPointInitFromVec2 func(uintptr, *Vec2) *Point
+
+// Initializes @p with the coordinates inside the given #graphene_vec2_t.
+func (x *Point) InitFromVec2(SrcVar *Vec2) *Point {
+
+	cret := xPointInitFromVec2(x.GoPointer(), SrcVar)
+	return cret
+}
+
+var xPointInterpolate func(uintptr, *Point, float64, *Point)
+
+// Linearly interpolates the coordinates of @a and @b using the
+// given @factor.
+func (x *Point) Interpolate(BVar *Point, FactorVar float64, ResVar *Point) {
+
+	xPointInterpolate(x.GoPointer(), BVar, FactorVar, ResVar)
+
+}
+
+var xPointNear func(uintptr, *Point, float32) bool
+
+// Checks whether the two points @a and @b are within
+// the threshold of @epsilon.
+func (x *Point) Near(BVar *Point, EpsilonVar float32) bool {
+
+	cret := xPointNear(x.GoPointer(), BVar, EpsilonVar)
+	return cret
+}
+
+var xPointToVec2 func(uintptr, *Vec2)
+
+// Stores the coordinates of the given #graphene_point_t into a
+// #graphene_vec2_t.
+func (x *Point) ToVec2(VVar *Vec2) {
+
+	xPointToVec2(x.GoPointer(), VVar)
+
 }
 
 var xPointZero func() *Point
@@ -28,5 +155,17 @@ func init() {
 		panic(err)
 	}
 	core.PuregoSafeRegister(&xPointZero, lib, "graphene_point_zero")
+
+	core.PuregoSafeRegister(&xAllocPoint, lib, "graphene_point_alloc")
+
+	core.PuregoSafeRegister(&xPointDistance, lib, "graphene_point_distance")
+	core.PuregoSafeRegister(&xPointEqual, lib, "graphene_point_equal")
+	core.PuregoSafeRegister(&xPointFree, lib, "graphene_point_free")
+	core.PuregoSafeRegister(&xPointInit, lib, "graphene_point_init")
+	core.PuregoSafeRegister(&xPointInitFromPoint, lib, "graphene_point_init_from_point")
+	core.PuregoSafeRegister(&xPointInitFromVec2, lib, "graphene_point_init_from_vec2")
+	core.PuregoSafeRegister(&xPointInterpolate, lib, "graphene_point_interpolate")
+	core.PuregoSafeRegister(&xPointNear, lib, "graphene_point_near")
+	core.PuregoSafeRegister(&xPointToVec2, lib, "graphene_point_to_vec2")
 
 }

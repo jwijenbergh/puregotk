@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -29,6 +31,10 @@ type GlyphGeometry struct {
 	YOffset GlyphUnit
 }
 
+func (x *GlyphGeometry) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A `PangoGlyphInfo` structure represents a single glyph with
 // positioning information and visual attributes.
 type GlyphInfo struct {
@@ -37,6 +43,10 @@ type GlyphInfo struct {
 	Geometry uintptr
 
 	Attr uintptr
+}
+
+func (x *GlyphInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoGlyphString` is used to store strings of glyphs with geometry
@@ -54,6 +64,154 @@ type GlyphString struct {
 	Space int
 }
 
+func (x *GlyphString) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewGlyphString func() *GlyphString
+
+// Create a new `PangoGlyphString`.
+func NewGlyphString() *GlyphString {
+
+	cret := xNewGlyphString()
+	return cret
+}
+
+var xGlyphStringCopy func(uintptr) *GlyphString
+
+// Copy a glyph string and associated storage.
+func (x *GlyphString) Copy() *GlyphString {
+
+	cret := xGlyphStringCopy(x.GoPointer())
+	return cret
+}
+
+var xGlyphStringExtents func(uintptr, uintptr, *Rectangle, *Rectangle)
+
+// Compute the logical and ink extents of a glyph string.
+//
+// See the documentation for [method@Pango.Font.get_glyph_extents] for details
+// about the interpretation of the rectangles.
+//
+// Examples of logical (red) and ink (green) rects:
+//
+// ![](rects1.png) ![](rects2.png)
+func (x *GlyphString) Extents(FontVar *Font, InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xGlyphStringExtents(x.GoPointer(), FontVar.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xGlyphStringExtentsRange func(uintptr, int, int, uintptr, *Rectangle, *Rectangle)
+
+// Computes the extents of a sub-portion of a glyph string.
+//
+// The extents are relative to the start of the glyph string range
+// (the origin of their coordinate system is at the start of the range,
+// not at the start of the entire glyph string).
+func (x *GlyphString) ExtentsRange(StartVar int, EndVar int, FontVar *Font, InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xGlyphStringExtentsRange(x.GoPointer(), StartVar, EndVar, FontVar.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xGlyphStringFree func(uintptr)
+
+// Free a glyph string and associated storage.
+func (x *GlyphString) Free() {
+
+	xGlyphStringFree(x.GoPointer())
+
+}
+
+var xGlyphStringGetLogicalWidths func(uintptr, string, int, int, uintptr)
+
+// Given a `PangoGlyphString` and corresponding text, determine the width
+// corresponding to each character.
+//
+// When multiple characters compose a single cluster, the width of the
+// entire cluster is divided equally among the characters.
+//
+// See also [method@Pango.GlyphItem.get_logical_widths].
+func (x *GlyphString) GetLogicalWidths(TextVar string, LengthVar int, EmbeddingLevelVar int, LogicalWidthsVar uintptr) {
+
+	xGlyphStringGetLogicalWidths(x.GoPointer(), TextVar, LengthVar, EmbeddingLevelVar, LogicalWidthsVar)
+
+}
+
+var xGlyphStringGetWidth func(uintptr) int
+
+// Computes the logical width of the glyph string.
+//
+// This can also be computed using [method@Pango.GlyphString.extents].
+// However, since this only computes the width, it's much faster. This
+// is in fact only a convenience function that computes the sum of
+// @geometry.width for each glyph in the @glyphs.
+func (x *GlyphString) GetWidth() int {
+
+	cret := xGlyphStringGetWidth(x.GoPointer())
+	return cret
+}
+
+var xGlyphStringIndexToX func(uintptr, string, int, *Analysis, int, bool, int)
+
+// Converts from character position to x position.
+//
+// The X position is measured from the left edge of the run.
+// Character positions are obtained using font metrics for ligatures
+// where available, and computed by dividing up each cluster
+// into equal portions, otherwise.
+//
+// &lt;picture&gt;
+//
+//	&lt;source srcset="glyphstring-positions-dark.png" media="(prefers-color-scheme: dark)"&gt;
+//	&lt;img alt="Glyph positions" src="glyphstring-positions-light.png"&gt;
+//
+// &lt;/picture&gt;
+func (x *GlyphString) IndexToX(TextVar string, LengthVar int, AnalysisVar *Analysis, IndexVar int, TrailingVar bool, XPosVar int) {
+
+	xGlyphStringIndexToX(x.GoPointer(), TextVar, LengthVar, AnalysisVar, IndexVar, TrailingVar, XPosVar)
+
+}
+
+var xGlyphStringIndexToXFull func(uintptr, string, int, *Analysis, *LogAttr, int, bool, int)
+
+// Converts from character position to x position.
+//
+// This variant of [method@Pango.GlyphString.index_to_x] additionally
+// accepts a `PangoLogAttr` array. The grapheme boundary information
+// in it can be used to disambiguate positioning inside some complex
+// clusters.
+func (x *GlyphString) IndexToXFull(TextVar string, LengthVar int, AnalysisVar *Analysis, AttrsVar *LogAttr, IndexVar int, TrailingVar bool, XPosVar int) {
+
+	xGlyphStringIndexToXFull(x.GoPointer(), TextVar, LengthVar, AnalysisVar, AttrsVar, IndexVar, TrailingVar, XPosVar)
+
+}
+
+var xGlyphStringSetSize func(uintptr, int)
+
+// Resize a glyph string to the given length.
+func (x *GlyphString) SetSize(NewLenVar int) {
+
+	xGlyphStringSetSize(x.GoPointer(), NewLenVar)
+
+}
+
+var xGlyphStringXToIndex func(uintptr, string, int, *Analysis, int, int, int)
+
+// Convert from x offset to character position.
+//
+// Character positions are computed by dividing up each cluster into
+// equal portions. In scripts where positioning within a cluster is
+// not allowed (such as Thai), the returned value may not be a valid
+// cursor position; the caller must combine the result with the logical
+// attributes for the text to compute the valid cursor position.
+func (x *GlyphString) XToIndex(TextVar string, LengthVar int, AnalysisVar *Analysis, XPosVar int, IndexVar int, TrailingVar int) {
+
+	xGlyphStringXToIndex(x.GoPointer(), TextVar, LengthVar, AnalysisVar, XPosVar, IndexVar, TrailingVar)
+
+}
+
 // A `PangoGlyphVisAttr` structure communicates information between
 // the shaping and rendering phases.
 //
@@ -68,6 +226,10 @@ type GlyphVisAttr struct {
 	IsClusterStart uint
 
 	IsColor uint
+}
+
+func (x *GlyphVisAttr) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `PangoGlyphUnit` type is used to store dimensions within
@@ -195,5 +357,18 @@ func init() {
 	core.PuregoSafeRegister(&xShapeFull, lib, "pango_shape_full")
 	core.PuregoSafeRegister(&xShapeItem, lib, "pango_shape_item")
 	core.PuregoSafeRegister(&xShapeWithFlags, lib, "pango_shape_with_flags")
+
+	core.PuregoSafeRegister(&xNewGlyphString, lib, "pango_glyph_string_new")
+
+	core.PuregoSafeRegister(&xGlyphStringCopy, lib, "pango_glyph_string_copy")
+	core.PuregoSafeRegister(&xGlyphStringExtents, lib, "pango_glyph_string_extents")
+	core.PuregoSafeRegister(&xGlyphStringExtentsRange, lib, "pango_glyph_string_extents_range")
+	core.PuregoSafeRegister(&xGlyphStringFree, lib, "pango_glyph_string_free")
+	core.PuregoSafeRegister(&xGlyphStringGetLogicalWidths, lib, "pango_glyph_string_get_logical_widths")
+	core.PuregoSafeRegister(&xGlyphStringGetWidth, lib, "pango_glyph_string_get_width")
+	core.PuregoSafeRegister(&xGlyphStringIndexToX, lib, "pango_glyph_string_index_to_x")
+	core.PuregoSafeRegister(&xGlyphStringIndexToXFull, lib, "pango_glyph_string_index_to_x_full")
+	core.PuregoSafeRegister(&xGlyphStringSetSize, lib, "pango_glyph_string_set_size")
+	core.PuregoSafeRegister(&xGlyphStringXToIndex, lib, "pango_glyph_string_x_to_index")
 
 }

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -13,6 +15,10 @@ type ApplicationClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ApplicationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Types of user actions that may be blocked by `GtkApplication`.

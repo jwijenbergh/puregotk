@@ -248,6 +248,35 @@ func (x *Drag) ConnectDropPerformed(cb func(Drag)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "drop-performed", purego.NewCallback(fcb))
 }
 
+var xDragBegin func(uintptr, uintptr, uintptr, DragAction, float64, float64) uintptr
+
+// Starts a drag and creates a new drag context for it.
+//
+// This function is called by the drag source. After this call, you
+// probably want to set up the drag icon using the surface returned
+// by [method@Gdk.Drag.get_drag_surface].
+//
+// This function returns a reference to the [class@Gdk.Drag] object,
+// but GTK keeps its own reference as well, as long as the DND operation
+// is going on.
+//
+// Note: if @actions include %GDK_ACTION_MOVE, you need to listen for
+// the [signal@Gdk.Drag::dnd-finished] signal and delete the data at
+// the source if [method@Gdk.Drag.get_selected_action] returns
+// %GDK_ACTION_MOVE.
+func DragBegin(SurfaceVar *Surface, DeviceVar *Device, ContentVar *ContentProvider, ActionsVar DragAction, DxVar float64, DyVar float64) *Drag {
+	var cls *Drag
+
+	cret := xDragBegin(SurfaceVar.GoPointer(), DeviceVar.GoPointer(), ContentVar.GoPointer(), ActionsVar, DxVar, DyVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Drag{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -265,5 +294,7 @@ func init() {
 	core.PuregoSafeRegister(&xDragGetSelectedAction, lib, "gdk_drag_get_selected_action")
 	core.PuregoSafeRegister(&xDragGetSurface, lib, "gdk_drag_get_surface")
 	core.PuregoSafeRegister(&xDragSetHotspot, lib, "gdk_drag_set_hotspot")
+
+	core.PuregoSafeRegister(&xDragBegin, lib, "gdk_drag_begin")
 
 }

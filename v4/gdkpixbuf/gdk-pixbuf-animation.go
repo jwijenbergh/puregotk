@@ -2,6 +2,8 @@
 package gdkpixbuf
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -16,11 +18,19 @@ type PixbufAnimationClass struct {
 	ParentClass uintptr
 }
 
+func (x *PixbufAnimationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Modules supporting animations must derive a type from
 // #GdkPixbufAnimationIter, providing suitable implementations of the
 // virtual functions.
 type PixbufAnimationIterClass struct {
 	ParentClass uintptr
+}
+
+func (x *PixbufAnimationIterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An opaque object representing an animation.
@@ -293,6 +303,22 @@ func (c *PixbufAnimation) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xPixbufAnimationNewFromStreamAsync func(uintptr, uintptr, uintptr, uintptr)
+
+// Creates a new animation by asynchronously loading an image from an input stream.
+//
+// For more details see gdk_pixbuf_new_from_stream(), which is the synchronous
+// version of this function.
+//
+// When the operation is finished, `callback` will be called in the main thread.
+// You can then call gdk_pixbuf_animation_new_from_stream_finish() to get the
+// result of the operation.
+func PixbufAnimationNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+
+	xPixbufAnimationNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
 // An opaque object representing an iterator which points to a
 // certain position in an animation.
 type PixbufAnimationIter struct {
@@ -422,6 +448,8 @@ func init() {
 	core.PuregoSafeRegister(&xPixbufAnimationIsStaticImage, lib, "gdk_pixbuf_animation_is_static_image")
 	core.PuregoSafeRegister(&xPixbufAnimationRef, lib, "gdk_pixbuf_animation_ref")
 	core.PuregoSafeRegister(&xPixbufAnimationUnref, lib, "gdk_pixbuf_animation_unref")
+
+	core.PuregoSafeRegister(&xPixbufAnimationNewFromStreamAsync, lib, "gdk_pixbuf_animation_new_from_stream_async")
 
 	core.PuregoSafeRegister(&xPixbufAnimationIterAdvance, lib, "gdk_pixbuf_animation_iter_advance")
 	core.PuregoSafeRegister(&xPixbufAnimationIterGetDelayTime, lib, "gdk_pixbuf_animation_iter_get_delay_time")

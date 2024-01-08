@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,7 +13,15 @@ type MemoryInputStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *MemoryInputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MemoryInputStreamPrivate struct {
+}
+
+func (x *MemoryInputStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GMemoryInputStream is a class for using arbitrary

@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -83,6 +85,148 @@ type Cond struct {
 	I uintptr
 }
 
+func (x *Cond) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xCondBroadcast func(uintptr)
+
+// If threads are waiting for @cond, all of them are unblocked.
+// If no threads are waiting for @cond, this function has no effect.
+// It is good practice to lock the same mutex as the waiting threads
+// while calling this function, though not required.
+func (x *Cond) Broadcast() {
+
+	xCondBroadcast(x.GoPointer())
+
+}
+
+var xCondClear func(uintptr)
+
+// Frees the resources allocated to a #GCond with g_cond_init().
+//
+// This function should not be used with a #GCond that has been
+// statically allocated.
+//
+// Calling g_cond_clear() for a #GCond on which threads are
+// blocking leads to undefined behaviour.
+func (x *Cond) Clear() {
+
+	xCondClear(x.GoPointer())
+
+}
+
+var xCondInit func(uintptr)
+
+// Initialises a #GCond so that it can be used.
+//
+// This function is useful to initialise a #GCond that has been
+// allocated as part of a larger structure.  It is not necessary to
+// initialise a #GCond that has been statically allocated.
+//
+// To undo the effect of g_cond_init() when a #GCond is no longer
+// needed, use g_cond_clear().
+//
+// Calling g_cond_init() on an already-initialised #GCond leads
+// to undefined behaviour.
+func (x *Cond) Init() {
+
+	xCondInit(x.GoPointer())
+
+}
+
+var xCondSignal func(uintptr)
+
+// If threads are waiting for @cond, at least one of them is unblocked.
+// If no threads are waiting for @cond, this function has no effect.
+// It is good practice to hold the same lock as the waiting thread
+// while calling this function, though not required.
+func (x *Cond) Signal() {
+
+	xCondSignal(x.GoPointer())
+
+}
+
+var xCondWait func(uintptr, *Mutex)
+
+// Atomically releases @mutex and waits until @cond is signalled.
+// When this function returns, @mutex is locked again and owned by the
+// calling thread.
+//
+// When using condition variables, it is possible that a spurious wakeup
+// may occur (ie: g_cond_wait() returns even though g_cond_signal() was
+// not called).  It's also possible that a stolen wakeup may occur.
+// This is when g_cond_signal() is called, but another thread acquires
+// @mutex before this thread and modifies the state of the program in
+// such a way that when g_cond_wait() is able to return, the expected
+// condition is no longer met.
+//
+// For this reason, g_cond_wait() must always be used in a loop.  See
+// the documentation for #GCond for a complete example.
+func (x *Cond) Wait(MutexVar *Mutex) {
+
+	xCondWait(x.GoPointer(), MutexVar)
+
+}
+
+var xCondWaitUntil func(uintptr, *Mutex, int64) bool
+
+// Waits until either @cond is signalled or @end_time has passed.
+//
+// As with g_cond_wait() it is possible that a spurious or stolen wakeup
+// could occur.  For that reason, waiting on a condition variable should
+// always be in a loop, based on an explicitly-checked predicate.
+//
+// %TRUE is returned if the condition variable was signalled (or in the
+// case of a spurious wakeup).  %FALSE is returned if @end_time has
+// passed.
+//
+// The following code shows how to correctly perform a timed wait on a
+// condition variable (extending the example presented in the
+// documentation for #GCond):
+//
+// |[&lt;!-- language="C" --&gt;
+// gpointer
+// pop_data_timed (void)
+//
+//	{
+//	  gint64 end_time;
+//	  gpointer data;
+//
+//	  g_mutex_lock (&amp;data_mutex);
+//
+//	  end_time = g_get_monotonic_time () + 5 * G_TIME_SPAN_SECOND;
+//	  while (!current_data)
+//	    if (!g_cond_wait_until (&amp;data_cond, &amp;data_mutex, end_time))
+//	      {
+//	        // timeout has passed.
+//	        g_mutex_unlock (&amp;data_mutex);
+//	        return NULL;
+//	      }
+//
+//	  // there is data for us
+//	  data = current_data;
+//	  current_data = NULL;
+//
+//	  g_mutex_unlock (&amp;data_mutex);
+//
+//	  return data;
+//	}
+//
+// ]|
+//
+// Notice that the end time is calculated once, before entering the
+// loop and reused.  This is the motivation behind the use of absolute
+// time on this API -- if a relative time of 5 seconds were passed
+// directly to the call and a spurious wakeup occurred, the program would
+// have to start over waiting again (which would lead to a total wait
+// time of more than 5 seconds).
+func (x *Cond) WaitUntil(MutexVar *Mutex, EndTimeVar int64) bool {
+
+	cret := xCondWaitUntil(x.GoPointer(), MutexVar, EndTimeVar)
+	return cret
+}
+
 // A #GOnce struct controls a one-time initialization function. Any
 // one-time initialization function must have its own unique #GOnce
 // struct.
@@ -90,6 +234,18 @@ type Once struct {
 	Status OnceStatus
 
 	Retval uintptr
+}
+
+func (x *Once) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xOnceImpl func(uintptr, uintptr, uintptr) uintptr
+
+func (x *Once) Impl(FuncVar ThreadFunc, ArgVar uintptr) uintptr {
+
+	cret := xOnceImpl(x.GoPointer(), purego.NewCallback(FuncVar), ArgVar)
+	return cret
 }
 
 // The #GPrivate struct is an opaque data structure to represent a
@@ -115,6 +271,50 @@ type Private struct {
 	Notify DestroyNotify
 
 	Future uintptr
+}
+
+func (x *Private) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xPrivateGet func(uintptr) uintptr
+
+// Returns the current value of the thread local variable @key.
+//
+// If the value has not yet been set in this thread, %NULL is returned.
+// Values are never copied between threads (when a new thread is
+// created, for example).
+func (x *Private) Get() uintptr {
+
+	cret := xPrivateGet(x.GoPointer())
+	return cret
+}
+
+var xPrivateReplace func(uintptr, uintptr)
+
+// Sets the thread local variable @key to have the value @value in the
+// current thread.
+//
+// This function differs from g_private_set() in the following way: if
+// the previous value was non-%NULL then the #GDestroyNotify handler for
+// @key is run on it.
+func (x *Private) Replace(ValueVar uintptr) {
+
+	xPrivateReplace(x.GoPointer(), ValueVar)
+
+}
+
+var xPrivateSet func(uintptr, uintptr)
+
+// Sets the thread local variable @key to have the value @value in the
+// current thread.
+//
+// This function differs from g_private_replace() in the following way:
+// the #GDestroyNotify for @key is not called on the old value.
+func (x *Private) Set(ValueVar uintptr) {
+
+	xPrivateSet(x.GoPointer(), ValueVar)
+
 }
 
 // The GRWLock struct is an opaque data structure to represent a
@@ -188,6 +388,144 @@ type RWLock struct {
 	I uintptr
 }
 
+func (x *RWLock) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xRWLockClear func(uintptr)
+
+// Frees the resources allocated to a lock with g_rw_lock_init().
+//
+// This function should not be used with a #GRWLock that has been
+// statically allocated.
+//
+// Calling g_rw_lock_clear() when any thread holds the lock
+// leads to undefined behaviour.
+//
+// Sine: 2.32
+func (x *RWLock) Clear() {
+
+	xRWLockClear(x.GoPointer())
+
+}
+
+var xRWLockInit func(uintptr)
+
+// Initializes a #GRWLock so that it can be used.
+//
+// This function is useful to initialize a lock that has been
+// allocated on the stack, or as part of a larger structure.  It is not
+// necessary to initialise a reader-writer lock that has been statically
+// allocated.
+//
+// |[&lt;!-- language="C" --&gt;
+//
+//	typedef struct {
+//	  GRWLock l;
+//	  ...
+//	} Blob;
+//
+// Blob *b;
+//
+// b = g_new (Blob, 1);
+// g_rw_lock_init (&amp;b-&gt;l);
+// ]|
+//
+// To undo the effect of g_rw_lock_init() when a lock is no longer
+// needed, use g_rw_lock_clear().
+//
+// Calling g_rw_lock_init() on an already initialized #GRWLock leads
+// to undefined behaviour.
+func (x *RWLock) Init() {
+
+	xRWLockInit(x.GoPointer())
+
+}
+
+var xRWLockReaderLock func(uintptr)
+
+// Obtain a read lock on @rw_lock. If another thread currently holds
+// the write lock on @rw_lock, the current thread will block until the
+// write lock was (held and) released. If another thread does not hold
+// the write lock, but is waiting for it, it is implementation defined
+// whether the reader or writer will block. Read locks can be taken
+// recursively.
+//
+// Calling g_rw_lock_reader_lock() while the current thread already
+// owns a write lock leads to undefined behaviour. Read locks however
+// can be taken recursively, in which case you need to make sure to
+// call g_rw_lock_reader_unlock() the same amount of times.
+//
+// It is implementation-defined how many read locks are allowed to be
+// held on the same lock simultaneously. If the limit is hit,
+// or if a deadlock is detected, a critical warning will be emitted.
+func (x *RWLock) ReaderLock() {
+
+	xRWLockReaderLock(x.GoPointer())
+
+}
+
+var xRWLockReaderTrylock func(uintptr) bool
+
+// Tries to obtain a read lock on @rw_lock and returns %TRUE if
+// the read lock was successfully obtained. Otherwise it
+// returns %FALSE.
+func (x *RWLock) ReaderTrylock() bool {
+
+	cret := xRWLockReaderTrylock(x.GoPointer())
+	return cret
+}
+
+var xRWLockReaderUnlock func(uintptr)
+
+// Release a read lock on @rw_lock.
+//
+// Calling g_rw_lock_reader_unlock() on a lock that is not held
+// by the current thread leads to undefined behaviour.
+func (x *RWLock) ReaderUnlock() {
+
+	xRWLockReaderUnlock(x.GoPointer())
+
+}
+
+var xRWLockWriterLock func(uintptr)
+
+// Obtain a write lock on @rw_lock. If another thread currently holds
+// a read or write lock on @rw_lock, the current thread will block
+// until all other threads have dropped their locks on @rw_lock.
+//
+// Calling g_rw_lock_writer_lock() while the current thread already
+// owns a read or write lock on @rw_lock leads to undefined behaviour.
+func (x *RWLock) WriterLock() {
+
+	xRWLockWriterLock(x.GoPointer())
+
+}
+
+var xRWLockWriterTrylock func(uintptr) bool
+
+// Tries to obtain a write lock on @rw_lock. If another thread
+// currently holds a read or write lock on @rw_lock, it immediately
+// returns %FALSE.
+// Otherwise it locks @rw_lock and returns %TRUE.
+func (x *RWLock) WriterTrylock() bool {
+
+	cret := xRWLockWriterTrylock(x.GoPointer())
+	return cret
+}
+
+var xRWLockWriterUnlock func(uintptr)
+
+// Release a write lock on @rw_lock.
+//
+// Calling g_rw_lock_writer_unlock() on a lock that is not held
+// by the current thread leads to undefined behaviour.
+func (x *RWLock) WriterUnlock() {
+
+	xRWLockWriterUnlock(x.GoPointer())
+
+}
+
 // The GRecMutex struct is an opaque data structure to represent a
 // recursive mutex. It is similar to a #GMutex with the difference
 // that it is possible to lock a GRecMutex multiple times in the same
@@ -206,6 +544,102 @@ type RecMutex struct {
 	I uintptr
 }
 
+func (x *RecMutex) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xRecMutexClear func(uintptr)
+
+// Frees the resources allocated to a recursive mutex with
+// g_rec_mutex_init().
+//
+// This function should not be used with a #GRecMutex that has been
+// statically allocated.
+//
+// Calling g_rec_mutex_clear() on a locked recursive mutex leads
+// to undefined behaviour.
+//
+// Sine: 2.32
+func (x *RecMutex) Clear() {
+
+	xRecMutexClear(x.GoPointer())
+
+}
+
+var xRecMutexInit func(uintptr)
+
+// Initializes a #GRecMutex so that it can be used.
+//
+// This function is useful to initialize a recursive mutex
+// that has been allocated on the stack, or as part of a larger
+// structure.
+//
+// It is not necessary to initialise a recursive mutex that has been
+// statically allocated.
+//
+// |[&lt;!-- language="C" --&gt;
+//
+//	typedef struct {
+//	  GRecMutex m;
+//	  ...
+//	} Blob;
+//
+// Blob *b;
+//
+// b = g_new (Blob, 1);
+// g_rec_mutex_init (&amp;b-&gt;m);
+// ]|
+//
+// Calling g_rec_mutex_init() on an already initialized #GRecMutex
+// leads to undefined behaviour.
+//
+// To undo the effect of g_rec_mutex_init() when a recursive mutex
+// is no longer needed, use g_rec_mutex_clear().
+func (x *RecMutex) Init() {
+
+	xRecMutexInit(x.GoPointer())
+
+}
+
+var xRecMutexLock func(uintptr)
+
+// Locks @rec_mutex. If @rec_mutex is already locked by another
+// thread, the current thread will block until @rec_mutex is
+// unlocked by the other thread. If @rec_mutex is already locked
+// by the current thread, the 'lock count' of @rec_mutex is increased.
+// The mutex will only become available again when it is unlocked
+// as many times as it has been locked.
+func (x *RecMutex) Lock() {
+
+	xRecMutexLock(x.GoPointer())
+
+}
+
+var xRecMutexTrylock func(uintptr) bool
+
+// Tries to lock @rec_mutex. If @rec_mutex is already locked
+// by another thread, it immediately returns %FALSE. Otherwise
+// it locks @rec_mutex and returns %TRUE.
+func (x *RecMutex) Trylock() bool {
+
+	cret := xRecMutexTrylock(x.GoPointer())
+	return cret
+}
+
+var xRecMutexUnlock func(uintptr)
+
+// Unlocks @rec_mutex. If another thread is blocked in a
+// g_rec_mutex_lock() call for @rec_mutex, it will become unblocked
+// and can lock @rec_mutex itself.
+//
+// Calling g_rec_mutex_unlock() on a recursive mutex that is not
+// locked by the current thread leads to undefined behaviour.
+func (x *RecMutex) Unlock() {
+
+	xRecMutexUnlock(x.GoPointer())
+
+}
+
 // The #GThread struct represents a running thread. This struct
 // is returned by g_thread_new() or g_thread_try_new(). You can
 // obtain the #GThread struct representing the current thread by
@@ -220,6 +654,110 @@ type RecMutex struct {
 // The structure is opaque -- none of its fields may be directly
 // accessed.
 type Thread struct {
+}
+
+func (x *Thread) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewThread func(string, uintptr, uintptr) *Thread
+
+// This function creates a new thread. The new thread starts by invoking
+// @func with the argument data. The thread will run until @func returns
+// or until g_thread_exit() is called from the new thread. The return value
+// of @func becomes the return value of the thread, which can be obtained
+// with g_thread_join().
+//
+// The @name can be useful for discriminating threads in a debugger.
+// It is not used for other purposes and does not have to be unique.
+// Some systems restrict the length of @name to 16 bytes.
+//
+// If the thread can not be created the program aborts. See
+// g_thread_try_new() if you want to attempt to deal with failures.
+//
+// If you are using threads to offload (potentially many) short-lived tasks,
+// #GThreadPool may be more appropriate than manually spawning and tracking
+// multiple #GThreads.
+//
+// To free the struct returned by this function, use g_thread_unref().
+// Note that g_thread_join() implicitly unrefs the #GThread as well.
+//
+// New threads by default inherit their scheduler policy (POSIX) or thread
+// priority (Windows) of the thread creating the new thread.
+//
+// This behaviour changed in GLib 2.64: before threads on Windows were not
+// inheriting the thread priority but were spawned with the default priority.
+// Starting with GLib 2.64 the behaviour is now consistent between Windows and
+// POSIX and all threads inherit their parent thread's priority.
+func NewThread(NameVar string, FuncVar ThreadFunc, DataVar uintptr) *Thread {
+
+	cret := xNewThread(NameVar, purego.NewCallback(FuncVar), DataVar)
+	return cret
+}
+
+var xTryNewThread func(string, uintptr, uintptr, **Error) *Thread
+
+// This function is the same as g_thread_new() except that
+// it allows for the possibility of failure.
+//
+// If a thread can not be created (due to resource limits),
+// @error is set and %NULL is returned.
+func TryNewThread(NameVar string, FuncVar ThreadFunc, DataVar uintptr) (*Thread, error) {
+	var cerr *Error
+
+	cret := xTryNewThread(NameVar, purego.NewCallback(FuncVar), DataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xThreadJoin func(uintptr) uintptr
+
+// Waits until @thread finishes, i.e. the function @func, as
+// given to g_thread_new(), returns or g_thread_exit() is called.
+// If @thread has already terminated, then g_thread_join()
+// returns immediately.
+//
+// Any thread can wait for any other thread by calling g_thread_join(),
+// not just its 'creator'. Calling g_thread_join() from multiple threads
+// for the same @thread leads to undefined behaviour.
+//
+// The value returned by @func or given to g_thread_exit() is
+// returned by this function.
+//
+// g_thread_join() consumes the reference to the passed-in @thread.
+// This will usually cause the #GThread struct and associated resources
+// to be freed. Use g_thread_ref() to obtain an extra reference if you
+// want to keep the GThread alive beyond the g_thread_join() call.
+func (x *Thread) Join() uintptr {
+
+	cret := xThreadJoin(x.GoPointer())
+	return cret
+}
+
+var xThreadRef func(uintptr) *Thread
+
+// Increase the reference count on @thread.
+func (x *Thread) Ref() *Thread {
+
+	cret := xThreadRef(x.GoPointer())
+	return cret
+}
+
+var xThreadUnref func(uintptr)
+
+// Decrease the reference count on @thread, possibly freeing all
+// resources associated with it.
+//
+// Note that each thread holds a reference to its #GThread while
+// it is running, so it is safe to drop your own reference to it
+// if you don't need it anymore.
+func (x *Thread) Unref() {
+
+	xThreadUnref(x.GoPointer())
+
 }
 
 // The #GMutex struct is an opaque data structure to represent a mutex
@@ -432,5 +970,40 @@ func init() {
 	core.PuregoSafeRegister(&xThreadExit, lib, "g_thread_exit")
 	core.PuregoSafeRegister(&xThreadSelf, lib, "g_thread_self")
 	core.PuregoSafeRegister(&xThreadYield, lib, "g_thread_yield")
+
+	core.PuregoSafeRegister(&xCondBroadcast, lib, "g_cond_broadcast")
+	core.PuregoSafeRegister(&xCondClear, lib, "g_cond_clear")
+	core.PuregoSafeRegister(&xCondInit, lib, "g_cond_init")
+	core.PuregoSafeRegister(&xCondSignal, lib, "g_cond_signal")
+	core.PuregoSafeRegister(&xCondWait, lib, "g_cond_wait")
+	core.PuregoSafeRegister(&xCondWaitUntil, lib, "g_cond_wait_until")
+
+	core.PuregoSafeRegister(&xOnceImpl, lib, "g_once_impl")
+
+	core.PuregoSafeRegister(&xPrivateGet, lib, "g_private_get")
+	core.PuregoSafeRegister(&xPrivateReplace, lib, "g_private_replace")
+	core.PuregoSafeRegister(&xPrivateSet, lib, "g_private_set")
+
+	core.PuregoSafeRegister(&xRWLockClear, lib, "g_rw_lock_clear")
+	core.PuregoSafeRegister(&xRWLockInit, lib, "g_rw_lock_init")
+	core.PuregoSafeRegister(&xRWLockReaderLock, lib, "g_rw_lock_reader_lock")
+	core.PuregoSafeRegister(&xRWLockReaderTrylock, lib, "g_rw_lock_reader_trylock")
+	core.PuregoSafeRegister(&xRWLockReaderUnlock, lib, "g_rw_lock_reader_unlock")
+	core.PuregoSafeRegister(&xRWLockWriterLock, lib, "g_rw_lock_writer_lock")
+	core.PuregoSafeRegister(&xRWLockWriterTrylock, lib, "g_rw_lock_writer_trylock")
+	core.PuregoSafeRegister(&xRWLockWriterUnlock, lib, "g_rw_lock_writer_unlock")
+
+	core.PuregoSafeRegister(&xRecMutexClear, lib, "g_rec_mutex_clear")
+	core.PuregoSafeRegister(&xRecMutexInit, lib, "g_rec_mutex_init")
+	core.PuregoSafeRegister(&xRecMutexLock, lib, "g_rec_mutex_lock")
+	core.PuregoSafeRegister(&xRecMutexTrylock, lib, "g_rec_mutex_trylock")
+	core.PuregoSafeRegister(&xRecMutexUnlock, lib, "g_rec_mutex_unlock")
+
+	core.PuregoSafeRegister(&xNewThread, lib, "g_thread_new")
+	core.PuregoSafeRegister(&xTryNewThread, lib, "g_thread_try_new")
+
+	core.PuregoSafeRegister(&xThreadJoin, lib, "g_thread_join")
+	core.PuregoSafeRegister(&xThreadRef, lib, "g_thread_ref")
+	core.PuregoSafeRegister(&xThreadUnref, lib, "g_thread_unref")
 
 }

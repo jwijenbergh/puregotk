@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,7 +16,15 @@ type ButtonClass struct {
 	Padding uintptr
 }
 
+func (x *ButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ButtonPrivate struct {
+}
+
+func (x *ButtonPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `GtkButton` widget is generally used to trigger a callback function that is

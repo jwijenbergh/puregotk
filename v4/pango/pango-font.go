@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 
 type FontClass struct {
 	ParentClass uintptr
+}
+
+func (x *FontClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoFontDescription` describes a font in an implementation-independent
@@ -21,12 +27,458 @@ type FontClass struct {
 type FontDescription struct {
 }
 
+func (x *FontDescription) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewFontDescription func() *FontDescription
+
+// Creates a new font description structure with all fields unset.
+func NewFontDescription() *FontDescription {
+
+	cret := xNewFontDescription()
+	return cret
+}
+
+var xFontDescriptionBetterMatch func(uintptr, *FontDescription, *FontDescription) bool
+
+// Determines if the style attributes of @new_match are a closer match
+// for @desc than those of @old_match are, or if @old_match is %NULL,
+// determines if @new_match is a match at all.
+//
+// Approximate matching is done for weight and style; other style attributes
+// must match exactly. Style attributes are all attributes other than family
+// and size-related attributes. Approximate matching for style considers
+// %PANGO_STYLE_OBLIQUE and %PANGO_STYLE_ITALIC as matches, but not as good
+// a match as when the styles are equal.
+//
+// Note that @old_match must match @desc.
+func (x *FontDescription) BetterMatch(OldMatchVar *FontDescription, NewMatchVar *FontDescription) bool {
+
+	cret := xFontDescriptionBetterMatch(x.GoPointer(), OldMatchVar, NewMatchVar)
+	return cret
+}
+
+var xFontDescriptionCopy func(uintptr) *FontDescription
+
+// Make a copy of a `PangoFontDescription`.
+func (x *FontDescription) Copy() *FontDescription {
+
+	cret := xFontDescriptionCopy(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionCopyStatic func(uintptr) *FontDescription
+
+// Make a copy of a `PangoFontDescription`, but don't duplicate
+// allocated fields.
+//
+// This is like [method@Pango.FontDescription.copy], but only a shallow
+// copy is made of the family name and other allocated fields. The result
+// can only be used until @desc is modified or freed. This is meant
+// to be used when the copy is only needed temporarily.
+func (x *FontDescription) CopyStatic() *FontDescription {
+
+	cret := xFontDescriptionCopyStatic(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionEqual func(uintptr, *FontDescription) bool
+
+// Compares two font descriptions for equality.
+//
+// Two font descriptions are considered equal if the fonts they describe
+// are provably identical. This means that their masks do not have to match,
+// as long as other fields are all the same. (Two font descriptions may
+// result in identical fonts being loaded, but still compare %FALSE.)
+func (x *FontDescription) Equal(Desc2Var *FontDescription) bool {
+
+	cret := xFontDescriptionEqual(x.GoPointer(), Desc2Var)
+	return cret
+}
+
+var xFontDescriptionFree func(uintptr)
+
+// Frees a font description.
+func (x *FontDescription) Free() {
+
+	xFontDescriptionFree(x.GoPointer())
+
+}
+
+var xFontDescriptionGetFamily func(uintptr) string
+
+// Gets the family name field of a font description.
+//
+// See [method@Pango.FontDescription.set_family].
+func (x *FontDescription) GetFamily() string {
+
+	cret := xFontDescriptionGetFamily(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetGravity func(uintptr) Gravity
+
+// Gets the gravity field of a font description.
+//
+// See [method@Pango.FontDescription.set_gravity].
+func (x *FontDescription) GetGravity() Gravity {
+
+	cret := xFontDescriptionGetGravity(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetSetFields func(uintptr) FontMask
+
+// Determines which fields in a font description have been set.
+func (x *FontDescription) GetSetFields() FontMask {
+
+	cret := xFontDescriptionGetSetFields(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetSize func(uintptr) int
+
+// Gets the size field of a font description.
+//
+// See [method@Pango.FontDescription.set_size].
+func (x *FontDescription) GetSize() int {
+
+	cret := xFontDescriptionGetSize(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetSizeIsAbsolute func(uintptr) bool
+
+// Determines whether the size of the font is in points (not absolute)
+// or device units (absolute).
+//
+// See [method@Pango.FontDescription.set_size]
+// and [method@Pango.FontDescription.set_absolute_size].
+func (x *FontDescription) GetSizeIsAbsolute() bool {
+
+	cret := xFontDescriptionGetSizeIsAbsolute(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetStretch func(uintptr) Stretch
+
+// Gets the stretch field of a font description.
+//
+// See [method@Pango.FontDescription.set_stretch].
+func (x *FontDescription) GetStretch() Stretch {
+
+	cret := xFontDescriptionGetStretch(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetStyle func(uintptr) Style
+
+// Gets the style field of a `PangoFontDescription`.
+//
+// See [method@Pango.FontDescription.set_style].
+func (x *FontDescription) GetStyle() Style {
+
+	cret := xFontDescriptionGetStyle(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetVariant func(uintptr) Variant
+
+// Gets the variant field of a `PangoFontDescription`.
+//
+// See [method@Pango.FontDescription.set_variant].
+func (x *FontDescription) GetVariant() Variant {
+
+	cret := xFontDescriptionGetVariant(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetVariations func(uintptr) string
+
+// Gets the variations field of a font description.
+//
+// See [method@Pango.FontDescription.set_variations].
+func (x *FontDescription) GetVariations() string {
+
+	cret := xFontDescriptionGetVariations(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionGetWeight func(uintptr) Weight
+
+// Gets the weight field of a font description.
+//
+// See [method@Pango.FontDescription.set_weight].
+func (x *FontDescription) GetWeight() Weight {
+
+	cret := xFontDescriptionGetWeight(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionHash func(uintptr) uint
+
+// Computes a hash of a `PangoFontDescription` structure.
+//
+// This is suitable to be used, for example, as an argument
+// to g_hash_table_new(). The hash value is independent of @desc-&gt;mask.
+func (x *FontDescription) Hash() uint {
+
+	cret := xFontDescriptionHash(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionMerge func(uintptr, *FontDescription, bool)
+
+// Merges the fields that are set in @desc_to_merge into the fields in
+// @desc.
+//
+// If @replace_existing is %FALSE, only fields in @desc that
+// are not already set are affected. If %TRUE, then fields that are
+// already set will be replaced as well.
+//
+// If @desc_to_merge is %NULL, this function performs nothing.
+func (x *FontDescription) Merge(DescToMergeVar *FontDescription, ReplaceExistingVar bool) {
+
+	xFontDescriptionMerge(x.GoPointer(), DescToMergeVar, ReplaceExistingVar)
+
+}
+
+var xFontDescriptionMergeStatic func(uintptr, *FontDescription, bool)
+
+// Merges the fields that are set in @desc_to_merge into the fields in
+// @desc, without copying allocated fields.
+//
+// This is like [method@Pango.FontDescription.merge], but only a shallow copy
+// is made of the family name and other allocated fields. @desc can only
+// be used until @desc_to_merge is modified or freed. This is meant to
+// be used when the merged font description is only needed temporarily.
+func (x *FontDescription) MergeStatic(DescToMergeVar *FontDescription, ReplaceExistingVar bool) {
+
+	xFontDescriptionMergeStatic(x.GoPointer(), DescToMergeVar, ReplaceExistingVar)
+
+}
+
+var xFontDescriptionSetAbsoluteSize func(uintptr, float64)
+
+// Sets the size field of a font description, in device units.
+//
+// This is mutually exclusive with [method@Pango.FontDescription.set_size]
+// which sets the font size in points.
+func (x *FontDescription) SetAbsoluteSize(SizeVar float64) {
+
+	xFontDescriptionSetAbsoluteSize(x.GoPointer(), SizeVar)
+
+}
+
+var xFontDescriptionSetFamily func(uintptr, string)
+
+// Sets the family name field of a font description.
+//
+// The family
+// name represents a family of related font styles, and will
+// resolve to a particular `PangoFontFamily`. In some uses of
+// `PangoFontDescription`, it is also possible to use a comma
+// separated list of family names for this field.
+func (x *FontDescription) SetFamily(FamilyVar string) {
+
+	xFontDescriptionSetFamily(x.GoPointer(), FamilyVar)
+
+}
+
+var xFontDescriptionSetFamilyStatic func(uintptr, string)
+
+// Sets the family name field of a font description, without copying the string.
+//
+// This is like [method@Pango.FontDescription.set_family], except that no
+// copy of @family is made. The caller must make sure that the
+// string passed in stays around until @desc has been freed or the
+// name is set again. This function can be used if @family is a static
+// string such as a C string literal, or if @desc is only needed temporarily.
+func (x *FontDescription) SetFamilyStatic(FamilyVar string) {
+
+	xFontDescriptionSetFamilyStatic(x.GoPointer(), FamilyVar)
+
+}
+
+var xFontDescriptionSetGravity func(uintptr, Gravity)
+
+// Sets the gravity field of a font description.
+//
+// The gravity field
+// specifies how the glyphs should be rotated. If @gravity is
+// %PANGO_GRAVITY_AUTO, this actually unsets the gravity mask on
+// the font description.
+//
+// This function is seldom useful to the user. Gravity should normally
+// be set on a `PangoContext`.
+func (x *FontDescription) SetGravity(GravityVar Gravity) {
+
+	xFontDescriptionSetGravity(x.GoPointer(), GravityVar)
+
+}
+
+var xFontDescriptionSetSize func(uintptr, int)
+
+// Sets the size field of a font description in fractional points.
+//
+// This is mutually exclusive with
+// [method@Pango.FontDescription.set_absolute_size].
+func (x *FontDescription) SetSize(SizeVar int) {
+
+	xFontDescriptionSetSize(x.GoPointer(), SizeVar)
+
+}
+
+var xFontDescriptionSetStretch func(uintptr, Stretch)
+
+// Sets the stretch field of a font description.
+//
+// The [enum@Pango.Stretch] field specifies how narrow or
+// wide the font should be.
+func (x *FontDescription) SetStretch(StretchVar Stretch) {
+
+	xFontDescriptionSetStretch(x.GoPointer(), StretchVar)
+
+}
+
+var xFontDescriptionSetStyle func(uintptr, Style)
+
+// Sets the style field of a `PangoFontDescription`.
+//
+// The [enum@Pango.Style] enumeration describes whether the font is
+// slanted and the manner in which it is slanted; it can be either
+// %PANGO_STYLE_NORMAL, %PANGO_STYLE_ITALIC, or %PANGO_STYLE_OBLIQUE.
+//
+// Most fonts will either have a italic style or an oblique style,
+// but not both, and font matching in Pango will match italic
+// specifications with oblique fonts and vice-versa if an exact
+// match is not found.
+func (x *FontDescription) SetStyle(StyleVar Style) {
+
+	xFontDescriptionSetStyle(x.GoPointer(), StyleVar)
+
+}
+
+var xFontDescriptionSetVariant func(uintptr, Variant)
+
+// Sets the variant field of a font description.
+//
+// The [enum@Pango.Variant] can either be %PANGO_VARIANT_NORMAL
+// or %PANGO_VARIANT_SMALL_CAPS.
+func (x *FontDescription) SetVariant(VariantVar Variant) {
+
+	xFontDescriptionSetVariant(x.GoPointer(), VariantVar)
+
+}
+
+var xFontDescriptionSetVariations func(uintptr, string)
+
+// Sets the variations field of a font description.
+//
+// OpenType font variations allow to select a font instance by
+// specifying values for a number of axes, such as width or weight.
+//
+// The format of the variations string is
+//
+//	AXIS1=VALUE,AXIS2=VALUE...
+//
+// with each AXIS a 4 character tag that identifies a font axis,
+// and each VALUE a floating point number. Unknown axes are ignored,
+// and values are clamped to their allowed range.
+//
+// Pango does not currently have a way to find supported axes of
+// a font. Both harfbuzz and freetype have API for this. See
+// for example [hb_ot_var_get_axis_infos](https://harfbuzz.github.io/harfbuzz-hb-ot-var.html#hb-ot-var-get-axis-infos).
+func (x *FontDescription) SetVariations(VariationsVar string) {
+
+	xFontDescriptionSetVariations(x.GoPointer(), VariationsVar)
+
+}
+
+var xFontDescriptionSetVariationsStatic func(uintptr, string)
+
+// Sets the variations field of a font description.
+//
+// This is like [method@Pango.FontDescription.set_variations], except
+// that no copy of @variations is made. The caller must make sure that
+// the string passed in stays around until @desc has been freed
+// or the name is set again. This function can be used if
+// @variations is a static string such as a C string literal,
+// or if @desc is only needed temporarily.
+func (x *FontDescription) SetVariationsStatic(VariationsVar string) {
+
+	xFontDescriptionSetVariationsStatic(x.GoPointer(), VariationsVar)
+
+}
+
+var xFontDescriptionSetWeight func(uintptr, Weight)
+
+// Sets the weight field of a font description.
+//
+// The weight field
+// specifies how bold or light the font should be. In addition
+// to the values of the [enum@Pango.Weight] enumeration, other
+// intermediate numeric values are possible.
+func (x *FontDescription) SetWeight(WeightVar Weight) {
+
+	xFontDescriptionSetWeight(x.GoPointer(), WeightVar)
+
+}
+
+var xFontDescriptionToFilename func(uintptr) string
+
+// Creates a filename representation of a font description.
+//
+// The filename is identical to the result from calling
+// [method@Pango.FontDescription.to_string], but with underscores
+// instead of characters that are untypical in filenames, and in
+// lower case only.
+func (x *FontDescription) ToFilename() string {
+
+	cret := xFontDescriptionToFilename(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionToString func(uintptr) string
+
+// Creates a string representation of a font description.
+//
+// See [func@Pango.FontDescription.from_string] for a description
+// of the format of the string representation. The family list in
+// the string description will only have a terminating comma if
+// the last word of the list is a valid style option.
+func (x *FontDescription) ToString() string {
+
+	cret := xFontDescriptionToString(x.GoPointer())
+	return cret
+}
+
+var xFontDescriptionUnsetFields func(uintptr, FontMask)
+
+// Unsets some of the fields in a `PangoFontDescription`.
+//
+// The unset fields will get back to their default values.
+func (x *FontDescription) UnsetFields(ToUnsetVar FontMask) {
+
+	xFontDescriptionUnsetFields(x.GoPointer(), ToUnsetVar)
+
+}
+
 type FontFaceClass struct {
 	ParentClass uintptr
 }
 
+func (x *FontFaceClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FontFamilyClass struct {
 	ParentClass uintptr
+}
+
+func (x *FontFamilyClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoFontMetrics` structure holds the overall metric information
@@ -66,6 +518,164 @@ type FontMetrics struct {
 
 	StrikethroughThickness int
 }
+
+func (x *FontMetrics) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xFontMetricsGetApproximateCharWidth func(uintptr) int
+
+// Gets the approximate character width for a font metrics structure.
+//
+// This is merely a representative value useful, for example, for
+// determining the initial size for a window. Actual characters in
+// text will be wider and narrower than this.
+func (x *FontMetrics) GetApproximateCharWidth() int {
+
+	cret := xFontMetricsGetApproximateCharWidth(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetApproximateDigitWidth func(uintptr) int
+
+// Gets the approximate digit width for a font metrics structure.
+//
+// This is merely a representative value useful, for example, for
+// determining the initial size for a window. Actual digits in
+// text can be wider or narrower than this, though this value
+// is generally somewhat more accurate than the result of
+// pango_font_metrics_get_approximate_char_width() for digits.
+func (x *FontMetrics) GetApproximateDigitWidth() int {
+
+	cret := xFontMetricsGetApproximateDigitWidth(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetAscent func(uintptr) int
+
+// Gets the ascent from a font metrics structure.
+//
+// The ascent is the distance from the baseline to the logical top
+// of a line of text. (The logical top may be above or below the top
+// of the actual drawn ink. It is necessary to lay out the text to
+// figure where the ink will be.)
+func (x *FontMetrics) GetAscent() int {
+
+	cret := xFontMetricsGetAscent(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetDescent func(uintptr) int
+
+// Gets the descent from a font metrics structure.
+//
+// The descent is the distance from the baseline to the logical bottom
+// of a line of text. (The logical bottom may be above or below the
+// bottom of the actual drawn ink. It is necessary to lay out the text
+// to figure where the ink will be.)
+func (x *FontMetrics) GetDescent() int {
+
+	cret := xFontMetricsGetDescent(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetHeight func(uintptr) int
+
+// Gets the line height from a font metrics structure.
+//
+// The line height is the recommended distance between successive
+// baselines in wrapped text using this font.
+//
+// If the line height is not available, 0 is returned.
+func (x *FontMetrics) GetHeight() int {
+
+	cret := xFontMetricsGetHeight(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetStrikethroughPosition func(uintptr) int
+
+// Gets the suggested position to draw the strikethrough.
+//
+// The value returned is the distance *above* the
+// baseline of the top of the strikethrough.
+func (x *FontMetrics) GetStrikethroughPosition() int {
+
+	cret := xFontMetricsGetStrikethroughPosition(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetStrikethroughThickness func(uintptr) int
+
+// Gets the suggested thickness to draw for the strikethrough.
+func (x *FontMetrics) GetStrikethroughThickness() int {
+
+	cret := xFontMetricsGetStrikethroughThickness(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetUnderlinePosition func(uintptr) int
+
+// Gets the suggested position to draw the underline.
+//
+// The value returned is the distance *above* the baseline of the top
+// of the underline. Since most fonts have underline positions beneath
+// the baseline, this value is typically negative.
+func (x *FontMetrics) GetUnderlinePosition() int {
+
+	cret := xFontMetricsGetUnderlinePosition(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsGetUnderlineThickness func(uintptr) int
+
+// Gets the suggested thickness to draw for the underline.
+func (x *FontMetrics) GetUnderlineThickness() int {
+
+	cret := xFontMetricsGetUnderlineThickness(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsRef func(uintptr) *FontMetrics
+
+// Increase the reference count of a font metrics structure by one.
+func (x *FontMetrics) Ref() *FontMetrics {
+
+	cret := xFontMetricsRef(x.GoPointer())
+	return cret
+}
+
+var xFontMetricsUnref func(uintptr)
+
+// Decrease the reference count of a font metrics structure by one.
+//
+// If the result is zero, frees the structure and any associated memory.
+func (x *FontMetrics) Unref() {
+
+	xFontMetricsUnref(x.GoPointer())
+
+}
+
+const (
+	// A `PangoGlyph` value that indicates a zero-width empty glpyh.
+	//
+	// This is useful for example in shaper modules, to use as the glyph for
+	// various zero-width Unicode characters (those passing [func@is_zero_width]).
+	GLYPH_EMPTY Glyph = 268435455
+	// A `PangoGlyph` value for invalid input.
+	//
+	// `PangoLayout` produces one such glyph per invalid input UTF-8 byte and such
+	// a glyph is rendered as a crossed box.
+	//
+	// Note that this value is defined such that it has the %PANGO_GLYPH_UNKNOWN_FLAG
+	// set.
+	GLYPH_INVALID_INPUT Glyph = 4294967295
+	// Flag used in `PangoGlyph` to turn a `gunichar` value of a valid Unicode
+	// character into an unknown-character glyph for that `gunichar`.
+	//
+	// Such unknown-character glyphs may be rendered as a 'hex box'.
+	GLYPH_UNKNOWN_FLAG Glyph = 268435456
+)
 
 // The bits in a `PangoFontMask` correspond to the set fields in a
 // `PangoFontDescription`.
@@ -459,6 +1069,42 @@ func (c *Font) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xFontDescriptionsFree func(uintptr, int)
+
+// Frees an array of font descriptions.
+func FontDescriptionsFree(DescsVar uintptr, NDescsVar int) {
+
+	xFontDescriptionsFree(DescsVar, NDescsVar)
+
+}
+
+var xFontDeserialize func(uintptr, *glib.Bytes, **glib.Error) uintptr
+
+// Loads data previously created via [method@Pango.Font.serialize].
+//
+// For a discussion of the supported format, see that function.
+//
+// Note: to verify that the returned font is identical to
+// the one that was serialized, you can compare @bytes to the
+// result of serializing the font again.
+func FontDeserialize(ContextVar *Context, BytesVar *glib.Bytes) (*Font, error) {
+	var cls *Font
+	var cerr *glib.Error
+
+	cret := xFontDeserialize(ContextVar.GoPointer(), BytesVar, &cerr)
+
+	if cret == 0 {
+		return nil, cerr
+	}
+	cls = &Font{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
+}
+
 // A `PangoFontFace` is used to represent a group of fonts with
 // the same family, slant, weight, and width, but varying sizes.
 type FontFace struct {
@@ -656,6 +1302,53 @@ func init() {
 	}
 	core.PuregoSafeRegister(&xFontDescriptionFromString, lib, "pango_font_description_from_string")
 
+	core.PuregoSafeRegister(&xNewFontDescription, lib, "pango_font_description_new")
+
+	core.PuregoSafeRegister(&xFontDescriptionBetterMatch, lib, "pango_font_description_better_match")
+	core.PuregoSafeRegister(&xFontDescriptionCopy, lib, "pango_font_description_copy")
+	core.PuregoSafeRegister(&xFontDescriptionCopyStatic, lib, "pango_font_description_copy_static")
+	core.PuregoSafeRegister(&xFontDescriptionEqual, lib, "pango_font_description_equal")
+	core.PuregoSafeRegister(&xFontDescriptionFree, lib, "pango_font_description_free")
+	core.PuregoSafeRegister(&xFontDescriptionGetFamily, lib, "pango_font_description_get_family")
+	core.PuregoSafeRegister(&xFontDescriptionGetGravity, lib, "pango_font_description_get_gravity")
+	core.PuregoSafeRegister(&xFontDescriptionGetSetFields, lib, "pango_font_description_get_set_fields")
+	core.PuregoSafeRegister(&xFontDescriptionGetSize, lib, "pango_font_description_get_size")
+	core.PuregoSafeRegister(&xFontDescriptionGetSizeIsAbsolute, lib, "pango_font_description_get_size_is_absolute")
+	core.PuregoSafeRegister(&xFontDescriptionGetStretch, lib, "pango_font_description_get_stretch")
+	core.PuregoSafeRegister(&xFontDescriptionGetStyle, lib, "pango_font_description_get_style")
+	core.PuregoSafeRegister(&xFontDescriptionGetVariant, lib, "pango_font_description_get_variant")
+	core.PuregoSafeRegister(&xFontDescriptionGetVariations, lib, "pango_font_description_get_variations")
+	core.PuregoSafeRegister(&xFontDescriptionGetWeight, lib, "pango_font_description_get_weight")
+	core.PuregoSafeRegister(&xFontDescriptionHash, lib, "pango_font_description_hash")
+	core.PuregoSafeRegister(&xFontDescriptionMerge, lib, "pango_font_description_merge")
+	core.PuregoSafeRegister(&xFontDescriptionMergeStatic, lib, "pango_font_description_merge_static")
+	core.PuregoSafeRegister(&xFontDescriptionSetAbsoluteSize, lib, "pango_font_description_set_absolute_size")
+	core.PuregoSafeRegister(&xFontDescriptionSetFamily, lib, "pango_font_description_set_family")
+	core.PuregoSafeRegister(&xFontDescriptionSetFamilyStatic, lib, "pango_font_description_set_family_static")
+	core.PuregoSafeRegister(&xFontDescriptionSetGravity, lib, "pango_font_description_set_gravity")
+	core.PuregoSafeRegister(&xFontDescriptionSetSize, lib, "pango_font_description_set_size")
+	core.PuregoSafeRegister(&xFontDescriptionSetStretch, lib, "pango_font_description_set_stretch")
+	core.PuregoSafeRegister(&xFontDescriptionSetStyle, lib, "pango_font_description_set_style")
+	core.PuregoSafeRegister(&xFontDescriptionSetVariant, lib, "pango_font_description_set_variant")
+	core.PuregoSafeRegister(&xFontDescriptionSetVariations, lib, "pango_font_description_set_variations")
+	core.PuregoSafeRegister(&xFontDescriptionSetVariationsStatic, lib, "pango_font_description_set_variations_static")
+	core.PuregoSafeRegister(&xFontDescriptionSetWeight, lib, "pango_font_description_set_weight")
+	core.PuregoSafeRegister(&xFontDescriptionToFilename, lib, "pango_font_description_to_filename")
+	core.PuregoSafeRegister(&xFontDescriptionToString, lib, "pango_font_description_to_string")
+	core.PuregoSafeRegister(&xFontDescriptionUnsetFields, lib, "pango_font_description_unset_fields")
+
+	core.PuregoSafeRegister(&xFontMetricsGetApproximateCharWidth, lib, "pango_font_metrics_get_approximate_char_width")
+	core.PuregoSafeRegister(&xFontMetricsGetApproximateDigitWidth, lib, "pango_font_metrics_get_approximate_digit_width")
+	core.PuregoSafeRegister(&xFontMetricsGetAscent, lib, "pango_font_metrics_get_ascent")
+	core.PuregoSafeRegister(&xFontMetricsGetDescent, lib, "pango_font_metrics_get_descent")
+	core.PuregoSafeRegister(&xFontMetricsGetHeight, lib, "pango_font_metrics_get_height")
+	core.PuregoSafeRegister(&xFontMetricsGetStrikethroughPosition, lib, "pango_font_metrics_get_strikethrough_position")
+	core.PuregoSafeRegister(&xFontMetricsGetStrikethroughThickness, lib, "pango_font_metrics_get_strikethrough_thickness")
+	core.PuregoSafeRegister(&xFontMetricsGetUnderlinePosition, lib, "pango_font_metrics_get_underline_position")
+	core.PuregoSafeRegister(&xFontMetricsGetUnderlineThickness, lib, "pango_font_metrics_get_underline_thickness")
+	core.PuregoSafeRegister(&xFontMetricsRef, lib, "pango_font_metrics_ref")
+	core.PuregoSafeRegister(&xFontMetricsUnref, lib, "pango_font_metrics_unref")
+
 	core.PuregoSafeRegister(&xFontDescribe, lib, "pango_font_describe")
 	core.PuregoSafeRegister(&xFontDescribeWithAbsoluteSize, lib, "pango_font_describe_with_absolute_size")
 	core.PuregoSafeRegister(&xFontGetCoverage, lib, "pango_font_get_coverage")
@@ -668,6 +1361,9 @@ func init() {
 	core.PuregoSafeRegister(&xFontGetMetrics, lib, "pango_font_get_metrics")
 	core.PuregoSafeRegister(&xFontHasChar, lib, "pango_font_has_char")
 	core.PuregoSafeRegister(&xFontSerialize, lib, "pango_font_serialize")
+
+	core.PuregoSafeRegister(&xFontDescriptionsFree, lib, "pango_font_descriptions_free")
+	core.PuregoSafeRegister(&xFontDeserialize, lib, "pango_font_deserialize")
 
 	core.PuregoSafeRegister(&xFontFaceDescribe, lib, "pango_font_face_describe")
 	core.PuregoSafeRegister(&xFontFaceGetFaceName, lib, "pango_font_face_get_face_name")

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -15,7 +17,15 @@ type ListStoreClass struct {
 	Padding uintptr
 }
 
+func (x *ListStoreClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ListStorePrivate struct {
+}
+
+func (x *ListStorePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A list-like data structure that can be used with the [class@Gtk.TreeView].

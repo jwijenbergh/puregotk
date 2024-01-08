@@ -533,6 +533,46 @@ func (x *Display) ConnectSettingChanged(cb func(Display, string)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "setting-changed", purego.NewCallback(fcb))
 }
 
+var xDisplayGetDefault func() uintptr
+
+// Gets the default `GdkDisplay`.
+//
+// This is a convenience function for:
+//
+//	gdk_display_manager_get_default_display (gdk_display_manager_get ())
+func DisplayGetDefault() *Display {
+	var cls *Display
+
+	cret := xDisplayGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xDisplayOpen func(string) uintptr
+
+// Opens a display.
+//
+// If opening the display fails, `NULL` is returned.
+func DisplayOpen(DisplayNameVar string) *Display {
+	var cls *Display
+
+	cret := xDisplayOpen(DisplayNameVar)
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Display{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -565,5 +605,8 @@ func init() {
 	core.PuregoSafeRegister(&xDisplaySupportsInputShapes, lib, "gdk_display_supports_input_shapes")
 	core.PuregoSafeRegister(&xDisplaySync, lib, "gdk_display_sync")
 	core.PuregoSafeRegister(&xDisplayTranslateKey, lib, "gdk_display_translate_key")
+
+	core.PuregoSafeRegister(&xDisplayGetDefault, lib, "gdk_display_get_default")
+	core.PuregoSafeRegister(&xDisplayOpen, lib, "gdk_display_open")
 
 }

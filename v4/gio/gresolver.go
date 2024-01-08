@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type ResolverClass struct {
 	ParentClass uintptr
 }
 
+func (x *ResolverClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ResolverPrivate struct {
+}
+
+func (x *ResolverPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Flags to modify lookup behavior.
@@ -372,6 +382,48 @@ func (x *Resolver) ConnectReload(cb func(Resolver)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "reload", purego.NewCallback(fcb))
 }
 
+var xResolverFreeAddresses func(*glib.List)
+
+// Frees @addresses (which should be the return value from
+// g_resolver_lookup_by_name() or g_resolver_lookup_by_name_finish()).
+// (This is a convenience method; you can also simply free the results
+// by hand.)
+func ResolverFreeAddresses(AddressesVar *glib.List) {
+
+	xResolverFreeAddresses(AddressesVar)
+
+}
+
+var xResolverFreeTargets func(*glib.List)
+
+// Frees @targets (which should be the return value from
+// g_resolver_lookup_service() or g_resolver_lookup_service_finish()).
+// (This is a convenience method; you can also simply free the
+// results by hand.)
+func ResolverFreeTargets(TargetsVar *glib.List) {
+
+	xResolverFreeTargets(TargetsVar)
+
+}
+
+var xResolverGetDefault func() uintptr
+
+// Gets the default #GResolver. You should unref it when you are done
+// with it. #GResolver may use its reference count as a hint about how
+// many threads it should allocate for concurrent DNS resolutions.
+func ResolverGetDefault() *Resolver {
+	var cls *Resolver
+
+	cret := xResolverGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Resolver{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -394,5 +446,9 @@ func init() {
 	core.PuregoSafeRegister(&xResolverLookupServiceAsync, lib, "g_resolver_lookup_service_async")
 	core.PuregoSafeRegister(&xResolverLookupServiceFinish, lib, "g_resolver_lookup_service_finish")
 	core.PuregoSafeRegister(&xResolverSetDefault, lib, "g_resolver_set_default")
+
+	core.PuregoSafeRegister(&xResolverFreeAddresses, lib, "g_resolver_free_addresses")
+	core.PuregoSafeRegister(&xResolverFreeTargets, lib, "g_resolver_free_targets")
+	core.PuregoSafeRegister(&xResolverGetDefault, lib, "g_resolver_get_default")
 
 }

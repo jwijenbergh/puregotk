@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Base type for D-Bus object managers.
 type DBusObjectManagerIface struct {
 	ParentIface uintptr
+}
+
+func (x *DBusObjectManagerIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The #GDBusObjectManager type is the base type for service- and

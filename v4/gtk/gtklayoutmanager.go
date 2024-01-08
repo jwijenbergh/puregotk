@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -16,6 +18,10 @@ type LayoutManagerClass struct {
 	LayoutChildType []interface{}
 
 	Padding uintptr
+}
+
+func (x *LayoutManagerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Layout managers are delegate classes that handle the preferred size

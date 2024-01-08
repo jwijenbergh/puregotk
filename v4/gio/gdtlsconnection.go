@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // Virtual method table for a #GDtlsConnection implementation.
 type DtlsConnectionInterface struct {
 	GIface uintptr
+}
+
+func (x *DtlsConnectionInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDtlsConnection is the base DTLS connection class type, which wraps

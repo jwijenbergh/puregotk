@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,7 +14,15 @@ type SocketServiceClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketServiceClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketServicePrivate struct {
+}
+
+func (x *SocketServicePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GSocketService is an object that represents a service that

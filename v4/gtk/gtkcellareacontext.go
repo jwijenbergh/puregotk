@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -13,7 +15,15 @@ type CellAreaContextClass struct {
 	Padding uintptr
 }
 
+func (x *CellAreaContextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CellAreaContextPrivate struct {
+}
+
+func (x *CellAreaContextPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Stores geometrical information for a series of rows in a GtkCellArea

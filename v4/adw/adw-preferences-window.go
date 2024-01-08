@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -14,6 +16,10 @@ type PreferencesWindowClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *PreferencesWindowClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A window to present an application's preferences.

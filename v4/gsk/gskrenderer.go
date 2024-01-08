@@ -2,6 +2,8 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -12,6 +14,10 @@ import (
 )
 
 type RendererClass struct {
+}
+
+func (x *RendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GskRenderer` is a class that renders a scene graph defined via a

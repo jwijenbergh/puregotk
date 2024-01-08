@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 // Provides an interface for describing TLS-related types.
 type TlsBackendInterface struct {
 	GIface uintptr
+}
+
+func (x *TlsBackendInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // TLS (Transport Layer Security, aka SSL) and DTLS backend.
@@ -135,6 +141,12 @@ var XGTlsBackendGetServerConnectionType func(uintptr) []interface{}
 var XGTlsBackendSetDefaultDatabase func(uintptr, uintptr)
 var XGTlsBackendSupportsDtls func(uintptr) bool
 var XGTlsBackendSupportsTls func(uintptr) bool
+
+const (
+	// Extension point for TLS functionality via #GTlsBackend.
+	// See [Extending GIO][extending-gio].
+	TLS_BACKEND_EXTENSION_POINT_NAME string = "gio-tls-backend"
+)
 
 var xTlsBackendGetDefault func() uintptr
 

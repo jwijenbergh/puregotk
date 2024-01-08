@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type EntryBufferClass struct {
 	ParentClass uintptr
+}
+
+func (x *EntryBufferClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkEntryBuffer` hold the text displayed in a `GtkText` widget.

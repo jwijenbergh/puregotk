@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -33,6 +35,10 @@ type FlowBoxChildClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *FlowBoxChildClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkFlowBox` puts child widgets in reflowing grid.

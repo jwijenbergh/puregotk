@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 )
 
 type GestureSingleClass struct {
+}
+
+func (x *GestureSingleClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkGestureSingle` is a `GtkGestures` subclass optimized for singe-touch

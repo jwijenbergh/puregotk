@@ -2,12 +2,18 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type MonitorClass struct {
+}
+
+func (x *MonitorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // This enumeration describes how the red, green and blue components

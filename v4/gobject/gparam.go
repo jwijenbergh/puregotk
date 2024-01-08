@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -18,12 +20,75 @@ type ParamSpecClass struct {
 	Dummy uintptr
 }
 
+func (x *ParamSpecClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A #GParamSpecPool maintains a collection of #GParamSpecs which can be
 // quickly accessed by owner and name.
 //
 // The implementation of the #GObject property system uses such a pool to
 // store the #GParamSpecs of the properties all object types.
 type ParamSpecPool struct {
+}
+
+func (x *ParamSpecPool) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xParamSpecPoolInsert func(uintptr, uintptr, []interface{})
+
+// Inserts a #GParamSpec in the pool.
+func (x *ParamSpecPool) Insert(PspecVar *ParamSpec, OwnerTypeVar []interface{}) {
+
+	xParamSpecPoolInsert(x.GoPointer(), PspecVar.GoPointer(), OwnerTypeVar)
+
+}
+
+var xParamSpecPoolList func(uintptr, []interface{}, uint) uintptr
+
+// Gets an array of all #GParamSpecs owned by @owner_type in
+// the pool.
+func (x *ParamSpecPool) List(OwnerTypeVar []interface{}, NPspecsPVar uint) uintptr {
+
+	cret := xParamSpecPoolList(x.GoPointer(), OwnerTypeVar, NPspecsPVar)
+	return cret
+}
+
+var xParamSpecPoolListOwned func(uintptr, []interface{}) *glib.List
+
+// Gets an #GList of all #GParamSpecs owned by @owner_type in
+// the pool.
+func (x *ParamSpecPool) ListOwned(OwnerTypeVar []interface{}) *glib.List {
+
+	cret := xParamSpecPoolListOwned(x.GoPointer(), OwnerTypeVar)
+	return cret
+}
+
+var xParamSpecPoolLookup func(uintptr, string, []interface{}, bool) uintptr
+
+// Looks up a #GParamSpec in the pool.
+func (x *ParamSpecPool) Lookup(ParamNameVar string, OwnerTypeVar []interface{}, WalkAncestorsVar bool) *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xParamSpecPoolLookup(x.GoPointer(), ParamNameVar, OwnerTypeVar, WalkAncestorsVar)
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xParamSpecPoolRemove func(uintptr, uintptr)
+
+// Removes a #GParamSpec from the pool.
+func (x *ParamSpecPool) Remove(PspecVar *ParamSpec) {
+
+	xParamSpecPoolRemove(x.GoPointer(), PspecVar.GoPointer())
+
 }
 
 // This structure is used to provide the type system with the information
@@ -42,6 +107,10 @@ type ParamSpecTypeInfo struct {
 	ValueType []interface{}
 }
 
+func (x *ParamSpecTypeInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The GParameter struct is an auxiliary structure used
 // to hand parameter name/value pairs to g_object_newv().
 type Parameter struct {
@@ -49,6 +118,22 @@ type Parameter struct {
 
 	Value uintptr
 }
+
+func (x *Parameter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
+	PARAM_MASK int = 255
+	// #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
+	//
+	// Since 2.13.0
+	PARAM_STATIC_STRINGS int = 224
+	// Minimum shift count to be used for user defined flags, to be stored in
+	// #GParamSpec.flags. The maximum allowed is 10.
+	PARAM_USER_SHIFT int = 8
+)
 
 // Through the #GParamFlags flag values, certain aspects of parameters
 // can be configured.
@@ -380,6 +465,47 @@ func (c *ParamSpec) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xParamSpecInternal func([]interface{}, string, string, string, ParamFlags) uintptr
+
+// Creates a new #GParamSpec instance.
+//
+// See [canonical parameter names][canonical-parameter-names] for details of
+// the rules for @name. Names which violate these rules lead to undefined
+// behaviour.
+//
+// Beyond the name, #GParamSpecs have two more descriptive
+// strings associated with them, the @nick, which should be suitable
+// for use as a label for the property in a property editor, and the
+// @blurb, which should be a somewhat longer description, suitable for
+// e.g. a tooltip. The @nick and @blurb should ideally be localized.
+func ParamSpecInternal(ParamTypeVar []interface{}, NameVar string, NickVar string, BlurbVar string, FlagsVar ParamFlags) *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xParamSpecInternal(ParamTypeVar, NameVar, NickVar, BlurbVar, FlagsVar)
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xParamSpecIsValidName func(string) bool
+
+// Validate a property name for a #GParamSpec. This can be useful for
+// dynamically-generated properties which need to be validated at run-time
+// before actually trying to create them.
+//
+// See [canonical parameter names][canonical-parameter-names] for details of
+// the rules for valid names.
+func ParamSpecIsValidName(NameVar string) bool {
+
+	cret := xParamSpecIsValidName(NameVar)
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GOBJECT"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -391,6 +517,12 @@ func init() {
 	core.PuregoSafeRegister(&xParamValueSetDefault, lib, "g_param_value_set_default")
 	core.PuregoSafeRegister(&xParamValueValidate, lib, "g_param_value_validate")
 	core.PuregoSafeRegister(&xParamValuesCmp, lib, "g_param_values_cmp")
+
+	core.PuregoSafeRegister(&xParamSpecPoolInsert, lib, "g_param_spec_pool_insert")
+	core.PuregoSafeRegister(&xParamSpecPoolList, lib, "g_param_spec_pool_list")
+	core.PuregoSafeRegister(&xParamSpecPoolListOwned, lib, "g_param_spec_pool_list_owned")
+	core.PuregoSafeRegister(&xParamSpecPoolLookup, lib, "g_param_spec_pool_lookup")
+	core.PuregoSafeRegister(&xParamSpecPoolRemove, lib, "g_param_spec_pool_remove")
 
 	core.PuregoSafeRegister(&xParamSpecGetBlurb, lib, "g_param_spec_get_blurb")
 	core.PuregoSafeRegister(&xParamSpecGetDefaultValue, lib, "g_param_spec_get_default_value")
@@ -406,5 +538,8 @@ func init() {
 	core.PuregoSafeRegister(&xParamSpecSink, lib, "g_param_spec_sink")
 	core.PuregoSafeRegister(&xParamSpecStealQdata, lib, "g_param_spec_steal_qdata")
 	core.PuregoSafeRegister(&xParamSpecUnref, lib, "g_param_spec_unref")
+
+	core.PuregoSafeRegister(&xParamSpecInternal, lib, "g_param_spec_internal")
+	core.PuregoSafeRegister(&xParamSpecIsValidName, lib, "g_param_spec_is_valid_name")
 
 }

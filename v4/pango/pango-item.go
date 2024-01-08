@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -29,6 +31,10 @@ type Analysis struct {
 	ExtraAttrs *glib.SList
 }
 
+func (x *Analysis) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoItem` structure stores information about a segment of text.
 //
 // You typically obtain `PangoItems` by itemizing a piece of text
@@ -42,6 +48,87 @@ type Item struct {
 
 	Analysis uintptr
 }
+
+func (x *Item) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewItem func() *Item
+
+// Creates a new `PangoItem` structure initialized to default values.
+func NewItem() *Item {
+
+	cret := xNewItem()
+	return cret
+}
+
+var xItemApplyAttrs func(uintptr, *AttrIterator)
+
+// Add attributes to a `PangoItem`.
+//
+// The idea is that you have attributes that don't affect itemization,
+// such as font features, so you filter them out using
+// [method@Pango.AttrList.filter], itemize your text, then reapply the
+// attributes to the resulting items using this function.
+//
+// The @iter should be positioned before the range of the item,
+// and will be advanced past it. This function is meant to be called
+// in a loop over the items resulting from itemization, while passing
+// the iter to each call.
+func (x *Item) ApplyAttrs(IterVar *AttrIterator) {
+
+	xItemApplyAttrs(x.GoPointer(), IterVar)
+
+}
+
+var xItemCopy func(uintptr) *Item
+
+// Copy an existing `PangoItem` structure.
+func (x *Item) Copy() *Item {
+
+	cret := xItemCopy(x.GoPointer())
+	return cret
+}
+
+var xItemFree func(uintptr)
+
+// Free a `PangoItem` and all associated memory.
+func (x *Item) Free() {
+
+	xItemFree(x.GoPointer())
+
+}
+
+var xItemSplit func(uintptr, int, int) *Item
+
+// Modifies @orig to cover only the text after @split_index, and
+// returns a new item that covers the text before @split_index that
+// used to be in @orig.
+//
+// You can think of @split_index as the length of the returned item.
+// @split_index may not be 0, and it may not be greater than or equal
+// to the length of @orig (that is, there must be at least one byte
+// assigned to each item, you can't create a zero-length item).
+// @split_offset is the length of the first item in chars, and must be
+// provided because the text used to generate the item isn't available,
+// so `pango_item_split()` can't count the char length of the split items
+// itself.
+func (x *Item) Split(SplitIndexVar int, SplitOffsetVar int) *Item {
+
+	cret := xItemSplit(x.GoPointer(), SplitIndexVar, SplitOffsetVar)
+	return cret
+}
+
+const (
+	// Whether the segment should be shifted to center around the baseline.
+	//
+	// This is mainly used in vertical writing directions.
+	ANALYSIS_FLAG_CENTERED_BASELINE int = 1
+	// Whether this run holds ellipsized text.
+	ANALYSIS_FLAG_IS_ELLIPSIS int = 2
+	// Whether to add a hyphen at the end of the run during shaping.
+	ANALYSIS_FLAG_NEED_HYPHEN int = 4
+)
 
 var xItemize func(uintptr, string, int, int, *AttrList, *AttrIterator) *glib.List
 
@@ -101,5 +188,12 @@ func init() {
 	core.PuregoSafeRegister(&xItemize, lib, "pango_itemize")
 	core.PuregoSafeRegister(&xItemizeWithBaseDir, lib, "pango_itemize_with_base_dir")
 	core.PuregoSafeRegister(&xReorderItems, lib, "pango_reorder_items")
+
+	core.PuregoSafeRegister(&xNewItem, lib, "pango_item_new")
+
+	core.PuregoSafeRegister(&xItemApplyAttrs, lib, "pango_item_apply_attrs")
+	core.PuregoSafeRegister(&xItemCopy, lib, "pango_item_copy")
+	core.PuregoSafeRegister(&xItemFree, lib, "pango_item_free")
+	core.PuregoSafeRegister(&xItemSplit, lib, "pango_item_split")
 
 }

@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -11,6 +13,10 @@ import (
 //
 // See g_stat() for more information.
 type StatBuf struct {
+}
+
+func (x *StatBuf) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xAccess func(string, int) int

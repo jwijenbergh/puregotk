@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 // No function must be implemented, default implementations exist for each one.
 type SymbolicPaintableInterface struct {
 	GIface uintptr
+}
+
+func (x *SymbolicPaintableInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkSymbolicPaintable` is an interface that support symbolic colors in

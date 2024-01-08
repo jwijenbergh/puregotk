@@ -373,6 +373,35 @@ func (c *GLContext) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xGLContextClearCurrent func()
+
+// Clears the current `GdkGLContext`.
+//
+// Any OpenGL call after this function returns will be ignored
+// until [method@Gdk.GLContext.make_current] is called.
+func GLContextClearCurrent() {
+
+	xGLContextClearCurrent()
+
+}
+
+var xGLContextGetCurrent func() uintptr
+
+// Retrieves the current `GdkGLContext`.
+func GLContextGetCurrent() *GLContext {
+	var cls *GLContext
+
+	cret := xGLContextGetCurrent()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &GLContext{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -398,5 +427,8 @@ func init() {
 	core.PuregoSafeRegister(&xGLContextSetForwardCompatible, lib, "gdk_gl_context_set_forward_compatible")
 	core.PuregoSafeRegister(&xGLContextSetRequiredVersion, lib, "gdk_gl_context_set_required_version")
 	core.PuregoSafeRegister(&xGLContextSetUseEs, lib, "gdk_gl_context_set_use_es")
+
+	core.PuregoSafeRegister(&xGLContextClearCurrent, lib, "gdk_gl_context_clear_current")
+	core.PuregoSafeRegister(&xGLContextGetCurrent, lib, "gdk_gl_context_get_current")
 
 }

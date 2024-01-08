@@ -2,6 +2,8 @@
 package graphene
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -12,6 +14,250 @@ type Box struct {
 	Min uintptr
 
 	Max uintptr
+}
+
+func (x *Box) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xAllocBox func() *Box
+
+// Allocates a new #graphene_box_t.
+//
+// The contents of the returned structure are undefined.
+func AllocBox() *Box {
+
+	cret := xAllocBox()
+	return cret
+}
+
+var xBoxContainsBox func(uintptr, *Box) bool
+
+// Checks whether the #graphene_box_t @a contains the given
+// #graphene_box_t @b.
+func (x *Box) ContainsBox(BVar *Box) bool {
+
+	cret := xBoxContainsBox(x.GoPointer(), BVar)
+	return cret
+}
+
+var xBoxContainsPoint func(uintptr, *Point3D) bool
+
+// Checks whether @box contains the given @point.
+func (x *Box) ContainsPoint(PointVar *Point3D) bool {
+
+	cret := xBoxContainsPoint(x.GoPointer(), PointVar)
+	return cret
+}
+
+var xBoxEqual func(uintptr, *Box) bool
+
+// Checks whether the two given boxes are equal.
+func (x *Box) Equal(BVar *Box) bool {
+
+	cret := xBoxEqual(x.GoPointer(), BVar)
+	return cret
+}
+
+var xBoxExpand func(uintptr, *Point3D, *Box)
+
+// Expands the dimensions of @box to include the coordinates at @point.
+func (x *Box) Expand(PointVar *Point3D, ResVar *Box) {
+
+	xBoxExpand(x.GoPointer(), PointVar, ResVar)
+
+}
+
+var xBoxExpandScalar func(uintptr, float32, *Box)
+
+// Expands the dimensions of @box by the given @scalar value.
+//
+// If @scalar is positive, the #graphene_box_t will grow; if @scalar is
+// negative, the #graphene_box_t will shrink.
+func (x *Box) ExpandScalar(ScalarVar float32, ResVar *Box) {
+
+	xBoxExpandScalar(x.GoPointer(), ScalarVar, ResVar)
+
+}
+
+var xBoxExpandVec3 func(uintptr, *Vec3, *Box)
+
+// Expands the dimensions of @box to include the coordinates of the
+// given vector.
+func (x *Box) ExpandVec3(VecVar *Vec3, ResVar *Box) {
+
+	xBoxExpandVec3(x.GoPointer(), VecVar, ResVar)
+
+}
+
+var xBoxFree func(uintptr)
+
+// Frees the resources allocated by graphene_box_alloc().
+func (x *Box) Free() {
+
+	xBoxFree(x.GoPointer())
+
+}
+
+var xBoxGetBoundingSphere func(uintptr, *Sphere)
+
+// Computes the bounding #graphene_sphere_t capable of containing the given
+// #graphene_box_t.
+func (x *Box) GetBoundingSphere(SphereVar *Sphere) {
+
+	xBoxGetBoundingSphere(x.GoPointer(), SphereVar)
+
+}
+
+var xBoxGetCenter func(uintptr, *Point3D)
+
+// Retrieves the coordinates of the center of a #graphene_box_t.
+func (x *Box) GetCenter(CenterVar *Point3D) {
+
+	xBoxGetCenter(x.GoPointer(), CenterVar)
+
+}
+
+var xBoxGetDepth func(uintptr) float32
+
+// Retrieves the size of the @box on the Z axis.
+func (x *Box) GetDepth() float32 {
+
+	cret := xBoxGetDepth(x.GoPointer())
+	return cret
+}
+
+var xBoxGetHeight func(uintptr) float32
+
+// Retrieves the size of the @box on the Y axis.
+func (x *Box) GetHeight() float32 {
+
+	cret := xBoxGetHeight(x.GoPointer())
+	return cret
+}
+
+var xBoxGetMax func(uintptr, *Point3D)
+
+// Retrieves the coordinates of the maximum point of the given
+// #graphene_box_t.
+func (x *Box) GetMax(MaxVar *Point3D) {
+
+	xBoxGetMax(x.GoPointer(), MaxVar)
+
+}
+
+var xBoxGetMin func(uintptr, *Point3D)
+
+// Retrieves the coordinates of the minimum point of the given
+// #graphene_box_t.
+func (x *Box) GetMin(MinVar *Point3D) {
+
+	xBoxGetMin(x.GoPointer(), MinVar)
+
+}
+
+var xBoxGetSize func(uintptr, *Vec3)
+
+// Retrieves the size of the box on all three axes, and stores
+// it into the given @size vector.
+func (x *Box) GetSize(SizeVar *Vec3) {
+
+	xBoxGetSize(x.GoPointer(), SizeVar)
+
+}
+
+var xBoxGetVertices func(uintptr, uintptr)
+
+// Computes the vertices of the given #graphene_box_t.
+func (x *Box) GetVertices(VerticesVar uintptr) {
+
+	xBoxGetVertices(x.GoPointer(), VerticesVar)
+
+}
+
+var xBoxGetWidth func(uintptr) float32
+
+// Retrieves the size of the @box on the X axis.
+func (x *Box) GetWidth() float32 {
+
+	cret := xBoxGetWidth(x.GoPointer())
+	return cret
+}
+
+var xBoxInit func(uintptr, *Point3D, *Point3D) *Box
+
+// Initializes the given #graphene_box_t with two vertices.
+func (x *Box) Init(MinVar *Point3D, MaxVar *Point3D) *Box {
+
+	cret := xBoxInit(x.GoPointer(), MinVar, MaxVar)
+	return cret
+}
+
+var xBoxInitFromBox func(uintptr, *Box) *Box
+
+// Initializes the given #graphene_box_t with the vertices of
+// another #graphene_box_t.
+func (x *Box) InitFromBox(SrcVar *Box) *Box {
+
+	cret := xBoxInitFromBox(x.GoPointer(), SrcVar)
+	return cret
+}
+
+var xBoxInitFromPoints func(uintptr, uint, uintptr) *Box
+
+// Initializes the given #graphene_box_t with the given array
+// of vertices.
+//
+// If @n_points is 0, the returned box is initialized with
+// graphene_box_empty().
+func (x *Box) InitFromPoints(NPointsVar uint, PointsVar uintptr) *Box {
+
+	cret := xBoxInitFromPoints(x.GoPointer(), NPointsVar, PointsVar)
+	return cret
+}
+
+var xBoxInitFromVec3 func(uintptr, *Vec3, *Vec3) *Box
+
+// Initializes the given #graphene_box_t with two vertices
+// stored inside #graphene_vec3_t.
+func (x *Box) InitFromVec3(MinVar *Vec3, MaxVar *Vec3) *Box {
+
+	cret := xBoxInitFromVec3(x.GoPointer(), MinVar, MaxVar)
+	return cret
+}
+
+var xBoxInitFromVectors func(uintptr, uint, uintptr) *Box
+
+// Initializes the given #graphene_box_t with the given array
+// of vertices.
+//
+// If @n_vectors is 0, the returned box is initialized with
+// graphene_box_empty().
+func (x *Box) InitFromVectors(NVectorsVar uint, VectorsVar uintptr) *Box {
+
+	cret := xBoxInitFromVectors(x.GoPointer(), NVectorsVar, VectorsVar)
+	return cret
+}
+
+var xBoxIntersection func(uintptr, *Box, *Box) bool
+
+// Intersects the two given #graphene_box_t.
+//
+// If the two boxes do not intersect, @res will contain a degenerate box
+// initialized with graphene_box_empty().
+func (x *Box) Intersection(BVar *Box, ResVar *Box) bool {
+
+	cret := xBoxIntersection(x.GoPointer(), BVar, ResVar)
+	return cret
+}
+
+var xBoxUnion func(uintptr, *Box, *Box)
+
+// Unions the two given #graphene_box_t.
+func (x *Box) Union(BVar *Box, ResVar *Box) {
+
+	xBoxUnion(x.GoPointer(), BVar, ResVar)
+
 }
 
 var xBoxEmpty func() *Box
@@ -94,5 +340,31 @@ func init() {
 	core.PuregoSafeRegister(&xBoxOne, lib, "graphene_box_one")
 	core.PuregoSafeRegister(&xBoxOneMinusOne, lib, "graphene_box_one_minus_one")
 	core.PuregoSafeRegister(&xBoxZero, lib, "graphene_box_zero")
+
+	core.PuregoSafeRegister(&xAllocBox, lib, "graphene_box_alloc")
+
+	core.PuregoSafeRegister(&xBoxContainsBox, lib, "graphene_box_contains_box")
+	core.PuregoSafeRegister(&xBoxContainsPoint, lib, "graphene_box_contains_point")
+	core.PuregoSafeRegister(&xBoxEqual, lib, "graphene_box_equal")
+	core.PuregoSafeRegister(&xBoxExpand, lib, "graphene_box_expand")
+	core.PuregoSafeRegister(&xBoxExpandScalar, lib, "graphene_box_expand_scalar")
+	core.PuregoSafeRegister(&xBoxExpandVec3, lib, "graphene_box_expand_vec3")
+	core.PuregoSafeRegister(&xBoxFree, lib, "graphene_box_free")
+	core.PuregoSafeRegister(&xBoxGetBoundingSphere, lib, "graphene_box_get_bounding_sphere")
+	core.PuregoSafeRegister(&xBoxGetCenter, lib, "graphene_box_get_center")
+	core.PuregoSafeRegister(&xBoxGetDepth, lib, "graphene_box_get_depth")
+	core.PuregoSafeRegister(&xBoxGetHeight, lib, "graphene_box_get_height")
+	core.PuregoSafeRegister(&xBoxGetMax, lib, "graphene_box_get_max")
+	core.PuregoSafeRegister(&xBoxGetMin, lib, "graphene_box_get_min")
+	core.PuregoSafeRegister(&xBoxGetSize, lib, "graphene_box_get_size")
+	core.PuregoSafeRegister(&xBoxGetVertices, lib, "graphene_box_get_vertices")
+	core.PuregoSafeRegister(&xBoxGetWidth, lib, "graphene_box_get_width")
+	core.PuregoSafeRegister(&xBoxInit, lib, "graphene_box_init")
+	core.PuregoSafeRegister(&xBoxInitFromBox, lib, "graphene_box_init_from_box")
+	core.PuregoSafeRegister(&xBoxInitFromPoints, lib, "graphene_box_init_from_points")
+	core.PuregoSafeRegister(&xBoxInitFromVec3, lib, "graphene_box_init_from_vec3")
+	core.PuregoSafeRegister(&xBoxInitFromVectors, lib, "graphene_box_init_from_vectors")
+	core.PuregoSafeRegister(&xBoxIntersection, lib, "graphene_box_intersection")
+	core.PuregoSafeRegister(&xBoxUnion, lib, "graphene_box_union")
 
 }

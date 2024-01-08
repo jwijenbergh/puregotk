@@ -2,8 +2,11 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -11,7 +14,15 @@ type NetworkAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *NetworkAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type NetworkAddressPrivate struct {
+}
+
+func (x *NetworkAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GNetworkAddress provides an easy way to resolve a hostname and
@@ -167,6 +178,73 @@ func (x *NetworkAddress) ToString() string {
 	return cret
 }
 
+var xNetworkAddressParse func(string, uint16, **glib.Error) uintptr
+
+// Creates a new #GSocketConnectable for connecting to the given
+// @hostname and @port. May fail and return %NULL in case
+// parsing @host_and_port fails.
+//
+// @host_and_port may be in any of a number of recognised formats; an IPv6
+// address, an IPv4 address, or a domain name (in which case a DNS
+// lookup is performed). Quoting with [] is supported for all address
+// types. A port override may be specified in the usual way with a
+// colon.
+//
+// If no port is specified in @host_and_port then @default_port will be
+// used as the port number to connect to.
+//
+// In general, @host_and_port is expected to be provided by the user
+// (allowing them to give the hostname, and a port override if necessary)
+// and @default_port is expected to be provided by the application.
+//
+// (The port component of @host_and_port can also be specified as a
+// service name rather than as a numeric port, but this functionality
+// is deprecated, because it depends on the contents of /etc/services,
+// which is generally quite sparse on platforms other than Linux.)
+func NetworkAddressParse(HostAndPortVar string, DefaultPortVar uint16) (*NetworkAddress, error) {
+	var cls *NetworkAddress
+	var cerr *glib.Error
+
+	cret := xNetworkAddressParse(HostAndPortVar, DefaultPortVar, &cerr)
+
+	if cret == 0 {
+		return nil, cerr
+	}
+	cls = &NetworkAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
+}
+
+var xNetworkAddressParseUri func(string, uint16, **glib.Error) uintptr
+
+// Creates a new #GSocketConnectable for connecting to the given
+// @uri. May fail and return %NULL in case parsing @uri fails.
+//
+// Using this rather than g_network_address_new() or
+// g_network_address_parse() allows #GSocketClient to determine
+// when to use application-specific proxy protocols.
+func NetworkAddressParseUri(UriVar string, DefaultPortVar uint16) (*NetworkAddress, error) {
+	var cls *NetworkAddress
+	var cerr *glib.Error
+
+	cret := xNetworkAddressParseUri(UriVar, DefaultPortVar, &cerr)
+
+	if cret == 0 {
+		return nil, cerr
+	}
+	cls = &NetworkAddress{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -179,5 +257,8 @@ func init() {
 	core.PuregoSafeRegister(&xNetworkAddressGetHostname, lib, "g_network_address_get_hostname")
 	core.PuregoSafeRegister(&xNetworkAddressGetPort, lib, "g_network_address_get_port")
 	core.PuregoSafeRegister(&xNetworkAddressGetScheme, lib, "g_network_address_get_scheme")
+
+	core.PuregoSafeRegister(&xNetworkAddressParse, lib, "g_network_address_parse")
+	core.PuregoSafeRegister(&xNetworkAddressParseUri, lib, "g_network_address_parse_uri")
 
 }

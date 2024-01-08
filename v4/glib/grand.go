@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,92 @@ import (
 // The GRand struct is an opaque data structure. It should only be
 // accessed through the g_rand_* functions.
 type Rand struct {
+}
+
+func (x *Rand) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xRandCopy func(uintptr) *Rand
+
+// Copies a #GRand into a new one with the same exact state as before.
+// This way you can take a snapshot of the random number generator for
+// replaying later.
+func (x *Rand) Copy() *Rand {
+
+	cret := xRandCopy(x.GoPointer())
+	return cret
+}
+
+var xRandDouble func(uintptr) float64
+
+// Returns the next random #gdouble from @rand_ equally distributed over
+// the range [0..1).
+func (x *Rand) Double() float64 {
+
+	cret := xRandDouble(x.GoPointer())
+	return cret
+}
+
+var xRandDoubleRange func(uintptr, float64, float64) float64
+
+// Returns the next random #gdouble from @rand_ equally distributed over
+// the range [@begin..@end).
+func (x *Rand) DoubleRange(BeginVar float64, EndVar float64) float64 {
+
+	cret := xRandDoubleRange(x.GoPointer(), BeginVar, EndVar)
+	return cret
+}
+
+var xRandFree func(uintptr)
+
+// Frees the memory allocated for the #GRand.
+func (x *Rand) Free() {
+
+	xRandFree(x.GoPointer())
+
+}
+
+var xRandInt func(uintptr) uint32
+
+// Returns the next random #guint32 from @rand_ equally distributed over
+// the range [0..2^32-1].
+func (x *Rand) Int() uint32 {
+
+	cret := xRandInt(x.GoPointer())
+	return cret
+}
+
+var xRandIntRange func(uintptr, int32, int32) int32
+
+// Returns the next random #gint32 from @rand_ equally distributed over
+// the range [@begin..@end-1].
+func (x *Rand) IntRange(BeginVar int32, EndVar int32) int32 {
+
+	cret := xRandIntRange(x.GoPointer(), BeginVar, EndVar)
+	return cret
+}
+
+var xRandSetSeed func(uintptr, uint32)
+
+// Sets the seed for the random number generator #GRand to @seed.
+func (x *Rand) SetSeed(SeedVar uint32) {
+
+	xRandSetSeed(x.GoPointer(), SeedVar)
+
+}
+
+var xRandSetSeedArray func(uintptr, uint32, uint)
+
+// Initializes the random number generator by an array of longs.
+// Array can be of arbitrary size, though only the first 624 values
+// are taken.  This function is useful if you have many low entropy
+// seeds, or if you require more then 32 bits of actual entropy for
+// your application.
+func (x *Rand) SetSeedArray(SeedVar uint32, SeedLengthVar uint) {
+
+	xRandSetSeedArray(x.GoPointer(), SeedVar, SeedLengthVar)
+
 }
 
 var xRandomDouble func() float64
@@ -70,5 +158,14 @@ func init() {
 	core.PuregoSafeRegister(&xRandomInt, lib, "g_random_int")
 	core.PuregoSafeRegister(&xRandomIntRange, lib, "g_random_int_range")
 	core.PuregoSafeRegister(&xRandomSetSeed, lib, "g_random_set_seed")
+
+	core.PuregoSafeRegister(&xRandCopy, lib, "g_rand_copy")
+	core.PuregoSafeRegister(&xRandDouble, lib, "g_rand_double")
+	core.PuregoSafeRegister(&xRandDoubleRange, lib, "g_rand_double_range")
+	core.PuregoSafeRegister(&xRandFree, lib, "g_rand_free")
+	core.PuregoSafeRegister(&xRandInt, lib, "g_rand_int")
+	core.PuregoSafeRegister(&xRandIntRange, lib, "g_rand_int_range")
+	core.PuregoSafeRegister(&xRandSetSeed, lib, "g_rand_set_seed")
+	core.PuregoSafeRegister(&xRandSetSeedArray, lib, "g_rand_set_seed_array")
 
 }

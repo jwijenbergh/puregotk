@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type LayoutChildClass struct {
 	ParentClass uintptr
+}
+
+func (x *LayoutChildClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkLayoutChild` is the base class for objects that are meant to hold

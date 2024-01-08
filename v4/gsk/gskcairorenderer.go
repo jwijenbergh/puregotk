@@ -2,11 +2,17 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type CairoRendererClass struct {
+}
+
+func (x *CairoRendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A GSK renderer that is using cairo.

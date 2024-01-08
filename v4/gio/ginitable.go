@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,6 +14,10 @@ import (
 // may fail.
 type InitableIface struct {
 	GIface uintptr
+}
+
+func (x *InitableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GInitable is implemented by objects that can fail during

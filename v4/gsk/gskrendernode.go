@@ -2,6 +2,8 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -21,6 +23,10 @@ type ColorStop struct {
 	Color uintptr
 }
 
+func (x *ColorStop) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A location in a parse buffer.
 type ParseLocation struct {
 	Bytes uint
@@ -34,6 +40,10 @@ type ParseLocation struct {
 	LineChars uint
 }
 
+func (x *ParseLocation) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The shadow parameters in a shadow node.
 type Shadow struct {
 	Color uintptr
@@ -43,6 +53,10 @@ type Shadow struct {
 	Dy float32
 
 	Radius float32
+}
+
+func (x *Shadow) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xValueDupRenderNode func(*gobject.Value) uintptr
@@ -233,6 +247,24 @@ func (c *RenderNode) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xRenderNodeDeserialize func(*glib.Bytes, uintptr, uintptr) uintptr
+
+// Loads data previously created via [method@Gsk.RenderNode.serialize].
+//
+// For a discussion of the supported format, see that function.
+func RenderNodeDeserialize(BytesVar *glib.Bytes, ErrorFuncVar ParseErrorFunc, UserDataVar uintptr) *RenderNode {
+	var cls *RenderNode
+
+	cret := xRenderNodeDeserialize(BytesVar, purego.NewCallback(ErrorFuncVar), UserDataVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &RenderNode{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GSK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -250,5 +282,7 @@ func init() {
 	core.PuregoSafeRegister(&xRenderNodeSerialize, lib, "gsk_render_node_serialize")
 	core.PuregoSafeRegister(&xRenderNodeUnref, lib, "gsk_render_node_unref")
 	core.PuregoSafeRegister(&xRenderNodeWriteToFile, lib, "gsk_render_node_write_to_file")
+
+	core.PuregoSafeRegister(&xRenderNodeDeserialize, lib, "gsk_render_node_deserialize")
 
 }

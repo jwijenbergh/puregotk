@@ -6,6 +6,14 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
+const (
+	// The maximum length (in codepoints) of a compatibility or canonical
+	// decomposition of a single Unicode character.
+	//
+	// This is as defined by Unicode 6.1.
+	UNICHAR_MAX_DECOMPOSITION_LENGTH int = 18
+)
+
 // Defines how a Unicode string is transformed in a canonical
 // form, standardizing such issues as whether a character with
 // an accent is represented as a base character and combining

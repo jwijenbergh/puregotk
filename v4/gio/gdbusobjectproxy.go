@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type DBusObjectProxyClass struct {
 	Padding uintptr
 }
 
+func (x *DBusObjectProxyClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type DBusObjectProxyPrivate struct {
+}
+
+func (x *DBusObjectProxyPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GDBusObjectProxy is an object used to represent a remote object

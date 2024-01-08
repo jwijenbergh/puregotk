@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 // The virtual function table for #GListModel.
 type ListModelInterface struct {
 	GIface uintptr
+}
+
+func (x *ListModelInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GListModel is an interface that represents a mutable list of

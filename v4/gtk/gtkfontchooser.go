@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -19,6 +21,10 @@ type FontChooserIface struct {
 	BaseIface uintptr
 
 	Padding uintptr
+}
+
+func (x *FontChooserIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkFontChooser` is an interface that can be implemented by widgets

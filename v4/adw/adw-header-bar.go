@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 
 type HeaderBarClass struct {
 	ParentClass uintptr
+}
+
+func (x *HeaderBarClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes title centering behavior of a [class@HeaderBar] widget.

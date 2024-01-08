@@ -2,6 +2,8 @@
 package gmodule
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -23,6 +25,50 @@ type ModuleUnload func(*Module)
 // [dynamically-loaded module][glib-Dynamic-Loading-of-Modules].
 // It should only be accessed via the following functions.
 type Module struct {
+}
+
+func (x *Module) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xModuleClose func(uintptr) bool
+
+// Closes a module.
+func (x *Module) Close() bool {
+
+	cret := xModuleClose(x.GoPointer())
+	return cret
+}
+
+var xModuleMakeResident func(uintptr)
+
+// Ensures that a module will never be unloaded.
+// Any future g_module_close() calls on the module will be ignored.
+func (x *Module) MakeResident() {
+
+	xModuleMakeResident(x.GoPointer())
+
+}
+
+var xModuleName func(uintptr) string
+
+// Returns the filename that the module was opened with.
+//
+// If @module refers to the application itself, "main" is returned.
+func (x *Module) Name() string {
+
+	cret := xModuleName(x.GoPointer())
+	return cret
+}
+
+var xModuleSymbol func(uintptr, string, uintptr) bool
+
+// Gets a symbol pointer from a module, such as one exported
+// by %G_MODULE_EXPORT. Note that a valid symbol can be %NULL.
+func (x *Module) Symbol(SymbolNameVar string, SymbolVar uintptr) bool {
+
+	cret := xModuleSymbol(x.GoPointer(), SymbolNameVar, SymbolVar)
+	return cret
 }
 
 // Flags passed to g_module_open().
@@ -102,5 +148,10 @@ func init() {
 	core.PuregoSafeRegister(&xModuleBuildPath, lib, "g_module_build_path")
 	core.PuregoSafeRegister(&xNewModuleError, lib, "g_module_error")
 	core.PuregoSafeRegister(&xModuleSupported, lib, "g_module_supported")
+
+	core.PuregoSafeRegister(&xModuleClose, lib, "g_module_close")
+	core.PuregoSafeRegister(&xModuleMakeResident, lib, "g_module_make_resident")
+	core.PuregoSafeRegister(&xModuleName, lib, "g_module_name")
+	core.PuregoSafeRegister(&xModuleSymbol, lib, "g_module_symbol")
 
 }

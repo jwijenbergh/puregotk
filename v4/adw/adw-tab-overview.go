@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,6 +14,10 @@ import (
 
 type TabOverviewClass struct {
 	ParentClass uintptr
+}
+
+func (x *TabOverviewClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A tab overview for [class@TabView].

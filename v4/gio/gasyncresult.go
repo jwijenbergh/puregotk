@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // Interface definition for #GAsyncResult.
 type AsyncResultIface struct {
 	GIface uintptr
+}
+
+func (x *AsyncResultIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Provides a base class for implementing asynchronous function results.

@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type SignalListItemFactoryClass struct {
+}
+
+func (x *SignalListItemFactoryClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkSignalListItemFactory` is a `GtkListItemFactory` that emits signals

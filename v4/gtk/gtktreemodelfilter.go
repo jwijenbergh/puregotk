@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -26,7 +28,15 @@ type TreeModelFilterClass struct {
 	Padding uintptr
 }
 
+func (x *TreeModelFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TreeModelFilterPrivate struct {
+}
+
+func (x *TreeModelFilterPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkTreeModel` which hides parts of an underlying tree model

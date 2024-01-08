@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -17,10 +19,18 @@ type DesktopAppInfoClass struct {
 	ParentClass uintptr
 }
 
+func (x *DesktopAppInfoClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Interface that is used by backends to associate default
 // handlers with URI schemes.
 type DesktopAppInfoLookupIface struct {
 	GIface uintptr
+}
+
+func (x *DesktopAppInfoLookupIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
@@ -64,6 +74,12 @@ func (x *DesktopAppInfoLookupBase) GetDefaultForUriScheme(UriSchemeVar string) *
 }
 
 var XGDesktopAppInfoLookupGetDefaultForUriScheme func(uintptr, string) uintptr
+
+const (
+	// Extension point for default handler to URI association. See
+	// [Extending GIO][extending-gio].
+	DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME string = "gio-desktop-app-info-lookup"
+)
 
 // #GDesktopAppInfo is an implementation of #GAppInfo based on
 // desktop files.
@@ -684,6 +700,56 @@ func (x *DesktopAppInfo) SupportsUris() bool {
 	return cret
 }
 
+var xDesktopAppInfoGetImplementations func(string) *glib.List
+
+// Gets all applications that implement @interface.
+//
+// An application implements an interface if that interface is listed in
+// the Implements= line of the desktop file of the application.
+func DesktopAppInfoGetImplementations(InterfaceVar string) *glib.List {
+
+	cret := xDesktopAppInfoGetImplementations(InterfaceVar)
+	return cret
+}
+
+var xDesktopAppInfoSearch func(string) uintptr
+
+// Searches desktop files for ones that match @search_string.
+//
+// The return value is an array of strvs.  Each strv contains a list of
+// applications that matched @search_string with an equal score.  The
+// outer list is sorted by score so that the first strv contains the
+// best-matching applications, and so on.
+// The algorithm for determining matches is undefined and may change at
+// any time.
+//
+// None of the search results are subjected to the normal validation
+// checks performed by g_desktop_app_info_new() (for example, checking that
+// the executable referenced by a result exists), and so it is possible for
+// g_desktop_app_info_new() to return %NULL when passed an app ID returned by
+// this function. It is expected that calling code will do this when
+// subsequently creating a #GDesktopAppInfo for each result.
+func DesktopAppInfoSearch(SearchStringVar string) uintptr {
+
+	cret := xDesktopAppInfoSearch(SearchStringVar)
+	return cret
+}
+
+var xDesktopAppInfoSetDesktopEnv func(string)
+
+// Sets the name of the desktop that the application is running in.
+// This is used by g_app_info_should_show() and
+// g_desktop_app_info_get_show_in() to evaluate the
+// `OnlyShowIn` and `NotShowIn`
+// desktop entry fields.
+//
+// Should be called only once; subsequent calls are ignored.
+func DesktopAppInfoSetDesktopEnv(DesktopEnvVar string) {
+
+	xDesktopAppInfoSetDesktopEnv(DesktopEnvVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -712,6 +778,10 @@ func init() {
 	core.PuregoSafeRegister(&xDesktopAppInfoLaunchUrisAsManager, lib, "g_desktop_app_info_launch_uris_as_manager")
 	core.PuregoSafeRegister(&xDesktopAppInfoLaunchUrisAsManagerWithFds, lib, "g_desktop_app_info_launch_uris_as_manager_with_fds")
 	core.PuregoSafeRegister(&xDesktopAppInfoListActions, lib, "g_desktop_app_info_list_actions")
+
+	core.PuregoSafeRegister(&xDesktopAppInfoGetImplementations, lib, "g_desktop_app_info_get_implementations")
+	core.PuregoSafeRegister(&xDesktopAppInfoSearch, lib, "g_desktop_app_info_search")
+	core.PuregoSafeRegister(&xDesktopAppInfoSetDesktopEnv, lib, "g_desktop_app_info_set_desktop_env")
 
 	core.PuregoSafeRegister(&XGDesktopAppInfoLookupGetDefaultForUriScheme, lib, "g_desktop_app_info_lookup_get_default_for_uri_scheme")
 

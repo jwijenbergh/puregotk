@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -22,6 +24,45 @@ type CellAreaClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *CellAreaClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xCellAreaClassFindCellProperty func(uintptr, string) uintptr
+
+// Finds a cell property of a cell area class by name.
+func (x *CellAreaClass) FindCellProperty(PropertyNameVar string) *gobject.ParamSpec {
+	var cls *gobject.ParamSpec
+
+	cret := xCellAreaClassFindCellProperty(x.GoPointer(), PropertyNameVar)
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &gobject.ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xCellAreaClassInstallCellProperty func(uintptr, uint, uintptr)
+
+// Installs a cell property on a cell area class.
+func (x *CellAreaClass) InstallCellProperty(PropertyIdVar uint, PspecVar *gobject.ParamSpec) {
+
+	xCellAreaClassInstallCellProperty(x.GoPointer(), PropertyIdVar, PspecVar.GoPointer())
+
+}
+
+var xCellAreaClassListCellProperties func(uintptr, uint) uintptr
+
+// Returns all cell properties of a cell area class.
+func (x *CellAreaClass) ListCellProperties(NPropertiesVar uint) uintptr {
+
+	cret := xCellAreaClassListCellProperties(x.GoPointer(), NPropertiesVar)
+	return cret
 }
 
 // An abstract class for laying out `GtkCellRenderer`s
@@ -1113,6 +1154,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellAreaClassFindCellProperty, lib, "gtk_cell_area_class_find_cell_property")
+	core.PuregoSafeRegister(&xCellAreaClassInstallCellProperty, lib, "gtk_cell_area_class_install_cell_property")
+	core.PuregoSafeRegister(&xCellAreaClassListCellProperties, lib, "gtk_cell_area_class_list_cell_properties")
 
 	core.PuregoSafeRegister(&xCellAreaActivate, lib, "gtk_cell_area_activate")
 	core.PuregoSafeRegister(&xCellAreaActivateCell, lib, "gtk_cell_area_activate_cell")

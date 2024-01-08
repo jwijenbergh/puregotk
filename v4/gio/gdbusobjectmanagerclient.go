@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type DBusObjectManagerClientClass struct {
 	Padding uintptr
 }
 
+func (x *DBusObjectManagerClientClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type DBusObjectManagerClientPrivate struct {
+}
+
+func (x *DBusObjectManagerClientPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDBusObjectManagerClient is used to create, monitor and delete object
@@ -460,6 +470,39 @@ func (x *DBusObjectManagerClient) Init(CancellableVar *Cancellable) (bool, error
 
 }
 
+var xDBusObjectManagerClientNew func(uintptr, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, uintptr, uintptr)
+
+// Asynchronously creates a new #GDBusObjectManagerClient object.
+//
+// This is an asynchronous failable constructor. When the result is
+// ready, @callback will be invoked in the
+// [thread-default main context][g-main-context-push-thread-default]
+// of the thread you are calling this method from. You can
+// then call g_dbus_object_manager_client_new_finish() to get the result. See
+// g_dbus_object_manager_client_new_sync() for the synchronous version.
+func DBusObjectManagerClientNew(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusObjectManagerClientNew(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xDBusObjectManagerClientNewForBus func(BusType, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, uintptr, uintptr)
+
+// Like g_dbus_object_manager_client_new() but takes a #GBusType instead of a
+// #GDBusConnection.
+//
+// This is an asynchronous failable constructor. When the result is
+// ready, @callback will be invoked in the
+// [thread-default main loop][g-main-context-push-thread-default]
+// of the thread you are calling this method from. You can
+// then call g_dbus_object_manager_client_new_for_bus_finish() to get the result. See
+// g_dbus_object_manager_client_new_for_bus_sync() for the synchronous version.
+func DBusObjectManagerClientNewForBus(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusObjectManagerClientNewForBus(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -475,5 +518,8 @@ func init() {
 	core.PuregoSafeRegister(&xDBusObjectManagerClientGetFlags, lib, "g_dbus_object_manager_client_get_flags")
 	core.PuregoSafeRegister(&xDBusObjectManagerClientGetName, lib, "g_dbus_object_manager_client_get_name")
 	core.PuregoSafeRegister(&xDBusObjectManagerClientGetNameOwner, lib, "g_dbus_object_manager_client_get_name_owner")
+
+	core.PuregoSafeRegister(&xDBusObjectManagerClientNew, lib, "g_dbus_object_manager_client_new")
+	core.PuregoSafeRegister(&xDBusObjectManagerClientNewForBus, lib, "g_dbus_object_manager_client_new_for_bus")
 
 }

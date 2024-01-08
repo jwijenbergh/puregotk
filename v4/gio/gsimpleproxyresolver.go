@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type SimpleProxyResolverClass struct {
 	ParentClass uintptr
 }
 
+func (x *SimpleProxyResolverClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SimpleProxyResolverPrivate struct {
+}
+
+func (x *SimpleProxyResolverPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSimpleProxyResolver is a simple #GProxyResolver implementation
@@ -141,6 +151,25 @@ func (x *SimpleProxyResolver) LookupFinish(ResultVar AsyncResult) (uintptr, erro
 
 }
 
+var xSimpleProxyResolverNew func(string, uintptr) uintptr
+
+// Creates a new #GSimpleProxyResolver. See
+// #GSimpleProxyResolver:default-proxy and
+// #GSimpleProxyResolver:ignore-hosts for more details on how the
+// arguments are interpreted.
+func SimpleProxyResolverNew(DefaultProxyVar string, IgnoreHostsVar uintptr) *ProxyResolverBase {
+	var cls *ProxyResolverBase
+
+	cret := xSimpleProxyResolverNew(DefaultProxyVar, IgnoreHostsVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &ProxyResolverBase{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -150,5 +179,7 @@ func init() {
 	core.PuregoSafeRegister(&xSimpleProxyResolverSetDefaultProxy, lib, "g_simple_proxy_resolver_set_default_proxy")
 	core.PuregoSafeRegister(&xSimpleProxyResolverSetIgnoreHosts, lib, "g_simple_proxy_resolver_set_ignore_hosts")
 	core.PuregoSafeRegister(&xSimpleProxyResolverSetUriProxy, lib, "g_simple_proxy_resolver_set_uri_proxy")
+
+	core.PuregoSafeRegister(&xSimpleProxyResolverNew, lib, "g_simple_proxy_resolver_new")
 
 }

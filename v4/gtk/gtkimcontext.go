@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 
 type IMContextClass struct {
 	ParentClass uintptr
+}
+
+func (x *IMContextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkIMContext` defines the interface for GTK input methods.

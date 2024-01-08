@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type UnixFDMessageClass struct {
 	ParentClass uintptr
 }
 
+func (x *UnixFDMessageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type UnixFDMessagePrivate struct {
+}
+
+func (x *UnixFDMessagePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // This #GSocketControlMessage contains a #GUnixFDList.

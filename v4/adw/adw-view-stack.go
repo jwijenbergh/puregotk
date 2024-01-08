@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,8 +14,16 @@ type ViewStackClass struct {
 	ParentClass uintptr
 }
 
+func (x *ViewStackClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ViewStackPageClass struct {
 	ParentClass uintptr
+}
+
+func (x *ViewStackPageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A view container for [class@ViewSwitcher].

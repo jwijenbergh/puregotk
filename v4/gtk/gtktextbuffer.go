@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -13,7 +15,15 @@ type TextBufferClass struct {
 	ParentClass uintptr
 }
 
+func (x *TextBufferClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TextBufferPrivate struct {
+}
+
+func (x *TextBufferPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Stores text and attributes for display in a `GtkTextView`.

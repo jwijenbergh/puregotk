@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,6 +15,10 @@ type FileIface struct {
 	GIface uintptr
 
 	SupportsThreadContexts bool
+}
+
+func (x *FileIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GFile is a high level abstraction for manipulating files on a

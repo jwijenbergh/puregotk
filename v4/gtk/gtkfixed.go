@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,6 +14,10 @@ type FixedClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *FixedClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkFixed` places its child widgets at fixed positions and with fixed sizes.

@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -15,6 +17,10 @@ type MessageDialogClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *MessageDialogClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes the possible styles of [class@MessageDialog] response buttons.

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -14,6 +16,55 @@ import (
 // or [func@Gtk.BitsetIter.init_at].
 type BitsetIter struct {
 	PrivateData uintptr
+}
+
+func (x *BitsetIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xBitsetIterGetValue func(uintptr) uint
+
+// Gets the current value that @iter points to.
+//
+// If @iter is not valid and [method@Gtk.BitsetIter.is_valid]
+// returns %FALSE, this function returns 0.
+func (x *BitsetIter) GetValue() uint {
+
+	cret := xBitsetIterGetValue(x.GoPointer())
+	return cret
+}
+
+var xBitsetIterIsValid func(uintptr) bool
+
+// Checks if @iter points to a valid value.
+func (x *BitsetIter) IsValid() bool {
+
+	cret := xBitsetIterIsValid(x.GoPointer())
+	return cret
+}
+
+var xBitsetIterNext func(uintptr, uint) bool
+
+// Moves @iter to the next value in the set.
+//
+// If it was already pointing to the last value in the set,
+// %FALSE is returned and @iter is invalidated.
+func (x *BitsetIter) Next(ValueVar uint) bool {
+
+	cret := xBitsetIterNext(x.GoPointer(), ValueVar)
+	return cret
+}
+
+var xBitsetIterPrevious func(uintptr, uint) bool
+
+// Moves @iter to the previous value in the set.
+//
+// If it was already pointing to the first value in the set,
+// %FALSE is returned and @iter is invalidated.
+func (x *BitsetIter) Previous(ValueVar uint) bool {
+
+	cret := xBitsetIterPrevious(x.GoPointer(), ValueVar)
+	return cret
 }
 
 var xBitsetIterInitAt func(*BitsetIter, *Bitset, uint, uint) bool
@@ -60,5 +111,10 @@ func init() {
 	core.PuregoSafeRegister(&xBitsetIterInitAt, lib, "gtk_bitset_iter_init_at")
 	core.PuregoSafeRegister(&xBitsetIterInitFirst, lib, "gtk_bitset_iter_init_first")
 	core.PuregoSafeRegister(&xBitsetIterInitLast, lib, "gtk_bitset_iter_init_last")
+
+	core.PuregoSafeRegister(&xBitsetIterGetValue, lib, "gtk_bitset_iter_get_value")
+	core.PuregoSafeRegister(&xBitsetIterIsValid, lib, "gtk_bitset_iter_is_valid")
+	core.PuregoSafeRegister(&xBitsetIterNext, lib, "gtk_bitset_iter_next")
+	core.PuregoSafeRegister(&xBitsetIterPrevious, lib, "gtk_bitset_iter_previous")
 
 }

@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -20,6 +22,10 @@ type EnumClass struct {
 	Values *EnumValue
 }
 
+func (x *EnumClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A structure which contains a single enum value, its name, and its
 // nickname.
 type EnumValue struct {
@@ -28,6 +34,10 @@ type EnumValue struct {
 	ValueName uintptr
 
 	ValueNick uintptr
+}
+
+func (x *EnumValue) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The class of a flags type holds information about its
@@ -42,6 +52,10 @@ type FlagsClass struct {
 	Values *FlagsValue
 }
 
+func (x *FlagsClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A structure which contains a single flags value, its name, and its
 // nickname.
 type FlagsValue struct {
@@ -50,6 +64,10 @@ type FlagsValue struct {
 	ValueName uintptr
 
 	ValueNick uintptr
+}
+
+func (x *FlagsValue) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xEnumCompleteTypeInfo func([]interface{}, *TypeInfo, *EnumValue)

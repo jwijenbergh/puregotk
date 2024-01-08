@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type DBusProxyClass struct {
 	Padding uintptr
 }
 
+func (x *DBusProxyClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type DBusProxyPrivate struct {
+}
+
+func (x *DBusProxyPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDBusProxy is a base class used for proxies to access a D-Bus
@@ -739,6 +749,52 @@ func (x *DBusProxy) Init(CancellableVar *Cancellable) (bool, error) {
 
 }
 
+var xDBusProxyNew func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, uintptr, uintptr)
+
+// Creates a proxy for accessing @interface_name on the remote object
+// at @object_path owned by @name at @connection and asynchronously
+// loads D-Bus properties unless the
+// %G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES flag is used. Connect to
+// the #GDBusProxy::g-properties-changed signal to get notified about
+// property changes.
+//
+// If the %G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS flag is not set, also sets up
+// match rules for signals. Connect to the #GDBusProxy::g-signal signal
+// to handle signals from the remote object.
+//
+// If both %G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES and
+// %G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS are set, this constructor is
+// guaranteed to complete immediately without blocking.
+//
+// If @name is a well-known name and the
+// %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and %G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
+// flags aren't set and no name owner currently exists, the message bus
+// will be requested to launch a name owner for the name.
+//
+// This is a failable asynchronous constructor - when the proxy is
+// ready, @callback will be invoked and you can use
+// g_dbus_proxy_new_finish() to get the result.
+//
+// See g_dbus_proxy_new_sync() and for a synchronous version of this constructor.
+//
+// #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
+func DBusProxyNew(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusProxyNew(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xDBusProxyNewForBus func(BusType, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, uintptr, uintptr)
+
+// Like g_dbus_proxy_new() but takes a #GBusType instead of a #GDBusConnection.
+//
+// #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
+func DBusProxyNewForBus(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusProxyNewForBus(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -769,5 +825,8 @@ func init() {
 	core.PuregoSafeRegister(&xDBusProxySetCachedProperty, lib, "g_dbus_proxy_set_cached_property")
 	core.PuregoSafeRegister(&xDBusProxySetDefaultTimeout, lib, "g_dbus_proxy_set_default_timeout")
 	core.PuregoSafeRegister(&xDBusProxySetInterfaceInfo, lib, "g_dbus_proxy_set_interface_info")
+
+	core.PuregoSafeRegister(&xDBusProxyNew, lib, "g_dbus_proxy_new")
+	core.PuregoSafeRegister(&xDBusProxyNewForBus, lib, "g_dbus_proxy_new_for_bus")
 
 }

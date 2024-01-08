@@ -10,6 +10,22 @@ import (
 // g_auto().
 type Strv = string
 
+const (
+	// A good size for a buffer to be passed into g_ascii_dtostr().
+	// It is guaranteed to be enough for all output of that function
+	// on systems with 64bit IEEE-compatible doubles.
+	//
+	// The typical usage would be something like:
+	// |[&lt;!-- language="C" --&gt;
+	//   char buf[G_ASCII_DTOSTR_BUF_SIZE];
+	//
+	//   fprintf (out, "value=%s\n", g_ascii_dtostr (buf, sizeof (buf), value));
+	// ]|
+	ASCII_DTOSTR_BUF_SIZE int = 39
+	// The standard delimiters, used in g_strdelimit().
+	STR_DELIMITERS string = "_-|> <."
+)
+
 type AsciiType int
 
 const (

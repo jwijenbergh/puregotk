@@ -2,11 +2,17 @@
 package gdkpixbuf
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type PixbufSimpleAnimClass struct {
+}
+
+func (x *PixbufSimpleAnimClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An opaque struct representing a simple animation.

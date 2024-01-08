@@ -2,12 +2,18 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 // The `GdkDragSurfaceInterface` implementation is private to GDK.
 type DragSurfaceInterface struct {
+}
+
+func (x *DragSurfaceInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GdkDragSurface` is an interface for surfaces used during DND.

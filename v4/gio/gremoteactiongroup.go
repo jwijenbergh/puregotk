@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // The virtual function table for #GRemoteActionGroup.
 type RemoteActionGroupInterface struct {
 	GIface uintptr
+}
+
+func (x *RemoteActionGroupInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The GRemoteActionGroup interface is implemented by #GActionGroup

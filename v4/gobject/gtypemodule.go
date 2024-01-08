@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,6 +12,10 @@ import (
 // the @load and @unload functions in #GTypeModuleClass must be implemented.
 type TypeModuleClass struct {
 	ParentClass uintptr
+}
+
+func (x *TypeModuleClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GTypeModule provides a simple implementation of the #GTypePlugin

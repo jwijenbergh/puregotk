@@ -2,12 +2,18 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
 type PopupInterface struct {
+}
+
+func (x *PopupInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GdkPopup` is a surface that is attached to another surface.

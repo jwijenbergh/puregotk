@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -16,9 +18,338 @@ type SequenceIterCompareFunc func(*SequenceIter, *SequenceIter, uintptr) int
 type Sequence struct {
 }
 
+func (x *Sequence) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xSequenceAppend func(uintptr, uintptr) *SequenceIter
+
+// Adds a new item to the end of @seq.
+func (x *Sequence) Append(DataVar uintptr) *SequenceIter {
+
+	cret := xSequenceAppend(x.GoPointer(), DataVar)
+	return cret
+}
+
+var xSequenceForeach func(uintptr, uintptr, uintptr)
+
+// Calls @func for each item in the sequence passing @user_data
+// to the function. @func must not modify the sequence itself.
+func (x *Sequence) Foreach(FuncVar Func, UserDataVar uintptr) {
+
+	xSequenceForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+
+}
+
+var xSequenceFree func(uintptr)
+
+// Frees the memory allocated for @seq. If @seq has a data destroy
+// function associated with it, that function is called on all items
+// in @seq.
+func (x *Sequence) Free() {
+
+	xSequenceFree(x.GoPointer())
+
+}
+
+var xSequenceGetBeginIter func(uintptr) *SequenceIter
+
+// Returns the begin iterator for @seq.
+func (x *Sequence) GetBeginIter() *SequenceIter {
+
+	cret := xSequenceGetBeginIter(x.GoPointer())
+	return cret
+}
+
+var xSequenceGetEndIter func(uintptr) *SequenceIter
+
+// Returns the end iterator for @seg
+func (x *Sequence) GetEndIter() *SequenceIter {
+
+	cret := xSequenceGetEndIter(x.GoPointer())
+	return cret
+}
+
+var xSequenceGetIterAtPos func(uintptr, int) *SequenceIter
+
+// Returns the iterator at position @pos. If @pos is negative or larger
+// than the number of items in @seq, the end iterator is returned.
+func (x *Sequence) GetIterAtPos(PosVar int) *SequenceIter {
+
+	cret := xSequenceGetIterAtPos(x.GoPointer(), PosVar)
+	return cret
+}
+
+var xSequenceGetLength func(uintptr) int
+
+// Returns the positive length (&gt;= 0) of @seq. Note that this method is
+// O(h) where `h' is the height of the tree. It is thus more efficient
+// to use g_sequence_is_empty() when comparing the length to zero.
+func (x *Sequence) GetLength() int {
+
+	cret := xSequenceGetLength(x.GoPointer())
+	return cret
+}
+
+var xSequenceInsertSorted func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Inserts @data into @seq using @cmp_func to determine the new
+// position. The sequence must already be sorted according to @cmp_func;
+// otherwise the new position of @data is undefined.
+//
+// @cmp_func is called with two items of the @seq, and @cmp_data.
+// It should return 0 if the items are equal, a negative value
+// if the first item comes before the second, and a positive value
+// if the second item comes before the first.
+//
+// Note that when adding a large amount of data to a #GSequence,
+// it is more efficient to do unsorted insertions and then call
+// g_sequence_sort() or g_sequence_sort_iter().
+func (x *Sequence) InsertSorted(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceInsertSorted(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	return cret
+}
+
+var xSequenceInsertSortedIter func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Like g_sequence_insert_sorted(), but uses
+// a #GSequenceIterCompareFunc instead of a #GCompareDataFunc as
+// the compare function.
+//
+// @iter_cmp is called with two iterators pointing into @seq.
+// It should return 0 if the iterators are equal, a negative
+// value if the first iterator comes before the second, and a
+// positive value if the second iterator comes before the first.
+//
+// Note that when adding a large amount of data to a #GSequence,
+// it is more efficient to do unsorted insertions and then call
+// g_sequence_sort() or g_sequence_sort_iter().
+func (x *Sequence) InsertSortedIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceInsertSortedIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	return cret
+}
+
+var xSequenceIsEmpty func(uintptr) bool
+
+// Returns %TRUE if the sequence contains zero items.
+//
+// This function is functionally identical to checking the result of
+// g_sequence_get_length() being equal to zero. However this function is
+// implemented in O(1) running time.
+func (x *Sequence) IsEmpty() bool {
+
+	cret := xSequenceIsEmpty(x.GoPointer())
+	return cret
+}
+
+var xSequenceLookup func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Returns an iterator pointing to the position of the first item found
+// equal to @data according to @cmp_func and @cmp_data. If more than one
+// item is equal, it is not guaranteed that it is the first which is
+// returned. In that case, you can use g_sequence_iter_next() and
+// g_sequence_iter_prev() to get others.
+//
+// @cmp_func is called with two items of the @seq, and @cmp_data.
+// It should return 0 if the items are equal, a negative value if
+// the first item comes before the second, and a positive value if
+// the second item comes before the first.
+//
+// This function will fail if the data contained in the sequence is
+// unsorted.
+func (x *Sequence) Lookup(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceLookup(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	return cret
+}
+
+var xSequenceLookupIter func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Like g_sequence_lookup(), but uses a #GSequenceIterCompareFunc
+// instead of a #GCompareDataFunc as the compare function.
+//
+// @iter_cmp is called with two iterators pointing into @seq.
+// It should return 0 if the iterators are equal, a negative value
+// if the first iterator comes before the second, and a positive
+// value if the second iterator comes before the first.
+//
+// This function will fail if the data contained in the sequence is
+// unsorted.
+func (x *Sequence) LookupIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceLookupIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	return cret
+}
+
+var xSequencePrepend func(uintptr, uintptr) *SequenceIter
+
+// Adds a new item to the front of @seq
+func (x *Sequence) Prepend(DataVar uintptr) *SequenceIter {
+
+	cret := xSequencePrepend(x.GoPointer(), DataVar)
+	return cret
+}
+
+var xSequenceSearch func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Returns an iterator pointing to the position where @data would
+// be inserted according to @cmp_func and @cmp_data.
+//
+// @cmp_func is called with two items of the @seq, and @cmp_data.
+// It should return 0 if the items are equal, a negative value if
+// the first item comes before the second, and a positive value if
+// the second item comes before the first.
+//
+// If you are simply searching for an existing element of the sequence,
+// consider using g_sequence_lookup().
+//
+// This function will fail if the data contained in the sequence is
+// unsorted.
+func (x *Sequence) Search(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceSearch(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	return cret
+}
+
+var xSequenceSearchIter func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
+
+// Like g_sequence_search(), but uses a #GSequenceIterCompareFunc
+// instead of a #GCompareDataFunc as the compare function.
+//
+// @iter_cmp is called with two iterators pointing into @seq.
+// It should return 0 if the iterators are equal, a negative value
+// if the first iterator comes before the second, and a positive
+// value if the second iterator comes before the first.
+//
+// If you are simply searching for an existing element of the sequence,
+// consider using g_sequence_lookup_iter().
+//
+// This function will fail if the data contained in the sequence is
+// unsorted.
+func (x *Sequence) SearchIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+
+	cret := xSequenceSearchIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	return cret
+}
+
+var xSequenceSort func(uintptr, uintptr, uintptr)
+
+// Sorts @seq using @cmp_func.
+//
+// @cmp_func is passed two items of @seq and should
+// return 0 if they are equal, a negative value if the
+// first comes before the second, and a positive value
+// if the second comes before the first.
+func (x *Sequence) Sort(CmpFuncVar CompareDataFunc, CmpDataVar uintptr) {
+
+	xSequenceSort(x.GoPointer(), purego.NewCallback(CmpFuncVar), CmpDataVar)
+
+}
+
+var xSequenceSortIter func(uintptr, uintptr, uintptr)
+
+// Like g_sequence_sort(), but uses a #GSequenceIterCompareFunc instead
+// of a #GCompareDataFunc as the compare function
+//
+// @cmp_func is called with two iterators pointing into @seq. It should
+// return 0 if the iterators are equal, a negative value if the first
+// iterator comes before the second, and a positive value if the second
+// iterator comes before the first.
+func (x *Sequence) SortIter(CmpFuncVar SequenceIterCompareFunc, CmpDataVar uintptr) {
+
+	xSequenceSortIter(x.GoPointer(), purego.NewCallback(CmpFuncVar), CmpDataVar)
+
+}
+
 // The #GSequenceIter struct is an opaque data type representing an
 // iterator pointing into a #GSequence.
 type SequenceIter struct {
+}
+
+func (x *SequenceIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xSequenceIterCompare func(uintptr, *SequenceIter) int
+
+// Returns a negative number if @a comes before @b, 0 if they are equal,
+// and a positive number if @a comes after @b.
+//
+// The @a and @b iterators must point into the same sequence.
+func (x *SequenceIter) Compare(BVar *SequenceIter) int {
+
+	cret := xSequenceIterCompare(x.GoPointer(), BVar)
+	return cret
+}
+
+var xSequenceIterGetPosition func(uintptr) int
+
+// Returns the position of @iter
+func (x *SequenceIter) GetPosition() int {
+
+	cret := xSequenceIterGetPosition(x.GoPointer())
+	return cret
+}
+
+var xSequenceIterGetSequence func(uintptr) *Sequence
+
+// Returns the #GSequence that @iter points into.
+func (x *SequenceIter) GetSequence() *Sequence {
+
+	cret := xSequenceIterGetSequence(x.GoPointer())
+	return cret
+}
+
+var xSequenceIterIsBegin func(uintptr) bool
+
+// Returns whether @iter is the begin iterator
+func (x *SequenceIter) IsBegin() bool {
+
+	cret := xSequenceIterIsBegin(x.GoPointer())
+	return cret
+}
+
+var xSequenceIterIsEnd func(uintptr) bool
+
+// Returns whether @iter is the end iterator
+func (x *SequenceIter) IsEnd() bool {
+
+	cret := xSequenceIterIsEnd(x.GoPointer())
+	return cret
+}
+
+var xSequenceIterMove func(uintptr, int) *SequenceIter
+
+// Returns the #GSequenceIter which is @delta positions away from @iter.
+// If @iter is closer than -@delta positions to the beginning of the sequence,
+// the begin iterator is returned. If @iter is closer than @delta positions
+// to the end of the sequence, the end iterator is returned.
+func (x *SequenceIter) Move(DeltaVar int) *SequenceIter {
+
+	cret := xSequenceIterMove(x.GoPointer(), DeltaVar)
+	return cret
+}
+
+var xSequenceIterNext func(uintptr) *SequenceIter
+
+// Returns an iterator pointing to the next position after @iter.
+// If @iter is the end iterator, the end iterator is returned.
+func (x *SequenceIter) Next() *SequenceIter {
+
+	cret := xSequenceIterNext(x.GoPointer())
+	return cret
+}
+
+var xSequenceIterPrev func(uintptr) *SequenceIter
+
+// Returns an iterator pointing to the previous position before @iter.
+// If @iter is the begin iterator, the begin iterator is returned.
+func (x *SequenceIter) Prev() *SequenceIter {
+
+	cret := xSequenceIterPrev(x.GoPointer())
+	return cret
 }
 
 var xSequenceGet func(*SequenceIter) uintptr
@@ -141,5 +472,32 @@ func init() {
 	core.PuregoSafeRegister(&xSequenceRemoveRange, lib, "g_sequence_remove_range")
 	core.PuregoSafeRegister(&xSequenceSet, lib, "g_sequence_set")
 	core.PuregoSafeRegister(&xSequenceSwap, lib, "g_sequence_swap")
+
+	core.PuregoSafeRegister(&xSequenceAppend, lib, "g_sequence_append")
+	core.PuregoSafeRegister(&xSequenceForeach, lib, "g_sequence_foreach")
+	core.PuregoSafeRegister(&xSequenceFree, lib, "g_sequence_free")
+	core.PuregoSafeRegister(&xSequenceGetBeginIter, lib, "g_sequence_get_begin_iter")
+	core.PuregoSafeRegister(&xSequenceGetEndIter, lib, "g_sequence_get_end_iter")
+	core.PuregoSafeRegister(&xSequenceGetIterAtPos, lib, "g_sequence_get_iter_at_pos")
+	core.PuregoSafeRegister(&xSequenceGetLength, lib, "g_sequence_get_length")
+	core.PuregoSafeRegister(&xSequenceInsertSorted, lib, "g_sequence_insert_sorted")
+	core.PuregoSafeRegister(&xSequenceInsertSortedIter, lib, "g_sequence_insert_sorted_iter")
+	core.PuregoSafeRegister(&xSequenceIsEmpty, lib, "g_sequence_is_empty")
+	core.PuregoSafeRegister(&xSequenceLookup, lib, "g_sequence_lookup")
+	core.PuregoSafeRegister(&xSequenceLookupIter, lib, "g_sequence_lookup_iter")
+	core.PuregoSafeRegister(&xSequencePrepend, lib, "g_sequence_prepend")
+	core.PuregoSafeRegister(&xSequenceSearch, lib, "g_sequence_search")
+	core.PuregoSafeRegister(&xSequenceSearchIter, lib, "g_sequence_search_iter")
+	core.PuregoSafeRegister(&xSequenceSort, lib, "g_sequence_sort")
+	core.PuregoSafeRegister(&xSequenceSortIter, lib, "g_sequence_sort_iter")
+
+	core.PuregoSafeRegister(&xSequenceIterCompare, lib, "g_sequence_iter_compare")
+	core.PuregoSafeRegister(&xSequenceIterGetPosition, lib, "g_sequence_iter_get_position")
+	core.PuregoSafeRegister(&xSequenceIterGetSequence, lib, "g_sequence_iter_get_sequence")
+	core.PuregoSafeRegister(&xSequenceIterIsBegin, lib, "g_sequence_iter_is_begin")
+	core.PuregoSafeRegister(&xSequenceIterIsEnd, lib, "g_sequence_iter_is_end")
+	core.PuregoSafeRegister(&xSequenceIterMove, lib, "g_sequence_iter_move")
+	core.PuregoSafeRegister(&xSequenceIterNext, lib, "g_sequence_iter_next")
+	core.PuregoSafeRegister(&xSequenceIterPrev, lib, "g_sequence_iter_prev")
 
 }

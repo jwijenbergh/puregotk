@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -10,6 +12,10 @@ import (
 
 type StyleContextClass struct {
 	ParentClass uintptr
+}
+
+func (x *StyleContextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Flags that modify the behavior of gtk_style_context_to_string().
@@ -323,6 +329,32 @@ func (c *StyleContext) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xStyleContextAddProviderForDisplay func(uintptr, uintptr, uint)
+
+// Adds a global style provider to @display, which will be used
+// in style construction for all `GtkStyleContexts` under @display.
+//
+// GTK uses this to make styling information from `GtkSettings`
+// available.
+//
+// Note: If both priorities are the same, A `GtkStyleProvider`
+// added through [method@Gtk.StyleContext.add_provider] takes
+// precedence over another added through this function.
+func StyleContextAddProviderForDisplay(DisplayVar *gdk.Display, ProviderVar StyleProvider, PriorityVar uint) {
+
+	xStyleContextAddProviderForDisplay(DisplayVar.GoPointer(), ProviderVar.GoPointer(), PriorityVar)
+
+}
+
+var xStyleContextRemoveProviderForDisplay func(uintptr, uintptr)
+
+// Removes @provider from the global style providers list in @display.
+func StyleContextRemoveProviderForDisplay(DisplayVar *gdk.Display, ProviderVar StyleProvider) {
+
+	xStyleContextRemoveProviderForDisplay(DisplayVar.GoPointer(), ProviderVar.GoPointer())
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -348,5 +380,8 @@ func init() {
 	core.PuregoSafeRegister(&xStyleContextSetScale, lib, "gtk_style_context_set_scale")
 	core.PuregoSafeRegister(&xStyleContextSetState, lib, "gtk_style_context_set_state")
 	core.PuregoSafeRegister(&xStyleContextToString, lib, "gtk_style_context_to_string")
+
+	core.PuregoSafeRegister(&xStyleContextAddProviderForDisplay, lib, "gtk_style_context_add_provider_for_display")
+	core.PuregoSafeRegister(&xStyleContextRemoveProviderForDisplay, lib, "gtk_style_context_remove_provider_for_display")
 
 }

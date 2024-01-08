@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type StringFilterClass struct {
 	ParentClass uintptr
+}
+
+func (x *StringFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Specifies how search strings are matched inside text.

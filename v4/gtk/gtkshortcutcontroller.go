@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -10,6 +12,10 @@ import (
 )
 
 type ShortcutControllerClass struct {
+}
+
+func (x *ShortcutControllerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkShortcutController` is an event controller that manages shortcuts.

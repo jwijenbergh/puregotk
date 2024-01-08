@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Interface for creating #GDrive implementations.
 type DriveIface struct {
 	GIface uintptr
+}
+
+func (x *DriveIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDrive - this represent a piece of hardware connected to the machine.
@@ -374,6 +380,11 @@ var XGDriveStart func(uintptr, DriveStartFlags, uintptr, uintptr, uintptr, uintp
 var XGDriveStartFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDriveStop func(uintptr, MountUnmountFlags, uintptr, uintptr, uintptr, uintptr)
 var XGDriveStopFinish func(uintptr, uintptr, **glib.Error) bool
+
+const (
+	// The string used to obtain a Unix device path with g_drive_get_identifier().
+	DRIVE_IDENTIFIER_KIND_UNIX_DEVICE string = "unix-device"
+)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

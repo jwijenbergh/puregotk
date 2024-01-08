@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -18,6 +20,10 @@ type MapListModelMapFunc func(uintptr, uintptr) uintptr
 
 type MapListModelClass struct {
 	ParentClass uintptr
+}
+
+func (x *MapListModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkMapListModel` maps the items in a list model to different items.

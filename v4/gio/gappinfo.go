@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,11 +15,23 @@ type AppInfoIface struct {
 	GIface uintptr
 }
 
+func (x *AppInfoIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type AppLaunchContextClass struct {
 	ParentClass uintptr
 }
 
+func (x *AppLaunchContextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type AppLaunchContextPrivate struct {
+}
+
+func (x *AppLaunchContextPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GAppInfo and #GAppLaunchContext are used for describing and launching

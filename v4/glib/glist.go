@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -13,6 +15,10 @@ type List struct {
 	Next *List
 
 	Prev *List
+}
+
+func (x *List) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xClearList func(**List, uintptr)

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,7 +14,15 @@ type UnixCredentialsMessageClass struct {
 	ParentClass uintptr
 }
 
+func (x *UnixCredentialsMessageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type UnixCredentialsMessagePrivate struct {
+}
+
+func (x *UnixCredentialsMessagePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // This #GSocketControlMessage contains a #GCredentials instance.  It
@@ -101,6 +111,15 @@ func (c *UnixCredentialsMessage) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xUnixCredentialsMessageIsSupported func() bool
+
+// Checks if passing #GCredentials on a #GSocket is supported on this platform.
+func UnixCredentialsMessageIsSupported() bool {
+
+	cret := xUnixCredentialsMessageIsSupported()
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -111,5 +130,7 @@ func init() {
 	core.PuregoSafeRegister(&xNewWithCredentialsUnixCredentialsMessage, lib, "g_unix_credentials_message_new_with_credentials")
 
 	core.PuregoSafeRegister(&xUnixCredentialsMessageGetCredentials, lib, "g_unix_credentials_message_get_credentials")
+
+	core.PuregoSafeRegister(&xUnixCredentialsMessageIsSupported, lib, "g_unix_credentials_message_is_supported")
 
 }

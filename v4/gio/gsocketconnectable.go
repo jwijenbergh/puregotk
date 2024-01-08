@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,6 +12,10 @@ import (
 // and #GProxyAddressEnumerator
 type SocketConnectableIface struct {
 	GIface uintptr
+}
+
+func (x *SocketConnectableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Objects that describe one or more potential socket endpoints

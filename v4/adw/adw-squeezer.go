@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,8 +14,16 @@ type SqueezerClass struct {
 	ParentClass uintptr
 }
 
+func (x *SqueezerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SqueezerPageClass struct {
 	ParentClass uintptr
+}
+
+func (x *SqueezerPageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes the possible transitions in a [class@Squeezer] widget.

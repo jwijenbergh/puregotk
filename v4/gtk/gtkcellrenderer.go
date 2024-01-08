@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -14,10 +16,22 @@ type CellRendererClass struct {
 	Padding uintptr
 }
 
+func (x *CellRendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CellRendererClassPrivate struct {
 }
 
+func (x *CellRendererClassPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CellRendererPrivate struct {
+}
+
+func (x *CellRendererPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Tells how a cell is to be rendered.

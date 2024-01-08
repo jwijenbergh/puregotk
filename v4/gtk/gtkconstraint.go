@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type ConstraintClass struct {
 	ParentClass uintptr
 }
 
+func (x *ConstraintClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ConstraintTargetInterface struct {
+}
+
+func (x *ConstraintTargetInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `GtkConstraintTarget` interface is implemented by objects that

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -15,6 +17,10 @@ type RequestedSize struct {
 	MinimumSize int
 
 	NaturalSize int
+}
+
+func (x *RequestedSize) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xDistributeNaturalAllocation func(int, uint, uintptr) int

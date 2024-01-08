@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // vtable for a #GDtlsClientConnection implementation.
 type DtlsClientConnectionInterface struct {
 	GIface uintptr
+}
+
+func (x *DtlsClientConnectionInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDtlsClientConnection is the client-side subclass of

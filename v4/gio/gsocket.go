@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type SocketClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketPrivate struct {
+}
+
+func (x *SocketPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GSocket is a low-level networking primitive. It is a more or less

@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,69 @@ import (
 // The `GdkToplevelSize` struct contains information that is useful
 // to compute the size of a toplevel.
 type ToplevelSize struct {
+}
+
+func (x *ToplevelSize) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xToplevelSizeGetBounds func(uintptr, int, int)
+
+// Retrieves the bounds the toplevel is placed within.
+//
+// The bounds represent the largest size a toplevel may have while still being
+// able to fit within some type of boundary. Depending on the backend, this may
+// be equivalent to the dimensions of the work area or the monitor on which the
+// window is being presented on, or something else that limits the way a
+// toplevel can be presented.
+func (x *ToplevelSize) GetBounds(BoundsWidthVar int, BoundsHeightVar int) {
+
+	xToplevelSizeGetBounds(x.GoPointer(), BoundsWidthVar, BoundsHeightVar)
+
+}
+
+var xToplevelSizeSetMinSize func(uintptr, int, int)
+
+// Sets the minimum size of the toplevel.
+//
+// The minimum size corresponds to the limitations the toplevel can be shrunk
+// to, without resulting in incorrect painting. A user of a `GdkToplevel` should
+// calculate these given both the existing size, and the bounds retrieved from
+// the `GdkToplevelSize` object.
+//
+// The minimum size should be within the bounds (see
+// [method@Gdk.ToplevelSize.get_bounds]).
+func (x *ToplevelSize) SetMinSize(MinWidthVar int, MinHeightVar int) {
+
+	xToplevelSizeSetMinSize(x.GoPointer(), MinWidthVar, MinHeightVar)
+
+}
+
+var xToplevelSizeSetShadowWidth func(uintptr, int, int, int, int)
+
+// Sets the shadows size of the toplevel.
+//
+// The shadow width corresponds to the part of the computed surface size
+// that would consist of the shadow margin surrounding the window, would
+// there be any.
+func (x *ToplevelSize) SetShadowWidth(LeftVar int, RightVar int, TopVar int, BottomVar int) {
+
+	xToplevelSizeSetShadowWidth(x.GoPointer(), LeftVar, RightVar, TopVar, BottomVar)
+
+}
+
+var xToplevelSizeSetSize func(uintptr, int, int)
+
+// Sets the size the toplevel prefers to be resized to.
+//
+// The size should be within the bounds (see
+// [method@Gdk.ToplevelSize.get_bounds]). The set size should
+// be considered as a hint, and should not be assumed to be
+// respected by the windowing system, or backend.
+func (x *ToplevelSize) SetSize(WidthVar int, HeightVar int) {
+
+	xToplevelSizeSetSize(x.GoPointer(), WidthVar, HeightVar)
+
 }
 
 var xToplevelSizeGetType func() []interface{}
@@ -25,5 +90,10 @@ func init() {
 		panic(err)
 	}
 	core.PuregoSafeRegister(&xToplevelSizeGetType, lib, "gdk_toplevel_size_get_type")
+
+	core.PuregoSafeRegister(&xToplevelSizeGetBounds, lib, "gdk_toplevel_size_get_bounds")
+	core.PuregoSafeRegister(&xToplevelSizeSetMinSize, lib, "gdk_toplevel_size_set_min_size")
+	core.PuregoSafeRegister(&xToplevelSizeSetShadowWidth, lib, "gdk_toplevel_size_set_shadow_width")
+	core.PuregoSafeRegister(&xToplevelSizeSetSize, lib, "gdk_toplevel_size_set_size")
 
 }

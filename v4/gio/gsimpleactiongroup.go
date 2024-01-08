@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,7 +16,15 @@ type SimpleActionGroupClass struct {
 	Padding uintptr
 }
 
+func (x *SimpleActionGroupClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SimpleActionGroupPrivate struct {
+}
+
+func (x *SimpleActionGroupPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSimpleActionGroup is a hash table filled with #GAction objects,

@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdkpixbuf"
@@ -11,6 +13,10 @@ import (
 )
 
 type TextureClass struct {
+}
+
+func (x *TextureClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Possible errors that can be returned by `GdkTexture` constructors.

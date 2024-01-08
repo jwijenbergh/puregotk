@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 
 type InscriptionClass struct {
 	ParentClass uintptr
+}
+
+func (x *InscriptionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The different methods to handle text in #GtkInscription when it doesn't

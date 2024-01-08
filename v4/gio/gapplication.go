@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type ApplicationClass struct {
 	Padding uintptr
 }
 
+func (x *ApplicationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ApplicationPrivate struct {
+}
+
+func (x *ApplicationPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GApplication is the foundation of an application.  It wraps some
@@ -1347,6 +1357,82 @@ func (x *Application) RemoveAction(ActionNameVar string) {
 
 }
 
+var xApplicationGetDefault func() uintptr
+
+// Returns the default #GApplication instance for this process.
+//
+// Normally there is only one #GApplication per process and it becomes
+// the default when it is created.  You can exercise more control over
+// this by using g_application_set_default().
+//
+// If there is no default application then %NULL is returned.
+func ApplicationGetDefault() *Application {
+	var cls *Application
+
+	cret := xApplicationGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Application{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xApplicationIdIsValid func(string) bool
+
+// Checks if @application_id is a valid application identifier.
+//
+// A valid ID is required for calls to g_application_new() and
+// g_application_set_application_id().
+//
+// Application identifiers follow the same format as
+// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
+// For convenience, the restrictions on application identifiers are
+// reproduced here:
+//
+//   - Application identifiers are composed of 1 or more elements separated by a
+//     period (`.`) character. All elements must contain at least one character.
+//
+//   - Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
+//     with `-` discouraged in new application identifiers. Each element must not
+//     begin with a digit.
+//
+//   - Application identifiers must contain at least one `.` (period) character
+//     (and thus at least two elements).
+//
+// - Application identifiers must not begin with a `.` (period) character.
+//
+// - Application identifiers must not exceed 255 characters.
+//
+// Note that the hyphen (`-`) character is allowed in application identifiers,
+// but is problematic or not allowed in various specifications and APIs that
+// refer to D-Bus, such as
+// [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
+// the
+// [`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
+// and the convention that an application's "main" interface and object path
+// resemble its application identifier and bus name. To avoid situations that
+// require special-case handling, it is recommended that new application
+// identifiers consistently replace hyphens with underscores.
+//
+// Like D-Bus interface names, application identifiers should start with the
+// reversed DNS domain name of the author of the interface (in lower-case), and
+// it is conventional for the rest of the application identifier to consist of
+// words run together, with initial capital letters.
+//
+// As with D-Bus interface names, if the author's DNS domain name contains
+// hyphen/minus characters they should be replaced by underscores, and if it
+// contains leading digits they should be escaped by prepending an underscore.
+// For example, if the owner of 7-zip.org used an application identifier for an
+// archiving application, it might be named `org._7_zip.Archiver`.
+func ApplicationIdIsValid(ApplicationIdVar string) bool {
+
+	cret := xApplicationIdIsValid(ApplicationIdVar)
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1389,5 +1475,8 @@ func init() {
 	core.PuregoSafeRegister(&xApplicationUnbindBusyProperty, lib, "g_application_unbind_busy_property")
 	core.PuregoSafeRegister(&xApplicationUnmarkBusy, lib, "g_application_unmark_busy")
 	core.PuregoSafeRegister(&xApplicationWithdrawNotification, lib, "g_application_withdraw_notification")
+
+	core.PuregoSafeRegister(&xApplicationGetDefault, lib, "g_application_get_default")
+	core.PuregoSafeRegister(&xApplicationIdIsValid, lib, "g_application_id_is_valid")
 
 }

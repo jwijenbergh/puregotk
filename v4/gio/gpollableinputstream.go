@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -19,6 +21,10 @@ import (
 // readable.
 type PollableInputStreamInterface struct {
 	GIface uintptr
+}
+
+func (x *PollableInputStreamInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GPollableInputStream is implemented by #GInputStreams that

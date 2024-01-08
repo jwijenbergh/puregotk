@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,10 @@ import (
 // The virtual function table for #GDebugController.
 type DebugControllerInterface struct {
 	GIface uintptr
+}
+
+func (x *DebugControllerInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDebugController is an interface to expose control of debugging features and
@@ -60,6 +66,12 @@ func (x *DebugControllerBase) SetDebugEnabled(DebugEnabledVar bool) {
 
 var XGDebugControllerGetDebugEnabled func(uintptr) bool
 var XGDebugControllerSetDebugEnabled func(uintptr, bool)
+
+const (
+	// Extension point for debug control functionality.
+	// See [Extending GIO][extending-gio].
+	DEBUG_CONTROLLER_EXTENSION_POINT_NAME string = "gio-debug-controller"
+)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

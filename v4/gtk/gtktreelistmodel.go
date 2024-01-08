@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -22,8 +24,16 @@ type TreeListModelClass struct {
 	ParentClass uintptr
 }
 
+func (x *TreeListModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TreeListRowClass struct {
 	ParentClass uintptr
+}
+
+func (x *TreeListRowClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkTreeListModel` is a list model that can create child models on demand.

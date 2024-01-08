@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type TcpWrapperConnectionClass struct {
 	ParentClass uintptr
 }
 
+func (x *TcpWrapperConnectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TcpWrapperConnectionPrivate struct {
+}
+
+func (x *TcpWrapperConnectionPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GTcpWrapperConnection can be used to wrap a #GIOStream that is

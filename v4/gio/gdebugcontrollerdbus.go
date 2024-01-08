@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,6 +15,10 @@ type DebugControllerDBusClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *DebugControllerDBusClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDebugControllerDBus is an implementation of #GDebugController which exposes

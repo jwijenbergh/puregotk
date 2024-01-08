@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type InetSocketAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *InetSocketAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type InetSocketAddressPrivate struct {
+}
+
+func (x *InetSocketAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An IPv4 or IPv6 socket address; that is, the combination of a

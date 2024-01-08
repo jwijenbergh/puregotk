@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // The interface vtable for `GtkActionable`.
 type ActionableInterface struct {
 	GIface uintptr
+}
+
+func (x *ActionableInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `GtkActionable` interface provides a convenient way of asscociating

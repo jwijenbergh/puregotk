@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,7 +13,15 @@ type InetAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *InetAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type InetAddressPrivate struct {
+}
+
+func (x *InetAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GInetAddress represents an IPv4 or IPv6 internet address. Use

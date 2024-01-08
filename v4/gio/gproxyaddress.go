@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -11,7 +13,15 @@ type ProxyAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *ProxyAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ProxyAddressPrivate struct {
+}
+
+func (x *ProxyAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Support for proxied #GInetSocketAddress.

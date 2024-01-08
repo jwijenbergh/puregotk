@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,22 +16,50 @@ type ShortcutFunc func(uintptr, *glib.Variant, uintptr) bool
 type ActivateActionClass struct {
 }
 
+func (x *ActivateActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CallbackActionClass struct {
+}
+
+func (x *CallbackActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type MnemonicActionClass struct {
 }
 
+func (x *MnemonicActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type NamedActionClass struct {
+}
+
+func (x *NamedActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type NothingActionClass struct {
 }
 
+func (x *NothingActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ShortcutActionClass struct {
 }
 
+func (x *ShortcutActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SignalActionClass struct {
+}
+
+func (x *SignalActionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // List of flags that can be passed to action activation.
@@ -62,6 +92,26 @@ func (c *ActivateAction) GoPointer() uintptr {
 
 func (c *ActivateAction) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
+}
+
+var xActivateActionGet func() uintptr
+
+// Gets the activate action.
+//
+// This is an action that calls gtk_widget_activate()
+// on the given widget upon activation.
+func ActivateActionGet() *ActivateAction {
+	var cls *ActivateAction
+
+	cret := xActivateActionGet()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &ActivateAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 // A `GtkShortcutAction` that invokes a callback.
@@ -117,6 +167,26 @@ func (c *MnemonicAction) GoPointer() uintptr {
 
 func (c *MnemonicAction) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
+}
+
+var xMnemonicActionGet func() uintptr
+
+// Gets the mnemonic action.
+//
+// This is an action that calls gtk_widget_mnemonic_activate()
+// on the given widget upon activation.
+func MnemonicActionGet() *MnemonicAction {
+	var cls *MnemonicAction
+
+	cret := xMnemonicActionGet()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &MnemonicAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 // A `GtkShortcutAction` that activates an action by name.
@@ -186,6 +256,26 @@ func (c *NothingAction) GoPointer() uintptr {
 
 func (c *NothingAction) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
+}
+
+var xNothingActionGet func() uintptr
+
+// Gets the nothing action.
+//
+// This is an action that does nothing and where
+// activating it always fails.
+func NothingActionGet() *NothingAction {
+	var cls *NothingAction
+
+	cret := xNothingActionGet()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &NothingAction{}
+	cls.Ptr = cret
+	return cls
 }
 
 // `GtkShortcutAction` encodes an action that can be triggered by a
@@ -357,11 +447,17 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xActivateActionGet, lib, "gtk_activate_action_get")
+
 	core.PuregoSafeRegister(&xNewCallbackAction, lib, "gtk_callback_action_new")
+
+	core.PuregoSafeRegister(&xMnemonicActionGet, lib, "gtk_mnemonic_action_get")
 
 	core.PuregoSafeRegister(&xNewNamedAction, lib, "gtk_named_action_new")
 
 	core.PuregoSafeRegister(&xNamedActionGetActionName, lib, "gtk_named_action_get_action_name")
+
+	core.PuregoSafeRegister(&xNothingActionGet, lib, "gtk_nothing_action_get")
 
 	core.PuregoSafeRegister(&xParseStringShortcutAction, lib, "gtk_shortcut_action_parse_string")
 

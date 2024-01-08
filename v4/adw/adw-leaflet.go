@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -13,8 +15,16 @@ type LeafletClass struct {
 	ParentClass uintptr
 }
 
+func (x *LeafletClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type LeafletPageClass struct {
 	ParentClass uintptr
+}
+
+func (x *LeafletPageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Describes the possible transitions in a [class@Leaflet] widget.

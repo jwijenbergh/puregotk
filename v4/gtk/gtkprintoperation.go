@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -21,7 +23,15 @@ type PrintOperationClass struct {
 	Padding uintptr
 }
 
+func (x *PrintOperationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type PrintOperationPrivate struct {
+}
+
+func (x *PrintOperationPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Error codes that identify various errors that can occur while

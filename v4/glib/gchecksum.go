@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -11,6 +13,98 @@ import (
 // To create a new GChecksum, use g_checksum_new(). To free
 // a GChecksum, use g_checksum_free().
 type Checksum struct {
+}
+
+func (x *Checksum) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewChecksum func(ChecksumType) *Checksum
+
+// Creates a new #GChecksum, using the checksum algorithm @checksum_type.
+// If the @checksum_type is not known, %NULL is returned.
+// A #GChecksum can be used to compute the checksum, or digest, of an
+// arbitrary binary blob, using different hashing algorithms.
+//
+// A #GChecksum works by feeding a binary blob through g_checksum_update()
+// until there is data to be checked; the digest can then be extracted
+// using g_checksum_get_string(), which will return the checksum as a
+// hexadecimal string; or g_checksum_get_digest(), which will return a
+// vector of raw bytes. Once either g_checksum_get_string() or
+// g_checksum_get_digest() have been called on a #GChecksum, the checksum
+// will be closed and it won't be possible to call g_checksum_update()
+// on it anymore.
+func NewChecksum(ChecksumTypeVar ChecksumType) *Checksum {
+
+	cret := xNewChecksum(ChecksumTypeVar)
+	return cret
+}
+
+var xChecksumCopy func(uintptr) *Checksum
+
+// Copies a #GChecksum. If @checksum has been closed, by calling
+// g_checksum_get_string() or g_checksum_get_digest(), the copied
+// checksum will be closed as well.
+func (x *Checksum) Copy() *Checksum {
+
+	cret := xChecksumCopy(x.GoPointer())
+	return cret
+}
+
+var xChecksumFree func(uintptr)
+
+// Frees the memory allocated for @checksum.
+func (x *Checksum) Free() {
+
+	xChecksumFree(x.GoPointer())
+
+}
+
+var xChecksumGetDigest func(uintptr, uintptr, uint)
+
+// Gets the digest from @checksum as a raw binary vector and places it
+// into @buffer. The size of the digest depends on the type of checksum.
+//
+// Once this function has been called, the #GChecksum is closed and can
+// no longer be updated with g_checksum_update().
+func (x *Checksum) GetDigest(BufferVar uintptr, DigestLenVar uint) {
+
+	xChecksumGetDigest(x.GoPointer(), BufferVar, DigestLenVar)
+
+}
+
+var xChecksumGetString func(uintptr) string
+
+// Gets the digest as a hexadecimal string.
+//
+// Once this function has been called the #GChecksum can no longer be
+// updated with g_checksum_update().
+//
+// The hexadecimal characters will be lower case.
+func (x *Checksum) GetString() string {
+
+	cret := xChecksumGetString(x.GoPointer())
+	return cret
+}
+
+var xChecksumReset func(uintptr)
+
+// Resets the state of the @checksum back to its initial state.
+func (x *Checksum) Reset() {
+
+	xChecksumReset(x.GoPointer())
+
+}
+
+var xChecksumUpdate func(uintptr, uintptr, int)
+
+// Feeds @data into an existing #GChecksum. The checksum must still be
+// open, that is g_checksum_get_string() or g_checksum_get_digest() must
+// not have been called on @checksum.
+func (x *Checksum) Update(DataVar uintptr, LengthVar int) {
+
+	xChecksumUpdate(x.GoPointer(), DataVar, LengthVar)
+
 }
 
 // The hashing algorithm to be used by #GChecksum when performing the
@@ -89,5 +183,14 @@ func init() {
 	core.PuregoSafeRegister(&xComputeChecksumForBytes, lib, "g_compute_checksum_for_bytes")
 	core.PuregoSafeRegister(&xComputeChecksumForData, lib, "g_compute_checksum_for_data")
 	core.PuregoSafeRegister(&xComputeChecksumForString, lib, "g_compute_checksum_for_string")
+
+	core.PuregoSafeRegister(&xNewChecksum, lib, "g_checksum_new")
+
+	core.PuregoSafeRegister(&xChecksumCopy, lib, "g_checksum_copy")
+	core.PuregoSafeRegister(&xChecksumFree, lib, "g_checksum_free")
+	core.PuregoSafeRegister(&xChecksumGetDigest, lib, "g_checksum_get_digest")
+	core.PuregoSafeRegister(&xChecksumGetString, lib, "g_checksum_get_string")
+	core.PuregoSafeRegister(&xChecksumReset, lib, "g_checksum_reset")
+	core.PuregoSafeRegister(&xChecksumUpdate, lib, "g_checksum_update")
 
 }

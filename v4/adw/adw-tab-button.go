@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 
 type TabButtonClass struct {
 	ParentClass uintptr
+}
+
+func (x *TabButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A button that displays the number of [class@TabView] pages.

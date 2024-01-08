@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,92 @@ import (
 // Opaque datatype that records a start time.
 type Timer struct {
 }
+
+func (x *Timer) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTimerContinue func(uintptr)
+
+// Resumes a timer that has previously been stopped with
+// g_timer_stop(). g_timer_stop() must be called before using this
+// function.
+func (x *Timer) Continue() {
+
+	xTimerContinue(x.GoPointer())
+
+}
+
+var xTimerDestroy func(uintptr)
+
+// Destroys a timer, freeing associated resources.
+func (x *Timer) Destroy() {
+
+	xTimerDestroy(x.GoPointer())
+
+}
+
+var xTimerElapsed func(uintptr, uint32) float64
+
+// If @timer has been started but not stopped, obtains the time since
+// the timer was started. If @timer has been stopped, obtains the
+// elapsed time between the time it was started and the time it was
+// stopped. The return value is the number of seconds elapsed,
+// including any fractional part. The @microseconds out parameter is
+// essentially useless.
+func (x *Timer) Elapsed(MicrosecondsVar uint32) float64 {
+
+	cret := xTimerElapsed(x.GoPointer(), MicrosecondsVar)
+	return cret
+}
+
+var xTimerIsActive func(uintptr) bool
+
+// Exposes whether the timer is currently active.
+func (x *Timer) IsActive() bool {
+
+	cret := xTimerIsActive(x.GoPointer())
+	return cret
+}
+
+var xTimerReset func(uintptr)
+
+// This function is useless; it's fine to call g_timer_start() on an
+// already-started timer to reset the start time, so g_timer_reset()
+// serves no purpose.
+func (x *Timer) Reset() {
+
+	xTimerReset(x.GoPointer())
+
+}
+
+var xTimerStart func(uintptr)
+
+// Marks a start time, so that future calls to g_timer_elapsed() will
+// report the time since g_timer_start() was called. g_timer_new()
+// automatically marks the start time, so no need to call
+// g_timer_start() immediately after creating the timer.
+func (x *Timer) Start() {
+
+	xTimerStart(x.GoPointer())
+
+}
+
+var xTimerStop func(uintptr)
+
+// Marks an end time, so calls to g_timer_elapsed() will return the
+// difference between this end time and the start time.
+func (x *Timer) Stop() {
+
+	xTimerStop(x.GoPointer())
+
+}
+
+const (
+	// Number of microseconds in one second (1 million).
+	// This macro is provided for code readability.
+	USEC_PER_SEC int = 1000000
+)
 
 var xTimeValFromIso8601 func(string, *TimeVal) bool
 
@@ -56,5 +144,13 @@ func init() {
 	}
 	core.PuregoSafeRegister(&xTimeValFromIso8601, lib, "g_time_val_from_iso8601")
 	core.PuregoSafeRegister(&xUsleep, lib, "g_usleep")
+
+	core.PuregoSafeRegister(&xTimerContinue, lib, "g_timer_continue")
+	core.PuregoSafeRegister(&xTimerDestroy, lib, "g_timer_destroy")
+	core.PuregoSafeRegister(&xTimerElapsed, lib, "g_timer_elapsed")
+	core.PuregoSafeRegister(&xTimerIsActive, lib, "g_timer_is_active")
+	core.PuregoSafeRegister(&xTimerReset, lib, "g_timer_reset")
+	core.PuregoSafeRegister(&xTimerStart, lib, "g_timer_start")
+	core.PuregoSafeRegister(&xTimerStop, lib, "g_timer_stop")
 
 }

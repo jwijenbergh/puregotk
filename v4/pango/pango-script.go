@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,62 @@ import (
 // A `PangoScriptIter` is used to iterate through a string
 // and identify ranges in different scripts.
 type ScriptIter struct {
+}
+
+func (x *ScriptIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewScriptIter func(string, int) *ScriptIter
+
+// Create a new `PangoScriptIter`, used to break a string of
+// Unicode text into runs by Unicode script.
+//
+// No copy is made of @text, so the caller needs to make
+// sure it remains valid until the iterator is freed with
+// [method@Pango.ScriptIter.free].
+func NewScriptIter(TextVar string, LengthVar int) *ScriptIter {
+
+	cret := xNewScriptIter(TextVar, LengthVar)
+	return cret
+}
+
+var xScriptIterFree func(uintptr)
+
+// Frees a `PangoScriptIter`.
+func (x *ScriptIter) Free() {
+
+	xScriptIterFree(x.GoPointer())
+
+}
+
+var xScriptIterGetRange func(uintptr, string, string, *Script)
+
+// Gets information about the range to which @iter currently points.
+//
+// The range is the set of locations p where *start &lt;= p &lt; *end.
+// (That is, it doesn't include the character stored at *end)
+//
+// Note that while the type of the @script argument is declared
+// as `PangoScript`, as of Pango 1.18, this function simply returns
+// `GUnicodeScript` values. Callers must be prepared to handle unknown
+// values.
+func (x *ScriptIter) GetRange(StartVar string, EndVar string, ScriptVar *Script) {
+
+	xScriptIterGetRange(x.GoPointer(), StartVar, EndVar, ScriptVar)
+
+}
+
+var xScriptIterNext func(uintptr) bool
+
+// Advances a `PangoScriptIter` to the next range.
+//
+// If @iter is already at the end, it is left unchanged
+// and %FALSE is returned.
+func (x *ScriptIter) Next() bool {
+
+	cret := xScriptIterNext(x.GoPointer())
+	return cret
 }
 
 // The `PangoScript` enumeration identifies different writing
@@ -328,5 +386,11 @@ func init() {
 	}
 	core.PuregoSafeRegister(&xScriptForUnichar, lib, "pango_script_for_unichar")
 	core.PuregoSafeRegister(&xScriptGetSampleLanguage, lib, "pango_script_get_sample_language")
+
+	core.PuregoSafeRegister(&xNewScriptIter, lib, "pango_script_iter_new")
+
+	core.PuregoSafeRegister(&xScriptIterFree, lib, "pango_script_iter_free")
+	core.PuregoSafeRegister(&xScriptIterGetRange, lib, "pango_script_iter_get_range")
+	core.PuregoSafeRegister(&xScriptIterNext, lib, "pango_script_iter_next")
 
 }

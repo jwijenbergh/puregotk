@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 
 type StatusPageClass struct {
 	ParentClass uintptr
+}
+
+func (x *StatusPageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A page used for empty/error states and similar use-cases.

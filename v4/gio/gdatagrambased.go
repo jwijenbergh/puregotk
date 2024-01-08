@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,6 +16,10 @@ import (
 // documented in the interface methods.
 type DatagramBasedInterface struct {
 	GIface uintptr
+}
+
+func (x *DatagramBasedInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GDatagramBased is a networking interface for representing datagram-based

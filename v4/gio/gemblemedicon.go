@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type EmblemedIconClass struct {
 	ParentClass uintptr
 }
 
+func (x *EmblemedIconClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type EmblemedIconPrivate struct {
+}
+
+func (x *EmblemedIconPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GEmblemedIcon is an implementation of #GIcon that supports

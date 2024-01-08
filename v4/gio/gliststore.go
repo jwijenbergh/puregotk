@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 
 type ListStoreClass struct {
 	ParentClass uintptr
+}
+
+func (x *ListStoreClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GListStore is a simple implementation of #GListModel that stores all

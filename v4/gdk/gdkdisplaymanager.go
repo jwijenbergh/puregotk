@@ -179,6 +179,31 @@ func (x *DisplayManager) ConnectDisplayOpened(cb func(DisplayManager, uintptr)) 
 	return gobject.SignalConnect(x.GoPointer(), "display-opened", purego.NewCallback(fcb))
 }
 
+var xDisplayManagerGet func() uintptr
+
+// Gets the singleton `GdkDisplayManager` object.
+//
+// When called for the first time, this function consults the
+// `GDK_BACKEND` environment variable to find out which of the
+// supported GDK backends to use (in case GDK has been compiled
+// with multiple backends).
+//
+// Applications can use [func@set_allowed_backends] to limit what
+// backends wil be used.
+func DisplayManagerGet() *DisplayManager {
+	var cls *DisplayManager
+
+	cret := xDisplayManagerGet()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &DisplayManager{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -190,5 +215,7 @@ func init() {
 	core.PuregoSafeRegister(&xDisplayManagerListDisplays, lib, "gdk_display_manager_list_displays")
 	core.PuregoSafeRegister(&xDisplayManagerOpenDisplay, lib, "gdk_display_manager_open_display")
 	core.PuregoSafeRegister(&xDisplayManagerSetDefaultDisplay, lib, "gdk_display_manager_set_default_display")
+
+	core.PuregoSafeRegister(&xDisplayManagerGet, lib, "gdk_display_manager_get")
 
 }

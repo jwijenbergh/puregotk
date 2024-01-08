@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -27,7 +29,15 @@ type RendererClass struct {
 	ParentClass uintptr
 }
 
+func (x *RendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type RendererPrivate struct {
+}
+
+func (x *RendererPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `PangoRenderPart` defines different items to render for such

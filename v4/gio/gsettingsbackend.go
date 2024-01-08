@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,8 +17,21 @@ type SettingsBackendClass struct {
 	Padding uintptr
 }
 
+func (x *SettingsBackendClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SettingsBackendPrivate struct {
 }
+
+func (x *SettingsBackendPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// Extension point for #GSettingsBackend functionality.
+	SETTINGS_BACKEND_EXTENSION_POINT_NAME string = "gsettings-backend"
+)
 
 var xKeyfileSettingsBackendNew func(string, string, string) uintptr
 
@@ -291,6 +306,41 @@ func (c *SettingsBackend) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xSettingsBackendFlattenTree func(*glib.Tree, string, uintptr, uintptr)
+
+// Calculate the longest common prefix of all keys in a tree and write
+// out an array of the key names relative to that prefix and,
+// optionally, the value to store at each of those keys.
+//
+// You must free the value returned in @path, @keys and @values using
+// g_free().  You should not attempt to free or unref the contents of
+// @keys or @values.
+func SettingsBackendFlattenTree(TreeVar *glib.Tree, PathVar string, KeysVar uintptr, ValuesVar uintptr) {
+
+	xSettingsBackendFlattenTree(TreeVar, PathVar, KeysVar, ValuesVar)
+
+}
+
+var xSettingsBackendGetDefault func() uintptr
+
+// Returns the default #GSettingsBackend. It is possible to override
+// the default by setting the `GSETTINGS_BACKEND` environment variable
+// to the name of a settings backend.
+//
+// The user gets a reference to the backend.
+func SettingsBackendGetDefault() *SettingsBackend {
+	var cls *SettingsBackend
+
+	cret := xSettingsBackendGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &SettingsBackend{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -306,5 +356,8 @@ func init() {
 	core.PuregoSafeRegister(&xSettingsBackendPathChanged, lib, "g_settings_backend_path_changed")
 	core.PuregoSafeRegister(&xSettingsBackendPathWritableChanged, lib, "g_settings_backend_path_writable_changed")
 	core.PuregoSafeRegister(&xSettingsBackendWritableChanged, lib, "g_settings_backend_writable_changed")
+
+	core.PuregoSafeRegister(&xSettingsBackendFlattenTree, lib, "g_settings_backend_flatten_tree")
+	core.PuregoSafeRegister(&xSettingsBackendGetDefault, lib, "g_settings_backend_get_default")
 
 }

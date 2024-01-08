@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,7 +16,15 @@ type TlsCertificateClass struct {
 	Padding uintptr
 }
 
+func (x *TlsCertificateClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TlsCertificatePrivate struct {
+}
+
+func (x *TlsCertificatePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A certificate used for TLS authentication and encryption.
@@ -372,6 +382,24 @@ func (c *TlsCertificate) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xTlsCertificateListNewFromFile func(string, **glib.Error) *glib.List
+
+// Creates one or more #GTlsCertificates from the PEM-encoded
+// data in @file. If @file cannot be read or parsed, the function will
+// return %NULL and set @error. If @file does not contain any
+// PEM-encoded certificates, this will return an empty list and not
+// set @error.
+func TlsCertificateListNewFromFile(FileVar string) (*glib.List, error) {
+	var cerr *glib.Error
+
+	cret := xTlsCertificateListNewFromFile(FileVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -394,5 +422,7 @@ func init() {
 	core.PuregoSafeRegister(&xTlsCertificateGetSubjectName, lib, "g_tls_certificate_get_subject_name")
 	core.PuregoSafeRegister(&xTlsCertificateIsSame, lib, "g_tls_certificate_is_same")
 	core.PuregoSafeRegister(&xTlsCertificateVerify, lib, "g_tls_certificate_verify")
+
+	core.PuregoSafeRegister(&xTlsCertificateListNewFromFile, lib, "g_tls_certificate_list_new_from_file")
 
 }

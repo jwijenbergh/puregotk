@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,6 +16,10 @@ type CellLayoutDataFunc func(uintptr, uintptr, uintptr, *TreeIter, uintptr)
 
 type CellLayoutIface struct {
 	GIface uintptr
+}
+
+func (x *CellLayoutIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An interface for packing cells

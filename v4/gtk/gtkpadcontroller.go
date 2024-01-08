@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -21,7 +23,15 @@ type PadActionEntry struct {
 	ActionName uintptr
 }
 
+func (x *PadActionEntry) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type PadControllerClass struct {
+}
+
+func (x *PadControllerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The type of a pad action.

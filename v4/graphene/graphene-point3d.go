@@ -2,6 +2,8 @@
 package graphene
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -13,6 +15,166 @@ type Point3D struct {
 	Y float32
 
 	Z float32
+}
+
+func (x *Point3D) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xAllocPoint3D func() *Point3D
+
+// Allocates a #graphene_point3d_t structure.
+func AllocPoint3D() *Point3D {
+
+	cret := xAllocPoint3D()
+	return cret
+}
+
+var xPoint3DCross func(uintptr, *Point3D, *Point3D)
+
+// Computes the cross product of the two given #graphene_point3d_t.
+func (x *Point3D) Cross(BVar *Point3D, ResVar *Point3D) {
+
+	xPoint3DCross(x.GoPointer(), BVar, ResVar)
+
+}
+
+var xPoint3DDistance func(uintptr, *Point3D, *Vec3) float32
+
+// Computes the distance between the two given #graphene_point3d_t.
+func (x *Point3D) Distance(BVar *Point3D, DeltaVar *Vec3) float32 {
+
+	cret := xPoint3DDistance(x.GoPointer(), BVar, DeltaVar)
+	return cret
+}
+
+var xPoint3DDot func(uintptr, *Point3D) float32
+
+// Computes the dot product of the two given #graphene_point3d_t.
+func (x *Point3D) Dot(BVar *Point3D) float32 {
+
+	cret := xPoint3DDot(x.GoPointer(), BVar)
+	return cret
+}
+
+var xPoint3DEqual func(uintptr, *Point3D) bool
+
+// Checks whether two given points are equal.
+func (x *Point3D) Equal(BVar *Point3D) bool {
+
+	cret := xPoint3DEqual(x.GoPointer(), BVar)
+	return cret
+}
+
+var xPoint3DFree func(uintptr)
+
+// Frees the resources allocated via graphene_point3d_alloc().
+func (x *Point3D) Free() {
+
+	xPoint3DFree(x.GoPointer())
+
+}
+
+var xPoint3DInit func(uintptr, float32, float32, float32) *Point3D
+
+// Initializes a #graphene_point3d_t with the given coordinates.
+func (x *Point3D) Init(XVar float32, YVar float32, ZVar float32) *Point3D {
+
+	cret := xPoint3DInit(x.GoPointer(), XVar, YVar, ZVar)
+	return cret
+}
+
+var xPoint3DInitFromPoint func(uintptr, *Point3D) *Point3D
+
+// Initializes a #graphene_point3d_t using the coordinates of
+// another #graphene_point3d_t.
+func (x *Point3D) InitFromPoint(SrcVar *Point3D) *Point3D {
+
+	cret := xPoint3DInitFromPoint(x.GoPointer(), SrcVar)
+	return cret
+}
+
+var xPoint3DInitFromVec3 func(uintptr, *Vec3) *Point3D
+
+// Initializes a #graphene_point3d_t using the components
+// of a #graphene_vec3_t.
+func (x *Point3D) InitFromVec3(VVar *Vec3) *Point3D {
+
+	cret := xPoint3DInitFromVec3(x.GoPointer(), VVar)
+	return cret
+}
+
+var xPoint3DInterpolate func(uintptr, *Point3D, float64, *Point3D)
+
+// Linearly interpolates each component of @a and @b using the
+// provided @factor, and places the result in @res.
+func (x *Point3D) Interpolate(BVar *Point3D, FactorVar float64, ResVar *Point3D) {
+
+	xPoint3DInterpolate(x.GoPointer(), BVar, FactorVar, ResVar)
+
+}
+
+var xPoint3DLength func(uintptr) float32
+
+// Computes the length of the vector represented by the
+// coordinates of the given #graphene_point3d_t.
+func (x *Point3D) Length() float32 {
+
+	cret := xPoint3DLength(x.GoPointer())
+	return cret
+}
+
+var xPoint3DNear func(uintptr, *Point3D, float32) bool
+
+// Checks whether the two points are near each other, within
+// an @epsilon factor.
+func (x *Point3D) Near(BVar *Point3D, EpsilonVar float32) bool {
+
+	cret := xPoint3DNear(x.GoPointer(), BVar, EpsilonVar)
+	return cret
+}
+
+var xPoint3DNormalize func(uintptr, *Point3D)
+
+// Computes the normalization of the vector represented by the
+// coordinates of the given #graphene_point3d_t.
+func (x *Point3D) Normalize(ResVar *Point3D) {
+
+	xPoint3DNormalize(x.GoPointer(), ResVar)
+
+}
+
+var xPoint3DNormalizeViewport func(uintptr, *Rect, float32, float32, *Point3D)
+
+// Normalizes the coordinates of a #graphene_point3d_t using the
+// given viewport and clipping planes.
+//
+// The coordinates of the resulting #graphene_point3d_t will be
+// in the [ -1, 1 ] range.
+func (x *Point3D) NormalizeViewport(ViewportVar *Rect, ZNearVar float32, ZFarVar float32, ResVar *Point3D) {
+
+	xPoint3DNormalizeViewport(x.GoPointer(), ViewportVar, ZNearVar, ZFarVar, ResVar)
+
+}
+
+var xPoint3DScale func(uintptr, float32, *Point3D)
+
+// Scales the coordinates of the given #graphene_point3d_t by
+// the given @factor.
+func (x *Point3D) Scale(FactorVar float32, ResVar *Point3D) {
+
+	xPoint3DScale(x.GoPointer(), FactorVar, ResVar)
+
+}
+
+var xPoint3DToVec3 func(uintptr, *Vec3)
+
+// Stores the coordinates of a #graphene_point3d_t into a
+// #graphene_vec3_t.
+func (x *Point3D) ToVec3(VVar *Vec3) {
+
+	xPoint3DToVec3(x.GoPointer(), VVar)
+
 }
 
 var xPoint3dZero func() *Point3D
@@ -30,5 +192,23 @@ func init() {
 		panic(err)
 	}
 	core.PuregoSafeRegister(&xPoint3dZero, lib, "graphene_point3d_zero")
+
+	core.PuregoSafeRegister(&xAllocPoint3D, lib, "graphene_point3d_alloc")
+
+	core.PuregoSafeRegister(&xPoint3DCross, lib, "graphene_point3d_cross")
+	core.PuregoSafeRegister(&xPoint3DDistance, lib, "graphene_point3d_distance")
+	core.PuregoSafeRegister(&xPoint3DDot, lib, "graphene_point3d_dot")
+	core.PuregoSafeRegister(&xPoint3DEqual, lib, "graphene_point3d_equal")
+	core.PuregoSafeRegister(&xPoint3DFree, lib, "graphene_point3d_free")
+	core.PuregoSafeRegister(&xPoint3DInit, lib, "graphene_point3d_init")
+	core.PuregoSafeRegister(&xPoint3DInitFromPoint, lib, "graphene_point3d_init_from_point")
+	core.PuregoSafeRegister(&xPoint3DInitFromVec3, lib, "graphene_point3d_init_from_vec3")
+	core.PuregoSafeRegister(&xPoint3DInterpolate, lib, "graphene_point3d_interpolate")
+	core.PuregoSafeRegister(&xPoint3DLength, lib, "graphene_point3d_length")
+	core.PuregoSafeRegister(&xPoint3DNear, lib, "graphene_point3d_near")
+	core.PuregoSafeRegister(&xPoint3DNormalize, lib, "graphene_point3d_normalize")
+	core.PuregoSafeRegister(&xPoint3DNormalizeViewport, lib, "graphene_point3d_normalize_viewport")
+	core.PuregoSafeRegister(&xPoint3DScale, lib, "graphene_point3d_scale")
+	core.PuregoSafeRegister(&xPoint3DToVec3, lib, "graphene_point3d_to_vec3")
 
 }

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -13,7 +15,15 @@ type TextTagClass struct {
 	Padding uintptr
 }
 
+func (x *TextTagClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TextTagPrivate struct {
+}
+
+func (x *TextTagPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A tag that can be applied to text contained in a `GtkTextBuffer`.

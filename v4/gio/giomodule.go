@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,12 +13,40 @@ import (
 type IOModuleClass struct {
 }
 
+func (x *IOModuleClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Represents a scope for loading IO modules. A scope can be used for blocking
 // duplicate modules, or blocking a module you don't want to load.
 //
 // The scope can be used with g_io_modules_load_all_in_directory_with_scope()
 // or g_io_modules_scan_all_in_directory_with_scope().
 type IOModuleScope struct {
+}
+
+func (x *IOModuleScope) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xIOModuleScopeBlock func(uintptr, string)
+
+// Block modules with the given @basename from being loaded when
+// this scope is used with g_io_modules_scan_all_in_directory_with_scope()
+// or g_io_modules_load_all_in_directory_with_scope().
+func (x *IOModuleScope) Block(BasenameVar string) {
+
+	xIOModuleScopeBlock(x.GoPointer(), BasenameVar)
+
+}
+
+var xIOModuleScopeFree func(uintptr)
+
+// Free a module scope.
+func (x *IOModuleScope) Free() {
+
+	xIOModuleScopeFree(x.GoPointer())
+
 }
 
 var xIoExtensionPointImplement func(string, []interface{}, string, int) *IOExtension
@@ -229,6 +259,45 @@ func (x *IOModule) Use() {
 
 }
 
+var xIOModuleQuery func() []string
+
+// Optional API for GIO modules to implement.
+//
+// Should return a list of all the extension points that may be
+// implemented in this module.
+//
+// This method will not be called in normal use, however it may be
+// called when probing existing modules and recording which extension
+// points that this model is used for. This means we won't have to
+// load and initialize this module unless its needed.
+//
+// If this function is not implemented by the module the module will
+// always be loaded, initialized and then unloaded on application
+// startup so that it can register its extension points during init.
+//
+// Note that a module need not actually implement all the extension
+// points that g_io_module_query() returns, since the exact list of
+// extension may depend on runtime issues. However all extension
+// points actually implemented must be returned by g_io_module_query()
+// (if defined).
+//
+// When installing a module that implements g_io_module_query() you must
+// run gio-querymodules in order to build the cache files required for
+// lazy loading.
+//
+// Since 2.56, this function should be named `g_io_&lt;modulename&gt;_query`, where
+// `modulename` is the plugin’s filename with the `lib` or `libgio` prefix and
+// everything after the first dot removed, and with `-` replaced with `_`
+// throughout. For example, `libgiognutls-helper.so` becomes `gnutls_helper`.
+// Using the new symbol names avoids name clashes when building modules
+// statically. The old symbol names continue to be supported, but cannot be used
+// for static builds.
+func IOModuleQuery() []string {
+
+	cret := xIOModuleQuery()
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -242,9 +311,14 @@ func init() {
 	core.PuregoSafeRegister(&xIoModulesScanAllInDirectory, lib, "g_io_modules_scan_all_in_directory")
 	core.PuregoSafeRegister(&xIoModulesScanAllInDirectoryWithScope, lib, "g_io_modules_scan_all_in_directory_with_scope")
 
+	core.PuregoSafeRegister(&xIOModuleScopeBlock, lib, "g_io_module_scope_block")
+	core.PuregoSafeRegister(&xIOModuleScopeFree, lib, "g_io_module_scope_free")
+
 	core.PuregoSafeRegister(&xNewIOModule, lib, "g_io_module_new")
 
 	core.PuregoSafeRegister(&xIOModuleLoad, lib, "g_io_module_load")
 	core.PuregoSafeRegister(&xIOModuleUnload, lib, "g_io_module_unload")
+
+	core.PuregoSafeRegister(&xIOModuleQuery, lib, "g_io_module_query")
 
 }

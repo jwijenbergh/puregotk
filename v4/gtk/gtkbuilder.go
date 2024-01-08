@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -9,6 +11,10 @@ import (
 )
 
 type BuilderClass struct {
+}
+
+func (x *BuilderClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Error codes that identify various errors that can occur while using

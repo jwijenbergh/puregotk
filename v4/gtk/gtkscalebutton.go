@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,6 +13,10 @@ type ScaleButtonClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ScaleButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkScaleButton` provides a button which pops up a scale widget.

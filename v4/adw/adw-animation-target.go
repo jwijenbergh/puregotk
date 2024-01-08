@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,10 +16,22 @@ type AnimationTargetFunc func(float64, uintptr)
 type AnimationTargetClass struct {
 }
 
+func (x *AnimationTargetClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CallbackAnimationTargetClass struct {
 }
 
+func (x *CallbackAnimationTargetClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type PropertyAnimationTargetClass struct {
+}
+
+func (x *PropertyAnimationTargetClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Represents a value [class@Animation] can animate.

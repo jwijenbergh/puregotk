@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type FileEnumeratorClass struct {
 	ParentClass uintptr
 }
 
+func (x *FileEnumeratorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FileEnumeratorPrivate struct {
+}
+
+func (x *FileEnumeratorPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GFileEnumerator allows you to operate on a set of #GFiles,

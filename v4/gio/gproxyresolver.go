@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // The virtual function table for #GProxyResolver.
 type ProxyResolverInterface struct {
 	GIface uintptr
+}
+
+func (x *ProxyResolverInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GProxyResolver provides synchronous and asynchronous network proxy
@@ -101,6 +107,12 @@ var XGProxyResolverIsSupported func(uintptr) bool
 var XGProxyResolverLookup func(uintptr, string, uintptr, **glib.Error) uintptr
 var XGProxyResolverLookupAsync func(uintptr, string, uintptr, uintptr, uintptr)
 var XGProxyResolverLookupFinish func(uintptr, uintptr, **glib.Error) uintptr
+
+const (
+	// Extension point for proxy resolving functionality.
+	// See [Extending GIO][extending-gio].
+	PROXY_RESOLVER_EXTENSION_POINT_NAME string = "gio-proxy-resolver"
+)
 
 var xProxyResolverGetDefault func() uintptr
 

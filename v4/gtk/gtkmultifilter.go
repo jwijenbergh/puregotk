@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -11,10 +13,22 @@ import (
 type AnyFilterClass struct {
 }
 
+func (x *AnyFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type EveryFilterClass struct {
 }
 
+func (x *EveryFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MultiFilterClass struct {
+}
+
+func (x *MultiFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkAnyFilter` matches an item when at least one of its filters matches.

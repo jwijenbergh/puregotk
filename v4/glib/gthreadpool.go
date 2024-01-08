@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -15,6 +17,146 @@ type ThreadPool struct {
 	UserData uintptr
 
 	Exclusive bool
+}
+
+func (x *ThreadPool) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xThreadPoolFree func(uintptr, bool, bool)
+
+// Frees all resources allocated for @pool.
+//
+// If @immediate is %TRUE, no new task is processed for @pool.
+// Otherwise @pool is not freed before the last task is processed.
+// Note however, that no thread of this pool is interrupted while
+// processing a task. Instead at least all still running threads
+// can finish their tasks before the @pool is freed.
+//
+// If @wait_ is %TRUE, this function does not return before all
+// tasks to be processed (dependent on @immediate, whether all
+// or only the currently running) are ready.
+// Otherwise this function returns immediately.
+//
+// After calling this function @pool must not be used anymore.
+func (x *ThreadPool) Free(ImmediateVar bool, WaitVar bool) {
+
+	xThreadPoolFree(x.GoPointer(), ImmediateVar, WaitVar)
+
+}
+
+var xThreadPoolGetMaxThreads func(uintptr) int
+
+// Returns the maximal number of threads for @pool.
+func (x *ThreadPool) GetMaxThreads() int {
+
+	cret := xThreadPoolGetMaxThreads(x.GoPointer())
+	return cret
+}
+
+var xThreadPoolGetNumThreads func(uintptr) uint
+
+// Returns the number of threads currently running in @pool.
+func (x *ThreadPool) GetNumThreads() uint {
+
+	cret := xThreadPoolGetNumThreads(x.GoPointer())
+	return cret
+}
+
+var xThreadPoolMoveToFront func(uintptr, uintptr) bool
+
+// Moves the item to the front of the queue of unprocessed
+// items, so that it will be processed next.
+func (x *ThreadPool) MoveToFront(DataVar uintptr) bool {
+
+	cret := xThreadPoolMoveToFront(x.GoPointer(), DataVar)
+	return cret
+}
+
+var xThreadPoolPush func(uintptr, uintptr, **Error) bool
+
+// Inserts @data into the list of tasks to be executed by @pool.
+//
+// When the number of currently running threads is lower than the
+// maximal allowed number of threads, a new thread is started (or
+// reused) with the properties given to g_thread_pool_new().
+// Otherwise, @data stays in the queue until a thread in this pool
+// finishes its previous task and processes @data.
+//
+// @error can be %NULL to ignore errors, or non-%NULL to report
+// errors. An error can only occur when a new thread couldn't be
+// created. In that case @data is simply appended to the queue of
+// work to do.
+//
+// Before version 2.32, this function did not return a success status.
+func (x *ThreadPool) Push(DataVar uintptr) (bool, error) {
+	var cerr *Error
+
+	cret := xThreadPoolPush(x.GoPointer(), DataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xThreadPoolSetMaxThreads func(uintptr, int, **Error) bool
+
+// Sets the maximal allowed number of threads for @pool.
+// A value of -1 means that the maximal number of threads
+// is unlimited. If @pool is an exclusive thread pool, setting
+// the maximal number of threads to -1 is not allowed.
+//
+// Setting @max_threads to 0 means stopping all work for @pool.
+// It is effectively frozen until @max_threads is set to a non-zero
+// value again.
+//
+// A thread is never terminated while calling @func, as supplied by
+// g_thread_pool_new(). Instead the maximal number of threads only
+// has effect for the allocation of new threads in g_thread_pool_push().
+// A new thread is allocated, whenever the number of currently
+// running threads in @pool is smaller than the maximal number.
+//
+// @error can be %NULL to ignore errors, or non-%NULL to report
+// errors. An error can only occur when a new thread couldn't be
+// created.
+//
+// Before version 2.32, this function did not return a success status.
+func (x *ThreadPool) SetMaxThreads(MaxThreadsVar int) (bool, error) {
+	var cerr *Error
+
+	cret := xThreadPoolSetMaxThreads(x.GoPointer(), MaxThreadsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xThreadPoolSetSortFunction func(uintptr, uintptr, uintptr)
+
+// Sets the function used to sort the list of tasks. This allows the
+// tasks to be processed by a priority determined by @func, and not
+// just in the order in which they were added to the pool.
+//
+// Note, if the maximum number of threads is more than 1, the order
+// that threads are executed cannot be guaranteed 100%. Threads are
+// scheduled by the operating system and are executed at random. It
+// cannot be assumed that threads are executed in the order they are
+// created.
+func (x *ThreadPool) SetSortFunction(FuncVar CompareDataFunc, UserDataVar uintptr) {
+
+	xThreadPoolSetSortFunction(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+
+}
+
+var xThreadPoolUnprocessed func(uintptr) uint
+
+// Returns the number of tasks still unprocessed in @pool.
+func (x *ThreadPool) Unprocessed() uint {
+
+	cret := xThreadPoolUnprocessed(x.GoPointer())
+	return cret
 }
 
 var xThreadPoolGetMaxIdleTime func() uint
@@ -101,5 +243,14 @@ func init() {
 	core.PuregoSafeRegister(&xThreadPoolSetMaxIdleTime, lib, "g_thread_pool_set_max_idle_time")
 	core.PuregoSafeRegister(&xThreadPoolSetMaxUnusedThreads, lib, "g_thread_pool_set_max_unused_threads")
 	core.PuregoSafeRegister(&xThreadPoolStopUnusedThreads, lib, "g_thread_pool_stop_unused_threads")
+
+	core.PuregoSafeRegister(&xThreadPoolFree, lib, "g_thread_pool_free")
+	core.PuregoSafeRegister(&xThreadPoolGetMaxThreads, lib, "g_thread_pool_get_max_threads")
+	core.PuregoSafeRegister(&xThreadPoolGetNumThreads, lib, "g_thread_pool_get_num_threads")
+	core.PuregoSafeRegister(&xThreadPoolMoveToFront, lib, "g_thread_pool_move_to_front")
+	core.PuregoSafeRegister(&xThreadPoolPush, lib, "g_thread_pool_push")
+	core.PuregoSafeRegister(&xThreadPoolSetMaxThreads, lib, "g_thread_pool_set_max_threads")
+	core.PuregoSafeRegister(&xThreadPoolSetSortFunction, lib, "g_thread_pool_set_sort_function")
+	core.PuregoSafeRegister(&xThreadPoolUnprocessed, lib, "g_thread_pool_unprocessed")
 
 }

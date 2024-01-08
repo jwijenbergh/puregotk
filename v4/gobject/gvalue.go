@@ -2,8 +2,11 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // The type of value transformation functions which can be registered with
@@ -27,6 +30,735 @@ type Value struct {
 
 	Data uintptr
 }
+
+func (x *Value) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xValueCopy func(uintptr, *Value)
+
+// Copies the value of @src_value into @dest_value.
+func (x *Value) Copy(DestValueVar *Value) {
+
+	xValueCopy(x.GoPointer(), DestValueVar)
+
+}
+
+var xValueDupBoxed func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
+// the boxed value is duplicated and needs to be later freed with
+// g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE (@value),
+// return_value);
+func (x *Value) DupBoxed() uintptr {
+
+	cret := xValueDupBoxed(x.GoPointer())
+	return cret
+}
+
+var xValueDupObject func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
+// its reference count. If the contents of the #GValue are %NULL, then
+// %NULL will be returned.
+func (x *Value) DupObject() *Object {
+	var cls *Object
+
+	cret := xValueDupObject(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xValueDupParam func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_PARAM #GValue, increasing its
+// reference count.
+func (x *Value) DupParam() *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xValueDupParam(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xValueDupString func(uintptr) string
+
+// Get a copy the contents of a %G_TYPE_STRING #GValue.
+func (x *Value) DupString() string {
+
+	cret := xValueDupString(x.GoPointer())
+	return cret
+}
+
+var xValueDupVariant func(uintptr) *glib.Variant
+
+// Get the contents of a variant #GValue, increasing its refcount. The returned
+// #GVariant is never floating.
+func (x *Value) DupVariant() *glib.Variant {
+
+	cret := xValueDupVariant(x.GoPointer())
+	return cret
+}
+
+var xValueFitsPointer func(uintptr) bool
+
+// Determines if @value will fit inside the size of a pointer value.
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) FitsPointer() bool {
+
+	cret := xValueFitsPointer(x.GoPointer())
+	return cret
+}
+
+var xValueGetBoolean func(uintptr) bool
+
+// Get the contents of a %G_TYPE_BOOLEAN #GValue.
+func (x *Value) GetBoolean() bool {
+
+	cret := xValueGetBoolean(x.GoPointer())
+	return cret
+}
+
+var xValueGetBoxed func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_BOXED derived #GValue.
+func (x *Value) GetBoxed() uintptr {
+
+	cret := xValueGetBoxed(x.GoPointer())
+	return cret
+}
+
+var xValueGetChar func(uintptr) byte
+
+// Do not use this function; it is broken on platforms where the %char
+// type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
+//
+// Get the contents of a %G_TYPE_CHAR #GValue.
+func (x *Value) GetChar() byte {
+
+	cret := xValueGetChar(x.GoPointer())
+	return cret
+}
+
+var xValueGetDouble func(uintptr) float64
+
+// Get the contents of a %G_TYPE_DOUBLE #GValue.
+func (x *Value) GetDouble() float64 {
+
+	cret := xValueGetDouble(x.GoPointer())
+	return cret
+}
+
+var xValueGetEnum func(uintptr) int
+
+// Get the contents of a %G_TYPE_ENUM #GValue.
+func (x *Value) GetEnum() int {
+
+	cret := xValueGetEnum(x.GoPointer())
+	return cret
+}
+
+var xValueGetFlags func(uintptr) uint
+
+// Get the contents of a %G_TYPE_FLAGS #GValue.
+func (x *Value) GetFlags() uint {
+
+	cret := xValueGetFlags(x.GoPointer())
+	return cret
+}
+
+var xValueGetFloat func(uintptr) float32
+
+// Get the contents of a %G_TYPE_FLOAT #GValue.
+func (x *Value) GetFloat() float32 {
+
+	cret := xValueGetFloat(x.GoPointer())
+	return cret
+}
+
+var xValueGetGtype func(uintptr) []interface{}
+
+// Get the contents of a %G_TYPE_GTYPE #GValue.
+func (x *Value) GetGtype() []interface{} {
+
+	cret := xValueGetGtype(x.GoPointer())
+	return cret
+}
+
+var xValueGetInt func(uintptr) int
+
+// Get the contents of a %G_TYPE_INT #GValue.
+func (x *Value) GetInt() int {
+
+	cret := xValueGetInt(x.GoPointer())
+	return cret
+}
+
+var xValueGetInt64 func(uintptr) int64
+
+// Get the contents of a %G_TYPE_INT64 #GValue.
+func (x *Value) GetInt64() int64 {
+
+	cret := xValueGetInt64(x.GoPointer())
+	return cret
+}
+
+var xValueGetLong func(uintptr) int32
+
+// Get the contents of a %G_TYPE_LONG #GValue.
+func (x *Value) GetLong() int32 {
+
+	cret := xValueGetLong(x.GoPointer())
+	return cret
+}
+
+var xValueGetObject func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_OBJECT derived #GValue.
+func (x *Value) GetObject() *Object {
+	var cls *Object
+
+	cret := xValueGetObject(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xValueGetParam func(uintptr) uintptr
+
+// Get the contents of a %G_TYPE_PARAM #GValue.
+func (x *Value) GetParam() *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xValueGetParam(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xValueGetPointer func(uintptr) uintptr
+
+// Get the contents of a pointer #GValue.
+func (x *Value) GetPointer() uintptr {
+
+	cret := xValueGetPointer(x.GoPointer())
+	return cret
+}
+
+var xValueGetSchar func(uintptr) int8
+
+// Get the contents of a %G_TYPE_CHAR #GValue.
+func (x *Value) GetSchar() int8 {
+
+	cret := xValueGetSchar(x.GoPointer())
+	return cret
+}
+
+var xValueGetString func(uintptr) string
+
+// Get the contents of a %G_TYPE_STRING #GValue.
+func (x *Value) GetString() string {
+
+	cret := xValueGetString(x.GoPointer())
+	return cret
+}
+
+var xValueGetUchar func(uintptr) byte
+
+// Get the contents of a %G_TYPE_UCHAR #GValue.
+func (x *Value) GetUchar() byte {
+
+	cret := xValueGetUchar(x.GoPointer())
+	return cret
+}
+
+var xValueGetUint func(uintptr) uint
+
+// Get the contents of a %G_TYPE_UINT #GValue.
+func (x *Value) GetUint() uint {
+
+	cret := xValueGetUint(x.GoPointer())
+	return cret
+}
+
+var xValueGetUint64 func(uintptr) uint64
+
+// Get the contents of a %G_TYPE_UINT64 #GValue.
+func (x *Value) GetUint64() uint64 {
+
+	cret := xValueGetUint64(x.GoPointer())
+	return cret
+}
+
+var xValueGetUlong func(uintptr) uint32
+
+// Get the contents of a %G_TYPE_ULONG #GValue.
+func (x *Value) GetUlong() uint32 {
+
+	cret := xValueGetUlong(x.GoPointer())
+	return cret
+}
+
+var xValueGetVariant func(uintptr) *glib.Variant
+
+// Get the contents of a variant #GValue.
+func (x *Value) GetVariant() *glib.Variant {
+
+	cret := xValueGetVariant(x.GoPointer())
+	return cret
+}
+
+var xValueInit func(uintptr, []interface{}) *Value
+
+// Initializes @value with the default value of @type.
+func (x *Value) Init(GTypeVar []interface{}) *Value {
+
+	cret := xValueInit(x.GoPointer(), GTypeVar)
+	return cret
+}
+
+var xValueInitFromInstance func(uintptr, *TypeInstance)
+
+// Initializes and sets @value from an instantiatable type via the
+// value_table's collect_value() function.
+//
+// Note: The @value will be initialised with the exact type of
+// @instance.  If you wish to set the @value's type to a different GType
+// (such as a parent class GType), you need to manually call
+// g_value_init() and g_value_set_instance().
+func (x *Value) InitFromInstance(InstanceVar *TypeInstance) {
+
+	xValueInitFromInstance(x.GoPointer(), InstanceVar)
+
+}
+
+var xValuePeekPointer func(uintptr) uintptr
+
+// Returns the value contents as pointer. This function asserts that
+// g_value_fits_pointer() returned %TRUE for the passed in value.
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) PeekPointer() uintptr {
+
+	cret := xValuePeekPointer(x.GoPointer())
+	return cret
+}
+
+var xValueReset func(uintptr) *Value
+
+// Clears the current value in @value and resets it to the default value
+// (as if the value had just been initialized).
+func (x *Value) Reset() *Value {
+
+	cret := xValueReset(x.GoPointer())
+	return cret
+}
+
+var xValueSetBoolean func(uintptr, bool)
+
+// Set the contents of a %G_TYPE_BOOLEAN #GValue to @v_boolean.
+func (x *Value) SetBoolean(VBooleanVar bool) {
+
+	xValueSetBoolean(x.GoPointer(), VBooleanVar)
+
+}
+
+var xValueSetBoxed func(uintptr, uintptr)
+
+// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+func (x *Value) SetBoxed(VBoxedVar uintptr) {
+
+	xValueSetBoxed(x.GoPointer(), VBoxedVar)
+
+}
+
+var xValueSetBoxedTakeOwnership func(uintptr, uintptr)
+
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) SetBoxedTakeOwnership(VBoxedVar uintptr) {
+
+	xValueSetBoxedTakeOwnership(x.GoPointer(), VBoxedVar)
+
+}
+
+var xValueSetChar func(uintptr, byte)
+
+// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+func (x *Value) SetChar(VCharVar byte) {
+
+	xValueSetChar(x.GoPointer(), VCharVar)
+
+}
+
+var xValueSetDouble func(uintptr, float64)
+
+// Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
+func (x *Value) SetDouble(VDoubleVar float64) {
+
+	xValueSetDouble(x.GoPointer(), VDoubleVar)
+
+}
+
+var xValueSetEnum func(uintptr, int)
+
+// Set the contents of a %G_TYPE_ENUM #GValue to @v_enum.
+func (x *Value) SetEnum(VEnumVar int) {
+
+	xValueSetEnum(x.GoPointer(), VEnumVar)
+
+}
+
+var xValueSetFlags func(uintptr, uint)
+
+// Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
+func (x *Value) SetFlags(VFlagsVar uint) {
+
+	xValueSetFlags(x.GoPointer(), VFlagsVar)
+
+}
+
+var xValueSetFloat func(uintptr, float32)
+
+// Set the contents of a %G_TYPE_FLOAT #GValue to @v_float.
+func (x *Value) SetFloat(VFloatVar float32) {
+
+	xValueSetFloat(x.GoPointer(), VFloatVar)
+
+}
+
+var xValueSetGtype func(uintptr, []interface{})
+
+// Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
+func (x *Value) SetGtype(VGtypeVar []interface{}) {
+
+	xValueSetGtype(x.GoPointer(), VGtypeVar)
+
+}
+
+var xValueSetInstance func(uintptr, uintptr)
+
+// Sets @value from an instantiatable type via the
+// value_table's collect_value() function.
+func (x *Value) SetInstance(InstanceVar uintptr) {
+
+	xValueSetInstance(x.GoPointer(), InstanceVar)
+
+}
+
+var xValueSetInt func(uintptr, int)
+
+// Set the contents of a %G_TYPE_INT #GValue to @v_int.
+func (x *Value) SetInt(VIntVar int) {
+
+	xValueSetInt(x.GoPointer(), VIntVar)
+
+}
+
+var xValueSetInt64 func(uintptr, int64)
+
+// Set the contents of a %G_TYPE_INT64 #GValue to @v_int64.
+func (x *Value) SetInt64(VInt64Var int64) {
+
+	xValueSetInt64(x.GoPointer(), VInt64Var)
+
+}
+
+var xValueSetInternedString func(uintptr, string)
+
+// Set the contents of a %G_TYPE_STRING #GValue to @v_string.  The string is
+// assumed to be static and interned (canonical, for example from
+// g_intern_string()), and is thus not duplicated when setting the #GValue.
+func (x *Value) SetInternedString(VStringVar string) {
+
+	xValueSetInternedString(x.GoPointer(), VStringVar)
+
+}
+
+var xValueSetLong func(uintptr, int32)
+
+// Set the contents of a %G_TYPE_LONG #GValue to @v_long.
+func (x *Value) SetLong(VLongVar int32) {
+
+	xValueSetLong(x.GoPointer(), VLongVar)
+
+}
+
+var xValueSetObject func(uintptr, uintptr)
+
+// Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
+//
+// g_value_set_object() increases the reference count of @v_object
+// (the #GValue holds a reference to @v_object).  If you do not wish
+// to increase the reference count of the object (i.e. you wish to
+// pass your current reference to the #GValue because you no longer
+// need it), use g_value_take_object() instead.
+//
+// It is important that your #GValue holds a reference to @v_object (either its
+// own, or one it has taken) to ensure that the object won't be destroyed while
+// the #GValue still exists).
+func (x *Value) SetObject(VObjectVar *Object) {
+
+	xValueSetObject(x.GoPointer(), VObjectVar.GoPointer())
+
+}
+
+var xValueSetObjectTakeOwnership func(uintptr, uintptr)
+
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) SetObjectTakeOwnership(VObjectVar uintptr) {
+
+	xValueSetObjectTakeOwnership(x.GoPointer(), VObjectVar)
+
+}
+
+var xValueSetParam func(uintptr, uintptr)
+
+// Set the contents of a %G_TYPE_PARAM #GValue to @param.
+func (x *Value) SetParam(ParamVar *ParamSpec) {
+
+	xValueSetParam(x.GoPointer(), ParamVar.GoPointer())
+
+}
+
+var xValueSetParamTakeOwnership func(uintptr, uintptr)
+
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) SetParamTakeOwnership(ParamVar *ParamSpec) {
+
+	xValueSetParamTakeOwnership(x.GoPointer(), ParamVar.GoPointer())
+
+}
+
+var xValueSetPointer func(uintptr, uintptr)
+
+// Set the contents of a pointer #GValue to @v_pointer.
+func (x *Value) SetPointer(VPointerVar uintptr) {
+
+	xValueSetPointer(x.GoPointer(), VPointerVar)
+
+}
+
+var xValueSetSchar func(uintptr, int8)
+
+// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+func (x *Value) SetSchar(VCharVar int8) {
+
+	xValueSetSchar(x.GoPointer(), VCharVar)
+
+}
+
+var xValueSetStaticBoxed func(uintptr, uintptr)
+
+// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+//
+// The boxed value is assumed to be static, and is thus not duplicated
+// when setting the #GValue.
+func (x *Value) SetStaticBoxed(VBoxedVar uintptr) {
+
+	xValueSetStaticBoxed(x.GoPointer(), VBoxedVar)
+
+}
+
+var xValueSetStaticString func(uintptr, string)
+
+// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
+// The string is assumed to be static, and is thus not duplicated
+// when setting the #GValue.
+//
+// If the the string is a canonical string, using g_value_set_interned_string()
+// is more appropriate.
+func (x *Value) SetStaticString(VStringVar string) {
+
+	xValueSetStaticString(x.GoPointer(), VStringVar)
+
+}
+
+var xValueSetString func(uintptr, string)
+
+// Set the contents of a %G_TYPE_STRING #GValue to a copy of @v_string.
+func (x *Value) SetString(VStringVar string) {
+
+	xValueSetString(x.GoPointer(), VStringVar)
+
+}
+
+var xValueSetStringTakeOwnership func(uintptr, string)
+
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) SetStringTakeOwnership(VStringVar string) {
+
+	xValueSetStringTakeOwnership(x.GoPointer(), VStringVar)
+
+}
+
+var xValueSetUchar func(uintptr, byte)
+
+// Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
+func (x *Value) SetUchar(VUcharVar byte) {
+
+	xValueSetUchar(x.GoPointer(), VUcharVar)
+
+}
+
+var xValueSetUint func(uintptr, uint)
+
+// Set the contents of a %G_TYPE_UINT #GValue to @v_uint.
+func (x *Value) SetUint(VUintVar uint) {
+
+	xValueSetUint(x.GoPointer(), VUintVar)
+
+}
+
+var xValueSetUint64 func(uintptr, uint64)
+
+// Set the contents of a %G_TYPE_UINT64 #GValue to @v_uint64.
+func (x *Value) SetUint64(VUint64Var uint64) {
+
+	xValueSetUint64(x.GoPointer(), VUint64Var)
+
+}
+
+var xValueSetUlong func(uintptr, uint32)
+
+// Set the contents of a %G_TYPE_ULONG #GValue to @v_ulong.
+func (x *Value) SetUlong(VUlongVar uint32) {
+
+	xValueSetUlong(x.GoPointer(), VUlongVar)
+
+}
+
+var xValueSetVariant func(uintptr, *glib.Variant)
+
+// Set the contents of a variant #GValue to @variant.
+// If the variant is floating, it is consumed.
+func (x *Value) SetVariant(VariantVar *glib.Variant) {
+
+	xValueSetVariant(x.GoPointer(), VariantVar)
+
+}
+
+var xValueTakeBoxed func(uintptr, uintptr)
+
+// Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
+// and takes over the ownership of the caller’s reference to @v_boxed;
+// the caller doesn’t have to unref it any more.
+func (x *Value) TakeBoxed(VBoxedVar uintptr) {
+
+	xValueTakeBoxed(x.GoPointer(), VBoxedVar)
+
+}
+
+var xValueTakeObject func(uintptr, uintptr)
+
+// Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
+// and takes over the ownership of the caller’s reference to @v_object;
+// the caller doesn’t have to unref it any more (i.e. the reference
+// count of the object is not increased).
+//
+// If you want the #GValue to hold its own reference to @v_object, use
+// g_value_set_object() instead.
+func (x *Value) TakeObject(VObjectVar uintptr) {
+
+	xValueTakeObject(x.GoPointer(), VObjectVar)
+
+}
+
+var xValueTakeParam func(uintptr, uintptr)
+
+// Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
+// over the ownership of the caller’s reference to @param; the caller
+// doesn’t have to unref it any more.
+func (x *Value) TakeParam(ParamVar *ParamSpec) {
+
+	xValueTakeParam(x.GoPointer(), ParamVar.GoPointer())
+
+}
+
+var xValueTakeString func(uintptr, string)
+
+// Sets the contents of a %G_TYPE_STRING #GValue to @v_string.
+func (x *Value) TakeString(VStringVar string) {
+
+	xValueTakeString(x.GoPointer(), VStringVar)
+
+}
+
+var xValueTakeVariant func(uintptr, *glib.Variant)
+
+// Set the contents of a variant #GValue to @variant, and takes over
+// the ownership of the caller's reference to @variant;
+// the caller doesn't have to unref it any more (i.e. the reference
+// count of the variant is not increased).
+//
+// If @variant was floating then its floating reference is converted to
+// a hard reference.
+//
+// If you want the #GValue to hold its own reference to @variant, use
+// g_value_set_variant() instead.
+//
+// This is an internal function introduced mainly for C marshallers.
+func (x *Value) TakeVariant(VariantVar *glib.Variant) {
+
+	xValueTakeVariant(x.GoPointer(), VariantVar)
+
+}
+
+var xValueTransform func(uintptr, *Value) bool
+
+// Tries to cast the contents of @src_value into a type appropriate
+// to store in @dest_value, e.g. to transform a %G_TYPE_INT value
+// into a %G_TYPE_FLOAT value. Performing transformations between
+// value types might incur precision lossage. Especially
+// transformations into strings might reveal seemingly arbitrary
+// results and shouldn't be relied upon for production code (such
+// as rcfile value or object property serialization).
+func (x *Value) Transform(DestValueVar *Value) bool {
+
+	cret := xValueTransform(x.GoPointer(), DestValueVar)
+	return cret
+}
+
+var xValueUnset func(uintptr)
+
+// Clears the current value in @value (if any) and "unsets" the type,
+// this releases all resources associated with this GValue. An unset
+// value is the same as an uninitialized (zero-filled) #GValue
+// structure.
+func (x *Value) Unset() {
+
+	xValueUnset(x.GoPointer())
+
+}
+
+const (
+	// For string values, indicates that the string contained is canonical and will
+	// exist for the duration of the process. See g_value_set_interned_string().
+	VALUE_INTERNED_STRING int = 268435456
+	// If passed to G_VALUE_COLLECT(), allocated data won't be copied
+	// but used verbatim. This does not affect ref-counted types like
+	// objects. This does not affect usage of g_value_copy(), the data will
+	// be copied if it is not ref-counted.
+	VALUE_NOCOPY_CONTENTS int = 134217728
+)
 
 var xValueRegisterTransformFunc func([]interface{}, []interface{}, uintptr)
 
@@ -69,5 +801,74 @@ func init() {
 	core.PuregoSafeRegister(&xValueRegisterTransformFunc, lib, "g_value_register_transform_func")
 	core.PuregoSafeRegister(&xValueTypeCompatible, lib, "g_value_type_compatible")
 	core.PuregoSafeRegister(&xValueTypeTransformable, lib, "g_value_type_transformable")
+
+	core.PuregoSafeRegister(&xValueCopy, lib, "g_value_copy")
+	core.PuregoSafeRegister(&xValueDupBoxed, lib, "g_value_dup_boxed")
+	core.PuregoSafeRegister(&xValueDupObject, lib, "g_value_dup_object")
+	core.PuregoSafeRegister(&xValueDupParam, lib, "g_value_dup_param")
+	core.PuregoSafeRegister(&xValueDupString, lib, "g_value_dup_string")
+	core.PuregoSafeRegister(&xValueDupVariant, lib, "g_value_dup_variant")
+	core.PuregoSafeRegister(&xValueFitsPointer, lib, "g_value_fits_pointer")
+	core.PuregoSafeRegister(&xValueGetBoolean, lib, "g_value_get_boolean")
+	core.PuregoSafeRegister(&xValueGetBoxed, lib, "g_value_get_boxed")
+	core.PuregoSafeRegister(&xValueGetChar, lib, "g_value_get_char")
+	core.PuregoSafeRegister(&xValueGetDouble, lib, "g_value_get_double")
+	core.PuregoSafeRegister(&xValueGetEnum, lib, "g_value_get_enum")
+	core.PuregoSafeRegister(&xValueGetFlags, lib, "g_value_get_flags")
+	core.PuregoSafeRegister(&xValueGetFloat, lib, "g_value_get_float")
+	core.PuregoSafeRegister(&xValueGetGtype, lib, "g_value_get_gtype")
+	core.PuregoSafeRegister(&xValueGetInt, lib, "g_value_get_int")
+	core.PuregoSafeRegister(&xValueGetInt64, lib, "g_value_get_int64")
+	core.PuregoSafeRegister(&xValueGetLong, lib, "g_value_get_long")
+	core.PuregoSafeRegister(&xValueGetObject, lib, "g_value_get_object")
+	core.PuregoSafeRegister(&xValueGetParam, lib, "g_value_get_param")
+	core.PuregoSafeRegister(&xValueGetPointer, lib, "g_value_get_pointer")
+	core.PuregoSafeRegister(&xValueGetSchar, lib, "g_value_get_schar")
+	core.PuregoSafeRegister(&xValueGetString, lib, "g_value_get_string")
+	core.PuregoSafeRegister(&xValueGetUchar, lib, "g_value_get_uchar")
+	core.PuregoSafeRegister(&xValueGetUint, lib, "g_value_get_uint")
+	core.PuregoSafeRegister(&xValueGetUint64, lib, "g_value_get_uint64")
+	core.PuregoSafeRegister(&xValueGetUlong, lib, "g_value_get_ulong")
+	core.PuregoSafeRegister(&xValueGetVariant, lib, "g_value_get_variant")
+	core.PuregoSafeRegister(&xValueInit, lib, "g_value_init")
+	core.PuregoSafeRegister(&xValueInitFromInstance, lib, "g_value_init_from_instance")
+	core.PuregoSafeRegister(&xValuePeekPointer, lib, "g_value_peek_pointer")
+	core.PuregoSafeRegister(&xValueReset, lib, "g_value_reset")
+	core.PuregoSafeRegister(&xValueSetBoolean, lib, "g_value_set_boolean")
+	core.PuregoSafeRegister(&xValueSetBoxed, lib, "g_value_set_boxed")
+	core.PuregoSafeRegister(&xValueSetBoxedTakeOwnership, lib, "g_value_set_boxed_take_ownership")
+	core.PuregoSafeRegister(&xValueSetChar, lib, "g_value_set_char")
+	core.PuregoSafeRegister(&xValueSetDouble, lib, "g_value_set_double")
+	core.PuregoSafeRegister(&xValueSetEnum, lib, "g_value_set_enum")
+	core.PuregoSafeRegister(&xValueSetFlags, lib, "g_value_set_flags")
+	core.PuregoSafeRegister(&xValueSetFloat, lib, "g_value_set_float")
+	core.PuregoSafeRegister(&xValueSetGtype, lib, "g_value_set_gtype")
+	core.PuregoSafeRegister(&xValueSetInstance, lib, "g_value_set_instance")
+	core.PuregoSafeRegister(&xValueSetInt, lib, "g_value_set_int")
+	core.PuregoSafeRegister(&xValueSetInt64, lib, "g_value_set_int64")
+	core.PuregoSafeRegister(&xValueSetInternedString, lib, "g_value_set_interned_string")
+	core.PuregoSafeRegister(&xValueSetLong, lib, "g_value_set_long")
+	core.PuregoSafeRegister(&xValueSetObject, lib, "g_value_set_object")
+	core.PuregoSafeRegister(&xValueSetObjectTakeOwnership, lib, "g_value_set_object_take_ownership")
+	core.PuregoSafeRegister(&xValueSetParam, lib, "g_value_set_param")
+	core.PuregoSafeRegister(&xValueSetParamTakeOwnership, lib, "g_value_set_param_take_ownership")
+	core.PuregoSafeRegister(&xValueSetPointer, lib, "g_value_set_pointer")
+	core.PuregoSafeRegister(&xValueSetSchar, lib, "g_value_set_schar")
+	core.PuregoSafeRegister(&xValueSetStaticBoxed, lib, "g_value_set_static_boxed")
+	core.PuregoSafeRegister(&xValueSetStaticString, lib, "g_value_set_static_string")
+	core.PuregoSafeRegister(&xValueSetString, lib, "g_value_set_string")
+	core.PuregoSafeRegister(&xValueSetStringTakeOwnership, lib, "g_value_set_string_take_ownership")
+	core.PuregoSafeRegister(&xValueSetUchar, lib, "g_value_set_uchar")
+	core.PuregoSafeRegister(&xValueSetUint, lib, "g_value_set_uint")
+	core.PuregoSafeRegister(&xValueSetUint64, lib, "g_value_set_uint64")
+	core.PuregoSafeRegister(&xValueSetUlong, lib, "g_value_set_ulong")
+	core.PuregoSafeRegister(&xValueSetVariant, lib, "g_value_set_variant")
+	core.PuregoSafeRegister(&xValueTakeBoxed, lib, "g_value_take_boxed")
+	core.PuregoSafeRegister(&xValueTakeObject, lib, "g_value_take_object")
+	core.PuregoSafeRegister(&xValueTakeParam, lib, "g_value_take_param")
+	core.PuregoSafeRegister(&xValueTakeString, lib, "g_value_take_string")
+	core.PuregoSafeRegister(&xValueTakeVariant, lib, "g_value_take_variant")
+	core.PuregoSafeRegister(&xValueTransform, lib, "g_value_transform")
+	core.PuregoSafeRegister(&xValueUnset, lib, "g_value_unset")
 
 }

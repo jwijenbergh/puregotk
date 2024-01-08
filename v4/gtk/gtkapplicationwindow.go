@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -15,6 +17,10 @@ type ApplicationWindowClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ApplicationWindowClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkApplicationWindow` is a `GtkWindow` subclass that integrates with

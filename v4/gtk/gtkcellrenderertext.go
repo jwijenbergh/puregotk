@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,6 +13,10 @@ type CellRendererTextClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *CellRendererTextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Renders text in a cell

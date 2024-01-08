@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,6 +15,10 @@ type ExpanderRowClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ExpanderRowClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A [class@Gtk.ListBoxRow] used to reveal widgets.

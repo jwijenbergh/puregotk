@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -16,7 +18,15 @@ type ApplicationCommandLineClass struct {
 	Padding uintptr
 }
 
+func (x *ApplicationCommandLineClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type ApplicationCommandLinePrivate struct {
+}
+
+func (x *ApplicationCommandLinePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GApplicationCommandLine represents a command-line invocation of

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,7 +12,15 @@ type UnixSocketAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *UnixSocketAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type UnixSocketAddressPrivate struct {
+}
+
+func (x *UnixSocketAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Support for UNIX-domain (also known as local) sockets.
@@ -221,6 +231,15 @@ func (x *UnixSocketAddress) ToString() string {
 	return cret
 }
 
+var xUnixSocketAddressAbstractNamesSupported func() bool
+
+// Checks if abstract UNIX domain socket names are supported.
+func UnixSocketAddressAbstractNamesSupported() bool {
+
+	cret := xUnixSocketAddressAbstractNamesSupported()
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -235,5 +254,7 @@ func init() {
 	core.PuregoSafeRegister(&xUnixSocketAddressGetIsAbstract, lib, "g_unix_socket_address_get_is_abstract")
 	core.PuregoSafeRegister(&xUnixSocketAddressGetPath, lib, "g_unix_socket_address_get_path")
 	core.PuregoSafeRegister(&xUnixSocketAddressGetPathLen, lib, "g_unix_socket_address_get_path_len")
+
+	core.PuregoSafeRegister(&xUnixSocketAddressAbstractNamesSupported, lib, "g_unix_socket_address_abstract_names_supported")
 
 }

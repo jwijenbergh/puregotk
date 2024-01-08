@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -13,6 +15,10 @@ type PopoverClass struct {
 	ParentClass uintptr
 
 	Reserved uintptr
+}
+
+func (x *PopoverClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkPopover` is a bubble-like context popup.

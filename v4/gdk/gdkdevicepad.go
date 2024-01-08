@@ -2,11 +2,17 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type DevicePadInterface struct {
+}
+
+func (x *DevicePadInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GdkDevicePad` is an interface implemented by devices of type

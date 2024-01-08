@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,10 @@ import (
 // The virtual function table for #GMemoryMonitor.
 type MemoryMonitorInterface struct {
 	GIface uintptr
+}
+
+func (x *MemoryMonitorInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GMemoryMonitor will monitor system memory and suggest to the application
@@ -75,6 +81,12 @@ func (x *MemoryMonitorBase) GoPointer() uintptr {
 func (x *MemoryMonitorBase) SetGoPointer(ptr uintptr) {
 	x.Ptr = ptr
 }
+
+const (
+	// Extension point for memory usage monitoring functionality.
+	// See [Extending GIO][extending-gio].
+	MEMORY_MONITOR_EXTENSION_POINT_NAME string = "gio-memory-monitor"
+)
 
 var xMemoryMonitorDupDefault func() uintptr
 

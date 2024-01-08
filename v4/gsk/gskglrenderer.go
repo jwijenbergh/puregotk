@@ -2,11 +2,17 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type GLRendererClass struct {
+}
+
+func (x *GLRendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type GLRenderer struct {

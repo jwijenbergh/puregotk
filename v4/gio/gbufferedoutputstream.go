@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,7 +13,15 @@ type BufferedOutputStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *BufferedOutputStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type BufferedOutputStreamPrivate struct {
+}
+
+func (x *BufferedOutputStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Buffered output stream implements #GFilterOutputStream and provides

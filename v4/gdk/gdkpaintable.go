@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -17,6 +19,10 @@ import (
 // that will make the implementation likely quite slow.
 type PaintableInterface struct {
 	GIface uintptr
+}
+
+func (x *PaintableInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GdkPaintable` is a simple interface used by GTK to represent content that

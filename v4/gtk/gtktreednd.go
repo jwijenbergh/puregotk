@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,8 +14,16 @@ type TreeDragDestIface struct {
 	GIface uintptr
 }
 
+func (x *TreeDragDestIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TreeDragSourceIface struct {
 	GIface uintptr
+}
+
+func (x *TreeDragSourceIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Interface for Drag-and-Drop destinations in `GtkTreeView`.

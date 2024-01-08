@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -212,15 +214,165 @@ type InterfaceInfo struct {
 	InterfaceData uintptr
 }
 
+func (x *InterfaceInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // An opaque structure used as the base of all classes.
 type TypeClass struct {
 	GType []interface{}
+}
+
+func (x *TypeClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTypeClassAddPrivate func(uintptr, uint)
+
+// Registers a private structure for an instantiatable type.
+//
+// When an object is allocated, the private structures for
+// the type and all of its parent types are allocated
+// sequentially in the same memory block as the public
+// structures, and are zero-filled.
+//
+// Note that the accumulated size of the private structures of
+// a type and all its parent types cannot exceed 64 KiB.
+//
+// This function should be called in the type's class_init() function.
+// The private structure can be retrieved using the
+// G_TYPE_INSTANCE_GET_PRIVATE() macro.
+//
+// The following example shows attaching a private structure
+// MyObjectPrivate to an object MyObject defined in the standard
+// GObject fashion in the type's class_init() function.
+//
+// Note the use of a structure member "priv" to avoid the overhead
+// of repeatedly calling MY_OBJECT_GET_PRIVATE().
+//
+// |[&lt;!-- language="C" --&gt;
+// typedef struct _MyObject        MyObject;
+// typedef struct _MyObjectPrivate MyObjectPrivate;
+//
+//	struct _MyObject {
+//	 GObject parent;
+//
+//	 MyObjectPrivate *priv;
+//	};
+//
+//	struct _MyObjectPrivate {
+//	  int some_field;
+//	};
+//
+// static void
+// my_object_class_init (MyObjectClass *klass)
+//
+//	{
+//	  g_type_class_add_private (klass, sizeof (MyObjectPrivate));
+//	}
+//
+// static void
+// my_object_init (MyObject *my_object)
+//
+//	{
+//	  my_object-&gt;priv = G_TYPE_INSTANCE_GET_PRIVATE (my_object,
+//	                                                 MY_TYPE_OBJECT,
+//	                                                 MyObjectPrivate);
+//	  // my_object-&gt;priv-&gt;some_field will be automatically initialised to 0
+//	}
+//
+// static int
+// my_object_get_some_field (MyObject *my_object)
+//
+//	{
+//	  MyObjectPrivate *priv;
+//
+//	  g_return_val_if_fail (MY_IS_OBJECT (my_object), 0);
+//
+//	  priv = my_object-&gt;priv;
+//
+//	  return priv-&gt;some_field;
+//	}
+//
+// ]|
+func (x *TypeClass) AddPrivate(PrivateSizeVar uint) {
+
+	xTypeClassAddPrivate(x.GoPointer(), PrivateSizeVar)
+
+}
+
+var xTypeClassGetInstancePrivateOffset func(uintptr) int
+
+// Gets the offset of the private data for instances of @g_class.
+//
+// This is how many bytes you should add to the instance pointer of a
+// class in order to get the private data for the type represented by
+// @g_class.
+//
+// You can only call this function after you have registered a private
+// data area for @g_class using g_type_class_add_private().
+func (x *TypeClass) GetInstancePrivateOffset() int {
+
+	cret := xTypeClassGetInstancePrivateOffset(x.GoPointer())
+	return cret
+}
+
+var xTypeClassGetPrivate func(uintptr, []interface{}) uintptr
+
+func (x *TypeClass) GetPrivate(PrivateTypeVar []interface{}) uintptr {
+
+	cret := xTypeClassGetPrivate(x.GoPointer(), PrivateTypeVar)
+	return cret
+}
+
+var xTypeClassPeekParent func(uintptr) *TypeClass
+
+// This is a convenience function often needed in class initializers.
+// It returns the class structure of the immediate parent type of the
+// class passed in.  Since derived classes hold a reference count on
+// their parent classes as long as they are instantiated, the returned
+// class will always exist.
+//
+// This function is essentially equivalent to:
+// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+func (x *TypeClass) PeekParent() *TypeClass {
+
+	cret := xTypeClassPeekParent(x.GoPointer())
+	return cret
+}
+
+var xTypeClassUnref func(uintptr)
+
+// Decrements the reference count of the class structure being passed in.
+// Once the last reference count of a class has been released, classes
+// may be finalized by the type system, so further dereferencing of a
+// class pointer after g_type_class_unref() are invalid.
+func (x *TypeClass) Unref() {
+
+	xTypeClassUnref(x.GoPointer())
+
+}
+
+var xTypeClassUnrefUncached func(uintptr)
+
+// A variant of g_type_class_unref() for use in #GTypeClassCacheFunc
+// implementations. It unreferences a class without consulting the chain
+// of #GTypeClassCacheFuncs, avoiding the recursion which would occur
+// otherwise.
+func (x *TypeClass) UnrefUncached() {
+
+	xTypeClassUnrefUncached(x.GoPointer())
+
 }
 
 // A structure that provides information to the type system which is
 // used specifically for managing fundamental types.
 type TypeFundamentalInfo struct {
 	TypeFlags TypeFundamentalFlags
+}
+
+func (x *TypeFundamentalInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // This structure is used to provide the type system with the information
@@ -254,9 +406,25 @@ type TypeInfo struct {
 	ValueTable *TypeValueTable
 }
 
+func (x *TypeInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // An opaque structure used as the base of all type instances.
 type TypeInstance struct {
 	GClass *TypeClass
+}
+
+func (x *TypeInstance) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTypeInstanceGetPrivate func(uintptr, []interface{}) uintptr
+
+func (x *TypeInstance) GetPrivate(PrivateTypeVar []interface{}) uintptr {
+
+	cret := xTypeInstanceGetPrivate(x.GoPointer(), PrivateTypeVar)
+	return cret
 }
 
 // An opaque structure used as the base of all interface types.
@@ -264,6 +432,22 @@ type TypeInterface struct {
 	GType []interface{}
 
 	GInstanceType []interface{}
+}
+
+func (x *TypeInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTypeInterfacePeekParent func(uintptr) *TypeInterface
+
+// Returns the corresponding #GTypeInterface structure of the parent type
+// of the instance type to which @g_iface belongs. This is useful when
+// deriving the implementation of an interface from the parent type and
+// then possibly overriding some methods.
+func (x *TypeInterface) PeekParent() *TypeInterface {
+
+	cret := xTypeInterfacePeekParent(x.GoPointer())
+	return cret
 }
 
 // A structure holding information for a specific type.
@@ -279,6 +463,10 @@ type TypeQuery struct {
 	InstanceSize uint
 }
 
+func (x *TypeQuery) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The #GTypeValueTable provides the functions required by the #GValue
 // implementation, to serve as a container for values of a type.
 type TypeValueTable struct {
@@ -287,11 +475,38 @@ type TypeValueTable struct {
 	LcopyFormat uintptr
 }
 
+func (x *TypeValueTable) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TypeCValue = uintptr
 
 // A numerical value which represents the unique identifier of a registered
 // type.
 type Type = uint
+
+const (
+	// A bit in the type number that's supposed to be left untouched.
+	TYPE_FLAG_RESERVED_ID_BIT glib.Type = 1
+	// An integer constant that represents the number of identifiers reserved
+	// for types that are assigned at compile-time.
+	TYPE_FUNDAMENTAL_MAX int = 255
+	// Shift value used in converting numbers to type IDs.
+	TYPE_FUNDAMENTAL_SHIFT int = 2
+	// First fundamental type number to create a new fundamental type id with
+	// G_TYPE_MAKE_FUNDAMENTAL() reserved for BSE.
+	TYPE_RESERVED_BSE_FIRST int = 32
+	// Last fundamental type number reserved for BSE.
+	TYPE_RESERVED_BSE_LAST int = 48
+	// First fundamental type number to create a new fundamental type id with
+	// G_TYPE_MAKE_FUNDAMENTAL() reserved for GLib.
+	TYPE_RESERVED_GLIB_FIRST int = 22
+	// Last fundamental type number reserved for GLib.
+	TYPE_RESERVED_GLIB_LAST int = 31
+	// First available fundamental type number to create new fundamental
+	// type id with G_TYPE_MAKE_FUNDAMENTAL().
+	TYPE_RESERVED_USER_FIRST int = 49
+)
 
 // These flags used to be passed to g_type_init_with_debug_flags() which
 // is now deprecated.
@@ -1108,5 +1323,16 @@ func init() {
 	core.PuregoSafeRegister(&xTypeSetQdata, lib, "g_type_set_qdata")
 	core.PuregoSafeRegister(&xTypeTestFlags, lib, "g_type_test_flags")
 	core.PuregoSafeRegister(&xTypeValueTablePeek, lib, "g_type_value_table_peek")
+
+	core.PuregoSafeRegister(&xTypeClassAddPrivate, lib, "g_type_class_add_private")
+	core.PuregoSafeRegister(&xTypeClassGetInstancePrivateOffset, lib, "g_type_class_get_instance_private_offset")
+	core.PuregoSafeRegister(&xTypeClassGetPrivate, lib, "g_type_class_get_private")
+	core.PuregoSafeRegister(&xTypeClassPeekParent, lib, "g_type_class_peek_parent")
+	core.PuregoSafeRegister(&xTypeClassUnref, lib, "g_type_class_unref")
+	core.PuregoSafeRegister(&xTypeClassUnrefUncached, lib, "g_type_class_unref_uncached")
+
+	core.PuregoSafeRegister(&xTypeInstanceGetPrivate, lib, "g_type_instance_get_private")
+
+	core.PuregoSafeRegister(&xTypeInterfacePeekParent, lib, "g_type_interface_peek_parent")
 
 }

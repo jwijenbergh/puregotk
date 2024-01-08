@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -10,6 +12,10 @@ import (
 
 type StyleManagerClass struct {
 	ParentClass uintptr
+}
+
+func (x *StyleManagerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Application color schemes for [property@StyleManager:color-scheme].
@@ -163,6 +169,50 @@ func (c *StyleManager) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xStyleManagerGetDefault func() uintptr
+
+// Gets the default `AdwStyleManager` instance.
+//
+// It manages all [class@Gdk.Display] instances unless the style manager for
+// that display has an override.
+//
+// See [func@StyleManager.get_for_display].
+func StyleManagerGetDefault() *StyleManager {
+	var cls *StyleManager
+
+	cret := xStyleManagerGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &StyleManager{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xStyleManagerGetForDisplay func(uintptr) uintptr
+
+// Gets the `AdwStyleManager` instance managing @display.
+//
+// It can be used to override styles for that specific display instead of the
+// whole application.
+//
+// Most applications should use [func@StyleManager.get_default] instead.
+func StyleManagerGetForDisplay(DisplayVar *gdk.Display) *StyleManager {
+	var cls *StyleManager
+
+	cret := xStyleManagerGetForDisplay(DisplayVar.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &StyleManager{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("ADW"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -175,5 +225,8 @@ func init() {
 	core.PuregoSafeRegister(&xStyleManagerGetHighContrast, lib, "adw_style_manager_get_high_contrast")
 	core.PuregoSafeRegister(&xStyleManagerGetSystemSupportsColorSchemes, lib, "adw_style_manager_get_system_supports_color_schemes")
 	core.PuregoSafeRegister(&xStyleManagerSetColorScheme, lib, "adw_style_manager_set_color_scheme")
+
+	core.PuregoSafeRegister(&xStyleManagerGetDefault, lib, "adw_style_manager_get_default")
+	core.PuregoSafeRegister(&xStyleManagerGetForDisplay, lib, "adw_style_manager_get_for_display")
 
 }

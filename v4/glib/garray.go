@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -13,11 +15,19 @@ type Array struct {
 	Len uint
 }
 
+func (x *Array) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Contains the public fields of a GByteArray.
 type ByteArray struct {
 	Data byte
 
 	Len uint
+}
+
+func (x *ByteArray) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A simple refcounted data type representing an immutable sequence of zero or
@@ -47,11 +57,247 @@ type ByteArray struct {
 type Bytes struct {
 }
 
+func (x *Bytes) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewBytes func(uintptr, uint) *Bytes
+
+// Creates a new #GBytes from @data.
+//
+// @data is copied. If @size is 0, @data may be %NULL.
+func NewBytes(DataVar uintptr, SizeVar uint) *Bytes {
+
+	cret := xNewBytes(DataVar, SizeVar)
+	return cret
+}
+
+var xNewStaticBytes func(uintptr, uint) *Bytes
+
+// Creates a new #GBytes from static data.
+//
+// @data must be static (ie: never modified or freed). It may be %NULL if @size
+// is 0.
+func NewStaticBytes(DataVar uintptr, SizeVar uint) *Bytes {
+
+	cret := xNewStaticBytes(DataVar, SizeVar)
+	return cret
+}
+
+var xNewTakeBytes func(uintptr, uint) *Bytes
+
+// Creates a new #GBytes from @data.
+//
+// After this call, @data belongs to the bytes and may no longer be
+// modified by the caller.  g_free() will be called on @data when the
+// bytes is no longer in use. Because of this @data must have been created by
+// a call to g_malloc(), g_malloc0() or g_realloc() or by one of the many
+// functions that wrap these calls (such as g_new(), g_strdup(), etc).
+//
+// For creating #GBytes with memory from other allocators, see
+// g_bytes_new_with_free_func().
+//
+// @data may be %NULL if @size is 0.
+func NewTakeBytes(DataVar uintptr, SizeVar uint) *Bytes {
+
+	cret := xNewTakeBytes(DataVar, SizeVar)
+	return cret
+}
+
+var xNewWithFreeFuncBytes func(uintptr, uint, uintptr, uintptr) *Bytes
+
+// Creates a #GBytes from @data.
+//
+// When the last reference is dropped, @free_func will be called with the
+// @user_data argument.
+//
+// @data must not be modified after this call is made until @free_func has
+// been called to indicate that the bytes is no longer in use.
+//
+// @data may be %NULL if @size is 0.
+func NewWithFreeFuncBytes(DataVar uintptr, SizeVar uint, FreeFuncVar DestroyNotify, UserDataVar uintptr) *Bytes {
+
+	cret := xNewWithFreeFuncBytes(DataVar, SizeVar, purego.NewCallback(FreeFuncVar), UserDataVar)
+	return cret
+}
+
+var xBytesCompare func(uintptr, uintptr) int
+
+// Compares the two #GBytes values.
+//
+// This function can be used to sort GBytes instances in lexicographical order.
+//
+// If @bytes1 and @bytes2 have different length but the shorter one is a
+// prefix of the longer one then the shorter one is considered to be less than
+// the longer one. Otherwise the first byte where both differ is used for
+// comparison. If @bytes1 has a smaller value at that position it is
+// considered less, otherwise greater than @bytes2.
+func (x *Bytes) Compare(Bytes2Var uintptr) int {
+
+	cret := xBytesCompare(x.GoPointer(), Bytes2Var)
+	return cret
+}
+
+var xBytesEqual func(uintptr, uintptr) bool
+
+// Compares the two #GBytes values being pointed to and returns
+// %TRUE if they are equal.
+//
+// This function can be passed to g_hash_table_new() as the @key_equal_func
+// parameter, when using non-%NULL #GBytes pointers as keys in a #GHashTable.
+func (x *Bytes) Equal(Bytes2Var uintptr) bool {
+
+	cret := xBytesEqual(x.GoPointer(), Bytes2Var)
+	return cret
+}
+
+var xBytesGetData func(uintptr, uint) uintptr
+
+// Get the byte data in the #GBytes. This data should not be modified.
+//
+// This function will always return the same pointer for a given #GBytes.
+//
+// %NULL may be returned if @size is 0. This is not guaranteed, as the #GBytes
+// may represent an empty string with @data non-%NULL and @size as 0. %NULL will
+// not be returned if @size is non-zero.
+func (x *Bytes) GetData(SizeVar uint) uintptr {
+
+	cret := xBytesGetData(x.GoPointer(), SizeVar)
+	return cret
+}
+
+var xBytesGetRegion func(uintptr, uint, uint, uint) uintptr
+
+// Gets a pointer to a region in @bytes.
+//
+// The region starts at @offset many bytes from the start of the data
+// and contains @n_elements many elements of @element_size size.
+//
+// @n_elements may be zero, but @element_size must always be non-zero.
+// Ideally, @element_size is a static constant (eg: sizeof a struct).
+//
+// This function does careful bounds checking (including checking for
+// arithmetic overflows) and returns a non-%NULL pointer if the
+// specified region lies entirely within the @bytes. If the region is
+// in some way out of range, or if an overflow has occurred, then %NULL
+// is returned.
+//
+// Note: it is possible to have a valid zero-size region. In this case,
+// the returned pointer will be equal to the base pointer of the data of
+// @bytes, plus @offset.  This will be non-%NULL except for the case
+// where @bytes itself was a zero-sized region.  Since it is unlikely
+// that you will be using this function to check for a zero-sized region
+// in a zero-sized @bytes, %NULL effectively always means "error".
+func (x *Bytes) GetRegion(ElementSizeVar uint, OffsetVar uint, NElementsVar uint) uintptr {
+
+	cret := xBytesGetRegion(x.GoPointer(), ElementSizeVar, OffsetVar, NElementsVar)
+	return cret
+}
+
+var xBytesGetSize func(uintptr) uint
+
+// Get the size of the byte data in the #GBytes.
+//
+// This function will always return the same value for a given #GBytes.
+func (x *Bytes) GetSize() uint {
+
+	cret := xBytesGetSize(x.GoPointer())
+	return cret
+}
+
+var xBytesHash func(uintptr) uint
+
+// Creates an integer hash code for the byte data in the #GBytes.
+//
+// This function can be passed to g_hash_table_new() as the @key_hash_func
+// parameter, when using non-%NULL #GBytes pointers as keys in a #GHashTable.
+func (x *Bytes) Hash() uint {
+
+	cret := xBytesHash(x.GoPointer())
+	return cret
+}
+
+var xBytesNewFromBytes func(uintptr, uint, uint) *Bytes
+
+// Creates a #GBytes which is a subsection of another #GBytes. The @offset +
+// @length may not be longer than the size of @bytes.
+//
+// A reference to @bytes will be held by the newly created #GBytes until
+// the byte data is no longer needed.
+//
+// Since 2.56, if @offset is 0 and @length matches the size of @bytes, then
+// @bytes will be returned with the reference count incremented by 1. If @bytes
+// is a slice of another #GBytes, then the resulting #GBytes will reference
+// the same #GBytes instead of @bytes. This allows consumers to simplify the
+// usage of #GBytes when asynchronously writing to streams.
+func (x *Bytes) NewFromBytes(OffsetVar uint, LengthVar uint) *Bytes {
+
+	cret := xBytesNewFromBytes(x.GoPointer(), OffsetVar, LengthVar)
+	return cret
+}
+
+var xBytesRef func(uintptr) *Bytes
+
+// Increase the reference count on @bytes.
+func (x *Bytes) Ref() *Bytes {
+
+	cret := xBytesRef(x.GoPointer())
+	return cret
+}
+
+var xBytesUnref func(uintptr)
+
+// Releases a reference on @bytes.  This may result in the bytes being
+// freed. If @bytes is %NULL, it will return immediately.
+func (x *Bytes) Unref() {
+
+	xBytesUnref(x.GoPointer())
+
+}
+
+var xBytesUnrefToArray func(uintptr) uintptr
+
+// Unreferences the bytes, and returns a new mutable #GByteArray containing
+// the same byte data.
+//
+// As an optimization, the byte data is transferred to the array without copying
+// if this was the last reference to bytes and bytes was created with
+// g_bytes_new(), g_bytes_new_take() or g_byte_array_free_to_bytes(). In all
+// other cases the data is copied.
+//
+// Do not use it if @bytes contains more than %G_MAXUINT
+// bytes. #GByteArray stores the length of its data in #guint, which
+// may be shorter than #gsize, that @bytes is using.
+func (x *Bytes) UnrefToArray() uintptr {
+
+	cret := xBytesUnrefToArray(x.GoPointer())
+	return cret
+}
+
+var xBytesUnrefToData func(uintptr, uint) uintptr
+
+// Unreferences the bytes, and returns a pointer the same byte data
+// contents.
+//
+// As an optimization, the byte data is returned without copying if this was
+// the last reference to bytes and bytes was created with g_bytes_new(),
+// g_bytes_new_take() or g_byte_array_free_to_bytes(). In all other cases the
+// data is copied.
+func (x *Bytes) UnrefToData(SizeVar uint) uintptr {
+
+	cret := xBytesUnrefToData(x.GoPointer(), SizeVar)
+	return cret
+}
+
 // Contains the public fields of a pointer array.
 type PtrArray struct {
 	Pdata uintptr
 
 	Len uint
+}
+
+func (x *PtrArray) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xByteArrayFree func(uintptr, bool) byte
@@ -173,5 +419,22 @@ func init() {
 	core.PuregoSafeRegister(&xByteArrayUnref, lib, "g_byte_array_unref")
 	core.PuregoSafeRegister(&xPtrArrayFind, lib, "g_ptr_array_find")
 	core.PuregoSafeRegister(&xPtrArrayFindWithEqualFunc, lib, "g_ptr_array_find_with_equal_func")
+
+	core.PuregoSafeRegister(&xNewBytes, lib, "g_bytes_new")
+	core.PuregoSafeRegister(&xNewStaticBytes, lib, "g_bytes_new_static")
+	core.PuregoSafeRegister(&xNewTakeBytes, lib, "g_bytes_new_take")
+	core.PuregoSafeRegister(&xNewWithFreeFuncBytes, lib, "g_bytes_new_with_free_func")
+
+	core.PuregoSafeRegister(&xBytesCompare, lib, "g_bytes_compare")
+	core.PuregoSafeRegister(&xBytesEqual, lib, "g_bytes_equal")
+	core.PuregoSafeRegister(&xBytesGetData, lib, "g_bytes_get_data")
+	core.PuregoSafeRegister(&xBytesGetRegion, lib, "g_bytes_get_region")
+	core.PuregoSafeRegister(&xBytesGetSize, lib, "g_bytes_get_size")
+	core.PuregoSafeRegister(&xBytesHash, lib, "g_bytes_hash")
+	core.PuregoSafeRegister(&xBytesNewFromBytes, lib, "g_bytes_new_from_bytes")
+	core.PuregoSafeRegister(&xBytesRef, lib, "g_bytes_ref")
+	core.PuregoSafeRegister(&xBytesUnref, lib, "g_bytes_unref")
+	core.PuregoSafeRegister(&xBytesUnrefToArray, lib, "g_bytes_unref_to_array")
+	core.PuregoSafeRegister(&xBytesUnrefToData, lib, "g_bytes_unref_to_data")
 
 }

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 // Base type for D-Bus interfaces.
 type DBusInterfaceIface struct {
 	ParentIface uintptr
+}
+
+func (x *DBusInterfaceIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The #GDBusInterface type is the base type for D-Bus interfaces both

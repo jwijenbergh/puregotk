@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -18,6 +20,10 @@ type PollFD struct {
 	Events uint16
 
 	Revents uint16
+}
+
+func (x *PollFD) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xPoll func(*PollFD, uint, int) int

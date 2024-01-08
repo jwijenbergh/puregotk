@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,7 +12,15 @@ type NativeSocketAddressClass struct {
 	ParentClass uintptr
 }
 
+func (x *NativeSocketAddressClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type NativeSocketAddressPrivate struct {
+}
+
+func (x *NativeSocketAddressPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A socket address of some unknown native type.

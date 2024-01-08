@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,6 +11,47 @@ import (
 // The GIConv struct wraps an iconv() conversion descriptor. It contains
 // private data and should only be accessed using the following functions.
 type IConv struct {
+}
+
+func (x *IConv) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xIConvGIconv func(uintptr, string, uint, string, uint) uint
+
+// Same as the standard UNIX routine iconv(), but
+// may be implemented via libiconv on UNIX flavors that lack
+// a native implementation.
+//
+// GLib provides g_convert() and g_locale_to_utf8() which are likely
+// more convenient than the raw iconv wrappers.
+//
+// Note that the behaviour of iconv() for characters which are valid in the
+// input character set, but which have no representation in the output character
+// set, is implementation defined. This function may return success (with a
+// positive number of non-reversible conversions as replacement characters were
+// used), or it may return -1 and set an error such as %EILSEQ, in such a
+// situation.
+func (x *IConv) GIconv(InbufVar string, InbytesLeftVar uint, OutbufVar string, OutbytesLeftVar uint) uint {
+
+	cret := xIConvGIconv(x.GoPointer(), InbufVar, InbytesLeftVar, OutbufVar, OutbytesLeftVar)
+	return cret
+}
+
+var xIConvClose func(uintptr) int
+
+// Same as the standard UNIX routine iconv_close(), but
+// may be implemented via libiconv on UNIX flavors that lack
+// a native implementation. Should be called to clean up
+// the conversion descriptor from g_iconv_open() when
+// you are done converting things.
+//
+// GLib provides g_convert() and g_locale_to_utf8() which are likely
+// more convenient than the raw iconv wrappers.
+func (x *IConv) Close() int {
+
+	cret := xIConvClose(x.GoPointer())
+	return cret
 }
 
 // Error codes returned by character set conversion routines.
@@ -397,5 +440,8 @@ func init() {
 	core.PuregoSafeRegister(&xLocaleFromUtf8, lib, "g_locale_from_utf8")
 	core.PuregoSafeRegister(&xLocaleToUtf8, lib, "g_locale_to_utf8")
 	core.PuregoSafeRegister(&xUriListExtractUris, lib, "g_uri_list_extract_uris")
+
+	core.PuregoSafeRegister(&xIConvGIconv, lib, "g_iconv")
+	core.PuregoSafeRegister(&xIConvClose, lib, "g_iconv_close")
 
 }

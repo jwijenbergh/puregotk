@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -50,6 +52,20 @@ type Hook struct {
 	Destroy DestroyNotify
 }
 
+func (x *Hook) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xHookCompareIds func(uintptr, *Hook) int
+
+// Compares the ids of two #GHook elements, returning a negative value
+// if the second id is greater than the first.
+func (x *Hook) CompareIds(SiblingVar *Hook) int {
+
+	cret := xHookCompareIds(x.GoPointer(), SiblingVar)
+	return cret
+}
+
 // The #GHookList struct represents a list of hook functions.
 type HookList struct {
 	SeqId uint32
@@ -66,6 +82,75 @@ type HookList struct {
 
 	Dummy uintptr
 }
+
+func (x *HookList) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xHookListClear func(uintptr)
+
+// Removes all the #GHook elements from a #GHookList.
+func (x *HookList) Clear() {
+
+	xHookListClear(x.GoPointer())
+
+}
+
+var xHookListInit func(uintptr, uint)
+
+// Initializes a #GHookList.
+// This must be called before the #GHookList is used.
+func (x *HookList) Init(HookSizeVar uint) {
+
+	xHookListInit(x.GoPointer(), HookSizeVar)
+
+}
+
+var xHookListInvoke func(uintptr, bool)
+
+// Calls all of the #GHook functions in a #GHookList.
+func (x *HookList) Invoke(MayRecurseVar bool) {
+
+	xHookListInvoke(x.GoPointer(), MayRecurseVar)
+
+}
+
+var xHookListInvokeCheck func(uintptr, bool)
+
+// Calls all of the #GHook functions in a #GHookList.
+// Any function which returns %FALSE is removed from the #GHookList.
+func (x *HookList) InvokeCheck(MayRecurseVar bool) {
+
+	xHookListInvokeCheck(x.GoPointer(), MayRecurseVar)
+
+}
+
+var xHookListMarshal func(uintptr, bool, uintptr, uintptr)
+
+// Calls a function on each valid #GHook.
+func (x *HookList) Marshal(MayRecurseVar bool, MarshallerVar HookMarshaller, MarshalDataVar uintptr) {
+
+	xHookListMarshal(x.GoPointer(), MayRecurseVar, purego.NewCallback(MarshallerVar), MarshalDataVar)
+
+}
+
+var xHookListMarshalCheck func(uintptr, bool, uintptr, uintptr)
+
+// Calls a function on each valid #GHook and destroys it if the
+// function returns %FALSE.
+func (x *HookList) MarshalCheck(MayRecurseVar bool, MarshallerVar HookCheckMarshaller, MarshalDataVar uintptr) {
+
+	xHookListMarshalCheck(x.GoPointer(), MayRecurseVar, purego.NewCallback(MarshallerVar), MarshalDataVar)
+
+}
+
+const (
+	// The position of the first bit which is not reserved for internal
+	// use be the #GHook implementation, i.e.
+	// `1 &lt;&lt; G_HOOK_FLAG_USER_SHIFT` is the first
+	// bit which can be used for application-defined flags.
+	HOOK_FLAG_USER_SHIFT int = 4
+)
 
 // Flags used internally in the #GHook implementation.
 type HookFlagMask int
@@ -150,5 +235,14 @@ func init() {
 	core.PuregoSafeRegister(&xHookInsertBefore, lib, "g_hook_insert_before")
 	core.PuregoSafeRegister(&xHookPrepend, lib, "g_hook_prepend")
 	core.PuregoSafeRegister(&xHookUnref, lib, "g_hook_unref")
+
+	core.PuregoSafeRegister(&xHookCompareIds, lib, "g_hook_compare_ids")
+
+	core.PuregoSafeRegister(&xHookListClear, lib, "g_hook_list_clear")
+	core.PuregoSafeRegister(&xHookListInit, lib, "g_hook_list_init")
+	core.PuregoSafeRegister(&xHookListInvoke, lib, "g_hook_list_invoke")
+	core.PuregoSafeRegister(&xHookListInvokeCheck, lib, "g_hook_list_invoke_check")
+	core.PuregoSafeRegister(&xHookListMarshal, lib, "g_hook_list_marshal")
+	core.PuregoSafeRegister(&xHookListMarshalCheck, lib, "g_hook_list_marshal_check")
 
 }

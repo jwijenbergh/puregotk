@@ -592,6 +592,30 @@ func (x *IconTheme) ConnectChanged(cb func(IconTheme)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
+var xIconThemeGetForDisplay func(uintptr) uintptr
+
+// Gets the icon theme object associated with @display.
+//
+// If this function has not previously been called for the given
+// display, a new icon theme object will be created and associated
+// with the display. Icon theme objects are fairly expensive to create,
+// so using this function is usually a better choice than calling
+// [ctor@Gtk.IconTheme.new] and setting the display yourself; by using
+// this function a single icon theme object will be shared between users.
+func IconThemeGetForDisplay(DisplayVar *gdk.Display) *IconTheme {
+	var cls *IconTheme
+
+	cret := xIconThemeGetForDisplay(DisplayVar.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &IconTheme{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -621,5 +645,7 @@ func init() {
 	core.PuregoSafeRegister(&xIconThemeSetResourcePath, lib, "gtk_icon_theme_set_resource_path")
 	core.PuregoSafeRegister(&xIconThemeSetSearchPath, lib, "gtk_icon_theme_set_search_path")
 	core.PuregoSafeRegister(&xIconThemeSetThemeName, lib, "gtk_icon_theme_set_theme_name")
+
+	core.PuregoSafeRegister(&xIconThemeGetForDisplay, lib, "gtk_icon_theme_get_for_display")
 
 }

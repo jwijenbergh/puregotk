@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Interface for implementing operations for mounts.
 type MountIface struct {
 	GIface uintptr
+}
+
+func (x *MountIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The #GMount interface represents user-visible mounts. Note, when

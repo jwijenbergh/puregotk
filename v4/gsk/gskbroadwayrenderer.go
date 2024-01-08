@@ -2,11 +2,17 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type BroadwayRendererClass struct {
+}
+
+func (x *BroadwayRendererClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type BroadwayRenderer struct {

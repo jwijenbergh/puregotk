@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -46,6 +48,10 @@ type InitiallyUnownedClass struct {
 	Pdummy uintptr
 }
 
+func (x *InitiallyUnownedClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The class structure for the GObject type.
 //
 // |[&lt;!-- language="C" --&gt;
@@ -85,12 +91,162 @@ type ObjectClass struct {
 	Pdummy uintptr
 }
 
+func (x *ObjectClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xObjectClassFindProperty func(uintptr, string) uintptr
+
+// Looks up the #GParamSpec for a property of a class.
+func (x *ObjectClass) FindProperty(PropertyNameVar string) *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xObjectClassFindProperty(x.GoPointer(), PropertyNameVar)
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xObjectClassInstallProperties func(uintptr, uint, uintptr)
+
+// Installs new properties from an array of #GParamSpecs.
+//
+// All properties should be installed during the class initializer.  It
+// is possible to install properties after that, but doing so is not
+// recommend, and specifically, is not guaranteed to be thread-safe vs.
+// use of properties on the same type on other threads.
+//
+// The property id of each property is the index of each #GParamSpec in
+// the @pspecs array.
+//
+// The property id of 0 is treated specially by #GObject and it should not
+// be used to store a #GParamSpec.
+//
+// This function should be used if you plan to use a static array of
+// #GParamSpecs and g_object_notify_by_pspec(). For instance, this
+// class initialization:
+//
+// |[&lt;!-- language="C" --&gt;
+//
+//	enum {
+//	  PROP_0, PROP_FOO, PROP_BAR, N_PROPERTIES
+//	};
+//
+// static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
+//
+// static void
+// my_object_class_init (MyObjectClass *klass)
+//
+//	{
+//	  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+//
+//	  obj_properties[PROP_FOO] =
+//	    g_param_spec_int ("foo", "Foo", "Foo",
+//	                      -1, G_MAXINT,
+//	                      0,
+//	                      G_PARAM_READWRITE);
+//
+//	  obj_properties[PROP_BAR] =
+//	    g_param_spec_string ("bar", "Bar", "Bar",
+//	                         NULL,
+//	                         G_PARAM_READWRITE);
+//
+//	  gobject_class-&gt;set_property = my_object_set_property;
+//	  gobject_class-&gt;get_property = my_object_get_property;
+//	  g_object_class_install_properties (gobject_class,
+//	                                     N_PROPERTIES,
+//	                                     obj_properties);
+//	}
+//
+// ]|
+//
+// allows calling g_object_notify_by_pspec() to notify of property changes:
+//
+// |[&lt;!-- language="C" --&gt;
+// void
+// my_object_set_foo (MyObject *self, gint foo)
+//
+//	{
+//	  if (self-&gt;foo != foo)
+//	    {
+//	      self-&gt;foo = foo;
+//	      g_object_notify_by_pspec (G_OBJECT (self), obj_properties[PROP_FOO]);
+//	    }
+//	 }
+//
+// ]|
+func (x *ObjectClass) InstallProperties(NPspecsVar uint, PspecsVar uintptr) {
+
+	xObjectClassInstallProperties(x.GoPointer(), NPspecsVar, PspecsVar)
+
+}
+
+var xObjectClassInstallProperty func(uintptr, uint, uintptr)
+
+// Installs a new property.
+//
+// All properties should be installed during the class initializer.  It
+// is possible to install properties after that, but doing so is not
+// recommend, and specifically, is not guaranteed to be thread-safe vs.
+// use of properties on the same type on other threads.
+//
+// Note that it is possible to redefine a property in a derived class,
+// by installing a property with the same name. This can be useful at times,
+// e.g. to change the range of allowed values or the default value.
+func (x *ObjectClass) InstallProperty(PropertyIdVar uint, PspecVar *ParamSpec) {
+
+	xObjectClassInstallProperty(x.GoPointer(), PropertyIdVar, PspecVar.GoPointer())
+
+}
+
+var xObjectClassListProperties func(uintptr, uint) uintptr
+
+// Get an array of #GParamSpec* for all properties of a class.
+func (x *ObjectClass) ListProperties(NPropertiesVar uint) uintptr {
+
+	cret := xObjectClassListProperties(x.GoPointer(), NPropertiesVar)
+	return cret
+}
+
+var xObjectClassOverrideProperty func(uintptr, uint, string)
+
+// Registers @property_id as referring to a property with the name
+// @name in a parent class or in an interface implemented by @oclass.
+// This allows this class to "override" a property implementation in
+// a parent class or to provide the implementation of a property from
+// an interface.
+//
+// Internally, overriding is implemented by creating a property of type
+// #GParamSpecOverride; generally operations that query the properties of
+// the object class, such as g_object_class_find_property() or
+// g_object_class_list_properties() will return the overridden
+// property. However, in one case, the @construct_properties argument of
+// the @constructor virtual function, the #GParamSpecOverride is passed
+// instead, so that the @param_id field of the #GParamSpec will be
+// correct.  For virtually all uses, this makes no difference. If you
+// need to get the overridden property, you can call
+// g_param_spec_get_redirect_target().
+func (x *ObjectClass) OverrideProperty(PropertyIdVar uint, NameVar string) {
+
+	xObjectClassOverrideProperty(x.GoPointer(), PropertyIdVar, NameVar)
+
+}
+
 // The GObjectConstructParam struct is an auxiliary structure used to hand
 // #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
 type ObjectConstructParam struct {
 	Pspec *ParamSpec
 
 	Value *Value
+}
+
+func (x *ObjectConstructParam) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A structure containing a weak reference to a #GObject.
@@ -118,6 +274,77 @@ type ObjectConstructParam struct {
 // It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
 // without first having or creating a strong reference to the object.
 type WeakRef struct {
+}
+
+func (x *WeakRef) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xWeakRefClear func(uintptr)
+
+// Frees resources associated with a non-statically-allocated #GWeakRef.
+// After this call, the #GWeakRef is left in an undefined state.
+//
+// You should only call this on a #GWeakRef that previously had
+// g_weak_ref_init() called on it.
+func (x *WeakRef) Clear() {
+
+	xWeakRefClear(x.GoPointer())
+
+}
+
+var xWeakRefGet func(uintptr) uintptr
+
+// If @weak_ref is not empty, atomically acquire a strong
+// reference to the object it points to, and return that reference.
+//
+// This function is needed because of the potential race between taking
+// the pointer value and g_object_ref() on it, if the object was losing
+// its last reference at the same time in a different thread.
+//
+// The caller should release the resulting reference in the usual way,
+// by using g_object_unref().
+func (x *WeakRef) Get() *Object {
+	var cls *Object
+
+	cret := xWeakRefGet(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Object{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xWeakRefInit func(uintptr, uintptr)
+
+// Initialise a non-statically-allocated #GWeakRef.
+//
+// This function also calls g_weak_ref_set() with @object on the
+// freshly-initialised weak reference.
+//
+// This function should always be matched with a call to
+// g_weak_ref_clear().  It is not necessary to use this function for a
+// #GWeakRef in static storage because it will already be
+// properly initialised.  Just use g_weak_ref_set() directly.
+func (x *WeakRef) Init(ObjectVar *Object) {
+
+	xWeakRefInit(x.GoPointer(), ObjectVar.GoPointer())
+
+}
+
+var xWeakRefSet func(uintptr, uintptr)
+
+// Change the object to which @weak_ref points, or set it to
+// %NULL.
+//
+// You must own a strong reference on @object while calling this
+// function.
+func (x *WeakRef) Set(ObjectVar *Object) {
+
+	xWeakRefSet(x.GoPointer(), ObjectVar.GoPointer())
+
 }
 
 var xCclosureNewObject func(uintptr, uintptr) *Closure
@@ -1266,6 +1493,71 @@ func (x *Object) ConnectNotify(cb func(Object, uintptr)) uint32 {
 	return SignalConnect(x.GoPointer(), "notify", purego.NewCallback(fcb))
 }
 
+var xObjectCompatControl func(uint, uintptr) uint
+
+func ObjectCompatControl(WhatVar uint, DataVar uintptr) uint {
+
+	cret := xObjectCompatControl(WhatVar, DataVar)
+	return cret
+}
+
+var xObjectInterfaceFindProperty func(*TypeInterface, string) uintptr
+
+// Find the #GParamSpec with the given name for an
+// interface. Generally, the interface vtable passed in as @g_iface
+// will be the default vtable from g_type_default_interface_ref(), or,
+// if you know the interface has already been loaded,
+// g_type_default_interface_peek().
+func ObjectInterfaceFindProperty(GIfaceVar *TypeInterface, PropertyNameVar string) *ParamSpec {
+	var cls *ParamSpec
+
+	cret := xObjectInterfaceFindProperty(GIfaceVar, PropertyNameVar)
+
+	if cret == 0 {
+		return nil
+	}
+	IncreaseRef(cret)
+	cls = &ParamSpec{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xObjectInterfaceInstallProperty func(*TypeInterface, uintptr)
+
+// Add a property to an interface; this is only useful for interfaces
+// that are added to GObject-derived types. Adding a property to an
+// interface forces all objects classes with that interface to have a
+// compatible property. The compatible property could be a newly
+// created #GParamSpec, but normally
+// g_object_class_override_property() will be used so that the object
+// class only needs to provide an implementation and inherits the
+// property description, default value, bounds, and so forth from the
+// interface property.
+//
+// This function is meant to be called from the interface's default
+// vtable initialization function (the @class_init member of
+// #GTypeInfo.) It must not be called after after @class_init has
+// been called for any object types implementing this interface.
+//
+// If @pspec is a floating reference, it will be consumed.
+func ObjectInterfaceInstallProperty(GIfaceVar *TypeInterface, PspecVar *ParamSpec) {
+
+	xObjectInterfaceInstallProperty(GIfaceVar, PspecVar.GoPointer())
+
+}
+
+var xObjectInterfaceListProperties func(*TypeInterface, uint) uintptr
+
+// Lists the properties of an interface.Generally, the interface
+// vtable passed in as @g_iface will be the default vtable from
+// g_type_default_interface_ref(), or, if you know the interface has
+// already been loaded, g_type_default_interface_peek().
+func ObjectInterfaceListProperties(GIfaceVar *TypeInterface, NPropertiesPVar uint) uintptr {
+
+	cret := xObjectInterfaceListProperties(GIfaceVar, NPropertiesPVar)
+	return cret
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GOBJECT"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1275,6 +1567,17 @@ func init() {
 	core.PuregoSafeRegister(&xCclosureNewObjectSwap, lib, "g_cclosure_new_object_swap")
 	core.PuregoSafeRegister(&xClearObject, lib, "g_clear_object")
 	core.PuregoSafeRegister(&xSignalConnectObject, lib, "g_signal_connect_object")
+
+	core.PuregoSafeRegister(&xObjectClassFindProperty, lib, "g_object_class_find_property")
+	core.PuregoSafeRegister(&xObjectClassInstallProperties, lib, "g_object_class_install_properties")
+	core.PuregoSafeRegister(&xObjectClassInstallProperty, lib, "g_object_class_install_property")
+	core.PuregoSafeRegister(&xObjectClassListProperties, lib, "g_object_class_list_properties")
+	core.PuregoSafeRegister(&xObjectClassOverrideProperty, lib, "g_object_class_override_property")
+
+	core.PuregoSafeRegister(&xWeakRefClear, lib, "g_weak_ref_clear")
+	core.PuregoSafeRegister(&xWeakRefGet, lib, "g_weak_ref_get")
+	core.PuregoSafeRegister(&xWeakRefInit, lib, "g_weak_ref_init")
+	core.PuregoSafeRegister(&xWeakRefSet, lib, "g_weak_ref_set")
 
 	core.PuregoSafeRegister(&xNewObject, lib, "g_object_new")
 	core.PuregoSafeRegister(&xNewValistObject, lib, "g_object_new_valist")
@@ -1324,5 +1627,10 @@ func init() {
 	core.PuregoSafeRegister(&xObjectWatchClosure, lib, "g_object_watch_closure")
 	core.PuregoSafeRegister(&xObjectWeakRef, lib, "g_object_weak_ref")
 	core.PuregoSafeRegister(&xObjectWeakUnref, lib, "g_object_weak_unref")
+
+	core.PuregoSafeRegister(&xObjectCompatControl, lib, "g_object_compat_control")
+	core.PuregoSafeRegister(&xObjectInterfaceFindProperty, lib, "g_object_interface_find_property")
+	core.PuregoSafeRegister(&xObjectInterfaceInstallProperty, lib, "g_object_interface_install_property")
+	core.PuregoSafeRegister(&xObjectInterfaceListProperties, lib, "g_object_interface_list_properties")
 
 }

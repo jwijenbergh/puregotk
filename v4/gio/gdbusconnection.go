@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -179,6 +181,10 @@ type DBusInterfaceVTable struct {
 	Padding uintptr
 }
 
+func (x *DBusInterfaceVTable) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // Virtual table for handling subtrees registered with g_dbus_connection_register_subtree().
 type DBusSubtreeVTable struct {
 	Enumerate DBusSubtreeEnumerateFunc
@@ -188,6 +194,10 @@ type DBusSubtreeVTable struct {
 	Dispatch DBusSubtreeDispatchFunc
 
 	Padding uintptr
+}
+
+func (x *DBusSubtreeVTable) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xBusGet func(BusType, uintptr, uintptr, uintptr)

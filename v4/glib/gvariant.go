@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -253,6 +255,1504 @@ import (
 type Variant struct {
 }
 
+func (x *Variant) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewVariant func(string, ...interface{}) *Variant
+
+// Creates a new #GVariant instance.
+//
+// Think of this function as an analogue to g_strdup_printf().
+//
+// The type of the created instance and the arguments that are expected
+// by this function are determined by @format_string. See the section on
+// [GVariant format strings][gvariant-format-strings]. Please note that
+// the syntax of the format string is very likely to be extended in the
+// future.
+//
+// The first character of the format string must not be '*' '?' '@' or
+// 'r'; in essence, a new #GVariant must always be constructed by this
+// function (and not merely passed through it unmodified).
+//
+// Note that the arguments must be of the correct width for their types
+// specified in @format_string. This can be achieved by casting them. See
+// the [GVariant varargs documentation][gvariant-varargs].
+//
+// |[&lt;!-- language="C" --&gt;
+// MyFlags some_flags = FLAG_ONE | FLAG_TWO;
+// const gchar *some_strings[] = { "a", "b", "c", NULL };
+// GVariant *new_variant;
+//
+// new_variant = g_variant_new ("(t^as)",
+//
+//	// This cast is required.
+//	(guint64) some_flags,
+//	some_strings);
+//
+// ]|
+func NewVariant(FormatStringVar string, varArgs ...interface{}) *Variant {
+
+	cret := xNewVariant(FormatStringVar, varArgs...)
+	return cret
+}
+
+var xNewArrayVariant func(*VariantType, uintptr, uint) *Variant
+
+// Creates a new #GVariant array from @children.
+//
+// @child_type must be non-%NULL if @n_children is zero.  Otherwise, the
+// child type is determined by inspecting the first element of the
+// @children array.  If @child_type is non-%NULL then it must be a
+// definite type.
+//
+// The items of the array are taken from the @children array.  No entry
+// in the @children array may be %NULL.
+//
+// All items in the array must have the same type, which must be the
+// same as @child_type, if given.
+//
+// If the @children are floating references (see g_variant_ref_sink()), the
+// new instance takes ownership of them as if via g_variant_ref_sink().
+func NewArrayVariant(ChildTypeVar *VariantType, ChildrenVar uintptr, NChildrenVar uint) *Variant {
+
+	cret := xNewArrayVariant(ChildTypeVar, ChildrenVar, NChildrenVar)
+	return cret
+}
+
+var xNewBooleanVariant func(bool) *Variant
+
+// Creates a new boolean #GVariant instance -- either %TRUE or %FALSE.
+func NewBooleanVariant(ValueVar bool) *Variant {
+
+	cret := xNewBooleanVariant(ValueVar)
+	return cret
+}
+
+var xNewByteVariant func(byte) *Variant
+
+// Creates a new byte #GVariant instance.
+func NewByteVariant(ValueVar byte) *Variant {
+
+	cret := xNewByteVariant(ValueVar)
+	return cret
+}
+
+var xNewBytestringVariant func(uintptr) *Variant
+
+// Creates an array-of-bytes #GVariant with the contents of @string.
+// This function is just like g_variant_new_string() except that the
+// string need not be valid UTF-8.
+//
+// The nul terminator character at the end of the string is stored in
+// the array.
+func NewBytestringVariant(StringVar uintptr) *Variant {
+
+	cret := xNewBytestringVariant(StringVar)
+	return cret
+}
+
+var xNewBytestringArrayVariant func(uintptr, int) *Variant
+
+// Constructs an array of bytestring #GVariant from the given array of
+// strings.
+//
+// If @length is -1 then @strv is %NULL-terminated.
+func NewBytestringArrayVariant(StrvVar uintptr, LengthVar int) *Variant {
+
+	cret := xNewBytestringArrayVariant(StrvVar, LengthVar)
+	return cret
+}
+
+var xNewDictEntryVariant func(*Variant, *Variant) *Variant
+
+// Creates a new dictionary entry #GVariant. @key and @value must be
+// non-%NULL. @key must be a value of a basic type (ie: not a container).
+//
+// If the @key or @value are floating references (see g_variant_ref_sink()),
+// the new instance takes ownership of them as if via g_variant_ref_sink().
+func NewDictEntryVariant(KeyVar *Variant, ValueVar *Variant) *Variant {
+
+	cret := xNewDictEntryVariant(KeyVar, ValueVar)
+	return cret
+}
+
+var xNewDoubleVariant func(float64) *Variant
+
+// Creates a new double #GVariant instance.
+func NewDoubleVariant(ValueVar float64) *Variant {
+
+	cret := xNewDoubleVariant(ValueVar)
+	return cret
+}
+
+var xNewFixedArrayVariant func(*VariantType, uintptr, uint, uint) *Variant
+
+// Constructs a new array #GVariant instance, where the elements are
+// of @element_type type.
+//
+// @elements must be an array with fixed-sized elements.  Numeric types are
+// fixed-size as are tuples containing only other fixed-sized types.
+//
+// @element_size must be the size of a single element in the array.
+// For example, if calling this function for an array of 32-bit integers,
+// you might say sizeof(gint32). This value isn't used except for the purpose
+// of a double-check that the form of the serialized data matches the caller's
+// expectation.
+//
+// @n_elements must be the length of the @elements array.
+func NewFixedArrayVariant(ElementTypeVar *VariantType, ElementsVar uintptr, NElementsVar uint, ElementSizeVar uint) *Variant {
+
+	cret := xNewFixedArrayVariant(ElementTypeVar, ElementsVar, NElementsVar, ElementSizeVar)
+	return cret
+}
+
+var xNewFromBytesVariant func(*VariantType, *Bytes, bool) *Variant
+
+// Constructs a new serialized-mode #GVariant instance.  This is the
+// inner interface for creation of new serialized values that gets
+// called from various functions in gvariant.c.
+//
+// A reference is taken on @bytes.
+//
+// The data in @bytes must be aligned appropriately for the @type being loaded.
+// Otherwise this function will internally create a copy of the memory (since
+// GLib 2.60) or (in older versions) fail and exit the process.
+func NewFromBytesVariant(TypeVar *VariantType, BytesVar *Bytes, TrustedVar bool) *Variant {
+
+	cret := xNewFromBytesVariant(TypeVar, BytesVar, TrustedVar)
+	return cret
+}
+
+var xNewFromDataVariant func(*VariantType, uintptr, uint, bool, uintptr, uintptr) *Variant
+
+// Creates a new #GVariant instance from serialized data.
+//
+// @type is the type of #GVariant instance that will be constructed.
+// The interpretation of @data depends on knowing the type.
+//
+// @data is not modified by this function and must remain valid with an
+// unchanging value until such a time as @notify is called with
+// @user_data.  If the contents of @data change before that time then
+// the result is undefined.
+//
+// If @data is trusted to be serialized data in normal form then
+// @trusted should be %TRUE.  This applies to serialized data created
+// within this process or read from a trusted location on the disk (such
+// as a file installed in /usr/lib alongside your application).  You
+// should set trusted to %FALSE if @data is read from the network, a
+// file in the user's home directory, etc.
+//
+// If @data was not stored in this machine's native endianness, any multi-byte
+// numeric values in the returned variant will also be in non-native
+// endianness. g_variant_byteswap() can be used to recover the original values.
+//
+// @notify will be called with @user_data when @data is no longer
+// needed.  The exact time of this call is unspecified and might even be
+// before this function returns.
+//
+// Note: @data must be backed by memory that is aligned appropriately for the
+// @type being loaded. Otherwise this function will internally create a copy of
+// the memory (since GLib 2.60) or (in older versions) fail and exit the
+// process.
+func NewFromDataVariant(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar DestroyNotify, UserDataVar uintptr) *Variant {
+
+	cret := xNewFromDataVariant(TypeVar, DataVar, SizeVar, TrustedVar, purego.NewCallback(NotifyVar), UserDataVar)
+	return cret
+}
+
+var xNewHandleVariant func(int32) *Variant
+
+// Creates a new handle #GVariant instance.
+//
+// By convention, handles are indexes into an array of file descriptors
+// that are sent alongside a D-Bus message.  If you're not interacting
+// with D-Bus, you probably don't need them.
+func NewHandleVariant(ValueVar int32) *Variant {
+
+	cret := xNewHandleVariant(ValueVar)
+	return cret
+}
+
+var xNewInt16Variant func(int16) *Variant
+
+// Creates a new int16 #GVariant instance.
+func NewInt16Variant(ValueVar int16) *Variant {
+
+	cret := xNewInt16Variant(ValueVar)
+	return cret
+}
+
+var xNewInt32Variant func(int32) *Variant
+
+// Creates a new int32 #GVariant instance.
+func NewInt32Variant(ValueVar int32) *Variant {
+
+	cret := xNewInt32Variant(ValueVar)
+	return cret
+}
+
+var xNewInt64Variant func(int64) *Variant
+
+// Creates a new int64 #GVariant instance.
+func NewInt64Variant(ValueVar int64) *Variant {
+
+	cret := xNewInt64Variant(ValueVar)
+	return cret
+}
+
+var xNewMaybeVariant func(*VariantType, *Variant) *Variant
+
+// Depending on if @child is %NULL, either wraps @child inside of a
+// maybe container or creates a Nothing instance for the given @type.
+//
+// At least one of @child_type and @child must be non-%NULL.
+// If @child_type is non-%NULL then it must be a definite type.
+// If they are both non-%NULL then @child_type must be the type
+// of @child.
+//
+// If @child is a floating reference (see g_variant_ref_sink()), the new
+// instance takes ownership of @child.
+func NewMaybeVariant(ChildTypeVar *VariantType, ChildVar *Variant) *Variant {
+
+	cret := xNewMaybeVariant(ChildTypeVar, ChildVar)
+	return cret
+}
+
+var xNewObjectPathVariant func(string) *Variant
+
+// Creates a D-Bus object path #GVariant with the contents of @string.
+// @string must be a valid D-Bus object path.  Use
+// g_variant_is_object_path() if you're not sure.
+func NewObjectPathVariant(ObjectPathVar string) *Variant {
+
+	cret := xNewObjectPathVariant(ObjectPathVar)
+	return cret
+}
+
+var xNewObjvVariant func(uintptr, int) *Variant
+
+// Constructs an array of object paths #GVariant from the given array of
+// strings.
+//
+// Each string must be a valid #GVariant object path; see
+// g_variant_is_object_path().
+//
+// If @length is -1 then @strv is %NULL-terminated.
+func NewObjvVariant(StrvVar uintptr, LengthVar int) *Variant {
+
+	cret := xNewObjvVariant(StrvVar, LengthVar)
+	return cret
+}
+
+var xNewParsedVariant func(string, ...interface{}) *Variant
+
+// Parses @format and returns the result.
+//
+// @format must be a text format #GVariant with one extension: at any
+// point that a value may appear in the text, a '%' character followed
+// by a GVariant format string (as per g_variant_new()) may appear.  In
+// that case, the same arguments are collected from the argument list as
+// g_variant_new() would have collected.
+//
+// Note that the arguments must be of the correct width for their types
+// specified in @format. This can be achieved by casting them. See
+// the [GVariant varargs documentation][gvariant-varargs].
+//
+// Consider this simple example:
+// |[&lt;!-- language="C" --&gt;
+//
+//	g_variant_new_parsed ("[('one', 1), ('two', %i), (%s, 3)]", 2, "three");
+//
+// ]|
+//
+// In the example, the variable argument parameters are collected and
+// filled in as if they were part of the original string to produce the
+// result of
+// |[&lt;!-- language="C" --&gt;
+// [('one', 1), ('two', 2), ('three', 3)]
+// ]|
+//
+// This function is intended only to be used with @format as a string
+// literal.  Any parse error is fatal to the calling process.  If you
+// want to parse data from untrusted sources, use g_variant_parse().
+//
+// You may not use this function to return, unmodified, a single
+// #GVariant pointer from the argument list.  ie: @format may not solely
+// be anything along the lines of "%*", "%?", "\%r", or anything starting
+// with "%@".
+func NewParsedVariant(FormatVar string, varArgs ...interface{}) *Variant {
+
+	cret := xNewParsedVariant(FormatVar, varArgs...)
+	return cret
+}
+
+var xNewParsedVaVariant func(string, []interface{}) *Variant
+
+// Parses @format and returns the result.
+//
+// This is the version of g_variant_new_parsed() intended to be used
+// from libraries.
+//
+// The return value will be floating if it was a newly created GVariant
+// instance.  In the case that @format simply specified the collection
+// of a #GVariant pointer (eg: @format was "%*") then the collected
+// #GVariant pointer will be returned unmodified, without adding any
+// additional references.
+//
+// Note that the arguments in @app must be of the correct width for their types
+// specified in @format when collected into the #va_list. See
+// the [GVariant varargs documentation][gvariant-varargs].
+//
+// In order to behave correctly in all cases it is necessary for the
+// calling function to g_variant_ref_sink() the return result before
+// returning control to the user that originally provided the pointer.
+// At this point, the caller will have their own full reference to the
+// result.  This can also be done by adding the result to a container,
+// or by passing it to another g_variant_new() call.
+func NewParsedVaVariant(FormatVar string, AppVar []interface{}) *Variant {
+
+	cret := xNewParsedVaVariant(FormatVar, AppVar)
+	return cret
+}
+
+var xNewPrintfVariant func(string, ...interface{}) *Variant
+
+// Creates a string-type GVariant using printf formatting.
+//
+// This is similar to calling g_strdup_printf() and then
+// g_variant_new_string() but it saves a temporary variable and an
+// unnecessary copy.
+func NewPrintfVariant(FormatStringVar string, varArgs ...interface{}) *Variant {
+
+	cret := xNewPrintfVariant(FormatStringVar, varArgs...)
+	return cret
+}
+
+var xNewSignatureVariant func(string) *Variant
+
+// Creates a D-Bus type signature #GVariant with the contents of
+// @string.  @string must be a valid D-Bus type signature.  Use
+// g_variant_is_signature() if you're not sure.
+func NewSignatureVariant(SignatureVar string) *Variant {
+
+	cret := xNewSignatureVariant(SignatureVar)
+	return cret
+}
+
+var xNewStringVariant func(string) *Variant
+
+// Creates a string #GVariant with the contents of @string.
+//
+// @string must be valid UTF-8, and must not be %NULL. To encode
+// potentially-%NULL strings, use g_variant_new() with `ms` as the
+// [format string][gvariant-format-strings-maybe-types].
+func NewStringVariant(StringVar string) *Variant {
+
+	cret := xNewStringVariant(StringVar)
+	return cret
+}
+
+var xNewStrvVariant func(uintptr, int) *Variant
+
+// Constructs an array of strings #GVariant from the given array of
+// strings.
+//
+// If @length is -1 then @strv is %NULL-terminated.
+func NewStrvVariant(StrvVar uintptr, LengthVar int) *Variant {
+
+	cret := xNewStrvVariant(StrvVar, LengthVar)
+	return cret
+}
+
+var xNewTakeStringVariant func(string) *Variant
+
+// Creates a string #GVariant with the contents of @string.
+//
+// @string must be valid UTF-8, and must not be %NULL. To encode
+// potentially-%NULL strings, use this with g_variant_new_maybe().
+//
+// This function consumes @string.  g_free() will be called on @string
+// when it is no longer required.
+//
+// You must not modify or access @string in any other way after passing
+// it to this function.  It is even possible that @string is immediately
+// freed.
+func NewTakeStringVariant(StringVar string) *Variant {
+
+	cret := xNewTakeStringVariant(StringVar)
+	return cret
+}
+
+var xNewTupleVariant func(uintptr, uint) *Variant
+
+// Creates a new tuple #GVariant out of the items in @children.  The
+// type is determined from the types of @children.  No entry in the
+// @children array may be %NULL.
+//
+// If @n_children is 0 then the unit tuple is constructed.
+//
+// If the @children are floating references (see g_variant_ref_sink()), the
+// new instance takes ownership of them as if via g_variant_ref_sink().
+func NewTupleVariant(ChildrenVar uintptr, NChildrenVar uint) *Variant {
+
+	cret := xNewTupleVariant(ChildrenVar, NChildrenVar)
+	return cret
+}
+
+var xNewUint16Variant func(uint16) *Variant
+
+// Creates a new uint16 #GVariant instance.
+func NewUint16Variant(ValueVar uint16) *Variant {
+
+	cret := xNewUint16Variant(ValueVar)
+	return cret
+}
+
+var xNewUint32Variant func(uint32) *Variant
+
+// Creates a new uint32 #GVariant instance.
+func NewUint32Variant(ValueVar uint32) *Variant {
+
+	cret := xNewUint32Variant(ValueVar)
+	return cret
+}
+
+var xNewUint64Variant func(uint64) *Variant
+
+// Creates a new uint64 #GVariant instance.
+func NewUint64Variant(ValueVar uint64) *Variant {
+
+	cret := xNewUint64Variant(ValueVar)
+	return cret
+}
+
+var xNewVaVariant func(string, string, []interface{}) *Variant
+
+// This function is intended to be used by libraries based on
+// #GVariant that want to provide g_variant_new()-like functionality
+// to their users.
+//
+// The API is more general than g_variant_new() to allow a wider range
+// of possible uses.
+//
+// @format_string must still point to a valid format string, but it only
+// needs to be nul-terminated if @endptr is %NULL.  If @endptr is
+// non-%NULL then it is updated to point to the first character past the
+// end of the format string.
+//
+// @app is a pointer to a #va_list.  The arguments, according to
+// @format_string, are collected from this #va_list and the list is left
+// pointing to the argument following the last.
+//
+// Note that the arguments in @app must be of the correct width for their
+// types specified in @format_string when collected into the #va_list.
+// See the [GVariant varargs documentation][gvariant-varargs].
+//
+// These two generalisations allow mixing of multiple calls to
+// g_variant_new_va() and g_variant_get_va() within a single actual
+// varargs call by the user.
+//
+// The return value will be floating if it was a newly created GVariant
+// instance (for example, if the format string was "(ii)").  In the case
+// that the format_string was '*', '?', 'r', or a format starting with
+// '@' then the collected #GVariant pointer will be returned unmodified,
+// without adding any additional references.
+//
+// In order to behave correctly in all cases it is necessary for the
+// calling function to g_variant_ref_sink() the return result before
+// returning control to the user that originally provided the pointer.
+// At this point, the caller will have their own full reference to the
+// result.  This can also be done by adding the result to a container,
+// or by passing it to another g_variant_new() call.
+func NewVaVariant(FormatStringVar string, EndptrVar string, AppVar []interface{}) *Variant {
+
+	cret := xNewVaVariant(FormatStringVar, EndptrVar, AppVar)
+	return cret
+}
+
+var xNewVariantVariant func(*Variant) *Variant
+
+// Boxes @value.  The result is a #GVariant instance representing a
+// variant containing the original value.
+//
+// If @child is a floating reference (see g_variant_ref_sink()), the new
+// instance takes ownership of @child.
+func NewVariantVariant(ValueVar *Variant) *Variant {
+
+	cret := xNewVariantVariant(ValueVar)
+	return cret
+}
+
+var xVariantByteswap func(uintptr) *Variant
+
+// Performs a byteswapping operation on the contents of @value.  The
+// result is that all multi-byte numeric data contained in @value is
+// byteswapped.  That includes 16, 32, and 64bit signed and unsigned
+// integers as well as file handles and double precision floating point
+// values.
+//
+// This function is an identity mapping on any value that does not
+// contain multi-byte numeric data.  That include strings, booleans,
+// bytes and containers containing only these things (recursively).
+//
+// The returned value is always in normal form and is marked as trusted.
+func (x *Variant) Byteswap() *Variant {
+
+	cret := xVariantByteswap(x.GoPointer())
+	return cret
+}
+
+var xVariantCheckFormatString func(uintptr, string, bool) bool
+
+// Checks if calling g_variant_get() with @format_string on @value would
+// be valid from a type-compatibility standpoint.  @format_string is
+// assumed to be a valid format string (from a syntactic standpoint).
+//
+// If @copy_only is %TRUE then this function additionally checks that it
+// would be safe to call g_variant_unref() on @value immediately after
+// the call to g_variant_get() without invalidating the result.  This is
+// only possible if deep copies are made (ie: there are no pointers to
+// the data inside of the soon-to-be-freed #GVariant instance).  If this
+// check fails then a g_critical() is printed and %FALSE is returned.
+//
+// This function is meant to be used by functions that wish to provide
+// varargs accessors to #GVariant values of uncertain values (eg:
+// g_variant_lookup() or g_menu_model_get_item_attribute()).
+func (x *Variant) CheckFormatString(FormatStringVar string, CopyOnlyVar bool) bool {
+
+	cret := xVariantCheckFormatString(x.GoPointer(), FormatStringVar, CopyOnlyVar)
+	return cret
+}
+
+var xVariantClassify func(uintptr) VariantClass
+
+// Classifies @value according to its top-level type.
+func (x *Variant) Classify() VariantClass {
+
+	cret := xVariantClassify(x.GoPointer())
+	return cret
+}
+
+var xVariantCompare func(uintptr, uintptr) int
+
+// Compares @one and @two.
+//
+// The types of @one and @two are #gconstpointer only to allow use of
+// this function with #GTree, #GPtrArray, etc.  They must each be a
+// #GVariant.
+//
+// Comparison is only defined for basic types (ie: booleans, numbers,
+// strings).  For booleans, %FALSE is less than %TRUE.  Numbers are
+// ordered in the usual way.  Strings are in ASCII lexographical order.
+//
+// It is a programmer error to attempt to compare container values or
+// two values that have types that are not exactly equal.  For example,
+// you cannot compare a 32-bit signed integer with a 32-bit unsigned
+// integer.  Also note that this function is not particularly
+// well-behaved when it comes to comparison of doubles; in particular,
+// the handling of incomparable values (ie: NaN) is undefined.
+//
+// If you only require an equality comparison, g_variant_equal() is more
+// general.
+func (x *Variant) Compare(TwoVar uintptr) int {
+
+	cret := xVariantCompare(x.GoPointer(), TwoVar)
+	return cret
+}
+
+var xVariantDupBytestring func(uintptr, uint) uintptr
+
+// Similar to g_variant_get_bytestring() except that instead of
+// returning a constant string, the string is duplicated.
+//
+// The return value must be freed using g_free().
+func (x *Variant) DupBytestring(LengthVar uint) uintptr {
+
+	cret := xVariantDupBytestring(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantDupBytestringArray func(uintptr, uint) uintptr
+
+// Gets the contents of an array of array of bytes #GVariant.  This call
+// makes a deep copy; the return result should be released with
+// g_strfreev().
+//
+// If @length is non-%NULL then the number of elements in the result is
+// stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) DupBytestringArray(LengthVar uint) uintptr {
+
+	cret := xVariantDupBytestringArray(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantDupObjv func(uintptr, uint) uintptr
+
+// Gets the contents of an array of object paths #GVariant.  This call
+// makes a deep copy; the return result should be released with
+// g_strfreev().
+//
+// If @length is non-%NULL then the number of elements in the result
+// is stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) DupObjv(LengthVar uint) uintptr {
+
+	cret := xVariantDupObjv(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantDupString func(uintptr, uint) string
+
+// Similar to g_variant_get_string() except that instead of returning
+// a constant string, the string is duplicated.
+//
+// The string will always be UTF-8 encoded.
+//
+// The return value must be freed using g_free().
+func (x *Variant) DupString(LengthVar uint) string {
+
+	cret := xVariantDupString(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantDupStrv func(uintptr, uint) uintptr
+
+// Gets the contents of an array of strings #GVariant.  This call
+// makes a deep copy; the return result should be released with
+// g_strfreev().
+//
+// If @length is non-%NULL then the number of elements in the result
+// is stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) DupStrv(LengthVar uint) uintptr {
+
+	cret := xVariantDupStrv(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantEqual func(uintptr, uintptr) bool
+
+// Checks if @one and @two have the same type and value.
+//
+// The types of @one and @two are #gconstpointer only to allow use of
+// this function with #GHashTable.  They must each be a #GVariant.
+func (x *Variant) Equal(TwoVar uintptr) bool {
+
+	cret := xVariantEqual(x.GoPointer(), TwoVar)
+	return cret
+}
+
+var xVariantGet func(uintptr, string, ...interface{})
+
+// Deconstructs a #GVariant instance.
+//
+// Think of this function as an analogue to scanf().
+//
+// The arguments that are expected by this function are entirely
+// determined by @format_string.  @format_string also restricts the
+// permissible types of @value.  It is an error to give a value with
+// an incompatible type.  See the section on
+// [GVariant format strings][gvariant-format-strings].
+// Please note that the syntax of the format string is very likely to be
+// extended in the future.
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed,
+// see the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+func (x *Variant) Get(FormatStringVar string, varArgs ...interface{}) {
+
+	xVariantGet(x.GoPointer(), FormatStringVar, varArgs...)
+
+}
+
+var xVariantGetBoolean func(uintptr) bool
+
+// Returns the boolean value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_BOOLEAN.
+func (x *Variant) GetBoolean() bool {
+
+	cret := xVariantGetBoolean(x.GoPointer())
+	return cret
+}
+
+var xVariantGetByte func(uintptr) byte
+
+// Returns the byte value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_BYTE.
+func (x *Variant) GetByte() byte {
+
+	cret := xVariantGetByte(x.GoPointer())
+	return cret
+}
+
+var xVariantGetBytestring func(uintptr) uintptr
+
+// Returns the string value of a #GVariant instance with an
+// array-of-bytes type.  The string has no particular encoding.
+//
+// If the array does not end with a nul terminator character, the empty
+// string is returned.  For this reason, you can always trust that a
+// non-%NULL nul-terminated string will be returned by this function.
+//
+// If the array contains a nul terminator character somewhere other than
+// the last byte then the returned string is the string, up to the first
+// such nul character.
+//
+// g_variant_get_fixed_array() should be used instead if the array contains
+// arbitrary data that could not be nul-terminated or could contain nul bytes.
+//
+// It is an error to call this function with a @value that is not an
+// array of bytes.
+//
+// The return value remains valid as long as @value exists.
+func (x *Variant) GetBytestring() uintptr {
+
+	cret := xVariantGetBytestring(x.GoPointer())
+	return cret
+}
+
+var xVariantGetBytestringArray func(uintptr, uint) uintptr
+
+// Gets the contents of an array of array of bytes #GVariant.  This call
+// makes a shallow copy; the return result should be released with
+// g_free(), but the individual strings must not be modified.
+//
+// If @length is non-%NULL then the number of elements in the result is
+// stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) GetBytestringArray(LengthVar uint) uintptr {
+
+	cret := xVariantGetBytestringArray(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantGetChild func(uintptr, uint, string, ...interface{})
+
+// Reads a child item out of a container #GVariant instance and
+// deconstructs it according to @format_string.  This call is
+// essentially a combination of g_variant_get_child_value() and
+// g_variant_get().
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed,
+// see the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+func (x *Variant) GetChild(IndexVar uint, FormatStringVar string, varArgs ...interface{}) {
+
+	xVariantGetChild(x.GoPointer(), IndexVar, FormatStringVar, varArgs...)
+
+}
+
+var xVariantGetChildValue func(uintptr, uint) *Variant
+
+// Reads a child item out of a container #GVariant instance.  This
+// includes variants, maybes, arrays, tuples and dictionary
+// entries.  It is an error to call this function on any other type of
+// #GVariant.
+//
+// It is an error if @index_ is greater than the number of child items
+// in the container.  See g_variant_n_children().
+//
+// The returned value is never floating.  You should free it with
+// g_variant_unref() when you're done with it.
+//
+// Note that values borrowed from the returned child are not guaranteed to
+// still be valid after the child is freed even if you still hold a reference
+// to @value, if @value has not been serialized at the time this function is
+// called. To avoid this, you can serialize @value by calling
+// g_variant_get_data() and optionally ignoring the return value.
+//
+// There may be implementation specific restrictions on deeply nested values,
+// which would result in the unit tuple being returned as the child value,
+// instead of further nested children. #GVariant is guaranteed to handle
+// nesting up to at least 64 levels.
+//
+// This function is O(1).
+func (x *Variant) GetChildValue(IndexVar uint) *Variant {
+
+	cret := xVariantGetChildValue(x.GoPointer(), IndexVar)
+	return cret
+}
+
+var xVariantGetData func(uintptr) uintptr
+
+// Returns a pointer to the serialized form of a #GVariant instance.
+// The returned data may not be in fully-normalised form if read from an
+// untrusted source.  The returned data must not be freed; it remains
+// valid for as long as @value exists.
+//
+// If @value is a fixed-sized value that was deserialized from a
+// corrupted serialized container then %NULL may be returned.  In this
+// case, the proper thing to do is typically to use the appropriate
+// number of nul bytes in place of @value.  If @value is not fixed-sized
+// then %NULL is never returned.
+//
+// In the case that @value is already in serialized form, this function
+// is O(1).  If the value is not already in serialized form,
+// serialization occurs implicitly and is approximately O(n) in the size
+// of the result.
+//
+// To deserialize the data returned by this function, in addition to the
+// serialized data, you must know the type of the #GVariant, and (if the
+// machine might be different) the endianness of the machine that stored
+// it. As a result, file formats or network messages that incorporate
+// serialized #GVariants must include this information either
+// implicitly (for instance "the file always contains a
+// %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
+// explicitly (by storing the type and/or endianness in addition to the
+// serialized data).
+func (x *Variant) GetData() uintptr {
+
+	cret := xVariantGetData(x.GoPointer())
+	return cret
+}
+
+var xVariantGetDataAsBytes func(uintptr) *Bytes
+
+// Returns a pointer to the serialized form of a #GVariant instance.
+// The semantics of this function are exactly the same as
+// g_variant_get_data(), except that the returned #GBytes holds
+// a reference to the variant data.
+func (x *Variant) GetDataAsBytes() *Bytes {
+
+	cret := xVariantGetDataAsBytes(x.GoPointer())
+	return cret
+}
+
+var xVariantGetDouble func(uintptr) float64
+
+// Returns the double precision floating point value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_DOUBLE.
+func (x *Variant) GetDouble() float64 {
+
+	cret := xVariantGetDouble(x.GoPointer())
+	return cret
+}
+
+var xVariantGetFixedArray func(uintptr, uint, uint) uintptr
+
+// Provides access to the serialized data for an array of fixed-sized
+// items.
+//
+// @value must be an array with fixed-sized elements.  Numeric types are
+// fixed-size, as are tuples containing only other fixed-sized types.
+//
+// @element_size must be the size of a single element in the array,
+// as given by the section on
+// [serialized data memory][gvariant-serialized-data-memory].
+//
+// In particular, arrays of these fixed-sized types can be interpreted
+// as an array of the given C type, with @element_size set to the size
+// the appropriate type:
+// - %G_VARIANT_TYPE_INT16 (etc.): #gint16 (etc.)
+// - %G_VARIANT_TYPE_BOOLEAN: #guchar (not #gboolean!)
+// - %G_VARIANT_TYPE_BYTE: #guint8
+// - %G_VARIANT_TYPE_HANDLE: #guint32
+// - %G_VARIANT_TYPE_DOUBLE: #gdouble
+//
+// For example, if calling this function for an array of 32-bit integers,
+// you might say `sizeof(gint32)`. This value isn't used except for the purpose
+// of a double-check that the form of the serialized data matches the caller's
+// expectation.
+//
+// @n_elements, which must be non-%NULL, is set equal to the number of
+// items in the array.
+func (x *Variant) GetFixedArray(NElementsVar uint, ElementSizeVar uint) uintptr {
+
+	cret := xVariantGetFixedArray(x.GoPointer(), NElementsVar, ElementSizeVar)
+	return cret
+}
+
+var xVariantGetHandle func(uintptr) int32
+
+// Returns the 32-bit signed integer value of @value.
+//
+// It is an error to call this function with a @value of any type other
+// than %G_VARIANT_TYPE_HANDLE.
+//
+// By convention, handles are indexes into an array of file descriptors
+// that are sent alongside a D-Bus message.  If you're not interacting
+// with D-Bus, you probably don't need them.
+func (x *Variant) GetHandle() int32 {
+
+	cret := xVariantGetHandle(x.GoPointer())
+	return cret
+}
+
+var xVariantGetInt16 func(uintptr) int16
+
+// Returns the 16-bit signed integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_INT16.
+func (x *Variant) GetInt16() int16 {
+
+	cret := xVariantGetInt16(x.GoPointer())
+	return cret
+}
+
+var xVariantGetInt32 func(uintptr) int32
+
+// Returns the 32-bit signed integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_INT32.
+func (x *Variant) GetInt32() int32 {
+
+	cret := xVariantGetInt32(x.GoPointer())
+	return cret
+}
+
+var xVariantGetInt64 func(uintptr) int64
+
+// Returns the 64-bit signed integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_INT64.
+func (x *Variant) GetInt64() int64 {
+
+	cret := xVariantGetInt64(x.GoPointer())
+	return cret
+}
+
+var xVariantGetMaybe func(uintptr) *Variant
+
+// Given a maybe-typed #GVariant instance, extract its value.  If the
+// value is Nothing, then this function returns %NULL.
+func (x *Variant) GetMaybe() *Variant {
+
+	cret := xVariantGetMaybe(x.GoPointer())
+	return cret
+}
+
+var xVariantGetNormalForm func(uintptr) *Variant
+
+// Gets a #GVariant instance that has the same value as @value and is
+// trusted to be in normal form.
+//
+// If @value is already trusted to be in normal form then a new
+// reference to @value is returned.
+//
+// If @value is not already trusted, then it is scanned to check if it
+// is in normal form.  If it is found to be in normal form then it is
+// marked as trusted and a new reference to it is returned.
+//
+// If @value is found not to be in normal form then a new trusted
+// #GVariant is created with the same value as @value.
+//
+// It makes sense to call this function if you've received #GVariant
+// data from untrusted sources and you want to ensure your serialized
+// output is definitely in normal form.
+//
+// If @value is already in normal form, a new reference will be returned
+// (which will be floating if @value is floating). If it is not in normal form,
+// the newly created #GVariant will be returned with a single non-floating
+// reference. Typically, g_variant_take_ref() should be called on the return
+// value from this function to guarantee ownership of a single non-floating
+// reference to it.
+func (x *Variant) GetNormalForm() *Variant {
+
+	cret := xVariantGetNormalForm(x.GoPointer())
+	return cret
+}
+
+var xVariantGetObjv func(uintptr, uint) uintptr
+
+// Gets the contents of an array of object paths #GVariant.  This call
+// makes a shallow copy; the return result should be released with
+// g_free(), but the individual strings must not be modified.
+//
+// If @length is non-%NULL then the number of elements in the result
+// is stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) GetObjv(LengthVar uint) uintptr {
+
+	cret := xVariantGetObjv(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantGetSize func(uintptr) uint
+
+// Determines the number of bytes that would be required to store @value
+// with g_variant_store().
+//
+// If @value has a fixed-sized type then this function always returned
+// that fixed size.
+//
+// In the case that @value is already in serialized form or the size has
+// already been calculated (ie: this function has been called before)
+// then this function is O(1).  Otherwise, the size is calculated, an
+// operation which is approximately O(n) in the number of values
+// involved.
+func (x *Variant) GetSize() uint {
+
+	cret := xVariantGetSize(x.GoPointer())
+	return cret
+}
+
+var xVariantGetString func(uintptr, uint) string
+
+// Returns the string value of a #GVariant instance with a string
+// type.  This includes the types %G_VARIANT_TYPE_STRING,
+// %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
+//
+// The string will always be UTF-8 encoded, will never be %NULL, and will never
+// contain nul bytes.
+//
+// If @length is non-%NULL then the length of the string (in bytes) is
+// returned there.  For trusted values, this information is already
+// known.  Untrusted values will be validated and, if valid, a strlen() will be
+// performed. If invalid, a default value will be returned — for
+// %G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
+// empty string.
+//
+// It is an error to call this function with a @value of any type
+// other than those three.
+//
+// The return value remains valid as long as @value exists.
+func (x *Variant) GetString(LengthVar uint) string {
+
+	cret := xVariantGetString(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantGetStrv func(uintptr, uint) uintptr
+
+// Gets the contents of an array of strings #GVariant.  This call
+// makes a shallow copy; the return result should be released with
+// g_free(), but the individual strings must not be modified.
+//
+// If @length is non-%NULL then the number of elements in the result
+// is stored there.  In any case, the resulting array will be
+// %NULL-terminated.
+//
+// For an empty array, @length will be set to 0 and a pointer to a
+// %NULL pointer will be returned.
+func (x *Variant) GetStrv(LengthVar uint) uintptr {
+
+	cret := xVariantGetStrv(x.GoPointer(), LengthVar)
+	return cret
+}
+
+var xVariantGetType func(uintptr) *VariantType
+
+// Determines the type of @value.
+//
+// The return value is valid for the lifetime of @value and must not
+// be freed.
+func (x *Variant) GetType() *VariantType {
+
+	cret := xVariantGetType(x.GoPointer())
+	return cret
+}
+
+var xVariantGetTypeString func(uintptr) string
+
+// Returns the type string of @value.  Unlike the result of calling
+// g_variant_type_peek_string(), this string is nul-terminated.  This
+// string belongs to #GVariant and must not be freed.
+func (x *Variant) GetTypeString() string {
+
+	cret := xVariantGetTypeString(x.GoPointer())
+	return cret
+}
+
+var xVariantGetUint16 func(uintptr) uint16
+
+// Returns the 16-bit unsigned integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_UINT16.
+func (x *Variant) GetUint16() uint16 {
+
+	cret := xVariantGetUint16(x.GoPointer())
+	return cret
+}
+
+var xVariantGetUint32 func(uintptr) uint32
+
+// Returns the 32-bit unsigned integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_UINT32.
+func (x *Variant) GetUint32() uint32 {
+
+	cret := xVariantGetUint32(x.GoPointer())
+	return cret
+}
+
+var xVariantGetUint64 func(uintptr) uint64
+
+// Returns the 64-bit unsigned integer value of @value.
+//
+// It is an error to call this function with a @value of any type
+// other than %G_VARIANT_TYPE_UINT64.
+func (x *Variant) GetUint64() uint64 {
+
+	cret := xVariantGetUint64(x.GoPointer())
+	return cret
+}
+
+var xVariantGetVa func(uintptr, string, string, []interface{})
+
+// This function is intended to be used by libraries based on #GVariant
+// that want to provide g_variant_get()-like functionality to their
+// users.
+//
+// The API is more general than g_variant_get() to allow a wider range
+// of possible uses.
+//
+// @format_string must still point to a valid format string, but it only
+// need to be nul-terminated if @endptr is %NULL.  If @endptr is
+// non-%NULL then it is updated to point to the first character past the
+// end of the format string.
+//
+// @app is a pointer to a #va_list.  The arguments, according to
+// @format_string, are collected from this #va_list and the list is left
+// pointing to the argument following the last.
+//
+// These two generalisations allow mixing of multiple calls to
+// g_variant_new_va() and g_variant_get_va() within a single actual
+// varargs call by the user.
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed,
+// see the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+func (x *Variant) GetVa(FormatStringVar string, EndptrVar string, AppVar []interface{}) {
+
+	xVariantGetVa(x.GoPointer(), FormatStringVar, EndptrVar, AppVar)
+
+}
+
+var xVariantGetVariant func(uintptr) *Variant
+
+// Unboxes @value.  The result is the #GVariant instance that was
+// contained in @value.
+func (x *Variant) GetVariant() *Variant {
+
+	cret := xVariantGetVariant(x.GoPointer())
+	return cret
+}
+
+var xVariantHash func(uintptr) uint
+
+// Generates a hash value for a #GVariant instance.
+//
+// The output of this function is guaranteed to be the same for a given
+// value only per-process.  It may change between different processor
+// architectures or even different versions of GLib.  Do not use this
+// function as a basis for building protocols or file formats.
+//
+// The type of @value is #gconstpointer only to allow use of this
+// function with #GHashTable.  @value must be a #GVariant.
+func (x *Variant) Hash() uint {
+
+	cret := xVariantHash(x.GoPointer())
+	return cret
+}
+
+var xVariantIsContainer func(uintptr) bool
+
+// Checks if @value is a container.
+func (x *Variant) IsContainer() bool {
+
+	cret := xVariantIsContainer(x.GoPointer())
+	return cret
+}
+
+var xVariantIsFloating func(uintptr) bool
+
+// Checks whether @value has a floating reference count.
+//
+// This function should only ever be used to assert that a given variant
+// is or is not floating, or for debug purposes. To acquire a reference
+// to a variant that might be floating, always use g_variant_ref_sink()
+// or g_variant_take_ref().
+//
+// See g_variant_ref_sink() for more information about floating reference
+// counts.
+func (x *Variant) IsFloating() bool {
+
+	cret := xVariantIsFloating(x.GoPointer())
+	return cret
+}
+
+var xVariantIsNormalForm func(uintptr) bool
+
+// Checks if @value is in normal form.
+//
+// The main reason to do this is to detect if a given chunk of
+// serialized data is in normal form: load the data into a #GVariant
+// using g_variant_new_from_data() and then use this function to
+// check.
+//
+// If @value is found to be in normal form then it will be marked as
+// being trusted.  If the value was already marked as being trusted then
+// this function will immediately return %TRUE.
+//
+// There may be implementation specific restrictions on deeply nested values.
+// GVariant is guaranteed to handle nesting up to at least 64 levels.
+func (x *Variant) IsNormalForm() bool {
+
+	cret := xVariantIsNormalForm(x.GoPointer())
+	return cret
+}
+
+var xVariantIsOfType func(uintptr, *VariantType) bool
+
+// Checks if a value has a type matching the provided type.
+func (x *Variant) IsOfType(TypeVar *VariantType) bool {
+
+	cret := xVariantIsOfType(x.GoPointer(), TypeVar)
+	return cret
+}
+
+var xVariantIterNew func(uintptr) *VariantIter
+
+// Creates a heap-allocated #GVariantIter for iterating over the items
+// in @value.
+//
+// Use g_variant_iter_free() to free the return value when you no longer
+// need it.
+//
+// A reference is taken to @value and will be released only when
+// g_variant_iter_free() is called.
+func (x *Variant) IterNew() *VariantIter {
+
+	cret := xVariantIterNew(x.GoPointer())
+	return cret
+}
+
+var xVariantLookup func(uintptr, string, string, ...interface{}) bool
+
+// Looks up a value in a dictionary #GVariant.
+//
+// This function is a wrapper around g_variant_lookup_value() and
+// g_variant_get().  In the case that %NULL would have been returned,
+// this function returns %FALSE.  Otherwise, it unpacks the returned
+// value and returns %TRUE.
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed,
+// see the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+//
+// This function is currently implemented with a linear scan.  If you
+// plan to do many lookups then #GVariantDict may be more efficient.
+func (x *Variant) Lookup(KeyVar string, FormatStringVar string, varArgs ...interface{}) bool {
+
+	cret := xVariantLookup(x.GoPointer(), KeyVar, FormatStringVar, varArgs...)
+	return cret
+}
+
+var xVariantLookupValue func(uintptr, string, *VariantType) *Variant
+
+// Looks up a value in a dictionary #GVariant.
+//
+// This function works with dictionaries of the type a{s*} (and equally
+// well with type a{o*}, but we only further discuss the string case
+// for sake of clarity).
+//
+// In the event that @dictionary has the type a{sv}, the @expected_type
+// string specifies what type of value is expected to be inside of the
+// variant. If the value inside the variant has a different type then
+// %NULL is returned. In the event that @dictionary has a value type other
+// than v then @expected_type must directly match the value type and it is
+// used to unpack the value directly or an error occurs.
+//
+// In either case, if @key is not found in @dictionary, %NULL is returned.
+//
+// If the key is found and the value has the correct type, it is
+// returned.  If @expected_type was specified then any non-%NULL return
+// value will have this type.
+//
+// This function is currently implemented with a linear scan.  If you
+// plan to do many lookups then #GVariantDict may be more efficient.
+func (x *Variant) LookupValue(KeyVar string, ExpectedTypeVar *VariantType) *Variant {
+
+	cret := xVariantLookupValue(x.GoPointer(), KeyVar, ExpectedTypeVar)
+	return cret
+}
+
+var xVariantNChildren func(uintptr) uint
+
+// Determines the number of children in a container #GVariant instance.
+// This includes variants, maybes, arrays, tuples and dictionary
+// entries.  It is an error to call this function on any other type of
+// #GVariant.
+//
+// For variants, the return value is always 1.  For values with maybe
+// types, it is always zero or one.  For arrays, it is the length of the
+// array.  For tuples it is the number of tuple items (which depends
+// only on the type).  For dictionary entries, it is always 2
+//
+// This function is O(1).
+func (x *Variant) NChildren() uint {
+
+	cret := xVariantNChildren(x.GoPointer())
+	return cret
+}
+
+var xVariantPrint func(uintptr, bool) string
+
+// Pretty-prints @value in the format understood by g_variant_parse().
+//
+// The format is described [here][gvariant-text].
+//
+// If @type_annotate is %TRUE, then type information is included in
+// the output.
+func (x *Variant) Print(TypeAnnotateVar bool) string {
+
+	cret := xVariantPrint(x.GoPointer(), TypeAnnotateVar)
+	return cret
+}
+
+var xVariantPrintString func(uintptr, *String, bool) *String
+
+// Behaves as g_variant_print(), but operates on a #GString.
+//
+// If @string is non-%NULL then it is appended to and returned.  Else,
+// a new empty #GString is allocated and it is returned.
+func (x *Variant) PrintString(StringVar *String, TypeAnnotateVar bool) *String {
+
+	cret := xVariantPrintString(x.GoPointer(), StringVar, TypeAnnotateVar)
+	return cret
+}
+
+var xVariantRef func(uintptr) *Variant
+
+// Increases the reference count of @value.
+func (x *Variant) Ref() *Variant {
+
+	cret := xVariantRef(x.GoPointer())
+	return cret
+}
+
+var xVariantRefSink func(uintptr) *Variant
+
+// #GVariant uses a floating reference count system.  All functions with
+// names starting with `g_variant_new_` return floating
+// references.
+//
+// Calling g_variant_ref_sink() on a #GVariant with a floating reference
+// will convert the floating reference into a full reference.  Calling
+// g_variant_ref_sink() on a non-floating #GVariant results in an
+// additional normal reference being added.
+//
+// In other words, if the @value is floating, then this call "assumes
+// ownership" of the floating reference, converting it to a normal
+// reference.  If the @value is not floating, then this call adds a
+// new normal reference increasing the reference count by one.
+//
+// All calls that result in a #GVariant instance being inserted into a
+// container will call g_variant_ref_sink() on the instance.  This means
+// that if the value was just created (and has only its floating
+// reference) then the container will assume sole ownership of the value
+// at that point and the caller will not need to unreference it.  This
+// makes certain common styles of programming much easier while still
+// maintaining normal refcounting semantics in situations where values
+// are not floating.
+func (x *Variant) RefSink() *Variant {
+
+	cret := xVariantRefSink(x.GoPointer())
+	return cret
+}
+
+var xVariantStore func(uintptr, uintptr)
+
+// Stores the serialized form of @value at @data.  @data should be
+// large enough.  See g_variant_get_size().
+//
+// The stored data is in machine native byte order but may not be in
+// fully-normalised form if read from an untrusted source.  See
+// g_variant_get_normal_form() for a solution.
+//
+// As with g_variant_get_data(), to be able to deserialize the
+// serialized variant successfully, its type and (if the destination
+// machine might be different) its endianness must also be available.
+//
+// This function is approximately O(n) in the size of @data.
+func (x *Variant) Store(DataVar uintptr) {
+
+	xVariantStore(x.GoPointer(), DataVar)
+
+}
+
+var xVariantTakeRef func(uintptr) *Variant
+
+// If @value is floating, sink it.  Otherwise, do nothing.
+//
+// Typically you want to use g_variant_ref_sink() in order to
+// automatically do the correct thing with respect to floating or
+// non-floating references, but there is one specific scenario where
+// this function is helpful.
+//
+// The situation where this function is helpful is when creating an API
+// that allows the user to provide a callback function that returns a
+// #GVariant.  We certainly want to allow the user the flexibility to
+// return a non-floating reference from this callback (for the case
+// where the value that is being returned already exists).
+//
+// At the same time, the style of the #GVariant API makes it likely that
+// for newly-created #GVariant instances, the user can be saved some
+// typing if they are allowed to return a #GVariant with a floating
+// reference.
+//
+// Using this function on the return value of the user's callback allows
+// the user to do whichever is more convenient for them.  The caller
+// will always receives exactly one full reference to the value: either
+// the one that was returned in the first place, or a floating reference
+// that has been converted to a full reference.
+//
+// This function has an odd interaction when combined with
+// g_variant_ref_sink() running at the same time in another thread on
+// the same #GVariant instance.  If g_variant_ref_sink() runs first then
+// the result will be that the floating reference is converted to a hard
+// reference.  If g_variant_take_ref() runs first then the result will
+// be that the floating reference is converted to a hard reference and
+// an additional reference on top of that one is added.  It is best to
+// avoid this situation.
+func (x *Variant) TakeRef() *Variant {
+
+	cret := xVariantTakeRef(x.GoPointer())
+	return cret
+}
+
+var xVariantUnref func(uintptr)
+
+// Decreases the reference count of @value.  When its reference count
+// drops to 0, the memory used by the variant is freed.
+func (x *Variant) Unref() {
+
+	xVariantUnref(x.GoPointer())
+
+}
+
 // A utility type for constructing container-type #GVariant instances.
 //
 // This is an opaque structure and may only be accessed using the
@@ -261,6 +1761,291 @@ type Variant struct {
 // #GVariantBuilder is not threadsafe in any way.  Do not attempt to
 // access it from more than one thread.
 type VariantBuilder struct {
+}
+
+func (x *VariantBuilder) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewVariantBuilder func(*VariantType) *VariantBuilder
+
+// Allocates and initialises a new #GVariantBuilder.
+//
+// You should call g_variant_builder_unref() on the return value when it
+// is no longer needed.  The memory will not be automatically freed by
+// any other call.
+//
+// In most cases it is easier to place a #GVariantBuilder directly on
+// the stack of the calling function and initialise it with
+// g_variant_builder_init().
+func NewVariantBuilder(TypeVar *VariantType) *VariantBuilder {
+
+	cret := xNewVariantBuilder(TypeVar)
+	return cret
+}
+
+var xVariantBuilderAdd func(uintptr, string, ...interface{})
+
+// Adds to a #GVariantBuilder.
+//
+// This call is a convenience wrapper that is exactly equivalent to
+// calling g_variant_new() followed by g_variant_builder_add_value().
+//
+// Note that the arguments must be of the correct width for their types
+// specified in @format_string. This can be achieved by casting them. See
+// the [GVariant varargs documentation][gvariant-varargs].
+//
+// This function might be used as follows:
+//
+// |[&lt;!-- language="C" --&gt;
+// GVariant *
+// make_pointless_dictionary (void)
+//
+//	{
+//	  GVariantBuilder builder;
+//	  int i;
+//
+//	  g_variant_builder_init (&amp;builder, G_VARIANT_TYPE_ARRAY);
+//	  for (i = 0; i &lt; 16; i++)
+//	    {
+//	      gchar buf[3];
+//
+//	      sprintf (buf, "%d", i);
+//	      g_variant_builder_add (&amp;builder, "{is}", i, buf);
+//	    }
+//
+//	  return g_variant_builder_end (&amp;builder);
+//	}
+//
+// ]|
+func (x *VariantBuilder) Add(FormatStringVar string, varArgs ...interface{}) {
+
+	xVariantBuilderAdd(x.GoPointer(), FormatStringVar, varArgs...)
+
+}
+
+var xVariantBuilderAddParsed func(uintptr, string, ...interface{})
+
+// Adds to a #GVariantBuilder.
+//
+// This call is a convenience wrapper that is exactly equivalent to
+// calling g_variant_new_parsed() followed by
+// g_variant_builder_add_value().
+//
+// Note that the arguments must be of the correct width for their types
+// specified in @format_string. This can be achieved by casting them. See
+// the [GVariant varargs documentation][gvariant-varargs].
+//
+// This function might be used as follows:
+//
+// |[&lt;!-- language="C" --&gt;
+// GVariant *
+// make_pointless_dictionary (void)
+//
+//	{
+//	  GVariantBuilder builder;
+//	  int i;
+//
+//	  g_variant_builder_init (&amp;builder, G_VARIANT_TYPE_ARRAY);
+//	  g_variant_builder_add_parsed (&amp;builder, "{'width', &lt;%i&gt;}", 600);
+//	  g_variant_builder_add_parsed (&amp;builder, "{'title', &lt;%s&gt;}", "foo");
+//	  g_variant_builder_add_parsed (&amp;builder, "{'transparency', &lt;0.5&gt;}");
+//	  return g_variant_builder_end (&amp;builder);
+//	}
+//
+// ]|
+func (x *VariantBuilder) AddParsed(FormatVar string, varArgs ...interface{}) {
+
+	xVariantBuilderAddParsed(x.GoPointer(), FormatVar, varArgs...)
+
+}
+
+var xVariantBuilderAddValue func(uintptr, *Variant)
+
+// Adds @value to @builder.
+//
+// It is an error to call this function in any way that would create an
+// inconsistent value to be constructed.  Some examples of this are
+// putting different types of items into an array, putting the wrong
+// types or number of items in a tuple, putting more than one value into
+// a variant, etc.
+//
+// If @value is a floating reference (see g_variant_ref_sink()),
+// the @builder instance takes ownership of @value.
+func (x *VariantBuilder) AddValue(ValueVar *Variant) {
+
+	xVariantBuilderAddValue(x.GoPointer(), ValueVar)
+
+}
+
+var xVariantBuilderClear func(uintptr)
+
+// Releases all memory associated with a #GVariantBuilder without
+// freeing the #GVariantBuilder structure itself.
+//
+// It typically only makes sense to do this on a stack-allocated
+// #GVariantBuilder if you want to abort building the value part-way
+// through.  This function need not be called if you call
+// g_variant_builder_end() and it also doesn't need to be called on
+// builders allocated with g_variant_builder_new() (see
+// g_variant_builder_unref() for that).
+//
+// This function leaves the #GVariantBuilder structure set to all-zeros.
+// It is valid to call this function on either an initialised
+// #GVariantBuilder or one that is set to all-zeros but it is not valid
+// to call this function on uninitialised memory.
+func (x *VariantBuilder) Clear() {
+
+	xVariantBuilderClear(x.GoPointer())
+
+}
+
+var xVariantBuilderClose func(uintptr)
+
+// Closes the subcontainer inside the given @builder that was opened by
+// the most recent call to g_variant_builder_open().
+//
+// It is an error to call this function in any way that would create an
+// inconsistent value to be constructed (ie: too few values added to the
+// subcontainer).
+func (x *VariantBuilder) Close() {
+
+	xVariantBuilderClose(x.GoPointer())
+
+}
+
+var xVariantBuilderEnd func(uintptr) *Variant
+
+// Ends the builder process and returns the constructed value.
+//
+// It is not permissible to use @builder in any way after this call
+// except for reference counting operations (in the case of a
+// heap-allocated #GVariantBuilder) or by reinitialising it with
+// g_variant_builder_init() (in the case of stack-allocated). This
+// means that for the stack-allocated builders there is no need to
+// call g_variant_builder_clear() after the call to
+// g_variant_builder_end().
+//
+// It is an error to call this function in any way that would create an
+// inconsistent value to be constructed (ie: insufficient number of
+// items added to a container with a specific number of children
+// required).  It is also an error to call this function if the builder
+// was created with an indefinite array or maybe type and no children
+// have been added; in this case it is impossible to infer the type of
+// the empty array.
+func (x *VariantBuilder) End() *Variant {
+
+	cret := xVariantBuilderEnd(x.GoPointer())
+	return cret
+}
+
+var xVariantBuilderInit func(uintptr, *VariantType)
+
+// Initialises a #GVariantBuilder structure.
+//
+// @type must be non-%NULL.  It specifies the type of container to
+// construct.  It can be an indefinite type such as
+// %G_VARIANT_TYPE_ARRAY or a definite type such as "as" or "(ii)".
+// Maybe, array, tuple, dictionary entry and variant-typed values may be
+// constructed.
+//
+// After the builder is initialised, values are added using
+// g_variant_builder_add_value() or g_variant_builder_add().
+//
+// After all the child values are added, g_variant_builder_end() frees
+// the memory associated with the builder and returns the #GVariant that
+// was created.
+//
+// This function completely ignores the previous contents of @builder.
+// On one hand this means that it is valid to pass in completely
+// uninitialised memory.  On the other hand, this means that if you are
+// initialising over top of an existing #GVariantBuilder you need to
+// first call g_variant_builder_clear() in order to avoid leaking
+// memory.
+//
+// You must not call g_variant_builder_ref() or
+// g_variant_builder_unref() on a #GVariantBuilder that was initialised
+// with this function.  If you ever pass a reference to a
+// #GVariantBuilder outside of the control of your own code then you
+// should assume that the person receiving that reference may try to use
+// reference counting; you should use g_variant_builder_new() instead of
+// this function.
+func (x *VariantBuilder) Init(TypeVar *VariantType) {
+
+	xVariantBuilderInit(x.GoPointer(), TypeVar)
+
+}
+
+var xVariantBuilderOpen func(uintptr, *VariantType)
+
+// Opens a subcontainer inside the given @builder.  When done adding
+// items to the subcontainer, g_variant_builder_close() must be called. @type
+// is the type of the container: so to build a tuple of several values, @type
+// must include the tuple itself.
+//
+// It is an error to call this function in any way that would cause an
+// inconsistent value to be constructed (ie: adding too many values or
+// a value of an incorrect type).
+//
+// Example of building a nested variant:
+// |[&lt;!-- language="C" --&gt;
+// GVariantBuilder builder;
+// guint32 some_number = get_number ();
+// g_autoptr (GHashTable) some_dict = get_dict ();
+// GHashTableIter iter;
+// const gchar *key;
+// const GVariant *value;
+// g_autoptr (GVariant) output = NULL;
+//
+// g_variant_builder_init (&amp;builder, G_VARIANT_TYPE ("(ua{sv})"));
+// g_variant_builder_add (&amp;builder, "u", some_number);
+// g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("a{sv}"));
+//
+// g_hash_table_iter_init (&amp;iter, some_dict);
+// while (g_hash_table_iter_next (&amp;iter, (gpointer *) &amp;key, (gpointer *) &amp;value))
+//
+//	{
+//	  g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("{sv}"));
+//	  g_variant_builder_add (&amp;builder, "s", key);
+//	  g_variant_builder_add (&amp;builder, "v", value);
+//	  g_variant_builder_close (&amp;builder);
+//	}
+//
+// g_variant_builder_close (&amp;builder);
+//
+// output = g_variant_builder_end (&amp;builder);
+// ]|
+func (x *VariantBuilder) Open(TypeVar *VariantType) {
+
+	xVariantBuilderOpen(x.GoPointer(), TypeVar)
+
+}
+
+var xVariantBuilderRef func(uintptr) *VariantBuilder
+
+// Increases the reference count on @builder.
+//
+// Don't call this on stack-allocated #GVariantBuilder instances or bad
+// things will happen.
+func (x *VariantBuilder) Ref() *VariantBuilder {
+
+	cret := xVariantBuilderRef(x.GoPointer())
+	return cret
+}
+
+var xVariantBuilderUnref func(uintptr)
+
+// Decreases the reference count on @builder.
+//
+// In the event that there are no more references, releases all memory
+// associated with the #GVariantBuilder.
+//
+// Don't call this on stack-allocated #GVariantBuilder instances or bad
+// things will happen.
+func (x *VariantBuilder) Unref() {
+
+	xVariantBuilderUnref(x.GoPointer())
+
 }
 
 // #GVariantDict is a mutable interface to #GVariant dictionaries.
@@ -359,10 +2144,418 @@ type VariantBuilder struct {
 type VariantDict struct {
 }
 
+func (x *VariantDict) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewVariantDict func(*Variant) *VariantDict
+
+// Allocates and initialises a new #GVariantDict.
+//
+// You should call g_variant_dict_unref() on the return value when it
+// is no longer needed.  The memory will not be automatically freed by
+// any other call.
+//
+// In some cases it may be easier to place a #GVariantDict directly on
+// the stack of the calling function and initialise it with
+// g_variant_dict_init().  This is particularly useful when you are
+// using #GVariantDict to construct a #GVariant.
+func NewVariantDict(FromAsvVar *Variant) *VariantDict {
+
+	cret := xNewVariantDict(FromAsvVar)
+	return cret
+}
+
+var xVariantDictClear func(uintptr)
+
+// Releases all memory associated with a #GVariantDict without freeing
+// the #GVariantDict structure itself.
+//
+// It typically only makes sense to do this on a stack-allocated
+// #GVariantDict if you want to abort building the value part-way
+// through.  This function need not be called if you call
+// g_variant_dict_end() and it also doesn't need to be called on dicts
+// allocated with g_variant_dict_new (see g_variant_dict_unref() for
+// that).
+//
+// It is valid to call this function on either an initialised
+// #GVariantDict or one that was previously cleared by an earlier call
+// to g_variant_dict_clear() but it is not valid to call this function
+// on uninitialised memory.
+func (x *VariantDict) Clear() {
+
+	xVariantDictClear(x.GoPointer())
+
+}
+
+var xVariantDictContains func(uintptr, string) bool
+
+// Checks if @key exists in @dict.
+func (x *VariantDict) Contains(KeyVar string) bool {
+
+	cret := xVariantDictContains(x.GoPointer(), KeyVar)
+	return cret
+}
+
+var xVariantDictEnd func(uintptr) *Variant
+
+// Returns the current value of @dict as a #GVariant of type
+// %G_VARIANT_TYPE_VARDICT, clearing it in the process.
+//
+// It is not permissible to use @dict in any way after this call except
+// for reference counting operations (in the case of a heap-allocated
+// #GVariantDict) or by reinitialising it with g_variant_dict_init() (in
+// the case of stack-allocated).
+func (x *VariantDict) End() *Variant {
+
+	cret := xVariantDictEnd(x.GoPointer())
+	return cret
+}
+
+var xVariantDictInit func(uintptr, *Variant)
+
+// Initialises a #GVariantDict structure.
+//
+// If @from_asv is given, it is used to initialise the dictionary.
+//
+// This function completely ignores the previous contents of @dict.  On
+// one hand this means that it is valid to pass in completely
+// uninitialised memory.  On the other hand, this means that if you are
+// initialising over top of an existing #GVariantDict you need to first
+// call g_variant_dict_clear() in order to avoid leaking memory.
+//
+// You must not call g_variant_dict_ref() or g_variant_dict_unref() on a
+// #GVariantDict that was initialised with this function.  If you ever
+// pass a reference to a #GVariantDict outside of the control of your
+// own code then you should assume that the person receiving that
+// reference may try to use reference counting; you should use
+// g_variant_dict_new() instead of this function.
+func (x *VariantDict) Init(FromAsvVar *Variant) {
+
+	xVariantDictInit(x.GoPointer(), FromAsvVar)
+
+}
+
+var xVariantDictInsert func(uintptr, string, string, ...interface{})
+
+// Inserts a value into a #GVariantDict.
+//
+// This call is a convenience wrapper that is exactly equivalent to
+// calling g_variant_new() followed by g_variant_dict_insert_value().
+func (x *VariantDict) Insert(KeyVar string, FormatStringVar string, varArgs ...interface{}) {
+
+	xVariantDictInsert(x.GoPointer(), KeyVar, FormatStringVar, varArgs...)
+
+}
+
+var xVariantDictInsertValue func(uintptr, string, *Variant)
+
+// Inserts (or replaces) a key in a #GVariantDict.
+//
+// @value is consumed if it is floating.
+func (x *VariantDict) InsertValue(KeyVar string, ValueVar *Variant) {
+
+	xVariantDictInsertValue(x.GoPointer(), KeyVar, ValueVar)
+
+}
+
+var xVariantDictLookup func(uintptr, string, string, ...interface{}) bool
+
+// Looks up a value in a #GVariantDict.
+//
+// This function is a wrapper around g_variant_dict_lookup_value() and
+// g_variant_get().  In the case that %NULL would have been returned,
+// this function returns %FALSE.  Otherwise, it unpacks the returned
+// value and returns %TRUE.
+//
+// @format_string determines the C types that are used for unpacking the
+// values and also determines if the values are copied or borrowed, see the
+// section on [GVariant format strings][gvariant-format-strings-pointers].
+func (x *VariantDict) Lookup(KeyVar string, FormatStringVar string, varArgs ...interface{}) bool {
+
+	cret := xVariantDictLookup(x.GoPointer(), KeyVar, FormatStringVar, varArgs...)
+	return cret
+}
+
+var xVariantDictLookupValue func(uintptr, string, *VariantType) *Variant
+
+// Looks up a value in a #GVariantDict.
+//
+// If @key is not found in @dictionary, %NULL is returned.
+//
+// The @expected_type string specifies what type of value is expected.
+// If the value associated with @key has a different type then %NULL is
+// returned.
+//
+// If the key is found and the value has the correct type, it is
+// returned.  If @expected_type was specified then any non-%NULL return
+// value will have this type.
+func (x *VariantDict) LookupValue(KeyVar string, ExpectedTypeVar *VariantType) *Variant {
+
+	cret := xVariantDictLookupValue(x.GoPointer(), KeyVar, ExpectedTypeVar)
+	return cret
+}
+
+var xVariantDictRef func(uintptr) *VariantDict
+
+// Increases the reference count on @dict.
+//
+// Don't call this on stack-allocated #GVariantDict instances or bad
+// things will happen.
+func (x *VariantDict) Ref() *VariantDict {
+
+	cret := xVariantDictRef(x.GoPointer())
+	return cret
+}
+
+var xVariantDictRemove func(uintptr, string) bool
+
+// Removes a key and its associated value from a #GVariantDict.
+func (x *VariantDict) Remove(KeyVar string) bool {
+
+	cret := xVariantDictRemove(x.GoPointer(), KeyVar)
+	return cret
+}
+
+var xVariantDictUnref func(uintptr)
+
+// Decreases the reference count on @dict.
+//
+// In the event that there are no more references, releases all memory
+// associated with the #GVariantDict.
+//
+// Don't call this on stack-allocated #GVariantDict instances or bad
+// things will happen.
+func (x *VariantDict) Unref() {
+
+	xVariantDictUnref(x.GoPointer())
+
+}
+
 // #GVariantIter is an opaque data structure and can only be accessed
 // using the following functions.
 type VariantIter struct {
 	X uintptr
+}
+
+func (x *VariantIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xVariantIterCopy func(uintptr) *VariantIter
+
+// Creates a new heap-allocated #GVariantIter to iterate over the
+// container that was being iterated over by @iter.  Iteration begins on
+// the new iterator from the current position of the old iterator but
+// the two copies are independent past that point.
+//
+// Use g_variant_iter_free() to free the return value when you no longer
+// need it.
+//
+// A reference is taken to the container that @iter is iterating over
+// and will be related only when g_variant_iter_free() is called.
+func (x *VariantIter) Copy() *VariantIter {
+
+	cret := xVariantIterCopy(x.GoPointer())
+	return cret
+}
+
+var xVariantIterFree func(uintptr)
+
+// Frees a heap-allocated #GVariantIter.  Only call this function on
+// iterators that were returned by g_variant_iter_new() or
+// g_variant_iter_copy().
+func (x *VariantIter) Free() {
+
+	xVariantIterFree(x.GoPointer())
+
+}
+
+var xVariantIterInit func(uintptr, *Variant) uint
+
+// Initialises (without allocating) a #GVariantIter.  @iter may be
+// completely uninitialised prior to this call; its old value is
+// ignored.
+//
+// The iterator remains valid for as long as @value exists, and need not
+// be freed in any way.
+func (x *VariantIter) Init(ValueVar *Variant) uint {
+
+	cret := xVariantIterInit(x.GoPointer(), ValueVar)
+	return cret
+}
+
+var xVariantIterLoop func(uintptr, string, ...interface{}) bool
+
+// Gets the next item in the container and unpacks it into the variable
+// argument list according to @format_string, returning %TRUE.
+//
+// If no more items remain then %FALSE is returned.
+//
+// On the first call to this function, the pointers appearing on the
+// variable argument list are assumed to point at uninitialised memory.
+// On the second and later calls, it is assumed that the same pointers
+// will be given and that they will point to the memory as set by the
+// previous call to this function.  This allows the previous values to
+// be freed, as appropriate.
+//
+// This function is intended to be used with a while loop as
+// demonstrated in the following example.  This function can only be
+// used when iterating over an array.  It is only valid to call this
+// function with a string constant for the format string and the same
+// string constant must be used each time.  Mixing calls to this
+// function and g_variant_iter_next() or g_variant_iter_next_value() on
+// the same iterator causes undefined behavior.
+//
+// If you break out of a such a while loop using g_variant_iter_loop() then
+// you must free or unreference all the unpacked values as you would with
+// g_variant_get(). Failure to do so will cause a memory leak.
+//
+// Here is an example for memory management with g_variant_iter_loop():
+// |[&lt;!-- language="C" --&gt;
+//
+//	// Iterates a dictionary of type 'a{sv}'
+//	void
+//	iterate_dictionary (GVariant *dictionary)
+//	{
+//	  GVariantIter iter;
+//	  GVariant *value;
+//	  gchar *key;
+//
+//	  g_variant_iter_init (&amp;iter, dictionary);
+//	  while (g_variant_iter_loop (&amp;iter, "{sv}", &amp;key, &amp;value))
+//	    {
+//	      g_print ("Item '%s' has type '%s'\n", key,
+//	               g_variant_get_type_string (value));
+//
+//	      // no need to free 'key' and 'value' here
+//	      // unless breaking out of this loop
+//	    }
+//	}
+//
+// ]|
+//
+// For most cases you should use g_variant_iter_next().
+//
+// This function is really only useful when unpacking into #GVariant or
+// #GVariantIter in order to allow you to skip the call to
+// g_variant_unref() or g_variant_iter_free().
+//
+// For example, if you are only looping over simple integer and string
+// types, g_variant_iter_next() is definitely preferred.  For string
+// types, use the '&amp;' prefix to avoid allocating any memory at all (and
+// thereby avoiding the need to free anything as well).
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed.
+//
+// See the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+func (x *VariantIter) Loop(FormatStringVar string, varArgs ...interface{}) bool {
+
+	cret := xVariantIterLoop(x.GoPointer(), FormatStringVar, varArgs...)
+	return cret
+}
+
+var xVariantIterNChildren func(uintptr) uint
+
+// Queries the number of child items in the container that we are
+// iterating over.  This is the total number of items -- not the number
+// of items remaining.
+//
+// This function might be useful for preallocation of arrays.
+func (x *VariantIter) NChildren() uint {
+
+	cret := xVariantIterNChildren(x.GoPointer())
+	return cret
+}
+
+var xVariantIterNext func(uintptr, string, ...interface{}) bool
+
+// Gets the next item in the container and unpacks it into the variable
+// argument list according to @format_string, returning %TRUE.
+//
+// If no more items remain then %FALSE is returned.
+//
+// All of the pointers given on the variable arguments list of this
+// function are assumed to point at uninitialised memory.  It is the
+// responsibility of the caller to free all of the values returned by
+// the unpacking process.
+//
+// Here is an example for memory management with g_variant_iter_next():
+// |[&lt;!-- language="C" --&gt;
+//
+//	// Iterates a dictionary of type 'a{sv}'
+//	void
+//	iterate_dictionary (GVariant *dictionary)
+//	{
+//	  GVariantIter iter;
+//	  GVariant *value;
+//	  gchar *key;
+//
+//	  g_variant_iter_init (&amp;iter, dictionary);
+//	  while (g_variant_iter_next (&amp;iter, "{sv}", &amp;key, &amp;value))
+//	    {
+//	      g_print ("Item '%s' has type '%s'\n", key,
+//	               g_variant_get_type_string (value));
+//
+//	      // must free data for ourselves
+//	      g_variant_unref (value);
+//	      g_free (key);
+//	    }
+//	}
+//
+// ]|
+//
+// For a solution that is likely to be more convenient to C programmers
+// when dealing with loops, see g_variant_iter_loop().
+//
+// @format_string determines the C types that are used for unpacking
+// the values and also determines if the values are copied or borrowed.
+//
+// See the section on
+// [GVariant format strings][gvariant-format-strings-pointers].
+func (x *VariantIter) Next(FormatStringVar string, varArgs ...interface{}) bool {
+
+	cret := xVariantIterNext(x.GoPointer(), FormatStringVar, varArgs...)
+	return cret
+}
+
+var xVariantIterNextValue func(uintptr) *Variant
+
+// Gets the next item in the container.  If no more items remain then
+// %NULL is returned.
+//
+// Use g_variant_unref() to drop your reference on the return value when
+// you no longer need it.
+//
+// Here is an example for iterating with g_variant_iter_next_value():
+// |[&lt;!-- language="C" --&gt;
+//
+//	// recursively iterate a container
+//	void
+//	iterate_container_recursive (GVariant *container)
+//	{
+//	  GVariantIter iter;
+//	  GVariant *child;
+//
+//	  g_variant_iter_init (&amp;iter, container);
+//	  while ((child = g_variant_iter_next_value (&amp;iter)))
+//	    {
+//	      g_print ("type '%s'\n", g_variant_get_type_string (child));
+//
+//	      if (g_variant_is_container (child))
+//	        iterate_container_recursive (child);
+//
+//	      g_variant_unref (child);
+//	    }
+//	}
+//
+// ]|
+func (x *VariantIter) NextValue() *Variant {
+
+	cret := xVariantIterNextValue(x.GoPointer())
+	return cret
 }
 
 // The range of possible top-level types of #GVariant instances.
@@ -583,5 +2776,127 @@ func init() {
 	core.PuregoSafeRegister(&xVariantIsSignature, lib, "g_variant_is_signature")
 	core.PuregoSafeRegister(&xVariantParse, lib, "g_variant_parse")
 	core.PuregoSafeRegister(&xVariantParseErrorPrintContext, lib, "g_variant_parse_error_print_context")
+
+	core.PuregoSafeRegister(&xNewVariant, lib, "g_variant_new")
+	core.PuregoSafeRegister(&xNewArrayVariant, lib, "g_variant_new_array")
+	core.PuregoSafeRegister(&xNewBooleanVariant, lib, "g_variant_new_boolean")
+	core.PuregoSafeRegister(&xNewByteVariant, lib, "g_variant_new_byte")
+	core.PuregoSafeRegister(&xNewBytestringVariant, lib, "g_variant_new_bytestring")
+	core.PuregoSafeRegister(&xNewBytestringArrayVariant, lib, "g_variant_new_bytestring_array")
+	core.PuregoSafeRegister(&xNewDictEntryVariant, lib, "g_variant_new_dict_entry")
+	core.PuregoSafeRegister(&xNewDoubleVariant, lib, "g_variant_new_double")
+	core.PuregoSafeRegister(&xNewFixedArrayVariant, lib, "g_variant_new_fixed_array")
+	core.PuregoSafeRegister(&xNewFromBytesVariant, lib, "g_variant_new_from_bytes")
+	core.PuregoSafeRegister(&xNewFromDataVariant, lib, "g_variant_new_from_data")
+	core.PuregoSafeRegister(&xNewHandleVariant, lib, "g_variant_new_handle")
+	core.PuregoSafeRegister(&xNewInt16Variant, lib, "g_variant_new_int16")
+	core.PuregoSafeRegister(&xNewInt32Variant, lib, "g_variant_new_int32")
+	core.PuregoSafeRegister(&xNewInt64Variant, lib, "g_variant_new_int64")
+	core.PuregoSafeRegister(&xNewMaybeVariant, lib, "g_variant_new_maybe")
+	core.PuregoSafeRegister(&xNewObjectPathVariant, lib, "g_variant_new_object_path")
+	core.PuregoSafeRegister(&xNewObjvVariant, lib, "g_variant_new_objv")
+	core.PuregoSafeRegister(&xNewParsedVariant, lib, "g_variant_new_parsed")
+	core.PuregoSafeRegister(&xNewParsedVaVariant, lib, "g_variant_new_parsed_va")
+	core.PuregoSafeRegister(&xNewPrintfVariant, lib, "g_variant_new_printf")
+	core.PuregoSafeRegister(&xNewSignatureVariant, lib, "g_variant_new_signature")
+	core.PuregoSafeRegister(&xNewStringVariant, lib, "g_variant_new_string")
+	core.PuregoSafeRegister(&xNewStrvVariant, lib, "g_variant_new_strv")
+	core.PuregoSafeRegister(&xNewTakeStringVariant, lib, "g_variant_new_take_string")
+	core.PuregoSafeRegister(&xNewTupleVariant, lib, "g_variant_new_tuple")
+	core.PuregoSafeRegister(&xNewUint16Variant, lib, "g_variant_new_uint16")
+	core.PuregoSafeRegister(&xNewUint32Variant, lib, "g_variant_new_uint32")
+	core.PuregoSafeRegister(&xNewUint64Variant, lib, "g_variant_new_uint64")
+	core.PuregoSafeRegister(&xNewVaVariant, lib, "g_variant_new_va")
+	core.PuregoSafeRegister(&xNewVariantVariant, lib, "g_variant_new_variant")
+
+	core.PuregoSafeRegister(&xVariantByteswap, lib, "g_variant_byteswap")
+	core.PuregoSafeRegister(&xVariantCheckFormatString, lib, "g_variant_check_format_string")
+	core.PuregoSafeRegister(&xVariantClassify, lib, "g_variant_classify")
+	core.PuregoSafeRegister(&xVariantCompare, lib, "g_variant_compare")
+	core.PuregoSafeRegister(&xVariantDupBytestring, lib, "g_variant_dup_bytestring")
+	core.PuregoSafeRegister(&xVariantDupBytestringArray, lib, "g_variant_dup_bytestring_array")
+	core.PuregoSafeRegister(&xVariantDupObjv, lib, "g_variant_dup_objv")
+	core.PuregoSafeRegister(&xVariantDupString, lib, "g_variant_dup_string")
+	core.PuregoSafeRegister(&xVariantDupStrv, lib, "g_variant_dup_strv")
+	core.PuregoSafeRegister(&xVariantEqual, lib, "g_variant_equal")
+	core.PuregoSafeRegister(&xVariantGet, lib, "g_variant_get")
+	core.PuregoSafeRegister(&xVariantGetBoolean, lib, "g_variant_get_boolean")
+	core.PuregoSafeRegister(&xVariantGetByte, lib, "g_variant_get_byte")
+	core.PuregoSafeRegister(&xVariantGetBytestring, lib, "g_variant_get_bytestring")
+	core.PuregoSafeRegister(&xVariantGetBytestringArray, lib, "g_variant_get_bytestring_array")
+	core.PuregoSafeRegister(&xVariantGetChild, lib, "g_variant_get_child")
+	core.PuregoSafeRegister(&xVariantGetChildValue, lib, "g_variant_get_child_value")
+	core.PuregoSafeRegister(&xVariantGetData, lib, "g_variant_get_data")
+	core.PuregoSafeRegister(&xVariantGetDataAsBytes, lib, "g_variant_get_data_as_bytes")
+	core.PuregoSafeRegister(&xVariantGetDouble, lib, "g_variant_get_double")
+	core.PuregoSafeRegister(&xVariantGetFixedArray, lib, "g_variant_get_fixed_array")
+	core.PuregoSafeRegister(&xVariantGetHandle, lib, "g_variant_get_handle")
+	core.PuregoSafeRegister(&xVariantGetInt16, lib, "g_variant_get_int16")
+	core.PuregoSafeRegister(&xVariantGetInt32, lib, "g_variant_get_int32")
+	core.PuregoSafeRegister(&xVariantGetInt64, lib, "g_variant_get_int64")
+	core.PuregoSafeRegister(&xVariantGetMaybe, lib, "g_variant_get_maybe")
+	core.PuregoSafeRegister(&xVariantGetNormalForm, lib, "g_variant_get_normal_form")
+	core.PuregoSafeRegister(&xVariantGetObjv, lib, "g_variant_get_objv")
+	core.PuregoSafeRegister(&xVariantGetSize, lib, "g_variant_get_size")
+	core.PuregoSafeRegister(&xVariantGetString, lib, "g_variant_get_string")
+	core.PuregoSafeRegister(&xVariantGetStrv, lib, "g_variant_get_strv")
+	core.PuregoSafeRegister(&xVariantGetType, lib, "g_variant_get_type")
+	core.PuregoSafeRegister(&xVariantGetTypeString, lib, "g_variant_get_type_string")
+	core.PuregoSafeRegister(&xVariantGetUint16, lib, "g_variant_get_uint16")
+	core.PuregoSafeRegister(&xVariantGetUint32, lib, "g_variant_get_uint32")
+	core.PuregoSafeRegister(&xVariantGetUint64, lib, "g_variant_get_uint64")
+	core.PuregoSafeRegister(&xVariantGetVa, lib, "g_variant_get_va")
+	core.PuregoSafeRegister(&xVariantGetVariant, lib, "g_variant_get_variant")
+	core.PuregoSafeRegister(&xVariantHash, lib, "g_variant_hash")
+	core.PuregoSafeRegister(&xVariantIsContainer, lib, "g_variant_is_container")
+	core.PuregoSafeRegister(&xVariantIsFloating, lib, "g_variant_is_floating")
+	core.PuregoSafeRegister(&xVariantIsNormalForm, lib, "g_variant_is_normal_form")
+	core.PuregoSafeRegister(&xVariantIsOfType, lib, "g_variant_is_of_type")
+	core.PuregoSafeRegister(&xVariantIterNew, lib, "g_variant_iter_new")
+	core.PuregoSafeRegister(&xVariantLookup, lib, "g_variant_lookup")
+	core.PuregoSafeRegister(&xVariantLookupValue, lib, "g_variant_lookup_value")
+	core.PuregoSafeRegister(&xVariantNChildren, lib, "g_variant_n_children")
+	core.PuregoSafeRegister(&xVariantPrint, lib, "g_variant_print")
+	core.PuregoSafeRegister(&xVariantPrintString, lib, "g_variant_print_string")
+	core.PuregoSafeRegister(&xVariantRef, lib, "g_variant_ref")
+	core.PuregoSafeRegister(&xVariantRefSink, lib, "g_variant_ref_sink")
+	core.PuregoSafeRegister(&xVariantStore, lib, "g_variant_store")
+	core.PuregoSafeRegister(&xVariantTakeRef, lib, "g_variant_take_ref")
+	core.PuregoSafeRegister(&xVariantUnref, lib, "g_variant_unref")
+
+	core.PuregoSafeRegister(&xNewVariantBuilder, lib, "g_variant_builder_new")
+
+	core.PuregoSafeRegister(&xVariantBuilderAdd, lib, "g_variant_builder_add")
+	core.PuregoSafeRegister(&xVariantBuilderAddParsed, lib, "g_variant_builder_add_parsed")
+	core.PuregoSafeRegister(&xVariantBuilderAddValue, lib, "g_variant_builder_add_value")
+	core.PuregoSafeRegister(&xVariantBuilderClear, lib, "g_variant_builder_clear")
+	core.PuregoSafeRegister(&xVariantBuilderClose, lib, "g_variant_builder_close")
+	core.PuregoSafeRegister(&xVariantBuilderEnd, lib, "g_variant_builder_end")
+	core.PuregoSafeRegister(&xVariantBuilderInit, lib, "g_variant_builder_init")
+	core.PuregoSafeRegister(&xVariantBuilderOpen, lib, "g_variant_builder_open")
+	core.PuregoSafeRegister(&xVariantBuilderRef, lib, "g_variant_builder_ref")
+	core.PuregoSafeRegister(&xVariantBuilderUnref, lib, "g_variant_builder_unref")
+
+	core.PuregoSafeRegister(&xNewVariantDict, lib, "g_variant_dict_new")
+
+	core.PuregoSafeRegister(&xVariantDictClear, lib, "g_variant_dict_clear")
+	core.PuregoSafeRegister(&xVariantDictContains, lib, "g_variant_dict_contains")
+	core.PuregoSafeRegister(&xVariantDictEnd, lib, "g_variant_dict_end")
+	core.PuregoSafeRegister(&xVariantDictInit, lib, "g_variant_dict_init")
+	core.PuregoSafeRegister(&xVariantDictInsert, lib, "g_variant_dict_insert")
+	core.PuregoSafeRegister(&xVariantDictInsertValue, lib, "g_variant_dict_insert_value")
+	core.PuregoSafeRegister(&xVariantDictLookup, lib, "g_variant_dict_lookup")
+	core.PuregoSafeRegister(&xVariantDictLookupValue, lib, "g_variant_dict_lookup_value")
+	core.PuregoSafeRegister(&xVariantDictRef, lib, "g_variant_dict_ref")
+	core.PuregoSafeRegister(&xVariantDictRemove, lib, "g_variant_dict_remove")
+	core.PuregoSafeRegister(&xVariantDictUnref, lib, "g_variant_dict_unref")
+
+	core.PuregoSafeRegister(&xVariantIterCopy, lib, "g_variant_iter_copy")
+	core.PuregoSafeRegister(&xVariantIterFree, lib, "g_variant_iter_free")
+	core.PuregoSafeRegister(&xVariantIterInit, lib, "g_variant_iter_init")
+	core.PuregoSafeRegister(&xVariantIterLoop, lib, "g_variant_iter_loop")
+	core.PuregoSafeRegister(&xVariantIterNChildren, lib, "g_variant_iter_n_children")
+	core.PuregoSafeRegister(&xVariantIterNext, lib, "g_variant_iter_next")
+	core.PuregoSafeRegister(&xVariantIterNextValue, lib, "g_variant_iter_next_value")
 
 }

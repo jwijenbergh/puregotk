@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -11,6 +13,10 @@ import (
 
 type AvatarClass struct {
 	ParentClass uintptr
+}
+
+func (x *AvatarClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A widget displaying an image, with a generated fallback.

@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -12,6 +14,10 @@ import (
 
 type SplitButtonClass struct {
 	ParentClass uintptr
+}
+
+func (x *SplitButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A combined button and dropdown widget.

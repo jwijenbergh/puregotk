@@ -2,12 +2,18 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 type ToplevelInterface struct {
+}
+
+func (x *ToplevelInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GdkToplevel` is a freestanding toplevel surface.

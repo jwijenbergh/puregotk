@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -17,7 +19,15 @@ type DBusInterfaceSkeletonClass struct {
 	SignalPadding uintptr
 }
 
+func (x *DBusInterfaceSkeletonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type DBusInterfaceSkeletonPrivate struct {
+}
+
+func (x *DBusInterfaceSkeletonPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Abstract base class for D-Bus interfaces on the service side.

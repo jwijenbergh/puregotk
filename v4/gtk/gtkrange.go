@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,6 +14,10 @@ type RangeClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *RangeClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkRange` is the common base class for widgets which visualize an

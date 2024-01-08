@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -13,13 +15,127 @@ type BuildableIface struct {
 	GIface uintptr
 }
 
+func (x *BuildableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // An opaque context struct for `GtkBuildableParser`.
 type BuildableParseContext struct {
+}
+
+func (x *BuildableParseContext) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xBuildableParseContextGetElement func(uintptr) string
+
+// Retrieves the name of the currently open element.
+//
+// If called from the start_element or end_element handlers this will
+// give the element_name as passed to those functions. For the parent
+// elements, see gtk_buildable_parse_context_get_element_stack().
+func (x *BuildableParseContext) GetElement() string {
+
+	cret := xBuildableParseContextGetElement(x.GoPointer())
+	return cret
+}
+
+var xBuildableParseContextGetElementStack func(uintptr) uintptr
+
+// Retrieves the element stack from the internal state of the parser.
+//
+// The returned `GPtrArray` is an array of strings where the last item is
+// the currently open tag (as would be returned by
+// gtk_buildable_parse_context_get_element()) and the previous item is its
+// immediate parent.
+//
+// This function is intended to be used in the start_element and
+// end_element handlers where gtk_buildable_parse_context_get_element()
+// would merely return the name of the element that is being
+// processed.
+func (x *BuildableParseContext) GetElementStack() uintptr {
+
+	cret := xBuildableParseContextGetElementStack(x.GoPointer())
+	return cret
+}
+
+var xBuildableParseContextGetPosition func(uintptr, int, int)
+
+// Retrieves the current line number and the number of the character on
+// that line. Intended for use in error messages; there are no strict
+// semantics for what constitutes the "current" line number other than
+// "the best number we could come up with for error messages."
+func (x *BuildableParseContext) GetPosition(LineNumberVar int, CharNumberVar int) {
+
+	xBuildableParseContextGetPosition(x.GoPointer(), LineNumberVar, CharNumberVar)
+
+}
+
+var xBuildableParseContextPop func(uintptr) uintptr
+
+// Completes the process of a temporary sub-parser redirection.
+//
+// This function exists to collect the user_data allocated by a
+// matching call to gtk_buildable_parse_context_push(). It must be called
+// in the end_element handler corresponding to the start_element
+// handler during which gtk_buildable_parse_context_push() was called.
+// You must not call this function from the error callback -- the
+// @user_data is provided directly to the callback in that case.
+//
+// This function is not intended to be directly called by users
+// interested in invoking subparsers. Instead, it is intended to
+// be used by the subparsers themselves to implement a higher-level
+// interface.
+func (x *BuildableParseContext) Pop() uintptr {
+
+	cret := xBuildableParseContextPop(x.GoPointer())
+	return cret
+}
+
+var xBuildableParseContextPush func(uintptr, *BuildableParser, uintptr)
+
+// Temporarily redirects markup data to a sub-parser.
+//
+// This function may only be called from the start_element handler of
+// a `GtkBuildableParser`. It must be matched with a corresponding call to
+// gtk_buildable_parse_context_pop() in the matching end_element handler
+// (except in the case that the parser aborts due to an error).
+//
+// All tags, text and other data between the matching tags is
+// redirected to the subparser given by @parser. @user_data is used
+// as the user_data for that parser. @user_data is also passed to the
+// error callback in the event that an error occurs. This includes
+// errors that occur in subparsers of the subparser.
+//
+// The end tag matching the start tag for which this call was made is
+// handled by the previous parser (which is given its own user_data)
+// which is why gtk_buildable_parse_context_pop() is provided to allow "one
+// last access" to the @user_data provided to this function. In the
+// case of error, the @user_data provided here is passed directly to
+// the error callback of the subparser and gtk_buildable_parse_context_pop()
+// should not be called. In either case, if @user_data was allocated
+// then it ought to be freed from both of these locations.
+//
+// This function is not intended to be directly called by users
+// interested in invoking subparsers. Instead, it is intended to be
+// used by the subparsers themselves to implement a higher-level
+// interface.
+//
+// For an example of how to use this, see g_markup_parse_context_push() which
+// has the same kind of API.
+func (x *BuildableParseContext) Push(ParserVar *BuildableParser, UserDataVar uintptr) {
+
+	xBuildableParseContextPush(x.GoPointer(), ParserVar, UserDataVar)
+
 }
 
 // A sub-parser for `GtkBuildable` implementations.
 type BuildableParser struct {
 	Padding uintptr
+}
+
+func (x *BuildableParser) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkBuildable` allows objects to extend and customize their deserialization
@@ -69,6 +185,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBuildableParseContextGetElement, lib, "gtk_buildable_parse_context_get_element")
+	core.PuregoSafeRegister(&xBuildableParseContextGetElementStack, lib, "gtk_buildable_parse_context_get_element_stack")
+	core.PuregoSafeRegister(&xBuildableParseContextGetPosition, lib, "gtk_buildable_parse_context_get_position")
+	core.PuregoSafeRegister(&xBuildableParseContextPop, lib, "gtk_buildable_parse_context_pop")
+	core.PuregoSafeRegister(&xBuildableParseContextPush, lib, "gtk_buildable_parse_context_push")
 
 	core.PuregoSafeRegister(&XGtkBuildableGetBuildableId, lib, "gtk_buildable_get_buildable_id")
 

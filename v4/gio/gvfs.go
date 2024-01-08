@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -19,6 +21,16 @@ type VfsFileLookupFunc func(uintptr, string, uintptr) uintptr
 type VfsClass struct {
 	ParentClass uintptr
 }
+
+func (x *VfsClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// Extension point for #GVfs functionality.
+	// See [Extending GIO][extending-gio].
+	VFS_EXTENSION_POINT_NAME string = "gio-vfs"
+)
 
 // Entry point for using GIO functionality.
 type Vfs struct {
@@ -149,6 +161,40 @@ func (c *Vfs) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xVfsGetDefault func() uintptr
+
+// Gets the default #GVfs for the system.
+func VfsGetDefault() *Vfs {
+	var cls *Vfs
+
+	cret := xVfsGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Vfs{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xVfsGetLocal func() uintptr
+
+// Gets the local #GVfs for the system.
+func VfsGetLocal() *Vfs {
+	var cls *Vfs
+
+	cret := xVfsGetLocal()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Vfs{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -162,5 +208,8 @@ func init() {
 	core.PuregoSafeRegister(&xVfsParseName, lib, "g_vfs_parse_name")
 	core.PuregoSafeRegister(&xVfsRegisterUriScheme, lib, "g_vfs_register_uri_scheme")
 	core.PuregoSafeRegister(&xVfsUnregisterUriScheme, lib, "g_vfs_unregister_uri_scheme")
+
+	core.PuregoSafeRegister(&xVfsGetDefault, lib, "g_vfs_get_default")
+	core.PuregoSafeRegister(&xVfsGetLocal, lib, "g_vfs_get_local")
 
 }

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 // Class structure for `GtkNativeDialog`.
 type NativeDialogClass struct {
 	ParentClass uintptr
+}
+
+func (x *NativeDialogClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Native dialogs are platform dialogs that don't use `GtkDialog`.

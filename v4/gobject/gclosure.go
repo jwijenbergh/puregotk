@@ -2,6 +2,8 @@
 package gobject
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -33,6 +35,10 @@ type CClosure struct {
 	Closure uintptr
 
 	Callback uintptr
+}
+
+func (x *CClosure) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GClosure represents a callback supplied by the programmer.
@@ -105,10 +111,299 @@ type Closure struct {
 	Notifiers *ClosureNotifyData
 }
 
+func (x *Closure) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewObjectClosure func(uint, uintptr) *Closure
+
+// A variant of g_closure_new_simple() which stores @object in the
+// @data field of the closure and calls g_object_watch_closure() on
+// @object and the created closure. This function is mainly useful
+// when implementing new types of closures.
+func NewObjectClosure(SizeofClosureVar uint, ObjectVar *Object) *Closure {
+
+	cret := xNewObjectClosure(SizeofClosureVar, ObjectVar.GoPointer())
+	return cret
+}
+
+var xNewSimpleClosure func(uint, uintptr) *Closure
+
+// Allocates a struct of the given size and initializes the initial
+// part as a #GClosure.
+//
+// This function is mainly useful when implementing new types of closures:
+//
+// |[&lt;!-- language="C" --&gt;
+// typedef struct _MyClosure MyClosure;
+// struct _MyClosure
+//
+//	{
+//	  GClosure closure;
+//	  // extra data goes here
+//	};
+//
+// static void
+// my_closure_finalize (gpointer  notify_data,
+//
+//	GClosure *closure)
+//
+//	{
+//	  MyClosure *my_closure = (MyClosure *)closure;
+//
+//	  // free extra data here
+//	}
+//
+// MyClosure *my_closure_new (gpointer data)
+//
+//	{
+//	  GClosure *closure;
+//	  MyClosure *my_closure;
+//
+//	  closure = g_closure_new_simple (sizeof (MyClosure), data);
+//	  my_closure = (MyClosure *) closure;
+//
+//	  // initialize extra data here
+//
+//	  g_closure_add_finalize_notifier (closure, notify_data,
+//	                                   my_closure_finalize);
+//	  return my_closure;
+//	}
+//
+// ]|
+func NewSimpleClosure(SizeofClosureVar uint, DataVar uintptr) *Closure {
+
+	cret := xNewSimpleClosure(SizeofClosureVar, DataVar)
+	return cret
+}
+
+var xClosureAddFinalizeNotifier func(uintptr, uintptr, uintptr)
+
+// Registers a finalization notifier which will be called when the
+// reference count of @closure goes down to 0.
+//
+// Multiple finalization notifiers on a single closure are invoked in
+// unspecified order. If a single call to g_closure_unref() results in
+// the closure being both invalidated and finalized, then the invalidate
+// notifiers will be run before the finalize notifiers.
+func (x *Closure) AddFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+
+	xClosureAddFinalizeNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+
+}
+
+var xClosureAddInvalidateNotifier func(uintptr, uintptr, uintptr)
+
+// Registers an invalidation notifier which will be called when the
+// @closure is invalidated with g_closure_invalidate().
+//
+// Invalidation notifiers are invoked before finalization notifiers,
+// in an unspecified order.
+func (x *Closure) AddInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+
+	xClosureAddInvalidateNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+
+}
+
+var xClosureAddMarshalGuards func(uintptr, uintptr, uintptr, uintptr, uintptr)
+
+// Adds a pair of notifiers which get invoked before and after the
+// closure callback, respectively.
+//
+// This is typically used to protect the extra arguments for the
+// duration of the callback. See g_object_watch_closure() for an
+// example of marshal guards.
+func (x *Closure) AddMarshalGuards(PreMarshalDataVar uintptr, PreMarshalNotifyVar ClosureNotify, PostMarshalDataVar uintptr, PostMarshalNotifyVar ClosureNotify) {
+
+	xClosureAddMarshalGuards(x.GoPointer(), PreMarshalDataVar, purego.NewCallback(PreMarshalNotifyVar), PostMarshalDataVar, purego.NewCallback(PostMarshalNotifyVar))
+
+}
+
+var xClosureInvalidate func(uintptr)
+
+// Sets a flag on the closure to indicate that its calling
+// environment has become invalid, and thus causes any future
+// invocations of g_closure_invoke() on this @closure to be
+// ignored.
+//
+// Also, invalidation notifiers installed on the closure will
+// be called at this point. Note that unless you are holding a
+// reference to the closure yourself, the invalidation notifiers may
+// unref the closure and cause it to be destroyed, so if you need to
+// access the closure after calling g_closure_invalidate(), make sure
+// that you've previously called g_closure_ref().
+//
+// Note that g_closure_invalidate() will also be called when the
+// reference count of a closure drops to zero (unless it has already
+// been invalidated before).
+func (x *Closure) Invalidate() {
+
+	xClosureInvalidate(x.GoPointer())
+
+}
+
+var xClosureInvoke func(uintptr, *Value, uint, uintptr, uintptr)
+
+// Invokes the closure, i.e. executes the callback represented by the @closure.
+func (x *Closure) Invoke(ReturnValueVar *Value, NParamValuesVar uint, ParamValuesVar uintptr, InvocationHintVar uintptr) {
+
+	xClosureInvoke(x.GoPointer(), ReturnValueVar, NParamValuesVar, ParamValuesVar, InvocationHintVar)
+
+}
+
+var xClosureRef func(uintptr) *Closure
+
+// Increments the reference count on a closure to force it staying
+// alive while the caller holds a pointer to it.
+func (x *Closure) Ref() *Closure {
+
+	cret := xClosureRef(x.GoPointer())
+	return cret
+}
+
+var xClosureRemoveFinalizeNotifier func(uintptr, uintptr, uintptr)
+
+// Removes a finalization notifier.
+//
+// Notice that notifiers are automatically removed after they are run.
+func (x *Closure) RemoveFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+
+	xClosureRemoveFinalizeNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+
+}
+
+var xClosureRemoveInvalidateNotifier func(uintptr, uintptr, uintptr)
+
+// Removes an invalidation notifier.
+//
+// Notice that notifiers are automatically removed after they are run.
+func (x *Closure) RemoveInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+
+	xClosureRemoveInvalidateNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+
+}
+
+var xClosureSetMarshal func(uintptr, uintptr)
+
+// Sets the marshaller of @closure.
+//
+// The `marshal_data` of @marshal provides a way for a meta marshaller to
+// provide additional information to the marshaller.
+//
+// For GObject's C predefined marshallers (the `g_cclosure_marshal_*()`
+// functions), what it provides is a callback function to use instead of
+// @closure-&gt;callback.
+//
+// See also: g_closure_set_meta_marshal()
+func (x *Closure) SetMarshal(MarshalVar ClosureMarshal) {
+
+	xClosureSetMarshal(x.GoPointer(), purego.NewCallback(MarshalVar))
+
+}
+
+var xClosureSetMetaMarshal func(uintptr, uintptr, uintptr)
+
+// Sets the meta marshaller of @closure.
+//
+// A meta marshaller wraps the @closure's marshal and modifies the way
+// it is called in some fashion. The most common use of this facility
+// is for C callbacks.
+//
+// The same marshallers (generated by [glib-genmarshal][glib-genmarshal]),
+// are used everywhere, but the way that we get the callback function
+// differs. In most cases we want to use the @closure's callback, but in
+// other cases we want to use some different technique to retrieve the
+// callback function.
+//
+// For example, class closures for signals (see
+// g_signal_type_cclosure_new()) retrieve the callback function from a
+// fixed offset in the class structure.  The meta marshaller retrieves
+// the right callback and passes it to the marshaller as the
+// @marshal_data argument.
+func (x *Closure) SetMetaMarshal(MarshalDataVar uintptr, MetaMarshalVar ClosureMarshal) {
+
+	xClosureSetMetaMarshal(x.GoPointer(), MarshalDataVar, purego.NewCallback(MetaMarshalVar))
+
+}
+
+var xClosureSink func(uintptr)
+
+// Takes over the initial ownership of a closure.
+//
+// Each closure is initially created in a "floating" state, which means
+// that the initial reference count is not owned by any caller.
+//
+// This function checks to see if the object is still floating, and if so,
+// unsets the floating state and decreases the reference count. If the
+// closure is not floating, g_closure_sink() does nothing.
+//
+// The reason for the existence of the floating state is to prevent
+// cumbersome code sequences like:
+//
+// |[&lt;!-- language="C" --&gt;
+// closure = g_cclosure_new (cb_func, cb_data);
+// g_source_set_closure (source, closure);
+// g_closure_unref (closure); // GObject doesn't really need this
+// ]|
+//
+// Because g_source_set_closure() (and similar functions) take ownership of the
+// initial reference count, if it is unowned, we instead can write:
+//
+// |[&lt;!-- language="C" --&gt;
+// g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
+// ]|
+//
+// Generally, this function is used together with g_closure_ref(). An example
+// of storing a closure for later notification looks like:
+//
+// |[&lt;!-- language="C" --&gt;
+// static GClosure *notify_closure = NULL;
+// void
+// foo_notify_set_closure (GClosure *closure)
+//
+//	{
+//	  if (notify_closure)
+//	    g_closure_unref (notify_closure);
+//	  notify_closure = closure;
+//	  if (notify_closure)
+//	    {
+//	      g_closure_ref (notify_closure);
+//	      g_closure_sink (notify_closure);
+//	    }
+//	}
+//
+// ]|
+//
+// Because g_closure_sink() may decrement the reference count of a closure
+// (if it hasn't been called on @closure yet) just like g_closure_unref(),
+// g_closure_ref() should be called prior to this function.
+func (x *Closure) Sink() {
+
+	xClosureSink(x.GoPointer())
+
+}
+
+var xClosureUnref func(uintptr)
+
+// Decrements the reference count of a closure after it was previously
+// incremented by the same caller.
+//
+// If no other callers are using the closure, then the closure will be
+// destroyed and freed.
+func (x *Closure) Unref() {
+
+	xClosureUnref(x.GoPointer())
+
+}
+
 type ClosureNotifyData struct {
 	Data uintptr
 
 	Notify ClosureNotify
+}
+
+func (x *ClosureNotifyData) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xCclosureMarshalGeneric func(*Closure, *Value, uint, *Value, uintptr, uintptr)
@@ -168,5 +463,21 @@ func init() {
 	core.PuregoSafeRegister(&xCclosureNew, lib, "g_cclosure_new")
 	core.PuregoSafeRegister(&xCclosureNewSwap, lib, "g_cclosure_new_swap")
 	core.PuregoSafeRegister(&xSignalTypeCclosureNew, lib, "g_signal_type_cclosure_new")
+
+	core.PuregoSafeRegister(&xNewObjectClosure, lib, "g_closure_new_object")
+	core.PuregoSafeRegister(&xNewSimpleClosure, lib, "g_closure_new_simple")
+
+	core.PuregoSafeRegister(&xClosureAddFinalizeNotifier, lib, "g_closure_add_finalize_notifier")
+	core.PuregoSafeRegister(&xClosureAddInvalidateNotifier, lib, "g_closure_add_invalidate_notifier")
+	core.PuregoSafeRegister(&xClosureAddMarshalGuards, lib, "g_closure_add_marshal_guards")
+	core.PuregoSafeRegister(&xClosureInvalidate, lib, "g_closure_invalidate")
+	core.PuregoSafeRegister(&xClosureInvoke, lib, "g_closure_invoke")
+	core.PuregoSafeRegister(&xClosureRef, lib, "g_closure_ref")
+	core.PuregoSafeRegister(&xClosureRemoveFinalizeNotifier, lib, "g_closure_remove_finalize_notifier")
+	core.PuregoSafeRegister(&xClosureRemoveInvalidateNotifier, lib, "g_closure_remove_invalidate_notifier")
+	core.PuregoSafeRegister(&xClosureSetMarshal, lib, "g_closure_set_marshal")
+	core.PuregoSafeRegister(&xClosureSetMetaMarshal, lib, "g_closure_set_meta_marshal")
+	core.PuregoSafeRegister(&xClosureSink, lib, "g_closure_sink")
+	core.PuregoSafeRegister(&xClosureUnref, lib, "g_closure_unref")
 
 }

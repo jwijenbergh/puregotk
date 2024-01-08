@@ -2,6 +2,8 @@
 package gsk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,8 +15,155 @@ type GLShaderClass struct {
 	ParentClass uintptr
 }
 
+func (x *GLShaderClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // An object to build the uniforms data for a `GskGLShader`.
 type ShaderArgsBuilder struct {
+}
+
+func (x *ShaderArgsBuilder) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewShaderArgsBuilder func(uintptr, *glib.Bytes) *ShaderArgsBuilder
+
+// Allocates a builder that can be used to construct a new uniform data
+// chunk.
+func NewShaderArgsBuilder(ShaderVar *GLShader, InitialValuesVar *glib.Bytes) *ShaderArgsBuilder {
+
+	cret := xNewShaderArgsBuilder(ShaderVar.GoPointer(), InitialValuesVar)
+	return cret
+}
+
+var xShaderArgsBuilderFreeToArgs func(uintptr) *glib.Bytes
+
+// Creates a new `GBytes` args from the current state of the
+// given @builder, and frees the @builder instance.
+//
+// Any uniforms of the shader that have not been explicitly set
+// on the @builder are zero-initialized.
+func (x *ShaderArgsBuilder) FreeToArgs() *glib.Bytes {
+
+	cret := xShaderArgsBuilderFreeToArgs(x.GoPointer())
+	return cret
+}
+
+var xShaderArgsBuilderRef func(uintptr) *ShaderArgsBuilder
+
+// Increases the reference count of a `GskShaderArgsBuilder` by one.
+func (x *ShaderArgsBuilder) Ref() *ShaderArgsBuilder {
+
+	cret := xShaderArgsBuilderRef(x.GoPointer())
+	return cret
+}
+
+var xShaderArgsBuilderSetBool func(uintptr, int, bool)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of bool type.
+func (x *ShaderArgsBuilder) SetBool(IdxVar int, ValueVar bool) {
+
+	xShaderArgsBuilderSetBool(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetFloat func(uintptr, int, float32)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of float type.
+func (x *ShaderArgsBuilder) SetFloat(IdxVar int, ValueVar float32) {
+
+	xShaderArgsBuilderSetFloat(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetInt func(uintptr, int, int32)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of int type.
+func (x *ShaderArgsBuilder) SetInt(IdxVar int, ValueVar int32) {
+
+	xShaderArgsBuilderSetInt(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetUint func(uintptr, int, uint32)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of uint type.
+func (x *ShaderArgsBuilder) SetUint(IdxVar int, ValueVar uint32) {
+
+	xShaderArgsBuilderSetUint(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetVec2 func(uintptr, int, *graphene.Vec2)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of vec2 type.
+func (x *ShaderArgsBuilder) SetVec2(IdxVar int, ValueVar *graphene.Vec2) {
+
+	xShaderArgsBuilderSetVec2(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetVec3 func(uintptr, int, *graphene.Vec3)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of vec3 type.
+func (x *ShaderArgsBuilder) SetVec3(IdxVar int, ValueVar *graphene.Vec3) {
+
+	xShaderArgsBuilderSetVec3(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderSetVec4 func(uintptr, int, *graphene.Vec4)
+
+// Sets the value of the uniform @idx.
+//
+// The uniform must be of vec4 type.
+func (x *ShaderArgsBuilder) SetVec4(IdxVar int, ValueVar *graphene.Vec4) {
+
+	xShaderArgsBuilderSetVec4(x.GoPointer(), IdxVar, ValueVar)
+
+}
+
+var xShaderArgsBuilderToArgs func(uintptr) *glib.Bytes
+
+// Creates a new `GBytes` args from the current state of the
+// given @builder.
+//
+// Any uniforms of the shader that have not been explicitly set on
+// the @builder are zero-initialized.
+//
+// The given `GskShaderArgsBuilder` is reset once this function returns;
+// you cannot call this function multiple times on the same @builder instance.
+//
+// This function is intended primarily for bindings. C code should use
+// [method@Gsk.ShaderArgsBuilder.free_to_args].
+func (x *ShaderArgsBuilder) ToArgs() *glib.Bytes {
+
+	cret := xShaderArgsBuilderToArgs(x.GoPointer())
+	return cret
+}
+
+var xShaderArgsBuilderUnref func(uintptr)
+
+// Decreases the reference count of a `GskShaderArgBuilder` by one.
+//
+// If the resulting reference count is zero, frees the builder.
+func (x *ShaderArgsBuilder) Unref() {
+
+	xShaderArgsBuilderUnref(x.GoPointer())
+
 }
 
 // A `GskGLShader` is a snippet of GLSL that is meant to run in the
@@ -414,6 +563,20 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNewShaderArgsBuilder, lib, "gsk_shader_args_builder_new")
+
+	core.PuregoSafeRegister(&xShaderArgsBuilderFreeToArgs, lib, "gsk_shader_args_builder_free_to_args")
+	core.PuregoSafeRegister(&xShaderArgsBuilderRef, lib, "gsk_shader_args_builder_ref")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetBool, lib, "gsk_shader_args_builder_set_bool")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetFloat, lib, "gsk_shader_args_builder_set_float")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetInt, lib, "gsk_shader_args_builder_set_int")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetUint, lib, "gsk_shader_args_builder_set_uint")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetVec2, lib, "gsk_shader_args_builder_set_vec2")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetVec3, lib, "gsk_shader_args_builder_set_vec3")
+	core.PuregoSafeRegister(&xShaderArgsBuilderSetVec4, lib, "gsk_shader_args_builder_set_vec4")
+	core.PuregoSafeRegister(&xShaderArgsBuilderToArgs, lib, "gsk_shader_args_builder_to_args")
+	core.PuregoSafeRegister(&xShaderArgsBuilderUnref, lib, "gsk_shader_args_builder_unref")
 
 	core.PuregoSafeRegister(&xNewFromBytesGLShader, lib, "gsk_gl_shader_new_from_bytes")
 	core.PuregoSafeRegister(&xNewFromResourceGLShader, lib, "gsk_gl_shader_new_from_resource")

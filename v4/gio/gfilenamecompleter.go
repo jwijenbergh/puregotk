@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +11,10 @@ import (
 
 type FilenameCompleterClass struct {
 	ParentClass uintptr
+}
+
+func (x *FilenameCompleterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Completes partial file and directory names given a partial string by

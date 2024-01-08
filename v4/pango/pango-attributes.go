@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -22,12 +24,20 @@ type AttrClass struct {
 	Type AttrType
 }
 
+func (x *AttrClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoAttrColor` structure is used to represent attributes that
 // are colors.
 type AttrColor struct {
 	Attr uintptr
 
 	Color uintptr
+}
+
+func (x *AttrColor) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `PangoAttrFloat` structure is used to represent attributes with
@@ -38,12 +48,20 @@ type AttrFloat struct {
 	Value float64
 }
 
+func (x *AttrFloat) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoAttrFontDesc` structure is used to store an attribute that
 // sets all aspects of the font description at once.
 type AttrFontDesc struct {
 	Attr uintptr
 
 	Desc *FontDescription
+}
+
+func (x *AttrFontDesc) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `PangoAttrFontFeatures` structure is used to represent OpenType
@@ -54,12 +72,20 @@ type AttrFontFeatures struct {
 	Features uintptr
 }
 
+func (x *AttrFontFeatures) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoAttrInt` structure is used to represent attributes with
 // an integer or enumeration value.
 type AttrInt struct {
 	Attr uintptr
 
 	Value int
+}
+
+func (x *AttrInt) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
@@ -72,12 +98,95 @@ type AttrInt struct {
 type AttrIterator struct {
 }
 
+func (x *AttrIterator) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xAttrIteratorCopy func(uintptr) *AttrIterator
+
+// Copy a `PangoAttrIterator`.
+func (x *AttrIterator) Copy() *AttrIterator {
+
+	cret := xAttrIteratorCopy(x.GoPointer())
+	return cret
+}
+
+var xAttrIteratorDestroy func(uintptr)
+
+// Destroy a `PangoAttrIterator` and free all associated memory.
+func (x *AttrIterator) Destroy() {
+
+	xAttrIteratorDestroy(x.GoPointer())
+
+}
+
+var xAttrIteratorGet func(uintptr, AttrType) *Attribute
+
+// Find the current attribute of a particular type
+// at the iterator location.
+//
+// When multiple attributes of the same type overlap,
+// the attribute whose range starts closest to the
+// current location is used.
+func (x *AttrIterator) Get(TypeVar AttrType) *Attribute {
+
+	cret := xAttrIteratorGet(x.GoPointer(), TypeVar)
+	return cret
+}
+
+var xAttrIteratorGetAttrs func(uintptr) *glib.SList
+
+// Gets a list of all attributes at the current position of the
+// iterator.
+func (x *AttrIterator) GetAttrs() *glib.SList {
+
+	cret := xAttrIteratorGetAttrs(x.GoPointer())
+	return cret
+}
+
+var xAttrIteratorGetFont func(uintptr, *FontDescription, **Language, **glib.SList)
+
+// Get the font and other attributes at the current
+// iterator position.
+func (x *AttrIterator) GetFont(DescVar *FontDescription, LanguageVar **Language, ExtraAttrsVar **glib.SList) {
+
+	xAttrIteratorGetFont(x.GoPointer(), DescVar, LanguageVar, ExtraAttrsVar)
+
+}
+
+var xAttrIteratorNext func(uintptr) bool
+
+// Advance the iterator until the next change of style.
+func (x *AttrIterator) Next() bool {
+
+	cret := xAttrIteratorNext(x.GoPointer())
+	return cret
+}
+
+var xAttrIteratorRange func(uintptr, int, int)
+
+// Get the range of the current segment.
+//
+// Note that the stored return values are signed, not unsigned
+// like the values in `PangoAttribute`. To deal with this API
+// oversight, stored return values that wouldn't fit into
+// a signed integer are clamped to %G_MAXINT.
+func (x *AttrIterator) Range(StartVar int, EndVar int) {
+
+	xAttrIteratorRange(x.GoPointer(), StartVar, EndVar)
+
+}
+
 // The `PangoAttrLanguage` structure is used to represent attributes that
 // are languages.
 type AttrLanguage struct {
 	Attr uintptr
 
 	Value *Language
+}
+
+func (x *AttrLanguage) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoAttrList` represents a list of attributes that apply to a section
@@ -92,6 +201,199 @@ type AttrLanguage struct {
 // suitable for storing attributes for large amounts of text. In general, you
 // should not use a single `PangoAttrList` for more than one paragraph of text.
 type AttrList struct {
+}
+
+func (x *AttrList) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewAttrList func() *AttrList
+
+// Create a new empty attribute list with a reference
+// count of one.
+func NewAttrList() *AttrList {
+
+	cret := xNewAttrList()
+	return cret
+}
+
+var xAttrListChange func(uintptr, *Attribute)
+
+// Insert the given attribute into the `PangoAttrList`.
+//
+// It will replace any attributes of the same type
+// on that segment and be merged with any adjoining
+// attributes that are identical.
+//
+// This function is slower than [method@Pango.AttrList.insert]
+// for creating an attribute list in order (potentially
+// much slower for large lists). However,
+// [method@Pango.AttrList.insert] is not suitable for
+// continually changing a set of attributes since it
+// never removes or combines existing attributes.
+func (x *AttrList) Change(AttrVar *Attribute) {
+
+	xAttrListChange(x.GoPointer(), AttrVar)
+
+}
+
+var xAttrListCopy func(uintptr) *AttrList
+
+// Copy @list and return an identical new list.
+func (x *AttrList) Copy() *AttrList {
+
+	cret := xAttrListCopy(x.GoPointer())
+	return cret
+}
+
+var xAttrListEqual func(uintptr, *AttrList) bool
+
+// Checks whether @list and @other_list contain the same
+// attributes and whether those attributes apply to the
+// same ranges.
+//
+// Beware that this will return wrong values if any list
+// contains duplicates.
+func (x *AttrList) Equal(OtherListVar *AttrList) bool {
+
+	cret := xAttrListEqual(x.GoPointer(), OtherListVar)
+	return cret
+}
+
+var xAttrListFilter func(uintptr, uintptr, uintptr) *AttrList
+
+// Given a `PangoAttrList` and callback function, removes
+// any elements of @list for which @func returns %TRUE and
+// inserts them into a new list.
+func (x *AttrList) Filter(FuncVar AttrFilterFunc, DataVar uintptr) *AttrList {
+
+	cret := xAttrListFilter(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	return cret
+}
+
+var xAttrListGetAttributes func(uintptr) *glib.SList
+
+// Gets a list of all attributes in @list.
+func (x *AttrList) GetAttributes() *glib.SList {
+
+	cret := xAttrListGetAttributes(x.GoPointer())
+	return cret
+}
+
+var xAttrListGetIterator func(uintptr) *AttrIterator
+
+// Create a iterator initialized to the beginning of the list.
+//
+// @list must not be modified until this iterator is freed.
+func (x *AttrList) GetIterator() *AttrIterator {
+
+	cret := xAttrListGetIterator(x.GoPointer())
+	return cret
+}
+
+var xAttrListInsert func(uintptr, *Attribute)
+
+// Insert the given attribute into the `PangoAttrList`.
+//
+// It will be inserted after all other attributes with a
+// matching @start_index.
+func (x *AttrList) Insert(AttrVar *Attribute) {
+
+	xAttrListInsert(x.GoPointer(), AttrVar)
+
+}
+
+var xAttrListInsertBefore func(uintptr, *Attribute)
+
+// Insert the given attribute into the `PangoAttrList`.
+//
+// It will be inserted before all other attributes with a
+// matching @start_index.
+func (x *AttrList) InsertBefore(AttrVar *Attribute) {
+
+	xAttrListInsertBefore(x.GoPointer(), AttrVar)
+
+}
+
+var xAttrListRef func(uintptr) *AttrList
+
+// Increase the reference count of the given attribute
+// list by one.
+func (x *AttrList) Ref() *AttrList {
+
+	cret := xAttrListRef(x.GoPointer())
+	return cret
+}
+
+var xAttrListSplice func(uintptr, *AttrList, int, int)
+
+// This function opens up a hole in @list, fills it
+// in with attributes from the left, and then merges
+// @other on top of the hole.
+//
+// This operation is equivalent to stretching every attribute
+// that applies at position @pos in @list by an amount @len,
+// and then calling [method@Pango.AttrList.change] with a copy
+// of each attribute in @other in sequence (offset in position
+// by @pos).
+//
+// This operation proves useful for, for instance, inserting
+// a pre-edit string in the middle of an edit buffer.
+func (x *AttrList) Splice(OtherVar *AttrList, PosVar int, LenVar int) {
+
+	xAttrListSplice(x.GoPointer(), OtherVar, PosVar, LenVar)
+
+}
+
+var xAttrListToString func(uintptr) string
+
+// Serializes a `PangoAttrList` to a string.
+//
+// No guarantees are made about the format of the string,
+// it may change between Pango versions.
+//
+// The intended use of this function is testing and
+// debugging. The format is not meant as a permanent
+// storage format.
+func (x *AttrList) ToString() string {
+
+	cret := xAttrListToString(x.GoPointer())
+	return cret
+}
+
+var xAttrListUnref func(uintptr)
+
+// Decrease the reference count of the given attribute
+// list by one.
+//
+// If the result is zero, free the attribute list
+// and the attributes it contains.
+func (x *AttrList) Unref() {
+
+	xAttrListUnref(x.GoPointer())
+
+}
+
+var xAttrListUpdate func(uintptr, int, int, int)
+
+// Update indices of attributes in @list for a change in the
+// text they refer to.
+//
+// The change that this function applies is removing @remove
+// bytes at position @pos and inserting @add bytes instead.
+//
+// Attributes that fall entirely in the (@pos, @pos + @remove)
+// range are removed.
+//
+// Attributes that start or end inside the (@pos, @pos + @remove)
+// range are shortened to reflect the removal.
+//
+// Attributes start and end positions are updated if they are
+// behind @pos + @remove.
+func (x *AttrList) Update(PosVar int, RemoveVar int, AddVar int) {
+
+	xAttrListUpdate(x.GoPointer(), PosVar, RemoveVar, AddVar)
+
 }
 
 // The `PangoAttrShape` structure is used to represent attributes which
@@ -110,6 +412,10 @@ type AttrShape struct {
 	DestroyFunc glib.DestroyNotify
 }
 
+func (x *AttrShape) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoAttrSize` structure is used to represent attributes which
 // set font size.
 type AttrSize struct {
@@ -120,12 +426,20 @@ type AttrSize struct {
 	Absolute uint
 }
 
+func (x *AttrSize) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The `PangoAttrString` structure is used to represent attributes with
 // a string value.
 type AttrString struct {
 	Attr uintptr
 
 	Value uintptr
+}
+
+func (x *AttrString) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `PangoAttribute` structure represents the common portions of all
@@ -143,6 +457,161 @@ type Attribute struct {
 
 	EndIndex uint
 }
+
+func (x *Attribute) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xAttributeAsColor func(uintptr) *AttrColor
+
+// Returns the attribute cast to `PangoAttrColor`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsColor() *AttrColor {
+
+	cret := xAttributeAsColor(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsFloat func(uintptr) *AttrFloat
+
+// Returns the attribute cast to `PangoAttrFloat`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsFloat() *AttrFloat {
+
+	cret := xAttributeAsFloat(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsFontDesc func(uintptr) *AttrFontDesc
+
+// Returns the attribute cast to `PangoAttrFontDesc`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsFontDesc() *AttrFontDesc {
+
+	cret := xAttributeAsFontDesc(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsFontFeatures func(uintptr) *AttrFontFeatures
+
+// Returns the attribute cast to `PangoAttrFontFeatures`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsFontFeatures() *AttrFontFeatures {
+
+	cret := xAttributeAsFontFeatures(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsInt func(uintptr) *AttrInt
+
+// Returns the attribute cast to `PangoAttrInt`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsInt() *AttrInt {
+
+	cret := xAttributeAsInt(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsLanguage func(uintptr) *AttrLanguage
+
+// Returns the attribute cast to `PangoAttrLanguage`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsLanguage() *AttrLanguage {
+
+	cret := xAttributeAsLanguage(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsShape func(uintptr) *AttrShape
+
+// Returns the attribute cast to `PangoAttrShape`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsShape() *AttrShape {
+
+	cret := xAttributeAsShape(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsSize func(uintptr) *AttrSize
+
+// Returns the attribute cast to `PangoAttrSize`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsSize() *AttrSize {
+
+	cret := xAttributeAsSize(x.GoPointer())
+	return cret
+}
+
+var xAttributeAsString func(uintptr) *AttrString
+
+// Returns the attribute cast to `PangoAttrString`.
+//
+// This is mainly useful for language bindings.
+func (x *Attribute) AsString() *AttrString {
+
+	cret := xAttributeAsString(x.GoPointer())
+	return cret
+}
+
+var xAttributeCopy func(uintptr) *Attribute
+
+// Make a copy of an attribute.
+func (x *Attribute) Copy() *Attribute {
+
+	cret := xAttributeCopy(x.GoPointer())
+	return cret
+}
+
+var xAttributeDestroy func(uintptr)
+
+// Destroy a `PangoAttribute` and free all associated memory.
+func (x *Attribute) Destroy() {
+
+	xAttributeDestroy(x.GoPointer())
+
+}
+
+var xAttributeEqual func(uintptr, *Attribute) bool
+
+// Compare two attributes for equality.
+//
+// This compares only the actual value of the two
+// attributes and not the ranges that the attributes
+// apply to.
+func (x *Attribute) Equal(Attr2Var *Attribute) bool {
+
+	cret := xAttributeEqual(x.GoPointer(), Attr2Var)
+	return cret
+}
+
+var xAttributeInit func(uintptr, *AttrClass)
+
+// Initializes @attr's klass to @klass, it's start_index to
+// %PANGO_ATTR_INDEX_FROM_TEXT_BEGINNING and end_index to
+// %PANGO_ATTR_INDEX_TO_TEXT_END such that the attribute applies
+// to the entire text by default.
+func (x *Attribute) Init(KlassVar *AttrClass) {
+
+	xAttributeInit(x.GoPointer(), KlassVar)
+
+}
+
+const (
+	// Value for @start_index in `PangoAttribute` that indicates
+	// the beginning of the text.
+	ATTR_INDEX_FROM_TEXT_BEGINNING uint = 0
+	// Value for @end_index in `PangoAttribute` that indicates
+	// the end of the text.
+	ATTR_INDEX_TO_TEXT_END uint = 4294967295
+)
 
 // These flags affect how Pango treats characters that are normally
 // not visible in the output.
@@ -850,5 +1319,43 @@ func init() {
 	core.PuregoSafeRegister(&xAttrVariantNew, lib, "pango_attr_variant_new")
 	core.PuregoSafeRegister(&xAttrWeightNew, lib, "pango_attr_weight_new")
 	core.PuregoSafeRegister(&xAttrWordNew, lib, "pango_attr_word_new")
+
+	core.PuregoSafeRegister(&xAttrIteratorCopy, lib, "pango_attr_iterator_copy")
+	core.PuregoSafeRegister(&xAttrIteratorDestroy, lib, "pango_attr_iterator_destroy")
+	core.PuregoSafeRegister(&xAttrIteratorGet, lib, "pango_attr_iterator_get")
+	core.PuregoSafeRegister(&xAttrIteratorGetAttrs, lib, "pango_attr_iterator_get_attrs")
+	core.PuregoSafeRegister(&xAttrIteratorGetFont, lib, "pango_attr_iterator_get_font")
+	core.PuregoSafeRegister(&xAttrIteratorNext, lib, "pango_attr_iterator_next")
+	core.PuregoSafeRegister(&xAttrIteratorRange, lib, "pango_attr_iterator_range")
+
+	core.PuregoSafeRegister(&xNewAttrList, lib, "pango_attr_list_new")
+
+	core.PuregoSafeRegister(&xAttrListChange, lib, "pango_attr_list_change")
+	core.PuregoSafeRegister(&xAttrListCopy, lib, "pango_attr_list_copy")
+	core.PuregoSafeRegister(&xAttrListEqual, lib, "pango_attr_list_equal")
+	core.PuregoSafeRegister(&xAttrListFilter, lib, "pango_attr_list_filter")
+	core.PuregoSafeRegister(&xAttrListGetAttributes, lib, "pango_attr_list_get_attributes")
+	core.PuregoSafeRegister(&xAttrListGetIterator, lib, "pango_attr_list_get_iterator")
+	core.PuregoSafeRegister(&xAttrListInsert, lib, "pango_attr_list_insert")
+	core.PuregoSafeRegister(&xAttrListInsertBefore, lib, "pango_attr_list_insert_before")
+	core.PuregoSafeRegister(&xAttrListRef, lib, "pango_attr_list_ref")
+	core.PuregoSafeRegister(&xAttrListSplice, lib, "pango_attr_list_splice")
+	core.PuregoSafeRegister(&xAttrListToString, lib, "pango_attr_list_to_string")
+	core.PuregoSafeRegister(&xAttrListUnref, lib, "pango_attr_list_unref")
+	core.PuregoSafeRegister(&xAttrListUpdate, lib, "pango_attr_list_update")
+
+	core.PuregoSafeRegister(&xAttributeAsColor, lib, "pango_attribute_as_color")
+	core.PuregoSafeRegister(&xAttributeAsFloat, lib, "pango_attribute_as_float")
+	core.PuregoSafeRegister(&xAttributeAsFontDesc, lib, "pango_attribute_as_font_desc")
+	core.PuregoSafeRegister(&xAttributeAsFontFeatures, lib, "pango_attribute_as_font_features")
+	core.PuregoSafeRegister(&xAttributeAsInt, lib, "pango_attribute_as_int")
+	core.PuregoSafeRegister(&xAttributeAsLanguage, lib, "pango_attribute_as_language")
+	core.PuregoSafeRegister(&xAttributeAsShape, lib, "pango_attribute_as_shape")
+	core.PuregoSafeRegister(&xAttributeAsSize, lib, "pango_attribute_as_size")
+	core.PuregoSafeRegister(&xAttributeAsString, lib, "pango_attribute_as_string")
+	core.PuregoSafeRegister(&xAttributeCopy, lib, "pango_attribute_copy")
+	core.PuregoSafeRegister(&xAttributeDestroy, lib, "pango_attribute_destroy")
+	core.PuregoSafeRegister(&xAttributeEqual, lib, "pango_attribute_equal")
+	core.PuregoSafeRegister(&xAttributeInit, lib, "pango_attribute_init")
 
 }

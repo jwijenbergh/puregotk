@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -10,6 +12,10 @@ import (
 
 type FlattenListModelClass struct {
 	ParentClass uintptr
+}
+
+func (x *FlattenListModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkFlattenListModel` is a list model that concatenates other list models.

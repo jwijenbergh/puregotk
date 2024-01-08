@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // vtable for a #GTlsServerConnection implementation.
 type TlsServerConnectionInterface struct {
 	GIface uintptr
+}
+
+func (x *TlsServerConnectionInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GTlsServerConnection is the server-side subclass of #GTlsConnection,

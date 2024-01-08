@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,6 +17,10 @@ type CustomFilterFunc func(uintptr, uintptr) bool
 
 type CustomFilterClass struct {
 	ParentClass uintptr
+}
+
+func (x *CustomFilterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkCustomFilter` determines whether to include items with a callback.

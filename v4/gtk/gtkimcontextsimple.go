@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,8 +12,20 @@ type IMContextSimpleClass struct {
 	ParentClass uintptr
 }
 
+func (x *IMContextSimpleClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type IMContextSimplePrivate struct {
 }
+
+func (x *IMContextSimplePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	MAX_COMPOSE_LEN int = 7
+)
 
 // `GtkIMContextSimple` is an input method supporting table-based input methods.
 //

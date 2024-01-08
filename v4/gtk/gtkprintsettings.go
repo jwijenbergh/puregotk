@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -18,6 +20,82 @@ type PageRange struct {
 
 	End int
 }
+
+func (x *PageRange) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	PRINT_SETTINGS_COLLATE string = "collate"
+
+	PRINT_SETTINGS_DEFAULT_SOURCE string = "default-source"
+
+	PRINT_SETTINGS_DITHER string = "dither"
+
+	PRINT_SETTINGS_DUPLEX string = "duplex"
+
+	PRINT_SETTINGS_FINISHINGS string = "finishings"
+
+	PRINT_SETTINGS_MEDIA_TYPE string = "media-type"
+
+	PRINT_SETTINGS_NUMBER_UP string = "number-up"
+
+	PRINT_SETTINGS_NUMBER_UP_LAYOUT string = "number-up-layout"
+
+	PRINT_SETTINGS_N_COPIES string = "n-copies"
+
+	PRINT_SETTINGS_ORIENTATION string = "orientation"
+	// The key used by the “Print to file” printer to store the file
+	// name of the output without the path to the directory and the
+	// file extension.
+	PRINT_SETTINGS_OUTPUT_BASENAME string = "output-basename"
+
+	PRINT_SETTINGS_OUTPUT_BIN string = "output-bin"
+	// The key used by the “Print to file” printer to store the
+	// directory to which the output should be written.
+	PRINT_SETTINGS_OUTPUT_DIR string = "output-dir"
+	// The key used by the “Print to file” printer to store the format
+	// of the output. The supported values are “PS” and “PDF”.
+	PRINT_SETTINGS_OUTPUT_FILE_FORMAT string = "output-file-format"
+	// The key used by the “Print to file” printer to store the URI
+	// to which the output should be written. GTK itself supports
+	// only “file://” URIs.
+	PRINT_SETTINGS_OUTPUT_URI string = "output-uri"
+
+	PRINT_SETTINGS_PAGE_RANGES string = "page-ranges"
+
+	PRINT_SETTINGS_PAGE_SET string = "page-set"
+
+	PRINT_SETTINGS_PAPER_FORMAT string = "paper-format"
+
+	PRINT_SETTINGS_PAPER_HEIGHT string = "paper-height"
+
+	PRINT_SETTINGS_PAPER_WIDTH string = "paper-width"
+
+	PRINT_SETTINGS_PRINTER string = "printer"
+
+	PRINT_SETTINGS_PRINTER_LPI string = "printer-lpi"
+
+	PRINT_SETTINGS_PRINT_PAGES string = "print-pages"
+
+	PRINT_SETTINGS_QUALITY string = "quality"
+
+	PRINT_SETTINGS_RESOLUTION string = "resolution"
+
+	PRINT_SETTINGS_RESOLUTION_X string = "resolution-x"
+
+	PRINT_SETTINGS_RESOLUTION_Y string = "resolution-y"
+
+	PRINT_SETTINGS_REVERSE string = "reverse"
+
+	PRINT_SETTINGS_SCALE string = "scale"
+
+	PRINT_SETTINGS_USE_COLOR string = "use-color"
+
+	PRINT_SETTINGS_WIN32_DRIVER_EXTRA string = "win32-driver-extra"
+
+	PRINT_SETTINGS_WIN32_DRIVER_VERSION string = "win32-driver-version"
+)
 
 // A `GtkPrintSettings` object represents the settings of a print dialog in
 // a system-independent way.

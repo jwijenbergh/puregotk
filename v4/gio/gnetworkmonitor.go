@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // The virtual function table for #GNetworkMonitor.
 type NetworkMonitorInterface struct {
 	GIface uintptr
+}
+
+func (x *NetworkMonitorInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GNetworkMonitor provides an easy-to-use cross-platform API
@@ -146,6 +152,12 @@ var XGNetworkMonitorCanReachFinish func(uintptr, uintptr, **glib.Error) bool
 var XGNetworkMonitorGetConnectivity func(uintptr) NetworkConnectivity
 var XGNetworkMonitorGetNetworkAvailable func(uintptr) bool
 var XGNetworkMonitorGetNetworkMetered func(uintptr) bool
+
+const (
+	// Extension point for network status monitoring functionality.
+	// See [Extending GIO][extending-gio].
+	NETWORK_MONITOR_EXTENSION_POINT_NAME string = "gio-network-monitor"
+)
 
 var xNetworkMonitorGetDefault func() uintptr
 

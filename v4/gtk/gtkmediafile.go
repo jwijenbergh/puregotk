@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,6 +14,14 @@ import (
 type MediaFileClass struct {
 	ParentClass uintptr
 }
+
+func (x *MediaFileClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	MEDIA_FILE_EXTENSION_POINT_NAME string = "gtk-media-file"
+)
 
 // `GtkMediaFile` implements `GtkMediaStream` for files.
 //

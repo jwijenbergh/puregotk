@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -15,6 +17,274 @@ type RegexEvalCallback func(*MatchInfo, *String, uintptr) bool
 // A GMatchInfo is an opaque struct used to return information about
 // matches.
 type MatchInfo struct {
+}
+
+func (x *MatchInfo) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xMatchInfoExpandReferences func(uintptr, string, **Error) string
+
+// Returns a new string containing the text in @string_to_expand with
+// references and escape sequences expanded. References refer to the last
+// match done with @string against @regex and have the same syntax used by
+// g_regex_replace().
+//
+// The @string_to_expand must be UTF-8 encoded even if %G_REGEX_RAW was
+// passed to g_regex_new().
+//
+// The backreferences are extracted from the string passed to the match
+// function, so you cannot call this function after freeing the string.
+//
+// @match_info may be %NULL in which case @string_to_expand must not
+// contain references. For instance "foo\n" does not refer to an actual
+// pattern and '\n' merely will be replaced with \n character,
+// while to expand "\0" (whole match) one needs the result of a match.
+// Use g_regex_check_replacement() to find out whether @string_to_expand
+// contains references.
+func (x *MatchInfo) ExpandReferences(StringToExpandVar string) (string, error) {
+	var cerr *Error
+
+	cret := xMatchInfoExpandReferences(x.GoPointer(), StringToExpandVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xMatchInfoFetch func(uintptr, int) string
+
+// Retrieves the text matching the @match_num'th capturing
+// parentheses. 0 is the full text of the match, 1 is the first paren
+// set, 2 the second, and so on.
+//
+// If @match_num is a valid sub pattern but it didn't match anything
+// (e.g. sub pattern 1, matching "b" against "(a)?b") then an empty
+// string is returned.
+//
+// If the match was obtained using the DFA algorithm, that is using
+// g_regex_match_all() or g_regex_match_all_full(), the retrieved
+// string is not that of a set of parentheses but that of a matched
+// substring. Substrings are matched in reverse order of length, so
+// 0 is the longest match.
+//
+// The string is fetched from the string passed to the match function,
+// so you cannot call this function after freeing the string.
+func (x *MatchInfo) Fetch(MatchNumVar int) string {
+
+	cret := xMatchInfoFetch(x.GoPointer(), MatchNumVar)
+	return cret
+}
+
+var xMatchInfoFetchAll func(uintptr) uintptr
+
+// Bundles up pointers to each of the matching substrings from a match
+// and stores them in an array of gchar pointers. The first element in
+// the returned array is the match number 0, i.e. the entire matched
+// text.
+//
+// If a sub pattern didn't match anything (e.g. sub pattern 1, matching
+// "b" against "(a)?b") then an empty string is inserted.
+//
+// If the last match was obtained using the DFA algorithm, that is using
+// g_regex_match_all() or g_regex_match_all_full(), the retrieved
+// strings are not that matched by sets of parentheses but that of the
+// matched substring. Substrings are matched in reverse order of length,
+// so the first one is the longest match.
+//
+// The strings are fetched from the string passed to the match function,
+// so you cannot call this function after freeing the string.
+func (x *MatchInfo) FetchAll() uintptr {
+
+	cret := xMatchInfoFetchAll(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoFetchNamed func(uintptr, string) string
+
+// Retrieves the text matching the capturing parentheses named @name.
+//
+// If @name is a valid sub pattern name but it didn't match anything
+// (e.g. sub pattern "X", matching "b" against "(?P&lt;X&gt;a)?b")
+// then an empty string is returned.
+//
+// The string is fetched from the string passed to the match function,
+// so you cannot call this function after freeing the string.
+func (x *MatchInfo) FetchNamed(NameVar string) string {
+
+	cret := xMatchInfoFetchNamed(x.GoPointer(), NameVar)
+	return cret
+}
+
+var xMatchInfoFetchNamedPos func(uintptr, string, int, int) bool
+
+// Retrieves the position in bytes of the capturing parentheses named @name.
+//
+// If @name is a valid sub pattern name but it didn't match anything
+// (e.g. sub pattern "X", matching "b" against "(?P&lt;X&gt;a)?b")
+// then @start_pos and @end_pos are set to -1 and %TRUE is returned.
+func (x *MatchInfo) FetchNamedPos(NameVar string, StartPosVar int, EndPosVar int) bool {
+
+	cret := xMatchInfoFetchNamedPos(x.GoPointer(), NameVar, StartPosVar, EndPosVar)
+	return cret
+}
+
+var xMatchInfoFetchPos func(uintptr, int, int, int) bool
+
+// Retrieves the position in bytes of the @match_num'th capturing
+// parentheses. 0 is the full text of the match, 1 is the first
+// paren set, 2 the second, and so on.
+//
+// If @match_num is a valid sub pattern but it didn't match anything
+// (e.g. sub pattern 1, matching "b" against "(a)?b") then @start_pos
+// and @end_pos are set to -1 and %TRUE is returned.
+//
+// If the match was obtained using the DFA algorithm, that is using
+// g_regex_match_all() or g_regex_match_all_full(), the retrieved
+// position is not that of a set of parentheses but that of a matched
+// substring. Substrings are matched in reverse order of length, so
+// 0 is the longest match.
+func (x *MatchInfo) FetchPos(MatchNumVar int, StartPosVar int, EndPosVar int) bool {
+
+	cret := xMatchInfoFetchPos(x.GoPointer(), MatchNumVar, StartPosVar, EndPosVar)
+	return cret
+}
+
+var xMatchInfoFree func(uintptr)
+
+// If @match_info is not %NULL, calls g_match_info_unref(); otherwise does
+// nothing.
+func (x *MatchInfo) Free() {
+
+	xMatchInfoFree(x.GoPointer())
+
+}
+
+var xMatchInfoGetMatchCount func(uintptr) int
+
+// Retrieves the number of matched substrings (including substring 0,
+// that is the whole matched text), so 1 is returned if the pattern
+// has no substrings in it and 0 is returned if the match failed.
+//
+// If the last match was obtained using the DFA algorithm, that is
+// using g_regex_match_all() or g_regex_match_all_full(), the retrieved
+// count is not that of the number of capturing parentheses but that of
+// the number of matched substrings.
+func (x *MatchInfo) GetMatchCount() int {
+
+	cret := xMatchInfoGetMatchCount(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoGetRegex func(uintptr) *Regex
+
+// Returns #GRegex object used in @match_info. It belongs to Glib
+// and must not be freed. Use g_regex_ref() if you need to keep it
+// after you free @match_info object.
+func (x *MatchInfo) GetRegex() *Regex {
+
+	cret := xMatchInfoGetRegex(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoGetString func(uintptr) string
+
+// Returns the string searched with @match_info. This is the
+// string passed to g_regex_match() or g_regex_replace() so
+// you may not free it before calling this function.
+func (x *MatchInfo) GetString() string {
+
+	cret := xMatchInfoGetString(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoIsPartialMatch func(uintptr) bool
+
+// Usually if the string passed to g_regex_match*() matches as far as
+// it goes, but is too short to match the entire pattern, %FALSE is
+// returned. There are circumstances where it might be helpful to
+// distinguish this case from other cases in which there is no match.
+//
+// Consider, for example, an application where a human is required to
+// type in data for a field with specific formatting requirements. An
+// example might be a date in the form ddmmmyy, defined by the pattern
+// "^\d?\d(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\d\d$".
+// If the application sees the user’s keystrokes one by one, and can
+// check that what has been typed so far is potentially valid, it is
+// able to raise an error as soon as a mistake is made.
+//
+// GRegex supports the concept of partial matching by means of the
+// %G_REGEX_MATCH_PARTIAL_SOFT and %G_REGEX_MATCH_PARTIAL_HARD flags.
+// When they are used, the return code for
+// g_regex_match() or g_regex_match_full() is, as usual, %TRUE
+// for a complete match, %FALSE otherwise. But, when these functions
+// return %FALSE, you can check if the match was partial calling
+// g_match_info_is_partial_match().
+//
+// The difference between %G_REGEX_MATCH_PARTIAL_SOFT and
+// %G_REGEX_MATCH_PARTIAL_HARD is that when a partial match is encountered
+// with %G_REGEX_MATCH_PARTIAL_SOFT, matching continues to search for a
+// possible complete match, while with %G_REGEX_MATCH_PARTIAL_HARD matching
+// stops at the partial match.
+// When both %G_REGEX_MATCH_PARTIAL_SOFT and %G_REGEX_MATCH_PARTIAL_HARD
+// are set, the latter takes precedence.
+//
+// There were formerly some restrictions on the pattern for partial matching.
+// The restrictions no longer apply.
+//
+// See pcrepartial(3) for more information on partial matching.
+func (x *MatchInfo) IsPartialMatch() bool {
+
+	cret := xMatchInfoIsPartialMatch(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoMatches func(uintptr) bool
+
+// Returns whether the previous match operation succeeded.
+func (x *MatchInfo) Matches() bool {
+
+	cret := xMatchInfoMatches(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoNext func(uintptr) bool
+
+// Scans for the next match using the same parameters of the previous
+// call to g_regex_match_full() or g_regex_match() that returned
+// @match_info.
+//
+// The match is done on the string passed to the match function, so you
+// cannot free it before calling this function.
+func (x *MatchInfo) Next() (bool, error) {
+	var cerr *Error
+
+	cret := xMatchInfoNext(x.GoPointer())
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xMatchInfoRef func(uintptr) *MatchInfo
+
+// Increases reference count of @match_info by 1.
+func (x *MatchInfo) Ref() *MatchInfo {
+
+	cret := xMatchInfoRef(x.GoPointer())
+	return cret
+}
+
+var xMatchInfoUnref func(uintptr)
+
+// Decreases reference count of @match_info by 1. When reference count drops
+// to zero, it frees all the memory associated with the match_info structure.
+func (x *MatchInfo) Unref() {
+
+	xMatchInfoUnref(x.GoPointer())
+
 }
 
 // The g_regex_*() functions implement regular
@@ -83,6 +353,493 @@ type MatchInfo struct {
 // [PCRE](http://www.pcre.org/)
 // library written by Philip Hazel.
 type Regex struct {
+}
+
+func (x *Regex) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewRegex func(string, RegexCompileFlags, RegexMatchFlags, **Error) *Regex
+
+// Compiles the regular expression to an internal form, and does
+// the initial setup of the #GRegex structure.
+func NewRegex(PatternVar string, CompileOptionsVar RegexCompileFlags, MatchOptionsVar RegexMatchFlags) (*Regex, error) {
+	var cerr *Error
+
+	cret := xNewRegex(PatternVar, CompileOptionsVar, MatchOptionsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexGetCaptureCount func(uintptr) int
+
+// Returns the number of capturing subpatterns in the pattern.
+func (x *Regex) GetCaptureCount() int {
+
+	cret := xRegexGetCaptureCount(x.GoPointer())
+	return cret
+}
+
+var xRegexGetCompileFlags func(uintptr) RegexCompileFlags
+
+// Returns the compile options that @regex was created with.
+//
+// Depending on the version of PCRE that is used, this may or may not
+// include flags set by option expressions such as `(?i)` found at the
+// top-level within the compiled pattern.
+func (x *Regex) GetCompileFlags() RegexCompileFlags {
+
+	cret := xRegexGetCompileFlags(x.GoPointer())
+	return cret
+}
+
+var xRegexGetHasCrOrLf func(uintptr) bool
+
+// Checks whether the pattern contains explicit CR or LF references.
+func (x *Regex) GetHasCrOrLf() bool {
+
+	cret := xRegexGetHasCrOrLf(x.GoPointer())
+	return cret
+}
+
+var xRegexGetMatchFlags func(uintptr) RegexMatchFlags
+
+// Returns the match options that @regex was created with.
+func (x *Regex) GetMatchFlags() RegexMatchFlags {
+
+	cret := xRegexGetMatchFlags(x.GoPointer())
+	return cret
+}
+
+var xRegexGetMaxBackref func(uintptr) int
+
+// Returns the number of the highest back reference
+// in the pattern, or 0 if the pattern does not contain
+// back references.
+func (x *Regex) GetMaxBackref() int {
+
+	cret := xRegexGetMaxBackref(x.GoPointer())
+	return cret
+}
+
+var xRegexGetMaxLookbehind func(uintptr) int
+
+// Gets the number of characters in the longest lookbehind assertion in the
+// pattern. This information is useful when doing multi-segment matching using
+// the partial matching facilities.
+func (x *Regex) GetMaxLookbehind() int {
+
+	cret := xRegexGetMaxLookbehind(x.GoPointer())
+	return cret
+}
+
+var xRegexGetPattern func(uintptr) string
+
+// Gets the pattern string associated with @regex, i.e. a copy of
+// the string passed to g_regex_new().
+func (x *Regex) GetPattern() string {
+
+	cret := xRegexGetPattern(x.GoPointer())
+	return cret
+}
+
+var xRegexGetStringNumber func(uintptr, string) int
+
+// Retrieves the number of the subexpression named @name.
+func (x *Regex) GetStringNumber(NameVar string) int {
+
+	cret := xRegexGetStringNumber(x.GoPointer(), NameVar)
+	return cret
+}
+
+var xRegexMatch func(uintptr, string, RegexMatchFlags, **MatchInfo) bool
+
+// Scans for a match in @string for the pattern in @regex.
+// The @match_options are combined with the match options specified
+// when the @regex structure was created, letting you have more
+// flexibility in reusing #GRegex structures.
+//
+// Unless %G_REGEX_RAW is specified in the options, @string must be valid UTF-8.
+//
+// A #GMatchInfo structure, used to get information on the match,
+// is stored in @match_info if not %NULL. Note that if @match_info
+// is not %NULL then it is created even if the function returns %FALSE,
+// i.e. you must free it regardless if regular expression actually matched.
+//
+// To retrieve all the non-overlapping matches of the pattern in
+// string you can use g_match_info_next().
+//
+// |[&lt;!-- language="C" --&gt;
+// static void
+// print_uppercase_words (const gchar *string)
+//
+//	{
+//	  // Print all uppercase-only words.
+//	  GRegex *regex;
+//	  GMatchInfo *match_info;
+//
+//	  regex = g_regex_new ("[A-Z]+", 0, 0, NULL);
+//	  g_regex_match (regex, string, 0, &amp;match_info);
+//	  while (g_match_info_matches (match_info))
+//	    {
+//	      gchar *word = g_match_info_fetch (match_info, 0);
+//	      g_print ("Found: %s\n", word);
+//	      g_free (word);
+//	      g_match_info_next (match_info, NULL);
+//	    }
+//	  g_match_info_free (match_info);
+//	  g_regex_unref (regex);
+//	}
+//
+// ]|
+//
+// @string is not copied and is used in #GMatchInfo internally. If
+// you use any #GMatchInfo method (except g_match_info_free()) after
+// freeing or modifying @string then the behaviour is undefined.
+func (x *Regex) Match(StringVar string, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) bool {
+
+	cret := xRegexMatch(x.GoPointer(), StringVar, MatchOptionsVar, MatchInfoVar)
+	return cret
+}
+
+var xRegexMatchAll func(uintptr, string, RegexMatchFlags, **MatchInfo) bool
+
+// Using the standard algorithm for regular expression matching only
+// the longest match in the string is retrieved. This function uses
+// a different algorithm so it can retrieve all the possible matches.
+// For more documentation see g_regex_match_all_full().
+//
+// A #GMatchInfo structure, used to get information on the match, is
+// stored in @match_info if not %NULL. Note that if @match_info is
+// not %NULL then it is created even if the function returns %FALSE,
+// i.e. you must free it regardless if regular expression actually
+// matched.
+//
+// @string is not copied and is used in #GMatchInfo internally. If
+// you use any #GMatchInfo method (except g_match_info_free()) after
+// freeing or modifying @string then the behaviour is undefined.
+func (x *Regex) MatchAll(StringVar string, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) bool {
+
+	cret := xRegexMatchAll(x.GoPointer(), StringVar, MatchOptionsVar, MatchInfoVar)
+	return cret
+}
+
+var xRegexMatchAllFull func(uintptr, uintptr, int, int, RegexMatchFlags, **MatchInfo, **Error) bool
+
+// Using the standard algorithm for regular expression matching only
+// the longest match in the @string is retrieved, it is not possible
+// to obtain all the available matches. For instance matching
+// "&lt;a&gt; &lt;b&gt; &lt;c&gt;" against the pattern "&lt;.*&gt;"
+// you get "&lt;a&gt; &lt;b&gt; &lt;c&gt;".
+//
+// This function uses a different algorithm (called DFA, i.e. deterministic
+// finite automaton), so it can retrieve all the possible matches, all
+// starting at the same point in the string. For instance matching
+// "&lt;a&gt; &lt;b&gt; &lt;c&gt;" against the pattern "&lt;.*&gt;;"
+// you would obtain three matches: "&lt;a&gt; &lt;b&gt; &lt;c&gt;",
+// "&lt;a&gt; &lt;b&gt;" and "&lt;a&gt;".
+//
+// The number of matched strings is retrieved using
+// g_match_info_get_match_count(). To obtain the matched strings and
+// their position you can use, respectively, g_match_info_fetch() and
+// g_match_info_fetch_pos(). Note that the strings are returned in
+// reverse order of length; that is, the longest matching string is
+// given first.
+//
+// Note that the DFA algorithm is slower than the standard one and it
+// is not able to capture substrings, so backreferences do not work.
+//
+// Setting @start_position differs from just passing over a shortened
+// string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern
+// that begins with any kind of lookbehind assertion, such as "\b".
+//
+// Unless %G_REGEX_RAW is specified in the options, @string must be valid UTF-8.
+//
+// A #GMatchInfo structure, used to get information on the match, is
+// stored in @match_info if not %NULL. Note that if @match_info is
+// not %NULL then it is created even if the function returns %FALSE,
+// i.e. you must free it regardless if regular expression actually
+// matched.
+//
+// @string is not copied and is used in #GMatchInfo internally. If
+// you use any #GMatchInfo method (except g_match_info_free()) after
+// freeing or modifying @string then the behaviour is undefined.
+func (x *Regex) MatchAllFull(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
+	var cerr *Error
+
+	cret := xRegexMatchAllFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MatchInfoVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexMatchFull func(uintptr, uintptr, int, int, RegexMatchFlags, **MatchInfo, **Error) bool
+
+// Scans for a match in @string for the pattern in @regex.
+// The @match_options are combined with the match options specified
+// when the @regex structure was created, letting you have more
+// flexibility in reusing #GRegex structures.
+//
+// Setting @start_position differs from just passing over a shortened
+// string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern
+// that begins with any kind of lookbehind assertion, such as "\b".
+//
+// Unless %G_REGEX_RAW is specified in the options, @string must be valid UTF-8.
+//
+// A #GMatchInfo structure, used to get information on the match, is
+// stored in @match_info if not %NULL. Note that if @match_info is
+// not %NULL then it is created even if the function returns %FALSE,
+// i.e. you must free it regardless if regular expression actually
+// matched.
+//
+// @string is not copied and is used in #GMatchInfo internally. If
+// you use any #GMatchInfo method (except g_match_info_free()) after
+// freeing or modifying @string then the behaviour is undefined.
+//
+// To retrieve all the non-overlapping matches of the pattern in
+// string you can use g_match_info_next().
+//
+// |[&lt;!-- language="C" --&gt;
+// static void
+// print_uppercase_words (const gchar *string)
+//
+//	{
+//	  // Print all uppercase-only words.
+//	  GRegex *regex;
+//	  GMatchInfo *match_info;
+//	  GError *error = NULL;
+//
+//	  regex = g_regex_new ("[A-Z]+", 0, 0, NULL);
+//	  g_regex_match_full (regex, string, -1, 0, 0, &amp;match_info, &amp;error);
+//	  while (g_match_info_matches (match_info))
+//	    {
+//	      gchar *word = g_match_info_fetch (match_info, 0);
+//	      g_print ("Found: %s\n", word);
+//	      g_free (word);
+//	      g_match_info_next (match_info, &amp;error);
+//	    }
+//	  g_match_info_free (match_info);
+//	  g_regex_unref (regex);
+//	  if (error != NULL)
+//	    {
+//	      g_printerr ("Error while matching: %s\n", error-&gt;message);
+//	      g_error_free (error);
+//	    }
+//	}
+//
+// ]|
+func (x *Regex) MatchFull(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
+	var cerr *Error
+
+	cret := xRegexMatchFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MatchInfoVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexRef func(uintptr) *Regex
+
+// Increases reference count of @regex by 1.
+func (x *Regex) Ref() *Regex {
+
+	cret := xRegexRef(x.GoPointer())
+	return cret
+}
+
+var xRegexReplace func(uintptr, uintptr, int, int, string, RegexMatchFlags, **Error) string
+
+// Replaces all occurrences of the pattern in @regex with the
+// replacement text. Backreferences of the form '\number' or
+// '\g&lt;number&gt;' in the replacement text are interpolated by the
+// number-th captured subexpression of the match, '\g&lt;name&gt;' refers
+// to the captured subexpression with the given name. '\0' refers
+// to the complete match, but '\0' followed by a number is the octal
+// representation of a character. To include a literal '\' in the
+// replacement, write '\\\\'.
+//
+// There are also escapes that changes the case of the following text:
+//
+// - \l: Convert to lower case the next character
+// - \u: Convert to upper case the next character
+// - \L: Convert to lower case till \E
+// - \U: Convert to upper case till \E
+// - \E: End case modification
+//
+// If you do not need to use backreferences use g_regex_replace_literal().
+//
+// The @replacement string must be UTF-8 encoded even if %G_REGEX_RAW was
+// passed to g_regex_new(). If you want to use not UTF-8 encoded strings
+// you can use g_regex_replace_literal().
+//
+// Setting @start_position differs from just passing over a shortened
+// string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern that
+// begins with any kind of lookbehind assertion, such as "\b".
+func (x *Regex) Replace(StringVar uintptr, StringLenVar int, StartPositionVar int, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
+	var cerr *Error
+
+	cret := xRegexReplace(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, ReplacementVar, MatchOptionsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexReplaceEval func(uintptr, uintptr, int, int, RegexMatchFlags, uintptr, uintptr, **Error) string
+
+// Replaces occurrences of the pattern in regex with the output of
+// @eval for that occurrence.
+//
+// Setting @start_position differs from just passing over a shortened
+// string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern
+// that begins with any kind of lookbehind assertion, such as "\b".
+//
+// The following example uses g_regex_replace_eval() to replace multiple
+// strings at once:
+// |[&lt;!-- language="C" --&gt;
+// static gboolean
+// eval_cb (const GMatchInfo *info,
+//
+//	GString          *res,
+//	gpointer          data)
+//
+//	{
+//	  gchar *match;
+//	  gchar *r;
+//
+//	   match = g_match_info_fetch (info, 0);
+//	   r = g_hash_table_lookup ((GHashTable *)data, match);
+//	   g_string_append (res, r);
+//	   g_free (match);
+//
+//	   return FALSE;
+//	}
+//
+// ...
+//
+// GRegex *reg;
+// GHashTable *h;
+// gchar *res;
+//
+// h = g_hash_table_new (g_str_hash, g_str_equal);
+//
+// g_hash_table_insert (h, "1", "ONE");
+// g_hash_table_insert (h, "2", "TWO");
+// g_hash_table_insert (h, "3", "THREE");
+// g_hash_table_insert (h, "4", "FOUR");
+//
+// reg = g_regex_new ("1|2|3|4", 0, 0, NULL);
+// res = g_regex_replace_eval (reg, text, -1, 0, 0, eval_cb, h, NULL);
+// g_hash_table_destroy (h);
+//
+// ...
+// ]|
+func (x *Regex) ReplaceEval(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, EvalVar RegexEvalCallback, UserDataVar uintptr) (string, error) {
+	var cerr *Error
+
+	cret := xRegexReplaceEval(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, purego.NewCallback(EvalVar), UserDataVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexReplaceLiteral func(uintptr, uintptr, int, int, string, RegexMatchFlags, **Error) string
+
+// Replaces all occurrences of the pattern in @regex with the
+// replacement text. @replacement is replaced literally, to
+// include backreferences use g_regex_replace().
+//
+// Setting @start_position differs from just passing over a
+// shortened string and setting %G_REGEX_MATCH_NOTBOL in the
+// case of a pattern that begins with any kind of lookbehind
+// assertion, such as "\b".
+func (x *Regex) ReplaceLiteral(StringVar uintptr, StringLenVar int, StartPositionVar int, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
+	var cerr *Error
+
+	cret := xRegexReplaceLiteral(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, ReplacementVar, MatchOptionsVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexSplit func(uintptr, string, RegexMatchFlags) uintptr
+
+// Breaks the string on the pattern, and returns an array of the tokens.
+// If the pattern contains capturing parentheses, then the text for each
+// of the substrings will also be returned. If the pattern does not match
+// anywhere in the string, then the whole string is returned as the first
+// token.
+//
+// As a special case, the result of splitting the empty string "" is an
+// empty vector, not a vector containing a single string. The reason for
+// this special case is that being able to represent an empty vector is
+// typically more useful than consistent handling of empty elements. If
+// you do need to represent empty elements, you'll need to check for the
+// empty string before calling this function.
+//
+// A pattern that can match empty strings splits @string into separate
+// characters wherever it matches the empty string between characters.
+// For example splitting "ab c" using as a separator "\s*", you will get
+// "a", "b" and "c".
+func (x *Regex) Split(StringVar string, MatchOptionsVar RegexMatchFlags) uintptr {
+
+	cret := xRegexSplit(x.GoPointer(), StringVar, MatchOptionsVar)
+	return cret
+}
+
+var xRegexSplitFull func(uintptr, uintptr, int, int, RegexMatchFlags, int, **Error) uintptr
+
+// Breaks the string on the pattern, and returns an array of the tokens.
+// If the pattern contains capturing parentheses, then the text for each
+// of the substrings will also be returned. If the pattern does not match
+// anywhere in the string, then the whole string is returned as the first
+// token.
+//
+// As a special case, the result of splitting the empty string "" is an
+// empty vector, not a vector containing a single string. The reason for
+// this special case is that being able to represent an empty vector is
+// typically more useful than consistent handling of empty elements. If
+// you do need to represent empty elements, you'll need to check for the
+// empty string before calling this function.
+//
+// A pattern that can match empty strings splits @string into separate
+// characters wherever it matches the empty string between characters.
+// For example splitting "ab c" using as a separator "\s*", you will get
+// "a", "b" and "c".
+//
+// Setting @start_position differs from just passing over a shortened
+// string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern
+// that begins with any kind of lookbehind assertion, such as "\b".
+func (x *Regex) SplitFull(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MaxTokensVar int) (uintptr, error) {
+	var cerr *Error
+
+	cret := xRegexSplitFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MaxTokensVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xRegexUnref func(uintptr)
+
+// Decreases reference count of @regex by 1. When reference count drops
+// to zero, it frees all the memory associated with the regex structure.
+func (x *Regex) Unref() {
+
+	xRegexUnref(x.GoPointer())
+
 }
 
 // Flags specifying compile-time options.
@@ -537,5 +1294,43 @@ func init() {
 	core.PuregoSafeRegister(&xRegexEscapeString, lib, "g_regex_escape_string")
 	core.PuregoSafeRegister(&xRegexMatchSimple, lib, "g_regex_match_simple")
 	core.PuregoSafeRegister(&xRegexSplitSimple, lib, "g_regex_split_simple")
+
+	core.PuregoSafeRegister(&xMatchInfoExpandReferences, lib, "g_match_info_expand_references")
+	core.PuregoSafeRegister(&xMatchInfoFetch, lib, "g_match_info_fetch")
+	core.PuregoSafeRegister(&xMatchInfoFetchAll, lib, "g_match_info_fetch_all")
+	core.PuregoSafeRegister(&xMatchInfoFetchNamed, lib, "g_match_info_fetch_named")
+	core.PuregoSafeRegister(&xMatchInfoFetchNamedPos, lib, "g_match_info_fetch_named_pos")
+	core.PuregoSafeRegister(&xMatchInfoFetchPos, lib, "g_match_info_fetch_pos")
+	core.PuregoSafeRegister(&xMatchInfoFree, lib, "g_match_info_free")
+	core.PuregoSafeRegister(&xMatchInfoGetMatchCount, lib, "g_match_info_get_match_count")
+	core.PuregoSafeRegister(&xMatchInfoGetRegex, lib, "g_match_info_get_regex")
+	core.PuregoSafeRegister(&xMatchInfoGetString, lib, "g_match_info_get_string")
+	core.PuregoSafeRegister(&xMatchInfoIsPartialMatch, lib, "g_match_info_is_partial_match")
+	core.PuregoSafeRegister(&xMatchInfoMatches, lib, "g_match_info_matches")
+	core.PuregoSafeRegister(&xMatchInfoNext, lib, "g_match_info_next")
+	core.PuregoSafeRegister(&xMatchInfoRef, lib, "g_match_info_ref")
+	core.PuregoSafeRegister(&xMatchInfoUnref, lib, "g_match_info_unref")
+
+	core.PuregoSafeRegister(&xNewRegex, lib, "g_regex_new")
+
+	core.PuregoSafeRegister(&xRegexGetCaptureCount, lib, "g_regex_get_capture_count")
+	core.PuregoSafeRegister(&xRegexGetCompileFlags, lib, "g_regex_get_compile_flags")
+	core.PuregoSafeRegister(&xRegexGetHasCrOrLf, lib, "g_regex_get_has_cr_or_lf")
+	core.PuregoSafeRegister(&xRegexGetMatchFlags, lib, "g_regex_get_match_flags")
+	core.PuregoSafeRegister(&xRegexGetMaxBackref, lib, "g_regex_get_max_backref")
+	core.PuregoSafeRegister(&xRegexGetMaxLookbehind, lib, "g_regex_get_max_lookbehind")
+	core.PuregoSafeRegister(&xRegexGetPattern, lib, "g_regex_get_pattern")
+	core.PuregoSafeRegister(&xRegexGetStringNumber, lib, "g_regex_get_string_number")
+	core.PuregoSafeRegister(&xRegexMatch, lib, "g_regex_match")
+	core.PuregoSafeRegister(&xRegexMatchAll, lib, "g_regex_match_all")
+	core.PuregoSafeRegister(&xRegexMatchAllFull, lib, "g_regex_match_all_full")
+	core.PuregoSafeRegister(&xRegexMatchFull, lib, "g_regex_match_full")
+	core.PuregoSafeRegister(&xRegexRef, lib, "g_regex_ref")
+	core.PuregoSafeRegister(&xRegexReplace, lib, "g_regex_replace")
+	core.PuregoSafeRegister(&xRegexReplaceEval, lib, "g_regex_replace_eval")
+	core.PuregoSafeRegister(&xRegexReplaceLiteral, lib, "g_regex_replace_literal")
+	core.PuregoSafeRegister(&xRegexSplit, lib, "g_regex_split")
+	core.PuregoSafeRegister(&xRegexSplitFull, lib, "g_regex_split_full")
+	core.PuregoSafeRegister(&xRegexUnref, lib, "g_regex_unref")
 
 }

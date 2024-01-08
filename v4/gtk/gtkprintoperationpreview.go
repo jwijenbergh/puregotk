@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type PrintOperationPreviewIface struct {
 	GIface uintptr
+}
+
+func (x *PrintOperationPreviewIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkPrintOperationPreview` is the interface that is used to

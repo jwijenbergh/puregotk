@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type PasswordEntryBufferClass struct {
 	ParentClass uintptr
+}
+
+func (x *PasswordEntryBufferClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkEntryBuffer` that locks the underlying memory to prevent it

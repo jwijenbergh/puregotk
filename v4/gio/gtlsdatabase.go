@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -17,8 +19,25 @@ type TlsDatabaseClass struct {
 	Padding uintptr
 }
 
+func (x *TlsDatabaseClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TlsDatabasePrivate struct {
 }
+
+func (x *TlsDatabasePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// The purpose used to verify the client certificate in a TLS connection.
+	// Used by TLS servers.
+	TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT string = "1.3.6.1.5.5.7.3.2"
+	// The purpose used to verify the server certificate in a TLS connection. This
+	// is the most common purpose in use. Used by TLS clients.
+	TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER string = "1.3.6.1.5.5.7.3.1"
+)
 
 // #GTlsDatabase is used to look up certificates and other information
 // from a certificate or key store. It is an abstract base class which

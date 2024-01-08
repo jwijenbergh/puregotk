@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,6 +17,10 @@ import (
 type PrinterFunc func(uintptr, uintptr) bool
 
 type PrintBackend struct {
+}
+
+func (x *PrintBackend) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Specifies which features the print dialog should offer.

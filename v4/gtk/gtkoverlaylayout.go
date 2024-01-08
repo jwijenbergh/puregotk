@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,8 +12,16 @@ type OverlayLayoutChildClass struct {
 	ParentClass uintptr
 }
 
+func (x *OverlayLayoutChildClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type OverlayLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *OverlayLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkOverlayLayout` is the layout manager used by `GtkOverlay`.

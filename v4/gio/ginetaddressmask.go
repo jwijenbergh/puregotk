@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type InetAddressMaskClass struct {
 	ParentClass uintptr
 }
 
+func (x *InetAddressMaskClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type InetAddressMaskPrivate struct {
+}
+
+func (x *InetAddressMaskPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GInetAddressMask represents a range of IPv4 or IPv6 addresses

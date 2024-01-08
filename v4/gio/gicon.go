@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,6 +14,10 @@ import (
 // examples of how to implement this interface.
 type IconIface struct {
 	GIface uintptr
+}
+
+func (x *IconIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GIcon is a very minimal interface for icons. It provides functions

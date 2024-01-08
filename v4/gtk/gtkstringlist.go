@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -12,8 +14,16 @@ type StringListClass struct {
 	ParentClass uintptr
 }
 
+func (x *StringListClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type StringObjectClass struct {
 	ParentClass uintptr
+}
+
+func (x *StringObjectClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkStringList` is a list model that wraps an array of strings.

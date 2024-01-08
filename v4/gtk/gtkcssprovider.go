@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -11,7 +13,15 @@ import (
 type CssProviderClass struct {
 }
 
+func (x *CssProviderClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CssProviderPrivate struct {
+}
+
+func (x *CssProviderPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkCssProvider` is an object implementing the `GtkStyleProvider` interface

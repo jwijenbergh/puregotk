@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -13,6 +15,10 @@ type FontMapClass struct {
 	ParentClass uintptr
 
 	ShapeEngineType uintptr
+}
+
+func (x *FontMapClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `PangoFontMap` represents the set of fonts available for a

@@ -2,12 +2,18 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
 type BinLayoutClass struct {
 	ParentClass uintptr
+}
+
+func (x *BinLayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkBinLayout` is a `GtkLayoutManager` subclass useful for create "bins" of

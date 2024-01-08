@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -9,6 +11,10 @@ import (
 )
 
 type PasswordEntryClass struct {
+}
+
+func (x *PasswordEntryClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkPasswordEntry` is an entry that has been tailored for entering secrets.

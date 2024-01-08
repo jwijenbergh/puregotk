@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -35,7 +37,15 @@ type SettingsClass struct {
 	Padding uintptr
 }
 
+func (x *SettingsClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SettingsPrivate struct {
+}
+
+func (x *SettingsPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Flags used when creating a binding. These flags determine in which
@@ -1309,6 +1319,55 @@ func (x *Settings) ConnectWritableChanged(cb func(Settings, string)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "writable-changed", purego.NewCallback(fcb))
 }
 
+var xSettingsListRelocatableSchemas func() uintptr
+
+// Deprecated.
+func SettingsListRelocatableSchemas() uintptr {
+
+	cret := xSettingsListRelocatableSchemas()
+	return cret
+}
+
+var xSettingsListSchemas func() uintptr
+
+// Deprecated.
+func SettingsListSchemas() uintptr {
+
+	cret := xSettingsListSchemas()
+	return cret
+}
+
+var xSettingsSync func()
+
+// Ensures that all pending operations are complete for the default backend.
+//
+// Writes made to a #GSettings are handled asynchronously.  For this
+// reason, it is very unlikely that the changes have it to disk by the
+// time g_settings_set() returns.
+//
+// This call will block until all of the writes have made it to the
+// backend.  Since the mainloop is not running, no change notifications
+// will be dispatched during this call (but some may be queued by the
+// time the call is done).
+func SettingsSync() {
+
+	xSettingsSync()
+
+}
+
+var xSettingsUnbind func(uintptr, string)
+
+// Removes an existing binding for @property on @object.
+//
+// Note that bindings are automatically removed when the
+// object is finalized, so it is rarely necessary to call this
+// function.
+func SettingsUnbind(ObjectVar *gobject.Object, PropertyVar string) {
+
+	xSettingsUnbind(ObjectVar.GoPointer(), PropertyVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1363,5 +1422,10 @@ func init() {
 	core.PuregoSafeRegister(&xSettingsSetUint, lib, "g_settings_set_uint")
 	core.PuregoSafeRegister(&xSettingsSetUint64, lib, "g_settings_set_uint64")
 	core.PuregoSafeRegister(&xSettingsSetValue, lib, "g_settings_set_value")
+
+	core.PuregoSafeRegister(&xSettingsListRelocatableSchemas, lib, "g_settings_list_relocatable_schemas")
+	core.PuregoSafeRegister(&xSettingsListSchemas, lib, "g_settings_list_schemas")
+	core.PuregoSafeRegister(&xSettingsSync, lib, "g_settings_sync")
+	core.PuregoSafeRegister(&xSettingsUnbind, lib, "g_settings_unbind")
 
 }

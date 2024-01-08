@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -26,18 +28,372 @@ type TreeIter struct {
 	UserData3 uintptr
 }
 
+func (x *TreeIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTreeIterCopy func(uintptr) *TreeIter
+
+// Creates a dynamically allocated tree iterator as a copy of @iter.
+//
+// This function is not intended for use in applications,
+// because you can just copy the structs by value
+// (`GtkTreeIter new_iter = iter;`).
+// You must free this iter with gtk_tree_iter_free().
+func (x *TreeIter) Copy() *TreeIter {
+
+	cret := xTreeIterCopy(x.GoPointer())
+	return cret
+}
+
+var xTreeIterFree func(uintptr)
+
+// Frees an iterator that has been allocated by gtk_tree_iter_copy().
+//
+// This function is mainly used for language bindings.
+func (x *TreeIter) Free() {
+
+	xTreeIterFree(x.GoPointer())
+
+}
+
 type TreeModelIface struct {
 	GIface uintptr
+}
+
+func (x *TreeModelIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An opaque structure representing a path to a row in a model.
 type TreePath struct {
 }
 
+func (x *TreePath) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewTreePath func() *TreePath
+
+// Creates a new `GtkTreePath`
+// This refers to a row.
+func NewTreePath() *TreePath {
+
+	cret := xNewTreePath()
+	return cret
+}
+
+var xNewFirstTreePath func() *TreePath
+
+// Creates a new `GtkTreePath`.
+//
+// The string representation of this path is “0”.
+func NewFirstTreePath() *TreePath {
+
+	cret := xNewFirstTreePath()
+	return cret
+}
+
+var xNewFromIndicesTreePath func(int, ...interface{}) *TreePath
+
+// Creates a new path with @first_index and @varargs as indices.
+func NewFromIndicesTreePath(FirstIndexVar int, varArgs ...interface{}) *TreePath {
+
+	cret := xNewFromIndicesTreePath(FirstIndexVar, varArgs...)
+	return cret
+}
+
+var xNewFromIndicesvTreePath func(uintptr, uint) *TreePath
+
+// Creates a new path with the given @indices array of @length.
+func NewFromIndicesvTreePath(IndicesVar uintptr, LengthVar uint) *TreePath {
+
+	cret := xNewFromIndicesvTreePath(IndicesVar, LengthVar)
+	return cret
+}
+
+var xNewFromStringTreePath func(string) *TreePath
+
+// Creates a new `GtkTreePath` initialized to @path.
+//
+// @path is expected to be a colon separated list of numbers.
+// For example, the string “10:4:0” would create a path of depth
+// 3 pointing to the 11th child of the root node, the 5th
+// child of that 11th child, and the 1st child of that 5th child.
+// If an invalid path string is passed in, %NULL is returned.
+func NewFromStringTreePath(PathVar string) *TreePath {
+
+	cret := xNewFromStringTreePath(PathVar)
+	return cret
+}
+
+var xTreePathAppendIndex func(uintptr, int)
+
+// Appends a new index to a path.
+//
+// As a result, the depth of the path is increased.
+func (x *TreePath) AppendIndex(IndexVar int) {
+
+	xTreePathAppendIndex(x.GoPointer(), IndexVar)
+
+}
+
+var xTreePathCompare func(uintptr, *TreePath) int
+
+// Compares two paths.
+//
+// If @a appears before @b in a tree, then -1 is returned.
+// If @b appears before @a, then 1 is returned.
+// If the two nodes are equal, then 0 is returned.
+func (x *TreePath) Compare(BVar *TreePath) int {
+
+	cret := xTreePathCompare(x.GoPointer(), BVar)
+	return cret
+}
+
+var xTreePathCopy func(uintptr) *TreePath
+
+// Creates a new `GtkTreePath` as a copy of @path.
+func (x *TreePath) Copy() *TreePath {
+
+	cret := xTreePathCopy(x.GoPointer())
+	return cret
+}
+
+var xTreePathDown func(uintptr)
+
+// Moves @path to point to the first child of the current path.
+func (x *TreePath) Down() {
+
+	xTreePathDown(x.GoPointer())
+
+}
+
+var xTreePathFree func(uintptr)
+
+// Frees @path. If @path is %NULL, it simply returns.
+func (x *TreePath) Free() {
+
+	xTreePathFree(x.GoPointer())
+
+}
+
+var xTreePathGetDepth func(uintptr) int
+
+// Returns the current depth of @path.
+func (x *TreePath) GetDepth() int {
+
+	cret := xTreePathGetDepth(x.GoPointer())
+	return cret
+}
+
+var xTreePathGetIndices func(uintptr) int
+
+// Returns the current indices of @path.
+//
+// This is an array of integers, each representing a node in a tree.
+// This value should not be freed.
+//
+// The length of the array can be obtained with gtk_tree_path_get_depth().
+func (x *TreePath) GetIndices() int {
+
+	cret := xTreePathGetIndices(x.GoPointer())
+	return cret
+}
+
+var xTreePathGetIndicesWithDepth func(uintptr, int) uintptr
+
+// Returns the current indices of @path.
+//
+// This is an array of integers, each representing a node in a tree.
+// It also returns the number of elements in the array.
+// The array should not be freed.
+func (x *TreePath) GetIndicesWithDepth(DepthVar int) uintptr {
+
+	cret := xTreePathGetIndicesWithDepth(x.GoPointer(), DepthVar)
+	return cret
+}
+
+var xTreePathIsAncestor func(uintptr, *TreePath) bool
+
+// Returns %TRUE if @descendant is a descendant of @path.
+func (x *TreePath) IsAncestor(DescendantVar *TreePath) bool {
+
+	cret := xTreePathIsAncestor(x.GoPointer(), DescendantVar)
+	return cret
+}
+
+var xTreePathIsDescendant func(uintptr, *TreePath) bool
+
+// Returns %TRUE if @path is a descendant of @ancestor.
+func (x *TreePath) IsDescendant(AncestorVar *TreePath) bool {
+
+	cret := xTreePathIsDescendant(x.GoPointer(), AncestorVar)
+	return cret
+}
+
+var xTreePathNext func(uintptr)
+
+// Moves the @path to point to the next node at the current depth.
+func (x *TreePath) Next() {
+
+	xTreePathNext(x.GoPointer())
+
+}
+
+var xTreePathPrependIndex func(uintptr, int)
+
+// Prepends a new index to a path.
+//
+// As a result, the depth of the path is increased.
+func (x *TreePath) PrependIndex(IndexVar int) {
+
+	xTreePathPrependIndex(x.GoPointer(), IndexVar)
+
+}
+
+var xTreePathPrev func(uintptr) bool
+
+// Moves the @path to point to the previous node at the
+// current depth, if it exists.
+func (x *TreePath) Prev() bool {
+
+	cret := xTreePathPrev(x.GoPointer())
+	return cret
+}
+
+var xTreePathToString func(uintptr) string
+
+// Generates a string representation of the path.
+//
+// This string is a “:” separated list of numbers.
+// For example, “4:10:0:3” would be an acceptable
+// return value for this string. If the path has
+// depth 0, %NULL is returned.
+func (x *TreePath) ToString() string {
+
+	cret := xTreePathToString(x.GoPointer())
+	return cret
+}
+
+var xTreePathUp func(uintptr) bool
+
+// Moves the @path to point to its parent node, if it has a parent.
+func (x *TreePath) Up() bool {
+
+	cret := xTreePathUp(x.GoPointer())
+	return cret
+}
+
 // A GtkTreeRowReference tracks model changes so that it always refers to the
 // same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
 // new GtkTreeRowReference with gtk_tree_row_reference_new().
 type TreeRowReference struct {
+}
+
+func (x *TreeRowReference) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewTreeRowReference func(uintptr, *TreePath) *TreeRowReference
+
+// Creates a row reference based on @path.
+//
+// This reference will keep pointing to the node pointed to
+// by @path, so long as it exists. Any changes that occur on @model are
+// propagated, and the path is updated appropriately. If
+// @path isn’t a valid path in @model, then %NULL is returned.
+func NewTreeRowReference(ModelVar TreeModel, PathVar *TreePath) *TreeRowReference {
+
+	cret := xNewTreeRowReference(ModelVar.GoPointer(), PathVar)
+	return cret
+}
+
+var xNewProxyTreeRowReference func(uintptr, uintptr, *TreePath) *TreeRowReference
+
+// You do not need to use this function.
+//
+// Creates a row reference based on @path.
+//
+// This reference will keep pointing to the node pointed to
+// by @path, so long as it exists. If @path isn’t a valid
+// path in @model, then %NULL is returned. However, unlike
+// references created with gtk_tree_row_reference_new(), it
+// does not listen to the model for changes. The creator of
+// the row reference must do this explicitly using
+// gtk_tree_row_reference_inserted(), gtk_tree_row_reference_deleted(),
+// gtk_tree_row_reference_reordered().
+//
+// These functions must be called exactly once per proxy when the
+// corresponding signal on the model is emitted. This single call
+// updates all row references for that proxy. Since built-in GTK
+// objects like `GtkTreeView` already use this mechanism internally,
+// using them as the proxy object will produce unpredictable results.
+// Further more, passing the same object as @model and @proxy
+// doesn’t work for reasons of internal implementation.
+//
+// This type of row reference is primarily meant by structures that
+// need to carefully monitor exactly when a row reference updates
+// itself, and is not generally needed by most applications.
+func NewProxyTreeRowReference(ProxyVar *gobject.Object, ModelVar TreeModel, PathVar *TreePath) *TreeRowReference {
+
+	cret := xNewProxyTreeRowReference(ProxyVar.GoPointer(), ModelVar.GoPointer(), PathVar)
+	return cret
+}
+
+var xTreeRowReferenceCopy func(uintptr) *TreeRowReference
+
+// Copies a `GtkTreeRowReference`.
+func (x *TreeRowReference) Copy() *TreeRowReference {
+
+	cret := xTreeRowReferenceCopy(x.GoPointer())
+	return cret
+}
+
+var xTreeRowReferenceFree func(uintptr)
+
+// Free’s @reference. @reference may be %NULL
+func (x *TreeRowReference) Free() {
+
+	xTreeRowReferenceFree(x.GoPointer())
+
+}
+
+var xTreeRowReferenceGetModel func(uintptr) uintptr
+
+// Returns the model that the row reference is monitoring.
+func (x *TreeRowReference) GetModel() *TreeModelBase {
+	var cls *TreeModelBase
+
+	cret := xTreeRowReferenceGetModel(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &TreeModelBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xTreeRowReferenceGetPath func(uintptr) *TreePath
+
+// Returns a path that the row reference currently points to,
+// or %NULL if the path pointed to is no longer valid.
+func (x *TreeRowReference) GetPath() *TreePath {
+
+	cret := xTreeRowReferenceGetPath(x.GoPointer())
+	return cret
+}
+
+var xTreeRowReferenceValid func(uintptr) bool
+
+// Returns %TRUE if the @reference is non-%NULL and refers to
+// a current valid path.
+func (x *TreeRowReference) Valid() bool {
+
+	cret := xTreeRowReferenceValid(x.GoPointer())
+	return cret
 }
 
 // The tree interface used by GtkTreeView
@@ -706,6 +1062,40 @@ func init() {
 	core.PuregoSafeRegister(&xTreeRowReferenceDeleted, lib, "gtk_tree_row_reference_deleted")
 	core.PuregoSafeRegister(&xTreeRowReferenceInserted, lib, "gtk_tree_row_reference_inserted")
 	core.PuregoSafeRegister(&xTreeRowReferenceReordered, lib, "gtk_tree_row_reference_reordered")
+
+	core.PuregoSafeRegister(&xTreeIterCopy, lib, "gtk_tree_iter_copy")
+	core.PuregoSafeRegister(&xTreeIterFree, lib, "gtk_tree_iter_free")
+
+	core.PuregoSafeRegister(&xNewTreePath, lib, "gtk_tree_path_new")
+	core.PuregoSafeRegister(&xNewFirstTreePath, lib, "gtk_tree_path_new_first")
+	core.PuregoSafeRegister(&xNewFromIndicesTreePath, lib, "gtk_tree_path_new_from_indices")
+	core.PuregoSafeRegister(&xNewFromIndicesvTreePath, lib, "gtk_tree_path_new_from_indicesv")
+	core.PuregoSafeRegister(&xNewFromStringTreePath, lib, "gtk_tree_path_new_from_string")
+
+	core.PuregoSafeRegister(&xTreePathAppendIndex, lib, "gtk_tree_path_append_index")
+	core.PuregoSafeRegister(&xTreePathCompare, lib, "gtk_tree_path_compare")
+	core.PuregoSafeRegister(&xTreePathCopy, lib, "gtk_tree_path_copy")
+	core.PuregoSafeRegister(&xTreePathDown, lib, "gtk_tree_path_down")
+	core.PuregoSafeRegister(&xTreePathFree, lib, "gtk_tree_path_free")
+	core.PuregoSafeRegister(&xTreePathGetDepth, lib, "gtk_tree_path_get_depth")
+	core.PuregoSafeRegister(&xTreePathGetIndices, lib, "gtk_tree_path_get_indices")
+	core.PuregoSafeRegister(&xTreePathGetIndicesWithDepth, lib, "gtk_tree_path_get_indices_with_depth")
+	core.PuregoSafeRegister(&xTreePathIsAncestor, lib, "gtk_tree_path_is_ancestor")
+	core.PuregoSafeRegister(&xTreePathIsDescendant, lib, "gtk_tree_path_is_descendant")
+	core.PuregoSafeRegister(&xTreePathNext, lib, "gtk_tree_path_next")
+	core.PuregoSafeRegister(&xTreePathPrependIndex, lib, "gtk_tree_path_prepend_index")
+	core.PuregoSafeRegister(&xTreePathPrev, lib, "gtk_tree_path_prev")
+	core.PuregoSafeRegister(&xTreePathToString, lib, "gtk_tree_path_to_string")
+	core.PuregoSafeRegister(&xTreePathUp, lib, "gtk_tree_path_up")
+
+	core.PuregoSafeRegister(&xNewTreeRowReference, lib, "gtk_tree_row_reference_new")
+	core.PuregoSafeRegister(&xNewProxyTreeRowReference, lib, "gtk_tree_row_reference_new_proxy")
+
+	core.PuregoSafeRegister(&xTreeRowReferenceCopy, lib, "gtk_tree_row_reference_copy")
+	core.PuregoSafeRegister(&xTreeRowReferenceFree, lib, "gtk_tree_row_reference_free")
+	core.PuregoSafeRegister(&xTreeRowReferenceGetModel, lib, "gtk_tree_row_reference_get_model")
+	core.PuregoSafeRegister(&xTreeRowReferenceGetPath, lib, "gtk_tree_row_reference_get_path")
+	core.PuregoSafeRegister(&xTreeRowReferenceValid, lib, "gtk_tree_row_reference_valid")
 
 	core.PuregoSafeRegister(&XGtkTreeModelFilterNew, lib, "gtk_tree_model_filter_new")
 	core.PuregoSafeRegister(&XGtkTreeModelForeach, lib, "gtk_tree_model_foreach")

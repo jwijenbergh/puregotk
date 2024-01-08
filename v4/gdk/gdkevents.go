@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,6 +13,30 @@ import (
 // of related touch events.
 type EventSequence struct {
 }
+
+func (x *EventSequence) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// The middle button.
+	BUTTON_MIDDLE int = 2
+	// The primary button. This is typically the left mouse button, or the
+	// right button in a left-handed setup.
+	BUTTON_PRIMARY int = 1
+	// The secondary button. This is typically the right mouse button, or the
+	// left button in a left-handed setup.
+	BUTTON_SECONDARY int = 3
+	// Use this macro as the return value for continuing the propagation of
+	// an event handler.
+	EVENT_PROPAGATE bool = false
+	// Use this macro as the return value for stopping the propagation of
+	// an event handler.
+	EVENT_STOP bool = true
+	// This is the priority that the idle handler processing surface updates
+	// is given in the main loop.
+	PRIORITY_REDRAW int = 120
+)
 
 // Specifies the crossing mode for enter and leave events.
 type CrossingMode int

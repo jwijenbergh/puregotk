@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -10,6 +12,10 @@ import (
 )
 
 type EmojiChooserClass struct {
+}
+
+func (x *EmojiChooserClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The `GtkEmojiChooser` is used by text widgets such as `GtkEntry` or

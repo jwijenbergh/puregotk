@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -12,6 +14,10 @@ type SwipeableInterface struct {
 	Parent uintptr
 
 	Padding uintptr
+}
+
+func (x *SwipeableInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An interface for swipeable widgets.

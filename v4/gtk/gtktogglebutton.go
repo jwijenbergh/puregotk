@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,6 +14,10 @@ type ToggleButtonClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ToggleButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkToggleButton` is a button which remains “pressed-in” when

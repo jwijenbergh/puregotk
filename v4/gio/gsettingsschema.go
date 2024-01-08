@@ -2,8 +2,11 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // The #GSettingsSchemaSource and #GSettingsSchema APIs provide a
@@ -106,13 +109,363 @@ import (
 type SettingsSchema struct {
 }
 
+func (x *SettingsSchema) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xSettingsSchemaGetId func(uintptr) string
+
+// Get the ID of @schema.
+func (x *SettingsSchema) GetId() string {
+
+	cret := xSettingsSchemaGetId(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaGetKey func(uintptr, string) *SettingsSchemaKey
+
+// Gets the key named @name from @schema.
+//
+// It is a programmer error to request a key that does not exist.  See
+// g_settings_schema_list_keys().
+func (x *SettingsSchema) GetKey(NameVar string) *SettingsSchemaKey {
+
+	cret := xSettingsSchemaGetKey(x.GoPointer(), NameVar)
+	return cret
+}
+
+var xSettingsSchemaGetPath func(uintptr) string
+
+// Gets the path associated with @schema, or %NULL.
+//
+// Schemas may be single-instance or relocatable.  Single-instance
+// schemas correspond to exactly one set of keys in the backend
+// database: those located at the path returned by this function.
+//
+// Relocatable schemas can be referenced by other schemas and can
+// therefore describe multiple sets of keys at different locations.  For
+// relocatable schemas, this function will return %NULL.
+func (x *SettingsSchema) GetPath() string {
+
+	cret := xSettingsSchemaGetPath(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaHasKey func(uintptr, string) bool
+
+// Checks if @schema has a key named @name.
+func (x *SettingsSchema) HasKey(NameVar string) bool {
+
+	cret := xSettingsSchemaHasKey(x.GoPointer(), NameVar)
+	return cret
+}
+
+var xSettingsSchemaListChildren func(uintptr) uintptr
+
+// Gets the list of children in @schema.
+//
+// You should free the return value with g_strfreev() when you are done
+// with it.
+func (x *SettingsSchema) ListChildren() uintptr {
+
+	cret := xSettingsSchemaListChildren(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaListKeys func(uintptr) uintptr
+
+// Introspects the list of keys on @schema.
+//
+// You should probably not be calling this function from "normal" code
+// (since you should already know what keys are in your schema).  This
+// function is intended for introspection reasons.
+func (x *SettingsSchema) ListKeys() uintptr {
+
+	cret := xSettingsSchemaListKeys(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaRef func(uintptr) *SettingsSchema
+
+// Increase the reference count of @schema, returning a new reference.
+func (x *SettingsSchema) Ref() *SettingsSchema {
+
+	cret := xSettingsSchemaRef(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaUnref func(uintptr)
+
+// Decrease the reference count of @schema, possibly freeing it.
+func (x *SettingsSchema) Unref() {
+
+	xSettingsSchemaUnref(x.GoPointer())
+
+}
+
 // #GSettingsSchemaKey is an opaque data structure and can only be accessed
 // using the following functions.
 type SettingsSchemaKey struct {
 }
 
+func (x *SettingsSchemaKey) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xSettingsSchemaKeyGetDefaultValue func(uintptr) *glib.Variant
+
+// Gets the default value for @key.
+//
+// Note that this is the default value according to the schema.  System
+// administrator defaults and lockdown are not visible via this API.
+func (x *SettingsSchemaKey) GetDefaultValue() *glib.Variant {
+
+	cret := xSettingsSchemaKeyGetDefaultValue(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyGetDescription func(uintptr) string
+
+// Gets the description for @key.
+//
+// If no description has been provided in the schema for @key, returns
+// %NULL.
+//
+// The description can be one sentence to several paragraphs in length.
+// Paragraphs are delimited with a double newline.  Descriptions can be
+// translated and the value returned from this function is is the
+// current locale.
+//
+// This function is slow.  The summary and description information for
+// the schemas is not stored in the compiled schema database so this
+// function has to parse all of the source XML files in the schema
+// directory.
+func (x *SettingsSchemaKey) GetDescription() string {
+
+	cret := xSettingsSchemaKeyGetDescription(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyGetName func(uintptr) string
+
+// Gets the name of @key.
+func (x *SettingsSchemaKey) GetName() string {
+
+	cret := xSettingsSchemaKeyGetName(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyGetRange func(uintptr) *glib.Variant
+
+// Queries the range of a key.
+//
+// This function will return a #GVariant that fully describes the range
+// of values that are valid for @key.
+//
+// The type of #GVariant returned is `(sv)`. The string describes
+// the type of range restriction in effect. The type and meaning of
+// the value contained in the variant depends on the string.
+//
+// If the string is `'type'` then the variant contains an empty array.
+// The element type of that empty array is the expected type of value
+// and all values of that type are valid.
+//
+// If the string is `'enum'` then the variant contains an array
+// enumerating the possible values. Each item in the array is
+// a possible valid value and no other values are valid.
+//
+// If the string is `'flags'` then the variant contains an array. Each
+// item in the array is a value that may appear zero or one times in an
+// array to be used as the value for this key. For example, if the
+// variant contained the array `['x', 'y']` then the valid values for
+// the key would be `[]`, `['x']`, `['y']`, `['x', 'y']` and
+// `['y', 'x']`.
+//
+// Finally, if the string is `'range'` then the variant contains a pair
+// of like-typed values -- the minimum and maximum permissible values
+// for this key.
+//
+// This information should not be used by normal programs.  It is
+// considered to be a hint for introspection purposes.  Normal programs
+// should already know what is permitted by their own schema.  The
+// format may change in any way in the future -- but particularly, new
+// forms may be added to the possibilities described above.
+//
+// You should free the returned value with g_variant_unref() when it is
+// no longer needed.
+func (x *SettingsSchemaKey) GetRange() *glib.Variant {
+
+	cret := xSettingsSchemaKeyGetRange(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyGetSummary func(uintptr) string
+
+// Gets the summary for @key.
+//
+// If no summary has been provided in the schema for @key, returns
+// %NULL.
+//
+// The summary is a short description of the purpose of the key; usually
+// one short sentence.  Summaries can be translated and the value
+// returned from this function is is the current locale.
+//
+// This function is slow.  The summary and description information for
+// the schemas is not stored in the compiled schema database so this
+// function has to parse all of the source XML files in the schema
+// directory.
+func (x *SettingsSchemaKey) GetSummary() string {
+
+	cret := xSettingsSchemaKeyGetSummary(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyGetValueType func(uintptr) *glib.VariantType
+
+// Gets the #GVariantType of @key.
+func (x *SettingsSchemaKey) GetValueType() *glib.VariantType {
+
+	cret := xSettingsSchemaKeyGetValueType(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyRangeCheck func(uintptr, *glib.Variant) bool
+
+// Checks if the given @value is within the
+// permitted range for @key.
+//
+// It is a programmer error if @value is not of the correct type — you
+// must check for this first.
+func (x *SettingsSchemaKey) RangeCheck(ValueVar *glib.Variant) bool {
+
+	cret := xSettingsSchemaKeyRangeCheck(x.GoPointer(), ValueVar)
+	return cret
+}
+
+var xSettingsSchemaKeyRef func(uintptr) *SettingsSchemaKey
+
+// Increase the reference count of @key, returning a new reference.
+func (x *SettingsSchemaKey) Ref() *SettingsSchemaKey {
+
+	cret := xSettingsSchemaKeyRef(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaKeyUnref func(uintptr)
+
+// Decrease the reference count of @key, possibly freeing it.
+func (x *SettingsSchemaKey) Unref() {
+
+	xSettingsSchemaKeyUnref(x.GoPointer())
+
+}
+
 // This is an opaque structure type.  You may not access it directly.
 type SettingsSchemaSource struct {
+}
+
+func (x *SettingsSchemaSource) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewFromDirectorySettingsSchemaSource func(string, *SettingsSchemaSource, bool, **glib.Error) *SettingsSchemaSource
+
+// Attempts to create a new schema source corresponding to the contents
+// of the given directory.
+//
+// This function is not required for normal uses of #GSettings but it
+// may be useful to authors of plugin management systems.
+//
+// The directory should contain a file called `gschemas.compiled` as
+// produced by the [glib-compile-schemas][glib-compile-schemas] tool.
+//
+// If @trusted is %TRUE then `gschemas.compiled` is trusted not to be
+// corrupted. This assumption has a performance advantage, but can result
+// in crashes or inconsistent behaviour in the case of a corrupted file.
+// Generally, you should set @trusted to %TRUE for files installed by the
+// system and to %FALSE for files in the home directory.
+//
+// In either case, an empty file or some types of corruption in the file will
+// result in %G_FILE_ERROR_INVAL being returned.
+//
+// If @parent is non-%NULL then there are two effects.
+//
+// First, if g_settings_schema_source_lookup() is called with the
+// @recursive flag set to %TRUE and the schema can not be found in the
+// source, the lookup will recurse to the parent.
+//
+// Second, any references to other schemas specified within this
+// source (ie: `child` or `extends`) references may be resolved
+// from the @parent.
+//
+// For this second reason, except in very unusual situations, the
+// @parent should probably be given as the default schema source, as
+// returned by g_settings_schema_source_get_default().
+func NewFromDirectorySettingsSchemaSource(DirectoryVar string, ParentVar *SettingsSchemaSource, TrustedVar bool) (*SettingsSchemaSource, error) {
+	var cerr *glib.Error
+
+	cret := xNewFromDirectorySettingsSchemaSource(DirectoryVar, ParentVar, TrustedVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xSettingsSchemaSourceListSchemas func(uintptr, bool, uintptr, uintptr)
+
+// Lists the schemas in a given source.
+//
+// If @recursive is %TRUE then include parent sources.  If %FALSE then
+// only include the schemas from one source (ie: one directory).  You
+// probably want %TRUE.
+//
+// Non-relocatable schemas are those for which you can call
+// g_settings_new().  Relocatable schemas are those for which you must
+// use g_settings_new_with_path().
+//
+// Do not call this function from normal programs.  This is designed for
+// use by database editors, commandline tools, etc.
+func (x *SettingsSchemaSource) ListSchemas(RecursiveVar bool, NonRelocatableVar uintptr, RelocatableVar uintptr) {
+
+	xSettingsSchemaSourceListSchemas(x.GoPointer(), RecursiveVar, NonRelocatableVar, RelocatableVar)
+
+}
+
+var xSettingsSchemaSourceLookup func(uintptr, string, bool) *SettingsSchema
+
+// Looks up a schema with the identifier @schema_id in @source.
+//
+// This function is not required for normal uses of #GSettings but it
+// may be useful to authors of plugin management systems or to those who
+// want to introspect the content of schemas.
+//
+// If the schema isn't found directly in @source and @recursive is %TRUE
+// then the parent sources will also be checked.
+//
+// If the schema isn't found, %NULL is returned.
+func (x *SettingsSchemaSource) Lookup(SchemaIdVar string, RecursiveVar bool) *SettingsSchema {
+
+	cret := xSettingsSchemaSourceLookup(x.GoPointer(), SchemaIdVar, RecursiveVar)
+	return cret
+}
+
+var xSettingsSchemaSourceRef func(uintptr) *SettingsSchemaSource
+
+// Increase the reference count of @source, returning a new reference.
+func (x *SettingsSchemaSource) Ref() *SettingsSchemaSource {
+
+	cret := xSettingsSchemaSourceRef(x.GoPointer())
+	return cret
+}
+
+var xSettingsSchemaSourceUnref func(uintptr)
+
+// Decrease the reference count of @source, possibly freeing it.
+func (x *SettingsSchemaSource) Unref() {
+
+	xSettingsSchemaSourceUnref(x.GoPointer())
+
 }
 
 var xSettingsSchemaSourceGetDefault func() *SettingsSchemaSource
@@ -142,5 +495,31 @@ func init() {
 		panic(err)
 	}
 	core.PuregoSafeRegister(&xSettingsSchemaSourceGetDefault, lib, "g_settings_schema_source_get_default")
+
+	core.PuregoSafeRegister(&xSettingsSchemaGetId, lib, "g_settings_schema_get_id")
+	core.PuregoSafeRegister(&xSettingsSchemaGetKey, lib, "g_settings_schema_get_key")
+	core.PuregoSafeRegister(&xSettingsSchemaGetPath, lib, "g_settings_schema_get_path")
+	core.PuregoSafeRegister(&xSettingsSchemaHasKey, lib, "g_settings_schema_has_key")
+	core.PuregoSafeRegister(&xSettingsSchemaListChildren, lib, "g_settings_schema_list_children")
+	core.PuregoSafeRegister(&xSettingsSchemaListKeys, lib, "g_settings_schema_list_keys")
+	core.PuregoSafeRegister(&xSettingsSchemaRef, lib, "g_settings_schema_ref")
+	core.PuregoSafeRegister(&xSettingsSchemaUnref, lib, "g_settings_schema_unref")
+
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetDefaultValue, lib, "g_settings_schema_key_get_default_value")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetDescription, lib, "g_settings_schema_key_get_description")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetName, lib, "g_settings_schema_key_get_name")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetRange, lib, "g_settings_schema_key_get_range")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetSummary, lib, "g_settings_schema_key_get_summary")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGetValueType, lib, "g_settings_schema_key_get_value_type")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyRangeCheck, lib, "g_settings_schema_key_range_check")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyRef, lib, "g_settings_schema_key_ref")
+	core.PuregoSafeRegister(&xSettingsSchemaKeyUnref, lib, "g_settings_schema_key_unref")
+
+	core.PuregoSafeRegister(&xNewFromDirectorySettingsSchemaSource, lib, "g_settings_schema_source_new_from_directory")
+
+	core.PuregoSafeRegister(&xSettingsSchemaSourceListSchemas, lib, "g_settings_schema_source_list_schemas")
+	core.PuregoSafeRegister(&xSettingsSchemaSourceLookup, lib, "g_settings_schema_source_lookup")
+	core.PuregoSafeRegister(&xSettingsSchemaSourceRef, lib, "g_settings_schema_source_ref")
+	core.PuregoSafeRegister(&xSettingsSchemaSourceUnref, lib, "g_settings_schema_source_unref")
 
 }

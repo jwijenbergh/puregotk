@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -14,6 +16,10 @@ type ContentProviderClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *ContentProviderClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GdkContentProvider` is used to provide content for the clipboard or

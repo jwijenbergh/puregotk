@@ -101,6 +101,30 @@ func (x *AppInfoMonitor) ConnectChanged(cb func(AppInfoMonitor)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
 }
 
+var xAppInfoMonitorGet func() uintptr
+
+// Gets the #GAppInfoMonitor for the current thread-default main
+// context.
+//
+// The #GAppInfoMonitor will emit a "changed" signal in the
+// thread-default main context whenever the list of installed
+// applications (as reported by g_app_info_get_all()) may have changed.
+//
+// You must only call g_object_unref() on the return value from under
+// the same main context as you created it.
+func AppInfoMonitorGet() *AppInfoMonitor {
+	var cls *AppInfoMonitor
+
+	cret := xAppInfoMonitorGet()
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &AppInfoMonitor{}
+	cls.Ptr = cret
+	return cls
+}
+
 // #GBytesIcon specifies an image held in memory in a common format (usually
 // png) to be used as icon.
 type BytesIcon struct {
@@ -517,6 +541,34 @@ func (x *DBusActionGroup) ChangeActionStateFull(ActionNameVar string, ValueVar *
 
 	XGRemoteActionGroupChangeActionStateFull(x.GoPointer(), ActionNameVar, ValueVar, PlatformDataVar)
 
+}
+
+var xDBusActionGroupGet func(uintptr, string, string) uintptr
+
+// Obtains a #GDBusActionGroup for the action group which is exported at
+// the given @bus_name and @object_path.
+//
+// The thread default main context is taken at the time of this call.
+// All signals on the menu model (and any linked models) are reported
+// with respect to this context.  All calls on the returned menu model
+// (and linked models) must also originate from this same context, with
+// the thread default main context unchanged.
+//
+// This call is non-blocking.  The returned action group may or may not
+// already be filled in.  The correct thing to do is connect the signals
+// for the action group to monitor for changes and then to call
+// g_action_group_list_actions() to get the initial list.
+func DBusActionGroupGet(ConnectionVar *DBusConnection, BusNameVar string, ObjectPathVar string) *DBusActionGroup {
+	var cls *DBusActionGroup
+
+	cret := xDBusActionGroupGet(ConnectionVar.GoPointer(), BusNameVar, ObjectPathVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &DBusActionGroup{}
+	cls.Ptr = cret
+	return cls
 }
 
 // The #GDBusAuthObserver type provides a mechanism for participating
@@ -1963,6 +2015,64 @@ func (x *DBusConnection) Init(CancellableVar *Cancellable) (bool, error) {
 
 }
 
+var xDBusConnectionNew func(uintptr, string, DBusConnectionFlags, uintptr, uintptr, uintptr, uintptr)
+
+// Asynchronously sets up a D-Bus connection for exchanging D-Bus messages
+// with the end represented by @stream.
+//
+// If @stream is a #GSocketConnection, then the corresponding #GSocket
+// will be put into non-blocking mode.
+//
+// The D-Bus connection will interact with @stream from a worker thread.
+// As a result, the caller should not interact with @stream after this
+// method has been called, except by calling g_object_unref() on it.
+//
+// If @observer is not %NULL it may be used to control the
+// authentication process.
+//
+// When the operation is finished, @callback will be invoked. You can
+// then call g_dbus_connection_new_finish() to get the result of the
+// operation.
+//
+// This is an asynchronous failable constructor. See
+// g_dbus_connection_new_sync() for the synchronous
+// version.
+func DBusConnectionNew(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusConnectionNew(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xDBusConnectionNewForAddress func(string, DBusConnectionFlags, uintptr, uintptr, uintptr, uintptr)
+
+// Asynchronously connects and sets up a D-Bus client connection for
+// exchanging D-Bus messages with an endpoint specified by @address
+// which must be in the
+// [D-Bus address format](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses).
+//
+// This constructor can only be used to initiate client-side
+// connections - use g_dbus_connection_new() if you need to act as the
+// server. In particular, @flags cannot contain the
+// %G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER,
+// %G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS or
+// %G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER flags.
+//
+// When the operation is finished, @callback will be invoked. You can
+// then call g_dbus_connection_new_for_address_finish() to get the result of
+// the operation.
+//
+// If @observer is not %NULL it may be used to control the
+// authentication process.
+//
+// This is an asynchronous failable constructor. See
+// g_dbus_connection_new_for_address_sync() for the synchronous
+// version.
+func DBusConnectionNewForAddress(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+
+	xDBusConnectionNewForAddress(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
 // #GDBusMenuModel is an implementation of #GMenuModel that can be used
 // as a proxy for a menu model that is exported over D-Bus with
 // g_dbus_connection_export_menu_model().
@@ -1982,6 +2092,29 @@ func (c *DBusMenuModel) GoPointer() uintptr {
 
 func (c *DBusMenuModel) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
+}
+
+var xDBusMenuModelGet func(uintptr, string, string) uintptr
+
+// Obtains a #GDBusMenuModel for the menu model which is exported
+// at the given @bus_name and @object_path.
+//
+// The thread default main context is taken at the time of this call.
+// All signals on the menu model (and any linked models) are reported
+// with respect to this context.  All calls on the returned menu model
+// (and linked models) must also originate from this same context, with
+// the thread default main context unchanged.
+func DBusMenuModelGet(ConnectionVar *DBusConnection, BusNameVar string, ObjectPathVar string) *DBusMenuModel {
+	var cls *DBusMenuModel
+
+	cret := xDBusMenuModelGet(ConnectionVar.GoPointer(), BusNameVar, ObjectPathVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &DBusMenuModel{}
+	cls.Ptr = cret
+	return cls
 }
 
 // A type for representing D-Bus messages that can be sent or received
@@ -2612,6 +2745,21 @@ func (c *DBusMessage) GoPointer() uintptr {
 
 func (c *DBusMessage) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
+}
+
+var xDBusMessageBytesNeeded func(uintptr, uint, **glib.Error) int
+
+// Utility function to calculate how many bytes are needed to
+// completely deserialize the D-Bus message stored at @blob.
+func DBusMessageBytesNeeded(BlobVar uintptr, BlobLenVar uint) (int, error) {
+	var cerr *glib.Error
+
+	cret := xDBusMessageBytesNeeded(BlobVar, BlobLenVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
 }
 
 // Instances of the #GDBusMethodInvocation class are used when
@@ -5773,6 +5921,20 @@ func (c *TestDBus) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xTestDBusUnset func()
+
+// Unset DISPLAY and DBUS_SESSION_BUS_ADDRESS env variables to ensure the test
+// won't use user's session bus.
+//
+// This is useful for unit tests that want to verify behaviour when no session
+// bus is running. It is not necessary to call this if unit test already calls
+// g_test_dbus_up() before acquiring the session bus.
+func TestDBusUnset() {
+
+	xTestDBusUnset()
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -5784,9 +5946,13 @@ func init() {
 	core.PuregoSafeRegister(&xTlsChannelBindingErrorQuark, lib, "g_tls_channel_binding_error_quark")
 	core.PuregoSafeRegister(&xTlsErrorQuark, lib, "g_tls_error_quark")
 
+	core.PuregoSafeRegister(&xAppInfoMonitorGet, lib, "g_app_info_monitor_get")
+
 	core.PuregoSafeRegister(&xNewBytesIcon, lib, "g_bytes_icon_new")
 
 	core.PuregoSafeRegister(&xBytesIconGetBytes, lib, "g_bytes_icon_get_bytes")
+
+	core.PuregoSafeRegister(&xDBusActionGroupGet, lib, "g_dbus_action_group_get")
 
 	core.PuregoSafeRegister(&xNewDBusAuthObserver, lib, "g_dbus_auth_observer_new")
 
@@ -5840,6 +6006,11 @@ func init() {
 	core.PuregoSafeRegister(&xDBusConnectionUnregisterObject, lib, "g_dbus_connection_unregister_object")
 	core.PuregoSafeRegister(&xDBusConnectionUnregisterSubtree, lib, "g_dbus_connection_unregister_subtree")
 
+	core.PuregoSafeRegister(&xDBusConnectionNew, lib, "g_dbus_connection_new")
+	core.PuregoSafeRegister(&xDBusConnectionNewForAddress, lib, "g_dbus_connection_new_for_address")
+
+	core.PuregoSafeRegister(&xDBusMenuModelGet, lib, "g_dbus_menu_model_get")
+
 	core.PuregoSafeRegister(&xNewDBusMessage, lib, "g_dbus_message_new")
 	core.PuregoSafeRegister(&xNewFromBlobDBusMessage, lib, "g_dbus_message_new_from_blob")
 	core.PuregoSafeRegister(&xNewMethodCallDBusMessage, lib, "g_dbus_message_new_method_call")
@@ -5889,6 +6060,8 @@ func init() {
 	core.PuregoSafeRegister(&xDBusMessageSetUnixFdList, lib, "g_dbus_message_set_unix_fd_list")
 	core.PuregoSafeRegister(&xDBusMessageToBlob, lib, "g_dbus_message_to_blob")
 	core.PuregoSafeRegister(&xDBusMessageToGerror, lib, "g_dbus_message_to_gerror")
+
+	core.PuregoSafeRegister(&xDBusMessageBytesNeeded, lib, "g_dbus_message_bytes_needed")
 
 	core.PuregoSafeRegister(&xDBusMethodInvocationGetConnection, lib, "g_dbus_method_invocation_get_connection")
 	core.PuregoSafeRegister(&xDBusMethodInvocationGetInterfaceName, lib, "g_dbus_method_invocation_get_interface_name")
@@ -6039,5 +6212,7 @@ func init() {
 	core.PuregoSafeRegister(&xTestDBusGetFlags, lib, "g_test_dbus_get_flags")
 	core.PuregoSafeRegister(&xTestDBusStop, lib, "g_test_dbus_stop")
 	core.PuregoSafeRegister(&xTestDBusUp, lib, "g_test_dbus_up")
+
+	core.PuregoSafeRegister(&xTestDBusUnset, lib, "g_test_dbus_unset")
 
 }

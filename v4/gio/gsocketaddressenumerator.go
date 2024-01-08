@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 // Class structure for #GSocketAddressEnumerator.
 type SocketAddressEnumeratorClass struct {
 	ParentClass uintptr
+}
+
+func (x *SocketAddressEnumeratorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSocketAddressEnumerator is an enumerator type for #GSocketAddress

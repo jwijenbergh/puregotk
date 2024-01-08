@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,17 @@ import (
 
 type AnimationClass struct {
 }
+
+func (x *AnimationClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// Indicates an [class@Animation] with an infinite duration.
+	//
+	// This value is mostly used internally.
+	DURATION_INFINITE uint = 4294967295
+)
 
 // Describes the possible states of an [class@Animation].
 //

@@ -6,6 +6,12 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
+const (
+	// An undefined value. The accessible attribute is either unset, or its
+	// value is undefined.
+	ACCESSIBLE_VALUE_UNDEFINED int = -1
+)
+
 // Describes hints that might be taken into account by input methods
 // or applications.
 //

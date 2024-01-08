@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -19,6 +21,10 @@ type DrawingAreaClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *DrawingAreaClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkDrawingArea` is a widget that allows drawing with cairo.

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -16,8 +18,22 @@ type TextViewClass struct {
 	Padding uintptr
 }
 
+func (x *TextViewClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TextViewPrivate struct {
 }
+
+func (x *TextViewPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// The priority at which the text view validates onscreen lines
+	// in an idle job in the background.
+	TEXT_VIEW_PRIORITY_VALIDATE int = 125
+)
 
 // Granularity types that extend the text selection. Use the
 // `GtkTextView::extend-selection` signal to customize the selection.

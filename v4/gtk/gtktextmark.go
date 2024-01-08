@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,6 +13,10 @@ type TextMarkClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *TextMarkClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkTextMark` is a position in a `GtkTextbuffer` that is preserved

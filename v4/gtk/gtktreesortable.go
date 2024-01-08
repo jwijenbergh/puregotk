@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -23,6 +25,10 @@ type TreeIterCompareFunc func(uintptr, *TreeIter, *TreeIter, uintptr) int
 
 type TreeSortableIface struct {
 	GIface uintptr
+}
+
+func (x *TreeSortableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // The interface for sortable models used by GtkTreeView
@@ -123,6 +129,17 @@ var XGtkTreeSortableSetDefaultSortFunc func(uintptr, uintptr, uintptr, uintptr)
 var XGtkTreeSortableSetSortColumnId func(uintptr, int, SortType)
 var XGtkTreeSortableSetSortFunc func(uintptr, int, uintptr, uintptr, uintptr)
 var XGtkTreeSortableSortColumnChanged func(uintptr)
+
+const (
+	// Uses the default sort function in a [iface@Gtk.TreeSortable].
+	//
+	// See also: [method@Gtk.TreeSortable.set_sort_column_id]
+	TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID int = -1
+	// Disables sorting in a [iface@Gtk.TreeSortable].
+	//
+	// See also: [method@Gtk.TreeSortable.set_sort_column_id]
+	TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID int = -2
+)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

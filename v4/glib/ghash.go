@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -17,6 +19,10 @@ type HRFunc func(uintptr, uintptr, uintptr) bool
 // [Hash Table][glib-Hash-Tables]. It should only be accessed via the
 // following functions.
 type HashTable struct {
+}
+
+func (x *HashTable) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A GHashTableIter structure represents an iterator that can be used
@@ -38,6 +44,112 @@ type HashTableIter struct {
 	Dummy5 bool
 
 	Dummy6 uintptr
+}
+
+func (x *HashTableIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xHashTableIterGetHashTable func(uintptr) *HashTable
+
+// Returns the #GHashTable associated with @iter.
+func (x *HashTableIter) GetHashTable() *HashTable {
+
+	cret := xHashTableIterGetHashTable(x.GoPointer())
+	return cret
+}
+
+var xHashTableIterInit func(uintptr, *HashTable)
+
+// Initializes a key/value pair iterator and associates it with
+// @hash_table. Modifying the hash table after calling this function
+// invalidates the returned iterator.
+//
+// The iteration order of a #GHashTableIter over the keys/values in a hash
+// table is not defined.
+//
+// |[&lt;!-- language="C" --&gt;
+// GHashTableIter iter;
+// gpointer key, value;
+//
+// g_hash_table_iter_init (&amp;iter, hash_table);
+// while (g_hash_table_iter_next (&amp;iter, &amp;key, &amp;value))
+//
+//	{
+//	  // do something with key and value
+//	}
+//
+// ]|
+func (x *HashTableIter) Init(HashTableVar *HashTable) {
+
+	xHashTableIterInit(x.GoPointer(), HashTableVar)
+
+}
+
+var xHashTableIterNext func(uintptr, uintptr, uintptr) bool
+
+// Advances @iter and retrieves the key and/or value that are now
+// pointed to as a result of this advancement. If %FALSE is returned,
+// @key and @value are not set, and the iterator becomes invalid.
+func (x *HashTableIter) Next(KeyVar uintptr, ValueVar uintptr) bool {
+
+	cret := xHashTableIterNext(x.GoPointer(), KeyVar, ValueVar)
+	return cret
+}
+
+var xHashTableIterRemove func(uintptr)
+
+// Removes the key/value pair currently pointed to by the iterator
+// from its associated #GHashTable. Can only be called after
+// g_hash_table_iter_next() returned %TRUE, and cannot be called
+// more than once for the same key/value pair.
+//
+// If the #GHashTable was created using g_hash_table_new_full(),
+// the key and value are freed using the supplied destroy functions,
+// otherwise you have to make sure that any dynamically allocated
+// values are freed yourself.
+//
+// It is safe to continue iterating the #GHashTable afterward:
+// |[&lt;!-- language="C" --&gt;
+// while (g_hash_table_iter_next (&amp;iter, &amp;key, &amp;value))
+//
+//	{
+//	  if (condition)
+//	    g_hash_table_iter_remove (&amp;iter);
+//	}
+//
+// ]|
+func (x *HashTableIter) Remove() {
+
+	xHashTableIterRemove(x.GoPointer())
+
+}
+
+var xHashTableIterReplace func(uintptr, uintptr)
+
+// Replaces the value currently pointed to by the iterator
+// from its associated #GHashTable. Can only be called after
+// g_hash_table_iter_next() returned %TRUE.
+//
+// If you supplied a @value_destroy_func when creating the
+// #GHashTable, the old value is freed using that function.
+func (x *HashTableIter) Replace(ValueVar uintptr) {
+
+	xHashTableIterReplace(x.GoPointer(), ValueVar)
+
+}
+
+var xHashTableIterSteal func(uintptr)
+
+// Removes the key/value pair currently pointed to by the
+// iterator from its associated #GHashTable, without calling
+// the key and value destroy functions. Can only be called
+// after g_hash_table_iter_next() returned %TRUE, and cannot
+// be called more than once for the same key/value pair.
+func (x *HashTableIter) Steal() {
+
+	xHashTableIterSteal(x.GoPointer())
+
 }
 
 var xDirectEqual func(uintptr, uintptr) bool
@@ -437,5 +549,12 @@ func init() {
 	core.PuregoSafeRegister(&xIntHash, lib, "g_int_hash")
 	core.PuregoSafeRegister(&xStrEqual, lib, "g_str_equal")
 	core.PuregoSafeRegister(&xStrHash, lib, "g_str_hash")
+
+	core.PuregoSafeRegister(&xHashTableIterGetHashTable, lib, "g_hash_table_iter_get_hash_table")
+	core.PuregoSafeRegister(&xHashTableIterInit, lib, "g_hash_table_iter_init")
+	core.PuregoSafeRegister(&xHashTableIterNext, lib, "g_hash_table_iter_next")
+	core.PuregoSafeRegister(&xHashTableIterRemove, lib, "g_hash_table_iter_remove")
+	core.PuregoSafeRegister(&xHashTableIterReplace, lib, "g_hash_table_iter_replace")
+	core.PuregoSafeRegister(&xHashTableIterSteal, lib, "g_hash_table_iter_steal")
 
 }

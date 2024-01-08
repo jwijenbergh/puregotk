@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -22,6 +24,17 @@ type DuplicateFunc func(uintptr, uintptr) uintptr
 // See also: [Keyed data lists][glib-Keyed-Data-Lists].
 type Data struct {
 }
+
+func (x *Data) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// A bitmask that restricts the possible flags passed to
+	// g_datalist_set_flags(). Passing a flags value where
+	// flags &amp; ~G_DATALIST_FLAGS_MASK != 0 is an error.
+	DATALIST_FLAGS_MASK int = 3
+)
 
 var xDatalistClear func(**Data)
 

@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type DBusObjectManagerServerClass struct {
 	Padding uintptr
 }
 
+func (x *DBusObjectManagerServerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type DBusObjectManagerServerPrivate struct {
+}
+
+func (x *DBusObjectManagerServerPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GDBusObjectManagerServer is used to export #GDBusObject instances using

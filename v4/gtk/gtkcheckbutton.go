@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,6 +14,10 @@ type CheckButtonClass struct {
 	ParentClass uintptr
 
 	Padding uintptr
+}
+
+func (x *CheckButtonClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkCheckButton` places a label next to an indicator.

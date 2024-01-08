@@ -2,6 +2,8 @@
 package cairo
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -9,31 +11,71 @@ import (
 type Context struct {
 }
 
+func (x *Context) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type Device struct {
+}
+
+func (x *Device) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type Surface struct {
 }
 
+func (x *Surface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type Matrix struct {
+}
+
+func (x *Matrix) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type Pattern struct {
 }
 
+func (x *Pattern) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type Region struct {
+}
+
+func (x *Region) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type FontOptions struct {
 }
 
+func (x *FontOptions) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type FontFace struct {
+}
+
+func (x *FontFace) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type ScaledFont struct {
 }
 
+func (x *ScaledFont) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type Path struct {
+}
+
+func (x *Path) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type Rectangle struct {
@@ -46,6 +88,10 @@ type Rectangle struct {
 	Height float64
 }
 
+func (x *Rectangle) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type RectangleInt struct {
 	X int32
 
@@ -54,6 +100,10 @@ type RectangleInt struct {
 	Width int32
 
 	Height int32
+}
+
+func (x *RectangleInt) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type Status int

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -38,6 +40,10 @@ type TreeViewClass struct {
 	ParentClass uintptr
 
 	Reserved uintptr
+}
+
+func (x *TreeViewClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An enum for determining where a dropped row goes.

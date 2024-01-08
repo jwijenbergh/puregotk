@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,7 +12,15 @@ type TcpConnectionClass struct {
 	ParentClass uintptr
 }
 
+func (x *TcpConnectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TcpConnectionPrivate struct {
+}
+
+func (x *TcpConnectionPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // This is the subclass of #GSocketConnection that is created

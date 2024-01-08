@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,6 +12,10 @@ import (
 // is cast to a GTrashStack*.
 type TrashStack struct {
 	Next *TrashStack
+}
+
+func (x *TrashStack) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xTrashStackHeight func(**TrashStack) uint

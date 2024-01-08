@@ -1428,6 +1428,142 @@ func (x *Pixbuf) LoadFinish(ResVar gio.AsyncResult, TypeVar string) (*gio.InputS
 
 }
 
+var xPixbufCalculateRowstride func(Colorspace, bool, int, int, int) int
+
+// Calculates the rowstride that an image created with those values would
+// have.
+//
+// This function is useful for front-ends and backends that want to check
+// image values without needing to create a `GdkPixbuf`.
+func PixbufCalculateRowstride(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int) int {
+
+	cret := xPixbufCalculateRowstride(ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar)
+	return cret
+}
+
+var xPixbufGetFileInfo func(string, int, int) *PixbufFormat
+
+// Parses an image file far enough to determine its format and size.
+func PixbufGetFileInfo(FilenameVar string, WidthVar int, HeightVar int) *PixbufFormat {
+
+	cret := xPixbufGetFileInfo(FilenameVar, WidthVar, HeightVar)
+	return cret
+}
+
+var xPixbufGetFileInfoAsync func(string, uintptr, uintptr, uintptr)
+
+// Asynchronously parses an image file far enough to determine its
+// format and size.
+//
+// For more details see gdk_pixbuf_get_file_info(), which is the synchronous
+// version of this function.
+//
+// When the operation is finished, @callback will be called in the
+// main thread. You can then call gdk_pixbuf_get_file_info_finish() to
+// get the result of the operation.
+func PixbufGetFileInfoAsync(FilenameVar string, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+
+	xPixbufGetFileInfoAsync(FilenameVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xPixbufGetFileInfoFinish func(uintptr, int, int, **glib.Error) *PixbufFormat
+
+// Finishes an asynchronous pixbuf parsing operation started with
+// gdk_pixbuf_get_file_info_async().
+func PixbufGetFileInfoFinish(AsyncResultVar gio.AsyncResult, WidthVar int, HeightVar int) (*PixbufFormat, error) {
+	var cerr *glib.Error
+
+	cret := xPixbufGetFileInfoFinish(AsyncResultVar.GoPointer(), WidthVar, HeightVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xPixbufGetFormats func() *glib.SList
+
+// Obtains the available information about the image formats supported
+// by GdkPixbuf.
+func PixbufGetFormats() *glib.SList {
+
+	cret := xPixbufGetFormats()
+	return cret
+}
+
+var xPixbufInitModules func(string, **glib.Error) bool
+
+// Initalizes the gdk-pixbuf loader modules referenced by the `loaders.cache`
+// file present inside that directory.
+//
+// This is to be used by applications that want to ship certain loaders
+// in a different location from the system ones.
+//
+// This is needed when the OS or runtime ships a minimal number of loaders
+// so as to reduce the potential attack surface of carefully crafted image
+// files, especially for uncommon file types. Applications that require
+// broader image file types coverage, such as image viewers, would be
+// expected to ship the gdk-pixbuf modules in a separate location, bundled
+// with the application in a separate directory from the OS or runtime-
+// provided modules.
+func PixbufInitModules(PathVar string) (bool, error) {
+	var cerr *glib.Error
+
+	cret := xPixbufInitModules(PathVar, &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
+var xPixbufNewFromStreamAsync func(uintptr, uintptr, uintptr, uintptr)
+
+// Creates a new pixbuf by asynchronously loading an image from an input stream.
+//
+// For more details see gdk_pixbuf_new_from_stream(), which is the synchronous
+// version of this function.
+//
+// When the operation is finished, @callback will be called in the main thread.
+// You can then call gdk_pixbuf_new_from_stream_finish() to get the result of
+// the operation.
+func PixbufNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+
+	xPixbufNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xPixbufNewFromStreamAtScaleAsync func(uintptr, int, int, bool, uintptr, uintptr, uintptr)
+
+// Creates a new pixbuf by asynchronously loading an image from an input stream.
+//
+// For more details see gdk_pixbuf_new_from_stream_at_scale(), which is the synchronous
+// version of this function.
+//
+// When the operation is finished, @callback will be called in the main thread.
+// You can then call gdk_pixbuf_new_from_stream_finish() to get the result of the operation.
+func PixbufNewFromStreamAtScaleAsync(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+
+	xPixbufNewFromStreamAtScaleAsync(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+
+}
+
+var xPixbufSaveToStreamFinish func(uintptr, **glib.Error) bool
+
+// Finishes an asynchronous pixbuf save operation started with
+// gdk_pixbuf_save_to_stream_async().
+func PixbufSaveToStreamFinish(AsyncResultVar gio.AsyncResult) (bool, error) {
+	var cerr *glib.Error
+
+	cret := xPixbufSaveToStreamFinish(AsyncResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GDKPIXBUF"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1491,5 +1627,15 @@ func init() {
 	core.PuregoSafeRegister(&xPixbufScaleSimple, lib, "gdk_pixbuf_scale_simple")
 	core.PuregoSafeRegister(&xPixbufSetOption, lib, "gdk_pixbuf_set_option")
 	core.PuregoSafeRegister(&xPixbufUnref, lib, "gdk_pixbuf_unref")
+
+	core.PuregoSafeRegister(&xPixbufCalculateRowstride, lib, "gdk_pixbuf_calculate_rowstride")
+	core.PuregoSafeRegister(&xPixbufGetFileInfo, lib, "gdk_pixbuf_get_file_info")
+	core.PuregoSafeRegister(&xPixbufGetFileInfoAsync, lib, "gdk_pixbuf_get_file_info_async")
+	core.PuregoSafeRegister(&xPixbufGetFileInfoFinish, lib, "gdk_pixbuf_get_file_info_finish")
+	core.PuregoSafeRegister(&xPixbufGetFormats, lib, "gdk_pixbuf_get_formats")
+	core.PuregoSafeRegister(&xPixbufInitModules, lib, "gdk_pixbuf_init_modules")
+	core.PuregoSafeRegister(&xPixbufNewFromStreamAsync, lib, "gdk_pixbuf_new_from_stream_async")
+	core.PuregoSafeRegister(&xPixbufNewFromStreamAtScaleAsync, lib, "gdk_pixbuf_new_from_stream_at_scale_async")
+	core.PuregoSafeRegister(&xPixbufSaveToStreamFinish, lib, "gdk_pixbuf_save_to_stream_finish")
 
 }

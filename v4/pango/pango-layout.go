@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,10 @@ import (
 type LayoutClass struct {
 }
 
+func (x *LayoutClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // A `PangoLayoutIter` can be used to iterate over the visual
 // extents of a `PangoLayout`.
 //
@@ -18,6 +24,278 @@ type LayoutClass struct {
 //
 // The `PangoLayoutIter` structure is opaque, and has no user-visible fields.
 type LayoutIter struct {
+}
+
+func (x *LayoutIter) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xLayoutIterAtLastLine func(uintptr) bool
+
+// Determines whether @iter is on the last line of the layout.
+func (x *LayoutIter) AtLastLine() bool {
+
+	cret := xLayoutIterAtLastLine(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterCopy func(uintptr) *LayoutIter
+
+// Copies a `PangoLayoutIter`.
+func (x *LayoutIter) Copy() *LayoutIter {
+
+	cret := xLayoutIterCopy(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterFree func(uintptr)
+
+// Frees an iterator that's no longer in use.
+func (x *LayoutIter) Free() {
+
+	xLayoutIterFree(x.GoPointer())
+
+}
+
+var xLayoutIterGetBaseline func(uintptr) int
+
+// Gets the Y position of the current line's baseline, in layout
+// coordinates.
+//
+// Layout coordinates have the origin at the top left of the entire layout.
+func (x *LayoutIter) GetBaseline() int {
+
+	cret := xLayoutIterGetBaseline(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetCharExtents func(uintptr, *Rectangle)
+
+// Gets the extents of the current character, in layout coordinates.
+//
+// Layout coordinates have the origin at the top left of the entire layout.
+//
+// Only logical extents can sensibly be obtained for characters;
+// ink extents make sense only down to the level of clusters.
+func (x *LayoutIter) GetCharExtents(LogicalRectVar *Rectangle) {
+
+	xLayoutIterGetCharExtents(x.GoPointer(), LogicalRectVar)
+
+}
+
+var xLayoutIterGetClusterExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Gets the extents of the current cluster, in layout coordinates.
+//
+// Layout coordinates have the origin at the top left of the entire layout.
+func (x *LayoutIter) GetClusterExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutIterGetClusterExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutIterGetIndex func(uintptr) int
+
+// Gets the current byte index.
+//
+// Note that iterating forward by char moves in visual order,
+// not logical order, so indexes may not be sequential. Also,
+// the index may be equal to the length of the text in the
+// layout, if on the %NULL run (see [method@Pango.LayoutIter.get_run]).
+func (x *LayoutIter) GetIndex() int {
+
+	cret := xLayoutIterGetIndex(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetLayout func(uintptr) uintptr
+
+// Gets the layout associated with a `PangoLayoutIter`.
+func (x *LayoutIter) GetLayout() *Layout {
+	var cls *Layout
+
+	cret := xLayoutIterGetLayout(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Layout{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xLayoutIterGetLayoutExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Obtains the extents of the `PangoLayout` being iterated over.
+func (x *LayoutIter) GetLayoutExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutIterGetLayoutExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutIterGetLine func(uintptr) *LayoutLine
+
+// Gets the current line.
+//
+// Use the faster [method@Pango.LayoutIter.get_line_readonly] if
+// you do not plan to modify the contents of the line (glyphs,
+// glyph widths, etc.).
+func (x *LayoutIter) GetLine() *LayoutLine {
+
+	cret := xLayoutIterGetLine(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetLineExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Obtains the extents of the current line.
+//
+// Extents are in layout coordinates (origin is the top-left corner
+// of the entire `PangoLayout`). Thus the extents returned by this
+// function will be the same width/height but not at the same x/y
+// as the extents returned from [method@Pango.LayoutLine.get_extents].
+func (x *LayoutIter) GetLineExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutIterGetLineExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutIterGetLineReadonly func(uintptr) *LayoutLine
+
+// Gets the current line for read-only access.
+//
+// This is a faster alternative to [method@Pango.LayoutIter.get_line],
+// but the user is not expected to modify the contents of the line
+// (glyphs, glyph widths, etc.).
+func (x *LayoutIter) GetLineReadonly() *LayoutLine {
+
+	cret := xLayoutIterGetLineReadonly(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetLineYrange func(uintptr, int, int)
+
+// Divides the vertical space in the `PangoLayout` being iterated over
+// between the lines in the layout, and returns the space belonging to
+// the current line.
+//
+// A line's range includes the line's logical extents. plus half of the
+// spacing above and below the line, if [method@Pango.Layout.set_spacing]
+// has been called to set layout spacing. The Y positions are in layout
+// coordinates (origin at top left of the entire layout).
+//
+// Note: Since 1.44, Pango uses line heights for placing lines, and there
+// may be gaps between the ranges returned by this function.
+func (x *LayoutIter) GetLineYrange(Y0Var int, Y1Var int) {
+
+	xLayoutIterGetLineYrange(x.GoPointer(), Y0Var, Y1Var)
+
+}
+
+var xLayoutIterGetRun func(uintptr) *LayoutRun
+
+// Gets the current run.
+//
+// When iterating by run, at the end of each line, there's a position
+// with a %NULL run, so this function can return %NULL. The %NULL run
+// at the end of each line ensures that all lines have at least one run,
+// even lines consisting of only a newline.
+//
+// Use the faster [method@Pango.LayoutIter.get_run_readonly] if you do not
+// plan to modify the contents of the run (glyphs, glyph widths, etc.).
+func (x *LayoutIter) GetRun() *LayoutRun {
+
+	cret := xLayoutIterGetRun(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetRunBaseline func(uintptr) int
+
+// Gets the Y position of the current run's baseline, in layout
+// coordinates.
+//
+// Layout coordinates have the origin at the top left of the entire layout.
+//
+// The run baseline can be different from the line baseline, for
+// example due to superscript or subscript positioning.
+func (x *LayoutIter) GetRunBaseline() int {
+
+	cret := xLayoutIterGetRunBaseline(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterGetRunExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Gets the extents of the current run in layout coordinates.
+//
+// Layout coordinates have the origin at the top left of the entire layout.
+func (x *LayoutIter) GetRunExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutIterGetRunExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutIterGetRunReadonly func(uintptr) *LayoutRun
+
+// Gets the current run for read-only access.
+//
+// When iterating by run, at the end of each line, there's a position
+// with a %NULL run, so this function can return %NULL. The %NULL run
+// at the end of each line ensures that all lines have at least one run,
+// even lines consisting of only a newline.
+//
+// This is a faster alternative to [method@Pango.LayoutIter.get_run],
+// but the user is not expected to modify the contents of the run (glyphs,
+// glyph widths, etc.).
+func (x *LayoutIter) GetRunReadonly() *LayoutRun {
+
+	cret := xLayoutIterGetRunReadonly(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterNextChar func(uintptr) bool
+
+// Moves @iter forward to the next character in visual order.
+//
+// If @iter was already at the end of the layout, returns %FALSE.
+func (x *LayoutIter) NextChar() bool {
+
+	cret := xLayoutIterNextChar(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterNextCluster func(uintptr) bool
+
+// Moves @iter forward to the next cluster in visual order.
+//
+// If @iter was already at the end of the layout, returns %FALSE.
+func (x *LayoutIter) NextCluster() bool {
+
+	cret := xLayoutIterNextCluster(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterNextLine func(uintptr) bool
+
+// Moves @iter forward to the start of the next line.
+//
+// If @iter is already on the last line, returns %FALSE.
+func (x *LayoutIter) NextLine() bool {
+
+	cret := xLayoutIterNextLine(x.GoPointer())
+	return cret
+}
+
+var xLayoutIterNextRun func(uintptr) bool
+
+// Moves @iter forward to the next run in visual order.
+//
+// If @iter was already at the end of the layout, returns %FALSE.
+func (x *LayoutIter) NextRun() bool {
+
+	cret := xLayoutIterNextRun(x.GoPointer())
+	return cret
 }
 
 // A `PangoLayoutLine` represents one of the lines resulting from laying
@@ -38,6 +316,151 @@ type LayoutLine struct {
 	IsParagraphStart uint
 
 	ResolvedDir uint
+}
+
+func (x *LayoutLine) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xLayoutLineGetExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Computes the logical and ink extents of a layout line.
+//
+// See [method@Pango.Font.get_glyph_extents] for details
+// about the interpretation of the rectangles.
+func (x *LayoutLine) GetExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutLineGetExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutLineGetHeight func(uintptr, int)
+
+// Computes the height of the line, as the maximum of the heights
+// of fonts used in this line.
+//
+// Note that the actual baseline-to-baseline distance between lines
+// of text is influenced by other factors, such as
+// [method@Pango.Layout.set_spacing] and
+// [method@Pango.Layout.set_line_spacing].
+func (x *LayoutLine) GetHeight(HeightVar int) {
+
+	xLayoutLineGetHeight(x.GoPointer(), HeightVar)
+
+}
+
+var xLayoutLineGetLength func(uintptr) int
+
+// Returns the length of the line, in bytes.
+func (x *LayoutLine) GetLength() int {
+
+	cret := xLayoutLineGetLength(x.GoPointer())
+	return cret
+}
+
+var xLayoutLineGetPixelExtents func(uintptr, *Rectangle, *Rectangle)
+
+// Computes the logical and ink extents of @layout_line in device units.
+//
+// This function just calls [method@Pango.LayoutLine.get_extents] followed by
+// two [func@extents_to_pixels] calls, rounding @ink_rect and @logical_rect
+// such that the rounded rectangles fully contain the unrounded one (that is,
+// passes them as first argument to [func@extents_to_pixels]).
+func (x *LayoutLine) GetPixelExtents(InkRectVar *Rectangle, LogicalRectVar *Rectangle) {
+
+	xLayoutLineGetPixelExtents(x.GoPointer(), InkRectVar, LogicalRectVar)
+
+}
+
+var xLayoutLineGetResolvedDirection func(uintptr) Direction
+
+// Returns the resolved direction of the line.
+func (x *LayoutLine) GetResolvedDirection() Direction {
+
+	cret := xLayoutLineGetResolvedDirection(x.GoPointer())
+	return cret
+}
+
+var xLayoutLineGetStartIndex func(uintptr) int
+
+// Returns the start index of the line, as byte index
+// into the text of the layout.
+func (x *LayoutLine) GetStartIndex() int {
+
+	cret := xLayoutLineGetStartIndex(x.GoPointer())
+	return cret
+}
+
+var xLayoutLineGetXRanges func(uintptr, int, int, uintptr, int)
+
+// Gets a list of visual ranges corresponding to a given logical range.
+//
+// This list is not necessarily minimal - there may be consecutive
+// ranges which are adjacent. The ranges will be sorted from left to
+// right. The ranges are with respect to the left edge of the entire
+// layout, not with respect to the line.
+func (x *LayoutLine) GetXRanges(StartIndexVar int, EndIndexVar int, RangesVar uintptr, NRangesVar int) {
+
+	xLayoutLineGetXRanges(x.GoPointer(), StartIndexVar, EndIndexVar, RangesVar, NRangesVar)
+
+}
+
+var xLayoutLineIndexToX func(uintptr, int, bool, int)
+
+// Converts an index within a line to a X position.
+func (x *LayoutLine) IndexToX(IndexVar int, TrailingVar bool, XPosVar int) {
+
+	xLayoutLineIndexToX(x.GoPointer(), IndexVar, TrailingVar, XPosVar)
+
+}
+
+var xLayoutLineIsParagraphStartFn func(uintptr) bool
+
+// Returns whether this is the first line of the paragraph.
+func (x *LayoutLine) IsParagraphStartFn() bool {
+
+	cret := xLayoutLineIsParagraphStartFn(x.GoPointer())
+	return cret
+}
+
+var xLayoutLineRef func(uintptr) *LayoutLine
+
+// Increase the reference count of a `PangoLayoutLine` by one.
+func (x *LayoutLine) Ref() *LayoutLine {
+
+	cret := xLayoutLineRef(x.GoPointer())
+	return cret
+}
+
+var xLayoutLineUnref func(uintptr)
+
+// Decrease the reference count of a `PangoLayoutLine` by one.
+//
+// If the result is zero, the line and all associated memory
+// will be freed.
+func (x *LayoutLine) Unref() {
+
+	xLayoutLineUnref(x.GoPointer())
+
+}
+
+var xLayoutLineXToIndex func(uintptr, int, int, int) bool
+
+// Converts from x offset to the byte index of the corresponding character
+// within the text of the layout.
+//
+// If @x_pos is outside the line, @index_ and @trailing will point to the very
+// first or very last position in the line. This determination is based on the
+// resolved direction of the paragraph; for example, if the resolved direction
+// is right-to-left, then an X position to the right of the line (after it)
+// results in 0 being stored in @index_ and @trailing. An X position to the
+// left of the line results in @index_ pointing to the (logical) last grapheme
+// in the line and @trailing being set to the number of characters in that
+// grapheme. The reverse is true for a left-to-right line.
+func (x *LayoutLine) XToIndex(XPosVar int, IndexVar int, TrailingVar int) bool {
+
+	cret := xLayoutLineXToIndex(x.GoPointer(), XPosVar, IndexVar, TrailingVar)
+	return cret
 }
 
 // A `PangoLayoutRun` represents a single run within a `PangoLayoutLine`.
@@ -1195,11 +1618,73 @@ func (c *Layout) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xLayoutDeserialize func(uintptr, *glib.Bytes, LayoutDeserializeFlags, **glib.Error) uintptr
+
+// Loads data previously created via [method@Pango.Layout.serialize].
+//
+// For a discussion of the supported format, see that function.
+//
+// Note: to verify that the returned layout is identical to
+// the one that was serialized, you can compare @bytes to the
+// result of serializing the layout again.
+func LayoutDeserialize(ContextVar *Context, BytesVar *glib.Bytes, FlagsVar LayoutDeserializeFlags) (*Layout, error) {
+	var cls *Layout
+	var cerr *glib.Error
+
+	cret := xLayoutDeserialize(ContextVar.GoPointer(), BytesVar, FlagsVar, &cerr)
+
+	if cret == 0 {
+		return nil, cerr
+	}
+	cls = &Layout{}
+	cls.Ptr = cret
+	if cerr == nil {
+		return cls, nil
+	}
+	return cls, cerr
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("PANGO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLayoutIterAtLastLine, lib, "pango_layout_iter_at_last_line")
+	core.PuregoSafeRegister(&xLayoutIterCopy, lib, "pango_layout_iter_copy")
+	core.PuregoSafeRegister(&xLayoutIterFree, lib, "pango_layout_iter_free")
+	core.PuregoSafeRegister(&xLayoutIterGetBaseline, lib, "pango_layout_iter_get_baseline")
+	core.PuregoSafeRegister(&xLayoutIterGetCharExtents, lib, "pango_layout_iter_get_char_extents")
+	core.PuregoSafeRegister(&xLayoutIterGetClusterExtents, lib, "pango_layout_iter_get_cluster_extents")
+	core.PuregoSafeRegister(&xLayoutIterGetIndex, lib, "pango_layout_iter_get_index")
+	core.PuregoSafeRegister(&xLayoutIterGetLayout, lib, "pango_layout_iter_get_layout")
+	core.PuregoSafeRegister(&xLayoutIterGetLayoutExtents, lib, "pango_layout_iter_get_layout_extents")
+	core.PuregoSafeRegister(&xLayoutIterGetLine, lib, "pango_layout_iter_get_line")
+	core.PuregoSafeRegister(&xLayoutIterGetLineExtents, lib, "pango_layout_iter_get_line_extents")
+	core.PuregoSafeRegister(&xLayoutIterGetLineReadonly, lib, "pango_layout_iter_get_line_readonly")
+	core.PuregoSafeRegister(&xLayoutIterGetLineYrange, lib, "pango_layout_iter_get_line_yrange")
+	core.PuregoSafeRegister(&xLayoutIterGetRun, lib, "pango_layout_iter_get_run")
+	core.PuregoSafeRegister(&xLayoutIterGetRunBaseline, lib, "pango_layout_iter_get_run_baseline")
+	core.PuregoSafeRegister(&xLayoutIterGetRunExtents, lib, "pango_layout_iter_get_run_extents")
+	core.PuregoSafeRegister(&xLayoutIterGetRunReadonly, lib, "pango_layout_iter_get_run_readonly")
+	core.PuregoSafeRegister(&xLayoutIterNextChar, lib, "pango_layout_iter_next_char")
+	core.PuregoSafeRegister(&xLayoutIterNextCluster, lib, "pango_layout_iter_next_cluster")
+	core.PuregoSafeRegister(&xLayoutIterNextLine, lib, "pango_layout_iter_next_line")
+	core.PuregoSafeRegister(&xLayoutIterNextRun, lib, "pango_layout_iter_next_run")
+
+	core.PuregoSafeRegister(&xLayoutLineGetExtents, lib, "pango_layout_line_get_extents")
+	core.PuregoSafeRegister(&xLayoutLineGetHeight, lib, "pango_layout_line_get_height")
+	core.PuregoSafeRegister(&xLayoutLineGetLength, lib, "pango_layout_line_get_length")
+	core.PuregoSafeRegister(&xLayoutLineGetPixelExtents, lib, "pango_layout_line_get_pixel_extents")
+	core.PuregoSafeRegister(&xLayoutLineGetResolvedDirection, lib, "pango_layout_line_get_resolved_direction")
+	core.PuregoSafeRegister(&xLayoutLineGetStartIndex, lib, "pango_layout_line_get_start_index")
+	core.PuregoSafeRegister(&xLayoutLineGetXRanges, lib, "pango_layout_line_get_x_ranges")
+	core.PuregoSafeRegister(&xLayoutLineIndexToX, lib, "pango_layout_line_index_to_x")
+	core.PuregoSafeRegister(&xLayoutLineIsParagraphStartFn, lib, "pango_layout_line_is_paragraph_start")
+	core.PuregoSafeRegister(&xLayoutLineRef, lib, "pango_layout_line_ref")
+	core.PuregoSafeRegister(&xLayoutLineUnref, lib, "pango_layout_line_unref")
+	core.PuregoSafeRegister(&xLayoutLineXToIndex, lib, "pango_layout_line_x_to_index")
 
 	core.PuregoSafeRegister(&xNewLayout, lib, "pango_layout_new")
 
@@ -1267,5 +1752,7 @@ func init() {
 	core.PuregoSafeRegister(&xLayoutSetWrap, lib, "pango_layout_set_wrap")
 	core.PuregoSafeRegister(&xLayoutWriteToFile, lib, "pango_layout_write_to_file")
 	core.PuregoSafeRegister(&xLayoutXyToIndex, lib, "pango_layout_xy_to_index")
+
+	core.PuregoSafeRegister(&xLayoutDeserialize, lib, "pango_layout_deserialize")
 
 }

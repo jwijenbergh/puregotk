@@ -4,6 +4,7 @@ package gtk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -64,6 +65,43 @@ func (c *Settings) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xSettingsGetDefault func() uintptr
+
+// Gets the `GtkSettings` object for the default display, creating
+// it if necessary.
+//
+// See [func@Gtk.Settings.get_for_display].
+func SettingsGetDefault() *Settings {
+	var cls *Settings
+
+	cret := xSettingsGetDefault()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xSettingsGetForDisplay func(uintptr) uintptr
+
+// Gets the `GtkSettings` object for @display, creating it if necessary.
+func SettingsGetForDisplay(DisplayVar *gdk.Display) *Settings {
+	var cls *Settings
+
+	cret := xSettingsGetForDisplay(DisplayVar.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Settings{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -71,5 +109,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xSettingsResetProperty, lib, "gtk_settings_reset_property")
+
+	core.PuregoSafeRegister(&xSettingsGetDefault, lib, "gtk_settings_get_default")
+	core.PuregoSafeRegister(&xSettingsGetForDisplay, lib, "gtk_settings_get_for_display")
 
 }

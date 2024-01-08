@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -13,6 +15,10 @@ import (
 )
 
 type SnapshotClass struct {
+}
+
+func (x *SnapshotClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkSnapshot` assists in creating [class@Gsk.RenderNode]s for widgets.

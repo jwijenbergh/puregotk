@@ -2,6 +2,8 @@
 package gdkpixbuf
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 
 type PixbufLoaderClass struct {
 	ParentClass uintptr
+}
+
+func (x *PixbufLoaderClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Incremental image loader.

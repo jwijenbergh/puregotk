@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -11,6 +13,16 @@ import (
 type VolumeMonitorClass struct {
 	ParentClass uintptr
 }
+
+func (x *VolumeMonitorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// Extension point for volume monitor functionality.
+	// See [Extending GIO][extending-gio].
+	VOLUME_MONITOR_EXTENSION_POINT_NAME string = "gio-volume-monitor"
+)
 
 // #GVolumeMonitor is for listing the user interesting devices and volumes
 // on the computer. In other words, what a file selector or file manager
@@ -256,6 +268,65 @@ func (x *VolumeMonitor) ConnectVolumeRemoved(cb func(VolumeMonitor, uintptr)) ui
 	return gobject.SignalConnect(x.GoPointer(), "volume-removed", purego.NewCallback(fcb))
 }
 
+var xVolumeMonitorAdoptOrphanMount func(uintptr) uintptr
+
+// This function should be called by any #GVolumeMonitor
+// implementation when a new #GMount object is created that is not
+// associated with a #GVolume object. It must be called just before
+// emitting the @mount_added signal.
+//
+// If the return value is not %NULL, the caller must associate the
+// returned #GVolume object with the #GMount. This involves returning
+// it in its g_mount_get_volume() implementation. The caller must
+// also listen for the "removed" signal on the returned object
+// and give up its reference when handling that signal
+//
+// Similarly, if implementing g_volume_monitor_adopt_orphan_mount(),
+// the implementor must take a reference to @mount and return it in
+// its g_volume_get_mount() implemented. Also, the implementor must
+// listen for the "unmounted" signal on @mount and give up its
+// reference upon handling that signal.
+//
+// There are two main use cases for this function.
+//
+// One is when implementing a user space file system driver that reads
+// blocks of a block device that is already represented by the native
+// volume monitor (for example a CD Audio file system driver). Such
+// a driver will generate its own #GMount object that needs to be
+// associated with the #GVolume object that represents the volume.
+//
+// The other is for implementing a #GVolumeMonitor whose sole purpose
+// is to return #GVolume objects representing entries in the users
+// "favorite servers" list or similar.
+func VolumeMonitorAdoptOrphanMount(MountVar Mount) *VolumeBase {
+	var cls *VolumeBase
+
+	cret := xVolumeMonitorAdoptOrphanMount(MountVar.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &VolumeBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xVolumeMonitorGet func() uintptr
+
+// Gets the volume monitor used by gio.
+func VolumeMonitorGet() *VolumeMonitor {
+	var cls *VolumeMonitor
+
+	cret := xVolumeMonitorGet()
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &VolumeMonitor{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -267,5 +338,8 @@ func init() {
 	core.PuregoSafeRegister(&xVolumeMonitorGetMounts, lib, "g_volume_monitor_get_mounts")
 	core.PuregoSafeRegister(&xVolumeMonitorGetVolumeForUuid, lib, "g_volume_monitor_get_volume_for_uuid")
 	core.PuregoSafeRegister(&xVolumeMonitorGetVolumes, lib, "g_volume_monitor_get_volumes")
+
+	core.PuregoSafeRegister(&xVolumeMonitorAdoptOrphanMount, lib, "g_volume_monitor_adopt_orphan_mount")
+	core.PuregoSafeRegister(&xVolumeMonitorGet, lib, "g_volume_monitor_get")
 
 }

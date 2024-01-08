@@ -7,6 +7,15 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
+const (
+	// Use this priority for functionality related to size allocation.
+	//
+	// It is used internally by GTK+ to compute the sizes of widgets.
+	// This priority is higher than %GDK_PRIORITY_REDRAW to avoid
+	// resizing a widget which was just redrawn.
+	PRIORITY_RESIZE int = 110
+)
+
 var xDisableSetlocale func()
 
 // Prevents [id@gtk_init] and [id@gtk_init_check] from automatically calling

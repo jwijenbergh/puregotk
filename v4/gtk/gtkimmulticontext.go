@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -10,7 +12,15 @@ type IMMulticontextClass struct {
 	ParentClass uintptr
 }
 
+func (x *IMMulticontextClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type IMMulticontextPrivate struct {
+}
+
+func (x *IMMulticontextPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkIMMulticontext` is an input method context supporting multiple,

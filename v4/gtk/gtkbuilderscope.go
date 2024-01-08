@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -11,11 +13,19 @@ type BuilderCScopeClass struct {
 	ParentClass uintptr
 }
 
+func (x *BuilderCScopeClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 // The virtual function table to implement for `GtkBuilderScope` implementations.
 // Default implementations for each function do exist, but they usually just fail,
 // so it is suggested that implementations implement all of them.
 type BuilderScopeInterface struct {
 	GIface uintptr
+}
+
+func (x *BuilderScopeInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkBuilderScope` is an interface to provide language binding support

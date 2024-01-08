@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type IOStreamClass struct {
 	ParentClass uintptr
 }
 
+func (x *IOStreamClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type IOStreamPrivate struct {
+}
+
+func (x *IOStreamPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // GIOStream represents an object that has both read and write streams.
@@ -251,6 +261,20 @@ func (c *IOStream) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xIOStreamSpliceFinish func(uintptr, **glib.Error) bool
+
+// Finishes an asynchronous io stream splice operation.
+func IOStreamSpliceFinish(ResultVar AsyncResult) (bool, error) {
+	var cerr *glib.Error
+
+	cret := xIOStreamSpliceFinish(ResultVar.GoPointer(), &cerr)
+	if cerr == nil {
+		return cret, nil
+	}
+	return cret, cerr
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -267,5 +291,7 @@ func init() {
 	core.PuregoSafeRegister(&xIOStreamIsClosed, lib, "g_io_stream_is_closed")
 	core.PuregoSafeRegister(&xIOStreamSetPending, lib, "g_io_stream_set_pending")
 	core.PuregoSafeRegister(&xIOStreamSpliceAsync, lib, "g_io_stream_splice_async")
+
+	core.PuregoSafeRegister(&xIOStreamSpliceFinish, lib, "g_io_stream_splice_finish")
 
 }

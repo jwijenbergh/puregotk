@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -17,6 +19,56 @@ type ExpressionNotify func(uintptr)
 // The contents of `GtkExpressionWatch` should only be accessed through the
 // provided API.
 type ExpressionWatch struct {
+}
+
+func (x *ExpressionWatch) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xExpressionWatchEvaluate func(uintptr, *gobject.Value) bool
+
+// Evaluates the watched expression and on success stores the result
+// in `value`.
+//
+// This is equivalent to calling [method@Gtk.Expression.evaluate] with the
+// expression and this pointer originally used to create `watch`.
+func (x *ExpressionWatch) Evaluate(ValueVar *gobject.Value) bool {
+
+	cret := xExpressionWatchEvaluate(x.GoPointer(), ValueVar)
+	return cret
+}
+
+var xExpressionWatchRef func(uintptr) *ExpressionWatch
+
+// Acquires a reference on the given `GtkExpressionWatch`.
+func (x *ExpressionWatch) Ref() *ExpressionWatch {
+
+	cret := xExpressionWatchRef(x.GoPointer())
+	return cret
+}
+
+var xExpressionWatchUnref func(uintptr)
+
+// Releases a reference on the given `GtkExpressionWatch`.
+//
+// If the reference was the last, the resources associated to `self` are
+// freed.
+func (x *ExpressionWatch) Unref() {
+
+	xExpressionWatchUnref(x.GoPointer())
+
+}
+
+var xExpressionWatchUnwatch func(uintptr)
+
+// Stops watching an expression.
+//
+// See [method@Gtk.Expression.watch] for how the watch
+// was established.
+func (x *ExpressionWatch) Unwatch() {
+
+	xExpressionWatchUnwatch(x.GoPointer())
+
 }
 
 var xNewParamSpecExpression func(string, string, string, gobject.ParamFlags) uintptr
@@ -690,6 +742,11 @@ func init() {
 	core.PuregoSafeRegister(&xValueGetExpression, lib, "gtk_value_get_expression")
 	core.PuregoSafeRegister(&xValueSetExpression, lib, "gtk_value_set_expression")
 	core.PuregoSafeRegister(&xValueTakeExpression, lib, "gtk_value_take_expression")
+
+	core.PuregoSafeRegister(&xExpressionWatchEvaluate, lib, "gtk_expression_watch_evaluate")
+	core.PuregoSafeRegister(&xExpressionWatchRef, lib, "gtk_expression_watch_ref")
+	core.PuregoSafeRegister(&xExpressionWatchUnref, lib, "gtk_expression_watch_unref")
+	core.PuregoSafeRegister(&xExpressionWatchUnwatch, lib, "gtk_expression_watch_unwatch")
 
 	core.PuregoSafeRegister(&xNewCClosureExpression, lib, "gtk_cclosure_expression_new")
 

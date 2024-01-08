@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -9,6 +11,10 @@ import (
 )
 
 type ColumnViewColumnClass struct {
+}
+
+func (x *ColumnViewColumnClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkColumnViewColumn` represents the columns being added to `GtkColumnView`.

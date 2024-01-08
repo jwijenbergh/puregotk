@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -40,6 +42,10 @@ type LogAttr struct {
 	BreakRemovesPreceding uint
 
 	Reserved uint
+}
+
+func (x *LogAttr) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xAttrBreak func(string, int, *AttrList, int, uintptr, int)

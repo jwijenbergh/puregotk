@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -12,6 +14,10 @@ import (
 //
 // This functions related to this has been deprecated in 2.46, and no longer work.
 type MemVTable struct {
+}
+
+func (x *MemVTable) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 var xAlignedAlloc func(uint, uint, uint) uintptr

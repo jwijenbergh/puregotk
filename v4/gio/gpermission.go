@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -14,7 +16,15 @@ type PermissionClass struct {
 	Reserved uintptr
 }
 
+func (x *PermissionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type PermissionPrivate struct {
+}
+
+func (x *PermissionPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GPermission represents the status of the caller's permission to

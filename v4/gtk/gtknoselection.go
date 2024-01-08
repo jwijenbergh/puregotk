@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -10,6 +12,10 @@ import (
 
 type NoSelectionClass struct {
 	ParentClass uintptr
+}
+
+func (x *NoSelectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkNoSelection` is a `GtkSelectionModel` that does not allow selecting

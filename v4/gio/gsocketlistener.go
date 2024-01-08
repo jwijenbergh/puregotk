@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,7 +15,15 @@ type SocketListenerClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketListenerClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketListenerPrivate struct {
+}
+
+func (x *SocketListenerPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GSocketListener is an object that keeps track of a set

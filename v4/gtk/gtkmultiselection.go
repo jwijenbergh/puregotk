@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -10,6 +12,10 @@ import (
 
 type MultiSelectionClass struct {
 	ParentClass uintptr
+}
+
+func (x *MultiSelectionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // `GtkMultiSelection` is a `GtkSelectionModel` that allows selecting multiple

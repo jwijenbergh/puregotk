@@ -2,6 +2,8 @@
 package adw
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -10,6 +12,10 @@ import (
 
 type ClampScrollableClass struct {
 	ParentClass uintptr
+}
+
+func (x *ClampScrollableClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A scrollable [class@Clamp].

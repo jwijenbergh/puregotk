@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -20,6 +22,10 @@ type TimeCoord struct {
 	Flags AxisFlags
 
 	Axes uintptr
+}
+
+func (x *TimeCoord) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // An enumeration describing the type of an input device in general terms.

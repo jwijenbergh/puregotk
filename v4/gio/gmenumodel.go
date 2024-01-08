@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,22 +14,84 @@ type MenuAttributeIterClass struct {
 	ParentClass uintptr
 }
 
+func (x *MenuAttributeIterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MenuAttributeIterPrivate struct {
+}
+
+func (x *MenuAttributeIterPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type MenuLinkIterClass struct {
 	ParentClass uintptr
 }
 
+func (x *MenuLinkIterClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MenuLinkIterPrivate struct {
+}
+
+func (x *MenuLinkIterPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 type MenuModelClass struct {
 	ParentClass uintptr
 }
 
+func (x *MenuModelClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type MenuModelPrivate struct {
 }
+
+func (x *MenuModelPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+const (
+	// The menu item attribute which holds the action name of the item.  Action
+	// names are namespaced with an identifier for the action group in which the
+	// action resides. For example, "win." for window-specific actions and "app."
+	// for application-wide actions.
+	//
+	// See also g_menu_model_get_item_attribute() and g_menu_item_set_attribute().
+	MENU_ATTRIBUTE_ACTION string = "action"
+	// The menu item attribute that holds the namespace for all action names in
+	// menus that are linked from this item.
+	MENU_ATTRIBUTE_ACTION_NAMESPACE string = "action-namespace"
+	// The menu item attribute which holds the icon of the item.
+	//
+	// The icon is stored in the format returned by g_icon_serialize().
+	//
+	// This attribute is intended only to represent 'noun' icons such as
+	// favicons for a webpage, or application icons.  It should not be used
+	// for 'verbs' (ie: stock icons).
+	MENU_ATTRIBUTE_ICON string = "icon"
+	// The menu item attribute which holds the label of the item.
+	MENU_ATTRIBUTE_LABEL string = "label"
+	// The menu item attribute which holds the target with which the item's action
+	// will be activated.
+	//
+	// See also g_menu_item_set_action_and_target()
+	MENU_ATTRIBUTE_TARGET string = "target"
+	// The name of the link that associates a menu item with a section.  The linked
+	// menu will usually be shown in place of the menu item, using the item's label
+	// as a header.
+	//
+	// See also g_menu_item_set_link().
+	MENU_LINK_SECTION string = "section"
+	// The name of the link that associates a menu item with a submenu.
+	//
+	// See also g_menu_item_set_link().
+	MENU_LINK_SUBMENU string = "submenu"
+)
 
 // #GMenuAttributeIter is an opaque structure type.  You must access it
 // using the functions below.

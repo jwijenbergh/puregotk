@@ -2,9 +2,13 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
@@ -15,7 +19,15 @@ type WindowClass struct {
 	Padding uintptr
 }
 
+func (x *WindowClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type WindowGroupPrivate struct {
+}
+
+func (x *WindowGroupPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A `GtkWindow` is a toplevel window which can contain other widgets.
@@ -1226,6 +1238,100 @@ func (x *Window) GetDisplay() *gdk.Display {
 	return cls
 }
 
+var xWindowGetDefaultIconName func() string
+
+// Returns the fallback icon name for windows.
+//
+// The returned string is owned by GTK and should not
+// be modified. It is only valid until the next call to
+// [func@Gtk.Window.set_default_icon_name].
+func WindowGetDefaultIconName() string {
+
+	cret := xWindowGetDefaultIconName()
+	return cret
+}
+
+var xWindowGetToplevels func() uintptr
+
+// Returns a list of all existing toplevel windows.
+//
+// If you want to iterate through the list and perform actions involving
+// callbacks that might destroy the widgets or add new ones, be aware that
+// the list of toplevels will change and emit the "items-changed" signal.
+func WindowGetToplevels() *gio.ListModelBase {
+	var cls *gio.ListModelBase
+
+	cret := xWindowGetToplevels()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xWindowListToplevels func() *glib.List
+
+// Returns a list of all existing toplevel windows.
+//
+// The widgets in the list are not individually referenced.
+// If you want to iterate through the list and perform actions
+// involving callbacks that might destroy the widgets, you must
+// call `g_list_foreach (result, (GFunc)g_object_ref, NULL)` first,
+// and then unref all the widgets afterwards.
+func WindowListToplevels() *glib.List {
+
+	cret := xWindowListToplevels()
+	return cret
+}
+
+var xWindowSetAutoStartupNotification func(bool)
+
+// Sets whether the window should request startup notification.
+//
+// By default, after showing the first `GtkWindow`, GTK calls
+// [method@Gdk.Display.notify_startup_complete]. Call this function
+// to disable the automatic startup notification. You might do this
+// if your first window is a splash screen, and you want to delay
+// notification until after your real main window has been shown,
+// for example.
+//
+// In that example, you would disable startup notification
+// temporarily, show your splash screen, then re-enable it so that
+// showing the main window would automatically result in notification.
+func WindowSetAutoStartupNotification(SettingVar bool) {
+
+	xWindowSetAutoStartupNotification(SettingVar)
+
+}
+
+var xWindowSetDefaultIconName func(string)
+
+// Sets an icon to be used as fallback.
+//
+// The fallback icon is used for windows that
+// haven't had [method@Gtk.Window.set_icon_name]
+// called on them.
+func WindowSetDefaultIconName(NameVar string) {
+
+	xWindowSetDefaultIconName(NameVar)
+
+}
+
+var xWindowSetInteractiveDebugging func(bool)
+
+// Opens or closes the [interactive debugger](running.html#interactive-debugging).
+//
+// The debugger offers access to the widget hierarchy of the application
+// and to useful debugging tools.
+func WindowSetInteractiveDebugging(EnableVar bool) {
+
+	xWindowSetInteractiveDebugging(EnableVar)
+
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -1288,5 +1394,12 @@ func init() {
 	core.PuregoSafeRegister(&xWindowUnfullscreen, lib, "gtk_window_unfullscreen")
 	core.PuregoSafeRegister(&xWindowUnmaximize, lib, "gtk_window_unmaximize")
 	core.PuregoSafeRegister(&xWindowUnminimize, lib, "gtk_window_unminimize")
+
+	core.PuregoSafeRegister(&xWindowGetDefaultIconName, lib, "gtk_window_get_default_icon_name")
+	core.PuregoSafeRegister(&xWindowGetToplevels, lib, "gtk_window_get_toplevels")
+	core.PuregoSafeRegister(&xWindowListToplevels, lib, "gtk_window_list_toplevels")
+	core.PuregoSafeRegister(&xWindowSetAutoStartupNotification, lib, "gtk_window_set_auto_startup_notification")
+	core.PuregoSafeRegister(&xWindowSetDefaultIconName, lib, "gtk_window_set_default_icon_name")
+	core.PuregoSafeRegister(&xWindowSetInteractiveDebugging, lib, "gtk_window_set_interactive_debugging")
 
 }

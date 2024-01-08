@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -12,7 +14,15 @@ type SocketControlMessageClass struct {
 	ParentClass uintptr
 }
 
+func (x *SocketControlMessageClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type SocketControlMessagePrivate struct {
+}
+
+func (x *SocketControlMessagePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GSocketControlMessage is a special-purpose utility message that
@@ -97,6 +107,28 @@ func (c *SocketControlMessage) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xSocketControlMessageDeserialize func(int, int, uint, uintptr) uintptr
+
+// Tries to deserialize a socket control message of a given
+// @level and @type. This will ask all known (to GType) subclasses
+// of #GSocketControlMessage if they can understand this kind
+// of message and if so deserialize it into a #GSocketControlMessage.
+//
+// If there is no implementation for this kind of control message, %NULL
+// will be returned.
+func SocketControlMessageDeserialize(LevelVar int, TypeVar int, SizeVar uint, DataVar uintptr) *SocketControlMessage {
+	var cls *SocketControlMessage
+
+	cret := xSocketControlMessageDeserialize(LevelVar, TypeVar, SizeVar, DataVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &SocketControlMessage{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -107,5 +139,7 @@ func init() {
 	core.PuregoSafeRegister(&xSocketControlMessageGetMsgType, lib, "g_socket_control_message_get_msg_type")
 	core.PuregoSafeRegister(&xSocketControlMessageGetSize, lib, "g_socket_control_message_get_size")
 	core.PuregoSafeRegister(&xSocketControlMessageSerialize, lib, "g_socket_control_message_serialize")
+
+	core.PuregoSafeRegister(&xSocketControlMessageDeserialize, lib, "g_socket_control_message_deserialize")
 
 }

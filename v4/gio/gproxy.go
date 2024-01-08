@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Provides an interface for handling proxy connection and payload.
 type ProxyInterface struct {
 	GIface uintptr
+}
+
+func (x *ProxyInterface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A #GProxy handles connecting to a remote host via a given type of
@@ -103,6 +109,12 @@ var XGProxyConnect func(uintptr, uintptr, uintptr, uintptr, **glib.Error) uintpt
 var XGProxyConnectAsync func(uintptr, uintptr, uintptr, uintptr, uintptr, uintptr)
 var XGProxyConnectFinish func(uintptr, uintptr, **glib.Error) uintptr
 var XGProxySupportsHostname func(uintptr) bool
+
+const (
+	// Extension point for proxy functionality.
+	// See [Extending GIO][extending-gio].
+	PROXY_EXTENSION_POINT_NAME string = "gio-proxy"
+)
 
 var xProxyGetDefaultForProtocol func(string) uintptr
 

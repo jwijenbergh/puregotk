@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Provides an interface for implementing seekable functionality on I/O Streams.
 type SeekableIface struct {
 	GIface uintptr
+}
+
+func (x *SeekableIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GSeekable is implemented by streams (implementations of

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -15,7 +17,15 @@ type TreeModelSortClass struct {
 	Padding uintptr
 }
 
+func (x *TreeModelSortClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TreeModelSortPrivate struct {
+}
+
+func (x *TreeModelSortPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // A GtkTreeModel which makes an underlying tree model sortable

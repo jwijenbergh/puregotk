@@ -9,3 +9,166 @@ package glib
 // GPid is used in GLib only for descendant processes spawned with
 // the g_spawn functions.
 type Pid = int
+
+const (
+	// The directory separator character.
+	// This is '/' on UNIX machines and '\' under Windows.
+	DIR_SEPARATOR int = 47
+	// The directory separator as a string.
+	// This is "/" on UNIX machines and "\" under Windows.
+	DIR_SEPARATOR_S string = "/"
+	// This is the platform dependent conversion specifier for scanning and
+	// printing values of type #gint16. It is a string literal, but doesn't
+	// include the percent-sign, such that you can add precision and length
+	// modifiers between percent-sign and conversion specifier.
+	//
+	// |[&lt;!-- language="C" --&gt;
+	// gint16 in;
+	// gint32 out;
+	// sscanf ("42", "%" G_GINT16_FORMAT, &amp;in)
+	// out = in * 1000;
+	// g_print ("%" G_GINT32_FORMAT, out);
+	// ]|
+	GINT16_FORMAT string = "hi"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gint16 or #guint16. It
+	// is a string literal, but doesn't include the percent-sign, such
+	// that you can add precision and length modifiers between percent-sign
+	// and conversion specifier and append a conversion specifier.
+	//
+	// The following example prints "0x7b";
+	// |[&lt;!-- language="C" --&gt;
+	// gint16 value = 123;
+	// g_print ("%#" G_GINT16_MODIFIER "x", value);
+	// ]|
+	GINT16_MODIFIER string = "h"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #gint32. See also %G_GINT16_FORMAT.
+	GINT32_FORMAT string = "i"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gint32 or #guint32. It
+	// is a string literal. See also %G_GINT16_MODIFIER.
+	GINT32_MODIFIER string = ""
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #gint64. See also %G_GINT16_FORMAT.
+	//
+	// Some platforms do not support scanning and printing 64-bit integers,
+	// even though the types are supported. On such platforms %G_GINT64_FORMAT
+	// is not defined. Note that scanf() may not support 64-bit integers, even
+	// if %G_GINT64_FORMAT is defined. Due to its weak error handling, scanf()
+	// is not recommended for parsing anyway; consider using g_ascii_strtoull()
+	// instead.
+	GINT64_FORMAT string = "li"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gint64 or #guint64.
+	// It is a string literal.
+	//
+	// Some platforms do not support printing 64-bit integers, even
+	// though the types are supported. On such platforms %G_GINT64_MODIFIER
+	// is not defined.
+	GINT64_MODIFIER string = "l"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #gintptr.
+	GINTPTR_FORMAT string = "li"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gintptr or #guintptr.
+	// It is a string literal.
+	GINTPTR_MODIFIER string = "l"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #gsize. See also %G_GINT16_FORMAT.
+	GSIZE_FORMAT string = "lu"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gsize. It
+	// is a string literal.
+	GSIZE_MODIFIER string = "l"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #gssize. See also %G_GINT16_FORMAT.
+	GSSIZE_FORMAT string = "li"
+	// The platform dependent length modifier for conversion specifiers
+	// for scanning and printing values of type #gssize. It
+	// is a string literal.
+	GSSIZE_MODIFIER string = "l"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #guint16. See also %G_GINT16_FORMAT
+	GUINT16_FORMAT string = "hu"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #guint32. See also %G_GINT16_FORMAT.
+	GUINT32_FORMAT string = "u"
+	// This is the platform dependent conversion specifier for scanning
+	// and printing values of type #guint64. See also %G_GINT16_FORMAT.
+	//
+	// Some platforms do not support scanning and printing 64-bit integers,
+	// even though the types are supported. On such platforms %G_GUINT64_FORMAT
+	// is not defined.  Note that scanf() may not support 64-bit integers, even
+	// if %G_GINT64_FORMAT is defined. Due to its weak error handling, scanf()
+	// is not recommended for parsing anyway; consider using g_ascii_strtoull()
+	// instead.
+	GUINT64_FORMAT string = "lu"
+	// This is the platform dependent conversion specifier
+	// for scanning and printing values of type #guintptr.
+	GUINTPTR_FORMAT string = "lu"
+
+	HAVE_GINT64 int = 1
+
+	HAVE_GNUC_VARARGS int = 1
+	// Defined to 1 if gcc-style visibility handling is supported.
+	HAVE_GNUC_VISIBILITY int = 1
+
+	HAVE_GROWING_STACK int = 0
+
+	HAVE_ISO_VARARGS int = 1
+	// The major version number of the GLib library.
+	//
+	// Like #glib_major_version, but from the headers used at
+	// application compile time, rather than from the library
+	// linked against at application run time.
+	MAJOR_VERSION int = 2
+	// The micro version number of the GLib library.
+	//
+	// Like #gtk_micro_version, but from the headers used at
+	// application compile time, rather than from the library
+	// linked against at application run time.
+	MICRO_VERSION int = 3
+	// The minor version number of the GLib library.
+	//
+	// Like #gtk_minor_version, but from the headers used at
+	// application compile time, rather than from the library
+	// linked against at application run time.
+	MINOR_VERSION int = 72
+
+	MODULE_SUFFIX string = "so"
+	// A format specifier that can be used in printf()-style format strings
+	// when printing a #GPid.
+	PID_FORMAT string = "i"
+	// A format specifier that can be used in printf()-style format strings
+	// when printing the @fd member of a #GPollFD.
+	POLLFD_FORMAT string = "%d"
+	// The search path separator character.
+	// This is ':' on UNIX machines and ';' under Windows.
+	SEARCHPATH_SEPARATOR int = 58
+	// The search path separator as a string.
+	// This is ":" on UNIX machines and ";" under Windows.
+	SEARCHPATH_SEPARATOR_S string = ":"
+
+	SIZEOF_LONG int = 8
+
+	SIZEOF_SIZE_T int = 8
+
+	SIZEOF_SSIZE_T int = 8
+
+	SIZEOF_VOID_P int = 8
+
+	SYSDEF_AF_INET int = 2
+
+	SYSDEF_AF_INET6 int = 10
+
+	SYSDEF_AF_UNIX int = 1
+
+	SYSDEF_MSG_DONTROUTE int = 4
+
+	SYSDEF_MSG_OOB int = 1
+
+	SYSDEF_MSG_PEEK int = 2
+
+	VA_COPY_AS_ARRAY int = 1
+)

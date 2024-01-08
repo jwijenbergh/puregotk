@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -10,6 +12,10 @@ import (
 // Interface for icons that can be loaded as a stream.
 type LoadableIconIface struct {
 	GIface uintptr
+}
+
+func (x *LoadableIconIface) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Extends the #GIcon interface and adds the ability to

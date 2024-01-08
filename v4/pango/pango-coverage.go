@@ -157,6 +157,23 @@ func (c *Coverage) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
+var xCoverageFromBytes func(uintptr, int) uintptr
+
+// Convert data generated from [method@Pango.Coverage.to_bytes]
+// back to a `PangoCoverage`.
+func CoverageFromBytes(BytesVar uintptr, NBytesVar int) *Coverage {
+	var cls *Coverage
+
+	cret := xCoverageFromBytes(BytesVar, NBytesVar)
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &Coverage{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("PANGO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -172,5 +189,7 @@ func init() {
 	core.PuregoSafeRegister(&xCoverageSet, lib, "pango_coverage_set")
 	core.PuregoSafeRegister(&xCoverageToBytes, lib, "pango_coverage_to_bytes")
 	core.PuregoSafeRegister(&xCoverageUnref, lib, "pango_coverage_unref")
+
+	core.PuregoSafeRegister(&xCoverageFromBytes, lib, "pango_coverage_from_bytes")
 
 }

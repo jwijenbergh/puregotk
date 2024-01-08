@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -12,7 +14,15 @@ type CancellableClass struct {
 	ParentClass uintptr
 }
 
+func (x *CancellableClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type CancellablePrivate struct {
+}
+
+func (x *CancellablePrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // GCancellable is a thread-safe operation cancellation stack used
@@ -345,6 +355,23 @@ func (x *Cancellable) ConnectCancelled(cb func(Cancellable)) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), "cancelled", purego.NewCallback(fcb))
 }
 
+var xCancellableGetCurrent func() uintptr
+
+// Gets the top cancellable from the stack.
+func CancellableGetCurrent() *Cancellable {
+	var cls *Cancellable
+
+	cret := xCancellableGetCurrent()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Cancellable{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -365,5 +392,7 @@ func init() {
 	core.PuregoSafeRegister(&xCancellableReset, lib, "g_cancellable_reset")
 	core.PuregoSafeRegister(&xCancellableSetErrorIfCancelled, lib, "g_cancellable_set_error_if_cancelled")
 	core.PuregoSafeRegister(&xCancellableSourceNew, lib, "g_cancellable_source_new")
+
+	core.PuregoSafeRegister(&xCancellableGetCurrent, lib, "g_cancellable_get_current")
 
 }

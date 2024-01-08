@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -13,12 +15,165 @@ import (
 type UnixMountEntry struct {
 }
 
+func (x *UnixMountEntry) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type UnixMountMonitorClass struct {
+}
+
+func (x *UnixMountMonitorClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Defines a Unix mount point (e.g. &lt;filename&gt;/dev&lt;/filename&gt;).
 // This corresponds roughly to a fstab entry.
 type UnixMountPoint struct {
+}
+
+func (x *UnixMountPoint) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xUnixMountPointCompare func(uintptr, *UnixMountPoint) int
+
+// Compares two unix mount points.
+func (x *UnixMountPoint) Compare(Mount2Var *UnixMountPoint) int {
+
+	cret := xUnixMountPointCompare(x.GoPointer(), Mount2Var)
+	return cret
+}
+
+var xUnixMountPointCopy func(uintptr) *UnixMountPoint
+
+// Makes a copy of @mount_point.
+func (x *UnixMountPoint) Copy() *UnixMountPoint {
+
+	cret := xUnixMountPointCopy(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointFree func(uintptr)
+
+// Frees a unix mount point.
+func (x *UnixMountPoint) Free() {
+
+	xUnixMountPointFree(x.GoPointer())
+
+}
+
+var xUnixMountPointGetDevicePath func(uintptr) string
+
+// Gets the device path for a unix mount point.
+func (x *UnixMountPoint) GetDevicePath() string {
+
+	cret := xUnixMountPointGetDevicePath(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGetFsType func(uintptr) string
+
+// Gets the file system type for the mount point.
+func (x *UnixMountPoint) GetFsType() string {
+
+	cret := xUnixMountPointGetFsType(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGetMountPath func(uintptr) string
+
+// Gets the mount path for a unix mount point.
+func (x *UnixMountPoint) GetMountPath() string {
+
+	cret := xUnixMountPointGetMountPath(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGetOptions func(uintptr) string
+
+// Gets the options for the mount point.
+func (x *UnixMountPoint) GetOptions() string {
+
+	cret := xUnixMountPointGetOptions(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGuessCanEject func(uintptr) bool
+
+// Guesses whether a Unix mount point can be ejected.
+func (x *UnixMountPoint) GuessCanEject() bool {
+
+	cret := xUnixMountPointGuessCanEject(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGuessIcon func(uintptr) uintptr
+
+// Guesses the icon of a Unix mount point.
+func (x *UnixMountPoint) GuessIcon() *IconBase {
+	var cls *IconBase
+
+	cret := xUnixMountPointGuessIcon(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xUnixMountPointGuessName func(uintptr) string
+
+// Guesses the name of a Unix mount point.
+// The result is a translated string.
+func (x *UnixMountPoint) GuessName() string {
+
+	cret := xUnixMountPointGuessName(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointGuessSymbolicIcon func(uintptr) uintptr
+
+// Guesses the symbolic icon of a Unix mount point.
+func (x *UnixMountPoint) GuessSymbolicIcon() *IconBase {
+	var cls *IconBase
+
+	cret := xUnixMountPointGuessSymbolicIcon(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &IconBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xUnixMountPointIsLoopback func(uintptr) bool
+
+// Checks if a unix mount point is a loopback device.
+func (x *UnixMountPoint) IsLoopback() bool {
+
+	cret := xUnixMountPointIsLoopback(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointIsReadonly func(uintptr) bool
+
+// Checks if a unix mount point is read only.
+func (x *UnixMountPoint) IsReadonly() bool {
+
+	cret := xUnixMountPointIsReadonly(x.GoPointer())
+	return cret
+}
+
+var xUnixMountPointIsUserMountable func(uintptr) bool
+
+// Checks if a unix mount point is mountable by the user.
+func (x *UnixMountPoint) IsUserMountable() bool {
+
+	cret := xUnixMountPointIsUserMountable(x.GoPointer())
+	return cret
 }
 
 var xUnixIsMountPathSystemInternal func(string) bool
@@ -393,6 +548,30 @@ func (x *UnixMountMonitor) ConnectMountsChanged(cb func(UnixMountMonitor)) uint3
 	return gobject.SignalConnect(x.GoPointer(), "mounts-changed", purego.NewCallback(fcb))
 }
 
+var xUnixMountMonitorGet func() uintptr
+
+// Gets the #GUnixMountMonitor for the current thread-default main
+// context.
+//
+// The mount monitor can be used to monitor for changes to the list of
+// mounted filesystems as well as the list of mount points (ie: fstab
+// entries).
+//
+// You must only call g_object_unref() on the return value from under
+// the same main context as you called this function.
+func UnixMountMonitorGet() *UnixMountMonitor {
+	var cls *UnixMountMonitor
+
+	cret := xUnixMountMonitorGet()
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &UnixMountMonitor{}
+	cls.Ptr = cret
+	return cls
+}
+
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GIO"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	if err != nil {
@@ -424,8 +603,25 @@ func init() {
 	core.PuregoSafeRegister(&xUnixMountsChangedSince, lib, "g_unix_mounts_changed_since")
 	core.PuregoSafeRegister(&xUnixMountsGet, lib, "g_unix_mounts_get")
 
+	core.PuregoSafeRegister(&xUnixMountPointCompare, lib, "g_unix_mount_point_compare")
+	core.PuregoSafeRegister(&xUnixMountPointCopy, lib, "g_unix_mount_point_copy")
+	core.PuregoSafeRegister(&xUnixMountPointFree, lib, "g_unix_mount_point_free")
+	core.PuregoSafeRegister(&xUnixMountPointGetDevicePath, lib, "g_unix_mount_point_get_device_path")
+	core.PuregoSafeRegister(&xUnixMountPointGetFsType, lib, "g_unix_mount_point_get_fs_type")
+	core.PuregoSafeRegister(&xUnixMountPointGetMountPath, lib, "g_unix_mount_point_get_mount_path")
+	core.PuregoSafeRegister(&xUnixMountPointGetOptions, lib, "g_unix_mount_point_get_options")
+	core.PuregoSafeRegister(&xUnixMountPointGuessCanEject, lib, "g_unix_mount_point_guess_can_eject")
+	core.PuregoSafeRegister(&xUnixMountPointGuessIcon, lib, "g_unix_mount_point_guess_icon")
+	core.PuregoSafeRegister(&xUnixMountPointGuessName, lib, "g_unix_mount_point_guess_name")
+	core.PuregoSafeRegister(&xUnixMountPointGuessSymbolicIcon, lib, "g_unix_mount_point_guess_symbolic_icon")
+	core.PuregoSafeRegister(&xUnixMountPointIsLoopback, lib, "g_unix_mount_point_is_loopback")
+	core.PuregoSafeRegister(&xUnixMountPointIsReadonly, lib, "g_unix_mount_point_is_readonly")
+	core.PuregoSafeRegister(&xUnixMountPointIsUserMountable, lib, "g_unix_mount_point_is_user_mountable")
+
 	core.PuregoSafeRegister(&xNewUnixMountMonitor, lib, "g_unix_mount_monitor_new")
 
 	core.PuregoSafeRegister(&xUnixMountMonitorSetRateLimit, lib, "g_unix_mount_monitor_set_rate_limit")
+
+	core.PuregoSafeRegister(&xUnixMountMonitorGet, lib, "g_unix_mount_monitor_get")
 
 }

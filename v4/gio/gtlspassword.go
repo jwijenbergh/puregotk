@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -15,7 +17,15 @@ type TlsPasswordClass struct {
 	Padding uintptr
 }
 
+func (x *TlsPasswordClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TlsPasswordPrivate struct {
+}
+
+func (x *TlsPasswordPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Holds a password used in TLS.

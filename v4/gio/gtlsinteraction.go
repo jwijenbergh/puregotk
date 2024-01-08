@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -28,7 +30,15 @@ type TlsInteractionClass struct {
 	Padding uintptr
 }
 
+func (x *TlsInteractionClass) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TlsInteractionPrivate struct {
+}
+
+func (x *TlsInteractionPrivate) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // #GTlsInteraction provides a mechanism for the TLS connection and database

@@ -2,6 +2,8 @@
 package pango
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -12,6 +14,181 @@ import (
 // Each tab stop has an alignment, a position, and optionally
 // a character to use as decimal point.
 type TabArray struct {
+}
+
+func (x *TabArray) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xNewTabArray func(int, bool) *TabArray
+
+// Creates an array of @initial_size tab stops.
+//
+// Tab stops are specified in pixel units if @positions_in_pixels is %TRUE,
+// otherwise in Pango units. All stops are initially at position 0.
+func NewTabArray(InitialSizeVar int, PositionsInPixelsVar bool) *TabArray {
+
+	cret := xNewTabArray(InitialSizeVar, PositionsInPixelsVar)
+	return cret
+}
+
+var xNewWithPositionsTabArray func(int, bool, TabAlign, int, ...interface{}) *TabArray
+
+// Creates a `PangoTabArray` and allows you to specify the alignment
+// and position of each tab stop.
+//
+// You **must** provide an alignment and position for @size tab stops.
+func NewWithPositionsTabArray(SizeVar int, PositionsInPixelsVar bool, FirstAlignmentVar TabAlign, FirstPositionVar int, varArgs ...interface{}) *TabArray {
+
+	cret := xNewWithPositionsTabArray(SizeVar, PositionsInPixelsVar, FirstAlignmentVar, FirstPositionVar, varArgs...)
+	return cret
+}
+
+var xTabArrayCopy func(uintptr) *TabArray
+
+// Copies a `PangoTabArray`.
+func (x *TabArray) Copy() *TabArray {
+
+	cret := xTabArrayCopy(x.GoPointer())
+	return cret
+}
+
+var xTabArrayFree func(uintptr)
+
+// Frees a tab array and associated resources.
+func (x *TabArray) Free() {
+
+	xTabArrayFree(x.GoPointer())
+
+}
+
+var xTabArrayGetDecimalPoint func(uintptr, int) uint32
+
+// Gets the Unicode character to use as decimal point.
+//
+// This is only relevant for tabs with %PANGO_TAB_DECIMAL alignment,
+// which align content at the first occurrence of the decimal point
+// character.
+//
+// The default value of 0 means that Pango will use the
+// decimal point according to the current locale.
+func (x *TabArray) GetDecimalPoint(TabIndexVar int) uint32 {
+
+	cret := xTabArrayGetDecimalPoint(x.GoPointer(), TabIndexVar)
+	return cret
+}
+
+var xTabArrayGetPositionsInPixels func(uintptr) bool
+
+// Returns %TRUE if the tab positions are in pixels,
+// %FALSE if they are in Pango units.
+func (x *TabArray) GetPositionsInPixels() bool {
+
+	cret := xTabArrayGetPositionsInPixels(x.GoPointer())
+	return cret
+}
+
+var xTabArrayGetSize func(uintptr) int
+
+// Gets the number of tab stops in @tab_array.
+func (x *TabArray) GetSize() int {
+
+	cret := xTabArrayGetSize(x.GoPointer())
+	return cret
+}
+
+var xTabArrayGetTab func(uintptr, int, *TabAlign, int)
+
+// Gets the alignment and position of a tab stop.
+func (x *TabArray) GetTab(TabIndexVar int, AlignmentVar *TabAlign, LocationVar int) {
+
+	xTabArrayGetTab(x.GoPointer(), TabIndexVar, AlignmentVar, LocationVar)
+
+}
+
+var xTabArrayGetTabs func(uintptr, **TabAlign, uintptr)
+
+// If non-%NULL, @alignments and @locations are filled with allocated
+// arrays.
+//
+// The arrays are of length [method@Pango.TabArray.get_size].
+// You must free the returned array.
+func (x *TabArray) GetTabs(AlignmentsVar **TabAlign, LocationsVar uintptr) {
+
+	xTabArrayGetTabs(x.GoPointer(), AlignmentsVar, LocationsVar)
+
+}
+
+var xTabArrayResize func(uintptr, int)
+
+// Resizes a tab array.
+//
+// You must subsequently initialize any tabs
+// that were added as a result of growing the array.
+func (x *TabArray) Resize(NewSizeVar int) {
+
+	xTabArrayResize(x.GoPointer(), NewSizeVar)
+
+}
+
+var xTabArraySetDecimalPoint func(uintptr, int, uint32)
+
+// Sets the Unicode character to use as decimal point.
+//
+// This is only relevant for tabs with %PANGO_TAB_DECIMAL alignment,
+// which align content at the first occurrence of the decimal point
+// character.
+//
+// By default, Pango uses the decimal point according
+// to the current locale.
+func (x *TabArray) SetDecimalPoint(TabIndexVar int, DecimalPointVar uint32) {
+
+	xTabArraySetDecimalPoint(x.GoPointer(), TabIndexVar, DecimalPointVar)
+
+}
+
+var xTabArraySetPositionsInPixels func(uintptr, bool)
+
+// Sets whether positions in this array are specified in
+// pixels.
+func (x *TabArray) SetPositionsInPixels(PositionsInPixelsVar bool) {
+
+	xTabArraySetPositionsInPixels(x.GoPointer(), PositionsInPixelsVar)
+
+}
+
+var xTabArraySetTab func(uintptr, int, TabAlign, int)
+
+// Sets the alignment and location of a tab stop.
+func (x *TabArray) SetTab(TabIndexVar int, AlignmentVar TabAlign, LocationVar int) {
+
+	xTabArraySetTab(x.GoPointer(), TabIndexVar, AlignmentVar, LocationVar)
+
+}
+
+var xTabArraySort func(uintptr)
+
+// Utility function to ensure that the tab stops are in increasing order.
+func (x *TabArray) Sort() {
+
+	xTabArraySort(x.GoPointer())
+
+}
+
+var xTabArrayToString func(uintptr) string
+
+// Serializes a `PangoTabArray` to a string.
+//
+// No guarantees are made about the format of the string,
+// it may change between Pango versions.
+//
+// The intended use of this function is testing and
+// debugging. The format is not meant as a permanent
+// storage format.
+func (x *TabArray) ToString() string {
+
+	cret := xTabArrayToString(x.GoPointer())
+	return cret
 }
 
 // `PangoTabAlign` specifies where the text appears relative to the tab stop
@@ -55,5 +232,22 @@ func init() {
 		panic(err)
 	}
 	core.PuregoSafeRegister(&xTabArrayFromString, lib, "pango_tab_array_from_string")
+
+	core.PuregoSafeRegister(&xNewTabArray, lib, "pango_tab_array_new")
+	core.PuregoSafeRegister(&xNewWithPositionsTabArray, lib, "pango_tab_array_new_with_positions")
+
+	core.PuregoSafeRegister(&xTabArrayCopy, lib, "pango_tab_array_copy")
+	core.PuregoSafeRegister(&xTabArrayFree, lib, "pango_tab_array_free")
+	core.PuregoSafeRegister(&xTabArrayGetDecimalPoint, lib, "pango_tab_array_get_decimal_point")
+	core.PuregoSafeRegister(&xTabArrayGetPositionsInPixels, lib, "pango_tab_array_get_positions_in_pixels")
+	core.PuregoSafeRegister(&xTabArrayGetSize, lib, "pango_tab_array_get_size")
+	core.PuregoSafeRegister(&xTabArrayGetTab, lib, "pango_tab_array_get_tab")
+	core.PuregoSafeRegister(&xTabArrayGetTabs, lib, "pango_tab_array_get_tabs")
+	core.PuregoSafeRegister(&xTabArrayResize, lib, "pango_tab_array_resize")
+	core.PuregoSafeRegister(&xTabArraySetDecimalPoint, lib, "pango_tab_array_set_decimal_point")
+	core.PuregoSafeRegister(&xTabArraySetPositionsInPixels, lib, "pango_tab_array_set_positions_in_pixels")
+	core.PuregoSafeRegister(&xTabArraySetTab, lib, "pango_tab_array_set_tab")
+	core.PuregoSafeRegister(&xTabArraySort, lib, "pango_tab_array_sort")
+	core.PuregoSafeRegister(&xTabArrayToString, lib, "pango_tab_array_to_string")
 
 }

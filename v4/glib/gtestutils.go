@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -32,6 +34,19 @@ type TestLogFatalFunc func(string, LogLevelFlags, string, uintptr) bool
 type TestCase struct {
 }
 
+func (x *TestCase) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTestCaseFree func(uintptr)
+
+// Free the @test_case.
+func (x *TestCase) Free() {
+
+	xTestCaseFree(x.GoPointer())
+
+}
+
 type TestConfig struct {
 	TestInitialized bool
 
@@ -46,10 +61,45 @@ type TestConfig struct {
 	TestUndefined bool
 }
 
+func (x *TestConfig) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
 type TestLogBuffer struct {
 	Data *String
 
 	Msgs *SList
+}
+
+func (x *TestLogBuffer) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTestLogBufferFree func(uintptr)
+
+// Internal function for gtester to free test log messages, no ABI guarantees provided.
+func (x *TestLogBuffer) Free() {
+
+	xTestLogBufferFree(x.GoPointer())
+
+}
+
+var xTestLogBufferPop func(uintptr) *TestLogMsg
+
+// Internal function for gtester to retrieve test log messages, no ABI guarantees provided.
+func (x *TestLogBuffer) Pop() *TestLogMsg {
+
+	cret := xTestLogBufferPop(x.GoPointer())
+	return cret
+}
+
+var xTestLogBufferPush func(uintptr, uint, byte)
+
+// Internal function for gtester to decode test log messages, no ABI guarantees provided.
+func (x *TestLogBuffer) Push(NBytesVar uint, BytesVar byte) {
+
+	xTestLogBufferPush(x.GoPointer(), NBytesVar, BytesVar)
+
 }
 
 type TestLogMsg struct {
@@ -64,9 +114,80 @@ type TestLogMsg struct {
 	Nums float64
 }
 
+func (x *TestLogMsg) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTestLogMsgFree func(uintptr)
+
+// Internal function for gtester to free test log messages, no ABI guarantees provided.
+func (x *TestLogMsg) Free() {
+
+	xTestLogMsgFree(x.GoPointer())
+
+}
+
 // An opaque structure representing a test suite.
 type TestSuite struct {
 }
+
+func (x *TestSuite) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
+}
+
+var xTestSuiteAdd func(uintptr, *TestCase)
+
+// Adds @test_case to @suite.
+func (x *TestSuite) Add(TestCaseVar *TestCase) {
+
+	xTestSuiteAdd(x.GoPointer(), TestCaseVar)
+
+}
+
+var xTestSuiteAddSuite func(uintptr, *TestSuite)
+
+// Adds @nestedsuite to @suite.
+func (x *TestSuite) AddSuite(NestedsuiteVar *TestSuite) {
+
+	xTestSuiteAddSuite(x.GoPointer(), NestedsuiteVar)
+
+}
+
+var xTestSuiteFree func(uintptr)
+
+// Free the @suite and all nested #GTestSuites.
+func (x *TestSuite) Free() {
+
+	xTestSuiteFree(x.GoPointer())
+
+}
+
+const (
+	// Creates a unique temporary directory for each unit test and uses
+	// g_set_user_dirs() to set XDG directories to point into subdirectories of it
+	// for the duration of the unit test. The directory tree is cleaned up after the
+	// test finishes successfully. Note that this doesn’t take effect until
+	// g_test_run() is called, so calls to (for example) g_get_user_home_dir() will
+	// return the system-wide value when made in a test program’s main() function.
+	//
+	// The following functions will return subdirectories of the temporary directory
+	// when this option is used. The specific subdirectory paths in use are not
+	// guaranteed to be stable API — always use a getter function to retrieve them.
+	//
+	//  - g_get_home_dir()
+	//  - g_get_user_cache_dir()
+	//  - g_get_system_config_dirs()
+	//  - g_get_user_config_dir()
+	//  - g_get_system_data_dirs()
+	//  - g_get_user_data_dir()
+	//  - g_get_user_state_dir()
+	//  - g_get_user_runtime_dir()
+	//
+	// The subdirectories may not be created by the test harness; as with normal
+	// calls to functions like g_get_user_cache_dir(), the caller must be prepared
+	// to create the directory if it doesn’t exist.
+	TEST_OPTION_ISOLATE_DIRS string = "isolate_dirs"
+)
 
 // Flags to pass to g_test_trap_subprocess() to control input and output.
 //
@@ -1160,5 +1281,17 @@ func init() {
 	core.PuregoSafeRegister(&xTestTrapHasPassed, lib, "g_test_trap_has_passed")
 	core.PuregoSafeRegister(&xTestTrapReachedTimeout, lib, "g_test_trap_reached_timeout")
 	core.PuregoSafeRegister(&xTestTrapSubprocess, lib, "g_test_trap_subprocess")
+
+	core.PuregoSafeRegister(&xTestCaseFree, lib, "g_test_case_free")
+
+	core.PuregoSafeRegister(&xTestLogBufferFree, lib, "g_test_log_buffer_free")
+	core.PuregoSafeRegister(&xTestLogBufferPop, lib, "g_test_log_buffer_pop")
+	core.PuregoSafeRegister(&xTestLogBufferPush, lib, "g_test_log_buffer_push")
+
+	core.PuregoSafeRegister(&xTestLogMsgFree, lib, "g_test_log_msg_free")
+
+	core.PuregoSafeRegister(&xTestSuiteAdd, lib, "g_test_suite_add")
+	core.PuregoSafeRegister(&xTestSuiteAddSuite, lib, "g_test_suite_add_suite")
+	core.PuregoSafeRegister(&xTestSuiteFree, lib, "g_test_suite_free")
 
 }

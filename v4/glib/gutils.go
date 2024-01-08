@@ -2,6 +2,8 @@
 package glib
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
@@ -17,6 +19,10 @@ type DebugKey struct {
 	Key uintptr
 
 	Value uint
+}
+
+func (x *DebugKey) GoPointer() uintptr {
+	return uintptr(unsafe.Pointer(x))
 }
 
 // Flags to modify the format of the string returned by g_format_size_full().
