@@ -92,13 +92,32 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		enums[fn] = append(enums[fn], temp)
 	}
 
+	constants := make(map[string][]types.ConstantTemplate)
+	for _, con := range ns.Constants {
+		fn := con.FilenameSafe()
+		files = append(files, fn)
+		constants[fn] = append(constants[fn], con.Template(ns.Name, p.Types))
+	}
+
 	records := make(map[string][]types.RecordTemplate)
 	recordLookup := make(map[string]bool)
 	for _, rec := range ns.Records {
 		name := util.SnakeToCamel(rec.Name)
-		fields := make([]types.RecordField, len(rec.Fields))
+		constructors := make([]types.FuncTemplate, len(rec.Constructors))
+		receivers := make([]types.FuncTemplate, 0, len(rec.Methods))
+		fields := make([]types.RecordField, 0, len(rec.Fields))
 		fn := rec.FilenameSafe()
 		files = append(files, fn)
+		for i, c := range rec.Constructors {
+			name := util.SnakeToCamel(c.Name)
+			constructors[i] = types.FuncTemplate{
+				Name:  name,
+				CName: c.CIdentifier,
+				Doc:   c.Doc.StringSafe(),
+				Args:  c.Parameters.Template(ns.Name, "", p.Types, c.Throws),
+				Ret:   c.ReturnValue.Template(ns.Name, "", p.Types, c.Throws),
+			}
+		}
 		for _, f := range rec.Fields {
 			_type := f.Translate(ns.Name, p.Types)
 			if _type == "" {
@@ -120,10 +139,31 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				Type: _type,
 			})
 		}
+		for _, f := range rec.Methods {
+			name := util.SnakeToCamel(f.Name)
+			if name == "" {
+				name = util.SnakeToCamel(f.CIdentifier)
+			}
+			for _, f := range fields {
+				if f.Name == name {
+					name = name + "Fn"
+					break
+				}
+			}
+			receivers = append(receivers, types.FuncTemplate{
+				Doc:   f.Doc.StringSafe(),
+				Name:  name,
+				CName: f.CIdentifier,
+				Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
+			})
+		}
 		records[fn] = append(records[fn], types.RecordTemplate{
-			Name:   name,
-			Doc:    rec.Doc.StringSafe(),
-			Fields: fields,
+			Name:         name,
+			Doc:          rec.Doc.StringSafe(),
+			Constructors: constructors,
+			Receivers:    receivers,
+			Fields:       fields,
 		})
 		recordLookup[name] = true
 	}
@@ -200,6 +240,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	for _, cls := range ns.Classes {
 		implemented := make(map[string]bool)
 		constructors := make([]types.FuncTemplate, len(cls.Constructors))
+		functions := make([]types.FuncTemplate, len(cls.Functions))
 		fn := cls.FilenameSafe()
 		files = append(files, fn)
 
@@ -236,6 +277,16 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			}
 		}
 		var interfaces []types.InterfaceTemplate
+		for i, f := range cls.Functions {
+			name := fmt.Sprintf("%s%s", util.SnakeToCamel(cls.Name), util.SnakeToCamel(f.Name))
+			functions[i] = types.FuncTemplate{
+				Name:  name,
+				CName: f.CIdentifier,
+				Doc:   f.Doc.StringSafe(),
+				Args:  f.Parameters.Template(ns.Name, "", p.Types, f.Throws),
+				Ret:   f.ReturnValue.Template(ns.Name, "", p.Types, f.Throws),
+			}
+		}
 		for _, impl := range cls.Implements {
 			interfaces = append(interfaces, types.GetInterfaceFuncs(ns.Name, impl.Name, implemented, p.Types))
 		}
@@ -246,6 +297,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Constructors: constructors,
 			Receivers:    receivers,
 			Interfaces:   interfaces,
+			Functions:    functions,
 			Signals:      signals,
 		})
 	}
@@ -263,17 +315,16 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		//}
 		methods := 0
 		for _, i := range interfaces[fn] {
-			for range i.Methods {
-				methods += 1
-			}
+			methods += len(i.Methods)
+		}
+		for _, i := range records[fn] {
+			methods += len(i.Constructors)
+			methods += len(i.Receivers)
 		}
 		for _, i := range classes[fn] {
-			for range i.Constructors {
-				methods += 1
-			}
-			for range i.Receivers {
-				methods += 1
-			}
+			methods += len(i.Constructors)
+			methods += len(i.Receivers)
+			methods += len(i.Functions)
 		}
 		// we do not need to add the length of interfaces in here
 		// as they should only be loaded when there are classes
@@ -288,6 +339,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Callbacks:  callbacks[fn],
 			Records:    records[fn],
 			Enums:      enums[fn],
+			Constants:  constants[fn],
 			Functions:  functions[fn],
 			Interfaces: interfaces[fn],
 			Classes:    classes[fn],

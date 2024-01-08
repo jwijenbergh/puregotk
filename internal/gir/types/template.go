@@ -174,6 +174,12 @@ type RecordTemplate struct {
 	// Doc is the documentation of the alias
 	Doc string
 
+	// Constructors is the slice of functions that create the class struct
+	Constructors []FuncTemplate
+
+	// Receivers is the slice of functions that have value receivers to the struct
+	Receivers []FuncTemplate
+
 	// Fields is the list of record fields
 	Fields []RecordField
 }
@@ -194,6 +200,17 @@ type EnumTemplate struct {
 	Doc string
 	// Values are the list of values for the enumeration
 	Values []enumValues
+}
+
+type ConstantTemplate struct {
+	// Name is the name of the constant
+	Name string
+	// Doc is the documentation for the constant
+	Doc string
+	// Type is the Go type for the constant
+	Type string
+	// Values are the list of values for the constant
+	Value string
 }
 
 type funcRetTemplate struct {
@@ -342,6 +359,8 @@ type ClassTemplate struct {
 	Receivers []FuncTemplate
 	// Interfaces are receiver methods that are implemented because it needs to satisfy a certain interface
 	Interfaces []InterfaceTemplate
+	// Functions are the Go function declarations
+	Functions []FuncTemplate
 	// Signals are helpers for ConnectX receivers
 	Signals []SignalsTemplate
 }
@@ -372,6 +391,8 @@ type TemplateArg struct {
 	Callbacks []CallbackTemplate
 	// Enums are enumerations declared as const ... .... = ....
 	Enums []EnumTemplate
+	// Constants are declared as const ... .... = ....
+	Constants []ConstantTemplate
 	// Functions are the Go function declarations
 	Functions []FuncTemplate
 	// Interfaces is the list of interfaces that this package implements

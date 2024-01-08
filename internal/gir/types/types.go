@@ -4,6 +4,7 @@ package types
 
 import (
 	"encoding/xml"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -331,6 +332,23 @@ type Constant struct {
 
 	InfoAttrs
 	InfoElements
+}
+
+func (c *Constant) Template(ns string, kinds KindMap) ConstantTemplate {
+	t := c.Type.Template(ns, kinds)
+	v := c.Value
+
+	switch t {
+	case "string":
+		v = fmt.Sprintf(`"%s"`, v)
+	}
+
+	return ConstantTemplate{
+		Name:  c.Name,
+		Doc:   c.Doc.StringSafe(),
+		Type:  t,
+		Value: v,
+	}
 }
 
 type Constructor struct {

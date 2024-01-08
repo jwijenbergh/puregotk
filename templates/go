@@ -30,6 +30,37 @@ type {{.Name}} struct {
      {{.Name}} {{.Type}}
      {{end}}
 }
+
+func (x *{{.Name}}) GoPointer() uintptr {
+     return uintptr(unsafe.Pointer(x))
+}
+
+{{$outer := .}}
+
+{{range .Constructors -}}
+var x{{.Name}}{{$outer.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
+
+
+{{.Doc}}
+func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
+{{$outer := .}}
+{{range .Receivers -}}
+var x{{$outer.Name}}{{.Name}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Raw}}
+
+{{.Doc}}
+func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
 {{end}}
 
 {{range .Interfaces -}}
@@ -71,6 +102,15 @@ var {{.Namespace}}X{{.FullName}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret
 {{range .Aliases -}}
 {{.Doc}}
 type {{.Name}} = {{.Value}}
+{{end}}
+
+{{if .Constants -}}
+const (
+{{range .Constants -}}
+	{{.Doc}}
+	{{.Name}} {{.Type}} = {{.Value}}
+{{end}}
+)
 {{end}}
 
 {{range .Enums -}}
@@ -175,6 +215,17 @@ func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
 {{end}}
 {{end}}
 
+{{range .Functions -}}
+var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
+
+{{.Doc}}
+func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+     {{.Ret.Preamble $NotGLib}}
+     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
 {{end}}
 
 
@@ -188,6 +239,17 @@ func init() {
     {{range .Functions -}}
     core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
+
+    {{range .Records -}}
+    {{$rec := .}}
+    {{range .Constructors -}}
+    core.PuregoSafeRegister(&x{{.Name}}{{$rec.Name}}, lib, "{{.CName}}")
+    {{end}}
+    {{range .Receivers -}}
+    core.PuregoSafeRegister(&x{{$rec.Name}}{{.Name}}, lib, "{{.CName}}")
+    {{end}}
+    {{end}}
+
     {{range .Classes -}}
     {{$cls := .}}
     {{range .Constructors -}}
@@ -196,7 +258,11 @@ func init() {
     {{range .Receivers -}}
     core.PuregoSafeRegister(&x{{$cls.Name}}{{.Name}}, lib, "{{.CName}}")
     {{end}}
+    {{range .Functions -}}
+    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
+    {{end}}
+
     {{range .Interfaces -}}
     {{range .Methods -}}
     core.PuregoSafeRegister(&{{.Namespace}}X{{.FullName}}, lib, "{{.CName}}")
