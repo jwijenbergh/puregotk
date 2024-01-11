@@ -82,7 +82,7 @@ The default configuration is a "just works" configuration, we hardcode some path
 
 However, for systems such as NixOS or distros that use other paths the following environment variables might help:
 
-- `PUREGOTK_LIB_FOLRER`, set this to the root folder where all libs are stored e.g. `/some/path/`
+- `PUREGOTK_LIB_FOLDER`, set this to the root folder where all libs are stored e.g. `/some/path/`
 - `PUREGOTK_LIBNAME_PATH`, e.g. `PUREGOTK_GTK_PATH` for the file path to GTK e.g. `/some/path/libgtk-4.so`. You have to do this for all deps, e.g. cairo, pango, etc
 
 See https://github.com/jwijenbergh/puregotk/blob/main/internal/core/core.go for exact implementation details.
