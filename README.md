@@ -37,14 +37,16 @@ package main
 
 import (
 	"os"
-	"github.com/jwijenbergh/puregotk/v4/gtk"
+
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
 func main() {
 	app := gtk.NewApplication("com.github.jwijenbergh.puregotk.gtk4.hello", gio.GApplicationFlagsNoneValue)
+	// cleanup, no finalizers are used in this library
 	defer app.Unref()
-	app.ConnectActivate(func (_ gio.Application) {
+	app.ConnectActivate(func(_ gio.Application) {
 		activate(app)
 	})
 
@@ -57,7 +59,10 @@ func activate(app *gtk.Application) {
 	var window gtk.ApplicationWindow
 	gtk.NewApplicationWindow(app).Cast(&window)
 	window.SetTitle("purego")
-	window.SetChild(gtk.NewLabel("Hello, World!"))
+	label := gtk.NewLabel("Hello, World!")
+	window.SetChild(label)
+	// cleanup, no finalizers are used in this library
+	label.Unref()
 	window.SetDefaultSize(500, 500)
 	window.Show()
 }
