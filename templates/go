@@ -4,14 +4,11 @@ package {{.PkgName}}
 {{ $NotGObject := ne .PkgName "gobject" }}
 {{ $NotGLib := ne .PkgName "glib" }}
 
-{{if or .Imports .NeedsInit}}
+{{if .NeedsInit}}
 import (
        {{if .NeedsInit}}
        "github.com/jwijenbergh/purego"
        "github.com/jwijenbergh/puregotk/internal/core"
-       {{end}}
-       {{range .Imports -}}
-       "github.com/jwijenbergh/puregotk/v4/{{.}}"
        {{end}}
 )
 {{end}}

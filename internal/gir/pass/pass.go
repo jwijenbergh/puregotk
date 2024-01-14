@@ -305,15 +305,6 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 
 	pkgName := strings.ToLower(ns.Name)
 	for _, fn := range files {
-		var includesSlice []string
-		//includesSlice := make([]string, len(includes[fn]))
-		//i := 0
-		//for k, v := range includes[fn] {
-		//	if v {
-		//		includesSlice[i] = k
-		//	}
-		//	i++
-		//}
 		methods := 0
 		for _, i := range interfaces[fn] {
 			methods += len(i.Methods)
@@ -335,7 +326,6 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			PkgName:    pkgName,
 			PkgEnv:     strings.ToUpper(pkgName),
 			NeedsInit:  needsInit,
-			Imports:    includesSlice,
 			Aliases:    aliases[fn],
 			Callbacks:  callbacks[fn],
 			Records:    records[fn],
