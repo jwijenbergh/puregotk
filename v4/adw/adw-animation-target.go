@@ -69,15 +69,15 @@ var xNewCallbackAnimationTarget func(uintptr, uintptr, uintptr) uintptr
 
 // Creates a new `AdwAnimationTarget` that calls the given @callback during
 // the animation.
-func NewCallbackAnimationTarget(CallbackVar AnimationTargetFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) *AnimationTarget {
-	var cls *AnimationTarget
+func NewCallbackAnimationTarget(CallbackVar AnimationTargetFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) *CallbackAnimationTarget {
+	var cls *CallbackAnimationTarget
 
 	cret := xNewCallbackAnimationTarget(purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &AnimationTarget{}
+	cls = &CallbackAnimationTarget{}
 	cls.Ptr = cret
 	return cls
 }
@@ -106,15 +106,15 @@ var xNewPropertyAnimationTarget func(uintptr, string) uintptr
 
 // Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
 // @object.
-func NewPropertyAnimationTarget(ObjectVar *gobject.Object, PropertyNameVar string) *AnimationTarget {
-	var cls *AnimationTarget
+func NewPropertyAnimationTarget(ObjectVar *gobject.Object, PropertyNameVar string) *PropertyAnimationTarget {
+	var cls *PropertyAnimationTarget
 
 	cret := xNewPropertyAnimationTarget(ObjectVar.GoPointer(), PropertyNameVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &AnimationTarget{}
+	cls = &PropertyAnimationTarget{}
 	cls.Ptr = cret
 	return cls
 }
@@ -123,15 +123,15 @@ var xNewForPspecPropertyAnimationTarget func(uintptr, uintptr) uintptr
 
 // Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
 // @object.
-func NewForPspecPropertyAnimationTarget(ObjectVar *gobject.Object, PspecVar *gobject.ParamSpec) *AnimationTarget {
-	var cls *AnimationTarget
+func NewForPspecPropertyAnimationTarget(ObjectVar *gobject.Object, PspecVar *gobject.ParamSpec) *PropertyAnimationTarget {
+	var cls *PropertyAnimationTarget
 
 	cret := xNewForPspecPropertyAnimationTarget(ObjectVar.GoPointer(), PspecVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &AnimationTarget{}
+	cls = &PropertyAnimationTarget{}
 	cls.Ptr = cret
 	return cls
 }

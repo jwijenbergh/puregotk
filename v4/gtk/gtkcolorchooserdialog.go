@@ -34,8 +34,8 @@ func ColorChooserDialogNewFromInternalPtr(ptr uintptr) *ColorChooserDialog {
 var xNewColorChooserDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkColorChooserDialog`.
-func NewColorChooserDialog(TitleVar string, ParentVar *Window) *Widget {
-	var cls *Widget
+func NewColorChooserDialog(TitleVar string, ParentVar *Window) *ColorChooserDialog {
+	var cls *ColorChooserDialog
 
 	cret := xNewColorChooserDialog(TitleVar, ParentVar.GoPointer())
 
@@ -43,7 +43,7 @@ func NewColorChooserDialog(TitleVar string, ParentVar *Window) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ColorChooserDialog{}
 	cls.Ptr = cret
 	return cls
 }

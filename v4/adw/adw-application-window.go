@@ -53,8 +53,8 @@ func ApplicationWindowNewFromInternalPtr(ptr uintptr) *ApplicationWindow {
 var xNewApplicationWindow func(uintptr) uintptr
 
 // Creates a new `AdwApplicationWindow` for @app.
-func NewApplicationWindow(AppVar *gtk.Application) *gtk.Widget {
-	var cls *gtk.Widget
+func NewApplicationWindow(AppVar *gtk.Application) *ApplicationWindow {
+	var cls *ApplicationWindow
 
 	cret := xNewApplicationWindow(AppVar.GoPointer())
 
@@ -62,7 +62,7 @@ func NewApplicationWindow(AppVar *gtk.Application) *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ApplicationWindow{}
 	cls.Ptr = cret
 	return cls
 }

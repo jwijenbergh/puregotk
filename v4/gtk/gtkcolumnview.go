@@ -98,8 +98,8 @@ var xNewColumnView func(uintptr) uintptr
 //
 // You most likely want to call [method@Gtk.ColumnView.append_column]
 // to add columns next.
-func NewColumnView(ModelVar SelectionModel) *Widget {
-	var cls *Widget
+func NewColumnView(ModelVar SelectionModel) *ColumnView {
+	var cls *ColumnView
 
 	cret := xNewColumnView(ModelVar.GoPointer())
 
@@ -107,7 +107,7 @@ func NewColumnView(ModelVar SelectionModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ColumnView{}
 	cls.Ptr = cret
 	return cls
 }

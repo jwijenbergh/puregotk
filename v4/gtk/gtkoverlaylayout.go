@@ -44,15 +44,15 @@ func OverlayLayoutNewFromInternalPtr(ptr uintptr) *OverlayLayout {
 var xNewOverlayLayout func() uintptr
 
 // Creates a new `GtkOverlayLayout` instance.
-func NewOverlayLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewOverlayLayout() *OverlayLayout {
+	var cls *OverlayLayout
 
 	cret := xNewOverlayLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &OverlayLayout{}
 	cls.Ptr = cret
 	return cls
 }

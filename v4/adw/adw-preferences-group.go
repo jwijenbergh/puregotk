@@ -66,8 +66,8 @@ func PreferencesGroupNewFromInternalPtr(ptr uintptr) *PreferencesGroup {
 var xNewPreferencesGroup func() uintptr
 
 // Creates a new `AdwPreferencesGroup`.
-func NewPreferencesGroup() *gtk.Widget {
-	var cls *gtk.Widget
+func NewPreferencesGroup() *PreferencesGroup {
+	var cls *PreferencesGroup
 
 	cret := xNewPreferencesGroup()
 
@@ -75,7 +75,7 @@ func NewPreferencesGroup() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &PreferencesGroup{}
 	cls.Ptr = cret
 	return cls
 }

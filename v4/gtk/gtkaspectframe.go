@@ -28,8 +28,8 @@ func AspectFrameNewFromInternalPtr(ptr uintptr) *AspectFrame {
 var xNewAspectFrame func(float32, float32, float32, bool) uintptr
 
 // Create a new `GtkAspectFrame`.
-func NewAspectFrame(XalignVar float32, YalignVar float32, RatioVar float32, ObeyChildVar bool) *Widget {
-	var cls *Widget
+func NewAspectFrame(XalignVar float32, YalignVar float32, RatioVar float32, ObeyChildVar bool) *AspectFrame {
+	var cls *AspectFrame
 
 	cret := xNewAspectFrame(XalignVar, YalignVar, RatioVar, ObeyChildVar)
 
@@ -37,7 +37,7 @@ func NewAspectFrame(XalignVar float32, YalignVar float32, RatioVar float32, Obey
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &AspectFrame{}
 	cls.Ptr = cret
 	return cls
 }

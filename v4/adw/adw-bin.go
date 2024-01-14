@@ -45,8 +45,8 @@ func BinNewFromInternalPtr(ptr uintptr) *Bin {
 var xNewBin func() uintptr
 
 // Creates a new `AdwBin`.
-func NewBin() *gtk.Widget {
-	var cls *gtk.Widget
+func NewBin() *Bin {
+	var cls *Bin
 
 	cret := xNewBin()
 
@@ -54,7 +54,7 @@ func NewBin() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Bin{}
 	cls.Ptr = cret
 	return cls
 }

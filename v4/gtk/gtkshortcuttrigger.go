@@ -68,15 +68,15 @@ var xNewAlternativeTrigger func(uintptr, uintptr) uintptr
 //
 // Note that nesting is allowed, so if you want more than two
 // alternative, create a new alternative trigger for each option.
-func NewAlternativeTrigger(FirstVar *ShortcutTrigger, SecondVar *ShortcutTrigger) *ShortcutTrigger {
-	var cls *ShortcutTrigger
+func NewAlternativeTrigger(FirstVar *ShortcutTrigger, SecondVar *ShortcutTrigger) *AlternativeTrigger {
+	var cls *AlternativeTrigger
 
 	cret := xNewAlternativeTrigger(FirstVar.GoPointer(), SecondVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &ShortcutTrigger{}
+	cls = &AlternativeTrigger{}
 	cls.Ptr = cret
 	return cls
 }
@@ -146,15 +146,15 @@ var xNewKeyvalTrigger func(uint, gdk.ModifierType) uintptr
 
 // Creates a `GtkShortcutTrigger` that will trigger whenever
 // the key with the given @keyval and @modifiers is pressed.
-func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *ShortcutTrigger {
-	var cls *ShortcutTrigger
+func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *KeyvalTrigger {
+	var cls *KeyvalTrigger
 
 	cret := xNewKeyvalTrigger(KeyvalVar, ModifiersVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &ShortcutTrigger{}
+	cls = &KeyvalTrigger{}
 	cls.Ptr = cret
 	return cls
 }

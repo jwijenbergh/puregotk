@@ -49,15 +49,15 @@ var xNewUnixInputStream func(int, bool) uintptr
 //
 // If @close_fd is %TRUE, the file descriptor will be closed
 // when the stream is closed.
-func NewUnixInputStream(FdVar int, CloseFdVar bool) *InputStream {
-	var cls *InputStream
+func NewUnixInputStream(FdVar int, CloseFdVar bool) *UnixInputStream {
+	var cls *UnixInputStream
 
 	cret := xNewUnixInputStream(FdVar, CloseFdVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &UnixInputStream{}
 	cls.Ptr = cret
 	return cls
 }

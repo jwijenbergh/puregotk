@@ -53,8 +53,8 @@ func StackSwitcherNewFromInternalPtr(ptr uintptr) *StackSwitcher {
 var xNewStackSwitcher func() uintptr
 
 // Create a new `GtkStackSwitcher`.
-func NewStackSwitcher() *Widget {
-	var cls *Widget
+func NewStackSwitcher() *StackSwitcher {
+	var cls *StackSwitcher
 
 	cret := xNewStackSwitcher()
 
@@ -62,7 +62,7 @@ func NewStackSwitcher() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &StackSwitcher{}
 	cls.Ptr = cret
 	return cls
 }

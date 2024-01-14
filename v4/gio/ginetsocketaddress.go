@@ -39,15 +39,15 @@ func InetSocketAddressNewFromInternalPtr(ptr uintptr) *InetSocketAddress {
 var xNewInetSocketAddress func(uintptr, uint16) uintptr
 
 // Creates a new #GInetSocketAddress for @address and @port.
-func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *SocketAddress {
-	var cls *SocketAddress
+func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *InetSocketAddress {
+	var cls *InetSocketAddress
 
 	cret := xNewInetSocketAddress(AddressVar.GoPointer(), PortVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketAddress{}
+	cls = &InetSocketAddress{}
 	cls.Ptr = cret
 	return cls
 }
@@ -58,15 +58,15 @@ var xNewFromStringInetSocketAddress func(string, uint) uintptr
 //
 // If @address is an IPv6 address, it can also contain a scope ID
 // (separated from the address by a `%`).
-func NewFromStringInetSocketAddress(AddressVar string, PortVar uint) *SocketAddress {
-	var cls *SocketAddress
+func NewFromStringInetSocketAddress(AddressVar string, PortVar uint) *InetSocketAddress {
+	var cls *InetSocketAddress
 
 	cret := xNewFromStringInetSocketAddress(AddressVar, PortVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketAddress{}
+	cls = &InetSocketAddress{}
 	cls.Ptr = cret
 	return cls
 }

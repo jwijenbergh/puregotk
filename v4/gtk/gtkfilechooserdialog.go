@@ -201,8 +201,8 @@ var xNewFileChooserDialog func(string, uintptr, FileChooserAction, string, ...in
 // Creates a new `GtkFileChooserDialog`.
 //
 // This function is analogous to [ctor@Gtk.Dialog.new_with_buttons].
-func NewFileChooserDialog(TitleVar string, ParentVar *Window, ActionVar FileChooserAction, FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	var cls *Widget
+func NewFileChooserDialog(TitleVar string, ParentVar *Window, ActionVar FileChooserAction, FirstButtonTextVar string, varArgs ...interface{}) *FileChooserDialog {
+	var cls *FileChooserDialog
 
 	cret := xNewFileChooserDialog(TitleVar, ParentVar.GoPointer(), ActionVar, FirstButtonTextVar, varArgs...)
 
@@ -210,7 +210,7 @@ func NewFileChooserDialog(TitleVar string, ParentVar *Window, ActionVar FileChoo
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FileChooserDialog{}
 	cls.Ptr = cret
 	return cls
 }

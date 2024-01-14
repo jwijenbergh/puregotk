@@ -209,8 +209,8 @@ var xNewMessageDialog func(uintptr, string, string) uintptr
 //	filename);
 //
 // ```
-func NewMessageDialog(ParentVar *gtk.Window, HeadingVar string, BodyVar string) *gtk.Widget {
-	var cls *gtk.Widget
+func NewMessageDialog(ParentVar *gtk.Window, HeadingVar string, BodyVar string) *MessageDialog {
+	var cls *MessageDialog
 
 	cret := xNewMessageDialog(ParentVar.GoPointer(), HeadingVar, BodyVar)
 
@@ -218,7 +218,7 @@ func NewMessageDialog(ParentVar *gtk.Window, HeadingVar string, BodyVar string) 
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &MessageDialog{}
 	cls.Ptr = cret
 	return cls
 }

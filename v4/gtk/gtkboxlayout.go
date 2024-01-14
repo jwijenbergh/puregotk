@@ -43,15 +43,15 @@ func BoxLayoutNewFromInternalPtr(ptr uintptr) *BoxLayout {
 var xNewBoxLayout func(Orientation) uintptr
 
 // Creates a new `GtkBoxLayout`.
-func NewBoxLayout(OrientationVar Orientation) *LayoutManager {
-	var cls *LayoutManager
+func NewBoxLayout(OrientationVar Orientation) *BoxLayout {
+	var cls *BoxLayout
 
 	cret := xNewBoxLayout(OrientationVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &BoxLayout{}
 	cls.Ptr = cret
 	return cls
 }

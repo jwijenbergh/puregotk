@@ -56,8 +56,8 @@ func BannerNewFromInternalPtr(ptr uintptr) *Banner {
 var xNewBanner func(string) uintptr
 
 // Creates a new `AdwBanner`.
-func NewBanner(TitleVar string) *gtk.Widget {
-	var cls *gtk.Widget
+func NewBanner(TitleVar string) *Banner {
+	var cls *Banner
 
 	cret := xNewBanner(TitleVar)
 
@@ -65,7 +65,7 @@ func NewBanner(TitleVar string) *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Banner{}
 	cls.Ptr = cret
 	return cls
 }

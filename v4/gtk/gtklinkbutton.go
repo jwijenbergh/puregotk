@@ -47,8 +47,8 @@ func LinkButtonNewFromInternalPtr(ptr uintptr) *LinkButton {
 var xNewLinkButton func(string) uintptr
 
 // Creates a new `GtkLinkButton` with the URI as its text.
-func NewLinkButton(UriVar string) *Widget {
-	var cls *Widget
+func NewLinkButton(UriVar string) *LinkButton {
+	var cls *LinkButton
 
 	cret := xNewLinkButton(UriVar)
 
@@ -56,7 +56,7 @@ func NewLinkButton(UriVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &LinkButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -64,8 +64,8 @@ func NewLinkButton(UriVar string) *Widget {
 var xNewWithLabelLinkButton func(string, string) uintptr
 
 // Creates a new `GtkLinkButton` containing a label.
-func NewWithLabelLinkButton(UriVar string, LabelVar string) *Widget {
-	var cls *Widget
+func NewWithLabelLinkButton(UriVar string, LabelVar string) *LinkButton {
+	var cls *LinkButton
 
 	cret := xNewWithLabelLinkButton(UriVar, LabelVar)
 
@@ -73,7 +73,7 @@ func NewWithLabelLinkButton(UriVar string, LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &LinkButton{}
 	cls.Ptr = cret
 	return cls
 }

@@ -43,15 +43,15 @@ func ConverterOutputStreamNewFromInternalPtr(ptr uintptr) *ConverterOutputStream
 var xNewConverterOutputStream func(uintptr, uintptr) uintptr
 
 // Creates a new converter output stream for the @base_stream.
-func NewConverterOutputStream(BaseStreamVar *OutputStream, ConverterVar Converter) *OutputStream {
-	var cls *OutputStream
+func NewConverterOutputStream(BaseStreamVar *OutputStream, ConverterVar Converter) *ConverterOutputStream {
+	var cls *ConverterOutputStream
 
 	cret := xNewConverterOutputStream(BaseStreamVar.GoPointer(), ConverterVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &OutputStream{}
+	cls = &ConverterOutputStream{}
 	cls.Ptr = cret
 	return cls
 }

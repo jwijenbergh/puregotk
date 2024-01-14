@@ -69,8 +69,8 @@ var xNewSearchBar func() uintptr
 //
 // You will need to tell it about which widget is going to be your text
 // entry using [method@Gtk.SearchBar.connect_entry].
-func NewSearchBar() *Widget {
-	var cls *Widget
+func NewSearchBar() *SearchBar {
+	var cls *SearchBar
 
 	cret := xNewSearchBar()
 
@@ -78,7 +78,7 @@ func NewSearchBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &SearchBar{}
 	cls.Ptr = cret
 	return cls
 }

@@ -51,8 +51,8 @@ func CarouselIndicatorDotsNewFromInternalPtr(ptr uintptr) *CarouselIndicatorDots
 var xNewCarouselIndicatorDots func() uintptr
 
 // Creates a new `AdwCarouselIndicatorDots`.
-func NewCarouselIndicatorDots() *gtk.Widget {
-	var cls *gtk.Widget
+func NewCarouselIndicatorDots() *CarouselIndicatorDots {
+	var cls *CarouselIndicatorDots
 
 	cret := xNewCarouselIndicatorDots()
 
@@ -60,7 +60,7 @@ func NewCarouselIndicatorDots() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &CarouselIndicatorDots{}
 	cls.Ptr = cret
 	return cls
 }

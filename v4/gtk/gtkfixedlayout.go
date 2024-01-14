@@ -69,15 +69,15 @@ func FixedLayoutNewFromInternalPtr(ptr uintptr) *FixedLayout {
 var xNewFixedLayout func() uintptr
 
 // Creates a new `GtkFixedLayout`.
-func NewFixedLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewFixedLayout() *FixedLayout {
+	var cls *FixedLayout
 
 	cret := xNewFixedLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &FixedLayout{}
 	cls.Ptr = cret
 	return cls
 }

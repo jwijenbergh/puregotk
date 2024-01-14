@@ -38,8 +38,8 @@ var xNewCellRendererCombo func() uintptr
 // in a `GtkTreeModel`. For example, you can bind the “text” property
 // on the cell renderer to a string value in the model, thus rendering
 // a different string in each row of the `GtkTreeView`.
-func NewCellRendererCombo() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererCombo() *CellRendererCombo {
+	var cls *CellRendererCombo
 
 	cret := xNewCellRendererCombo()
 
@@ -47,7 +47,7 @@ func NewCellRendererCombo() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererCombo{}
 	cls.Ptr = cret
 	return cls
 }

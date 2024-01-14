@@ -38,15 +38,15 @@ func EventControllerFocusNewFromInternalPtr(ptr uintptr) *EventControllerFocus {
 var xNewEventControllerFocus func() uintptr
 
 // Creates a new event controller that will handle focus events.
-func NewEventControllerFocus() *EventController {
-	var cls *EventController
+func NewEventControllerFocus() *EventControllerFocus {
+	var cls *EventControllerFocus
 
 	cret := xNewEventControllerFocus()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &EventControllerFocus{}
 	cls.Ptr = cret
 	return cls
 }

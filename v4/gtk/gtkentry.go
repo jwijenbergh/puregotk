@@ -140,8 +140,8 @@ func EntryNewFromInternalPtr(ptr uintptr) *Entry {
 var xNewEntry func() uintptr
 
 // Creates a new entry.
-func NewEntry() *Widget {
-	var cls *Widget
+func NewEntry() *Entry {
+	var cls *Entry
 
 	cret := xNewEntry()
 
@@ -149,7 +149,7 @@ func NewEntry() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Entry{}
 	cls.Ptr = cret
 	return cls
 }
@@ -157,8 +157,8 @@ func NewEntry() *Widget {
 var xNewWithBufferEntry func(uintptr) uintptr
 
 // Creates a new entry with the specified text buffer.
-func NewWithBufferEntry(BufferVar *EntryBuffer) *Widget {
-	var cls *Widget
+func NewWithBufferEntry(BufferVar *EntryBuffer) *Entry {
+	var cls *Entry
 
 	cret := xNewWithBufferEntry(BufferVar.GoPointer())
 
@@ -166,7 +166,7 @@ func NewWithBufferEntry(BufferVar *EntryBuffer) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Entry{}
 	cls.Ptr = cret
 	return cls
 }

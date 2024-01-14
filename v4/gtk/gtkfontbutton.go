@@ -41,8 +41,8 @@ func FontButtonNewFromInternalPtr(ptr uintptr) *FontButton {
 var xNewFontButton func() uintptr
 
 // Creates a new font picker widget.
-func NewFontButton() *Widget {
-	var cls *Widget
+func NewFontButton() *FontButton {
+	var cls *FontButton
 
 	cret := xNewFontButton()
 
@@ -50,7 +50,7 @@ func NewFontButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FontButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -58,8 +58,8 @@ func NewFontButton() *Widget {
 var xNewWithFontFontButton func(string) uintptr
 
 // Creates a new font picker widget showing the given font.
-func NewWithFontFontButton(FontnameVar string) *Widget {
-	var cls *Widget
+func NewWithFontFontButton(FontnameVar string) *FontButton {
+	var cls *FontButton
 
 	cret := xNewWithFontFontButton(FontnameVar)
 
@@ -67,7 +67,7 @@ func NewWithFontFontButton(FontnameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FontButton{}
 	cls.Ptr = cret
 	return cls
 }

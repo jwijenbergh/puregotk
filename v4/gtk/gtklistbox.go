@@ -110,8 +110,8 @@ func ListBoxNewFromInternalPtr(ptr uintptr) *ListBox {
 var xNewListBox func() uintptr
 
 // Creates a new `GtkListBox` container.
-func NewListBox() *Widget {
-	var cls *Widget
+func NewListBox() *ListBox {
+	var cls *ListBox
 
 	cret := xNewListBox()
 
@@ -119,7 +119,7 @@ func NewListBox() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ListBox{}
 	cls.Ptr = cret
 	return cls
 }
@@ -828,8 +828,8 @@ func ListBoxRowNewFromInternalPtr(ptr uintptr) *ListBoxRow {
 var xNewListBoxRow func() uintptr
 
 // Creates a new `GtkListBoxRow`.
-func NewListBoxRow() *Widget {
-	var cls *Widget
+func NewListBoxRow() *ListBoxRow {
+	var cls *ListBoxRow
 
 	cret := xNewListBoxRow()
 
@@ -837,7 +837,7 @@ func NewListBoxRow() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ListBoxRow{}
 	cls.Ptr = cret
 	return cls
 }

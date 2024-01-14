@@ -69,8 +69,8 @@ func TreeExpanderNewFromInternalPtr(ptr uintptr) *TreeExpander {
 var xNewTreeExpander func() uintptr
 
 // Creates a new `GtkTreeExpander`
-func NewTreeExpander() *Widget {
-	var cls *Widget
+func NewTreeExpander() *TreeExpander {
+	var cls *TreeExpander
 
 	cret := xNewTreeExpander()
 
@@ -78,7 +78,7 @@ func NewTreeExpander() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &TreeExpander{}
 	cls.Ptr = cret
 	return cls
 }

@@ -213,8 +213,8 @@ func AboutWindowNewFromInternalPtr(ptr uintptr) *AboutWindow {
 var xNewAboutWindow func() uintptr
 
 // Creates a new `AdwAboutWindow`.
-func NewAboutWindow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewAboutWindow() *AboutWindow {
+	var cls *AboutWindow
 
 	cret := xNewAboutWindow()
 
@@ -222,7 +222,7 @@ func NewAboutWindow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &AboutWindow{}
 	cls.Ptr = cret
 	return cls
 }

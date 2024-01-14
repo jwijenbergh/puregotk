@@ -64,8 +64,8 @@ func SearchEntryNewFromInternalPtr(ptr uintptr) *SearchEntry {
 var xNewSearchEntry func() uintptr
 
 // Creates a `GtkSearchEntry`.
-func NewSearchEntry() *Widget {
-	var cls *Widget
+func NewSearchEntry() *SearchEntry {
+	var cls *SearchEntry
 
 	cret := xNewSearchEntry()
 
@@ -73,7 +73,7 @@ func NewSearchEntry() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &SearchEntry{}
 	cls.Ptr = cret
 	return cls
 }

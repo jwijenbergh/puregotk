@@ -128,8 +128,8 @@ func NotebookNewFromInternalPtr(ptr uintptr) *Notebook {
 var xNewNotebook func() uintptr
 
 // Creates a new `GtkNotebook` widget with no pages.
-func NewNotebook() *Widget {
-	var cls *Widget
+func NewNotebook() *Notebook {
+	var cls *Notebook
 
 	cret := xNewNotebook()
 
@@ -137,7 +137,7 @@ func NewNotebook() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Notebook{}
 	cls.Ptr = cret
 	return cls
 }

@@ -32,8 +32,8 @@ var xNewCellRendererToggle func() uintptr
 // can bind the “active” property on the cell renderer to a boolean value
 // in the model, thus causing the check button to reflect the state of
 // the model.
-func NewCellRendererToggle() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererToggle() *CellRendererToggle {
+	var cls *CellRendererToggle
 
 	cret := xNewCellRendererToggle()
 
@@ -41,7 +41,7 @@ func NewCellRendererToggle() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererToggle{}
 	cls.Ptr = cret
 	return cls
 }

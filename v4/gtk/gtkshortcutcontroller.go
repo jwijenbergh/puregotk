@@ -73,15 +73,15 @@ func ShortcutControllerNewFromInternalPtr(ptr uintptr) *ShortcutController {
 var xNewShortcutController func() uintptr
 
 // Creates a new shortcut controller.
-func NewShortcutController() *EventController {
-	var cls *EventController
+func NewShortcutController() *ShortcutController {
+	var cls *ShortcutController
 
 	cret := xNewShortcutController()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &ShortcutController{}
 	cls.Ptr = cret
 	return cls
 }
@@ -94,15 +94,15 @@ var xNewForModelShortcutController func(uintptr) uintptr
 // A controller created by this function does not let you add or
 // remove individual shortcuts using the shortcut controller api,
 // but you can change the contents of the model.
-func NewForModelShortcutController(ModelVar gio.ListModel) *EventController {
-	var cls *EventController
+func NewForModelShortcutController(ModelVar gio.ListModel) *ShortcutController {
+	var cls *ShortcutController
 
 	cret := xNewForModelShortcutController(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &ShortcutController{}
 	cls.Ptr = cret
 	return cls
 }

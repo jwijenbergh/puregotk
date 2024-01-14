@@ -61,8 +61,8 @@ func CenterBoxNewFromInternalPtr(ptr uintptr) *CenterBox {
 var xNewCenterBox func() uintptr
 
 // Creates a new `GtkCenterBox`.
-func NewCenterBox() *Widget {
-	var cls *Widget
+func NewCenterBox() *CenterBox {
+	var cls *CenterBox
 
 	cret := xNewCenterBox()
 
@@ -70,7 +70,7 @@ func NewCenterBox() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CenterBox{}
 	cls.Ptr = cret
 	return cls
 }

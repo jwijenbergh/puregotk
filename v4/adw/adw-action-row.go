@@ -70,8 +70,8 @@ func ActionRowNewFromInternalPtr(ptr uintptr) *ActionRow {
 var xNewActionRow func() uintptr
 
 // Creates a new `AdwActionRow`.
-func NewActionRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewActionRow() *ActionRow {
+	var cls *ActionRow
 
 	cret := xNewActionRow()
 
@@ -79,7 +79,7 @@ func NewActionRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ActionRow{}
 	cls.Ptr = cret
 	return cls
 }

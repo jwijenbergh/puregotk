@@ -57,15 +57,15 @@ func UnixCredentialsMessageNewFromInternalPtr(ptr uintptr) *UnixCredentialsMessa
 var xNewUnixCredentialsMessage func() uintptr
 
 // Creates a new #GUnixCredentialsMessage with credentials matching the current processes.
-func NewUnixCredentialsMessage() *SocketControlMessage {
-	var cls *SocketControlMessage
+func NewUnixCredentialsMessage() *UnixCredentialsMessage {
+	var cls *UnixCredentialsMessage
 
 	cret := xNewUnixCredentialsMessage()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketControlMessage{}
+	cls = &UnixCredentialsMessage{}
 	cls.Ptr = cret
 	return cls
 }
@@ -73,15 +73,15 @@ func NewUnixCredentialsMessage() *SocketControlMessage {
 var xNewWithCredentialsUnixCredentialsMessage func(uintptr) uintptr
 
 // Creates a new #GUnixCredentialsMessage holding @credentials.
-func NewWithCredentialsUnixCredentialsMessage(CredentialsVar *Credentials) *SocketControlMessage {
-	var cls *SocketControlMessage
+func NewWithCredentialsUnixCredentialsMessage(CredentialsVar *Credentials) *UnixCredentialsMessage {
+	var cls *UnixCredentialsMessage
 
 	cret := xNewWithCredentialsUnixCredentialsMessage(CredentialsVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketControlMessage{}
+	cls = &UnixCredentialsMessage{}
 	cls.Ptr = cret
 	return cls
 }

@@ -132,8 +132,8 @@ var xNewTextView func() uintptr
 // text view, an empty default buffer will be created for you. Get the
 // buffer with [method@Gtk.TextView.get_buffer]. If you want to specify
 // your own buffer, consider [ctor@Gtk.TextView.new_with_buffer].
-func NewTextView() *Widget {
-	var cls *Widget
+func NewTextView() *TextView {
+	var cls *TextView
 
 	cret := xNewTextView()
 
@@ -141,7 +141,7 @@ func NewTextView() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &TextView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -154,8 +154,8 @@ var xNewWithBufferTextView func(uintptr) uintptr
 // to create a default buffer, in which case this function is equivalent
 // to [ctor@Gtk.TextView.new]. The text view adds its own reference count
 // to the buffer; it does not take over an existing reference.
-func NewWithBufferTextView(BufferVar *TextBuffer) *Widget {
-	var cls *Widget
+func NewWithBufferTextView(BufferVar *TextBuffer) *TextView {
+	var cls *TextView
 
 	cret := xNewWithBufferTextView(BufferVar.GoPointer())
 
@@ -163,7 +163,7 @@ func NewWithBufferTextView(BufferVar *TextBuffer) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &TextView{}
 	cls.Ptr = cret
 	return cls
 }

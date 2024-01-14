@@ -56,15 +56,15 @@ var xNewFromBytesBuilderListItemFactory func(uintptr, *glib.Bytes) uintptr
 
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using @bytes as the data to pass to `GtkBuilder`.
-func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.Bytes) *ListItemFactory {
-	var cls *ListItemFactory
+func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.Bytes) *BuilderListItemFactory {
+	var cls *BuilderListItemFactory
 
 	cret := xNewFromBytesBuilderListItemFactory(ScopeVar.GoPointer(), BytesVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &ListItemFactory{}
+	cls = &BuilderListItemFactory{}
 	cls.Ptr = cret
 	return cls
 }
@@ -73,15 +73,15 @@ var xNewFromResourceBuilderListItemFactory func(uintptr, string) uintptr
 
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using data read from the given @resource_path to pass to `GtkBuilder`.
-func NewFromResourceBuilderListItemFactory(ScopeVar BuilderScope, ResourcePathVar string) *ListItemFactory {
-	var cls *ListItemFactory
+func NewFromResourceBuilderListItemFactory(ScopeVar BuilderScope, ResourcePathVar string) *BuilderListItemFactory {
+	var cls *BuilderListItemFactory
 
 	cret := xNewFromResourceBuilderListItemFactory(ScopeVar.GoPointer(), ResourcePathVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &ListItemFactory{}
+	cls = &BuilderListItemFactory{}
 	cls.Ptr = cret
 	return cls
 }

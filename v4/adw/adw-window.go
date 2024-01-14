@@ -68,8 +68,8 @@ func WindowNewFromInternalPtr(ptr uintptr) *Window {
 var xNewWindow func() uintptr
 
 // Creates a new `AdwWindow`.
-func NewWindow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewWindow() *Window {
+	var cls *Window
 
 	cret := xNewWindow()
 
@@ -77,7 +77,7 @@ func NewWindow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Window{}
 	cls.Ptr = cret
 	return cls
 }

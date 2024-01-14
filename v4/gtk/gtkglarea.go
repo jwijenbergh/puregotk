@@ -142,8 +142,8 @@ func GLAreaNewFromInternalPtr(ptr uintptr) *GLArea {
 var xNewGLArea func() uintptr
 
 // Creates a new `GtkGLArea` widget.
-func NewGLArea() *Widget {
-	var cls *Widget
+func NewGLArea() *GLArea {
+	var cls *GLArea
 
 	cret := xNewGLArea()
 
@@ -151,7 +151,7 @@ func NewGLArea() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &GLArea{}
 	cls.Ptr = cret
 	return cls
 }

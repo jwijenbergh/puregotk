@@ -86,8 +86,8 @@ func ComboRowNewFromInternalPtr(ptr uintptr) *ComboRow {
 var xNewComboRow func() uintptr
 
 // Creates a new `AdwComboRow`.
-func NewComboRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewComboRow() *ComboRow {
+	var cls *ComboRow
 
 	cret := xNewComboRow()
 
@@ -95,7 +95,7 @@ func NewComboRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ComboRow{}
 	cls.Ptr = cret
 	return cls
 }

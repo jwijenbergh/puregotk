@@ -82,8 +82,8 @@ func WindowControlsNewFromInternalPtr(ptr uintptr) *WindowControls {
 var xNewWindowControls func(PackType) uintptr
 
 // Creates a new `GtkWindowControls`.
-func NewWindowControls(SideVar PackType) *Widget {
-	var cls *Widget
+func NewWindowControls(SideVar PackType) *WindowControls {
+	var cls *WindowControls
 
 	cret := xNewWindowControls(SideVar)
 
@@ -91,7 +91,7 @@ func NewWindowControls(SideVar PackType) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &WindowControls{}
 	cls.Ptr = cret
 	return cls
 }

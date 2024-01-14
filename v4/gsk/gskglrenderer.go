@@ -28,15 +28,15 @@ func GLRendererNewFromInternalPtr(ptr uintptr) *GLRenderer {
 var xNewGLRenderer func() uintptr
 
 // Creates a new `GskRenderer` using the new OpenGL renderer.
-func NewGLRenderer() *Renderer {
-	var cls *Renderer
+func NewGLRenderer() *GLRenderer {
+	var cls *GLRenderer
 
 	cret := xNewGLRenderer()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Renderer{}
+	cls = &GLRenderer{}
 	cls.Ptr = cret
 	return cls
 }

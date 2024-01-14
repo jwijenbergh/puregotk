@@ -51,8 +51,8 @@ func StatusPageNewFromInternalPtr(ptr uintptr) *StatusPage {
 var xNewStatusPage func() uintptr
 
 // Creates a new `AdwStatusPage`.
-func NewStatusPage() *gtk.Widget {
-	var cls *gtk.Widget
+func NewStatusPage() *StatusPage {
+	var cls *StatusPage
 
 	cret := xNewStatusPage()
 
@@ -60,7 +60,7 @@ func NewStatusPage() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &StatusPage{}
 	cls.Ptr = cret
 	return cls
 }

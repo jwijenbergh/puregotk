@@ -85,8 +85,8 @@ func TextNewFromInternalPtr(ptr uintptr) *Text {
 var xNewText func() uintptr
 
 // Creates a new `GtkText`.
-func NewText() *Widget {
-	var cls *Widget
+func NewText() *Text {
+	var cls *Text
 
 	cret := xNewText()
 
@@ -94,7 +94,7 @@ func NewText() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Text{}
 	cls.Ptr = cret
 	return cls
 }
@@ -102,8 +102,8 @@ func NewText() *Widget {
 var xNewWithBufferText func(uintptr) uintptr
 
 // Creates a new `GtkText` with the specified text buffer.
-func NewWithBufferText(BufferVar *EntryBuffer) *Widget {
-	var cls *Widget
+func NewWithBufferText(BufferVar *EntryBuffer) *Text {
+	var cls *Text
 
 	cret := xNewWithBufferText(BufferVar.GoPointer())
 
@@ -111,7 +111,7 @@ func NewWithBufferText(BufferVar *EntryBuffer) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Text{}
 	cls.Ptr = cret
 	return cls
 }

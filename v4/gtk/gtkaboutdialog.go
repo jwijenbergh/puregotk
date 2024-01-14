@@ -129,8 +129,8 @@ func AboutDialogNewFromInternalPtr(ptr uintptr) *AboutDialog {
 var xNewAboutDialog func() uintptr
 
 // Creates a new `GtkAboutDialog`.
-func NewAboutDialog() *Widget {
-	var cls *Widget
+func NewAboutDialog() *AboutDialog {
+	var cls *AboutDialog
 
 	cret := xNewAboutDialog()
 
@@ -138,7 +138,7 @@ func NewAboutDialog() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &AboutDialog{}
 	cls.Ptr = cret
 	return cls
 }

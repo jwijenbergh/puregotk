@@ -85,8 +85,8 @@ func CheckButtonNewFromInternalPtr(ptr uintptr) *CheckButton {
 var xNewCheckButton func() uintptr
 
 // Creates a new `GtkCheckButton`.
-func NewCheckButton() *Widget {
-	var cls *Widget
+func NewCheckButton() *CheckButton {
+	var cls *CheckButton
 
 	cret := xNewCheckButton()
 
@@ -94,7 +94,7 @@ func NewCheckButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CheckButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -102,8 +102,8 @@ func NewCheckButton() *Widget {
 var xNewWithLabelCheckButton func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text.
-func NewWithLabelCheckButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithLabelCheckButton(LabelVar string) *CheckButton {
+	var cls *CheckButton
 
 	cret := xNewWithLabelCheckButton(LabelVar)
 
@@ -111,7 +111,7 @@ func NewWithLabelCheckButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CheckButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -119,8 +119,8 @@ func NewWithLabelCheckButton(LabelVar string) *Widget {
 var xNewWithMnemonicCheckButton func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text and a mnemonic.
-func NewWithMnemonicCheckButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithMnemonicCheckButton(LabelVar string) *CheckButton {
+	var cls *CheckButton
 
 	cret := xNewWithMnemonicCheckButton(LabelVar)
 
@@ -128,7 +128,7 @@ func NewWithMnemonicCheckButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CheckButton{}
 	cls.Ptr = cret
 	return cls
 }

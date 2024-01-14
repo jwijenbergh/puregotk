@@ -53,8 +53,8 @@ func PasswordEntryRowNewFromInternalPtr(ptr uintptr) *PasswordEntryRow {
 var xNewPasswordEntryRow func() uintptr
 
 // Creates a new `AdwPasswordEntryRow`.
-func NewPasswordEntryRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewPasswordEntryRow() *PasswordEntryRow {
+	var cls *PasswordEntryRow
 
 	cret := xNewPasswordEntryRow()
 
@@ -62,7 +62,7 @@ func NewPasswordEntryRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &PasswordEntryRow{}
 	cls.Ptr = cret
 	return cls
 }

@@ -35,8 +35,8 @@ var xNewFileChooserWidget func(FileChooserAction) uintptr
 // This is a file chooser widget that can be embedded in custom
 // windows, and it is the same widget that is used by
 // `GtkFileChooserDialog`.
-func NewFileChooserWidget(ActionVar FileChooserAction) *Widget {
-	var cls *Widget
+func NewFileChooserWidget(ActionVar FileChooserAction) *FileChooserWidget {
+	var cls *FileChooserWidget
 
 	cret := xNewFileChooserWidget(ActionVar)
 
@@ -44,7 +44,7 @@ func NewFileChooserWidget(ActionVar FileChooserAction) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FileChooserWidget{}
 	cls.Ptr = cret
 	return cls
 }

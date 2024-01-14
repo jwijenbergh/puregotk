@@ -41,15 +41,15 @@ func GestureSwipeNewFromInternalPtr(ptr uintptr) *GestureSwipe {
 var xNewGestureSwipe func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes swipes.
-func NewGestureSwipe() *Gesture {
-	var cls *Gesture
+func NewGestureSwipe() *GestureSwipe {
+	var cls *GestureSwipe
 
 	cret := xNewGestureSwipe()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureSwipe{}
 	cls.Ptr = cret
 	return cls
 }

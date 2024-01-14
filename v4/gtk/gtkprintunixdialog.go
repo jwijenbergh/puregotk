@@ -80,8 +80,8 @@ func PrintUnixDialogNewFromInternalPtr(ptr uintptr) *PrintUnixDialog {
 var xNewPrintUnixDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkPrintUnixDialog`.
-func NewPrintUnixDialog(TitleVar string, ParentVar *Window) *Widget {
-	var cls *Widget
+func NewPrintUnixDialog(TitleVar string, ParentVar *Window) *PrintUnixDialog {
+	var cls *PrintUnixDialog
 
 	cret := xNewPrintUnixDialog(TitleVar, ParentVar.GoPointer())
 
@@ -89,7 +89,7 @@ func NewPrintUnixDialog(TitleVar string, ParentVar *Window) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PrintUnixDialog{}
 	cls.Ptr = cret
 	return cls
 }

@@ -72,8 +72,8 @@ var xNewButton func() uintptr
 // Creates a new `GtkButton` widget.
 //
 // To add a child widget to the button, use [method@Gtk.Button.set_child].
-func NewButton() *Widget {
-	var cls *Widget
+func NewButton() *Button {
+	var cls *Button
 
 	cret := xNewButton()
 
@@ -81,7 +81,7 @@ func NewButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Button{}
 	cls.Ptr = cret
 	return cls
 }
@@ -93,8 +93,8 @@ var xNewFromIconNameButton func(string) uintptr
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromIconNameButton(IconNameVar string) *Widget {
-	var cls *Widget
+func NewFromIconNameButton(IconNameVar string) *Button {
+	var cls *Button
 
 	cret := xNewFromIconNameButton(IconNameVar)
 
@@ -102,7 +102,7 @@ func NewFromIconNameButton(IconNameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Button{}
 	cls.Ptr = cret
 	return cls
 }
@@ -110,8 +110,8 @@ func NewFromIconNameButton(IconNameVar string) *Widget {
 var xNewWithLabelButton func(string) uintptr
 
 // Creates a `GtkButton` widget with a `GtkLabel` child.
-func NewWithLabelButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithLabelButton(LabelVar string) *Button {
+	var cls *Button
 
 	cret := xNewWithLabelButton(LabelVar)
 
@@ -119,7 +119,7 @@ func NewWithLabelButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Button{}
 	cls.Ptr = cret
 	return cls
 }
@@ -132,8 +132,8 @@ var xNewWithMnemonicButton func(string) uintptr
 // If you need a literal underscore character in a label, use “__” (two
 // underscores). The first underlined character represents a keyboard
 // accelerator called a mnemonic. Pressing Alt and that key activates the button.
-func NewWithMnemonicButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithMnemonicButton(LabelVar string) *Button {
+	var cls *Button
 
 	cret := xNewWithMnemonicButton(LabelVar)
 
@@ -141,7 +141,7 @@ func NewWithMnemonicButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Button{}
 	cls.Ptr = cret
 	return cls
 }

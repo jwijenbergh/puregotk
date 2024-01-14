@@ -89,8 +89,8 @@ func ViewSwitcherBarNewFromInternalPtr(ptr uintptr) *ViewSwitcherBar {
 var xNewViewSwitcherBar func() uintptr
 
 // Creates a new `AdwViewSwitcherBar`.
-func NewViewSwitcherBar() *gtk.Widget {
-	var cls *gtk.Widget
+func NewViewSwitcherBar() *ViewSwitcherBar {
+	var cls *ViewSwitcherBar
 
 	cret := xNewViewSwitcherBar()
 
@@ -98,7 +98,7 @@ func NewViewSwitcherBar() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ViewSwitcherBar{}
 	cls.Ptr = cret
 	return cls
 }

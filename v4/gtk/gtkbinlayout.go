@@ -36,15 +36,15 @@ func BinLayoutNewFromInternalPtr(ptr uintptr) *BinLayout {
 var xNewBinLayout func() uintptr
 
 // Creates a new `GtkBinLayout` instance.
-func NewBinLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewBinLayout() *BinLayout {
+	var cls *BinLayout
 
 	cret := xNewBinLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &BinLayout{}
 	cls.Ptr = cret
 	return cls
 }

@@ -50,8 +50,8 @@ func CarouselNewFromInternalPtr(ptr uintptr) *Carousel {
 var xNewCarousel func() uintptr
 
 // Creates a new `AdwCarousel`.
-func NewCarousel() *gtk.Widget {
-	var cls *gtk.Widget
+func NewCarousel() *Carousel {
+	var cls *Carousel
 
 	cret := xNewCarousel()
 
@@ -59,7 +59,7 @@ func NewCarousel() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Carousel{}
 	cls.Ptr = cret
 	return cls
 }

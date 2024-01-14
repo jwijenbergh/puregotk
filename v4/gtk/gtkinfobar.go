@@ -98,8 +98,8 @@ func InfoBarNewFromInternalPtr(ptr uintptr) *InfoBar {
 var xNewInfoBar func() uintptr
 
 // Creates a new `GtkInfoBar` object.
-func NewInfoBar() *Widget {
-	var cls *Widget
+func NewInfoBar() *InfoBar {
+	var cls *InfoBar
 
 	cret := xNewInfoBar()
 
@@ -107,7 +107,7 @@ func NewInfoBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &InfoBar{}
 	cls.Ptr = cret
 	return cls
 }
@@ -122,8 +122,8 @@ var xNewWithButtonsInfoBar func(string, ...interface{}) uintptr
 // user clicks one of these dialog buttons, GtkInfoBar will emit
 // the [signal@Gtk.InfoBar::response] signal with the corresponding
 // response ID.
-func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	var cls *Widget
+func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *InfoBar {
+	var cls *InfoBar
 
 	cret := xNewWithButtonsInfoBar(FirstButtonTextVar, varArgs...)
 
@@ -131,7 +131,7 @@ func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *W
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &InfoBar{}
 	cls.Ptr = cret
 	return cls
 }

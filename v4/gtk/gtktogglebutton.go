@@ -110,8 +110,8 @@ var xNewToggleButton func() uintptr
 // Creates a new toggle button.
 //
 // A widget should be packed into the button, as in [ctor@Gtk.Button.new].
-func NewToggleButton() *Widget {
-	var cls *Widget
+func NewToggleButton() *ToggleButton {
+	var cls *ToggleButton
 
 	cret := xNewToggleButton()
 
@@ -119,7 +119,7 @@ func NewToggleButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ToggleButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -127,8 +127,8 @@ func NewToggleButton() *Widget {
 var xNewWithLabelToggleButton func(string) uintptr
 
 // Creates a new toggle button with a text label.
-func NewWithLabelToggleButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithLabelToggleButton(LabelVar string) *ToggleButton {
+	var cls *ToggleButton
 
 	cret := xNewWithLabelToggleButton(LabelVar)
 
@@ -136,7 +136,7 @@ func NewWithLabelToggleButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ToggleButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -147,8 +147,8 @@ var xNewWithMnemonicToggleButton func(string) uintptr
 //
 // The label will be created using [ctor@Gtk.Label.new_with_mnemonic],
 // so underscores in @label indicate the mnemonic for the button.
-func NewWithMnemonicToggleButton(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithMnemonicToggleButton(LabelVar string) *ToggleButton {
+	var cls *ToggleButton
 
 	cret := xNewWithMnemonicToggleButton(LabelVar)
 
@@ -156,7 +156,7 @@ func NewWithMnemonicToggleButton(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ToggleButton{}
 	cls.Ptr = cret
 	return cls
 }

@@ -119,8 +119,8 @@ func ExpanderNewFromInternalPtr(ptr uintptr) *Expander {
 var xNewExpander func(string) uintptr
 
 // Creates a new expander using @label as the text of the label.
-func NewExpander(LabelVar string) *Widget {
-	var cls *Widget
+func NewExpander(LabelVar string) *Expander {
+	var cls *Expander
 
 	cret := xNewExpander(LabelVar)
 
@@ -128,7 +128,7 @@ func NewExpander(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Expander{}
 	cls.Ptr = cret
 	return cls
 }
@@ -143,8 +143,8 @@ var xNewWithMnemonicExpander func(string) uintptr
 // a keyboard accelerator called a mnemonic.
 //
 // Pressing Alt and that key activates the button.
-func NewWithMnemonicExpander(LabelVar string) *Widget {
-	var cls *Widget
+func NewWithMnemonicExpander(LabelVar string) *Expander {
+	var cls *Expander
 
 	cret := xNewWithMnemonicExpander(LabelVar)
 
@@ -152,7 +152,7 @@ func NewWithMnemonicExpander(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Expander{}
 	cls.Ptr = cret
 	return cls
 }

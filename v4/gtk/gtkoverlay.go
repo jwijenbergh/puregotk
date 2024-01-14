@@ -52,8 +52,8 @@ func OverlayNewFromInternalPtr(ptr uintptr) *Overlay {
 var xNewOverlay func() uintptr
 
 // Creates a new `GtkOverlay`.
-func NewOverlay() *Widget {
-	var cls *Widget
+func NewOverlay() *Overlay {
+	var cls *Overlay
 
 	cret := xNewOverlay()
 
@@ -61,7 +61,7 @@ func NewOverlay() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Overlay{}
 	cls.Ptr = cret
 	return cls
 }

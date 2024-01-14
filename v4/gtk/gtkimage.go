@@ -84,8 +84,8 @@ func ImageNewFromInternalPtr(ptr uintptr) *Image {
 var xNewImage func() uintptr
 
 // Creates a new empty `GtkImage` widget.
-func NewImage() *Widget {
-	var cls *Widget
+func NewImage() *Image {
+	var cls *Image
 
 	cret := xNewImage()
 
@@ -93,7 +93,7 @@ func NewImage() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -113,8 +113,8 @@ var xNewFromFileImage func(string) uintptr
 // The storage type (see [method@Gtk.Image.get_storage_type])
 // of the returned image is not defined, it will be whatever
 // is appropriate for displaying the file.
-func NewFromFileImage(FilenameVar string) *Widget {
-	var cls *Widget
+func NewFromFileImage(FilenameVar string) *Image {
+	var cls *Image
 
 	cret := xNewFromFileImage(FilenameVar)
 
@@ -122,7 +122,7 @@ func NewFromFileImage(FilenameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -134,8 +134,8 @@ var xNewFromGiconImage func(uintptr) uintptr
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromGiconImage(IconVar gio.Icon) *Widget {
-	var cls *Widget
+func NewFromGiconImage(IconVar gio.Icon) *Image {
+	var cls *Image
 
 	cret := xNewFromGiconImage(IconVar.GoPointer())
 
@@ -143,7 +143,7 @@ func NewFromGiconImage(IconVar gio.Icon) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -155,8 +155,8 @@ var xNewFromIconNameImage func(string) uintptr
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromIconNameImage(IconNameVar string) *Widget {
-	var cls *Widget
+func NewFromIconNameImage(IconNameVar string) *Image {
+	var cls *Image
 
 	cret := xNewFromIconNameImage(IconNameVar)
 
@@ -164,7 +164,7 @@ func NewFromIconNameImage(IconNameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -179,8 +179,8 @@ var xNewFromPaintableImage func(uintptr) uintptr
 //
 // The `GtkImage` will track changes to the @paintable and update
 // its size and contents in response to it.
-func NewFromPaintableImage(PaintableVar gdk.Paintable) *Widget {
-	var cls *Widget
+func NewFromPaintableImage(PaintableVar gdk.Paintable) *Image {
+	var cls *Image
 
 	cret := xNewFromPaintableImage(PaintableVar.GoPointer())
 
@@ -188,7 +188,7 @@ func NewFromPaintableImage(PaintableVar gdk.Paintable) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -207,8 +207,8 @@ var xNewFromPixbufImage func(uintptr) uintptr
 // Note that this function just creates an `GtkImage` from the pixbuf.
 // The `GtkImage` created will not react to state changes. Should you
 // want that, you should use [ctor@Gtk.Image.new_from_icon_name].
-func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
-	var cls *Widget
+func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Image {
+	var cls *Image
 
 	cret := xNewFromPixbufImage(PixbufVar.GoPointer())
 
@@ -216,7 +216,7 @@ func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }
@@ -236,8 +236,8 @@ var xNewFromResourceImage func(string) uintptr
 // The storage type (see [method@Gtk.Image.get_storage_type]) of
 // the returned image is not defined, it will be whatever is
 // appropriate for displaying the file.
-func NewFromResourceImage(ResourcePathVar string) *Widget {
-	var cls *Widget
+func NewFromResourceImage(ResourcePathVar string) *Image {
+	var cls *Image
 
 	cret := xNewFromResourceImage(ResourcePathVar)
 
@@ -245,7 +245,7 @@ func NewFromResourceImage(ResourcePathVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Image{}
 	cls.Ptr = cret
 	return cls
 }

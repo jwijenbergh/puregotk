@@ -35,8 +35,8 @@ func MediaControlsNewFromInternalPtr(ptr uintptr) *MediaControls {
 var xNewMediaControls func(uintptr) uintptr
 
 // Creates a new `GtkMediaControls` managing the @stream passed to it.
-func NewMediaControls(StreamVar *MediaStream) *Widget {
-	var cls *Widget
+func NewMediaControls(StreamVar *MediaStream) *MediaControls {
+	var cls *MediaControls
 
 	cret := xNewMediaControls(StreamVar.GoPointer())
 
@@ -44,7 +44,7 @@ func NewMediaControls(StreamVar *MediaStream) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &MediaControls{}
 	cls.Ptr = cret
 	return cls
 }

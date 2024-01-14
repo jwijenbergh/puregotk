@@ -95,8 +95,8 @@ func ViewSwitcherTitleNewFromInternalPtr(ptr uintptr) *ViewSwitcherTitle {
 var xNewViewSwitcherTitle func() uintptr
 
 // Creates a new `AdwViewSwitcherTitle`.
-func NewViewSwitcherTitle() *gtk.Widget {
-	var cls *gtk.Widget
+func NewViewSwitcherTitle() *ViewSwitcherTitle {
+	var cls *ViewSwitcherTitle
 
 	cret := xNewViewSwitcherTitle()
 
@@ -104,7 +104,7 @@ func NewViewSwitcherTitle() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ViewSwitcherTitle{}
 	cls.Ptr = cret
 	return cls
 }

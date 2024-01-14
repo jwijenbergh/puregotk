@@ -77,15 +77,15 @@ func IMContextSimpleNewFromInternalPtr(ptr uintptr) *IMContextSimple {
 var xNewIMContextSimple func() uintptr
 
 // Creates a new `GtkIMContextSimple`.
-func NewIMContextSimple() *IMContext {
-	var cls *IMContext
+func NewIMContextSimple() *IMContextSimple {
+	var cls *IMContextSimple
 
 	cret := xNewIMContextSimple()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &IMContext{}
+	cls = &IMContextSimple{}
 	cls.Ptr = cret
 	return cls
 }

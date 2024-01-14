@@ -38,8 +38,8 @@ func ClampScrollableNewFromInternalPtr(ptr uintptr) *ClampScrollable {
 var xNewClampScrollable func() uintptr
 
 // Creates a new `AdwClampScrollable`.
-func NewClampScrollable() *gtk.Widget {
-	var cls *gtk.Widget
+func NewClampScrollable() *ClampScrollable {
+	var cls *ClampScrollable
 
 	cret := xNewClampScrollable()
 
@@ -47,7 +47,7 @@ func NewClampScrollable() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ClampScrollable{}
 	cls.Ptr = cret
 	return cls
 }

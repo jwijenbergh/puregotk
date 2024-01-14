@@ -35,15 +35,15 @@ var xNewGestureZoom func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes
 // pinch/zoom gestures.
-func NewGestureZoom() *Gesture {
-	var cls *Gesture
+func NewGestureZoom() *GestureZoom {
+	var cls *GestureZoom
 
 	cret := xNewGestureZoom()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureZoom{}
 	cls.Ptr = cret
 	return cls
 }

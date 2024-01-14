@@ -125,8 +125,8 @@ func DrawingAreaNewFromInternalPtr(ptr uintptr) *DrawingArea {
 var xNewDrawingArea func() uintptr
 
 // Creates a new drawing area.
-func NewDrawingArea() *Widget {
-	var cls *Widget
+func NewDrawingArea() *DrawingArea {
+	var cls *DrawingArea
 
 	cret := xNewDrawingArea()
 
@@ -134,7 +134,7 @@ func NewDrawingArea() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &DrawingArea{}
 	cls.Ptr = cret
 	return cls
 }

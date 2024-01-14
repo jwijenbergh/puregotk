@@ -130,8 +130,8 @@ func LevelBarNewFromInternalPtr(ptr uintptr) *LevelBar {
 var xNewLevelBar func() uintptr
 
 // Creates a new `GtkLevelBar`.
-func NewLevelBar() *Widget {
-	var cls *Widget
+func NewLevelBar() *LevelBar {
+	var cls *LevelBar
 
 	cret := xNewLevelBar()
 
@@ -139,7 +139,7 @@ func NewLevelBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &LevelBar{}
 	cls.Ptr = cret
 	return cls
 }
@@ -147,8 +147,8 @@ func NewLevelBar() *Widget {
 var xNewForIntervalLevelBar func(float64, float64) uintptr
 
 // Creates a new `GtkLevelBar` for the specified interval.
-func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *Widget {
-	var cls *Widget
+func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *LevelBar {
+	var cls *LevelBar
 
 	cret := xNewForIntervalLevelBar(MinValueVar, MaxValueVar)
 
@@ -156,7 +156,7 @@ func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &LevelBar{}
 	cls.Ptr = cret
 	return cls
 }

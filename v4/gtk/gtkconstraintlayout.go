@@ -216,15 +216,15 @@ func ConstraintLayoutNewFromInternalPtr(ptr uintptr) *ConstraintLayout {
 var xNewConstraintLayout func() uintptr
 
 // Creates a new `GtkConstraintLayout` layout manager.
-func NewConstraintLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewConstraintLayout() *ConstraintLayout {
+	var cls *ConstraintLayout
 
 	cret := xNewConstraintLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &ConstraintLayout{}
 	cls.Ptr = cret
 	return cls
 }

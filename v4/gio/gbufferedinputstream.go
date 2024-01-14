@@ -52,15 +52,15 @@ var xNewBufferedInputStream func(uintptr) uintptr
 
 // Creates a new #GInputStream from the given @base_stream, with
 // a buffer set to the default size (4 kilobytes).
-func NewBufferedInputStream(BaseStreamVar *InputStream) *InputStream {
-	var cls *InputStream
+func NewBufferedInputStream(BaseStreamVar *InputStream) *BufferedInputStream {
+	var cls *BufferedInputStream
 
 	cret := xNewBufferedInputStream(BaseStreamVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &BufferedInputStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -69,15 +69,15 @@ var xNewSizedBufferedInputStream func(uintptr, uint) uintptr
 
 // Creates a new #GBufferedInputStream from the given @base_stream,
 // with a buffer set to @size.
-func NewSizedBufferedInputStream(BaseStreamVar *InputStream, SizeVar uint) *InputStream {
-	var cls *InputStream
+func NewSizedBufferedInputStream(BaseStreamVar *InputStream, SizeVar uint) *BufferedInputStream {
+	var cls *BufferedInputStream
 
 	cret := xNewSizedBufferedInputStream(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &BufferedInputStream{}
 	cls.Ptr = cret
 	return cls
 }

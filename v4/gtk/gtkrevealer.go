@@ -69,8 +69,8 @@ func RevealerNewFromInternalPtr(ptr uintptr) *Revealer {
 var xNewRevealer func() uintptr
 
 // Creates a new `GtkRevealer`.
-func NewRevealer() *Widget {
-	var cls *Widget
+func NewRevealer() *Revealer {
+	var cls *Revealer
 
 	cret := xNewRevealer()
 
@@ -78,7 +78,7 @@ func NewRevealer() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Revealer{}
 	cls.Ptr = cret
 	return cls
 }

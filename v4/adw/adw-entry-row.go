@@ -69,8 +69,8 @@ func EntryRowNewFromInternalPtr(ptr uintptr) *EntryRow {
 var xNewEntryRow func() uintptr
 
 // Creates a new `AdwEntryRow`.
-func NewEntryRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewEntryRow() *EntryRow {
+	var cls *EntryRow
 
 	cret := xNewEntryRow()
 
@@ -78,7 +78,7 @@ func NewEntryRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &EntryRow{}
 	cls.Ptr = cret
 	return cls
 }

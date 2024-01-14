@@ -61,8 +61,8 @@ func EmojiChooserNewFromInternalPtr(ptr uintptr) *EmojiChooser {
 var xNewEmojiChooser func() uintptr
 
 // Creates a new `GtkEmojiChooser`.
-func NewEmojiChooser() *Widget {
-	var cls *Widget
+func NewEmojiChooser() *EmojiChooser {
+	var cls *EmojiChooser
 
 	cret := xNewEmojiChooser()
 
@@ -70,7 +70,7 @@ func NewEmojiChooser() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &EmojiChooser{}
 	cls.Ptr = cret
 	return cls
 }

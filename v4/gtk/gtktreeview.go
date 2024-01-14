@@ -162,8 +162,8 @@ func TreeViewNewFromInternalPtr(ptr uintptr) *TreeView {
 var xNewTreeView func() uintptr
 
 // Creates a new `GtkTreeView` widget.
-func NewTreeView() *Widget {
-	var cls *Widget
+func NewTreeView() *TreeView {
+	var cls *TreeView
 
 	cret := xNewTreeView()
 
@@ -171,7 +171,7 @@ func NewTreeView() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &TreeView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -179,8 +179,8 @@ func NewTreeView() *Widget {
 var xNewWithModelTreeView func(uintptr) uintptr
 
 // Creates a new `GtkTreeView` widget with the model initialized to @model.
-func NewWithModelTreeView(ModelVar TreeModel) *Widget {
-	var cls *Widget
+func NewWithModelTreeView(ModelVar TreeModel) *TreeView {
+	var cls *TreeView
 
 	cret := xNewWithModelTreeView(ModelVar.GoPointer())
 
@@ -188,7 +188,7 @@ func NewWithModelTreeView(ModelVar TreeModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &TreeView{}
 	cls.Ptr = cret
 	return cls
 }

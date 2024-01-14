@@ -87,8 +87,8 @@ func PanedNewFromInternalPtr(ptr uintptr) *Paned {
 var xNewPaned func(Orientation) uintptr
 
 // Creates a new `GtkPaned` widget.
-func NewPaned(OrientationVar Orientation) *Widget {
-	var cls *Widget
+func NewPaned(OrientationVar Orientation) *Paned {
+	var cls *Paned
 
 	cret := xNewPaned(OrientationVar)
 
@@ -96,7 +96,7 @@ func NewPaned(OrientationVar Orientation) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Paned{}
 	cls.Ptr = cret
 	return cls
 }

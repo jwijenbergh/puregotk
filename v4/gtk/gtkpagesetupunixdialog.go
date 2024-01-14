@@ -30,8 +30,8 @@ func PageSetupUnixDialogNewFromInternalPtr(ptr uintptr) *PageSetupUnixDialog {
 var xNewPageSetupUnixDialog func(string, uintptr) uintptr
 
 // Creates a new page setup dialog.
-func NewPageSetupUnixDialog(TitleVar string, ParentVar *Window) *Widget {
-	var cls *Widget
+func NewPageSetupUnixDialog(TitleVar string, ParentVar *Window) *PageSetupUnixDialog {
+	var cls *PageSetupUnixDialog
 
 	cret := xNewPageSetupUnixDialog(TitleVar, ParentVar.GoPointer())
 
@@ -39,7 +39,7 @@ func NewPageSetupUnixDialog(TitleVar string, ParentVar *Window) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PageSetupUnixDialog{}
 	cls.Ptr = cret
 	return cls
 }

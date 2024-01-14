@@ -72,8 +72,8 @@ func CalendarNewFromInternalPtr(ptr uintptr) *Calendar {
 var xNewCalendar func() uintptr
 
 // Creates a new calendar, with the current date being selected.
-func NewCalendar() *Widget {
-	var cls *Widget
+func NewCalendar() *Calendar {
+	var cls *Calendar
 
 	cret := xNewCalendar()
 
@@ -81,7 +81,7 @@ func NewCalendar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Calendar{}
 	cls.Ptr = cret
 	return cls
 }

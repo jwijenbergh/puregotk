@@ -44,15 +44,15 @@ func GestureLongPressNewFromInternalPtr(ptr uintptr) *GestureLongPress {
 var xNewGestureLongPress func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes long presses.
-func NewGestureLongPress() *Gesture {
-	var cls *Gesture
+func NewGestureLongPress() *GestureLongPress {
+	var cls *GestureLongPress
 
 	cret := xNewGestureLongPress()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureLongPress{}
 	cls.Ptr = cret
 	return cls
 }

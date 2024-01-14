@@ -28,15 +28,15 @@ func NglRendererNewFromInternalPtr(ptr uintptr) *NglRenderer {
 var xNewNglRenderer func() uintptr
 
 // Same as gsk_gl_renderer_new().
-func NewNglRenderer() *Renderer {
-	var cls *Renderer
+func NewNglRenderer() *NglRenderer {
+	var cls *NglRenderer
 
 	cret := xNewNglRenderer()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Renderer{}
+	cls = &NglRenderer{}
 	cls.Ptr = cret
 	return cls
 }

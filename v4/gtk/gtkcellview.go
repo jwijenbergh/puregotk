@@ -41,8 +41,8 @@ func CellViewNewFromInternalPtr(ptr uintptr) *CellView {
 var xNewCellView func() uintptr
 
 // Creates a new `GtkCellView` widget.
-func NewCellView() *Widget {
-	var cls *Widget
+func NewCellView() *CellView {
+	var cls *CellView
 
 	cret := xNewCellView()
 
@@ -50,7 +50,7 @@ func NewCellView() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CellView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -64,8 +64,8 @@ var xNewWithContextCellView func(uintptr, uintptr) uintptr
 // the underlying area synchronize the geometry for those cells,
 // in this way alignments with cellviews for other rows are
 // possible.
-func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *Widget {
-	var cls *Widget
+func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *CellView {
+	var cls *CellView
 
 	cret := xNewWithContextCellView(AreaVar.GoPointer(), ContextVar.GoPointer())
 
@@ -73,7 +73,7 @@ func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *Wid
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CellView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -83,8 +83,8 @@ var xNewWithMarkupCellView func(string) uintptr
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
 // to it, and makes it show @markup. The text can be marked up with
 // the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
-func NewWithMarkupCellView(MarkupVar string) *Widget {
-	var cls *Widget
+func NewWithMarkupCellView(MarkupVar string) *CellView {
+	var cls *CellView
 
 	cret := xNewWithMarkupCellView(MarkupVar)
 
@@ -92,7 +92,7 @@ func NewWithMarkupCellView(MarkupVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CellView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -101,8 +101,8 @@ var xNewWithTextCellView func(string) uintptr
 
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
 // to it, and makes it show @text.
-func NewWithTextCellView(TextVar string) *Widget {
-	var cls *Widget
+func NewWithTextCellView(TextVar string) *CellView {
+	var cls *CellView
 
 	cret := xNewWithTextCellView(TextVar)
 
@@ -110,7 +110,7 @@ func NewWithTextCellView(TextVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CellView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -119,8 +119,8 @@ var xNewWithTextureCellView func(uintptr) uintptr
 
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
 // to it, and makes it show @texture.
-func NewWithTextureCellView(TextureVar *gdk.Texture) *Widget {
-	var cls *Widget
+func NewWithTextureCellView(TextureVar *gdk.Texture) *CellView {
+	var cls *CellView
 
 	cret := xNewWithTextureCellView(TextureVar.GoPointer())
 
@@ -128,7 +128,7 @@ func NewWithTextureCellView(TextureVar *gdk.Texture) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &CellView{}
 	cls.Ptr = cret
 	return cls
 }

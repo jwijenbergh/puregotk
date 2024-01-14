@@ -37,8 +37,8 @@ var xNewAppChooserDialog func(uintptr, DialogFlags, uintptr) uintptr
 // Creates a new `GtkAppChooserDialog` for the provided `GFile`.
 //
 // The dialog will show applications that can open the file.
-func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.File) *Widget {
-	var cls *Widget
+func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.File) *AppChooserDialog {
+	var cls *AppChooserDialog
 
 	cret := xNewAppChooserDialog(ParentVar.GoPointer(), FlagsVar, FileVar.GoPointer())
 
@@ -46,7 +46,7 @@ func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.Fi
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &AppChooserDialog{}
 	cls.Ptr = cret
 	return cls
 }
@@ -56,8 +56,8 @@ var xNewForContentTypeAppChooserDialog func(uintptr, DialogFlags, string) uintpt
 // Creates a new `GtkAppChooserDialog` for the provided content type.
 //
 // The dialog will show applications that can open the content type.
-func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, ContentTypeVar string) *Widget {
-	var cls *Widget
+func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, ContentTypeVar string) *AppChooserDialog {
+	var cls *AppChooserDialog
 
 	cret := xNewForContentTypeAppChooserDialog(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
 
@@ -65,7 +65,7 @@ func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, 
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &AppChooserDialog{}
 	cls.Ptr = cret
 	return cls
 }

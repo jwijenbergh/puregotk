@@ -74,8 +74,8 @@ var xNewGridView func(uintptr, uintptr) uintptr
 //	gtk_builder_list_item_factory_new_from_resource ("/resource.ui"));
 //
 // ```
-func NewGridView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
-	var cls *Widget
+func NewGridView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *GridView {
+	var cls *GridView
 
 	cret := xNewGridView(ModelVar.GoPointer(), FactoryVar.GoPointer())
 
@@ -83,7 +83,7 @@ func NewGridView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &GridView{}
 	cls.Ptr = cret
 	return cls
 }

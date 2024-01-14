@@ -46,8 +46,8 @@ var xNewCellRendererText func() uintptr
 // you can bind the “text” property on the cell renderer to a string
 // value in the model, thus rendering a different string in each row
 // of the `GtkTreeView`.
-func NewCellRendererText() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererText() *CellRendererText {
+	var cls *CellRendererText
 
 	cret := xNewCellRendererText()
 
@@ -55,7 +55,7 @@ func NewCellRendererText() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererText{}
 	cls.Ptr = cret
 	return cls
 }

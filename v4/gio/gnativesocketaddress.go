@@ -37,15 +37,15 @@ func NativeSocketAddressNewFromInternalPtr(ptr uintptr) *NativeSocketAddress {
 var xNewNativeSocketAddress func(uintptr, uint) uintptr
 
 // Creates a new #GNativeSocketAddress for @native and @len.
-func NewNativeSocketAddress(NativeVar uintptr, LenVar uint) *SocketAddress {
-	var cls *SocketAddress
+func NewNativeSocketAddress(NativeVar uintptr, LenVar uint) *NativeSocketAddress {
+	var cls *NativeSocketAddress
 
 	cret := xNewNativeSocketAddress(NativeVar, LenVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketAddress{}
+	cls = &NativeSocketAddress{}
 	cls.Ptr = cret
 	return cls
 }

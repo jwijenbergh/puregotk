@@ -88,15 +88,15 @@ var xNewMemoryOutputStream func(uintptr, uint, uintptr, uintptr) uintptr
 // data = malloc (200);
 // stream3 = g_memory_output_stream_new (data, 200, NULL, free);
 // ]|
-func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar ReallocFunc, DestroyFunctionVar glib.DestroyNotify) *OutputStream {
-	var cls *OutputStream
+func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar ReallocFunc, DestroyFunctionVar glib.DestroyNotify) *MemoryOutputStream {
+	var cls *MemoryOutputStream
 
 	cret := xNewMemoryOutputStream(DataVar, SizeVar, purego.NewCallback(ReallocFunctionVar), purego.NewCallback(DestroyFunctionVar))
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &OutputStream{}
+	cls = &MemoryOutputStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -105,15 +105,15 @@ var xNewResizableMemoryOutputStream func() uintptr
 
 // Creates a new #GMemoryOutputStream, using g_realloc() and g_free()
 // for memory allocation.
-func NewResizableMemoryOutputStream() *OutputStream {
-	var cls *OutputStream
+func NewResizableMemoryOutputStream() *MemoryOutputStream {
+	var cls *MemoryOutputStream
 
 	cret := xNewResizableMemoryOutputStream()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &OutputStream{}
+	cls = &MemoryOutputStream{}
 	cls.Ptr = cret
 	return cls
 }

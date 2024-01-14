@@ -81,8 +81,8 @@ func ButtonContentNewFromInternalPtr(ptr uintptr) *ButtonContent {
 var xNewButtonContent func() uintptr
 
 // Creates a new `AdwButtonContent`.
-func NewButtonContent() *gtk.Widget {
-	var cls *gtk.Widget
+func NewButtonContent() *ButtonContent {
+	var cls *ButtonContent
 
 	cret := xNewButtonContent()
 
@@ -90,7 +90,7 @@ func NewButtonContent() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ButtonContent{}
 	cls.Ptr = cret
 	return cls
 }

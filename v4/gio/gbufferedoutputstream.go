@@ -51,15 +51,15 @@ func BufferedOutputStreamNewFromInternalPtr(ptr uintptr) *BufferedOutputStream {
 var xNewBufferedOutputStream func(uintptr) uintptr
 
 // Creates a new buffered output stream for a base stream.
-func NewBufferedOutputStream(BaseStreamVar *OutputStream) *OutputStream {
-	var cls *OutputStream
+func NewBufferedOutputStream(BaseStreamVar *OutputStream) *BufferedOutputStream {
+	var cls *BufferedOutputStream
 
 	cret := xNewBufferedOutputStream(BaseStreamVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &OutputStream{}
+	cls = &BufferedOutputStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -67,15 +67,15 @@ func NewBufferedOutputStream(BaseStreamVar *OutputStream) *OutputStream {
 var xNewSizedBufferedOutputStream func(uintptr, uint) uintptr
 
 // Creates a new buffered output stream with a given buffer size.
-func NewSizedBufferedOutputStream(BaseStreamVar *OutputStream, SizeVar uint) *OutputStream {
-	var cls *OutputStream
+func NewSizedBufferedOutputStream(BaseStreamVar *OutputStream, SizeVar uint) *BufferedOutputStream {
+	var cls *BufferedOutputStream
 
 	cret := xNewSizedBufferedOutputStream(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &OutputStream{}
+	cls = &BufferedOutputStream{}
 	cls.Ptr = cret
 	return cls
 }

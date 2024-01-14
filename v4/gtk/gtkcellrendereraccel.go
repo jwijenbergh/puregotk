@@ -37,8 +37,8 @@ func CellRendererAccelNewFromInternalPtr(ptr uintptr) *CellRendererAccel {
 var xNewCellRendererAccel func() uintptr
 
 // Creates a new `GtkCellRendererAccel`.
-func NewCellRendererAccel() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererAccel() *CellRendererAccel {
+	var cls *CellRendererAccel
 
 	cret := xNewCellRendererAccel()
 
@@ -46,7 +46,7 @@ func NewCellRendererAccel() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererAccel{}
 	cls.Ptr = cret
 	return cls
 }

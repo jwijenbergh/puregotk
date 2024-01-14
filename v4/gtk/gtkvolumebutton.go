@@ -28,8 +28,8 @@ var xNewVolumeButton func() uintptr
 // The button has a range between 0.0 and 1.0, with a stepping of 0.02.
 // Volume values can be obtained and modified using the functions from
 // [class@Gtk.ScaleButton].
-func NewVolumeButton() *Widget {
-	var cls *Widget
+func NewVolumeButton() *VolumeButton {
+	var cls *VolumeButton
 
 	cret := xNewVolumeButton()
 
@@ -37,7 +37,7 @@ func NewVolumeButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &VolumeButton{}
 	cls.Ptr = cret
 	return cls
 }

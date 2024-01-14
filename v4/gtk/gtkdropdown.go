@@ -78,8 +78,8 @@ var xNewDropDown func(uintptr, uintptr) uintptr
 //
 // You may want to call [method@Gtk.DropDown.set_factory]
 // to set up a way to map its items to widgets.
-func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *Widget {
-	var cls *Widget
+func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *DropDown {
+	var cls *DropDown
 
 	cret := xNewDropDown(ModelVar.GoPointer(), ExpressionVar.GoPointer())
 
@@ -87,7 +87,7 @@ func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &DropDown{}
 	cls.Ptr = cret
 	return cls
 }
@@ -96,8 +96,8 @@ var xNewFromStringsDropDown func(uintptr) uintptr
 
 // Creates a new `GtkDropDown` that is populated with
 // the strings.
-func NewFromStringsDropDown(StringsVar uintptr) *Widget {
-	var cls *Widget
+func NewFromStringsDropDown(StringsVar uintptr) *DropDown {
+	var cls *DropDown
 
 	cret := xNewFromStringsDropDown(StringsVar)
 
@@ -105,7 +105,7 @@ func NewFromStringsDropDown(StringsVar uintptr) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &DropDown{}
 	cls.Ptr = cret
 	return cls
 }

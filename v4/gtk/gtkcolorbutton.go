@@ -47,8 +47,8 @@ var xNewColorButton func() uintptr
 // is clicked, a color chooser dialog will open, allowing the user
 // to select a color. The swatch will be updated to reflect the new
 // color when the user finishes.
-func NewColorButton() *Widget {
-	var cls *Widget
+func NewColorButton() *ColorButton {
+	var cls *ColorButton
 
 	cret := xNewColorButton()
 
@@ -56,7 +56,7 @@ func NewColorButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ColorButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -64,8 +64,8 @@ func NewColorButton() *Widget {
 var xNewWithRgbaColorButton func(*gdk.RGBA) uintptr
 
 // Creates a new color button showing the given color.
-func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *Widget {
-	var cls *Widget
+func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *ColorButton {
+	var cls *ColorButton
 
 	cret := xNewWithRgbaColorButton(RgbaVar)
 
@@ -73,7 +73,7 @@ func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ColorButton{}
 	cls.Ptr = cret
 	return cls
 }

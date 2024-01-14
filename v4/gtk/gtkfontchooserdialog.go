@@ -38,8 +38,8 @@ func FontChooserDialogNewFromInternalPtr(ptr uintptr) *FontChooserDialog {
 var xNewFontChooserDialog func(string, uintptr) uintptr
 
 // Creates a new `GtkFontChooserDialog`.
-func NewFontChooserDialog(TitleVar string, ParentVar *Window) *Widget {
-	var cls *Widget
+func NewFontChooserDialog(TitleVar string, ParentVar *Window) *FontChooserDialog {
+	var cls *FontChooserDialog
 
 	cret := xNewFontChooserDialog(TitleVar, ParentVar.GoPointer())
 
@@ -47,7 +47,7 @@ func NewFontChooserDialog(TitleVar string, ParentVar *Window) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FontChooserDialog{}
 	cls.Ptr = cret
 	return cls
 }

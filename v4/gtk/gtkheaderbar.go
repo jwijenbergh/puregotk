@@ -95,8 +95,8 @@ func HeaderBarNewFromInternalPtr(ptr uintptr) *HeaderBar {
 var xNewHeaderBar func() uintptr
 
 // Creates a new `GtkHeaderBar` widget.
-func NewHeaderBar() *Widget {
-	var cls *Widget
+func NewHeaderBar() *HeaderBar {
+	var cls *HeaderBar
 
 	cret := xNewHeaderBar()
 
@@ -104,7 +104,7 @@ func NewHeaderBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &HeaderBar{}
 	cls.Ptr = cret
 	return cls
 }

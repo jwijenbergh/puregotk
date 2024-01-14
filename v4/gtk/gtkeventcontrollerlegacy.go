@@ -34,15 +34,15 @@ func EventControllerLegacyNewFromInternalPtr(ptr uintptr) *EventControllerLegacy
 var xNewEventControllerLegacy func() uintptr
 
 // Creates a new legacy event controller.
-func NewEventControllerLegacy() *EventController {
-	var cls *EventController
+func NewEventControllerLegacy() *EventControllerLegacy {
+	var cls *EventControllerLegacy
 
 	cret := xNewEventControllerLegacy()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &EventControllerLegacy{}
 	cls.Ptr = cret
 	return cls
 }

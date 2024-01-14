@@ -100,8 +100,8 @@ func FlowBoxNewFromInternalPtr(ptr uintptr) *FlowBox {
 var xNewFlowBox func() uintptr
 
 // Creates a `GtkFlowBox`.
-func NewFlowBox() *Widget {
-	var cls *Widget
+func NewFlowBox() *FlowBox {
+	var cls *FlowBox
 
 	cret := xNewFlowBox()
 
@@ -109,7 +109,7 @@ func NewFlowBox() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FlowBox{}
 	cls.Ptr = cret
 	return cls
 }
@@ -825,8 +825,8 @@ var xNewFlowBoxChild func() uintptr
 // Creates a new `GtkFlowBoxChild`.
 //
 // This should only be used as a child of a `GtkFlowBox`.
-func NewFlowBoxChild() *Widget {
-	var cls *Widget
+func NewFlowBoxChild() *FlowBoxChild {
+	var cls *FlowBoxChild
 
 	cret := xNewFlowBoxChild()
 
@@ -834,7 +834,7 @@ func NewFlowBoxChild() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FlowBoxChild{}
 	cls.Ptr = cret
 	return cls
 }

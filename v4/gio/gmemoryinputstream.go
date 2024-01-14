@@ -42,15 +42,15 @@ func MemoryInputStreamNewFromInternalPtr(ptr uintptr) *MemoryInputStream {
 var xNewMemoryInputStream func() uintptr
 
 // Creates a new empty #GMemoryInputStream.
-func NewMemoryInputStream() *InputStream {
-	var cls *InputStream
+func NewMemoryInputStream() *MemoryInputStream {
+	var cls *MemoryInputStream
 
 	cret := xNewMemoryInputStream()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &MemoryInputStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -58,15 +58,15 @@ func NewMemoryInputStream() *InputStream {
 var xNewFromBytesMemoryInputStream func(*glib.Bytes) uintptr
 
 // Creates a new #GMemoryInputStream with data from the given @bytes.
-func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *InputStream {
-	var cls *InputStream
+func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *MemoryInputStream {
+	var cls *MemoryInputStream
 
 	cret := xNewFromBytesMemoryInputStream(BytesVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &MemoryInputStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -74,15 +74,15 @@ func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *InputStream {
 var xNewFromDataMemoryInputStream func(uintptr, int, uintptr) uintptr
 
 // Creates a new #GMemoryInputStream with data in memory of a given size.
-func NewFromDataMemoryInputStream(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *InputStream {
-	var cls *InputStream
+func NewFromDataMemoryInputStream(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *MemoryInputStream {
+	var cls *MemoryInputStream
 
 	cret := xNewFromDataMemoryInputStream(DataVar, LenVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &InputStream{}
+	cls = &MemoryInputStream{}
 	cls.Ptr = cret
 	return cls
 }

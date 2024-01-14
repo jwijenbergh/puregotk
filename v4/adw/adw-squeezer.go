@@ -76,8 +76,8 @@ func SqueezerNewFromInternalPtr(ptr uintptr) *Squeezer {
 var xNewSqueezer func() uintptr
 
 // Creates a new `AdwSqueezer`.
-func NewSqueezer() *gtk.Widget {
-	var cls *gtk.Widget
+func NewSqueezer() *Squeezer {
+	var cls *Squeezer
 
 	cret := xNewSqueezer()
 
@@ -85,7 +85,7 @@ func NewSqueezer() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Squeezer{}
 	cls.Ptr = cret
 	return cls
 }

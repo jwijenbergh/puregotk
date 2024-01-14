@@ -40,8 +40,8 @@ var xNewCellRendererPixbuf func() uintptr
 // can bind the “pixbuf” property on the cell renderer to a pixbuf value
 // in the model, thus rendering a different image in each row of the
 // `GtkTreeView`.
-func NewCellRendererPixbuf() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererPixbuf() *CellRendererPixbuf {
+	var cls *CellRendererPixbuf
 
 	cret := xNewCellRendererPixbuf()
 
@@ -49,7 +49,7 @@ func NewCellRendererPixbuf() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererPixbuf{}
 	cls.Ptr = cret
 	return cls
 }

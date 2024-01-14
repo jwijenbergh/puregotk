@@ -56,8 +56,8 @@ func StatusbarNewFromInternalPtr(ptr uintptr) *Statusbar {
 var xNewStatusbar func() uintptr
 
 // Creates a new `GtkStatusbar` ready for messages.
-func NewStatusbar() *Widget {
-	var cls *Widget
+func NewStatusbar() *Statusbar {
+	var cls *Statusbar
 
 	cret := xNewStatusbar()
 
@@ -65,7 +65,7 @@ func NewStatusbar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Statusbar{}
 	cls.Ptr = cret
 	return cls
 }

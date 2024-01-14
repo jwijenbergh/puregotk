@@ -79,8 +79,8 @@ func PictureNewFromInternalPtr(ptr uintptr) *Picture {
 var xNewPicture func() uintptr
 
 // Creates a new empty `GtkPicture` widget.
-func NewPicture() *Widget {
-	var cls *Widget
+func NewPicture() *Picture {
+	var cls *Picture
 
 	cret := xNewPicture()
 
@@ -88,7 +88,7 @@ func NewPicture() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }
@@ -103,8 +103,8 @@ var xNewForFilePicture func(uintptr) uintptr
 // If you need to detect failures to load the file, use
 // [ctor@Gdk.Texture.new_from_file] to load the file yourself,
 // then create the `GtkPicture` from the texture.
-func NewForFilePicture(FileVar gio.File) *Widget {
-	var cls *Widget
+func NewForFilePicture(FileVar gio.File) *Picture {
+	var cls *Picture
 
 	cret := xNewForFilePicture(FileVar.GoPointer())
 
@@ -112,7 +112,7 @@ func NewForFilePicture(FileVar gio.File) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }
@@ -123,8 +123,8 @@ var xNewForFilenamePicture func(string) uintptr
 //
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
-func NewForFilenamePicture(FilenameVar string) *Widget {
-	var cls *Widget
+func NewForFilenamePicture(FilenameVar string) *Picture {
+	var cls *Picture
 
 	cret := xNewForFilenamePicture(FilenameVar)
 
@@ -132,7 +132,7 @@ func NewForFilenamePicture(FilenameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }
@@ -143,8 +143,8 @@ var xNewForPaintablePicture func(uintptr) uintptr
 //
 // The `GtkPicture` will track changes to the @paintable and update
 // its size and contents in response to it.
-func NewForPaintablePicture(PaintableVar gdk.Paintable) *Widget {
-	var cls *Widget
+func NewForPaintablePicture(PaintableVar gdk.Paintable) *Picture {
+	var cls *Picture
 
 	cret := xNewForPaintablePicture(PaintableVar.GoPointer())
 
@@ -152,7 +152,7 @@ func NewForPaintablePicture(PaintableVar gdk.Paintable) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }
@@ -165,8 +165,8 @@ var xNewForPixbufPicture func(uintptr) uintptr
 // See that function for details.
 //
 // The pixbuf must not be modified after passing it to this function.
-func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
-	var cls *Widget
+func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Picture {
+	var cls *Picture
 
 	cret := xNewForPixbufPicture(PixbufVar.GoPointer())
 
@@ -174,7 +174,7 @@ func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }
@@ -185,8 +185,8 @@ var xNewForResourcePicture func(string) uintptr
 //
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
-func NewForResourcePicture(ResourcePathVar string) *Widget {
-	var cls *Widget
+func NewForResourcePicture(ResourcePathVar string) *Picture {
+	var cls *Picture
 
 	cret := xNewForResourcePicture(ResourcePathVar)
 
@@ -194,7 +194,7 @@ func NewForResourcePicture(ResourcePathVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Picture{}
 	cls.Ptr = cret
 	return cls
 }

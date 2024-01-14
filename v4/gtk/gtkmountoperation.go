@@ -52,15 +52,15 @@ func MountOperationNewFromInternalPtr(ptr uintptr) *MountOperation {
 var xNewMountOperation func(uintptr) uintptr
 
 // Creates a new `GtkMountOperation`.
-func NewMountOperation(ParentVar *Window) *gio.MountOperation {
-	var cls *gio.MountOperation
+func NewMountOperation(ParentVar *Window) *MountOperation {
+	var cls *MountOperation
 
 	cret := xNewMountOperation(ParentVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &gio.MountOperation{}
+	cls = &MountOperation{}
 	cls.Ptr = cret
 	return cls
 }

@@ -131,8 +131,8 @@ func FlapNewFromInternalPtr(ptr uintptr) *Flap {
 var xNewFlap func() uintptr
 
 // Creates a new `AdwFlap`.
-func NewFlap() *gtk.Widget {
-	var cls *gtk.Widget
+func NewFlap() *Flap {
+	var cls *Flap
 
 	cret := xNewFlap()
 
@@ -140,7 +140,7 @@ func NewFlap() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Flap{}
 	cls.Ptr = cret
 	return cls
 }

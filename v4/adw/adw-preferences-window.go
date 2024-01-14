@@ -51,8 +51,8 @@ func PreferencesWindowNewFromInternalPtr(ptr uintptr) *PreferencesWindow {
 var xNewPreferencesWindow func() uintptr
 
 // Creates a new `AdwPreferencesWindow`.
-func NewPreferencesWindow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewPreferencesWindow() *PreferencesWindow {
+	var cls *PreferencesWindow
 
 	cret := xNewPreferencesWindow()
 
@@ -60,7 +60,7 @@ func NewPreferencesWindow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &PreferencesWindow{}
 	cls.Ptr = cret
 	return cls
 }

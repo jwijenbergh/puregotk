@@ -34,15 +34,15 @@ var xNewGestureRotate func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes 2-touch
 // rotation gestures.
-func NewGestureRotate() *Gesture {
-	var cls *Gesture
+func NewGestureRotate() *GestureRotate {
+	var cls *GestureRotate
 
 	cret := xNewGestureRotate()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureRotate{}
 	cls.Ptr = cret
 	return cls
 }

@@ -69,8 +69,8 @@ func ProgressBarNewFromInternalPtr(ptr uintptr) *ProgressBar {
 var xNewProgressBar func() uintptr
 
 // Creates a new `GtkProgressBar`.
-func NewProgressBar() *Widget {
-	var cls *Widget
+func NewProgressBar() *ProgressBar {
+	var cls *ProgressBar
 
 	cret := xNewProgressBar()
 
@@ -78,7 +78,7 @@ func NewProgressBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ProgressBar{}
 	cls.Ptr = cret
 	return cls
 }

@@ -118,8 +118,8 @@ func ScaleNewFromInternalPtr(ptr uintptr) *Scale {
 var xNewScale func(Orientation, uintptr) uintptr
 
 // Creates a new `GtkScale`.
-func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
-	var cls *Widget
+func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Scale {
+	var cls *Scale
 
 	cret := xNewScale(OrientationVar, AdjustmentVar.GoPointer())
 
@@ -127,7 +127,7 @@ func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Scale{}
 	cls.Ptr = cret
 	return cls
 }
@@ -145,8 +145,8 @@ var xNewWithRangeScale func(Orientation, float64, float64, float64) uintptr
 // Note that the way in which the precision is derived works best if
 // @step is a power of ten. If the resulting precision is not suitable
 // for your needs, use [method@Gtk.Scale.set_digits] to correct it.
-func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float64, StepVar float64) *Widget {
-	var cls *Widget
+func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float64, StepVar float64) *Scale {
+	var cls *Scale
 
 	cret := xNewWithRangeScale(OrientationVar, MinVar, MaxVar, StepVar)
 
@@ -154,7 +154,7 @@ func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float6
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Scale{}
 	cls.Ptr = cret
 	return cls
 }

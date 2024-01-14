@@ -27,15 +27,15 @@ func PixbufNonAnimNewFromInternalPtr(ptr uintptr) *PixbufNonAnim {
 
 var xNewPixbufNonAnim func(uintptr) uintptr
 
-func NewPixbufNonAnim(PixbufVar *Pixbuf) *PixbufAnimation {
-	var cls *PixbufAnimation
+func NewPixbufNonAnim(PixbufVar *Pixbuf) *PixbufNonAnim {
+	var cls *PixbufNonAnim
 
 	cret := xNewPixbufNonAnim(PixbufVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &PixbufAnimation{}
+	cls = &PixbufNonAnim{}
 	cls.Ptr = cret
 	return cls
 }

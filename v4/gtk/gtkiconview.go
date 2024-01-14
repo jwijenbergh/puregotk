@@ -70,8 +70,8 @@ func IconViewNewFromInternalPtr(ptr uintptr) *IconView {
 var xNewIconView func() uintptr
 
 // Creates a new `GtkIconView` widget
-func NewIconView() *Widget {
-	var cls *Widget
+func NewIconView() *IconView {
+	var cls *IconView
 
 	cret := xNewIconView()
 
@@ -79,7 +79,7 @@ func NewIconView() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &IconView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -88,8 +88,8 @@ var xNewWithAreaIconView func(uintptr) uintptr
 
 // Creates a new `GtkIconView` widget using the
 // specified @area to layout cells inside the icons.
-func NewWithAreaIconView(AreaVar *CellArea) *Widget {
-	var cls *Widget
+func NewWithAreaIconView(AreaVar *CellArea) *IconView {
+	var cls *IconView
 
 	cret := xNewWithAreaIconView(AreaVar.GoPointer())
 
@@ -97,7 +97,7 @@ func NewWithAreaIconView(AreaVar *CellArea) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &IconView{}
 	cls.Ptr = cret
 	return cls
 }
@@ -105,8 +105,8 @@ func NewWithAreaIconView(AreaVar *CellArea) *Widget {
 var xNewWithModelIconView func(uintptr) uintptr
 
 // Creates a new `GtkIconView` widget with the model @model.
-func NewWithModelIconView(ModelVar TreeModel) *Widget {
-	var cls *Widget
+func NewWithModelIconView(ModelVar TreeModel) *IconView {
+	var cls *IconView
 
 	cret := xNewWithModelIconView(ModelVar.GoPointer())
 
@@ -114,7 +114,7 @@ func NewWithModelIconView(ModelVar TreeModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &IconView{}
 	cls.Ptr = cret
 	return cls
 }

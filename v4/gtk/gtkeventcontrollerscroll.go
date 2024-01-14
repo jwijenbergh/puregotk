@@ -83,15 +83,15 @@ func EventControllerScrollNewFromInternalPtr(ptr uintptr) *EventControllerScroll
 var xNewEventControllerScroll func(EventControllerScrollFlags) uintptr
 
 // Creates a new event controller that will handle scroll events.
-func NewEventControllerScroll(FlagsVar EventControllerScrollFlags) *EventController {
-	var cls *EventController
+func NewEventControllerScroll(FlagsVar EventControllerScrollFlags) *EventControllerScroll {
+	var cls *EventControllerScroll
 
 	cret := xNewEventControllerScroll(FlagsVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &EventControllerScroll{}
 	cls.Ptr = cret
 	return cls
 }

@@ -39,8 +39,8 @@ func FontChooserWidgetNewFromInternalPtr(ptr uintptr) *FontChooserWidget {
 var xNewFontChooserWidget func() uintptr
 
 // Creates a new `GtkFontChooserWidget`.
-func NewFontChooserWidget() *Widget {
-	var cls *Widget
+func NewFontChooserWidget() *FontChooserWidget {
+	var cls *FontChooserWidget
 
 	cret := xNewFontChooserWidget()
 
@@ -48,7 +48,7 @@ func NewFontChooserWidget() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &FontChooserWidget{}
 	cls.Ptr = cret
 	return cls
 }

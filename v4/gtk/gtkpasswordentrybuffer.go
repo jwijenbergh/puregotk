@@ -33,15 +33,15 @@ func PasswordEntryBufferNewFromInternalPtr(ptr uintptr) *PasswordEntryBuffer {
 var xNewPasswordEntryBuffer func() uintptr
 
 // Creates a new `GtkEntryBuffer` using secure memory allocations.
-func NewPasswordEntryBuffer() *EntryBuffer {
-	var cls *EntryBuffer
+func NewPasswordEntryBuffer() *PasswordEntryBuffer {
+	var cls *PasswordEntryBuffer
 
 	cret := xNewPasswordEntryBuffer()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EntryBuffer{}
+	cls = &PasswordEntryBuffer{}
 	cls.Ptr = cret
 	return cls
 }

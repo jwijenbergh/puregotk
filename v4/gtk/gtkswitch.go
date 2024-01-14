@@ -47,8 +47,8 @@ func SwitchNewFromInternalPtr(ptr uintptr) *Switch {
 var xNewSwitch func() uintptr
 
 // Creates a new `GtkSwitch` widget.
-func NewSwitch() *Widget {
-	var cls *Widget
+func NewSwitch() *Switch {
+	var cls *Switch
 
 	cret := xNewSwitch()
 
@@ -56,7 +56,7 @@ func NewSwitch() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Switch{}
 	cls.Ptr = cret
 	return cls
 }

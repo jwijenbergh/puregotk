@@ -45,8 +45,8 @@ var xNewAppChooserWidget func(string) uintptr
 
 // Creates a new `GtkAppChooserWidget` for applications
 // that can handle content of the given type.
-func NewAppChooserWidget(ContentTypeVar string) *Widget {
-	var cls *Widget
+func NewAppChooserWidget(ContentTypeVar string) *AppChooserWidget {
+	var cls *AppChooserWidget
 
 	cret := xNewAppChooserWidget(ContentTypeVar)
 
@@ -54,7 +54,7 @@ func NewAppChooserWidget(ContentTypeVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &AppChooserWidget{}
 	cls.Ptr = cret
 	return cls
 }

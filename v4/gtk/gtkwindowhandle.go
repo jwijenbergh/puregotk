@@ -42,8 +42,8 @@ func WindowHandleNewFromInternalPtr(ptr uintptr) *WindowHandle {
 var xNewWindowHandle func() uintptr
 
 // Creates a new `GtkWindowHandle`.
-func NewWindowHandle() *Widget {
-	var cls *Widget
+func NewWindowHandle() *WindowHandle {
+	var cls *WindowHandle
 
 	cret := xNewWindowHandle()
 
@@ -51,7 +51,7 @@ func NewWindowHandle() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &WindowHandle{}
 	cls.Ptr = cret
 	return cls
 }

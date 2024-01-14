@@ -60,8 +60,8 @@ func EditableLabelNewFromInternalPtr(ptr uintptr) *EditableLabel {
 var xNewEditableLabel func(string) uintptr
 
 // Creates a new `GtkEditableLabel` widget.
-func NewEditableLabel(StrVar string) *Widget {
-	var cls *Widget
+func NewEditableLabel(StrVar string) *EditableLabel {
+	var cls *EditableLabel
 
 	cret := xNewEditableLabel(StrVar)
 
@@ -69,7 +69,7 @@ func NewEditableLabel(StrVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &EditableLabel{}
 	cls.Ptr = cret
 	return cls
 }

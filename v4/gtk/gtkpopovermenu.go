@@ -151,8 +151,8 @@ var xNewFromModelPopoverMenu func(uintptr) uintptr
 // This function creates menus with sliding submenus.
 // See [ctor@Gtk.PopoverMenu.new_from_model_full] for a way
 // to control this.
-func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *Widget {
-	var cls *Widget
+func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *PopoverMenu {
+	var cls *PopoverMenu
 
 	cret := xNewFromModelPopoverMenu(ModelVar.GoPointer())
 
@@ -160,7 +160,7 @@ func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PopoverMenu{}
 	cls.Ptr = cret
 	return cls
 }
@@ -178,8 +178,8 @@ var xNewFromModelFullPopoverMenu func(uintptr, PopoverMenuFlags) uintptr
 // The only flag that is supported currently is
 // %GTK_POPOVER_MENU_NESTED, which makes GTK create traditional,
 // nested submenus instead of the default sliding submenus.
-func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFlags) *Widget {
-	var cls *Widget
+func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFlags) *PopoverMenu {
+	var cls *PopoverMenu
 
 	cret := xNewFromModelFullPopoverMenu(ModelVar.GoPointer(), FlagsVar)
 
@@ -187,7 +187,7 @@ func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFl
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PopoverMenu{}
 	cls.Ptr = cret
 	return cls
 }

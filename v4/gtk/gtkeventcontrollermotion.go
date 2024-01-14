@@ -38,15 +38,15 @@ func EventControllerMotionNewFromInternalPtr(ptr uintptr) *EventControllerMotion
 var xNewEventControllerMotion func() uintptr
 
 // Creates a new event controller that will handle motion events.
-func NewEventControllerMotion() *EventController {
-	var cls *EventController
+func NewEventControllerMotion() *EventControllerMotion {
+	var cls *EventControllerMotion
 
 	cret := xNewEventControllerMotion()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &EventControllerMotion{}
 	cls.Ptr = cret
 	return cls
 }

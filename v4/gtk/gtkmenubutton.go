@@ -98,8 +98,8 @@ var xNewMenuButton func() uintptr
 //
 // You can replace the child widget with another `GtkWidget`
 // should you wish to.
-func NewMenuButton() *Widget {
-	var cls *Widget
+func NewMenuButton() *MenuButton {
+	var cls *MenuButton
 
 	cret := xNewMenuButton()
 
@@ -107,7 +107,7 @@ func NewMenuButton() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &MenuButton{}
 	cls.Ptr = cret
 	return cls
 }

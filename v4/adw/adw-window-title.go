@@ -46,8 +46,8 @@ func WindowTitleNewFromInternalPtr(ptr uintptr) *WindowTitle {
 var xNewWindowTitle func(string, string) uintptr
 
 // Creates a new `AdwWindowTitle`.
-func NewWindowTitle(TitleVar string, SubtitleVar string) *gtk.Widget {
-	var cls *gtk.Widget
+func NewWindowTitle(TitleVar string, SubtitleVar string) *WindowTitle {
+	var cls *WindowTitle
 
 	cret := xNewWindowTitle(TitleVar, SubtitleVar)
 
@@ -55,7 +55,7 @@ func NewWindowTitle(TitleVar string, SubtitleVar string) *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &WindowTitle{}
 	cls.Ptr = cret
 	return cls
 }

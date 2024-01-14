@@ -105,8 +105,8 @@ func AssistantNewFromInternalPtr(ptr uintptr) *Assistant {
 var xNewAssistant func() uintptr
 
 // Creates a new `GtkAssistant`.
-func NewAssistant() *Widget {
-	var cls *Widget
+func NewAssistant() *Assistant {
+	var cls *Assistant
 
 	cret := xNewAssistant()
 
@@ -114,7 +114,7 @@ func NewAssistant() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Assistant{}
 	cls.Ptr = cret
 	return cls
 }

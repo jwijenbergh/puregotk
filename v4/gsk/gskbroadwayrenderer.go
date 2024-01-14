@@ -35,15 +35,15 @@ var xNewBroadwayRenderer func() uintptr
 //
 // This function is only available when GTK was compiled with Broadway
 // support.
-func NewBroadwayRenderer() *Renderer {
-	var cls *Renderer
+func NewBroadwayRenderer() *BroadwayRenderer {
+	var cls *BroadwayRenderer
 
 	cret := xNewBroadwayRenderer()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Renderer{}
+	cls = &BroadwayRenderer{}
 	cls.Ptr = cret
 	return cls
 }

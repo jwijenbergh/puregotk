@@ -42,15 +42,15 @@ func TcpWrapperConnectionNewFromInternalPtr(ptr uintptr) *TcpWrapperConnection {
 var xNewTcpWrapperConnection func(uintptr, uintptr) uintptr
 
 // Wraps @base_io_stream and @socket together as a #GSocketConnection.
-func NewTcpWrapperConnection(BaseIoStreamVar *IOStream, SocketVar *Socket) *SocketConnection {
-	var cls *SocketConnection
+func NewTcpWrapperConnection(BaseIoStreamVar *IOStream, SocketVar *Socket) *TcpWrapperConnection {
+	var cls *TcpWrapperConnection
 
 	cret := xNewTcpWrapperConnection(BaseIoStreamVar.GoPointer(), SocketVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketConnection{}
+	cls = &TcpWrapperConnection{}
 	cls.Ptr = cret
 	return cls
 }

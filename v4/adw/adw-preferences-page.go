@@ -52,8 +52,8 @@ func PreferencesPageNewFromInternalPtr(ptr uintptr) *PreferencesPage {
 var xNewPreferencesPage func() uintptr
 
 // Creates a new `AdwPreferencesPage`.
-func NewPreferencesPage() *gtk.Widget {
-	var cls *gtk.Widget
+func NewPreferencesPage() *PreferencesPage {
+	var cls *PreferencesPage
 
 	cret := xNewPreferencesPage()
 
@@ -61,7 +61,7 @@ func NewPreferencesPage() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &PreferencesPage{}
 	cls.Ptr = cret
 	return cls
 }

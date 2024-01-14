@@ -39,8 +39,8 @@ var xNewViewport func(uintptr, uintptr) uintptr
 //
 // The new viewport uses the given adjustments, or default
 // adjustments if none are given.
-func NewViewport(HadjustmentVar *Adjustment, VadjustmentVar *Adjustment) *Widget {
-	var cls *Widget
+func NewViewport(HadjustmentVar *Adjustment, VadjustmentVar *Adjustment) *Viewport {
+	var cls *Viewport
 
 	cret := xNewViewport(HadjustmentVar.GoPointer(), VadjustmentVar.GoPointer())
 
@@ -48,7 +48,7 @@ func NewViewport(HadjustmentVar *Adjustment, VadjustmentVar *Adjustment) *Widget
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Viewport{}
 	cls.Ptr = cret
 	return cls
 }

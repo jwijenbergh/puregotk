@@ -125,8 +125,8 @@ var xNewMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsType, strin
 // When the user clicks a button a “response” signal is emitted with
 // response IDs from [enum@Gtk.ResponseType]. See [class@Gtk.Dialog]
 // for more details.
-func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *Widget {
-	var cls *Widget
+func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *MessageDialog {
+	var cls *MessageDialog
 
 	cret := xNewMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
 
@@ -134,7 +134,7 @@ func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageTy
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &MessageDialog{}
 	cls.Ptr = cret
 	return cls
 }
@@ -173,8 +173,8 @@ var xNewWithMarkupMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsT
 //	markup);
 //
 // ```
-func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *Widget {
-	var cls *Widget
+func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *MessageDialog {
+	var cls *MessageDialog
 
 	cret := xNewWithMarkupMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
 
@@ -182,7 +182,7 @@ func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &MessageDialog{}
 	cls.Ptr = cret
 	return cls
 }

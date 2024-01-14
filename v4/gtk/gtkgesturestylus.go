@@ -34,15 +34,15 @@ func GestureStylusNewFromInternalPtr(ptr uintptr) *GestureStylus {
 var xNewGestureStylus func() uintptr
 
 // Creates a new `GtkGestureStylus`.
-func NewGestureStylus() *Gesture {
-	var cls *Gesture
+func NewGestureStylus() *GestureStylus {
+	var cls *GestureStylus
 
 	cret := xNewGestureStylus()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureStylus{}
 	cls.Ptr = cret
 	return cls
 }

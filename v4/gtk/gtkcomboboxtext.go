@@ -81,8 +81,8 @@ func ComboBoxTextNewFromInternalPtr(ptr uintptr) *ComboBoxText {
 var xNewComboBoxText func() uintptr
 
 // Creates a new `GtkComboBoxText`.
-func NewComboBoxText() *Widget {
-	var cls *Widget
+func NewComboBoxText() *ComboBoxText {
+	var cls *ComboBoxText
 
 	cret := xNewComboBoxText()
 
@@ -90,7 +90,7 @@ func NewComboBoxText() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBoxText{}
 	cls.Ptr = cret
 	return cls
 }
@@ -98,8 +98,8 @@ func NewComboBoxText() *Widget {
 var xNewWithEntryComboBoxText func() uintptr
 
 // Creates a new `GtkComboBoxText` with an entry.
-func NewWithEntryComboBoxText() *Widget {
-	var cls *Widget
+func NewWithEntryComboBoxText() *ComboBoxText {
+	var cls *ComboBoxText
 
 	cret := xNewWithEntryComboBoxText()
 
@@ -107,7 +107,7 @@ func NewWithEntryComboBoxText() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBoxText{}
 	cls.Ptr = cret
 	return cls
 }

@@ -64,8 +64,8 @@ func PasswordEntryNewFromInternalPtr(ptr uintptr) *PasswordEntry {
 var xNewPasswordEntry func() uintptr
 
 // Creates a `GtkPasswordEntry`.
-func NewPasswordEntry() *Widget {
-	var cls *Widget
+func NewPasswordEntry() *PasswordEntry {
+	var cls *PasswordEntry
 
 	cret := xNewPasswordEntry()
 
@@ -73,7 +73,7 @@ func NewPasswordEntry() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PasswordEntry{}
 	cls.Ptr = cret
 	return cls
 }

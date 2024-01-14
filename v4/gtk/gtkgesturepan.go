@@ -43,15 +43,15 @@ func GesturePanNewFromInternalPtr(ptr uintptr) *GesturePan {
 var xNewGesturePan func(Orientation) uintptr
 
 // Returns a newly created `GtkGesture` that recognizes pan gestures.
-func NewGesturePan(OrientationVar Orientation) *Gesture {
-	var cls *Gesture
+func NewGesturePan(OrientationVar Orientation) *GesturePan {
+	var cls *GesturePan
 
 	cret := xNewGesturePan(OrientationVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GesturePan{}
 	cls.Ptr = cret
 	return cls
 }

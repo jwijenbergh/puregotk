@@ -35,8 +35,8 @@ func SpinnerNewFromInternalPtr(ptr uintptr) *Spinner {
 var xNewSpinner func() uintptr
 
 // Returns a new spinner widget. Not yet started.
-func NewSpinner() *Widget {
-	var cls *Widget
+func NewSpinner() *Spinner {
+	var cls *Spinner
 
 	cret := xNewSpinner()
 
@@ -44,7 +44,7 @@ func NewSpinner() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Spinner{}
 	cls.Ptr = cret
 	return cls
 }

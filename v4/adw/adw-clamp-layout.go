@@ -56,15 +56,15 @@ func ClampLayoutNewFromInternalPtr(ptr uintptr) *ClampLayout {
 var xNewClampLayout func() uintptr
 
 // Creates a new `AdwClampLayout`.
-func NewClampLayout() *gtk.LayoutManager {
-	var cls *gtk.LayoutManager
+func NewClampLayout() *ClampLayout {
+	var cls *ClampLayout
 
 	cret := xNewClampLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &gtk.LayoutManager{}
+	cls = &ClampLayout{}
 	cls.Ptr = cret
 	return cls
 }

@@ -114,8 +114,8 @@ func PopoverNewFromInternalPtr(ptr uintptr) *Popover {
 var xNewPopover func() uintptr
 
 // Creates a new `GtkPopover`.
-func NewPopover() *Widget {
-	var cls *Widget
+func NewPopover() *Popover {
+	var cls *Popover
 
 	cret := xNewPopover()
 
@@ -123,7 +123,7 @@ func NewPopover() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Popover{}
 	cls.Ptr = cret
 	return cls
 }

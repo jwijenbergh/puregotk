@@ -43,15 +43,15 @@ var xNewProxyAddress func(uintptr, uint16, string, string, uint16, string, strin
 // (Note that this method doesn't set the #GProxyAddress:uri or
 // #GProxyAddress:destination-protocol fields; use g_object_new()
 // directly if you want to set those.)
-func NewProxyAddress(InetaddrVar *InetAddress, PortVar uint16, ProtocolVar string, DestHostnameVar string, DestPortVar uint16, UsernameVar string, PasswordVar string) *SocketAddress {
-	var cls *SocketAddress
+func NewProxyAddress(InetaddrVar *InetAddress, PortVar uint16, ProtocolVar string, DestHostnameVar string, DestPortVar uint16, UsernameVar string, PasswordVar string) *ProxyAddress {
+	var cls *ProxyAddress
 
 	cret := xNewProxyAddress(InetaddrVar.GoPointer(), PortVar, ProtocolVar, DestHostnameVar, DestPortVar, UsernameVar, PasswordVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketAddress{}
+	cls = &ProxyAddress{}
 	cls.Ptr = cret
 	return cls
 }

@@ -32,15 +32,15 @@ func EventControllerKeyNewFromInternalPtr(ptr uintptr) *EventControllerKey {
 var xNewEventControllerKey func() uintptr
 
 // Creates a new event controller that will handle key events.
-func NewEventControllerKey() *EventController {
-	var cls *EventController
+func NewEventControllerKey() *EventControllerKey {
+	var cls *EventControllerKey
 
 	cret := xNewEventControllerKey()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &EventControllerKey{}
 	cls.Ptr = cret
 	return cls
 }

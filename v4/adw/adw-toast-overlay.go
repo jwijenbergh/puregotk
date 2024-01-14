@@ -74,8 +74,8 @@ func ToastOverlayNewFromInternalPtr(ptr uintptr) *ToastOverlay {
 var xNewToastOverlay func() uintptr
 
 // Creates a new `AdwToastOverlay`.
-func NewToastOverlay() *gtk.Widget {
-	var cls *gtk.Widget
+func NewToastOverlay() *ToastOverlay {
+	var cls *ToastOverlay
 
 	cret := xNewToastOverlay()
 
@@ -83,7 +83,7 @@ func NewToastOverlay() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ToastOverlay{}
 	cls.Ptr = cret
 	return cls
 }

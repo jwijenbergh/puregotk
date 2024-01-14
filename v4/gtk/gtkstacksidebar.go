@@ -35,8 +35,8 @@ func StackSidebarNewFromInternalPtr(ptr uintptr) *StackSidebar {
 var xNewStackSidebar func() uintptr
 
 // Creates a new `GtkStackSidebar`.
-func NewStackSidebar() *Widget {
-	var cls *Widget
+func NewStackSidebar() *StackSidebar {
+	var cls *StackSidebar
 
 	cret := xNewStackSidebar()
 
@@ -44,7 +44,7 @@ func NewStackSidebar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &StackSidebar{}
 	cls.Ptr = cret
 	return cls
 }

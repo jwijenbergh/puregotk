@@ -52,8 +52,8 @@ func PopoverMenuBarNewFromInternalPtr(ptr uintptr) *PopoverMenuBar {
 var xNewFromModelPopoverMenuBar func(uintptr) uintptr
 
 // Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
-func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *Widget {
-	var cls *Widget
+func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *PopoverMenuBar {
+	var cls *PopoverMenuBar
 
 	cret := xNewFromModelPopoverMenuBar(ModelVar.GoPointer())
 
@@ -61,7 +61,7 @@ func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &PopoverMenuBar{}
 	cls.Ptr = cret
 	return cls
 }

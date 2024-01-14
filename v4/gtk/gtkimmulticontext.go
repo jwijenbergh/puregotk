@@ -42,15 +42,15 @@ func IMMulticontextNewFromInternalPtr(ptr uintptr) *IMMulticontext {
 var xNewIMMulticontext func() uintptr
 
 // Creates a new `GtkIMMulticontext`.
-func NewIMMulticontext() *IMContext {
-	var cls *IMContext
+func NewIMMulticontext() *IMMulticontext {
+	var cls *IMMulticontext
 
 	cret := xNewIMMulticontext()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &IMContext{}
+	cls = &IMMulticontext{}
 	cls.Ptr = cret
 	return cls
 }

@@ -78,8 +78,8 @@ var xNewFrame func(string) uintptr
 // Creates a new `GtkFrame`, with optional label @label.
 //
 // If @label is %NULL, the label is omitted.
-func NewFrame(LabelVar string) *Widget {
-	var cls *Widget
+func NewFrame(LabelVar string) *Frame {
+	var cls *Frame
 
 	cret := xNewFrame(LabelVar)
 
@@ -87,7 +87,7 @@ func NewFrame(LabelVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Frame{}
 	cls.Ptr = cret
 	return cls
 }

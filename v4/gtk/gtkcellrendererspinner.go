@@ -33,8 +33,8 @@ var xNewCellRendererSpinner func() uintptr
 
 // Returns a new cell renderer which will show a spinner to indicate
 // activity.
-func NewCellRendererSpinner() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererSpinner() *CellRendererSpinner {
+	var cls *CellRendererSpinner
 
 	cret := xNewCellRendererSpinner()
 
@@ -42,7 +42,7 @@ func NewCellRendererSpinner() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererSpinner{}
 	cls.Ptr = cret
 	return cls
 }

@@ -64,8 +64,8 @@ func ScrollbarNewFromInternalPtr(ptr uintptr) *Scrollbar {
 var xNewScrollbar func(Orientation, uintptr) uintptr
 
 // Creates a new scrollbar with the given orientation.
-func NewScrollbar(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget {
-	var cls *Widget
+func NewScrollbar(OrientationVar Orientation, AdjustmentVar *Adjustment) *Scrollbar {
+	var cls *Scrollbar
 
 	cret := xNewScrollbar(OrientationVar, AdjustmentVar.GoPointer())
 
@@ -73,7 +73,7 @@ func NewScrollbar(OrientationVar Orientation, AdjustmentVar *Adjustment) *Widget
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Scrollbar{}
 	cls.Ptr = cret
 	return cls
 }

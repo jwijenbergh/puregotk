@@ -45,8 +45,8 @@ func ColorChooserWidgetNewFromInternalPtr(ptr uintptr) *ColorChooserWidget {
 var xNewColorChooserWidget func() uintptr
 
 // Creates a new `GtkColorChooserWidget`.
-func NewColorChooserWidget() *Widget {
-	var cls *Widget
+func NewColorChooserWidget() *ColorChooserWidget {
+	var cls *ColorChooserWidget
 
 	cret := xNewColorChooserWidget()
 
@@ -54,7 +54,7 @@ func NewColorChooserWidget() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ColorChooserWidget{}
 	cls.Ptr = cret
 	return cls
 }

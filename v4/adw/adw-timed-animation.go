@@ -47,8 +47,8 @@ var xNewTimedAnimation func(uintptr, float64, float64, uint, uintptr) uintptr
 
 // Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
 // to @to.
-func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, DurationVar uint, TargetVar *AnimationTarget) *Animation {
-	var cls *Animation
+func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, DurationVar uint, TargetVar *AnimationTarget) *TimedAnimation {
+	var cls *TimedAnimation
 
 	cret := xNewTimedAnimation(WidgetVar.GoPointer(), FromVar, ToVar, DurationVar, TargetVar.GoPointer())
 
@@ -56,7 +56,7 @@ func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, Du
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Animation{}
+	cls = &TimedAnimation{}
 	cls.Ptr = cret
 	return cls
 }

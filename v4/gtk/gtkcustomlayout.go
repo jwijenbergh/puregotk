@@ -48,15 +48,15 @@ var xNewCustomLayout func(uintptr, uintptr, uintptr) uintptr
 // Legacy layout managers map to the old `GtkWidget` size negotiation
 // virtual functions, and are meant to be used during the transition
 // from layout containers to layout manager delegates.
-func NewCustomLayout(RequestModeVar CustomRequestModeFunc, MeasureVar CustomMeasureFunc, AllocateVar CustomAllocateFunc) *LayoutManager {
-	var cls *LayoutManager
+func NewCustomLayout(RequestModeVar CustomRequestModeFunc, MeasureVar CustomMeasureFunc, AllocateVar CustomAllocateFunc) *CustomLayout {
+	var cls *CustomLayout
 
 	cret := xNewCustomLayout(purego.NewCallback(RequestModeVar), purego.NewCallback(MeasureVar), purego.NewCallback(AllocateVar))
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &CustomLayout{}
 	cls.Ptr = cret
 	return cls
 }

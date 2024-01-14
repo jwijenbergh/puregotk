@@ -109,8 +109,8 @@ var xNewWindow func() uintptr
 // return a reference to the caller.
 //
 // To delete a `GtkWindow`, call [method@Gtk.Window.destroy].
-func NewWindow() *Widget {
-	var cls *Widget
+func NewWindow() *Window {
+	var cls *Window
 
 	cret := xNewWindow()
 
@@ -118,7 +118,7 @@ func NewWindow() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Window{}
 	cls.Ptr = cret
 	return cls
 }

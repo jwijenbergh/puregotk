@@ -91,8 +91,8 @@ func TabOverviewNewFromInternalPtr(ptr uintptr) *TabOverview {
 var xNewTabOverview func() uintptr
 
 // Creates a new `AdwTabOverview`.
-func NewTabOverview() *gtk.Widget {
-	var cls *gtk.Widget
+func NewTabOverview() *TabOverview {
+	var cls *TabOverview
 
 	cret := xNewTabOverview()
 
@@ -100,7 +100,7 @@ func NewTabOverview() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &TabOverview{}
 	cls.Ptr = cret
 	return cls
 }

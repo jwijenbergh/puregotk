@@ -57,8 +57,8 @@ func AvatarNewFromInternalPtr(ptr uintptr) *Avatar {
 var xNewAvatar func(int, string, bool) uintptr
 
 // Creates a new `AdwAvatar`.
-func NewAvatar(SizeVar int, TextVar string, ShowInitialsVar bool) *gtk.Widget {
-	var cls *gtk.Widget
+func NewAvatar(SizeVar int, TextVar string, ShowInitialsVar bool) *Avatar {
+	var cls *Avatar
 
 	cret := xNewAvatar(SizeVar, TextVar, ShowInitialsVar)
 
@@ -66,7 +66,7 @@ func NewAvatar(SizeVar int, TextVar string, ShowInitialsVar bool) *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Avatar{}
 	cls.Ptr = cret
 	return cls
 }

@@ -37,15 +37,15 @@ var xNewGestureClick func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes
 // single and multiple presses.
-func NewGestureClick() *Gesture {
-	var cls *Gesture
+func NewGestureClick() *GestureClick {
+	var cls *GestureClick
 
 	cret := xNewGestureClick()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureClick{}
 	cls.Ptr = cret
 	return cls
 }

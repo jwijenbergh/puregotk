@@ -90,8 +90,8 @@ func LeafletNewFromInternalPtr(ptr uintptr) *Leaflet {
 var xNewLeaflet func() uintptr
 
 // Creates a new `AdwLeaflet`.
-func NewLeaflet() *gtk.Widget {
-	var cls *gtk.Widget
+func NewLeaflet() *Leaflet {
+	var cls *Leaflet
 
 	cret := xNewLeaflet()
 
@@ -99,7 +99,7 @@ func NewLeaflet() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Leaflet{}
 	cls.Ptr = cret
 	return cls
 }

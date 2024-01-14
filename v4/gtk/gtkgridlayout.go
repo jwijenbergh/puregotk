@@ -51,15 +51,15 @@ func GridLayoutNewFromInternalPtr(ptr uintptr) *GridLayout {
 var xNewGridLayout func() uintptr
 
 // Creates a new `GtkGridLayout`.
-func NewGridLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewGridLayout() *GridLayout {
+	var cls *GridLayout
 
 	cret := xNewGridLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &GridLayout{}
 	cls.Ptr = cret
 	return cls
 }

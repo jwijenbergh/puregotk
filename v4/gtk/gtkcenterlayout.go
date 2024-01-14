@@ -37,15 +37,15 @@ func CenterLayoutNewFromInternalPtr(ptr uintptr) *CenterLayout {
 var xNewCenterLayout func() uintptr
 
 // Creates a new `GtkCenterLayout`.
-func NewCenterLayout() *LayoutManager {
-	var cls *LayoutManager
+func NewCenterLayout() *CenterLayout {
+	var cls *CenterLayout
 
 	cret := xNewCenterLayout()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &LayoutManager{}
+	cls = &CenterLayout{}
 	cls.Ptr = cret
 	return cls
 }

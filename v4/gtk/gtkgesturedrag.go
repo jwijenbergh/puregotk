@@ -38,15 +38,15 @@ func GestureDragNewFromInternalPtr(ptr uintptr) *GestureDrag {
 var xNewGestureDrag func() uintptr
 
 // Returns a newly created `GtkGesture` that recognizes drags.
-func NewGestureDrag() *Gesture {
-	var cls *Gesture
+func NewGestureDrag() *GestureDrag {
+	var cls *GestureDrag
 
 	cret := xNewGestureDrag()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Gesture{}
+	cls = &GestureDrag{}
 	cls.Ptr = cret
 	return cls
 }

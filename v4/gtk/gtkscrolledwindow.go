@@ -148,8 +148,8 @@ func ScrolledWindowNewFromInternalPtr(ptr uintptr) *ScrolledWindow {
 var xNewScrolledWindow func() uintptr
 
 // Creates a new scrolled window.
-func NewScrolledWindow() *Widget {
-	var cls *Widget
+func NewScrolledWindow() *ScrolledWindow {
+	var cls *ScrolledWindow
 
 	cret := xNewScrolledWindow()
 
@@ -157,7 +157,7 @@ func NewScrolledWindow() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ScrolledWindow{}
 	cls.Ptr = cret
 	return cls
 }

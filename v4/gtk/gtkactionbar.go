@@ -60,8 +60,8 @@ func ActionBarNewFromInternalPtr(ptr uintptr) *ActionBar {
 var xNewActionBar func() uintptr
 
 // Creates a new `GtkActionBar` widget.
-func NewActionBar() *Widget {
-	var cls *Widget
+func NewActionBar() *ActionBar {
+	var cls *ActionBar
 
 	cret := xNewActionBar()
 
@@ -69,7 +69,7 @@ func NewActionBar() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ActionBar{}
 	cls.Ptr = cret
 	return cls
 }

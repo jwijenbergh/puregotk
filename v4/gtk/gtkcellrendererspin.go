@@ -35,8 +35,8 @@ func CellRendererSpinNewFromInternalPtr(ptr uintptr) *CellRendererSpin {
 var xNewCellRendererSpin func() uintptr
 
 // Creates a new `GtkCellRendererSpin`.
-func NewCellRendererSpin() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererSpin() *CellRendererSpin {
+	var cls *CellRendererSpin
 
 	cret := xNewCellRendererSpin()
 
@@ -44,7 +44,7 @@ func NewCellRendererSpin() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererSpin{}
 	cls.Ptr = cret
 	return cls
 }

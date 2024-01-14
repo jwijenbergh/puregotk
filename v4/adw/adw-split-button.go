@@ -73,8 +73,8 @@ func SplitButtonNewFromInternalPtr(ptr uintptr) *SplitButton {
 var xNewSplitButton func() uintptr
 
 // Creates a new `AdwSplitButton`.
-func NewSplitButton() *gtk.Widget {
-	var cls *gtk.Widget
+func NewSplitButton() *SplitButton {
+	var cls *SplitButton
 
 	cret := xNewSplitButton()
 
@@ -82,7 +82,7 @@ func NewSplitButton() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &SplitButton{}
 	cls.Ptr = cret
 	return cls
 }

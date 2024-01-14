@@ -187,8 +187,8 @@ func SpinButtonNewFromInternalPtr(ptr uintptr) *SpinButton {
 var xNewSpinButton func(uintptr, float64, uint) uintptr
 
 // Creates a new `GtkSpinButton`.
-func NewSpinButton(AdjustmentVar *Adjustment, ClimbRateVar float64, DigitsVar uint) *Widget {
-	var cls *Widget
+func NewSpinButton(AdjustmentVar *Adjustment, ClimbRateVar float64, DigitsVar uint) *SpinButton {
+	var cls *SpinButton
 
 	cret := xNewSpinButton(AdjustmentVar.GoPointer(), ClimbRateVar, DigitsVar)
 
@@ -196,7 +196,7 @@ func NewSpinButton(AdjustmentVar *Adjustment, ClimbRateVar float64, DigitsVar ui
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &SpinButton{}
 	cls.Ptr = cret
 	return cls
 }
@@ -216,8 +216,8 @@ var xNewWithRangeSpinButton func(float64, float64, float64) uintptr
 // best if @step is a power of ten. If the resulting precision
 // is not suitable for your needs, use
 // [method@Gtk.SpinButton.set_digits] to correct it.
-func NewWithRangeSpinButton(MinVar float64, MaxVar float64, StepVar float64) *Widget {
-	var cls *Widget
+func NewWithRangeSpinButton(MinVar float64, MaxVar float64, StepVar float64) *SpinButton {
+	var cls *SpinButton
 
 	cret := xNewWithRangeSpinButton(MinVar, MaxVar, StepVar)
 
@@ -225,7 +225,7 @@ func NewWithRangeSpinButton(MinVar float64, MaxVar float64, StepVar float64) *Wi
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &SpinButton{}
 	cls.Ptr = cret
 	return cls
 }

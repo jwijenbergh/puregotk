@@ -94,8 +94,8 @@ func ComboBoxNewFromInternalPtr(ptr uintptr) *ComboBox {
 var xNewComboBox func() uintptr
 
 // Creates a new empty `GtkComboBox`.
-func NewComboBox() *Widget {
-	var cls *Widget
+func NewComboBox() *ComboBox {
+	var cls *ComboBox
 
 	cret := xNewComboBox()
 
@@ -103,7 +103,7 @@ func NewComboBox() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBox{}
 	cls.Ptr = cret
 	return cls
 }
@@ -115,8 +115,8 @@ var xNewWithEntryComboBox func() uintptr
 // In order to use a combo box with entry, you need to tell it
 // which column of the model contains the text for the entry
 // by calling [method@Gtk.ComboBox.set_entry_text_column].
-func NewWithEntryComboBox() *Widget {
-	var cls *Widget
+func NewWithEntryComboBox() *ComboBox {
+	var cls *ComboBox
 
 	cret := xNewWithEntryComboBox()
 
@@ -124,7 +124,7 @@ func NewWithEntryComboBox() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBox{}
 	cls.Ptr = cret
 	return cls
 }
@@ -132,8 +132,8 @@ func NewWithEntryComboBox() *Widget {
 var xNewWithModelComboBox func(uintptr) uintptr
 
 // Creates a new `GtkComboBox` with a model.
-func NewWithModelComboBox(ModelVar TreeModel) *Widget {
-	var cls *Widget
+func NewWithModelComboBox(ModelVar TreeModel) *ComboBox {
+	var cls *ComboBox
 
 	cret := xNewWithModelComboBox(ModelVar.GoPointer())
 
@@ -141,7 +141,7 @@ func NewWithModelComboBox(ModelVar TreeModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBox{}
 	cls.Ptr = cret
 	return cls
 }
@@ -151,8 +151,8 @@ var xNewWithModelAndEntryComboBox func(uintptr) uintptr
 // Creates a new empty `GtkComboBox` with an entry and a model.
 //
 // See also [ctor@Gtk.ComboBox.new_with_entry].
-func NewWithModelAndEntryComboBox(ModelVar TreeModel) *Widget {
-	var cls *Widget
+func NewWithModelAndEntryComboBox(ModelVar TreeModel) *ComboBox {
+	var cls *ComboBox
 
 	cret := xNewWithModelAndEntryComboBox(ModelVar.GoPointer())
 
@@ -160,7 +160,7 @@ func NewWithModelAndEntryComboBox(ModelVar TreeModel) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ComboBox{}
 	cls.Ptr = cret
 	return cls
 }

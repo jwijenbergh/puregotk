@@ -24,8 +24,8 @@ func CellRendererProgressNewFromInternalPtr(ptr uintptr) *CellRendererProgress {
 var xNewCellRendererProgress func() uintptr
 
 // Creates a new `GtkCellRendererProgress`.
-func NewCellRendererProgress() *CellRenderer {
-	var cls *CellRenderer
+func NewCellRendererProgress() *CellRendererProgress {
+	var cls *CellRendererProgress
 
 	cret := xNewCellRendererProgress()
 
@@ -33,7 +33,7 @@ func NewCellRendererProgress() *CellRenderer {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellRenderer{}
+	cls = &CellRendererProgress{}
 	cls.Ptr = cret
 	return cls
 }

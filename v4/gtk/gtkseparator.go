@@ -36,8 +36,8 @@ func SeparatorNewFromInternalPtr(ptr uintptr) *Separator {
 var xNewSeparator func(Orientation) uintptr
 
 // Creates a new `GtkSeparator` with the given orientation.
-func NewSeparator(OrientationVar Orientation) *Widget {
-	var cls *Widget
+func NewSeparator(OrientationVar Orientation) *Separator {
+	var cls *Separator
 
 	cret := xNewSeparator(OrientationVar)
 
@@ -45,7 +45,7 @@ func NewSeparator(OrientationVar Orientation) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Separator{}
 	cls.Ptr = cret
 	return cls
 }

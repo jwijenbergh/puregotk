@@ -71,15 +71,15 @@ var xNewSignalListItemFactory func() uintptr
 // Creates a new `GtkSignalListItemFactory`.
 //
 // You need to connect signal handlers before you use it.
-func NewSignalListItemFactory() *ListItemFactory {
-	var cls *ListItemFactory
+func NewSignalListItemFactory() *SignalListItemFactory {
+	var cls *SignalListItemFactory
 
 	cret := xNewSignalListItemFactory()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &ListItemFactory{}
+	cls = &SignalListItemFactory{}
 	cls.Ptr = cret
 	return cls
 }

@@ -124,8 +124,8 @@ func StackNewFromInternalPtr(ptr uintptr) *Stack {
 var xNewStack func() uintptr
 
 // Creates a new `GtkStack`.
-func NewStack() *Widget {
-	var cls *Widget
+func NewStack() *Stack {
+	var cls *Stack
 
 	cret := xNewStack()
 
@@ -133,7 +133,7 @@ func NewStack() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Stack{}
 	cls.Ptr = cret
 	return cls
 }

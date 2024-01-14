@@ -61,8 +61,8 @@ func ClampNewFromInternalPtr(ptr uintptr) *Clamp {
 var xNewClamp func() uintptr
 
 // Creates a new `AdwClamp`.
-func NewClamp() *gtk.Widget {
-	var cls *gtk.Widget
+func NewClamp() *Clamp {
+	var cls *Clamp
 
 	cret := xNewClamp()
 
@@ -70,7 +70,7 @@ func NewClamp() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &Clamp{}
 	cls.Ptr = cret
 	return cls
 }

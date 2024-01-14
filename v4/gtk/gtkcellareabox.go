@@ -40,8 +40,8 @@ func CellAreaBoxNewFromInternalPtr(ptr uintptr) *CellAreaBox {
 var xNewCellAreaBox func() uintptr
 
 // Creates a new `GtkCellAreaBox`.
-func NewCellAreaBox() *CellArea {
-	var cls *CellArea
+func NewCellAreaBox() *CellAreaBox {
+	var cls *CellAreaBox
 
 	cret := xNewCellAreaBox()
 
@@ -49,7 +49,7 @@ func NewCellAreaBox() *CellArea {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &CellArea{}
+	cls = &CellAreaBox{}
 	cls.Ptr = cret
 	return cls
 }

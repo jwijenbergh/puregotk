@@ -64,8 +64,8 @@ func TabButtonNewFromInternalPtr(ptr uintptr) *TabButton {
 var xNewTabButton func() uintptr
 
 // Creates a new `AdwTabButton`.
-func NewTabButton() *gtk.Widget {
-	var cls *gtk.Widget
+func NewTabButton() *TabButton {
+	var cls *TabButton
 
 	cret := xNewTabButton()
 
@@ -73,7 +73,7 @@ func NewTabButton() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &TabButton{}
 	cls.Ptr = cret
 	return cls
 }

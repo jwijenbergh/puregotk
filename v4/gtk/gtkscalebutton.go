@@ -45,8 +45,8 @@ var xNewScaleButton func(float64, float64, float64, []string) uintptr
 //
 // The new scale button has a range between @min and @max,
 // with a stepping of @step.
-func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar []string) *Widget {
-	var cls *Widget
+func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar []string) *ScaleButton {
+	var cls *ScaleButton
 
 	cret := xNewScaleButton(MinVar, MaxVar, StepVar, IconsVar)
 
@@ -54,7 +54,7 @@ func NewScaleButton(MinVar float64, MaxVar float64, StepVar float64, IconsVar []
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ScaleButton{}
 	cls.Ptr = cret
 	return cls
 }

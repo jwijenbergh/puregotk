@@ -59,8 +59,8 @@ func LockButtonNewFromInternalPtr(ptr uintptr) *LockButton {
 var xNewLockButton func(uintptr) uintptr
 
 // Creates a new lock button which reflects the @permission.
-func NewLockButton(PermissionVar *gio.Permission) *Widget {
-	var cls *Widget
+func NewLockButton(PermissionVar *gio.Permission) *LockButton {
+	var cls *LockButton
 
 	cret := xNewLockButton(PermissionVar.GoPointer())
 
@@ -68,7 +68,7 @@ func NewLockButton(PermissionVar *gio.Permission) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &LockButton{}
 	cls.Ptr = cret
 	return cls
 }

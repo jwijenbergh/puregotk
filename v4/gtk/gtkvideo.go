@@ -45,8 +45,8 @@ func VideoNewFromInternalPtr(ptr uintptr) *Video {
 var xNewVideo func() uintptr
 
 // Creates a new empty `GtkVideo`.
-func NewVideo() *Widget {
-	var cls *Widget
+func NewVideo() *Video {
+	var cls *Video
 
 	cret := xNewVideo()
 
@@ -54,7 +54,7 @@ func NewVideo() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Video{}
 	cls.Ptr = cret
 	return cls
 }
@@ -62,8 +62,8 @@ func NewVideo() *Widget {
 var xNewForFileVideo func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @file.
-func NewForFileVideo(FileVar gio.File) *Widget {
-	var cls *Widget
+func NewForFileVideo(FileVar gio.File) *Video {
+	var cls *Video
 
 	cret := xNewForFileVideo(FileVar.GoPointer())
 
@@ -71,7 +71,7 @@ func NewForFileVideo(FileVar gio.File) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Video{}
 	cls.Ptr = cret
 	return cls
 }
@@ -82,8 +82,8 @@ var xNewForFilenameVideo func(string) uintptr
 //
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file],
 // See that function for details.
-func NewForFilenameVideo(FilenameVar string) *Widget {
-	var cls *Widget
+func NewForFilenameVideo(FilenameVar string) *Video {
+	var cls *Video
 
 	cret := xNewForFilenameVideo(FilenameVar)
 
@@ -91,7 +91,7 @@ func NewForFilenameVideo(FilenameVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Video{}
 	cls.Ptr = cret
 	return cls
 }
@@ -99,8 +99,8 @@ func NewForFilenameVideo(FilenameVar string) *Widget {
 var xNewForMediaStreamVideo func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @stream.
-func NewForMediaStreamVideo(StreamVar *MediaStream) *Widget {
-	var cls *Widget
+func NewForMediaStreamVideo(StreamVar *MediaStream) *Video {
+	var cls *Video
 
 	cret := xNewForMediaStreamVideo(StreamVar.GoPointer())
 
@@ -108,7 +108,7 @@ func NewForMediaStreamVideo(StreamVar *MediaStream) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Video{}
 	cls.Ptr = cret
 	return cls
 }
@@ -119,8 +119,8 @@ var xNewForResourceVideo func(string) uintptr
 // given @resource_path.
 //
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file].
-func NewForResourceVideo(ResourcePathVar string) *Widget {
-	var cls *Widget
+func NewForResourceVideo(ResourcePathVar string) *Video {
+	var cls *Video
 
 	cret := xNewForResourceVideo(ResourcePathVar)
 
@@ -128,7 +128,7 @@ func NewForResourceVideo(ResourcePathVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Video{}
 	cls.Ptr = cret
 	return cls
 }

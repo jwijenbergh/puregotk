@@ -39,15 +39,15 @@ var xNewDropControllerMotion func() uintptr
 
 // Creates a new event controller that will handle pointer motion
 // events during drag and drop.
-func NewDropControllerMotion() *EventController {
-	var cls *EventController
+func NewDropControllerMotion() *DropControllerMotion {
+	var cls *DropControllerMotion
 
 	cret := xNewDropControllerMotion()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &EventController{}
+	cls = &DropControllerMotion{}
 	cls.Ptr = cret
 	return cls
 }

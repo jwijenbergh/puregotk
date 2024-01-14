@@ -95,8 +95,8 @@ func ViewStackNewFromInternalPtr(ptr uintptr) *ViewStack {
 var xNewViewStack func() uintptr
 
 // Creates a new `AdwViewStack`.
-func NewViewStack() *gtk.Widget {
-	var cls *gtk.Widget
+func NewViewStack() *ViewStack {
+	var cls *ViewStack
 
 	cret := xNewViewStack()
 
@@ -104,7 +104,7 @@ func NewViewStack() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ViewStack{}
 	cls.Ptr = cret
 	return cls
 }

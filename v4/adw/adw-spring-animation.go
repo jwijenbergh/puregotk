@@ -64,8 +64,8 @@ var xNewSpringAnimation func(uintptr, float64, float64, *SpringParams, uintptr) 
 //
 // The animation will animate @target from @from to @to with the dynamics of a
 // spring described by @spring_params.
-func NewSpringAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, SpringParamsVar *SpringParams, TargetVar *AnimationTarget) *Animation {
-	var cls *Animation
+func NewSpringAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, SpringParamsVar *SpringParams, TargetVar *AnimationTarget) *SpringAnimation {
+	var cls *SpringAnimation
 
 	cret := xNewSpringAnimation(WidgetVar.GoPointer(), FromVar, ToVar, SpringParamsVar, TargetVar.GoPointer())
 
@@ -73,7 +73,7 @@ func NewSpringAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, S
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Animation{}
+	cls = &SpringAnimation{}
 	cls.Ptr = cret
 	return cls
 }

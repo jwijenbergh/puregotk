@@ -143,8 +143,8 @@ var xNewListView func(uintptr, uintptr) uintptr
 //	gtk_builder_list_item_factory_new_from_resource ("/resource.ui"));
 //
 // ```
-func NewListView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
-	var cls *Widget
+func NewListView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *ListView {
+	var cls *ListView
 
 	cret := xNewListView(ModelVar.GoPointer(), FactoryVar.GoPointer())
 
@@ -152,7 +152,7 @@ func NewListView(ModelVar SelectionModel, FactoryVar *ListItemFactory) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ListView{}
 	cls.Ptr = cret
 	return cls
 }

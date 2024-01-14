@@ -59,8 +59,8 @@ func InscriptionNewFromInternalPtr(ptr uintptr) *Inscription {
 var xNewInscription func(string) uintptr
 
 // Creates a new `GtkInscription` with the given text.
-func NewInscription(TextVar string) *Widget {
-	var cls *Widget
+func NewInscription(TextVar string) *Inscription {
+	var cls *Inscription
 
 	cret := xNewInscription(TextVar)
 
@@ -68,7 +68,7 @@ func NewInscription(TextVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Inscription{}
 	cls.Ptr = cret
 	return cls
 }

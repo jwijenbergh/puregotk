@@ -43,8 +43,8 @@ func PreferencesRowNewFromInternalPtr(ptr uintptr) *PreferencesRow {
 var xNewPreferencesRow func() uintptr
 
 // Creates a new `AdwPreferencesRow`.
-func NewPreferencesRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewPreferencesRow() *PreferencesRow {
+	var cls *PreferencesRow
 
 	cret := xNewPreferencesRow()
 
@@ -52,7 +52,7 @@ func NewPreferencesRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &PreferencesRow{}
 	cls.Ptr = cret
 	return cls
 }

@@ -4721,15 +4721,15 @@ var xNewSimpleIOStream func(uintptr, uintptr) uintptr
 
 // Creates a new #GSimpleIOStream wrapping @input_stream and @output_stream.
 // See also #GIOStream.
-func NewSimpleIOStream(InputStreamVar *InputStream, OutputStreamVar *OutputStream) *IOStream {
-	var cls *IOStream
+func NewSimpleIOStream(InputStreamVar *InputStream, OutputStreamVar *OutputStream) *SimpleIOStream {
+	var cls *SimpleIOStream
 
 	cret := xNewSimpleIOStream(InputStreamVar.GoPointer(), OutputStreamVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &IOStream{}
+	cls = &SimpleIOStream{}
 	cls.Ptr = cret
 	return cls
 }
@@ -4761,15 +4761,15 @@ var xNewSimplePermission func(bool) uintptr
 
 // Creates a new #GPermission instance that represents an action that is
 // either always or never allowed.
-func NewSimplePermission(AllowedVar bool) *Permission {
-	var cls *Permission
+func NewSimplePermission(AllowedVar bool) *SimplePermission {
+	var cls *SimplePermission
 
 	cret := xNewSimplePermission(AllowedVar)
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Permission{}
+	cls = &SimplePermission{}
 	cls.Ptr = cret
 	return cls
 }

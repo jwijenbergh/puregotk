@@ -116,8 +116,8 @@ func GridNewFromInternalPtr(ptr uintptr) *Grid {
 var xNewGrid func() uintptr
 
 // Creates a new grid widget.
-func NewGrid() *Widget {
-	var cls *Widget
+func NewGrid() *Grid {
+	var cls *Grid
 
 	cret := xNewGrid()
 
@@ -125,7 +125,7 @@ func NewGrid() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Grid{}
 	cls.Ptr = cret
 	return cls
 }

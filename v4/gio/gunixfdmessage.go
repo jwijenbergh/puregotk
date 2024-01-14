@@ -52,15 +52,15 @@ var xNewUnixFDMessage func() uintptr
 
 // Creates a new #GUnixFDMessage containing an empty file descriptor
 // list.
-func NewUnixFDMessage() *SocketControlMessage {
-	var cls *SocketControlMessage
+func NewUnixFDMessage() *UnixFDMessage {
+	var cls *UnixFDMessage
 
 	cret := xNewUnixFDMessage()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketControlMessage{}
+	cls = &UnixFDMessage{}
 	cls.Ptr = cret
 	return cls
 }
@@ -68,15 +68,15 @@ func NewUnixFDMessage() *SocketControlMessage {
 var xNewWithFdListUnixFDMessage func(uintptr) uintptr
 
 // Creates a new #GUnixFDMessage containing @list.
-func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *SocketControlMessage {
-	var cls *SocketControlMessage
+func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *UnixFDMessage {
+	var cls *UnixFDMessage
 
 	cret := xNewWithFdListUnixFDMessage(FdListVar.GoPointer())
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &SocketControlMessage{}
+	cls = &UnixFDMessage{}
 	cls.Ptr = cret
 	return cls
 }

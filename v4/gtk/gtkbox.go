@@ -64,8 +64,8 @@ func BoxNewFromInternalPtr(ptr uintptr) *Box {
 var xNewBox func(Orientation, int) uintptr
 
 // Creates a new `GtkBox`.
-func NewBox(OrientationVar Orientation, SpacingVar int) *Widget {
-	var cls *Widget
+func NewBox(OrientationVar Orientation, SpacingVar int) *Box {
+	var cls *Box
 
 	cret := xNewBox(OrientationVar, SpacingVar)
 
@@ -73,7 +73,7 @@ func NewBox(OrientationVar Orientation, SpacingVar int) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Box{}
 	cls.Ptr = cret
 	return cls
 }

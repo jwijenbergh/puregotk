@@ -210,8 +210,8 @@ var xNewDialog func() uintptr
 // Widgets should not be packed into the `GtkWindow`
 // directly, but into the @content_area and @action_area,
 // as described above.
-func NewDialog() *Widget {
-	var cls *Widget
+func NewDialog() *Dialog {
+	var cls *Dialog
 
 	cret := xNewDialog()
 
@@ -219,7 +219,7 @@ func NewDialog() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Dialog{}
 	cls.Ptr = cret
 	return cls
 }
@@ -261,8 +261,8 @@ var xNewWithButtonsDialog func(string, uintptr, DialogFlags, string, ...interfac
 //	NULL);
 //
 // ```
-func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFlags, FirstButtonTextVar string, varArgs ...interface{}) *Widget {
-	var cls *Widget
+func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFlags, FirstButtonTextVar string, varArgs ...interface{}) *Dialog {
+	var cls *Dialog
 
 	cret := xNewWithButtonsDialog(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
 
@@ -270,7 +270,7 @@ func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFla
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Dialog{}
 	cls.Ptr = cret
 	return cls
 }

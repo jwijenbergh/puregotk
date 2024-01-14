@@ -39,15 +39,15 @@ var xNewCairoRenderer func() uintptr
 // The Cairo renderer is incomplete. It cannot render 3D transformed
 // content and will instead render an error marker. Its usage should be
 // avoided.
-func NewCairoRenderer() *Renderer {
-	var cls *Renderer
+func NewCairoRenderer() *CairoRenderer {
+	var cls *CairoRenderer
 
 	cret := xNewCairoRenderer()
 
 	if cret == 0 {
 		return nil
 	}
-	cls = &Renderer{}
+	cls = &CairoRenderer{}
 	cls.Ptr = cret
 	return cls
 }

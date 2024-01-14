@@ -205,8 +205,8 @@ var xNewLabel func(string) uintptr
 // Creates a new label with the given text inside it.
 //
 // You can pass %NULL to get an empty label widget.
-func NewLabel(StrVar string) *Widget {
-	var cls *Widget
+func NewLabel(StrVar string) *Label {
+	var cls *Label
 
 	cret := xNewLabel(StrVar)
 
@@ -214,7 +214,7 @@ func NewLabel(StrVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Label{}
 	cls.Ptr = cret
 	return cls
 }
@@ -235,8 +235,8 @@ var xNewWithMnemonicLabel func(string) uintptr
 // widget. For instance, if the label is inside a button or menu item,
 // the button or menu item will automatically become the mnemonic widget
 // and be activated by the mnemonic.
-func NewWithMnemonicLabel(StrVar string) *Widget {
-	var cls *Widget
+func NewWithMnemonicLabel(StrVar string) *Label {
+	var cls *Label
 
 	cret := xNewWithMnemonicLabel(StrVar)
 
@@ -244,7 +244,7 @@ func NewWithMnemonicLabel(StrVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Label{}
 	cls.Ptr = cret
 	return cls
 }

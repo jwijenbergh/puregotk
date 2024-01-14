@@ -64,8 +64,8 @@ func ExpanderRowNewFromInternalPtr(ptr uintptr) *ExpanderRow {
 var xNewExpanderRow func() uintptr
 
 // Creates a new `AdwExpanderRow`.
-func NewExpanderRow() *gtk.Widget {
-	var cls *gtk.Widget
+func NewExpanderRow() *ExpanderRow {
+	var cls *ExpanderRow
 
 	cret := xNewExpanderRow()
 
@@ -73,7 +73,7 @@ func NewExpanderRow() *gtk.Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &gtk.Widget{}
+	cls = &ExpanderRow{}
 	cls.Ptr = cret
 	return cls
 }

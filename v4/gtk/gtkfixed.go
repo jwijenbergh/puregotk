@@ -70,8 +70,8 @@ func FixedNewFromInternalPtr(ptr uintptr) *Fixed {
 var xNewFixed func() uintptr
 
 // Creates a new `GtkFixed`.
-func NewFixed() *Widget {
-	var cls *Widget
+func NewFixed() *Fixed {
+	var cls *Fixed
 
 	cret := xNewFixed()
 
@@ -79,7 +79,7 @@ func NewFixed() *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &Fixed{}
 	cls.Ptr = cret
 	return cls
 }

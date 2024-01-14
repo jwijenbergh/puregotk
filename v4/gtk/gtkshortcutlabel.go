@@ -32,8 +32,8 @@ func ShortcutLabelNewFromInternalPtr(ptr uintptr) *ShortcutLabel {
 var xNewShortcutLabel func(string) uintptr
 
 // Creates a new `GtkShortcutLabel` with @accelerator set.
-func NewShortcutLabel(AcceleratorVar string) *Widget {
-	var cls *Widget
+func NewShortcutLabel(AcceleratorVar string) *ShortcutLabel {
+	var cls *ShortcutLabel
 
 	cret := xNewShortcutLabel(AcceleratorVar)
 
@@ -41,7 +41,7 @@ func NewShortcutLabel(AcceleratorVar string) *Widget {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &Widget{}
+	cls = &ShortcutLabel{}
 	cls.Ptr = cret
 	return cls
 }
