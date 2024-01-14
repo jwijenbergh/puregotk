@@ -246,6 +246,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 
 		for i, c := range cls.Constructors {
 			name := util.SnakeToCamel(c.Name)
+			c.ReturnValue.AnyType.Type.Name = cls.Name
 			constructors[i] = types.FuncTemplate{
 				Name:  name,
 				CName: c.CIdentifier,
