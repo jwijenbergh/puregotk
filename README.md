@@ -56,15 +56,14 @@ func main() {
 }
 
 func activate(app *gtk.Application) {
-	var window gtk.ApplicationWindow
-	gtk.NewApplicationWindow(app).Cast(&window)
+	window := gtk.NewApplicationWindow(app)
 	window.SetTitle("purego")
 	label := gtk.NewLabel("Hello, World!")
-	window.SetChild(label)
+	window.SetChild(&label.Widget)
 	// cleanup, no finalizers are used in this library
 	label.Unref()
 	window.SetDefaultSize(500, 500)
-	window.Show()
+	window.Present()
 }
 ```
 
