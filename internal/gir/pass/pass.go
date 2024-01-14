@@ -109,9 +109,8 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		fn := rec.FilenameSafe()
 		files = append(files, fn)
 		for i, c := range rec.Constructors {
-			name := util.SnakeToCamel(c.Name)
 			constructors[i] = types.FuncTemplate{
-				Name:  name,
+				Name:  util.ConstructorName(c.Name, rec.Name),
 				CName: c.CIdentifier,
 				Doc:   c.Doc.StringSafe(),
 				Args:  c.Parameters.Template(ns.Name, "", p.Types, c.Throws),
@@ -245,10 +244,9 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		files = append(files, fn)
 
 		for i, c := range cls.Constructors {
-			name := util.SnakeToCamel(c.Name)
 			c.ReturnValue.AnyType.Type.Name = cls.Name
 			constructors[i] = types.FuncTemplate{
-				Name:  name,
+				Name:  util.ConstructorName(c.Name, cls.Name),
 				CName: c.CIdentifier,
 				Doc:   c.Doc.StringSafe(),
 				Args:  c.Parameters.Template(ns.Name, "", p.Types, c.Throws),

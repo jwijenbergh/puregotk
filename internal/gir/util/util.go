@@ -91,3 +91,18 @@ func ConvertArgsComma(a []string) string {
 	}
 	return ", " + strings.Join(a, ", ")
 }
+
+// ConstructorName returns a Go friendly constructor name given the raw constructor name `name` and the class/record name `outer`
+func ConstructorName(name string, outer string) string {
+	cname := SnakeToCamel(name)
+	// construct the final constructor name
+	// for example if we have gtk_builder
+	// gtk_builder_new_from_file
+	// cname will be NewFromFile
+	// we convert it to NewBuilderFromFile
+	if strings.HasPrefix(cname, "New") {
+		return "New" + outer + cname[3:]
+	}
+	// the default is just a concatenation if the constructor doesn't start with New
+	return outer + cname
+}

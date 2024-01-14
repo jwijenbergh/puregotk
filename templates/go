@@ -35,13 +35,13 @@ func (x *{{.Name}}) GoPointer() uintptr {
 {{$outer := .}}
 
 {{range .Constructors -}}
-var x{{.Name}}{{$outer.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
+var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 
 
 {{.Doc}}
-func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{conv .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -150,13 +150,13 @@ func {{.Name}}NewFromInternalPtr(ptr uintptr) *{{.Name}} {
 }
 
 {{range .Constructors -}}
-var x{{.Name}}{{$outer.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
+var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 
 
 {{.Doc}}
-func {{.Name}}{{$outer.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
+func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{.Name}}{{$outer.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{conv .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -240,7 +240,7 @@ func init() {
     {{range .Records -}}
     {{$rec := .}}
     {{range .Constructors -}}
-    core.PuregoSafeRegister(&x{{.Name}}{{$rec.Name}}, lib, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
     core.PuregoSafeRegister(&x{{$rec.Name}}{{.Name}}, lib, "{{.CName}}")
@@ -250,7 +250,7 @@ func init() {
     {{range .Classes -}}
     {{$cls := .}}
     {{range .Constructors -}}
-    core.PuregoSafeRegister(&x{{.Name}}{{$cls.Name}}, lib, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
     core.PuregoSafeRegister(&x{{$cls.Name}}{{.Name}}, lib, "{{.CName}}")
