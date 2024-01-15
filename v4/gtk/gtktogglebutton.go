@@ -124,13 +124,13 @@ func NewToggleButton() *ToggleButton {
 	return cls
 }
 
-var xNewWithLabelToggleButton func(string) uintptr
+var xNewToggleButtonWithLabel func(string) uintptr
 
 // Creates a new toggle button with a text label.
-func NewWithLabelToggleButton(LabelVar string) *ToggleButton {
+func NewToggleButtonWithLabel(LabelVar string) *ToggleButton {
 	var cls *ToggleButton
 
-	cret := xNewWithLabelToggleButton(LabelVar)
+	cret := xNewToggleButtonWithLabel(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -141,16 +141,16 @@ func NewWithLabelToggleButton(LabelVar string) *ToggleButton {
 	return cls
 }
 
-var xNewWithMnemonicToggleButton func(string) uintptr
+var xNewToggleButtonWithMnemonic func(string) uintptr
 
 // Creates a new `GtkToggleButton` containing a label.
 //
 // The label will be created using [ctor@Gtk.Label.new_with_mnemonic],
 // so underscores in @label indicate the mnemonic for the button.
-func NewWithMnemonicToggleButton(LabelVar string) *ToggleButton {
+func NewToggleButtonWithMnemonic(LabelVar string) *ToggleButton {
 	var cls *ToggleButton
 
-	cret := xNewWithMnemonicToggleButton(LabelVar)
+	cret := xNewToggleButtonWithMnemonic(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -471,8 +471,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewToggleButton, lib, "gtk_toggle_button_new")
-	core.PuregoSafeRegister(&xNewWithLabelToggleButton, lib, "gtk_toggle_button_new_with_label")
-	core.PuregoSafeRegister(&xNewWithMnemonicToggleButton, lib, "gtk_toggle_button_new_with_mnemonic")
+	core.PuregoSafeRegister(&xNewToggleButtonWithLabel, lib, "gtk_toggle_button_new_with_label")
+	core.PuregoSafeRegister(&xNewToggleButtonWithMnemonic, lib, "gtk_toggle_button_new_with_mnemonic")
 
 	core.PuregoSafeRegister(&xToggleButtonGetActive, lib, "gtk_toggle_button_get_active")
 	core.PuregoSafeRegister(&xToggleButtonSetActive, lib, "gtk_toggle_button_set_active")

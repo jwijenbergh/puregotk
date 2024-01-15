@@ -72,19 +72,19 @@ func NewBytes(DataVar uintptr, SizeVar uint) *Bytes {
 	return cret
 }
 
-var xNewStaticBytes func(uintptr, uint) *Bytes
+var xNewBytesStatic func(uintptr, uint) *Bytes
 
 // Creates a new #GBytes from static data.
 //
 // @data must be static (ie: never modified or freed). It may be %NULL if @size
 // is 0.
-func NewStaticBytes(DataVar uintptr, SizeVar uint) *Bytes {
+func NewBytesStatic(DataVar uintptr, SizeVar uint) *Bytes {
 
-	cret := xNewStaticBytes(DataVar, SizeVar)
+	cret := xNewBytesStatic(DataVar, SizeVar)
 	return cret
 }
 
-var xNewTakeBytes func(uintptr, uint) *Bytes
+var xNewBytesTake func(uintptr, uint) *Bytes
 
 // Creates a new #GBytes from @data.
 //
@@ -98,13 +98,13 @@ var xNewTakeBytes func(uintptr, uint) *Bytes
 // g_bytes_new_with_free_func().
 //
 // @data may be %NULL if @size is 0.
-func NewTakeBytes(DataVar uintptr, SizeVar uint) *Bytes {
+func NewBytesTake(DataVar uintptr, SizeVar uint) *Bytes {
 
-	cret := xNewTakeBytes(DataVar, SizeVar)
+	cret := xNewBytesTake(DataVar, SizeVar)
 	return cret
 }
 
-var xNewWithFreeFuncBytes func(uintptr, uint, uintptr, uintptr) *Bytes
+var xNewBytesWithFreeFunc func(uintptr, uint, uintptr, uintptr) *Bytes
 
 // Creates a #GBytes from @data.
 //
@@ -115,9 +115,9 @@ var xNewWithFreeFuncBytes func(uintptr, uint, uintptr, uintptr) *Bytes
 // been called to indicate that the bytes is no longer in use.
 //
 // @data may be %NULL if @size is 0.
-func NewWithFreeFuncBytes(DataVar uintptr, SizeVar uint, FreeFuncVar DestroyNotify, UserDataVar uintptr) *Bytes {
+func NewBytesWithFreeFunc(DataVar uintptr, SizeVar uint, FreeFuncVar DestroyNotify, UserDataVar uintptr) *Bytes {
 
-	cret := xNewWithFreeFuncBytes(DataVar, SizeVar, purego.NewCallback(FreeFuncVar), UserDataVar)
+	cret := xNewBytesWithFreeFunc(DataVar, SizeVar, purego.NewCallback(FreeFuncVar), UserDataVar)
 	return cret
 }
 
@@ -421,9 +421,9 @@ func init() {
 	core.PuregoSafeRegister(&xPtrArrayFindWithEqualFunc, lib, "g_ptr_array_find_with_equal_func")
 
 	core.PuregoSafeRegister(&xNewBytes, lib, "g_bytes_new")
-	core.PuregoSafeRegister(&xNewStaticBytes, lib, "g_bytes_new_static")
-	core.PuregoSafeRegister(&xNewTakeBytes, lib, "g_bytes_new_take")
-	core.PuregoSafeRegister(&xNewWithFreeFuncBytes, lib, "g_bytes_new_with_free_func")
+	core.PuregoSafeRegister(&xNewBytesStatic, lib, "g_bytes_new_static")
+	core.PuregoSafeRegister(&xNewBytesTake, lib, "g_bytes_new_take")
+	core.PuregoSafeRegister(&xNewBytesWithFreeFunc, lib, "g_bytes_new_with_free_func")
 
 	core.PuregoSafeRegister(&xBytesCompare, lib, "g_bytes_compare")
 	core.PuregoSafeRegister(&xBytesEqual, lib, "g_bytes_equal")

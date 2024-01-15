@@ -408,7 +408,7 @@ func NewSettings(SchemaIdVar string) *Settings {
 	return cls
 }
 
-var xNewFullSettings func(*SettingsSchema, uintptr, string) uintptr
+var xNewSettingsFull func(*SettingsSchema, uintptr, string) uintptr
 
 // Creates a new #GSettings object with a given schema, backend and
 // path.
@@ -433,10 +433,10 @@ var xNewFullSettings func(*SettingsSchema, uintptr, string) uintptr
 // error if @path is %NULL and the schema has no path of its own or if
 // @path is non-%NULL and not equal to the path that the schema does
 // have.
-func NewFullSettings(SchemaVar *SettingsSchema, BackendVar *SettingsBackend, PathVar string) *Settings {
+func NewSettingsFull(SchemaVar *SettingsSchema, BackendVar *SettingsBackend, PathVar string) *Settings {
 	var cls *Settings
 
-	cret := xNewFullSettings(SchemaVar, BackendVar.GoPointer(), PathVar)
+	cret := xNewSettingsFull(SchemaVar, BackendVar.GoPointer(), PathVar)
 
 	if cret == 0 {
 		return nil
@@ -446,7 +446,7 @@ func NewFullSettings(SchemaVar *SettingsSchema, BackendVar *SettingsBackend, Pat
 	return cls
 }
 
-var xNewWithBackendSettings func(string, uintptr) uintptr
+var xNewSettingsWithBackend func(string, uintptr) uintptr
 
 // Creates a new #GSettings object with the schema specified by
 // @schema_id and a given #GSettingsBackend.
@@ -456,10 +456,10 @@ var xNewWithBackendSettings func(string, uintptr) uintptr
 // sense to pass a backend corresponding to the "defaults" settings database on
 // the system to get a settings object that modifies the system default
 // settings instead of the settings for this user.
-func NewWithBackendSettings(SchemaIdVar string, BackendVar *SettingsBackend) *Settings {
+func NewSettingsWithBackend(SchemaIdVar string, BackendVar *SettingsBackend) *Settings {
 	var cls *Settings
 
-	cret := xNewWithBackendSettings(SchemaIdVar, BackendVar.GoPointer())
+	cret := xNewSettingsWithBackend(SchemaIdVar, BackendVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -469,17 +469,17 @@ func NewWithBackendSettings(SchemaIdVar string, BackendVar *SettingsBackend) *Se
 	return cls
 }
 
-var xNewWithBackendAndPathSettings func(string, uintptr, string) uintptr
+var xNewSettingsWithBackendAndPath func(string, uintptr, string) uintptr
 
 // Creates a new #GSettings object with the schema specified by
 // @schema_id and a given #GSettingsBackend and path.
 //
 // This is a mix of g_settings_new_with_backend() and
 // g_settings_new_with_path().
-func NewWithBackendAndPathSettings(SchemaIdVar string, BackendVar *SettingsBackend, PathVar string) *Settings {
+func NewSettingsWithBackendAndPath(SchemaIdVar string, BackendVar *SettingsBackend, PathVar string) *Settings {
 	var cls *Settings
 
-	cret := xNewWithBackendAndPathSettings(SchemaIdVar, BackendVar.GoPointer(), PathVar)
+	cret := xNewSettingsWithBackendAndPath(SchemaIdVar, BackendVar.GoPointer(), PathVar)
 
 	if cret == 0 {
 		return nil
@@ -489,7 +489,7 @@ func NewWithBackendAndPathSettings(SchemaIdVar string, BackendVar *SettingsBacke
 	return cls
 }
 
-var xNewWithPathSettings func(string, string) uintptr
+var xNewSettingsWithPath func(string, string) uintptr
 
 // Creates a new #GSettings object with the relocatable schema specified
 // by @schema_id and a given path.
@@ -504,10 +504,10 @@ var xNewWithPathSettings func(string, string) uintptr
 // It is a programmer error if @path is not a valid path.  A valid path
 // begins and ends with '/' and does not contain two consecutive '/'
 // characters.
-func NewWithPathSettings(SchemaIdVar string, PathVar string) *Settings {
+func NewSettingsWithPath(SchemaIdVar string, PathVar string) *Settings {
 	var cls *Settings
 
-	cret := xNewWithPathSettings(SchemaIdVar, PathVar)
+	cret := xNewSettingsWithPath(SchemaIdVar, PathVar)
 
 	if cret == 0 {
 		return nil
@@ -1375,10 +1375,10 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewSettings, lib, "g_settings_new")
-	core.PuregoSafeRegister(&xNewFullSettings, lib, "g_settings_new_full")
-	core.PuregoSafeRegister(&xNewWithBackendSettings, lib, "g_settings_new_with_backend")
-	core.PuregoSafeRegister(&xNewWithBackendAndPathSettings, lib, "g_settings_new_with_backend_and_path")
-	core.PuregoSafeRegister(&xNewWithPathSettings, lib, "g_settings_new_with_path")
+	core.PuregoSafeRegister(&xNewSettingsFull, lib, "g_settings_new_full")
+	core.PuregoSafeRegister(&xNewSettingsWithBackend, lib, "g_settings_new_with_backend")
+	core.PuregoSafeRegister(&xNewSettingsWithBackendAndPath, lib, "g_settings_new_with_backend_and_path")
+	core.PuregoSafeRegister(&xNewSettingsWithPath, lib, "g_settings_new_with_path")
 
 	core.PuregoSafeRegister(&xSettingsApply, lib, "g_settings_apply")
 	core.PuregoSafeRegister(&xSettingsBind, lib, "g_settings_bind")

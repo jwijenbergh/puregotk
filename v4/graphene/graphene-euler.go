@@ -22,14 +22,14 @@ func (x *Euler) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocEuler func() *Euler
+var xEulerAlloc func() *Euler
 
 // Allocates a new #graphene_euler_t.
 //
 // The contents of the returned structure are undefined.
-func AllocEuler() *Euler {
+func EulerAlloc() *Euler {
 
-	cret := xAllocEuler()
+	cret := xEulerAlloc()
 	return cret
 }
 
@@ -350,7 +350,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocEuler, lib, "graphene_euler_alloc")
+	core.PuregoSafeRegister(&xEulerAlloc, lib, "graphene_euler_alloc")
 
 	core.PuregoSafeRegister(&xEulerEqual, lib, "graphene_euler_equal")
 	core.PuregoSafeRegister(&xEulerFree, lib, "graphene_euler_free")

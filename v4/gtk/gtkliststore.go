@@ -203,13 +203,13 @@ func NewListStore(NColumnsVar int, varArgs ...interface{}) *ListStore {
 	return cls
 }
 
-var xNewvListStore func(int, uintptr) uintptr
+var xNewListStorev func(int, uintptr) uintptr
 
 // Non-vararg creation function.  Used primarily by language bindings.
-func NewvListStore(NColumnsVar int, TypesVar uintptr) *ListStore {
+func NewListStorev(NColumnsVar int, TypesVar uintptr) *ListStore {
 	var cls *ListStore
 
-	cret := xNewvListStore(NColumnsVar, TypesVar)
+	cret := xNewListStorev(NColumnsVar, TypesVar)
 
 	if cret == 0 {
 		return nil
@@ -944,7 +944,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewListStore, lib, "gtk_list_store_new")
-	core.PuregoSafeRegister(&xNewvListStore, lib, "gtk_list_store_newv")
+	core.PuregoSafeRegister(&xNewListStorev, lib, "gtk_list_store_newv")
 
 	core.PuregoSafeRegister(&xListStoreAppend, lib, "gtk_list_store_append")
 	core.PuregoSafeRegister(&xListStoreClear, lib, "gtk_list_store_clear")

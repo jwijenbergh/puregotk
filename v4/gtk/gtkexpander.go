@@ -133,7 +133,7 @@ func NewExpander(LabelVar string) *Expander {
 	return cls
 }
 
-var xNewWithMnemonicExpander func(string) uintptr
+var xNewExpanderWithMnemonic func(string) uintptr
 
 // Creates a new expander using @label as the text of the label.
 //
@@ -143,10 +143,10 @@ var xNewWithMnemonicExpander func(string) uintptr
 // a keyboard accelerator called a mnemonic.
 //
 // Pressing Alt and that key activates the button.
-func NewWithMnemonicExpander(LabelVar string) *Expander {
+func NewExpanderWithMnemonic(LabelVar string) *Expander {
 	var cls *Expander
 
-	cret := xNewWithMnemonicExpander(LabelVar)
+	cret := xNewExpanderWithMnemonic(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -487,7 +487,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewExpander, lib, "gtk_expander_new")
-	core.PuregoSafeRegister(&xNewWithMnemonicExpander, lib, "gtk_expander_new_with_mnemonic")
+	core.PuregoSafeRegister(&xNewExpanderWithMnemonic, lib, "gtk_expander_new_with_mnemonic")
 
 	core.PuregoSafeRegister(&xExpanderGetChild, lib, "gtk_expander_get_child")
 	core.PuregoSafeRegister(&xExpanderGetExpanded, lib, "gtk_expander_get_expanded")

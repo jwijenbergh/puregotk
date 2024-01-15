@@ -95,13 +95,13 @@ func NewComboBoxText() *ComboBoxText {
 	return cls
 }
 
-var xNewWithEntryComboBoxText func() uintptr
+var xNewComboBoxTextWithEntry func() uintptr
 
 // Creates a new `GtkComboBoxText` with an entry.
-func NewWithEntryComboBoxText() *ComboBoxText {
+func NewComboBoxTextWithEntry() *ComboBoxText {
 	var cls *ComboBoxText
 
-	cret := xNewWithEntryComboBoxText()
+	cret := xNewComboBoxTextWithEntry()
 
 	if cret == 0 {
 		return nil
@@ -524,7 +524,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewComboBoxText, lib, "gtk_combo_box_text_new")
-	core.PuregoSafeRegister(&xNewWithEntryComboBoxText, lib, "gtk_combo_box_text_new_with_entry")
+	core.PuregoSafeRegister(&xNewComboBoxTextWithEntry, lib, "gtk_combo_box_text_new_with_entry")
 
 	core.PuregoSafeRegister(&xComboBoxTextAppend, lib, "gtk_combo_box_text_append")
 	core.PuregoSafeRegister(&xComboBoxTextAppendText, lib, "gtk_combo_box_text_append_text")

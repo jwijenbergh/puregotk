@@ -57,13 +57,13 @@ func NewMediaFile() *MediaFile {
 	return cls
 }
 
-var xNewForFileMediaFile func(uintptr) uintptr
+var xNewMediaFileForFile func(uintptr) uintptr
 
 // Creates a new media file to play @file.
-func NewForFileMediaFile(FileVar gio.File) *MediaFile {
+func NewMediaFileForFile(FileVar gio.File) *MediaFile {
 	var cls *MediaFile
 
-	cret := xNewForFileMediaFile(FileVar.GoPointer())
+	cret := xNewMediaFileForFile(FileVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -73,16 +73,16 @@ func NewForFileMediaFile(FileVar gio.File) *MediaFile {
 	return cls
 }
 
-var xNewForFilenameMediaFile func(string) uintptr
+var xNewMediaFileForFilename func(string) uintptr
 
 // Creates a new media file for the given filename.
 //
 // This is a utility function that converts the given @filename
 // to a `GFile` and calls [ctor@Gtk.MediaFile.new_for_file].
-func NewForFilenameMediaFile(FilenameVar string) *MediaFile {
+func NewMediaFileForFilename(FilenameVar string) *MediaFile {
 	var cls *MediaFile
 
-	cret := xNewForFilenameMediaFile(FilenameVar)
+	cret := xNewMediaFileForFilename(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -92,16 +92,16 @@ func NewForFilenameMediaFile(FilenameVar string) *MediaFile {
 	return cls
 }
 
-var xNewForInputStreamMediaFile func(uintptr) uintptr
+var xNewMediaFileForInputStream func(uintptr) uintptr
 
 // Creates a new media file to play @stream.
 //
 // If you want the resulting media to be seekable,
 // the stream should implement the `GSeekable` interface.
-func NewForInputStreamMediaFile(StreamVar *gio.InputStream) *MediaFile {
+func NewMediaFileForInputStream(StreamVar *gio.InputStream) *MediaFile {
 	var cls *MediaFile
 
-	cret := xNewForInputStreamMediaFile(StreamVar.GoPointer())
+	cret := xNewMediaFileForInputStream(StreamVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -111,16 +111,16 @@ func NewForInputStreamMediaFile(StreamVar *gio.InputStream) *MediaFile {
 	return cls
 }
 
-var xNewForResourceMediaFile func(string) uintptr
+var xNewMediaFileForResource func(string) uintptr
 
 // Creates a new new media file for the given resource.
 //
 // This is a utility function that converts the given @resource
 // to a `GFile` and calls [ctor@Gtk.MediaFile.new_for_file].
-func NewForResourceMediaFile(ResourcePathVar string) *MediaFile {
+func NewMediaFileForResource(ResourcePathVar string) *MediaFile {
 	var cls *MediaFile
 
-	cret := xNewForResourceMediaFile(ResourcePathVar)
+	cret := xNewMediaFileForResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -387,10 +387,10 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewMediaFile, lib, "gtk_media_file_new")
-	core.PuregoSafeRegister(&xNewForFileMediaFile, lib, "gtk_media_file_new_for_file")
-	core.PuregoSafeRegister(&xNewForFilenameMediaFile, lib, "gtk_media_file_new_for_filename")
-	core.PuregoSafeRegister(&xNewForInputStreamMediaFile, lib, "gtk_media_file_new_for_input_stream")
-	core.PuregoSafeRegister(&xNewForResourceMediaFile, lib, "gtk_media_file_new_for_resource")
+	core.PuregoSafeRegister(&xNewMediaFileForFile, lib, "gtk_media_file_new_for_file")
+	core.PuregoSafeRegister(&xNewMediaFileForFilename, lib, "gtk_media_file_new_for_filename")
+	core.PuregoSafeRegister(&xNewMediaFileForInputStream, lib, "gtk_media_file_new_for_input_stream")
+	core.PuregoSafeRegister(&xNewMediaFileForResource, lib, "gtk_media_file_new_for_resource")
 
 	core.PuregoSafeRegister(&xMediaFileClear, lib, "gtk_media_file_clear")
 	core.PuregoSafeRegister(&xMediaFileGetFile, lib, "gtk_media_file_get_file")

@@ -86,7 +86,7 @@ func NewShortcutController() *ShortcutController {
 	return cls
 }
 
-var xNewForModelShortcutController func(uintptr) uintptr
+var xNewShortcutControllerForModel func(uintptr) uintptr
 
 // Creates a new shortcut controller that takes its shortcuts from
 // the given list model.
@@ -94,10 +94,10 @@ var xNewForModelShortcutController func(uintptr) uintptr
 // A controller created by this function does not let you add or
 // remove individual shortcuts using the shortcut controller api,
 // but you can change the contents of the model.
-func NewForModelShortcutController(ModelVar gio.ListModel) *ShortcutController {
+func NewShortcutControllerForModel(ModelVar gio.ListModel) *ShortcutController {
 	var cls *ShortcutController
 
-	cret := xNewForModelShortcutController(ModelVar.GoPointer())
+	cret := xNewShortcutControllerForModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -305,7 +305,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewShortcutController, lib, "gtk_shortcut_controller_new")
-	core.PuregoSafeRegister(&xNewForModelShortcutController, lib, "gtk_shortcut_controller_new_for_model")
+	core.PuregoSafeRegister(&xNewShortcutControllerForModel, lib, "gtk_shortcut_controller_new_for_model")
 
 	core.PuregoSafeRegister(&xShortcutControllerAddShortcut, lib, "gtk_shortcut_controller_add_shortcut")
 	core.PuregoSafeRegister(&xShortcutControllerGetMnemonicsModifiers, lib, "gtk_shortcut_controller_get_mnemonics_modifiers")

@@ -19,14 +19,14 @@ func (x *Size) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocSize func() *Size
+var xSizeAlloc func() *Size
 
 // Allocates a new #graphene_size_t.
 //
 // The contents of the returned value are undefined.
-func AllocSize() *Size {
+func SizeAlloc() *Size {
 
-	cret := xAllocSize()
+	cret := xSizeAlloc()
 	return cret
 }
 
@@ -103,7 +103,7 @@ func init() {
 	}
 	core.PuregoSafeRegister(&xSizeZero, lib, "graphene_size_zero")
 
-	core.PuregoSafeRegister(&xAllocSize, lib, "graphene_size_alloc")
+	core.PuregoSafeRegister(&xSizeAlloc, lib, "graphene_size_alloc")
 
 	core.PuregoSafeRegister(&xSizeEqual, lib, "graphene_size_equal")
 	core.PuregoSafeRegister(&xSizeFree, lib, "graphene_size_free")

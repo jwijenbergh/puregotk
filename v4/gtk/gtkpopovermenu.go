@@ -136,7 +136,7 @@ func PopoverMenuNewFromInternalPtr(ptr uintptr) *PopoverMenu {
 	return cls
 }
 
-var xNewFromModelPopoverMenu func(uintptr) uintptr
+var xNewPopoverMenuFromModel func(uintptr) uintptr
 
 // Creates a `GtkPopoverMenu` and populates it according to @model.
 //
@@ -151,10 +151,10 @@ var xNewFromModelPopoverMenu func(uintptr) uintptr
 // This function creates menus with sliding submenus.
 // See [ctor@Gtk.PopoverMenu.new_from_model_full] for a way
 // to control this.
-func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *PopoverMenu {
+func NewPopoverMenuFromModel(ModelVar *gio.MenuModel) *PopoverMenu {
 	var cls *PopoverMenu
 
-	cret := xNewFromModelPopoverMenu(ModelVar.GoPointer())
+	cret := xNewPopoverMenuFromModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -165,7 +165,7 @@ func NewFromModelPopoverMenu(ModelVar *gio.MenuModel) *PopoverMenu {
 	return cls
 }
 
-var xNewFromModelFullPopoverMenu func(uintptr, PopoverMenuFlags) uintptr
+var xNewPopoverMenuFromModelFull func(uintptr, PopoverMenuFlags) uintptr
 
 // Creates a `GtkPopoverMenu` and populates it according to @model.
 //
@@ -178,10 +178,10 @@ var xNewFromModelFullPopoverMenu func(uintptr, PopoverMenuFlags) uintptr
 // The only flag that is supported currently is
 // %GTK_POPOVER_MENU_NESTED, which makes GTK create traditional,
 // nested submenus instead of the default sliding submenus.
-func NewFromModelFullPopoverMenu(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFlags) *PopoverMenu {
+func NewPopoverMenuFromModelFull(ModelVar *gio.MenuModel, FlagsVar PopoverMenuFlags) *PopoverMenu {
 	var cls *PopoverMenu
 
-	cret := xNewFromModelFullPopoverMenu(ModelVar.GoPointer(), FlagsVar)
+	cret := xNewPopoverMenuFromModelFull(ModelVar.GoPointer(), FlagsVar)
 
 	if cret == 0 {
 		return nil
@@ -459,8 +459,8 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromModelPopoverMenu, lib, "gtk_popover_menu_new_from_model")
-	core.PuregoSafeRegister(&xNewFromModelFullPopoverMenu, lib, "gtk_popover_menu_new_from_model_full")
+	core.PuregoSafeRegister(&xNewPopoverMenuFromModel, lib, "gtk_popover_menu_new_from_model")
+	core.PuregoSafeRegister(&xNewPopoverMenuFromModelFull, lib, "gtk_popover_menu_new_from_model_full")
 
 	core.PuregoSafeRegister(&xPopoverMenuAddChild, lib, "gtk_popover_menu_add_child")
 	core.PuregoSafeRegister(&xPopoverMenuGetMenuModel, lib, "gtk_popover_menu_get_menu_model")

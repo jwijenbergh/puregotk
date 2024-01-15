@@ -65,13 +65,13 @@ func NewUnixFDMessage() *UnixFDMessage {
 	return cls
 }
 
-var xNewWithFdListUnixFDMessage func(uintptr) uintptr
+var xNewUnixFDMessageWithFdList func(uintptr) uintptr
 
 // Creates a new #GUnixFDMessage containing @list.
-func NewWithFdListUnixFDMessage(FdListVar *UnixFDList) *UnixFDMessage {
+func NewUnixFDMessageWithFdList(FdListVar *UnixFDList) *UnixFDMessage {
 	var cls *UnixFDMessage
 
-	cret := xNewWithFdListUnixFDMessage(FdListVar.GoPointer())
+	cret := xNewUnixFDMessageWithFdList(FdListVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -161,7 +161,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewUnixFDMessage, lib, "g_unix_fd_message_new")
-	core.PuregoSafeRegister(&xNewWithFdListUnixFDMessage, lib, "g_unix_fd_message_new_with_fd_list")
+	core.PuregoSafeRegister(&xNewUnixFDMessageWithFdList, lib, "g_unix_fd_message_new_with_fd_list")
 
 	core.PuregoSafeRegister(&xUnixFDMessageAppendFd, lib, "g_unix_fd_message_append_fd")
 	core.PuregoSafeRegister(&xUnixFDMessageGetFdList, lib, "g_unix_fd_message_get_fd_list")

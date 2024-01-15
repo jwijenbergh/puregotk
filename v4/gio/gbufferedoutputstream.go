@@ -64,13 +64,13 @@ func NewBufferedOutputStream(BaseStreamVar *OutputStream) *BufferedOutputStream 
 	return cls
 }
 
-var xNewSizedBufferedOutputStream func(uintptr, uint) uintptr
+var xNewBufferedOutputStreamSized func(uintptr, uint) uintptr
 
 // Creates a new buffered output stream with a given buffer size.
-func NewSizedBufferedOutputStream(BaseStreamVar *OutputStream, SizeVar uint) *BufferedOutputStream {
+func NewBufferedOutputStreamSized(BaseStreamVar *OutputStream, SizeVar uint) *BufferedOutputStream {
 	var cls *BufferedOutputStream
 
-	cret := xNewSizedBufferedOutputStream(BaseStreamVar.GoPointer(), SizeVar)
+	cret := xNewBufferedOutputStreamSized(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
 		return nil
@@ -201,7 +201,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewBufferedOutputStream, lib, "g_buffered_output_stream_new")
-	core.PuregoSafeRegister(&xNewSizedBufferedOutputStream, lib, "g_buffered_output_stream_new_sized")
+	core.PuregoSafeRegister(&xNewBufferedOutputStreamSized, lib, "g_buffered_output_stream_new_sized")
 
 	core.PuregoSafeRegister(&xBufferedOutputStreamGetAutoGrow, lib, "g_buffered_output_stream_get_auto_grow")
 	core.PuregoSafeRegister(&xBufferedOutputStreamGetBufferSize, lib, "g_buffered_output_stream_get_buffer_size")

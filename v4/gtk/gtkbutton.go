@@ -86,17 +86,17 @@ func NewButton() *Button {
 	return cls
 }
 
-var xNewFromIconNameButton func(string) uintptr
+var xNewButtonFromIconName func(string) uintptr
 
 // Creates a new button containing an icon from the current icon theme.
 //
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromIconNameButton(IconNameVar string) *Button {
+func NewButtonFromIconName(IconNameVar string) *Button {
 	var cls *Button
 
-	cret := xNewFromIconNameButton(IconNameVar)
+	cret := xNewButtonFromIconName(IconNameVar)
 
 	if cret == 0 {
 		return nil
@@ -107,13 +107,13 @@ func NewFromIconNameButton(IconNameVar string) *Button {
 	return cls
 }
 
-var xNewWithLabelButton func(string) uintptr
+var xNewButtonWithLabel func(string) uintptr
 
 // Creates a `GtkButton` widget with a `GtkLabel` child.
-func NewWithLabelButton(LabelVar string) *Button {
+func NewButtonWithLabel(LabelVar string) *Button {
 	var cls *Button
 
-	cret := xNewWithLabelButton(LabelVar)
+	cret := xNewButtonWithLabel(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -124,7 +124,7 @@ func NewWithLabelButton(LabelVar string) *Button {
 	return cls
 }
 
-var xNewWithMnemonicButton func(string) uintptr
+var xNewButtonWithMnemonic func(string) uintptr
 
 // Creates a new `GtkButton` containing a label.
 //
@@ -132,10 +132,10 @@ var xNewWithMnemonicButton func(string) uintptr
 // If you need a literal underscore character in a label, use “__” (two
 // underscores). The first underlined character represents a keyboard
 // accelerator called a mnemonic. Pressing Alt and that key activates the button.
-func NewWithMnemonicButton(LabelVar string) *Button {
+func NewButtonWithMnemonic(LabelVar string) *Button {
 	var cls *Button
 
-	cret := xNewWithMnemonicButton(LabelVar)
+	cret := xNewButtonWithMnemonic(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -538,9 +538,9 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewButton, lib, "gtk_button_new")
-	core.PuregoSafeRegister(&xNewFromIconNameButton, lib, "gtk_button_new_from_icon_name")
-	core.PuregoSafeRegister(&xNewWithLabelButton, lib, "gtk_button_new_with_label")
-	core.PuregoSafeRegister(&xNewWithMnemonicButton, lib, "gtk_button_new_with_mnemonic")
+	core.PuregoSafeRegister(&xNewButtonFromIconName, lib, "gtk_button_new_from_icon_name")
+	core.PuregoSafeRegister(&xNewButtonWithLabel, lib, "gtk_button_new_with_label")
+	core.PuregoSafeRegister(&xNewButtonWithMnemonic, lib, "gtk_button_new_with_mnemonic")
 
 	core.PuregoSafeRegister(&xButtonGetChild, lib, "gtk_button_get_child")
 	core.PuregoSafeRegister(&xButtonGetHasFrame, lib, "gtk_button_get_has_frame")

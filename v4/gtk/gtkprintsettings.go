@@ -135,7 +135,7 @@ func NewPrintSettings() *PrintSettings {
 	return cls
 }
 
-var xNewFromFilePrintSettings func(string, **glib.Error) uintptr
+var xNewPrintSettingsFromFile func(string, **glib.Error) uintptr
 
 // Reads the print settings from @file_name.
 //
@@ -144,11 +144,11 @@ var xNewFromFilePrintSettings func(string, **glib.Error) uintptr
 // error is set to either a `GFileError` or `GKeyFileError`.
 //
 // See [method@Gtk.PrintSettings.to_file].
-func NewFromFilePrintSettings(FileNameVar string) (*PrintSettings, error) {
+func NewPrintSettingsFromFile(FileNameVar string) (*PrintSettings, error) {
 	var cls *PrintSettings
 	var cerr *glib.Error
 
-	cret := xNewFromFilePrintSettings(FileNameVar, &cerr)
+	cret := xNewPrintSettingsFromFile(FileNameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -162,16 +162,16 @@ func NewFromFilePrintSettings(FileNameVar string) (*PrintSettings, error) {
 
 }
 
-var xNewFromGvariantPrintSettings func(*glib.Variant) uintptr
+var xNewPrintSettingsFromGvariant func(*glib.Variant) uintptr
 
 // Deserialize print settings from an a{sv} variant.
 //
 // The variant must be in the format produced by
 // [method@Gtk.PrintSettings.to_gvariant].
-func NewFromGvariantPrintSettings(VariantVar *glib.Variant) *PrintSettings {
+func NewPrintSettingsFromGvariant(VariantVar *glib.Variant) *PrintSettings {
 	var cls *PrintSettings
 
-	cret := xNewFromGvariantPrintSettings(VariantVar)
+	cret := xNewPrintSettingsFromGvariant(VariantVar)
 
 	if cret == 0 {
 		return nil
@@ -181,18 +181,18 @@ func NewFromGvariantPrintSettings(VariantVar *glib.Variant) *PrintSettings {
 	return cls
 }
 
-var xNewFromKeyFilePrintSettings func(*glib.KeyFile, string, **glib.Error) uintptr
+var xNewPrintSettingsFromKeyFile func(*glib.KeyFile, string, **glib.Error) uintptr
 
 // Reads the print settings from the group @group_name in @key_file.
 //
 // Returns a new `GtkPrintSettings` object with the restored settings,
 // or %NULL if an error occurred. If the file could not be loaded then
 // error is set to either `GFileError` or `GKeyFileError`.
-func NewFromKeyFilePrintSettings(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PrintSettings, error) {
+func NewPrintSettingsFromKeyFile(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PrintSettings, error) {
 	var cls *PrintSettings
 	var cerr *glib.Error
 
-	cret := xNewFromKeyFilePrintSettings(KeyFileVar, GroupNameVar, &cerr)
+	cret := xNewPrintSettingsFromKeyFile(KeyFileVar, GroupNameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -932,9 +932,9 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewPrintSettings, lib, "gtk_print_settings_new")
-	core.PuregoSafeRegister(&xNewFromFilePrintSettings, lib, "gtk_print_settings_new_from_file")
-	core.PuregoSafeRegister(&xNewFromGvariantPrintSettings, lib, "gtk_print_settings_new_from_gvariant")
-	core.PuregoSafeRegister(&xNewFromKeyFilePrintSettings, lib, "gtk_print_settings_new_from_key_file")
+	core.PuregoSafeRegister(&xNewPrintSettingsFromFile, lib, "gtk_print_settings_new_from_file")
+	core.PuregoSafeRegister(&xNewPrintSettingsFromGvariant, lib, "gtk_print_settings_new_from_gvariant")
+	core.PuregoSafeRegister(&xNewPrintSettingsFromKeyFile, lib, "gtk_print_settings_new_from_key_file")
 
 	core.PuregoSafeRegister(&xPrintSettingsCopy, lib, "gtk_print_settings_copy")
 	core.PuregoSafeRegister(&xPrintSettingsForeach, lib, "gtk_print_settings_foreach")

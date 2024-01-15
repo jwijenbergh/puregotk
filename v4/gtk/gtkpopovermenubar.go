@@ -49,13 +49,13 @@ func PopoverMenuBarNewFromInternalPtr(ptr uintptr) *PopoverMenuBar {
 	return cls
 }
 
-var xNewFromModelPopoverMenuBar func(uintptr) uintptr
+var xNewPopoverMenuBarFromModel func(uintptr) uintptr
 
 // Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
-func NewFromModelPopoverMenuBar(ModelVar *gio.MenuModel) *PopoverMenuBar {
+func NewPopoverMenuBarFromModel(ModelVar *gio.MenuModel) *PopoverMenuBar {
 	var cls *PopoverMenuBar
 
-	cret := xNewFromModelPopoverMenuBar(ModelVar.GoPointer())
+	cret := xNewPopoverMenuBarFromModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -272,7 +272,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromModelPopoverMenuBar, lib, "gtk_popover_menu_bar_new_from_model")
+	core.PuregoSafeRegister(&xNewPopoverMenuBarFromModel, lib, "gtk_popover_menu_bar_new_from_model")
 
 	core.PuregoSafeRegister(&xPopoverMenuBarAddChild, lib, "gtk_popover_menu_bar_add_child")
 	core.PuregoSafeRegister(&xPopoverMenuBarGetMenuModel, lib, "gtk_popover_menu_bar_get_menu_model")

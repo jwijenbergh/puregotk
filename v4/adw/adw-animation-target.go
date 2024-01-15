@@ -119,14 +119,14 @@ func NewPropertyAnimationTarget(ObjectVar *gobject.Object, PropertyNameVar strin
 	return cls
 }
 
-var xNewForPspecPropertyAnimationTarget func(uintptr, uintptr) uintptr
+var xNewPropertyAnimationTargetForPspec func(uintptr, uintptr) uintptr
 
 // Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
 // @object.
-func NewForPspecPropertyAnimationTarget(ObjectVar *gobject.Object, PspecVar *gobject.ParamSpec) *PropertyAnimationTarget {
+func NewPropertyAnimationTargetForPspec(ObjectVar *gobject.Object, PspecVar *gobject.ParamSpec) *PropertyAnimationTarget {
 	var cls *PropertyAnimationTarget
 
-	cret := xNewForPspecPropertyAnimationTarget(ObjectVar.GoPointer(), PspecVar.GoPointer())
+	cret := xNewPropertyAnimationTargetForPspec(ObjectVar.GoPointer(), PspecVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -191,7 +191,7 @@ func init() {
 	core.PuregoSafeRegister(&xNewCallbackAnimationTarget, lib, "adw_callback_animation_target_new")
 
 	core.PuregoSafeRegister(&xNewPropertyAnimationTarget, lib, "adw_property_animation_target_new")
-	core.PuregoSafeRegister(&xNewForPspecPropertyAnimationTarget, lib, "adw_property_animation_target_new_for_pspec")
+	core.PuregoSafeRegister(&xNewPropertyAnimationTargetForPspec, lib, "adw_property_animation_target_new_for_pspec")
 
 	core.PuregoSafeRegister(&xPropertyAnimationTargetGetObject, lib, "adw_property_animation_target_get_object")
 	core.PuregoSafeRegister(&xPropertyAnimationTargetGetPspec, lib, "adw_property_animation_target_get_pspec")

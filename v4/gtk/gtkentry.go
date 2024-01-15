@@ -154,13 +154,13 @@ func NewEntry() *Entry {
 	return cls
 }
 
-var xNewWithBufferEntry func(uintptr) uintptr
+var xNewEntryWithBuffer func(uintptr) uintptr
 
 // Creates a new entry with the specified text buffer.
-func NewWithBufferEntry(BufferVar *EntryBuffer) *Entry {
+func NewEntryWithBuffer(BufferVar *EntryBuffer) *Entry {
 	var cls *Entry
 
-	cret := xNewWithBufferEntry(BufferVar.GoPointer())
+	cret := xNewEntryWithBuffer(BufferVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -1357,7 +1357,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewEntry, lib, "gtk_entry_new")
-	core.PuregoSafeRegister(&xNewWithBufferEntry, lib, "gtk_entry_new_with_buffer")
+	core.PuregoSafeRegister(&xNewEntryWithBuffer, lib, "gtk_entry_new_with_buffer")
 
 	core.PuregoSafeRegister(&xEntryGetActivatesDefault, lib, "gtk_entry_get_activates_default")
 	core.PuregoSafeRegister(&xEntryGetAlignment, lib, "gtk_entry_get_alignment")

@@ -44,14 +44,14 @@ func InetAddressNewFromInternalPtr(ptr uintptr) *InetAddress {
 	return cls
 }
 
-var xNewAnyInetAddress func(SocketFamily) uintptr
+var xNewInetAddressAny func(SocketFamily) uintptr
 
 // Creates a #GInetAddress for the "any" address (unassigned/"don't
 // care") for @family.
-func NewAnyInetAddress(FamilyVar SocketFamily) *InetAddress {
+func NewInetAddressAny(FamilyVar SocketFamily) *InetAddress {
 	var cls *InetAddress
 
-	cret := xNewAnyInetAddress(FamilyVar)
+	cret := xNewInetAddressAny(FamilyVar)
 
 	if cret == 0 {
 		return nil
@@ -61,15 +61,15 @@ func NewAnyInetAddress(FamilyVar SocketFamily) *InetAddress {
 	return cls
 }
 
-var xNewFromBytesInetAddress func(uintptr, SocketFamily) uintptr
+var xNewInetAddressFromBytes func(uintptr, SocketFamily) uintptr
 
 // Creates a new #GInetAddress from the given @family and @bytes.
 // @bytes should be 4 bytes for %G_SOCKET_FAMILY_IPV4 and 16 bytes for
 // %G_SOCKET_FAMILY_IPV6.
-func NewFromBytesInetAddress(BytesVar uintptr, FamilyVar SocketFamily) *InetAddress {
+func NewInetAddressFromBytes(BytesVar uintptr, FamilyVar SocketFamily) *InetAddress {
 	var cls *InetAddress
 
-	cret := xNewFromBytesInetAddress(BytesVar, FamilyVar)
+	cret := xNewInetAddressFromBytes(BytesVar, FamilyVar)
 
 	if cret == 0 {
 		return nil
@@ -79,13 +79,13 @@ func NewFromBytesInetAddress(BytesVar uintptr, FamilyVar SocketFamily) *InetAddr
 	return cls
 }
 
-var xNewFromStringInetAddress func(string) uintptr
+var xNewInetAddressFromString func(string) uintptr
 
 // Parses @string as an IP address and creates a new #GInetAddress.
-func NewFromStringInetAddress(StringVar string) *InetAddress {
+func NewInetAddressFromString(StringVar string) *InetAddress {
 	var cls *InetAddress
 
-	cret := xNewFromStringInetAddress(StringVar)
+	cret := xNewInetAddressFromString(StringVar)
 
 	if cret == 0 {
 		return nil
@@ -95,13 +95,13 @@ func NewFromStringInetAddress(StringVar string) *InetAddress {
 	return cls
 }
 
-var xNewLoopbackInetAddress func(SocketFamily) uintptr
+var xNewInetAddressLoopback func(SocketFamily) uintptr
 
 // Creates a #GInetAddress for the loopback address for @family.
-func NewLoopbackInetAddress(FamilyVar SocketFamily) *InetAddress {
+func NewInetAddressLoopback(FamilyVar SocketFamily) *InetAddress {
 	var cls *InetAddress
 
-	cret := xNewLoopbackInetAddress(FamilyVar)
+	cret := xNewInetAddressLoopback(FamilyVar)
 
 	if cret == 0 {
 		return nil
@@ -266,10 +266,10 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewAnyInetAddress, lib, "g_inet_address_new_any")
-	core.PuregoSafeRegister(&xNewFromBytesInetAddress, lib, "g_inet_address_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromStringInetAddress, lib, "g_inet_address_new_from_string")
-	core.PuregoSafeRegister(&xNewLoopbackInetAddress, lib, "g_inet_address_new_loopback")
+	core.PuregoSafeRegister(&xNewInetAddressAny, lib, "g_inet_address_new_any")
+	core.PuregoSafeRegister(&xNewInetAddressFromBytes, lib, "g_inet_address_new_from_bytes")
+	core.PuregoSafeRegister(&xNewInetAddressFromString, lib, "g_inet_address_new_from_string")
+	core.PuregoSafeRegister(&xNewInetAddressLoopback, lib, "g_inet_address_new_loopback")
 
 	core.PuregoSafeRegister(&xInetAddressEqual, lib, "g_inet_address_equal")
 	core.PuregoSafeRegister(&xInetAddressGetFamily, lib, "g_inet_address_get_family")

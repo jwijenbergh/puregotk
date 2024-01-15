@@ -99,13 +99,13 @@ func NewCheckButton() *CheckButton {
 	return cls
 }
 
-var xNewWithLabelCheckButton func(string) uintptr
+var xNewCheckButtonWithLabel func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text.
-func NewWithLabelCheckButton(LabelVar string) *CheckButton {
+func NewCheckButtonWithLabel(LabelVar string) *CheckButton {
 	var cls *CheckButton
 
-	cret := xNewWithLabelCheckButton(LabelVar)
+	cret := xNewCheckButtonWithLabel(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -116,13 +116,13 @@ func NewWithLabelCheckButton(LabelVar string) *CheckButton {
 	return cls
 }
 
-var xNewWithMnemonicCheckButton func(string) uintptr
+var xNewCheckButtonWithMnemonic func(string) uintptr
 
 // Creates a new `GtkCheckButton` with the given text and a mnemonic.
-func NewWithMnemonicCheckButton(LabelVar string) *CheckButton {
+func NewCheckButtonWithMnemonic(LabelVar string) *CheckButton {
 	var cls *CheckButton
 
-	cret := xNewWithMnemonicCheckButton(LabelVar)
+	cret := xNewCheckButtonWithMnemonic(LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -543,8 +543,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewCheckButton, lib, "gtk_check_button_new")
-	core.PuregoSafeRegister(&xNewWithLabelCheckButton, lib, "gtk_check_button_new_with_label")
-	core.PuregoSafeRegister(&xNewWithMnemonicCheckButton, lib, "gtk_check_button_new_with_mnemonic")
+	core.PuregoSafeRegister(&xNewCheckButtonWithLabel, lib, "gtk_check_button_new_with_label")
+	core.PuregoSafeRegister(&xNewCheckButtonWithMnemonic, lib, "gtk_check_button_new_with_mnemonic")
 
 	core.PuregoSafeRegister(&xCheckButtonGetActive, lib, "gtk_check_button_get_active")
 	core.PuregoSafeRegister(&xCheckButtonGetChild, lib, "gtk_check_button_get_child")

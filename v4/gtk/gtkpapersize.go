@@ -41,29 +41,29 @@ func NewPaperSize(NameVar string) *PaperSize {
 	return cret
 }
 
-var xNewCustomPaperSize func(string, string, float64, float64, Unit) *PaperSize
+var xNewPaperSizeCustom func(string, string, float64, float64, Unit) *PaperSize
 
 // Creates a new `GtkPaperSize` object with the
 // given parameters.
-func NewCustomPaperSize(NameVar string, DisplayNameVar string, WidthVar float64, HeightVar float64, UnitVar Unit) *PaperSize {
+func NewPaperSizeCustom(NameVar string, DisplayNameVar string, WidthVar float64, HeightVar float64, UnitVar Unit) *PaperSize {
 
-	cret := xNewCustomPaperSize(NameVar, DisplayNameVar, WidthVar, HeightVar, UnitVar)
+	cret := xNewPaperSizeCustom(NameVar, DisplayNameVar, WidthVar, HeightVar, UnitVar)
 	return cret
 }
 
-var xNewFromGvariantPaperSize func(*glib.Variant) *PaperSize
+var xNewPaperSizeFromGvariant func(*glib.Variant) *PaperSize
 
 // Deserialize a paper size from a `GVariant`.
 //
 // The `GVariant must be in the format produced by
 // [method@Gtk.PaperSize.to_gvariant].
-func NewFromGvariantPaperSize(VariantVar *glib.Variant) *PaperSize {
+func NewPaperSizeFromGvariant(VariantVar *glib.Variant) *PaperSize {
 
-	cret := xNewFromGvariantPaperSize(VariantVar)
+	cret := xNewPaperSizeFromGvariant(VariantVar)
 	return cret
 }
 
-var xNewFromIppPaperSize func(string, float64, float64) *PaperSize
+var xNewPaperSizeFromIpp func(string, float64, float64) *PaperSize
 
 // Creates a new `GtkPaperSize` object by using
 // IPP information.
@@ -71,20 +71,20 @@ var xNewFromIppPaperSize func(string, float64, float64) *PaperSize
 // If @ipp_name is not a recognized paper name,
 // @width and @height are used to
 // construct a custom `GtkPaperSize` object.
-func NewFromIppPaperSize(IppNameVar string, WidthVar float64, HeightVar float64) *PaperSize {
+func NewPaperSizeFromIpp(IppNameVar string, WidthVar float64, HeightVar float64) *PaperSize {
 
-	cret := xNewFromIppPaperSize(IppNameVar, WidthVar, HeightVar)
+	cret := xNewPaperSizeFromIpp(IppNameVar, WidthVar, HeightVar)
 	return cret
 }
 
-var xNewFromKeyFilePaperSize func(*glib.KeyFile, string, **glib.Error) *PaperSize
+var xNewPaperSizeFromKeyFile func(*glib.KeyFile, string, **glib.Error) *PaperSize
 
 // Reads a paper size from the group @group_name in the key file
 // @key_file.
-func NewFromKeyFilePaperSize(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PaperSize, error) {
+func NewPaperSizeFromKeyFile(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PaperSize, error) {
 	var cerr *glib.Error
 
-	cret := xNewFromKeyFilePaperSize(KeyFileVar, GroupNameVar, &cerr)
+	cret := xNewPaperSizeFromKeyFile(KeyFileVar, GroupNameVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -92,7 +92,7 @@ func NewFromKeyFilePaperSize(KeyFileVar *glib.KeyFile, GroupNameVar string) (*Pa
 
 }
 
-var xNewFromPpdPaperSize func(string, string, float64, float64) *PaperSize
+var xNewPaperSizeFromPpd func(string, string, float64, float64) *PaperSize
 
 // Creates a new `GtkPaperSize` object by using
 // PPD information.
@@ -100,9 +100,9 @@ var xNewFromPpdPaperSize func(string, string, float64, float64) *PaperSize
 // If @ppd_name is not a recognized PPD paper name,
 // @ppd_display_name, @width and @height are used to
 // construct a custom `GtkPaperSize` object.
-func NewFromPpdPaperSize(PpdNameVar string, PpdDisplayNameVar string, WidthVar float64, HeightVar float64) *PaperSize {
+func NewPaperSizeFromPpd(PpdNameVar string, PpdDisplayNameVar string, WidthVar float64, HeightVar float64) *PaperSize {
 
-	cret := xNewFromPpdPaperSize(PpdNameVar, PpdDisplayNameVar, WidthVar, HeightVar)
+	cret := xNewPaperSizeFromPpd(PpdNameVar, PpdDisplayNameVar, WidthVar, HeightVar)
 	return cret
 }
 
@@ -307,11 +307,11 @@ func init() {
 	core.PuregoSafeRegister(&xPaperSizeGetPaperSizes, lib, "gtk_paper_size_get_paper_sizes")
 
 	core.PuregoSafeRegister(&xNewPaperSize, lib, "gtk_paper_size_new")
-	core.PuregoSafeRegister(&xNewCustomPaperSize, lib, "gtk_paper_size_new_custom")
-	core.PuregoSafeRegister(&xNewFromGvariantPaperSize, lib, "gtk_paper_size_new_from_gvariant")
-	core.PuregoSafeRegister(&xNewFromIppPaperSize, lib, "gtk_paper_size_new_from_ipp")
-	core.PuregoSafeRegister(&xNewFromKeyFilePaperSize, lib, "gtk_paper_size_new_from_key_file")
-	core.PuregoSafeRegister(&xNewFromPpdPaperSize, lib, "gtk_paper_size_new_from_ppd")
+	core.PuregoSafeRegister(&xNewPaperSizeCustom, lib, "gtk_paper_size_new_custom")
+	core.PuregoSafeRegister(&xNewPaperSizeFromGvariant, lib, "gtk_paper_size_new_from_gvariant")
+	core.PuregoSafeRegister(&xNewPaperSizeFromIpp, lib, "gtk_paper_size_new_from_ipp")
+	core.PuregoSafeRegister(&xNewPaperSizeFromKeyFile, lib, "gtk_paper_size_new_from_key_file")
+	core.PuregoSafeRegister(&xNewPaperSizeFromPpd, lib, "gtk_paper_size_new_from_ppd")
 
 	core.PuregoSafeRegister(&xPaperSizeCopy, lib, "gtk_paper_size_copy")
 	core.PuregoSafeRegister(&xPaperSizeFree, lib, "gtk_paper_size_free")

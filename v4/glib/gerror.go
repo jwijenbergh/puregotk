@@ -59,25 +59,25 @@ func NewError(DomainVar Quark, CodeVar int, FormatVar string, varArgs ...interfa
 	return cret
 }
 
-var xNewLiteralError func(Quark, int, string) *Error
+var xNewErrorLiteral func(Quark, int, string) *Error
 
 // Creates a new #GError; unlike g_error_new(), @message is
 // not a printf()-style format string. Use this function if
 // @message contains text you don't have control over,
 // that could include printf() escape sequences.
-func NewLiteralError(DomainVar Quark, CodeVar int, MessageVar string) *Error {
+func NewErrorLiteral(DomainVar Quark, CodeVar int, MessageVar string) *Error {
 
-	cret := xNewLiteralError(DomainVar, CodeVar, MessageVar)
+	cret := xNewErrorLiteral(DomainVar, CodeVar, MessageVar)
 	return cret
 }
 
-var xNewValistError func(Quark, int, string, []interface{}) *Error
+var xNewErrorValist func(Quark, int, string, []interface{}) *Error
 
 // Creates a new #GError with the given @domain and @code,
 // and a message formatted with @format.
-func NewValistError(DomainVar Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) *Error {
+func NewErrorValist(DomainVar Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) *Error {
 
-	cret := xNewValistError(DomainVar, CodeVar, FormatVar, ArgsVar)
+	cret := xNewErrorValist(DomainVar, CodeVar, FormatVar, ArgsVar)
 	return cret
 }
 
@@ -220,8 +220,8 @@ func init() {
 	core.PuregoSafeRegister(&xSetErrorLiteral, lib, "g_set_error_literal")
 
 	core.PuregoSafeRegister(&xNewError, lib, "g_error_new")
-	core.PuregoSafeRegister(&xNewLiteralError, lib, "g_error_new_literal")
-	core.PuregoSafeRegister(&xNewValistError, lib, "g_error_new_valist")
+	core.PuregoSafeRegister(&xNewErrorLiteral, lib, "g_error_new_literal")
+	core.PuregoSafeRegister(&xNewErrorValist, lib, "g_error_new_valist")
 
 	core.PuregoSafeRegister(&xErrorCopy, lib, "g_error_copy")
 	core.PuregoSafeRegister(&xErrorFree, lib, "g_error_free")

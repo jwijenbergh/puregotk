@@ -89,14 +89,14 @@ func NewConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttr
 	return cls
 }
 
-var xNewConstantConstraint func(uintptr, ConstraintAttribute, ConstraintRelation, float64, int) uintptr
+var xNewConstraintConstant func(uintptr, ConstraintAttribute, ConstraintRelation, float64, int) uintptr
 
 // Creates a new constraint representing a relation between a layout
 // attribute on a target and a constant value.
-func NewConstantConstraint(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, ConstantVar float64, StrengthVar int) *Constraint {
+func NewConstraintConstant(TargetVar ConstraintTarget, TargetAttributeVar ConstraintAttribute, RelationVar ConstraintRelation, ConstantVar float64, StrengthVar int) *Constraint {
 	var cls *Constraint
 
-	cret := xNewConstantConstraint(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
+	cret := xNewConstraintConstant(TargetVar.GoPointer(), TargetAttributeVar, RelationVar, ConstantVar, StrengthVar)
 
 	if cret == 0 {
 		return nil
@@ -248,7 +248,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewConstraint, lib, "gtk_constraint_new")
-	core.PuregoSafeRegister(&xNewConstantConstraint, lib, "gtk_constraint_new_constant")
+	core.PuregoSafeRegister(&xNewConstraintConstant, lib, "gtk_constraint_new_constant")
 
 	core.PuregoSafeRegister(&xConstraintGetConstant, lib, "gtk_constraint_get_constant")
 	core.PuregoSafeRegister(&xConstraintGetMultiplier, lib, "gtk_constraint_get_multiplier")

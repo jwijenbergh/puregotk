@@ -68,15 +68,15 @@ func NewSpringParams(DampingRatioVar float64, MassVar float64, StiffnessVar floa
 	return cret
 }
 
-var xNewFullSpringParams func(float64, float64, float64) *SpringParams
+var xNewSpringParamsFull func(float64, float64, float64) *SpringParams
 
 // Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
 //
 // See [ctor@SpringParams.new] for a simplified constructor using damping ratio
 // instead of @damping.
-func NewFullSpringParams(DampingVar float64, MassVar float64, StiffnessVar float64) *SpringParams {
+func NewSpringParamsFull(DampingVar float64, MassVar float64, StiffnessVar float64) *SpringParams {
 
-	cret := xNewFullSpringParams(DampingVar, MassVar, StiffnessVar)
+	cret := xNewSpringParamsFull(DampingVar, MassVar, StiffnessVar)
 	return cret
 }
 
@@ -143,7 +143,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewSpringParams, lib, "adw_spring_params_new")
-	core.PuregoSafeRegister(&xNewFullSpringParams, lib, "adw_spring_params_new_full")
+	core.PuregoSafeRegister(&xNewSpringParamsFull, lib, "adw_spring_params_new_full")
 
 	core.PuregoSafeRegister(&xSpringParamsGetDamping, lib, "adw_spring_params_get_damping")
 	core.PuregoSafeRegister(&xSpringParamsGetDampingRatio, lib, "adw_spring_params_get_damping_ratio")

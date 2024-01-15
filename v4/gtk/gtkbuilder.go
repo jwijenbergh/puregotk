@@ -279,17 +279,17 @@ func NewBuilder() *Builder {
 	return cls
 }
 
-var xNewFromFileBuilder func(string) uintptr
+var xNewBuilderFromFile func(string) uintptr
 
 // Parses the UI definition in the file @filename.
 //
 // If there is an error opening the file or parsing the description then
 // the program will be aborted. You should only ever attempt to parse
 // user interface descriptions that are shipped as part of your program.
-func NewFromFileBuilder(FilenameVar string) *Builder {
+func NewBuilderFromFile(FilenameVar string) *Builder {
 	var cls *Builder
 
-	cret := xNewFromFileBuilder(FilenameVar)
+	cret := xNewBuilderFromFile(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -299,16 +299,16 @@ func NewFromFileBuilder(FilenameVar string) *Builder {
 	return cls
 }
 
-var xNewFromResourceBuilder func(string) uintptr
+var xNewBuilderFromResource func(string) uintptr
 
 // Parses the UI definition at @resource_path.
 //
 // If there is an error locating the resource or parsing the
 // description, then the program will be aborted.
-func NewFromResourceBuilder(ResourcePathVar string) *Builder {
+func NewBuilderFromResource(ResourcePathVar string) *Builder {
 	var cls *Builder
 
-	cret := xNewFromResourceBuilder(ResourcePathVar)
+	cret := xNewBuilderFromResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -318,7 +318,7 @@ func NewFromResourceBuilder(ResourcePathVar string) *Builder {
 	return cls
 }
 
-var xNewFromStringBuilder func(string, int) uintptr
+var xNewBuilderFromString func(string, int) uintptr
 
 // Parses the UI definition in @string.
 //
@@ -328,10 +328,10 @@ var xNewFromStringBuilder func(string, int) uintptr
 // If there is an error parsing @string then the program will be
 // aborted. You should not attempt to parse user interface description
 // from untrusted sources.
-func NewFromStringBuilder(StringVar string, LengthVar int) *Builder {
+func NewBuilderFromString(StringVar string, LengthVar int) *Builder {
 	var cls *Builder
 
-	cret := xNewFromStringBuilder(StringVar, LengthVar)
+	cret := xNewBuilderFromString(StringVar, LengthVar)
 
 	if cret == 0 {
 		return nil
@@ -739,9 +739,9 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewBuilder, lib, "gtk_builder_new")
-	core.PuregoSafeRegister(&xNewFromFileBuilder, lib, "gtk_builder_new_from_file")
-	core.PuregoSafeRegister(&xNewFromResourceBuilder, lib, "gtk_builder_new_from_resource")
-	core.PuregoSafeRegister(&xNewFromStringBuilder, lib, "gtk_builder_new_from_string")
+	core.PuregoSafeRegister(&xNewBuilderFromFile, lib, "gtk_builder_new_from_file")
+	core.PuregoSafeRegister(&xNewBuilderFromResource, lib, "gtk_builder_new_from_resource")
+	core.PuregoSafeRegister(&xNewBuilderFromString, lib, "gtk_builder_new_from_string")
 
 	core.PuregoSafeRegister(&xBuilderAddFromFile, lib, "gtk_builder_add_from_file")
 	core.PuregoSafeRegister(&xBuilderAddFromResource, lib, "gtk_builder_add_from_resource")

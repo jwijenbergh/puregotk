@@ -93,7 +93,7 @@ func NewPicture() *Picture {
 	return cls
 }
 
-var xNewForFilePicture func(uintptr) uintptr
+var xNewPictureForFile func(uintptr) uintptr
 
 // Creates a new `GtkPicture` displaying the given @file.
 //
@@ -103,10 +103,10 @@ var xNewForFilePicture func(uintptr) uintptr
 // If you need to detect failures to load the file, use
 // [ctor@Gdk.Texture.new_from_file] to load the file yourself,
 // then create the `GtkPicture` from the texture.
-func NewForFilePicture(FileVar gio.File) *Picture {
+func NewPictureForFile(FileVar gio.File) *Picture {
 	var cls *Picture
 
-	cret := xNewForFilePicture(FileVar.GoPointer())
+	cret := xNewPictureForFile(FileVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -117,16 +117,16 @@ func NewForFilePicture(FileVar gio.File) *Picture {
 	return cls
 }
 
-var xNewForFilenamePicture func(string) uintptr
+var xNewPictureForFilename func(string) uintptr
 
 // Creates a new `GtkPicture` displaying the file @filename.
 //
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
-func NewForFilenamePicture(FilenameVar string) *Picture {
+func NewPictureForFilename(FilenameVar string) *Picture {
 	var cls *Picture
 
-	cret := xNewForFilenamePicture(FilenameVar)
+	cret := xNewPictureForFilename(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -137,16 +137,16 @@ func NewForFilenamePicture(FilenameVar string) *Picture {
 	return cls
 }
 
-var xNewForPaintablePicture func(uintptr) uintptr
+var xNewPictureForPaintable func(uintptr) uintptr
 
 // Creates a new `GtkPicture` displaying @paintable.
 //
 // The `GtkPicture` will track changes to the @paintable and update
 // its size and contents in response to it.
-func NewForPaintablePicture(PaintableVar gdk.Paintable) *Picture {
+func NewPictureForPaintable(PaintableVar gdk.Paintable) *Picture {
 	var cls *Picture
 
-	cret := xNewForPaintablePicture(PaintableVar.GoPointer())
+	cret := xNewPictureForPaintable(PaintableVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -157,7 +157,7 @@ func NewForPaintablePicture(PaintableVar gdk.Paintable) *Picture {
 	return cls
 }
 
-var xNewForPixbufPicture func(uintptr) uintptr
+var xNewPictureForPixbuf func(uintptr) uintptr
 
 // Creates a new `GtkPicture` displaying @pixbuf.
 //
@@ -165,10 +165,10 @@ var xNewForPixbufPicture func(uintptr) uintptr
 // See that function for details.
 //
 // The pixbuf must not be modified after passing it to this function.
-func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Picture {
+func NewPictureForPixbuf(PixbufVar *gdkpixbuf.Pixbuf) *Picture {
 	var cls *Picture
 
-	cret := xNewForPixbufPicture(PixbufVar.GoPointer())
+	cret := xNewPictureForPixbuf(PixbufVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -179,16 +179,16 @@ func NewForPixbufPicture(PixbufVar *gdkpixbuf.Pixbuf) *Picture {
 	return cls
 }
 
-var xNewForResourcePicture func(string) uintptr
+var xNewPictureForResource func(string) uintptr
 
 // Creates a new `GtkPicture` displaying the resource at @resource_path.
 //
 // This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
 // See that function for details.
-func NewForResourcePicture(ResourcePathVar string) *Picture {
+func NewPictureForResource(ResourcePathVar string) *Picture {
 	var cls *Picture
 
-	cret := xNewForResourcePicture(ResourcePathVar)
+	cret := xNewPictureForResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -554,11 +554,11 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewPicture, lib, "gtk_picture_new")
-	core.PuregoSafeRegister(&xNewForFilePicture, lib, "gtk_picture_new_for_file")
-	core.PuregoSafeRegister(&xNewForFilenamePicture, lib, "gtk_picture_new_for_filename")
-	core.PuregoSafeRegister(&xNewForPaintablePicture, lib, "gtk_picture_new_for_paintable")
-	core.PuregoSafeRegister(&xNewForPixbufPicture, lib, "gtk_picture_new_for_pixbuf")
-	core.PuregoSafeRegister(&xNewForResourcePicture, lib, "gtk_picture_new_for_resource")
+	core.PuregoSafeRegister(&xNewPictureForFile, lib, "gtk_picture_new_for_file")
+	core.PuregoSafeRegister(&xNewPictureForFilename, lib, "gtk_picture_new_for_filename")
+	core.PuregoSafeRegister(&xNewPictureForPaintable, lib, "gtk_picture_new_for_paintable")
+	core.PuregoSafeRegister(&xNewPictureForPixbuf, lib, "gtk_picture_new_for_pixbuf")
+	core.PuregoSafeRegister(&xNewPictureForResource, lib, "gtk_picture_new_for_resource")
 
 	core.PuregoSafeRegister(&xPictureGetAlternativeText, lib, "gtk_picture_get_alternative_text")
 	core.PuregoSafeRegister(&xPictureGetCanShrink, lib, "gtk_picture_get_can_shrink")

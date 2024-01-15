@@ -61,17 +61,17 @@ func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint) (*InetAddressMask,
 
 }
 
-var xNewFromStringInetAddressMask func(string, **glib.Error) uintptr
+var xNewInetAddressMaskFromString func(string, **glib.Error) uintptr
 
 // Parses @mask_string as an IP address and (optional) length, and
 // creates a new #GInetAddressMask. The length, if present, is
 // delimited by a "/". If it is not present, then the length is
 // assumed to be the full length of the address.
-func NewFromStringInetAddressMask(MaskStringVar string) (*InetAddressMask, error) {
+func NewInetAddressMaskFromString(MaskStringVar string) (*InetAddressMask, error) {
 	var cls *InetAddressMask
 	var cerr *glib.Error
 
-	cret := xNewFromStringInetAddressMask(MaskStringVar, &cerr)
+	cret := xNewInetAddressMaskFromString(MaskStringVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -211,7 +211,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewInetAddressMask, lib, "g_inet_address_mask_new")
-	core.PuregoSafeRegister(&xNewFromStringInetAddressMask, lib, "g_inet_address_mask_new_from_string")
+	core.PuregoSafeRegister(&xNewInetAddressMaskFromString, lib, "g_inet_address_mask_new_from_string")
 
 	core.PuregoSafeRegister(&xInetAddressMaskEqual, lib, "g_inet_address_mask_equal")
 	core.PuregoSafeRegister(&xInetAddressMaskGetAddress, lib, "g_inet_address_mask_get_address")

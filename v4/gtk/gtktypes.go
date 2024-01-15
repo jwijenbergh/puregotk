@@ -30,21 +30,21 @@ func (x *Bitset) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewEmptyBitset func() *Bitset
+var xNewBitsetEmpty func() *Bitset
 
 // Creates a new empty bitset.
-func NewEmptyBitset() *Bitset {
+func NewBitsetEmpty() *Bitset {
 
-	cret := xNewEmptyBitset()
+	cret := xNewBitsetEmpty()
 	return cret
 }
 
-var xNewRangeBitset func(uint, uint) *Bitset
+var xNewBitsetRange func(uint, uint) *Bitset
 
 // Creates a bitset with the given range set.
-func NewRangeBitset(StartVar uint, NItemsVar uint) *Bitset {
+func NewBitsetRange(StartVar uint, NItemsVar uint) *Bitset {
 
-	cret := xNewRangeBitset(StartVar, NItemsVar)
+	cret := xNewBitsetRange(StartVar, NItemsVar)
 	return cret
 }
 
@@ -379,8 +379,8 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewEmptyBitset, lib, "gtk_bitset_new_empty")
-	core.PuregoSafeRegister(&xNewRangeBitset, lib, "gtk_bitset_new_range")
+	core.PuregoSafeRegister(&xNewBitsetEmpty, lib, "gtk_bitset_new_empty")
+	core.PuregoSafeRegister(&xNewBitsetRange, lib, "gtk_bitset_new_range")
 
 	core.PuregoSafeRegister(&xBitsetAdd, lib, "gtk_bitset_add")
 	core.PuregoSafeRegister(&xBitsetAddRange, lib, "gtk_bitset_add_range")

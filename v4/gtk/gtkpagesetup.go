@@ -78,18 +78,18 @@ func NewPageSetup() *PageSetup {
 	return cls
 }
 
-var xNewFromFilePageSetup func(string, **glib.Error) uintptr
+var xNewPageSetupFromFile func(string, **glib.Error) uintptr
 
 // Reads the page setup from the file @file_name.
 //
 // Returns a new `GtkPageSetup` object with the restored
 // page setup, or %NULL if an error occurred.
 // See [method@Gtk.PageSetup.to_file].
-func NewFromFilePageSetup(FileNameVar string) (*PageSetup, error) {
+func NewPageSetupFromFile(FileNameVar string) (*PageSetup, error) {
 	var cls *PageSetup
 	var cerr *glib.Error
 
-	cret := xNewFromFilePageSetup(FileNameVar, &cerr)
+	cret := xNewPageSetupFromFile(FileNameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -103,16 +103,16 @@ func NewFromFilePageSetup(FileNameVar string) (*PageSetup, error) {
 
 }
 
-var xNewFromGvariantPageSetup func(*glib.Variant) uintptr
+var xNewPageSetupFromGvariant func(*glib.Variant) uintptr
 
 // Desrialize a page setup from an a{sv} variant.
 //
 // The variant must be in the format produced by
 // [method@Gtk.PageSetup.to_gvariant].
-func NewFromGvariantPageSetup(VariantVar *glib.Variant) *PageSetup {
+func NewPageSetupFromGvariant(VariantVar *glib.Variant) *PageSetup {
 	var cls *PageSetup
 
-	cret := xNewFromGvariantPageSetup(VariantVar)
+	cret := xNewPageSetupFromGvariant(VariantVar)
 
 	if cret == 0 {
 		return nil
@@ -122,18 +122,18 @@ func NewFromGvariantPageSetup(VariantVar *glib.Variant) *PageSetup {
 	return cls
 }
 
-var xNewFromKeyFilePageSetup func(*glib.KeyFile, string, **glib.Error) uintptr
+var xNewPageSetupFromKeyFile func(*glib.KeyFile, string, **glib.Error) uintptr
 
 // Reads the page setup from the group @group_name in the key file
 // @key_file.
 //
 // Returns a new `GtkPageSetup` object with the restored
 // page setup, or %NULL if an error occurred.
-func NewFromKeyFilePageSetup(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PageSetup, error) {
+func NewPageSetupFromKeyFile(KeyFileVar *glib.KeyFile, GroupNameVar string) (*PageSetup, error) {
 	var cls *PageSetup
 	var cerr *glib.Error
 
-	cret := xNewFromKeyFilePageSetup(KeyFileVar, GroupNameVar, &cerr)
+	cret := xNewPageSetupFromKeyFile(KeyFileVar, GroupNameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -414,9 +414,9 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewPageSetup, lib, "gtk_page_setup_new")
-	core.PuregoSafeRegister(&xNewFromFilePageSetup, lib, "gtk_page_setup_new_from_file")
-	core.PuregoSafeRegister(&xNewFromGvariantPageSetup, lib, "gtk_page_setup_new_from_gvariant")
-	core.PuregoSafeRegister(&xNewFromKeyFilePageSetup, lib, "gtk_page_setup_new_from_key_file")
+	core.PuregoSafeRegister(&xNewPageSetupFromFile, lib, "gtk_page_setup_new_from_file")
+	core.PuregoSafeRegister(&xNewPageSetupFromGvariant, lib, "gtk_page_setup_new_from_gvariant")
+	core.PuregoSafeRegister(&xNewPageSetupFromKeyFile, lib, "gtk_page_setup_new_from_key_file")
 
 	core.PuregoSafeRegister(&xPageSetupCopy, lib, "gtk_page_setup_copy")
 	core.PuregoSafeRegister(&xPageSetupGetBottomMargin, lib, "gtk_page_setup_get_bottom_margin")

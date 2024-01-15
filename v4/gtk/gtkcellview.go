@@ -55,7 +55,7 @@ func NewCellView() *CellView {
 	return cls
 }
 
-var xNewWithContextCellView func(uintptr, uintptr) uintptr
+var xNewCellViewWithContext func(uintptr, uintptr) uintptr
 
 // Creates a new `GtkCellView` widget with a specific `GtkCellArea`
 // to layout cells and a specific `GtkCellAreaContext`.
@@ -64,10 +64,10 @@ var xNewWithContextCellView func(uintptr, uintptr) uintptr
 // the underlying area synchronize the geometry for those cells,
 // in this way alignments with cellviews for other rows are
 // possible.
-func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *CellView {
+func NewCellViewWithContext(AreaVar *CellArea, ContextVar *CellAreaContext) *CellView {
 	var cls *CellView
 
-	cret := xNewWithContextCellView(AreaVar.GoPointer(), ContextVar.GoPointer())
+	cret := xNewCellViewWithContext(AreaVar.GoPointer(), ContextVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -78,15 +78,15 @@ func NewWithContextCellView(AreaVar *CellArea, ContextVar *CellAreaContext) *Cel
 	return cls
 }
 
-var xNewWithMarkupCellView func(string) uintptr
+var xNewCellViewWithMarkup func(string) uintptr
 
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
 // to it, and makes it show @markup. The text can be marked up with
 // the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
-func NewWithMarkupCellView(MarkupVar string) *CellView {
+func NewCellViewWithMarkup(MarkupVar string) *CellView {
 	var cls *CellView
 
-	cret := xNewWithMarkupCellView(MarkupVar)
+	cret := xNewCellViewWithMarkup(MarkupVar)
 
 	if cret == 0 {
 		return nil
@@ -97,14 +97,14 @@ func NewWithMarkupCellView(MarkupVar string) *CellView {
 	return cls
 }
 
-var xNewWithTextCellView func(string) uintptr
+var xNewCellViewWithText func(string) uintptr
 
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
 // to it, and makes it show @text.
-func NewWithTextCellView(TextVar string) *CellView {
+func NewCellViewWithText(TextVar string) *CellView {
 	var cls *CellView
 
-	cret := xNewWithTextCellView(TextVar)
+	cret := xNewCellViewWithText(TextVar)
 
 	if cret == 0 {
 		return nil
@@ -115,14 +115,14 @@ func NewWithTextCellView(TextVar string) *CellView {
 	return cls
 }
 
-var xNewWithTextureCellView func(uintptr) uintptr
+var xNewCellViewWithTexture func(uintptr) uintptr
 
 // Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
 // to it, and makes it show @texture.
-func NewWithTextureCellView(TextureVar *gdk.Texture) *CellView {
+func NewCellViewWithTexture(TextureVar *gdk.Texture) *CellView {
 	var cls *CellView
 
-	cret := xNewWithTextureCellView(TextureVar.GoPointer())
+	cret := xNewCellViewWithTexture(TextureVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -516,10 +516,10 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewCellView, lib, "gtk_cell_view_new")
-	core.PuregoSafeRegister(&xNewWithContextCellView, lib, "gtk_cell_view_new_with_context")
-	core.PuregoSafeRegister(&xNewWithMarkupCellView, lib, "gtk_cell_view_new_with_markup")
-	core.PuregoSafeRegister(&xNewWithTextCellView, lib, "gtk_cell_view_new_with_text")
-	core.PuregoSafeRegister(&xNewWithTextureCellView, lib, "gtk_cell_view_new_with_texture")
+	core.PuregoSafeRegister(&xNewCellViewWithContext, lib, "gtk_cell_view_new_with_context")
+	core.PuregoSafeRegister(&xNewCellViewWithMarkup, lib, "gtk_cell_view_new_with_markup")
+	core.PuregoSafeRegister(&xNewCellViewWithText, lib, "gtk_cell_view_new_with_text")
+	core.PuregoSafeRegister(&xNewCellViewWithTexture, lib, "gtk_cell_view_new_with_texture")
 
 	core.PuregoSafeRegister(&xCellViewGetDisplayedRow, lib, "gtk_cell_view_get_displayed_row")
 	core.PuregoSafeRegister(&xCellViewGetDrawSensitive, lib, "gtk_cell_view_get_draw_sensitive")

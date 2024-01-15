@@ -293,13 +293,13 @@ func GLShaderNewFromInternalPtr(ptr uintptr) *GLShader {
 	return cls
 }
 
-var xNewFromBytesGLShader func(*glib.Bytes) uintptr
+var xNewGLShaderFromBytes func(*glib.Bytes) uintptr
 
 // Creates a `GskGLShader` that will render pixels using the specified code.
-func NewFromBytesGLShader(SourcecodeVar *glib.Bytes) *GLShader {
+func NewGLShaderFromBytes(SourcecodeVar *glib.Bytes) *GLShader {
 	var cls *GLShader
 
-	cret := xNewFromBytesGLShader(SourcecodeVar)
+	cret := xNewGLShaderFromBytes(SourcecodeVar)
 
 	if cret == 0 {
 		return nil
@@ -309,13 +309,13 @@ func NewFromBytesGLShader(SourcecodeVar *glib.Bytes) *GLShader {
 	return cls
 }
 
-var xNewFromResourceGLShader func(string) uintptr
+var xNewGLShaderFromResource func(string) uintptr
 
 // Creates a `GskGLShader` that will render pixels using the specified code.
-func NewFromResourceGLShader(ResourcePathVar string) *GLShader {
+func NewGLShaderFromResource(ResourcePathVar string) *GLShader {
 	var cls *GLShader
 
-	cret := xNewFromResourceGLShader(ResourcePathVar)
+	cret := xNewGLShaderFromResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -578,8 +578,8 @@ func init() {
 	core.PuregoSafeRegister(&xShaderArgsBuilderToArgs, lib, "gsk_shader_args_builder_to_args")
 	core.PuregoSafeRegister(&xShaderArgsBuilderUnref, lib, "gsk_shader_args_builder_unref")
 
-	core.PuregoSafeRegister(&xNewFromBytesGLShader, lib, "gsk_gl_shader_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromResourceGLShader, lib, "gsk_gl_shader_new_from_resource")
+	core.PuregoSafeRegister(&xNewGLShaderFromBytes, lib, "gsk_gl_shader_new_from_bytes")
+	core.PuregoSafeRegister(&xNewGLShaderFromResource, lib, "gsk_gl_shader_new_from_resource")
 
 	core.PuregoSafeRegister(&xGLShaderCompile, lib, "gsk_gl_shader_compile")
 	core.PuregoSafeRegister(&xGLShaderFindUniformByName, lib, "gsk_gl_shader_find_uniform_by_name")

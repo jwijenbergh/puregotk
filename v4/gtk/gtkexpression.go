@@ -251,13 +251,13 @@ func NewConstantExpression(ValueTypeVar []interface{}, varArgs ...interface{}) *
 	return cls
 }
 
-var xNewForValueConstantExpression func(*gobject.Value) uintptr
+var xNewConstantExpressionForValue func(*gobject.Value) uintptr
 
 // Creates an expression that always evaluates to the given `value`.
-func NewForValueConstantExpression(ValueVar *gobject.Value) *ConstantExpression {
+func NewConstantExpressionForValue(ValueVar *gobject.Value) *ConstantExpression {
 	var cls *ConstantExpression
 
-	cret := xNewForValueConstantExpression(ValueVar)
+	cret := xNewConstantExpressionForValue(ValueVar)
 
 	if cret == 0 {
 		return nil
@@ -665,7 +665,7 @@ func NewPropertyExpression(ThisTypeVar []interface{}, ExpressionVar *Expression,
 	return cls
 }
 
-var xNewForPspecPropertyExpression func(uintptr, uintptr) uintptr
+var xNewPropertyExpressionForPspec func(uintptr, uintptr) uintptr
 
 // Creates an expression that looks up a property.
 //
@@ -675,10 +675,10 @@ var xNewForPspecPropertyExpression func(uintptr, uintptr) uintptr
 // If the resulting object conforms to `this_type`, its
 // property specified by `pspec` will be queried.
 // Otherwise, this expression's evaluation will fail.
-func NewForPspecPropertyExpression(ExpressionVar *Expression, PspecVar *gobject.ParamSpec) *PropertyExpression {
+func NewPropertyExpressionForPspec(ExpressionVar *Expression, PspecVar *gobject.ParamSpec) *PropertyExpression {
 	var cls *PropertyExpression
 
-	cret := xNewForPspecPropertyExpression(ExpressionVar.GoPointer(), PspecVar.GoPointer())
+	cret := xNewPropertyExpressionForPspec(ExpressionVar.GoPointer(), PspecVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -753,7 +753,7 @@ func init() {
 	core.PuregoSafeRegister(&xNewClosureExpression, lib, "gtk_closure_expression_new")
 
 	core.PuregoSafeRegister(&xNewConstantExpression, lib, "gtk_constant_expression_new")
-	core.PuregoSafeRegister(&xNewForValueConstantExpression, lib, "gtk_constant_expression_new_for_value")
+	core.PuregoSafeRegister(&xNewConstantExpressionForValue, lib, "gtk_constant_expression_new_for_value")
 
 	core.PuregoSafeRegister(&xConstantExpressionGetValue, lib, "gtk_constant_expression_get_value")
 
@@ -770,7 +770,7 @@ func init() {
 	core.PuregoSafeRegister(&xObjectExpressionGetObject, lib, "gtk_object_expression_get_object")
 
 	core.PuregoSafeRegister(&xNewPropertyExpression, lib, "gtk_property_expression_new")
-	core.PuregoSafeRegister(&xNewForPspecPropertyExpression, lib, "gtk_property_expression_new_for_pspec")
+	core.PuregoSafeRegister(&xNewPropertyExpressionForPspec, lib, "gtk_property_expression_new_for_pspec")
 
 	core.PuregoSafeRegister(&xPropertyExpressionGetExpression, lib, "gtk_property_expression_get_expression")
 	core.PuregoSafeRegister(&xPropertyExpressionGetPspec, lib, "gtk_property_expression_get_pspec")

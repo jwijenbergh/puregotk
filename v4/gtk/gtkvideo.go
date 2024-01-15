@@ -59,13 +59,13 @@ func NewVideo() *Video {
 	return cls
 }
 
-var xNewForFileVideo func(uintptr) uintptr
+var xNewVideoForFile func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @file.
-func NewForFileVideo(FileVar gio.File) *Video {
+func NewVideoForFile(FileVar gio.File) *Video {
 	var cls *Video
 
-	cret := xNewForFileVideo(FileVar.GoPointer())
+	cret := xNewVideoForFile(FileVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -76,16 +76,16 @@ func NewForFileVideo(FileVar gio.File) *Video {
 	return cls
 }
 
-var xNewForFilenameVideo func(string) uintptr
+var xNewVideoForFilename func(string) uintptr
 
 // Creates a `GtkVideo` to play back the given @filename.
 //
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file],
 // See that function for details.
-func NewForFilenameVideo(FilenameVar string) *Video {
+func NewVideoForFilename(FilenameVar string) *Video {
 	var cls *Video
 
-	cret := xNewForFilenameVideo(FilenameVar)
+	cret := xNewVideoForFilename(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -96,13 +96,13 @@ func NewForFilenameVideo(FilenameVar string) *Video {
 	return cls
 }
 
-var xNewForMediaStreamVideo func(uintptr) uintptr
+var xNewVideoForMediaStream func(uintptr) uintptr
 
 // Creates a `GtkVideo` to play back the given @stream.
-func NewForMediaStreamVideo(StreamVar *MediaStream) *Video {
+func NewVideoForMediaStream(StreamVar *MediaStream) *Video {
 	var cls *Video
 
-	cret := xNewForMediaStreamVideo(StreamVar.GoPointer())
+	cret := xNewVideoForMediaStream(StreamVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -113,16 +113,16 @@ func NewForMediaStreamVideo(StreamVar *MediaStream) *Video {
 	return cls
 }
 
-var xNewForResourceVideo func(string) uintptr
+var xNewVideoForResource func(string) uintptr
 
 // Creates a `GtkVideo` to play back the resource at the
 // given @resource_path.
 //
 // This is a utility function that calls [ctor@Gtk.Video.new_for_file].
-func NewForResourceVideo(ResourcePathVar string) *Video {
+func NewVideoForResource(ResourcePathVar string) *Video {
 	var cls *Video
 
-	cret := xNewForResourceVideo(ResourcePathVar)
+	cret := xNewVideoForResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -410,10 +410,10 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewVideo, lib, "gtk_video_new")
-	core.PuregoSafeRegister(&xNewForFileVideo, lib, "gtk_video_new_for_file")
-	core.PuregoSafeRegister(&xNewForFilenameVideo, lib, "gtk_video_new_for_filename")
-	core.PuregoSafeRegister(&xNewForMediaStreamVideo, lib, "gtk_video_new_for_media_stream")
-	core.PuregoSafeRegister(&xNewForResourceVideo, lib, "gtk_video_new_for_resource")
+	core.PuregoSafeRegister(&xNewVideoForFile, lib, "gtk_video_new_for_file")
+	core.PuregoSafeRegister(&xNewVideoForFilename, lib, "gtk_video_new_for_filename")
+	core.PuregoSafeRegister(&xNewVideoForMediaStream, lib, "gtk_video_new_for_media_stream")
+	core.PuregoSafeRegister(&xNewVideoForResource, lib, "gtk_video_new_for_resource")
 
 	core.PuregoSafeRegister(&xVideoGetAutoplay, lib, "gtk_video_get_autoplay")
 	core.PuregoSafeRegister(&xVideoGetFile, lib, "gtk_video_get_file")

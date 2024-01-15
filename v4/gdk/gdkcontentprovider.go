@@ -41,14 +41,14 @@ func ContentProviderNewFromInternalPtr(ptr uintptr) *ContentProvider {
 	return cls
 }
 
-var xNewForBytesContentProvider func(string, *glib.Bytes) uintptr
+var xNewContentProviderForBytes func(string, *glib.Bytes) uintptr
 
 // Create a content provider that provides the given @bytes as data for
 // the given @mime_type.
-func NewForBytesContentProvider(MimeTypeVar string, BytesVar *glib.Bytes) *ContentProvider {
+func NewContentProviderForBytes(MimeTypeVar string, BytesVar *glib.Bytes) *ContentProvider {
 	var cls *ContentProvider
 
-	cret := xNewForBytesContentProvider(MimeTypeVar, BytesVar)
+	cret := xNewContentProviderForBytes(MimeTypeVar, BytesVar)
 
 	if cret == 0 {
 		return nil
@@ -58,13 +58,13 @@ func NewForBytesContentProvider(MimeTypeVar string, BytesVar *glib.Bytes) *Conte
 	return cls
 }
 
-var xNewForValueContentProvider func(*gobject.Value) uintptr
+var xNewContentProviderForValue func(*gobject.Value) uintptr
 
 // Create a content provider that provides the given @value.
-func NewForValueContentProvider(ValueVar *gobject.Value) *ContentProvider {
+func NewContentProviderForValue(ValueVar *gobject.Value) *ContentProvider {
 	var cls *ContentProvider
 
-	cret := xNewForValueContentProvider(ValueVar)
+	cret := xNewContentProviderForValue(ValueVar)
 
 	if cret == 0 {
 		return nil
@@ -74,17 +74,17 @@ func NewForValueContentProvider(ValueVar *gobject.Value) *ContentProvider {
 	return cls
 }
 
-var xNewTypedContentProvider func([]interface{}, ...interface{}) uintptr
+var xNewContentProviderTyped func([]interface{}, ...interface{}) uintptr
 
 // Create a content provider that provides the value of the given
 // @type.
 //
 // The value is provided using G_VALUE_COLLECT(), so the same rules
 // apply as when calling g_object_new() or g_object_set().
-func NewTypedContentProvider(TypeVar []interface{}, varArgs ...interface{}) *ContentProvider {
+func NewContentProviderTyped(TypeVar []interface{}, varArgs ...interface{}) *ContentProvider {
 	var cls *ContentProvider
 
-	cret := xNewTypedContentProvider(TypeVar, varArgs...)
+	cret := xNewContentProviderTyped(TypeVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -94,7 +94,7 @@ func NewTypedContentProvider(TypeVar []interface{}, varArgs ...interface{}) *Con
 	return cls
 }
 
-var xNewUnionContentProvider func(uintptr, uint) uintptr
+var xNewContentProviderUnion func(uintptr, uint) uintptr
 
 // Creates a content provider that represents all the given @providers.
 //
@@ -113,10 +113,10 @@ var xNewUnionContentProvider func(uintptr, uint) uintptr
 //	                                }, 2);
 //
 // ```
-func NewUnionContentProvider(ProvidersVar uintptr, NProvidersVar uint) *ContentProvider {
+func NewContentProviderUnion(ProvidersVar uintptr, NProvidersVar uint) *ContentProvider {
 	var cls *ContentProvider
 
-	cret := xNewUnionContentProvider(ProvidersVar, NProvidersVar)
+	cret := xNewContentProviderUnion(ProvidersVar, NProvidersVar)
 
 	if cret == 0 {
 		return nil
@@ -240,10 +240,10 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewForBytesContentProvider, lib, "gdk_content_provider_new_for_bytes")
-	core.PuregoSafeRegister(&xNewForValueContentProvider, lib, "gdk_content_provider_new_for_value")
-	core.PuregoSafeRegister(&xNewTypedContentProvider, lib, "gdk_content_provider_new_typed")
-	core.PuregoSafeRegister(&xNewUnionContentProvider, lib, "gdk_content_provider_new_union")
+	core.PuregoSafeRegister(&xNewContentProviderForBytes, lib, "gdk_content_provider_new_for_bytes")
+	core.PuregoSafeRegister(&xNewContentProviderForValue, lib, "gdk_content_provider_new_for_value")
+	core.PuregoSafeRegister(&xNewContentProviderTyped, lib, "gdk_content_provider_new_typed")
+	core.PuregoSafeRegister(&xNewContentProviderUnion, lib, "gdk_content_provider_new_union")
 
 	core.PuregoSafeRegister(&xContentProviderContentChanged, lib, "gdk_content_provider_content_changed")
 	core.PuregoSafeRegister(&xContentProviderGetValue, lib, "gdk_content_provider_get_value")

@@ -52,14 +52,14 @@ func BuilderListItemFactoryNewFromInternalPtr(ptr uintptr) *BuilderListItemFacto
 	return cls
 }
 
-var xNewFromBytesBuilderListItemFactory func(uintptr, *glib.Bytes) uintptr
+var xNewBuilderListItemFactoryFromBytes func(uintptr, *glib.Bytes) uintptr
 
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using @bytes as the data to pass to `GtkBuilder`.
-func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.Bytes) *BuilderListItemFactory {
+func NewBuilderListItemFactoryFromBytes(ScopeVar BuilderScope, BytesVar *glib.Bytes) *BuilderListItemFactory {
 	var cls *BuilderListItemFactory
 
-	cret := xNewFromBytesBuilderListItemFactory(ScopeVar.GoPointer(), BytesVar)
+	cret := xNewBuilderListItemFactoryFromBytes(ScopeVar.GoPointer(), BytesVar)
 
 	if cret == 0 {
 		return nil
@@ -69,14 +69,14 @@ func NewFromBytesBuilderListItemFactory(ScopeVar BuilderScope, BytesVar *glib.By
 	return cls
 }
 
-var xNewFromResourceBuilderListItemFactory func(uintptr, string) uintptr
+var xNewBuilderListItemFactoryFromResource func(uintptr, string) uintptr
 
 // Creates a new `GtkBuilderListItemFactory` that instantiates widgets
 // using data read from the given @resource_path to pass to `GtkBuilder`.
-func NewFromResourceBuilderListItemFactory(ScopeVar BuilderScope, ResourcePathVar string) *BuilderListItemFactory {
+func NewBuilderListItemFactoryFromResource(ScopeVar BuilderScope, ResourcePathVar string) *BuilderListItemFactory {
 	var cls *BuilderListItemFactory
 
-	cret := xNewFromResourceBuilderListItemFactory(ScopeVar.GoPointer(), ResourcePathVar)
+	cret := xNewBuilderListItemFactoryFromResource(ScopeVar.GoPointer(), ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -136,8 +136,8 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromBytesBuilderListItemFactory, lib, "gtk_builder_list_item_factory_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromResourceBuilderListItemFactory, lib, "gtk_builder_list_item_factory_new_from_resource")
+	core.PuregoSafeRegister(&xNewBuilderListItemFactoryFromBytes, lib, "gtk_builder_list_item_factory_new_from_bytes")
+	core.PuregoSafeRegister(&xNewBuilderListItemFactoryFromResource, lib, "gtk_builder_list_item_factory_new_from_resource")
 
 	core.PuregoSafeRegister(&xBuilderListItemFactoryGetBytes, lib, "gtk_builder_list_item_factory_get_bytes")
 	core.PuregoSafeRegister(&xBuilderListItemFactoryGetResource, lib, "gtk_builder_list_item_factory_get_resource")

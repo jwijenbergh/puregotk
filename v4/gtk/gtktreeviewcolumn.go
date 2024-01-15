@@ -70,13 +70,13 @@ func NewTreeViewColumn() *TreeViewColumn {
 	return cls
 }
 
-var xNewWithAreaTreeViewColumn func(uintptr) uintptr
+var xNewTreeViewColumnWithArea func(uintptr) uintptr
 
 // Creates a new `GtkTreeViewColumn` using @area to render its cells.
-func NewWithAreaTreeViewColumn(AreaVar *CellArea) *TreeViewColumn {
+func NewTreeViewColumnWithArea(AreaVar *CellArea) *TreeViewColumn {
 	var cls *TreeViewColumn
 
-	cret := xNewWithAreaTreeViewColumn(AreaVar.GoPointer())
+	cret := xNewTreeViewColumnWithArea(AreaVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -87,7 +87,7 @@ func NewWithAreaTreeViewColumn(AreaVar *CellArea) *TreeViewColumn {
 	return cls
 }
 
-var xNewWithAttributesTreeViewColumn func(string, uintptr, ...interface{}) uintptr
+var xNewTreeViewColumnWithAttributes func(string, uintptr, ...interface{}) uintptr
 
 // Creates a new `GtkTreeViewColumn` with a number of default values.
 // This is equivalent to calling gtk_tree_view_column_set_title(),
@@ -111,10 +111,10 @@ var xNewWithAttributesTreeViewColumn func(string, uintptr, ...interface{}) uintp
 //	}
 //
 // ]|
-func NewWithAttributesTreeViewColumn(TitleVar string, CellVar *CellRenderer, varArgs ...interface{}) *TreeViewColumn {
+func NewTreeViewColumnWithAttributes(TitleVar string, CellVar *CellRenderer, varArgs ...interface{}) *TreeViewColumn {
 	var cls *TreeViewColumn
 
-	cret := xNewWithAttributesTreeViewColumn(TitleVar, CellVar.GoPointer(), varArgs...)
+	cret := xNewTreeViewColumnWithAttributes(TitleVar, CellVar.GoPointer(), varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -761,8 +761,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTreeViewColumn, lib, "gtk_tree_view_column_new")
-	core.PuregoSafeRegister(&xNewWithAreaTreeViewColumn, lib, "gtk_tree_view_column_new_with_area")
-	core.PuregoSafeRegister(&xNewWithAttributesTreeViewColumn, lib, "gtk_tree_view_column_new_with_attributes")
+	core.PuregoSafeRegister(&xNewTreeViewColumnWithArea, lib, "gtk_tree_view_column_new_with_area")
+	core.PuregoSafeRegister(&xNewTreeViewColumnWithAttributes, lib, "gtk_tree_view_column_new_with_attributes")
 
 	core.PuregoSafeRegister(&xTreeViewColumnAddAttribute, lib, "gtk_tree_view_column_add_attribute")
 	core.PuregoSafeRegister(&xTreeViewColumnCellGetPosition, lib, "gtk_tree_view_column_cell_get_position")

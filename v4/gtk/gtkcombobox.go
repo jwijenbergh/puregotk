@@ -108,17 +108,17 @@ func NewComboBox() *ComboBox {
 	return cls
 }
 
-var xNewWithEntryComboBox func() uintptr
+var xNewComboBoxWithEntry func() uintptr
 
 // Creates a new empty `GtkComboBox` with an entry.
 //
 // In order to use a combo box with entry, you need to tell it
 // which column of the model contains the text for the entry
 // by calling [method@Gtk.ComboBox.set_entry_text_column].
-func NewWithEntryComboBox() *ComboBox {
+func NewComboBoxWithEntry() *ComboBox {
 	var cls *ComboBox
 
-	cret := xNewWithEntryComboBox()
+	cret := xNewComboBoxWithEntry()
 
 	if cret == 0 {
 		return nil
@@ -129,13 +129,13 @@ func NewWithEntryComboBox() *ComboBox {
 	return cls
 }
 
-var xNewWithModelComboBox func(uintptr) uintptr
+var xNewComboBoxWithModel func(uintptr) uintptr
 
 // Creates a new `GtkComboBox` with a model.
-func NewWithModelComboBox(ModelVar TreeModel) *ComboBox {
+func NewComboBoxWithModel(ModelVar TreeModel) *ComboBox {
 	var cls *ComboBox
 
-	cret := xNewWithModelComboBox(ModelVar.GoPointer())
+	cret := xNewComboBoxWithModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -146,15 +146,15 @@ func NewWithModelComboBox(ModelVar TreeModel) *ComboBox {
 	return cls
 }
 
-var xNewWithModelAndEntryComboBox func(uintptr) uintptr
+var xNewComboBoxWithModelAndEntry func(uintptr) uintptr
 
 // Creates a new empty `GtkComboBox` with an entry and a model.
 //
 // See also [ctor@Gtk.ComboBox.new_with_entry].
-func NewWithModelAndEntryComboBox(ModelVar TreeModel) *ComboBox {
+func NewComboBoxWithModelAndEntry(ModelVar TreeModel) *ComboBox {
 	var cls *ComboBox
 
-	cret := xNewWithModelAndEntryComboBox(ModelVar.GoPointer())
+	cret := xNewComboBoxWithModelAndEntry(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -893,9 +893,9 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewComboBox, lib, "gtk_combo_box_new")
-	core.PuregoSafeRegister(&xNewWithEntryComboBox, lib, "gtk_combo_box_new_with_entry")
-	core.PuregoSafeRegister(&xNewWithModelComboBox, lib, "gtk_combo_box_new_with_model")
-	core.PuregoSafeRegister(&xNewWithModelAndEntryComboBox, lib, "gtk_combo_box_new_with_model_and_entry")
+	core.PuregoSafeRegister(&xNewComboBoxWithEntry, lib, "gtk_combo_box_new_with_entry")
+	core.PuregoSafeRegister(&xNewComboBoxWithModel, lib, "gtk_combo_box_new_with_model")
+	core.PuregoSafeRegister(&xNewComboBoxWithModelAndEntry, lib, "gtk_combo_box_new_with_model_and_entry")
 
 	core.PuregoSafeRegister(&xComboBoxGetActive, lib, "gtk_combo_box_get_active")
 	core.PuregoSafeRegister(&xComboBoxGetActiveId, lib, "gtk_combo_box_get_active_id")

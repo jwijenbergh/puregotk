@@ -52,16 +52,16 @@ func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *InetSocketAd
 	return cls
 }
 
-var xNewFromStringInetSocketAddress func(string, uint) uintptr
+var xNewInetSocketAddressFromString func(string, uint) uintptr
 
 // Creates a new #GInetSocketAddress for @address and @port.
 //
 // If @address is an IPv6 address, it can also contain a scope ID
 // (separated from the address by a `%`).
-func NewFromStringInetSocketAddress(AddressVar string, PortVar uint) *InetSocketAddress {
+func NewInetSocketAddressFromString(AddressVar string, PortVar uint) *InetSocketAddress {
 	var cls *InetSocketAddress
 
-	cret := xNewFromStringInetSocketAddress(AddressVar, PortVar)
+	cret := xNewInetSocketAddressFromString(AddressVar, PortVar)
 
 	if cret == 0 {
 		return nil
@@ -179,7 +179,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewInetSocketAddress, lib, "g_inet_socket_address_new")
-	core.PuregoSafeRegister(&xNewFromStringInetSocketAddress, lib, "g_inet_socket_address_new_from_string")
+	core.PuregoSafeRegister(&xNewInetSocketAddressFromString, lib, "g_inet_socket_address_new_from_string")
 
 	core.PuregoSafeRegister(&xInetSocketAddressGetAddress, lib, "g_inet_socket_address_get_address")
 	core.PuregoSafeRegister(&xInetSocketAddressGetFlowinfo, lib, "g_inet_socket_address_get_flowinfo")

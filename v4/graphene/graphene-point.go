@@ -19,7 +19,7 @@ func (x *Point) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocPoint func() *Point
+var xPointAlloc func() *Point
 
 // Allocates a new #graphene_point_t structure.
 //
@@ -43,9 +43,9 @@ var xAllocPoint func() *Point
 //	}
 //
 // ]|
-func AllocPoint() *Point {
+func PointAlloc() *Point {
 
-	cret := xAllocPoint()
+	cret := xPointAlloc()
 	return cret
 }
 
@@ -156,7 +156,7 @@ func init() {
 	}
 	core.PuregoSafeRegister(&xPointZero, lib, "graphene_point_zero")
 
-	core.PuregoSafeRegister(&xAllocPoint, lib, "graphene_point_alloc")
+	core.PuregoSafeRegister(&xPointAlloc, lib, "graphene_point_alloc")
 
 	core.PuregoSafeRegister(&xPointDistance, lib, "graphene_point_distance")
 	core.PuregoSafeRegister(&xPointEqual, lib, "graphene_point_equal")

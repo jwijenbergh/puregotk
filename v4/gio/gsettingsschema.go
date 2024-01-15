@@ -368,7 +368,7 @@ func (x *SettingsSchemaSource) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewFromDirectorySettingsSchemaSource func(string, *SettingsSchemaSource, bool, **glib.Error) *SettingsSchemaSource
+var xNewSettingsSchemaSourceFromDirectory func(string, *SettingsSchemaSource, bool, **glib.Error) *SettingsSchemaSource
 
 // Attempts to create a new schema source corresponding to the contents
 // of the given directory.
@@ -401,10 +401,10 @@ var xNewFromDirectorySettingsSchemaSource func(string, *SettingsSchemaSource, bo
 // For this second reason, except in very unusual situations, the
 // @parent should probably be given as the default schema source, as
 // returned by g_settings_schema_source_get_default().
-func NewFromDirectorySettingsSchemaSource(DirectoryVar string, ParentVar *SettingsSchemaSource, TrustedVar bool) (*SettingsSchemaSource, error) {
+func NewSettingsSchemaSourceFromDirectory(DirectoryVar string, ParentVar *SettingsSchemaSource, TrustedVar bool) (*SettingsSchemaSource, error) {
 	var cerr *glib.Error
 
-	cret := xNewFromDirectorySettingsSchemaSource(DirectoryVar, ParentVar, TrustedVar, &cerr)
+	cret := xNewSettingsSchemaSourceFromDirectory(DirectoryVar, ParentVar, TrustedVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -515,7 +515,7 @@ func init() {
 	core.PuregoSafeRegister(&xSettingsSchemaKeyRef, lib, "g_settings_schema_key_ref")
 	core.PuregoSafeRegister(&xSettingsSchemaKeyUnref, lib, "g_settings_schema_key_unref")
 
-	core.PuregoSafeRegister(&xNewFromDirectorySettingsSchemaSource, lib, "g_settings_schema_source_new_from_directory")
+	core.PuregoSafeRegister(&xNewSettingsSchemaSourceFromDirectory, lib, "g_settings_schema_source_new_from_directory")
 
 	core.PuregoSafeRegister(&xSettingsSchemaSourceListSchemas, lib, "g_settings_schema_source_list_schemas")
 	core.PuregoSafeRegister(&xSettingsSchemaSourceLookup, lib, "g_settings_schema_source_lookup")

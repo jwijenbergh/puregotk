@@ -224,7 +224,7 @@ func NewDialog() *Dialog {
 	return cls
 }
 
-var xNewWithButtonsDialog func(string, uintptr, DialogFlags, string, ...interface{}) uintptr
+var xNewDialogWithButtons func(string, uintptr, DialogFlags, string, ...interface{}) uintptr
 
 // Creates a new `GtkDialog` with the given title and transient parent.
 //
@@ -261,10 +261,10 @@ var xNewWithButtonsDialog func(string, uintptr, DialogFlags, string, ...interfac
 //	NULL);
 //
 // ```
-func NewWithButtonsDialog(TitleVar string, ParentVar *Window, FlagsVar DialogFlags, FirstButtonTextVar string, varArgs ...interface{}) *Dialog {
+func NewDialogWithButtons(TitleVar string, ParentVar *Window, FlagsVar DialogFlags, FirstButtonTextVar string, varArgs ...interface{}) *Dialog {
 	var cls *Dialog
 
-	cret := xNewWithButtonsDialog(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
+	cret := xNewDialogWithButtons(TitleVar, ParentVar.GoPointer(), FlagsVar, FirstButtonTextVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -725,7 +725,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewDialog, lib, "gtk_dialog_new")
-	core.PuregoSafeRegister(&xNewWithButtonsDialog, lib, "gtk_dialog_new_with_buttons")
+	core.PuregoSafeRegister(&xNewDialogWithButtons, lib, "gtk_dialog_new_with_buttons")
 
 	core.PuregoSafeRegister(&xDialogAddActionWidget, lib, "gtk_dialog_add_action_widget")
 	core.PuregoSafeRegister(&xDialogAddButton, lib, "gtk_dialog_add_button")

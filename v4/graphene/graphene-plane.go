@@ -22,14 +22,14 @@ func (x *Plane) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocPlane func() *Plane
+var xPlaneAlloc func() *Plane
 
 // Allocates a new #graphene_plane_t structure.
 //
 // The contents of the returned structure are undefined.
-func AllocPlane() *Plane {
+func PlaneAlloc() *Plane {
 
-	cret := xAllocPlane()
+	cret := xPlaneAlloc()
 	return cret
 }
 
@@ -175,7 +175,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocPlane, lib, "graphene_plane_alloc")
+	core.PuregoSafeRegister(&xPlaneAlloc, lib, "graphene_plane_alloc")
 
 	core.PuregoSafeRegister(&xPlaneDistance, lib, "graphene_plane_distance")
 	core.PuregoSafeRegister(&xPlaneEqual, lib, "graphene_plane_equal")

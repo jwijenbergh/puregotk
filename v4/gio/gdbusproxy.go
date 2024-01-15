@@ -82,14 +82,14 @@ func DBusProxyNewFromInternalPtr(ptr uintptr) *DBusProxy {
 	return cls
 }
 
-var xNewFinishDBusProxy func(uintptr, **glib.Error) uintptr
+var xNewDBusProxyFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes creating a #GDBusProxy.
-func NewFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
+func NewDBusProxyFinish(ResVar AsyncResult) (*DBusProxy, error) {
 	var cls *DBusProxy
 	var cerr *glib.Error
 
-	cret := xNewFinishDBusProxy(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusProxyFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -103,14 +103,14 @@ func NewFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
 
 }
 
-var xNewForBusFinishDBusProxy func(uintptr, **glib.Error) uintptr
+var xNewDBusProxyForBusFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes creating a #GDBusProxy.
-func NewForBusFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
+func NewDBusProxyForBusFinish(ResVar AsyncResult) (*DBusProxy, error) {
 	var cls *DBusProxy
 	var cerr *glib.Error
 
-	cret := xNewForBusFinishDBusProxy(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusProxyForBusFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -124,16 +124,16 @@ func NewForBusFinishDBusProxy(ResVar AsyncResult) (*DBusProxy, error) {
 
 }
 
-var xNewForBusSyncDBusProxy func(BusType, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
+var xNewDBusProxyForBusSync func(BusType, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
 
 // Like g_dbus_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
 //
 // #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
-func NewForBusSyncDBusProxy(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
+func NewDBusProxyForBusSync(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
 	var cls *DBusProxy
 	var cerr *glib.Error
 
-	cret := xNewForBusSyncDBusProxy(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusProxyForBusSync(BusTypeVar, FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -147,7 +147,7 @@ func NewForBusSyncDBusProxy(BusTypeVar BusType, FlagsVar DBusProxyFlags, InfoVar
 
 }
 
-var xNewSyncDBusProxy func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
+var xNewDBusProxySync func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, string, string, uintptr, **glib.Error) uintptr
 
 // Creates a proxy for accessing @interface_name on the remote object
 // at @object_path owned by @name at @connection and synchronously
@@ -171,11 +171,11 @@ var xNewSyncDBusProxy func(uintptr, DBusProxyFlags, *DBusInterfaceInfo, string, 
 // and g_dbus_proxy_new_finish() for the asynchronous version.
 //
 // #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
-func NewSyncDBusProxy(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
+func NewDBusProxySync(ConnectionVar *DBusConnection, FlagsVar DBusProxyFlags, InfoVar *DBusInterfaceInfo, NameVar string, ObjectPathVar string, InterfaceNameVar string, CancellableVar *Cancellable) (*DBusProxy, error) {
 	var cls *DBusProxy
 	var cerr *glib.Error
 
-	cret := xNewSyncDBusProxy(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusProxySync(ConnectionVar.GoPointer(), FlagsVar, InfoVar, NameVar, ObjectPathVar, InterfaceNameVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -801,10 +801,10 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFinishDBusProxy, lib, "g_dbus_proxy_new_finish")
-	core.PuregoSafeRegister(&xNewForBusFinishDBusProxy, lib, "g_dbus_proxy_new_for_bus_finish")
-	core.PuregoSafeRegister(&xNewForBusSyncDBusProxy, lib, "g_dbus_proxy_new_for_bus_sync")
-	core.PuregoSafeRegister(&xNewSyncDBusProxy, lib, "g_dbus_proxy_new_sync")
+	core.PuregoSafeRegister(&xNewDBusProxyFinish, lib, "g_dbus_proxy_new_finish")
+	core.PuregoSafeRegister(&xNewDBusProxyForBusFinish, lib, "g_dbus_proxy_new_for_bus_finish")
+	core.PuregoSafeRegister(&xNewDBusProxyForBusSync, lib, "g_dbus_proxy_new_for_bus_sync")
+	core.PuregoSafeRegister(&xNewDBusProxySync, lib, "g_dbus_proxy_new_sync")
 
 	core.PuregoSafeRegister(&xDBusProxyCall, lib, "g_dbus_proxy_call")
 	core.PuregoSafeRegister(&xDBusProxyCallFinish, lib, "g_dbus_proxy_call_finish")

@@ -61,13 +61,13 @@ func NewColorButton() *ColorButton {
 	return cls
 }
 
-var xNewWithRgbaColorButton func(*gdk.RGBA) uintptr
+var xNewColorButtonWithRgba func(*gdk.RGBA) uintptr
 
 // Creates a new color button showing the given color.
-func NewWithRgbaColorButton(RgbaVar *gdk.RGBA) *ColorButton {
+func NewColorButtonWithRgba(RgbaVar *gdk.RGBA) *ColorButton {
 	var cls *ColorButton
 
-	cret := xNewWithRgbaColorButton(RgbaVar)
+	cret := xNewColorButtonWithRgba(RgbaVar)
 
 	if cret == 0 {
 		return nil
@@ -357,7 +357,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewColorButton, lib, "gtk_color_button_new")
-	core.PuregoSafeRegister(&xNewWithRgbaColorButton, lib, "gtk_color_button_new_with_rgba")
+	core.PuregoSafeRegister(&xNewColorButtonWithRgba, lib, "gtk_color_button_new_with_rgba")
 
 	core.PuregoSafeRegister(&xColorButtonGetModal, lib, "gtk_color_button_get_modal")
 	core.PuregoSafeRegister(&xColorButtonGetTitle, lib, "gtk_color_button_get_title")

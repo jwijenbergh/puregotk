@@ -201,7 +201,7 @@ func NewSpinButton(AdjustmentVar *Adjustment, ClimbRateVar float64, DigitsVar ui
 	return cls
 }
 
-var xNewWithRangeSpinButton func(float64, float64, float64) uintptr
+var xNewSpinButtonWithRange func(float64, float64, float64) uintptr
 
 // Creates a new `GtkSpinButton` with the given properties.
 //
@@ -216,10 +216,10 @@ var xNewWithRangeSpinButton func(float64, float64, float64) uintptr
 // best if @step is a power of ten. If the resulting precision
 // is not suitable for your needs, use
 // [method@Gtk.SpinButton.set_digits] to correct it.
-func NewWithRangeSpinButton(MinVar float64, MaxVar float64, StepVar float64) *SpinButton {
+func NewSpinButtonWithRange(MinVar float64, MaxVar float64, StepVar float64) *SpinButton {
 	var cls *SpinButton
 
-	cret := xNewWithRangeSpinButton(MinVar, MaxVar, StepVar)
+	cret := xNewSpinButtonWithRange(MinVar, MaxVar, StepVar)
 
 	if cret == 0 {
 		return nil
@@ -1028,7 +1028,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewSpinButton, lib, "gtk_spin_button_new")
-	core.PuregoSafeRegister(&xNewWithRangeSpinButton, lib, "gtk_spin_button_new_with_range")
+	core.PuregoSafeRegister(&xNewSpinButtonWithRange, lib, "gtk_spin_button_new_with_range")
 
 	core.PuregoSafeRegister(&xSpinButtonConfigure, lib, "gtk_spin_button_configure")
 	core.PuregoSafeRegister(&xSpinButtonGetAdjustment, lib, "gtk_spin_button_get_adjustment")

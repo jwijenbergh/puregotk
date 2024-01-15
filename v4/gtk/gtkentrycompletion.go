@@ -81,17 +81,17 @@ func NewEntryCompletion() *EntryCompletion {
 	return cls
 }
 
-var xNewWithAreaEntryCompletion func(uintptr) uintptr
+var xNewEntryCompletionWithArea func(uintptr) uintptr
 
 // Creates a new `GtkEntryCompletion` object using the
 // specified @area.
 //
 // The `GtkCellArea` is used to layout cells in the underlying
 // `GtkTreeViewColumn` for the drop-down menu.
-func NewWithAreaEntryCompletion(AreaVar *CellArea) *EntryCompletion {
+func NewEntryCompletionWithArea(AreaVar *CellArea) *EntryCompletion {
 	var cls *EntryCompletion
 
-	cret := xNewWithAreaEntryCompletion(AreaVar.GoPointer())
+	cret := xNewEntryCompletionWithArea(AreaVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -568,7 +568,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewEntryCompletion, lib, "gtk_entry_completion_new")
-	core.PuregoSafeRegister(&xNewWithAreaEntryCompletion, lib, "gtk_entry_completion_new_with_area")
+	core.PuregoSafeRegister(&xNewEntryCompletionWithArea, lib, "gtk_entry_completion_new_with_area")
 
 	core.PuregoSafeRegister(&xEntryCompletionComplete, lib, "gtk_entry_completion_complete")
 	core.PuregoSafeRegister(&xEntryCompletionComputePrefix, lib, "gtk_entry_completion_compute_prefix")

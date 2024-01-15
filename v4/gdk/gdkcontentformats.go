@@ -112,26 +112,26 @@ func (x *FileList) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewFromArrayFileList func(uintptr, uint) *FileList
+var xNewFileListFromArray func(uintptr, uint) *FileList
 
 // Creates a new `GdkFileList` for the given array of files.
 //
 // This function is meant to be used by language bindings.
-func NewFromArrayFileList(FilesVar uintptr, NFilesVar uint) *FileList {
+func NewFileListFromArray(FilesVar uintptr, NFilesVar uint) *FileList {
 
-	cret := xNewFromArrayFileList(FilesVar, NFilesVar)
+	cret := xNewFileListFromArray(FilesVar, NFilesVar)
 	return cret
 }
 
-var xNewFromListFileList func(*glib.SList) *FileList
+var xNewFileListFromList func(*glib.SList) *FileList
 
 // Creates a new files list container from a singly linked list of
 // `GFile` instances.
 //
 // This function is meant to be used by language bindings
-func NewFromListFileList(FilesVar *glib.SList) *FileList {
+func NewFileListFromList(FilesVar *glib.SList) *FileList {
 
-	cret := xNewFromListFileList(FilesVar)
+	cret := xNewFileListFromList(FilesVar)
 	return cret
 }
 
@@ -192,8 +192,8 @@ func init() {
 	core.PuregoSafeRegister(&xContentFormatsBuilderToFormats, lib, "gdk_content_formats_builder_to_formats")
 	core.PuregoSafeRegister(&xContentFormatsBuilderUnref, lib, "gdk_content_formats_builder_unref")
 
-	core.PuregoSafeRegister(&xNewFromArrayFileList, lib, "gdk_file_list_new_from_array")
-	core.PuregoSafeRegister(&xNewFromListFileList, lib, "gdk_file_list_new_from_list")
+	core.PuregoSafeRegister(&xNewFileListFromArray, lib, "gdk_file_list_new_from_array")
+	core.PuregoSafeRegister(&xNewFileListFromList, lib, "gdk_file_list_new_from_list")
 
 	core.PuregoSafeRegister(&xFileListGetFiles, lib, "gdk_file_list_get_files")
 

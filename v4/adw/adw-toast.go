@@ -193,17 +193,17 @@ func NewToast(TitleVar string) *Toast {
 	return cls
 }
 
-var xNewFormatToast func(string, ...interface{}) uintptr
+var xNewToastFormat func(string, ...interface{}) uintptr
 
 // Creates a new `AdwToast`.
 //
 // The toast will use the format string as its title.
 //
 // See also: [ctor@Toast.new]
-func NewFormatToast(FormatVar string, varArgs ...interface{}) *Toast {
+func NewToastFormat(FormatVar string, varArgs ...interface{}) *Toast {
 	var cls *Toast
 
-	cret := xNewFormatToast(FormatVar, varArgs...)
+	cret := xNewToastFormat(FormatVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -470,7 +470,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewToast, lib, "adw_toast_new")
-	core.PuregoSafeRegister(&xNewFormatToast, lib, "adw_toast_new_format")
+	core.PuregoSafeRegister(&xNewToastFormat, lib, "adw_toast_new_format")
 
 	core.PuregoSafeRegister(&xToastDismiss, lib, "adw_toast_dismiss")
 	core.PuregoSafeRegister(&xToastGetActionName, lib, "adw_toast_get_action_name")

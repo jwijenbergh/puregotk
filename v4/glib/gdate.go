@@ -49,29 +49,29 @@ func NewDate() *Date {
 	return cret
 }
 
-var xNewDmyDate func(DateDay, DateMonth, DateYear) *Date
+var xNewDateDmy func(DateDay, DateMonth, DateYear) *Date
 
 // Create a new #GDate representing the given day-month-year triplet.
 //
 // The triplet you pass in must represent a valid date. Use g_date_valid_dmy()
 // if needed to validate it. The returned #GDate is guaranteed to be non-%NULL
 // and valid.
-func NewDmyDate(DayVar DateDay, MonthVar DateMonth, YearVar DateYear) *Date {
+func NewDateDmy(DayVar DateDay, MonthVar DateMonth, YearVar DateYear) *Date {
 
-	cret := xNewDmyDate(DayVar, MonthVar, YearVar)
+	cret := xNewDateDmy(DayVar, MonthVar, YearVar)
 	return cret
 }
 
-var xNewJulianDate func(uint32) *Date
+var xNewDateJulian func(uint32) *Date
 
 // Create a new #GDate representing the given Julian date.
 //
 // The @julian_day you pass in must be valid. Use g_date_valid_julian() if
 // needed to validate it. The returned #GDate is guaranteed to be non-%NULL and
 // valid.
-func NewJulianDate(JulianDayVar uint32) *Date {
+func NewDateJulian(JulianDayVar uint32) *Date {
 
-	cret := xNewJulianDate(JulianDayVar)
+	cret := xNewDateJulian(JulianDayVar)
 	return cret
 }
 
@@ -740,8 +740,8 @@ func init() {
 	core.PuregoSafeRegister(&xDateValidYear, lib, "g_date_valid_year")
 
 	core.PuregoSafeRegister(&xNewDate, lib, "g_date_new")
-	core.PuregoSafeRegister(&xNewDmyDate, lib, "g_date_new_dmy")
-	core.PuregoSafeRegister(&xNewJulianDate, lib, "g_date_new_julian")
+	core.PuregoSafeRegister(&xNewDateDmy, lib, "g_date_new_dmy")
+	core.PuregoSafeRegister(&xNewDateJulian, lib, "g_date_new_julian")
 
 	core.PuregoSafeRegister(&xDateAddDays, lib, "g_date_add_days")
 	core.PuregoSafeRegister(&xDateAddMonths, lib, "g_date_add_months")

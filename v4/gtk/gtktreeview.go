@@ -176,13 +176,13 @@ func NewTreeView() *TreeView {
 	return cls
 }
 
-var xNewWithModelTreeView func(uintptr) uintptr
+var xNewTreeViewWithModel func(uintptr) uintptr
 
 // Creates a new `GtkTreeView` widget with the model initialized to @model.
-func NewWithModelTreeView(ModelVar TreeModel) *TreeView {
+func NewTreeViewWithModel(ModelVar TreeModel) *TreeView {
 	var cls *TreeView
 
-	cret := xNewWithModelTreeView(ModelVar.GoPointer())
+	cret := xNewTreeViewWithModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -1735,7 +1735,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTreeView, lib, "gtk_tree_view_new")
-	core.PuregoSafeRegister(&xNewWithModelTreeView, lib, "gtk_tree_view_new_with_model")
+	core.PuregoSafeRegister(&xNewTreeViewWithModel, lib, "gtk_tree_view_new_with_model")
 
 	core.PuregoSafeRegister(&xTreeViewAppendColumn, lib, "gtk_tree_view_append_column")
 	core.PuregoSafeRegister(&xTreeViewCollapseAll, lib, "gtk_tree_view_collapse_all")

@@ -101,14 +101,14 @@ func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar Rea
 	return cls
 }
 
-var xNewResizableMemoryOutputStream func() uintptr
+var xNewMemoryOutputStreamResizable func() uintptr
 
 // Creates a new #GMemoryOutputStream, using g_realloc() and g_free()
 // for memory allocation.
-func NewResizableMemoryOutputStream() *MemoryOutputStream {
+func NewMemoryOutputStreamResizable() *MemoryOutputStream {
 	var cls *MemoryOutputStream
 
-	cret := xNewResizableMemoryOutputStream()
+	cret := xNewMemoryOutputStreamResizable()
 
 	if cret == 0 {
 		return nil
@@ -363,7 +363,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewMemoryOutputStream, lib, "g_memory_output_stream_new")
-	core.PuregoSafeRegister(&xNewResizableMemoryOutputStream, lib, "g_memory_output_stream_new_resizable")
+	core.PuregoSafeRegister(&xNewMemoryOutputStreamResizable, lib, "g_memory_output_stream_new_resizable")
 
 	core.PuregoSafeRegister(&xMemoryOutputStreamGetData, lib, "g_memory_output_stream_get_data")
 	core.PuregoSafeRegister(&xMemoryOutputStreamGetDataSize, lib, "g_memory_output_stream_get_data_size")

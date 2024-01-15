@@ -19,14 +19,14 @@ func (x *Sphere) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocSphere func() *Sphere
+var xSphereAlloc func() *Sphere
 
 // Allocates a new #graphene_sphere_t.
 //
 // The contents of the newly allocated structure are undefined.
-func AllocSphere() *Sphere {
+func SphereAlloc() *Sphere {
 
-	cret := xAllocSphere()
+	cret := xSphereAlloc()
 	return cret
 }
 
@@ -156,7 +156,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocSphere, lib, "graphene_sphere_alloc")
+	core.PuregoSafeRegister(&xSphereAlloc, lib, "graphene_sphere_alloc")
 
 	core.PuregoSafeRegister(&xSphereContainsPoint, lib, "graphene_sphere_contains_point")
 	core.PuregoSafeRegister(&xSphereDistance, lib, "graphene_sphere_distance")

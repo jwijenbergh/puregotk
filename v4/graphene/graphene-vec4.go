@@ -20,16 +20,16 @@ func (x *Vec4) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocVec4 func() *Vec4
+var xVec4Alloc func() *Vec4
 
 // Allocates a new #graphene_vec4_t structure.
 //
 // The contents of the returned structure are undefined.
 //
 // Use graphene_vec4_init() to initialize the vector.
-func AllocVec4() *Vec4 {
+func Vec4Alloc() *Vec4 {
 
-	cret := xAllocVec4()
+	cret := xVec4Alloc()
 	return cret
 }
 
@@ -363,7 +363,7 @@ func init() {
 	core.PuregoSafeRegister(&xVec4ZAxis, lib, "graphene_vec4_z_axis")
 	core.PuregoSafeRegister(&xVec4Zero, lib, "graphene_vec4_zero")
 
-	core.PuregoSafeRegister(&xAllocVec4, lib, "graphene_vec4_alloc")
+	core.PuregoSafeRegister(&xVec4Alloc, lib, "graphene_vec4_alloc")
 
 	core.PuregoSafeRegister(&xVec4Add, lib, "graphene_vec4_add")
 	core.PuregoSafeRegister(&xVec4Divide, lib, "graphene_vec4_divide")

@@ -49,15 +49,15 @@ func IconPaintableNewFromInternalPtr(ptr uintptr) *IconPaintable {
 	return cls
 }
 
-var xNewForFileIconPaintable func(uintptr, int, int) uintptr
+var xNewIconPaintableForFile func(uintptr, int, int) uintptr
 
 // Creates a `GtkIconPaintable` for a file with a given size and scale.
 //
 // The icon can then be rendered by using it as a `GdkPaintable`.
-func NewForFileIconPaintable(FileVar gio.File, SizeVar int, ScaleVar int) *IconPaintable {
+func NewIconPaintableForFile(FileVar gio.File, SizeVar int, ScaleVar int) *IconPaintable {
 	var cls *IconPaintable
 
-	cret := xNewForFileIconPaintable(FileVar.GoPointer(), SizeVar, ScaleVar)
+	cret := xNewIconPaintableForFile(FileVar.GoPointer(), SizeVar, ScaleVar)
 
 	if cret == 0 {
 		return nil
@@ -622,7 +622,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewForFileIconPaintable, lib, "gtk_icon_paintable_new_for_file")
+	core.PuregoSafeRegister(&xNewIconPaintableForFile, lib, "gtk_icon_paintable_new_for_file")
 
 	core.PuregoSafeRegister(&xIconPaintableGetFile, lib, "gtk_icon_paintable_get_file")
 	core.PuregoSafeRegister(&xIconPaintableGetIconName, lib, "gtk_icon_paintable_get_icon_name")

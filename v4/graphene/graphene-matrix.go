@@ -20,12 +20,12 @@ func (x *Matrix) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocMatrix func() *Matrix
+var xMatrixAlloc func() *Matrix
 
 // Allocates a new #graphene_matrix_t.
-func AllocMatrix() *Matrix {
+func MatrixAlloc() *Matrix {
 
-	cret := xAllocMatrix()
+	cret := xMatrixAlloc()
 	return cret
 }
 
@@ -792,7 +792,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocMatrix, lib, "graphene_matrix_alloc")
+	core.PuregoSafeRegister(&xMatrixAlloc, lib, "graphene_matrix_alloc")
 
 	core.PuregoSafeRegister(&xMatrixDecompose, lib, "graphene_matrix_decompose")
 	core.PuregoSafeRegister(&xMatrixDeterminant, lib, "graphene_matrix_determinant")

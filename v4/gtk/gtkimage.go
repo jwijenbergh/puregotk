@@ -98,7 +98,7 @@ func NewImage() *Image {
 	return cls
 }
 
-var xNewFromFileImage func(string) uintptr
+var xNewImageFromFile func(string) uintptr
 
 // Creates a new `GtkImage` displaying the file @filename.
 //
@@ -113,10 +113,10 @@ var xNewFromFileImage func(string) uintptr
 // The storage type (see [method@Gtk.Image.get_storage_type])
 // of the returned image is not defined, it will be whatever
 // is appropriate for displaying the file.
-func NewFromFileImage(FilenameVar string) *Image {
+func NewImageFromFile(FilenameVar string) *Image {
 	var cls *Image
 
-	cret := xNewFromFileImage(FilenameVar)
+	cret := xNewImageFromFile(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -127,17 +127,17 @@ func NewFromFileImage(FilenameVar string) *Image {
 	return cls
 }
 
-var xNewFromGiconImage func(uintptr) uintptr
+var xNewImageFromGicon func(uintptr) uintptr
 
 // Creates a `GtkImage` displaying an icon from the current icon theme.
 //
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromGiconImage(IconVar gio.Icon) *Image {
+func NewImageFromGicon(IconVar gio.Icon) *Image {
 	var cls *Image
 
-	cret := xNewFromGiconImage(IconVar.GoPointer())
+	cret := xNewImageFromGicon(IconVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -148,17 +148,17 @@ func NewFromGiconImage(IconVar gio.Icon) *Image {
 	return cls
 }
 
-var xNewFromIconNameImage func(string) uintptr
+var xNewImageFromIconName func(string) uintptr
 
 // Creates a `GtkImage` displaying an icon from the current icon theme.
 //
 // If the icon name isn’t known, a “broken image” icon will be
 // displayed instead. If the current icon theme is changed, the icon
 // will be updated appropriately.
-func NewFromIconNameImage(IconNameVar string) *Image {
+func NewImageFromIconName(IconNameVar string) *Image {
 	var cls *Image
 
-	cret := xNewFromIconNameImage(IconNameVar)
+	cret := xNewImageFromIconName(IconNameVar)
 
 	if cret == 0 {
 		return nil
@@ -169,7 +169,7 @@ func NewFromIconNameImage(IconNameVar string) *Image {
 	return cls
 }
 
-var xNewFromPaintableImage func(uintptr) uintptr
+var xNewImageFromPaintable func(uintptr) uintptr
 
 // Creates a new `GtkImage` displaying @paintable.
 //
@@ -179,10 +179,10 @@ var xNewFromPaintableImage func(uintptr) uintptr
 //
 // The `GtkImage` will track changes to the @paintable and update
 // its size and contents in response to it.
-func NewFromPaintableImage(PaintableVar gdk.Paintable) *Image {
+func NewImageFromPaintable(PaintableVar gdk.Paintable) *Image {
 	var cls *Image
 
-	cret := xNewFromPaintableImage(PaintableVar.GoPointer())
+	cret := xNewImageFromPaintable(PaintableVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -193,7 +193,7 @@ func NewFromPaintableImage(PaintableVar gdk.Paintable) *Image {
 	return cls
 }
 
-var xNewFromPixbufImage func(uintptr) uintptr
+var xNewImageFromPixbuf func(uintptr) uintptr
 
 // Creates a new `GtkImage` displaying @pixbuf.
 //
@@ -207,10 +207,10 @@ var xNewFromPixbufImage func(uintptr) uintptr
 // Note that this function just creates an `GtkImage` from the pixbuf.
 // The `GtkImage` created will not react to state changes. Should you
 // want that, you should use [ctor@Gtk.Image.new_from_icon_name].
-func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Image {
+func NewImageFromPixbuf(PixbufVar *gdkpixbuf.Pixbuf) *Image {
 	var cls *Image
 
-	cret := xNewFromPixbufImage(PixbufVar.GoPointer())
+	cret := xNewImageFromPixbuf(PixbufVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -221,7 +221,7 @@ func NewFromPixbufImage(PixbufVar *gdkpixbuf.Pixbuf) *Image {
 	return cls
 }
 
-var xNewFromResourceImage func(string) uintptr
+var xNewImageFromResource func(string) uintptr
 
 // Creates a new `GtkImage` displaying the resource file @resource_path.
 //
@@ -236,10 +236,10 @@ var xNewFromResourceImage func(string) uintptr
 // The storage type (see [method@Gtk.Image.get_storage_type]) of
 // the returned image is not defined, it will be whatever is
 // appropriate for displaying the file.
-func NewFromResourceImage(ResourcePathVar string) *Image {
+func NewImageFromResource(ResourcePathVar string) *Image {
 	var cls *Image
 
-	cret := xNewFromResourceImage(ResourcePathVar)
+	cret := xNewImageFromResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -597,12 +597,12 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewImage, lib, "gtk_image_new")
-	core.PuregoSafeRegister(&xNewFromFileImage, lib, "gtk_image_new_from_file")
-	core.PuregoSafeRegister(&xNewFromGiconImage, lib, "gtk_image_new_from_gicon")
-	core.PuregoSafeRegister(&xNewFromIconNameImage, lib, "gtk_image_new_from_icon_name")
-	core.PuregoSafeRegister(&xNewFromPaintableImage, lib, "gtk_image_new_from_paintable")
-	core.PuregoSafeRegister(&xNewFromPixbufImage, lib, "gtk_image_new_from_pixbuf")
-	core.PuregoSafeRegister(&xNewFromResourceImage, lib, "gtk_image_new_from_resource")
+	core.PuregoSafeRegister(&xNewImageFromFile, lib, "gtk_image_new_from_file")
+	core.PuregoSafeRegister(&xNewImageFromGicon, lib, "gtk_image_new_from_gicon")
+	core.PuregoSafeRegister(&xNewImageFromIconName, lib, "gtk_image_new_from_icon_name")
+	core.PuregoSafeRegister(&xNewImageFromPaintable, lib, "gtk_image_new_from_paintable")
+	core.PuregoSafeRegister(&xNewImageFromPixbuf, lib, "gtk_image_new_from_pixbuf")
+	core.PuregoSafeRegister(&xNewImageFromResource, lib, "gtk_image_new_from_resource")
 
 	core.PuregoSafeRegister(&xImageClear, lib, "gtk_image_clear")
 	core.PuregoSafeRegister(&xImageGetGicon, lib, "gtk_image_get_gicon")

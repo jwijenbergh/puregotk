@@ -56,7 +56,7 @@ func PixbufAnimationNewFromInternalPtr(ptr uintptr) *PixbufAnimation {
 	return cls
 }
 
-var xNewFromFilePixbufAnimation func(string, **glib.Error) uintptr
+var xNewPixbufAnimationFromFile func(string, **glib.Error) uintptr
 
 // Creates a new animation by loading it from a file.
 //
@@ -66,11 +66,11 @@ var xNewFromFilePixbufAnimation func(string, **glib.Error) uintptr
 // with a single frame will be created.
 //
 // Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.
-func NewFromFilePixbufAnimation(FilenameVar string) (*PixbufAnimation, error) {
+func NewPixbufAnimationFromFile(FilenameVar string) (*PixbufAnimation, error) {
 	var cls *PixbufAnimation
 	var cerr *glib.Error
 
-	cret := xNewFromFilePixbufAnimation(FilenameVar, &cerr)
+	cret := xNewPixbufAnimationFromFile(FilenameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -84,17 +84,17 @@ func NewFromFilePixbufAnimation(FilenameVar string) (*PixbufAnimation, error) {
 
 }
 
-var xNewFromResourcePixbufAnimation func(string, **glib.Error) uintptr
+var xNewPixbufAnimationFromResource func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf animation by loading an image from an resource.
 //
 // The file format is detected automatically. If `NULL` is returned, then
 // @error will be set.
-func NewFromResourcePixbufAnimation(ResourcePathVar string) (*PixbufAnimation, error) {
+func NewPixbufAnimationFromResource(ResourcePathVar string) (*PixbufAnimation, error) {
 	var cls *PixbufAnimation
 	var cerr *glib.Error
 
-	cret := xNewFromResourcePixbufAnimation(ResourcePathVar, &cerr)
+	cret := xNewPixbufAnimationFromResource(ResourcePathVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -108,7 +108,7 @@ func NewFromResourcePixbufAnimation(ResourcePathVar string) (*PixbufAnimation, e
 
 }
 
-var xNewFromStreamPixbufAnimation func(uintptr, uintptr, **glib.Error) uintptr
+var xNewPixbufAnimationFromStream func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new animation by loading it from an input stream.
 //
@@ -122,11 +122,11 @@ var xNewFromStreamPixbufAnimation func(uintptr, uintptr, **glib.Error) uintptr
 // `G_IO_ERROR` domains.
 //
 // The stream is not closed.
-func NewFromStreamPixbufAnimation(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) (*PixbufAnimation, error) {
+func NewPixbufAnimationFromStream(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) (*PixbufAnimation, error) {
 	var cls *PixbufAnimation
 	var cerr *glib.Error
 
-	cret := xNewFromStreamPixbufAnimation(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	cret := xNewPixbufAnimationFromStream(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -140,15 +140,15 @@ func NewFromStreamPixbufAnimation(StreamVar *gio.InputStream, CancellableVar *gi
 
 }
 
-var xNewFromStreamFinishPixbufAnimation func(uintptr, **glib.Error) uintptr
+var xNewPixbufAnimationFromStreamFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an asynchronous pixbuf animation creation operation started with
 // [func@GdkPixbuf.PixbufAnimation.new_from_stream_async].
-func NewFromStreamFinishPixbufAnimation(AsyncResultVar gio.AsyncResult) (*PixbufAnimation, error) {
+func NewPixbufAnimationFromStreamFinish(AsyncResultVar gio.AsyncResult) (*PixbufAnimation, error) {
 	var cls *PixbufAnimation
 	var cerr *glib.Error
 
-	cret := xNewFromStreamFinishPixbufAnimation(AsyncResultVar.GoPointer(), &cerr)
+	cret := xNewPixbufAnimationFromStreamFinish(AsyncResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -436,10 +436,10 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromFilePixbufAnimation, lib, "gdk_pixbuf_animation_new_from_file")
-	core.PuregoSafeRegister(&xNewFromResourcePixbufAnimation, lib, "gdk_pixbuf_animation_new_from_resource")
-	core.PuregoSafeRegister(&xNewFromStreamPixbufAnimation, lib, "gdk_pixbuf_animation_new_from_stream")
-	core.PuregoSafeRegister(&xNewFromStreamFinishPixbufAnimation, lib, "gdk_pixbuf_animation_new_from_stream_finish")
+	core.PuregoSafeRegister(&xNewPixbufAnimationFromFile, lib, "gdk_pixbuf_animation_new_from_file")
+	core.PuregoSafeRegister(&xNewPixbufAnimationFromResource, lib, "gdk_pixbuf_animation_new_from_resource")
+	core.PuregoSafeRegister(&xNewPixbufAnimationFromStream, lib, "gdk_pixbuf_animation_new_from_stream")
+	core.PuregoSafeRegister(&xNewPixbufAnimationFromStreamFinish, lib, "gdk_pixbuf_animation_new_from_stream_finish")
 
 	core.PuregoSafeRegister(&xPixbufAnimationGetHeight, lib, "gdk_pixbuf_animation_get_height")
 	core.PuregoSafeRegister(&xPixbufAnimationGetIter, lib, "gdk_pixbuf_animation_get_iter")

@@ -219,7 +219,7 @@ func NewLabel(StrVar string) *Label {
 	return cls
 }
 
-var xNewWithMnemonicLabel func(string) uintptr
+var xNewLabelWithMnemonic func(string) uintptr
 
 // Creates a new `GtkLabel`, containing the text in @str.
 //
@@ -235,10 +235,10 @@ var xNewWithMnemonicLabel func(string) uintptr
 // widget. For instance, if the label is inside a button or menu item,
 // the button or menu item will automatically become the mnemonic widget
 // and be activated by the mnemonic.
-func NewWithMnemonicLabel(StrVar string) *Label {
+func NewLabelWithMnemonic(StrVar string) *Label {
 	var cls *Label
 
-	cret := xNewWithMnemonicLabel(StrVar)
+	cret := xNewLabelWithMnemonic(StrVar)
 
 	if cret == 0 {
 		return nil
@@ -1145,7 +1145,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewLabel, lib, "gtk_label_new")
-	core.PuregoSafeRegister(&xNewWithMnemonicLabel, lib, "gtk_label_new_with_mnemonic")
+	core.PuregoSafeRegister(&xNewLabelWithMnemonic, lib, "gtk_label_new_with_mnemonic")
 
 	core.PuregoSafeRegister(&xLabelGetAttributes, lib, "gtk_label_get_attributes")
 	core.PuregoSafeRegister(&xLabelGetCurrentUri, lib, "gtk_label_get_current_uri")

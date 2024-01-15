@@ -119,7 +119,7 @@ func NewSocket(FamilyVar SocketFamily, TypeVar SocketType, ProtocolVar SocketPro
 
 }
 
-var xNewFromFdSocket func(int, **glib.Error) uintptr
+var xNewSocketFromFd func(int, **glib.Error) uintptr
 
 // Creates a new #GSocket from a native file descriptor
 // or winsock SOCKET handle.
@@ -134,11 +134,11 @@ var xNewFromFdSocket func(int, **glib.Error) uintptr
 //
 // Since GLib 2.46, it is no longer a fatal error to call this on a non-socket
 // descriptor.  Instead, a GError will be set with code %G_IO_ERROR_FAILED
-func NewFromFdSocket(FdVar int) (*Socket, error) {
+func NewSocketFromFd(FdVar int) (*Socket, error) {
 	var cls *Socket
 	var cerr *glib.Error
 
-	cret := xNewFromFdSocket(FdVar, &cerr)
+	cret := xNewSocketFromFd(FdVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -1465,7 +1465,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewSocket, lib, "g_socket_new")
-	core.PuregoSafeRegister(&xNewFromFdSocket, lib, "g_socket_new_from_fd")
+	core.PuregoSafeRegister(&xNewSocketFromFd, lib, "g_socket_new_from_fd")
 
 	core.PuregoSafeRegister(&xSocketAccept, lib, "g_socket_accept")
 	core.PuregoSafeRegister(&xSocketBind, lib, "g_socket_bind")

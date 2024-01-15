@@ -20,14 +20,14 @@ func (x *Frustum) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocFrustum func() *Frustum
+var xFrustumAlloc func() *Frustum
 
 // Allocates a new #graphene_frustum_t structure.
 //
 // The contents of the returned structure are undefined.
-func AllocFrustum() *Frustum {
+func FrustumAlloc() *Frustum {
 
-	cret := xAllocFrustum()
+	cret := xFrustumAlloc()
 	return cret
 }
 
@@ -123,7 +123,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocFrustum, lib, "graphene_frustum_alloc")
+	core.PuregoSafeRegister(&xFrustumAlloc, lib, "graphene_frustum_alloc")
 
 	core.PuregoSafeRegister(&xFrustumContainsPoint, lib, "graphene_frustum_contains_point")
 	core.PuregoSafeRegister(&xFrustumEqual, lib, "graphene_frustum_equal")

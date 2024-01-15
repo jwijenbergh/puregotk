@@ -89,7 +89,7 @@ func NewPixbufLoader() *PixbufLoader {
 	return cls
 }
 
-var xNewWithMimeTypePixbufLoader func(string, **glib.Error) uintptr
+var xNewPixbufLoaderWithMimeType func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf loader object that always attempts to parse
 // image data as if it were an image of MIME type @mime_type, instead of
@@ -106,11 +106,11 @@ var xNewWithMimeTypePixbufLoader func(string, **glib.Error) uintptr
 // To obtain the full list of supported mime types, call
 // gdk_pixbuf_format_get_mime_types() on each of the #GdkPixbufFormat
 // structs returned by gdk_pixbuf_get_formats().
-func NewWithMimeTypePixbufLoader(MimeTypeVar string) (*PixbufLoader, error) {
+func NewPixbufLoaderWithMimeType(MimeTypeVar string) (*PixbufLoader, error) {
 	var cls *PixbufLoader
 	var cerr *glib.Error
 
-	cret := xNewWithMimeTypePixbufLoader(MimeTypeVar, &cerr)
+	cret := xNewPixbufLoaderWithMimeType(MimeTypeVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -124,7 +124,7 @@ func NewWithMimeTypePixbufLoader(MimeTypeVar string) (*PixbufLoader, error) {
 
 }
 
-var xNewWithTypePixbufLoader func(string, **glib.Error) uintptr
+var xNewPixbufLoaderWithType func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf loader object that always attempts to parse
 // image data as if it were an image of type @image_type, instead of
@@ -140,11 +140,11 @@ var xNewWithTypePixbufLoader func(string, **glib.Error) uintptr
 // "xpm" are among the supported formats. To obtain the full list of
 // supported image formats, call gdk_pixbuf_format_get_name() on each
 // of the #GdkPixbufFormat structs returned by gdk_pixbuf_get_formats().
-func NewWithTypePixbufLoader(ImageTypeVar string) (*PixbufLoader, error) {
+func NewPixbufLoaderWithType(ImageTypeVar string) (*PixbufLoader, error) {
 	var cls *PixbufLoader
 	var cerr *glib.Error
 
-	cret := xNewWithTypePixbufLoader(ImageTypeVar, &cerr)
+	cret := xNewPixbufLoaderWithType(ImageTypeVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -380,8 +380,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewPixbufLoader, lib, "gdk_pixbuf_loader_new")
-	core.PuregoSafeRegister(&xNewWithMimeTypePixbufLoader, lib, "gdk_pixbuf_loader_new_with_mime_type")
-	core.PuregoSafeRegister(&xNewWithTypePixbufLoader, lib, "gdk_pixbuf_loader_new_with_type")
+	core.PuregoSafeRegister(&xNewPixbufLoaderWithMimeType, lib, "gdk_pixbuf_loader_new_with_mime_type")
+	core.PuregoSafeRegister(&xNewPixbufLoaderWithType, lib, "gdk_pixbuf_loader_new_with_type")
 
 	core.PuregoSafeRegister(&xPixbufLoaderClose, lib, "gdk_pixbuf_loader_close")
 	core.PuregoSafeRegister(&xPixbufLoaderGetAnimation, lib, "gdk_pixbuf_loader_get_animation")

@@ -22,14 +22,14 @@ func (x *Ray) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocRay func() *Ray
+var xRayAlloc func() *Ray
 
 // Allocates a new #graphene_ray_t structure.
 //
 // The contents of the returned structure are undefined.
-func AllocRay() *Ray {
+func RayAlloc() *Ray {
 
-	cret := xAllocRay()
+	cret := xRayAlloc()
 	return cret
 }
 
@@ -231,7 +231,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocRay, lib, "graphene_ray_alloc")
+	core.PuregoSafeRegister(&xRayAlloc, lib, "graphene_ray_alloc")
 
 	core.PuregoSafeRegister(&xRayEqual, lib, "graphene_ray_equal")
 	core.PuregoSafeRegister(&xRayFree, lib, "graphene_ray_free")

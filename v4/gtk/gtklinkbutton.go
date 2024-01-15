@@ -61,13 +61,13 @@ func NewLinkButton(UriVar string) *LinkButton {
 	return cls
 }
 
-var xNewWithLabelLinkButton func(string, string) uintptr
+var xNewLinkButtonWithLabel func(string, string) uintptr
 
 // Creates a new `GtkLinkButton` containing a label.
-func NewWithLabelLinkButton(UriVar string, LabelVar string) *LinkButton {
+func NewLinkButtonWithLabel(UriVar string, LabelVar string) *LinkButton {
 	var cls *LinkButton
 
-	cret := xNewWithLabelLinkButton(UriVar, LabelVar)
+	cret := xNewLinkButtonWithLabel(UriVar, LabelVar)
 
 	if cret == 0 {
 		return nil
@@ -383,7 +383,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewLinkButton, lib, "gtk_link_button_new")
-	core.PuregoSafeRegister(&xNewWithLabelLinkButton, lib, "gtk_link_button_new_with_label")
+	core.PuregoSafeRegister(&xNewLinkButtonWithLabel, lib, "gtk_link_button_new_with_label")
 
 	core.PuregoSafeRegister(&xLinkButtonGetUri, lib, "gtk_link_button_get_uri")
 	core.PuregoSafeRegister(&xLinkButtonGetVisited, lib, "gtk_link_button_get_visited")

@@ -60,14 +60,14 @@ func NewShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction) *Shortc
 	return cls
 }
 
-var xNewWithArgumentsShortcut func(uintptr, uintptr, string, ...interface{}) uintptr
+var xNewShortcutWithArguments func(uintptr, uintptr, string, ...interface{}) uintptr
 
 // Creates a new `GtkShortcut` that is triggered by @trigger and then activates
 // @action with arguments given by @format_string.
-func NewWithArgumentsShortcut(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction, FormatStringVar string, varArgs ...interface{}) *Shortcut {
+func NewShortcutWithArguments(TriggerVar *ShortcutTrigger, ActionVar *ShortcutAction, FormatStringVar string, varArgs ...interface{}) *Shortcut {
 	var cls *Shortcut
 
-	cret := xNewWithArgumentsShortcut(TriggerVar.GoPointer(), ActionVar.GoPointer(), FormatStringVar, varArgs...)
+	cret := xNewShortcutWithArguments(TriggerVar.GoPointer(), ActionVar.GoPointer(), FormatStringVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -162,7 +162,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewShortcut, lib, "gtk_shortcut_new")
-	core.PuregoSafeRegister(&xNewWithArgumentsShortcut, lib, "gtk_shortcut_new_with_arguments")
+	core.PuregoSafeRegister(&xNewShortcutWithArguments, lib, "gtk_shortcut_new_with_arguments")
 
 	core.PuregoSafeRegister(&xShortcutGetAction, lib, "gtk_shortcut_get_action")
 	core.PuregoSafeRegister(&xShortcutGetArguments, lib, "gtk_shortcut_get_arguments")

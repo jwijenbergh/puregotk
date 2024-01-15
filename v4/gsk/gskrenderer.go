@@ -41,7 +41,7 @@ func RendererNewFromInternalPtr(ptr uintptr) *Renderer {
 	return cls
 }
 
-var xNewForSurfaceRenderer func(uintptr) uintptr
+var xNewRendererForSurface func(uintptr) uintptr
 
 // Creates an appropriate `GskRenderer` instance for the given @surface.
 //
@@ -50,10 +50,10 @@ var xNewForSurfaceRenderer func(uintptr) uintptr
 // default. The ultimate fallback is the cairo renderer.
 //
 // The renderer will be realized before it is returned.
-func NewForSurfaceRenderer(SurfaceVar *gdk.Surface) *Renderer {
+func NewRendererForSurface(SurfaceVar *gdk.Surface) *Renderer {
 	var cls *Renderer
 
-	cret := xNewForSurfaceRenderer(SurfaceVar.GoPointer())
+	cret := xNewRendererForSurface(SurfaceVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -178,7 +178,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewForSurfaceRenderer, lib, "gsk_renderer_new_for_surface")
+	core.PuregoSafeRegister(&xNewRendererForSurface, lib, "gsk_renderer_new_for_surface")
 
 	core.PuregoSafeRegister(&xRendererGetSurface, lib, "gsk_renderer_get_surface")
 	core.PuregoSafeRegister(&xRendererIsRealized, lib, "gsk_renderer_is_realized")

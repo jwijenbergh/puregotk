@@ -178,7 +178,7 @@ func NewPixbuf(ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int,
 	return cls
 }
 
-var xNewFromBytesPixbuf func(*glib.Bytes, Colorspace, bool, int, int, int, int) uintptr
+var xNewPixbufFromBytes func(*glib.Bytes, Colorspace, bool, int, int, int, int) uintptr
 
 // Creates a new #GdkPixbuf out of in-memory readonly image data.
 //
@@ -186,10 +186,10 @@ var xNewFromBytesPixbuf func(*glib.Bytes, Colorspace, bool, int, int, int, int) 
 //
 // This is the `GBytes` variant of gdk_pixbuf_new_from_data(), useful
 // for language bindings.
-func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int) *Pixbuf {
+func NewPixbufFromBytes(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int) *Pixbuf {
 	var cls *Pixbuf
 
-	cret := xNewFromBytesPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar)
+	cret := xNewPixbufFromBytes(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar)
 
 	if cret == 0 {
 		return nil
@@ -199,7 +199,7 @@ func NewFromBytesPixbuf(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaV
 	return cls
 }
 
-var xNewFromDataPixbuf func(uintptr, Colorspace, bool, int, int, int, int, uintptr, uintptr) uintptr
+var xNewPixbufFromData func(uintptr, Colorspace, bool, int, int, int, int, uintptr, uintptr) uintptr
 
 // Creates a new #GdkPixbuf out of in-memory image data.
 //
@@ -212,10 +212,10 @@ var xNewFromDataPixbuf func(uintptr, Colorspace, bool, int, int, int, int, uintp
 // it is its responsibility to free the pixel array.
 //
 // See also: [ctor@GdkPixbuf.Pixbuf.new_from_bytes]
-func NewFromDataPixbuf(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
+func NewPixbufFromData(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
 	var cls *Pixbuf
 
-	cret := xNewFromDataPixbuf(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, purego.NewCallback(DestroyFnVar), DestroyFnDataVar)
+	cret := xNewPixbufFromData(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, purego.NewCallback(DestroyFnVar), DestroyFnDataVar)
 
 	if cret == 0 {
 		return nil
@@ -225,7 +225,7 @@ func NewFromDataPixbuf(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bo
 	return cls
 }
 
-var xNewFromFilePixbuf func(string, **glib.Error) uintptr
+var xNewPixbufFromFile func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from a file.
 //
@@ -239,11 +239,11 @@ var xNewFromFilePixbuf func(string, **glib.Error) uintptr
 //   - the image buffer contains invalid data
 //
 // The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-func NewFromFilePixbuf(FilenameVar string) (*Pixbuf, error) {
+func NewPixbufFromFile(FilenameVar string) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromFilePixbuf(FilenameVar, &cerr)
+	cret := xNewPixbufFromFile(FilenameVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -257,7 +257,7 @@ func NewFromFilePixbuf(FilenameVar string) (*Pixbuf, error) {
 
 }
 
-var xNewFromFileAtScalePixbuf func(string, int, int, bool, **glib.Error) uintptr
+var xNewPixbufFromFileAtScale func(string, int, int, bool, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from a file.
 //
@@ -281,11 +281,11 @@ var xNewFromFileAtScalePixbuf func(string, int, int, bool, **glib.Error) uintptr
 // aspect ratio, a `width` or `height` of -1 means to not scale the image
 // at all in that dimension. Negative values for `width` and `height` are
 // allowed since 2.8.
-func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) (*Pixbuf, error) {
+func NewPixbufFromFileAtScale(FilenameVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromFileAtScalePixbuf(FilenameVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
+	cret := xNewPixbufFromFileAtScale(FilenameVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -299,7 +299,7 @@ func NewFromFileAtScalePixbuf(FilenameVar string, WidthVar int, HeightVar int, P
 
 }
 
-var xNewFromFileAtSizePixbuf func(string, int, int, **glib.Error) uintptr
+var xNewPixbufFromFileAtSize func(string, int, int, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from a file.
 //
@@ -319,11 +319,11 @@ var xNewFromFileAtSizePixbuf func(string, int, int, **glib.Error) uintptr
 // than `width` x `height`, if the aspect ratio requires it. To load
 // and image at the requested size, regardless of aspect ratio, use
 // [ctor@GdkPixbuf.Pixbuf.new_from_file_at_scale].
-func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int, HeightVar int) (*Pixbuf, error) {
+func NewPixbufFromFileAtSize(FilenameVar string, WidthVar int, HeightVar int) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromFileAtSizePixbuf(FilenameVar, WidthVar, HeightVar, &cerr)
+	cret := xNewPixbufFromFileAtSize(FilenameVar, WidthVar, HeightVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -337,7 +337,7 @@ func NewFromFileAtSizePixbuf(FilenameVar string, WidthVar int, HeightVar int) (*
 
 }
 
-var xNewFromInlinePixbuf func(int, uintptr, bool, **glib.Error) uintptr
+var xNewPixbufFromInline func(int, uintptr, bool, **glib.Error) uintptr
 
 // Creates a `GdkPixbuf` from a flat representation that is suitable for
 // storing as inline data in a program.
@@ -372,11 +372,11 @@ var xNewFromInlinePixbuf func(int, uintptr, bool, **glib.Error) uintptr
 // For non-const inline data, you could get out of memory. For untrusted
 // inline data located at runtime, you could have corrupt inline data in
 // addition.
-func NewFromInlinePixbuf(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool) (*Pixbuf, error) {
+func NewPixbufFromInline(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromInlinePixbuf(DataLengthVar, DataVar, CopyPixelsVar, &cerr)
+	cret := xNewPixbufFromInline(DataLengthVar, DataVar, CopyPixelsVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -390,17 +390,17 @@ func NewFromInlinePixbuf(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool)
 
 }
 
-var xNewFromResourcePixbuf func(string, **glib.Error) uintptr
+var xNewPixbufFromResource func(string, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from an resource.
 //
 // The file format is detected automatically. If `NULL` is returned, then
 // @error will be set.
-func NewFromResourcePixbuf(ResourcePathVar string) (*Pixbuf, error) {
+func NewPixbufFromResource(ResourcePathVar string) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromResourcePixbuf(ResourcePathVar, &cerr)
+	cret := xNewPixbufFromResource(ResourcePathVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -414,7 +414,7 @@ func NewFromResourcePixbuf(ResourcePathVar string) (*Pixbuf, error) {
 
 }
 
-var xNewFromResourceAtScalePixbuf func(string, int, int, bool, **glib.Error) uintptr
+var xNewPixbufFromResourceAtScale func(string, int, int, bool, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from an resource.
 //
@@ -429,11 +429,11 @@ var xNewFromResourceAtScalePixbuf func(string, int, int, bool, **glib.Error) uin
 // @height of -1 means to not scale the image at all in that dimension.
 //
 // The stream is not closed.
-func NewFromResourceAtScalePixbuf(ResourcePathVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) (*Pixbuf, error) {
+func NewPixbufFromResourceAtScale(ResourcePathVar string, WidthVar int, HeightVar int, PreserveAspectRatioVar bool) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromResourceAtScalePixbuf(ResourcePathVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
+	cret := xNewPixbufFromResourceAtScale(ResourcePathVar, WidthVar, HeightVar, PreserveAspectRatioVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -447,7 +447,7 @@ func NewFromResourceAtScalePixbuf(ResourcePathVar string, WidthVar int, HeightVa
 
 }
 
-var xNewFromStreamPixbuf func(uintptr, uintptr, **glib.Error) uintptr
+var xNewPixbufFromStream func(uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from an input stream.
 //
@@ -461,11 +461,11 @@ var xNewFromStreamPixbuf func(uintptr, uintptr, **glib.Error) uintptr
 // `G_IO_ERROR` domains.
 //
 // The stream is not closed.
-func NewFromStreamPixbuf(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) (*Pixbuf, error) {
+func NewPixbufFromStream(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromStreamPixbuf(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	cret := xNewPixbufFromStream(StreamVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -479,7 +479,7 @@ func NewFromStreamPixbuf(StreamVar *gio.InputStream, CancellableVar *gio.Cancell
 
 }
 
-var xNewFromStreamAtScalePixbuf func(uintptr, int, int, bool, uintptr, **glib.Error) uintptr
+var xNewPixbufFromStreamAtScale func(uintptr, int, int, bool, uintptr, **glib.Error) uintptr
 
 // Creates a new pixbuf by loading an image from an input stream.
 //
@@ -502,11 +502,11 @@ var xNewFromStreamAtScalePixbuf func(uintptr, int, int, bool, uintptr, **glib.Er
 // scale the image at all in that dimension.
 //
 // The stream is not closed.
-func NewFromStreamAtScalePixbuf(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable) (*Pixbuf, error) {
+func NewPixbufFromStreamAtScale(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromStreamAtScalePixbuf(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), &cerr)
+	cret := xNewPixbufFromStreamAtScale(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -520,15 +520,15 @@ func NewFromStreamAtScalePixbuf(StreamVar *gio.InputStream, WidthVar int, Height
 
 }
 
-var xNewFromStreamFinishPixbuf func(uintptr, **glib.Error) uintptr
+var xNewPixbufFromStreamFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an asynchronous pixbuf creation operation started with
 // gdk_pixbuf_new_from_stream_async().
-func NewFromStreamFinishPixbuf(AsyncResultVar gio.AsyncResult) (*Pixbuf, error) {
+func NewPixbufFromStreamFinish(AsyncResultVar gio.AsyncResult) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
-	cret := xNewFromStreamFinishPixbuf(AsyncResultVar.GoPointer(), &cerr)
+	cret := xNewPixbufFromStreamFinish(AsyncResultVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -542,16 +542,16 @@ func NewFromStreamFinishPixbuf(AsyncResultVar gio.AsyncResult) (*Pixbuf, error) 
 
 }
 
-var xNewFromXpmDataPixbuf func([]string) uintptr
+var xNewPixbufFromXpmData func([]string) uintptr
 
 // Creates a new pixbuf by parsing XPM data in memory.
 //
 // This data is commonly the result of including an XPM file into a
 // program's C source.
-func NewFromXpmDataPixbuf(DataVar []string) *Pixbuf {
+func NewPixbufFromXpmData(DataVar []string) *Pixbuf {
 	var cls *Pixbuf
 
-	cret := xNewFromXpmDataPixbuf(DataVar)
+	cret := xNewPixbufFromXpmData(DataVar)
 
 	if cret == 0 {
 		return nil
@@ -1571,18 +1571,18 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewPixbuf, lib, "gdk_pixbuf_new")
-	core.PuregoSafeRegister(&xNewFromBytesPixbuf, lib, "gdk_pixbuf_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromDataPixbuf, lib, "gdk_pixbuf_new_from_data")
-	core.PuregoSafeRegister(&xNewFromFilePixbuf, lib, "gdk_pixbuf_new_from_file")
-	core.PuregoSafeRegister(&xNewFromFileAtScalePixbuf, lib, "gdk_pixbuf_new_from_file_at_scale")
-	core.PuregoSafeRegister(&xNewFromFileAtSizePixbuf, lib, "gdk_pixbuf_new_from_file_at_size")
-	core.PuregoSafeRegister(&xNewFromInlinePixbuf, lib, "gdk_pixbuf_new_from_inline")
-	core.PuregoSafeRegister(&xNewFromResourcePixbuf, lib, "gdk_pixbuf_new_from_resource")
-	core.PuregoSafeRegister(&xNewFromResourceAtScalePixbuf, lib, "gdk_pixbuf_new_from_resource_at_scale")
-	core.PuregoSafeRegister(&xNewFromStreamPixbuf, lib, "gdk_pixbuf_new_from_stream")
-	core.PuregoSafeRegister(&xNewFromStreamAtScalePixbuf, lib, "gdk_pixbuf_new_from_stream_at_scale")
-	core.PuregoSafeRegister(&xNewFromStreamFinishPixbuf, lib, "gdk_pixbuf_new_from_stream_finish")
-	core.PuregoSafeRegister(&xNewFromXpmDataPixbuf, lib, "gdk_pixbuf_new_from_xpm_data")
+	core.PuregoSafeRegister(&xNewPixbufFromBytes, lib, "gdk_pixbuf_new_from_bytes")
+	core.PuregoSafeRegister(&xNewPixbufFromData, lib, "gdk_pixbuf_new_from_data")
+	core.PuregoSafeRegister(&xNewPixbufFromFile, lib, "gdk_pixbuf_new_from_file")
+	core.PuregoSafeRegister(&xNewPixbufFromFileAtScale, lib, "gdk_pixbuf_new_from_file_at_scale")
+	core.PuregoSafeRegister(&xNewPixbufFromFileAtSize, lib, "gdk_pixbuf_new_from_file_at_size")
+	core.PuregoSafeRegister(&xNewPixbufFromInline, lib, "gdk_pixbuf_new_from_inline")
+	core.PuregoSafeRegister(&xNewPixbufFromResource, lib, "gdk_pixbuf_new_from_resource")
+	core.PuregoSafeRegister(&xNewPixbufFromResourceAtScale, lib, "gdk_pixbuf_new_from_resource_at_scale")
+	core.PuregoSafeRegister(&xNewPixbufFromStream, lib, "gdk_pixbuf_new_from_stream")
+	core.PuregoSafeRegister(&xNewPixbufFromStreamAtScale, lib, "gdk_pixbuf_new_from_stream_at_scale")
+	core.PuregoSafeRegister(&xNewPixbufFromStreamFinish, lib, "gdk_pixbuf_new_from_stream_finish")
+	core.PuregoSafeRegister(&xNewPixbufFromXpmData, lib, "gdk_pixbuf_new_from_xpm_data")
 
 	core.PuregoSafeRegister(&xPixbufAddAlpha, lib, "gdk_pixbuf_add_alpha")
 	core.PuregoSafeRegister(&xPixbufApplyEmbeddedOrientation, lib, "gdk_pixbuf_apply_embedded_orientation")

@@ -47,7 +47,7 @@ func NewMappedFile(FilenameVar string, WritableVar bool) (*MappedFile, error) {
 
 }
 
-var xNewFromFdMappedFile func(int, bool, **Error) *MappedFile
+var xNewMappedFileFromFd func(int, bool, **Error) *MappedFile
 
 // Maps a file into memory. On UNIX, this is using the mmap() function.
 //
@@ -60,10 +60,10 @@ var xNewFromFdMappedFile func(int, bool, **Error) *MappedFile
 // of the #GMappedFile. Therefore, mapping should only be used if the file
 // will not be modified, or if all modifications of the file are done
 // atomically (e.g. using g_file_set_contents()).
-func NewFromFdMappedFile(FdVar int, WritableVar bool) (*MappedFile, error) {
+func NewMappedFileFromFd(FdVar int, WritableVar bool) (*MappedFile, error) {
 	var cerr *Error
 
-	cret := xNewFromFdMappedFile(FdVar, WritableVar, &cerr)
+	cret := xNewMappedFileFromFd(FdVar, WritableVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -146,7 +146,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewMappedFile, lib, "g_mapped_file_new")
-	core.PuregoSafeRegister(&xNewFromFdMappedFile, lib, "g_mapped_file_new_from_fd")
+	core.PuregoSafeRegister(&xNewMappedFileFromFd, lib, "g_mapped_file_new_from_fd")
 
 	core.PuregoSafeRegister(&xMappedFileFree, lib, "g_mapped_file_free")
 	core.PuregoSafeRegister(&xMappedFileGetBytes, lib, "g_mapped_file_get_bytes")

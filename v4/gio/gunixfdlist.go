@@ -61,7 +61,7 @@ func NewUnixFDList() *UnixFDList {
 	return cls
 }
 
-var xNewFromArrayUnixFDList func(uintptr, int) uintptr
+var xNewUnixFDListFromArray func(uintptr, int) uintptr
 
 // Creates a new #GUnixFDList containing the file descriptors given in
 // @fds.  The file descriptors become the property of the new list and
@@ -71,10 +71,10 @@ var xNewFromArrayUnixFDList func(uintptr, int) uintptr
 // Each file descriptor in the array should be set to close-on-exec.
 //
 // If @n_fds is -1 then @fds must be terminated with -1.
-func NewFromArrayUnixFDList(FdsVar uintptr, NFdsVar int) *UnixFDList {
+func NewUnixFDListFromArray(FdsVar uintptr, NFdsVar int) *UnixFDList {
 	var cls *UnixFDList
 
-	cret := xNewFromArrayUnixFDList(FdsVar, NFdsVar)
+	cret := xNewUnixFDListFromArray(FdsVar, NFdsVar)
 
 	if cret == 0 {
 		return nil
@@ -206,7 +206,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewUnixFDList, lib, "g_unix_fd_list_new")
-	core.PuregoSafeRegister(&xNewFromArrayUnixFDList, lib, "g_unix_fd_list_new_from_array")
+	core.PuregoSafeRegister(&xNewUnixFDListFromArray, lib, "g_unix_fd_list_new_from_array")
 
 	core.PuregoSafeRegister(&xUnixFDListAppend, lib, "g_unix_fd_list_append")
 	core.PuregoSafeRegister(&xUnixFDListGet, lib, "g_unix_fd_list_get")

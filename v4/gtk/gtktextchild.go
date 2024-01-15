@@ -52,16 +52,16 @@ func NewTextChildAnchor() *TextChildAnchor {
 	return cls
 }
 
-var xNewWithReplacementTextChildAnchor func(string) uintptr
+var xNewTextChildAnchorWithReplacement func(string) uintptr
 
 // Creates a new `GtkTextChildAnchor` with the given replacement character.
 //
 // Usually you would then insert it into a `GtkTextBuffer` with
 // [method@Gtk.TextBuffer.insert_child_anchor].
-func NewWithReplacementTextChildAnchor(CharacterVar string) *TextChildAnchor {
+func NewTextChildAnchorWithReplacement(CharacterVar string) *TextChildAnchor {
 	var cls *TextChildAnchor
 
-	cret := xNewWithReplacementTextChildAnchor(CharacterVar)
+	cret := xNewTextChildAnchorWithReplacement(CharacterVar)
 
 	if cret == 0 {
 		return nil
@@ -113,7 +113,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTextChildAnchor, lib, "gtk_text_child_anchor_new")
-	core.PuregoSafeRegister(&xNewWithReplacementTextChildAnchor, lib, "gtk_text_child_anchor_new_with_replacement")
+	core.PuregoSafeRegister(&xNewTextChildAnchorWithReplacement, lib, "gtk_text_child_anchor_new_with_replacement")
 
 	core.PuregoSafeRegister(&xTextChildAnchorGetDeleted, lib, "gtk_text_child_anchor_get_deleted")
 	core.PuregoSafeRegister(&xTextChildAnchorGetWidgets, lib, "gtk_text_child_anchor_get_widgets")

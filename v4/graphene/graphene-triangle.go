@@ -21,14 +21,14 @@ func (x *Triangle) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocTriangle func() *Triangle
+var xTriangleAlloc func() *Triangle
 
 // Allocates a new #graphene_triangle_t.
 //
 // The contents of the returned structure are undefined.
-func AllocTriangle() *Triangle {
+func TriangleAlloc() *Triangle {
 
-	cret := xAllocTriangle()
+	cret := xTriangleAlloc()
 	return cret
 }
 
@@ -205,7 +205,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocTriangle, lib, "graphene_triangle_alloc")
+	core.PuregoSafeRegister(&xTriangleAlloc, lib, "graphene_triangle_alloc")
 
 	core.PuregoSafeRegister(&xTriangleContainsPoint, lib, "graphene_triangle_contains_point")
 	core.PuregoSafeRegister(&xTriangleEqual, lib, "graphene_triangle_equal")

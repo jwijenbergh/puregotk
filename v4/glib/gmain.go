@@ -57,12 +57,12 @@ func NewMainContext() *MainContext {
 	return cret
 }
 
-var xNewWithFlagsMainContext func(MainContextFlags) *MainContext
+var xNewMainContextWithFlags func(MainContextFlags) *MainContext
 
 // Creates a new #GMainContext structure.
-func NewWithFlagsMainContext(FlagsVar MainContextFlags) *MainContext {
+func NewMainContextWithFlags(FlagsVar MainContextFlags) *MainContext {
 
-	cret := xNewWithFlagsMainContext(FlagsVar)
+	cret := xNewMainContextWithFlags(FlagsVar)
 	return cret
 }
 
@@ -1946,7 +1946,7 @@ func init() {
 	core.PuregoSafeRegister(&xTimeoutSourceNewSeconds, lib, "g_timeout_source_new_seconds")
 
 	core.PuregoSafeRegister(&xNewMainContext, lib, "g_main_context_new")
-	core.PuregoSafeRegister(&xNewWithFlagsMainContext, lib, "g_main_context_new_with_flags")
+	core.PuregoSafeRegister(&xNewMainContextWithFlags, lib, "g_main_context_new_with_flags")
 
 	core.PuregoSafeRegister(&xMainContextAcquire, lib, "g_main_context_acquire")
 	core.PuregoSafeRegister(&xMainContextAddPoll, lib, "g_main_context_add_poll")

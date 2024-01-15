@@ -123,13 +123,13 @@ func NewDesktopAppInfo(DesktopIdVar string) *DesktopAppInfo {
 	return cls
 }
 
-var xNewFromFilenameDesktopAppInfo func(string) uintptr
+var xNewDesktopAppInfoFromFilename func(string) uintptr
 
 // Creates a new #GDesktopAppInfo.
-func NewFromFilenameDesktopAppInfo(FilenameVar string) *DesktopAppInfo {
+func NewDesktopAppInfoFromFilename(FilenameVar string) *DesktopAppInfo {
 	var cls *DesktopAppInfo
 
-	cret := xNewFromFilenameDesktopAppInfo(FilenameVar)
+	cret := xNewDesktopAppInfoFromFilename(FilenameVar)
 
 	if cret == 0 {
 		return nil
@@ -139,13 +139,13 @@ func NewFromFilenameDesktopAppInfo(FilenameVar string) *DesktopAppInfo {
 	return cls
 }
 
-var xNewFromKeyfileDesktopAppInfo func(*glib.KeyFile) uintptr
+var xNewDesktopAppInfoFromKeyfile func(*glib.KeyFile) uintptr
 
 // Creates a new #GDesktopAppInfo.
-func NewFromKeyfileDesktopAppInfo(KeyFileVar *glib.KeyFile) *DesktopAppInfo {
+func NewDesktopAppInfoFromKeyfile(KeyFileVar *glib.KeyFile) *DesktopAppInfo {
 	var cls *DesktopAppInfo
 
-	cret := xNewFromKeyfileDesktopAppInfo(KeyFileVar)
+	cret := xNewDesktopAppInfoFromKeyfile(KeyFileVar)
 
 	if cret == 0 {
 		return nil
@@ -757,8 +757,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewDesktopAppInfo, lib, "g_desktop_app_info_new")
-	core.PuregoSafeRegister(&xNewFromFilenameDesktopAppInfo, lib, "g_desktop_app_info_new_from_filename")
-	core.PuregoSafeRegister(&xNewFromKeyfileDesktopAppInfo, lib, "g_desktop_app_info_new_from_keyfile")
+	core.PuregoSafeRegister(&xNewDesktopAppInfoFromFilename, lib, "g_desktop_app_info_new_from_filename")
+	core.PuregoSafeRegister(&xNewDesktopAppInfoFromKeyfile, lib, "g_desktop_app_info_new_from_keyfile")
 
 	core.PuregoSafeRegister(&xDesktopAppInfoGetActionName, lib, "g_desktop_app_info_get_action_name")
 	core.PuregoSafeRegister(&xDesktopAppInfoGetBoolean, lib, "g_desktop_app_info_get_boolean")

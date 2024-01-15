@@ -695,17 +695,17 @@ func NewThread(NameVar string, FuncVar ThreadFunc, DataVar uintptr) *Thread {
 	return cret
 }
 
-var xTryNewThread func(string, uintptr, uintptr, **Error) *Thread
+var xThreadTryNew func(string, uintptr, uintptr, **Error) *Thread
 
 // This function is the same as g_thread_new() except that
 // it allows for the possibility of failure.
 //
 // If a thread can not be created (due to resource limits),
 // @error is set and %NULL is returned.
-func TryNewThread(NameVar string, FuncVar ThreadFunc, DataVar uintptr) (*Thread, error) {
+func ThreadTryNew(NameVar string, FuncVar ThreadFunc, DataVar uintptr) (*Thread, error) {
 	var cerr *Error
 
-	cret := xTryNewThread(NameVar, purego.NewCallback(FuncVar), DataVar, &cerr)
+	cret := xThreadTryNew(NameVar, purego.NewCallback(FuncVar), DataVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -1000,7 +1000,7 @@ func init() {
 	core.PuregoSafeRegister(&xRecMutexUnlock, lib, "g_rec_mutex_unlock")
 
 	core.PuregoSafeRegister(&xNewThread, lib, "g_thread_new")
-	core.PuregoSafeRegister(&xTryNewThread, lib, "g_thread_try_new")
+	core.PuregoSafeRegister(&xThreadTryNew, lib, "g_thread_try_new")
 
 	core.PuregoSafeRegister(&xThreadJoin, lib, "g_thread_join")
 	core.PuregoSafeRegister(&xThreadRef, lib, "g_thread_ref")

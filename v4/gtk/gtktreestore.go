@@ -94,13 +94,13 @@ func NewTreeStore(NColumnsVar int, varArgs ...interface{}) *TreeStore {
 	return cls
 }
 
-var xNewvTreeStore func(int, uintptr) uintptr
+var xNewTreeStorev func(int, uintptr) uintptr
 
 // Non vararg creation function.  Used primarily by language bindings.
-func NewvTreeStore(NColumnsVar int, TypesVar uintptr) *TreeStore {
+func NewTreeStorev(NColumnsVar int, TypesVar uintptr) *TreeStore {
 	var cls *TreeStore
 
-	cret := xNewvTreeStore(NColumnsVar, TypesVar)
+	cret := xNewTreeStorev(NColumnsVar, TypesVar)
 
 	if cret == 0 {
 		return nil
@@ -855,7 +855,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTreeStore, lib, "gtk_tree_store_new")
-	core.PuregoSafeRegister(&xNewvTreeStore, lib, "gtk_tree_store_newv")
+	core.PuregoSafeRegister(&xNewTreeStorev, lib, "gtk_tree_store_newv")
 
 	core.PuregoSafeRegister(&xTreeStoreAppend, lib, "gtk_tree_store_append")
 	core.PuregoSafeRegister(&xTreeStoreClear, lib, "gtk_tree_store_clear")

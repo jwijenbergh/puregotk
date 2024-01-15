@@ -112,7 +112,7 @@ func NewInfoBar() *InfoBar {
 	return cls
 }
 
-var xNewWithButtonsInfoBar func(string, ...interface{}) uintptr
+var xNewInfoBarWithButtons func(string, ...interface{}) uintptr
 
 // Creates a new `GtkInfoBar` with buttons.
 //
@@ -122,10 +122,10 @@ var xNewWithButtonsInfoBar func(string, ...interface{}) uintptr
 // user clicks one of these dialog buttons, GtkInfoBar will emit
 // the [signal@Gtk.InfoBar::response] signal with the corresponding
 // response ID.
-func NewWithButtonsInfoBar(FirstButtonTextVar string, varArgs ...interface{}) *InfoBar {
+func NewInfoBarWithButtons(FirstButtonTextVar string, varArgs ...interface{}) *InfoBar {
 	var cls *InfoBar
 
-	cret := xNewWithButtonsInfoBar(FirstButtonTextVar, varArgs...)
+	cret := xNewInfoBarWithButtons(FirstButtonTextVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -508,7 +508,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewInfoBar, lib, "gtk_info_bar_new")
-	core.PuregoSafeRegister(&xNewWithButtonsInfoBar, lib, "gtk_info_bar_new_with_buttons")
+	core.PuregoSafeRegister(&xNewInfoBarWithButtons, lib, "gtk_info_bar_new_with_buttons")
 
 	core.PuregoSafeRegister(&xInfoBarAddActionWidget, lib, "gtk_info_bar_add_action_widget")
 	core.PuregoSafeRegister(&xInfoBarAddButton, lib, "gtk_info_bar_add_button")

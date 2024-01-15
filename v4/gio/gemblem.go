@@ -49,13 +49,13 @@ func NewEmblem(IconVar Icon) *Emblem {
 	return cls
 }
 
-var xNewWithOriginEmblem func(uintptr, EmblemOrigin) uintptr
+var xNewEmblemWithOrigin func(uintptr, EmblemOrigin) uintptr
 
 // Creates a new emblem for @icon.
-func NewWithOriginEmblem(IconVar Icon, OriginVar EmblemOrigin) *Emblem {
+func NewEmblemWithOrigin(IconVar Icon, OriginVar EmblemOrigin) *Emblem {
 	var cls *Emblem
 
-	cret := xNewWithOriginEmblem(IconVar.GoPointer(), OriginVar)
+	cret := xNewEmblemWithOrigin(IconVar.GoPointer(), OriginVar)
 
 	if cret == 0 {
 		return nil
@@ -146,7 +146,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewEmblem, lib, "g_emblem_new")
-	core.PuregoSafeRegister(&xNewWithOriginEmblem, lib, "g_emblem_new_with_origin")
+	core.PuregoSafeRegister(&xNewEmblemWithOrigin, lib, "g_emblem_new_with_origin")
 
 	core.PuregoSafeRegister(&xEmblemGetIcon, lib, "g_emblem_get_icon")
 	core.PuregoSafeRegister(&xEmblemGetOrigin, lib, "g_emblem_get_origin")

@@ -26,14 +26,14 @@ func (x *Quaternion) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocQuaternion func() *Quaternion
+var xQuaternionAlloc func() *Quaternion
 
 // Allocates a new #graphene_quaternion_t.
 //
 // The contents of the returned value are undefined.
-func AllocQuaternion() *Quaternion {
+func QuaternionAlloc() *Quaternion {
 
-	cret := xAllocQuaternion()
+	cret := xQuaternionAlloc()
 	return cret
 }
 
@@ -271,7 +271,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocQuaternion, lib, "graphene_quaternion_alloc")
+	core.PuregoSafeRegister(&xQuaternionAlloc, lib, "graphene_quaternion_alloc")
 
 	core.PuregoSafeRegister(&xQuaternionAdd, lib, "graphene_quaternion_add")
 	core.PuregoSafeRegister(&xQuaternionDot, lib, "graphene_quaternion_dot")

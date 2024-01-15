@@ -113,14 +113,14 @@ func DBusObjectManagerClientNewFromInternalPtr(ptr uintptr) *DBusObjectManagerCl
 	return cls
 }
 
-var xNewFinishDBusObjectManagerClient func(uintptr, **glib.Error) uintptr
+var xNewDBusObjectManagerClientFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_object_manager_client_new().
-func NewFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientFinish(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -134,14 +134,14 @@ func NewFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerCli
 
 }
 
-var xNewForBusFinishDBusObjectManagerClient func(uintptr, **glib.Error) uintptr
+var xNewDBusObjectManagerClientForBusFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
-func NewForBusFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientForBusFinish(ResVar AsyncResult) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewForBusFinishDBusObjectManagerClient(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientForBusFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -155,7 +155,7 @@ func NewForBusFinishDBusObjectManagerClient(ResVar AsyncResult) (*DBusObjectMana
 
 }
 
-var xNewForBusSyncDBusObjectManagerClient func(BusType, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
+var xNewDBusObjectManagerClientForBusSync func(BusType, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
 
 // Like g_dbus_object_manager_client_new_sync() but takes a #GBusType instead
 // of a #GDBusConnection.
@@ -163,11 +163,11 @@ var xNewForBusSyncDBusObjectManagerClient func(BusType, DBusObjectManagerClientF
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new_for_bus()
 // for the asynchronous version.
-func NewForBusSyncDBusObjectManagerClient(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientForBusSync(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewForBusSyncDBusObjectManagerClient(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientForBusSync(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -181,18 +181,18 @@ func NewForBusSyncDBusObjectManagerClient(BusTypeVar BusType, FlagsVar DBusObjec
 
 }
 
-var xNewSyncDBusObjectManagerClient func(uintptr, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
+var xNewDBusObjectManagerClientSync func(uintptr, DBusObjectManagerClientFlags, string, string, uintptr, uintptr, uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new #GDBusObjectManagerClient object.
 //
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new()
 // for the asynchronous version.
-func NewSyncDBusObjectManagerClient(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientSync(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewSyncDBusObjectManagerClient(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientSync(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -509,10 +509,10 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFinishDBusObjectManagerClient, lib, "g_dbus_object_manager_client_new_finish")
-	core.PuregoSafeRegister(&xNewForBusFinishDBusObjectManagerClient, lib, "g_dbus_object_manager_client_new_for_bus_finish")
-	core.PuregoSafeRegister(&xNewForBusSyncDBusObjectManagerClient, lib, "g_dbus_object_manager_client_new_for_bus_sync")
-	core.PuregoSafeRegister(&xNewSyncDBusObjectManagerClient, lib, "g_dbus_object_manager_client_new_sync")
+	core.PuregoSafeRegister(&xNewDBusObjectManagerClientFinish, lib, "g_dbus_object_manager_client_new_finish")
+	core.PuregoSafeRegister(&xNewDBusObjectManagerClientForBusFinish, lib, "g_dbus_object_manager_client_new_for_bus_finish")
+	core.PuregoSafeRegister(&xNewDBusObjectManagerClientForBusSync, lib, "g_dbus_object_manager_client_new_for_bus_sync")
+	core.PuregoSafeRegister(&xNewDBusObjectManagerClientSync, lib, "g_dbus_object_manager_client_new_sync")
 
 	core.PuregoSafeRegister(&xDBusObjectManagerClientGetConnection, lib, "g_dbus_object_manager_client_get_connection")
 	core.PuregoSafeRegister(&xDBusObjectManagerClientGetFlags, lib, "g_dbus_object_manager_client_get_flags")

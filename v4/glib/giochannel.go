@@ -62,17 +62,17 @@ func (x *IOChannel) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewFileIOChannel func(string, string, **Error) *IOChannel
+var xNewIOChannelFile func(string, string, **Error) *IOChannel
 
 // Open a file @filename as a #GIOChannel using mode @mode. This
 // channel will be closed when the last reference to it is dropped,
 // so there is no need to call g_io_channel_close() (though doing
 // so will not cause problems, as long as no attempt is made to
 // access the channel after it is closed).
-func NewFileIOChannel(FilenameVar string, ModeVar string) (*IOChannel, error) {
+func NewIOChannelFile(FilenameVar string, ModeVar string) (*IOChannel, error) {
 	var cerr *Error
 
-	cret := xNewFileIOChannel(FilenameVar, ModeVar, &cerr)
+	cret := xNewIOChannelFile(FilenameVar, ModeVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -80,7 +80,7 @@ func NewFileIOChannel(FilenameVar string, ModeVar string) (*IOChannel, error) {
 
 }
 
-var xUnixNewIOChannel func(int) *IOChannel
+var xIOChannelUnixNew func(int) *IOChannel
 
 // Creates a new #GIOChannel given a file descriptor. On UNIX systems
 // this works for plain files, pipes, and sockets.
@@ -104,9 +104,9 @@ var xUnixNewIOChannel func(int) *IOChannel
 // in case the argument you pass to this function happens to be both a
 // valid file descriptor and socket. If that happens a warning is
 // issued, and GLib assumes that it is the file descriptor you mean.
-func UnixNewIOChannel(FdVar int) *IOChannel {
+func IOChannelUnixNew(FdVar int) *IOChannel {
 
-	cret := xUnixNewIOChannel(FdVar)
+	cret := xIOChannelUnixNew(FdVar)
 	return cret
 }
 
@@ -731,8 +731,8 @@ func init() {
 	core.PuregoSafeRegister(&xIoChannelErrorFromErrno, lib, "g_io_channel_error_from_errno")
 	core.PuregoSafeRegister(&xIoCreateWatch, lib, "g_io_create_watch")
 
-	core.PuregoSafeRegister(&xNewFileIOChannel, lib, "g_io_channel_new_file")
-	core.PuregoSafeRegister(&xUnixNewIOChannel, lib, "g_io_channel_unix_new")
+	core.PuregoSafeRegister(&xNewIOChannelFile, lib, "g_io_channel_new_file")
+	core.PuregoSafeRegister(&xIOChannelUnixNew, lib, "g_io_channel_unix_new")
 
 	core.PuregoSafeRegister(&xIOChannelClose, lib, "g_io_channel_close")
 	core.PuregoSafeRegister(&xIOChannelFlush, lib, "g_io_channel_flush")

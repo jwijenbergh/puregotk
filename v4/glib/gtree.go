@@ -39,24 +39,24 @@ func NewTree(KeyCompareFuncVar CompareFunc) *Tree {
 	return cret
 }
 
-var xNewFullTree func(uintptr, uintptr, uintptr, uintptr) *Tree
+var xNewTreeFull func(uintptr, uintptr, uintptr, uintptr) *Tree
 
 // Creates a new #GTree like g_tree_new() and allows to specify functions
 // to free the memory allocated for the key and value that get called when
 // removing the entry from the #GTree.
-func NewFullTree(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr, KeyDestroyFuncVar DestroyNotify, ValueDestroyFuncVar DestroyNotify) *Tree {
+func NewTreeFull(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr, KeyDestroyFuncVar DestroyNotify, ValueDestroyFuncVar DestroyNotify) *Tree {
 
-	cret := xNewFullTree(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar, purego.NewCallback(KeyDestroyFuncVar), purego.NewCallback(ValueDestroyFuncVar))
+	cret := xNewTreeFull(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar, purego.NewCallback(KeyDestroyFuncVar), purego.NewCallback(ValueDestroyFuncVar))
 	return cret
 }
 
-var xNewWithDataTree func(uintptr, uintptr) *Tree
+var xNewTreeWithData func(uintptr, uintptr) *Tree
 
 // Creates a new #GTree with a comparison function that accepts user data.
 // See g_tree_new() for more details.
-func NewWithDataTree(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr) *Tree {
+func NewTreeWithData(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr) *Tree {
 
-	cret := xNewWithDataTree(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar)
+	cret := xNewTreeWithData(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar)
 	return cret
 }
 
@@ -431,8 +431,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTree, lib, "g_tree_new")
-	core.PuregoSafeRegister(&xNewFullTree, lib, "g_tree_new_full")
-	core.PuregoSafeRegister(&xNewWithDataTree, lib, "g_tree_new_with_data")
+	core.PuregoSafeRegister(&xNewTreeFull, lib, "g_tree_new_full")
+	core.PuregoSafeRegister(&xNewTreeWithData, lib, "g_tree_new_with_data")
 
 	core.PuregoSafeRegister(&xTreeDestroy, lib, "g_tree_destroy")
 	core.PuregoSafeRegister(&xTreeForeach, lib, "g_tree_foreach")

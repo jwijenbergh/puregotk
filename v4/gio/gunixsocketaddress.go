@@ -70,14 +70,14 @@ func NewUnixSocketAddress(PathVar string) *UnixSocketAddress {
 	return cls
 }
 
-var xNewAbstractUnixSocketAddress func(uintptr, int) uintptr
+var xNewUnixSocketAddressAbstract func(uintptr, int) uintptr
 
 // Creates a new %G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
 // #GUnixSocketAddress for @path.
-func NewAbstractUnixSocketAddress(PathVar uintptr, PathLenVar int) *UnixSocketAddress {
+func NewUnixSocketAddressAbstract(PathVar uintptr, PathLenVar int) *UnixSocketAddress {
 	var cls *UnixSocketAddress
 
-	cret := xNewAbstractUnixSocketAddress(PathVar, PathLenVar)
+	cret := xNewUnixSocketAddressAbstract(PathVar, PathLenVar)
 
 	if cret == 0 {
 		return nil
@@ -87,7 +87,7 @@ func NewAbstractUnixSocketAddress(PathVar uintptr, PathLenVar int) *UnixSocketAd
 	return cls
 }
 
-var xNewWithTypeUnixSocketAddress func(uintptr, int, UnixSocketAddressType) uintptr
+var xNewUnixSocketAddressWithType func(uintptr, int, UnixSocketAddressType) uintptr
 
 // Creates a new #GUnixSocketAddress of type @type with name @path.
 //
@@ -120,10 +120,10 @@ var xNewWithTypeUnixSocketAddress func(uintptr, int, UnixSocketAddressType) uint
 // when connecting to a server created by another process, you must
 // use the appropriate type corresponding to how that process created
 // its listening socket.
-func NewWithTypeUnixSocketAddress(PathVar uintptr, PathLenVar int, TypeVar UnixSocketAddressType) *UnixSocketAddress {
+func NewUnixSocketAddressWithType(PathVar uintptr, PathLenVar int, TypeVar UnixSocketAddressType) *UnixSocketAddress {
 	var cls *UnixSocketAddress
 
-	cret := xNewWithTypeUnixSocketAddress(PathVar, PathLenVar, TypeVar)
+	cret := xNewUnixSocketAddressWithType(PathVar, PathLenVar, TypeVar)
 
 	if cret == 0 {
 		return nil
@@ -247,8 +247,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewUnixSocketAddress, lib, "g_unix_socket_address_new")
-	core.PuregoSafeRegister(&xNewAbstractUnixSocketAddress, lib, "g_unix_socket_address_new_abstract")
-	core.PuregoSafeRegister(&xNewWithTypeUnixSocketAddress, lib, "g_unix_socket_address_new_with_type")
+	core.PuregoSafeRegister(&xNewUnixSocketAddressAbstract, lib, "g_unix_socket_address_new_abstract")
+	core.PuregoSafeRegister(&xNewUnixSocketAddressWithType, lib, "g_unix_socket_address_new_with_type")
 
 	core.PuregoSafeRegister(&xUnixSocketAddressGetAddressType, lib, "g_unix_socket_address_get_address_type")
 	core.PuregoSafeRegister(&xUnixSocketAddressGetIsAbstract, lib, "g_unix_socket_address_get_is_abstract")

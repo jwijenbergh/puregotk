@@ -146,7 +146,7 @@ func NewTextView() *TextView {
 	return cls
 }
 
-var xNewWithBufferTextView func(uintptr) uintptr
+var xNewTextViewWithBuffer func(uintptr) uintptr
 
 // Creates a new `GtkTextView` widget displaying the buffer @buffer.
 //
@@ -154,10 +154,10 @@ var xNewWithBufferTextView func(uintptr) uintptr
 // to create a default buffer, in which case this function is equivalent
 // to [ctor@Gtk.TextView.new]. The text view adds its own reference count
 // to the buffer; it does not take over an existing reference.
-func NewWithBufferTextView(BufferVar *TextBuffer) *TextView {
+func NewTextViewWithBuffer(BufferVar *TextBuffer) *TextView {
 	var cls *TextView
 
-	cret := xNewWithBufferTextView(BufferVar.GoPointer())
+	cret := xNewTextViewWithBuffer(BufferVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -1656,7 +1656,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTextView, lib, "gtk_text_view_new")
-	core.PuregoSafeRegister(&xNewWithBufferTextView, lib, "gtk_text_view_new_with_buffer")
+	core.PuregoSafeRegister(&xNewTextViewWithBuffer, lib, "gtk_text_view_new_with_buffer")
 
 	core.PuregoSafeRegister(&xTextViewAddChildAtAnchor, lib, "gtk_text_view_add_child_at_anchor")
 	core.PuregoSafeRegister(&xTextViewAddOverlay, lib, "gtk_text_view_add_overlay")

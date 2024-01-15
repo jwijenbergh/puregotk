@@ -604,7 +604,7 @@ func (x *Resource) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewFromDataResource func(*glib.Bytes, **glib.Error) *Resource
+var xNewResourceFromData func(*glib.Bytes, **glib.Error) *Resource
 
 // Creates a GResource from a reference to the binary resource bundle.
 // This will keep a reference to @data while the resource lives, so
@@ -618,10 +618,10 @@ var xNewFromDataResource func(*glib.Bytes, **glib.Error) *Resource
 // GLib 2.56, or in older versions fail and exit the process.
 //
 // If @data is empty or corrupt, %G_RESOURCE_ERROR_INTERNAL will be returned.
-func NewFromDataResource(DataVar *glib.Bytes) (*Resource, error) {
+func NewResourceFromData(DataVar *glib.Bytes) (*Resource, error) {
 	var cerr *glib.Error
 
-	cret := xNewFromDataResource(DataVar, &cerr)
+	cret := xNewResourceFromData(DataVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -884,7 +884,7 @@ func init() {
 	core.PuregoSafeRegister(&xIOSchedulerJobSendToMainloop, lib, "g_io_scheduler_job_send_to_mainloop")
 	core.PuregoSafeRegister(&xIOSchedulerJobSendToMainloopAsync, lib, "g_io_scheduler_job_send_to_mainloop_async")
 
-	core.PuregoSafeRegister(&xNewFromDataResource, lib, "g_resource_new_from_data")
+	core.PuregoSafeRegister(&xNewResourceFromData, lib, "g_resource_new_from_data")
 
 	core.PuregoSafeRegister(&xResourceRegister, lib, "g_resources_register")
 	core.PuregoSafeRegister(&xResourceUnregister, lib, "g_resources_unregister")

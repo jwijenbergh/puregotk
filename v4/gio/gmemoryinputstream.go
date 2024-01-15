@@ -55,13 +55,13 @@ func NewMemoryInputStream() *MemoryInputStream {
 	return cls
 }
 
-var xNewFromBytesMemoryInputStream func(*glib.Bytes) uintptr
+var xNewMemoryInputStreamFromBytes func(*glib.Bytes) uintptr
 
 // Creates a new #GMemoryInputStream with data from the given @bytes.
-func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *MemoryInputStream {
+func NewMemoryInputStreamFromBytes(BytesVar *glib.Bytes) *MemoryInputStream {
 	var cls *MemoryInputStream
 
-	cret := xNewFromBytesMemoryInputStream(BytesVar)
+	cret := xNewMemoryInputStreamFromBytes(BytesVar)
 
 	if cret == 0 {
 		return nil
@@ -71,13 +71,13 @@ func NewFromBytesMemoryInputStream(BytesVar *glib.Bytes) *MemoryInputStream {
 	return cls
 }
 
-var xNewFromDataMemoryInputStream func(uintptr, int, uintptr) uintptr
+var xNewMemoryInputStreamFromData func(uintptr, int, uintptr) uintptr
 
 // Creates a new #GMemoryInputStream with data in memory of a given size.
-func NewFromDataMemoryInputStream(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *MemoryInputStream {
+func NewMemoryInputStreamFromData(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *MemoryInputStream {
 	var cls *MemoryInputStream
 
-	cret := xNewFromDataMemoryInputStream(DataVar, LenVar, purego.NewCallback(DestroyVar))
+	cret := xNewMemoryInputStreamFromData(DataVar, LenVar, purego.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -250,8 +250,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewMemoryInputStream, lib, "g_memory_input_stream_new")
-	core.PuregoSafeRegister(&xNewFromBytesMemoryInputStream, lib, "g_memory_input_stream_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromDataMemoryInputStream, lib, "g_memory_input_stream_new_from_data")
+	core.PuregoSafeRegister(&xNewMemoryInputStreamFromBytes, lib, "g_memory_input_stream_new_from_bytes")
+	core.PuregoSafeRegister(&xNewMemoryInputStreamFromData, lib, "g_memory_input_stream_new_from_data")
 
 	core.PuregoSafeRegister(&xMemoryInputStreamAddBytes, lib, "g_memory_input_stream_add_bytes")
 	core.PuregoSafeRegister(&xMemoryInputStreamAddData, lib, "g_memory_input_stream_add_data")

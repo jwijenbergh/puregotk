@@ -297,7 +297,7 @@ func NewVariant(FormatStringVar string, varArgs ...interface{}) *Variant {
 	return cret
 }
 
-var xNewArrayVariant func(*VariantType, uintptr, uint) *Variant
+var xNewVariantArray func(*VariantType, uintptr, uint) *Variant
 
 // Creates a new #GVariant array from @children.
 //
@@ -314,31 +314,31 @@ var xNewArrayVariant func(*VariantType, uintptr, uint) *Variant
 //
 // If the @children are floating references (see g_variant_ref_sink()), the
 // new instance takes ownership of them as if via g_variant_ref_sink().
-func NewArrayVariant(ChildTypeVar *VariantType, ChildrenVar uintptr, NChildrenVar uint) *Variant {
+func NewVariantArray(ChildTypeVar *VariantType, ChildrenVar uintptr, NChildrenVar uint) *Variant {
 
-	cret := xNewArrayVariant(ChildTypeVar, ChildrenVar, NChildrenVar)
+	cret := xNewVariantArray(ChildTypeVar, ChildrenVar, NChildrenVar)
 	return cret
 }
 
-var xNewBooleanVariant func(bool) *Variant
+var xNewVariantBoolean func(bool) *Variant
 
 // Creates a new boolean #GVariant instance -- either %TRUE or %FALSE.
-func NewBooleanVariant(ValueVar bool) *Variant {
+func NewVariantBoolean(ValueVar bool) *Variant {
 
-	cret := xNewBooleanVariant(ValueVar)
+	cret := xNewVariantBoolean(ValueVar)
 	return cret
 }
 
-var xNewByteVariant func(byte) *Variant
+var xNewVariantByte func(byte) *Variant
 
 // Creates a new byte #GVariant instance.
-func NewByteVariant(ValueVar byte) *Variant {
+func NewVariantByte(ValueVar byte) *Variant {
 
-	cret := xNewByteVariant(ValueVar)
+	cret := xNewVariantByte(ValueVar)
 	return cret
 }
 
-var xNewBytestringVariant func(uintptr) *Variant
+var xNewVariantBytestring func(uintptr) *Variant
 
 // Creates an array-of-bytes #GVariant with the contents of @string.
 // This function is just like g_variant_new_string() except that the
@@ -346,47 +346,47 @@ var xNewBytestringVariant func(uintptr) *Variant
 //
 // The nul terminator character at the end of the string is stored in
 // the array.
-func NewBytestringVariant(StringVar uintptr) *Variant {
+func NewVariantBytestring(StringVar uintptr) *Variant {
 
-	cret := xNewBytestringVariant(StringVar)
+	cret := xNewVariantBytestring(StringVar)
 	return cret
 }
 
-var xNewBytestringArrayVariant func(uintptr, int) *Variant
+var xNewVariantBytestringArray func(uintptr, int) *Variant
 
 // Constructs an array of bytestring #GVariant from the given array of
 // strings.
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewBytestringArrayVariant(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantBytestringArray(StrvVar uintptr, LengthVar int) *Variant {
 
-	cret := xNewBytestringArrayVariant(StrvVar, LengthVar)
+	cret := xNewVariantBytestringArray(StrvVar, LengthVar)
 	return cret
 }
 
-var xNewDictEntryVariant func(*Variant, *Variant) *Variant
+var xNewVariantDictEntry func(*Variant, *Variant) *Variant
 
 // Creates a new dictionary entry #GVariant. @key and @value must be
 // non-%NULL. @key must be a value of a basic type (ie: not a container).
 //
 // If the @key or @value are floating references (see g_variant_ref_sink()),
 // the new instance takes ownership of them as if via g_variant_ref_sink().
-func NewDictEntryVariant(KeyVar *Variant, ValueVar *Variant) *Variant {
+func NewVariantDictEntry(KeyVar *Variant, ValueVar *Variant) *Variant {
 
-	cret := xNewDictEntryVariant(KeyVar, ValueVar)
+	cret := xNewVariantDictEntry(KeyVar, ValueVar)
 	return cret
 }
 
-var xNewDoubleVariant func(float64) *Variant
+var xNewVariantDouble func(float64) *Variant
 
 // Creates a new double #GVariant instance.
-func NewDoubleVariant(ValueVar float64) *Variant {
+func NewVariantDouble(ValueVar float64) *Variant {
 
-	cret := xNewDoubleVariant(ValueVar)
+	cret := xNewVariantDouble(ValueVar)
 	return cret
 }
 
-var xNewFixedArrayVariant func(*VariantType, uintptr, uint, uint) *Variant
+var xNewVariantFixedArray func(*VariantType, uintptr, uint, uint) *Variant
 
 // Constructs a new array #GVariant instance, where the elements are
 // of @element_type type.
@@ -401,13 +401,13 @@ var xNewFixedArrayVariant func(*VariantType, uintptr, uint, uint) *Variant
 // expectation.
 //
 // @n_elements must be the length of the @elements array.
-func NewFixedArrayVariant(ElementTypeVar *VariantType, ElementsVar uintptr, NElementsVar uint, ElementSizeVar uint) *Variant {
+func NewVariantFixedArray(ElementTypeVar *VariantType, ElementsVar uintptr, NElementsVar uint, ElementSizeVar uint) *Variant {
 
-	cret := xNewFixedArrayVariant(ElementTypeVar, ElementsVar, NElementsVar, ElementSizeVar)
+	cret := xNewVariantFixedArray(ElementTypeVar, ElementsVar, NElementsVar, ElementSizeVar)
 	return cret
 }
 
-var xNewFromBytesVariant func(*VariantType, *Bytes, bool) *Variant
+var xNewVariantFromBytes func(*VariantType, *Bytes, bool) *Variant
 
 // Constructs a new serialized-mode #GVariant instance.  This is the
 // inner interface for creation of new serialized values that gets
@@ -418,13 +418,13 @@ var xNewFromBytesVariant func(*VariantType, *Bytes, bool) *Variant
 // The data in @bytes must be aligned appropriately for the @type being loaded.
 // Otherwise this function will internally create a copy of the memory (since
 // GLib 2.60) or (in older versions) fail and exit the process.
-func NewFromBytesVariant(TypeVar *VariantType, BytesVar *Bytes, TrustedVar bool) *Variant {
+func NewVariantFromBytes(TypeVar *VariantType, BytesVar *Bytes, TrustedVar bool) *Variant {
 
-	cret := xNewFromBytesVariant(TypeVar, BytesVar, TrustedVar)
+	cret := xNewVariantFromBytes(TypeVar, BytesVar, TrustedVar)
 	return cret
 }
 
-var xNewFromDataVariant func(*VariantType, uintptr, uint, bool, uintptr, uintptr) *Variant
+var xNewVariantFromData func(*VariantType, uintptr, uint, bool, uintptr, uintptr) *Variant
 
 // Creates a new #GVariant instance from serialized data.
 //
@@ -455,53 +455,53 @@ var xNewFromDataVariant func(*VariantType, uintptr, uint, bool, uintptr, uintptr
 // @type being loaded. Otherwise this function will internally create a copy of
 // the memory (since GLib 2.60) or (in older versions) fail and exit the
 // process.
-func NewFromDataVariant(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar DestroyNotify, UserDataVar uintptr) *Variant {
+func NewVariantFromData(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar DestroyNotify, UserDataVar uintptr) *Variant {
 
-	cret := xNewFromDataVariant(TypeVar, DataVar, SizeVar, TrustedVar, purego.NewCallback(NotifyVar), UserDataVar)
+	cret := xNewVariantFromData(TypeVar, DataVar, SizeVar, TrustedVar, purego.NewCallback(NotifyVar), UserDataVar)
 	return cret
 }
 
-var xNewHandleVariant func(int32) *Variant
+var xNewVariantHandle func(int32) *Variant
 
 // Creates a new handle #GVariant instance.
 //
 // By convention, handles are indexes into an array of file descriptors
 // that are sent alongside a D-Bus message.  If you're not interacting
 // with D-Bus, you probably don't need them.
-func NewHandleVariant(ValueVar int32) *Variant {
+func NewVariantHandle(ValueVar int32) *Variant {
 
-	cret := xNewHandleVariant(ValueVar)
+	cret := xNewVariantHandle(ValueVar)
 	return cret
 }
 
-var xNewInt16Variant func(int16) *Variant
+var xNewVariantInt16 func(int16) *Variant
 
 // Creates a new int16 #GVariant instance.
-func NewInt16Variant(ValueVar int16) *Variant {
+func NewVariantInt16(ValueVar int16) *Variant {
 
-	cret := xNewInt16Variant(ValueVar)
+	cret := xNewVariantInt16(ValueVar)
 	return cret
 }
 
-var xNewInt32Variant func(int32) *Variant
+var xNewVariantInt32 func(int32) *Variant
 
 // Creates a new int32 #GVariant instance.
-func NewInt32Variant(ValueVar int32) *Variant {
+func NewVariantInt32(ValueVar int32) *Variant {
 
-	cret := xNewInt32Variant(ValueVar)
+	cret := xNewVariantInt32(ValueVar)
 	return cret
 }
 
-var xNewInt64Variant func(int64) *Variant
+var xNewVariantInt64 func(int64) *Variant
 
 // Creates a new int64 #GVariant instance.
-func NewInt64Variant(ValueVar int64) *Variant {
+func NewVariantInt64(ValueVar int64) *Variant {
 
-	cret := xNewInt64Variant(ValueVar)
+	cret := xNewVariantInt64(ValueVar)
 	return cret
 }
 
-var xNewMaybeVariant func(*VariantType, *Variant) *Variant
+var xNewVariantMaybe func(*VariantType, *Variant) *Variant
 
 // Depending on if @child is %NULL, either wraps @child inside of a
 // maybe container or creates a Nothing instance for the given @type.
@@ -513,24 +513,24 @@ var xNewMaybeVariant func(*VariantType, *Variant) *Variant
 //
 // If @child is a floating reference (see g_variant_ref_sink()), the new
 // instance takes ownership of @child.
-func NewMaybeVariant(ChildTypeVar *VariantType, ChildVar *Variant) *Variant {
+func NewVariantMaybe(ChildTypeVar *VariantType, ChildVar *Variant) *Variant {
 
-	cret := xNewMaybeVariant(ChildTypeVar, ChildVar)
+	cret := xNewVariantMaybe(ChildTypeVar, ChildVar)
 	return cret
 }
 
-var xNewObjectPathVariant func(string) *Variant
+var xNewVariantObjectPath func(string) *Variant
 
 // Creates a D-Bus object path #GVariant with the contents of @string.
 // @string must be a valid D-Bus object path.  Use
 // g_variant_is_object_path() if you're not sure.
-func NewObjectPathVariant(ObjectPathVar string) *Variant {
+func NewVariantObjectPath(ObjectPathVar string) *Variant {
 
-	cret := xNewObjectPathVariant(ObjectPathVar)
+	cret := xNewVariantObjectPath(ObjectPathVar)
 	return cret
 }
 
-var xNewObjvVariant func(uintptr, int) *Variant
+var xNewVariantObjv func(uintptr, int) *Variant
 
 // Constructs an array of object paths #GVariant from the given array of
 // strings.
@@ -539,13 +539,13 @@ var xNewObjvVariant func(uintptr, int) *Variant
 // g_variant_is_object_path().
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewObjvVariant(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantObjv(StrvVar uintptr, LengthVar int) *Variant {
 
-	cret := xNewObjvVariant(StrvVar, LengthVar)
+	cret := xNewVariantObjv(StrvVar, LengthVar)
 	return cret
 }
 
-var xNewParsedVariant func(string, ...interface{}) *Variant
+var xNewVariantParsed func(string, ...interface{}) *Variant
 
 // Parses @format and returns the result.
 //
@@ -581,13 +581,13 @@ var xNewParsedVariant func(string, ...interface{}) *Variant
 // #GVariant pointer from the argument list.  ie: @format may not solely
 // be anything along the lines of "%*", "%?", "\%r", or anything starting
 // with "%@".
-func NewParsedVariant(FormatVar string, varArgs ...interface{}) *Variant {
+func NewVariantParsed(FormatVar string, varArgs ...interface{}) *Variant {
 
-	cret := xNewParsedVariant(FormatVar, varArgs...)
+	cret := xNewVariantParsed(FormatVar, varArgs...)
 	return cret
 }
 
-var xNewParsedVaVariant func(string, []interface{}) *Variant
+var xNewVariantParsedVa func(string, []interface{}) *Variant
 
 // Parses @format and returns the result.
 //
@@ -610,62 +610,62 @@ var xNewParsedVaVariant func(string, []interface{}) *Variant
 // At this point, the caller will have their own full reference to the
 // result.  This can also be done by adding the result to a container,
 // or by passing it to another g_variant_new() call.
-func NewParsedVaVariant(FormatVar string, AppVar []interface{}) *Variant {
+func NewVariantParsedVa(FormatVar string, AppVar []interface{}) *Variant {
 
-	cret := xNewParsedVaVariant(FormatVar, AppVar)
+	cret := xNewVariantParsedVa(FormatVar, AppVar)
 	return cret
 }
 
-var xNewPrintfVariant func(string, ...interface{}) *Variant
+var xNewVariantPrintf func(string, ...interface{}) *Variant
 
 // Creates a string-type GVariant using printf formatting.
 //
 // This is similar to calling g_strdup_printf() and then
 // g_variant_new_string() but it saves a temporary variable and an
 // unnecessary copy.
-func NewPrintfVariant(FormatStringVar string, varArgs ...interface{}) *Variant {
+func NewVariantPrintf(FormatStringVar string, varArgs ...interface{}) *Variant {
 
-	cret := xNewPrintfVariant(FormatStringVar, varArgs...)
+	cret := xNewVariantPrintf(FormatStringVar, varArgs...)
 	return cret
 }
 
-var xNewSignatureVariant func(string) *Variant
+var xNewVariantSignature func(string) *Variant
 
 // Creates a D-Bus type signature #GVariant with the contents of
 // @string.  @string must be a valid D-Bus type signature.  Use
 // g_variant_is_signature() if you're not sure.
-func NewSignatureVariant(SignatureVar string) *Variant {
+func NewVariantSignature(SignatureVar string) *Variant {
 
-	cret := xNewSignatureVariant(SignatureVar)
+	cret := xNewVariantSignature(SignatureVar)
 	return cret
 }
 
-var xNewStringVariant func(string) *Variant
+var xNewVariantString func(string) *Variant
 
 // Creates a string #GVariant with the contents of @string.
 //
 // @string must be valid UTF-8, and must not be %NULL. To encode
 // potentially-%NULL strings, use g_variant_new() with `ms` as the
 // [format string][gvariant-format-strings-maybe-types].
-func NewStringVariant(StringVar string) *Variant {
+func NewVariantString(StringVar string) *Variant {
 
-	cret := xNewStringVariant(StringVar)
+	cret := xNewVariantString(StringVar)
 	return cret
 }
 
-var xNewStrvVariant func(uintptr, int) *Variant
+var xNewVariantStrv func(uintptr, int) *Variant
 
 // Constructs an array of strings #GVariant from the given array of
 // strings.
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewStrvVariant(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantStrv(StrvVar uintptr, LengthVar int) *Variant {
 
-	cret := xNewStrvVariant(StrvVar, LengthVar)
+	cret := xNewVariantStrv(StrvVar, LengthVar)
 	return cret
 }
 
-var xNewTakeStringVariant func(string) *Variant
+var xNewVariantTakeString func(string) *Variant
 
 // Creates a string #GVariant with the contents of @string.
 //
@@ -678,13 +678,13 @@ var xNewTakeStringVariant func(string) *Variant
 // You must not modify or access @string in any other way after passing
 // it to this function.  It is even possible that @string is immediately
 // freed.
-func NewTakeStringVariant(StringVar string) *Variant {
+func NewVariantTakeString(StringVar string) *Variant {
 
-	cret := xNewTakeStringVariant(StringVar)
+	cret := xNewVariantTakeString(StringVar)
 	return cret
 }
 
-var xNewTupleVariant func(uintptr, uint) *Variant
+var xNewVariantTuple func(uintptr, uint) *Variant
 
 // Creates a new tuple #GVariant out of the items in @children.  The
 // type is determined from the types of @children.  No entry in the
@@ -694,40 +694,40 @@ var xNewTupleVariant func(uintptr, uint) *Variant
 //
 // If the @children are floating references (see g_variant_ref_sink()), the
 // new instance takes ownership of them as if via g_variant_ref_sink().
-func NewTupleVariant(ChildrenVar uintptr, NChildrenVar uint) *Variant {
+func NewVariantTuple(ChildrenVar uintptr, NChildrenVar uint) *Variant {
 
-	cret := xNewTupleVariant(ChildrenVar, NChildrenVar)
+	cret := xNewVariantTuple(ChildrenVar, NChildrenVar)
 	return cret
 }
 
-var xNewUint16Variant func(uint16) *Variant
+var xNewVariantUint16 func(uint16) *Variant
 
 // Creates a new uint16 #GVariant instance.
-func NewUint16Variant(ValueVar uint16) *Variant {
+func NewVariantUint16(ValueVar uint16) *Variant {
 
-	cret := xNewUint16Variant(ValueVar)
+	cret := xNewVariantUint16(ValueVar)
 	return cret
 }
 
-var xNewUint32Variant func(uint32) *Variant
+var xNewVariantUint32 func(uint32) *Variant
 
 // Creates a new uint32 #GVariant instance.
-func NewUint32Variant(ValueVar uint32) *Variant {
+func NewVariantUint32(ValueVar uint32) *Variant {
 
-	cret := xNewUint32Variant(ValueVar)
+	cret := xNewVariantUint32(ValueVar)
 	return cret
 }
 
-var xNewUint64Variant func(uint64) *Variant
+var xNewVariantUint64 func(uint64) *Variant
 
 // Creates a new uint64 #GVariant instance.
-func NewUint64Variant(ValueVar uint64) *Variant {
+func NewVariantUint64(ValueVar uint64) *Variant {
 
-	cret := xNewUint64Variant(ValueVar)
+	cret := xNewVariantUint64(ValueVar)
 	return cret
 }
 
-var xNewVaVariant func(string, string, []interface{}) *Variant
+var xNewVariantVa func(string, string, []interface{}) *Variant
 
 // This function is intended to be used by libraries based on
 // #GVariant that want to provide g_variant_new()-like functionality
@@ -765,9 +765,9 @@ var xNewVaVariant func(string, string, []interface{}) *Variant
 // At this point, the caller will have their own full reference to the
 // result.  This can also be done by adding the result to a container,
 // or by passing it to another g_variant_new() call.
-func NewVaVariant(FormatStringVar string, EndptrVar string, AppVar []interface{}) *Variant {
+func NewVariantVa(FormatStringVar string, EndptrVar string, AppVar []interface{}) *Variant {
 
-	cret := xNewVaVariant(FormatStringVar, EndptrVar, AppVar)
+	cret := xNewVariantVa(FormatStringVar, EndptrVar, AppVar)
 	return cret
 }
 
@@ -2778,35 +2778,35 @@ func init() {
 	core.PuregoSafeRegister(&xVariantParseErrorPrintContext, lib, "g_variant_parse_error_print_context")
 
 	core.PuregoSafeRegister(&xNewVariant, lib, "g_variant_new")
-	core.PuregoSafeRegister(&xNewArrayVariant, lib, "g_variant_new_array")
-	core.PuregoSafeRegister(&xNewBooleanVariant, lib, "g_variant_new_boolean")
-	core.PuregoSafeRegister(&xNewByteVariant, lib, "g_variant_new_byte")
-	core.PuregoSafeRegister(&xNewBytestringVariant, lib, "g_variant_new_bytestring")
-	core.PuregoSafeRegister(&xNewBytestringArrayVariant, lib, "g_variant_new_bytestring_array")
-	core.PuregoSafeRegister(&xNewDictEntryVariant, lib, "g_variant_new_dict_entry")
-	core.PuregoSafeRegister(&xNewDoubleVariant, lib, "g_variant_new_double")
-	core.PuregoSafeRegister(&xNewFixedArrayVariant, lib, "g_variant_new_fixed_array")
-	core.PuregoSafeRegister(&xNewFromBytesVariant, lib, "g_variant_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromDataVariant, lib, "g_variant_new_from_data")
-	core.PuregoSafeRegister(&xNewHandleVariant, lib, "g_variant_new_handle")
-	core.PuregoSafeRegister(&xNewInt16Variant, lib, "g_variant_new_int16")
-	core.PuregoSafeRegister(&xNewInt32Variant, lib, "g_variant_new_int32")
-	core.PuregoSafeRegister(&xNewInt64Variant, lib, "g_variant_new_int64")
-	core.PuregoSafeRegister(&xNewMaybeVariant, lib, "g_variant_new_maybe")
-	core.PuregoSafeRegister(&xNewObjectPathVariant, lib, "g_variant_new_object_path")
-	core.PuregoSafeRegister(&xNewObjvVariant, lib, "g_variant_new_objv")
-	core.PuregoSafeRegister(&xNewParsedVariant, lib, "g_variant_new_parsed")
-	core.PuregoSafeRegister(&xNewParsedVaVariant, lib, "g_variant_new_parsed_va")
-	core.PuregoSafeRegister(&xNewPrintfVariant, lib, "g_variant_new_printf")
-	core.PuregoSafeRegister(&xNewSignatureVariant, lib, "g_variant_new_signature")
-	core.PuregoSafeRegister(&xNewStringVariant, lib, "g_variant_new_string")
-	core.PuregoSafeRegister(&xNewStrvVariant, lib, "g_variant_new_strv")
-	core.PuregoSafeRegister(&xNewTakeStringVariant, lib, "g_variant_new_take_string")
-	core.PuregoSafeRegister(&xNewTupleVariant, lib, "g_variant_new_tuple")
-	core.PuregoSafeRegister(&xNewUint16Variant, lib, "g_variant_new_uint16")
-	core.PuregoSafeRegister(&xNewUint32Variant, lib, "g_variant_new_uint32")
-	core.PuregoSafeRegister(&xNewUint64Variant, lib, "g_variant_new_uint64")
-	core.PuregoSafeRegister(&xNewVaVariant, lib, "g_variant_new_va")
+	core.PuregoSafeRegister(&xNewVariantArray, lib, "g_variant_new_array")
+	core.PuregoSafeRegister(&xNewVariantBoolean, lib, "g_variant_new_boolean")
+	core.PuregoSafeRegister(&xNewVariantByte, lib, "g_variant_new_byte")
+	core.PuregoSafeRegister(&xNewVariantBytestring, lib, "g_variant_new_bytestring")
+	core.PuregoSafeRegister(&xNewVariantBytestringArray, lib, "g_variant_new_bytestring_array")
+	core.PuregoSafeRegister(&xNewVariantDictEntry, lib, "g_variant_new_dict_entry")
+	core.PuregoSafeRegister(&xNewVariantDouble, lib, "g_variant_new_double")
+	core.PuregoSafeRegister(&xNewVariantFixedArray, lib, "g_variant_new_fixed_array")
+	core.PuregoSafeRegister(&xNewVariantFromBytes, lib, "g_variant_new_from_bytes")
+	core.PuregoSafeRegister(&xNewVariantFromData, lib, "g_variant_new_from_data")
+	core.PuregoSafeRegister(&xNewVariantHandle, lib, "g_variant_new_handle")
+	core.PuregoSafeRegister(&xNewVariantInt16, lib, "g_variant_new_int16")
+	core.PuregoSafeRegister(&xNewVariantInt32, lib, "g_variant_new_int32")
+	core.PuregoSafeRegister(&xNewVariantInt64, lib, "g_variant_new_int64")
+	core.PuregoSafeRegister(&xNewVariantMaybe, lib, "g_variant_new_maybe")
+	core.PuregoSafeRegister(&xNewVariantObjectPath, lib, "g_variant_new_object_path")
+	core.PuregoSafeRegister(&xNewVariantObjv, lib, "g_variant_new_objv")
+	core.PuregoSafeRegister(&xNewVariantParsed, lib, "g_variant_new_parsed")
+	core.PuregoSafeRegister(&xNewVariantParsedVa, lib, "g_variant_new_parsed_va")
+	core.PuregoSafeRegister(&xNewVariantPrintf, lib, "g_variant_new_printf")
+	core.PuregoSafeRegister(&xNewVariantSignature, lib, "g_variant_new_signature")
+	core.PuregoSafeRegister(&xNewVariantString, lib, "g_variant_new_string")
+	core.PuregoSafeRegister(&xNewVariantStrv, lib, "g_variant_new_strv")
+	core.PuregoSafeRegister(&xNewVariantTakeString, lib, "g_variant_new_take_string")
+	core.PuregoSafeRegister(&xNewVariantTuple, lib, "g_variant_new_tuple")
+	core.PuregoSafeRegister(&xNewVariantUint16, lib, "g_variant_new_uint16")
+	core.PuregoSafeRegister(&xNewVariantUint32, lib, "g_variant_new_uint32")
+	core.PuregoSafeRegister(&xNewVariantUint64, lib, "g_variant_new_uint64")
+	core.PuregoSafeRegister(&xNewVariantVa, lib, "g_variant_new_va")
 	core.PuregoSafeRegister(&xNewVariantVariant, lib, "g_variant_new_variant")
 
 	core.PuregoSafeRegister(&xVariantByteswap, lib, "g_variant_byteswap")

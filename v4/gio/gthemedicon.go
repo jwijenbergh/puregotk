@@ -50,13 +50,13 @@ func NewThemedIcon(IconnameVar string) *ThemedIcon {
 	return cls
 }
 
-var xNewFromNamesThemedIcon func([]string, int) uintptr
+var xNewThemedIconFromNames func([]string, int) uintptr
 
 // Creates a new themed icon for @iconnames.
-func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int) *ThemedIcon {
+func NewThemedIconFromNames(IconnamesVar []string, LenVar int) *ThemedIcon {
 	var cls *ThemedIcon
 
-	cret := xNewFromNamesThemedIcon(IconnamesVar, LenVar)
+	cret := xNewThemedIconFromNames(IconnamesVar, LenVar)
 
 	if cret == 0 {
 		return nil
@@ -66,7 +66,7 @@ func NewFromNamesThemedIcon(IconnamesVar []string, LenVar int) *ThemedIcon {
 	return cls
 }
 
-var xNewWithDefaultFallbacksThemedIcon func(string) uintptr
+var xNewThemedIconWithDefaultFallbacks func(string) uintptr
 
 // Creates a new themed icon for @iconname, and all the names
 // that can be created by shortening @iconname at '-' characters.
@@ -84,10 +84,10 @@ var xNewWithDefaultFallbacksThemedIcon func(string) uintptr
 // icon1 = g_themed_icon_new_from_names (names, 4);
 // icon2 = g_themed_icon_new_with_default_fallbacks ("gnome-dev-cdrom-audio");
 // ]|
-func NewWithDefaultFallbacksThemedIcon(IconnameVar string) *ThemedIcon {
+func NewThemedIconWithDefaultFallbacks(IconnameVar string) *ThemedIcon {
 	var cls *ThemedIcon
 
-	cret := xNewWithDefaultFallbacksThemedIcon(IconnameVar)
+	cret := xNewThemedIconWithDefaultFallbacks(IconnameVar)
 
 	if cret == 0 {
 		return nil
@@ -185,8 +185,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewThemedIcon, lib, "g_themed_icon_new")
-	core.PuregoSafeRegister(&xNewFromNamesThemedIcon, lib, "g_themed_icon_new_from_names")
-	core.PuregoSafeRegister(&xNewWithDefaultFallbacksThemedIcon, lib, "g_themed_icon_new_with_default_fallbacks")
+	core.PuregoSafeRegister(&xNewThemedIconFromNames, lib, "g_themed_icon_new_from_names")
+	core.PuregoSafeRegister(&xNewThemedIconWithDefaultFallbacks, lib, "g_themed_icon_new_with_default_fallbacks")
 
 	core.PuregoSafeRegister(&xThemedIconAppendName, lib, "g_themed_icon_append_name")
 	core.PuregoSafeRegister(&xThemedIconGetNames, lib, "g_themed_icon_get_names")

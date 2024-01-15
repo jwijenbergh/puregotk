@@ -139,7 +139,7 @@ func NewMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageTy
 	return cls
 }
 
-var xNewWithMarkupMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsType, string, ...interface{}) uintptr
+var xNewMessageDialogWithMarkup func(uintptr, DialogFlags, MessageType, ButtonsType, string, ...interface{}) uintptr
 
 // Creates a new message dialog.
 //
@@ -173,10 +173,10 @@ var xNewWithMarkupMessageDialog func(uintptr, DialogFlags, MessageType, ButtonsT
 //	markup);
 //
 // ```
-func NewWithMarkupMessageDialog(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *MessageDialog {
+func NewMessageDialogWithMarkup(ParentVar *Window, FlagsVar DialogFlags, TypeVar MessageType, ButtonsVar ButtonsType, MessageFormatVar string, varArgs ...interface{}) *MessageDialog {
 	var cls *MessageDialog
 
-	cret := xNewWithMarkupMessageDialog(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
+	cret := xNewMessageDialogWithMarkup(ParentVar.GoPointer(), FlagsVar, TypeVar, ButtonsVar, MessageFormatVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -519,7 +519,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewMessageDialog, lib, "gtk_message_dialog_new")
-	core.PuregoSafeRegister(&xNewWithMarkupMessageDialog, lib, "gtk_message_dialog_new_with_markup")
+	core.PuregoSafeRegister(&xNewMessageDialogWithMarkup, lib, "gtk_message_dialog_new_with_markup")
 
 	core.PuregoSafeRegister(&xMessageDialogFormatSecondaryMarkup, lib, "gtk_message_dialog_format_secondary_markup")
 	core.PuregoSafeRegister(&xMessageDialogFormatSecondaryText, lib, "gtk_message_dialog_format_secondary_text")

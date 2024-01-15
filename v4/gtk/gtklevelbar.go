@@ -144,13 +144,13 @@ func NewLevelBar() *LevelBar {
 	return cls
 }
 
-var xNewForIntervalLevelBar func(float64, float64) uintptr
+var xNewLevelBarForInterval func(float64, float64) uintptr
 
 // Creates a new `GtkLevelBar` for the specified interval.
-func NewForIntervalLevelBar(MinValueVar float64, MaxValueVar float64) *LevelBar {
+func NewLevelBarForInterval(MinValueVar float64, MaxValueVar float64) *LevelBar {
 	var cls *LevelBar
 
-	cret := xNewForIntervalLevelBar(MinValueVar, MaxValueVar)
+	cret := xNewLevelBarForInterval(MinValueVar, MaxValueVar)
 
 	if cret == 0 {
 		return nil
@@ -486,7 +486,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewLevelBar, lib, "gtk_level_bar_new")
-	core.PuregoSafeRegister(&xNewForIntervalLevelBar, lib, "gtk_level_bar_new_for_interval")
+	core.PuregoSafeRegister(&xNewLevelBarForInterval, lib, "gtk_level_bar_new_for_interval")
 
 	core.PuregoSafeRegister(&xLevelBarAddOffsetValue, lib, "gtk_level_bar_add_offset_value")
 	core.PuregoSafeRegister(&xLevelBarGetInverted, lib, "gtk_level_bar_get_inverted")

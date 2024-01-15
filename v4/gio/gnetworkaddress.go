@@ -68,7 +68,7 @@ func NewNetworkAddress(HostnameVar string, PortVar uint16) *NetworkAddress {
 	return cls
 }
 
-var xNewLoopbackNetworkAddress func(uint16) uintptr
+var xNewNetworkAddressLoopback func(uint16) uintptr
 
 // Creates a new #GSocketConnectable for connecting to the local host
 // over a loopback connection to the given @port. This is intended for
@@ -82,10 +82,10 @@ var xNewLoopbackNetworkAddress func(uint16) uintptr
 //
 // g_network_address_get_hostname() will always return `localhost` for
 // a #GNetworkAddress created with this constructor.
-func NewLoopbackNetworkAddress(PortVar uint16) *NetworkAddress {
+func NewNetworkAddressLoopback(PortVar uint16) *NetworkAddress {
 	var cls *NetworkAddress
 
-	cret := xNewLoopbackNetworkAddress(PortVar)
+	cret := xNewNetworkAddressLoopback(PortVar)
 
 	if cret == 0 {
 		return nil
@@ -252,7 +252,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewNetworkAddress, lib, "g_network_address_new")
-	core.PuregoSafeRegister(&xNewLoopbackNetworkAddress, lib, "g_network_address_new_loopback")
+	core.PuregoSafeRegister(&xNewNetworkAddressLoopback, lib, "g_network_address_new_loopback")
 
 	core.PuregoSafeRegister(&xNetworkAddressGetHostname, lib, "g_network_address_get_hostname")
 	core.PuregoSafeRegister(&xNetworkAddressGetPort, lib, "g_network_address_get_port")

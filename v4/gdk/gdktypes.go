@@ -61,12 +61,12 @@ func NewContentFormats(MimeTypesVar []string, NMimeTypesVar uint) *ContentFormat
 	return cret
 }
 
-var xNewForGtypeContentFormats func([]interface{}) *ContentFormats
+var xNewContentFormatsForGtype func([]interface{}) *ContentFormats
 
 // Creates a new `GdkContentFormats` for a given `GType`.
-func NewForGtypeContentFormats(TypeVar []interface{}) *ContentFormats {
+func NewContentFormatsForGtype(TypeVar []interface{}) *ContentFormats {
 
-	cret := xNewForGtypeContentFormats(TypeVar)
+	cret := xNewContentFormatsForGtype(TypeVar)
 	return cret
 }
 
@@ -344,7 +344,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewContentFormats, lib, "gdk_content_formats_new")
-	core.PuregoSafeRegister(&xNewForGtypeContentFormats, lib, "gdk_content_formats_new_for_gtype")
+	core.PuregoSafeRegister(&xNewContentFormatsForGtype, lib, "gdk_content_formats_new_for_gtype")
 
 	core.PuregoSafeRegister(&xContentFormatsContainGtype, lib, "gdk_content_formats_contain_gtype")
 	core.PuregoSafeRegister(&xContentFormatsContainMimeType, lib, "gdk_content_formats_contain_mime_type")

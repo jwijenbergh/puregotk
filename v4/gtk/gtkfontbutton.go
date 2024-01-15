@@ -55,13 +55,13 @@ func NewFontButton() *FontButton {
 	return cls
 }
 
-var xNewWithFontFontButton func(string) uintptr
+var xNewFontButtonWithFont func(string) uintptr
 
 // Creates a new font picker widget showing the given font.
-func NewWithFontFontButton(FontnameVar string) *FontButton {
+func NewFontButtonWithFont(FontnameVar string) *FontButton {
 	var cls *FontButton
 
-	cret := xNewWithFontFontButton(FontnameVar)
+	cret := xNewFontButtonWithFont(FontnameVar)
 
 	if cret == 0 {
 		return nil
@@ -551,7 +551,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewFontButton, lib, "gtk_font_button_new")
-	core.PuregoSafeRegister(&xNewWithFontFontButton, lib, "gtk_font_button_new_with_font")
+	core.PuregoSafeRegister(&xNewFontButtonWithFont, lib, "gtk_font_button_new_with_font")
 
 	core.PuregoSafeRegister(&xFontButtonGetModal, lib, "gtk_font_button_get_modal")
 	core.PuregoSafeRegister(&xFontButtonGetTitle, lib, "gtk_font_button_get_title")

@@ -52,7 +52,7 @@ func NewDateTime(TzVar *TimeZone, YearVar int, MonthVar int, DayVar int, HourVar
 	return cret
 }
 
-var xNewFromIso8601DateTime func(string, *TimeZone) *DateTime
+var xNewDateTimeFromIso8601 func(string, *TimeZone) *DateTime
 
 // Creates a #GDateTime corresponding to the given
 // [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
@@ -97,13 +97,13 @@ var xNewFromIso8601DateTime func(string, *TimeZone) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewFromIso8601DateTime(TextVar string, DefaultTzVar *TimeZone) *DateTime {
+func NewDateTimeFromIso8601(TextVar string, DefaultTzVar *TimeZone) *DateTime {
 
-	cret := xNewFromIso8601DateTime(TextVar, DefaultTzVar)
+	cret := xNewDateTimeFromIso8601(TextVar, DefaultTzVar)
 	return cret
 }
 
-var xNewFromTimevalLocalDateTime func(*TimeVal) *DateTime
+var xNewDateTimeFromTimevalLocal func(*TimeVal) *DateTime
 
 // Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
 // local time zone.
@@ -117,13 +117,13 @@ var xNewFromTimevalLocalDateTime func(*TimeVal) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewFromTimevalLocalDateTime(TvVar *TimeVal) *DateTime {
+func NewDateTimeFromTimevalLocal(TvVar *TimeVal) *DateTime {
 
-	cret := xNewFromTimevalLocalDateTime(TvVar)
+	cret := xNewDateTimeFromTimevalLocal(TvVar)
 	return cret
 }
 
-var xNewFromTimevalUtcDateTime func(*TimeVal) *DateTime
+var xNewDateTimeFromTimevalUtc func(*TimeVal) *DateTime
 
 // Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
 //
@@ -135,13 +135,13 @@ var xNewFromTimevalUtcDateTime func(*TimeVal) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewFromTimevalUtcDateTime(TvVar *TimeVal) *DateTime {
+func NewDateTimeFromTimevalUtc(TvVar *TimeVal) *DateTime {
 
-	cret := xNewFromTimevalUtcDateTime(TvVar)
+	cret := xNewDateTimeFromTimevalUtc(TvVar)
 	return cret
 }
 
-var xNewFromUnixLocalDateTime func(int64) *DateTime
+var xNewDateTimeFromUnixLocal func(int64) *DateTime
 
 // Creates a #GDateTime corresponding to the given Unix time @t in the
 // local time zone.
@@ -154,13 +154,13 @@ var xNewFromUnixLocalDateTime func(int64) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewFromUnixLocalDateTime(TVar int64) *DateTime {
+func NewDateTimeFromUnixLocal(TVar int64) *DateTime {
 
-	cret := xNewFromUnixLocalDateTime(TVar)
+	cret := xNewDateTimeFromUnixLocal(TVar)
 	return cret
 }
 
-var xNewFromUnixUtcDateTime func(int64) *DateTime
+var xNewDateTimeFromUnixUtc func(int64) *DateTime
 
 // Creates a #GDateTime corresponding to the given Unix time @t in UTC.
 //
@@ -172,26 +172,26 @@ var xNewFromUnixUtcDateTime func(int64) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewFromUnixUtcDateTime(TVar int64) *DateTime {
+func NewDateTimeFromUnixUtc(TVar int64) *DateTime {
 
-	cret := xNewFromUnixUtcDateTime(TVar)
+	cret := xNewDateTimeFromUnixUtc(TVar)
 	return cret
 }
 
-var xNewLocalDateTime func(int, int, int, int, int, float64) *DateTime
+var xNewDateTimeLocal func(int, int, int, int, int, float64) *DateTime
 
 // Creates a new #GDateTime corresponding to the given date and time in
 // the local time zone.
 //
 // This call is equivalent to calling g_date_time_new() with the time
 // zone returned by g_time_zone_new_local().
-func NewLocalDateTime(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
+func NewDateTimeLocal(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
 
-	cret := xNewLocalDateTime(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
+	cret := xNewDateTimeLocal(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
 	return cret
 }
 
-var xNewNowDateTime func(*TimeZone) *DateTime
+var xNewDateTimeNow func(*TimeZone) *DateTime
 
 // Creates a #GDateTime corresponding to this exact instant in the given
 // time zone @tz.  The time is as accurate as the system allows, to a
@@ -202,47 +202,47 @@ var xNewNowDateTime func(*TimeZone) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewNowDateTime(TzVar *TimeZone) *DateTime {
+func NewDateTimeNow(TzVar *TimeZone) *DateTime {
 
-	cret := xNewNowDateTime(TzVar)
+	cret := xNewDateTimeNow(TzVar)
 	return cret
 }
 
-var xNewNowLocalDateTime func() *DateTime
+var xNewDateTimeNowLocal func() *DateTime
 
 // Creates a #GDateTime corresponding to this exact instant in the local
 // time zone.
 //
 // This is equivalent to calling g_date_time_new_now() with the time
 // zone returned by g_time_zone_new_local().
-func NewNowLocalDateTime() *DateTime {
+func NewDateTimeNowLocal() *DateTime {
 
-	cret := xNewNowLocalDateTime()
+	cret := xNewDateTimeNowLocal()
 	return cret
 }
 
-var xNewNowUtcDateTime func() *DateTime
+var xNewDateTimeNowUtc func() *DateTime
 
 // Creates a #GDateTime corresponding to this exact instant in UTC.
 //
 // This is equivalent to calling g_date_time_new_now() with the time
 // zone returned by g_time_zone_new_utc().
-func NewNowUtcDateTime() *DateTime {
+func NewDateTimeNowUtc() *DateTime {
 
-	cret := xNewNowUtcDateTime()
+	cret := xNewDateTimeNowUtc()
 	return cret
 }
 
-var xNewUtcDateTime func(int, int, int, int, int, float64) *DateTime
+var xNewDateTimeUtc func(int, int, int, int, int, float64) *DateTime
 
 // Creates a new #GDateTime corresponding to the given date and time in
 // UTC.
 //
 // This call is equivalent to calling g_date_time_new() with the time
 // zone returned by g_time_zone_new_utc().
-func NewUtcDateTime(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
+func NewDateTimeUtc(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
 
-	cret := xNewUtcDateTime(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
+	cret := xNewDateTimeUtc(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
 	return cret
 }
 
@@ -838,16 +838,16 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewDateTime, lib, "g_date_time_new")
-	core.PuregoSafeRegister(&xNewFromIso8601DateTime, lib, "g_date_time_new_from_iso8601")
-	core.PuregoSafeRegister(&xNewFromTimevalLocalDateTime, lib, "g_date_time_new_from_timeval_local")
-	core.PuregoSafeRegister(&xNewFromTimevalUtcDateTime, lib, "g_date_time_new_from_timeval_utc")
-	core.PuregoSafeRegister(&xNewFromUnixLocalDateTime, lib, "g_date_time_new_from_unix_local")
-	core.PuregoSafeRegister(&xNewFromUnixUtcDateTime, lib, "g_date_time_new_from_unix_utc")
-	core.PuregoSafeRegister(&xNewLocalDateTime, lib, "g_date_time_new_local")
-	core.PuregoSafeRegister(&xNewNowDateTime, lib, "g_date_time_new_now")
-	core.PuregoSafeRegister(&xNewNowLocalDateTime, lib, "g_date_time_new_now_local")
-	core.PuregoSafeRegister(&xNewNowUtcDateTime, lib, "g_date_time_new_now_utc")
-	core.PuregoSafeRegister(&xNewUtcDateTime, lib, "g_date_time_new_utc")
+	core.PuregoSafeRegister(&xNewDateTimeFromIso8601, lib, "g_date_time_new_from_iso8601")
+	core.PuregoSafeRegister(&xNewDateTimeFromTimevalLocal, lib, "g_date_time_new_from_timeval_local")
+	core.PuregoSafeRegister(&xNewDateTimeFromTimevalUtc, lib, "g_date_time_new_from_timeval_utc")
+	core.PuregoSafeRegister(&xNewDateTimeFromUnixLocal, lib, "g_date_time_new_from_unix_local")
+	core.PuregoSafeRegister(&xNewDateTimeFromUnixUtc, lib, "g_date_time_new_from_unix_utc")
+	core.PuregoSafeRegister(&xNewDateTimeLocal, lib, "g_date_time_new_local")
+	core.PuregoSafeRegister(&xNewDateTimeNow, lib, "g_date_time_new_now")
+	core.PuregoSafeRegister(&xNewDateTimeNowLocal, lib, "g_date_time_new_now_local")
+	core.PuregoSafeRegister(&xNewDateTimeNowUtc, lib, "g_date_time_new_now_utc")
+	core.PuregoSafeRegister(&xNewDateTimeUtc, lib, "g_date_time_new_utc")
 
 	core.PuregoSafeRegister(&xDateTimeAdd, lib, "g_date_time_add")
 	core.PuregoSafeRegister(&xDateTimeAddDays, lib, "g_date_time_add_days")

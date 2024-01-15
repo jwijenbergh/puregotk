@@ -32,15 +32,15 @@ func NewTabArray(InitialSizeVar int, PositionsInPixelsVar bool) *TabArray {
 	return cret
 }
 
-var xNewWithPositionsTabArray func(int, bool, TabAlign, int, ...interface{}) *TabArray
+var xNewTabArrayWithPositions func(int, bool, TabAlign, int, ...interface{}) *TabArray
 
 // Creates a `PangoTabArray` and allows you to specify the alignment
 // and position of each tab stop.
 //
 // You **must** provide an alignment and position for @size tab stops.
-func NewWithPositionsTabArray(SizeVar int, PositionsInPixelsVar bool, FirstAlignmentVar TabAlign, FirstPositionVar int, varArgs ...interface{}) *TabArray {
+func NewTabArrayWithPositions(SizeVar int, PositionsInPixelsVar bool, FirstAlignmentVar TabAlign, FirstPositionVar int, varArgs ...interface{}) *TabArray {
 
-	cret := xNewWithPositionsTabArray(SizeVar, PositionsInPixelsVar, FirstAlignmentVar, FirstPositionVar, varArgs...)
+	cret := xNewTabArrayWithPositions(SizeVar, PositionsInPixelsVar, FirstAlignmentVar, FirstPositionVar, varArgs...)
 	return cret
 }
 
@@ -234,7 +234,7 @@ func init() {
 	core.PuregoSafeRegister(&xTabArrayFromString, lib, "pango_tab_array_from_string")
 
 	core.PuregoSafeRegister(&xNewTabArray, lib, "pango_tab_array_new")
-	core.PuregoSafeRegister(&xNewWithPositionsTabArray, lib, "pango_tab_array_new_with_positions")
+	core.PuregoSafeRegister(&xNewTabArrayWithPositions, lib, "pango_tab_array_new_with_positions")
 
 	core.PuregoSafeRegister(&xTabArrayCopy, lib, "pango_tab_array_copy")
 	core.PuregoSafeRegister(&xTabArrayFree, lib, "pango_tab_array_free")

@@ -197,43 +197,43 @@ func NewVariantType(TypeStringVar string) *VariantType {
 	return cret
 }
 
-var xNewArrayVariantType func(*VariantType) *VariantType
+var xNewVariantTypeArray func(*VariantType) *VariantType
 
 // Constructs the type corresponding to an array of elements of the
 // type @type.
 //
 // It is appropriate to call g_variant_type_free() on the return value.
-func NewArrayVariantType(ElementVar *VariantType) *VariantType {
+func NewVariantTypeArray(ElementVar *VariantType) *VariantType {
 
-	cret := xNewArrayVariantType(ElementVar)
+	cret := xNewVariantTypeArray(ElementVar)
 	return cret
 }
 
-var xNewDictEntryVariantType func(*VariantType, *VariantType) *VariantType
+var xNewVariantTypeDictEntry func(*VariantType, *VariantType) *VariantType
 
 // Constructs the type corresponding to a dictionary entry with a key
 // of type @key and a value of type @value.
 //
 // It is appropriate to call g_variant_type_free() on the return value.
-func NewDictEntryVariantType(KeyVar *VariantType, ValueVar *VariantType) *VariantType {
+func NewVariantTypeDictEntry(KeyVar *VariantType, ValueVar *VariantType) *VariantType {
 
-	cret := xNewDictEntryVariantType(KeyVar, ValueVar)
+	cret := xNewVariantTypeDictEntry(KeyVar, ValueVar)
 	return cret
 }
 
-var xNewMaybeVariantType func(*VariantType) *VariantType
+var xNewVariantTypeMaybe func(*VariantType) *VariantType
 
 // Constructs the type corresponding to a maybe instance containing
 // type @type or Nothing.
 //
 // It is appropriate to call g_variant_type_free() on the return value.
-func NewMaybeVariantType(ElementVar *VariantType) *VariantType {
+func NewVariantTypeMaybe(ElementVar *VariantType) *VariantType {
 
-	cret := xNewMaybeVariantType(ElementVar)
+	cret := xNewVariantTypeMaybe(ElementVar)
 	return cret
 }
 
-var xNewTupleVariantType func(uintptr, int) *VariantType
+var xNewVariantTypeTuple func(uintptr, int) *VariantType
 
 // Constructs a new tuple type, from @items.
 //
@@ -241,9 +241,9 @@ var xNewTupleVariantType func(uintptr, int) *VariantType
 // @items is %NULL-terminated.
 //
 // It is appropriate to call g_variant_type_free() on the return value.
-func NewTupleVariantType(ItemsVar uintptr, LengthVar int) *VariantType {
+func NewVariantTypeTuple(ItemsVar uintptr, LengthVar int) *VariantType {
 
-	cret := xNewTupleVariantType(ItemsVar, LengthVar)
+	cret := xNewVariantTypeTuple(ItemsVar, LengthVar)
 	return cret
 }
 
@@ -620,10 +620,10 @@ func init() {
 	core.PuregoSafeRegister(&xVariantTypeStringScan, lib, "g_variant_type_string_scan")
 
 	core.PuregoSafeRegister(&xNewVariantType, lib, "g_variant_type_new")
-	core.PuregoSafeRegister(&xNewArrayVariantType, lib, "g_variant_type_new_array")
-	core.PuregoSafeRegister(&xNewDictEntryVariantType, lib, "g_variant_type_new_dict_entry")
-	core.PuregoSafeRegister(&xNewMaybeVariantType, lib, "g_variant_type_new_maybe")
-	core.PuregoSafeRegister(&xNewTupleVariantType, lib, "g_variant_type_new_tuple")
+	core.PuregoSafeRegister(&xNewVariantTypeArray, lib, "g_variant_type_new_array")
+	core.PuregoSafeRegister(&xNewVariantTypeDictEntry, lib, "g_variant_type_new_dict_entry")
+	core.PuregoSafeRegister(&xNewVariantTypeMaybe, lib, "g_variant_type_new_maybe")
+	core.PuregoSafeRegister(&xNewVariantTypeTuple, lib, "g_variant_type_new_tuple")
 
 	core.PuregoSafeRegister(&xVariantTypeCopy, lib, "g_variant_type_copy")
 	core.PuregoSafeRegister(&xVariantTypeDupString, lib, "g_variant_type_dup_string")

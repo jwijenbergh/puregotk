@@ -65,14 +65,14 @@ func NewBufferedInputStream(BaseStreamVar *InputStream) *BufferedInputStream {
 	return cls
 }
 
-var xNewSizedBufferedInputStream func(uintptr, uint) uintptr
+var xNewBufferedInputStreamSized func(uintptr, uint) uintptr
 
 // Creates a new #GBufferedInputStream from the given @base_stream,
 // with a buffer set to @size.
-func NewSizedBufferedInputStream(BaseStreamVar *InputStream, SizeVar uint) *BufferedInputStream {
+func NewBufferedInputStreamSized(BaseStreamVar *InputStream, SizeVar uint) *BufferedInputStream {
 	var cls *BufferedInputStream
 
-	cret := xNewSizedBufferedInputStream(BaseStreamVar.GoPointer(), SizeVar)
+	cret := xNewBufferedInputStreamSized(BaseStreamVar.GoPointer(), SizeVar)
 
 	if cret == 0 {
 		return nil
@@ -305,7 +305,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewBufferedInputStream, lib, "g_buffered_input_stream_new")
-	core.PuregoSafeRegister(&xNewSizedBufferedInputStream, lib, "g_buffered_input_stream_new_sized")
+	core.PuregoSafeRegister(&xNewBufferedInputStreamSized, lib, "g_buffered_input_stream_new_sized")
 
 	core.PuregoSafeRegister(&xBufferedInputStreamFill, lib, "g_buffered_input_stream_fill")
 	core.PuregoSafeRegister(&xBufferedInputStreamFillAsync, lib, "g_buffered_input_stream_fill_async")

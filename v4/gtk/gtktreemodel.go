@@ -83,36 +83,36 @@ func NewTreePath() *TreePath {
 	return cret
 }
 
-var xNewFirstTreePath func() *TreePath
+var xNewTreePathFirst func() *TreePath
 
 // Creates a new `GtkTreePath`.
 //
 // The string representation of this path is “0”.
-func NewFirstTreePath() *TreePath {
+func NewTreePathFirst() *TreePath {
 
-	cret := xNewFirstTreePath()
+	cret := xNewTreePathFirst()
 	return cret
 }
 
-var xNewFromIndicesTreePath func(int, ...interface{}) *TreePath
+var xNewTreePathFromIndices func(int, ...interface{}) *TreePath
 
 // Creates a new path with @first_index and @varargs as indices.
-func NewFromIndicesTreePath(FirstIndexVar int, varArgs ...interface{}) *TreePath {
+func NewTreePathFromIndices(FirstIndexVar int, varArgs ...interface{}) *TreePath {
 
-	cret := xNewFromIndicesTreePath(FirstIndexVar, varArgs...)
+	cret := xNewTreePathFromIndices(FirstIndexVar, varArgs...)
 	return cret
 }
 
-var xNewFromIndicesvTreePath func(uintptr, uint) *TreePath
+var xNewTreePathFromIndicesv func(uintptr, uint) *TreePath
 
 // Creates a new path with the given @indices array of @length.
-func NewFromIndicesvTreePath(IndicesVar uintptr, LengthVar uint) *TreePath {
+func NewTreePathFromIndicesv(IndicesVar uintptr, LengthVar uint) *TreePath {
 
-	cret := xNewFromIndicesvTreePath(IndicesVar, LengthVar)
+	cret := xNewTreePathFromIndicesv(IndicesVar, LengthVar)
 	return cret
 }
 
-var xNewFromStringTreePath func(string) *TreePath
+var xNewTreePathFromString func(string) *TreePath
 
 // Creates a new `GtkTreePath` initialized to @path.
 //
@@ -121,9 +121,9 @@ var xNewFromStringTreePath func(string) *TreePath
 // 3 pointing to the 11th child of the root node, the 5th
 // child of that 11th child, and the 1st child of that 5th child.
 // If an invalid path string is passed in, %NULL is returned.
-func NewFromStringTreePath(PathVar string) *TreePath {
+func NewTreePathFromString(PathVar string) *TreePath {
 
-	cret := xNewFromStringTreePath(PathVar)
+	cret := xNewTreePathFromString(PathVar)
 	return cret
 }
 
@@ -309,7 +309,7 @@ func NewTreeRowReference(ModelVar TreeModel, PathVar *TreePath) *TreeRowReferenc
 	return cret
 }
 
-var xNewProxyTreeRowReference func(uintptr, uintptr, *TreePath) *TreeRowReference
+var xNewTreeRowReferenceProxy func(uintptr, uintptr, *TreePath) *TreeRowReference
 
 // You do not need to use this function.
 //
@@ -335,9 +335,9 @@ var xNewProxyTreeRowReference func(uintptr, uintptr, *TreePath) *TreeRowReferenc
 // This type of row reference is primarily meant by structures that
 // need to carefully monitor exactly when a row reference updates
 // itself, and is not generally needed by most applications.
-func NewProxyTreeRowReference(ProxyVar *gobject.Object, ModelVar TreeModel, PathVar *TreePath) *TreeRowReference {
+func NewTreeRowReferenceProxy(ProxyVar *gobject.Object, ModelVar TreeModel, PathVar *TreePath) *TreeRowReference {
 
-	cret := xNewProxyTreeRowReference(ProxyVar.GoPointer(), ModelVar.GoPointer(), PathVar)
+	cret := xNewTreeRowReferenceProxy(ProxyVar.GoPointer(), ModelVar.GoPointer(), PathVar)
 	return cret
 }
 
@@ -1067,10 +1067,10 @@ func init() {
 	core.PuregoSafeRegister(&xTreeIterFree, lib, "gtk_tree_iter_free")
 
 	core.PuregoSafeRegister(&xNewTreePath, lib, "gtk_tree_path_new")
-	core.PuregoSafeRegister(&xNewFirstTreePath, lib, "gtk_tree_path_new_first")
-	core.PuregoSafeRegister(&xNewFromIndicesTreePath, lib, "gtk_tree_path_new_from_indices")
-	core.PuregoSafeRegister(&xNewFromIndicesvTreePath, lib, "gtk_tree_path_new_from_indicesv")
-	core.PuregoSafeRegister(&xNewFromStringTreePath, lib, "gtk_tree_path_new_from_string")
+	core.PuregoSafeRegister(&xNewTreePathFirst, lib, "gtk_tree_path_new_first")
+	core.PuregoSafeRegister(&xNewTreePathFromIndices, lib, "gtk_tree_path_new_from_indices")
+	core.PuregoSafeRegister(&xNewTreePathFromIndicesv, lib, "gtk_tree_path_new_from_indicesv")
+	core.PuregoSafeRegister(&xNewTreePathFromString, lib, "gtk_tree_path_new_from_string")
 
 	core.PuregoSafeRegister(&xTreePathAppendIndex, lib, "gtk_tree_path_append_index")
 	core.PuregoSafeRegister(&xTreePathCompare, lib, "gtk_tree_path_compare")
@@ -1089,7 +1089,7 @@ func init() {
 	core.PuregoSafeRegister(&xTreePathUp, lib, "gtk_tree_path_up")
 
 	core.PuregoSafeRegister(&xNewTreeRowReference, lib, "gtk_tree_row_reference_new")
-	core.PuregoSafeRegister(&xNewProxyTreeRowReference, lib, "gtk_tree_row_reference_new_proxy")
+	core.PuregoSafeRegister(&xNewTreeRowReferenceProxy, lib, "gtk_tree_row_reference_new_proxy")
 
 	core.PuregoSafeRegister(&xTreeRowReferenceCopy, lib, "gtk_tree_row_reference_copy")
 	core.PuregoSafeRegister(&xTreeRowReferenceFree, lib, "gtk_tree_row_reference_free")

@@ -92,14 +92,14 @@ func NewDropDown(ModelVar gio.ListModel, ExpressionVar *Expression) *DropDown {
 	return cls
 }
 
-var xNewFromStringsDropDown func(uintptr) uintptr
+var xNewDropDownFromStrings func(uintptr) uintptr
 
 // Creates a new `GtkDropDown` that is populated with
 // the strings.
-func NewFromStringsDropDown(StringsVar uintptr) *DropDown {
+func NewDropDownFromStrings(StringsVar uintptr) *DropDown {
 	var cls *DropDown
 
-	cret := xNewFromStringsDropDown(StringsVar)
+	cret := xNewDropDownFromStrings(StringsVar)
 
 	if cret == 0 {
 		return nil
@@ -471,7 +471,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewDropDown, lib, "gtk_drop_down_new")
-	core.PuregoSafeRegister(&xNewFromStringsDropDown, lib, "gtk_drop_down_new_from_strings")
+	core.PuregoSafeRegister(&xNewDropDownFromStrings, lib, "gtk_drop_down_new_from_strings")
 
 	core.PuregoSafeRegister(&xDropDownGetEnableSearch, lib, "gtk_drop_down_get_enable_search")
 	core.PuregoSafeRegister(&xDropDownGetExpression, lib, "gtk_drop_down_get_expression")

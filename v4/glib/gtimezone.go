@@ -30,7 +30,7 @@ func NewTimeZone(IdentifierVar string) *TimeZone {
 	return cret
 }
 
-var xNewIdentifierTimeZone func(string) *TimeZone
+var xNewTimeZoneIdentifier func(string) *TimeZone
 
 // Creates a #GTimeZone corresponding to @identifier. If @identifier cannot be
 // parsed or loaded, %NULL is returned.
@@ -97,13 +97,13 @@ var xNewIdentifierTimeZone func(string) *TimeZone
 //
 // You should release the return value by calling g_time_zone_unref()
 // when you are done with it.
-func NewIdentifierTimeZone(IdentifierVar string) *TimeZone {
+func NewTimeZoneIdentifier(IdentifierVar string) *TimeZone {
 
-	cret := xNewIdentifierTimeZone(IdentifierVar)
+	cret := xNewTimeZoneIdentifier(IdentifierVar)
 	return cret
 }
 
-var xNewLocalTimeZone func() *TimeZone
+var xNewTimeZoneLocal func() *TimeZone
 
 // Creates a #GTimeZone corresponding to local time.  The local time
 // zone may change between invocations to this function; for example,
@@ -114,26 +114,26 @@ var xNewLocalTimeZone func() *TimeZone
 //
 // You should release the return value by calling g_time_zone_unref()
 // when you are done with it.
-func NewLocalTimeZone() *TimeZone {
+func NewTimeZoneLocal() *TimeZone {
 
-	cret := xNewLocalTimeZone()
+	cret := xNewTimeZoneLocal()
 	return cret
 }
 
-var xNewOffsetTimeZone func(int32) *TimeZone
+var xNewTimeZoneOffset func(int32) *TimeZone
 
 // Creates a #GTimeZone corresponding to the given constant offset from UTC,
 // in seconds.
 //
 // This is equivalent to calling g_time_zone_new() with a string in the form
 // `[+|-]hh[:mm[:ss]]`.
-func NewOffsetTimeZone(SecondsVar int32) *TimeZone {
+func NewTimeZoneOffset(SecondsVar int32) *TimeZone {
 
-	cret := xNewOffsetTimeZone(SecondsVar)
+	cret := xNewTimeZoneOffset(SecondsVar)
 	return cret
 }
 
-var xNewUtcTimeZone func() *TimeZone
+var xNewTimeZoneUtc func() *TimeZone
 
 // Creates a #GTimeZone corresponding to UTC.
 //
@@ -142,9 +142,9 @@ var xNewUtcTimeZone func() *TimeZone
 //
 // You should release the return value by calling g_time_zone_unref()
 // when you are done with it.
-func NewUtcTimeZone() *TimeZone {
+func NewTimeZoneUtc() *TimeZone {
 
-	cret := xNewUtcTimeZone()
+	cret := xNewTimeZoneUtc()
 	return cret
 }
 
@@ -297,10 +297,10 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewTimeZone, lib, "g_time_zone_new")
-	core.PuregoSafeRegister(&xNewIdentifierTimeZone, lib, "g_time_zone_new_identifier")
-	core.PuregoSafeRegister(&xNewLocalTimeZone, lib, "g_time_zone_new_local")
-	core.PuregoSafeRegister(&xNewOffsetTimeZone, lib, "g_time_zone_new_offset")
-	core.PuregoSafeRegister(&xNewUtcTimeZone, lib, "g_time_zone_new_utc")
+	core.PuregoSafeRegister(&xNewTimeZoneIdentifier, lib, "g_time_zone_new_identifier")
+	core.PuregoSafeRegister(&xNewTimeZoneLocal, lib, "g_time_zone_new_local")
+	core.PuregoSafeRegister(&xNewTimeZoneOffset, lib, "g_time_zone_new_offset")
+	core.PuregoSafeRegister(&xNewTimeZoneUtc, lib, "g_time_zone_new_utc")
 
 	core.PuregoSafeRegister(&xTimeZoneAdjustTime, lib, "g_time_zone_adjust_time")
 	core.PuregoSafeRegister(&xTimeZoneFindInterval, lib, "g_time_zone_find_interval")

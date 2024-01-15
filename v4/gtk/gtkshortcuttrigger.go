@@ -299,7 +299,7 @@ func ShortcutTriggerNewFromInternalPtr(ptr uintptr) *ShortcutTrigger {
 	return cls
 }
 
-var xParseStringShortcutTrigger func(string) uintptr
+var xShortcutTriggerParseString func(string) uintptr
 
 // Tries to parse the given string into a trigger.
 //
@@ -317,10 +317,10 @@ var xParseStringShortcutTrigger func(string) uintptr
 // Note that you will have to escape the `&lt;` and `&gt;` characters when specifying
 // triggers in XML files, such as GtkBuilder ui files. Use `&amp;lt;` instead of
 // `&lt;` and `&amp;gt;` instead of `&gt;`.
-func ParseStringShortcutTrigger(StringVar string) *ShortcutTrigger {
+func ShortcutTriggerParseString(StringVar string) *ShortcutTrigger {
 	var cls *ShortcutTrigger
 
-	cret := xParseStringShortcutTrigger(StringVar)
+	cret := xShortcutTriggerParseString(StringVar)
 
 	if cret == 0 {
 		return nil
@@ -474,7 +474,7 @@ func init() {
 
 	core.PuregoSafeRegister(&xNeverTriggerGet, lib, "gtk_never_trigger_get")
 
-	core.PuregoSafeRegister(&xParseStringShortcutTrigger, lib, "gtk_shortcut_trigger_parse_string")
+	core.PuregoSafeRegister(&xShortcutTriggerParseString, lib, "gtk_shortcut_trigger_parse_string")
 
 	core.PuregoSafeRegister(&xShortcutTriggerCompare, lib, "gtk_shortcut_trigger_compare")
 	core.PuregoSafeRegister(&xShortcutTriggerEqual, lib, "gtk_shortcut_trigger_equal")

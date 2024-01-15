@@ -37,16 +37,16 @@ func SurfaceNewFromInternalPtr(ptr uintptr) *Surface {
 	return cls
 }
 
-var xNewPopupSurface func(uintptr, bool) uintptr
+var xNewSurfacePopup func(uintptr, bool) uintptr
 
 // Create a new popup surface.
 //
 // The surface will be attached to @parent and can be positioned
 // relative to it using [method@Gdk.Popup.present].
-func NewPopupSurface(ParentVar *Surface, AutohideVar bool) *Surface {
+func NewSurfacePopup(ParentVar *Surface, AutohideVar bool) *Surface {
 	var cls *Surface
 
-	cret := xNewPopupSurface(ParentVar.GoPointer(), AutohideVar)
+	cret := xNewSurfacePopup(ParentVar.GoPointer(), AutohideVar)
 
 	if cret == 0 {
 		return nil
@@ -56,13 +56,13 @@ func NewPopupSurface(ParentVar *Surface, AutohideVar bool) *Surface {
 	return cls
 }
 
-var xNewToplevelSurface func(uintptr) uintptr
+var xNewSurfaceToplevel func(uintptr) uintptr
 
 // Creates a new toplevel surface.
-func NewToplevelSurface(DisplayVar *Display) *Surface {
+func NewSurfaceToplevel(DisplayVar *Display) *Surface {
 	var cls *Surface
 
-	cret := xNewToplevelSurface(DisplayVar.GoPointer())
+	cret := xNewSurfaceToplevel(DisplayVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -552,8 +552,8 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewPopupSurface, lib, "gdk_surface_new_popup")
-	core.PuregoSafeRegister(&xNewToplevelSurface, lib, "gdk_surface_new_toplevel")
+	core.PuregoSafeRegister(&xNewSurfacePopup, lib, "gdk_surface_new_popup")
+	core.PuregoSafeRegister(&xNewSurfaceToplevel, lib, "gdk_surface_new_toplevel")
 
 	core.PuregoSafeRegister(&xSurfaceBeep, lib, "gdk_surface_beep")
 	core.PuregoSafeRegister(&xSurfaceCreateCairoContext, lib, "gdk_surface_create_cairo_context")

@@ -84,14 +84,14 @@ func NewIconView() *IconView {
 	return cls
 }
 
-var xNewWithAreaIconView func(uintptr) uintptr
+var xNewIconViewWithArea func(uintptr) uintptr
 
 // Creates a new `GtkIconView` widget using the
 // specified @area to layout cells inside the icons.
-func NewWithAreaIconView(AreaVar *CellArea) *IconView {
+func NewIconViewWithArea(AreaVar *CellArea) *IconView {
 	var cls *IconView
 
-	cret := xNewWithAreaIconView(AreaVar.GoPointer())
+	cret := xNewIconViewWithArea(AreaVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -102,13 +102,13 @@ func NewWithAreaIconView(AreaVar *CellArea) *IconView {
 	return cls
 }
 
-var xNewWithModelIconView func(uintptr) uintptr
+var xNewIconViewWithModel func(uintptr) uintptr
 
 // Creates a new `GtkIconView` widget with the model @model.
-func NewWithModelIconView(ModelVar TreeModel) *IconView {
+func NewIconViewWithModel(ModelVar TreeModel) *IconView {
 	var cls *IconView
 
-	cret := xNewWithModelIconView(ModelVar.GoPointer())
+	cret := xNewIconViewWithModel(ModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -1305,8 +1305,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewIconView, lib, "gtk_icon_view_new")
-	core.PuregoSafeRegister(&xNewWithAreaIconView, lib, "gtk_icon_view_new_with_area")
-	core.PuregoSafeRegister(&xNewWithModelIconView, lib, "gtk_icon_view_new_with_model")
+	core.PuregoSafeRegister(&xNewIconViewWithArea, lib, "gtk_icon_view_new_with_area")
+	core.PuregoSafeRegister(&xNewIconViewWithModel, lib, "gtk_icon_view_new_with_model")
 
 	core.PuregoSafeRegister(&xIconViewCreateDragIcon, lib, "gtk_icon_view_create_drag_icon")
 	core.PuregoSafeRegister(&xIconViewEnableModelDragDest, lib, "gtk_icon_view_enable_model_drag_dest")

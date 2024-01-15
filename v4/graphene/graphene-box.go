@@ -20,14 +20,14 @@ func (x *Box) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocBox func() *Box
+var xBoxAlloc func() *Box
 
 // Allocates a new #graphene_box_t.
 //
 // The contents of the returned structure are undefined.
-func AllocBox() *Box {
+func BoxAlloc() *Box {
 
-	cret := xAllocBox()
+	cret := xBoxAlloc()
 	return cret
 }
 
@@ -341,7 +341,7 @@ func init() {
 	core.PuregoSafeRegister(&xBoxOneMinusOne, lib, "graphene_box_one_minus_one")
 	core.PuregoSafeRegister(&xBoxZero, lib, "graphene_box_zero")
 
-	core.PuregoSafeRegister(&xAllocBox, lib, "graphene_box_alloc")
+	core.PuregoSafeRegister(&xBoxAlloc, lib, "graphene_box_alloc")
 
 	core.PuregoSafeRegister(&xBoxContainsBox, lib, "graphene_box_contains_box")
 	core.PuregoSafeRegister(&xBoxContainsPoint, lib, "graphene_box_contains_point")

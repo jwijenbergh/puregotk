@@ -50,7 +50,7 @@ func CursorNewFromInternalPtr(ptr uintptr) *Cursor {
 	return cls
 }
 
-var xNewFromNameCursor func(string, uintptr) uintptr
+var xNewCursorFromName func(string, uintptr) uintptr
 
 // Creates a new cursor by looking up @name in the current cursor
 // theme.
@@ -69,10 +69,10 @@ var xNewFromNameCursor func(string, uintptr) uintptr
 // | ![](w_resize_cursor.png) "w-resize" | ![](ne_resize_cursor.png) "ne-resize" | ![](nw_resize_cursor.png) "nw-resize" | ![](sw_resize_cursor.png) "sw-resize" |
 // | ![](se_resize_cursor.png) "se-resize" | ![](ew_resize_cursor.png) "ew-resize" | ![](ns_resize_cursor.png) "ns-resize" | ![](nesw_resize_cursor.png) "nesw-resize" |
 // | ![](nwse_resize_cursor.png) "nwse-resize" | ![](zoom_in_cursor.png) "zoom-in" | ![](zoom_out_cursor.png) "zoom-out" | |
-func NewFromNameCursor(NameVar string, FallbackVar *Cursor) *Cursor {
+func NewCursorFromName(NameVar string, FallbackVar *Cursor) *Cursor {
 	var cls *Cursor
 
-	cret := xNewFromNameCursor(NameVar, FallbackVar.GoPointer())
+	cret := xNewCursorFromName(NameVar, FallbackVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -82,13 +82,13 @@ func NewFromNameCursor(NameVar string, FallbackVar *Cursor) *Cursor {
 	return cls
 }
 
-var xNewFromTextureCursor func(uintptr, int, int, uintptr) uintptr
+var xNewCursorFromTexture func(uintptr, int, int, uintptr) uintptr
 
 // Creates a new cursor from a `GdkTexture`.
-func NewFromTextureCursor(TextureVar *Texture, HotspotXVar int, HotspotYVar int, FallbackVar *Cursor) *Cursor {
+func NewCursorFromTexture(TextureVar *Texture, HotspotXVar int, HotspotYVar int, FallbackVar *Cursor) *Cursor {
 	var cls *Cursor
 
-	cret := xNewFromTextureCursor(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
+	cret := xNewCursorFromTexture(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -195,8 +195,8 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromNameCursor, lib, "gdk_cursor_new_from_name")
-	core.PuregoSafeRegister(&xNewFromTextureCursor, lib, "gdk_cursor_new_from_texture")
+	core.PuregoSafeRegister(&xNewCursorFromName, lib, "gdk_cursor_new_from_name")
+	core.PuregoSafeRegister(&xNewCursorFromTexture, lib, "gdk_cursor_new_from_texture")
 
 	core.PuregoSafeRegister(&xCursorGetFallback, lib, "gdk_cursor_get_fallback")
 	core.PuregoSafeRegister(&xCursorGetHotspotX, lib, "gdk_cursor_get_hotspot_x")

@@ -257,13 +257,13 @@ func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncRead
 	return cls
 }
 
-var xNewErrorSimpleAsyncResult func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{}) uintptr
+var xNewSimpleAsyncResultError func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{}) uintptr
 
 // Creates a new #GSimpleAsyncResult with a set error.
-func NewErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
+func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
+	cret := xNewSimpleAsyncResultError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -273,13 +273,13 @@ func NewErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar Asyn
 	return cls
 }
 
-var xNewFromErrorSimpleAsyncResult func(uintptr, uintptr, uintptr, *glib.Error) uintptr
+var xNewSimpleAsyncResultFromError func(uintptr, uintptr, uintptr, *glib.Error) uintptr
 
 // Creates a #GSimpleAsyncResult from an error condition.
-func NewFromErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
+func NewSimpleAsyncResultFromError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewFromErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	cret := xNewSimpleAsyncResultFromError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
 		return nil
@@ -289,14 +289,14 @@ func NewFromErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar 
 	return cls
 }
 
-var xNewTakeErrorSimpleAsyncResult func(uintptr, uintptr, uintptr, *glib.Error) uintptr
+var xNewSimpleAsyncResultTakeError func(uintptr, uintptr, uintptr, *glib.Error) uintptr
 
 // Creates a #GSimpleAsyncResult from an error condition, and takes over the
 // caller's ownership of @error, so the caller does not need to free it anymore.
-func NewTakeErrorSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
+func NewSimpleAsyncResultTakeError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewTakeErrorSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	cret := xNewSimpleAsyncResultTakeError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
 		return nil
@@ -595,9 +595,9 @@ func init() {
 	core.PuregoSafeRegister(&xSimpleAsyncReportTakeGerrorInIdle, lib, "g_simple_async_report_take_gerror_in_idle")
 
 	core.PuregoSafeRegister(&xNewSimpleAsyncResult, lib, "g_simple_async_result_new")
-	core.PuregoSafeRegister(&xNewErrorSimpleAsyncResult, lib, "g_simple_async_result_new_error")
-	core.PuregoSafeRegister(&xNewFromErrorSimpleAsyncResult, lib, "g_simple_async_result_new_from_error")
-	core.PuregoSafeRegister(&xNewTakeErrorSimpleAsyncResult, lib, "g_simple_async_result_new_take_error")
+	core.PuregoSafeRegister(&xNewSimpleAsyncResultError, lib, "g_simple_async_result_new_error")
+	core.PuregoSafeRegister(&xNewSimpleAsyncResultFromError, lib, "g_simple_async_result_new_from_error")
+	core.PuregoSafeRegister(&xNewSimpleAsyncResultTakeError, lib, "g_simple_async_result_new_take_error")
 
 	core.PuregoSafeRegister(&xSimpleAsyncResultComplete, lib, "g_simple_async_result_complete")
 	core.PuregoSafeRegister(&xSimpleAsyncResultCompleteInIdle, lib, "g_simple_async_result_complete_in_idle")

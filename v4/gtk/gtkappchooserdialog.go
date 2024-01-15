@@ -51,15 +51,15 @@ func NewAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, FileVar gio.Fi
 	return cls
 }
 
-var xNewForContentTypeAppChooserDialog func(uintptr, DialogFlags, string) uintptr
+var xNewAppChooserDialogForContentType func(uintptr, DialogFlags, string) uintptr
 
 // Creates a new `GtkAppChooserDialog` for the provided content type.
 //
 // The dialog will show applications that can open the content type.
-func NewForContentTypeAppChooserDialog(ParentVar *Window, FlagsVar DialogFlags, ContentTypeVar string) *AppChooserDialog {
+func NewAppChooserDialogForContentType(ParentVar *Window, FlagsVar DialogFlags, ContentTypeVar string) *AppChooserDialog {
 	var cls *AppChooserDialog
 
-	cret := xNewForContentTypeAppChooserDialog(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
+	cret := xNewAppChooserDialogForContentType(ParentVar.GoPointer(), FlagsVar, ContentTypeVar)
 
 	if cret == 0 {
 		return nil
@@ -401,7 +401,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewAppChooserDialog, lib, "gtk_app_chooser_dialog_new")
-	core.PuregoSafeRegister(&xNewForContentTypeAppChooserDialog, lib, "gtk_app_chooser_dialog_new_for_content_type")
+	core.PuregoSafeRegister(&xNewAppChooserDialogForContentType, lib, "gtk_app_chooser_dialog_new_for_content_type")
 
 	core.PuregoSafeRegister(&xAppChooserDialogGetHeading, lib, "gtk_app_chooser_dialog_get_heading")
 	core.PuregoSafeRegister(&xAppChooserDialogGetWidget, lib, "gtk_app_chooser_dialog_get_widget")

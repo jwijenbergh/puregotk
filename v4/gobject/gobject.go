@@ -492,16 +492,16 @@ func NewObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, varArgs
 	return cls
 }
 
-var xNewValistObject func([]interface{}, string, []interface{}) uintptr
+var xNewObjectValist func([]interface{}, string, []interface{}) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties.
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewValistObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, VarArgsVar []interface{}) *Object {
+func NewObjectValist(ObjectTypeVar []interface{}, FirstPropertyNameVar string, VarArgsVar []interface{}) *Object {
 	var cls *Object
 
-	cret := xNewValistObject(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
+	cret := xNewObjectValist(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
 
 	if cret == 0 {
 		return nil
@@ -511,7 +511,7 @@ func NewValistObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, V
 	return cls
 }
 
-var xNewWithPropertiesObject func([]interface{}, uint, []string, uintptr) uintptr
+var xNewObjectWithProperties func([]interface{}, uint, []string, uintptr) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties using
 // the provided arrays. Both arrays must have exactly @n_properties elements,
@@ -519,10 +519,10 @@ var xNewWithPropertiesObject func([]interface{}, uint, []string, uintptr) uintpt
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar []string, ValuesVar uintptr) *Object {
+func NewObjectWithProperties(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar []string, ValuesVar uintptr) *Object {
 	var cls *Object
 
-	cret := xNewWithPropertiesObject(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
+	cret := xNewObjectWithProperties(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
 
 	if cret == 0 {
 		return nil
@@ -532,16 +532,16 @@ func NewWithPropertiesObject(ObjectTypeVar []interface{}, NPropertiesVar uint, N
 	return cls
 }
 
-var xNewvObject func([]interface{}, uint, uintptr) uintptr
+var xNewObjectv func([]interface{}, uint, uintptr) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties.
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewvObject(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr) *Object {
+func NewObjectv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr) *Object {
 	var cls *Object
 
-	cret := xNewvObject(ObjectTypeVar, NParametersVar, ParametersVar)
+	cret := xNewObjectv(ObjectTypeVar, NParametersVar, ParametersVar)
 
 	if cret == 0 {
 		return nil
@@ -1580,9 +1580,9 @@ func init() {
 	core.PuregoSafeRegister(&xWeakRefSet, lib, "g_weak_ref_set")
 
 	core.PuregoSafeRegister(&xNewObject, lib, "g_object_new")
-	core.PuregoSafeRegister(&xNewValistObject, lib, "g_object_new_valist")
-	core.PuregoSafeRegister(&xNewWithPropertiesObject, lib, "g_object_new_with_properties")
-	core.PuregoSafeRegister(&xNewvObject, lib, "g_object_newv")
+	core.PuregoSafeRegister(&xNewObjectValist, lib, "g_object_new_valist")
+	core.PuregoSafeRegister(&xNewObjectWithProperties, lib, "g_object_new_with_properties")
+	core.PuregoSafeRegister(&xNewObjectv, lib, "g_object_newv")
 
 	core.PuregoSafeRegister(&xObjectAddToggleRef, lib, "g_object_add_toggle_ref")
 	core.PuregoSafeRegister(&xObjectAddWeakPointer, lib, "g_object_add_weak_pointer")

@@ -99,13 +99,13 @@ func NewText() *Text {
 	return cls
 }
 
-var xNewWithBufferText func(uintptr) uintptr
+var xNewTextWithBuffer func(uintptr) uintptr
 
 // Creates a new `GtkText` with the specified text buffer.
-func NewWithBufferText(BufferVar *EntryBuffer) *Text {
+func NewTextWithBuffer(BufferVar *EntryBuffer) *Text {
 	var cls *Text
 
-	cret := xNewWithBufferText(BufferVar.GoPointer())
+	cret := xNewTextWithBuffer(BufferVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -1135,7 +1135,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewText, lib, "gtk_text_new")
-	core.PuregoSafeRegister(&xNewWithBufferText, lib, "gtk_text_new_with_buffer")
+	core.PuregoSafeRegister(&xNewTextWithBuffer, lib, "gtk_text_new_with_buffer")
 
 	core.PuregoSafeRegister(&xTextComputeCursorExtents, lib, "gtk_text_compute_cursor_extents")
 	core.PuregoSafeRegister(&xTextGetActivatesDefault, lib, "gtk_text_get_activates_default")

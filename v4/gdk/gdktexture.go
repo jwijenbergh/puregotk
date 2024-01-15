@@ -59,17 +59,17 @@ func TextureNewFromInternalPtr(ptr uintptr) *Texture {
 	return cls
 }
 
-var xNewForPixbufTexture func(uintptr) uintptr
+var xNewTextureForPixbuf func(uintptr) uintptr
 
 // Creates a new texture object representing the `GdkPixbuf`.
 //
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewForPixbufTexture(PixbufVar *gdkpixbuf.Pixbuf) *Texture {
+func NewTextureForPixbuf(PixbufVar *gdkpixbuf.Pixbuf) *Texture {
 	var cls *Texture
 
-	cret := xNewForPixbufTexture(PixbufVar.GoPointer())
+	cret := xNewTextureForPixbuf(PixbufVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -79,7 +79,7 @@ func NewForPixbufTexture(PixbufVar *gdkpixbuf.Pixbuf) *Texture {
 	return cls
 }
 
-var xNewFromBytesTexture func(*glib.Bytes, **glib.Error) uintptr
+var xNewTextureFromBytes func(*glib.Bytes, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from memory,
 //
@@ -91,11 +91,11 @@ var xNewFromBytesTexture func(*glib.Bytes, **glib.Error) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromBytesTexture(BytesVar *glib.Bytes) (*Texture, error) {
+func NewTextureFromBytes(BytesVar *glib.Bytes) (*Texture, error) {
 	var cls *Texture
 	var cerr *glib.Error
 
-	cret := xNewFromBytesTexture(BytesVar, &cerr)
+	cret := xNewTextureFromBytes(BytesVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -109,7 +109,7 @@ func NewFromBytesTexture(BytesVar *glib.Bytes) (*Texture, error) {
 
 }
 
-var xNewFromFileTexture func(uintptr, **glib.Error) uintptr
+var xNewTextureFromFile func(uintptr, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from a file.
 //
@@ -121,11 +121,11 @@ var xNewFromFileTexture func(uintptr, **glib.Error) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromFileTexture(FileVar gio.File) (*Texture, error) {
+func NewTextureFromFile(FileVar gio.File) (*Texture, error) {
 	var cls *Texture
 	var cerr *glib.Error
 
-	cret := xNewFromFileTexture(FileVar.GoPointer(), &cerr)
+	cret := xNewTextureFromFile(FileVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -139,7 +139,7 @@ func NewFromFileTexture(FileVar gio.File) (*Texture, error) {
 
 }
 
-var xNewFromFilenameTexture func(string, **glib.Error) uintptr
+var xNewTextureFromFilename func(string, **glib.Error) uintptr
 
 // Creates a new texture by loading an image from a file.
 //
@@ -151,11 +151,11 @@ var xNewFromFilenameTexture func(string, **glib.Error) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromFilenameTexture(PathVar string) (*Texture, error) {
+func NewTextureFromFilename(PathVar string) (*Texture, error) {
 	var cls *Texture
 	var cerr *glib.Error
 
-	cret := xNewFromFilenameTexture(PathVar, &cerr)
+	cret := xNewTextureFromFilename(PathVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -169,7 +169,7 @@ func NewFromFilenameTexture(PathVar string) (*Texture, error) {
 
 }
 
-var xNewFromResourceTexture func(string) uintptr
+var xNewTextureFromResource func(string) uintptr
 
 // Creates a new texture by loading an image from a resource.
 //
@@ -184,10 +184,10 @@ var xNewFromResourceTexture func(string) uintptr
 // This function is threadsafe, so that you can e.g. use GTask
 // and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
 // while loading a big image.
-func NewFromResourceTexture(ResourcePathVar string) *Texture {
+func NewTextureFromResource(ResourcePathVar string) *Texture {
 	var cls *Texture
 
-	cret := xNewFromResourceTexture(ResourcePathVar)
+	cret := xNewTextureFromResource(ResourcePathVar)
 
 	if cret == 0 {
 		return nil
@@ -560,11 +560,11 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewForPixbufTexture, lib, "gdk_texture_new_for_pixbuf")
-	core.PuregoSafeRegister(&xNewFromBytesTexture, lib, "gdk_texture_new_from_bytes")
-	core.PuregoSafeRegister(&xNewFromFileTexture, lib, "gdk_texture_new_from_file")
-	core.PuregoSafeRegister(&xNewFromFilenameTexture, lib, "gdk_texture_new_from_filename")
-	core.PuregoSafeRegister(&xNewFromResourceTexture, lib, "gdk_texture_new_from_resource")
+	core.PuregoSafeRegister(&xNewTextureForPixbuf, lib, "gdk_texture_new_for_pixbuf")
+	core.PuregoSafeRegister(&xNewTextureFromBytes, lib, "gdk_texture_new_from_bytes")
+	core.PuregoSafeRegister(&xNewTextureFromFile, lib, "gdk_texture_new_from_file")
+	core.PuregoSafeRegister(&xNewTextureFromFilename, lib, "gdk_texture_new_from_filename")
+	core.PuregoSafeRegister(&xNewTextureFromResource, lib, "gdk_texture_new_from_resource")
 
 	core.PuregoSafeRegister(&xTextureDownload, lib, "gdk_texture_download")
 	core.PuregoSafeRegister(&xTextureGetHeight, lib, "gdk_texture_get_height")

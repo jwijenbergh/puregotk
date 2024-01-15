@@ -775,14 +775,14 @@ func DBusConnectionNewFromInternalPtr(ptr uintptr) *DBusConnection {
 	return cls
 }
 
-var xNewFinishDBusConnection func(uintptr, **glib.Error) uintptr
+var xNewDBusConnectionFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_connection_new().
-func NewFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
+func NewDBusConnectionFinish(ResVar AsyncResult) (*DBusConnection, error) {
 	var cls *DBusConnection
 	var cerr *glib.Error
 
-	cret := xNewFinishDBusConnection(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusConnectionFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -796,14 +796,14 @@ func NewFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
 
 }
 
-var xNewForAddressFinishDBusConnection func(uintptr, **glib.Error) uintptr
+var xNewDBusConnectionForAddressFinish func(uintptr, **glib.Error) uintptr
 
 // Finishes an operation started with g_dbus_connection_new_for_address().
-func NewForAddressFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, error) {
+func NewDBusConnectionForAddressFinish(ResVar AsyncResult) (*DBusConnection, error) {
 	var cls *DBusConnection
 	var cerr *glib.Error
 
-	cret := xNewForAddressFinishDBusConnection(ResVar.GoPointer(), &cerr)
+	cret := xNewDBusConnectionForAddressFinish(ResVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -817,7 +817,7 @@ func NewForAddressFinishDBusConnection(ResVar AsyncResult) (*DBusConnection, err
 
 }
 
-var xNewForAddressSyncDBusConnection func(string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
+var xNewDBusConnectionForAddressSync func(string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
 
 // Synchronously connects and sets up a D-Bus client connection for
 // exchanging D-Bus messages with an endpoint specified by @address
@@ -836,11 +836,11 @@ var xNewForAddressSyncDBusConnection func(string, DBusConnectionFlags, uintptr, 
 //
 // If @observer is not %NULL it may be used to control the
 // authentication process.
-func NewForAddressSyncDBusConnection(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
+func NewDBusConnectionForAddressSync(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
 	var cls *DBusConnection
 	var cerr *glib.Error
 
-	cret := xNewForAddressSyncDBusConnection(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusConnectionForAddressSync(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -854,7 +854,7 @@ func NewForAddressSyncDBusConnection(AddressVar string, FlagsVar DBusConnectionF
 
 }
 
-var xNewSyncDBusConnection func(uintptr, string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
+var xNewDBusConnectionSync func(uintptr, string, DBusConnectionFlags, uintptr, uintptr, **glib.Error) uintptr
 
 // Synchronously sets up a D-Bus connection for exchanging D-Bus messages
 // with the end represented by @stream.
@@ -871,11 +871,11 @@ var xNewSyncDBusConnection func(uintptr, string, DBusConnectionFlags, uintptr, u
 //
 // This is a synchronous failable constructor. See
 // g_dbus_connection_new() for the asynchronous version.
-func NewSyncDBusConnection(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
+func NewDBusConnectionSync(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusConnection, error) {
 	var cls *DBusConnection
 	var cerr *glib.Error
 
-	cret := xNewSyncDBusConnection(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusConnectionSync(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -2145,7 +2145,7 @@ func NewDBusMessage() *DBusMessage {
 	return cls
 }
 
-var xNewFromBlobDBusMessage func(uintptr, uint, DBusCapabilityFlags, **glib.Error) uintptr
+var xNewDBusMessageFromBlob func(uintptr, uint, DBusCapabilityFlags, **glib.Error) uintptr
 
 // Creates a new #GDBusMessage from the data stored at @blob. The byte
 // order that the message was in can be retrieved using
@@ -2153,11 +2153,11 @@ var xNewFromBlobDBusMessage func(uintptr, uint, DBusCapabilityFlags, **glib.Erro
 //
 // If the @blob cannot be parsed, contains invalid fields, or contains invalid
 // headers, %G_IO_ERROR_INVALID_ARGUMENT will be returned.
-func NewFromBlobDBusMessage(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DBusCapabilityFlags) (*DBusMessage, error) {
+func NewDBusMessageFromBlob(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DBusCapabilityFlags) (*DBusMessage, error) {
 	var cls *DBusMessage
 	var cerr *glib.Error
 
-	cret := xNewFromBlobDBusMessage(BlobVar, BlobLenVar, CapabilitiesVar, &cerr)
+	cret := xNewDBusMessageFromBlob(BlobVar, BlobLenVar, CapabilitiesVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -2171,13 +2171,13 @@ func NewFromBlobDBusMessage(BlobVar uintptr, BlobLenVar uint, CapabilitiesVar DB
 
 }
 
-var xNewMethodCallDBusMessage func(string, string, string, string) uintptr
+var xNewDBusMessageMethodCall func(string, string, string, string) uintptr
 
 // Creates a new #GDBusMessage for a method call.
-func NewMethodCallDBusMessage(NameVar string, PathVar string, InterfaceVar string, MethodVar string) *DBusMessage {
+func NewDBusMessageMethodCall(NameVar string, PathVar string, InterfaceVar string, MethodVar string) *DBusMessage {
 	var cls *DBusMessage
 
-	cret := xNewMethodCallDBusMessage(NameVar, PathVar, InterfaceVar, MethodVar)
+	cret := xNewDBusMessageMethodCall(NameVar, PathVar, InterfaceVar, MethodVar)
 
 	if cret == 0 {
 		return nil
@@ -2187,13 +2187,13 @@ func NewMethodCallDBusMessage(NameVar string, PathVar string, InterfaceVar strin
 	return cls
 }
 
-var xNewSignalDBusMessage func(string, string, string) uintptr
+var xNewDBusMessageSignal func(string, string, string) uintptr
 
 // Creates a new #GDBusMessage for a signal emission.
-func NewSignalDBusMessage(PathVar string, InterfaceVar string, SignalVar string) *DBusMessage {
+func NewDBusMessageSignal(PathVar string, InterfaceVar string, SignalVar string) *DBusMessage {
 	var cls *DBusMessage
 
-	cret := xNewSignalDBusMessage(PathVar, InterfaceVar, SignalVar)
+	cret := xNewDBusMessageSignal(PathVar, InterfaceVar, SignalVar)
 
 	if cret == 0 {
 		return nil
@@ -3103,7 +3103,7 @@ func DBusServerNewFromInternalPtr(ptr uintptr) *DBusServer {
 	return cls
 }
 
-var xNewSyncDBusServer func(string, DBusServerFlags, string, uintptr, uintptr, **glib.Error) uintptr
+var xNewDBusServerSync func(string, DBusServerFlags, string, uintptr, uintptr, **glib.Error) uintptr
 
 // Creates a new D-Bus server that listens on the first address in
 // @address that works.
@@ -3125,11 +3125,11 @@ var xNewSyncDBusServer func(string, DBusServerFlags, string, uintptr, uintptr, *
 //
 // This is a synchronous failable constructor. There is currently no
 // asynchronous version.
-func NewSyncDBusServer(AddressVar string, FlagsVar DBusServerFlags, GuidVar string, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusServer, error) {
+func NewDBusServerSync(AddressVar string, FlagsVar DBusServerFlags, GuidVar string, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable) (*DBusServer, error) {
 	var cls *DBusServer
 	var cerr *glib.Error
 
-	cret := xNewSyncDBusServer(AddressVar, FlagsVar, GuidVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusServerSync(AddressVar, FlagsVar, GuidVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -3558,17 +3558,17 @@ func NewMenuItem(LabelVar string, DetailedActionVar string) *MenuItem {
 	return cls
 }
 
-var xNewFromModelMenuItem func(uintptr, int) uintptr
+var xNewMenuItemFromModel func(uintptr, int) uintptr
 
 // Creates a #GMenuItem as an exact copy of an existing menu item in a
 // #GMenuModel.
 //
 // @item_index must be valid (ie: be sure to call
 // g_menu_model_get_n_items() first).
-func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
+func NewMenuItemFromModel(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
 	var cls *MenuItem
 
-	cret := xNewFromModelMenuItem(ModelVar.GoPointer(), ItemIndexVar)
+	cret := xNewMenuItemFromModel(ModelVar.GoPointer(), ItemIndexVar)
 
 	if cret == 0 {
 		return nil
@@ -3578,7 +3578,7 @@ func NewFromModelMenuItem(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
 	return cls
 }
 
-var xNewSectionMenuItem func(string, uintptr) uintptr
+var xNewMenuItemSection func(string, uintptr) uintptr
 
 // Creates a new #GMenuItem representing a section.
 //
@@ -3644,10 +3644,10 @@ var xNewSectionMenuItem func(string, uintptr) uintptr
 //
 // &lt;/menu&gt;
 // ]|
-func NewSectionMenuItem(LabelVar string, SectionVar *MenuModel) *MenuItem {
+func NewMenuItemSection(LabelVar string, SectionVar *MenuModel) *MenuItem {
 	var cls *MenuItem
 
-	cret := xNewSectionMenuItem(LabelVar, SectionVar.GoPointer())
+	cret := xNewMenuItemSection(LabelVar, SectionVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -3657,16 +3657,16 @@ func NewSectionMenuItem(LabelVar string, SectionVar *MenuModel) *MenuItem {
 	return cls
 }
 
-var xNewSubmenuMenuItem func(string, uintptr) uintptr
+var xNewMenuItemSubmenu func(string, uintptr) uintptr
 
 // Creates a new #GMenuItem representing a submenu.
 //
 // This is a convenience API around g_menu_item_new() and
 // g_menu_item_set_submenu().
-func NewSubmenuMenuItem(LabelVar string, SubmenuVar *MenuModel) *MenuItem {
+func NewMenuItemSubmenu(LabelVar string, SubmenuVar *MenuModel) *MenuItem {
 	var cls *MenuItem
 
-	cret := xNewSubmenuMenuItem(LabelVar, SubmenuVar.GoPointer())
+	cret := xNewMenuItemSubmenu(LabelVar, SubmenuVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -4438,7 +4438,7 @@ func NewSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType) *Simple
 	return cls
 }
 
-var xNewStatefulSimpleAction func(string, *glib.VariantType, *glib.Variant) uintptr
+var xNewSimpleActionStateful func(string, *glib.VariantType, *glib.Variant) uintptr
 
 // Creates a new stateful action.
 //
@@ -4446,10 +4446,10 @@ var xNewStatefulSimpleAction func(string, *glib.VariantType, *glib.Variant) uint
 // @state.
 //
 // If the @state #GVariant is floating, it is consumed.
-func NewStatefulSimpleAction(NameVar string, ParameterTypeVar *glib.VariantType, StateVar *glib.Variant) *SimpleAction {
+func NewSimpleActionStateful(NameVar string, ParameterTypeVar *glib.VariantType, StateVar *glib.Variant) *SimpleAction {
 	var cls *SimpleAction
 
-	cret := xNewStatefulSimpleAction(NameVar, ParameterTypeVar, StateVar)
+	cret := xNewSimpleActionStateful(NameVar, ParameterTypeVar, StateVar)
 
 	if cret == 0 {
 		return nil
@@ -4871,16 +4871,16 @@ func NewSubprocess(FlagsVar SubprocessFlags, ErrorVar **glib.Error, Argv0Var str
 	return cls
 }
 
-var xNewvSubprocess func(uintptr, SubprocessFlags, **glib.Error) uintptr
+var xNewSubprocessv func(uintptr, SubprocessFlags, **glib.Error) uintptr
 
 // Create a new process with the given flags and argument list.
 //
 // The argument list is expected to be %NULL-terminated.
-func NewvSubprocess(ArgvVar uintptr, FlagsVar SubprocessFlags) (*Subprocess, error) {
+func NewSubprocessv(ArgvVar uintptr, FlagsVar SubprocessFlags) (*Subprocess, error) {
 	var cls *Subprocess
 	var cerr *glib.Error
 
-	cret := xNewvSubprocess(ArgvVar, FlagsVar, &cerr)
+	cret := xNewSubprocessv(ArgvVar, FlagsVar, &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -5959,10 +5959,10 @@ func init() {
 	core.PuregoSafeRegister(&xDBusAuthObserverAllowMechanism, lib, "g_dbus_auth_observer_allow_mechanism")
 	core.PuregoSafeRegister(&xDBusAuthObserverAuthorizeAuthenticatedPeer, lib, "g_dbus_auth_observer_authorize_authenticated_peer")
 
-	core.PuregoSafeRegister(&xNewFinishDBusConnection, lib, "g_dbus_connection_new_finish")
-	core.PuregoSafeRegister(&xNewForAddressFinishDBusConnection, lib, "g_dbus_connection_new_for_address_finish")
-	core.PuregoSafeRegister(&xNewForAddressSyncDBusConnection, lib, "g_dbus_connection_new_for_address_sync")
-	core.PuregoSafeRegister(&xNewSyncDBusConnection, lib, "g_dbus_connection_new_sync")
+	core.PuregoSafeRegister(&xNewDBusConnectionFinish, lib, "g_dbus_connection_new_finish")
+	core.PuregoSafeRegister(&xNewDBusConnectionForAddressFinish, lib, "g_dbus_connection_new_for_address_finish")
+	core.PuregoSafeRegister(&xNewDBusConnectionForAddressSync, lib, "g_dbus_connection_new_for_address_sync")
+	core.PuregoSafeRegister(&xNewDBusConnectionSync, lib, "g_dbus_connection_new_sync")
 
 	core.PuregoSafeRegister(&xDBusConnectionAddFilter, lib, "g_dbus_connection_add_filter")
 	core.PuregoSafeRegister(&xDBusConnectionCall, lib, "g_dbus_connection_call")
@@ -6012,9 +6012,9 @@ func init() {
 	core.PuregoSafeRegister(&xDBusMenuModelGet, lib, "g_dbus_menu_model_get")
 
 	core.PuregoSafeRegister(&xNewDBusMessage, lib, "g_dbus_message_new")
-	core.PuregoSafeRegister(&xNewFromBlobDBusMessage, lib, "g_dbus_message_new_from_blob")
-	core.PuregoSafeRegister(&xNewMethodCallDBusMessage, lib, "g_dbus_message_new_method_call")
-	core.PuregoSafeRegister(&xNewSignalDBusMessage, lib, "g_dbus_message_new_signal")
+	core.PuregoSafeRegister(&xNewDBusMessageFromBlob, lib, "g_dbus_message_new_from_blob")
+	core.PuregoSafeRegister(&xNewDBusMessageMethodCall, lib, "g_dbus_message_new_method_call")
+	core.PuregoSafeRegister(&xNewDBusMessageSignal, lib, "g_dbus_message_new_signal")
 
 	core.PuregoSafeRegister(&xDBusMessageCopy, lib, "g_dbus_message_copy")
 	core.PuregoSafeRegister(&xDBusMessageGetArg0, lib, "g_dbus_message_get_arg0")
@@ -6082,7 +6082,7 @@ func init() {
 	core.PuregoSafeRegister(&xDBusMethodInvocationReturnValueWithUnixFdList, lib, "g_dbus_method_invocation_return_value_with_unix_fd_list")
 	core.PuregoSafeRegister(&xDBusMethodInvocationTakeError, lib, "g_dbus_method_invocation_take_error")
 
-	core.PuregoSafeRegister(&xNewSyncDBusServer, lib, "g_dbus_server_new_sync")
+	core.PuregoSafeRegister(&xNewDBusServerSync, lib, "g_dbus_server_new_sync")
 
 	core.PuregoSafeRegister(&xDBusServerGetClientAddress, lib, "g_dbus_server_get_client_address")
 	core.PuregoSafeRegister(&xDBusServerGetFlags, lib, "g_dbus_server_get_flags")
@@ -6110,9 +6110,9 @@ func init() {
 	core.PuregoSafeRegister(&xMenuRemoveAll, lib, "g_menu_remove_all")
 
 	core.PuregoSafeRegister(&xNewMenuItem, lib, "g_menu_item_new")
-	core.PuregoSafeRegister(&xNewFromModelMenuItem, lib, "g_menu_item_new_from_model")
-	core.PuregoSafeRegister(&xNewSectionMenuItem, lib, "g_menu_item_new_section")
-	core.PuregoSafeRegister(&xNewSubmenuMenuItem, lib, "g_menu_item_new_submenu")
+	core.PuregoSafeRegister(&xNewMenuItemFromModel, lib, "g_menu_item_new_from_model")
+	core.PuregoSafeRegister(&xNewMenuItemSection, lib, "g_menu_item_new_section")
+	core.PuregoSafeRegister(&xNewMenuItemSubmenu, lib, "g_menu_item_new_submenu")
 
 	core.PuregoSafeRegister(&xMenuItemGetAttribute, lib, "g_menu_item_get_attribute")
 	core.PuregoSafeRegister(&xMenuItemGetAttributeValue, lib, "g_menu_item_get_attribute_value")
@@ -6146,7 +6146,7 @@ func init() {
 	core.PuregoSafeRegister(&xNewPropertyAction, lib, "g_property_action_new")
 
 	core.PuregoSafeRegister(&xNewSimpleAction, lib, "g_simple_action_new")
-	core.PuregoSafeRegister(&xNewStatefulSimpleAction, lib, "g_simple_action_new_stateful")
+	core.PuregoSafeRegister(&xNewSimpleActionStateful, lib, "g_simple_action_new_stateful")
 
 	core.PuregoSafeRegister(&xSimpleActionSetEnabled, lib, "g_simple_action_set_enabled")
 	core.PuregoSafeRegister(&xSimpleActionSetState, lib, "g_simple_action_set_state")
@@ -6157,7 +6157,7 @@ func init() {
 	core.PuregoSafeRegister(&xNewSimplePermission, lib, "g_simple_permission_new")
 
 	core.PuregoSafeRegister(&xNewSubprocess, lib, "g_subprocess_new")
-	core.PuregoSafeRegister(&xNewvSubprocess, lib, "g_subprocess_newv")
+	core.PuregoSafeRegister(&xNewSubprocessv, lib, "g_subprocess_newv")
 
 	core.PuregoSafeRegister(&xSubprocessCommunicate, lib, "g_subprocess_communicate")
 	core.PuregoSafeRegister(&xSubprocessCommunicateAsync, lib, "g_subprocess_communicate_async")

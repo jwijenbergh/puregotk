@@ -33,17 +33,17 @@ func ATContextNewFromInternalPtr(ptr uintptr) *ATContext {
 	return cls
 }
 
-var xCreateATContext func(AccessibleRole, uintptr, uintptr) uintptr
+var xATContextCreate func(AccessibleRole, uintptr, uintptr) uintptr
 
 // Creates a new `GtkATContext` instance for the given accessible role,
 // accessible instance, and display connection.
 //
 // The `GtkATContext` implementation being instantiated will depend on the
 // platform.
-func CreateATContext(AccessibleRoleVar AccessibleRole, AccessibleVar Accessible, DisplayVar *gdk.Display) *ATContext {
+func ATContextCreate(AccessibleRoleVar AccessibleRole, AccessibleVar Accessible, DisplayVar *gdk.Display) *ATContext {
 	var cls *ATContext
 
-	cret := xCreateATContext(AccessibleRoleVar, AccessibleVar.GoPointer(), DisplayVar.GoPointer())
+	cret := xATContextCreate(AccessibleRoleVar, AccessibleVar.GoPointer(), DisplayVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -106,7 +106,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xCreateATContext, lib, "gtk_at_context_create")
+	core.PuregoSafeRegister(&xATContextCreate, lib, "gtk_at_context_create")
 
 	core.PuregoSafeRegister(&xATContextGetAccessible, lib, "gtk_at_context_get_accessible")
 	core.PuregoSafeRegister(&xATContextGetAccessibleRole, lib, "gtk_at_context_get_accessible_role")

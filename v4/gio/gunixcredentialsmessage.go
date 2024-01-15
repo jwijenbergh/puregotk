@@ -70,13 +70,13 @@ func NewUnixCredentialsMessage() *UnixCredentialsMessage {
 	return cls
 }
 
-var xNewWithCredentialsUnixCredentialsMessage func(uintptr) uintptr
+var xNewUnixCredentialsMessageWithCredentials func(uintptr) uintptr
 
 // Creates a new #GUnixCredentialsMessage holding @credentials.
-func NewWithCredentialsUnixCredentialsMessage(CredentialsVar *Credentials) *UnixCredentialsMessage {
+func NewUnixCredentialsMessageWithCredentials(CredentialsVar *Credentials) *UnixCredentialsMessage {
 	var cls *UnixCredentialsMessage
 
-	cret := xNewWithCredentialsUnixCredentialsMessage(CredentialsVar.GoPointer())
+	cret := xNewUnixCredentialsMessageWithCredentials(CredentialsVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -127,7 +127,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewUnixCredentialsMessage, lib, "g_unix_credentials_message_new")
-	core.PuregoSafeRegister(&xNewWithCredentialsUnixCredentialsMessage, lib, "g_unix_credentials_message_new_with_credentials")
+	core.PuregoSafeRegister(&xNewUnixCredentialsMessageWithCredentials, lib, "g_unix_credentials_message_new_with_credentials")
 
 	core.PuregoSafeRegister(&xUnixCredentialsMessageGetCredentials, lib, "g_unix_credentials_message_get_credentials")
 

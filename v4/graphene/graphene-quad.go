@@ -20,14 +20,14 @@ func (x *Quad) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAllocQuad func() *Quad
+var xQuadAlloc func() *Quad
 
 // Allocates a new #graphene_quad_t instance.
 //
 // The contents of the returned instance are undefined.
-func AllocQuad() *Quad {
+func QuadAlloc() *Quad {
 
-	cret := xAllocQuad()
+	cret := xQuadAlloc()
 	return cret
 }
 
@@ -101,7 +101,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xAllocQuad, lib, "graphene_quad_alloc")
+	core.PuregoSafeRegister(&xQuadAlloc, lib, "graphene_quad_alloc")
 
 	core.PuregoSafeRegister(&xQuadBounds, lib, "graphene_quad_bounds")
 	core.PuregoSafeRegister(&xQuadContains, lib, "graphene_quad_contains")

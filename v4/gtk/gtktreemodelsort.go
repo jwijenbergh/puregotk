@@ -138,13 +138,13 @@ func TreeModelSortNewFromInternalPtr(ptr uintptr) *TreeModelSort {
 	return cls
 }
 
-var xNewWithModelTreeModelSort func(uintptr) uintptr
+var xNewTreeModelSortWithModel func(uintptr) uintptr
 
 // Creates a new `GtkTreeModelSort`, with @child_model as the child model.
-func NewWithModelTreeModelSort(ChildModelVar TreeModel) *TreeModelSort {
+func NewTreeModelSortWithModel(ChildModelVar TreeModel) *TreeModelSort {
 	var cls *TreeModelSort
 
-	cret := xNewWithModelTreeModelSort(ChildModelVar.GoPointer())
+	cret := xNewTreeModelSortWithModel(ChildModelVar.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -694,7 +694,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewWithModelTreeModelSort, lib, "gtk_tree_model_sort_new_with_model")
+	core.PuregoSafeRegister(&xNewTreeModelSortWithModel, lib, "gtk_tree_model_sort_new_with_model")
 
 	core.PuregoSafeRegister(&xTreeModelSortClearCache, lib, "gtk_tree_model_sort_clear_cache")
 	core.PuregoSafeRegister(&xTreeModelSortConvertChildIterToIter, lib, "gtk_tree_model_sort_convert_child_iter_to_iter")

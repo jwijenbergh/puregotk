@@ -315,7 +315,7 @@ func ShortcutActionNewFromInternalPtr(ptr uintptr) *ShortcutAction {
 	return cls
 }
 
-var xParseStringShortcutAction func(string) uintptr
+var xShortcutActionParseString func(string) uintptr
 
 // Tries to parse the given string into an action.
 //
@@ -329,10 +329,10 @@ var xParseStringShortcutAction func(string) uintptr
 // - `mnemonic-activate`, for `GtkMnemonicAction`
 // - `action(NAME)`, for a `GtkNamedAction` for the action named `NAME`
 // - `signal(NAME)`, for a `GtkSignalAction` for the signal `NAME`
-func ParseStringShortcutAction(StringVar string) *ShortcutAction {
+func ShortcutActionParseString(StringVar string) *ShortcutAction {
 	var cls *ShortcutAction
 
-	cret := xParseStringShortcutAction(StringVar)
+	cret := xShortcutActionParseString(StringVar)
 
 	if cret == 0 {
 		return nil
@@ -459,7 +459,7 @@ func init() {
 
 	core.PuregoSafeRegister(&xNothingActionGet, lib, "gtk_nothing_action_get")
 
-	core.PuregoSafeRegister(&xParseStringShortcutAction, lib, "gtk_shortcut_action_parse_string")
+	core.PuregoSafeRegister(&xShortcutActionParseString, lib, "gtk_shortcut_action_parse_string")
 
 	core.PuregoSafeRegister(&xShortcutActionActivate, lib, "gtk_shortcut_action_activate")
 	core.PuregoSafeRegister(&xShortcutActionPrint, lib, "gtk_shortcut_action_print")

@@ -255,7 +255,7 @@ func (x *DBusNodeInfo) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewForXmlDBusNodeInfo func(string, **glib.Error) *DBusNodeInfo
+var xNewDBusNodeInfoForXml func(string, **glib.Error) *DBusNodeInfo
 
 // Parses @xml_data and returns a #GDBusNodeInfo representing the data.
 //
@@ -265,10 +265,10 @@ var xNewForXmlDBusNodeInfo func(string, **glib.Error) *DBusNodeInfo
 // Note that this routine is using a
 // [GMarkup][glib-Simple-XML-Subset-Parser.description]-based
 // parser that only accepts a subset of valid XML documents.
-func NewForXmlDBusNodeInfo(XmlDataVar string) (*DBusNodeInfo, error) {
+func NewDBusNodeInfoForXml(XmlDataVar string) (*DBusNodeInfo, error) {
 	var cerr *glib.Error
 
-	cret := xNewForXmlDBusNodeInfo(XmlDataVar, &cerr)
+	cret := xNewDBusNodeInfoForXml(XmlDataVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -430,7 +430,7 @@ func init() {
 	core.PuregoSafeRegister(&xDBusMethodInfoRef, lib, "g_dbus_method_info_ref")
 	core.PuregoSafeRegister(&xDBusMethodInfoUnref, lib, "g_dbus_method_info_unref")
 
-	core.PuregoSafeRegister(&xNewForXmlDBusNodeInfo, lib, "g_dbus_node_info_new_for_xml")
+	core.PuregoSafeRegister(&xNewDBusNodeInfoForXml, lib, "g_dbus_node_info_new_for_xml")
 
 	core.PuregoSafeRegister(&xDBusNodeInfoGenerateXml, lib, "g_dbus_node_info_generate_xml")
 	core.PuregoSafeRegister(&xDBusNodeInfoLookupInterface, lib, "g_dbus_node_info_lookup_interface")

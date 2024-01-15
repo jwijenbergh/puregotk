@@ -94,16 +94,16 @@ func NewFileFilter() *FileFilter {
 	return cls
 }
 
-var xNewFromGvariantFileFilter func(*glib.Variant) uintptr
+var xNewFileFilterFromGvariant func(*glib.Variant) uintptr
 
 // Deserialize a file filter from a `GVariant`.
 //
 // The variant must be in the format produced by
 // [method@Gtk.FileFilter.to_gvariant].
-func NewFromGvariantFileFilter(VariantVar *glib.Variant) *FileFilter {
+func NewFileFilterFromGvariant(VariantVar *glib.Variant) *FileFilter {
 	var cls *FileFilter
 
-	cret := xNewFromGvariantFileFilter(VariantVar)
+	cret := xNewFileFilterFromGvariant(VariantVar)
 
 	if cret == 0 {
 		return nil
@@ -234,7 +234,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewFileFilter, lib, "gtk_file_filter_new")
-	core.PuregoSafeRegister(&xNewFromGvariantFileFilter, lib, "gtk_file_filter_new_from_gvariant")
+	core.PuregoSafeRegister(&xNewFileFilterFromGvariant, lib, "gtk_file_filter_new_from_gvariant")
 
 	core.PuregoSafeRegister(&xFileFilterAddMimeType, lib, "gtk_file_filter_add_mime_type")
 	core.PuregoSafeRegister(&xFileFilterAddPattern, lib, "gtk_file_filter_add_pattern")

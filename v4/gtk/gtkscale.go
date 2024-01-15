@@ -132,7 +132,7 @@ func NewScale(OrientationVar Orientation, AdjustmentVar *Adjustment) *Scale {
 	return cls
 }
 
-var xNewWithRangeScale func(Orientation, float64, float64, float64) uintptr
+var xNewScaleWithRange func(Orientation, float64, float64, float64) uintptr
 
 // Creates a new scale widget with a range from @min to @max.
 //
@@ -145,10 +145,10 @@ var xNewWithRangeScale func(Orientation, float64, float64, float64) uintptr
 // Note that the way in which the precision is derived works best if
 // @step is a power of ten. If the resulting precision is not suitable
 // for your needs, use [method@Gtk.Scale.set_digits] to correct it.
-func NewWithRangeScale(OrientationVar Orientation, MinVar float64, MaxVar float64, StepVar float64) *Scale {
+func NewScaleWithRange(OrientationVar Orientation, MinVar float64, MaxVar float64, StepVar float64) *Scale {
 	var cls *Scale
 
-	cret := xNewWithRangeScale(OrientationVar, MinVar, MaxVar, StepVar)
+	cret := xNewScaleWithRange(OrientationVar, MinVar, MaxVar, StepVar)
 
 	if cret == 0 {
 		return nil
@@ -498,7 +498,7 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewScale, lib, "gtk_scale_new")
-	core.PuregoSafeRegister(&xNewWithRangeScale, lib, "gtk_scale_new_with_range")
+	core.PuregoSafeRegister(&xNewScaleWithRange, lib, "gtk_scale_new_with_range")
 
 	core.PuregoSafeRegister(&xScaleAddMark, lib, "gtk_scale_add_mark")
 	core.PuregoSafeRegister(&xScaleClearMarks, lib, "gtk_scale_clear_marks")

@@ -115,19 +115,19 @@ func (x *Closure) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewObjectClosure func(uint, uintptr) *Closure
+var xNewClosureObject func(uint, uintptr) *Closure
 
 // A variant of g_closure_new_simple() which stores @object in the
 // @data field of the closure and calls g_object_watch_closure() on
 // @object and the created closure. This function is mainly useful
 // when implementing new types of closures.
-func NewObjectClosure(SizeofClosureVar uint, ObjectVar *Object) *Closure {
+func NewClosureObject(SizeofClosureVar uint, ObjectVar *Object) *Closure {
 
-	cret := xNewObjectClosure(SizeofClosureVar, ObjectVar.GoPointer())
+	cret := xNewClosureObject(SizeofClosureVar, ObjectVar.GoPointer())
 	return cret
 }
 
-var xNewSimpleClosure func(uint, uintptr) *Closure
+var xNewClosureSimple func(uint, uintptr) *Closure
 
 // Allocates a struct of the given size and initializes the initial
 // part as a #GClosure.
@@ -171,9 +171,9 @@ var xNewSimpleClosure func(uint, uintptr) *Closure
 //	}
 //
 // ]|
-func NewSimpleClosure(SizeofClosureVar uint, DataVar uintptr) *Closure {
+func NewClosureSimple(SizeofClosureVar uint, DataVar uintptr) *Closure {
 
-	cret := xNewSimpleClosure(SizeofClosureVar, DataVar)
+	cret := xNewClosureSimple(SizeofClosureVar, DataVar)
 	return cret
 }
 
@@ -464,8 +464,8 @@ func init() {
 	core.PuregoSafeRegister(&xCclosureNewSwap, lib, "g_cclosure_new_swap")
 	core.PuregoSafeRegister(&xSignalTypeCclosureNew, lib, "g_signal_type_cclosure_new")
 
-	core.PuregoSafeRegister(&xNewObjectClosure, lib, "g_closure_new_object")
-	core.PuregoSafeRegister(&xNewSimpleClosure, lib, "g_closure_new_simple")
+	core.PuregoSafeRegister(&xNewClosureObject, lib, "g_closure_new_object")
+	core.PuregoSafeRegister(&xNewClosureSimple, lib, "g_closure_new_simple")
 
 	core.PuregoSafeRegister(&xClosureAddFinalizeNotifier, lib, "g_closure_add_finalize_notifier")
 	core.PuregoSafeRegister(&xClosureAddInvalidateNotifier, lib, "g_closure_add_invalidate_notifier")

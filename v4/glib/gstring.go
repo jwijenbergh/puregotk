@@ -30,7 +30,7 @@ func NewString(InitVar string) *String {
 	return cret
 }
 
-var xNewLenString func(string, int) *String
+var xNewStringLen func(string, int) *String
 
 // Creates a new #GString with @len bytes of the @init buffer.
 // Because a length is provided, @init need not be nul-terminated,
@@ -39,21 +39,21 @@ var xNewLenString func(string, int) *String
 // Since this function does not stop at nul bytes, it is the caller's
 // responsibility to ensure that @init has at least @len addressable
 // bytes.
-func NewLenString(InitVar string, LenVar int) *String {
+func NewStringLen(InitVar string, LenVar int) *String {
 
-	cret := xNewLenString(InitVar, LenVar)
+	cret := xNewStringLen(InitVar, LenVar)
 	return cret
 }
 
-var xSizedNewString func(uint) *String
+var xStringSizedNew func(uint) *String
 
 // Creates a new #GString, with enough space for @dfl_size
 // bytes. This is useful if you are going to add a lot of
 // text to the string and don't want it to be reallocated
 // too often.
-func SizedNewString(DflSizeVar uint) *String {
+func StringSizedNew(DflSizeVar uint) *String {
 
-	cret := xSizedNewString(DflSizeVar)
+	cret := xStringSizedNew(DflSizeVar)
 	return cret
 }
 
@@ -425,8 +425,8 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xNewString, lib, "g_string_new")
-	core.PuregoSafeRegister(&xNewLenString, lib, "g_string_new_len")
-	core.PuregoSafeRegister(&xSizedNewString, lib, "g_string_sized_new")
+	core.PuregoSafeRegister(&xNewStringLen, lib, "g_string_new_len")
+	core.PuregoSafeRegister(&xStringSizedNew, lib, "g_string_sized_new")
 
 	core.PuregoSafeRegister(&xStringAppend, lib, "g_string_append")
 	core.PuregoSafeRegister(&xStringAppendC, lib, "g_string_append_c")

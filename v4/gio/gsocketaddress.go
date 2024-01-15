@@ -31,14 +31,14 @@ func SocketAddressNewFromInternalPtr(ptr uintptr) *SocketAddress {
 	return cls
 }
 
-var xNewFromNativeSocketAddress func(uintptr, uint) uintptr
+var xNewSocketAddressFromNative func(uintptr, uint) uintptr
 
 // Creates a #GSocketAddress subclass corresponding to the native
 // struct sockaddr @native.
-func NewFromNativeSocketAddress(NativeVar uintptr, LenVar uint) *SocketAddress {
+func NewSocketAddressFromNative(NativeVar uintptr, LenVar uint) *SocketAddress {
 	var cls *SocketAddress
 
-	cret := xNewFromNativeSocketAddress(NativeVar, LenVar)
+	cret := xNewSocketAddressFromNative(NativeVar, LenVar)
 
 	if cret == 0 {
 		return nil
@@ -148,7 +148,7 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xNewFromNativeSocketAddress, lib, "g_socket_address_new_from_native")
+	core.PuregoSafeRegister(&xNewSocketAddressFromNative, lib, "g_socket_address_new_from_native")
 
 	core.PuregoSafeRegister(&xSocketAddressGetFamily, lib, "g_socket_address_get_family")
 	core.PuregoSafeRegister(&xSocketAddressGetNativeSize, lib, "g_socket_address_get_native_size")
