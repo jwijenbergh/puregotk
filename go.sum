@@ -1,8 +1,4 @@
-github.com/jwijenbergh/purego v0.0.0-20230928085051-57b69bdc2564 h1:RjZ3zeAzTGd14apPGTVyOwF+L5o5eqyxAi+zUTaDh9E=
-github.com/jwijenbergh/purego v0.0.0-20230928085051-57b69bdc2564/go.mod h1:EtQVHFqUYxSUClPLQPCNz/R3m7egkBOxwZzIkufo7EA=
-github.com/jwijenbergh/purego v0.0.0-20240105094719-439893e0402d h1:5lsX/ps4lQvTx6V0BKfGdz0qEG6NoXVhIhlMFkGTi7M=
-github.com/jwijenbergh/purego v0.0.0-20240105094719-439893e0402d/go.mod h1:EtQVHFqUYxSUClPLQPCNz/R3m7egkBOxwZzIkufo7EA=
-golang.org/x/sys v0.12.0 h1:CM0HF96J0hcLAwsHPJZjfdNzs0gftsLfgKt57wWHJ0o=
-golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
-golang.org/x/sys v0.16.0 h1:xWw16ngr6ZMtmxDyKyIgsE93KNKz5HKmMa3b8ALHidU=
-golang.org/x/sys v0.16.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+github.com/jwijenbergh/purego v0.0.0-20240126093400-70ff3a61df13 h1:zpIcrUoZuJt2No2wCcyKaC5u8h8/aMsnKZufR8NVLF0=
+github.com/jwijenbergh/purego v0.0.0-20240126093400-70ff3a61df13/go.mod h1:EtQVHFqUYxSUClPLQPCNz/R3m7egkBOxwZzIkufo7EA=
+golang.org/x/sys v0.17.0 h1:25cE3gD+tdBA7lp7QfhuV+rJiE9YXTcS3VG1SqssI/Y=
+golang.org/x/sys v0.17.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
