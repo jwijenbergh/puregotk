@@ -2,7 +2,6 @@ package glib
 
 import (
 	"fmt"
-	"reflect"
 	"sync"
 
 	"github.com/jwijenbergh/purego"
@@ -34,25 +33,12 @@ func SaveCallback(cbPtr uintptr, refPtr uintptr) {
 }
 
 // UnrefCallbackValue unreferences the provided callback by reflect.value to free a purego slot
+//
+// NOTE: Windows does not support unreferencing callbacks, so on that platform this operation is
+// a NOOP, callback memory is never freed, and there is a limit on maximum total callbacks.
+// See the purego documentation for further details.
 func UnrefCallback(fnPtr interface{}) error {
-	val := reflect.ValueOf(fnPtr)
-	if val.IsNil() {
-		return fmt.Errorf("function pointer must not be nil")
-	}
-	if val.Kind() != reflect.Ptr || val.Elem().Kind() != reflect.Func {
-		return fmt.Errorf("type must be a function pointer")
-	}
-	cbPtr := reflect.ValueOf(fnPtr).Pointer()
-	refPtr, ok := GetCallback(cbPtr)
-	if !ok {
-		return purego.UnrefCallbackFnPtr(fnPtr)
-	}
-	defer func() {
-		callbacks.Lock()
-		delete(callbacks.refs, cbPtr)
-		callbacks.Unlock()
-	}()
-	return purego.UnrefCallback(refPtr)
+	return unrefCallback(fnPtr)
 }
 
 // NewCallback is an alias to purego.NewCallback
