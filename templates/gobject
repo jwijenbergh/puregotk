@@ -3,7 +3,6 @@ package gobject
 import (
 	"reflect"
 
-	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
@@ -43,11 +42,6 @@ func (o Object) ConnectSignal(signal string, cb *func()) uint32 {
 
 func (o Object) DisconnectSignal(handler uint32) {
 	SignalHandlerDisconnect(&o, handler)
-}
-
-// NewCallback is an alias to glib.NewCallback
-func NewCallback(fnPtr interface{}) uintptr {
-	return glib.NewCallback(fnPtr)
 }
 
 // types
