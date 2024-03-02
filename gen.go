@@ -48,4 +48,16 @@ func main() {
 	if err == nil {
 		os.WriteFile("v4/glib/more.go", data, 0o644)
 	}
+	data, err = os.ReadFile("templates/glib_sysv")
+	if err == nil {
+		os.WriteFile("v4/glib/more_sysv.go", data, 0o644)
+	}
+	data, err = os.ReadFile("templates/glib_windows")
+	if err == nil {
+		os.WriteFile("v4/glib/more_windows.go", data, 0o644)
+	}
+	data, err = os.ReadFile("templates/glib_other")
+	if err == nil {
+		os.WriteFile("v4/glib/more_other.go", data, 0o644)
+	}
 }
