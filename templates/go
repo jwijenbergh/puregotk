@@ -186,24 +186,25 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{.Doc}}
 func (x *{{$outer.Name}}) Connect{{.Name}}(cb *func({{$outer.Name}} {{convc .Args.API.Types}}) {{.Ret.Value}}) uint32 {
      cbPtr := uintptr(unsafe.Pointer(cb))
-     cbRefPtr, ok := {{if $NotGLib}}glib.{{end}}GetCallback(cbPtr)
-     if !ok {
-          fcb := func(clsPtr uintptr {{convc .Args.Pure.Full}}) {{.Ret.Raw}} {
-               fa := {{$outer.Name}}{}
-               fa.Ptr = clsPtr
-               cbFn := *cb
-               {{if .Ret.Class}}
-               {{.Name}}Cls := cbFn(fa {{convc .Args.Pure.Call}})
-               return {{.Name}}Cls.Ptr
-               {{else if .Ret.Value}}
-               return cbFn(fa {{convc .Args.Pure.Call}})
-               {{else}}
-               cbFn(fa {{convc .Args.Pure.Call}})
-               {{end}}
-          }
-          cbRefPtr = purego.NewCallback(fcb)
-          {{if $NotGLib}}glib.{{end}}SaveCallback(cbPtr, cbRefPtr)
+     if cbRefPtr, ok := {{if $NotGLib}}glib.{{end}}GetCallback(cbPtr); ok {
+          return {{if $NotGObject}}gobject.{{end}}SignalConnect(x.GoPointer(), "{{.CName}}", cbRefPtr)
      }
+
+     fcb := func(clsPtr uintptr {{convc .Args.Pure.Full}}) {{.Ret.Raw}} {
+          fa := {{$outer.Name}}{}
+          fa.Ptr = clsPtr
+          cbFn := *cb
+          {{if .Ret.Class}}
+          {{.Name}}Cls := cbFn(fa {{convc .Args.Pure.Call}})
+          return {{.Name}}Cls.Ptr
+          {{else if .Ret.Value}}
+          return cbFn(fa {{convc .Args.Pure.Call}})
+          {{else}}
+          cbFn(fa {{convc .Args.Pure.Call}})
+          {{end}}
+     }
+     cbRefPtr := purego.NewCallback(fcb)
+     {{if $NotGLib}}glib.{{end}}SaveCallback(cbPtr, cbRefPtr)
      return {{if $NotGObject}}gobject.{{end}}SignalConnect(x.GoPointer(), "{{.CName}}", cbRefPtr)
 }
 {{end}}
