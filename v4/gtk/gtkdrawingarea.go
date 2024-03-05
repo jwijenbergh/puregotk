@@ -205,9 +205,9 @@ var xDrawingAreaSetDrawFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If what you are drawing does change, call [method@Gtk.Widget.queue_draw]
 // on the drawing area. This will cause a redraw and will call @draw_func again.
-func (x *DrawingArea) SetDrawFunc(DrawFuncVar DrawingAreaDrawFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *DrawingArea) SetDrawFunc(DrawFuncVar *DrawingAreaDrawFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xDrawingAreaSetDrawFunc(x.GoPointer(), purego.NewCallback(DrawFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xDrawingAreaSetDrawFunc(x.GoPointer(), glib.NewCallback(DrawFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -224,15 +224,23 @@ func (c *DrawingArea) SetGoPointer(ptr uintptr) {
 //
 // This is useful in order to keep state up to date with the widget size,
 // like for instance a backing surface.
-func (x *DrawingArea) ConnectResize(cb func(DrawingArea, int, int)) uint32 {
+func (x *DrawingArea) ConnectResize(cb *func(DrawingArea, int, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "resize", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := DrawingArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, WidthVarp, HeightVarp)
+		cbFn(fa, WidthVarp, HeightVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "resize", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "resize", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

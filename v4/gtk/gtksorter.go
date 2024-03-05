@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -157,15 +158,23 @@ func (c *Sorter) SetGoPointer(ptr uintptr) {
 // Depending on the @change parameter, it may be possible to update
 // the sort order without a full resorting. Refer to the
 // [enum@Gtk.SorterChange] documentation for details.
-func (x *Sorter) ConnectChanged(cb func(Sorter, SorterChange)) uint32 {
+func (x *Sorter) ConnectChanged(cb *func(Sorter, SorterChange)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ChangeVarp SorterChange) {
 		fa := Sorter{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ChangeVarp)
+		cbFn(fa, ChangeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 func init() {

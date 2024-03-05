@@ -265,9 +265,9 @@ var xAttrListFilter func(uintptr, uintptr, uintptr) *AttrList
 // Given a `PangoAttrList` and callback function, removes
 // any elements of @list for which @func returns %TRUE and
 // inserts them into a new list.
-func (x *AttrList) Filter(FuncVar AttrFilterFunc, DataVar uintptr) *AttrList {
+func (x *AttrList) Filter(FuncVar *AttrFilterFunc, DataVar uintptr) *AttrList {
 
-	cret := xAttrListFilter(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	cret := xAttrListFilter(x.GoPointer(), glib.NewCallback(FuncVar), DataVar)
 	return cret
 }
 
@@ -1110,9 +1110,9 @@ var xAttrShapeNewWithData func(*Rectangle, *Rectangle, uintptr, uintptr, uintptr
 // Like [func@Pango.AttrShape.new], but a user data pointer
 // is also provided; this pointer can be accessed when later
 // rendering the glyph.
-func AttrShapeNewWithData(InkRectVar *Rectangle, LogicalRectVar *Rectangle, DataVar uintptr, CopyFuncVar AttrDataCopyFunc, DestroyFuncVar glib.DestroyNotify) *Attribute {
+func AttrShapeNewWithData(InkRectVar *Rectangle, LogicalRectVar *Rectangle, DataVar uintptr, CopyFuncVar *AttrDataCopyFunc, DestroyFuncVar *glib.DestroyNotify) *Attribute {
 
-	cret := xAttrShapeNewWithData(InkRectVar, LogicalRectVar, DataVar, purego.NewCallback(CopyFuncVar), purego.NewCallback(DestroyFuncVar))
+	cret := xAttrShapeNewWithData(InkRectVar, LogicalRectVar, DataVar, glib.NewCallback(CopyFuncVar), glib.NewCallback(DestroyFuncVar))
 	return cret
 }
 

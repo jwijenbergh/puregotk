@@ -313,9 +313,9 @@ var xPixbufAnimationNewFromStreamAsync func(uintptr, uintptr, uintptr, uintptr)
 // When the operation is finished, `callback` will be called in the main thread.
 // You can then call gdk_pixbuf_animation_new_from_stream_finish() to get the
 // result of the operation.
-func PixbufAnimationNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func PixbufAnimationNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPixbufAnimationNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPixbufAnimationNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

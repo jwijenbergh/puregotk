@@ -71,10 +71,10 @@ func MapListModelNewFromInternalPtr(ptr uintptr) *MapListModel {
 var xNewMapListModel func(uintptr, uintptr, uintptr, uintptr) uintptr
 
 // Creates a new `GtkMapListModel` for the given arguments.
-func NewMapListModel(ModelVar gio.ListModel, MapFuncVar MapListModelMapFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *MapListModel {
+func NewMapListModel(ModelVar gio.ListModel, MapFuncVar *MapListModelMapFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) *MapListModel {
 	var cls *MapListModel
 
-	cret := xNewMapListModel(ModelVar.GoPointer(), purego.NewCallback(MapFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xNewMapListModel(ModelVar.GoPointer(), glib.NewCallback(MapFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -123,9 +123,9 @@ var xMapListModelSetMapFunc func(uintptr, uintptr, uintptr, uintptr)
 // GTK makes no effort to ensure that @map_func conforms to the item type
 // of @self. It assumes that the caller knows what they are doing and the map
 // function returns items of the appropriate type.
-func (x *MapListModel) SetMapFunc(MapFuncVar MapListModelMapFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) {
+func (x *MapListModel) SetMapFunc(MapFuncVar *MapListModelMapFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) {
 
-	xMapListModelSetMapFunc(x.GoPointer(), purego.NewCallback(MapFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	xMapListModelSetMapFunc(x.GoPointer(), glib.NewCallback(MapFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 }
 

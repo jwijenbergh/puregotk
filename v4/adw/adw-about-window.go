@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
@@ -905,15 +906,23 @@ func (c *AboutWindow) SetGoPointer(ptr uintptr) {
 //
 // Applications may connect to it to override the default behavior, which is
 // to call [func@Gtk.show_uri].
-func (x *AboutWindow) ConnectActivateLink(cb func(AboutWindow, string) bool) uint32 {
+func (x *AboutWindow) ConnectActivateLink(cb *func(AboutWindow, string) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, UriVarp string) bool {
 		fa := AboutWindow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, UriVarp)
+		return cbFn(fa, UriVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -106,9 +106,9 @@ var xSocketListenerAcceptAsync func(uintptr, uintptr, uintptr, uintptr)
 // When the operation is finished @callback will be
 // called. You can then call g_socket_listener_accept_finish()
 // to get the result of the operation.
-func (x *SocketListener) AcceptAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketListener) AcceptAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketListenerAcceptAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketListenerAcceptAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -174,9 +174,9 @@ var xSocketListenerAcceptSocketAsync func(uintptr, uintptr, uintptr, uintptr)
 // When the operation is finished @callback will be
 // called. You can then call g_socket_listener_accept_socket_finish()
 // to get the result of the operation.
-func (x *SocketListener) AcceptSocketAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketListener) AcceptSocketAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketListenerAcceptSocketAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketListenerAcceptSocketAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -345,15 +345,23 @@ func (c *SocketListener) SetGoPointer(ptr uintptr) {
 // Note that when @listener is used to listen on both IPv4 and
 // IPv6, a separate set of signals will be emitted for each, and
 // the order they happen in is undefined.
-func (x *SocketListener) ConnectEvent(cb func(SocketListener, SocketListenerEvent, uintptr)) uint32 {
+func (x *SocketListener) ConnectEvent(cb *func(SocketListener, SocketListenerEvent, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, EventVarp SocketListenerEvent, SocketVarp uintptr) {
 		fa := SocketListener{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, EventVarp, SocketVarp)
+		cbFn(fa, EventVarp, SocketVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
 }
 
 func init() {

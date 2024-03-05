@@ -525,27 +525,43 @@ func (c *UnixMountMonitor) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the unix mount points have changed.
-func (x *UnixMountMonitor) ConnectMountpointsChanged(cb func(UnixMountMonitor)) uint32 {
+func (x *UnixMountMonitor) ConnectMountpointsChanged(cb *func(UnixMountMonitor)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mountpoints-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := UnixMountMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mountpoints-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mountpoints-changed", cbRefPtr)
 }
 
 // Emitted when the unix mounts have changed.
-func (x *UnixMountMonitor) ConnectMountsChanged(cb func(UnixMountMonitor)) uint32 {
+func (x *UnixMountMonitor) ConnectMountsChanged(cb *func(UnixMountMonitor)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mounts-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := UnixMountMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mounts-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mounts-changed", cbRefPtr)
 }
 
 var xUnixMountMonitorGet func() uintptr

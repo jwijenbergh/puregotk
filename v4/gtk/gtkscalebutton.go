@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -187,15 +188,23 @@ func (c *ScaleButton) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Escape&lt;/kbd&gt;.
-func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) uint32 {
+func (x *ScaleButton) ConnectPopdown(cb *func(ScaleButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "popdown", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "popdown", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "popdown", cbRefPtr)
 }
 
 // Emitted to popup the scale widget.
@@ -204,27 +213,43 @@ func (x *ScaleButton) ConnectPopdown(cb func(ScaleButton)) uint32 {
 //
 // The default bindings for this signal are &lt;kbd&gt;Space&lt;/kbd&gt;,
 // &lt;kbd&gt;Enter&lt;/kbd&gt; and &lt;kbd&gt;Return&lt;/kbd&gt;.
-func (x *ScaleButton) ConnectPopup(cb func(ScaleButton)) uint32 {
+func (x *ScaleButton) ConnectPopup(cb *func(ScaleButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "popup", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "popup", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "popup", cbRefPtr)
 }
 
 // Emitted when the value field has changed.
-func (x *ScaleButton) ConnectValueChanged(cb func(ScaleButton, float64)) uint32 {
+func (x *ScaleButton) ConnectValueChanged(cb *func(ScaleButton, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ValueVarp float64) {
 		fa := ScaleButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ValueVarp)
+		cbFn(fa, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

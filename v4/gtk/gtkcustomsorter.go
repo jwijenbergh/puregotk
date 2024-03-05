@@ -35,10 +35,10 @@ var xNewCustomSorter func(uintptr, uintptr, uintptr) uintptr
 // @sort_func to compare items.
 //
 // If @sort_func is %NULL, all items are considered equal.
-func NewCustomSorter(SortFuncVar glib.CompareDataFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *CustomSorter {
+func NewCustomSorter(SortFuncVar *glib.CompareDataFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) *CustomSorter {
 	var cls *CustomSorter
 
-	cret := xNewCustomSorter(purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xNewCustomSorter(glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -59,9 +59,9 @@ var xCustomSorterSetSortFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If a previous function was set, its @user_destroy will be
 // called now.
-func (x *CustomSorter) SetSortFunc(SortFuncVar glib.CompareDataFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) {
+func (x *CustomSorter) SetSortFunc(SortFuncVar *glib.CompareDataFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) {
 
-	xCustomSorterSetSortFunc(x.GoPointer(), purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	xCustomSorterSetSortFunc(x.GoPointer(), glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 }
 

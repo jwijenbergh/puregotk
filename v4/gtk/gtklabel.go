@@ -2,9 +2,12 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -925,30 +928,46 @@ func (c *Label) SetGoPointer(ptr uintptr) {
 // if they need to control activation of URIs programmatically.
 //
 // The default bindings for this signal are all forms of the Enter key.
-func (x *Label) ConnectActivateCurrentLink(cb func(Label)) uint32 {
+func (x *Label) ConnectActivateCurrentLink(cb *func(Label)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-current-link", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Label{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-current-link", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-current-link", cbRefPtr)
 }
 
 // Gets emitted to activate a URI.
 //
 // Applications may connect to it to override the default behaviour,
 // which is to call gtk_show_uri().
-func (x *Label) ConnectActivateLink(cb func(Label, string) bool) uint32 {
+func (x *Label) ConnectActivateLink(cb *func(Label, string) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, UriVarp string) bool {
 		fa := Label{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, UriVarp)
+		return cbFn(fa, UriVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
 }
 
 // Gets emitted to copy the slection to the clipboard.
@@ -956,15 +975,23 @@ func (x *Label) ConnectActivateLink(cb func(Label, string) bool) uint32 {
 // The ::copy-clipboard signal is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is Ctrl-c.
-func (x *Label) ConnectCopyClipboard(cb func(Label)) uint32 {
+func (x *Label) ConnectCopyClipboard(cb *func(Label)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "copy-clipboard", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Label{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "copy-clipboard", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "copy-clipboard", cbRefPtr)
 }
 
 // Gets emitted when the user initiates a cursor movement.
@@ -984,15 +1011,23 @@ func (x *Label) ConnectCopyClipboard(cb func(Label)) uint32 {
 // - Arrow keys move by individual characters/lines
 // - Ctrl-arrow key combinations move by words/paragraphs
 // - Home/End keys move to the ends of the buffer
-func (x *Label) ConnectMoveCursor(cb func(Label, MovementStep, int, bool)) uint32 {
+func (x *Label) ConnectMoveCursor(cb *func(Label, MovementStep, int, bool)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendSelectionVarp bool) {
 		fa := Label{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, StepVarp, CountVarp, ExtendSelectionVarp)
+		cbFn(fa, StepVarp, CountVarp, ExtendSelectionVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

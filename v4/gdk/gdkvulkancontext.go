@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -39,15 +41,23 @@ func (c *VulkanContext) SetGoPointer(ptr uintptr) {
 //
 // Usually this means that the swapchain had to be recreated,
 // for example in response to a change of the surface size.
-func (x *VulkanContext) ConnectImagesUpdated(cb func(VulkanContext)) uint32 {
+func (x *VulkanContext) ConnectImagesUpdated(cb *func(VulkanContext)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "images-updated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := VulkanContext{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "images-updated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "images-updated", cbRefPtr)
 }
 
 // Initializes the object implementing the interface.

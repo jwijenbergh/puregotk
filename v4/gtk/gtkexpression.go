@@ -163,10 +163,10 @@ var xNewCClosureExpression func([]interface{}, uintptr, uint, uintptr, uintptr, 
 // This function is a variant of [ctor@Gtk.ClosureExpression.new] that
 // creates a `GClosure` by calling g_cclosure_new() with the given
 // `callback_func`, `user_data` and `user_destroy`.
-func NewCClosureExpression(ValueTypeVar []interface{}, MarshalVar gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar gobject.Callback, UserDataVar uintptr, UserDestroyVar gobject.ClosureNotify) *CClosureExpression {
+func NewCClosureExpression(ValueTypeVar []interface{}, MarshalVar *gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar *gobject.Callback, UserDataVar uintptr, UserDestroyVar *gobject.ClosureNotify) *CClosureExpression {
 	var cls *CClosureExpression
 
-	cret := xNewCClosureExpression(ValueTypeVar, purego.NewCallback(MarshalVar), NParamsVar, ParamsVar, purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xNewCClosureExpression(ValueTypeVar, glib.NewCallback(MarshalVar), NParamsVar, ParamsVar, glib.NewCallback(CallbackFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -538,9 +538,9 @@ var xExpressionWatch func(uintptr, uintptr, uintptr, uintptr, uintptr) *Expressi
 // GTK cannot guarantee that the evaluation did indeed change when the @notify
 // gets invoked, but it guarantees the opposite: When it did in fact change,
 // the @notify will be invoked.
-func (x *Expression) Watch(ThisVar *gobject.Object, NotifyVar ExpressionNotify, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *ExpressionWatch {
+func (x *Expression) Watch(ThisVar *gobject.Object, NotifyVar *ExpressionNotify, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) *ExpressionWatch {
 
-	cret := xExpressionWatch(x.GoPointer(), ThisVar.GoPointer(), purego.NewCallback(NotifyVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xExpressionWatch(x.GoPointer(), ThisVar.GoPointer(), glib.NewCallback(NotifyVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 	return cret
 }
 

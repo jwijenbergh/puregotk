@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -916,40 +917,64 @@ func (c *Entry) SetGoPointer(ptr uintptr) {
 // Emitted when the entry is activated.
 //
 // The keybindings for this signal are all forms of the Enter key.
-func (x *Entry) ConnectActivate(cb func(Entry)) uint32 {
+func (x *Entry) ConnectActivate(cb *func(Entry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when an activatable icon is clicked.
-func (x *Entry) ConnectIconPress(cb func(Entry, EntryIconPosition)) uint32 {
+func (x *Entry) ConnectIconPress(cb *func(Entry, EntryIconPosition)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "icon-press", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, IconPosVarp EntryIconPosition) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, IconPosVarp)
+		cbFn(fa, IconPosVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "icon-press", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "icon-press", cbRefPtr)
 }
 
 // Emitted on the button release from a mouse click
 // over an activatable icon.
-func (x *Entry) ConnectIconRelease(cb func(Entry, EntryIconPosition)) uint32 {
+func (x *Entry) ConnectIconRelease(cb *func(Entry, EntryIconPosition)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "icon-release", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, IconPosVarp EntryIconPosition) {
 		fa := Entry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, IconPosVarp)
+		cbFn(fa, IconPosVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "icon-release", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "icon-release", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

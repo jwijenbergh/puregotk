@@ -107,9 +107,9 @@ var xValueArraySort func(uintptr, uintptr) *ValueArray
 //
 // The current implementation uses the same sorting algorithm as standard
 // C qsort() function.
-func (x *ValueArray) Sort(CompareFuncVar glib.CompareFunc) *ValueArray {
+func (x *ValueArray) Sort(CompareFuncVar *glib.CompareFunc) *ValueArray {
 
-	cret := xValueArraySort(x.GoPointer(), purego.NewCallback(CompareFuncVar))
+	cret := xValueArraySort(x.GoPointer(), glib.NewCallback(CompareFuncVar))
 	return cret
 }
 
@@ -120,9 +120,9 @@ var xValueArraySortWithData func(uintptr, uintptr, uintptr) *ValueArray
 //
 // The current implementation uses the same sorting algorithm as standard
 // C qsort() function.
-func (x *ValueArray) SortWithData(CompareFuncVar glib.CompareDataFunc, UserDataVar uintptr) *ValueArray {
+func (x *ValueArray) SortWithData(CompareFuncVar *glib.CompareDataFunc, UserDataVar uintptr) *ValueArray {
 
-	cret := xValueArraySortWithData(x.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
+	cret := xValueArraySortWithData(x.GoPointer(), glib.NewCallback(CompareFuncVar), UserDataVar)
 	return cret
 }
 

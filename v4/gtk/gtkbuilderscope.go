@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -129,9 +130,9 @@ var xBuilderCScopeAddCallbackSymbol func(uintptr, string, uintptr)
 // are added. Using this method allows for better encapsulation as it
 // does not require that callback symbols be declared in the global
 // namespace.
-func (x *BuilderCScope) AddCallbackSymbol(CallbackNameVar string, CallbackSymbolVar gobject.Callback) {
+func (x *BuilderCScope) AddCallbackSymbol(CallbackNameVar string, CallbackSymbolVar *gobject.Callback) {
 
-	xBuilderCScopeAddCallbackSymbol(x.GoPointer(), CallbackNameVar, purego.NewCallback(CallbackSymbolVar))
+	xBuilderCScopeAddCallbackSymbol(x.GoPointer(), CallbackNameVar, glib.NewCallback(CallbackSymbolVar))
 
 }
 
@@ -141,9 +142,9 @@ var xBuilderCScopeAddCallbackSymbols func(uintptr, string, uintptr, ...interface
 //
 // This is equivalent to calling [method@Gtk.BuilderCScope.add_callback_symbol]
 // for each symbol.
-func (x *BuilderCScope) AddCallbackSymbols(FirstCallbackNameVar string, FirstCallbackSymbolVar gobject.Callback, varArgs ...interface{}) {
+func (x *BuilderCScope) AddCallbackSymbols(FirstCallbackNameVar string, FirstCallbackSymbolVar *gobject.Callback, varArgs ...interface{}) {
 
-	xBuilderCScopeAddCallbackSymbols(x.GoPointer(), FirstCallbackNameVar, purego.NewCallback(FirstCallbackSymbolVar), varArgs...)
+	xBuilderCScopeAddCallbackSymbols(x.GoPointer(), FirstCallbackNameVar, glib.NewCallback(FirstCallbackSymbolVar), varArgs...)
 
 }
 

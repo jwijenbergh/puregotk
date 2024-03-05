@@ -741,10 +741,10 @@ var xRegexReplaceEval func(uintptr, uintptr, int, int, RegexMatchFlags, uintptr,
 //
 // ...
 // ]|
-func (x *Regex) ReplaceEval(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, EvalVar RegexEvalCallback, UserDataVar uintptr) (string, error) {
+func (x *Regex) ReplaceEval(StringVar uintptr, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, EvalVar *RegexEvalCallback, UserDataVar uintptr) (string, error) {
 	var cerr *Error
 
-	cret := xRegexReplaceEval(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, purego.NewCallback(EvalVar), UserDataVar, &cerr)
+	cret := xRegexReplaceEval(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, NewCallback(EvalVar), UserDataVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}

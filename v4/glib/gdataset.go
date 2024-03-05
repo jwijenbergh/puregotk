@@ -59,9 +59,9 @@ var xDatalistForeach func(**Data, uintptr, uintptr)
 // @func can make changes to @datalist, but the iteration will not
 // reflect changes made during the g_datalist_foreach() call, other
 // than skipping over elements that are removed.
-func DatalistForeach(DatalistVar **Data, FuncVar DataForeachFunc, UserDataVar uintptr) {
+func DatalistForeach(DatalistVar **Data, FuncVar *DataForeachFunc, UserDataVar uintptr) {
 
-	xDatalistForeach(DatalistVar, purego.NewCallback(FuncVar), UserDataVar)
+	xDatalistForeach(DatalistVar, NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -100,9 +100,9 @@ var xDatalistIdDupData func(**Data, Quark, uintptr, uintptr) uintptr
 //
 // This function can be useful to avoid races when multiple
 // threads are using the same datalist and the same key.
-func DatalistIdDupData(DatalistVar **Data, KeyIdVar Quark, DupFuncVar DuplicateFunc, UserDataVar uintptr) uintptr {
+func DatalistIdDupData(DatalistVar **Data, KeyIdVar Quark, DupFuncVar *DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	cret := xDatalistIdDupData(DatalistVar, KeyIdVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	cret := xDatalistIdDupData(DatalistVar, KeyIdVar, NewCallback(DupFuncVar), UserDataVar)
 	return cret
 }
 
@@ -140,9 +140,9 @@ var xDatalistIdReplaceData func(**Data, Quark, uintptr, uintptr, uintptr, uintpt
 // Its up to the caller to free this as they wish, which may
 // or may not include using @old_destroy as sometimes replacement
 // should not destroy the object in the normal way.
-func DatalistIdReplaceData(DatalistVar **Data, KeyIdVar Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar DestroyNotify, OldDestroyVar DestroyNotify) bool {
+func DatalistIdReplaceData(DatalistVar **Data, KeyIdVar Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar *DestroyNotify, OldDestroyVar *DestroyNotify) bool {
 
-	cret := xDatalistIdReplaceData(DatalistVar, KeyIdVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	cret := xDatalistIdReplaceData(DatalistVar, KeyIdVar, OldvalVar, NewvalVar, NewCallback(DestroyVar), NewCallback(OldDestroyVar))
 	return cret
 }
 
@@ -152,9 +152,9 @@ var xDatalistIdSetDataFull func(**Data, Quark, uintptr, uintptr)
 // function to be called when the element is removed from the datalist.
 // Any previous data with the same key is removed, and its destroy
 // function is called.
-func DatalistIdSetDataFull(DatalistVar **Data, KeyIdVar Quark, DataVar uintptr, DestroyFuncVar DestroyNotify) {
+func DatalistIdSetDataFull(DatalistVar **Data, KeyIdVar Quark, DataVar uintptr, DestroyFuncVar *DestroyNotify) {
 
-	xDatalistIdSetDataFull(DatalistVar, KeyIdVar, DataVar, purego.NewCallback(DestroyFuncVar))
+	xDatalistIdSetDataFull(DatalistVar, KeyIdVar, DataVar, NewCallback(DestroyFuncVar))
 
 }
 
@@ -211,9 +211,9 @@ var xDatasetForeach func(uintptr, uintptr, uintptr)
 // @func can make changes to the dataset, but the iteration will not
 // reflect changes made during the g_dataset_foreach() call, other
 // than skipping over elements that are removed.
-func DatasetForeach(DatasetLocationVar uintptr, FuncVar DataForeachFunc, UserDataVar uintptr) {
+func DatasetForeach(DatasetLocationVar uintptr, FuncVar *DataForeachFunc, UserDataVar uintptr) {
 
-	xDatasetForeach(DatasetLocationVar, purego.NewCallback(FuncVar), UserDataVar)
+	xDatasetForeach(DatasetLocationVar, NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -242,9 +242,9 @@ var xDatasetIdSetDataFull func(uintptr, Quark, uintptr, uintptr)
 // the function to call when the data element is destroyed. Any
 // previous data with the same key is removed, and its destroy function
 // is called.
-func DatasetIdSetDataFull(DatasetLocationVar uintptr, KeyIdVar Quark, DataVar uintptr, DestroyFuncVar DestroyNotify) {
+func DatasetIdSetDataFull(DatasetLocationVar uintptr, KeyIdVar Quark, DataVar uintptr, DestroyFuncVar *DestroyNotify) {
 
-	xDatasetIdSetDataFull(DatasetLocationVar, KeyIdVar, DataVar, purego.NewCallback(DestroyFuncVar))
+	xDatasetIdSetDataFull(DatasetLocationVar, KeyIdVar, DataVar, NewCallback(DestroyFuncVar))
 
 }
 

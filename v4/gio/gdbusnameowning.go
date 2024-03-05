@@ -68,9 +68,9 @@ var xBusOwnName func(BusType, string, BusNameOwnerFlags, uintptr, uintptr, uintp
 // to [own names][gdbus-owning-names] and export objects.
 // Simply register objects to be exported in @bus_acquired_handler and
 // unregister the objects (if any) in @name_lost_handler.
-func BusOwnName(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredHandlerVar BusAcquiredCallback, NameAcquiredHandlerVar BusNameAcquiredCallback, NameLostHandlerVar BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func BusOwnName(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredHandlerVar *BusAcquiredCallback, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xBusOwnName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(BusAcquiredHandlerVar), purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xBusOwnName(BusTypeVar, NameVar, FlagsVar, glib.NewCallback(BusAcquiredHandlerVar), glib.NewCallback(NameAcquiredHandlerVar), glib.NewCallback(NameLostHandlerVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 
@@ -78,9 +78,9 @@ var xBusOwnNameOnConnection func(uintptr, string, BusNameOwnerFlags, uintptr, ui
 
 // Like g_bus_own_name() but takes a #GDBusConnection instead of a
 // #GBusType.
-func BusOwnNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredHandlerVar BusNameAcquiredCallback, NameLostHandlerVar BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func BusOwnNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xBusOwnNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAcquiredHandlerVar), purego.NewCallback(NameLostHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xBusOwnNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, glib.NewCallback(NameAcquiredHandlerVar), glib.NewCallback(NameLostHandlerVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 

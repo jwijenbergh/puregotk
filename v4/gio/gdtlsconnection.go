@@ -42,7 +42,7 @@ type DtlsConnection interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	Close(CancellableVar *Cancellable) bool
-	CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	CloseFinish(ResultVar AsyncResult) bool
 	EmitAcceptCertificate(PeerCertVar *TlsCertificate, ErrorsVar TlsCertificateFlags) bool
 	GetCertificate() *TlsCertificate
@@ -57,7 +57,7 @@ type DtlsConnection interface {
 	GetRehandshakeMode() TlsRehandshakeMode
 	GetRequireCloseNotify() bool
 	Handshake(CancellableVar *Cancellable) bool
-	HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	HandshakeFinish(ResultVar AsyncResult) bool
 	SetAdvertisedProtocols(ProtocolsVar uintptr)
 	SetCertificate(CertificateVar *TlsCertificate)
@@ -66,7 +66,7 @@ type DtlsConnection interface {
 	SetRehandshakeMode(ModeVar TlsRehandshakeMode)
 	SetRequireCloseNotify(RequireCloseNotifyVar bool)
 	Shutdown(ShutdownReadVar bool, ShutdownWriteVar bool, CancellableVar *Cancellable) bool
-	ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	ShutdownFinish(ResultVar AsyncResult) bool
 }
 type DtlsConnectionBase struct {
@@ -113,9 +113,9 @@ func (x *DtlsConnectionBase) Close(CancellableVar *Cancellable) (bool, error) {
 
 // Asynchronously close the DTLS connection. See g_dtls_connection_close() for
 // more information.
-func (x *DtlsConnectionBase) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDtlsConnectionCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDtlsConnectionCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -332,9 +332,9 @@ func (x *DtlsConnectionBase) Handshake(CancellableVar *Cancellable) (bool, error
 
 // Asynchronously performs a TLS handshake on @conn. See
 // g_dtls_connection_handshake() for more information.
-func (x *DtlsConnectionBase) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDtlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDtlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -490,9 +490,9 @@ func (x *DtlsConnectionBase) Shutdown(ShutdownReadVar bool, ShutdownWriteVar boo
 
 // Asynchronously shut down part or all of the DTLS connection. See
 // g_dtls_connection_shutdown() for more information.
-func (x *DtlsConnectionBase) ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DtlsConnectionBase) ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDtlsConnectionShutdownAsync(x.GoPointer(), ShutdownReadVar, ShutdownWriteVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDtlsConnectionShutdownAsync(x.GoPointer(), ShutdownReadVar, ShutdownWriteVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

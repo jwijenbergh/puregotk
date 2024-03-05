@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -78,15 +79,23 @@ func (c *GestureSwipe) SetGoPointer(ptr uintptr) {
 // Emitted when the recognized gesture is finished.
 //
 // Velocity and direction are a product of previously recorded events.
-func (x *GestureSwipe) ConnectSwipe(cb func(GestureSwipe, float64, float64)) uint32 {
+func (x *GestureSwipe) ConnectSwipe(cb *func(GestureSwipe, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "swipe", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, VelocityXVarp float64, VelocityYVarp float64) {
 		fa := GestureSwipe{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, VelocityXVarp, VelocityYVarp)
+		cbFn(fa, VelocityXVarp, VelocityYVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "swipe", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "swipe", cbRefPtr)
 }
 
 func init() {

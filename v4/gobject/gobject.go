@@ -354,9 +354,9 @@ var xCclosureNewObject func(uintptr, uintptr) *Closure
 // closure. This function is useful when you have a callback closely
 // associated with a #GObject, and want the callback to no longer run
 // after the object is is freed.
-func CclosureNewObject(CallbackFuncVar Callback, ObjectVar *Object) *Closure {
+func CclosureNewObject(CallbackFuncVar *Callback, ObjectVar *Object) *Closure {
 
-	cret := xCclosureNewObject(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
+	cret := xCclosureNewObject(glib.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
 	return cret
 }
 
@@ -367,9 +367,9 @@ var xCclosureNewObjectSwap func(uintptr, uintptr) *Closure
 // closure. This function is useful when you have a callback closely
 // associated with a #GObject, and want the callback to no longer run
 // after the object is is freed.
-func CclosureNewObjectSwap(CallbackFuncVar Callback, ObjectVar *Object) *Closure {
+func CclosureNewObjectSwap(CallbackFuncVar *Callback, ObjectVar *Object) *Closure {
 
-	cret := xCclosureNewObjectSwap(purego.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
+	cret := xCclosureNewObjectSwap(glib.NewCallback(CallbackFuncVar), ObjectVar.GoPointer())
 	return cret
 }
 
@@ -401,9 +401,9 @@ var xSignalConnectObject func(*TypeInstance, string, uintptr, uintptr, ConnectFl
 // disconnected.  Note that this is not currently threadsafe (ie:
 // emitting a signal while @gobject is being destroyed in another thread
 // is not safe).
-func SignalConnectObject(InstanceVar *TypeInstance, DetailedSignalVar string, CHandlerVar Callback, GobjectVar *Object, ConnectFlagsVar ConnectFlags) uint32 {
+func SignalConnectObject(InstanceVar *TypeInstance, DetailedSignalVar string, CHandlerVar *Callback, GobjectVar *Object, ConnectFlagsVar ConnectFlags) uint32 {
 
-	cret := xSignalConnectObject(InstanceVar, DetailedSignalVar, purego.NewCallback(CHandlerVar), GobjectVar.GoPointer(), ConnectFlagsVar)
+	cret := xSignalConnectObject(InstanceVar, DetailedSignalVar, glib.NewCallback(CHandlerVar), GobjectVar.GoPointer(), ConnectFlagsVar)
 	return cret
 }
 
@@ -581,9 +581,9 @@ var xObjectAddToggleRef func(uintptr, uintptr, uintptr)
 // of them will ever be notified until all but one are removed.  For
 // this reason, you should only ever use a toggle reference if there
 // is important state in the proxy object.
-func (x *Object) AddToggleRef(NotifyVar ToggleNotify, DataVar uintptr) {
+func (x *Object) AddToggleRef(NotifyVar *ToggleNotify, DataVar uintptr) {
 
-	xObjectAddToggleRef(x.GoPointer(), purego.NewCallback(NotifyVar), DataVar)
+	xObjectAddToggleRef(x.GoPointer(), glib.NewCallback(NotifyVar), DataVar)
 
 }
 
@@ -680,10 +680,10 @@ var xObjectBindPropertyFull func(uintptr, string, uintptr, string, BindingFlags,
 // be called once, when the binding is removed. If you need different data
 // for each transformation function, please use
 // g_object_bind_property_with_closures() instead.
-func (x *Object) BindPropertyFull(SourcePropertyVar string, TargetVar *Object, TargetPropertyVar string, FlagsVar BindingFlags, TransformToVar BindingTransformFunc, TransformFromVar BindingTransformFunc, UserDataVar uintptr, NotifyVar glib.DestroyNotify) *Binding {
+func (x *Object) BindPropertyFull(SourcePropertyVar string, TargetVar *Object, TargetPropertyVar string, FlagsVar BindingFlags, TransformToVar *BindingTransformFunc, TransformFromVar *BindingTransformFunc, UserDataVar uintptr, NotifyVar *glib.DestroyNotify) *Binding {
 	var cls *Binding
 
-	cret := xObjectBindPropertyFull(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, purego.NewCallback(TransformToVar), purego.NewCallback(TransformFromVar), UserDataVar, purego.NewCallback(NotifyVar))
+	cret := xObjectBindPropertyFull(x.GoPointer(), SourcePropertyVar, TargetVar.GoPointer(), TargetPropertyVar, FlagsVar, glib.NewCallback(TransformToVar), glib.NewCallback(TransformFromVar), UserDataVar, glib.NewCallback(NotifyVar))
 
 	if cret == 0 {
 		return nil
@@ -788,9 +788,9 @@ var xObjectDupData func(uintptr, string, uintptr, uintptr) uintptr
 // This function can be useful to avoid races when multiple
 // threads are using object data on the same key on the same
 // object.
-func (x *Object) DupData(KeyVar string, DupFuncVar glib.DuplicateFunc, UserDataVar uintptr) uintptr {
+func (x *Object) DupData(KeyVar string, DupFuncVar *glib.DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	cret := xObjectDupData(x.GoPointer(), KeyVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	cret := xObjectDupData(x.GoPointer(), KeyVar, glib.NewCallback(DupFuncVar), UserDataVar)
 	return cret
 }
 
@@ -810,9 +810,9 @@ var xObjectDupQdata func(uintptr, glib.Quark, uintptr, uintptr) uintptr
 // This function can be useful to avoid races when multiple
 // threads are using object data on the same key on the same
 // object.
-func (x *Object) DupQdata(QuarkVar glib.Quark, DupFuncVar glib.DuplicateFunc, UserDataVar uintptr) uintptr {
+func (x *Object) DupQdata(QuarkVar glib.Quark, DupFuncVar *glib.DuplicateFunc, UserDataVar uintptr) uintptr {
 
-	cret := xObjectDupQdata(x.GoPointer(), QuarkVar, purego.NewCallback(DupFuncVar), UserDataVar)
+	cret := xObjectDupQdata(x.GoPointer(), QuarkVar, glib.NewCallback(DupFuncVar), UserDataVar)
 	return cret
 }
 
@@ -1081,9 +1081,9 @@ var xObjectRemoveToggleRef func(uintptr, uintptr, uintptr)
 
 // Removes a reference added with g_object_add_toggle_ref(). The
 // reference count of the object is decreased by one.
-func (x *Object) RemoveToggleRef(NotifyVar ToggleNotify, DataVar uintptr) {
+func (x *Object) RemoveToggleRef(NotifyVar *ToggleNotify, DataVar uintptr) {
 
-	xObjectRemoveToggleRef(x.GoPointer(), purego.NewCallback(NotifyVar), DataVar)
+	xObjectRemoveToggleRef(x.GoPointer(), glib.NewCallback(NotifyVar), DataVar)
 
 }
 
@@ -1116,9 +1116,9 @@ var xObjectReplaceData func(uintptr, string, uintptr, uintptr, uintptr, uintptr)
 //
 // See g_object_set_data() for guidance on using a small, bounded set of values
 // for @key.
-func (x *Object) ReplaceData(KeyVar string, OldvalVar uintptr, NewvalVar uintptr, DestroyVar glib.DestroyNotify, OldDestroyVar glib.DestroyNotify) bool {
+func (x *Object) ReplaceData(KeyVar string, OldvalVar uintptr, NewvalVar uintptr, DestroyVar *glib.DestroyNotify, OldDestroyVar *glib.DestroyNotify) bool {
 
-	cret := xObjectReplaceData(x.GoPointer(), KeyVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	cret := xObjectReplaceData(x.GoPointer(), KeyVar, OldvalVar, NewvalVar, glib.NewCallback(DestroyVar), glib.NewCallback(OldDestroyVar))
 	return cret
 }
 
@@ -1137,9 +1137,9 @@ var xObjectReplaceQdata func(uintptr, glib.Quark, uintptr, uintptr, uintptr, uin
 // It’s up to the caller to free this as needed, which may
 // or may not include using @old_destroy as sometimes replacement
 // should not destroy the object in the normal way.
-func (x *Object) ReplaceQdata(QuarkVar glib.Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar glib.DestroyNotify, OldDestroyVar glib.DestroyNotify) bool {
+func (x *Object) ReplaceQdata(QuarkVar glib.Quark, OldvalVar uintptr, NewvalVar uintptr, DestroyVar *glib.DestroyNotify, OldDestroyVar *glib.DestroyNotify) bool {
 
-	cret := xObjectReplaceQdata(x.GoPointer(), QuarkVar, OldvalVar, NewvalVar, purego.NewCallback(DestroyVar), purego.NewCallback(OldDestroyVar))
+	cret := xObjectReplaceQdata(x.GoPointer(), QuarkVar, OldvalVar, NewvalVar, glib.NewCallback(DestroyVar), glib.NewCallback(OldDestroyVar))
 	return cret
 }
 
@@ -1198,9 +1198,9 @@ var xObjectSetDataFull func(uintptr, string, uintptr, uintptr)
 // to a different value or when the object is destroyed.
 //
 // Note that the @destroy callback is not called if @data is %NULL.
-func (x *Object) SetDataFull(KeyVar string, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *Object) SetDataFull(KeyVar string, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xObjectSetDataFull(x.GoPointer(), KeyVar, DataVar, purego.NewCallback(DestroyVar))
+	xObjectSetDataFull(x.GoPointer(), KeyVar, DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -1236,9 +1236,9 @@ var xObjectSetQdataFull func(uintptr, glib.Quark, uintptr, uintptr)
 // called with @data as argument when the @object is finalized, or
 // the data is being overwritten by a call to g_object_set_qdata()
 // with the same @quark.
-func (x *Object) SetQdataFull(QuarkVar glib.Quark, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *Object) SetQdataFull(QuarkVar glib.Quark, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xObjectSetQdataFull(x.GoPointer(), QuarkVar, DataVar, purego.NewCallback(DestroyVar))
+	xObjectSetQdataFull(x.GoPointer(), QuarkVar, DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -1432,18 +1432,18 @@ var xObjectWeakRef func(uintptr, uintptr, uintptr)
 // thread-safe: they cannot safely be used in one thread if the
 // object's last g_object_unref() might happen in another thread.
 // Use #GWeakRef if thread-safety is required.
-func (x *Object) WeakRef(NotifyVar WeakNotify, DataVar uintptr) {
+func (x *Object) WeakRef(NotifyVar *WeakNotify, DataVar uintptr) {
 
-	xObjectWeakRef(x.GoPointer(), purego.NewCallback(NotifyVar), DataVar)
+	xObjectWeakRef(x.GoPointer(), glib.NewCallback(NotifyVar), DataVar)
 
 }
 
 var xObjectWeakUnref func(uintptr, uintptr, uintptr)
 
 // Removes a weak reference callback to an object.
-func (x *Object) WeakUnref(NotifyVar WeakNotify, DataVar uintptr) {
+func (x *Object) WeakUnref(NotifyVar *WeakNotify, DataVar uintptr) {
 
-	xObjectWeakUnref(x.GoPointer(), purego.NewCallback(NotifyVar), DataVar)
+	xObjectWeakUnref(x.GoPointer(), glib.NewCallback(NotifyVar), DataVar)
 
 }
 
@@ -1482,15 +1482,23 @@ func (c *Object) SetGoPointer(ptr uintptr) {
 // It is important to note that you must use
 // [canonical parameter names][canonical-parameter-names] as
 // detail strings for the notify signal.
-func (x *Object) ConnectNotify(cb func(Object, uintptr)) uint32 {
+func (x *Object) ConnectNotify(cb *func(Object, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return SignalConnect(x.GoPointer(), "notify", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PspecVarp uintptr) {
 		fa := Object{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PspecVarp)
+		cbFn(fa, PspecVarp)
 
 	}
-	return SignalConnect(x.GoPointer(), "notify", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return SignalConnect(x.GoPointer(), "notify", cbRefPtr)
 }
 
 var xObjectCompatControl func(uint, uintptr) uint

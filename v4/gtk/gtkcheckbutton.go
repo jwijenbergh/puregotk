@@ -286,28 +286,44 @@ func (c *CheckButton) SetGoPointer(ptr uintptr) {
 //
 // Applications should never connect to this signal, but use the
 // [signal@Gtk.CheckButton::toggled] signal.
-func (x *CheckButton) ConnectActivate(cb func(CheckButton)) uint32 {
+func (x *CheckButton) ConnectActivate(cb *func(CheckButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := CheckButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the buttons's [property@Gtk.CheckButton:active]
 // property changes.
-func (x *CheckButton) ConnectToggled(cb func(CheckButton)) uint32 {
+func (x *CheckButton) ConnectToggled(cb *func(CheckButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := CheckButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "toggled", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

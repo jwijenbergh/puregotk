@@ -2,8 +2,11 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -211,41 +214,65 @@ func (c *Drag) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the drag operation is cancelled.
-func (x *Drag) ConnectCancel(cb func(Drag, DragCancelReason)) uint32 {
+func (x *Drag) ConnectCancel(cb *func(Drag, DragCancelReason)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ReasonVarp DragCancelReason) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ReasonVarp)
+		cbFn(fa, ReasonVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
 }
 
 // Emitted when the destination side has finished reading all data.
 //
 // The drag object can now free all miscellaneous data.
-func (x *Drag) ConnectDndFinished(cb func(Drag)) uint32 {
+func (x *Drag) ConnectDndFinished(cb *func(Drag)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "dnd-finished", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "dnd-finished", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "dnd-finished", cbRefPtr)
 }
 
 // Emitted when the drop operation is performed on an accepting client.
-func (x *Drag) ConnectDropPerformed(cb func(Drag)) uint32 {
+func (x *Drag) ConnectDropPerformed(cb *func(Drag)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drop-performed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Drag{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drop-performed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drop-performed", cbRefPtr)
 }
 
 var xDragBegin func(uintptr, uintptr, uintptr, DragAction, float64, float64) uintptr

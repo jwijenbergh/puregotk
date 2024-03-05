@@ -108,9 +108,9 @@ var xAtexit func(uintptr)
 // As can be seen from the above, for portability it's best to avoid
 // calling g_atexit() (or atexit()) except in the main executable of a
 // program.
-func Atexit(FuncVar VoidFunc) {
+func Atexit(FuncVar *VoidFunc) {
 
-	xAtexit(purego.NewCallback(FuncVar))
+	xAtexit(NewCallback(FuncVar))
 
 }
 

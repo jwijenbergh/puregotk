@@ -88,9 +88,9 @@ var xAtomicRcBoxReleaseFull func(uintptr, uintptr)
 // If the reference was the last one, it will call @clear_func
 // to clear the contents of @mem_block, and then will free the
 // resources allocated for @mem_block.
-func AtomicRcBoxReleaseFull(MemBlockVar uintptr, ClearFuncVar DestroyNotify) {
+func AtomicRcBoxReleaseFull(MemBlockVar uintptr, ClearFuncVar *DestroyNotify) {
 
-	xAtomicRcBoxReleaseFull(MemBlockVar, purego.NewCallback(ClearFuncVar))
+	xAtomicRcBoxReleaseFull(MemBlockVar, NewCallback(ClearFuncVar))
 
 }
 
@@ -176,9 +176,9 @@ var xRcBoxReleaseFull func(uintptr, uintptr)
 // If the reference was the last one, it will call @clear_func
 // to clear the contents of @mem_block, and then will free the
 // resources allocated for @mem_block.
-func RcBoxReleaseFull(MemBlockVar uintptr, ClearFuncVar DestroyNotify) {
+func RcBoxReleaseFull(MemBlockVar uintptr, ClearFuncVar *DestroyNotify) {
 
-	xRcBoxReleaseFull(MemBlockVar, purego.NewCallback(ClearFuncVar))
+	xRcBoxReleaseFull(MemBlockVar, NewCallback(ClearFuncVar))
 
 }
 

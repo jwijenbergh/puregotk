@@ -144,9 +144,9 @@ var xThreadPoolSetSortFunction func(uintptr, uintptr, uintptr)
 // scheduled by the operating system and are executed at random. It
 // cannot be assumed that threads are executed in the order they are
 // created.
-func (x *ThreadPool) SetSortFunction(FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *ThreadPool) SetSortFunction(FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xThreadPoolSetSortFunction(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xThreadPoolSetSortFunction(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 

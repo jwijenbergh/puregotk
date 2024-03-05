@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
@@ -72,15 +75,23 @@ func (c *ShortcutsWindow) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) uint32 {
+func (x *ShortcutsWindow) ConnectClose(cb *func(ShortcutsWindow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ShortcutsWindow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
 }
 
 // Emitted when the user uses a keybinding to start a search.
@@ -88,15 +99,23 @@ func (x *ShortcutsWindow) ConnectClose(cb func(ShortcutsWindow)) uint32 {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is Control-F.
-func (x *ShortcutsWindow) ConnectSearch(cb func(ShortcutsWindow)) uint32 {
+func (x *ShortcutsWindow) ConnectSearch(cb *func(ShortcutsWindow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "search", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ShortcutsWindow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "search", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "search", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

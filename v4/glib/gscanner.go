@@ -218,9 +218,9 @@ var xScannerScopeForeachSymbol func(uintptr, uint, uintptr, uintptr)
 // in the given scope of the #GScanner. The function is passed
 // the symbol and value of each pair, and the given @user_data
 // parameter.
-func (x *Scanner) ScopeForeachSymbol(ScopeIdVar uint, FuncVar HFunc, UserDataVar uintptr) {
+func (x *Scanner) ScopeForeachSymbol(ScopeIdVar uint, FuncVar *HFunc, UserDataVar uintptr) {
 
-	xScannerScopeForeachSymbol(x.GoPointer(), ScopeIdVar, purego.NewCallback(FuncVar), UserDataVar)
+	xScannerScopeForeachSymbol(x.GoPointer(), ScopeIdVar, NewCallback(FuncVar), UserDataVar)
 
 }
 

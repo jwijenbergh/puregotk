@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -141,15 +142,23 @@ func (c *EventControllerScroll) SetGoPointer(ptr uintptr) {
 // @vel_x and @vel_y express the initial velocity that was
 // imprinted by the scroll events. @vel_x and @vel_y are expressed in
 // pixels/ms.
-func (x *EventControllerScroll) ConnectDecelerate(cb func(EventControllerScroll, float64, float64)) uint32 {
+func (x *EventControllerScroll) ConnectDecelerate(cb *func(EventControllerScroll, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "decelerate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, VelXVarp float64, VelYVarp float64) {
 		fa := EventControllerScroll{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, VelXVarp, VelYVarp)
+		cbFn(fa, VelXVarp, VelYVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "decelerate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "decelerate", cbRefPtr)
 }
 
 // Signals that the widget should scroll by the
@@ -157,43 +166,67 @@ func (x *EventControllerScroll) ConnectDecelerate(cb func(EventControllerScroll,
 //
 // For the representation unit of the deltas, see
 // [method@Gtk.EventControllerScroll.get_unit].
-func (x *EventControllerScroll) ConnectScroll(cb func(EventControllerScroll, float64, float64) bool) uint32 {
+func (x *EventControllerScroll) ConnectScroll(cb *func(EventControllerScroll, float64, float64) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "scroll", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DxVarp float64, DyVarp float64) bool {
 		fa := EventControllerScroll{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, DxVarp, DyVarp)
+		return cbFn(fa, DxVarp, DyVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "scroll", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "scroll", cbRefPtr)
 }
 
 // Signals that a new scrolling operation has begun.
 //
 // It will only be emitted on devices capable of it.
-func (x *EventControllerScroll) ConnectScrollBegin(cb func(EventControllerScroll)) uint32 {
+func (x *EventControllerScroll) ConnectScrollBegin(cb *func(EventControllerScroll)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "scroll-begin", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerScroll{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "scroll-begin", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "scroll-begin", cbRefPtr)
 }
 
 // Signals that a scrolling operation has finished.
 //
 // It will only be emitted on devices capable of it.
-func (x *EventControllerScroll) ConnectScrollEnd(cb func(EventControllerScroll)) uint32 {
+func (x *EventControllerScroll) ConnectScrollEnd(cb *func(EventControllerScroll)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "scroll-end", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerScroll{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "scroll-end", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "scroll-end", cbRefPtr)
 }
 
 func init() {

@@ -84,9 +84,9 @@ var xListStoreFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
 // comparing them with @compare_func until the first occurrence of @item which
 // matches. If @item was not found, then @position will not be set, and this
 // method will return %FALSE.
-func (x *ListStore) FindWithEqualFunc(ItemVar *gobject.Object, EqualFuncVar glib.EqualFunc, PositionVar uint) bool {
+func (x *ListStore) FindWithEqualFunc(ItemVar *gobject.Object, EqualFuncVar *glib.EqualFunc, PositionVar uint) bool {
 
-	cret := xListStoreFindWithEqualFunc(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(EqualFuncVar), PositionVar)
+	cret := xListStoreFindWithEqualFunc(x.GoPointer(), ItemVar.GoPointer(), glib.NewCallback(EqualFuncVar), PositionVar)
 	return cret
 }
 
@@ -116,9 +116,9 @@ var xListStoreInsertSorted func(uintptr, uintptr, uintptr, uintptr) uint
 // inserting items by way of this function.
 //
 // This function takes a ref on @item.
-func (x *ListStore) InsertSorted(ItemVar *gobject.Object, CompareFuncVar glib.CompareDataFunc, UserDataVar uintptr) uint {
+func (x *ListStore) InsertSorted(ItemVar *gobject.Object, CompareFuncVar *glib.CompareDataFunc, UserDataVar uintptr) uint {
 
-	cret := xListStoreInsertSorted(x.GoPointer(), ItemVar.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
+	cret := xListStoreInsertSorted(x.GoPointer(), ItemVar.GoPointer(), glib.NewCallback(CompareFuncVar), UserDataVar)
 	return cret
 }
 
@@ -147,9 +147,9 @@ func (x *ListStore) RemoveAll() {
 var xListStoreSort func(uintptr, uintptr, uintptr)
 
 // Sort the items in @store according to @compare_func.
-func (x *ListStore) Sort(CompareFuncVar glib.CompareDataFunc, UserDataVar uintptr) {
+func (x *ListStore) Sort(CompareFuncVar *glib.CompareDataFunc, UserDataVar uintptr) {
 
-	xListStoreSort(x.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
+	xListStoreSort(x.GoPointer(), glib.NewCallback(CompareFuncVar), UserDataVar)
 
 }
 

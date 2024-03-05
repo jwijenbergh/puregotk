@@ -235,15 +235,23 @@ func (c *DBusInterfaceSkeleton) SetGoPointer(ptr uintptr) {
 // flags set, no dedicated thread is ever used and the call will be
 // handled in the same thread as the object that @interface belongs
 // to was exported in.
-func (x *DBusInterfaceSkeleton) ConnectGAuthorizeMethod(cb func(DBusInterfaceSkeleton, uintptr) bool) uint32 {
+func (x *DBusInterfaceSkeleton) ConnectGAuthorizeMethod(cb *func(DBusInterfaceSkeleton, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "g-authorize-method", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, InvocationVarp uintptr) bool {
 		fa := DBusInterfaceSkeleton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, InvocationVarp)
+		return cbFn(fa, InvocationVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "g-authorize-method", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "g-authorize-method", cbRefPtr)
 }
 
 // Gets the #GDBusObject that @interface_ belongs to, if any.

@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -201,9 +203,9 @@ var xTreeSelectionSelectedForeach func(uintptr, uintptr, uintptr)
 // Calls a function for each selected node. Note that you cannot modify
 // the tree or selection from within this function. As a result,
 // gtk_tree_selection_get_selected_rows() might be more useful.
-func (x *TreeSelection) SelectedForeach(FuncVar TreeSelectionForeachFunc, DataVar uintptr) {
+func (x *TreeSelection) SelectedForeach(FuncVar *TreeSelectionForeachFunc, DataVar uintptr) {
 
-	xTreeSelectionSelectedForeach(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	xTreeSelectionSelectedForeach(x.GoPointer(), glib.NewCallback(FuncVar), DataVar)
 
 }
 
@@ -226,9 +228,9 @@ var xTreeSelectionSetSelectFunction func(uintptr, uintptr, uintptr, uintptr)
 // giving some control over which nodes are selected. The select function
 // should return %TRUE if the state of the node may be toggled, and %FALSE
 // if the state of the node should be left unchanged.
-func (x *TreeSelection) SetSelectFunction(FuncVar TreeSelectionFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeSelection) SetSelectFunction(FuncVar *TreeSelectionFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xTreeSelectionSetSelectFunction(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyVar))
+	xTreeSelectionSetSelectFunction(x.GoPointer(), glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -281,15 +283,23 @@ func (c *TreeSelection) SetGoPointer(ptr uintptr) {
 // this signal is mostly a hint.  It may only be emitted once when a range
 // of rows are selected, and it may occasionally be emitted when nothing
 // has happened.
-func (x *TreeSelection) ConnectChanged(cb func(TreeSelection)) uint32 {
+func (x *TreeSelection) ConnectChanged(cb *func(TreeSelection)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := TreeSelection{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 func init() {

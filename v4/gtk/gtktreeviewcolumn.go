@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -505,9 +507,9 @@ var xTreeViewColumnSetCellDataFunc func(uintptr, uintptr, uintptr, uintptr, uint
 // setting the column value, and should set the value of @tree_column's
 // cell renderer as appropriate.  @func may be %NULL to remove an
 // older one.
-func (x *TreeViewColumn) SetCellDataFunc(CellRendererVar *CellRenderer, FuncVar TreeCellDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeViewColumn) SetCellDataFunc(CellRendererVar *CellRenderer, FuncVar *TreeCellDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xTreeViewColumnSetCellDataFunc(x.GoPointer(), CellRendererVar.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(DestroyVar))
+	xTreeViewColumnSetCellDataFunc(x.GoPointer(), CellRendererVar.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -699,15 +701,23 @@ func (c *TreeViewColumn) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the column's header has been clicked.
-func (x *TreeViewColumn) ConnectClicked(cb func(TreeViewColumn)) uint32 {
+func (x *TreeViewColumn) ConnectClicked(cb *func(TreeViewColumn)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "clicked", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := TreeViewColumn{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "clicked", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "clicked", cbRefPtr)
 }
 
 // Gets the ID of the @buildable object.

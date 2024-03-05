@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -274,9 +276,9 @@ var xEntryCompletionSetMatchFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // The match function is used to determine if a row should or
 // should not be in the completion list.
-func (x *EntryCompletion) SetMatchFunc(FuncVar EntryCompletionMatchFunc, FuncDataVar uintptr, FuncNotifyVar glib.DestroyNotify) {
+func (x *EntryCompletion) SetMatchFunc(FuncVar *EntryCompletionMatchFunc, FuncDataVar uintptr, FuncNotifyVar *glib.DestroyNotify) {
 
-	xEntryCompletionSetMatchFunc(x.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(FuncNotifyVar))
+	xEntryCompletionSetMatchFunc(x.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(FuncNotifyVar))
 
 }
 
@@ -374,15 +376,23 @@ func (c *EntryCompletion) SetGoPointer(ptr uintptr) {
 //
 // Note that @model is the model that was passed to
 // [method@Gtk.EntryCompletion.set_model].
-func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr, uintptr) bool) uint32 {
+func (x *EntryCompletion) ConnectCursorOnMatch(cb *func(EntryCompletion, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "cursor-on-match", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ModelVarp, IterVarp)
+		return cbFn(fa, ModelVarp, IterVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "cursor-on-match", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "cursor-on-match", cbRefPtr)
 }
 
 // Emitted when the inline autocompletion is triggered.
@@ -394,15 +404,23 @@ func (x *EntryCompletion) ConnectCursorOnMatch(cb func(EntryCompletion, uintptr,
 // smaller part of the @prefix into the entry - e.g. the entry used in
 // the `GtkFileChooser` inserts only the part of the prefix up to the
 // next '/'.
-func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) bool) uint32 {
+func (x *EntryCompletion) ConnectInsertPrefix(cb *func(EntryCompletion, string) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "insert-prefix", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PrefixVarp string) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, PrefixVarp)
+		return cbFn(fa, PrefixVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "insert-prefix", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "insert-prefix", cbRefPtr)
 }
 
 // Emitted when a match from the list is selected.
@@ -413,30 +431,46 @@ func (x *EntryCompletion) ConnectInsertPrefix(cb func(EntryCompletion, string) b
 //
 // Note that @model is the model that was passed to
 // [method@Gtk.EntryCompletion.set_model].
-func (x *EntryCompletion) ConnectMatchSelected(cb func(EntryCompletion, uintptr, uintptr) bool) uint32 {
+func (x *EntryCompletion) ConnectMatchSelected(cb *func(EntryCompletion, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "match-selected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr) bool {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ModelVarp, IterVarp)
+		return cbFn(fa, ModelVarp, IterVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "match-selected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "match-selected", cbRefPtr)
 }
 
 // Emitted when the filter model has zero
 // number of rows in completion_complete method.
 //
 // In other words when `GtkEntryCompletion` is out of suggestions.
-func (x *EntryCompletion) ConnectNoMatches(cb func(EntryCompletion)) uint32 {
+func (x *EntryCompletion) ConnectNoMatches(cb *func(EntryCompletion)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "no-matches", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EntryCompletion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "no-matches", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "no-matches", cbRefPtr)
 }
 
 // Gets the ID of the @buildable object.
@@ -555,9 +589,9 @@ func (x *EntryCompletion) SetAttributes(CellVar *CellRenderer, varArgs ...interf
 // cell renderer(s) as appropriate.
 //
 // @func may be %NULL to remove a previously set function.
-func (x *EntryCompletion) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *EntryCompletion) SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(DestroyVar))
+	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(DestroyVar))
 
 }
 

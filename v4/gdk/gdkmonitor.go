@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -195,15 +196,23 @@ func (c *Monitor) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the output represented by @monitor gets disconnected.
-func (x *Monitor) ConnectInvalidate(cb func(Monitor)) uint32 {
+func (x *Monitor) ConnectInvalidate(cb *func(Monitor)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "invalidate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Monitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "invalidate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "invalidate", cbRefPtr)
 }
 
 func init() {

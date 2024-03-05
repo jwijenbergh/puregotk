@@ -2,6 +2,8 @@
 package gdk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -168,15 +170,23 @@ func (c *DisplayManager) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when a display is opened.
-func (x *DisplayManager) ConnectDisplayOpened(cb func(DisplayManager, uintptr)) uint32 {
+func (x *DisplayManager) ConnectDisplayOpened(cb *func(DisplayManager, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "display-opened", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DisplayVarp uintptr) {
 		fa := DisplayManager{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DisplayVarp)
+		cbFn(fa, DisplayVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "display-opened", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "display-opened", cbRefPtr)
 }
 
 var xDisplayManagerGet func() uintptr

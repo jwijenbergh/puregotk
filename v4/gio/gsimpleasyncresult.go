@@ -22,9 +22,9 @@ var xSimpleAsyncReportErrorInIdle func(uintptr, uintptr, uintptr, glib.Quark, in
 // Reports an error in an asynchronous function in an idle function by
 // directly setting the contents of the #GAsyncResult with the given error
 // information.
-func SimpleAsyncReportErrorInIdle(ObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func SimpleAsyncReportErrorInIdle(ObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
 
-	xSimpleAsyncReportErrorInIdle(ObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
+	xSimpleAsyncReportErrorInIdle(ObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
@@ -33,9 +33,9 @@ var xSimpleAsyncReportGerrorInIdle func(uintptr, uintptr, uintptr, *glib.Error)
 // Reports an error in an idle function. Similar to
 // g_simple_async_report_error_in_idle(), but takes a #GError rather
 // than building a new one.
-func SimpleAsyncReportGerrorInIdle(ObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) {
+func SimpleAsyncReportGerrorInIdle(ObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) {
 
-	xSimpleAsyncReportGerrorInIdle(ObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	xSimpleAsyncReportGerrorInIdle(ObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 }
 
@@ -44,9 +44,9 @@ var xSimpleAsyncReportTakeGerrorInIdle func(uintptr, uintptr, uintptr, *glib.Err
 // Reports an error in an idle function. Similar to
 // g_simple_async_report_gerror_in_idle(), but takes over the caller's
 // ownership of @error, so the caller does not have to free it any more.
-func SimpleAsyncReportTakeGerrorInIdle(ObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) {
+func SimpleAsyncReportTakeGerrorInIdle(ObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) {
 
-	xSimpleAsyncReportTakeGerrorInIdle(ObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	xSimpleAsyncReportTakeGerrorInIdle(ObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 }
 
@@ -244,10 +244,10 @@ var xNewSimpleAsyncResult func(uintptr, uintptr, uintptr, uintptr) uintptr
 // probably should) then you should provide the user's cancellable to
 // g_simple_async_result_set_check_cancellable() immediately after
 // this function returns.
-func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, SourceTagVar uintptr) *SimpleAsyncResult {
+func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, SourceTagVar uintptr) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewSimpleAsyncResult(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, SourceTagVar)
+	cret := xNewSimpleAsyncResult(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, SourceTagVar)
 
 	if cret == 0 {
 		return nil
@@ -260,10 +260,10 @@ func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar AsyncRead
 var xNewSimpleAsyncResultError func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{}) uintptr
 
 // Creates a new #GSimpleAsyncResult with a set error.
-func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
+func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewSimpleAsyncResultError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
+	cret := xNewSimpleAsyncResultError(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 	if cret == 0 {
 		return nil
@@ -276,10 +276,10 @@ func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar Asyn
 var xNewSimpleAsyncResultFromError func(uintptr, uintptr, uintptr, *glib.Error) uintptr
 
 // Creates a #GSimpleAsyncResult from an error condition.
-func NewSimpleAsyncResultFromError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
+func NewSimpleAsyncResultFromError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewSimpleAsyncResultFromError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	cret := xNewSimpleAsyncResultFromError(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
 		return nil
@@ -293,10 +293,10 @@ var xNewSimpleAsyncResultTakeError func(uintptr, uintptr, uintptr, *glib.Error) 
 
 // Creates a #GSimpleAsyncResult from an error condition, and takes over the
 // caller's ownership of @error, so the caller does not need to free it anymore.
-func NewSimpleAsyncResultTakeError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
+func NewSimpleAsyncResultTakeError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, ErrorVar *glib.Error) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
-	cret := xNewSimpleAsyncResultTakeError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, ErrorVar)
+	cret := xNewSimpleAsyncResultTakeError(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, ErrorVar)
 
 	if cret == 0 {
 		return nil
@@ -399,9 +399,9 @@ var xSimpleAsyncResultRunInThread func(uintptr, uintptr, int, uintptr)
 //
 // Calling this function takes a reference to @simple for as long as
 // is needed to run the job and report its completion.
-func (x *SimpleAsyncResult) RunInThread(FuncVar SimpleAsyncThreadFunc, IoPriorityVar int, CancellableVar *Cancellable) {
+func (x *SimpleAsyncResult) RunInThread(FuncVar *SimpleAsyncThreadFunc, IoPriorityVar int, CancellableVar *Cancellable) {
 
-	xSimpleAsyncResultRunInThread(x.GoPointer(), purego.NewCallback(FuncVar), IoPriorityVar, CancellableVar.GoPointer())
+	xSimpleAsyncResultRunInThread(x.GoPointer(), glib.NewCallback(FuncVar), IoPriorityVar, CancellableVar.GoPointer())
 
 }
 
@@ -481,9 +481,9 @@ func (x *SimpleAsyncResult) SetOpResGboolean(OpResVar bool) {
 var xSimpleAsyncResultSetOpResGpointer func(uintptr, uintptr, uintptr)
 
 // Sets the operation result within the asynchronous result to a pointer.
-func (x *SimpleAsyncResult) SetOpResGpointer(OpResVar uintptr, DestroyOpResVar glib.DestroyNotify) {
+func (x *SimpleAsyncResult) SetOpResGpointer(OpResVar uintptr, DestroyOpResVar *glib.DestroyNotify) {
 
-	xSimpleAsyncResultSetOpResGpointer(x.GoPointer(), OpResVar, purego.NewCallback(DestroyOpResVar))
+	xSimpleAsyncResultSetOpResGpointer(x.GoPointer(), OpResVar, glib.NewCallback(DestroyOpResVar))
 
 }
 

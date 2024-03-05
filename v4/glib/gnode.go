@@ -62,9 +62,9 @@ var xNodeChildrenForeach func(uintptr, TraverseFlags, uintptr, uintptr)
 // Calls a function for each of the children of a #GNode. Note that it
 // doesn't descend beneath the child nodes. @func must not do anything
 // that would modify the structure of the tree.
-func (x *Node) ChildrenForeach(FlagsVar TraverseFlags, FuncVar NodeForeachFunc, DataVar uintptr) {
+func (x *Node) ChildrenForeach(FlagsVar TraverseFlags, FuncVar *NodeForeachFunc, DataVar uintptr) {
 
-	xNodeChildrenForeach(x.GoPointer(), FlagsVar, purego.NewCallback(FuncVar), DataVar)
+	xNodeChildrenForeach(x.GoPointer(), FlagsVar, NewCallback(FuncVar), DataVar)
 
 }
 
@@ -81,9 +81,9 @@ func (x *Node) Copy() *Node {
 var xNodeCopyDeep func(uintptr, uintptr, uintptr) *Node
 
 // Recursively copies a #GNode and its data.
-func (x *Node) CopyDeep(CopyFuncVar CopyFunc, DataVar uintptr) *Node {
+func (x *Node) CopyDeep(CopyFuncVar *CopyFunc, DataVar uintptr) *Node {
 
-	cret := xNodeCopyDeep(x.GoPointer(), purego.NewCallback(CopyFuncVar), DataVar)
+	cret := xNodeCopyDeep(x.GoPointer(), NewCallback(CopyFuncVar), DataVar)
 	return cret
 }
 
@@ -270,9 +270,9 @@ var xNodeTraverse func(uintptr, TraverseType, TraverseFlags, int, uintptr, uintp
 // It calls the given function for each node visited.
 // The traversal can be halted at any point by returning %TRUE from @func.
 // @func must not do anything that would modify the structure of the tree.
-func (x *Node) Traverse(OrderVar TraverseType, FlagsVar TraverseFlags, MaxDepthVar int, FuncVar NodeTraverseFunc, DataVar uintptr) {
+func (x *Node) Traverse(OrderVar TraverseType, FlagsVar TraverseFlags, MaxDepthVar int, FuncVar *NodeTraverseFunc, DataVar uintptr) {
 
-	xNodeTraverse(x.GoPointer(), OrderVar, FlagsVar, MaxDepthVar, purego.NewCallback(FuncVar), DataVar)
+	xNodeTraverse(x.GoPointer(), OrderVar, FlagsVar, MaxDepthVar, NewCallback(FuncVar), DataVar)
 
 }
 

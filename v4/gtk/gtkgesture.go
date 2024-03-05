@@ -402,15 +402,23 @@ func (c *Gesture) SetGoPointer(ptr uintptr) {
 // (eg. a third touch on a 2-touches gesture) is lifted, in that
 // situation @sequence won't pertain to the current set of active
 // touches, so don't rely on this being true.
-func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) uint32 {
+func (x *Gesture) ConnectBegin(cb *func(Gesture, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "begin", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SequenceVarp)
+		cbFn(fa, SequenceVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "begin", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "begin", cbRefPtr)
 }
 
 // Emitted whenever a sequence is cancelled.
@@ -423,15 +431,23 @@ func (x *Gesture) ConnectBegin(cb func(Gesture, uintptr)) uint32 {
 //
 // @gesture must forget everything about @sequence as in
 // response to this signal.
-func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) uint32 {
+func (x *Gesture) ConnectCancel(cb *func(Gesture, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SequenceVarp)
+		cbFn(fa, SequenceVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
 }
 
 // Emitted when @gesture either stopped recognizing the event
@@ -443,44 +459,68 @@ func (x *Gesture) ConnectCancel(cb func(Gesture, uintptr)) uint32 {
 // pressed touch sequence that exceeds [property@Gtk.Gesture:n-points]).
 // This situation may be detected by checking through
 // [method@Gtk.Gesture.handles_sequence].
-func (x *Gesture) ConnectEnd(cb func(Gesture, uintptr)) uint32 {
+func (x *Gesture) ConnectEnd(cb *func(Gesture, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "end", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SequenceVarp)
+		cbFn(fa, SequenceVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "end", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "end", cbRefPtr)
 }
 
 // Emitted whenever a sequence state changes.
 //
 // See [method@Gtk.Gesture.set_sequence_state] to know
 // more about the expectable sequence lifetimes.
-func (x *Gesture) ConnectSequenceStateChanged(cb func(Gesture, uintptr, EventSequenceState)) uint32 {
+func (x *Gesture) ConnectSequenceStateChanged(cb *func(Gesture, uintptr, EventSequenceState)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "sequence-state-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr, StateVarp EventSequenceState) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SequenceVarp, StateVarp)
+		cbFn(fa, SequenceVarp, StateVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "sequence-state-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "sequence-state-changed", cbRefPtr)
 }
 
 // Emitted whenever an event is handled while the gesture is recognized.
 //
 // @sequence is guaranteed to pertain to the set of active touches.
-func (x *Gesture) ConnectUpdate(cb func(Gesture, uintptr)) uint32 {
+func (x *Gesture) ConnectUpdate(cb *func(Gesture, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "update", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SequenceVarp uintptr) {
 		fa := Gesture{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SequenceVarp)
+		cbFn(fa, SequenceVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "update", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "update", cbRefPtr)
 }
 
 func init() {

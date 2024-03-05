@@ -2,6 +2,8 @@
 package gio
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -90,15 +92,23 @@ func (c *AppInfoMonitor) SetGoPointer(ptr uintptr) {
 
 // Signal emitted when the app info database for changes (ie: newly installed
 // or removed applications).
-func (x *AppInfoMonitor) ConnectChanged(cb func(AppInfoMonitor)) uint32 {
+func (x *AppInfoMonitor) ConnectChanged(cb *func(AppInfoMonitor)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := AppInfoMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 var xAppInfoMonitorGet func() uintptr
@@ -236,9 +246,9 @@ func (x *BytesIcon) Load(SizeVar int, TypeVar string, CancellableVar *Cancellabl
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *BytesIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *BytesIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -692,28 +702,44 @@ func (c *DBusAuthObserver) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted to check if @mechanism is allowed to be used.
-func (x *DBusAuthObserver) ConnectAllowMechanism(cb func(DBusAuthObserver, string) bool) uint32 {
+func (x *DBusAuthObserver) ConnectAllowMechanism(cb *func(DBusAuthObserver, string) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "allow-mechanism", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MechanismVarp string) bool {
 		fa := DBusAuthObserver{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, MechanismVarp)
+		return cbFn(fa, MechanismVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "allow-mechanism", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "allow-mechanism", cbRefPtr)
 }
 
 // Emitted to check if a peer that is successfully authenticated
 // is authorized.
-func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb func(DBusAuthObserver, uintptr, uintptr) bool) uint32 {
+func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb *func(DBusAuthObserver, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "authorize-authenticated-peer", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StreamVarp uintptr, CredentialsVarp uintptr) bool {
 		fa := DBusAuthObserver{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, StreamVarp, CredentialsVarp)
+		return cbFn(fa, StreamVarp, CredentialsVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "authorize-authenticated-peer", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "authorize-authenticated-peer", cbRefPtr)
 }
 
 // The #GDBusConnection type is used for D-Bus connections to remote
@@ -918,9 +944,9 @@ var xDBusConnectionAddFilter func(uintptr, uintptr, uintptr, uintptr) uint
 // needed. (It is not guaranteed to be called synchronously when the
 // filter is removed, and may be called after @connection has been
 // destroyed.)
-func (x *DBusConnection) AddFilter(FilterFunctionVar DBusMessageFilterFunction, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func (x *DBusConnection) AddFilter(FilterFunctionVar *DBusMessageFilterFunction, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xDBusConnectionAddFilter(x.GoPointer(), purego.NewCallback(FilterFunctionVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xDBusConnectionAddFilter(x.GoPointer(), glib.NewCallback(FilterFunctionVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 
@@ -973,9 +999,9 @@ var xDBusConnectionCall func(uintptr, string, string, string, string, *glib.Vari
 //
 // If @callback is %NULL then the D-Bus method call message will be sent with
 // the %G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
-func (x *DBusConnection) Call(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) Call(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionCall(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionCall(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1061,9 +1087,9 @@ var xDBusConnectionCallWithUnixFdList func(uintptr, string, string, string, stri
 // value of type %G_VARIANT_TYPE_HANDLE in the body of the message.
 //
 // This method is only available on UNIX.
-func (x *DBusConnection) CallWithUnixFdList(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) CallWithUnixFdList(BusNameVar string, ObjectPathVar string, InterfaceNameVar string, MethodNameVar string, ParametersVar *glib.Variant, ReplyTypeVar *glib.VariantType, FlagsVar DBusCallFlags, TimeoutMsecVar int, FdListVar *UnixFDList, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionCallWithUnixFdList(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionCallWithUnixFdList(x.GoPointer(), BusNameVar, ObjectPathVar, InterfaceNameVar, MethodNameVar, ParametersVar, ReplyTypeVar, FlagsVar, TimeoutMsecVar, FdListVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1136,9 +1162,9 @@ var xDBusConnectionClose func(uintptr, uintptr, uintptr, uintptr)
 // then call g_dbus_connection_close_finish() to get the result of the
 // operation. See g_dbus_connection_close_sync() for the synchronous
 // version.
-func (x *DBusConnection) Close(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) Close(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionClose(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionClose(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1268,9 +1294,9 @@ var xDBusConnectionFlush func(uintptr, uintptr, uintptr, uintptr)
 // then call g_dbus_connection_flush_finish() to get the result of the
 // operation. See g_dbus_connection_flush_sync() for the synchronous
 // version.
-func (x *DBusConnection) Flush(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) Flush(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionFlush(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionFlush(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1463,10 +1489,10 @@ var xDBusConnectionRegisterObject func(uintptr, string, *DBusInterfaceInfo, *DBu
 // as the object is exported. Also note that @vtable will be copied.
 //
 // See this [server][gdbus-server] for an example of how to use this method.
-func (x *DBusConnection) RegisterObject(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, VtableVar *DBusInterfaceVTable, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) (uint, error) {
+func (x *DBusConnection) RegisterObject(ObjectPathVar string, InterfaceInfoVar *DBusInterfaceInfo, VtableVar *DBusInterfaceVTable, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) (uint, error) {
 	var cerr *glib.Error
 
-	cret := xDBusConnectionRegisterObject(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, VtableVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar), &cerr)
+	cret := xDBusConnectionRegisterObject(x.GoPointer(), ObjectPathVar, InterfaceInfoVar, VtableVar, UserDataVar, glib.NewCallback(UserDataFreeFuncVar), &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -1525,10 +1551,10 @@ var xDBusConnectionRegisterSubtree func(uintptr, string, *DBusSubtreeVTable, DBu
 //
 // See this [server][gdbus-subtree-server] for an example of how to use
 // this method.
-func (x *DBusConnection) RegisterSubtree(ObjectPathVar string, VtableVar *DBusSubtreeVTable, FlagsVar DBusSubtreeFlags, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) (uint, error) {
+func (x *DBusConnection) RegisterSubtree(ObjectPathVar string, VtableVar *DBusSubtreeVTable, FlagsVar DBusSubtreeFlags, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) (uint, error) {
 	var cerr *glib.Error
 
-	cret := xDBusConnectionRegisterSubtree(x.GoPointer(), ObjectPathVar, VtableVar, FlagsVar, UserDataVar, purego.NewCallback(UserDataFreeFuncVar), &cerr)
+	cret := xDBusConnectionRegisterSubtree(x.GoPointer(), ObjectPathVar, VtableVar, FlagsVar, UserDataVar, glib.NewCallback(UserDataFreeFuncVar), &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -1617,9 +1643,9 @@ var xDBusConnectionSendMessageWithReply func(uintptr, uintptr, DBusSendMessageFl
 // See this [server][gdbus-server] and [client][gdbus-unix-fd-client]
 // for an example of how to use this low-level API to send and receive
 // UNIX file descriptors.
-func (x *DBusConnection) SendMessageWithReply(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) SendMessageWithReply(MessageVar *DBusMessage, FlagsVar DBusSendMessageFlags, TimeoutMsecVar int, OutSerialVar uint32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionSendMessageWithReply(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionSendMessageWithReply(x.GoPointer(), MessageVar.GoPointer(), FlagsVar, TimeoutMsecVar, OutSerialVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1772,9 +1798,9 @@ var xDBusConnectionSignalSubscribe func(uintptr, string, string, string, string,
 // to never be zero.
 //
 // This function can never fail.
-func (x *DBusConnection) SignalSubscribe(SenderVar string, InterfaceNameVar string, MemberVar string, ObjectPathVar string, Arg0Var string, FlagsVar DBusSignalFlags, CallbackVar DBusSignalCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func (x *DBusConnection) SignalSubscribe(SenderVar string, InterfaceNameVar string, MemberVar string, ObjectPathVar string, Arg0Var string, FlagsVar DBusSignalFlags, CallbackVar *DBusSignalCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xDBusConnectionSignalSubscribe(x.GoPointer(), SenderVar, InterfaceNameVar, MemberVar, ObjectPathVar, Arg0Var, FlagsVar, purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xDBusConnectionSignalSubscribe(x.GoPointer(), SenderVar, InterfaceNameVar, MemberVar, ObjectPathVar, Arg0Var, FlagsVar, glib.NewCallback(CallbackVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 
@@ -1880,15 +1906,23 @@ func (c *DBusConnection) SetGoPointer(ptr uintptr) {
 // Upon receiving this signal, you should give up your reference to
 // @connection. You are guaranteed that this signal is emitted only
 // once.
-func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) uint32 {
+func (x *DBusConnection) ConnectClosed(cb *func(DBusConnection, bool, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "closed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RemotePeerVanishedVarp bool, ErrorVarp uintptr) {
 		fa := DBusConnection{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RemotePeerVanishedVarp, ErrorVarp)
+		cbFn(fa, RemotePeerVanishedVarp, ErrorVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "closed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "closed", cbRefPtr)
 }
 
 // Starts asynchronous initialization of the object implementing the
@@ -1927,9 +1961,9 @@ func (x *DBusConnection) ConnectClosed(cb func(DBusConnection, bool, uintptr)) u
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *DBusConnection) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusConnection) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -2037,9 +2071,9 @@ var xDBusConnectionNew func(uintptr, string, DBusConnectionFlags, uintptr, uintp
 // This is an asynchronous failable constructor. See
 // g_dbus_connection_new_sync() for the synchronous
 // version.
-func DBusConnectionNew(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func DBusConnectionNew(StreamVar *IOStream, GuidVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionNew(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionNew(StreamVar.GoPointer(), GuidVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -2067,9 +2101,9 @@ var xDBusConnectionNewForAddress func(string, DBusConnectionFlags, uintptr, uint
 // This is an asynchronous failable constructor. See
 // g_dbus_connection_new_for_address_sync() for the synchronous
 // version.
-func DBusConnectionNewForAddress(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func DBusConnectionNewForAddress(AddressVar string, FlagsVar DBusConnectionFlags, ObserverVar *DBusAuthObserver, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusConnectionNewForAddress(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusConnectionNewForAddress(AddressVar, FlagsVar, ObserverVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -3230,15 +3264,23 @@ func (c *DBusServer) SetGoPointer(ptr uintptr) {
 // before incoming messages on @connection are processed. This means
 // that it's suitable to call g_dbus_connection_register_object() or
 // similar from the signal handler.
-func (x *DBusServer) ConnectNewConnection(cb func(DBusServer, uintptr) bool) uint32 {
+func (x *DBusServer) ConnectNewConnection(cb *func(DBusServer, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "new-connection", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr) bool {
 		fa := DBusServer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ConnectionVarp)
+		return cbFn(fa, ConnectionVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "new-connection", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "new-connection", cbRefPtr)
 }
 
 // Initializes the object implementing the interface.
@@ -4525,15 +4567,23 @@ func (c *SimpleAction) SetGoPointer(ptr uintptr) {
 // type, the default is to forward them directly to
 // #GSimpleAction::change-state.  This should allow almost all users
 // of #GSimpleAction to connect only one handler or the other.
-func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) uint32 {
+func (x *SimpleAction) ConnectActivate(cb *func(SimpleAction, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ParameterVarp uintptr) {
 		fa := SimpleAction{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ParameterVarp)
+		cbFn(fa, ParameterVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Indicates that the action just received a request to change its
@@ -4572,15 +4622,23 @@ func (x *SimpleAction) ConnectActivate(cb func(SimpleAction, uintptr)) uint32 {
 //
 // The handler need not set the state to the requested value.
 // It could set it to any value at all, or take some other action.
-func (x *SimpleAction) ConnectChangeState(cb func(SimpleAction, uintptr)) uint32 {
+func (x *SimpleAction) ConnectChangeState(cb *func(SimpleAction, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "change-state", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ValueVarp uintptr) {
 		fa := SimpleAction{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ValueVarp)
+		cbFn(fa, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "change-state", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "change-state", cbRefPtr)
 }
 
 // Activates the action.
@@ -4952,9 +5010,9 @@ var xSubprocessCommunicateAsync func(uintptr, *glib.Bytes, uintptr, uintptr, uin
 
 // Asynchronous version of g_subprocess_communicate().  Complete
 // invocation with g_subprocess_communicate_finish().
-func (x *Subprocess) CommunicateAsync(StdinBufVar *glib.Bytes, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Subprocess) CommunicateAsync(StdinBufVar *glib.Bytes, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSubprocessCommunicateAsync(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSubprocessCommunicateAsync(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -4994,9 +5052,9 @@ var xSubprocessCommunicateUtf8Async func(uintptr, string, uintptr, uintptr, uint
 
 // Asynchronous version of g_subprocess_communicate_utf8().  Complete
 // invocation with g_subprocess_communicate_utf8_finish().
-func (x *Subprocess) CommunicateUtf8Async(StdinBufVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Subprocess) CommunicateUtf8Async(StdinBufVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSubprocessCommunicateUtf8Async(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSubprocessCommunicateUtf8Async(x.GoPointer(), StdinBufVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -5240,9 +5298,9 @@ var xSubprocessWaitAsync func(uintptr, uintptr, uintptr, uintptr)
 // Wait for the subprocess to terminate.
 //
 // This is the asynchronous version of g_subprocess_wait().
-func (x *Subprocess) WaitAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Subprocess) WaitAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSubprocessWaitAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSubprocessWaitAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -5265,9 +5323,9 @@ var xSubprocessWaitCheckAsync func(uintptr, uintptr, uintptr, uintptr)
 // Combines g_subprocess_wait_async() with g_spawn_check_wait_status().
 //
 // This is the asynchronous version of g_subprocess_wait_check().
-func (x *Subprocess) WaitCheckAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Subprocess) WaitCheckAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSubprocessWaitCheckAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSubprocessWaitCheckAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -5442,9 +5500,9 @@ var xSubprocessLauncherSetChildSetup func(uintptr, uintptr, uintptr, uintptr)
 // %NULL can be given as @child_setup to disable the functionality.
 //
 // Child setup functions are only available on UNIX.
-func (x *SubprocessLauncher) SetChildSetup(ChildSetupVar glib.SpawnChildSetupFunc, UserDataVar uintptr, DestroyNotifyVar glib.DestroyNotify) {
+func (x *SubprocessLauncher) SetChildSetup(ChildSetupVar *glib.SpawnChildSetupFunc, UserDataVar uintptr, DestroyNotifyVar *glib.DestroyNotify) {
 
-	xSubprocessLauncherSetChildSetup(x.GoPointer(), purego.NewCallback(ChildSetupVar), UserDataVar, purego.NewCallback(DestroyNotifyVar))
+	xSubprocessLauncherSetChildSetup(x.GoPointer(), glib.NewCallback(ChildSetupVar), UserDataVar, glib.NewCallback(DestroyNotifyVar))
 
 }
 

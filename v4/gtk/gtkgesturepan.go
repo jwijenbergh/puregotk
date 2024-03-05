@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -83,15 +84,23 @@ func (c *GesturePan) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted once a panning gesture along the expected axis is detected.
-func (x *GesturePan) ConnectPan(cb func(GesturePan, PanDirection, float64)) uint32 {
+func (x *GesturePan) ConnectPan(cb *func(GesturePan, PanDirection, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "pan", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DirectionVarp PanDirection, OffsetVarp float64) {
 		fa := GesturePan{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DirectionVarp, OffsetVarp)
+		cbFn(fa, DirectionVarp, OffsetVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "pan", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "pan", cbRefPtr)
 }
 
 func init() {

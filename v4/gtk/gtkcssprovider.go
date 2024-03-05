@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -173,15 +174,23 @@ func (c *CssProvider) SetGoPointer(ptr uintptr) {
 // Note that this signal may be emitted at any time as the css provider
 // may opt to defer parsing parts or all of the input to a later time
 // than when a loading function was called.
-func (x *CssProvider) ConnectParsingError(cb func(CssProvider, uintptr, uintptr)) uint32 {
+func (x *CssProvider) ConnectParsingError(cb *func(CssProvider, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "parsing-error", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SectionVarp uintptr, ErrorVarp uintptr) {
 		fa := CssProvider{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SectionVarp, ErrorVarp)
+		cbFn(fa, SectionVarp, ErrorVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "parsing-error", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "parsing-error", cbRefPtr)
 }
 
 func init() {

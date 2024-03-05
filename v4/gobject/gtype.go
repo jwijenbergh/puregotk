@@ -571,9 +571,9 @@ var xTypeAddClassCacheFunc func(uintptr, uintptr)
 // passed in to figure whether they actually want to cache the class of this
 // type, since all classes are routed through the same #GTypeClassCacheFunc
 // chain.
-func TypeAddClassCacheFunc(CacheDataVar uintptr, CacheFuncVar TypeClassCacheFunc) {
+func TypeAddClassCacheFunc(CacheDataVar uintptr, CacheFuncVar *TypeClassCacheFunc) {
 
-	xTypeAddClassCacheFunc(CacheDataVar, purego.NewCallback(CacheFuncVar))
+	xTypeAddClassCacheFunc(CacheDataVar, glib.NewCallback(CacheFuncVar))
 
 }
 
@@ -614,9 +614,9 @@ var xTypeAddInterfaceCheck func(uintptr, uintptr)
 // implementation of #GObject uses this facility to check that an
 // object implements all of the properties that are defined on its
 // interfaces.
-func TypeAddInterfaceCheck(CheckDataVar uintptr, CheckFuncVar TypeInterfaceCheckFunc) {
+func TypeAddInterfaceCheck(CheckDataVar uintptr, CheckFuncVar *TypeInterfaceCheckFunc) {
 
-	xTypeAddInterfaceCheck(CheckDataVar, purego.NewCallback(CheckFuncVar))
+	xTypeAddInterfaceCheck(CheckDataVar, glib.NewCallback(CheckFuncVar))
 
 }
 
@@ -1202,9 +1202,9 @@ var xTypeRegisterStaticSimple func([]interface{}, string, uint, uintptr, uint, u
 // @parent_type.  The value of @flags determines the nature (e.g.
 // abstract or not) of the type. It works by filling a #GTypeInfo
 // struct and calling g_type_register_static().
-func TypeRegisterStaticSimple(ParentTypeVar []interface{}, TypeNameVar string, ClassSizeVar uint, ClassInitVar ClassInitFunc, InstanceSizeVar uint, InstanceInitVar InstanceInitFunc, FlagsVar TypeFlags) []interface{} {
+func TypeRegisterStaticSimple(ParentTypeVar []interface{}, TypeNameVar string, ClassSizeVar uint, ClassInitVar *ClassInitFunc, InstanceSizeVar uint, InstanceInitVar *InstanceInitFunc, FlagsVar TypeFlags) []interface{} {
 
-	cret := xTypeRegisterStaticSimple(ParentTypeVar, TypeNameVar, ClassSizeVar, purego.NewCallback(ClassInitVar), InstanceSizeVar, purego.NewCallback(InstanceInitVar), FlagsVar)
+	cret := xTypeRegisterStaticSimple(ParentTypeVar, TypeNameVar, ClassSizeVar, glib.NewCallback(ClassInitVar), InstanceSizeVar, glib.NewCallback(InstanceInitVar), FlagsVar)
 	return cret
 }
 
@@ -1213,9 +1213,9 @@ var xTypeRemoveClassCacheFunc func(uintptr, uintptr)
 // Removes a previously installed #GTypeClassCacheFunc. The cache
 // maintained by @cache_func has to be empty when calling
 // g_type_remove_class_cache_func() to avoid leaks.
-func TypeRemoveClassCacheFunc(CacheDataVar uintptr, CacheFuncVar TypeClassCacheFunc) {
+func TypeRemoveClassCacheFunc(CacheDataVar uintptr, CacheFuncVar *TypeClassCacheFunc) {
 
-	xTypeRemoveClassCacheFunc(CacheDataVar, purego.NewCallback(CacheFuncVar))
+	xTypeRemoveClassCacheFunc(CacheDataVar, glib.NewCallback(CacheFuncVar))
 
 }
 
@@ -1223,9 +1223,9 @@ var xTypeRemoveInterfaceCheck func(uintptr, uintptr)
 
 // Removes an interface check function added with
 // g_type_add_interface_check().
-func TypeRemoveInterfaceCheck(CheckDataVar uintptr, CheckFuncVar TypeInterfaceCheckFunc) {
+func TypeRemoveInterfaceCheck(CheckDataVar uintptr, CheckFuncVar *TypeInterfaceCheckFunc) {
 
-	xTypeRemoveInterfaceCheck(CheckDataVar, purego.NewCallback(CheckFuncVar))
+	xTypeRemoveInterfaceCheck(CheckDataVar, glib.NewCallback(CheckFuncVar))
 
 }
 

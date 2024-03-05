@@ -569,10 +569,10 @@ var xNewTask func(uintptr, uintptr, uintptr, uintptr) uintptr
 // other objects that the task depends on have been destroyed. If you
 // do not want this behavior, you can use
 // g_task_set_check_cancellable() to change it.
-func NewTask(SourceObjectVar *gobject.Object, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr) *Task {
+func NewTask(SourceObjectVar *gobject.Object, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, CallbackDataVar uintptr) *Task {
 	var cls *Task
 
-	cret := xNewTask(SourceObjectVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar)
+	cret := xNewTask(SourceObjectVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), CallbackDataVar)
 
 	if cret == 0 {
 		return nil
@@ -593,9 +593,9 @@ var xTaskAttachSource func(uintptr, *glib.Source, uintptr)
 // g_task_set_name()), if one has been set.
 //
 // This takes a reference on @task until @source is destroyed.
-func (x *Task) AttachSource(SourceVar *glib.Source, CallbackVar glib.SourceFunc) {
+func (x *Task) AttachSource(SourceVar *glib.Source, CallbackVar *glib.SourceFunc) {
 
-	xTaskAttachSource(x.GoPointer(), SourceVar, purego.NewCallback(CallbackVar))
+	xTaskAttachSource(x.GoPointer(), SourceVar, glib.NewCallback(CallbackVar))
 
 }
 
@@ -896,9 +896,9 @@ var xTaskReturnPointer func(uintptr, uintptr, uintptr)
 // g_task_return_pointer(), you cannot assume that @result is still
 // valid after calling this, unless you are still holding another
 // reference on it.
-func (x *Task) ReturnPointer(ResultVar uintptr, ResultDestroyVar glib.DestroyNotify) {
+func (x *Task) ReturnPointer(ResultVar uintptr, ResultDestroyVar *glib.DestroyNotify) {
 
-	xTaskReturnPointer(x.GoPointer(), ResultVar, purego.NewCallback(ResultDestroyVar))
+	xTaskReturnPointer(x.GoPointer(), ResultVar, glib.NewCallback(ResultDestroyVar))
 
 }
 
@@ -932,9 +932,9 @@ var xTaskRunInThread func(uintptr, uintptr)
 // do this. If you have a very large number of tasks to run (several tens of
 // tasks), but don't want them to all run at once, you should only queue a
 // limited number of them (around ten) at a time.
-func (x *Task) RunInThread(TaskFuncVar TaskThreadFunc) {
+func (x *Task) RunInThread(TaskFuncVar *TaskThreadFunc) {
 
-	xTaskRunInThread(x.GoPointer(), purego.NewCallback(TaskFuncVar))
+	xTaskRunInThread(x.GoPointer(), glib.NewCallback(TaskFuncVar))
 
 }
 
@@ -956,9 +956,9 @@ var xTaskRunInThreadSync func(uintptr, uintptr)
 // always do this. If you have a very large number of tasks to run,
 // but don't want them to all run at once, you should only queue a
 // limited number of them at a time.
-func (x *Task) RunInThreadSync(TaskFuncVar TaskThreadFunc) {
+func (x *Task) RunInThreadSync(TaskFuncVar *TaskThreadFunc) {
 
-	xTaskRunInThreadSync(x.GoPointer(), purego.NewCallback(TaskFuncVar))
+	xTaskRunInThreadSync(x.GoPointer(), glib.NewCallback(TaskFuncVar))
 
 }
 
@@ -1076,9 +1076,9 @@ func (x *Task) SetSourceTag(SourceTagVar uintptr) {
 var xTaskSetTaskData func(uintptr, uintptr, uintptr)
 
 // Sets @task's task data (freeing the existing task data, if any).
-func (x *Task) SetTaskData(TaskDataVar uintptr, TaskDataDestroyVar glib.DestroyNotify) {
+func (x *Task) SetTaskData(TaskDataVar uintptr, TaskDataDestroyVar *glib.DestroyNotify) {
 
-	xTaskSetTaskData(x.GoPointer(), TaskDataVar, purego.NewCallback(TaskDataDestroyVar))
+	xTaskSetTaskData(x.GoPointer(), TaskDataVar, glib.NewCallback(TaskDataDestroyVar))
 
 }
 
@@ -1147,9 +1147,9 @@ var xTaskReportError func(uintptr, uintptr, uintptr, uintptr, *glib.Error)
 // wrapper method, and deal with it appropriately if so.
 //
 // See also g_task_report_new_error().
-func TaskReportError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, ErrorVar *glib.Error) {
+func TaskReportError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, ErrorVar *glib.Error) {
 
-	xTaskReportError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, ErrorVar)
+	xTaskReportError(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, ErrorVar)
 
 }
 
@@ -1164,9 +1164,9 @@ var xTaskReportNewError func(uintptr, uintptr, uintptr, uintptr, glib.Quark, int
 // appropriately if so.
 //
 // See also g_task_report_error().
-func TaskReportNewError(SourceObjectVar *gobject.Object, CallbackVar AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func TaskReportNewError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, CallbackDataVar uintptr, SourceTagVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
 
-	xTaskReportNewError(SourceObjectVar.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, DomainVar, CodeVar, FormatVar, varArgs...)
+	xTaskReportNewError(SourceObjectVar.GoPointer(), glib.NewCallback(CallbackVar), CallbackDataVar, SourceTagVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 

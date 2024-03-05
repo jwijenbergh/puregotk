@@ -145,9 +145,9 @@ var xSocketClientConnectAsync func(uintptr, uintptr, uintptr, uintptr, uintptr)
 // When the operation is finished @callback will be
 // called. You can then call g_socket_client_connect_finish() to get
 // the result of the operation.
-func (x *SocketClient) ConnectAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketClient) ConnectAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketClientConnectAsync(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketClientConnectAsync(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -229,9 +229,9 @@ var xSocketClientConnectToHostAsync func(uintptr, string, uint16, uintptr, uintp
 // When the operation is finished @callback will be
 // called. You can then call g_socket_client_connect_to_host_finish() to get
 // the result of the operation.
-func (x *SocketClient) ConnectToHostAsync(HostAndPortVar string, DefaultPortVar uint16, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketClient) ConnectToHostAsync(HostAndPortVar string, DefaultPortVar uint16, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketClientConnectToHostAsync(x.GoPointer(), HostAndPortVar, DefaultPortVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketClientConnectToHostAsync(x.GoPointer(), HostAndPortVar, DefaultPortVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -294,9 +294,9 @@ var xSocketClientConnectToServiceAsync func(uintptr, string, string, uintptr, ui
 
 // This is the asynchronous version of
 // g_socket_client_connect_to_service().
-func (x *SocketClient) ConnectToServiceAsync(DomainVar string, ServiceVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketClient) ConnectToServiceAsync(DomainVar string, ServiceVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketClientConnectToServiceAsync(x.GoPointer(), DomainVar, ServiceVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketClientConnectToServiceAsync(x.GoPointer(), DomainVar, ServiceVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -369,9 +369,9 @@ var xSocketClientConnectToUriAsync func(uintptr, string, uint16, uintptr, uintpt
 // When the operation is finished @callback will be
 // called. You can then call g_socket_client_connect_to_uri_finish() to get
 // the result of the operation.
-func (x *SocketClient) ConnectToUriAsync(UriVar string, DefaultPortVar uint16, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketClient) ConnectToUriAsync(UriVar string, DefaultPortVar uint16, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketClientConnectToUriAsync(x.GoPointer(), UriVar, DefaultPortVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketClientConnectToUriAsync(x.GoPointer(), UriVar, DefaultPortVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -710,15 +710,23 @@ func (c *SocketClient) SetGoPointer(ptr uintptr) {
 //
 // Note that there may be additional #GSocketClientEvent values in
 // the future; unrecognized @event values should be ignored.
-func (x *SocketClient) ConnectEvent(cb func(SocketClient, SocketClientEvent, uintptr, uintptr)) uint32 {
+func (x *SocketClient) ConnectEvent(cb *func(SocketClient, SocketClientEvent, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, EventVarp SocketClientEvent, ConnectableVarp uintptr, ConnectionVarp uintptr) {
 		fa := SocketClient{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, EventVarp, ConnectableVarp, ConnectionVarp)
+		cbFn(fa, EventVarp, ConnectableVarp, ConnectionVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
 }
 
 func init() {

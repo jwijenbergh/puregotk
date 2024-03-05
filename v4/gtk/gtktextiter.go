@@ -124,9 +124,9 @@ var xTextIterBackwardFindChar func(uintptr, uintptr, uintptr, *TextIter) bool
 
 // Same as gtk_text_iter_forward_find_char(),
 // but goes backward from @iter.
-func (x *TextIter) BackwardFindChar(PredVar TextCharPredicate, UserDataVar uintptr, LimitVar *TextIter) bool {
+func (x *TextIter) BackwardFindChar(PredVar *TextCharPredicate, UserDataVar uintptr, LimitVar *TextIter) bool {
 
-	cret := xTextIterBackwardFindChar(x.GoPointer(), purego.NewCallback(PredVar), UserDataVar, LimitVar)
+	cret := xTextIterBackwardFindChar(x.GoPointer(), glib.NewCallback(PredVar), UserDataVar, LimitVar)
 	return cret
 }
 
@@ -539,9 +539,9 @@ var xTextIterForwardFindChar func(uintptr, uintptr, uintptr, *TextIter) bool
 // If @pred returns %TRUE, returns %TRUE and stops scanning.
 // If @pred never returns %TRUE, @iter is set to @limit if
 // @limit is non-%NULL, otherwise to the end iterator.
-func (x *TextIter) ForwardFindChar(PredVar TextCharPredicate, UserDataVar uintptr, LimitVar *TextIter) bool {
+func (x *TextIter) ForwardFindChar(PredVar *TextCharPredicate, UserDataVar uintptr, LimitVar *TextIter) bool {
 
-	cret := xTextIterForwardFindChar(x.GoPointer(), purego.NewCallback(PredVar), UserDataVar, LimitVar)
+	cret := xTextIterForwardFindChar(x.GoPointer(), glib.NewCallback(PredVar), UserDataVar, LimitVar)
 	return cret
 }
 

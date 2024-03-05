@@ -138,9 +138,9 @@ var xAsyncQueuePushSorted func(uintptr, uintptr, uintptr, uintptr)
 // it when it is finished.
 //
 // For an example of @func see g_async_queue_sort().
-func (x *AsyncQueue) PushSorted(DataVar uintptr, FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *AsyncQueue) PushSorted(DataVar uintptr, FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xAsyncQueuePushSorted(x.GoPointer(), DataVar, purego.NewCallback(FuncVar), UserDataVar)
+	xAsyncQueuePushSorted(x.GoPointer(), DataVar, NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -161,9 +161,9 @@ var xAsyncQueuePushSortedUnlocked func(uintptr, uintptr, uintptr, uintptr)
 // This function must be called while holding the @queue's lock.
 //
 // For an example of @func see g_async_queue_sort().
-func (x *AsyncQueue) PushSortedUnlocked(DataVar uintptr, FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *AsyncQueue) PushSortedUnlocked(DataVar uintptr, FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xAsyncQueuePushSortedUnlocked(x.GoPointer(), DataVar, purego.NewCallback(FuncVar), UserDataVar)
+	xAsyncQueuePushSortedUnlocked(x.GoPointer(), DataVar, NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -243,9 +243,9 @@ var xAsyncQueueSort func(uintptr, uintptr, uintptr)
 //	return (id1 &gt; id2 ? +1 : id1 == id2 ? 0 : -1);
 //
 // ]|
-func (x *AsyncQueue) Sort(FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *AsyncQueue) Sort(FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xAsyncQueueSort(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xAsyncQueueSort(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -260,9 +260,9 @@ var xAsyncQueueSortUnlocked func(uintptr, uintptr, uintptr)
 // element.
 //
 // This function must be called while holding the @queue's lock.
-func (x *AsyncQueue) SortUnlocked(FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *AsyncQueue) SortUnlocked(FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xAsyncQueueSortUnlocked(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xAsyncQueueSortUnlocked(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 

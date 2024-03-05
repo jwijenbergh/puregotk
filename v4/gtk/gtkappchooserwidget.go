@@ -2,9 +2,12 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -192,27 +195,43 @@ func (c *AppChooserWidget) SetGoPointer(ptr uintptr) {
 // This usually happens when the user double clicks an item, or an item
 // is selected and the user presses one of the keys Space, Shift+Space,
 // Return or Enter.
-func (x *AppChooserWidget) ConnectApplicationActivated(cb func(AppChooserWidget, uintptr)) uint32 {
+func (x *AppChooserWidget) ConnectApplicationActivated(cb *func(AppChooserWidget, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "application-activated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ApplicationVarp uintptr) {
 		fa := AppChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ApplicationVarp)
+		cbFn(fa, ApplicationVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "application-activated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "application-activated", cbRefPtr)
 }
 
 // Emitted when an application item is selected from the widget's list.
-func (x *AppChooserWidget) ConnectApplicationSelected(cb func(AppChooserWidget, uintptr)) uint32 {
+func (x *AppChooserWidget) ConnectApplicationSelected(cb *func(AppChooserWidget, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "application-selected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ApplicationVarp uintptr) {
 		fa := AppChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ApplicationVarp)
+		cbFn(fa, ApplicationVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "application-selected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "application-selected", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

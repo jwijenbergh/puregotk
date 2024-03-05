@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -115,15 +117,23 @@ func (c *Switch) SetGoPointer(ptr uintptr) {
 //
 // Applications should never connect to this signal,
 // but use the [property@Gtk.Switch:active] property.
-func (x *Switch) ConnectActivate(cb func(Switch)) uint32 {
+func (x *Switch) ConnectActivate(cb *func(Switch)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Switch{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted to change the underlying state.
@@ -141,15 +151,23 @@ func (x *Switch) ConnectActivate(cb func(Switch)) uint32 {
 // Visually, the underlying state is represented by the trough color of
 // the switch, while the [property@Gtk.Switch:active] property is
 // represented by the position of the switch.
-func (x *Switch) ConnectStateSet(cb func(Switch, bool) bool) uint32 {
+func (x *Switch) ConnectStateSet(cb *func(Switch, bool) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "state-set", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StateVarp bool) bool {
 		fa := Switch{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, StateVarp)
+		return cbFn(fa, StateVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "state-set", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "state-set", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

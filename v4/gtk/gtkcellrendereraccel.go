@@ -2,9 +2,12 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -60,27 +63,43 @@ func (c *CellRendererAccel) SetGoPointer(ptr uintptr) {
 }
 
 // Gets emitted when the user has removed the accelerator.
-func (x *CellRendererAccel) ConnectAccelCleared(cb func(CellRendererAccel, string)) uint32 {
+func (x *CellRendererAccel) ConnectAccelCleared(cb *func(CellRendererAccel, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "accel-cleared", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathStringVarp string) {
 		fa := CellRendererAccel{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathStringVarp)
+		cbFn(fa, PathStringVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "accel-cleared", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "accel-cleared", cbRefPtr)
 }
 
 // Gets emitted when the user has selected a new accelerator.
-func (x *CellRendererAccel) ConnectAccelEdited(cb func(CellRendererAccel, string, uint, gdk.ModifierType, uint)) uint32 {
+func (x *CellRendererAccel) ConnectAccelEdited(cb *func(CellRendererAccel, string, uint, gdk.ModifierType, uint)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "accel-edited", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathStringVarp string, AccelKeyVarp uint, AccelModsVarp gdk.ModifierType, HardwareKeycodeVarp uint) {
 		fa := CellRendererAccel{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathStringVarp, AccelKeyVarp, AccelModsVarp, HardwareKeycodeVarp)
+		cbFn(fa, PathStringVarp, AccelKeyVarp, AccelModsVarp, HardwareKeycodeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "accel-edited", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "accel-edited", cbRefPtr)
 }
 
 func init() {

@@ -93,9 +93,9 @@ var xUnixConnectionReceiveCredentialsAsync func(uintptr, uintptr, uintptr, uintp
 //
 // When the operation is finished, @callback will be called. You can then call
 // g_unix_connection_receive_credentials_finish() to get the result of the operation.
-func (x *UnixConnection) ReceiveCredentialsAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *UnixConnection) ReceiveCredentialsAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xUnixConnectionReceiveCredentialsAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xUnixConnectionReceiveCredentialsAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -182,9 +182,9 @@ var xUnixConnectionSendCredentialsAsync func(uintptr, uintptr, uintptr, uintptr)
 //
 // When the operation is finished, @callback will be called. You can then call
 // g_unix_connection_send_credentials_finish() to get the result of the operation.
-func (x *UnixConnection) SendCredentialsAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *UnixConnection) SendCredentialsAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xUnixConnectionSendCredentialsAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xUnixConnectionSendCredentialsAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

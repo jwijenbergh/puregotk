@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -148,15 +149,23 @@ func (c *SocketService) SetGoPointer(ptr uintptr) {
 //
 // @connection will be unreffed once the signal handler returns,
 // so you need to ref it yourself if you are planning to use it.
-func (x *SocketService) ConnectIncoming(cb func(SocketService, uintptr, uintptr) bool) uint32 {
+func (x *SocketService) ConnectIncoming(cb *func(SocketService, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "incoming", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr, SourceObjectVarp uintptr) bool {
 		fa := SocketService{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ConnectionVarp, SourceObjectVarp)
+		return cbFn(fa, ConnectionVarp, SourceObjectVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "incoming", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "incoming", cbRefPtr)
 }
 
 func init() {

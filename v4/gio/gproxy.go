@@ -28,7 +28,7 @@ type Proxy interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	Connect(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable) *IOStream
-	ConnectAsync(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	ConnectAsync(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	ConnectFinish(ResultVar AsyncResult) *IOStream
 	SupportsHostname() bool
 }
@@ -67,9 +67,9 @@ func (x *ProxyBase) Connect(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddre
 }
 
 // Asynchronous version of g_proxy_connect().
-func (x *ProxyBase) ConnectAsync(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *ProxyBase) ConnectAsync(ConnectionVar *IOStream, ProxyAddressVar *ProxyAddress, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGProxyConnectAsync(x.GoPointer(), ConnectionVar.GoPointer(), ProxyAddressVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGProxyConnectAsync(x.GoPointer(), ConnectionVar.GoPointer(), ProxyAddressVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

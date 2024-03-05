@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -69,15 +70,23 @@ func (c *GestureRotate) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the angle between both tracked points changes.
-func (x *GestureRotate) ConnectAngleChanged(cb func(GestureRotate, float64, float64)) uint32 {
+func (x *GestureRotate) ConnectAngleChanged(cb *func(GestureRotate, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "angle-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, AngleVarp float64, AngleDeltaVarp float64) {
 		fa := GestureRotate{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, AngleVarp, AngleDeltaVarp)
+		cbFn(fa, AngleVarp, AngleDeltaVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "angle-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "angle-changed", cbRefPtr)
 }
 
 func init() {

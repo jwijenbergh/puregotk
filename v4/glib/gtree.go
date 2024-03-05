@@ -33,9 +33,9 @@ func (x *Tree) GoPointer() uintptr {
 var xNewTree func(uintptr) *Tree
 
 // Creates a new #GTree.
-func NewTree(KeyCompareFuncVar CompareFunc) *Tree {
+func NewTree(KeyCompareFuncVar *CompareFunc) *Tree {
 
-	cret := xNewTree(purego.NewCallback(KeyCompareFuncVar))
+	cret := xNewTree(NewCallback(KeyCompareFuncVar))
 	return cret
 }
 
@@ -44,9 +44,9 @@ var xNewTreeFull func(uintptr, uintptr, uintptr, uintptr) *Tree
 // Creates a new #GTree like g_tree_new() and allows to specify functions
 // to free the memory allocated for the key and value that get called when
 // removing the entry from the #GTree.
-func NewTreeFull(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr, KeyDestroyFuncVar DestroyNotify, ValueDestroyFuncVar DestroyNotify) *Tree {
+func NewTreeFull(KeyCompareFuncVar *CompareDataFunc, KeyCompareDataVar uintptr, KeyDestroyFuncVar *DestroyNotify, ValueDestroyFuncVar *DestroyNotify) *Tree {
 
-	cret := xNewTreeFull(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar, purego.NewCallback(KeyDestroyFuncVar), purego.NewCallback(ValueDestroyFuncVar))
+	cret := xNewTreeFull(NewCallback(KeyCompareFuncVar), KeyCompareDataVar, NewCallback(KeyDestroyFuncVar), NewCallback(ValueDestroyFuncVar))
 	return cret
 }
 
@@ -54,9 +54,9 @@ var xNewTreeWithData func(uintptr, uintptr) *Tree
 
 // Creates a new #GTree with a comparison function that accepts user data.
 // See g_tree_new() for more details.
-func NewTreeWithData(KeyCompareFuncVar CompareDataFunc, KeyCompareDataVar uintptr) *Tree {
+func NewTreeWithData(KeyCompareFuncVar *CompareDataFunc, KeyCompareDataVar uintptr) *Tree {
 
-	cret := xNewTreeWithData(purego.NewCallback(KeyCompareFuncVar), KeyCompareDataVar)
+	cret := xNewTreeWithData(NewCallback(KeyCompareFuncVar), KeyCompareDataVar)
 	return cret
 }
 
@@ -84,9 +84,9 @@ var xTreeForeach func(uintptr, uintptr, uintptr)
 // add/remove items). To remove all items matching a predicate, you need
 // to add each item to a list in your #GTraverseFunc as you walk over
 // the tree, then walk the list and remove each item.
-func (x *Tree) Foreach(FuncVar TraverseFunc, UserDataVar uintptr) {
+func (x *Tree) Foreach(FuncVar *TraverseFunc, UserDataVar uintptr) {
 
-	xTreeForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xTreeForeach(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -100,9 +100,9 @@ var xTreeForeachNode func(uintptr, uintptr, uintptr)
 // add/remove items). To remove all items matching a predicate, you need
 // to add each item to a list in your #GTraverseFunc as you walk over
 // the tree, then walk the list and remove each item.
-func (x *Tree) ForeachNode(FuncVar TraverseNodeFunc, UserDataVar uintptr) {
+func (x *Tree) ForeachNode(FuncVar *TraverseNodeFunc, UserDataVar uintptr) {
 
-	xTreeForeachNode(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xTreeForeachNode(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -306,9 +306,9 @@ var xTreeSearch func(uintptr, uintptr, uintptr) uintptr
 // will proceed among the key/value pairs that have a smaller key; if
 // @search_func returns 1, searching will proceed among the key/value
 // pairs that have a larger key.
-func (x *Tree) Search(SearchFuncVar CompareFunc, UserDataVar uintptr) uintptr {
+func (x *Tree) Search(SearchFuncVar *CompareFunc, UserDataVar uintptr) uintptr {
 
-	cret := xTreeSearch(x.GoPointer(), purego.NewCallback(SearchFuncVar), UserDataVar)
+	cret := xTreeSearch(x.GoPointer(), NewCallback(SearchFuncVar), UserDataVar)
 	return cret
 }
 
@@ -323,9 +323,9 @@ var xTreeSearchNode func(uintptr, uintptr, uintptr) *TreeNode
 // will proceed among the key/value pairs that have a smaller key; if
 // @search_func returns 1, searching will proceed among the key/value
 // pairs that have a larger key.
-func (x *Tree) SearchNode(SearchFuncVar CompareFunc, UserDataVar uintptr) *TreeNode {
+func (x *Tree) SearchNode(SearchFuncVar *CompareFunc, UserDataVar uintptr) *TreeNode {
 
-	cret := xTreeSearchNode(x.GoPointer(), purego.NewCallback(SearchFuncVar), UserDataVar)
+	cret := xTreeSearchNode(x.GoPointer(), NewCallback(SearchFuncVar), UserDataVar)
 	return cret
 }
 
@@ -344,9 +344,9 @@ func (x *Tree) Steal(KeyVar uintptr) bool {
 var xTreeTraverse func(uintptr, uintptr, TraverseType, uintptr)
 
 // Calls the given function for each node in the #GTree.
-func (x *Tree) Traverse(TraverseFuncVar TraverseFunc, TraverseTypeVar TraverseType, UserDataVar uintptr) {
+func (x *Tree) Traverse(TraverseFuncVar *TraverseFunc, TraverseTypeVar TraverseType, UserDataVar uintptr) {
 
-	xTreeTraverse(x.GoPointer(), purego.NewCallback(TraverseFuncVar), TraverseTypeVar, UserDataVar)
+	xTreeTraverse(x.GoPointer(), NewCallback(TraverseFuncVar), TraverseTypeVar, UserDataVar)
 
 }
 

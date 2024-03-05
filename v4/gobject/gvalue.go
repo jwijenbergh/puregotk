@@ -765,9 +765,9 @@ var xValueRegisterTransformFunc func([]interface{}, []interface{}, uintptr)
 // Registers a value transformation function for use in g_value_transform().
 // A previously registered transformation function for @src_type and @dest_type
 // will be replaced.
-func ValueRegisterTransformFunc(SrcTypeVar []interface{}, DestTypeVar []interface{}, TransformFuncVar ValueTransform) {
+func ValueRegisterTransformFunc(SrcTypeVar []interface{}, DestTypeVar []interface{}, TransformFuncVar *ValueTransform) {
 
-	xValueRegisterTransformFunc(SrcTypeVar, DestTypeVar, purego.NewCallback(TransformFuncVar))
+	xValueRegisterTransformFunc(SrcTypeVar, DestTypeVar, glib.NewCallback(TransformFuncVar))
 
 }
 

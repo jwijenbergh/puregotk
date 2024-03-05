@@ -88,10 +88,10 @@ var xNewMemoryOutputStream func(uintptr, uint, uintptr, uintptr) uintptr
 // data = malloc (200);
 // stream3 = g_memory_output_stream_new (data, 200, NULL, free);
 // ]|
-func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar ReallocFunc, DestroyFunctionVar glib.DestroyNotify) *MemoryOutputStream {
+func NewMemoryOutputStream(DataVar uintptr, SizeVar uint, ReallocFunctionVar *ReallocFunc, DestroyFunctionVar *glib.DestroyNotify) *MemoryOutputStream {
 	var cls *MemoryOutputStream
 
-	cret := xNewMemoryOutputStream(DataVar, SizeVar, purego.NewCallback(ReallocFunctionVar), purego.NewCallback(DestroyFunctionVar))
+	cret := xNewMemoryOutputStream(DataVar, SizeVar, glib.NewCallback(ReallocFunctionVar), glib.NewCallback(DestroyFunctionVar))
 
 	if cret == 0 {
 		return nil

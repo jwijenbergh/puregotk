@@ -25,9 +25,9 @@ var xUnixFdAdd func(int, IOCondition, uintptr, uintptr) uint
 // to cancel the watch at any time that it exists.
 //
 // The source will never close the fd -- you must do it yourself.
-func UnixFdAdd(FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr) uint {
+func UnixFdAdd(FdVar int, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr) uint {
 
-	cret := xUnixFdAdd(FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar)
+	cret := xUnixFdAdd(FdVar, ConditionVar, NewCallback(FunctionVar), UserDataVar)
 	return cret
 }
 
@@ -39,9 +39,9 @@ var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
 // This is the same as g_unix_fd_add(), except that it allows you to
 // specify a non-default priority and a provide a #GDestroyNotify for
 // @user_data.
-func UnixFdAddFull(PriorityVar int, FdVar int, ConditionVar IOCondition, FunctionVar UnixFDSourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
+func UnixFdAddFull(PriorityVar int, FdVar int, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, purego.NewCallback(FunctionVar), UserDataVar, purego.NewCallback(NotifyVar))
+	cret := xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, NewCallback(FunctionVar), UserDataVar, NewCallback(NotifyVar))
 	return cret
 }
 
@@ -123,9 +123,9 @@ var xUnixSignalAdd func(int, uintptr, uintptr) uint
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAdd(SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr) uint {
+func UnixSignalAdd(SignumVar int, HandlerVar *SourceFunc, UserDataVar uintptr) uint {
 
-	cret := xUnixSignalAdd(SignumVar, purego.NewCallback(HandlerVar), UserDataVar)
+	cret := xUnixSignalAdd(SignumVar, NewCallback(HandlerVar), UserDataVar)
 	return cret
 }
 
@@ -134,9 +134,9 @@ var xUnixSignalAddFull func(int, int, uintptr, uintptr, uintptr) uint
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAddFull(PriorityVar int, SignumVar int, HandlerVar SourceFunc, UserDataVar uintptr, NotifyVar DestroyNotify) uint {
+func UnixSignalAddFull(PriorityVar int, SignumVar int, HandlerVar *SourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xUnixSignalAddFull(PriorityVar, SignumVar, purego.NewCallback(HandlerVar), UserDataVar, purego.NewCallback(NotifyVar))
+	cret := xUnixSignalAddFull(PriorityVar, SignumVar, NewCallback(HandlerVar), UserDataVar, NewCallback(NotifyVar))
 	return cret
 }
 

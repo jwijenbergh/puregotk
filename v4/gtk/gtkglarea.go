@@ -378,31 +378,47 @@ func (c *GLArea) SetGoPointer(ptr uintptr) {
 // If context creation fails then the signal handler can use
 // [method@Gtk.GLArea.set_error] to register a more detailed error
 // of how the construction failed.
-func (x *GLArea) ConnectCreateContext(cb func(GLArea) gdk.GLContext) uint32 {
+func (x *GLArea) ConnectCreateContext(cb *func(GLArea) gdk.GLContext) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "create-context", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) uintptr {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		CreateContextCls := cb(fa)
+		CreateContextCls := cbFn(fa)
 		return CreateContextCls.Ptr
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "create-context", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "create-context", cbRefPtr)
 }
 
 // Emitted every time the contents of the `GtkGLArea` should be redrawn.
 //
 // The @context is bound to the @area prior to emitting this function,
 // and the buffers are painted to the window once the emission terminates.
-func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) uint32 {
+func (x *GLArea) ConnectRender(cb *func(GLArea, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "render", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ContextVarp uintptr) bool {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ContextVarp)
+		return cbFn(fa, ContextVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "render", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "render", cbRefPtr)
 }
 
 // Emitted once when the widget is realized, and then each time the widget
@@ -416,15 +432,23 @@ func (x *GLArea) ConnectRender(cb func(GLArea, uintptr) bool) uint32 {
 // is emitted.
 //
 // The default handler sets up the GL viewport.
-func (x *GLArea) ConnectResize(cb func(GLArea, int, int)) uint32 {
+func (x *GLArea) ConnectResize(cb *func(GLArea, int, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "resize", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := GLArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, WidthVarp, HeightVarp)
+		cbFn(fa, WidthVarp, HeightVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "resize", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "resize", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

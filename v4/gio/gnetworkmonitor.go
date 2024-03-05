@@ -29,7 +29,7 @@ type NetworkMonitor interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	CanReach(ConnectableVar SocketConnectable, CancellableVar *Cancellable) bool
-	CanReachAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	CanReachAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	CanReachFinish(ResultVar AsyncResult) bool
 	GetConnectivity() NetworkConnectivity
 	GetNetworkAvailable() bool
@@ -84,9 +84,9 @@ func (x *NetworkMonitorBase) CanReach(ConnectableVar SocketConnectable, Cancella
 // When the operation is finished, @callback will be called.
 // You can then call g_network_monitor_can_reach_finish()
 // to get the result of the operation.
-func (x *NetworkMonitorBase) CanReachAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *NetworkMonitorBase) CanReachAsync(ConnectableVar SocketConnectable, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGNetworkMonitorCanReachAsync(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGNetworkMonitorCanReachAsync(x.GoPointer(), ConnectableVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

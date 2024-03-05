@@ -624,9 +624,9 @@ func (x *CellArea) Focus(DirectionVar DirectionType) bool {
 var xCellAreaForeach func(uintptr, uintptr, uintptr)
 
 // Calls @callback for every `GtkCellRenderer` in @area.
-func (x *CellArea) Foreach(CallbackVar CellCallback, CallbackDataVar uintptr) {
+func (x *CellArea) Foreach(CallbackVar *CellCallback, CallbackDataVar uintptr) {
 
-	xCellAreaForeach(x.GoPointer(), purego.NewCallback(CallbackVar), CallbackDataVar)
+	xCellAreaForeach(x.GoPointer(), glib.NewCallback(CallbackVar), CallbackDataVar)
 
 }
 
@@ -634,9 +634,9 @@ var xCellAreaForeachAlloc func(uintptr, uintptr, uintptr, *gdk.Rectangle, *gdk.R
 
 // Calls @callback for every `GtkCellRenderer` in @area with the
 // allocated rectangle inside @cell_area.
-func (x *CellArea) ForeachAlloc(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, BackgroundAreaVar *gdk.Rectangle, CallbackVar CellAllocCallback, CallbackDataVar uintptr) {
+func (x *CellArea) ForeachAlloc(ContextVar *CellAreaContext, WidgetVar *Widget, CellAreaVar *gdk.Rectangle, BackgroundAreaVar *gdk.Rectangle, CallbackVar *CellAllocCallback, CallbackDataVar uintptr) {
 
-	xCellAreaForeachAlloc(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, BackgroundAreaVar, purego.NewCallback(CallbackVar), CallbackDataVar)
+	xCellAreaForeachAlloc(x.GoPointer(), ContextVar.GoPointer(), WidgetVar.GoPointer(), CellAreaVar, BackgroundAreaVar, glib.NewCallback(CallbackVar), CallbackDataVar)
 
 }
 
@@ -972,27 +972,43 @@ func (c *CellArea) SetGoPointer(ptr uintptr) {
 
 // Indicates that editing has started on @renderer and that @editable
 // should be added to the owning cell-layouting widget at @cell_area.
-func (x *CellArea) ConnectAddEditable(cb func(CellArea, uintptr, uintptr, uintptr, string)) uint32 {
+func (x *CellArea) ConnectAddEditable(cb *func(CellArea, uintptr, uintptr, uintptr, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "add-editable", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, EditableVarp uintptr, CellAreaVarp uintptr, PathVarp string) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RendererVarp, EditableVarp, CellAreaVarp, PathVarp)
+		cbFn(fa, RendererVarp, EditableVarp, CellAreaVarp, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "add-editable", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "add-editable", cbRefPtr)
 }
 
 // This signal is emitted whenever applying attributes to @area from @model
-func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bool, bool)) uint32 {
+func (x *CellArea) ConnectApplyAttributes(cb *func(CellArea, uintptr, uintptr, bool, bool)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "apply-attributes", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ModelVarp uintptr, IterVarp uintptr, IsExpanderVarp bool, IsExpandedVarp bool) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ModelVarp, IterVarp, IsExpanderVarp, IsExpandedVarp)
+		cbFn(fa, ModelVarp, IterVarp, IsExpanderVarp, IsExpandedVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "apply-attributes", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "apply-attributes", cbRefPtr)
 }
 
 // Indicates that focus changed on this @area. This signal
@@ -1003,28 +1019,44 @@ func (x *CellArea) ConnectApplyAttributes(cb func(CellArea, uintptr, uintptr, bo
 // currently focused renderer did not change, this is
 // because focus may change to the same renderer in the
 // same cell area for a different row of data.
-func (x *CellArea) ConnectFocusChanged(cb func(CellArea, uintptr, string)) uint32 {
+func (x *CellArea) ConnectFocusChanged(cb *func(CellArea, uintptr, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "focus-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, PathVarp string) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RendererVarp, PathVarp)
+		cbFn(fa, RendererVarp, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "focus-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "focus-changed", cbRefPtr)
 }
 
 // Indicates that editing finished on @renderer and that @editable
 // should be removed from the owning cell-layouting widget.
-func (x *CellArea) ConnectRemoveEditable(cb func(CellArea, uintptr, uintptr)) uint32 {
+func (x *CellArea) ConnectRemoveEditable(cb *func(CellArea, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "remove-editable", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RendererVarp uintptr, EditableVarp uintptr) {
 		fa := CellArea{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RendererVarp, EditableVarp)
+		cbFn(fa, RendererVarp, EditableVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "remove-editable", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "remove-editable", cbRefPtr)
 }
 
 // Gets the ID of the @buildable object.
@@ -1143,9 +1175,9 @@ func (x *CellArea) SetAttributes(CellVar *CellRenderer, varArgs ...interface{}) 
 // cell renderer(s) as appropriate.
 //
 // @func may be %NULL to remove a previously set function.
-func (x *CellArea) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *CellArea) SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(DestroyVar))
+	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(DestroyVar))
 
 }
 

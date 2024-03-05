@@ -52,9 +52,9 @@ type Drive interface {
 	CanStart() bool
 	CanStartDegraded() bool
 	CanStop() bool
-	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectFinish(ResultVar AsyncResult) bool
-	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectWithOperationFinish(ResultVar AsyncResult) bool
 	EnumerateIdentifiers() []string
 	GetIcon() *IconBase
@@ -69,11 +69,11 @@ type Drive interface {
 	IsMediaCheckAutomatic() bool
 	IsMediaRemovable() bool
 	IsRemovable() bool
-	PollForMedia(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	PollForMedia(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	PollForMediaFinish(ResultVar AsyncResult) bool
-	Start(FlagsVar DriveStartFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Start(FlagsVar DriveStartFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	StartFinish(ResultVar AsyncResult) bool
-	Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	StopFinish(ResultVar AsyncResult) bool
 }
 type DriveBase struct {
@@ -128,9 +128,9 @@ func (x *DriveBase) CanStop() bool {
 // When the operation is finished, @callback will be called.
 // You can then call g_drive_eject_finish() to obtain the
 // result of the operation.
-func (x *DriveBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DriveBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDriveEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDriveEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -149,9 +149,9 @@ func (x *DriveBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
 // Ejects a drive. This is an asynchronous operation, and is
 // finished by calling g_drive_eject_with_operation_finish() with the @drive
 // and #GAsyncResult data returned in the @callback.
-func (x *DriveBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DriveBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDriveEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDriveEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -288,9 +288,9 @@ func (x *DriveBase) IsRemovable() bool {
 // When the operation is finished, @callback will be called.
 // You can then call g_drive_poll_for_media_finish() to obtain the
 // result of the operation.
-func (x *DriveBase) PollForMedia(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DriveBase) PollForMedia(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDrivePollForMedia(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDrivePollForMedia(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -311,9 +311,9 @@ func (x *DriveBase) PollForMediaFinish(ResultVar AsyncResult) (bool, error) {
 // When the operation is finished, @callback will be called.
 // You can then call g_drive_start_finish() to obtain the
 // result of the operation.
-func (x *DriveBase) Start(FlagsVar DriveStartFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DriveBase) Start(FlagsVar DriveStartFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDriveStart(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDriveStart(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -334,9 +334,9 @@ func (x *DriveBase) StartFinish(ResultVar AsyncResult) (bool, error) {
 // When the operation is finished, @callback will be called.
 // You can then call g_drive_stop_finish() to obtain the
 // result of the operation.
-func (x *DriveBase) Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DriveBase) Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGDriveStop(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGDriveStop(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

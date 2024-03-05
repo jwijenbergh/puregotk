@@ -309,9 +309,9 @@ var xOptionContextSetTranslateFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If you are using gettext(), you only need to set the translation
 // domain, see g_option_context_set_translation_domain().
-func (x *OptionContext) SetTranslateFunc(FuncVar TranslateFunc, DataVar uintptr, DestroyNotifyVar DestroyNotify) {
+func (x *OptionContext) SetTranslateFunc(FuncVar *TranslateFunc, DataVar uintptr, DestroyNotifyVar *DestroyNotify) {
 
-	xOptionContextSetTranslateFunc(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyNotifyVar))
+	xOptionContextSetTranslateFunc(x.GoPointer(), NewCallback(FuncVar), DataVar, NewCallback(DestroyNotifyVar))
 
 }
 
@@ -365,9 +365,9 @@ func (x *OptionGroup) GoPointer() uintptr {
 var xNewOptionGroup func(string, string, string, uintptr, uintptr) *OptionGroup
 
 // Creates a new #GOptionGroup.
-func NewOptionGroup(NameVar string, DescriptionVar string, HelpDescriptionVar string, UserDataVar uintptr, DestroyVar DestroyNotify) *OptionGroup {
+func NewOptionGroup(NameVar string, DescriptionVar string, HelpDescriptionVar string, UserDataVar uintptr, DestroyVar *DestroyNotify) *OptionGroup {
 
-	cret := xNewOptionGroup(NameVar, DescriptionVar, HelpDescriptionVar, UserDataVar, purego.NewCallback(DestroyVar))
+	cret := xNewOptionGroup(NameVar, DescriptionVar, HelpDescriptionVar, UserDataVar, NewCallback(DestroyVar))
 	return cret
 }
 
@@ -406,9 +406,9 @@ var xOptionGroupSetErrorHook func(uintptr, uintptr)
 //
 // Note that the user data to be passed to @error_func can be
 // specified when constructing the group with g_option_group_new().
-func (x *OptionGroup) SetErrorHook(ErrorFuncVar OptionErrorFunc) {
+func (x *OptionGroup) SetErrorHook(ErrorFuncVar *OptionErrorFunc) {
 
-	xOptionGroupSetErrorHook(x.GoPointer(), purego.NewCallback(ErrorFuncVar))
+	xOptionGroupSetErrorHook(x.GoPointer(), NewCallback(ErrorFuncVar))
 
 }
 
@@ -421,9 +421,9 @@ var xOptionGroupSetParseHooks func(uintptr, uintptr, uintptr)
 // Note that the user data to be passed to @pre_parse_func and
 // @post_parse_func can be specified when constructing the group
 // with g_option_group_new().
-func (x *OptionGroup) SetParseHooks(PreParseFuncVar OptionParseFunc, PostParseFuncVar OptionParseFunc) {
+func (x *OptionGroup) SetParseHooks(PreParseFuncVar *OptionParseFunc, PostParseFuncVar *OptionParseFunc) {
 
-	xOptionGroupSetParseHooks(x.GoPointer(), purego.NewCallback(PreParseFuncVar), purego.NewCallback(PostParseFuncVar))
+	xOptionGroupSetParseHooks(x.GoPointer(), NewCallback(PreParseFuncVar), NewCallback(PostParseFuncVar))
 
 }
 
@@ -435,9 +435,9 @@ var xOptionGroupSetTranslateFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If you are using gettext(), you only need to set the translation
 // domain, see g_option_group_set_translation_domain().
-func (x *OptionGroup) SetTranslateFunc(FuncVar TranslateFunc, DataVar uintptr, DestroyNotifyVar DestroyNotify) {
+func (x *OptionGroup) SetTranslateFunc(FuncVar *TranslateFunc, DataVar uintptr, DestroyNotifyVar *DestroyNotify) {
 
-	xOptionGroupSetTranslateFunc(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyNotifyVar))
+	xOptionGroupSetTranslateFunc(x.GoPointer(), NewCallback(FuncVar), DataVar, NewCallback(DestroyNotifyVar))
 
 }
 

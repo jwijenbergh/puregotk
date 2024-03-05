@@ -129,10 +129,10 @@ var xNewCallbackAction func(uintptr, uintptr, uintptr) uintptr
 
 // Create a custom action that calls the given @callback when
 // activated.
-func NewCallbackAction(CallbackVar ShortcutFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) *CallbackAction {
+func NewCallbackAction(CallbackVar *ShortcutFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) *CallbackAction {
 	var cls *CallbackAction
 
-	cret := xNewCallbackAction(purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DestroyVar))
+	cret := xNewCallbackAction(glib.NewCallback(CallbackVar), DataVar, glib.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil

@@ -2,9 +2,12 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -194,42 +197,66 @@ func (c *AppChooserButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkAppChooserButton` is an action signal and
 // emitting it causes the button to pop up its dialog.
-func (x *AppChooserButton) ConnectActivate(cb func(AppChooserButton)) uint32 {
+func (x *AppChooserButton) ConnectActivate(cb *func(AppChooserButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the active application changes.
-func (x *AppChooserButton) ConnectChanged(cb func(AppChooserButton)) uint32 {
+func (x *AppChooserButton) ConnectChanged(cb *func(AppChooserButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 // Emitted when a custom item is activated.
 //
 // Use [method@Gtk.AppChooserButton.append_custom_item],
 // to add custom items.
-func (x *AppChooserButton) ConnectCustomItemActivated(cb func(AppChooserButton, string)) uint32 {
+func (x *AppChooserButton) ConnectCustomItemActivated(cb *func(AppChooserButton, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "custom-item-activated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ItemNameVarp string) {
 		fa := AppChooserButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ItemNameVarp)
+		cbFn(fa, ItemNameVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "custom-item-activated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "custom-item-activated", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

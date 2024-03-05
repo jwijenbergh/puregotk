@@ -589,15 +589,23 @@ func (c *RecentManager) SetGoPointer(ptr uintptr) {
 //
 // This can happen either by calling [method@Gtk.RecentManager.add_item]
 // or by another application.
-func (x *RecentManager) ConnectChanged(cb func(RecentManager)) uint32 {
+func (x *RecentManager) ConnectChanged(cb *func(RecentManager)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := RecentManager{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 var xRecentManagerGetDefault func() uintptr

@@ -298,9 +298,9 @@ var xScaleSetFormatValueFunc func(uintptr, uintptr, uintptr, uintptr)
 // If #NULL is passed as @func, the value will be displayed on
 // its own, rounded according to the value of the
 // [property@GtkScale:digits] property.
-func (x *Scale) SetFormatValueFunc(FuncVar ScaleFormatValueFunc, UserDataVar uintptr, DestroyNotifyVar glib.DestroyNotify) {
+func (x *Scale) SetFormatValueFunc(FuncVar *ScaleFormatValueFunc, UserDataVar uintptr, DestroyNotifyVar *glib.DestroyNotify) {
 
-	xScaleSetFormatValueFunc(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(DestroyNotifyVar))
+	xScaleSetFormatValueFunc(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar, glib.NewCallback(DestroyNotifyVar))
 
 }
 

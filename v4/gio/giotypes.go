@@ -335,9 +335,9 @@ var xIOSchedulerJobSendToMainloop func(uintptr, uintptr, uintptr, uintptr) bool
 // Used from an I/O job to send a callback to be run in the thread
 // that the job was started from, waiting for the result (and thus
 // blocking the I/O job).
-func (x *IOSchedulerJob) SendToMainloop(FuncVar glib.SourceFunc, UserDataVar uintptr, NotifyVar glib.DestroyNotify) bool {
+func (x *IOSchedulerJob) SendToMainloop(FuncVar *glib.SourceFunc, UserDataVar uintptr, NotifyVar *glib.DestroyNotify) bool {
 
-	cret := xIOSchedulerJobSendToMainloop(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(NotifyVar))
+	cret := xIOSchedulerJobSendToMainloop(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar, glib.NewCallback(NotifyVar))
 	return cret
 }
 
@@ -352,9 +352,9 @@ var xIOSchedulerJobSendToMainloopAsync func(uintptr, uintptr, uintptr, uintptr)
 // on to this function you have to ensure that it is not freed before
 // @func is called, either by passing %NULL as @notify to
 // g_io_scheduler_push_job() or by using refcounting for @user_data.
-func (x *IOSchedulerJob) SendToMainloopAsync(FuncVar glib.SourceFunc, UserDataVar uintptr, NotifyVar glib.DestroyNotify) {
+func (x *IOSchedulerJob) SendToMainloopAsync(FuncVar *glib.SourceFunc, UserDataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
-	xIOSchedulerJobSendToMainloopAsync(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(NotifyVar))
+	xIOSchedulerJobSendToMainloopAsync(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar, glib.NewCallback(NotifyVar))
 
 }
 

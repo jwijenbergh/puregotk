@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -286,15 +287,23 @@ func (c *TabBar) SetGoPointer(ptr uintptr) {
 // [method@TabBar.setup_extra_drop_target].
 //
 // See [signal@Gtk.DropTarget::drop].
-func (x *TabBar) ConnectExtraDragDrop(cb func(TabBar, uintptr, uintptr) bool) uint32 {
+func (x *TabBar) ConnectExtraDragDrop(cb *func(TabBar, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "extra-drag-drop", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PageVarp uintptr, ValueVarp uintptr) bool {
 		fa := TabBar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, PageVarp, ValueVarp)
+		return cbFn(fa, PageVarp, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "extra-drag-drop", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "extra-drag-drop", cbRefPtr)
 }
 
 // This signal is emitted when the dropped content is preloaded.
@@ -306,15 +315,23 @@ func (x *TabBar) ConnectExtraDragDrop(cb func(TabBar, uintptr, uintptr) bool) ui
 // [method@TabBar.setup_extra_drop_target].
 //
 // See [property@Gtk.DropTarget:value].
-func (x *TabBar) ConnectExtraDragValue(cb func(TabBar, uintptr, uintptr) gdk.DragAction) uint32 {
+func (x *TabBar) ConnectExtraDragValue(cb *func(TabBar, uintptr, uintptr) gdk.DragAction) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "extra-drag-value", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PageVarp uintptr, ValueVarp uintptr) gdk.DragAction {
 		fa := TabBar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, PageVarp, ValueVarp)
+		return cbFn(fa, PageVarp, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "extra-drag-value", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "extra-drag-value", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

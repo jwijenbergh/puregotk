@@ -29,9 +29,9 @@ var xIoSchedulerPushJob func(uintptr, uintptr, uintptr, int, uintptr)
 // If @cancellable is not %NULL, it can be used to cancel the I/O job
 // by calling g_cancellable_cancel() or by calling
 // g_io_scheduler_cancel_all_jobs().
-func IoSchedulerPushJob(JobFuncVar IOSchedulerJobFunc, UserDataVar uintptr, NotifyVar glib.DestroyNotify, IoPriorityVar int, CancellableVar *Cancellable) {
+func IoSchedulerPushJob(JobFuncVar *IOSchedulerJobFunc, UserDataVar uintptr, NotifyVar *glib.DestroyNotify, IoPriorityVar int, CancellableVar *Cancellable) {
 
-	xIoSchedulerPushJob(purego.NewCallback(JobFuncVar), UserDataVar, purego.NewCallback(NotifyVar), IoPriorityVar, CancellableVar.GoPointer())
+	xIoSchedulerPushJob(glib.NewCallback(JobFuncVar), UserDataVar, glib.NewCallback(NotifyVar), IoPriorityVar, CancellableVar.GoPointer())
 
 }
 

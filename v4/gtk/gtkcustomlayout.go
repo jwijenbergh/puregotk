@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // A function to be used by `GtkCustomLayout` to allocate a widget.
@@ -48,10 +49,10 @@ var xNewCustomLayout func(uintptr, uintptr, uintptr) uintptr
 // Legacy layout managers map to the old `GtkWidget` size negotiation
 // virtual functions, and are meant to be used during the transition
 // from layout containers to layout manager delegates.
-func NewCustomLayout(RequestModeVar CustomRequestModeFunc, MeasureVar CustomMeasureFunc, AllocateVar CustomAllocateFunc) *CustomLayout {
+func NewCustomLayout(RequestModeVar *CustomRequestModeFunc, MeasureVar *CustomMeasureFunc, AllocateVar *CustomAllocateFunc) *CustomLayout {
 	var cls *CustomLayout
 
-	cret := xNewCustomLayout(purego.NewCallback(RequestModeVar), purego.NewCallback(MeasureVar), purego.NewCallback(AllocateVar))
+	cret := xNewCustomLayout(glib.NewCallback(RequestModeVar), glib.NewCallback(MeasureVar), glib.NewCallback(AllocateVar))
 
 	if cret == 0 {
 		return nil

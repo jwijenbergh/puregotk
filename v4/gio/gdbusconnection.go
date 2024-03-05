@@ -209,9 +209,9 @@ var xBusGet func(BusType, uintptr, uintptr, uintptr)
 //
 // This is an asynchronous failable function. See g_bus_get_sync() for
 // the synchronous version.
-func BusGet(BusTypeVar BusType, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func BusGet(BusTypeVar BusType, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xBusGet(BusTypeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xBusGet(BusTypeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

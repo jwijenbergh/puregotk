@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // The type used for callback functions in structure definitions and function
@@ -186,9 +187,9 @@ var xClosureAddFinalizeNotifier func(uintptr, uintptr, uintptr)
 // unspecified order. If a single call to g_closure_unref() results in
 // the closure being both invalidated and finalized, then the invalidate
 // notifiers will be run before the finalize notifiers.
-func (x *Closure) AddFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+func (x *Closure) AddFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar *ClosureNotify) {
 
-	xClosureAddFinalizeNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+	xClosureAddFinalizeNotifier(x.GoPointer(), NotifyDataVar, glib.NewCallback(NotifyFuncVar))
 
 }
 
@@ -199,9 +200,9 @@ var xClosureAddInvalidateNotifier func(uintptr, uintptr, uintptr)
 //
 // Invalidation notifiers are invoked before finalization notifiers,
 // in an unspecified order.
-func (x *Closure) AddInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+func (x *Closure) AddInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar *ClosureNotify) {
 
-	xClosureAddInvalidateNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+	xClosureAddInvalidateNotifier(x.GoPointer(), NotifyDataVar, glib.NewCallback(NotifyFuncVar))
 
 }
 
@@ -213,9 +214,9 @@ var xClosureAddMarshalGuards func(uintptr, uintptr, uintptr, uintptr, uintptr)
 // This is typically used to protect the extra arguments for the
 // duration of the callback. See g_object_watch_closure() for an
 // example of marshal guards.
-func (x *Closure) AddMarshalGuards(PreMarshalDataVar uintptr, PreMarshalNotifyVar ClosureNotify, PostMarshalDataVar uintptr, PostMarshalNotifyVar ClosureNotify) {
+func (x *Closure) AddMarshalGuards(PreMarshalDataVar uintptr, PreMarshalNotifyVar *ClosureNotify, PostMarshalDataVar uintptr, PostMarshalNotifyVar *ClosureNotify) {
 
-	xClosureAddMarshalGuards(x.GoPointer(), PreMarshalDataVar, purego.NewCallback(PreMarshalNotifyVar), PostMarshalDataVar, purego.NewCallback(PostMarshalNotifyVar))
+	xClosureAddMarshalGuards(x.GoPointer(), PreMarshalDataVar, glib.NewCallback(PreMarshalNotifyVar), PostMarshalDataVar, glib.NewCallback(PostMarshalNotifyVar))
 
 }
 
@@ -266,9 +267,9 @@ var xClosureRemoveFinalizeNotifier func(uintptr, uintptr, uintptr)
 // Removes a finalization notifier.
 //
 // Notice that notifiers are automatically removed after they are run.
-func (x *Closure) RemoveFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+func (x *Closure) RemoveFinalizeNotifier(NotifyDataVar uintptr, NotifyFuncVar *ClosureNotify) {
 
-	xClosureRemoveFinalizeNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+	xClosureRemoveFinalizeNotifier(x.GoPointer(), NotifyDataVar, glib.NewCallback(NotifyFuncVar))
 
 }
 
@@ -277,9 +278,9 @@ var xClosureRemoveInvalidateNotifier func(uintptr, uintptr, uintptr)
 // Removes an invalidation notifier.
 //
 // Notice that notifiers are automatically removed after they are run.
-func (x *Closure) RemoveInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar ClosureNotify) {
+func (x *Closure) RemoveInvalidateNotifier(NotifyDataVar uintptr, NotifyFuncVar *ClosureNotify) {
 
-	xClosureRemoveInvalidateNotifier(x.GoPointer(), NotifyDataVar, purego.NewCallback(NotifyFuncVar))
+	xClosureRemoveInvalidateNotifier(x.GoPointer(), NotifyDataVar, glib.NewCallback(NotifyFuncVar))
 
 }
 
@@ -295,9 +296,9 @@ var xClosureSetMarshal func(uintptr, uintptr)
 // @closure-&gt;callback.
 //
 // See also: g_closure_set_meta_marshal()
-func (x *Closure) SetMarshal(MarshalVar ClosureMarshal) {
+func (x *Closure) SetMarshal(MarshalVar *ClosureMarshal) {
 
-	xClosureSetMarshal(x.GoPointer(), purego.NewCallback(MarshalVar))
+	xClosureSetMarshal(x.GoPointer(), glib.NewCallback(MarshalVar))
 
 }
 
@@ -320,9 +321,9 @@ var xClosureSetMetaMarshal func(uintptr, uintptr, uintptr)
 // fixed offset in the class structure.  The meta marshaller retrieves
 // the right callback and passes it to the marshaller as the
 // @marshal_data argument.
-func (x *Closure) SetMetaMarshal(MarshalDataVar uintptr, MetaMarshalVar ClosureMarshal) {
+func (x *Closure) SetMetaMarshal(MarshalDataVar uintptr, MetaMarshalVar *ClosureMarshal) {
 
-	xClosureSetMetaMarshal(x.GoPointer(), MarshalDataVar, purego.NewCallback(MetaMarshalVar))
+	xClosureSetMetaMarshal(x.GoPointer(), MarshalDataVar, glib.NewCallback(MetaMarshalVar))
 
 }
 
@@ -425,9 +426,9 @@ var xCclosureNew func(uintptr, uintptr, uintptr) *Closure
 // the last parameter.
 //
 // @destroy_data will be called as a finalize notifier on the #GClosure.
-func CclosureNew(CallbackFuncVar Callback, UserDataVar uintptr, DestroyDataVar ClosureNotify) *Closure {
+func CclosureNew(CallbackFuncVar *Callback, UserDataVar uintptr, DestroyDataVar *ClosureNotify) *Closure {
 
-	cret := xCclosureNew(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
+	cret := xCclosureNew(glib.NewCallback(CallbackFuncVar), UserDataVar, glib.NewCallback(DestroyDataVar))
 	return cret
 }
 
@@ -437,9 +438,9 @@ var xCclosureNewSwap func(uintptr, uintptr, uintptr) *Closure
 // the first parameter.
 //
 // @destroy_data will be called as a finalize notifier on the #GClosure.
-func CclosureNewSwap(CallbackFuncVar Callback, UserDataVar uintptr, DestroyDataVar ClosureNotify) *Closure {
+func CclosureNewSwap(CallbackFuncVar *Callback, UserDataVar uintptr, DestroyDataVar *ClosureNotify) *Closure {
 
-	cret := xCclosureNewSwap(purego.NewCallback(CallbackFuncVar), UserDataVar, purego.NewCallback(DestroyDataVar))
+	cret := xCclosureNewSwap(glib.NewCallback(CallbackFuncVar), UserDataVar, glib.NewCallback(DestroyDataVar))
 	return cret
 }
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
@@ -84,15 +85,23 @@ func (c *EmojiChooser) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the user selects an Emoji.
-func (x *EmojiChooser) ConnectEmojiPicked(cb func(EmojiChooser, string)) uint32 {
+func (x *EmojiChooser) ConnectEmojiPicked(cb *func(EmojiChooser, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "emoji-picked", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, TextVarp string) {
 		fa := EmojiChooser{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, TextVarp)
+		cbFn(fa, TextVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "emoji-picked", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "emoji-picked", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

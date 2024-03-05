@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -236,44 +237,68 @@ func (c *FrameClock) SetGoPointer(ptr uintptr) {
 // This signal ends processing of the frame.
 //
 // Applications should generally not handle this signal.
-func (x *FrameClock) ConnectAfterPaint(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectAfterPaint(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "after-paint", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "after-paint", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "after-paint", cbRefPtr)
 }
 
 // Begins processing of the frame.
 //
 // Applications should generally not handle this signal.
-func (x *FrameClock) ConnectBeforePaint(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectBeforePaint(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "before-paint", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "before-paint", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "before-paint", cbRefPtr)
 }
 
 // Used to flush pending motion events that are being batched up and
 // compressed together.
 //
 // Applications should not handle this signal.
-func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectFlushEvents(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "flush-events", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "flush-events", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "flush-events", cbRefPtr)
 }
 
 // Emitted as the second step of toolkit and application processing
@@ -281,15 +306,23 @@ func (x *FrameClock) ConnectFlushEvents(cb func(FrameClock)) uint32 {
 //
 // Any work to update sizes and positions of application elements
 // should be performed. GTK normally handles this internally.
-func (x *FrameClock) ConnectLayout(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectLayout(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "layout", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "layout", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "layout", cbRefPtr)
 }
 
 // Emitted as the third step of toolkit and application processing
@@ -298,30 +331,46 @@ func (x *FrameClock) ConnectLayout(cb func(FrameClock)) uint32 {
 // The frame is repainted. GDK normally handles this internally and
 // emits [signal@Gdk.Surface::render] signals which are turned into
 // [signal@Gtk.Widget::snapshot] signals by GTK.
-func (x *FrameClock) ConnectPaint(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectPaint(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "paint", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "paint", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "paint", cbRefPtr)
 }
 
 // Emitted after processing of the frame is finished.
 //
 // This signal is handled internally by GTK to resume normal
 // event processing. Applications should not handle this signal.
-func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectResumeEvents(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "resume-events", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "resume-events", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "resume-events", cbRefPtr)
 }
 
 // Emitted as the first step of toolkit and application processing
@@ -330,15 +379,23 @@ func (x *FrameClock) ConnectResumeEvents(cb func(FrameClock)) uint32 {
 // Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
 // Applications can connect directly to this signal, or use
 // [method@Gtk.Widget.add_tick_callback] as a more convenient interface.
-func (x *FrameClock) ConnectUpdate(cb func(FrameClock)) uint32 {
+func (x *FrameClock) ConnectUpdate(cb *func(FrameClock)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "update", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FrameClock{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "update", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "update", cbRefPtr)
 }
 
 func init() {

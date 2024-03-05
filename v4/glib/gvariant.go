@@ -455,9 +455,9 @@ var xNewVariantFromData func(*VariantType, uintptr, uint, bool, uintptr, uintptr
 // @type being loaded. Otherwise this function will internally create a copy of
 // the memory (since GLib 2.60) or (in older versions) fail and exit the
 // process.
-func NewVariantFromData(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar DestroyNotify, UserDataVar uintptr) *Variant {
+func NewVariantFromData(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar *DestroyNotify, UserDataVar uintptr) *Variant {
 
-	cret := xNewVariantFromData(TypeVar, DataVar, SizeVar, TrustedVar, purego.NewCallback(NotifyVar), UserDataVar)
+	cret := xNewVariantFromData(TypeVar, DataVar, SizeVar, TrustedVar, NewCallback(NotifyVar), UserDataVar)
 	return cret
 }
 

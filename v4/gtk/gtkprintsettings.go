@@ -225,9 +225,9 @@ func (x *PrintSettings) Copy() *PrintSettings {
 var xPrintSettingsForeach func(uintptr, uintptr, uintptr)
 
 // Calls @func for each key-value pair of @settings.
-func (x *PrintSettings) Foreach(FuncVar PrintSettingsFunc, UserDataVar uintptr) {
+func (x *PrintSettings) Foreach(FuncVar *PrintSettingsFunc, UserDataVar uintptr) {
 
-	xPrintSettingsForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xPrintSettingsForeach(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar)
 
 }
 

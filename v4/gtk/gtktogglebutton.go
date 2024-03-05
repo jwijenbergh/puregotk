@@ -227,15 +227,23 @@ func (c *ToggleButton) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever the `GtkToggleButton`'s state is changed.
-func (x *ToggleButton) ConnectToggled(cb func(ToggleButton)) uint32 {
+func (x *ToggleButton) ConnectToggled(cb *func(ToggleButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ToggleButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "toggled", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

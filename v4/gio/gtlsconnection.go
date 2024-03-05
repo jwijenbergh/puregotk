@@ -289,9 +289,9 @@ var xTlsConnectionHandshakeAsync func(uintptr, int, uintptr, uintptr, uintptr)
 
 // Asynchronously performs a TLS handshake on @conn. See
 // g_tls_connection_handshake() for more information.
-func (x *TlsConnection) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsConnection) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -499,15 +499,23 @@ func (c *TlsConnection) SetGoPointer(ptr uintptr) {
 // If you are doing I/O in another thread, you do not
 // need to worry about this, and can simply block in the signal
 // handler until the UI thread returns an answer.
-func (x *TlsConnection) ConnectAcceptCertificate(cb func(TlsConnection, uintptr, TlsCertificateFlags) bool) uint32 {
+func (x *TlsConnection) ConnectAcceptCertificate(cb *func(TlsConnection, uintptr, TlsCertificateFlags) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "accept-certificate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PeerCertVarp uintptr, ErrorsVarp TlsCertificateFlags) bool {
 		fa := TlsConnection{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, PeerCertVarp, ErrorsVarp)
+		return cbFn(fa, PeerCertVarp, ErrorsVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "accept-certificate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "accept-certificate", cbRefPtr)
 }
 
 func init() {

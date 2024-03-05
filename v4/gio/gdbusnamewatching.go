@@ -65,9 +65,9 @@ var xBusWatchName func(BusType, string, BusNameWatcherFlags, uintptr, uintptr, u
 // Basically, the application should create object proxies in
 // @name_appeared_handler and destroy them again (if any) in
 // @name_vanished_handler.
-func BusWatchName(BusTypeVar BusType, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar BusNameAppearedCallback, NameVanishedHandlerVar BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func BusWatchName(BusTypeVar BusType, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar *BusNameAppearedCallback, NameVanishedHandlerVar *BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xBusWatchName(BusTypeVar, NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xBusWatchName(BusTypeVar, NameVar, FlagsVar, glib.NewCallback(NameAppearedHandlerVar), glib.NewCallback(NameVanishedHandlerVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 
@@ -75,9 +75,9 @@ var xBusWatchNameOnConnection func(uintptr, string, BusNameWatcherFlags, uintptr
 
 // Like g_bus_watch_name() but takes a #GDBusConnection instead of a
 // #GBusType.
-func BusWatchNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar BusNameAppearedCallback, NameVanishedHandlerVar BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) uint {
+func BusWatchNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameWatcherFlags, NameAppearedHandlerVar *BusNameAppearedCallback, NameVanishedHandlerVar *BusNameVanishedCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
 
-	cret := xBusWatchNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, purego.NewCallback(NameAppearedHandlerVar), purego.NewCallback(NameVanishedHandlerVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	cret := xBusWatchNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, glib.NewCallback(NameAppearedHandlerVar), glib.NewCallback(NameVanishedHandlerVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 	return cret
 }
 

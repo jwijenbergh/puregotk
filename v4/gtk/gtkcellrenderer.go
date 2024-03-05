@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -405,15 +406,23 @@ func (c *CellRenderer) SetGoPointer(ptr uintptr) {
 // editing when the user presses Escape.
 //
 // See also: gtk_cell_renderer_stop_editing().
-func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) uint32 {
+func (x *CellRenderer) ConnectEditingCanceled(cb *func(CellRenderer)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "editing-canceled", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := CellRenderer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "editing-canceled", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "editing-canceled", cbRefPtr)
 }
 
 // This signal gets emitted when a cell starts to be edited.
@@ -448,15 +457,23 @@ func (x *CellRenderer) ConnectEditingCanceled(cb func(CellRenderer)) uint32 {
 //	}
 //
 // ]|
-func (x *CellRenderer) ConnectEditingStarted(cb func(CellRenderer, uintptr, string)) uint32 {
+func (x *CellRenderer) ConnectEditingStarted(cb *func(CellRenderer, uintptr, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "editing-started", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, EditableVarp uintptr, PathVarp string) {
 		fa := CellRenderer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, EditableVarp, PathVarp)
+		cbFn(fa, EditableVarp, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "editing-started", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "editing-started", cbRefPtr)
 }
 
 func init() {

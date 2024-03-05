@@ -2,9 +2,12 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -126,15 +129,23 @@ func (c *ColorButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkMenuButton` is an action signal and
 // emitting it causes the button to pop up its dialog.
-func (x *ColorButton) ConnectActivate(cb func(ColorButton)) uint32 {
+func (x *ColorButton) ConnectActivate(cb *func(ColorButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ColorButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the user selects a color.
@@ -145,15 +156,23 @@ func (x *ColorButton) ConnectActivate(cb func(ColorButton)) uint32 {
 // Note that this signal is only emitted when the user changes the color.
 // If you need to react to programmatic color changes as well, use
 // the notify::rgba signal.
-func (x *ColorButton) ConnectColorSet(cb func(ColorButton)) uint32 {
+func (x *ColorButton) ConnectColorSet(cb *func(ColorButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "color-set", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ColorButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "color-set", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "color-set", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

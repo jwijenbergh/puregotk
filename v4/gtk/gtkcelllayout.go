@@ -151,7 +151,7 @@ type CellLayout interface {
 	PackStart(CellVar *CellRenderer, ExpandVar bool)
 	Reorder(CellVar *CellRenderer, PositionVar int)
 	SetAttributes(CellVar *CellRenderer, varArgs ...interface{})
-	SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify)
+	SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify)
 }
 type CellLayoutBase struct {
 	Ptr uintptr
@@ -271,9 +271,9 @@ func (x *CellLayoutBase) SetAttributes(CellVar *CellRenderer, varArgs ...interfa
 // cell renderer(s) as appropriate.
 //
 // @func may be %NULL to remove a previously set function.
-func (x *CellLayoutBase) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *CellLayoutBase) SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(DestroyVar))
+	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(DestroyVar))
 
 }
 

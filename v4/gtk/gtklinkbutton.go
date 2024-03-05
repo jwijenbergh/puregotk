@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -139,15 +141,23 @@ func (c *LinkButton) SetGoPointer(ptr uintptr) {
 // To override the default behavior, you can connect to the
 // ::activate-link signal and stop the propagation of the signal
 // by returning %TRUE from your handler.
-func (x *LinkButton) ConnectActivateLink(cb func(LinkButton) bool) uint32 {
+func (x *LinkButton) ConnectActivateLink(cb *func(LinkButton) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) bool {
 		fa := LinkButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa)
+		return cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-link", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-link", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

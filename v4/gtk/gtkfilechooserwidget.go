@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -65,15 +67,23 @@ func (c *FileChooserWidget) SetGoPointer(ptr uintptr) {
 // folder in the file list.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;D&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectDesktopFolder(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectDesktopFolder(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "desktop-folder", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "desktop-folder", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "desktop-folder", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -88,15 +98,23 @@ func (x *FileChooserWidget) ConnectDesktopFolder(cb func(FileChooserWidget)) uin
 // switch to the "baz" subfolder.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;Down&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectDownFolder(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectDownFolder(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "down-folder", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "down-folder", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "down-folder", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -107,15 +125,23 @@ func (x *FileChooserWidget) ConnectDownFolder(cb func(FileChooserWidget)) uint32
 // folder in the file list.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;Home&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectHomeFolder(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectHomeFolder(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "home-folder", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "home-folder", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "home-folder", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -131,15 +157,23 @@ func (x *FileChooserWidget) ConnectHomeFolder(cb func(FileChooserWidget)) uint32
 // type `/` and immediately type a path name. On Unix systems, this is
 // bound to &lt;kbd&gt;~&lt;/kbd&gt; (tilde) with a @path string of "~" itself for
 // access to home directories.
-func (x *FileChooserWidget) ConnectLocationPopup(cb func(FileChooserWidget, string)) uint32 {
+func (x *FileChooserWidget) ConnectLocationPopup(cb *func(FileChooserWidget, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "location-popup", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathVarp string) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathVarp)
+		cbFn(fa, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "location-popup", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "location-popup", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -150,15 +184,23 @@ func (x *FileChooserWidget) ConnectLocationPopup(cb func(FileChooserWidget, stri
 // when the user pastes into a `GtkFileChooserWidget`.
 //
 // The default binding for this signal is &lt;kbd&gt;Control&lt;/kbd&gt;-&lt;kbd&gt;V&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectLocationPopupOnPaste(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectLocationPopupOnPaste(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "location-popup-on-paste", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "location-popup-on-paste", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "location-popup-on-paste", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -170,15 +212,23 @@ func (x *FileChooserWidget) ConnectLocationPopupOnPaste(cb func(FileChooserWidge
 // he wishes to select.
 //
 // The default binding for this signal is &lt;kbd&gt;Control&lt;/kbd&gt;-&lt;kbd&gt;L&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectLocationTogglePopup(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectLocationTogglePopup(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "location-toggle-popup", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "location-toggle-popup", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "location-toggle-popup", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -188,15 +238,23 @@ func (x *FileChooserWidget) ConnectLocationTogglePopup(cb func(FileChooserWidget
 // This is used to move the focus to the places sidebar.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;P&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectPlacesShortcut(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectPlacesShortcut(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "places-shortcut", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "places-shortcut", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "places-shortcut", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -213,15 +271,23 @@ func (x *FileChooserWidget) ConnectPlacesShortcut(cb func(FileChooserWidget)) ui
 // Note that in the default binding, that &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;1&lt;/kbd&gt; is
 // actually defined to switch to the bookmark at index 0, and so on
 // successively.
-func (x *FileChooserWidget) ConnectQuickBookmark(cb func(FileChooserWidget, int)) uint32 {
+func (x *FileChooserWidget) ConnectQuickBookmark(cb *func(FileChooserWidget, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "quick-bookmark", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, BookmarkIndexVarp int) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, BookmarkIndexVarp)
+		cbFn(fa, BookmarkIndexVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "quick-bookmark", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "quick-bookmark", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -231,15 +297,23 @@ func (x *FileChooserWidget) ConnectQuickBookmark(cb func(FileChooserWidget, int)
 // This is used to make the file chooser show the Recent location.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;R&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectRecentShortcut(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectRecentShortcut(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "recent-shortcut", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "recent-shortcut", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "recent-shortcut", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -249,15 +323,23 @@ func (x *FileChooserWidget) ConnectRecentShortcut(cb func(FileChooserWidget)) ui
 // This is used to make the file chooser show the search entry.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;S&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectSearchShortcut(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectSearchShortcut(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "search-shortcut", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "search-shortcut", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "search-shortcut", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -267,15 +349,23 @@ func (x *FileChooserWidget) ConnectSearchShortcut(cb func(FileChooserWidget)) ui
 // This is used to make the file chooser display hidden files.
 //
 // The default binding for this signal is &lt;kbd&gt;Control&lt;/kbd&gt;-&lt;kbd&gt;H&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectShowHidden(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectShowHidden(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "show-hidden", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "show-hidden", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "show-hidden", cbRefPtr)
 }
 
 // Emitted when the user asks for it.
@@ -286,15 +376,23 @@ func (x *FileChooserWidget) ConnectShowHidden(cb func(FileChooserWidget)) uint32
 // of the current folder in the file hierarchy.
 //
 // The default binding for this signal is &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;Up&lt;/kbd&gt;.
-func (x *FileChooserWidget) ConnectUpFolder(cb func(FileChooserWidget)) uint32 {
+func (x *FileChooserWidget) ConnectUpFolder(cb *func(FileChooserWidget)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "up-folder", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "up-folder", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "up-folder", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

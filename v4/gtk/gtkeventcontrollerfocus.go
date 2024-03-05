@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -87,15 +88,23 @@ func (c *EventControllerFocus) SetGoPointer(ptr uintptr) {
 // in these cases, you can monitor the
 // [property@Gtk.EventControllerFocus:is-focus]
 // property for changes.
-func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) uint32 {
+func (x *EventControllerFocus) ConnectEnter(cb *func(EventControllerFocus)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "enter", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerFocus{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "enter", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "enter", cbRefPtr)
 }
 
 // Emitted whenever the focus leaves the widget hierarchy
@@ -107,15 +116,23 @@ func (x *EventControllerFocus) ConnectEnter(cb func(EventControllerFocus)) uint3
 // to a descendent). If you are interested in these cases, you
 // can monitor the [property@Gtk.EventControllerFocus:is-focus]
 // property for changes.
-func (x *EventControllerFocus) ConnectLeave(cb func(EventControllerFocus)) uint32 {
+func (x *EventControllerFocus) ConnectLeave(cb *func(EventControllerFocus)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "leave", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerFocus{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "leave", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "leave", cbRefPtr)
 }
 
 func init() {

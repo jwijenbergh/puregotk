@@ -153,9 +153,9 @@ var xListBoxBindModel func(uintptr, uintptr, uintptr, uintptr, uintptr)
 // Note that using a model is incompatible with the filtering and sorting
 // functionality in `GtkListBox`. When using a model, filtering and sorting
 // should be implemented by the model.
-func (x *ListBox) BindModel(ModelVar gio.ListModel, CreateWidgetFuncVar ListBoxCreateWidgetFunc, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) {
+func (x *ListBox) BindModel(ModelVar gio.ListModel, CreateWidgetFuncVar *ListBoxCreateWidgetFunc, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) {
 
-	xListBoxBindModel(x.GoPointer(), ModelVar.GoPointer(), purego.NewCallback(CreateWidgetFuncVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	xListBoxBindModel(x.GoPointer(), ModelVar.GoPointer(), glib.NewCallback(CreateWidgetFuncVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 
 }
 
@@ -399,9 +399,9 @@ var xListBoxSelectedForeach func(uintptr, uintptr, uintptr)
 // Calls a function for each selected child.
 //
 // Note that the selection cannot be modified from within this function.
-func (x *ListBox) SelectedForeach(FuncVar ListBoxForeachFunc, DataVar uintptr) {
+func (x *ListBox) SelectedForeach(FuncVar *ListBoxForeachFunc, DataVar uintptr) {
 
-	xListBoxSelectedForeach(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	xListBoxSelectedForeach(x.GoPointer(), glib.NewCallback(FuncVar), DataVar)
 
 }
 
@@ -448,9 +448,9 @@ var xListBoxSetFilterFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // Note that using a filter function is incompatible with using a model
 // (see [method@Gtk.ListBox.bind_model]).
-func (x *ListBox) SetFilterFunc(FilterFuncVar ListBoxFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ListBox) SetFilterFunc(FilterFuncVar *ListBoxFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xListBoxSetFilterFunc(x.GoPointer(), purego.NewCallback(FilterFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xListBoxSetFilterFunc(x.GoPointer(), glib.NewCallback(FilterFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -481,9 +481,9 @@ var xListBoxSetHeaderFunc func(uintptr, uintptr, uintptr, uintptr)
 // by [method@Gtk.ListBoxRow.changed] on the previous row, or when the previous
 // row becomes a different row). It is also called for all rows when
 // [method@Gtk.ListBox.invalidate_headers] is called.
-func (x *ListBox) SetHeaderFunc(UpdateHeaderVar ListBoxUpdateHeaderFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ListBox) SetHeaderFunc(UpdateHeaderVar *ListBoxUpdateHeaderFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xListBoxSetHeaderFunc(x.GoPointer(), purego.NewCallback(UpdateHeaderVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xListBoxSetHeaderFunc(x.GoPointer(), glib.NewCallback(UpdateHeaderVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -530,9 +530,9 @@ var xListBoxSetSortFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // Note that using a sort function is incompatible with using a model
 // (see [method@Gtk.ListBox.bind_model]).
-func (x *ListBox) SetSortFunc(SortFuncVar ListBoxSortFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ListBox) SetSortFunc(SortFuncVar *ListBoxSortFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xListBoxSetSortFunc(x.GoPointer(), purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xListBoxSetSortFunc(x.GoPointer(), glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -562,38 +562,62 @@ func (c *ListBox) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *ListBox) ConnectActivateCursorRow(cb func(ListBox)) uint32 {
+func (x *ListBox) ConnectActivateCursorRow(cb *func(ListBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-cursor-row", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-cursor-row", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-cursor-row", cbRefPtr)
 }
 
-func (x *ListBox) ConnectMoveCursor(cb func(ListBox, MovementStep, int, bool, bool)) uint32 {
+func (x *ListBox) ConnectMoveCursor(cb *func(ListBox, MovementStep, int, bool, bool)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ObjectVarp MovementStep, P0Varp int, P1Varp bool, P2Varp bool) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ObjectVarp, P0Varp, P1Varp, P2Varp)
+		cbFn(fa, ObjectVarp, P0Varp, P1Varp, P2Varp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
 }
 
 // Emitted when a row has been activated by the user.
-func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) uint32 {
+func (x *ListBox) ConnectRowActivated(cb *func(ListBox, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "row-activated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RowVarp uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RowVarp)
+		cbFn(fa, RowVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "row-activated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "row-activated", cbRefPtr)
 }
 
 // Emitted when a new row is selected, or (with a %NULL @row)
@@ -602,15 +626,23 @@ func (x *ListBox) ConnectRowActivated(cb func(ListBox, uintptr)) uint32 {
 // When the @box is using %GTK_SELECTION_MULTIPLE, this signal will not
 // give you the full picture of selection changes, and you should use
 // the [signal@Gtk.ListBox::selected-rows-changed] signal instead.
-func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) uint32 {
+func (x *ListBox) ConnectRowSelected(cb *func(ListBox, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "row-selected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RowVarp uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, RowVarp)
+		cbFn(fa, RowVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "row-selected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "row-selected", cbRefPtr)
 }
 
 // Emitted to select all children of the box, if the selection
@@ -619,38 +651,62 @@ func (x *ListBox) ConnectRowSelected(cb func(ListBox, uintptr)) uint32 {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *ListBox) ConnectSelectAll(cb func(ListBox)) uint32 {
+func (x *ListBox) ConnectSelectAll(cb *func(ListBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "select-all", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "select-all", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "select-all", cbRefPtr)
 }
 
 // Emitted when the set of selected rows changes.
-func (x *ListBox) ConnectSelectedRowsChanged(cb func(ListBox)) uint32 {
+func (x *ListBox) ConnectSelectedRowsChanged(cb *func(ListBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "selected-rows-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "selected-rows-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "selected-rows-changed", cbRefPtr)
 }
 
-func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) uint32 {
+func (x *ListBox) ConnectToggleCursorRow(cb *func(ListBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-row", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-row", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-row", cbRefPtr)
 }
 
 // Emitted to unselect all children of the box, if the selection
@@ -660,15 +716,23 @@ func (x *ListBox) ConnectToggleCursorRow(cb func(ListBox)) uint32 {
 //
 // The default binding for this signal is
 // &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *ListBox) ConnectUnselectAll(cb func(ListBox)) uint32 {
+func (x *ListBox) ConnectUnselectAll(cb *func(ListBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "unselect-all", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "unselect-all", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "unselect-all", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
@@ -998,15 +1062,23 @@ func (c *ListBoxRow) SetGoPointer(ptr uintptr) {
 // If you want to be notified when the user activates a row (by key or not),
 // use the [signal@Gtk.ListBox::row-activated] signal on the row’s parent
 // `GtkListBox`.
-func (x *ListBoxRow) ConnectActivate(cb func(ListBoxRow)) uint32 {
+func (x *ListBoxRow) ConnectActivate(cb *func(ListBoxRow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ListBoxRow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

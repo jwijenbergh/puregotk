@@ -163,11 +163,11 @@ var xNewDBusObjectManagerClientForBusSync func(BusType, DBusObjectManagerClientF
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new_for_bus()
 // for the asynchronous version.
-func NewDBusObjectManagerClientForBusSync(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientForBusSync(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar *DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar *glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewDBusObjectManagerClientForBusSync(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientForBusSync(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, glib.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, glib.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -188,11 +188,11 @@ var xNewDBusObjectManagerClientSync func(uintptr, DBusObjectManagerClientFlags, 
 // This is a synchronous failable constructor - the calling thread is
 // blocked until a reply is received. See g_dbus_object_manager_client_new()
 // for the asynchronous version.
-func NewDBusObjectManagerClientSync(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
+func NewDBusObjectManagerClientSync(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar *DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar *glib.DestroyNotify, CancellableVar *Cancellable) (*DBusObjectManagerClient, error) {
 	var cls *DBusObjectManagerClient
 	var cerr *glib.Error
 
-	cret := xNewDBusObjectManagerClientSync(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
+	cret := xNewDBusObjectManagerClientSync(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, glib.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, glib.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), &cerr)
 
 	if cret == 0 {
 		return nil, cerr
@@ -273,15 +273,23 @@ func (c *DBusObjectManagerClient) SetGoPointer(ptr uintptr) {
 // This signal is emitted in the
 // [thread-default main context][g-main-context-push-thread-default]
 // that @manager was constructed in.
-func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func(DBusObjectManagerClient, uintptr, uintptr, uintptr, uintptr)) uint32 {
+func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb *func(DBusObjectManagerClient, uintptr, uintptr, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "interface-proxy-properties-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp uintptr) {
 		fa := DBusObjectManagerClient{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ObjectProxyVarp, InterfaceProxyVarp, ChangedPropertiesVarp, InvalidatedPropertiesVarp)
+		cbFn(fa, ObjectProxyVarp, InterfaceProxyVarp, ChangedPropertiesVarp, InvalidatedPropertiesVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-properties-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-properties-changed", cbRefPtr)
 }
 
 // Emitted when a D-Bus signal is received on @interface_proxy.
@@ -292,15 +300,23 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb func
 // This signal is emitted in the
 // [thread-default main context][g-main-context-push-thread-default]
 // that @manager was constructed in.
-func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObjectManagerClient, uintptr, uintptr, string, string, uintptr)) uint32 {
+func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb *func(DBusObjectManagerClient, uintptr, uintptr, string, string, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "interface-proxy-signal", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, SenderNameVarp string, SignalNameVarp string, ParametersVarp uintptr) {
 		fa := DBusObjectManagerClient{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ObjectProxyVarp, InterfaceProxyVarp, SenderNameVarp, SignalNameVarp, ParametersVarp)
+		cbFn(fa, ObjectProxyVarp, InterfaceProxyVarp, SenderNameVarp, SignalNameVarp, ParametersVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-signal", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "interface-proxy-signal", cbRefPtr)
 }
 
 // Starts asynchronous initialization of the object implementing the
@@ -339,9 +355,9 @@ func (x *DBusObjectManagerClient) ConnectInterfaceProxySignal(cb func(DBusObject
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *DBusObjectManagerClient) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DBusObjectManagerClient) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -480,9 +496,9 @@ var xDBusObjectManagerClientNew func(uintptr, DBusObjectManagerClientFlags, stri
 // of the thread you are calling this method from. You can
 // then call g_dbus_object_manager_client_new_finish() to get the result. See
 // g_dbus_object_manager_client_new_sync() for the synchronous version.
-func DBusObjectManagerClientNew(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func DBusObjectManagerClientNew(ConnectionVar *DBusConnection, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar *DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar *glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusObjectManagerClientNew(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusObjectManagerClientNew(ConnectionVar.GoPointer(), FlagsVar, NameVar, ObjectPathVar, glib.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, glib.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -497,9 +513,9 @@ var xDBusObjectManagerClientNewForBus func(BusType, DBusObjectManagerClientFlags
 // of the thread you are calling this method from. You can
 // then call g_dbus_object_manager_client_new_for_bus_finish() to get the result. See
 // g_dbus_object_manager_client_new_for_bus_sync() for the synchronous version.
-func DBusObjectManagerClientNewForBus(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func DBusObjectManagerClientNewForBus(BusTypeVar BusType, FlagsVar DBusObjectManagerClientFlags, NameVar string, ObjectPathVar string, GetProxyTypeFuncVar *DBusProxyTypeFunc, GetProxyTypeUserDataVar uintptr, GetProxyTypeDestroyNotifyVar *glib.DestroyNotify, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xDBusObjectManagerClientNewForBus(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, purego.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, purego.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xDBusObjectManagerClientNewForBus(BusTypeVar, FlagsVar, NameVar, ObjectPathVar, glib.NewCallback(GetProxyTypeFuncVar), GetProxyTypeUserDataVar, glib.NewCallback(GetProxyTypeDestroyNotifyVar), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

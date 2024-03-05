@@ -283,9 +283,9 @@ var xLogSetDefaultHandler func(uintptr, uintptr) uintptr
 //
 // This has no effect if structured logging is enabled; see
 // [Using Structured Logging][using-structured-logging].
-func LogSetDefaultHandler(LogFuncVar LogFunc, UserDataVar uintptr) uintptr {
+func LogSetDefaultHandler(LogFuncVar *LogFunc, UserDataVar uintptr) uintptr {
 
-	cret := xLogSetDefaultHandler(purego.NewCallback(LogFuncVar), UserDataVar)
+	cret := xLogSetDefaultHandler(NewCallback(LogFuncVar), UserDataVar)
 	return cret
 }
 
@@ -352,9 +352,9 @@ var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint
 //	| G_LOG_FLAG_RECURSION, my_log_handler, NULL);
 //
 // ]|
-func LogSetHandler(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar LogFunc, UserDataVar uintptr) uint {
+func LogSetHandler(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr) uint {
 
-	cret := xLogSetHandler(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar)
+	cret := xLogSetHandler(LogDomainVar, LogLevelsVar, NewCallback(LogFuncVar), UserDataVar)
 	return cret
 }
 
@@ -364,9 +364,9 @@ var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) ui
 //
 // This has no effect if structured logging is enabled; see
 // [Using Structured Logging][using-structured-logging].
-func LogSetHandlerFull(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar LogFunc, UserDataVar uintptr, DestroyVar DestroyNotify) uint {
+func LogSetHandlerFull(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr, DestroyVar *DestroyNotify) uint {
 
-	cret := xLogSetHandlerFull(LogDomainVar, LogLevelsVar, purego.NewCallback(LogFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	cret := xLogSetHandlerFull(LogDomainVar, LogLevelsVar, NewCallback(LogFuncVar), UserDataVar, NewCallback(DestroyVar))
 	return cret
 }
 
@@ -381,9 +381,9 @@ var xLogSetWriterFunc func(uintptr, uintptr, uintptr)
 // log messages are formatted and outputted.
 //
 // There can only be one writer function. It is an error to set more than one.
-func LogSetWriterFunc(FuncVar LogWriterFunc, UserDataVar uintptr, UserDataFreeVar DestroyNotify) {
+func LogSetWriterFunc(FuncVar *LogWriterFunc, UserDataVar uintptr, UserDataFreeVar *DestroyNotify) {
 
-	xLogSetWriterFunc(purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(UserDataFreeVar))
+	xLogSetWriterFunc(NewCallback(FuncVar), UserDataVar, NewCallback(UserDataFreeVar))
 
 }
 
@@ -784,9 +784,9 @@ var xSetPrintHandler func(uintptr) uintptr
 // the message to stdout. By providing your own handler
 // you can redirect the output, to a GTK+ widget or a
 // log file for example.
-func SetPrintHandler(FuncVar PrintFunc) uintptr {
+func SetPrintHandler(FuncVar *PrintFunc) uintptr {
 
-	cret := xSetPrintHandler(purego.NewCallback(FuncVar))
+	cret := xSetPrintHandler(NewCallback(FuncVar))
 	return cret
 }
 
@@ -799,9 +799,9 @@ var xSetPrinterrHandler func(uintptr) uintptr
 // message to stderr. By providing your own handler you can
 // redirect the output, to a GTK+ widget or a log file for
 // example.
-func SetPrinterrHandler(FuncVar PrintFunc) uintptr {
+func SetPrinterrHandler(FuncVar *PrintFunc) uintptr {
 
-	cret := xSetPrinterrHandler(purego.NewCallback(FuncVar))
+	cret := xSetPrinterrHandler(NewCallback(FuncVar))
 	return cret
 }
 

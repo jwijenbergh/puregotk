@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -46,15 +47,23 @@ func (c *ShortcutsSection) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-func (x *ShortcutsSection) ConnectChangeCurrentPage(cb func(ShortcutsSection, int) bool) uint32 {
+func (x *ShortcutsSection) ConnectChangeCurrentPage(cb *func(ShortcutsSection, int) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "change-current-page", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ObjectVarp int) bool {
 		fa := ShortcutsSection{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ObjectVarp)
+		return cbFn(fa, ObjectVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "change-current-page", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "change-current-page", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

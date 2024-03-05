@@ -950,42 +950,66 @@ func (c *Window) SetGoPointer(ptr uintptr) {
 // of @window.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Window) ConnectActivateDefault(cb func(Window)) uint32 {
+func (x *Window) ConnectActivateDefault(cb *func(Window)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-default", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-default", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-default", cbRefPtr)
 }
 
 // Emitted when the user activates the currently focused
 // widget of @window.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *Window) ConnectActivateFocus(cb func(Window)) uint32 {
+func (x *Window) ConnectActivateFocus(cb *func(Window)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-focus", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-focus", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-focus", cbRefPtr)
 }
 
 // Emitted when the user clicks on the close button of the window.
-func (x *Window) ConnectCloseRequest(cb func(Window) bool) uint32 {
+func (x *Window) ConnectCloseRequest(cb *func(Window) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "close-request", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) bool {
 		fa := Window{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa)
+		return cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "close-request", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "close-request", cbRefPtr)
 }
 
 // Emitted when the user enables or disables interactive debugging.
@@ -998,28 +1022,44 @@ func (x *Window) ConnectCloseRequest(cb func(Window) bool) uint32 {
 //
 // The default bindings for this signal are Ctrl-Shift-I
 // and Ctrl-Shift-D.
-func (x *Window) ConnectEnableDebugging(cb func(Window, bool) bool) uint32 {
+func (x *Window) ConnectEnableDebugging(cb *func(Window, bool) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "enable-debugging", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ToggleVarp bool) bool {
 		fa := Window{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ToggleVarp)
+		return cbFn(fa, ToggleVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "enable-debugging", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "enable-debugging", cbRefPtr)
 }
 
 // emitted when the set of accelerators or mnemonics that
 // are associated with @window changes.
-func (x *Window) ConnectKeysChanged(cb func(Window)) uint32 {
+func (x *Window) ConnectKeysChanged(cb *func(Window)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "keys-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Window{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "keys-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "keys-changed", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

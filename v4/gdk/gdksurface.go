@@ -483,27 +483,43 @@ func (c *Surface) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when @surface starts being present on the monitor.
-func (x *Surface) ConnectEnterMonitor(cb func(Surface, uintptr)) uint32 {
+func (x *Surface) ConnectEnterMonitor(cb *func(Surface, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "enter-monitor", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MonitorVarp uintptr) {
 		fa := Surface{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MonitorVarp)
+		cbFn(fa, MonitorVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "enter-monitor", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "enter-monitor", cbRefPtr)
 }
 
 // Emitted when GDK receives an input event for @surface.
-func (x *Surface) ConnectEvent(cb func(Surface, *Event) bool) uint32 {
+func (x *Surface) ConnectEvent(cb *func(Surface, *Event) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, EventVarp uintptr) bool {
 		fa := Surface{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, EventNewFromInternalPtr(EventVarp))
+		return cbFn(fa, EventNewFromInternalPtr(EventVarp))
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
 }
 
 // Emitted when the size of @surface is changed, or when relayout should
@@ -511,39 +527,63 @@ func (x *Surface) ConnectEvent(cb func(Surface, *Event) bool) uint32 {
 //
 // Surface size is reported in ”application pixels”, not
 // ”device pixels” (see gdk_surface_get_scale_factor()).
-func (x *Surface) ConnectLayout(cb func(Surface, int, int)) uint32 {
+func (x *Surface) ConnectLayout(cb *func(Surface, int, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "layout", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := Surface{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, WidthVarp, HeightVarp)
+		cbFn(fa, WidthVarp, HeightVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "layout", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "layout", cbRefPtr)
 }
 
 // Emitted when @surface stops being present on the monitor.
-func (x *Surface) ConnectLeaveMonitor(cb func(Surface, uintptr)) uint32 {
+func (x *Surface) ConnectLeaveMonitor(cb *func(Surface, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "leave-monitor", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MonitorVarp uintptr) {
 		fa := Surface{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MonitorVarp)
+		cbFn(fa, MonitorVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "leave-monitor", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "leave-monitor", cbRefPtr)
 }
 
 // Emitted when part of the surface needs to be redrawn.
-func (x *Surface) ConnectRender(cb func(Surface, uintptr) bool) uint32 {
+func (x *Surface) ConnectRender(cb *func(Surface, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "render", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, RegionVarp uintptr) bool {
 		fa := Surface{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, RegionVarp)
+		return cbFn(fa, RegionVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "render", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "render", cbRefPtr)
 }
 
 func init() {

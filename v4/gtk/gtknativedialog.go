@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -191,15 +192,23 @@ func (c *NativeDialog) SetGoPointer(ptr uintptr) {
 //
 // If you call [method@Gtk.NativeDialog.hide] before the user
 // responds to the dialog this signal will not be emitted.
-func (x *NativeDialog) ConnectResponse(cb func(NativeDialog, int)) uint32 {
+func (x *NativeDialog) ConnectResponse(cb *func(NativeDialog, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := NativeDialog{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ResponseIdVarp)
+		cbFn(fa, ResponseIdVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 }
 
 func init() {

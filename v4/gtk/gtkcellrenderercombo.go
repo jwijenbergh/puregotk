@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -71,15 +74,23 @@ func (c *CellRendererCombo) SetGoPointer(ptr uintptr) {
 // the tree view will immediately cease the editing operating.  This
 // means that you most probably want to refrain from changing the model
 // until the combo cell renderer emits the edited or editing_canceled signal.
-func (x *CellRendererCombo) ConnectChanged(cb func(CellRendererCombo, string, uintptr)) uint32 {
+func (x *CellRendererCombo) ConnectChanged(cb *func(CellRendererCombo, string, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathStringVarp string, NewIterVarp uintptr) {
 		fa := CellRendererCombo{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathStringVarp, NewIterVarp)
+		cbFn(fa, PathStringVarp, NewIterVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 func init() {

@@ -465,9 +465,9 @@ var xComboBoxSetRowSeparatorFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If the row separator function is %NULL, no separators are drawn.
 // This is the default value.
-func (x *ComboBox) SetRowSeparatorFunc(FuncVar TreeViewRowSeparatorFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ComboBox) SetRowSeparatorFunc(FuncVar *TreeViewRowSeparatorFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xComboBoxSetRowSeparatorFunc(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyVar))
+	xComboBoxSetRowSeparatorFunc(x.GoPointer(), glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -483,15 +483,23 @@ func (c *ComboBox) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkComboBox` is an action signal and
 // emitting it causes the combo box to pop up its dropdown.
-func (x *ComboBox) ConnectActivate(cb func(ComboBox)) uint32 {
+func (x *ComboBox) ConnectActivate(cb *func(ComboBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the active item is changed.
@@ -499,15 +507,23 @@ func (x *ComboBox) ConnectActivate(cb func(ComboBox)) uint32 {
 // The can be due to the user selecting a different item from the list,
 // or due to a call to [method@Gtk.ComboBox.set_active_iter]. It will
 // also be emitted while typing into the entry of a combo box with an entry.
-func (x *ComboBox) ConnectChanged(cb func(ComboBox)) uint32 {
+func (x *ComboBox) ConnectChanged(cb *func(ComboBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 // Emitted to allow changing how the text in a combo box's entry is displayed.
@@ -544,29 +560,45 @@ func (x *ComboBox) ConnectChanged(cb func(ComboBox)) uint32 {
 //	}
 //
 // ```
-func (x *ComboBox) ConnectFormatEntryText(cb func(ComboBox, string) string) uint32 {
+func (x *ComboBox) ConnectFormatEntryText(cb *func(ComboBox, string) string) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "format-entry-text", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathVarp string) string {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, PathVarp)
+		return cbFn(fa, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "format-entry-text", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "format-entry-text", cbRefPtr)
 }
 
 // Emitted to move the active selection.
 //
 // This is an [keybinding signal](class.SignalAction.html).
-func (x *ComboBox) ConnectMoveActive(cb func(ComboBox, ScrollType)) uint32 {
+func (x *ComboBox) ConnectMoveActive(cb *func(ComboBox, ScrollType)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "move-active", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ScrollTypeVarp ScrollType) {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ScrollTypeVarp)
+		cbFn(fa, ScrollTypeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "move-active", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "move-active", cbRefPtr)
 }
 
 // Emitted to popdown the combo box list.
@@ -574,15 +606,23 @@ func (x *ComboBox) ConnectMoveActive(cb func(ComboBox, ScrollType)) uint32 {
 // This is an [keybinding signal](class.SignalAction.html).
 //
 // The default bindings for this signal are Alt+Up and Escape.
-func (x *ComboBox) ConnectPopdown(cb func(ComboBox) bool) uint32 {
+func (x *ComboBox) ConnectPopdown(cb *func(ComboBox) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "popdown", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) bool {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa)
+		return cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "popdown", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "popdown", cbRefPtr)
 }
 
 // Emitted to popup the combo box list.
@@ -590,15 +630,23 @@ func (x *ComboBox) ConnectPopdown(cb func(ComboBox) bool) uint32 {
 // This is an [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is Alt+Down.
-func (x *ComboBox) ConnectPopup(cb func(ComboBox)) uint32 {
+func (x *ComboBox) ConnectPopup(cb *func(ComboBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "popup", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ComboBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "popup", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "popup", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
@@ -880,9 +928,9 @@ func (x *ComboBox) SetAttributes(CellVar *CellRenderer, varArgs ...interface{}) 
 // cell renderer(s) as appropriate.
 //
 // @func may be %NULL to remove a previously set function.
-func (x *ComboBox) SetCellDataFunc(CellVar *CellRenderer, FuncVar CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ComboBox) SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), purego.NewCallback(FuncVar), FuncDataVar, purego.NewCallback(DestroyVar))
+	XGtkCellLayoutSetCellDataFunc(x.GoPointer(), CellVar.GoPointer(), glib.NewCallback(FuncVar), FuncDataVar, glib.NewCallback(DestroyVar))
 
 }
 

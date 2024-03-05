@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -121,15 +124,23 @@ func (c *CellRendererToggle) SetGoPointer(ptr uintptr) {
 // It is the responsibility of the application to update the model
 // with the correct value to store at @path.  Often this is simply the
 // opposite of the value currently stored at @path.
-func (x *CellRendererToggle) ConnectToggled(cb func(CellRendererToggle, string)) uint32 {
+func (x *CellRendererToggle) ConnectToggled(cb *func(CellRendererToggle, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathVarp string) {
 		fa := CellRendererToggle{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathVarp)
+		cbFn(fa, PathVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "toggled", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "toggled", cbRefPtr)
 }
 
 func init() {

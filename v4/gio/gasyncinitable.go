@@ -131,7 +131,7 @@ func (x *AsyncInitableIface) GoPointer() uintptr {
 type AsyncInitable interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	InitFinish(ResVar AsyncResult) bool
 	NewFinish(ResVar AsyncResult) *gobject.Object
 }
@@ -183,9 +183,9 @@ func (x *AsyncInitableBase) SetGoPointer(ptr uintptr) {
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *AsyncInitableBase) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *AsyncInitableBase) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -234,9 +234,9 @@ var xAsyncInitableNewvAsync func([]interface{}, uint, *gobject.Parameter, int, u
 // When the initialization is finished, @callback will be called. You can
 // then call g_async_initable_new_finish() to get the new object and check
 // for any errors.
-func AsyncInitableNewvAsync(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar *gobject.Parameter, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func AsyncInitableNewvAsync(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar *gobject.Parameter, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xAsyncInitableNewvAsync(ObjectTypeVar, NParametersVar, ParametersVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xAsyncInitableNewvAsync(ObjectTypeVar, NParametersVar, ParametersVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

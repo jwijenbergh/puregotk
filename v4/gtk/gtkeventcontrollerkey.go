@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -109,51 +110,83 @@ func (c *EventControllerKey) SetGoPointer(ptr uintptr) {
 //
 // See [method@Gtk.EventControllerKey.set_im_context] and
 // [method@Gtk.IMContext.filter_keypress].
-func (x *EventControllerKey) ConnectImUpdate(cb func(EventControllerKey)) uint32 {
+func (x *EventControllerKey) ConnectImUpdate(cb *func(EventControllerKey)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "im-update", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerKey{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "im-update", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "im-update", cbRefPtr)
 }
 
 // Emitted whenever a key is pressed.
-func (x *EventControllerKey) ConnectKeyPressed(cb func(EventControllerKey, uint, uint, gdk.ModifierType) bool) uint32 {
+func (x *EventControllerKey) ConnectKeyPressed(cb *func(EventControllerKey, uint, uint, gdk.ModifierType) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "key-pressed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyvalVarp uint, KeycodeVarp uint, StateVarp gdk.ModifierType) bool {
 		fa := EventControllerKey{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, KeyvalVarp, KeycodeVarp, StateVarp)
+		return cbFn(fa, KeyvalVarp, KeycodeVarp, StateVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "key-pressed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "key-pressed", cbRefPtr)
 }
 
 // Emitted whenever a key is released.
-func (x *EventControllerKey) ConnectKeyReleased(cb func(EventControllerKey, uint, uint, gdk.ModifierType)) uint32 {
+func (x *EventControllerKey) ConnectKeyReleased(cb *func(EventControllerKey, uint, uint, gdk.ModifierType)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "key-released", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyvalVarp uint, KeycodeVarp uint, StateVarp gdk.ModifierType) {
 		fa := EventControllerKey{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, KeyvalVarp, KeycodeVarp, StateVarp)
+		cbFn(fa, KeyvalVarp, KeycodeVarp, StateVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "key-released", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "key-released", cbRefPtr)
 }
 
 // Emitted whenever the state of modifier keys and pointer buttons change.
-func (x *EventControllerKey) ConnectModifiers(cb func(EventControllerKey, gdk.ModifierType) bool) uint32 {
+func (x *EventControllerKey) ConnectModifiers(cb *func(EventControllerKey, gdk.ModifierType) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "modifiers", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyvalVarp gdk.ModifierType) bool {
 		fa := EventControllerKey{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, KeyvalVarp)
+		return cbFn(fa, KeyvalVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "modifiers", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "modifiers", cbRefPtr)
 }
 
 func init() {

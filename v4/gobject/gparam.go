@@ -415,9 +415,9 @@ var xParamSpecSetQdataFull func(uintptr, glib.Quark, uintptr, uintptr)
 // specified which is called with @data as argument when the @pspec is
 // finalized, or the data is being overwritten by a call to
 // g_param_spec_set_qdata() with the same @quark.
-func (x *ParamSpec) SetQdataFull(QuarkVar glib.Quark, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *ParamSpec) SetQdataFull(QuarkVar glib.Quark, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xParamSpecSetQdataFull(x.GoPointer(), QuarkVar, DataVar, purego.NewCallback(DestroyVar))
+	xParamSpecSetQdataFull(x.GoPointer(), QuarkVar, DataVar, glib.NewCallback(DestroyVar))
 
 }
 

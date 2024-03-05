@@ -213,9 +213,9 @@ var xContextSetShapeRenderer func(uintptr, uintptr, uintptr, uintptr)
 // of type %PANGO_ATTR_SHAPE.
 //
 // See `PangoCairoShapeRendererFunc` for details.
-func ContextSetShapeRenderer(ContextVar *pango.Context, FuncVar ShapeRendererFunc, DataVar uintptr, DnotifyVar glib.DestroyNotify) {
+func ContextSetShapeRenderer(ContextVar *pango.Context, FuncVar *ShapeRendererFunc, DataVar uintptr, DnotifyVar *glib.DestroyNotify) {
 
-	xContextSetShapeRenderer(ContextVar.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DnotifyVar))
+	xContextSetShapeRenderer(ContextVar.GoPointer(), glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DnotifyVar))
 
 }
 

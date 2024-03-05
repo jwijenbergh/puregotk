@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -134,27 +137,43 @@ func (c *Statusbar) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a new message is popped off a statusbar's stack.
-func (x *Statusbar) ConnectTextPopped(cb func(Statusbar, uint, string)) uint32 {
+func (x *Statusbar) ConnectTextPopped(cb *func(Statusbar, uint, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "text-popped", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ContextIdVarp, TextVarp)
+		cbFn(fa, ContextIdVarp, TextVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "text-popped", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "text-popped", cbRefPtr)
 }
 
 // Emitted whenever a new message gets pushed onto a statusbar's stack.
-func (x *Statusbar) ConnectTextPushed(cb func(Statusbar, uint, string)) uint32 {
+func (x *Statusbar) ConnectTextPushed(cb *func(Statusbar, uint, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "text-pushed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ContextIdVarp, TextVarp)
+		cbFn(fa, ContextIdVarp, TextVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "text-pushed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "text-pushed", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

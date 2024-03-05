@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -71,15 +72,23 @@ func (c *GestureZoom) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever the distance between both tracked sequences changes.
-func (x *GestureZoom) ConnectScaleChanged(cb func(GestureZoom, float64)) uint32 {
+func (x *GestureZoom) ConnectScaleChanged(cb *func(GestureZoom, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "scale-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ScaleVarp float64) {
 		fa := GestureZoom{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ScaleVarp)
+		cbFn(fa, ScaleVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "scale-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "scale-changed", cbRefPtr)
 }
 
 func init() {

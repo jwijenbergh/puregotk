@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -127,15 +128,23 @@ func (c *FileMonitor) SetGoPointer(ptr uintptr) {
 // old path, and @other_file will be set to a #GFile containing the new path.
 //
 // In all the other cases, @other_file will be set to #NULL.
-func (x *FileMonitor) ConnectChanged(cb func(FileMonitor, uintptr, uintptr, FileMonitorEvent)) uint32 {
+func (x *FileMonitor) ConnectChanged(cb *func(FileMonitor, uintptr, uintptr, FileMonitorEvent)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, FileVarp uintptr, OtherFileVarp uintptr, EventTypeVarp FileMonitorEvent) {
 		fa := FileMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, FileVarp, OtherFileVarp, EventTypeVarp)
+		cbFn(fa, FileVarp, OtherFileVarp, EventTypeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 func init() {

@@ -110,9 +110,9 @@ var xTlsDatabaseLookupCertificateForHandleAsync func(uintptr, string, uintptr, T
 
 // Asynchronously look up a certificate by its handle in the database. See
 // g_tls_database_lookup_certificate_for_handle() for more information.
-func (x *TlsDatabase) LookupCertificateForHandleAsync(HandleVar string, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsDatabase) LookupCertificateForHandleAsync(HandleVar string, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsDatabaseLookupCertificateForHandleAsync(x.GoPointer(), HandleVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsDatabaseLookupCertificateForHandleAsync(x.GoPointer(), HandleVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -185,9 +185,9 @@ var xTlsDatabaseLookupCertificateIssuerAsync func(uintptr, uintptr, uintptr, Tls
 
 // Asynchronously look up the issuer of @certificate in the database. See
 // g_tls_database_lookup_certificate_issuer() for more information.
-func (x *TlsDatabase) LookupCertificateIssuerAsync(CertificateVar *TlsCertificate, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsDatabase) LookupCertificateIssuerAsync(CertificateVar *TlsCertificate, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsDatabaseLookupCertificateIssuerAsync(x.GoPointer(), CertificateVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsDatabaseLookupCertificateIssuerAsync(x.GoPointer(), CertificateVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -238,9 +238,9 @@ var xTlsDatabaseLookupCertificatesIssuedByAsync func(uintptr, uintptr, uintptr, 
 // The database may choose to hold a reference to the issuer byte array for the duration
 // of of this asynchronous operation. The byte array should not be modified during
 // this time.
-func (x *TlsDatabase) LookupCertificatesIssuedByAsync(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsDatabase) LookupCertificatesIssuedByAsync(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsDatabaseLookupCertificatesIssuedByAsync(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsDatabaseLookupCertificatesIssuedByAsync(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -337,9 +337,9 @@ var xTlsDatabaseVerifyChainAsync func(uintptr, uintptr, string, uintptr, uintptr
 // Asynchronously determines the validity of a certificate chain after
 // looking up and adding any missing certificates to the chain. See
 // g_tls_database_verify_chain() for more information.
-func (x *TlsDatabase) VerifyChainAsync(ChainVar *TlsCertificate, PurposeVar string, IdentityVar SocketConnectable, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseVerifyFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsDatabase) VerifyChainAsync(ChainVar *TlsCertificate, PurposeVar string, IdentityVar SocketConnectable, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseVerifyFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsDatabaseVerifyChainAsync(x.GoPointer(), ChainVar.GoPointer(), PurposeVar, IdentityVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsDatabaseVerifyChainAsync(x.GoPointer(), ChainVar.GoPointer(), PurposeVar, IdentityVar.GoPointer(), InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

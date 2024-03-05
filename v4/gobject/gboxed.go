@@ -4,6 +4,7 @@ package gobject
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 // This function is provided by the user and should produce a copy
@@ -43,9 +44,9 @@ var xBoxedTypeRegisterStatic func(string, uintptr, uintptr) []interface{}
 // For the general case, it is recommended to use G_DEFINE_BOXED_TYPE()
 // instead of calling g_boxed_type_register_static() directly. The macro
 // will create the appropriate `*_get_type()` function for the boxed type.
-func BoxedTypeRegisterStatic(NameVar string, BoxedCopyVar BoxedCopyFunc, BoxedFreeVar BoxedFreeFunc) []interface{} {
+func BoxedTypeRegisterStatic(NameVar string, BoxedCopyVar *BoxedCopyFunc, BoxedFreeVar *BoxedFreeFunc) []interface{} {
 
-	cret := xBoxedTypeRegisterStatic(NameVar, purego.NewCallback(BoxedCopyVar), purego.NewCallback(BoxedFreeVar))
+	cret := xBoxedTypeRegisterStatic(NameVar, glib.NewCallback(BoxedCopyVar), glib.NewCallback(BoxedFreeVar))
 	return cret
 }
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -320,15 +321,23 @@ func (c *Carousel) SetGoPointer(ptr uintptr) {
 // It can be used to implement "infinite scrolling" by amending the pages
 // after every scroll. Note that an empty carousel is indicated by
 // `(int)index == -1`.
-func (x *Carousel) ConnectPageChanged(cb func(Carousel, uint)) uint32 {
+func (x *Carousel) ConnectPageChanged(cb *func(Carousel, uint)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "page-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, IndexVarp uint) {
 		fa := Carousel{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, IndexVarp)
+		cbFn(fa, IndexVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "page-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "page-changed", cbRefPtr)
 }
 
 // Gets the progress @self will snap back to after the gesture is canceled.

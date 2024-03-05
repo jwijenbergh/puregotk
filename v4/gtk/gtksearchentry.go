@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -151,15 +154,23 @@ func (c *SearchEntry) SetGoPointer(ptr uintptr) {
 // Emitted when the entry is activated.
 //
 // The keybindings for this signal are all forms of the Enter key.
-func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectActivate(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the user initiates a move to the next match
@@ -171,15 +182,23 @@ func (x *SearchEntry) ConnectActivate(cb func(SearchEntry)) uint32 {
 // between matches.
 //
 // The default bindings for this signal is Ctrl-g.
-func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectNextMatch(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "next-match", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "next-match", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "next-match", cbRefPtr)
 }
 
 // Emitted when the user initiates a move to the previous match
@@ -191,41 +210,65 @@ func (x *SearchEntry) ConnectNextMatch(cb func(SearchEntry)) uint32 {
 // between matches.
 //
 // The default bindings for this signal is Ctrl-Shift-g.
-func (x *SearchEntry) ConnectPreviousMatch(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectPreviousMatch(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "previous-match", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "previous-match", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "previous-match", cbRefPtr)
 }
 
 // Emitted with a delay. The length of the delay can be
 // changed with the [property@Gtk.SearchEntry:search-delay]
 // property.
-func (x *SearchEntry) ConnectSearchChanged(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectSearchChanged(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "search-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "search-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "search-changed", cbRefPtr)
 }
 
 // Emitted when the user initiated a search on the entry.
-func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectSearchStarted(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "search-started", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "search-started", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "search-started", cbRefPtr)
 }
 
 // Emitted when the user stops a search via keyboard input.
@@ -236,15 +279,23 @@ func (x *SearchEntry) ConnectSearchStarted(cb func(SearchEntry)) uint32 {
 // the search entry in this case.
 //
 // The default bindings for this signal is Escape.
-func (x *SearchEntry) ConnectStopSearch(cb func(SearchEntry)) uint32 {
+func (x *SearchEntry) ConnectStopSearch(cb *func(SearchEntry)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "stop-search", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := SearchEntry{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "stop-search", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "stop-search", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

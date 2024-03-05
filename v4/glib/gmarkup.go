@@ -27,9 +27,9 @@ var xNewMarkupParseContext func(*MarkupParser, MarkupParseFlags, uintptr, uintpt
 // a context, as long as no errors occur; once an error occurs,
 // the parse context can't continue to parse text (you have to
 // free it and create a new parse context).
-func NewMarkupParseContext(ParserVar *MarkupParser, FlagsVar MarkupParseFlags, UserDataVar uintptr, UserDataDnotifyVar DestroyNotify) *MarkupParseContext {
+func NewMarkupParseContext(ParserVar *MarkupParser, FlagsVar MarkupParseFlags, UserDataVar uintptr, UserDataDnotifyVar *DestroyNotify) *MarkupParseContext {
 
-	cret := xNewMarkupParseContext(ParserVar, FlagsVar, UserDataVar, purego.NewCallback(UserDataDnotifyVar))
+	cret := xNewMarkupParseContext(ParserVar, FlagsVar, UserDataVar, NewCallback(UserDataDnotifyVar))
 	return cret
 }
 

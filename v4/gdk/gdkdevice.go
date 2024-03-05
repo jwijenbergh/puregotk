@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -327,27 +328,43 @@ func (c *Device) SetGoPointer(ptr uintptr) {
 // example, user switches from the USB mouse to a tablet); in
 // that case the logical device will change to reflect the axes
 // and keys on the new physical device.
-func (x *Device) ConnectChanged(cb func(Device)) uint32 {
+func (x *Device) ConnectChanged(cb *func(Device)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Device{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 // Emitted on pen/eraser devices whenever tools enter or leave proximity.
-func (x *Device) ConnectToolChanged(cb func(Device, uintptr)) uint32 {
+func (x *Device) ConnectToolChanged(cb *func(Device, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "tool-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ToolVarp uintptr) {
 		fa := Device{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ToolVarp)
+		cbFn(fa, ToolVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "tool-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "tool-changed", cbRefPtr)
 }
 
 func init() {

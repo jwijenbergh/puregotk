@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -56,15 +57,23 @@ func (c *EventControllerLegacy) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted for each GDK event delivered to @controller.
-func (x *EventControllerLegacy) ConnectEvent(cb func(EventControllerLegacy, uintptr) bool) uint32 {
+func (x *EventControllerLegacy) ConnectEvent(cb *func(EventControllerLegacy, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, EventVarp uintptr) bool {
 		fa := EventControllerLegacy{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, EventVarp)
+		return cbFn(fa, EventVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "event", cbRefPtr)
 }
 
 func init() {

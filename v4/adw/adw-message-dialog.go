@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
@@ -278,9 +279,9 @@ var xMessageDialogChoose func(uintptr, uintptr, uintptr, uintptr)
 //
 // The @callback will be called when the alert is dismissed. It should call
 // [method@MessageDialog.choose_finish] to obtain the result.
-func (x *MessageDialog) Choose(CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MessageDialog) Choose(CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xMessageDialogChoose(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xMessageDialogChoose(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -627,15 +628,23 @@ func (c *MessageDialog) SetGoPointer(ptr uintptr) {
 // if the dialog was closed by pressing &lt;kbd&gt;Escape&lt;/kbd&gt; or with a system
 // action, @response will be set to the value of
 // [property@MessageDialog:close-response].
-func (x *MessageDialog) ConnectResponse(cb func(MessageDialog, string)) uint32 {
+func (x *MessageDialog) ConnectResponse(cb *func(MessageDialog, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ResponseVarp string) {
 		fa := MessageDialog{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ResponseVarp)
+		cbFn(fa, ResponseVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

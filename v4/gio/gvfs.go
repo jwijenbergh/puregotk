@@ -137,9 +137,9 @@ var xVfsRegisterUriScheme func(uintptr, string, uintptr, uintptr, uintptr, uintp
 //
 // It's an error to call this function twice with the same scheme. To unregister
 // a custom URI scheme, use g_vfs_unregister_uri_scheme().
-func (x *Vfs) RegisterUriScheme(SchemeVar string, UriFuncVar VfsFileLookupFunc, UriDataVar uintptr, UriDestroyVar glib.DestroyNotify, ParseNameFuncVar VfsFileLookupFunc, ParseNameDataVar uintptr, ParseNameDestroyVar glib.DestroyNotify) bool {
+func (x *Vfs) RegisterUriScheme(SchemeVar string, UriFuncVar *VfsFileLookupFunc, UriDataVar uintptr, UriDestroyVar *glib.DestroyNotify, ParseNameFuncVar *VfsFileLookupFunc, ParseNameDataVar uintptr, ParseNameDestroyVar *glib.DestroyNotify) bool {
 
-	cret := xVfsRegisterUriScheme(x.GoPointer(), SchemeVar, purego.NewCallback(UriFuncVar), UriDataVar, purego.NewCallback(UriDestroyVar), purego.NewCallback(ParseNameFuncVar), ParseNameDataVar, purego.NewCallback(ParseNameDestroyVar))
+	cret := xVfsRegisterUriScheme(x.GoPointer(), SchemeVar, glib.NewCallback(UriFuncVar), UriDataVar, glib.NewCallback(UriDestroyVar), glib.NewCallback(ParseNameFuncVar), ParseNameDataVar, glib.NewCallback(ParseNameDestroyVar))
 	return cret
 }
 

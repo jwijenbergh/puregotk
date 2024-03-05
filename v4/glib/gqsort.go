@@ -12,9 +12,9 @@ var xQsortWithData func(uintptr, int, uint, uintptr, uintptr)
 // the comparison routine accepts a user data argument.
 //
 // This is guaranteed to be a stable sort since version 2.32.
-func QsortWithData(PbaseVar uintptr, TotalElemsVar int, SizeVar uint, CompareFuncVar CompareDataFunc, UserDataVar uintptr) {
+func QsortWithData(PbaseVar uintptr, TotalElemsVar int, SizeVar uint, CompareFuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xQsortWithData(PbaseVar, TotalElemsVar, SizeVar, purego.NewCallback(CompareFuncVar), UserDataVar)
+	xQsortWithData(PbaseVar, TotalElemsVar, SizeVar, NewCallback(CompareFuncVar), UserDataVar)
 
 }
 

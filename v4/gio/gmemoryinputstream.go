@@ -74,10 +74,10 @@ func NewMemoryInputStreamFromBytes(BytesVar *glib.Bytes) *MemoryInputStream {
 var xNewMemoryInputStreamFromData func(uintptr, int, uintptr) uintptr
 
 // Creates a new #GMemoryInputStream with data in memory of a given size.
-func NewMemoryInputStreamFromData(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) *MemoryInputStream {
+func NewMemoryInputStreamFromData(DataVar uintptr, LenVar int, DestroyVar *glib.DestroyNotify) *MemoryInputStream {
 	var cls *MemoryInputStream
 
-	cret := xNewMemoryInputStreamFromData(DataVar, LenVar, purego.NewCallback(DestroyVar))
+	cret := xNewMemoryInputStreamFromData(DataVar, LenVar, glib.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -99,9 +99,9 @@ func (x *MemoryInputStream) AddBytes(BytesVar *glib.Bytes) {
 var xMemoryInputStreamAddData func(uintptr, uintptr, int, uintptr)
 
 // Appends @data to data that can be read from the input stream
-func (x *MemoryInputStream) AddData(DataVar uintptr, LenVar int, DestroyVar glib.DestroyNotify) {
+func (x *MemoryInputStream) AddData(DataVar uintptr, LenVar int, DestroyVar *glib.DestroyNotify) {
 
-	xMemoryInputStreamAddData(x.GoPointer(), DataVar, LenVar, purego.NewCallback(DestroyVar))
+	xMemoryInputStreamAddData(x.GoPointer(), DataVar, LenVar, glib.NewCallback(DestroyVar))
 
 }
 

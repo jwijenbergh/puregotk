@@ -569,9 +569,9 @@ var xSettingsBindWithMapping func(uintptr, string, uintptr, string, SettingsBind
 // and that you can have only one binding per object property.
 // If you bind the same property twice on the same object, the second
 // binding overrides the first one.
-func (x *Settings) BindWithMapping(KeyVar string, ObjectVar *gobject.Object, PropertyVar string, FlagsVar SettingsBindFlags, GetMappingVar SettingsBindGetMapping, SetMappingVar SettingsBindSetMapping, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *Settings) BindWithMapping(KeyVar string, ObjectVar *gobject.Object, PropertyVar string, FlagsVar SettingsBindFlags, GetMappingVar *SettingsBindGetMapping, SetMappingVar *SettingsBindSetMapping, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xSettingsBindWithMapping(x.GoPointer(), KeyVar, ObjectVar.GoPointer(), PropertyVar, FlagsVar, purego.NewCallback(GetMappingVar), purego.NewCallback(SetMappingVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xSettingsBindWithMapping(x.GoPointer(), KeyVar, ObjectVar.GoPointer(), PropertyVar, FlagsVar, glib.NewCallback(GetMappingVar), glib.NewCallback(SetMappingVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -844,9 +844,9 @@ var xSettingsGetMapped func(uintptr, string, uintptr, uintptr) uintptr
 // to each invocation of @mapping.  The final value of that #gpointer is
 // what is returned by this function.  %NULL is valid; it is returned
 // just as any other value would be.
-func (x *Settings) GetMapped(KeyVar string, MappingVar SettingsGetMapping, UserDataVar uintptr) uintptr {
+func (x *Settings) GetMapped(KeyVar string, MappingVar *SettingsGetMapping, UserDataVar uintptr) uintptr {
 
-	cret := xSettingsGetMapped(x.GoPointer(), KeyVar, purego.NewCallback(MappingVar), UserDataVar)
+	cret := xSettingsGetMapped(x.GoPointer(), KeyVar, glib.NewCallback(MappingVar), UserDataVar)
 	return cret
 }
 
@@ -1240,15 +1240,23 @@ func (c *Settings) SetGoPointer(ptr uintptr) {
 // The default handler for this signal invokes the "changed" signal
 // for each affected key.  If any other connected handler returns
 // %TRUE then this default functionality will be suppressed.
-func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) uint32 {
+func (x *Settings) ConnectChangeEvent(cb *func(Settings, uintptr, int) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "change-event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, KeysVarp, NKeysVarp)
+		return cbFn(fa, KeysVarp, NKeysVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "change-event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "change-event", cbRefPtr)
 }
 
 // The "changed" signal is emitted when a key has potentially changed.
@@ -1261,15 +1269,23 @@ func (x *Settings) ConnectChangeEvent(cb func(Settings, uintptr, int) bool) uint
 //
 // Note that @settings only emits this signal if you have read @key at
 // least once while a signal handler was already connected for @key.
-func (x *Settings) ConnectChanged(cb func(Settings, string)) uint32 {
+func (x *Settings) ConnectChanged(cb *func(Settings, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyVarp string) {
 		fa := Settings{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, KeyVarp)
+		cbFn(fa, KeyVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 // The "writable-change-event" signal is emitted once per writability
@@ -1290,15 +1306,23 @@ func (x *Settings) ConnectChanged(cb func(Settings, string)) uint32 {
 // example, a new mandatory setting is introduced).  If any other
 // connected handler returns %TRUE then this default functionality
 // will be suppressed.
-func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) uint32 {
+func (x *Settings) ConnectWritableChangeEvent(cb *func(Settings, uint) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "writable-change-event", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyVarp uint) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, KeyVarp)
+		return cbFn(fa, KeyVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "writable-change-event", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "writable-change-event", cbRefPtr)
 }
 
 // The "writable-changed" signal is emitted when the writability of a
@@ -1308,15 +1332,23 @@ func (x *Settings) ConnectWritableChangeEvent(cb func(Settings, uint) bool) uint
 // This signal supports detailed connections.  You can connect to the
 // detailed signal "writable-changed::x" in order to only receive
 // callbacks when the writability of "x" changes.
-func (x *Settings) ConnectWritableChanged(cb func(Settings, string)) uint32 {
+func (x *Settings) ConnectWritableChanged(cb *func(Settings, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "writable-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, KeyVarp string) {
 		fa := Settings{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, KeyVarp)
+		cbFn(fa, KeyVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "writable-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "writable-changed", cbRefPtr)
 }
 
 var xSettingsListRelocatableSchemas func() uintptr

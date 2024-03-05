@@ -69,10 +69,10 @@ var xNewCallbackAnimationTarget func(uintptr, uintptr, uintptr) uintptr
 
 // Creates a new `AdwAnimationTarget` that calls the given @callback during
 // the animation.
-func NewCallbackAnimationTarget(CallbackVar AnimationTargetFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) *CallbackAnimationTarget {
+func NewCallbackAnimationTarget(CallbackVar *AnimationTargetFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) *CallbackAnimationTarget {
 	var cls *CallbackAnimationTarget
 
-	cret := xNewCallbackAnimationTarget(purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DestroyVar))
+	cret := xNewCallbackAnimationTarget(glib.NewCallback(CallbackVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 	if cret == 0 {
 		return nil

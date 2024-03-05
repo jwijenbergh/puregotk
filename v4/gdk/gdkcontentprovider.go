@@ -192,9 +192,9 @@ var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int, uintp
 // not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
 //
 // The given @stream will not be closed.
-func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xContentProviderWriteMimeTypeAsync(x.GoPointer(), MimeTypeVar, StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xContentProviderWriteMimeTypeAsync(x.GoPointer(), MimeTypeVar, StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -223,15 +223,23 @@ func (c *ContentProvider) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever the content provided by this provider has changed.
-func (x *ContentProvider) ConnectContentChanged(cb func(ContentProvider)) uint32 {
+func (x *ContentProvider) ConnectContentChanged(cb *func(ContentProvider)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "content-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ContentProvider{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "content-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "content-changed", cbRefPtr)
 }
 
 func init() {

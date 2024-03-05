@@ -131,9 +131,9 @@ func (x *SimpleProxyResolver) Lookup(UriVar string, CancellableVar *Cancellable)
 
 // Asynchronous lookup of proxy. See g_proxy_resolver_lookup() for more
 // details.
-func (x *SimpleProxyResolver) LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SimpleProxyResolver) LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGProxyResolverLookupAsync(x.GoPointer(), UriVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGProxyResolverLookupAsync(x.GoPointer(), UriVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

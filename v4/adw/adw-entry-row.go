@@ -259,27 +259,43 @@ func (c *EntryRow) SetGoPointer(ptr uintptr) {
 // Emitted when the apply button is pressed.
 //
 // See [property@EntryRow:show-apply-button].
-func (x *EntryRow) ConnectApply(cb func(EntryRow)) uint32 {
+func (x *EntryRow) ConnectApply(cb *func(EntryRow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EntryRow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "apply", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
 }
 
 // Emitted when the embedded entry is activated.
-func (x *EntryRow) ConnectEntryActivated(cb func(EntryRow)) uint32 {
+func (x *EntryRow) ConnectEntryActivated(cb *func(EntryRow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "entry-activated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EntryRow{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "entry-activated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "entry-activated", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

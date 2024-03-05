@@ -51,10 +51,10 @@ var xNewTreeListModel func(uintptr, bool, bool, uintptr, uintptr, uintptr) uintp
 
 // Creates a new empty `GtkTreeListModel` displaying @root
 // with all rows collapsed.
-func NewTreeListModel(RootVar gio.ListModel, PassthroughVar bool, AutoexpandVar bool, CreateFuncVar TreeListModelCreateModelFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *TreeListModel {
+func NewTreeListModel(RootVar gio.ListModel, PassthroughVar bool, AutoexpandVar bool, CreateFuncVar *TreeListModelCreateModelFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) *TreeListModel {
 	var cls *TreeListModel
 
-	cret := xNewTreeListModel(RootVar.GoPointer(), PassthroughVar, AutoexpandVar, purego.NewCallback(CreateFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xNewTreeListModel(RootVar.GoPointer(), PassthroughVar, AutoexpandVar, glib.NewCallback(CreateFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
 		return nil

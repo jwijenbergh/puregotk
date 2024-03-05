@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -256,27 +257,43 @@ func (c *Adjustment) SetGoPointer(ptr uintptr) {
 //
 // Note that the [property@Gtk.Adjustment:value] property is
 // covered by the [signal@Gtk.Adjustment::value-changed] signal.
-func (x *Adjustment) ConnectChanged(cb func(Adjustment)) uint32 {
+func (x *Adjustment) ConnectChanged(cb *func(Adjustment)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Adjustment{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 // Emitted when the value has been changed.
-func (x *Adjustment) ConnectValueChanged(cb func(Adjustment)) uint32 {
+func (x *Adjustment) ConnectValueChanged(cb *func(Adjustment)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Adjustment{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
 }
 
 func init() {

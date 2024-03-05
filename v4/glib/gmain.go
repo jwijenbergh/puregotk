@@ -196,9 +196,9 @@ var xMainContextInvoke func(uintptr, uintptr, uintptr)
 // Note that, as with normal idle functions, @function should probably
 // return %FALSE.  If it returns %TRUE, it will be continuously run in a
 // loop (and may prevent this call from returning).
-func (x *MainContext) Invoke(FunctionVar SourceFunc, DataVar uintptr) {
+func (x *MainContext) Invoke(FunctionVar *SourceFunc, DataVar uintptr) {
 
-	xMainContextInvoke(x.GoPointer(), purego.NewCallback(FunctionVar), DataVar)
+	xMainContextInvoke(x.GoPointer(), NewCallback(FunctionVar), DataVar)
 
 }
 
@@ -213,9 +213,9 @@ var xMainContextInvokeFull func(uintptr, int, uintptr, uintptr, uintptr)
 //
 // @notify should not assume that it is called from any particular
 // thread or with any particular context acquired.
-func (x *MainContext) InvokeFull(PriorityVar int, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) {
+func (x *MainContext) InvokeFull(PriorityVar int, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) {
 
-	xMainContextInvokeFull(x.GoPointer(), PriorityVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	xMainContextInvokeFull(x.GoPointer(), PriorityVar, NewCallback(FunctionVar), DataVar, NewCallback(NotifyVar))
 
 }
 
@@ -384,9 +384,9 @@ var xMainContextSetPollFunc func(uintptr, uintptr)
 //
 // This function could possibly be used to integrate the GLib event
 // loop with an external event loop.
-func (x *MainContext) SetPollFunc(FuncVar PollFunc) {
+func (x *MainContext) SetPollFunc(FuncVar *PollFunc) {
 
-	xMainContextSetPollFunc(x.GoPointer(), purego.NewCallback(FuncVar))
+	xMainContextSetPollFunc(x.GoPointer(), NewCallback(FuncVar))
 
 }
 
@@ -988,9 +988,9 @@ var xSourceSetCallback func(uintptr, uintptr, uintptr, uintptr)
 //
 // Note that g_source_destroy() for a currently attached source has the effect
 // of also unsetting the callback.
-func (x *Source) SetCallback(FuncVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) {
+func (x *Source) SetCallback(FuncVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) {
 
-	xSourceSetCallback(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(NotifyVar))
+	xSourceSetCallback(x.GoPointer(), NewCallback(FuncVar), DataVar, NewCallback(NotifyVar))
 
 }
 
@@ -1042,9 +1042,9 @@ var xSourceSetDisposeFunction func(uintptr, uintptr)
 // @source is already partially freed and not valid anymore.
 //
 // This should only ever be called from #GSource implementations.
-func (x *Source) SetDisposeFunction(DisposeVar SourceDisposeFunc) {
+func (x *Source) SetDisposeFunction(DisposeVar *SourceDisposeFunc) {
 
-	xSourceSetDisposeFunction(x.GoPointer(), purego.NewCallback(DisposeVar))
+	xSourceSetDisposeFunction(x.GoPointer(), NewCallback(DisposeVar))
 
 }
 
@@ -1273,9 +1273,9 @@ var xChildWatchAdd func(Pid, uintptr, uintptr) uint
 // g_child_watch_source_new() and attaches it to the main loop context
 // using g_source_attach(). You can do these steps manually if you
 // need greater control.
-func ChildWatchAdd(PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr) uint {
+func ChildWatchAdd(PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr) uint {
 
-	cret := xChildWatchAdd(PidVar, purego.NewCallback(FunctionVar), DataVar)
+	cret := xChildWatchAdd(PidVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
@@ -1305,9 +1305,9 @@ var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
 // g_child_watch_source_new() and attaches it to the main loop context
 // using g_source_attach(). You can do these steps manually if you
 // need greater control.
-func ChildWatchAddFull(PriorityVar int, PidVar Pid, FunctionVar ChildWatchFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func ChildWatchAddFull(PriorityVar int, PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xChildWatchAddFull(PriorityVar, PidVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	cret := xChildWatchAddFull(PriorityVar, PidVar, NewCallback(FunctionVar), DataVar, NewCallback(NotifyVar))
 	return cret
 }
 
@@ -1363,9 +1363,9 @@ var xClearHandleId func(uint, uintptr)
 //
 // A macro is also included that allows this function to be used without
 // pointer casts.
-func ClearHandleId(TagPtrVar uint, ClearFuncVar ClearHandleFunc) {
+func ClearHandleId(TagPtrVar uint, ClearFuncVar *ClearHandleFunc) {
 
-	xClearHandleId(TagPtrVar, purego.NewCallback(ClearFuncVar))
+	xClearHandleId(TagPtrVar, NewCallback(ClearFuncVar))
 
 }
 
@@ -1431,9 +1431,9 @@ var xIdleAdd func(uintptr, uintptr) uint
 // the callback will be invoked in whichever thread is running that main
 // context. You can do these steps manually if you need greater control or to
 // use a custom main context.
-func IdleAdd(FunctionVar SourceFunc, DataVar uintptr) uint {
+func IdleAdd(FunctionVar *SourceFunc, DataVar uintptr) uint {
 
-	cret := xIdleAdd(purego.NewCallback(FunctionVar), DataVar)
+	cret := xIdleAdd(NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
@@ -1453,9 +1453,9 @@ var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
 // the callback will be invoked in whichever thread is running that main
 // context. You can do these steps manually if you need greater control or to
 // use a custom main context.
-func IdleAddFull(PriorityVar int, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func IdleAddFull(PriorityVar int, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xIdleAddFull(PriorityVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	cret := xIdleAddFull(PriorityVar, NewCallback(FunctionVar), DataVar, NewCallback(NotifyVar))
 	return cret
 }
 
@@ -1762,9 +1762,9 @@ var xTimeoutAdd func(uint, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time.  See g_get_monotonic_time().
-func TimeoutAdd(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr) uint {
+func TimeoutAdd(IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr) uint {
 
-	cret := xTimeoutAdd(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
+	cret := xTimeoutAdd(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
@@ -1794,9 +1794,9 @@ var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock time.
 // See g_get_monotonic_time().
-func TimeoutAddFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func TimeoutAddFull(PriorityVar int, IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xTimeoutAddFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	cret := xTimeoutAddFull(PriorityVar, IntervalVar, NewCallback(FunctionVar), DataVar, NewCallback(NotifyVar))
 	return cret
 }
 
@@ -1825,9 +1825,9 @@ var xTimeoutAddSeconds func(uint, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time.  See g_get_monotonic_time().
-func TimeoutAddSeconds(IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr) uint {
+func TimeoutAddSeconds(IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr) uint {
 
-	cret := xTimeoutAddSeconds(IntervalVar, purego.NewCallback(FunctionVar), DataVar)
+	cret := xTimeoutAddSeconds(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
@@ -1872,9 +1872,9 @@ var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time.  See g_get_monotonic_time().
-func TimeoutAddSecondsFull(PriorityVar int, IntervalVar uint, FunctionVar SourceFunc, DataVar uintptr, NotifyVar DestroyNotify) uint {
+func TimeoutAddSecondsFull(PriorityVar int, IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
 
-	cret := xTimeoutAddSecondsFull(PriorityVar, IntervalVar, purego.NewCallback(FunctionVar), DataVar, purego.NewCallback(NotifyVar))
+	cret := xTimeoutAddSecondsFull(PriorityVar, IntervalVar, NewCallback(FunctionVar), DataVar, NewCallback(NotifyVar))
 	return cret
 }
 

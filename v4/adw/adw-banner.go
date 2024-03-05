@@ -162,15 +162,23 @@ func (c *Banner) SetGoPointer(ptr uintptr) {
 // This signal is emitted after the action button has been clicked.
 //
 // It can be used as an alternative to setting an action.
-func (x *Banner) ConnectButtonClicked(cb func(Banner)) uint32 {
+func (x *Banner) ConnectButtonClicked(cb *func(Banner)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "button-clicked", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Banner{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "button-clicked", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "button-clicked", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

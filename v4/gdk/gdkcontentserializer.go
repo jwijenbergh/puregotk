@@ -19,9 +19,9 @@ type ContentSerializeFunc func(uintptr)
 var xContentRegisterSerializer func([]interface{}, string, uintptr, uintptr, uintptr)
 
 // Registers a function to serialize objects of a given type.
-func ContentRegisterSerializer(TypeVar []interface{}, MimeTypeVar string, SerializeVar ContentSerializeFunc, DataVar uintptr, NotifyVar glib.DestroyNotify) {
+func ContentRegisterSerializer(TypeVar []interface{}, MimeTypeVar string, SerializeVar *ContentSerializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
-	xContentRegisterSerializer(TypeVar, MimeTypeVar, purego.NewCallback(SerializeVar), DataVar, purego.NewCallback(NotifyVar))
+	xContentRegisterSerializer(TypeVar, MimeTypeVar, glib.NewCallback(SerializeVar), DataVar, glib.NewCallback(NotifyVar))
 
 }
 
@@ -34,9 +34,9 @@ var xContentSerializeAsync func(uintptr, string, *gobject.Value, int, uintptr, u
 //
 // When the operation is finished, @callback will be called. You must then
 // call [func@Gdk.content_serialize_finish] to get the result of the operation.
-func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xContentSerializeAsync(StreamVar.GoPointer(), MimeTypeVar, ValueVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xContentSerializeAsync(StreamVar.GoPointer(), MimeTypeVar, ValueVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -195,9 +195,9 @@ func (x *ContentSerializer) ReturnSuccess() {
 var xContentSerializerSetTaskData func(uintptr, uintptr, uintptr)
 
 // Associate data with the current serialization operation.
-func (x *ContentSerializer) SetTaskData(DataVar uintptr, NotifyVar glib.DestroyNotify) {
+func (x *ContentSerializer) SetTaskData(DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
-	xContentSerializerSetTaskData(x.GoPointer(), DataVar, purego.NewCallback(NotifyVar))
+	xContentSerializerSetTaskData(x.GoPointer(), DataVar, glib.NewCallback(NotifyVar))
 
 }
 

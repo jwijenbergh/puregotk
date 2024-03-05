@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
@@ -221,9 +223,9 @@ func (x *PrintJob) GetTrackPrintStatus() bool {
 var xPrintJobSend func(uintptr, uintptr, uintptr, uintptr)
 
 // Sends the print job off to the printer.
-func (x *PrintJob) Send(CallbackVar PrintJobCompleteFunc, UserDataVar uintptr, DnotifyVar glib.DestroyNotify) {
+func (x *PrintJob) Send(CallbackVar *PrintJobCompleteFunc, UserDataVar uintptr, DnotifyVar *glib.DestroyNotify) {
 
-	xPrintJobSend(x.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, purego.NewCallback(DnotifyVar))
+	xPrintJobSend(x.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, glib.NewCallback(DnotifyVar))
 
 }
 
@@ -391,15 +393,23 @@ func (c *PrintJob) SetGoPointer(ptr uintptr) {
 //
 // The signal handler can use [method@Gtk.PrintJob.get_status]
 // to obtain the new status.
-func (x *PrintJob) ConnectStatusChanged(cb func(PrintJob)) uint32 {
+func (x *PrintJob) ConnectStatusChanged(cb *func(PrintJob)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "status-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := PrintJob{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "status-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "status-changed", cbRefPtr)
 }
 
 func init() {

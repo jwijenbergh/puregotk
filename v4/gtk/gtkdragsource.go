@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -244,15 +245,23 @@ func (c *DragSource) SetGoPointer(ptr uintptr) {
 //
 // It can be used to e.g. set a custom drag icon with
 // [method@Gtk.DragSource.set_icon].
-func (x *DragSource) ConnectDragBegin(cb func(DragSource, uintptr)) uint32 {
+func (x *DragSource) ConnectDragBegin(cb *func(DragSource, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drag-begin", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DragVarp uintptr) {
 		fa := DragSource{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DragVarp)
+		cbFn(fa, DragVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drag-begin", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drag-begin", cbRefPtr)
 }
 
 // Emitted on the drag source when a drag has failed.
@@ -260,15 +269,23 @@ func (x *DragSource) ConnectDragBegin(cb func(DragSource, uintptr)) uint32 {
 // The signal handler may handle a failed drag operation based on
 // the type of error. It should return %TRUE if the failure has been handled
 // and the default "drag operation failed" animation should not be shown.
-func (x *DragSource) ConnectDragCancel(cb func(DragSource, uintptr, gdk.DragCancelReason) bool) uint32 {
+func (x *DragSource) ConnectDragCancel(cb *func(DragSource, uintptr, gdk.DragCancelReason) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drag-cancel", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DragVarp uintptr, ReasonVarp gdk.DragCancelReason) bool {
 		fa := DragSource{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, DragVarp, ReasonVarp)
+		return cbFn(fa, DragVarp, ReasonVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drag-cancel", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drag-cancel", cbRefPtr)
 }
 
 // Emitted on the drag source when a drag is finished.
@@ -276,15 +293,23 @@ func (x *DragSource) ConnectDragCancel(cb func(DragSource, uintptr, gdk.DragCanc
 // A typical reason to connect to this signal is to undo
 // things done in [signal@Gtk.DragSource::prepare] or
 // [signal@Gtk.DragSource::drag-begin] handlers.
-func (x *DragSource) ConnectDragEnd(cb func(DragSource, uintptr, bool)) uint32 {
+func (x *DragSource) ConnectDragEnd(cb *func(DragSource, uintptr, bool)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drag-end", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DragVarp uintptr, DeleteDataVarp bool) {
 		fa := DragSource{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DragVarp, DeleteDataVarp)
+		cbFn(fa, DragVarp, DeleteDataVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drag-end", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drag-end", cbRefPtr)
 }
 
 // Emitted when a drag is about to be initiated.
@@ -293,16 +318,24 @@ func (x *DragSource) ConnectDragEnd(cb func(DragSource, uintptr, bool)) uint32 {
 // to start. The default handler for this signal returns the value of
 // the [property@Gtk.DragSource:content] property, so if you set up that
 // property ahead of time, you don't need to connect to this signal.
-func (x *DragSource) ConnectPrepare(cb func(DragSource, float64, float64) gdk.ContentProvider) uint32 {
+func (x *DragSource) ConnectPrepare(cb *func(DragSource, float64, float64) gdk.ContentProvider) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "prepare", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) uintptr {
 		fa := DragSource{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		PrepareCls := cb(fa, XVarp, YVarp)
+		PrepareCls := cbFn(fa, XVarp, YVarp)
 		return PrepareCls.Ptr
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "prepare", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "prepare", cbRefPtr)
 }
 
 func init() {

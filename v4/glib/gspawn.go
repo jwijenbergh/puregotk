@@ -146,10 +146,10 @@ var xSpawnAsync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, *Pi
 // Note that the returned @child_pid on Windows is a handle to the child
 // process and not its identifier. Process handles and process identifiers
 // are different concepts on Windows.
-func SpawnAsync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid) (bool, error) {
+func SpawnAsync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid) (bool, error) {
 	var cerr *Error
 
-	cret := xSpawnAsync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, &cerr)
+	cret := xSpawnAsync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -163,10 +163,10 @@ var xSpawnAsyncWithFds func(string, uintptr, uintptr, SpawnFlags, uintptr, uintp
 //
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
+func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
 	var cerr *Error
 
-	cret := xSpawnAsyncWithFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
+	cret := xSpawnAsyncWithFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -178,10 +178,10 @@ var xSpawnAsyncWithPipes func(string, uintptr, uintptr, SpawnFlags, uintptr, uin
 
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar int, StandardOutputVar int, StandardErrorVar int) (bool, error) {
+func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar int, StandardOutputVar int, StandardErrorVar int) (bool, error) {
 	var cerr *Error
 
-	cret := xSpawnAsyncWithPipes(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StandardInputVar, StandardOutputVar, StandardErrorVar, &cerr)
+	cret := xSpawnAsyncWithPipes(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallback(ChildSetupVar), UserDataVar, ChildPidVar, StandardInputVar, StandardOutputVar, StandardErrorVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -379,10 +379,10 @@ var xSpawnAsyncWithPipesAndFds func(string, uintptr, uintptr, SpawnFlags, uintpt
 // graphical application too, then to ensure that the spawned program opens its
 // windows on the right screen, you may want to use #GdkAppLaunchContext,
 // #GAppLaunchContext, or set the `DISPLAY` environment variable.
-func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int, SourceFdsVar uintptr, TargetFdsVar uintptr, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar int, StdoutPipeOutVar int, StderrPipeOutVar int) (bool, error) {
+func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int, SourceFdsVar uintptr, TargetFdsVar uintptr, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar int, StdoutPipeOutVar int, StderrPipeOutVar int) (bool, error) {
 	var cerr *Error
 
-	cret := xSpawnAsyncWithPipesAndFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, SourceFdsVar, TargetFdsVar, NFdsVar, ChildPidOutVar, StdinPipeOutVar, StdoutPipeOutVar, StderrPipeOutVar, &cerr)
+	cret := xSpawnAsyncWithPipesAndFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallback(ChildSetupVar), UserDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, SourceFdsVar, TargetFdsVar, NFdsVar, ChildPidOutVar, StdinPipeOutVar, StdoutPipeOutVar, StderrPipeOutVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -565,10 +565,10 @@ var xSpawnSync func(string, uintptr, uintptr, SpawnFlags, uintptr, uintptr, uint
 // This function calls g_spawn_async_with_pipes() internally; see that
 // function for full details on the other parameters and details on
 // how these functions work on Windows.
-func SpawnSync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) (bool, error) {
+func SpawnSync(WorkingDirectoryVar string, ArgvVar uintptr, EnvpVar uintptr, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar uintptr, StandardErrorVar uintptr, WaitStatusVar int) (bool, error) {
 	var cerr *Error
 
-	cret := xSpawnSync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, purego.NewCallback(ChildSetupVar), UserDataVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)
+	cret := xSpawnSync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallback(ChildSetupVar), UserDataVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}

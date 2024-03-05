@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -52,9 +53,9 @@ var xFontsetForeach func(uintptr, uintptr, uintptr)
 // each one.
 //
 // If @func returns %TRUE, that stops the iteration.
-func (x *Fontset) Foreach(FuncVar FontsetForeachFunc, DataVar uintptr) {
+func (x *Fontset) Foreach(FuncVar *FontsetForeachFunc, DataVar uintptr) {
 
-	xFontsetForeach(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	xFontsetForeach(x.GoPointer(), glib.NewCallback(FuncVar), DataVar)
 
 }
 

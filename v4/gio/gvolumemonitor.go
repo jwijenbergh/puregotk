@@ -122,150 +122,246 @@ func (c *VolumeMonitor) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when a drive changes.
-func (x *VolumeMonitor) ConnectDriveChanged(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectDriveChanged(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drive-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DriveVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DriveVarp)
+		cbFn(fa, DriveVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drive-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drive-changed", cbRefPtr)
 }
 
 // Emitted when a drive is connected to the system.
-func (x *VolumeMonitor) ConnectDriveConnected(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectDriveConnected(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drive-connected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DriveVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DriveVarp)
+		cbFn(fa, DriveVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drive-connected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drive-connected", cbRefPtr)
 }
 
 // Emitted when a drive is disconnected from the system.
-func (x *VolumeMonitor) ConnectDriveDisconnected(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectDriveDisconnected(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drive-disconnected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DriveVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DriveVarp)
+		cbFn(fa, DriveVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drive-disconnected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drive-disconnected", cbRefPtr)
 }
 
 // Emitted when the eject button is pressed on @drive.
-func (x *VolumeMonitor) ConnectDriveEjectButton(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectDriveEjectButton(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drive-eject-button", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DriveVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DriveVarp)
+		cbFn(fa, DriveVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drive-eject-button", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drive-eject-button", cbRefPtr)
 }
 
 // Emitted when the stop button is pressed on @drive.
-func (x *VolumeMonitor) ConnectDriveStopButton(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectDriveStopButton(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "drive-stop-button", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, DriveVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, DriveVarp)
+		cbFn(fa, DriveVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "drive-stop-button", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "drive-stop-button", cbRefPtr)
 }
 
 // Emitted when a mount is added.
-func (x *VolumeMonitor) ConnectMountAdded(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectMountAdded(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mount-added", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MountVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MountVarp)
+		cbFn(fa, MountVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mount-added", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mount-added", cbRefPtr)
 }
 
 // Emitted when a mount changes.
-func (x *VolumeMonitor) ConnectMountChanged(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectMountChanged(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mount-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MountVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MountVarp)
+		cbFn(fa, MountVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mount-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mount-changed", cbRefPtr)
 }
 
 // May be emitted when a mount is about to be removed.
 //
 // This signal depends on the backend and is only emitted if
 // GIO was used to unmount.
-func (x *VolumeMonitor) ConnectMountPreUnmount(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectMountPreUnmount(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mount-pre-unmount", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MountVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MountVarp)
+		cbFn(fa, MountVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mount-pre-unmount", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mount-pre-unmount", cbRefPtr)
 }
 
 // Emitted when a mount is removed.
-func (x *VolumeMonitor) ConnectMountRemoved(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectMountRemoved(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "mount-removed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, MountVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, MountVarp)
+		cbFn(fa, MountVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "mount-removed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "mount-removed", cbRefPtr)
 }
 
 // Emitted when a mountable volume is added to the system.
-func (x *VolumeMonitor) ConnectVolumeAdded(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectVolumeAdded(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "volume-added", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, VolumeVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, VolumeVarp)
+		cbFn(fa, VolumeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "volume-added", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "volume-added", cbRefPtr)
 }
 
 // Emitted when mountable volume is changed.
-func (x *VolumeMonitor) ConnectVolumeChanged(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectVolumeChanged(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "volume-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, VolumeVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, VolumeVarp)
+		cbFn(fa, VolumeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "volume-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "volume-changed", cbRefPtr)
 }
 
 // Emitted when a mountable volume is removed from the system.
-func (x *VolumeMonitor) ConnectVolumeRemoved(cb func(VolumeMonitor, uintptr)) uint32 {
+func (x *VolumeMonitor) ConnectVolumeRemoved(cb *func(VolumeMonitor, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "volume-removed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, VolumeVarp uintptr) {
 		fa := VolumeMonitor{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, VolumeVarp)
+		cbFn(fa, VolumeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "volume-removed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "volume-removed", cbRefPtr)
 }
 
 var xVolumeMonitorAdoptOrphanMount func(uintptr) uintptr

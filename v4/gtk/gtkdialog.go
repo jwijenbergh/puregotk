@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
@@ -440,15 +441,23 @@ func (c *Dialog) SetGoPointer(ptr uintptr) {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *Dialog) ConnectClose(cb func(Dialog)) uint32 {
+func (x *Dialog) ConnectClose(cb *func(Dialog)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Dialog{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
 }
 
 // Emitted when an action widget is clicked.
@@ -457,15 +466,23 @@ func (x *Dialog) ConnectClose(cb func(Dialog)) uint32 {
 // delete event, and when [method@Gtk.Dialog.response] is called.
 // On a delete event, the response ID is %GTK_RESPONSE_DELETE_EVENT.
 // Otherwise, it depends on which action widget was clicked.
-func (x *Dialog) ConnectResponse(cb func(Dialog, int)) uint32 {
+func (x *Dialog) ConnectResponse(cb *func(Dialog, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := Dialog{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ResponseIdVarp)
+		cbFn(fa, ResponseIdVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -78,15 +79,23 @@ func (c *ThreadedSocketService) SetGoPointer(ptr uintptr) {
 // incoming connection. This thread is dedicated to handling
 // @connection and may perform blocking IO. The signal handler need
 // not return until the connection is closed.
-func (x *ThreadedSocketService) ConnectRun(cb func(ThreadedSocketService, uintptr, uintptr) bool) uint32 {
+func (x *ThreadedSocketService) ConnectRun(cb *func(ThreadedSocketService, uintptr, uintptr) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "run", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ConnectionVarp uintptr, SourceObjectVarp uintptr) bool {
 		fa := ThreadedSocketService{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ConnectionVarp, SourceObjectVarp)
+		return cbFn(fa, ConnectionVarp, SourceObjectVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "run", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "run", cbRefPtr)
 }
 
 func init() {

@@ -3,7 +3,7 @@ package gobject
 import (
 	"reflect"
 
-	"github.com/jwijenbergh/purego"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 )
 
 type Ptr interface {
@@ -36,17 +36,12 @@ func (o Object) Cast(v Ptr) {
 	v.SetGoPointer(o.GoPointer())
 }
 
-func (o Object) ConnectSignal(signal string, cb func()) uint32 {
-	return SignalConnect(o.GoPointer(), signal, purego.NewCallback(cb))
+func (o Object) ConnectSignal(signal string, cb *func()) uint32 {
+	return SignalConnect(o.GoPointer(), signal, glib.NewCallback(cb))
 }
 
 func (o Object) DisconnectSignal(handler uint32) {
 	SignalHandlerDisconnect(&o, handler)
-}
-
-// NewCallback is an alias to purego.NewCallback
-func NewCallback(fn interface{}) uintptr {
-	return purego.NewCallback(fn)
 }
 
 // types

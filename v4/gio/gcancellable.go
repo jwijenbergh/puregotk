@@ -105,9 +105,9 @@ var xCancellableConnect func(uintptr, uintptr, uintptr, uintptr) uint32
 // @callback is invoked.  This lifts a restriction in place for
 // earlier GLib versions which now makes it easier to write cleanup
 // code that unconditionally invokes e.g. g_cancellable_cancel().
-func (x *Cancellable) Connect(CallbackVar gobject.Callback, DataVar uintptr, DataDestroyFuncVar glib.DestroyNotify) uint32 {
+func (x *Cancellable) Connect(CallbackVar *gobject.Callback, DataVar uintptr, DataDestroyFuncVar *glib.DestroyNotify) uint32 {
 
-	cret := xCancellableConnect(x.GoPointer(), purego.NewCallback(CallbackVar), DataVar, purego.NewCallback(DataDestroyFuncVar))
+	cret := xCancellableConnect(x.GoPointer(), glib.NewCallback(CallbackVar), DataVar, glib.NewCallback(DataDestroyFuncVar))
 	return cret
 }
 
@@ -344,15 +344,23 @@ func (c *Cancellable) SetGoPointer(ptr uintptr) {
 // Note that the cancelled signal is emitted in the thread that
 // the user cancelled from, which may be the main thread. So, the
 // cancellable signal should not do something that can block.
-func (x *Cancellable) ConnectCancelled(cb func(Cancellable)) uint32 {
+func (x *Cancellable) ConnectCancelled(cb *func(Cancellable)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "cancelled", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Cancellable{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "cancelled", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "cancelled", cbRefPtr)
 }
 
 var xCancellableGetCurrent func() uintptr

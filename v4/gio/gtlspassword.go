@@ -141,9 +141,9 @@ var xTlsPasswordSetValueFull func(uintptr, uintptr, int, uintptr)
 // @length if using a nul-terminated password, and @length will be
 // calculated automatically. (Note that the terminating nul is not
 // considered part of the password in this case.)
-func (x *TlsPassword) SetValueFull(ValueVar uintptr, LengthVar int, DestroyVar glib.DestroyNotify) {
+func (x *TlsPassword) SetValueFull(ValueVar uintptr, LengthVar int, DestroyVar *glib.DestroyNotify) {
 
-	xTlsPasswordSetValueFull(x.GoPointer(), ValueVar, LengthVar, purego.NewCallback(DestroyVar))
+	xTlsPasswordSetValueFull(x.GoPointer(), ValueVar, LengthVar, glib.NewCallback(DestroyVar))
 
 }
 

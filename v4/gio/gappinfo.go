@@ -103,7 +103,7 @@ type AppInfo interface {
 	GetSupportedTypes() []string
 	Launch(FilesVar *glib.List, ContextVar *AppLaunchContext) bool
 	LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContext) bool
-	LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	LaunchUrisFinish(ResultVar AsyncResult) bool
 	RemoveSupportsType(ContentTypeVar string) bool
 	SetAsDefaultForExtension(ExtensionVar string) bool
@@ -331,9 +331,9 @@ func (x *AppInfoBase) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchContex
 // waits for activation in case of D-Bus–activated applications and also provides
 // extended error information for sandboxed applications, see notes for
 // g_app_info_launch_default_for_uri_async().
-func (x *AppInfoBase) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *AppInfoBase) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGAppInfoLaunchUrisAsync(x.GoPointer(), UrisVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGAppInfoLaunchUrisAsync(x.GoPointer(), UrisVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -596,9 +596,9 @@ var xAppInfoLaunchDefaultForUriAsync func(string, uintptr, uintptr, uintptr, uin
 // This is also useful if you want to be sure that the D-Bus–activated
 // applications are really started before termination and if you are interested
 // in receiving error information from their activation.
-func AppInfoLaunchDefaultForUriAsync(UriVar string, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func AppInfoLaunchDefaultForUriAsync(UriVar string, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xAppInfoLaunchDefaultForUriAsync(UriVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xAppInfoLaunchDefaultForUriAsync(UriVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -736,15 +736,23 @@ func (c *AppLaunchContext) SetGoPointer(ptr uintptr) {
 // The #GAppLaunchContext::launch-failed signal is emitted when a #GAppInfo launch
 // fails. The startup notification id is provided, so that the launcher
 // can cancel the startup notification.
-func (x *AppLaunchContext) ConnectLaunchFailed(cb func(AppLaunchContext, string)) uint32 {
+func (x *AppLaunchContext) ConnectLaunchFailed(cb *func(AppLaunchContext, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "launch-failed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StartupNotifyIdVarp string) {
 		fa := AppLaunchContext{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, StartupNotifyIdVarp)
+		cbFn(fa, StartupNotifyIdVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "launch-failed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "launch-failed", cbRefPtr)
 }
 
 // The #GAppLaunchContext::launch-started signal is emitted when a #GAppInfo is
@@ -761,15 +769,23 @@ func (x *AppLaunchContext) ConnectLaunchFailed(cb func(AppLaunchContext, string)
 //
 // It is guaranteed that this signal is followed by either a #GAppLaunchContext::launched or
 // #GAppLaunchContext::launch-failed signal.
-func (x *AppLaunchContext) ConnectLaunchStarted(cb func(AppLaunchContext, uintptr, uintptr)) uint32 {
+func (x *AppLaunchContext) ConnectLaunchStarted(cb *func(AppLaunchContext, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "launch-started", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, InfoVarp uintptr, PlatformDataVarp uintptr) {
 		fa := AppLaunchContext{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, InfoVarp, PlatformDataVarp)
+		cbFn(fa, InfoVarp, PlatformDataVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "launch-started", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "launch-started", cbRefPtr)
 }
 
 // The #GAppLaunchContext::launched signal is emitted when a #GAppInfo is successfully
@@ -781,15 +797,23 @@ func (x *AppLaunchContext) ConnectLaunchStarted(cb func(AppLaunchContext, uintpt
 // Since 2.72 the `pid` may be 0 if the process id wasn't known (for
 // example if the process was launched via D-Bus). The `pid` may not be
 // set at all in subsequent releases.
-func (x *AppLaunchContext) ConnectLaunched(cb func(AppLaunchContext, uintptr, uintptr)) uint32 {
+func (x *AppLaunchContext) ConnectLaunched(cb *func(AppLaunchContext, uintptr, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "launched", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, InfoVarp uintptr, PlatformDataVarp uintptr) {
 		fa := AppLaunchContext{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, InfoVarp, PlatformDataVarp)
+		cbFn(fa, InfoVarp, PlatformDataVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "launched", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "launched", cbRefPtr)
 }
 
 func init() {

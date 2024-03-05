@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -87,15 +88,23 @@ func (c *CellRendererText) SetGoPointer(ptr uintptr) {
 //
 // It is the responsibility of the application to update the model
 // and store @new_text at the position indicated by @path.
-func (x *CellRendererText) ConnectEdited(cb func(CellRendererText, string, string)) uint32 {
+func (x *CellRendererText) ConnectEdited(cb *func(CellRendererText, string, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "edited", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PathVarp string, NewTextVarp string) {
 		fa := CellRendererText{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PathVarp, NewTextVarp)
+		cbFn(fa, PathVarp, NewTextVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "edited", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "edited", cbRefPtr)
 }
 
 func init() {

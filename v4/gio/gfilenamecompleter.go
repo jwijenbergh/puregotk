@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -83,15 +84,23 @@ func (c *FilenameCompleter) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the file name completion information comes available.
-func (x *FilenameCompleter) ConnectGotCompletionData(cb func(FilenameCompleter)) uint32 {
+func (x *FilenameCompleter) ConnectGotCompletionData(cb *func(FilenameCompleter)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "got-completion-data", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FilenameCompleter{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "got-completion-data", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "got-completion-data", cbRefPtr)
 }
 
 func init() {

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -152,15 +153,23 @@ func (c *Filter) SetGoPointer(ptr uintptr) {
 // Depending on the @change parameter, not all items need
 // to be checked, but only some. Refer to the [enum@Gtk.FilterChange]
 // documentation for details.
-func (x *Filter) ConnectChanged(cb func(Filter, FilterChange)) uint32 {
+func (x *Filter) ConnectChanged(cb *func(Filter, FilterChange)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ChangeVarp FilterChange) {
 		fa := Filter{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ChangeVarp)
+		cbFn(fa, ChangeVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "changed", cbRefPtr)
 }
 
 func init() {

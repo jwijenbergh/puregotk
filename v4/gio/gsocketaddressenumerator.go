@@ -83,9 +83,9 @@ var xSocketAddressEnumeratorNextAsync func(uintptr, uintptr, uintptr, uintptr)
 // g_socket_address_enumerator_next_finish() to get the result.
 //
 // It is an error to call this multiple times before the previous callback has finished.
-func (x *SocketAddressEnumerator) NextAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *SocketAddressEnumerator) NextAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xSocketAddressEnumeratorNextAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xSocketAddressEnumeratorNextAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

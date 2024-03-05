@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -288,9 +290,9 @@ var xMenuButtonSetCreatePopupFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // Using this function will not reset the menu widget attached to
 // @menu_button. Instead, this can be done manually in @func.
-func (x *MenuButton) SetCreatePopupFunc(FuncVar MenuButtonCreatePopupFunc, UserDataVar uintptr, DestroyNotifyVar glib.DestroyNotify) {
+func (x *MenuButton) SetCreatePopupFunc(FuncVar *MenuButtonCreatePopupFunc, UserDataVar uintptr, DestroyNotifyVar *glib.DestroyNotify) {
 
-	xMenuButtonSetCreatePopupFunc(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar, purego.NewCallback(DestroyNotifyVar))
+	xMenuButtonSetCreatePopupFunc(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar, glib.NewCallback(DestroyNotifyVar))
 
 }
 
@@ -416,15 +418,23 @@ func (c *MenuButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkMenuButton` is an action signal and
 // emitting it causes the button to pop up its menu.
-func (x *MenuButton) ConnectActivate(cb func(MenuButton)) uint32 {
+func (x *MenuButton) ConnectActivate(cb *func(MenuButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := MenuButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

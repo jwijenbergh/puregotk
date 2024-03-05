@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -609,7 +610,7 @@ type TreeModel interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	FilterNew(RootVar *TreePath) *TreeModelBase
-	Foreach(FuncVar TreeModelForeachFunc, UserDataVar uintptr)
+	Foreach(FuncVar *TreeModelForeachFunc, UserDataVar uintptr)
 	Get(IterVar *TreeIter, varArgs ...interface{})
 	GetColumnType(IndexVar int) []interface{}
 	GetFlags() TreeModelFlags
@@ -668,9 +669,9 @@ func (x *TreeModelBase) FilterNew(RootVar *TreePath) *TreeModelBase {
 //
 // If @func returns %TRUE, then the tree ceases to be walked,
 // and gtk_tree_model_foreach() returns.
-func (x *TreeModelBase) Foreach(FuncVar TreeModelForeachFunc, UserDataVar uintptr) {
+func (x *TreeModelBase) Foreach(FuncVar *TreeModelForeachFunc, UserDataVar uintptr) {
 
-	XGtkTreeModelForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	XGtkTreeModelForeach(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar)
 
 }
 

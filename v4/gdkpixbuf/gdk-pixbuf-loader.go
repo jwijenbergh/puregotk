@@ -309,15 +309,23 @@ func (c *PixbufLoader) SetGoPointer(ptr uintptr) {
 // After this signal is emitted, applications can call
 // gdk_pixbuf_loader_get_pixbuf() to fetch the partially-loaded
 // pixbuf.
-func (x *PixbufLoader) ConnectAreaPrepared(cb func(PixbufLoader)) uint32 {
+func (x *PixbufLoader) ConnectAreaPrepared(cb *func(PixbufLoader)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "area-prepared", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "area-prepared", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "area-prepared", cbRefPtr)
 }
 
 // This signal is emitted when a significant area of the image being
@@ -328,15 +336,23 @@ func (x *PixbufLoader) ConnectAreaPrepared(cb func(PixbufLoader)) uint32 {
 //
 // Applications can use this signal to know when to repaint
 // areas of an image that is being loaded.
-func (x *PixbufLoader) ConnectAreaUpdated(cb func(PixbufLoader, int, int, int, int)) uint32 {
+func (x *PixbufLoader) ConnectAreaUpdated(cb *func(PixbufLoader, int, int, int, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "area-updated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, XVarp int, YVarp int, WidthVarp int, HeightVarp int) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, XVarp, YVarp, WidthVarp, HeightVarp)
+		cbFn(fa, XVarp, YVarp, WidthVarp, HeightVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "area-updated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "area-updated", cbRefPtr)
 }
 
 // This signal is emitted when gdk_pixbuf_loader_close() is called.
@@ -344,15 +360,23 @@ func (x *PixbufLoader) ConnectAreaUpdated(cb func(PixbufLoader, int, int, int, i
 // It can be used by different parts of an application to receive
 // notification when an image loader is closed by the code that
 // drives it.
-func (x *PixbufLoader) ConnectClosed(cb func(PixbufLoader)) uint32 {
+func (x *PixbufLoader) ConnectClosed(cb *func(PixbufLoader)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "closed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "closed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "closed", cbRefPtr)
 }
 
 // This signal is emitted when the pixbuf loader has been fed the
@@ -362,15 +386,23 @@ func (x *PixbufLoader) ConnectClosed(cb func(PixbufLoader)) uint32 {
 // Applications can call gdk_pixbuf_loader_set_size() in response
 // to this signal to set the desired size to which the image
 // should be scaled.
-func (x *PixbufLoader) ConnectSizePrepared(cb func(PixbufLoader, int, int)) uint32 {
+func (x *PixbufLoader) ConnectSizePrepared(cb *func(PixbufLoader, int, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "size-prepared", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, WidthVarp int, HeightVarp int) {
 		fa := PixbufLoader{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, WidthVarp, HeightVarp)
+		cbFn(fa, WidthVarp, HeightVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "size-prepared", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "size-prepared", cbRefPtr)
 }
 
 func init() {

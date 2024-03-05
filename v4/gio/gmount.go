@@ -42,9 +42,9 @@ type Mount interface {
 	SetGoPointer(uintptr)
 	CanEject() bool
 	CanUnmount() bool
-	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectFinish(ResultVar AsyncResult) bool
-	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectWithOperationFinish(ResultVar AsyncResult) bool
 	GetDefaultLocation() *FileBase
 	GetDrive() *DriveBase
@@ -55,16 +55,16 @@ type Mount interface {
 	GetSymbolicIcon() *IconBase
 	GetUuid() string
 	GetVolume() *VolumeBase
-	GuessContentType(ForceRescanVar bool, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	GuessContentType(ForceRescanVar bool, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	GuessContentTypeFinish(ResultVar AsyncResult) uintptr
 	GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) uintptr
 	IsShadowed() bool
-	Remount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Remount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	RemountFinish(ResultVar AsyncResult) bool
 	Shadow()
-	Unmount(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Unmount(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	UnmountFinish(ResultVar AsyncResult) bool
-	UnmountWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	UnmountWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	UnmountWithOperationFinish(ResultVar AsyncResult) bool
 	Unshadow()
 }
@@ -97,9 +97,9 @@ func (x *MountBase) CanUnmount() bool {
 // Ejects a mount. This is an asynchronous operation, and is
 // finished by calling g_mount_eject_finish() with the @mount
 // and #GAsyncResult data returned in the @callback.
-func (x *MountBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -119,9 +119,9 @@ func (x *MountBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
 // Ejects a mount. This is an asynchronous operation, and is
 // finished by calling g_mount_eject_with_operation_finish() with the @mount
 // and #GAsyncResult data returned in the @callback.
-func (x *MountBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -262,9 +262,9 @@ func (x *MountBase) GetVolume() *VolumeBase {
 // g_mount_guess_content_type_sync() for the synchronous version), and
 // is finished by calling g_mount_guess_content_type_finish() with the
 // @mount and #GAsyncResult data returned in the @callback.
-func (x *MountBase) GuessContentType(ForceRescanVar bool, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) GuessContentType(ForceRescanVar bool, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountGuessContentType(x.GoPointer(), ForceRescanVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountGuessContentType(x.GoPointer(), ForceRescanVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -342,9 +342,9 @@ func (x *MountBase) IsShadowed() bool {
 // take affect. While this is semantically equivalent with unmounting
 // and then remounting not all backends might need to actually be
 // unmounted.
-func (x *MountBase) Remount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) Remount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountRemount(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountRemount(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -374,9 +374,9 @@ func (x *MountBase) Shadow() {
 // Unmounts a mount. This is an asynchronous operation, and is
 // finished by calling g_mount_unmount_finish() with the @mount
 // and #GAsyncResult data returned in the @callback.
-func (x *MountBase) Unmount(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) Unmount(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountUnmount(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountUnmount(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -396,9 +396,9 @@ func (x *MountBase) UnmountFinish(ResultVar AsyncResult) (bool, error) {
 // Unmounts a mount. This is an asynchronous operation, and is
 // finished by calling g_mount_unmount_with_operation_finish() with the @mount
 // and #GAsyncResult data returned in the @callback.
-func (x *MountBase) UnmountWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *MountBase) UnmountWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGMountUnmountWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGMountUnmountWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

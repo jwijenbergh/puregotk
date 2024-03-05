@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -285,15 +286,23 @@ func (c *Animation) SetGoPointer(ptr uintptr) {
 
 // This signal is emitted when the animation has been completed, either on its
 // own or via calling [method@Animation.skip].
-func (x *Animation) ConnectDone(cb func(Animation)) uint32 {
+func (x *Animation) ConnectDone(cb *func(Animation)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "done", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Animation{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "done", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "done", cbRefPtr)
 }
 
 func init() {

@@ -63,9 +63,9 @@ var xEnumeratePrinters func(uintptr, uintptr, uintptr, bool)
 // Calls a function for all `GtkPrinter`s.
 //
 // If @func returns %TRUE, the enumeration is stopped.
-func EnumeratePrinters(FuncVar PrinterFunc, DataVar uintptr, DestroyVar glib.DestroyNotify, WaitVar bool) {
+func EnumeratePrinters(FuncVar *PrinterFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify, WaitVar bool) {
 
-	xEnumeratePrinters(purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyVar), WaitVar)
+	xEnumeratePrinters(glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar), WaitVar)
 
 }
 
@@ -361,15 +361,23 @@ func (c *Printer) SetGoPointer(ptr uintptr) {
 //
 // The @success parameter indicates if the information was
 // actually obtained.
-func (x *Printer) ConnectDetailsAcquired(cb func(Printer, bool)) uint32 {
+func (x *Printer) ConnectDetailsAcquired(cb *func(Printer, bool)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "details-acquired", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, SuccessVarp bool) {
 		fa := Printer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, SuccessVarp)
+		cbFn(fa, SuccessVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "details-acquired", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "details-acquired", cbRefPtr)
 }
 
 func init() {

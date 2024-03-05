@@ -212,10 +212,10 @@ var xNewPixbufFromData func(uintptr, Colorspace, bool, int, int, int, int, uintp
 // it is its responsibility to free the pixel array.
 //
 // See also: [ctor@GdkPixbuf.Pixbuf.new_from_bytes]
-func NewPixbufFromData(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
+func NewPixbufFromData(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar *PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
 	var cls *Pixbuf
 
-	cret := xNewPixbufFromData(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, purego.NewCallback(DestroyFnVar), DestroyFnDataVar)
+	cret := xNewPixbufFromData(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, glib.NewCallback(DestroyFnVar), DestroyFnDataVar)
 
 	if cret == 0 {
 		return nil
@@ -1138,9 +1138,9 @@ var xPixbufSaveToCallback func(uintptr, uintptr, uintptr, string, **glib.Error, 
 // function generates.
 //
 // See [method@GdkPixbuf.Pixbuf.save] for more details.
-func (x *Pixbuf) SaveToCallback(SaveFuncVar PixbufSaveFunc, UserDataVar uintptr, TypeVar string, ErrorVar **glib.Error, varArgs ...interface{}) bool {
+func (x *Pixbuf) SaveToCallback(SaveFuncVar *PixbufSaveFunc, UserDataVar uintptr, TypeVar string, ErrorVar **glib.Error, varArgs ...interface{}) bool {
 
-	cret := xPixbufSaveToCallback(x.GoPointer(), purego.NewCallback(SaveFuncVar), UserDataVar, TypeVar, ErrorVar, varArgs...)
+	cret := xPixbufSaveToCallback(x.GoPointer(), glib.NewCallback(SaveFuncVar), UserDataVar, TypeVar, ErrorVar, varArgs...)
 	return cret
 }
 
@@ -1154,10 +1154,10 @@ var xPixbufSaveToCallbackv func(uintptr, uintptr, uintptr, string, []string, []s
 // If @error is set, `FALSE` will be returned.
 //
 // See [method@GdkPixbuf.Pixbuf.save_to_callback] for more details.
-func (x *Pixbuf) SaveToCallbackv(SaveFuncVar PixbufSaveFunc, UserDataVar uintptr, TypeVar string, OptionKeysVar []string, OptionValuesVar []string) (bool, error) {
+func (x *Pixbuf) SaveToCallbackv(SaveFuncVar *PixbufSaveFunc, UserDataVar uintptr, TypeVar string, OptionKeysVar []string, OptionValuesVar []string) (bool, error) {
 	var cerr *glib.Error
 
-	cret := xPixbufSaveToCallbackv(x.GoPointer(), purego.NewCallback(SaveFuncVar), UserDataVar, TypeVar, OptionKeysVar, OptionValuesVar, &cerr)
+	cret := xPixbufSaveToCallbackv(x.GoPointer(), glib.NewCallback(SaveFuncVar), UserDataVar, TypeVar, OptionKeysVar, OptionValuesVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -1195,9 +1195,9 @@ var xPixbufSaveToStreamAsync func(uintptr, uintptr, string, uintptr, uintptr, ui
 //
 // You can then call gdk_pixbuf_save_to_stream_finish() to get the result of
 // the operation.
-func (x *Pixbuf) SaveToStreamAsync(StreamVar *gio.OutputStream, TypeVar string, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr, varArgs ...interface{}) {
+func (x *Pixbuf) SaveToStreamAsync(StreamVar *gio.OutputStream, TypeVar string, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr, varArgs ...interface{}) {
 
-	xPixbufSaveToStreamAsync(x.GoPointer(), StreamVar.GoPointer(), TypeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar, varArgs...)
+	xPixbufSaveToStreamAsync(x.GoPointer(), StreamVar.GoPointer(), TypeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, varArgs...)
 
 }
 
@@ -1231,9 +1231,9 @@ var xPixbufSaveToStreamvAsync func(uintptr, uintptr, string, uintptr, uintptr, u
 //
 // You can then call gdk_pixbuf_save_to_stream_finish() to get the result of
 // the operation.
-func (x *Pixbuf) SaveToStreamvAsync(StreamVar *gio.OutputStream, TypeVar string, OptionKeysVar uintptr, OptionValuesVar uintptr, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Pixbuf) SaveToStreamvAsync(StreamVar *gio.OutputStream, TypeVar string, OptionKeysVar uintptr, OptionValuesVar uintptr, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPixbufSaveToStreamvAsync(x.GoPointer(), StreamVar.GoPointer(), TypeVar, OptionKeysVar, OptionValuesVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPixbufSaveToStreamvAsync(x.GoPointer(), StreamVar.GoPointer(), TypeVar, OptionKeysVar, OptionValuesVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1403,9 +1403,9 @@ func (x *Pixbuf) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancellab
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *Pixbuf) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Pixbuf) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1461,9 +1461,9 @@ var xPixbufGetFileInfoAsync func(string, uintptr, uintptr, uintptr)
 // When the operation is finished, @callback will be called in the
 // main thread. You can then call gdk_pixbuf_get_file_info_finish() to
 // get the result of the operation.
-func PixbufGetFileInfoAsync(FilenameVar string, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func PixbufGetFileInfoAsync(FilenameVar string, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPixbufGetFileInfoAsync(FilenameVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPixbufGetFileInfoAsync(FilenameVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1528,9 +1528,9 @@ var xPixbufNewFromStreamAsync func(uintptr, uintptr, uintptr, uintptr)
 // When the operation is finished, @callback will be called in the main thread.
 // You can then call gdk_pixbuf_new_from_stream_finish() to get the result of
 // the operation.
-func PixbufNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func PixbufNewFromStreamAsync(StreamVar *gio.InputStream, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPixbufNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPixbufNewFromStreamAsync(StreamVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -1543,9 +1543,9 @@ var xPixbufNewFromStreamAtScaleAsync func(uintptr, int, int, bool, uintptr, uint
 //
 // When the operation is finished, @callback will be called in the main thread.
 // You can then call gdk_pixbuf_new_from_stream_finish() to get the result of the operation.
-func PixbufNewFromStreamAtScaleAsync(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func PixbufNewFromStreamAtScaleAsync(StreamVar *gio.InputStream, WidthVar int, HeightVar int, PreserveAspectRatioVar bool, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPixbufNewFromStreamAtScaleAsync(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPixbufNewFromStreamAtScaleAsync(StreamVar.GoPointer(), WidthVar, HeightVar, PreserveAspectRatioVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

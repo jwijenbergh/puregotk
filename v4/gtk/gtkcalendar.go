@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -220,63 +222,103 @@ func (c *Calendar) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted when the user selects a day.
-func (x *Calendar) ConnectDaySelected(cb func(Calendar)) uint32 {
+func (x *Calendar) ConnectDaySelected(cb *func(Calendar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "day-selected", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "day-selected", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "day-selected", cbRefPtr)
 }
 
 // Emitted when the user switched to the next month.
-func (x *Calendar) ConnectNextMonth(cb func(Calendar)) uint32 {
+func (x *Calendar) ConnectNextMonth(cb *func(Calendar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "next-month", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "next-month", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "next-month", cbRefPtr)
 }
 
 // Emitted when user switched to the next year.
-func (x *Calendar) ConnectNextYear(cb func(Calendar)) uint32 {
+func (x *Calendar) ConnectNextYear(cb *func(Calendar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "next-year", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "next-year", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "next-year", cbRefPtr)
 }
 
 // Emitted when the user switched to the previous month.
-func (x *Calendar) ConnectPrevMonth(cb func(Calendar)) uint32 {
+func (x *Calendar) ConnectPrevMonth(cb *func(Calendar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "prev-month", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "prev-month", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "prev-month", cbRefPtr)
 }
 
 // Emitted when user switched to the previous year.
-func (x *Calendar) ConnectPrevYear(cb func(Calendar)) uint32 {
+func (x *Calendar) ConnectPrevYear(cb *func(Calendar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "prev-year", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Calendar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "prev-year", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "prev-year", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

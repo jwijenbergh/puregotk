@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -189,27 +190,43 @@ func (c *EntryBuffer) SetGoPointer(ptr uintptr) {
 //
 // If you want access to the text after the text has been modified,
 // use %G_CONNECT_AFTER.
-func (x *EntryBuffer) ConnectDeletedText(cb func(EntryBuffer, uint, uint)) uint32 {
+func (x *EntryBuffer) ConnectDeletedText(cb *func(EntryBuffer, uint, uint)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "deleted-text", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PositionVarp uint, NCharsVarp uint) {
 		fa := EntryBuffer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PositionVarp, NCharsVarp)
+		cbFn(fa, PositionVarp, NCharsVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "deleted-text", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "deleted-text", cbRefPtr)
 }
 
 // This signal is emitted after text is inserted into the buffer.
-func (x *EntryBuffer) ConnectInsertedText(cb func(EntryBuffer, uint, string, uint)) uint32 {
+func (x *EntryBuffer) ConnectInsertedText(cb *func(EntryBuffer, uint, string, uint)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "inserted-text", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PositionVarp uint, CharsVarp string, NCharsVarp uint) {
 		fa := EntryBuffer{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PositionVarp, CharsVarp, NCharsVarp)
+		cbFn(fa, PositionVarp, CharsVarp, NCharsVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "inserted-text", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "inserted-text", cbRefPtr)
 }
 
 func init() {

@@ -25,9 +25,9 @@ var xContentDeserializeAsync func(uintptr, string, []interface{}, int, uintptr, 
 //
 // When the operation is finished, @callback will be called. You must then
 // call [func@Gdk.content_deserialize_finish] to get the result of the operation.
-func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	xContentDeserializeAsync(StreamVar.GoPointer(), MimeTypeVar, TypeVar, IoPriorityVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xContentDeserializeAsync(StreamVar.GoPointer(), MimeTypeVar, TypeVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -48,9 +48,9 @@ func ContentDeserializeFinish(ResultVar gio.AsyncResult, ValueVar *gobject.Value
 var xContentRegisterDeserializer func(string, []interface{}, uintptr, uintptr, uintptr)
 
 // Registers a function to deserialize object of a given type.
-func ContentRegisterDeserializer(MimeTypeVar string, TypeVar []interface{}, DeserializeVar ContentDeserializeFunc, DataVar uintptr, NotifyVar glib.DestroyNotify) {
+func ContentRegisterDeserializer(MimeTypeVar string, TypeVar []interface{}, DeserializeVar *ContentDeserializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
-	xContentRegisterDeserializer(MimeTypeVar, TypeVar, purego.NewCallback(DeserializeVar), DataVar, purego.NewCallback(NotifyVar))
+	xContentRegisterDeserializer(MimeTypeVar, TypeVar, glib.NewCallback(DeserializeVar), DataVar, glib.NewCallback(NotifyVar))
 
 }
 
@@ -194,9 +194,9 @@ func (x *ContentDeserializer) ReturnSuccess() {
 var xContentDeserializerSetTaskData func(uintptr, uintptr, uintptr)
 
 // Associate data with the current deserialization operation.
-func (x *ContentDeserializer) SetTaskData(DataVar uintptr, NotifyVar glib.DestroyNotify) {
+func (x *ContentDeserializer) SetTaskData(DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
-	xContentDeserializerSetTaskData(x.GoPointer(), DataVar, purego.NewCallback(NotifyVar))
+	xContentDeserializerSetTaskData(x.GoPointer(), DataVar, glib.NewCallback(NotifyVar))
 
 }
 

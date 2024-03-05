@@ -352,10 +352,10 @@ var xDesktopAppInfoLaunchUrisAsManager func(uintptr, *glib.List, uintptr, glib.S
 // If application launching occurs via some other mechanism (eg: D-Bus
 // activation) then @spawn_flags, @user_setup, @user_setup_data,
 // @pid_callback and @pid_callback_data are ignored.
-func (x *DesktopAppInfo) LaunchUrisAsManager(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr) (bool, error) {
+func (x *DesktopAppInfo) LaunchUrisAsManager(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar *glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar *DesktopAppLaunchCallback, PidCallbackDataVar uintptr) (bool, error) {
 	var cerr *glib.Error
 
-	cret := xDesktopAppInfoLaunchUrisAsManager(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, &cerr)
+	cret := xDesktopAppInfoLaunchUrisAsManager(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, glib.NewCallback(UserSetupVar), UserSetupDataVar, glib.NewCallback(PidCallbackVar), PidCallbackDataVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -371,10 +371,10 @@ var xDesktopAppInfoLaunchUrisAsManagerWithFds func(uintptr, *glib.List, uintptr,
 //
 // If application launching occurs via some non-spawn mechanism (e.g. D-Bus
 // activation) then @stdin_fd, @stdout_fd and @stderr_fd are ignored.
-func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
+func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchContextVar *AppLaunchContext, SpawnFlagsVar glib.SpawnFlags, UserSetupVar *glib.SpawnChildSetupFunc, UserSetupDataVar uintptr, PidCallbackVar *DesktopAppLaunchCallback, PidCallbackDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
 	var cerr *glib.Error
 
-	cret := xDesktopAppInfoLaunchUrisAsManagerWithFds(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, purego.NewCallback(UserSetupVar), UserSetupDataVar, purego.NewCallback(PidCallbackVar), PidCallbackDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
+	cret := xDesktopAppInfoLaunchUrisAsManagerWithFds(x.GoPointer(), UrisVar, LaunchContextVar.GoPointer(), SpawnFlagsVar, glib.NewCallback(UserSetupVar), UserSetupDataVar, glib.NewCallback(PidCallbackVar), PidCallbackDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
 	if cerr == nil {
 		return cret, nil
 	}
@@ -609,9 +609,9 @@ func (x *DesktopAppInfo) LaunchUris(UrisVar *glib.List, ContextVar *AppLaunchCon
 // waits for activation in case of D-Bus–activated applications and also provides
 // extended error information for sandboxed applications, see notes for
 // g_app_info_launch_default_for_uri_async().
-func (x *DesktopAppInfo) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DesktopAppInfo) LaunchUrisAsync(UrisVar *glib.List, ContextVar *AppLaunchContext, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGAppInfoLaunchUrisAsync(x.GoPointer(), UrisVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGAppInfoLaunchUrisAsync(x.GoPointer(), UrisVar, ContextVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

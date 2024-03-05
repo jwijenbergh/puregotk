@@ -214,9 +214,9 @@ var xSignalAddEmissionHook func(uint, glib.Quark, uintptr, uintptr, uintptr) uin
 // Adds an emission hook for a signal, which will get called for any emission
 // of that signal, independent of the instance. This is possible only
 // for signals which don't have %G_SIGNAL_NO_HOOKS flag set.
-func SignalAddEmissionHook(SignalIdVar uint, DetailVar glib.Quark, HookFuncVar SignalEmissionHook, HookDataVar uintptr, DataDestroyVar glib.DestroyNotify) uint32 {
+func SignalAddEmissionHook(SignalIdVar uint, DetailVar glib.Quark, HookFuncVar *SignalEmissionHook, HookDataVar uintptr, DataDestroyVar *glib.DestroyNotify) uint32 {
 
-	cret := xSignalAddEmissionHook(SignalIdVar, DetailVar, purego.NewCallback(HookFuncVar), HookDataVar, purego.NewCallback(DataDestroyVar))
+	cret := xSignalAddEmissionHook(SignalIdVar, DetailVar, glib.NewCallback(HookFuncVar), HookDataVar, glib.NewCallback(DataDestroyVar))
 	return cret
 }
 
@@ -269,9 +269,9 @@ var xSignalConnectData func(uintptr, string, uintptr, uintptr, uintptr, ConnectF
 // which will be called when the signal handler is disconnected and no longer
 // used. Specify @connect_flags if you need `..._after()` or
 // `..._swapped()` variants of this function.
-func SignalConnectData(InstanceVar *Object, DetailedSignalVar string, CHandlerVar Callback, DataVar uintptr, DestroyDataVar ClosureNotify, ConnectFlagsVar ConnectFlags) uint32 {
+func SignalConnectData(InstanceVar *Object, DetailedSignalVar string, CHandlerVar *Callback, DataVar uintptr, DestroyDataVar *ClosureNotify, ConnectFlagsVar ConnectFlags) uint32 {
 
-	cret := xSignalConnectData(InstanceVar.GoPointer(), DetailedSignalVar, purego.NewCallback(CHandlerVar), DataVar, purego.NewCallback(DestroyDataVar), ConnectFlagsVar)
+	cret := xSignalConnectData(InstanceVar.GoPointer(), DetailedSignalVar, glib.NewCallback(CHandlerVar), DataVar, glib.NewCallback(DestroyDataVar), ConnectFlagsVar)
 	return cret
 }
 
@@ -572,9 +572,9 @@ var xSignalNew func(string, []interface{}, SignalFlags, uint, uintptr, uintptr, 
 // If @c_marshaller is non-%NULL, you need to also specify a va_marshaller
 // using g_signal_set_va_marshaller() or the generic va_marshaller will
 // be used.
-func SignalNew(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassOffsetVar uint, AccumulatorVar SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
+func SignalNew(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassOffsetVar uint, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
 
-	cret := xSignalNew(SignalNameVar, ItypeVar, SignalFlagsVar, ClassOffsetVar, purego.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
+	cret := xSignalNew(SignalNameVar, ItypeVar, SignalFlagsVar, ClassOffsetVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
 	return cret
 }
 
@@ -596,9 +596,9 @@ var xSignalNewClassHandler func(string, []interface{}, SignalFlags, uintptr, uin
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewClassHandler(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassHandlerVar Callback, AccumulatorVar SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
+func SignalNewClassHandler(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassHandlerVar *Callback, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
 
-	cret := xSignalNewClassHandler(SignalNameVar, ItypeVar, SignalFlagsVar, purego.NewCallback(ClassHandlerVar), purego.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
+	cret := xSignalNewClassHandler(SignalNameVar, ItypeVar, SignalFlagsVar, glib.NewCallback(ClassHandlerVar), glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
 	return cret
 }
 
@@ -610,9 +610,9 @@ var xSignalNewValist func(string, []interface{}, SignalFlags, *Closure, uintptr,
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewValist(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ArgsVar []interface{}) uint {
+func SignalNewValist(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ArgsVar []interface{}) uint {
 
-	cret := xSignalNewValist(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, purego.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ArgsVar)
+	cret := xSignalNewValist(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ArgsVar)
 	return cret
 }
 
@@ -624,9 +624,9 @@ var xSignalNewv func(string, []interface{}, SignalFlags, *Closure, uintptr, uint
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewv(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ParamTypesVar uintptr) uint {
+func SignalNewv(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ParamTypesVar uintptr) uint {
 
-	cret := xSignalNewv(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, purego.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ParamTypesVar)
+	cret := xSignalNewv(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ParamTypesVar)
 	return cret
 }
 
@@ -655,9 +655,9 @@ var xSignalOverrideClassHandler func(string, []interface{}, uintptr)
 // See g_signal_chain_from_overridden() and
 // g_signal_chain_from_overridden_handler() for how to chain up to the
 // parent class closure from inside the overridden one.
-func SignalOverrideClassHandler(SignalNameVar string, InstanceTypeVar []interface{}, ClassHandlerVar Callback) {
+func SignalOverrideClassHandler(SignalNameVar string, InstanceTypeVar []interface{}, ClassHandlerVar *Callback) {
 
-	xSignalOverrideClassHandler(SignalNameVar, InstanceTypeVar, purego.NewCallback(ClassHandlerVar))
+	xSignalOverrideClassHandler(SignalNameVar, InstanceTypeVar, glib.NewCallback(ClassHandlerVar))
 
 }
 

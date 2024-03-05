@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -331,15 +334,23 @@ func (c *InfoBar) SetGoPointer(ptr uintptr) {
 // The ::close signal is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is the Escape key.
-func (x *InfoBar) ConnectClose(cb func(InfoBar)) uint32 {
+func (x *InfoBar) ConnectClose(cb *func(InfoBar)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := InfoBar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
 }
 
 // Emitted when an action widget is clicked.
@@ -347,15 +358,23 @@ func (x *InfoBar) ConnectClose(cb func(InfoBar)) uint32 {
 // The signal is also emitted when the application programmer
 // calls [method@Gtk.InfoBar.response]. The @response_id depends
 // on which action widget was clicked.
-func (x *InfoBar) ConnectResponse(cb func(InfoBar, int)) uint32 {
+func (x *InfoBar) ConnectResponse(cb *func(InfoBar, int)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
 		fa := InfoBar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ResponseIdVarp)
+		cbFn(fa, ResponseIdVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "response", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -43,10 +43,10 @@ var xNewCustomFilter func(uintptr, uintptr, uintptr) uintptr
 //
 // If the filter func changes its filtering behavior,
 // gtk_filter_changed() needs to be called.
-func NewCustomFilter(MatchFuncVar CustomFilterFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) *CustomFilter {
+func NewCustomFilter(MatchFuncVar *CustomFilterFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) *CustomFilter {
 	var cls *CustomFilter
 
-	cret := xNewCustomFilter(purego.NewCallback(MatchFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	cret := xNewCustomFilter(glib.NewCallback(MatchFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 	if cret == 0 {
 		return nil
@@ -67,9 +67,9 @@ var xCustomFilterSetFilterFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // If a previous function was set, its @user_destroy will be
 // called now.
-func (x *CustomFilter) SetFilterFunc(MatchFuncVar CustomFilterFunc, UserDataVar uintptr, UserDestroyVar glib.DestroyNotify) {
+func (x *CustomFilter) SetFilterFunc(MatchFuncVar *CustomFilterFunc, UserDataVar uintptr, UserDestroyVar *glib.DestroyNotify) {
 
-	xCustomFilterSetFilterFunc(x.GoPointer(), purego.NewCallback(MatchFuncVar), UserDataVar, purego.NewCallback(UserDestroyVar))
+	xCustomFilterSetFilterFunc(x.GoPointer(), glib.NewCallback(MatchFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
 
 }
 

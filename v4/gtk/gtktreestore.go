@@ -477,9 +477,9 @@ func (x *TreeStore) FilterNew(RootVar *TreePath) *TreeModelBase {
 //
 // If @func returns %TRUE, then the tree ceases to be walked,
 // and gtk_tree_model_foreach() returns.
-func (x *TreeStore) Foreach(FuncVar TreeModelForeachFunc, UserDataVar uintptr) {
+func (x *TreeStore) Foreach(FuncVar *TreeModelForeachFunc, UserDataVar uintptr) {
 
-	XGtkTreeModelForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	XGtkTreeModelForeach(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -811,9 +811,9 @@ func (x *TreeStore) HasDefaultSortFunc() bool {
 // This means that once the model  has been sorted, it can’t go back to the
 // default state. In this case, when the current sort column id of @sortable
 // is %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, the model will be unsorted.
-func (x *TreeStore) SetDefaultSortFunc(SortFuncVar TreeIterCompareFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeStore) SetDefaultSortFunc(SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkTreeSortableSetDefaultSortFunc(x.GoPointer(), purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	XGtkTreeSortableSetDefaultSortFunc(x.GoPointer(), glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -835,9 +835,9 @@ func (x *TreeStore) SetSortColumnId(SortColumnIdVar int, OrderVar SortType) {
 // Sets the comparison function used when sorting to be @sort_func. If the
 // current sort column id of @sortable is the same as @sort_column_id, then
 // the model will sort using this function.
-func (x *TreeStore) SetSortFunc(SortColumnIdVar int, SortFuncVar TreeIterCompareFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeStore) SetSortFunc(SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkTreeSortableSetSortFunc(x.GoPointer(), SortColumnIdVar, purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	XGtkTreeSortableSetSortFunc(x.GoPointer(), SortColumnIdVar, glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 

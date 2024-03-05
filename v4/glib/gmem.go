@@ -70,9 +70,9 @@ var xClearPointer func(uintptr, uintptr)
 // compatible with being called as `GDestroyNotify` using the standard calling
 // convention for the platform that GLib was compiled for; otherwise the program
 // will experience undefined behaviour.
-func ClearPointer(PpVar uintptr, DestroyVar DestroyNotify) {
+func ClearPointer(PpVar uintptr, DestroyVar *DestroyNotify) {
 
-	xClearPointer(PpVar, purego.NewCallback(DestroyVar))
+	xClearPointer(PpVar, NewCallback(DestroyVar))
 
 }
 

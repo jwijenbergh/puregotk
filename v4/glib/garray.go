@@ -115,9 +115,9 @@ var xNewBytesWithFreeFunc func(uintptr, uint, uintptr, uintptr) *Bytes
 // been called to indicate that the bytes is no longer in use.
 //
 // @data may be %NULL if @size is 0.
-func NewBytesWithFreeFunc(DataVar uintptr, SizeVar uint, FreeFuncVar DestroyNotify, UserDataVar uintptr) *Bytes {
+func NewBytesWithFreeFunc(DataVar uintptr, SizeVar uint, FreeFuncVar *DestroyNotify, UserDataVar uintptr) *Bytes {
 
-	cret := xNewBytesWithFreeFunc(DataVar, SizeVar, purego.NewCallback(FreeFuncVar), UserDataVar)
+	cret := xNewBytesWithFreeFunc(DataVar, SizeVar, NewCallback(FreeFuncVar), UserDataVar)
 	return cret
 }
 
@@ -400,9 +400,9 @@ var xPtrArrayFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
 // @equal_func is called with the element from the array as its first parameter,
 // and @needle as its second parameter. If @equal_func is %NULL, pointer
 // equality is used.
-func PtrArrayFindWithEqualFunc(HaystackVar uintptr, NeedleVar uintptr, EqualFuncVar EqualFunc, IndexVar uint) bool {
+func PtrArrayFindWithEqualFunc(HaystackVar uintptr, NeedleVar uintptr, EqualFuncVar *EqualFunc, IndexVar uint) bool {
 
-	cret := xPtrArrayFindWithEqualFunc(HaystackVar, NeedleVar, purego.NewCallback(EqualFuncVar), IndexVar)
+	cret := xPtrArrayFindWithEqualFunc(HaystackVar, NeedleVar, NewCallback(EqualFuncVar), IndexVar)
 	return cret
 }
 

@@ -31,7 +31,7 @@ type ProxyResolver interface {
 	SetGoPointer(uintptr)
 	IsSupported() bool
 	Lookup(UriVar string, CancellableVar *Cancellable) uintptr
-	LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	LookupFinish(ResultVar AsyncResult) uintptr
 }
 type ProxyResolverBase struct {
@@ -83,9 +83,9 @@ func (x *ProxyResolverBase) Lookup(UriVar string, CancellableVar *Cancellable) (
 
 // Asynchronous lookup of proxy. See g_proxy_resolver_lookup() for more
 // details.
-func (x *ProxyResolverBase) LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *ProxyResolverBase) LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGProxyResolverLookupAsync(x.GoPointer(), UriVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGProxyResolverLookupAsync(x.GoPointer(), UriVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

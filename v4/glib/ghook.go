@@ -128,9 +128,9 @@ func (x *HookList) InvokeCheck(MayRecurseVar bool) {
 var xHookListMarshal func(uintptr, bool, uintptr, uintptr)
 
 // Calls a function on each valid #GHook.
-func (x *HookList) Marshal(MayRecurseVar bool, MarshallerVar HookMarshaller, MarshalDataVar uintptr) {
+func (x *HookList) Marshal(MayRecurseVar bool, MarshallerVar *HookMarshaller, MarshalDataVar uintptr) {
 
-	xHookListMarshal(x.GoPointer(), MayRecurseVar, purego.NewCallback(MarshallerVar), MarshalDataVar)
+	xHookListMarshal(x.GoPointer(), MayRecurseVar, NewCallback(MarshallerVar), MarshalDataVar)
 
 }
 
@@ -138,9 +138,9 @@ var xHookListMarshalCheck func(uintptr, bool, uintptr, uintptr)
 
 // Calls a function on each valid #GHook and destroys it if the
 // function returns %FALSE.
-func (x *HookList) MarshalCheck(MayRecurseVar bool, MarshallerVar HookCheckMarshaller, MarshalDataVar uintptr) {
+func (x *HookList) MarshalCheck(MayRecurseVar bool, MarshallerVar *HookCheckMarshaller, MarshalDataVar uintptr) {
 
-	xHookListMarshalCheck(x.GoPointer(), MayRecurseVar, purego.NewCallback(MarshallerVar), MarshalDataVar)
+	xHookListMarshalCheck(x.GoPointer(), MayRecurseVar, NewCallback(MarshallerVar), MarshalDataVar)
 
 }
 

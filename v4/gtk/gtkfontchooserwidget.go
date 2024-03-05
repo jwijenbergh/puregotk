@@ -336,9 +336,9 @@ func (x *FontChooserWidget) GetShowPreviewEntry() bool {
 
 // Adds a filter function that decides which fonts to display
 // in the font chooser.
-func (x *FontChooserWidget) SetFilterFunc(FilterVar FontFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *FontChooserWidget) SetFilterFunc(FilterVar *FontFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkFontChooserSetFilterFunc(x.GoPointer(), purego.NewCallback(FilterVar), UserDataVar, purego.NewCallback(DestroyVar))
+	XGtkFontChooserSetFilterFunc(x.GoPointer(), glib.NewCallback(FilterVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 

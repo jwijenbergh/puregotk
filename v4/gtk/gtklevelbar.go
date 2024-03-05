@@ -2,8 +2,11 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -311,15 +314,23 @@ func (c *LevelBar) SetGoPointer(ptr uintptr) {
 // The signal supports detailed connections; you can connect to the
 // detailed signal "changed::x" in order to only receive callbacks when
 // the value of offset "x" changes.
-func (x *LevelBar) ConnectOffsetChanged(cb func(LevelBar, string)) uint32 {
+func (x *LevelBar) ConnectOffsetChanged(cb *func(LevelBar, string)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "offset-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, NameVarp string) {
 		fa := LevelBar{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, NameVarp)
+		cbFn(fa, NameVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "offset-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "offset-changed", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

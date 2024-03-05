@@ -83,9 +83,9 @@ var xResolverLookupByAddressAsync func(uintptr, uintptr, uintptr, uintptr, uintp
 // Begins asynchronously reverse-resolving @address to determine its
 // associated hostname, and eventually calls @callback, which must
 // call g_resolver_lookup_by_address_finish() to get the final result.
-func (x *Resolver) LookupByAddressAsync(AddressVar *InetAddress, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Resolver) LookupByAddressAsync(AddressVar *InetAddress, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xResolverLookupByAddressAsync(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xResolverLookupByAddressAsync(x.GoPointer(), AddressVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -150,9 +150,9 @@ var xResolverLookupByNameAsync func(uintptr, string, uintptr, uintptr, uintptr)
 // associated IP address(es), and eventually calls @callback, which
 // must call g_resolver_lookup_by_name_finish() to get the result.
 // See g_resolver_lookup_by_name() for more details.
-func (x *Resolver) LookupByNameAsync(HostnameVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Resolver) LookupByNameAsync(HostnameVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xResolverLookupByNameAsync(x.GoPointer(), HostnameVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xResolverLookupByNameAsync(x.GoPointer(), HostnameVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -197,9 +197,9 @@ var xResolverLookupByNameWithFlagsAsync func(uintptr, string, ResolverNameLookup
 // associated IP address(es), and eventually calls @callback, which
 // must call g_resolver_lookup_by_name_with_flags_finish() to get the result.
 // See g_resolver_lookup_by_name() for more details.
-func (x *Resolver) LookupByNameWithFlagsAsync(HostnameVar string, FlagsVar ResolverNameLookupFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Resolver) LookupByNameWithFlagsAsync(HostnameVar string, FlagsVar ResolverNameLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xResolverLookupByNameWithFlagsAsync(x.GoPointer(), HostnameVar, FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xResolverLookupByNameWithFlagsAsync(x.GoPointer(), HostnameVar, FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -251,9 +251,9 @@ var xResolverLookupRecordsAsync func(uintptr, string, ResolverRecordType, uintpt
 // @rrname, and eventually calls @callback, which must call
 // g_resolver_lookup_records_finish() to get the final result. See
 // g_resolver_lookup_records() for more details.
-func (x *Resolver) LookupRecordsAsync(RrnameVar string, RecordTypeVar ResolverRecordType, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Resolver) LookupRecordsAsync(RrnameVar string, RecordTypeVar ResolverRecordType, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xResolverLookupRecordsAsync(x.GoPointer(), RrnameVar, RecordTypeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xResolverLookupRecordsAsync(x.GoPointer(), RrnameVar, RecordTypeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -319,9 +319,9 @@ var xResolverLookupServiceAsync func(uintptr, string, string, string, uintptr, u
 // @callback, which must call g_resolver_lookup_service_finish() to
 // get the final result. See g_resolver_lookup_service() for more
 // details.
-func (x *Resolver) LookupServiceAsync(ServiceVar string, ProtocolVar string, DomainVar string, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Resolver) LookupServiceAsync(ServiceVar string, ProtocolVar string, DomainVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xResolverLookupServiceAsync(x.GoPointer(), ServiceVar, ProtocolVar, DomainVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xResolverLookupServiceAsync(x.GoPointer(), ServiceVar, ProtocolVar, DomainVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -371,15 +371,23 @@ func (c *Resolver) SetGoPointer(ptr uintptr) {
 
 // Emitted when the resolver notices that the system resolver
 // configuration has changed.
-func (x *Resolver) ConnectReload(cb func(Resolver)) uint32 {
+func (x *Resolver) ConnectReload(cb *func(Resolver)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "reload", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Resolver{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "reload", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "reload", cbRefPtr)
 }
 
 var xResolverFreeAddresses func(*glib.List)

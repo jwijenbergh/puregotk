@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -59,15 +60,23 @@ func (c *GestureClick) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a button or touch press happens.
-func (x *GestureClick) ConnectPressed(cb func(GestureClick, int, float64, float64)) uint32 {
+func (x *GestureClick) ConnectPressed(cb *func(GestureClick, int, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "pressed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, NPressVarp, XVarp, YVarp)
+		cbFn(fa, NPressVarp, XVarp, YVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "pressed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "pressed", cbRefPtr)
 }
 
 // Emitted when a button or touch is released.
@@ -76,27 +85,43 @@ func (x *GestureClick) ConnectPressed(cb func(GestureClick, int, float64, float6
 // this event, note that [signal@Gtk.GestureClick::stopped] may
 // have been emitted between the press and its release, @n_press
 // will only start over at the next press.
-func (x *GestureClick) ConnectReleased(cb func(GestureClick, int, float64, float64)) uint32 {
+func (x *GestureClick) ConnectReleased(cb *func(GestureClick, int, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "released", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, NPressVarp, XVarp, YVarp)
+		cbFn(fa, NPressVarp, XVarp, YVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "released", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "released", cbRefPtr)
 }
 
 // Emitted whenever any time/distance threshold has been exceeded.
-func (x *GestureClick) ConnectStopped(cb func(GestureClick)) uint32 {
+func (x *GestureClick) ConnectStopped(cb *func(GestureClick)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "stopped", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "stopped", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "stopped", cbRefPtr)
 }
 
 // Emitted whenever the gesture receives a release
@@ -105,15 +130,23 @@ func (x *GestureClick) ConnectStopped(cb func(GestureClick)) uint32 {
 // Due to implicit grabs, this can only happen on situations
 // where input is grabbed elsewhere mid-press or the pressed
 // widget voluntarily relinquishes its implicit grab.
-func (x *GestureClick) ConnectUnpairedRelease(cb func(GestureClick, float64, float64, uint, uintptr)) uint32 {
+func (x *GestureClick) ConnectUnpairedRelease(cb *func(GestureClick, float64, float64, uint, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "unpaired-release", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64, ButtonVarp uint, SequenceVarp uintptr) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, XVarp, YVarp, ButtonVarp, SequenceVarp)
+		cbFn(fa, XVarp, YVarp, ButtonVarp, SequenceVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "unpaired-release", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "unpaired-release", cbRefPtr)
 }
 
 func init() {

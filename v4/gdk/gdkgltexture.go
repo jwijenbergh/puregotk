@@ -35,10 +35,10 @@ var xNewGLTexture func(uintptr, uint, int, int, uintptr, uintptr) uintptr
 // Note that the GL texture must not be modified until @destroy is called,
 // which will happen when the GdkTexture object is finalized, or due to
 // an explicit call of [method@Gdk.GLTexture.release].
-func NewGLTexture(ContextVar *GLContext, IdVar uint, WidthVar int, HeightVar int, DestroyVar glib.DestroyNotify, DataVar uintptr) *GLTexture {
+func NewGLTexture(ContextVar *GLContext, IdVar uint, WidthVar int, HeightVar int, DestroyVar *glib.DestroyNotify, DataVar uintptr) *GLTexture {
 	var cls *GLTexture
 
-	cret := xNewGLTexture(ContextVar.GoPointer(), IdVar, WidthVar, HeightVar, purego.NewCallback(DestroyVar), DataVar)
+	cret := xNewGLTexture(ContextVar.GoPointer(), IdVar, WidthVar, HeightVar, glib.NewCallback(DestroyVar), DataVar)
 
 	if cret == 0 {
 		return nil
@@ -276,9 +276,9 @@ func (x *GLTexture) Load(SizeVar int, TypeVar string, CancellableVar *gio.Cancel
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *GLTexture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *GLTexture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
-	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -328,15 +329,23 @@ func (c *Range) SetGoPointer(ptr uintptr) {
 
 // Emitted before clamping a value, to give the application a
 // chance to adjust the bounds.
-func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) uint32 {
+func (x *Range) ConnectAdjustBounds(cb *func(Range, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "adjust-bounds", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ValueVarp float64) {
 		fa := Range{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ValueVarp)
+		cbFn(fa, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "adjust-bounds", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "adjust-bounds", cbRefPtr)
 }
 
 // Emitted when a scroll action is performed on a range.
@@ -351,41 +360,65 @@ func (x *Range) ConnectAdjustBounds(cb func(Range, float64)) uint32 {
 // the ::change-value signal is responsible for clamping the value
 // to the desired number of decimal digits; the default GTK
 // handler clamps the value based on [property@Gtk.Range:round-digits].
-func (x *Range) ConnectChangeValue(cb func(Range, ScrollType, float64) bool) uint32 {
+func (x *Range) ConnectChangeValue(cb *func(Range, ScrollType, float64) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "change-value", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ScrollVarp ScrollType, ValueVarp float64) bool {
 		fa := Range{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, ScrollVarp, ValueVarp)
+		return cbFn(fa, ScrollVarp, ValueVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "change-value", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "change-value", cbRefPtr)
 }
 
 // Virtual function that moves the slider.
 //
 // Used for keybindings.
-func (x *Range) ConnectMoveSlider(cb func(Range, ScrollType)) uint32 {
+func (x *Range) ConnectMoveSlider(cb *func(Range, ScrollType)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "move-slider", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StepVarp ScrollType) {
 		fa := Range{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, StepVarp)
+		cbFn(fa, StepVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "move-slider", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "move-slider", cbRefPtr)
 }
 
 // Emitted when the range value changes.
-func (x *Range) ConnectValueChanged(cb func(Range)) uint32 {
+func (x *Range) ConnectValueChanged(cb *func(Range)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Range{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "value-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "value-changed", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

@@ -26,9 +26,9 @@ var xClearList func(**List, uintptr)
 // Clears a pointer to a #GList, freeing it and, optionally, freeing its elements using @destroy.
 //
 // @list_ptr must be a valid pointer. If @list_ptr points to a null #GList, this does nothing.
-func ClearList(ListPtrVar **List, DestroyVar DestroyNotify) {
+func ClearList(ListPtrVar **List, DestroyVar *DestroyNotify) {
 
-	xClearList(ListPtrVar, purego.NewCallback(DestroyVar))
+	xClearList(ListPtrVar, NewCallback(DestroyVar))
 
 }
 

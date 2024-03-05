@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
@@ -338,9 +340,9 @@ var xAssistantSetForwardPageFunc func(uintptr, uintptr, uintptr, uintptr)
 // Setting @page_func to %NULL will make the assistant to
 // use the default forward function, which just goes to the
 // next visible page.
-func (x *Assistant) SetForwardPageFunc(PageFuncVar AssistantPageFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *Assistant) SetForwardPageFunc(PageFuncVar *AssistantPageFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xAssistantSetForwardPageFunc(x.GoPointer(), purego.NewCallback(PageFuncVar), DataVar, purego.NewCallback(DestroyVar))
+	xAssistantSetForwardPageFunc(x.GoPointer(), glib.NewCallback(PageFuncVar), DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -415,53 +417,85 @@ func (c *Assistant) SetGoPointer(ptr uintptr) {
 // %GTK_ASSISTANT_PAGE_PROGRESS after the confirmation page and handle
 // this operation within the [signal@Gtk.Assistant::prepare] signal of
 // the progress page.
-func (x *Assistant) ConnectApply(cb func(Assistant)) uint32 {
+func (x *Assistant) ConnectApply(cb *func(Assistant)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "apply", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
 }
 
 // Emitted when then the cancel button is clicked.
-func (x *Assistant) ConnectCancel(cb func(Assistant)) uint32 {
+func (x *Assistant) ConnectCancel(cb *func(Assistant)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "cancel", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "cancel", cbRefPtr)
 }
 
 // Emitted either when the close button of a summary page is clicked,
 // or when the apply button in the last page in the flow (of type
 // %GTK_ASSISTANT_PAGE_CONFIRM) is clicked.
-func (x *Assistant) ConnectClose(cb func(Assistant)) uint32 {
+func (x *Assistant) ConnectClose(cb *func(Assistant)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "close", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "close", cbRefPtr)
 }
 
 // The action signal for the Escape binding.
-func (x *Assistant) ConnectEscape(cb func(Assistant)) uint32 {
+func (x *Assistant) ConnectEscape(cb *func(Assistant)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "escape", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "escape", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "escape", cbRefPtr)
 }
 
 // Emitted when a new page is set as the assistant's current page,
@@ -469,15 +503,23 @@ func (x *Assistant) ConnectEscape(cb func(Assistant)) uint32 {
 //
 // A handler for this signal can do any preparations which are
 // necessary before showing @page.
-func (x *Assistant) ConnectPrepare(cb func(Assistant, uintptr)) uint32 {
+func (x *Assistant) ConnectPrepare(cb *func(Assistant, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "prepare", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, PageVarp uintptr) {
 		fa := Assistant{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, PageVarp)
+		cbFn(fa, PageVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "prepare", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "prepare", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

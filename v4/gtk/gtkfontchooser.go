@@ -47,7 +47,7 @@ type FontChooser interface {
 	GetLevel() FontChooserLevel
 	GetPreviewText() string
 	GetShowPreviewEntry() bool
-	SetFilterFunc(FilterVar FontFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify)
+	SetFilterFunc(FilterVar *FontFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify)
 	SetFont(FontnameVar string)
 	SetFontDesc(FontDescVar *pango.FontDescription)
 	SetFontMap(FontmapVar *pango.FontMap)
@@ -200,9 +200,9 @@ func (x *FontChooserBase) GetShowPreviewEntry() bool {
 
 // Adds a filter function that decides which fonts to display
 // in the font chooser.
-func (x *FontChooserBase) SetFilterFunc(FilterVar FontFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *FontChooserBase) SetFilterFunc(FilterVar *FontFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkFontChooserSetFilterFunc(x.GoPointer(), purego.NewCallback(FilterVar), UserDataVar, purego.NewCallback(DestroyVar))
+	XGtkFontChooserSetFilterFunc(x.GoPointer(), glib.NewCallback(FilterVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 

@@ -63,9 +63,9 @@ type Volume interface {
 	SetGoPointer(uintptr)
 	CanEject() bool
 	CanMount() bool
-	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectFinish(ResultVar AsyncResult) bool
-	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	EjectWithOperationFinish(ResultVar AsyncResult) bool
 	EnumerateIdentifiers() []string
 	GetActivationRoot() *FileBase
@@ -77,7 +77,7 @@ type Volume interface {
 	GetSortKey() string
 	GetSymbolicIcon() *IconBase
 	GetUuid() string
-	Mount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr)
+	Mount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	MountFinish(ResultVar AsyncResult) bool
 	ShouldAutomount() bool
 }
@@ -110,9 +110,9 @@ func (x *VolumeBase) CanMount() bool {
 // Ejects a volume. This is an asynchronous operation, and is
 // finished by calling g_volume_eject_finish() with the @volume
 // and #GAsyncResult returned in the @callback.
-func (x *VolumeBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *VolumeBase) Eject(FlagsVar MountUnmountFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGVolumeEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGVolumeEject(x.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -132,9 +132,9 @@ func (x *VolumeBase) EjectFinish(ResultVar AsyncResult) (bool, error) {
 // Ejects a volume. This is an asynchronous operation, and is
 // finished by calling g_volume_eject_with_operation_finish() with the @volume
 // and #GAsyncResult data returned in the @callback.
-func (x *VolumeBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *VolumeBase) EjectWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGVolumeEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGVolumeEjectWithOperation(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -294,9 +294,9 @@ func (x *VolumeBase) GetUuid() string {
 // Mounts a volume. This is an asynchronous operation, and is
 // finished by calling g_volume_mount_finish() with the @volume
 // and #GAsyncResult returned in the @callback.
-func (x *VolumeBase) Mount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *VolumeBase) Mount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	XGVolumeMount(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	XGVolumeMount(x.GoPointer(), FlagsVar, MountOperationVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

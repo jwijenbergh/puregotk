@@ -36,9 +36,9 @@ var xQueueClearFull func(uintptr, uintptr)
 
 // Convenience method, which frees all the memory used by a #GQueue,
 // and calls the provided @free_func on each item in the #GQueue.
-func (x *Queue) ClearFull(FreeFuncVar DestroyNotify) {
+func (x *Queue) ClearFull(FreeFuncVar *DestroyNotify) {
 
-	xQueueClearFull(x.GoPointer(), purego.NewCallback(FreeFuncVar))
+	xQueueClearFull(x.GoPointer(), NewCallback(FreeFuncVar))
 
 }
 
@@ -80,9 +80,9 @@ var xQueueFindCustom func(uintptr, uintptr, uintptr) *List
 // which should return 0 when the desired element is found. The function
 // takes two gconstpointer arguments, the #GQueue element's data as the
 // first argument and the given user data as the second argument.
-func (x *Queue) FindCustom(DataVar uintptr, FuncVar CompareFunc) *List {
+func (x *Queue) FindCustom(DataVar uintptr, FuncVar *CompareFunc) *List {
 
-	cret := xQueueFindCustom(x.GoPointer(), DataVar, purego.NewCallback(FuncVar))
+	cret := xQueueFindCustom(x.GoPointer(), DataVar, NewCallback(FuncVar))
 	return cret
 }
 
@@ -93,9 +93,9 @@ var xQueueForeach func(uintptr, uintptr, uintptr)
 //
 // It is safe for @func to remove the element from @queue, but it must
 // not modify any part of the queue after that element.
-func (x *Queue) Foreach(FuncVar Func, UserDataVar uintptr) {
+func (x *Queue) Foreach(FuncVar *Func, UserDataVar uintptr) {
 
-	xQueueForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xQueueForeach(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -120,9 +120,9 @@ var xQueueFreeFull func(uintptr, uintptr)
 //
 // @free_func should not modify the queue (eg, by removing the freed
 // element from it).
-func (x *Queue) FreeFull(FreeFuncVar DestroyNotify) {
+func (x *Queue) FreeFull(FreeFuncVar *DestroyNotify) {
 
-	xQueueFreeFull(x.GoPointer(), purego.NewCallback(FreeFuncVar))
+	xQueueFreeFull(x.GoPointer(), NewCallback(FreeFuncVar))
 
 }
 
@@ -205,9 +205,9 @@ func (x *Queue) InsertBeforeLink(SiblingVar *List, LinkVar *List) {
 var xQueueInsertSorted func(uintptr, uintptr, uintptr, uintptr)
 
 // Inserts @data into @queue using @func to determine the new position.
-func (x *Queue) InsertSorted(DataVar uintptr, FuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *Queue) InsertSorted(DataVar uintptr, FuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xQueueInsertSorted(x.GoPointer(), DataVar, purego.NewCallback(FuncVar), UserDataVar)
+	xQueueInsertSorted(x.GoPointer(), DataVar, NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -421,9 +421,9 @@ func (x *Queue) Reverse() {
 var xQueueSort func(uintptr, uintptr, uintptr)
 
 // Sorts @queue using @compare_func.
-func (x *Queue) Sort(CompareFuncVar CompareDataFunc, UserDataVar uintptr) {
+func (x *Queue) Sort(CompareFuncVar *CompareDataFunc, UserDataVar uintptr) {
 
-	xQueueSort(x.GoPointer(), purego.NewCallback(CompareFuncVar), UserDataVar)
+	xQueueSort(x.GoPointer(), NewCallback(CompareFuncVar), UserDataVar)
 
 }
 

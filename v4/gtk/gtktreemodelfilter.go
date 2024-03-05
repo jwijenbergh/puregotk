@@ -214,9 +214,9 @@ var xTreeModelFilterSetModifyFunc func(uintptr, int, uintptr, uintptr, uintptr, 
 //
 // Note that gtk_tree_model_filter_set_modify_func()
 // can only be called once for a given filter model.
-func (x *TreeModelFilter) SetModifyFunc(NColumnsVar int, TypesVar uintptr, FuncVar TreeModelFilterModifyFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeModelFilter) SetModifyFunc(NColumnsVar int, TypesVar uintptr, FuncVar *TreeModelFilterModifyFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xTreeModelFilterSetModifyFunc(x.GoPointer(), NColumnsVar, TypesVar, purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyVar))
+	xTreeModelFilterSetModifyFunc(x.GoPointer(), NColumnsVar, TypesVar, glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -276,9 +276,9 @@ var xTreeModelFilterSetVisibleFunc func(uintptr, uintptr, uintptr, uintptr)
 // Note that gtk_tree_model_filter_set_visible_func() or
 // gtk_tree_model_filter_set_visible_column() can only be called
 // once for a given filter model.
-func (x *TreeModelFilter) SetVisibleFunc(FuncVar TreeModelFilterVisibleFunc, DataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *TreeModelFilter) SetVisibleFunc(FuncVar *TreeModelFilterVisibleFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xTreeModelFilterSetVisibleFunc(x.GoPointer(), purego.NewCallback(FuncVar), DataVar, purego.NewCallback(DestroyVar))
+	xTreeModelFilterSetVisibleFunc(x.GoPointer(), glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -345,9 +345,9 @@ func (x *TreeModelFilter) FilterNew(RootVar *TreePath) *TreeModelBase {
 //
 // If @func returns %TRUE, then the tree ceases to be walked,
 // and gtk_tree_model_foreach() returns.
-func (x *TreeModelFilter) Foreach(FuncVar TreeModelForeachFunc, UserDataVar uintptr) {
+func (x *TreeModelFilter) Foreach(FuncVar *TreeModelForeachFunc, UserDataVar uintptr) {
 
-	XGtkTreeModelForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	XGtkTreeModelForeach(x.GoPointer(), glib.NewCallback(FuncVar), UserDataVar)
 
 }
 

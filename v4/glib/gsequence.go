@@ -35,9 +35,9 @@ var xSequenceForeach func(uintptr, uintptr, uintptr)
 
 // Calls @func for each item in the sequence passing @user_data
 // to the function. @func must not modify the sequence itself.
-func (x *Sequence) Foreach(FuncVar Func, UserDataVar uintptr) {
+func (x *Sequence) Foreach(FuncVar *Func, UserDataVar uintptr) {
 
-	xSequenceForeach(x.GoPointer(), purego.NewCallback(FuncVar), UserDataVar)
+	xSequenceForeach(x.GoPointer(), NewCallback(FuncVar), UserDataVar)
 
 }
 
@@ -105,9 +105,9 @@ var xSequenceInsertSorted func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
 // Note that when adding a large amount of data to a #GSequence,
 // it is more efficient to do unsorted insertions and then call
 // g_sequence_sort() or g_sequence_sort_iter().
-func (x *Sequence) InsertSorted(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) InsertSorted(DataVar uintptr, CmpFuncVar *CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceInsertSorted(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	cret := xSequenceInsertSorted(x.GoPointer(), DataVar, NewCallback(CmpFuncVar), CmpDataVar)
 	return cret
 }
 
@@ -125,9 +125,9 @@ var xSequenceInsertSortedIter func(uintptr, uintptr, uintptr, uintptr) *Sequence
 // Note that when adding a large amount of data to a #GSequence,
 // it is more efficient to do unsorted insertions and then call
 // g_sequence_sort() or g_sequence_sort_iter().
-func (x *Sequence) InsertSortedIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) InsertSortedIter(DataVar uintptr, IterCmpVar *SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceInsertSortedIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	cret := xSequenceInsertSortedIter(x.GoPointer(), DataVar, NewCallback(IterCmpVar), CmpDataVar)
 	return cret
 }
 
@@ -159,9 +159,9 @@ var xSequenceLookup func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
 //
 // This function will fail if the data contained in the sequence is
 // unsorted.
-func (x *Sequence) Lookup(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) Lookup(DataVar uintptr, CmpFuncVar *CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceLookup(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	cret := xSequenceLookup(x.GoPointer(), DataVar, NewCallback(CmpFuncVar), CmpDataVar)
 	return cret
 }
 
@@ -177,9 +177,9 @@ var xSequenceLookupIter func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
 //
 // This function will fail if the data contained in the sequence is
 // unsorted.
-func (x *Sequence) LookupIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) LookupIter(DataVar uintptr, IterCmpVar *SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceLookupIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	cret := xSequenceLookupIter(x.GoPointer(), DataVar, NewCallback(IterCmpVar), CmpDataVar)
 	return cret
 }
 
@@ -207,9 +207,9 @@ var xSequenceSearch func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
 //
 // This function will fail if the data contained in the sequence is
 // unsorted.
-func (x *Sequence) Search(DataVar uintptr, CmpFuncVar CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) Search(DataVar uintptr, CmpFuncVar *CompareDataFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceSearch(x.GoPointer(), DataVar, purego.NewCallback(CmpFuncVar), CmpDataVar)
+	cret := xSequenceSearch(x.GoPointer(), DataVar, NewCallback(CmpFuncVar), CmpDataVar)
 	return cret
 }
 
@@ -228,9 +228,9 @@ var xSequenceSearchIter func(uintptr, uintptr, uintptr, uintptr) *SequenceIter
 //
 // This function will fail if the data contained in the sequence is
 // unsorted.
-func (x *Sequence) SearchIter(DataVar uintptr, IterCmpVar SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
+func (x *Sequence) SearchIter(DataVar uintptr, IterCmpVar *SequenceIterCompareFunc, CmpDataVar uintptr) *SequenceIter {
 
-	cret := xSequenceSearchIter(x.GoPointer(), DataVar, purego.NewCallback(IterCmpVar), CmpDataVar)
+	cret := xSequenceSearchIter(x.GoPointer(), DataVar, NewCallback(IterCmpVar), CmpDataVar)
 	return cret
 }
 
@@ -242,9 +242,9 @@ var xSequenceSort func(uintptr, uintptr, uintptr)
 // return 0 if they are equal, a negative value if the
 // first comes before the second, and a positive value
 // if the second comes before the first.
-func (x *Sequence) Sort(CmpFuncVar CompareDataFunc, CmpDataVar uintptr) {
+func (x *Sequence) Sort(CmpFuncVar *CompareDataFunc, CmpDataVar uintptr) {
 
-	xSequenceSort(x.GoPointer(), purego.NewCallback(CmpFuncVar), CmpDataVar)
+	xSequenceSort(x.GoPointer(), NewCallback(CmpFuncVar), CmpDataVar)
 
 }
 
@@ -257,9 +257,9 @@ var xSequenceSortIter func(uintptr, uintptr, uintptr)
 // return 0 if the iterators are equal, a negative value if the first
 // iterator comes before the second, and a positive value if the second
 // iterator comes before the first.
-func (x *Sequence) SortIter(CmpFuncVar SequenceIterCompareFunc, CmpDataVar uintptr) {
+func (x *Sequence) SortIter(CmpFuncVar *SequenceIterCompareFunc, CmpDataVar uintptr) {
 
-	xSequenceSortIter(x.GoPointer(), purego.NewCallback(CmpFuncVar), CmpDataVar)
+	xSequenceSortIter(x.GoPointer(), NewCallback(CmpFuncVar), CmpDataVar)
 
 }
 

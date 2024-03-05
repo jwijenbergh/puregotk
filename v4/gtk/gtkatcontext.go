@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -89,15 +90,23 @@ func (c *ATContext) SetGoPointer(ptr uintptr) {
 
 // Emitted when the attributes of the accessible for the
 // `GtkATContext` instance change.
-func (x *ATContext) ConnectStateChange(cb func(ATContext)) uint32 {
+func (x *ATContext) ConnectStateChange(cb *func(ATContext)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "state-change", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := ATContext{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "state-change", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "state-change", cbRefPtr)
 }
 
 func init() {

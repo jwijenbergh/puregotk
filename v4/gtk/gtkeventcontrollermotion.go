@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 )
 
@@ -78,39 +79,63 @@ func (c *EventControllerMotion) SetGoPointer(ptr uintptr) {
 }
 
 // Signals that the pointer has entered the widget.
-func (x *EventControllerMotion) ConnectEnter(cb func(EventControllerMotion, float64, float64)) uint32 {
+func (x *EventControllerMotion) ConnectEnter(cb *func(EventControllerMotion, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "enter", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, XVarp, YVarp)
+		cbFn(fa, XVarp, YVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "enter", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "enter", cbRefPtr)
 }
 
 // Signals that the pointer has left the widget.
-func (x *EventControllerMotion) ConnectLeave(cb func(EventControllerMotion)) uint32 {
+func (x *EventControllerMotion) ConnectLeave(cb *func(EventControllerMotion)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "leave", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "leave", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "leave", cbRefPtr)
 }
 
 // Emitted when the pointer moves inside the widget.
-func (x *EventControllerMotion) ConnectMotion(cb func(EventControllerMotion, float64, float64)) uint32 {
+func (x *EventControllerMotion) ConnectMotion(cb *func(EventControllerMotion, float64, float64)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "motion", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64) {
 		fa := EventControllerMotion{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, XVarp, YVarp)
+		cbFn(fa, XVarp, YVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "motion", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "motion", cbRefPtr)
 }
 
 func init() {

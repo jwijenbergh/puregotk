@@ -145,9 +145,9 @@ var xFlowBoxBindModel func(uintptr, uintptr, uintptr, uintptr, uintptr)
 // Note that using a model is incompatible with the filtering and sorting
 // functionality in `GtkFlowBox`. When using a model, filtering and sorting
 // should be implemented by the model.
-func (x *FlowBox) BindModel(ModelVar gio.ListModel, CreateWidgetFuncVar FlowBoxCreateWidgetFunc, UserDataVar uintptr, UserDataFreeFuncVar glib.DestroyNotify) {
+func (x *FlowBox) BindModel(ModelVar gio.ListModel, CreateWidgetFuncVar *FlowBoxCreateWidgetFunc, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) {
 
-	xFlowBoxBindModel(x.GoPointer(), ModelVar.GoPointer(), purego.NewCallback(CreateWidgetFuncVar), UserDataVar, purego.NewCallback(UserDataFreeFuncVar))
+	xFlowBoxBindModel(x.GoPointer(), ModelVar.GoPointer(), glib.NewCallback(CreateWidgetFuncVar), UserDataVar, glib.NewCallback(UserDataFreeFuncVar))
 
 }
 
@@ -350,9 +350,9 @@ var xFlowBoxSelectedForeach func(uintptr, uintptr, uintptr)
 //
 // Note that the selection cannot be modified from within
 // this function.
-func (x *FlowBox) SelectedForeach(FuncVar FlowBoxForeachFunc, DataVar uintptr) {
+func (x *FlowBox) SelectedForeach(FuncVar *FlowBoxForeachFunc, DataVar uintptr) {
 
-	xFlowBoxSelectedForeach(x.GoPointer(), purego.NewCallback(FuncVar), DataVar)
+	xFlowBoxSelectedForeach(x.GoPointer(), glib.NewCallback(FuncVar), DataVar)
 
 }
 
@@ -390,9 +390,9 @@ var xFlowBoxSetFilterFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // Note that using a filter function is incompatible with using a model
 // (see [method@Gtk.FlowBox.bind_model]).
-func (x *FlowBox) SetFilterFunc(FilterFuncVar FlowBoxFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *FlowBox) SetFilterFunc(FilterFuncVar *FlowBoxFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xFlowBoxSetFilterFunc(x.GoPointer(), purego.NewCallback(FilterFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xFlowBoxSetFilterFunc(x.GoPointer(), glib.NewCallback(FilterFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -480,9 +480,9 @@ var xFlowBoxSetSortFunc func(uintptr, uintptr, uintptr, uintptr)
 //
 // Note that using a sort function is incompatible with using a model
 // (see [method@Gtk.FlowBox.bind_model]).
-func (x *FlowBox) SetSortFunc(SortFuncVar FlowBoxSortFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *FlowBox) SetSortFunc(SortFuncVar *FlowBoxSortFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	xFlowBoxSetSortFunc(x.GoPointer(), purego.NewCallback(SortFuncVar), UserDataVar, purego.NewCallback(DestroyVar))
+	xFlowBoxSetSortFunc(x.GoPointer(), glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 
@@ -536,27 +536,43 @@ func (c *FlowBox) SetGoPointer(ptr uintptr) {
 // Emitted when the user activates the @box.
 //
 // This is a [keybinding signal](class.SignalAction.html).
-func (x *FlowBox) ConnectActivateCursorChild(cb func(FlowBox)) uint32 {
+func (x *FlowBox) ConnectActivateCursorChild(cb *func(FlowBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate-cursor-child", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate-cursor-child", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate-cursor-child", cbRefPtr)
 }
 
 // Emitted when a child has been activated by the user.
-func (x *FlowBox) ConnectChildActivated(cb func(FlowBox, uintptr)) uint32 {
+func (x *FlowBox) ConnectChildActivated(cb *func(FlowBox, uintptr)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "child-activated", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, ChildVarp uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa, ChildVarp)
+		cbFn(fa, ChildVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "child-activated", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "child-activated", cbRefPtr)
 }
 
 // Emitted when the user initiates a cursor movement.
@@ -575,15 +591,23 @@ func (x *FlowBox) ConnectChildActivated(cb func(FlowBox, uintptr)) uint32 {
 //     move by individual children
 //   - &lt;kbd&gt;Home&lt;/kbd&gt;, &lt;kbd&gt;End&lt;/kbd&gt; move to the ends of the box
 //   - &lt;kbd&gt;PgUp&lt;/kbd&gt;, &lt;kbd&gt;PgDn&lt;/kbd&gt; move vertically by pages
-func (x *FlowBox) ConnectMoveCursor(cb func(FlowBox, MovementStep, int, bool, bool) bool) uint32 {
+func (x *FlowBox) ConnectMoveCursor(cb *func(FlowBox, MovementStep, int, bool, bool) bool) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendVarp bool, ModifyVarp bool) bool {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		return cb(fa, StepVarp, CountVarp, ExtendVarp, ModifyVarp)
+		return cbFn(fa, StepVarp, CountVarp, ExtendVarp, ModifyVarp)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "move-cursor", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
 }
 
 // Emitted to select all children of the box,
@@ -592,15 +616,23 @@ func (x *FlowBox) ConnectMoveCursor(cb func(FlowBox, MovementStep, int, bool, bo
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default bindings for this signal is &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *FlowBox) ConnectSelectAll(cb func(FlowBox)) uint32 {
+func (x *FlowBox) ConnectSelectAll(cb *func(FlowBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "select-all", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "select-all", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "select-all", cbRefPtr)
 }
 
 // Emitted when the set of selected children changes.
@@ -608,15 +640,23 @@ func (x *FlowBox) ConnectSelectAll(cb func(FlowBox)) uint32 {
 // Use [method@Gtk.FlowBox.selected_foreach] or
 // [method@Gtk.FlowBox.get_selected_children] to obtain the
 // selected children.
-func (x *FlowBox) ConnectSelectedChildrenChanged(cb func(FlowBox)) uint32 {
+func (x *FlowBox) ConnectSelectedChildrenChanged(cb *func(FlowBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "selected-children-changed", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "selected-children-changed", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "selected-children-changed", cbRefPtr)
 }
 
 // Emitted to toggle the selection of the child that has the focus.
@@ -624,15 +664,23 @@ func (x *FlowBox) ConnectSelectedChildrenChanged(cb func(FlowBox)) uint32 {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default binding for this signal is &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Space&lt;/kbd&gt;.
-func (x *FlowBox) ConnectToggleCursorChild(cb func(FlowBox)) uint32 {
+func (x *FlowBox) ConnectToggleCursorChild(cb *func(FlowBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-child", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-child", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "toggle-cursor-child", cbRefPtr)
 }
 
 // Emitted to unselect all children of the box,
@@ -641,15 +689,23 @@ func (x *FlowBox) ConnectToggleCursorChild(cb func(FlowBox)) uint32 {
 // This is a [keybinding signal](class.SignalAction.html).
 //
 // The default bindings for this signal is &lt;kbd&gt;Ctrl&lt;/kbd&gt;-&lt;kbd&gt;Shift&lt;/kbd&gt;-&lt;kbd&gt;a&lt;/kbd&gt;.
-func (x *FlowBox) ConnectUnselectAll(cb func(FlowBox)) uint32 {
+func (x *FlowBox) ConnectUnselectAll(cb *func(FlowBox)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "unselect-all", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBox{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "unselect-all", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "unselect-all", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
@@ -928,15 +984,23 @@ func (c *FlowBoxChild) SetGoPointer(ptr uintptr) {
 // but it can be used by applications for their own purposes.
 //
 // The default bindings are &lt;kbd&gt;Space&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt;.
-func (x *FlowBoxChild) ConnectActivate(cb func(FlowBoxChild)) uint32 {
+func (x *FlowBoxChild) ConnectActivate(cb *func(FlowBoxChild)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FlowBoxChild{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.

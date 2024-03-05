@@ -2,6 +2,8 @@
 package gtk
 
 import (
+	"unsafe"
+
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
@@ -158,15 +160,23 @@ func (c *FontButton) SetGoPointer(ptr uintptr) {
 //
 // The `::activate` signal on `GtkFontButton` is an action signal and
 // emitting it causes the button to present its dialog.
-func (x *FontButton) ConnectActivate(cb func(FontButton)) uint32 {
+func (x *FontButton) ConnectActivate(cb *func(FontButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FontButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "activate", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 }
 
 // Emitted when the user selects a font.
@@ -177,15 +187,23 @@ func (x *FontButton) ConnectActivate(cb func(FontButton)) uint32 {
 // Note that this signal is only emitted when the user changes the font.
 // If you need to react to programmatic font changes as well, use
 // the notify::font signal.
-func (x *FontButton) ConnectFontSet(cb func(FontButton)) uint32 {
+func (x *FontButton) ConnectFontSet(cb *func(FontButton)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "font-set", cbRefPtr)
+	}
+
 	fcb := func(clsPtr uintptr) {
 		fa := FontButton{}
 		fa.Ptr = clsPtr
+		cbFn := *cb
 
-		cb(fa)
+		cbFn(fa)
 
 	}
-	return gobject.SignalConnect(x.GoPointer(), "font-set", purego.NewCallback(fcb))
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "font-set", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
@@ -463,9 +481,9 @@ func (x *FontButton) GetShowPreviewEntry() bool {
 
 // Adds a filter function that decides which fonts to display
 // in the font chooser.
-func (x *FontButton) SetFilterFunc(FilterVar FontFilterFunc, UserDataVar uintptr, DestroyVar glib.DestroyNotify) {
+func (x *FontButton) SetFilterFunc(FilterVar *FontFilterFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
-	XGtkFontChooserSetFilterFunc(x.GoPointer(), purego.NewCallback(FilterVar), UserDataVar, purego.NewCallback(DestroyVar))
+	XGtkFontChooserSetFilterFunc(x.GoPointer(), glib.NewCallback(FilterVar), UserDataVar, glib.NewCallback(DestroyVar))
 
 }
 

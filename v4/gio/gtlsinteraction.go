@@ -114,9 +114,9 @@ var xTlsInteractionAskPasswordAsync func(uintptr, uintptr, uintptr, uintptr, uin
 // not support immediate cancellation.
 //
 // Certain implementations may not support immediate cancellation.
-func (x *TlsInteraction) AskPasswordAsync(PasswordVar *TlsPassword, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsInteraction) AskPasswordAsync(PasswordVar *TlsPassword, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsInteractionAskPasswordAsync(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsInteractionAskPasswordAsync(x.GoPointer(), PasswordVar.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -246,9 +246,9 @@ var xTlsInteractionRequestCertificateAsync func(uintptr, uintptr, TlsCertificate
 // also choose to provide a certificate from elsewhere. @callback will be called
 // when the operation completes. Alternatively the user may abort this certificate
 // request, which will usually abort the TLS connection.
-func (x *TlsInteraction) RequestCertificateAsync(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsInteraction) RequestCertificateAsync(ConnectionVar *TlsConnection, FlagsVar TlsCertificateRequestFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xTlsInteractionRequestCertificateAsync(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xTlsInteractionRequestCertificateAsync(x.GoPointer(), ConnectionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

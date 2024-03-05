@@ -86,9 +86,9 @@ var xPermissionAcquireAsync func(uintptr, uintptr, uintptr, uintptr)
 //
 // This is the first half of the asynchronous version of
 // g_permission_acquire().
-func (x *Permission) AcquireAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Permission) AcquireAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPermissionAcquireAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPermissionAcquireAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 
@@ -190,9 +190,9 @@ var xPermissionReleaseAsync func(uintptr, uintptr, uintptr, uintptr)
 //
 // This is the first half of the asynchronous version of
 // g_permission_release().
-func (x *Permission) ReleaseAsync(CancellableVar *Cancellable, CallbackVar AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Permission) ReleaseAsync(CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
-	xPermissionReleaseAsync(x.GoPointer(), CancellableVar.GoPointer(), purego.NewCallback(CallbackVar), UserDataVar)
+	xPermissionReleaseAsync(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
 }
 

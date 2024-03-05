@@ -377,9 +377,9 @@ var xTestAddDataFunc func(string, uintptr, uintptr)
 // No component of @testpath may start with a dot (`.`) if the
 // %G_TEST_OPTION_ISOLATE_DIRS option is being used; and it is recommended to
 // do so even if it isn’t.
-func TestAddDataFunc(TestpathVar string, TestDataVar uintptr, TestFuncVar TestDataFunc) {
+func TestAddDataFunc(TestpathVar string, TestDataVar uintptr, TestFuncVar *TestDataFunc) {
 
-	xTestAddDataFunc(TestpathVar, TestDataVar, purego.NewCallback(TestFuncVar))
+	xTestAddDataFunc(TestpathVar, TestDataVar, NewCallback(TestFuncVar))
 
 }
 
@@ -387,9 +387,9 @@ var xTestAddDataFuncFull func(string, uintptr, uintptr, uintptr)
 
 // Create a new test case, as with g_test_add_data_func(), but freeing
 // @test_data after the test run is complete.
-func TestAddDataFuncFull(TestpathVar string, TestDataVar uintptr, TestFuncVar TestDataFunc, DataFreeFuncVar DestroyNotify) {
+func TestAddDataFuncFull(TestpathVar string, TestDataVar uintptr, TestFuncVar *TestDataFunc, DataFreeFuncVar *DestroyNotify) {
 
-	xTestAddDataFuncFull(TestpathVar, TestDataVar, purego.NewCallback(TestFuncVar), purego.NewCallback(DataFreeFuncVar))
+	xTestAddDataFuncFull(TestpathVar, TestDataVar, NewCallback(TestFuncVar), NewCallback(DataFreeFuncVar))
 
 }
 
@@ -407,17 +407,17 @@ var xTestAddFunc func(string, uintptr)
 // No component of @testpath may start with a dot (`.`) if the
 // %G_TEST_OPTION_ISOLATE_DIRS option is being used; and it is recommended to
 // do so even if it isn’t.
-func TestAddFunc(TestpathVar string, TestFuncVar TestFunc) {
+func TestAddFunc(TestpathVar string, TestFuncVar *TestFunc) {
 
-	xTestAddFunc(TestpathVar, purego.NewCallback(TestFuncVar))
+	xTestAddFunc(TestpathVar, NewCallback(TestFuncVar))
 
 }
 
 var xTestAddVtable func(string, uint, uintptr, uintptr, uintptr, uintptr)
 
-func TestAddVtable(TestpathVar string, DataSizeVar uint, TestDataVar uintptr, DataSetupVar TestFixtureFunc, DataTestVar TestFixtureFunc, DataTeardownVar TestFixtureFunc) {
+func TestAddVtable(TestpathVar string, DataSizeVar uint, TestDataVar uintptr, DataSetupVar *TestFixtureFunc, DataTestVar *TestFixtureFunc, DataTeardownVar *TestFixtureFunc) {
 
-	xTestAddVtable(TestpathVar, DataSizeVar, TestDataVar, purego.NewCallback(DataSetupVar), purego.NewCallback(DataTestVar), purego.NewCallback(DataTeardownVar))
+	xTestAddVtable(TestpathVar, DataSizeVar, TestDataVar, NewCallback(DataSetupVar), NewCallback(DataTestVar), NewCallback(DataTeardownVar))
 
 }
 
@@ -518,9 +518,9 @@ var xTestCreateCase func(string, uint, uintptr, uintptr, uintptr, uintptr) *Test
 // multiple tests. In this cases, g_test_create_case() will be
 // called with the same type of fixture (the @data_size argument), but varying
 // @test_name and @data_test arguments.
-func TestCreateCase(TestNameVar string, DataSizeVar uint, TestDataVar uintptr, DataSetupVar TestFixtureFunc, DataTestVar TestFixtureFunc, DataTeardownVar TestFixtureFunc) *TestCase {
+func TestCreateCase(TestNameVar string, DataSizeVar uint, TestDataVar uintptr, DataSetupVar *TestFixtureFunc, DataTestVar *TestFixtureFunc, DataTeardownVar *TestFixtureFunc) *TestCase {
 
-	cret := xTestCreateCase(TestNameVar, DataSizeVar, TestDataVar, purego.NewCallback(DataSetupVar), purego.NewCallback(DataTestVar), purego.NewCallback(DataTeardownVar))
+	cret := xTestCreateCase(TestNameVar, DataSizeVar, TestDataVar, NewCallback(DataSetupVar), NewCallback(DataTestVar), NewCallback(DataTeardownVar))
 	return cret
 }
 
@@ -798,9 +798,9 @@ var xTestLogSetFatalHandler func(uintptr, uintptr)
 // behaviour for specific log messages, programs must install a custom log
 // writer function using g_log_set_writer_func().See
 // [Using Structured Logging][using-structured-logging].
-func TestLogSetFatalHandler(LogFuncVar TestLogFatalFunc, UserDataVar uintptr) {
+func TestLogSetFatalHandler(LogFuncVar *TestLogFatalFunc, UserDataVar uintptr) {
 
-	xTestLogSetFatalHandler(purego.NewCallback(LogFuncVar), UserDataVar)
+	xTestLogSetFatalHandler(NewCallback(LogFuncVar), UserDataVar)
 
 }
 
@@ -855,9 +855,9 @@ var xTestQueueDestroy func(uintptr, uintptr)
 // Resources are released in reverse queue order, that means enqueueing
 // callback A before callback B will cause B() to be called before
 // A() during teardown.
-func TestQueueDestroy(DestroyFuncVar DestroyNotify, DestroyDataVar uintptr) {
+func TestQueueDestroy(DestroyFuncVar *DestroyNotify, DestroyDataVar uintptr) {
 
-	xTestQueueDestroy(purego.NewCallback(DestroyFuncVar), DestroyDataVar)
+	xTestQueueDestroy(NewCallback(DestroyFuncVar), DestroyDataVar)
 
 }
 
