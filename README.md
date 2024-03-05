@@ -46,9 +46,12 @@ func main() {
 	app := gtk.NewApplication("com.github.jwijenbergh.puregotk.gtk4.hello", gio.GApplicationFlagsNoneValue)
 	// cleanup, no finalizers are used in this library
 	defer app.Unref()
-	app.ConnectActivate(func(_ gio.Application) {
+	// functions with callback arguments take function pointers
+	// this is for internal re-use of callbacks
+	actcb := func(_ gio.Application) {
 		activate(app)
-	})
+	}
+	app.ConnectActivate(&actcb)
 
 	if code := app.Run(len(os.Args), os.Args); code > 0 {
 		os.Exit(code)
