@@ -33,8 +33,8 @@ func PuregoSafeRegister(fptr interface{}, handle uintptr, name string) error {
 // https://ubuntu.pkgs.org/23.04/ubuntu-main-amd64/libgtk-4-1_4.10.1+ds-2ubuntu1_amd64.deb.html
 // https://ubuntu.pkgs.org/23.04/ubuntu-main-arm64/libgtk-4-1_4.10.1+ds-2ubuntu1_arm64.deb.html
 var paths = map[string][]string{
-	"amd64": {"/usr/lib/x86_64-linux-gnu/", "/usr/lib64/"},
-	"arm64": {"/usr/lib/aarch64-linux-gnu/", "/usr/lib64/"},
+	"amd64": {"/usr/lib/x86_64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
+	"arm64": {"/usr/lib/aarch64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
 }
 
 // names is a lookup from library names to shared object filenames
