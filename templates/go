@@ -6,10 +6,11 @@ package {{.PkgName}}
 
 {{if .NeedsInit}}
 import (
-       {{if .NeedsInit}}
+       {{if .Records}}
+       "structs"
+       {{end}}
        "github.com/jwijenbergh/purego"
        "github.com/jwijenbergh/puregotk/internal/core"
-       {{end}}
 )
 {{end}}
 
@@ -23,6 +24,7 @@ type {{.Name}} func({{ conv .Args.Pure.Types }}) {{.Ret.Raw}}
 {{range .Records -}}
 {{.Doc}}
 type {{.Name}} struct {
+     _ structs.HostLayout
      {{range .Fields}}
      {{.Name}} {{.Type}}
      {{end}}
