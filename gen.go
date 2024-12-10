@@ -44,6 +44,14 @@ func main() {
 	if err == nil {
 		os.WriteFile("v4/gobject/more.go", data, 0o644)
 	}
+	data, err = os.ReadFile("templates/gtype")
+	if err == nil {
+		mkerr := os.MkdirAll("v4/gobject/types", 0o755)
+		if mkerr != nil {
+			panic(mkerr)
+		}
+		os.WriteFile("v4/gobject/types/types.go", data, 0o644)
+	}
 	data, err = os.ReadFile("templates/glib")
 	if err == nil {
 		os.WriteFile("v4/glib/more.go", data, 0o644)
