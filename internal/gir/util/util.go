@@ -19,6 +19,20 @@ func delimToCamel(s string, delim string) string {
 	return sb.String()
 }
 
+// StarsInFront adds pointer characters (*, stars) in front of the type
+// if there is a slice in front
+// we need to add the slice and then afterwards the stars
+// e.g. [2]foo becomes [2]*foo with n=1
+func StarsInFront(str string, n int) string {
+	b := strings.Index(str, "[")
+	e := strings.Index(str, "]")
+	stars := strings.Repeat("*", n)
+	if b == 0 && e != -1 {
+		return str[b:e+1] + stars + str[e+1:len(str)]
+	}
+	return stars + str
+}
+
 // SnakeToCamel converts hello_world to HelloWorld
 func SnakeToCamel(s string) string {
 	return delimToCamel(s, "_")
@@ -51,6 +65,23 @@ func ReplaceExtension(filename string, ext string) string {
 	}
 	splt[len(splt)-1] = ext
 	return strings.Join(splt, ".")
+}
+
+func PrefixValue(val, prefix string) string {
+	// if it's a slice, it has to come first
+	b := strings.Index(val, "[")
+	e := strings.Index(val, "]")
+	if b == 0 && e != -1 {
+		return val[b:e+1] + prefix + val[e+1:]
+	}
+	return prefix + val
+}
+
+func AddNamespace(val, ns string) string {
+	if ns == "" || strings.Count(val, ".") >= 1 {
+		return val
+	}
+	return PrefixValue(val, ns+".")
 }
 
 // NormalizeNamespace converts a type to one that always includes a lowercase namespace
