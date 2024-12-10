@@ -39,7 +39,7 @@ type IOChannel struct {
 
 	WriteBuf *String
 
-	PartialWriteBuf uintptr
+	PartialWriteBuf [6]byte
 
 	UseBuffer uint
 
@@ -237,10 +237,10 @@ func (x *IOChannel) Read(BufVar string, CountVar uint, BytesReadVar uint) IOErro
 	return cret
 }
 
-var xIOChannelReadChars func(uintptr, uintptr, uint, uint, **Error) IOStatus
+var xIOChannelReadChars func(uintptr, []byte, uint, uint, **Error) IOStatus
 
 // Replacement for g_io_channel_read() with the new API.
-func (x *IOChannel) ReadChars(BufVar uintptr, CountVar uint, BytesReadVar uint) (IOStatus, error) {
+func (x *IOChannel) ReadChars(BufVar []byte, CountVar uint, BytesReadVar uint) (IOStatus, error) {
 	var cerr *Error
 
 	cret := xIOChannelReadChars(x.GoPointer(), BufVar, CountVar, BytesReadVar, &cerr)
@@ -282,10 +282,10 @@ func (x *IOChannel) ReadLineString(BufferVar *String, TerminatorPosVar uint) (IO
 
 }
 
-var xIOChannelReadToEnd func(uintptr, uintptr, uint, **Error) IOStatus
+var xIOChannelReadToEnd func(uintptr, []byte, uint, **Error) IOStatus
 
 // Reads all the remaining data from the file.
-func (x *IOChannel) ReadToEnd(StrReturnVar uintptr, LengthVar uint) (IOStatus, error) {
+func (x *IOChannel) ReadToEnd(StrReturnVar []byte, LengthVar uint) (IOStatus, error) {
 	var cerr *Error
 
 	cret := xIOChannelReadToEnd(x.GoPointer(), StrReturnVar, LengthVar, &cerr)
@@ -511,7 +511,7 @@ func (x *IOChannel) Write(BufVar string, CountVar uint, BytesWrittenVar uint) IO
 	return cret
 }
 
-var xIOChannelWriteChars func(uintptr, uintptr, int, uint, **Error) IOStatus
+var xIOChannelWriteChars func(uintptr, []byte, int, uint, **Error) IOStatus
 
 // Replacement for g_io_channel_write() with the new API.
 //
@@ -519,7 +519,7 @@ var xIOChannelWriteChars func(uintptr, uintptr, int, uint, **Error) IOStatus
 // mixing of reading and writing is not allowed. A call to g_io_channel_write_chars ()
 // may only be made on a channel from which data has been read in the
 // cases described in the documentation for g_io_channel_set_encoding ().
-func (x *IOChannel) WriteChars(BufVar uintptr, CountVar int, BytesWrittenVar uint) (IOStatus, error) {
+func (x *IOChannel) WriteChars(BufVar []byte, CountVar int, BytesWrittenVar uint) (IOStatus, error) {
 	var cerr *Error
 
 	cret := xIOChannelWriteChars(x.GoPointer(), BufVar, CountVar, BytesWrittenVar, &cerr)

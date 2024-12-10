@@ -15,7 +15,7 @@ import (
 // [func@Gtk.BitsetIter.init_first], [func@Gtk.BitsetIter.init_last]
 // or [func@Gtk.BitsetIter.init_at].
 type BitsetIter struct {
-	PrivateData uintptr
+	PrivateData [10]uintptr
 }
 
 func (x *BitsetIter) GoPointer() uintptr {

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkClipboard` object represents data shared between applications or
@@ -209,7 +210,7 @@ func (x *Clipboard) ReadTextureFinish(ResultVar gio.AsyncResult) (*Texture, erro
 
 }
 
-var xClipboardReadValueAsync func(uintptr, []interface{}, int, uintptr, uintptr, uintptr)
+var xClipboardReadValueAsync func(uintptr, types.GType, int, uintptr, uintptr, uintptr)
 
 // Asynchronously request the @clipboard contents converted to the given
 // @type.
@@ -220,7 +221,7 @@ var xClipboardReadValueAsync func(uintptr, []interface{}, int, uintptr, uintptr,
 // For local clipboard contents that are available in the given `GType`,
 // the value will be copied directly. Otherwise, GDK will try to use
 // [func@content_deserialize_async] to convert the clipboard's data.
-func (x *Clipboard) ReadValueAsync(TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Clipboard) ReadValueAsync(TypeVar types.GType, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xClipboardReadValueAsync(x.GoPointer(), TypeVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
@@ -242,7 +243,7 @@ func (x *Clipboard) ReadValueFinish(ResultVar gio.AsyncResult) (*gobject.Value, 
 
 }
 
-var xClipboardSet func(uintptr, []interface{}, ...interface{})
+var xClipboardSet func(uintptr, types.GType, ...interface{})
 
 // Sets the clipboard to contain the value collected from the given varargs.
 //
@@ -255,7 +256,7 @@ var xClipboardSet func(uintptr, []interface{}, ...interface{})
 //
 // gdk_clipboard_set (clipboard, GDK_TYPE_TEXTURE, some_texture);
 // ```
-func (x *Clipboard) Set(TypeVar []interface{}, varArgs ...interface{}) {
+func (x *Clipboard) Set(TypeVar types.GType, varArgs ...interface{}) {
 
 	xClipboardSet(x.GoPointer(), TypeVar, varArgs...)
 
@@ -299,10 +300,10 @@ func (x *Clipboard) SetTexture(TextureVar *Texture) {
 
 }
 
-var xClipboardSetValist func(uintptr, []interface{}, []interface{})
+var xClipboardSetValist func(uintptr, types.GType, []interface{})
 
 // Sets the clipboard to contain the value collected from the given @args.
-func (x *Clipboard) SetValist(TypeVar []interface{}, ArgsVar []interface{}) {
+func (x *Clipboard) SetValist(TypeVar types.GType, ArgsVar []interface{}) {
 
 	xClipboardSetValist(x.GoPointer(), TypeVar, ArgsVar)
 

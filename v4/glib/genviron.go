@@ -6,37 +6,37 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 )
 
-var xEnvironGetenv func(uintptr, string) string
+var xEnvironGetenv func([]string, string) string
 
 // Returns the value of the environment variable @variable in the
 // provided list @envp.
-func EnvironGetenv(EnvpVar uintptr, VariableVar string) string {
+func EnvironGetenv(EnvpVar []string, VariableVar string) string {
 
 	cret := xEnvironGetenv(EnvpVar, VariableVar)
 	return cret
 }
 
-var xEnvironSetenv func(uintptr, string, string, bool) uintptr
+var xEnvironSetenv func([]string, string, string, bool) []string
 
 // Sets the environment variable @variable in the provided list
 // @envp to @value.
-func EnvironSetenv(EnvpVar uintptr, VariableVar string, ValueVar string, OverwriteVar bool) uintptr {
+func EnvironSetenv(EnvpVar []string, VariableVar string, ValueVar string, OverwriteVar bool) []string {
 
 	cret := xEnvironSetenv(EnvpVar, VariableVar, ValueVar, OverwriteVar)
 	return cret
 }
 
-var xEnvironUnsetenv func(uintptr, string) uintptr
+var xEnvironUnsetenv func([]string, string) []string
 
 // Removes the environment variable @variable from the provided
 // environment @envp.
-func EnvironUnsetenv(EnvpVar uintptr, VariableVar string) uintptr {
+func EnvironUnsetenv(EnvpVar []string, VariableVar string) []string {
 
 	cret := xEnvironUnsetenv(EnvpVar, VariableVar)
 	return cret
 }
 
-var xGetEnviron func() uintptr
+var xGetEnviron func() []string
 
 // Gets the list of environment variables for the current process.
 //
@@ -48,7 +48,7 @@ var xGetEnviron func() uintptr
 //
 // The return value is freshly allocated and it should be freed with
 // g_strfreev() when it is no longer needed.
-func GetEnviron() uintptr {
+func GetEnviron() []string {
 
 	cret := xGetEnviron()
 	return cret
@@ -69,7 +69,7 @@ func Getenv(VariableVar string) string {
 	return cret
 }
 
-var xListenv func() uintptr
+var xListenv func() []string
 
 // Gets the names of all variables set in the environment.
 //
@@ -79,7 +79,7 @@ var xListenv func() uintptr
 // array are in system codepage encoding, while in most of the typical
 // use cases for environment variables in GLib-using programs you want
 // the UTF-8 encoding that this function and g_getenv() provide.
-func Listenv() uintptr {
+func Listenv() []string {
 
 	cret := xListenv()
 	return cret

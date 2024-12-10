@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkToplevelSize` struct contains information that is useful
@@ -76,9 +77,9 @@ func (x *ToplevelSize) SetSize(WidthVar int, HeightVar int) {
 
 }
 
-var xToplevelSizeGetType func() []interface{}
+var xToplevelSizeGetType func() types.GType
 
-func ToplevelSizeGetType() []interface{} {
+func ToplevelSizeGetType() types.GType {
 
 	cret := xToplevelSizeGetType()
 	return cret

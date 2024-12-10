@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xFindParagraphBoundary func(string, int, int, int)
@@ -58,7 +59,7 @@ func Log2visGetEmbeddingLevels(TextVar string, LengthVar int, PbaseDirVar *Direc
 	return cret
 }
 
-var xParseEnum func([]interface{}, string, int, bool, string) bool
+var xParseEnum func(types.GType, string, int, bool, string) bool
 
 // Parses an enum type and stores the result in @value.
 //
@@ -70,7 +71,7 @@ var xParseEnum func([]interface{}, string, int, bool, string) bool
 //
 // If failed and @possible_values is not %NULL, returned string should
 // be freed using g_free().
-func ParseEnum(TypeVar []interface{}, StrVar string, ValueVar int, WarnVar bool, PossibleValuesVar string) bool {
+func ParseEnum(TypeVar types.GType, StrVar string, ValueVar int, WarnVar bool, PossibleValuesVar string) bool {
 
 	cret := xParseEnum(TypeVar, StrVar, ValueVar, WarnVar, PossibleValuesVar)
 	return cret

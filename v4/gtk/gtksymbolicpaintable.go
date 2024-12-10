@@ -34,7 +34,7 @@ func (x *SymbolicPaintableInterface) GoPointer() uintptr {
 type SymbolicPaintable interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar uintptr, NColorsVar uint)
+	SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar []gdk.RGBA, NColorsVar uint)
 }
 type SymbolicPaintableBase struct {
 	Ptr uintptr
@@ -52,13 +52,13 @@ func (x *SymbolicPaintableBase) SetGoPointer(ptr uintptr) {
 //
 // If less than 4 colors are provided, GTK will pad the array with default
 // colors.
-func (x *SymbolicPaintableBase) SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar uintptr, NColorsVar uint) {
+func (x *SymbolicPaintableBase) SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar []gdk.RGBA, NColorsVar uint) {
 
 	XGtkSymbolicPaintableSnapshotSymbolic(x.GoPointer(), SnapshotVar.GoPointer(), WidthVar, HeightVar, ColorsVar, NColorsVar)
 
 }
 
-var XGtkSymbolicPaintableSnapshotSymbolic func(uintptr, uintptr, float64, float64, uintptr, uint)
+var XGtkSymbolicPaintableSnapshotSymbolic func(uintptr, uintptr, float64, float64, []gdk.RGBA, uint)
 
 func init() {
 	lib, err := purego.Dlopen(core.GetPath("GTK"), purego.RTLD_NOW|purego.RTLD_GLOBAL)

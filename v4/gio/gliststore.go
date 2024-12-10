@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ListStoreClass struct {
@@ -33,11 +34,11 @@ func ListStoreNewFromInternalPtr(ptr uintptr) *ListStore {
 	return cls
 }
 
-var xNewListStore func([]interface{}) uintptr
+var xNewListStore func(types.GType) uintptr
 
 // Creates a new #GListStore with items of type @item_type. @item_type
 // must be a subclass of #GObject.
-func NewListStore(ItemTypeVar []interface{}) *ListStore {
+func NewListStore(ItemTypeVar types.GType) *ListStore {
 	var cls *ListStore
 
 	cret := xNewListStore(ItemTypeVar)
@@ -153,7 +154,7 @@ func (x *ListStore) Sort(CompareFuncVar *glib.CompareDataFunc, UserDataVar uintp
 
 }
 
-var xListStoreSplice func(uintptr, uint, uint, uintptr, uint)
+var xListStoreSplice func(uintptr, uint, uint, []gobject.Object, uint)
 
 // Changes @store by removing @n_removals items and adding @n_additions
 // items to it. @additions must contain @n_additions items of type
@@ -168,7 +169,7 @@ var xListStoreSplice func(uintptr, uint, uint, uintptr, uint)
 // The parameters @position and @n_removals must be correct (ie:
 // @position + @n_removals must be less than or equal to the length of
 // the list at the time this function is called).
-func (x *ListStore) Splice(PositionVar uint, NRemovalsVar uint, AdditionsVar uintptr, NAdditionsVar uint) {
+func (x *ListStore) Splice(PositionVar uint, NRemovalsVar uint, AdditionsVar []gobject.Object, NAdditionsVar uint) {
 
 	xListStoreSplice(x.GoPointer(), PositionVar, NRemovalsVar, AdditionsVar, NAdditionsVar)
 
@@ -205,7 +206,7 @@ func (x *ListStore) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *ListStore) GetItemType() []interface{} {
+func (x *ListStore) GetItemType() types.GType {
 
 	cret := XGListModelGetItemType(x.GoPointer())
 	return cret

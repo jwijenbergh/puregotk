@@ -29,14 +29,14 @@ func (x *Hmac) Copy() *Hmac {
 	return cret
 }
 
-var xHmacGetDigest func(uintptr, uintptr, uint)
+var xHmacGetDigest func(uintptr, []byte, uint)
 
 // Gets the digest from @checksum as a raw binary array and places it
 // into @buffer. The size of the digest depends on the type of checksum.
 //
 // Once this function has been called, the #GHmac is closed and can
 // no longer be updated with g_checksum_update().
-func (x *Hmac) GetDigest(BufferVar uintptr, DigestLenVar uint) {
+func (x *Hmac) GetDigest(BufferVar []byte, DigestLenVar uint) {
 
 	xHmacGetDigest(x.GoPointer(), BufferVar, DigestLenVar)
 
@@ -81,13 +81,13 @@ func (x *Hmac) Unref() {
 
 }
 
-var xHmacUpdate func(uintptr, uintptr, int)
+var xHmacUpdate func(uintptr, []byte, int)
 
 // Feeds @data into an existing #GHmac.
 //
 // The HMAC must still be open, that is g_hmac_get_string() or
 // g_hmac_get_digest() must not have been called on @hmac.
-func (x *Hmac) Update(DataVar uintptr, LengthVar int) {
+func (x *Hmac) Update(DataVar []byte, LengthVar int) {
 
 	xHmacUpdate(x.GoPointer(), DataVar, LengthVar)
 
@@ -106,25 +106,25 @@ func ComputeHmacForBytes(DigestTypeVar ChecksumType, KeyVar *Bytes, DataVar *Byt
 	return cret
 }
 
-var xComputeHmacForData func(ChecksumType, uintptr, uint, uintptr, uint) string
+var xComputeHmacForData func(ChecksumType, []byte, uint, []byte, uint) string
 
 // Computes the HMAC for a binary @data of @length. This is a
 // convenience wrapper for g_hmac_new(), g_hmac_get_string()
 // and g_hmac_unref().
 //
 // The hexadecimal string returned will be in lower case.
-func ComputeHmacForData(DigestTypeVar ChecksumType, KeyVar uintptr, KeyLenVar uint, DataVar uintptr, LengthVar uint) string {
+func ComputeHmacForData(DigestTypeVar ChecksumType, KeyVar []byte, KeyLenVar uint, DataVar []byte, LengthVar uint) string {
 
 	cret := xComputeHmacForData(DigestTypeVar, KeyVar, KeyLenVar, DataVar, LengthVar)
 	return cret
 }
 
-var xComputeHmacForString func(ChecksumType, uintptr, uint, string, int) string
+var xComputeHmacForString func(ChecksumType, []byte, uint, string, int) string
 
 // Computes the HMAC for a string.
 //
 // The hexadecimal string returned will be in lower case.
-func ComputeHmacForString(DigestTypeVar ChecksumType, KeyVar uintptr, KeyLenVar uint, StrVar string, LengthVar int) string {
+func ComputeHmacForString(DigestTypeVar ChecksumType, KeyVar []byte, KeyLenVar uint, StrVar string, LengthVar int) string {
 
 	cret := xComputeHmacForString(DigestTypeVar, KeyVar, KeyLenVar, StrVar, LengthVar)
 	return cret

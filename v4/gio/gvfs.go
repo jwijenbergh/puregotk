@@ -79,10 +79,10 @@ func (x *Vfs) GetFileForUri(UriVar string) *FileBase {
 	return cls
 }
 
-var xVfsGetSupportedUriSchemes func(uintptr) uintptr
+var xVfsGetSupportedUriSchemes func(uintptr) []string
 
 // Gets a list of URI schemes supported by @vfs.
-func (x *Vfs) GetSupportedUriSchemes() uintptr {
+func (x *Vfs) GetSupportedUriSchemes() []string {
 
 	cret := xVfsGetSupportedUriSchemes(x.GoPointer())
 	return cret

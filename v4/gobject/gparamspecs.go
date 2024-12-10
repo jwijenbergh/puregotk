@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xNewParamSpecBoolean func(string, string, string, bool, ParamFlags) uintptr
@@ -29,13 +30,13 @@ func NewParamSpecBoolean(NameVar string, NickVar string, BlurbVar string, Defaul
 	return cls
 }
 
-var xNewParamSpecBoxed func(string, string, string, []interface{}, ParamFlags) uintptr
+var xNewParamSpecBoxed func(string, string, string, types.GType, ParamFlags) uintptr
 
 // Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_BOXED
 // derived property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecBoxed(NameVar string, NickVar string, BlurbVar string, BoxedTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecBoxed(NameVar string, NickVar string, BlurbVar string, BoxedTypeVar types.GType, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xNewParamSpecBoxed(NameVar, NickVar, BlurbVar, BoxedTypeVar, FlagsVar)
@@ -83,13 +84,13 @@ func NewParamSpecDouble(NameVar string, NickVar string, BlurbVar string, Minimum
 	return cls
 }
 
-var xNewParamSpecEnum func(string, string, string, []interface{}, int, ParamFlags) uintptr
+var xNewParamSpecEnum func(string, string, string, types.GType, int, ParamFlags) uintptr
 
 // Creates a new #GParamSpecEnum instance specifying a %G_TYPE_ENUM
 // property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeVar []interface{}, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeVar types.GType, DefaultValueVar int, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xNewParamSpecEnum(NameVar, NickVar, BlurbVar, EnumTypeVar, DefaultValueVar, FlagsVar)
@@ -102,13 +103,13 @@ func NewParamSpecEnum(NameVar string, NickVar string, BlurbVar string, EnumTypeV
 	return cls
 }
 
-var xNewParamSpecFlags func(string, string, string, []interface{}, uint, ParamFlags) uintptr
+var xNewParamSpecFlags func(string, string, string, types.GType, uint, ParamFlags) uintptr
 
 // Creates a new #GParamSpecFlags instance specifying a %G_TYPE_FLAGS
 // property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecFlags(NameVar string, NickVar string, BlurbVar string, FlagsTypeVar []interface{}, DefaultValueVar uint, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecFlags(NameVar string, NickVar string, BlurbVar string, FlagsTypeVar types.GType, DefaultValueVar uint, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xNewParamSpecFlags(NameVar, NickVar, BlurbVar, FlagsTypeVar, DefaultValueVar, FlagsVar)
@@ -139,13 +140,13 @@ func NewParamSpecFloat(NameVar string, NickVar string, BlurbVar string, MinimumV
 	return cls
 }
 
-var xParamSpecGtype func(string, string, string, []interface{}, ParamFlags) uintptr
+var xParamSpecGtype func(string, string, string, types.GType, ParamFlags) uintptr
 
 // Creates a new #GParamSpecGType instance specifying a
 // %G_TYPE_GTYPE property.
 //
 // See g_param_spec_internal() for details on property names.
-func ParamSpecGtype(NameVar string, NickVar string, BlurbVar string, IsATypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+func ParamSpecGtype(NameVar string, NickVar string, BlurbVar string, IsATypeVar types.GType, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xParamSpecGtype(NameVar, NickVar, BlurbVar, IsATypeVar, FlagsVar)
@@ -212,13 +213,13 @@ func NewParamSpecLong(NameVar string, NickVar string, BlurbVar string, MinimumVa
 	return cls
 }
 
-var xNewParamSpecObject func(string, string, string, []interface{}, ParamFlags) uintptr
+var xNewParamSpecObject func(string, string, string, types.GType, ParamFlags) uintptr
 
 // Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_OBJECT
 // derived property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecObject(NameVar string, NickVar string, BlurbVar string, ObjectTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecObject(NameVar string, NickVar string, BlurbVar string, ObjectTypeVar types.GType, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xNewParamSpecObject(NameVar, NickVar, BlurbVar, ObjectTypeVar, FlagsVar)
@@ -249,13 +250,13 @@ func NewParamSpecOverride(NameVar string, OverriddenVar *ParamSpec) *ParamSpec {
 	return cls
 }
 
-var xNewParamSpecParam func(string, string, string, []interface{}, ParamFlags) uintptr
+var xNewParamSpecParam func(string, string, string, types.GType, ParamFlags) uintptr
 
 // Creates a new #GParamSpecParam instance specifying a %G_TYPE_PARAM
 // property.
 //
 // See g_param_spec_internal() for details on property names.
-func NewParamSpecParam(NameVar string, NickVar string, BlurbVar string, ParamTypeVar []interface{}, FlagsVar ParamFlags) *ParamSpec {
+func NewParamSpecParam(NameVar string, NickVar string, BlurbVar string, ParamTypeVar types.GType, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xNewParamSpecParam(NameVar, NickVar, BlurbVar, ParamTypeVar, FlagsVar)

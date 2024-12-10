@@ -141,7 +141,7 @@ func (x *InputStream) IsClosed() bool {
 	return cret
 }
 
-var xInputStreamRead func(uintptr, uintptr, uint, uintptr, **glib.Error) int
+var xInputStreamRead func(uintptr, []byte, uint, uintptr, **glib.Error) int
 
 // Tries to read @count bytes from the stream into the buffer starting at
 // @buffer. Will block during this read.
@@ -164,7 +164,7 @@ var xInputStreamRead func(uintptr, uintptr, uint, uintptr, **glib.Error) int
 // partial result will be returned, without an error.
 //
 // On error -1 is returned and @error is set accordingly.
-func (x *InputStream) Read(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+func (x *InputStream) Read(BufferVar []byte, CountVar uint, CancellableVar *Cancellable) (int, error) {
 	var cerr *glib.Error
 
 	cret := xInputStreamRead(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)
@@ -175,7 +175,7 @@ func (x *InputStream) Read(BufferVar uintptr, CountVar uint, CancellableVar *Can
 
 }
 
-var xInputStreamReadAll func(uintptr, uintptr, uint, uint, uintptr, **glib.Error) bool
+var xInputStreamReadAll func(uintptr, []byte, uint, uint, uintptr, **glib.Error) bool
 
 // Tries to read @count bytes from the stream into the buffer starting at
 // @buffer. Will block during this read.
@@ -196,7 +196,7 @@ var xInputStreamReadAll func(uintptr, uintptr, uint, uint, uintptr, **glib.Error
 // read before the error was encountered.  This functionality is only
 // available from C.  If you need it from another language then you must
 // write your own loop around g_input_stream_read().
-func (x *InputStream) ReadAll(BufferVar uintptr, CountVar uint, BytesReadVar uint, CancellableVar *Cancellable) (bool, error) {
+func (x *InputStream) ReadAll(BufferVar []byte, CountVar uint, BytesReadVar uint, CancellableVar *Cancellable) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xInputStreamReadAll(x.GoPointer(), BufferVar, CountVar, BytesReadVar, CancellableVar.GoPointer(), &cerr)
@@ -207,7 +207,7 @@ func (x *InputStream) ReadAll(BufferVar uintptr, CountVar uint, BytesReadVar uin
 
 }
 
-var xInputStreamReadAllAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
+var xInputStreamReadAllAsync func(uintptr, []byte, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous read of @count bytes from the stream into the
 // buffer starting at @buffer.
@@ -219,7 +219,7 @@ var xInputStreamReadAllAsync func(uintptr, uintptr, uint, int, uintptr, uintptr,
 // Any outstanding I/O request with higher priority (lower numerical
 // value) will be executed before an outstanding request with lower
 // priority. Default priority is %G_PRIORITY_DEFAULT.
-func (x *InputStream) ReadAllAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *InputStream) ReadAllAsync(BufferVar []byte, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xInputStreamReadAllAsync(x.GoPointer(), BufferVar, CountVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
@@ -247,7 +247,7 @@ func (x *InputStream) ReadAllFinish(ResultVar AsyncResult, BytesReadVar uint) (b
 
 }
 
-var xInputStreamReadAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, uintptr)
+var xInputStreamReadAsync func(uintptr, []byte, uint, int, uintptr, uintptr, uintptr)
 
 // Request an asynchronous read of @count bytes from the stream into the buffer
 // starting at @buffer. When the operation is finished @callback will be called.
@@ -272,7 +272,7 @@ var xInputStreamReadAsync func(uintptr, uintptr, uint, int, uintptr, uintptr, ui
 // The asynchronous methods have a default fallback that uses threads to implement
 // asynchronicity, so they are optional for inheriting classes. However, if you
 // override one you must override all.
-func (x *InputStream) ReadAsync(BufferVar uintptr, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *InputStream) ReadAsync(BufferVar []byte, CountVar uint, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xInputStreamReadAsync(x.GoPointer(), BufferVar, CountVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 

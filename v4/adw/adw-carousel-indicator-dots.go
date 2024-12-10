@@ -157,7 +157,7 @@ func (x *CarouselIndicatorDots) UpdateProperty(FirstPropertyVar gtk.AccessiblePr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CarouselIndicatorDots) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *CarouselIndicatorDots) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -193,7 +193,7 @@ func (x *CarouselIndicatorDots) UpdateRelation(FirstRelationVar gtk.AccessibleRe
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CarouselIndicatorDots) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *CarouselIndicatorDots) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -226,7 +226,7 @@ func (x *CarouselIndicatorDots) UpdateState(FirstStateVar gtk.AccessibleState, v
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CarouselIndicatorDots) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
+func (x *CarouselIndicatorDots) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

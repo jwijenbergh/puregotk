@@ -95,7 +95,7 @@ func (x *MainContext) AddPoll(FdVar *PollFD, PriorityVar int) {
 
 }
 
-var xMainContextCheck func(uintptr, int, uintptr, int) bool
+var xMainContextCheck func(uintptr, int, []PollFD, int) bool
 
 // Passes the results of polling back to the main loop. You should be
 // careful to pass @fds and its length @n_fds as received from
@@ -104,7 +104,7 @@ var xMainContextCheck func(uintptr, int, uintptr, int) bool
 //
 // You must have successfully acquired the context with
 // g_main_context_acquire() before you may call this function.
-func (x *MainContext) Check(MaxPriorityVar int, FdsVar uintptr, NFdsVar int) bool {
+func (x *MainContext) Check(MaxPriorityVar int, FdsVar []PollFD, NFdsVar int) bool {
 
 	cret := xMainContextCheck(x.GoPointer(), MaxPriorityVar, FdsVar, NFdsVar)
 	return cret
@@ -329,7 +329,7 @@ func (x *MainContext) PushThreadDefault() {
 
 }
 
-var xMainContextQuery func(uintptr, int, int, uintptr, int) int
+var xMainContextQuery func(uintptr, int, int, []PollFD, int) int
 
 // Determines information necessary to poll this main loop. You should
 // be careful to pass the resulting @fds array and its length @n_fds
@@ -338,7 +338,7 @@ var xMainContextQuery func(uintptr, int, int, uintptr, int) int
 //
 // You must have successfully acquired the context with
 // g_main_context_acquire() before you may call this function.
-func (x *MainContext) Query(MaxPriorityVar int, TimeoutVar int, FdsVar uintptr, NFdsVar int) int {
+func (x *MainContext) Query(MaxPriorityVar int, TimeoutVar int, FdsVar []PollFD, NFdsVar int) int {
 
 	cret := xMainContextQuery(x.GoPointer(), MaxPriorityVar, TimeoutVar, FdsVar, NFdsVar)
 	return cret

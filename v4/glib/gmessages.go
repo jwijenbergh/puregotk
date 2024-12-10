@@ -38,7 +38,7 @@ type LogFunc func(string, LogLevelFlags, string, uintptr)
 // send messages to a remote logging server and there is a network error), it
 // should return %G_LOG_WRITER_UNHANDLED. This allows writer functions to be
 // chained and fall back to simpler handlers in case of failure.
-type LogWriterFunc func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
+type LogWriterFunc func(LogLevelFlags, []LogField, uint, uintptr) LogWriterOutput
 
 // Specifies the type of the print handler functions.
 // These are called with the complete formatted string to output.
@@ -481,7 +481,7 @@ func LogStructured(LogDomainVar string, LogLevelVar LogLevelFlags, varArgs ...in
 
 }
 
-var xLogStructuredArray func(LogLevelFlags, uintptr, uint)
+var xLogStructuredArray func(LogLevelFlags, []LogField, uint)
 
 // Log a message with structured data. The message will be passed through to the
 // log writer set by the application using g_log_set_writer_func(). If the
@@ -492,7 +492,7 @@ var xLogStructuredArray func(LogLevelFlags, uintptr, uint)
 //
 // This assumes that @log_level is already present in @fields (typically as the
 // `PRIORITY` field).
-func LogStructuredArray(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint) {
+func LogStructuredArray(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFieldsVar uint) {
 
 	xLogStructuredArray(LogLevelVar, FieldsVar, NFieldsVar)
 
@@ -528,7 +528,7 @@ func LogVariant(LogDomainVar string, LogLevelVar LogLevelFlags, FieldsVar *Varia
 
 }
 
-var xLogWriterDefault func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
+var xLogWriterDefault func(LogLevelFlags, []LogField, uint, uintptr) LogWriterOutput
 
 // Format a structured log message and output it to the default log destination
 // for the platform. On Linux, this is typically the systemd journal, falling
@@ -549,7 +549,7 @@ var xLogWriterDefault func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutpu
 // g_log_writer_default() uses the mask set by g_log_set_always_fatal() to
 // determine which messages are fatal. When using a custom writer func instead it is
 // up to the writer function to determine which log messages are fatal.
-func LogWriterDefault(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
+func LogWriterDefault(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
 	cret := xLogWriterDefault(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
 	return cret
@@ -615,7 +615,7 @@ func LogWriterDefaultWouldDrop(LogLevelVar LogLevelFlags, LogDomainVar string) b
 	return cret
 }
 
-var xLogWriterFormatFields func(LogLevelFlags, uintptr, uint, bool) string
+var xLogWriterFormatFields func(LogLevelFlags, []LogField, uint, bool) string
 
 // Format a structured log message as a string suitable for outputting to the
 // terminal (or elsewhere). This will include the values of all fields it knows
@@ -626,7 +626,7 @@ var xLogWriterFormatFields func(LogLevelFlags, uintptr, uint, bool) string
 // The returned string does **not** have a trailing new-line character. It is
 // encoded in the character set of the current locale, which is not necessarily
 // UTF-8.
-func LogWriterFormatFields(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UseColorVar bool) string {
+func LogWriterFormatFields(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFieldsVar uint, UseColorVar bool) string {
 
 	cret := xLogWriterFormatFields(LogLevelVar, FieldsVar, NFieldsVar, UseColorVar)
 	return cret
@@ -651,7 +651,7 @@ func LogWriterIsJournald(OutputFdVar int) bool {
 	return cret
 }
 
-var xLogWriterJournald func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
+var xLogWriterJournald func(LogLevelFlags, []LogField, uint, uintptr) LogWriterOutput
 
 // Format a structured log message and send it to the systemd journal as a set
 // of key–value pairs. All fields are sent to the journal, but if a field has
@@ -662,13 +662,13 @@ var xLogWriterJournald func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutp
 //
 // If GLib has been compiled without systemd support, this function is still
 // defined, but will always return %G_LOG_WRITER_UNHANDLED.
-func LogWriterJournald(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
+func LogWriterJournald(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
 	cret := xLogWriterJournald(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
 	return cret
 }
 
-var xLogWriterStandardStreams func(LogLevelFlags, uintptr, uint, uintptr) LogWriterOutput
+var xLogWriterStandardStreams func(LogLevelFlags, []LogField, uint, uintptr) LogWriterOutput
 
 // Format a structured log message and print it to either `stdout` or `stderr`,
 // depending on its log level. %G_LOG_LEVEL_INFO and %G_LOG_LEVEL_DEBUG messages
@@ -684,7 +684,7 @@ var xLogWriterStandardStreams func(LogLevelFlags, uintptr, uint, uintptr) LogWri
 // A trailing new-line character is added to the log message when it is printed.
 //
 // This is suitable for use as a #GLogWriterFunc.
-func LogWriterStandardStreams(LogLevelVar LogLevelFlags, FieldsVar uintptr, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
+func LogWriterStandardStreams(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFieldsVar uint, UserDataVar uintptr) LogWriterOutput {
 
 	cret := xLogWriterStandardStreams(LogLevelVar, FieldsVar, NFieldsVar, UserDataVar)
 	return cret

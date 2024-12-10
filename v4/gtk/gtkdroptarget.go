@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DropTargetClass struct {
@@ -103,14 +104,14 @@ func DropTargetNewFromInternalPtr(ptr uintptr) *DropTarget {
 	return cls
 }
 
-var xNewDropTarget func([]interface{}, gdk.DragAction) uintptr
+var xNewDropTarget func(types.GType, gdk.DragAction) uintptr
 
 // Creates a new `GtkDropTarget` object.
 //
 // If the drop target should support more than 1 type, pass
 // %G_TYPE_INVALID for @type and then call
 // [method@Gtk.DropTarget.set_gtypes].
-func NewDropTarget(TypeVar []interface{}, ActionsVar gdk.DragAction) *DropTarget {
+func NewDropTarget(TypeVar types.GType, ActionsVar gdk.DragAction) *DropTarget {
 	var cls *DropTarget
 
 	cret := xNewDropTarget(TypeVar, ActionsVar)
@@ -181,12 +182,12 @@ func (x *DropTarget) GetFormats() *gdk.ContentFormats {
 	return cret
 }
 
-var xDropTargetGetGtypes func(uintptr, uint) uintptr
+var xDropTargetGetGtypes func(uintptr, uint) []types.GType
 
 // Gets the list of supported `GType`s that can be dropped on the target.
 //
 // If no types have been set, `NULL` will be returned.
-func (x *DropTarget) GetGtypes(NTypesVar uint) uintptr {
+func (x *DropTarget) GetGtypes(NTypesVar uint) []types.GType {
 
 	cret := xDropTargetGetGtypes(x.GoPointer(), NTypesVar)
 	return cret
@@ -235,10 +236,10 @@ func (x *DropTarget) SetActions(ActionsVar gdk.DragAction) {
 
 }
 
-var xDropTargetSetGtypes func(uintptr, uintptr, uint)
+var xDropTargetSetGtypes func(uintptr, []types.GType, uint)
 
 // Sets the supported `GTypes` for this drop target.
-func (x *DropTarget) SetGtypes(TypesVar uintptr, NTypesVar uint) {
+func (x *DropTarget) SetGtypes(TypesVar []types.GType, NTypesVar uint) {
 
 	xDropTargetSetGtypes(x.GoPointer(), TypesVar, NTypesVar)
 

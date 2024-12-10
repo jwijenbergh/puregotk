@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GListModel.
@@ -69,7 +70,7 @@ type ListModel interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	GetItem(PositionVar uint) uintptr
-	GetItemType() []interface{}
+	GetItemType() types.GType
 	GetNItems() uint
 	GetObject(PositionVar uint) *gobject.Object
 	ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint)
@@ -109,7 +110,7 @@ func (x *ListModelBase) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *ListModelBase) GetItemType() []interface{} {
+func (x *ListModelBase) GetItemType() types.GType {
 
 	cret := XGListModelGetItemType(x.GoPointer())
 	return cret
@@ -178,7 +179,7 @@ func (x *ListModelBase) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar
 }
 
 var XGListModelGetItem func(uintptr, uint) uintptr
-var XGListModelGetItemType func(uintptr) []interface{}
+var XGListModelGetItemType func(uintptr) types.GType
 var XGListModelGetNItems func(uintptr) uint
 var XGListModelGetObject func(uintptr, uint) uintptr
 var XGListModelItemsChanged func(uintptr, uint, uint, uint)

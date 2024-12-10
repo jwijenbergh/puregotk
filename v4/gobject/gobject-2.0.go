@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An interface that handles the lifecycle of dynamically loaded types.
@@ -60,8 +61,8 @@ import (
 type TypePlugin interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	CompleteInterfaceInfo(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}, InfoVar *InterfaceInfo)
-	CompleteTypeInfo(GTypeVar []interface{}, InfoVar *TypeInfo, ValueTableVar *TypeValueTable)
+	CompleteInterfaceInfo(InstanceTypeVar types.GType, InterfaceTypeVar types.GType, InfoVar *InterfaceInfo)
+	CompleteTypeInfo(GTypeVar types.GType, InfoVar *TypeInfo, ValueTableVar *TypeValueTable)
 	Unuse()
 	Use()
 }
@@ -80,7 +81,7 @@ func (x *TypePluginBase) SetGoPointer(ptr uintptr) {
 // Calls the @complete_interface_info function from the
 // #GTypePluginClass of @plugin. There should be no need to use this
 // function outside of the GObject type system itself.
-func (x *TypePluginBase) CompleteInterfaceInfo(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}, InfoVar *InterfaceInfo) {
+func (x *TypePluginBase) CompleteInterfaceInfo(InstanceTypeVar types.GType, InterfaceTypeVar types.GType, InfoVar *InterfaceInfo) {
 
 	XGTypePluginCompleteInterfaceInfo(x.GoPointer(), InstanceTypeVar, InterfaceTypeVar, InfoVar)
 
@@ -89,7 +90,7 @@ func (x *TypePluginBase) CompleteInterfaceInfo(InstanceTypeVar []interface{}, In
 // Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
 // There should be no need to use this function outside of the GObject
 // type system itself.
-func (x *TypePluginBase) CompleteTypeInfo(GTypeVar []interface{}, InfoVar *TypeInfo, ValueTableVar *TypeValueTable) {
+func (x *TypePluginBase) CompleteTypeInfo(GTypeVar types.GType, InfoVar *TypeInfo, ValueTableVar *TypeValueTable) {
 
 	XGTypePluginCompleteTypeInfo(x.GoPointer(), GTypeVar, InfoVar, ValueTableVar)
 
@@ -113,8 +114,8 @@ func (x *TypePluginBase) Use() {
 
 }
 
-var XGTypePluginCompleteInterfaceInfo func(uintptr, []interface{}, []interface{}, *InterfaceInfo)
-var XGTypePluginCompleteTypeInfo func(uintptr, []interface{}, *TypeInfo, *TypeValueTable)
+var XGTypePluginCompleteInterfaceInfo func(uintptr, types.GType, types.GType, *InterfaceInfo)
+var XGTypePluginCompleteTypeInfo func(uintptr, types.GType, *TypeInfo, *TypeValueTable)
 var XGTypePluginUnuse func(uintptr)
 var XGTypePluginUse func(uintptr)
 
@@ -505,10 +506,10 @@ func SignalGroupNewFromInternalPtr(ptr uintptr) *SignalGroup {
 	return cls
 }
 
-var xNewSignalGroup func([]interface{}) uintptr
+var xNewSignalGroup func(types.GType) uintptr
 
 // Creates a new #GSignalGroup for target instances of @target_type.
-func NewSignalGroup(TargetTypeVar []interface{}) *SignalGroup {
+func NewSignalGroup(TargetTypeVar types.GType) *SignalGroup {
 	var cls *SignalGroup
 
 	cret := xNewSignalGroup(TargetTypeVar)

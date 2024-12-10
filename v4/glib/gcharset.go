@@ -68,7 +68,7 @@ func GetConsoleCharset(CharsetVar string) bool {
 	return cret
 }
 
-var xGetLanguageNames func() uintptr
+var xGetLanguageNames func() []string
 
 // Computes a list of applicable locale names, which can be used to
 // e.g. construct locale-dependent filenames or search paths. The returned
@@ -81,13 +81,13 @@ var xGetLanguageNames func() uintptr
 // This function consults the environment variables `LANGUAGE`, `LC_ALL`,
 // `LC_MESSAGES` and `LANG` to find the list of locales specified by the
 // user.
-func GetLanguageNames() uintptr {
+func GetLanguageNames() []string {
 
 	cret := xGetLanguageNames()
 	return cret
 }
 
-var xGetLanguageNamesWithCategory func(string) uintptr
+var xGetLanguageNamesWithCategory func(string) []string
 
 // Computes a list of applicable locale names with a locale category name,
 // which can be used to construct the fallback locale-dependent filenames
@@ -99,13 +99,13 @@ var xGetLanguageNamesWithCategory func(string) uintptr
 // user.
 //
 // g_get_language_names() returns g_get_language_names_with_category("LC_MESSAGES").
-func GetLanguageNamesWithCategory(CategoryNameVar string) uintptr {
+func GetLanguageNamesWithCategory(CategoryNameVar string) []string {
 
 	cret := xGetLanguageNamesWithCategory(CategoryNameVar)
 	return cret
 }
 
-var xGetLocaleVariants func(string) uintptr
+var xGetLocaleVariants func(string) []string
 
 // Returns a list of derived variants of @locale, which can be used to
 // e.g. construct locale-dependent filenames or search paths. The returned
@@ -122,7 +122,7 @@ var xGetLocaleVariants func(string) uintptr
 //
 // If you need the list of variants for the current locale,
 // use g_get_language_names().
-func GetLocaleVariants(LocaleVar string) uintptr {
+func GetLocaleVariants(LocaleVar string) []string {
 
 	cret := xGetLocaleVariants(LocaleVar)
 	return cret

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for describing TLS-related types.
@@ -22,13 +23,13 @@ func (x *TlsBackendInterface) GoPointer() uintptr {
 type TlsBackend interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	GetCertificateType() []interface{}
-	GetClientConnectionType() []interface{}
+	GetCertificateType() types.GType
+	GetClientConnectionType() types.GType
 	GetDefaultDatabase() *TlsDatabase
-	GetDtlsClientConnectionType() []interface{}
-	GetDtlsServerConnectionType() []interface{}
-	GetFileDatabaseType() []interface{}
-	GetServerConnectionType() []interface{}
+	GetDtlsClientConnectionType() types.GType
+	GetDtlsServerConnectionType() types.GType
+	GetFileDatabaseType() types.GType
+	GetServerConnectionType() types.GType
 	SetDefaultDatabase(DatabaseVar *TlsDatabase)
 	SupportsDtls() bool
 	SupportsTls() bool
@@ -46,14 +47,14 @@ func (x *TlsBackendBase) SetGoPointer(ptr uintptr) {
 }
 
 // Gets the #GType of @backend's #GTlsCertificate implementation.
-func (x *TlsBackendBase) GetCertificateType() []interface{} {
+func (x *TlsBackendBase) GetCertificateType() types.GType {
 
 	cret := XGTlsBackendGetCertificateType(x.GoPointer())
 	return cret
 }
 
 // Gets the #GType of @backend's #GTlsClientConnection implementation.
-func (x *TlsBackendBase) GetClientConnectionType() []interface{} {
+func (x *TlsBackendBase) GetClientConnectionType() types.GType {
 
 	cret := XGTlsBackendGetClientConnectionType(x.GoPointer())
 	return cret
@@ -74,28 +75,28 @@ func (x *TlsBackendBase) GetDefaultDatabase() *TlsDatabase {
 }
 
 // Gets the #GType of @backend’s #GDtlsClientConnection implementation.
-func (x *TlsBackendBase) GetDtlsClientConnectionType() []interface{} {
+func (x *TlsBackendBase) GetDtlsClientConnectionType() types.GType {
 
 	cret := XGTlsBackendGetDtlsClientConnectionType(x.GoPointer())
 	return cret
 }
 
 // Gets the #GType of @backend’s #GDtlsServerConnection implementation.
-func (x *TlsBackendBase) GetDtlsServerConnectionType() []interface{} {
+func (x *TlsBackendBase) GetDtlsServerConnectionType() types.GType {
 
 	cret := XGTlsBackendGetDtlsServerConnectionType(x.GoPointer())
 	return cret
 }
 
 // Gets the #GType of @backend's #GTlsFileDatabase implementation.
-func (x *TlsBackendBase) GetFileDatabaseType() []interface{} {
+func (x *TlsBackendBase) GetFileDatabaseType() types.GType {
 
 	cret := XGTlsBackendGetFileDatabaseType(x.GoPointer())
 	return cret
 }
 
 // Gets the #GType of @backend's #GTlsServerConnection implementation.
-func (x *TlsBackendBase) GetServerConnectionType() []interface{} {
+func (x *TlsBackendBase) GetServerConnectionType() types.GType {
 
 	cret := XGTlsBackendGetServerConnectionType(x.GoPointer())
 	return cret
@@ -131,13 +132,13 @@ func (x *TlsBackendBase) SupportsTls() bool {
 	return cret
 }
 
-var XGTlsBackendGetCertificateType func(uintptr) []interface{}
-var XGTlsBackendGetClientConnectionType func(uintptr) []interface{}
+var XGTlsBackendGetCertificateType func(uintptr) types.GType
+var XGTlsBackendGetClientConnectionType func(uintptr) types.GType
 var XGTlsBackendGetDefaultDatabase func(uintptr) uintptr
-var XGTlsBackendGetDtlsClientConnectionType func(uintptr) []interface{}
-var XGTlsBackendGetDtlsServerConnectionType func(uintptr) []interface{}
-var XGTlsBackendGetFileDatabaseType func(uintptr) []interface{}
-var XGTlsBackendGetServerConnectionType func(uintptr) []interface{}
+var XGTlsBackendGetDtlsClientConnectionType func(uintptr) types.GType
+var XGTlsBackendGetDtlsServerConnectionType func(uintptr) types.GType
+var XGTlsBackendGetFileDatabaseType func(uintptr) types.GType
+var XGTlsBackendGetServerConnectionType func(uintptr) types.GType
 var XGTlsBackendSetDefaultDatabase func(uintptr, uintptr)
 var XGTlsBackendSupportsDtls func(uintptr) bool
 var XGTlsBackendSupportsTls func(uintptr) bool

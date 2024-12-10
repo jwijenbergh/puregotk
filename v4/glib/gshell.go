@@ -19,7 +19,7 @@ const (
 	GShellErrorFailedValue ShellError = 2
 )
 
-var xShellParseArgv func(string, int, uintptr, **Error) bool
+var xShellParseArgv func(string, int, []string, **Error) bool
 
 // Parses a command line into an argument vector, in much the same way
 // the shell would, but without many of the expansions the shell would
@@ -39,7 +39,7 @@ var xShellParseArgv func(string, int, uintptr, **Error) bool
 // successfully.
 //
 // Free the returned vector with g_strfreev().
-func ShellParseArgv(CommandLineVar string, ArgcpVar int, ArgvpVar uintptr) (bool, error) {
+func ShellParseArgv(CommandLineVar string, ArgcpVar int, ArgvpVar []string) (bool, error) {
 	var cerr *Error
 
 	cret := xShellParseArgv(CommandLineVar, ArgcpVar, ArgvpVar, &cerr)

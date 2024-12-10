@@ -151,7 +151,7 @@ func (x *UnixInputStream) IsReadable() bool {
 // if @cancellable has already been cancelled when you call, which
 // may happen if you call this method after a source triggers due
 // to having been cancelled.
-func (x *UnixInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+func (x *UnixInputStream) ReadNonblocking(BufferVar []byte, CountVar uint, CancellableVar *Cancellable) (int, error) {
 	var cerr *glib.Error
 
 	cret := XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)

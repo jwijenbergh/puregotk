@@ -208,12 +208,12 @@ func BuildFilenameValist(FirstElementVar string, ArgsVar []interface{}) string {
 	return cret
 }
 
-var xBuildFilenamev func(uintptr) string
+var xBuildFilenamev func([]string) string
 
 // Behaves exactly like g_build_filename(), but takes the path elements
 // as a string array, instead of varargs. This function is mainly
 // meant for language bindings.
-func BuildFilenamev(ArgsVar uintptr) string {
+func BuildFilenamev(ArgsVar []string) string {
 
 	cret := xBuildFilenamev(ArgsVar)
 	return cret
@@ -253,12 +253,12 @@ func BuildPath(SeparatorVar string, FirstElementVar string, varArgs ...interface
 	return cret
 }
 
-var xBuildPathv func(string, uintptr) string
+var xBuildPathv func(string, []string) string
 
 // Behaves exactly like g_build_path(), but takes the path elements
 // as a string array, instead of varargs. This function is mainly
 // meant for language bindings.
-func BuildPathv(SeparatorVar string, ArgsVar uintptr) string {
+func BuildPathv(SeparatorVar string, ArgsVar []string) string {
 
 	cret := xBuildPathv(SeparatorVar, ArgsVar)
 	return cret
@@ -327,7 +327,7 @@ func FileErrorFromErrno(ErrNoVar int) FileError {
 	return cret
 }
 
-var xFileGetContents func(string, uintptr, uint, **Error) bool
+var xFileGetContents func(string, []byte, uint, **Error) bool
 
 // Reads an entire file into allocated memory, with good error
 // checking.
@@ -339,7 +339,7 @@ var xFileGetContents func(string, uintptr, uint, **Error) bool
 // %FALSE and sets @error. The error domain is %G_FILE_ERROR. Possible error
 // codes are those in the #GFileError enumeration. In the error case,
 // @contents is set to %NULL and @length is set to zero.
-func FileGetContents(FilenameVar string, ContentsVar uintptr, LengthVar uint) (bool, error) {
+func FileGetContents(FilenameVar string, ContentsVar []byte, LengthVar uint) (bool, error) {
 	var cerr *Error
 
 	cret := xFileGetContents(FilenameVar, ContentsVar, LengthVar, &cerr)
@@ -395,13 +395,13 @@ func FileReadLink(FilenameVar string) (string, error) {
 
 }
 
-var xFileSetContents func(string, uintptr, int, **Error) bool
+var xFileSetContents func(string, []byte, int, **Error) bool
 
 // Writes all of @contents to a file named @filename. This is a convenience
 // wrapper around calling g_file_set_contents_full() with `flags` set to
 // `G_FILE_SET_CONTENTS_CONSISTENT | G_FILE_SET_CONTENTS_ONLY_EXISTING` and
 // `mode` set to `0666`.
-func FileSetContents(FilenameVar string, ContentsVar uintptr, LengthVar int) (bool, error) {
+func FileSetContents(FilenameVar string, ContentsVar []byte, LengthVar int) (bool, error) {
 	var cerr *Error
 
 	cret := xFileSetContents(FilenameVar, ContentsVar, LengthVar, &cerr)
@@ -412,7 +412,7 @@ func FileSetContents(FilenameVar string, ContentsVar uintptr, LengthVar int) (bo
 
 }
 
-var xFileSetContentsFull func(string, uintptr, int, FileSetContentsFlags, int, **Error) bool
+var xFileSetContentsFull func(string, []byte, int, FileSetContentsFlags, int, **Error) bool
 
 // Writes all of @contents to a file named @filename, with good error checking.
 // If a file called @filename already exists it will be overwritten.
@@ -468,7 +468,7 @@ var xFileSetContentsFull func(string, uintptr, int, FileSetContentsFlags, int, *
 // If the file didn’t exist before and is created, it will be given the
 // permissions from @mode. Otherwise, the permissions of the existing file may
 // be changed to @mode depending on @flags, or they may remain unchanged.
-func FileSetContentsFull(FilenameVar string, ContentsVar uintptr, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int) (bool, error) {
+func FileSetContentsFull(FilenameVar string, ContentsVar []byte, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int) (bool, error) {
 	var cerr *Error
 
 	cret := xFileSetContentsFull(FilenameVar, ContentsVar, LengthVar, FlagsVar, ModeVar, &cerr)

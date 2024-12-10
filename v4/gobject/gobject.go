@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of the @finalize function of #GObjectClass.
@@ -45,7 +46,7 @@ type InitiallyUnownedClass struct {
 
 	Flags uint
 
-	Pdummy uintptr
+	Pdummy [6]uintptr
 }
 
 func (x *InitiallyUnownedClass) GoPointer() uintptr {
@@ -88,7 +89,7 @@ type ObjectClass struct {
 
 	Flags uint
 
-	Pdummy uintptr
+	Pdummy [6]uintptr
 }
 
 func (x *ObjectClass) GoPointer() uintptr {
@@ -451,7 +452,7 @@ func ObjectNewFromInternalPtr(ptr uintptr) *Object {
 	return cls
 }
 
-var xNewObject func([]interface{}, string, ...interface{}) uintptr
+var xNewObject func(types.GType, string, ...interface{}) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties.
 //
@@ -479,7 +480,7 @@ var xNewObject func([]interface{}, string, ...interface{}) uintptr
 // #gdouble). If you need larger alignment for an element in a #GObject, you
 // should allocate it on the heap (aligned), or arrange for your #GObject to be
 // appropriately padded.
-func NewObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, varArgs ...interface{}) *Object {
+func NewObject(ObjectTypeVar types.GType, FirstPropertyNameVar string, varArgs ...interface{}) *Object {
 	var cls *Object
 
 	cret := xNewObject(ObjectTypeVar, FirstPropertyNameVar, varArgs...)
@@ -492,13 +493,13 @@ func NewObject(ObjectTypeVar []interface{}, FirstPropertyNameVar string, varArgs
 	return cls
 }
 
-var xNewObjectValist func([]interface{}, string, []interface{}) uintptr
+var xNewObjectValist func(types.GType, string, []interface{}) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties.
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewObjectValist(ObjectTypeVar []interface{}, FirstPropertyNameVar string, VarArgsVar []interface{}) *Object {
+func NewObjectValist(ObjectTypeVar types.GType, FirstPropertyNameVar string, VarArgsVar []interface{}) *Object {
 	var cls *Object
 
 	cret := xNewObjectValist(ObjectTypeVar, FirstPropertyNameVar, VarArgsVar)
@@ -511,7 +512,7 @@ func NewObjectValist(ObjectTypeVar []interface{}, FirstPropertyNameVar string, V
 	return cls
 }
 
-var xNewObjectWithProperties func([]interface{}, uint, []string, uintptr) uintptr
+var xNewObjectWithProperties func(types.GType, uint, []string, []Value) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties using
 // the provided arrays. Both arrays must have exactly @n_properties elements,
@@ -519,7 +520,7 @@ var xNewObjectWithProperties func([]interface{}, uint, []string, uintptr) uintpt
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewObjectWithProperties(ObjectTypeVar []interface{}, NPropertiesVar uint, NamesVar []string, ValuesVar uintptr) *Object {
+func NewObjectWithProperties(ObjectTypeVar types.GType, NPropertiesVar uint, NamesVar []string, ValuesVar []Value) *Object {
 	var cls *Object
 
 	cret := xNewObjectWithProperties(ObjectTypeVar, NPropertiesVar, NamesVar, ValuesVar)
@@ -532,13 +533,13 @@ func NewObjectWithProperties(ObjectTypeVar []interface{}, NPropertiesVar uint, N
 	return cls
 }
 
-var xNewObjectv func([]interface{}, uint, uintptr) uintptr
+var xNewObjectv func(types.GType, uint, []Parameter) uintptr
 
 // Creates a new instance of a #GObject subtype and sets its properties.
 //
 // Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
 // which are not explicitly specified are set to their default values.
-func NewObjectv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr) *Object {
+func NewObjectv(ObjectTypeVar types.GType, NParametersVar uint, ParametersVar []Parameter) *Object {
 	var cls *Object
 
 	cret := xNewObjectv(ObjectTypeVar, NParametersVar, ParametersVar)
@@ -939,13 +940,13 @@ func (x *Object) GetValist(FirstPropertyNameVar string, VarArgsVar []interface{}
 
 }
 
-var xObjectGetv func(uintptr, uint, uintptr, uintptr)
+var xObjectGetv func(uintptr, uint, []string, []Value)
 
 // Gets @n_properties properties for an @object.
 // Obtained properties will be set to @values. All properties must be valid.
 // Warnings will be emitted and undefined behaviour may result if invalid
 // properties are passed in.
-func (x *Object) Getv(NPropertiesVar uint, NamesVar uintptr, ValuesVar uintptr) {
+func (x *Object) Getv(NPropertiesVar uint, NamesVar []string, ValuesVar []Value) {
 
 	xObjectGetv(x.GoPointer(), NPropertiesVar, NamesVar, ValuesVar)
 
@@ -1251,13 +1252,13 @@ func (x *Object) SetValist(FirstPropertyNameVar string, VarArgsVar []interface{}
 
 }
 
-var xObjectSetv func(uintptr, uint, uintptr, uintptr)
+var xObjectSetv func(uintptr, uint, []string, []Value)
 
 // Sets @n_properties properties for an @object.
 // Properties to be set will be taken from @values. All properties must be
 // valid. Warnings will be emitted and undefined behaviour may result if invalid
 // properties are passed in.
-func (x *Object) Setv(NPropertiesVar uint, NamesVar uintptr, ValuesVar uintptr) {
+func (x *Object) Setv(NPropertiesVar uint, NamesVar []string, ValuesVar []Value) {
 
 	xObjectSetv(x.GoPointer(), NPropertiesVar, NamesVar, ValuesVar)
 

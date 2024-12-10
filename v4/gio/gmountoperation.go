@@ -308,13 +308,13 @@ func (x *MountOperation) ConnectAskPassword(cb *func(MountOperation, string, str
 // If the message contains a line break, the first line should be
 // presented as a heading. For example, it may be used as the
 // primary text in a #GtkMessageDialog.
-func (x *MountOperation) ConnectAskQuestion(cb *func(MountOperation, string, uintptr)) uint32 {
+func (x *MountOperation) ConnectAskQuestion(cb *func(MountOperation, string, []string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "ask-question", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, MessageVarp string, ChoicesVarp uintptr) {
+	fcb := func(clsPtr uintptr, MessageVarp string, ChoicesVarp []string) {
 		fa := MountOperation{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -359,13 +359,13 @@ func (x *MountOperation) ConnectReply(cb *func(MountOperation, MountOperationRes
 // If the message contains a line break, the first line should be
 // presented as a heading. For example, it may be used as the
 // primary text in a #GtkMessageDialog.
-func (x *MountOperation) ConnectShowProcesses(cb *func(MountOperation, string, uintptr, uintptr)) uint32 {
+func (x *MountOperation) ConnectShowProcesses(cb *func(MountOperation, string, []glib.Pid, []string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "show-processes", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, MessageVarp string, ProcessesVarp uintptr, ChoicesVarp uintptr) {
+	fcb := func(clsPtr uintptr, MessageVarp string, ProcessesVarp []glib.Pid, ChoicesVarp []string) {
 		fa := MountOperation{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

@@ -108,7 +108,7 @@ func AcceleratorParse(AcceleratorVar string, AcceleratorKeyVar uint, Accelerator
 	return cret
 }
 
-var xAcceleratorParseWithKeycode func(string, uintptr, uint, uintptr, *gdk.ModifierType) bool
+var xAcceleratorParseWithKeycode func(string, uintptr, uint, []uint, *gdk.ModifierType) bool
 
 // Parses a string representing an accelerator.
 //
@@ -124,7 +124,7 @@ var xAcceleratorParseWithKeycode func(string, uintptr, uint, uintptr, *gdk.Modif
 //
 // If the parse fails, @accelerator_key, @accelerator_mods and
 // @accelerator_codes will be set to 0 (zero).
-func AcceleratorParseWithKeycode(AcceleratorVar string, DisplayVar *gdk.Display, AcceleratorKeyVar uint, AcceleratorCodesVar uintptr, AcceleratorModsVar *gdk.ModifierType) bool {
+func AcceleratorParseWithKeycode(AcceleratorVar string, DisplayVar *gdk.Display, AcceleratorKeyVar uint, AcceleratorCodesVar []uint, AcceleratorModsVar *gdk.ModifierType) bool {
 
 	cret := xAcceleratorParseWithKeycode(AcceleratorVar, DisplayVar.GoPointer(), AcceleratorKeyVar, AcceleratorCodesVar, AcceleratorModsVar)
 	return cret

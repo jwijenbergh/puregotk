@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Type definition for a function that will be called back when an asynchronous
@@ -35,7 +36,7 @@ type CancellableSourceFunc func(uintptr, uintptr) bool
 // This function is called in the
 // [thread-default main loop][g-main-context-push-thread-default]
 // that @manager was constructed in.
-type DBusProxyTypeFunc func(uintptr, string, string, uintptr) []interface{}
+type DBusProxyTypeFunc func(uintptr, string, string, uintptr) types.GType
 
 // This is the function type of the callback used for the #GSource
 // returned by g_datagram_based_create_source().
@@ -256,10 +257,10 @@ func (x *IOExtension) GetPriority() int {
 	return cret
 }
 
-var xIOExtensionGetType func(uintptr) []interface{}
+var xIOExtensionGetType func(uintptr) types.GType
 
 // Gets the type associated with @extension.
-func (x *IOExtension) GetType() []interface{} {
+func (x *IOExtension) GetType() types.GType {
 
 	cret := xIOExtensionGetType(x.GoPointer())
 	return cret
@@ -303,20 +304,20 @@ func (x *IOExtensionPoint) GetExtensions() *glib.List {
 	return cret
 }
 
-var xIOExtensionPointGetRequiredType func(uintptr) []interface{}
+var xIOExtensionPointGetRequiredType func(uintptr) types.GType
 
 // Gets the required type for @extension_point.
-func (x *IOExtensionPoint) GetRequiredType() []interface{} {
+func (x *IOExtensionPoint) GetRequiredType() types.GType {
 
 	cret := xIOExtensionPointGetRequiredType(x.GoPointer())
 	return cret
 }
 
-var xIOExtensionPointSetRequiredType func(uintptr, []interface{})
+var xIOExtensionPointSetRequiredType func(uintptr, types.GType)
 
 // Sets the required type for @extension_point to @type.
 // All implementations must henceforth have this type.
-func (x *IOExtensionPoint) SetRequiredType(TypeVar []interface{}) {
+func (x *IOExtensionPoint) SetRequiredType(TypeVar types.GType) {
 
 	xIOExtensionPointSetRequiredType(x.GoPointer(), TypeVar)
 
@@ -387,7 +388,7 @@ func (x *IOStreamAdapter) GoPointer() uintptr {
 type InputMessage struct {
 	Address **SocketAddress
 
-	Vectors uintptr
+	Vectors []InputVector
 
 	NumVectors uint
 

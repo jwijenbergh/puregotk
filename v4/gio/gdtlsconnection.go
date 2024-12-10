@@ -46,7 +46,7 @@ type DtlsConnection interface {
 	CloseFinish(ResultVar AsyncResult) bool
 	EmitAcceptCertificate(PeerCertVar *TlsCertificate, ErrorsVar TlsCertificateFlags) bool
 	GetCertificate() *TlsCertificate
-	GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar uintptr) bool
+	GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar []byte) bool
 	GetCiphersuiteName() string
 	GetDatabase() *TlsDatabase
 	GetInteraction() *TlsInteraction
@@ -59,7 +59,7 @@ type DtlsConnection interface {
 	Handshake(CancellableVar *Cancellable) bool
 	HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	HandshakeFinish(ResultVar AsyncResult) bool
-	SetAdvertisedProtocols(ProtocolsVar uintptr)
+	SetAdvertisedProtocols(ProtocolsVar []string)
 	SetCertificate(CertificateVar *TlsCertificate)
 	SetDatabase(DatabaseVar *TlsDatabase)
 	SetInteraction(InteractionVar *TlsInteraction)
@@ -169,7 +169,7 @@ func (x *DtlsConnectionBase) GetCertificate() *TlsCertificate {
 // will be available though.  That could happen if TLS connection does not
 // support @type or the binding data is not available yet due to additional
 // negotiation or input required.
-func (x *DtlsConnectionBase) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar uintptr) (bool, error) {
+func (x *DtlsConnectionBase) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar []byte) (bool, error) {
 	var cerr *glib.Error
 
 	cret := XGDtlsConnectionGetChannelBindingData(x.GoPointer(), TypeVar, DataVar, &cerr)
@@ -361,7 +361,7 @@ func (x *DtlsConnectionBase) HandshakeFinish(ResultVar AsyncResult) (bool, error
 //
 // See [IANA TLS ALPN Protocol IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
 // for a list of registered protocol IDs.
-func (x *DtlsConnectionBase) SetAdvertisedProtocols(ProtocolsVar uintptr) {
+func (x *DtlsConnectionBase) SetAdvertisedProtocols(ProtocolsVar []string) {
 
 	XGDtlsConnectionSetAdvertisedProtocols(x.GoPointer(), ProtocolsVar)
 
@@ -514,7 +514,7 @@ var XGDtlsConnectionCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGDtlsConnectionCloseFinish func(uintptr, uintptr, **glib.Error) bool
 var XGDtlsConnectionEmitAcceptCertificate func(uintptr, uintptr, TlsCertificateFlags) bool
 var XGDtlsConnectionGetCertificate func(uintptr) uintptr
-var XGDtlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uintptr, **glib.Error) bool
+var XGDtlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, []byte, **glib.Error) bool
 var XGDtlsConnectionGetCiphersuiteName func(uintptr) string
 var XGDtlsConnectionGetDatabase func(uintptr) uintptr
 var XGDtlsConnectionGetInteraction func(uintptr) uintptr
@@ -527,7 +527,7 @@ var XGDtlsConnectionGetRequireCloseNotify func(uintptr) bool
 var XGDtlsConnectionHandshake func(uintptr, uintptr, **glib.Error) bool
 var XGDtlsConnectionHandshakeAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGDtlsConnectionHandshakeFinish func(uintptr, uintptr, **glib.Error) bool
-var XGDtlsConnectionSetAdvertisedProtocols func(uintptr, uintptr)
+var XGDtlsConnectionSetAdvertisedProtocols func(uintptr, []string)
 var XGDtlsConnectionSetCertificate func(uintptr, uintptr)
 var XGDtlsConnectionSetDatabase func(uintptr, uintptr)
 var XGDtlsConnectionSetInteraction func(uintptr, uintptr)

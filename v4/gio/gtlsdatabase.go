@@ -16,7 +16,7 @@ import (
 type TlsDatabaseClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [16]uintptr
 }
 
 func (x *TlsDatabaseClass) GoPointer() uintptr {
@@ -213,13 +213,13 @@ func (x *TlsDatabase) LookupCertificateIssuerFinish(ResultVar AsyncResult) (*Tls
 
 }
 
-var xTlsDatabaseLookupCertificatesIssuedBy func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr, **glib.Error) *glib.List
+var xTlsDatabaseLookupCertificatesIssuedBy func(uintptr, []byte, uintptr, TlsDatabaseLookupFlags, uintptr, **glib.Error) *glib.List
 
 // Look up certificates issued by this issuer in the database.
 //
 // This function can block, use g_tls_database_lookup_certificates_issued_by_async() to perform
 // the lookup operation asynchronously.
-func (x *TlsDatabase) LookupCertificatesIssuedBy(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) (*glib.List, error) {
+func (x *TlsDatabase) LookupCertificatesIssuedBy(IssuerRawDnVar []byte, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable) (*glib.List, error) {
 	var cerr *glib.Error
 
 	cret := xTlsDatabaseLookupCertificatesIssuedBy(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), &cerr)
@@ -230,7 +230,7 @@ func (x *TlsDatabase) LookupCertificatesIssuedBy(IssuerRawDnVar uintptr, Interac
 
 }
 
-var xTlsDatabaseLookupCertificatesIssuedByAsync func(uintptr, uintptr, uintptr, TlsDatabaseLookupFlags, uintptr, uintptr, uintptr)
+var xTlsDatabaseLookupCertificatesIssuedByAsync func(uintptr, []byte, uintptr, TlsDatabaseLookupFlags, uintptr, uintptr, uintptr)
 
 // Asynchronously look up certificates issued by this issuer in the database. See
 // g_tls_database_lookup_certificates_issued_by() for more information.
@@ -238,7 +238,7 @@ var xTlsDatabaseLookupCertificatesIssuedByAsync func(uintptr, uintptr, uintptr, 
 // The database may choose to hold a reference to the issuer byte array for the duration
 // of of this asynchronous operation. The byte array should not be modified during
 // this time.
-func (x *TlsDatabase) LookupCertificatesIssuedByAsync(IssuerRawDnVar uintptr, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsDatabase) LookupCertificatesIssuedByAsync(IssuerRawDnVar []byte, InteractionVar *TlsInteraction, FlagsVar TlsDatabaseLookupFlags, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xTlsDatabaseLookupCertificatesIssuedByAsync(x.GoPointer(), IssuerRawDnVar, InteractionVar.GoPointer(), FlagsVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 

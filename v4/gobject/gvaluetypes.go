@@ -4,21 +4,22 @@ package gobject
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
-var xGtypeGetType func() []interface{}
+var xGtypeGetType func() types.GType
 
-func GtypeGetType() []interface{} {
+func GtypeGetType() types.GType {
 
 	cret := xGtypeGetType()
 	return cret
 }
 
-var xPointerTypeRegisterStatic func(string) []interface{}
+var xPointerTypeRegisterStatic func(string) types.GType
 
 // Creates a new %G_TYPE_POINTER derived type id for a new
 // pointer type with name @name.
-func PointerTypeRegisterStatic(NameVar string) []interface{} {
+func PointerTypeRegisterStatic(NameVar string) types.GType {
 
 	cret := xPointerTypeRegisterStatic(NameVar)
 	return cret

@@ -12,7 +12,7 @@ import (
 type GridClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *GridClass) GoPointer() uintptr {
@@ -450,7 +450,7 @@ func (x *Grid) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...in
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Grid) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -486,7 +486,7 @@ func (x *Grid) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...in
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Grid) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -519,7 +519,7 @@ func (x *Grid) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{}
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Grid) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

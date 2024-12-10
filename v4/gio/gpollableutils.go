@@ -33,7 +33,7 @@ func PollableSourceNewFull(PollableStreamVar *gobject.Object, ChildSourceVar *gl
 	return cret
 }
 
-var xPollableStreamRead func(uintptr, uintptr, uint, bool, uintptr, **glib.Error) int
+var xPollableStreamRead func(uintptr, []byte, uint, bool, uintptr, **glib.Error) int
 
 // Tries to read from @stream, as with g_input_stream_read() (if
 // @blocking is %TRUE) or g_pollable_input_stream_read_nonblocking()
@@ -44,7 +44,7 @@ var xPollableStreamRead func(uintptr, uintptr, uint, bool, uintptr, **glib.Error
 // #GPollableInputStream for which g_pollable_input_stream_can_poll()
 // returns %TRUE, or else the behavior is undefined. If @blocking is
 // %TRUE, then @stream does not need to be a #GPollableInputStream.
-func PollableStreamRead(StreamVar *InputStream, BufferVar uintptr, CountVar uint, BlockingVar bool, CancellableVar *Cancellable) (int, error) {
+func PollableStreamRead(StreamVar *InputStream, BufferVar []byte, CountVar uint, BlockingVar bool, CancellableVar *Cancellable) (int, error) {
 	var cerr *glib.Error
 
 	cret := xPollableStreamRead(StreamVar.GoPointer(), BufferVar, CountVar, BlockingVar, CancellableVar.GoPointer(), &cerr)
@@ -55,7 +55,7 @@ func PollableStreamRead(StreamVar *InputStream, BufferVar uintptr, CountVar uint
 
 }
 
-var xPollableStreamWrite func(uintptr, uintptr, uint, bool, uintptr, **glib.Error) int
+var xPollableStreamWrite func(uintptr, []byte, uint, bool, uintptr, **glib.Error) int
 
 // Tries to write to @stream, as with g_output_stream_write() (if
 // @blocking is %TRUE) or g_pollable_output_stream_write_nonblocking()
@@ -67,7 +67,7 @@ var xPollableStreamWrite func(uintptr, uintptr, uint, bool, uintptr, **glib.Erro
 // g_pollable_output_stream_can_poll() returns %TRUE or else the
 // behavior is undefined. If @blocking is %TRUE, then @stream does not
 // need to be a #GPollableOutputStream.
-func PollableStreamWrite(StreamVar *OutputStream, BufferVar uintptr, CountVar uint, BlockingVar bool, CancellableVar *Cancellable) (int, error) {
+func PollableStreamWrite(StreamVar *OutputStream, BufferVar []byte, CountVar uint, BlockingVar bool, CancellableVar *Cancellable) (int, error) {
 	var cerr *glib.Error
 
 	cret := xPollableStreamWrite(StreamVar.GoPointer(), BufferVar, CountVar, BlockingVar, CancellableVar.GoPointer(), &cerr)
@@ -78,7 +78,7 @@ func PollableStreamWrite(StreamVar *OutputStream, BufferVar uintptr, CountVar ui
 
 }
 
-var xPollableStreamWriteAll func(uintptr, uintptr, uint, bool, uint, uintptr, **glib.Error) bool
+var xPollableStreamWriteAll func(uintptr, []byte, uint, bool, uint, uintptr, **glib.Error) bool
 
 // Tries to write @count bytes to @stream, as with
 // g_output_stream_write_all(), but using g_pollable_stream_write()
@@ -98,7 +98,7 @@ var xPollableStreamWriteAll func(uintptr, uintptr, uint, bool, uint, uintptr, **
 // g_pollable_output_stream_can_poll() returns %TRUE or else the
 // behavior is undefined. If @blocking is %TRUE, then @stream does not
 // need to be a #GPollableOutputStream.
-func PollableStreamWriteAll(StreamVar *OutputStream, BufferVar uintptr, CountVar uint, BlockingVar bool, BytesWrittenVar uint, CancellableVar *Cancellable) (bool, error) {
+func PollableStreamWriteAll(StreamVar *OutputStream, BufferVar []byte, CountVar uint, BlockingVar bool, BytesWrittenVar uint, CancellableVar *Cancellable) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xPollableStreamWriteAll(StreamVar.GoPointer(), BufferVar, CountVar, BlockingVar, BytesWrittenVar, CancellableVar.GoPointer(), &cerr)

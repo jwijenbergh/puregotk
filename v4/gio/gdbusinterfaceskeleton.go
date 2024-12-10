@@ -14,9 +14,9 @@ import (
 type DBusInterfaceSkeletonClass struct {
 	ParentClass uintptr
 
-	VfuncPadding uintptr
+	VfuncPadding [8]uintptr
 
-	SignalPadding uintptr
+	SignalPadding [8]uintptr
 }
 
 func (x *DBusInterfaceSkeletonClass) GoPointer() uintptr {

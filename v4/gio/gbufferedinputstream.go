@@ -165,22 +165,22 @@ func (x *BufferedInputStream) GetBufferSize() uint {
 	return cret
 }
 
-var xBufferedInputStreamPeek func(uintptr, uintptr, uint, uint) uint
+var xBufferedInputStreamPeek func(uintptr, []byte, uint, uint) uint
 
 // Peeks in the buffer, copying data of size @count into @buffer,
 // offset @offset bytes.
-func (x *BufferedInputStream) Peek(BufferVar uintptr, OffsetVar uint, CountVar uint) uint {
+func (x *BufferedInputStream) Peek(BufferVar []byte, OffsetVar uint, CountVar uint) uint {
 
 	cret := xBufferedInputStreamPeek(x.GoPointer(), BufferVar, OffsetVar, CountVar)
 	return cret
 }
 
-var xBufferedInputStreamPeekBuffer func(uintptr, uint) uintptr
+var xBufferedInputStreamPeekBuffer func(uintptr, uint) []byte
 
 // Returns the buffer with the currently available bytes. The returned
 // buffer must not be modified and will become invalid when reading from
 // the stream or filling the buffer.
-func (x *BufferedInputStream) PeekBuffer(CountVar uint) uintptr {
+func (x *BufferedInputStream) PeekBuffer(CountVar uint) []byte {
 
 	cret := xBufferedInputStreamPeekBuffer(x.GoPointer(), CountVar)
 	return cret

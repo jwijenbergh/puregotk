@@ -14,7 +14,7 @@ import (
 type DBusObjectManagerClientClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *DBusObjectManagerClientClass) GoPointer() uintptr {
@@ -273,13 +273,13 @@ func (c *DBusObjectManagerClient) SetGoPointer(ptr uintptr) {
 // This signal is emitted in the
 // [thread-default main context][g-main-context-push-thread-default]
 // that @manager was constructed in.
-func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb *func(DBusObjectManagerClient, uintptr, uintptr, uintptr, uintptr)) uint32 {
+func (x *DBusObjectManagerClient) ConnectInterfaceProxyPropertiesChanged(cb *func(DBusObjectManagerClient, uintptr, uintptr, uintptr, []string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "interface-proxy-properties-changed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp uintptr) {
+	fcb := func(clsPtr uintptr, ObjectProxyVarp uintptr, InterfaceProxyVarp uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp []string) {
 		fa := DBusObjectManagerClient{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

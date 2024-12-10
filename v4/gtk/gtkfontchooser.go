@@ -20,7 +20,7 @@ type FontFilterFunc func(uintptr, uintptr, uintptr) bool
 type FontChooserIface struct {
 	BaseIface uintptr
 
-	Padding uintptr
+	Padding [10]uintptr
 }
 
 func (x *FontChooserIface) GoPointer() uintptr {

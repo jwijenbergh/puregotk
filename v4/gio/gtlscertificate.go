@@ -13,7 +13,7 @@ import (
 type TlsCertificateClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *TlsCertificateClass) GoPointer() uintptr {
@@ -214,7 +214,7 @@ func NewTlsCertificateFromPkcs11Uris(Pkcs11UriVar string, PrivateKeyPkcs11UriVar
 
 }
 
-var xNewTlsCertificateFromPkcs12 func(uintptr, uint, string, **glib.Error) uintptr
+var xNewTlsCertificateFromPkcs12 func([]byte, uint, string, **glib.Error) uintptr
 
 // Creates a #GTlsCertificate from the data in @data. It must contain
 // a certificate and matching private key.
@@ -233,7 +233,7 @@ var xNewTlsCertificateFromPkcs12 func(uintptr, uint, string, **glib.Error) uintp
 // %G_IO_ERROR_NOT_SUPPORTED.
 //
 // Other parsing failures will error with %G_TLS_ERROR_BAD_CERTIFICATE.
-func NewTlsCertificateFromPkcs12(DataVar uintptr, LengthVar uint, PasswordVar string) (*TlsCertificate, error) {
+func NewTlsCertificateFromPkcs12(DataVar []byte, LengthVar uint, PasswordVar string) (*TlsCertificate, error) {
 	var cls *TlsCertificate
 	var cerr *glib.Error
 
@@ -251,19 +251,19 @@ func NewTlsCertificateFromPkcs12(DataVar uintptr, LengthVar uint, PasswordVar st
 
 }
 
-var xTlsCertificateGetDnsNames func(uintptr) uintptr
+var xTlsCertificateGetDnsNames func(uintptr) []glib.Bytes
 
 // Gets the value of #GTlsCertificate:dns-names.
-func (x *TlsCertificate) GetDnsNames() uintptr {
+func (x *TlsCertificate) GetDnsNames() []glib.Bytes {
 
 	cret := xTlsCertificateGetDnsNames(x.GoPointer())
 	return cret
 }
 
-var xTlsCertificateGetIpAddresses func(uintptr) uintptr
+var xTlsCertificateGetIpAddresses func(uintptr) []InetAddress
 
 // Gets the value of #GTlsCertificate:ip-addresses.
-func (x *TlsCertificate) GetIpAddresses() uintptr {
+func (x *TlsCertificate) GetIpAddresses() []InetAddress {
 
 	cret := xTlsCertificateGetIpAddresses(x.GoPointer())
 	return cret

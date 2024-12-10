@@ -267,10 +267,10 @@ func (x *PixbufLoader) SetSize(WidthVar int, HeightVar int) {
 
 }
 
-var xPixbufLoaderWrite func(uintptr, uintptr, uint, **glib.Error) bool
+var xPixbufLoaderWrite func(uintptr, []byte, uint, **glib.Error) bool
 
 // Parses the next `count` bytes in the given image buffer.
-func (x *PixbufLoader) Write(BufVar uintptr, CountVar uint) (bool, error) {
+func (x *PixbufLoader) Write(BufVar []byte, CountVar uint) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xPixbufLoaderWrite(x.GoPointer(), BufVar, CountVar, &cerr)

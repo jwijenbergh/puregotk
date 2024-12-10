@@ -48,7 +48,7 @@ func NewGestureStylus() *GestureStylus {
 	return cls
 }
 
-var xGestureStylusGetAxes func(uintptr, uintptr, uintptr) bool
+var xGestureStylusGetAxes func(uintptr, []gdk.AxisUse, []float64) bool
 
 // Returns the current values for the requested @axes.
 //
@@ -56,7 +56,7 @@ var xGestureStylusGetAxes func(uintptr, uintptr, uintptr) bool
 // [signal@Gtk.GestureStylus::down], [signal@Gtk.GestureStylus::motion],
 // [signal@Gtk.GestureStylus::up] or [signal@Gtk.GestureStylus::proximity]
 // signals.
-func (x *GestureStylus) GetAxes(AxesVar uintptr, ValuesVar uintptr) bool {
+func (x *GestureStylus) GetAxes(AxesVar []gdk.AxisUse, ValuesVar []float64) bool {
 
 	cret := xGestureStylusGetAxes(x.GoPointer(), AxesVar, ValuesVar)
 	return cret

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MultiSorterClass struct {
@@ -109,7 +110,7 @@ func (x *MultiSorter) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *MultiSorter) GetItemType() []interface{} {
+func (x *MultiSorter) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret

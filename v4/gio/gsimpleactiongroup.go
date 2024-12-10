@@ -13,7 +13,7 @@ import (
 type SimpleActionGroupClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [12]uintptr
 }
 
 func (x *SimpleActionGroupClass) GoPointer() uintptr {
@@ -55,11 +55,11 @@ func NewSimpleActionGroup() *SimpleActionGroup {
 	return cls
 }
 
-var xSimpleActionGroupAddEntries func(uintptr, uintptr, int, uintptr)
+var xSimpleActionGroupAddEntries func(uintptr, []ActionEntry, int, uintptr)
 
 // A convenience function for creating multiple #GSimpleAction instances
 // and adding them to the action group.
-func (x *SimpleActionGroup) AddEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
+func (x *SimpleActionGroup) AddEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
 
 	xSimpleActionGroupAddEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -309,7 +309,7 @@ func (x *SimpleActionGroup) HasAction(ActionNameVar string) bool {
 //
 // The caller is responsible for freeing the list with g_strfreev() when
 // it is no longer required.
-func (x *SimpleActionGroup) ListActions() uintptr {
+func (x *SimpleActionGroup) ListActions() []string {
 
 	cret := XGActionGroupListActions(x.GoPointer())
 	return cret
@@ -403,7 +403,7 @@ func (x *SimpleActionGroup) AddAction(ActionVar Action) {
 //	}
 //
 // ]|
-func (x *SimpleActionGroup) AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
+func (x *SimpleActionGroup) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 

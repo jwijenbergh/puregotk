@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of a function that can be registered with gdk_content_register_serializer().
@@ -16,10 +17,10 @@ import (
 // operation.
 type ContentSerializeFunc func(uintptr)
 
-var xContentRegisterSerializer func([]interface{}, string, uintptr, uintptr, uintptr)
+var xContentRegisterSerializer func(types.GType, string, uintptr, uintptr, uintptr)
 
 // Registers a function to serialize objects of a given type.
-func ContentRegisterSerializer(TypeVar []interface{}, MimeTypeVar string, SerializeVar *ContentSerializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
+func ContentRegisterSerializer(TypeVar types.GType, MimeTypeVar string, SerializeVar *ContentSerializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
 	xContentRegisterSerializer(TypeVar, MimeTypeVar, glib.NewCallback(SerializeVar), DataVar, glib.NewCallback(NotifyVar))
 
@@ -95,10 +96,10 @@ func (x *ContentSerializer) GetCancellable() *gio.Cancellable {
 	return cls
 }
 
-var xContentSerializerGetGtype func(uintptr) []interface{}
+var xContentSerializerGetGtype func(uintptr) types.GType
 
 // Gets the `GType` to of the object to serialize.
-func (x *ContentSerializer) GetGtype() []interface{} {
+func (x *ContentSerializer) GetGtype() types.GType {
 
 	cret := xContentSerializerGetGtype(x.GoPointer())
 	return cret

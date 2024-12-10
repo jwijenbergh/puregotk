@@ -492,13 +492,13 @@ func (x *Event) GetDistance(Event2Var *Event, DistanceVar float64) bool {
 	return cret
 }
 
-var xEventGetAxes func(uintptr, uintptr, uint) bool
+var xEventGetAxes func(uintptr, []float64, uint) bool
 
 // Extracts all axis values from an event.
 //
 // To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
 // on the device tool returned by [method@Gdk.Event.get_device_tool].
-func (x *Event) GetAxes(AxesVar uintptr, NAxesVar uint) bool {
+func (x *Event) GetAxes(AxesVar []float64, NAxesVar uint) bool {
 
 	cret := xEventGetAxes(x.GoPointer(), AxesVar, NAxesVar)
 	return cret
@@ -598,7 +598,7 @@ func (x *Event) GetEventType() EventType {
 	return cret
 }
 
-var xEventGetHistory func(uintptr, uint) uintptr
+var xEventGetHistory func(uintptr, uint) []TimeCoord
 
 // Retrieves the history of the device that @event is for, as a list of
 // time and coordinates.
@@ -609,7 +609,7 @@ var xEventGetHistory func(uintptr, uint) uintptr
 // Note that only motion and scroll events record history, and motion
 // events do it only if one of the mouse buttons is down, or the device
 // has a tool.
-func (x *Event) GetHistory(OutNCoordsVar uint) uintptr {
+func (x *Event) GetHistory(OutNCoordsVar uint) []TimeCoord {
 
 	cret := xEventGetHistory(x.GoPointer(), OutNCoordsVar)
 	return cret

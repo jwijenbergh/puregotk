@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EnumListItemClass struct {
@@ -85,10 +86,10 @@ func EnumListModelNewFromInternalPtr(ptr uintptr) *EnumListModel {
 	return cls
 }
 
-var xNewEnumListModel func([]interface{}) uintptr
+var xNewEnumListModel func(types.GType) uintptr
 
 // Creates a new `AdwEnumListModel` for @enum_type.
-func NewEnumListModel(EnumTypeVar []interface{}) *EnumListModel {
+func NewEnumListModel(EnumTypeVar types.GType) *EnumListModel {
 	var cls *EnumListModel
 
 	cret := xNewEnumListModel(EnumTypeVar)
@@ -110,10 +111,10 @@ func (x *EnumListModel) FindPosition(ValueVar int) uint {
 	return cret
 }
 
-var xEnumListModelGetEnumType func(uintptr) []interface{}
+var xEnumListModelGetEnumType func(uintptr) types.GType
 
 // Gets the type of the enum represented by @self.
-func (x *EnumListModel) GetEnumType() []interface{} {
+func (x *EnumListModel) GetEnumType() types.GType {
 
 	cret := xEnumListModelGetEnumType(x.GoPointer())
 	return cret
@@ -150,7 +151,7 @@ func (x *EnumListModel) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *EnumListModel) GetItemType() []interface{} {
+func (x *EnumListModel) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret

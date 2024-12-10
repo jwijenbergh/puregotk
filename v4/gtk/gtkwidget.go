@@ -11,6 +11,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/pango"
@@ -72,7 +73,7 @@ type WidgetClass struct {
 
 	Priv *WidgetClassPrivate
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *WidgetClass) GoPointer() uintptr {
@@ -239,13 +240,13 @@ func (x *WidgetClass) GetCssName() string {
 	return cret
 }
 
-var xWidgetClassGetLayoutManagerType func(uintptr) []interface{}
+var xWidgetClassGetLayoutManagerType func(uintptr) types.GType
 
 // Retrieves the type of the [class@Gtk.LayoutManager]
 // used by widgets of class @widget_class.
 //
 // See also: [method@Gtk.WidgetClass.set_layout_manager_type].
-func (x *WidgetClass) GetLayoutManagerType() []interface{} {
+func (x *WidgetClass) GetLayoutManagerType() types.GType {
 
 	cret := xWidgetClassGetLayoutManagerType(x.GoPointer())
 	return cret
@@ -287,7 +288,7 @@ func (x *WidgetClass) InstallPropertyAction(ActionNameVar string, PropertyNameVa
 
 }
 
-var xWidgetClassQueryAction func(uintptr, uint, []interface{}, string, **glib.VariantType, string) bool
+var xWidgetClassQueryAction func(uintptr, uint, types.GType, string, **glib.VariantType, string) bool
 
 // Returns details about the @index_-th action that has been
 // installed for @widget_class during class initialization.
@@ -298,7 +299,7 @@ var xWidgetClassQueryAction func(uintptr, uint, []interface{}, string, **glib.Va
 // Note that this function will also return actions defined
 // by parent classes. You can identify those by looking
 // at @owner.
-func (x *WidgetClass) QueryAction(IndexVar uint, OwnerVar []interface{}, ActionNameVar string, ParameterTypeVar **glib.VariantType, PropertyNameVar string) bool {
+func (x *WidgetClass) QueryAction(IndexVar uint, OwnerVar types.GType, ActionNameVar string, ParameterTypeVar **glib.VariantType, PropertyNameVar string) bool {
 
 	cret := xWidgetClassQueryAction(x.GoPointer(), IndexVar, OwnerVar, ActionNameVar, ParameterTypeVar, PropertyNameVar)
 	return cret
@@ -359,7 +360,7 @@ func (x *WidgetClass) SetCssName(NameVar string) {
 
 }
 
-var xWidgetClassSetLayoutManagerType func(uintptr, []interface{})
+var xWidgetClassSetLayoutManagerType func(uintptr, types.GType)
 
 // Sets the type to be used for creating layout managers for
 // widgets of @widget_class.
@@ -368,7 +369,7 @@ var xWidgetClassSetLayoutManagerType func(uintptr, []interface{})
 //
 // This function should only be called from class init functions
 // of widgets.
-func (x *WidgetClass) SetLayoutManagerType(TypeVar []interface{}) {
+func (x *WidgetClass) SetLayoutManagerType(TypeVar types.GType) {
 
 	xWidgetClassSetLayoutManagerType(x.GoPointer(), TypeVar)
 
@@ -1168,7 +1169,7 @@ func (x *Widget) CreatePangoLayout(TextVar string) *pango.Layout {
 	return cls
 }
 
-var xWidgetDisposeTemplate func(uintptr, []interface{})
+var xWidgetDisposeTemplate func(uintptr, types.GType)
 
 // Clears the template children for the given widget.
 //
@@ -1197,7 +1198,7 @@ var xWidgetDisposeTemplate func(uintptr, []interface{})
 //	}
 //
 // ```
-func (x *Widget) DisposeTemplate(WidgetTypeVar []interface{}) {
+func (x *Widget) DisposeTemplate(WidgetTypeVar types.GType) {
 
 	xWidgetDisposeTemplate(x.GoPointer(), WidgetTypeVar)
 
@@ -1282,7 +1283,7 @@ func (x *Widget) GetAllocation(AllocationVar *Allocation) {
 
 }
 
-var xWidgetGetAncestor func(uintptr, []interface{}) uintptr
+var xWidgetGetAncestor func(uintptr, types.GType) uintptr
 
 // Gets the first ancestor of @widget with type @widget_type.
 //
@@ -1293,7 +1294,7 @@ var xWidgetGetAncestor func(uintptr, []interface{}) uintptr
 //
 // Note that unlike [method@Gtk.Widget.is_ancestor], this function
 // considers @widget to be an ancestor of itself.
-func (x *Widget) GetAncestor(WidgetTypeVar []interface{}) *Widget {
+func (x *Widget) GetAncestor(WidgetTypeVar types.GType) *Widget {
 	var cls *Widget
 
 	cret := xWidgetGetAncestor(x.GoPointer(), WidgetTypeVar)
@@ -2090,7 +2091,7 @@ func (x *Widget) GetStyleContext() *StyleContext {
 	return cls
 }
 
-var xWidgetGetTemplateChild func(uintptr, []interface{}, string) uintptr
+var xWidgetGetTemplateChild func(uintptr, types.GType, string) uintptr
 
 // Fetch an object build from the template XML for @widget_type in
 // this @widget instance.
@@ -2102,7 +2103,7 @@ var xWidgetGetTemplateChild func(uintptr, []interface{}, string) uintptr
 // This function is only meant to be called for code which is private
 // to the @widget_type which declared the child and is meant for language
 // bindings which cannot easily make use of the GObject structure offsets.
-func (x *Widget) GetTemplateChild(WidgetTypeVar []interface{}, NameVar string) *gobject.Object {
+func (x *Widget) GetTemplateChild(WidgetTypeVar types.GType, NameVar string) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := xWidgetGetTemplateChild(x.GoPointer(), WidgetTypeVar, NameVar)
@@ -3818,7 +3819,7 @@ func (x *Widget) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *Widget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -3854,7 +3855,7 @@ func (x *Widget) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *Widget) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -3887,7 +3888,7 @@ func (x *Widget) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
+func (x *Widget) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

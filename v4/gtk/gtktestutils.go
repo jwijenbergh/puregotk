@@ -4,9 +4,10 @@ package gtk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
-var xTestInit func(int, uintptr, ...interface{})
+var xTestInit func(int, []string, ...interface{})
 
 // This function is used to initialize a GTK test program.
 //
@@ -17,17 +18,17 @@ var xTestInit func(int, uintptr, ...interface{})
 //
 // Like gtk_init() and g_test_init(), any known arguments will be
 // processed and stripped from @argc and @argv.
-func TestInit(ArgcpVar int, ArgvpVar uintptr, varArgs ...interface{}) {
+func TestInit(ArgcpVar int, ArgvpVar []string, varArgs ...interface{}) {
 
 	xTestInit(ArgcpVar, ArgvpVar, varArgs...)
 
 }
 
-var xTestListAllTypes func(uint) uintptr
+var xTestListAllTypes func(uint) []types.GType
 
 // Return the type ids that have been registered after
 // calling gtk_test_register_all_types().
-func TestListAllTypes(NTypesVar uint) uintptr {
+func TestListAllTypes(NTypesVar uint) []types.GType {
 
 	cret := xTestListAllTypes(NTypesVar)
 	return cret

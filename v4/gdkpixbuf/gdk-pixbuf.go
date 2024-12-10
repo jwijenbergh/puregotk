@@ -199,7 +199,7 @@ func NewPixbufFromBytes(DataVar *glib.Bytes, ColorspaceVar Colorspace, HasAlphaV
 	return cls
 }
 
-var xNewPixbufFromData func(uintptr, Colorspace, bool, int, int, int, int, uintptr, uintptr) uintptr
+var xNewPixbufFromData func([]byte, Colorspace, bool, int, int, int, int, uintptr, uintptr) uintptr
 
 // Creates a new #GdkPixbuf out of in-memory image data.
 //
@@ -212,7 +212,7 @@ var xNewPixbufFromData func(uintptr, Colorspace, bool, int, int, int, int, uintp
 // it is its responsibility to free the pixel array.
 //
 // See also: [ctor@GdkPixbuf.Pixbuf.new_from_bytes]
-func NewPixbufFromData(DataVar uintptr, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar *PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
+func NewPixbufFromData(DataVar []byte, ColorspaceVar Colorspace, HasAlphaVar bool, BitsPerSampleVar int, WidthVar int, HeightVar int, RowstrideVar int, DestroyFnVar *PixbufDestroyNotify, DestroyFnDataVar uintptr) *Pixbuf {
 	var cls *Pixbuf
 
 	cret := xNewPixbufFromData(DataVar, ColorspaceVar, HasAlphaVar, BitsPerSampleVar, WidthVar, HeightVar, RowstrideVar, glib.NewCallback(DestroyFnVar), DestroyFnDataVar)
@@ -337,7 +337,7 @@ func NewPixbufFromFileAtSize(FilenameVar string, WidthVar int, HeightVar int) (*
 
 }
 
-var xNewPixbufFromInline func(int, uintptr, bool, **glib.Error) uintptr
+var xNewPixbufFromInline func(int, []byte, bool, **glib.Error) uintptr
 
 // Creates a `GdkPixbuf` from a flat representation that is suitable for
 // storing as inline data in a program.
@@ -372,7 +372,7 @@ var xNewPixbufFromInline func(int, uintptr, bool, **glib.Error) uintptr
 // For non-const inline data, you could get out of memory. For untrusted
 // inline data located at runtime, you could have corrupt inline data in
 // addition.
-func NewPixbufFromInline(DataLengthVar int, DataVar uintptr, CopyPixelsVar bool) (*Pixbuf, error) {
+func NewPixbufFromInline(DataLengthVar int, DataVar []byte, CopyPixelsVar bool) (*Pixbuf, error) {
 	var cls *Pixbuf
 	var cerr *glib.Error
 
@@ -840,7 +840,7 @@ func (x *Pixbuf) GetOptions() *glib.HashTable {
 	return cret
 }
 
-var xPixbufGetPixels func(uintptr) uintptr
+var xPixbufGetPixels func(uintptr) []byte
 
 // Queries a pointer to the pixel data of a pixbuf.
 //
@@ -849,13 +849,13 @@ var xPixbufGetPixels func(uintptr) uintptr
 //
 // Please see the section on [image data](class.Pixbuf.html#image-data) for information
 // about how the pixel data is stored in memory.
-func (x *Pixbuf) GetPixels() uintptr {
+func (x *Pixbuf) GetPixels() []byte {
 
 	cret := xPixbufGetPixels(x.GoPointer())
 	return cret
 }
 
-var xPixbufGetPixelsWithLength func(uintptr, uint) uintptr
+var xPixbufGetPixelsWithLength func(uintptr, uint) []byte
 
 // Queries a pointer to the pixel data of a pixbuf.
 //
@@ -864,7 +864,7 @@ var xPixbufGetPixelsWithLength func(uintptr, uint) uintptr
 //
 // Please see the section on [image data](class.Pixbuf.html#image-data) for information
 // about how the pixel data is stored in memory.
-func (x *Pixbuf) GetPixelsWithLength(LengthVar uint) uintptr {
+func (x *Pixbuf) GetPixelsWithLength(LengthVar uint) []byte {
 
 	cret := xPixbufGetPixelsWithLength(x.GoPointer(), LengthVar)
 	return cret
@@ -1084,7 +1084,7 @@ func (x *Pixbuf) Save(FilenameVar string, TypeVar string, ErrorVar **glib.Error,
 	return cret
 }
 
-var xPixbufSaveToBuffer func(uintptr, uintptr, uint, string, **glib.Error, ...interface{}) bool
+var xPixbufSaveToBuffer func(uintptr, []byte, uint, string, **glib.Error, ...interface{}) bool
 
 // Saves pixbuf to a new buffer in format `type`, which is currently "jpeg",
 // "png", "tiff", "ico" or "bmp".
@@ -1100,13 +1100,13 @@ var xPixbufSaveToBuffer func(uintptr, uintptr, uint, string, **glib.Error, ...in
 // domain.
 //
 // See `gdk_pixbuf_save()` for more details.
-func (x *Pixbuf) SaveToBuffer(BufferVar uintptr, BufferSizeVar uint, TypeVar string, ErrorVar **glib.Error, varArgs ...interface{}) bool {
+func (x *Pixbuf) SaveToBuffer(BufferVar []byte, BufferSizeVar uint, TypeVar string, ErrorVar **glib.Error, varArgs ...interface{}) bool {
 
 	cret := xPixbufSaveToBuffer(x.GoPointer(), BufferVar, BufferSizeVar, TypeVar, ErrorVar, varArgs...)
 	return cret
 }
 
-var xPixbufSaveToBufferv func(uintptr, uintptr, uint, string, []string, []string, **glib.Error) bool
+var xPixbufSaveToBufferv func(uintptr, []byte, uint, string, []string, []string, **glib.Error) bool
 
 // Vector version of `gdk_pixbuf_save_to_buffer()`.
 //
@@ -1114,7 +1114,7 @@ var xPixbufSaveToBufferv func(uintptr, uintptr, uint, string, []string, []string
 // "tiff", "png", "ico" or "bmp".
 //
 // See [method@GdkPixbuf.Pixbuf.save_to_buffer] for more details.
-func (x *Pixbuf) SaveToBufferv(BufferVar uintptr, BufferSizeVar uint, TypeVar string, OptionKeysVar []string, OptionValuesVar []string) (bool, error) {
+func (x *Pixbuf) SaveToBufferv(BufferVar []byte, BufferSizeVar uint, TypeVar string, OptionKeysVar []string, OptionValuesVar []string) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xPixbufSaveToBufferv(x.GoPointer(), BufferVar, BufferSizeVar, TypeVar, OptionKeysVar, OptionValuesVar, &cerr)
@@ -1220,7 +1220,7 @@ func (x *Pixbuf) SaveToStreamv(StreamVar *gio.OutputStream, TypeVar string, Opti
 
 }
 
-var xPixbufSaveToStreamvAsync func(uintptr, uintptr, string, uintptr, uintptr, uintptr, uintptr, uintptr)
+var xPixbufSaveToStreamvAsync func(uintptr, uintptr, string, []string, []string, uintptr, uintptr, uintptr)
 
 // Saves `pixbuf` to an output stream asynchronously.
 //
@@ -1231,7 +1231,7 @@ var xPixbufSaveToStreamvAsync func(uintptr, uintptr, string, uintptr, uintptr, u
 //
 // You can then call gdk_pixbuf_save_to_stream_finish() to get the result of
 // the operation.
-func (x *Pixbuf) SaveToStreamvAsync(StreamVar *gio.OutputStream, TypeVar string, OptionKeysVar uintptr, OptionValuesVar uintptr, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Pixbuf) SaveToStreamvAsync(StreamVar *gio.OutputStream, TypeVar string, OptionKeysVar []string, OptionValuesVar []string, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xPixbufSaveToStreamvAsync(x.GoPointer(), StreamVar.GoPointer(), TypeVar, OptionKeysVar, OptionValuesVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 

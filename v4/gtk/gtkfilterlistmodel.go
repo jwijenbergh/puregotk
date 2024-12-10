@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FilterListModelClass struct {
@@ -201,7 +202,7 @@ func (x *FilterListModel) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *FilterListModel) GetItemType() []interface{} {
+func (x *FilterListModel) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret

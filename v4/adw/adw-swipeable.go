@@ -13,7 +13,7 @@ import (
 type SwipeableInterface struct {
 	Parent uintptr
 
-	Padding uintptr
+	Padding [4]uintptr
 }
 
 func (x *SwipeableInterface) GoPointer() uintptr {
@@ -31,7 +31,7 @@ type Swipeable interface {
 	GetCancelProgress() float64
 	GetDistance() float64
 	GetProgress() float64
-	GetSnapPoints(NSnapPointsVar int) uintptr
+	GetSnapPoints(NSnapPointsVar int) []float64
 	GetSwipeArea(NavigationDirectionVar NavigationDirection, IsDragVar bool, RectVar *gdk.Rectangle)
 }
 type SwipeableBase struct {
@@ -73,7 +73,7 @@ func (x *SwipeableBase) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *SwipeableBase) GetSnapPoints(NSnapPointsVar int) uintptr {
+func (x *SwipeableBase) GetSnapPoints(NSnapPointsVar int) []float64 {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -97,7 +97,7 @@ func (x *SwipeableBase) GetSwipeArea(NavigationDirectionVar NavigationDirection,
 var XAdwSwipeableGetCancelProgress func(uintptr) float64
 var XAdwSwipeableGetDistance func(uintptr) float64
 var XAdwSwipeableGetProgress func(uintptr) float64
-var XAdwSwipeableGetSnapPoints func(uintptr, int) uintptr
+var XAdwSwipeableGetSnapPoints func(uintptr, int) []float64
 var XAdwSwipeableGetSwipeArea func(uintptr, NavigationDirection, bool, *gdk.Rectangle)
 
 func init() {

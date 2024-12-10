@@ -1494,7 +1494,7 @@ func Utf8ToUtf16(StrVar string, LenVar int32, ItemsReadVar int32, ItemsWrittenVa
 
 }
 
-var xUtf8Validate func(uintptr, int, string) bool
+var xUtf8Validate func([]byte, int, string) bool
 
 // Validates UTF-8 encoded text. @str is the text to validate;
 // if @str is nul-terminated, then @max_len can be -1, otherwise
@@ -1511,19 +1511,19 @@ var xUtf8Validate func(uintptr, int, string) bool
 // routines require valid UTF-8 as input; so data read from a file
 // or the network should be checked with g_utf8_validate() before
 // doing anything else with it.
-func Utf8Validate(StrVar uintptr, MaxLenVar int, EndVar string) bool {
+func Utf8Validate(StrVar []byte, MaxLenVar int, EndVar string) bool {
 
 	cret := xUtf8Validate(StrVar, MaxLenVar, EndVar)
 	return cret
 }
 
-var xUtf8ValidateLen func(uintptr, uint, string) bool
+var xUtf8ValidateLen func([]byte, uint, string) bool
 
 // Validates UTF-8 encoded text.
 //
 // As with g_utf8_validate(), but @max_len must be set, and hence this function
 // will always return %FALSE if any of the bytes of @str are nul.
-func Utf8ValidateLen(StrVar uintptr, MaxLenVar uint, EndVar string) bool {
+func Utf8ValidateLen(StrVar []byte, MaxLenVar uint, EndVar string) bool {
 
 	cret := xUtf8ValidateLen(StrVar, MaxLenVar, EndVar)
 	return cret

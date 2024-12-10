@@ -14,7 +14,7 @@ import (
 type TlsConnectionClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [6]uintptr
 }
 
 func (x *TlsConnectionClass) GoPointer() uintptr {
@@ -72,7 +72,7 @@ func (x *TlsConnection) GetCertificate() *TlsCertificate {
 	return cls
 }
 
-var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uintptr, **glib.Error) bool
+var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, []byte, **glib.Error) bool
 
 // Query the TLS backend for TLS channel binding data of @type for @conn.
 //
@@ -87,7 +87,7 @@ var xTlsConnectionGetChannelBindingData func(uintptr, TlsChannelBindingType, uin
 // will be available though.  That could happen if TLS connection does not
 // support @type or the binding data is not available yet due to additional
 // negotiation or input required.
-func (x *TlsConnection) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar uintptr) (bool, error) {
+func (x *TlsConnection) GetChannelBindingData(TypeVar TlsChannelBindingType, DataVar []byte) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xTlsConnectionGetChannelBindingData(x.GoPointer(), TypeVar, DataVar, &cerr)
@@ -310,7 +310,7 @@ func (x *TlsConnection) HandshakeFinish(ResultVar AsyncResult) (bool, error) {
 
 }
 
-var xTlsConnectionSetAdvertisedProtocols func(uintptr, uintptr)
+var xTlsConnectionSetAdvertisedProtocols func(uintptr, []string)
 
 // Sets the list of application-layer protocols to advertise that the
 // caller is willing to speak on this connection. The
@@ -322,7 +322,7 @@ var xTlsConnectionSetAdvertisedProtocols func(uintptr, uintptr)
 //
 // See [IANA TLS ALPN Protocol IDs](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
 // for a list of registered protocol IDs.
-func (x *TlsConnection) SetAdvertisedProtocols(ProtocolsVar uintptr) {
+func (x *TlsConnection) SetAdvertisedProtocols(ProtocolsVar []string) {
 
 	xTlsConnectionSetAdvertisedProtocols(x.GoPointer(), ProtocolsVar)
 

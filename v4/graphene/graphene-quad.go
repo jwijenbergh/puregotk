@@ -13,7 +13,7 @@ import (
 // The contents of a #graphene_quad_t are private and should never be
 // accessed directly.
 type Quad struct {
-	Points uintptr
+	Points [4]Point
 }
 
 func (x *Quad) GoPointer() uintptr {
@@ -76,10 +76,10 @@ func (x *Quad) Init(P1Var *Point, P2Var *Point, P3Var *Point, P4Var *Point) *Qua
 	return cret
 }
 
-var xQuadInitFromPoints func(uintptr, uintptr) *Quad
+var xQuadInitFromPoints func(uintptr, [4]Point) *Quad
 
 // Initializes a #graphene_quad_t using an array of points.
-func (x *Quad) InitFromPoints(PointsVar uintptr) *Quad {
+func (x *Quad) InitFromPoints(PointsVar [4]Point) *Quad {
 
 	cret := xQuadInitFromPoints(x.GoPointer(), PointsVar)
 	return cret

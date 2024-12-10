@@ -25,7 +25,7 @@ import (
 type RoundedRect struct {
 	Bounds uintptr
 
-	Corner uintptr
+	Corner [4]graphene.Size
 }
 
 func (x *RoundedRect) GoPointer() uintptr {

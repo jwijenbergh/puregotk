@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The signal accumulator is a special callback function that can be used
@@ -25,7 +26,7 @@ type SignalAccumulator func(*SignalInvocationHint, *Value, *Value, uintptr) bool
 // trap all emissions of that signal, from any object.
 //
 // You may not attach these to signals created with the %G_SIGNAL_NO_HOOKS flag.
-type SignalEmissionHook func(*SignalInvocationHint, uint, uintptr, uintptr) bool
+type SignalEmissionHook func(*SignalInvocationHint, uint, []Value, uintptr) bool
 
 // The #GSignalInvocationHint structure is used to pass on additional information
 // to callbacks during a signal emission.
@@ -49,15 +50,15 @@ type SignalQuery struct {
 
 	SignalName uintptr
 
-	Itype []interface{}
+	Itype types.GType
 
 	SignalFlags SignalFlags
 
-	ReturnType []interface{}
+	ReturnType types.GType
 
 	NParams uint
 
-	ParamTypes uintptr
+	ParamTypes []types.GType
 }
 
 func (x *SignalQuery) GoPointer() uintptr {
@@ -220,13 +221,13 @@ func SignalAddEmissionHook(SignalIdVar uint, DetailVar glib.Quark, HookFuncVar *
 	return cret
 }
 
-var xSignalChainFromOverridden func(uintptr, *Value)
+var xSignalChainFromOverridden func([]Value, *Value)
 
 // Calls the original class closure of a signal. This function should only
 // be called from an overridden class closure; see
 // g_signal_override_class_closure() and
 // g_signal_override_class_handler().
-func SignalChainFromOverridden(InstanceAndParamsVar uintptr, ReturnValueVar *Value) {
+func SignalChainFromOverridden(InstanceAndParamsVar []Value, ReturnValueVar *Value) {
 
 	xSignalChainFromOverridden(InstanceAndParamsVar, ReturnValueVar)
 
@@ -314,14 +315,14 @@ func SignalEmitValist(InstanceVar *TypeInstance, SignalIdVar uint, DetailVar gli
 
 }
 
-var xSignalEmitv func(uintptr, uint, glib.Quark, *Value)
+var xSignalEmitv func([]Value, uint, glib.Quark, *Value)
 
 // Emits a signal. Signal emission is done synchronously.
 // The method will only return control after all handlers are called or signal emission was stopped.
 //
 // Note that g_signal_emitv() doesn't change @return_value if no handlers are
 // connected, in contrast to g_signal_emit() and g_signal_emit_valist().
-func SignalEmitv(InstanceAndParamsVar uintptr, SignalIdVar uint, DetailVar glib.Quark, ReturnValueVar *Value) {
+func SignalEmitv(InstanceAndParamsVar []Value, SignalIdVar uint, DetailVar glib.Quark, ReturnValueVar *Value) {
 
 	xSignalEmitv(InstanceAndParamsVar, SignalIdVar, DetailVar, ReturnValueVar)
 
@@ -505,18 +506,18 @@ func SignalIsValidName(NameVar string) bool {
 	return cret
 }
 
-var xSignalListIds func([]interface{}, uint) uintptr
+var xSignalListIds func(types.GType, uint) []uint
 
 // Lists the signals by id that a certain instance or interface type
 // created. Further information about the signals can be acquired through
 // g_signal_query().
-func SignalListIds(ItypeVar []interface{}, NIdsVar uint) uintptr {
+func SignalListIds(ItypeVar types.GType, NIdsVar uint) []uint {
 
 	cret := xSignalListIds(ItypeVar, NIdsVar)
 	return cret
 }
 
-var xSignalLookup func(string, []interface{}) uint
+var xSignalLookup func(string, types.GType) uint
 
 // Given the name of the signal and the type of object it connects to, gets
 // the signal's identifying integer. Emitting the signal by number is
@@ -529,7 +530,7 @@ var xSignalLookup func(string, []interface{}) uint
 // always installed during class initialization.
 //
 // See g_signal_new() for details on allowed signal names.
-func SignalLookup(NameVar string, ItypeVar []interface{}) uint {
+func SignalLookup(NameVar string, ItypeVar types.GType) uint {
 
 	cret := xSignalLookup(NameVar, ItypeVar)
 	return cret
@@ -546,7 +547,7 @@ func SignalName(SignalIdVar uint) string {
 	return cret
 }
 
-var xSignalNew func(string, []interface{}, SignalFlags, uint, uintptr, uintptr, SignalCMarshaller, []interface{}, uint, ...interface{}) uint
+var xSignalNew func(string, types.GType, SignalFlags, uint, uintptr, uintptr, SignalCMarshaller, types.GType, uint, ...interface{}) uint
 
 // Creates a new signal. (This is usually done in the class initializer.)
 //
@@ -572,13 +573,13 @@ var xSignalNew func(string, []interface{}, SignalFlags, uint, uintptr, uintptr, 
 // If @c_marshaller is non-%NULL, you need to also specify a va_marshaller
 // using g_signal_set_va_marshaller() or the generic va_marshaller will
 // be used.
-func SignalNew(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassOffsetVar uint, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
+func SignalNew(SignalNameVar string, ItypeVar types.GType, SignalFlagsVar SignalFlags, ClassOffsetVar uint, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar types.GType, NParamsVar uint, varArgs ...interface{}) uint {
 
 	cret := xSignalNew(SignalNameVar, ItypeVar, SignalFlagsVar, ClassOffsetVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
 	return cret
 }
 
-var xSignalNewClassHandler func(string, []interface{}, SignalFlags, uintptr, uintptr, uintptr, SignalCMarshaller, []interface{}, uint, ...interface{}) uint
+var xSignalNewClassHandler func(string, types.GType, SignalFlags, uintptr, uintptr, uintptr, SignalCMarshaller, types.GType, uint, ...interface{}) uint
 
 // Creates a new signal. (This is usually done in the class initializer.)
 //
@@ -596,13 +597,13 @@ var xSignalNewClassHandler func(string, []interface{}, SignalFlags, uintptr, uin
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewClassHandler(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassHandlerVar *Callback, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, varArgs ...interface{}) uint {
+func SignalNewClassHandler(SignalNameVar string, ItypeVar types.GType, SignalFlagsVar SignalFlags, ClassHandlerVar *Callback, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar types.GType, NParamsVar uint, varArgs ...interface{}) uint {
 
 	cret := xSignalNewClassHandler(SignalNameVar, ItypeVar, SignalFlagsVar, glib.NewCallback(ClassHandlerVar), glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, varArgs...)
 	return cret
 }
 
-var xSignalNewValist func(string, []interface{}, SignalFlags, *Closure, uintptr, uintptr, SignalCMarshaller, []interface{}, uint, []interface{}) uint
+var xSignalNewValist func(string, types.GType, SignalFlags, *Closure, uintptr, uintptr, SignalCMarshaller, types.GType, uint, []interface{}) uint
 
 // Creates a new signal. (This is usually done in the class initializer.)
 //
@@ -610,13 +611,13 @@ var xSignalNewValist func(string, []interface{}, SignalFlags, *Closure, uintptr,
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewValist(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ArgsVar []interface{}) uint {
+func SignalNewValist(SignalNameVar string, ItypeVar types.GType, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar types.GType, NParamsVar uint, ArgsVar []interface{}) uint {
 
 	cret := xSignalNewValist(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ArgsVar)
 	return cret
 }
 
-var xSignalNewv func(string, []interface{}, SignalFlags, *Closure, uintptr, uintptr, SignalCMarshaller, []interface{}, uint, uintptr) uint
+var xSignalNewv func(string, types.GType, SignalFlags, *Closure, uintptr, uintptr, SignalCMarshaller, types.GType, uint, []types.GType) uint
 
 // Creates a new signal. (This is usually done in the class initializer.)
 //
@@ -624,13 +625,13 @@ var xSignalNewv func(string, []interface{}, SignalFlags, *Closure, uintptr, uint
 //
 // If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 // the marshaller for this signal.
-func SignalNewv(SignalNameVar string, ItypeVar []interface{}, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar []interface{}, NParamsVar uint, ParamTypesVar uintptr) uint {
+func SignalNewv(SignalNameVar string, ItypeVar types.GType, SignalFlagsVar SignalFlags, ClassClosureVar *Closure, AccumulatorVar *SignalAccumulator, AccuDataVar uintptr, CMarshallerVar SignalCMarshaller, ReturnTypeVar types.GType, NParamsVar uint, ParamTypesVar []types.GType) uint {
 
 	cret := xSignalNewv(SignalNameVar, ItypeVar, SignalFlagsVar, ClassClosureVar, glib.NewCallback(AccumulatorVar), AccuDataVar, CMarshallerVar, ReturnTypeVar, NParamsVar, ParamTypesVar)
 	return cret
 }
 
-var xSignalOverrideClassClosure func(uint, []interface{}, *Closure)
+var xSignalOverrideClassClosure func(uint, types.GType, *Closure)
 
 // Overrides the class closure (i.e. the default handler) for the given signal
 // for emissions on instances of @instance_type. @instance_type must be derived
@@ -639,13 +640,13 @@ var xSignalOverrideClassClosure func(uint, []interface{}, *Closure)
 // See g_signal_chain_from_overridden() and
 // g_signal_chain_from_overridden_handler() for how to chain up to the
 // parent class closure from inside the overridden one.
-func SignalOverrideClassClosure(SignalIdVar uint, InstanceTypeVar []interface{}, ClassClosureVar *Closure) {
+func SignalOverrideClassClosure(SignalIdVar uint, InstanceTypeVar types.GType, ClassClosureVar *Closure) {
 
 	xSignalOverrideClassClosure(SignalIdVar, InstanceTypeVar, ClassClosureVar)
 
 }
 
-var xSignalOverrideClassHandler func(string, []interface{}, uintptr)
+var xSignalOverrideClassHandler func(string, types.GType, uintptr)
 
 // Overrides the class closure (i.e. the default handler) for the
 // given signal for emissions on instances of @instance_type with
@@ -655,17 +656,17 @@ var xSignalOverrideClassHandler func(string, []interface{}, uintptr)
 // See g_signal_chain_from_overridden() and
 // g_signal_chain_from_overridden_handler() for how to chain up to the
 // parent class closure from inside the overridden one.
-func SignalOverrideClassHandler(SignalNameVar string, InstanceTypeVar []interface{}, ClassHandlerVar *Callback) {
+func SignalOverrideClassHandler(SignalNameVar string, InstanceTypeVar types.GType, ClassHandlerVar *Callback) {
 
 	xSignalOverrideClassHandler(SignalNameVar, InstanceTypeVar, glib.NewCallback(ClassHandlerVar))
 
 }
 
-var xSignalParseName func(string, []interface{}, uint, *glib.Quark, bool) bool
+var xSignalParseName func(string, types.GType, uint, *glib.Quark, bool) bool
 
 // Internal function to parse a signal name into its @signal_id
 // and @detail quark.
-func SignalParseName(DetailedSignalVar string, ItypeVar []interface{}, SignalIdPVar uint, DetailPVar *glib.Quark, ForceDetailQuarkVar bool) bool {
+func SignalParseName(DetailedSignalVar string, ItypeVar types.GType, SignalIdPVar uint, DetailPVar *glib.Quark, ForceDetailQuarkVar bool) bool {
 
 	cret := xSignalParseName(DetailedSignalVar, ItypeVar, SignalIdPVar, DetailPVar, ForceDetailQuarkVar)
 	return cret
@@ -694,13 +695,13 @@ func SignalRemoveEmissionHook(SignalIdVar uint, HookIdVar uint32) {
 
 }
 
-var xSignalSetVaMarshaller func(uint, []interface{}, SignalCVaMarshaller)
+var xSignalSetVaMarshaller func(uint, types.GType, SignalCVaMarshaller)
 
 // Change the #GSignalCVaMarshaller used for a given signal.  This is a
 // specialised form of the marshaller that can often be used for the
 // common case of a single connected signal handler and avoids the
 // overhead of #GValue.  Its use is optional.
-func SignalSetVaMarshaller(SignalIdVar uint, InstanceTypeVar []interface{}, VaMarshallerVar SignalCVaMarshaller) {
+func SignalSetVaMarshaller(SignalIdVar uint, InstanceTypeVar types.GType, VaMarshallerVar SignalCVaMarshaller) {
 
 	xSignalSetVaMarshaller(SignalIdVar, InstanceTypeVar, VaMarshallerVar)
 

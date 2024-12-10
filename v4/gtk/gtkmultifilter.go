@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type AnyFilterClass struct {
@@ -97,7 +98,7 @@ func (x *AnyFilter) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *AnyFilter) GetItemType() []interface{} {
+func (x *AnyFilter) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret
@@ -241,7 +242,7 @@ func (x *EveryFilter) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *EveryFilter) GetItemType() []interface{} {
+func (x *EveryFilter) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret
@@ -383,7 +384,7 @@ func (x *MultiFilter) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *MultiFilter) GetItemType() []interface{} {
+func (x *MultiFilter) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret

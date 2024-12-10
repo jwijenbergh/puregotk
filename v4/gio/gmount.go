@@ -56,8 +56,8 @@ type Mount interface {
 	GetUuid() string
 	GetVolume() *VolumeBase
 	GuessContentType(ForceRescanVar bool, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
-	GuessContentTypeFinish(ResultVar AsyncResult) uintptr
-	GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) uintptr
+	GuessContentTypeFinish(ResultVar AsyncResult) []string
+	GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) []string
 	IsShadowed() bool
 	Remount(FlagsVar MountMountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	RemountFinish(ResultVar AsyncResult) bool
@@ -273,7 +273,7 @@ func (x *MountBase) GuessContentType(ForceRescanVar bool, CancellableVar *Cancel
 // %FALSE will be returned. In particular, you may get an
 // %G_IO_ERROR_NOT_SUPPORTED if the mount does not support content
 // guessing.
-func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) (uintptr, error) {
+func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) ([]string, error) {
 	var cerr *glib.Error
 
 	cret := XGMountGuessContentTypeFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
@@ -293,7 +293,7 @@ func (x *MountBase) GuessContentTypeFinish(ResultVar AsyncResult) (uintptr, erro
 //
 // This is a synchronous operation and as such may block doing IO;
 // see g_mount_guess_content_type() for the asynchronous version.
-func (x *MountBase) GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) (uintptr, error) {
+func (x *MountBase) GuessContentTypeSync(ForceRescanVar bool, CancellableVar *Cancellable) ([]string, error) {
 	var cerr *glib.Error
 
 	cret := XGMountGuessContentTypeSync(x.GoPointer(), ForceRescanVar, CancellableVar.GoPointer(), &cerr)
@@ -441,8 +441,8 @@ var XGMountGetSymbolicIcon func(uintptr) uintptr
 var XGMountGetUuid func(uintptr) string
 var XGMountGetVolume func(uintptr) uintptr
 var XGMountGuessContentType func(uintptr, bool, uintptr, uintptr, uintptr)
-var XGMountGuessContentTypeFinish func(uintptr, uintptr, **glib.Error) uintptr
-var XGMountGuessContentTypeSync func(uintptr, bool, uintptr, **glib.Error) uintptr
+var XGMountGuessContentTypeFinish func(uintptr, uintptr, **glib.Error) []string
+var XGMountGuessContentTypeSync func(uintptr, bool, uintptr, **glib.Error) []string
 var XGMountIsShadowed func(uintptr) bool
 var XGMountRemount func(uintptr, MountMountFlags, uintptr, uintptr, uintptr, uintptr)
 var XGMountRemountFinish func(uintptr, uintptr, **glib.Error) bool

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for initializing object such that initialization
@@ -112,12 +113,12 @@ func (x *InitableBase) Init(CancellableVar *Cancellable) (bool, error) {
 
 var XGInitableInit func(uintptr, uintptr, **glib.Error) bool
 
-var xInitableNewv func([]interface{}, uint, uintptr, uintptr, **glib.Error) uintptr
+var xInitableNewv func(types.GType, uint, []gobject.Parameter, uintptr, **glib.Error) uintptr
 
 // Helper function for constructing #GInitable object. This is
 // similar to g_object_newv() but also initializes the object
 // and returns %NULL, setting an error on failure.
-func InitableNewv(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar uintptr, CancellableVar *Cancellable) (*gobject.Object, error) {
+func InitableNewv(ObjectTypeVar types.GType, NParametersVar uint, ParametersVar []gobject.Parameter, CancellableVar *Cancellable) (*gobject.Object, error) {
 	var cls *gobject.Object
 	var cerr *glib.Error
 
