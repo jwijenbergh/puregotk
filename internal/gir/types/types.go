@@ -41,6 +41,7 @@ var convList = map[string]string{
 	"guintptr": "uintptr",
 	"utf8":     "string",
 	"filename": "string",
+	"GType":    "types.GType",
 
 	// these are probably not correct but needed to compile
 	"long double":  "float64",
