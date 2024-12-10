@@ -12,7 +12,7 @@ import (
 type CellAreaContextClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *CellAreaContextClass) GoPointer() uintptr {

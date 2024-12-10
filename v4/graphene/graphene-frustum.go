@@ -13,7 +13,7 @@ import (
 // The contents of the `graphene_frustum_t` are private, and should not be
 // modified directly.
 type Frustum struct {
-	Planes uintptr
+	Planes [6]Plane
 }
 
 func (x *Frustum) GoPointer() uintptr {
@@ -59,10 +59,10 @@ func (x *Frustum) Free() {
 
 }
 
-var xFrustumGetPlanes func(uintptr, uintptr)
+var xFrustumGetPlanes func(uintptr, [6]Plane)
 
 // Retrieves the planes that define the given #graphene_frustum_t.
-func (x *Frustum) GetPlanes(PlanesVar uintptr) {
+func (x *Frustum) GetPlanes(PlanesVar [6]Plane) {
 
 	xFrustumGetPlanes(x.GoPointer(), PlanesVar)
 

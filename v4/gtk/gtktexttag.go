@@ -12,7 +12,7 @@ import (
 type TextTagClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *TextTagClass) GoPointer() uintptr {

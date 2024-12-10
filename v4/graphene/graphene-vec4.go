@@ -147,10 +147,10 @@ func (x *Vec4) Init(XVar float32, YVar float32, ZVar float32, WVar float32) *Vec
 	return cret
 }
 
-var xVec4InitFromFloat func(uintptr, uintptr) *Vec4
+var xVec4InitFromFloat func(uintptr, [4]float32) *Vec4
 
 // Initializes a #graphene_vec4_t with the values inside the given array.
-func (x *Vec4) InitFromFloat(SrcVar uintptr) *Vec4 {
+func (x *Vec4) InitFromFloat(SrcVar [4]float32) *Vec4 {
 
 	cret := xVec4InitFromFloat(x.GoPointer(), SrcVar)
 	return cret
@@ -281,11 +281,11 @@ func (x *Vec4) Subtract(BVar *Vec4, ResVar *Vec4) {
 
 }
 
-var xVec4ToFloat func(uintptr, uintptr)
+var xVec4ToFloat func(uintptr, [4]float32)
 
 // Stores the components of the given #graphene_vec4_t into an array
 // of floating point values.
-func (x *Vec4) ToFloat(DestVar uintptr) {
+func (x *Vec4) ToFloat(DestVar [4]float32) {
 
 	xVec4ToFloat(x.GoPointer(), DestVar)
 

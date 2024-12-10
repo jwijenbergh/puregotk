@@ -30,7 +30,7 @@ func (x *ConverterIface) GoPointer() uintptr {
 type Converter interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult
+	Convert(InbufVar []byte, InbufSizeVar uint, OutbufVar []byte, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult
 	Reset()
 }
 type ConverterBase struct {
@@ -127,7 +127,7 @@ func (x *ConverterBase) SetGoPointer(ptr uintptr) {
 // at a partial multibyte sequence). Converters are supposed to try
 // to produce as much output as possible and then return an error
 // (typically %G_IO_ERROR_PARTIAL_INPUT).
-func (x *ConverterBase) Convert(InbufVar uintptr, InbufSizeVar uint, OutbufVar uintptr, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
+func (x *ConverterBase) Convert(InbufVar []byte, InbufSizeVar uint, OutbufVar []byte, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) (ConverterResult, error) {
 	var cerr *glib.Error
 
 	cret := XGConverterConvert(x.GoPointer(), InbufVar, InbufSizeVar, OutbufVar, OutbufSizeVar, FlagsVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -147,7 +147,7 @@ func (x *ConverterBase) Reset() {
 
 }
 
-var XGConverterConvert func(uintptr, uintptr, uint, uintptr, uint, ConverterFlags, uint, uint, **glib.Error) ConverterResult
+var XGConverterConvert func(uintptr, []byte, uint, []byte, uint, ConverterFlags, uint, uint, **glib.Error) ConverterResult
 var XGConverterReset func(uintptr)
 
 func init() {

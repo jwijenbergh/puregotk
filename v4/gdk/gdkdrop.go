@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkDrop` object represents the target of an ongoing DND operation.
@@ -186,7 +187,7 @@ func (x *Drop) ReadFinish(ResultVar gio.AsyncResult, OutMimeTypeVar string) (*gi
 
 }
 
-var xDropReadValueAsync func(uintptr, []interface{}, int, uintptr, uintptr, uintptr)
+var xDropReadValueAsync func(uintptr, types.GType, int, uintptr, uintptr, uintptr)
 
 // Asynchronously request the drag operation's contents converted
 // to the given @type.
@@ -198,7 +199,7 @@ var xDropReadValueAsync func(uintptr, []interface{}, int, uintptr, uintptr, uint
 // For local drag-and-drop operations that are available in the given
 // `GType`, the value will be copied directly. Otherwise, GDK will
 // try to use [func@Gdk.content_deserialize_async] to convert the data.
-func (x *Drop) ReadValueAsync(TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *Drop) ReadValueAsync(TypeVar types.GType, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDropReadValueAsync(x.GoPointer(), TypeVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 

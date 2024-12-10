@@ -109,10 +109,10 @@ func (x *ThemedIcon) AppendName(IconnameVar string) {
 
 }
 
-var xThemedIconGetNames func(uintptr) uintptr
+var xThemedIconGetNames func(uintptr) []string
 
 // Gets the names of icons from within @icon.
-func (x *ThemedIcon) GetNames() uintptr {
+func (x *ThemedIcon) GetNames() []string {
 
 	cret := xThemedIconGetNames(x.GoPointer())
 	return cret

@@ -61,24 +61,24 @@ func (x *Bytes) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewBytes func(uintptr, uint) *Bytes
+var xNewBytes func([]byte, uint) *Bytes
 
 // Creates a new #GBytes from @data.
 //
 // @data is copied. If @size is 0, @data may be %NULL.
-func NewBytes(DataVar uintptr, SizeVar uint) *Bytes {
+func NewBytes(DataVar []byte, SizeVar uint) *Bytes {
 
 	cret := xNewBytes(DataVar, SizeVar)
 	return cret
 }
 
-var xNewBytesStatic func(uintptr, uint) *Bytes
+var xNewBytesStatic func([]byte, uint) *Bytes
 
 // Creates a new #GBytes from static data.
 //
 // @data must be static (ie: never modified or freed). It may be %NULL if @size
 // is 0.
-func NewBytesStatic(DataVar uintptr, SizeVar uint) *Bytes {
+func NewBytesStatic(DataVar []byte, SizeVar uint) *Bytes {
 
 	cret := xNewBytesStatic(DataVar, SizeVar)
 	return cret
@@ -104,7 +104,7 @@ func NewBytesTake(DataVar uintptr, SizeVar uint) *Bytes {
 	return cret
 }
 
-var xNewBytesWithFreeFunc func(uintptr, uint, uintptr, uintptr) *Bytes
+var xNewBytesWithFreeFunc func([]byte, uint, uintptr, uintptr) *Bytes
 
 // Creates a #GBytes from @data.
 //
@@ -115,7 +115,7 @@ var xNewBytesWithFreeFunc func(uintptr, uint, uintptr, uintptr) *Bytes
 // been called to indicate that the bytes is no longer in use.
 //
 // @data may be %NULL if @size is 0.
-func NewBytesWithFreeFunc(DataVar uintptr, SizeVar uint, FreeFuncVar *DestroyNotify, UserDataVar uintptr) *Bytes {
+func NewBytesWithFreeFunc(DataVar []byte, SizeVar uint, FreeFuncVar *DestroyNotify, UserDataVar uintptr) *Bytes {
 
 	cret := xNewBytesWithFreeFunc(DataVar, SizeVar, NewCallback(FreeFuncVar), UserDataVar)
 	return cret
@@ -151,7 +151,7 @@ func (x *Bytes) Equal(Bytes2Var uintptr) bool {
 	return cret
 }
 
-var xBytesGetData func(uintptr, uint) uintptr
+var xBytesGetData func(uintptr, uint) []byte
 
 // Get the byte data in the #GBytes. This data should not be modified.
 //
@@ -160,7 +160,7 @@ var xBytesGetData func(uintptr, uint) uintptr
 // %NULL may be returned if @size is 0. This is not guaranteed, as the #GBytes
 // may represent an empty string with @data non-%NULL and @size as 0. %NULL will
 // not be returned if @size is non-zero.
-func (x *Bytes) GetData(SizeVar uint) uintptr {
+func (x *Bytes) GetData(SizeVar uint) []byte {
 
 	cret := xBytesGetData(x.GoPointer(), SizeVar)
 	return cret
@@ -255,7 +255,7 @@ func (x *Bytes) Unref() {
 
 }
 
-var xBytesUnrefToArray func(uintptr) uintptr
+var xBytesUnrefToArray func(uintptr) []byte
 
 // Unreferences the bytes, and returns a new mutable #GByteArray containing
 // the same byte data.
@@ -268,7 +268,7 @@ var xBytesUnrefToArray func(uintptr) uintptr
 // Do not use it if @bytes contains more than %G_MAXUINT
 // bytes. #GByteArray stores the length of its data in #guint, which
 // may be shorter than #gsize, that @bytes is using.
-func (x *Bytes) UnrefToArray() uintptr {
+func (x *Bytes) UnrefToArray() []byte {
 
 	cret := xBytesUnrefToArray(x.GoPointer())
 	return cret
@@ -300,19 +300,19 @@ func (x *PtrArray) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xByteArrayFree func(uintptr, bool) byte
+var xByteArrayFree func([]byte, bool) byte
 
 // Frees the memory allocated by the #GByteArray. If @free_segment is
 // %TRUE it frees the actual byte data. If the reference count of
 // @array is greater than one, the #GByteArray wrapper is preserved but
 // the size of @array will be set to zero.
-func ByteArrayFree(ArrayVar uintptr, FreeSegmentVar bool) byte {
+func ByteArrayFree(ArrayVar []byte, FreeSegmentVar bool) byte {
 
 	cret := xByteArrayFree(ArrayVar, FreeSegmentVar)
 	return cret
 }
 
-var xByteArrayFreeToBytes func(uintptr) *Bytes
+var xByteArrayFreeToBytes func([]byte) *Bytes
 
 // Transfers the data from the #GByteArray into a new immutable #GBytes.
 //
@@ -322,22 +322,22 @@ var xByteArrayFreeToBytes func(uintptr) *Bytes
 //
 // This is identical to using g_bytes_new_take() and g_byte_array_free()
 // together.
-func ByteArrayFreeToBytes(ArrayVar uintptr) *Bytes {
+func ByteArrayFreeToBytes(ArrayVar []byte) *Bytes {
 
 	cret := xByteArrayFreeToBytes(ArrayVar)
 	return cret
 }
 
-var xByteArrayNew func() uintptr
+var xByteArrayNew func() []byte
 
 // Creates a new #GByteArray with a reference count of 1.
-func ByteArrayNew() uintptr {
+func ByteArrayNew() []byte {
 
 	cret := xByteArrayNew()
 	return cret
 }
 
-var xByteArrayNewTake func(uintptr, uint) uintptr
+var xByteArrayNewTake func([]byte, uint) []byte
 
 // Create byte array containing the data. The data will be owned by the array
 // and will be freed with g_free(), i.e. it could be allocated using g_strdup().
@@ -345,36 +345,36 @@ var xByteArrayNewTake func(uintptr, uint) uintptr
 // Do not use it if @len is greater than %G_MAXUINT. #GByteArray
 // stores the length of its data in #guint, which may be shorter than
 // #gsize.
-func ByteArrayNewTake(DataVar uintptr, LenVar uint) uintptr {
+func ByteArrayNewTake(DataVar []byte, LenVar uint) []byte {
 
 	cret := xByteArrayNewTake(DataVar, LenVar)
 	return cret
 }
 
-var xByteArraySteal func(uintptr, uint) byte
+var xByteArraySteal func([]byte, uint) byte
 
 // Frees the data in the array and resets the size to zero, while
 // the underlying array is preserved for use elsewhere and returned
 // to the caller.
-func ByteArraySteal(ArrayVar uintptr, LenVar uint) byte {
+func ByteArraySteal(ArrayVar []byte, LenVar uint) byte {
 
 	cret := xByteArraySteal(ArrayVar, LenVar)
 	return cret
 }
 
-var xByteArrayUnref func(uintptr)
+var xByteArrayUnref func([]byte)
 
 // Atomically decrements the reference count of @array by one. If the
 // reference count drops to 0, all memory allocated by the array is
 // released. This function is thread-safe and may be called from any
 // thread.
-func ByteArrayUnref(ArrayVar uintptr) {
+func ByteArrayUnref(ArrayVar []byte) {
 
 	xByteArrayUnref(ArrayVar)
 
 }
 
-var xPtrArrayFind func(uintptr, uintptr, uint) bool
+var xPtrArrayFind func([]uintptr, uintptr, uint) bool
 
 // Checks whether @needle exists in @haystack. If the element is found, %TRUE is
 // returned and the element’s index is returned in @index_ (if non-%NULL).
@@ -383,13 +383,13 @@ var xPtrArrayFind func(uintptr, uintptr, uint) bool
 //
 // This does pointer comparisons only. If you want to use more complex equality
 // checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
-func PtrArrayFind(HaystackVar uintptr, NeedleVar uintptr, IndexVar uint) bool {
+func PtrArrayFind(HaystackVar []uintptr, NeedleVar uintptr, IndexVar uint) bool {
 
 	cret := xPtrArrayFind(HaystackVar, NeedleVar, IndexVar)
 	return cret
 }
 
-var xPtrArrayFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
+var xPtrArrayFindWithEqualFunc func([]uintptr, uintptr, uintptr, uint) bool
 
 // Checks whether @needle exists in @haystack, using the given @equal_func.
 // If the element is found, %TRUE is returned and the element’s index is
@@ -400,7 +400,7 @@ var xPtrArrayFindWithEqualFunc func(uintptr, uintptr, uintptr, uint) bool
 // @equal_func is called with the element from the array as its first parameter,
 // and @needle as its second parameter. If @equal_func is %NULL, pointer
 // equality is used.
-func PtrArrayFindWithEqualFunc(HaystackVar uintptr, NeedleVar uintptr, EqualFuncVar *EqualFunc, IndexVar uint) bool {
+func PtrArrayFindWithEqualFunc(HaystackVar []uintptr, NeedleVar uintptr, EqualFuncVar *EqualFunc, IndexVar uint) bool {
 
 	cret := xPtrArrayFindWithEqualFunc(HaystackVar, NeedleVar, NewCallback(EqualFuncVar), IndexVar)
 	return cret

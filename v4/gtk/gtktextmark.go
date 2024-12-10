@@ -12,7 +12,7 @@ import (
 type TextMarkClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *TextMarkClass) GoPointer() uintptr {

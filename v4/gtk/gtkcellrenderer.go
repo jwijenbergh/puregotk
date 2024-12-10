@@ -14,7 +14,7 @@ import (
 type CellRendererClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *CellRendererClass) GoPointer() uintptr {

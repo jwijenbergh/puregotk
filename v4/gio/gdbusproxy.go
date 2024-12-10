@@ -14,7 +14,7 @@ import (
 type DBusProxyClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [32]uintptr
 }
 
 func (x *DBusProxyClass) GoPointer() uintptr {
@@ -359,10 +359,10 @@ func (x *DBusProxy) GetCachedProperty(PropertyNameVar string) *glib.Variant {
 	return cret
 }
 
-var xDBusProxyGetCachedPropertyNames func(uintptr) uintptr
+var xDBusProxyGetCachedPropertyNames func(uintptr) []string
 
 // Gets the names of all cached properties on @proxy.
-func (x *DBusProxy) GetCachedPropertyNames() uintptr {
+func (x *DBusProxy) GetCachedPropertyNames() []string {
 
 	cret := xDBusProxyGetCachedPropertyNames(x.GoPointer())
 	return cret
@@ -548,13 +548,13 @@ func (c *DBusProxy) SetGoPointer(ptr uintptr) {
 // This signal corresponds to the
 // `PropertiesChanged` D-Bus signal on the
 // `org.freedesktop.DBus.Properties` interface.
-func (x *DBusProxy) ConnectGPropertiesChanged(cb *func(DBusProxy, uintptr, uintptr)) uint32 {
+func (x *DBusProxy) ConnectGPropertiesChanged(cb *func(DBusProxy, uintptr, []string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "g-properties-changed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp uintptr) {
+	fcb := func(clsPtr uintptr, ChangedPropertiesVarp uintptr, InvalidatedPropertiesVarp []string) {
 		fa := DBusProxy{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

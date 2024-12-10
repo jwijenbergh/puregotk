@@ -14,7 +14,7 @@ import (
 type ApplicationClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [7]uintptr
 }
 
 func (x *ApplicationClass) GoPointer() uintptr {
@@ -209,7 +209,7 @@ func (x *Application) AddMainOption(LongNameVar string, ShortNameVar byte, Flags
 
 }
 
-var xApplicationAddMainOptionEntries func(uintptr, uintptr)
+var xApplicationAddMainOptionEntries func(uintptr, []glib.OptionEntry)
 
 // Adds main option entries to be handled by @application.
 //
@@ -265,7 +265,7 @@ var xApplicationAddMainOptionEntries func(uintptr, uintptr)
 // - for %G_OPTION_ARG_FILENAME, use `^&amp;ay`
 // - for %G_OPTION_ARG_STRING_ARRAY, use `^a&amp;s`
 // - for %G_OPTION_ARG_FILENAME_ARRAY, use `^a&amp;ay`
-func (x *Application) AddMainOptionEntries(EntriesVar uintptr) {
+func (x *Application) AddMainOptionEntries(EntriesVar []glib.OptionEntry) {
 
 	xApplicationAddMainOptionEntries(x.GoPointer(), EntriesVar)
 
@@ -1287,7 +1287,7 @@ func (x *Application) HasAction(ActionNameVar string) bool {
 //
 // The caller is responsible for freeing the list with g_strfreev() when
 // it is no longer required.
-func (x *Application) ListActions() uintptr {
+func (x *Application) ListActions() []string {
 
 	cret := XGActionGroupListActions(x.GoPointer())
 	return cret
@@ -1381,7 +1381,7 @@ func (x *Application) AddAction(ActionVar Action) {
 //	}
 //
 // ]|
-func (x *Application) AddActionEntries(EntriesVar uintptr, NEntriesVar int, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 

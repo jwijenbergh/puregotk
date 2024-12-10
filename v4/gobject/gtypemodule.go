@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // In order to implement dynamic loading of types based on #GTypeModule,
@@ -58,7 +59,7 @@ func TypeModuleNewFromInternalPtr(ptr uintptr) *TypeModule {
 	return cls
 }
 
-var xTypeModuleAddInterface func(uintptr, []interface{}, []interface{}, *InterfaceInfo)
+var xTypeModuleAddInterface func(uintptr, types.GType, types.GType, *InterfaceInfo)
 
 // Registers an additional interface for a type, whose interface lives
 // in the given type plugin. If the interface was already registered
@@ -69,13 +70,13 @@ var xTypeModuleAddInterface func(uintptr, []interface{}, []interface{}, *Interfa
 //
 // Since 2.56 if @module is %NULL this will call g_type_add_interface_static()
 // instead. This can be used when making a static build of the module.
-func (x *TypeModule) AddInterface(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}, InterfaceInfoVar *InterfaceInfo) {
+func (x *TypeModule) AddInterface(InstanceTypeVar types.GType, InterfaceTypeVar types.GType, InterfaceInfoVar *InterfaceInfo) {
 
 	xTypeModuleAddInterface(x.GoPointer(), InstanceTypeVar, InterfaceTypeVar, InterfaceInfoVar)
 
 }
 
-var xTypeModuleRegisterEnum func(uintptr, string, *EnumValue) []interface{}
+var xTypeModuleRegisterEnum func(uintptr, string, *EnumValue) types.GType
 
 // Looks up or registers an enumeration that is implemented with a particular
 // type plugin. If a type with name @type_name was previously registered,
@@ -87,13 +88,13 @@ var xTypeModuleRegisterEnum func(uintptr, string, *EnumValue) []interface{}
 //
 // Since 2.56 if @module is %NULL this will call g_type_register_static()
 // instead. This can be used when making a static build of the module.
-func (x *TypeModule) RegisterEnum(NameVar string, ConstStaticValuesVar *EnumValue) []interface{} {
+func (x *TypeModule) RegisterEnum(NameVar string, ConstStaticValuesVar *EnumValue) types.GType {
 
 	cret := xTypeModuleRegisterEnum(x.GoPointer(), NameVar, ConstStaticValuesVar)
 	return cret
 }
 
-var xTypeModuleRegisterFlags func(uintptr, string, *FlagsValue) []interface{}
+var xTypeModuleRegisterFlags func(uintptr, string, *FlagsValue) types.GType
 
 // Looks up or registers a flags type that is implemented with a particular
 // type plugin. If a type with name @type_name was previously registered,
@@ -105,13 +106,13 @@ var xTypeModuleRegisterFlags func(uintptr, string, *FlagsValue) []interface{}
 //
 // Since 2.56 if @module is %NULL this will call g_type_register_static()
 // instead. This can be used when making a static build of the module.
-func (x *TypeModule) RegisterFlags(NameVar string, ConstStaticValuesVar *FlagsValue) []interface{} {
+func (x *TypeModule) RegisterFlags(NameVar string, ConstStaticValuesVar *FlagsValue) types.GType {
 
 	cret := xTypeModuleRegisterFlags(x.GoPointer(), NameVar, ConstStaticValuesVar)
 	return cret
 }
 
-var xTypeModuleRegisterType func(uintptr, []interface{}, string, *TypeInfo, TypeFlags) []interface{}
+var xTypeModuleRegisterType func(uintptr, types.GType, string, *TypeInfo, TypeFlags) types.GType
 
 // Looks up or registers a type that is implemented with a particular
 // type plugin. If a type with name @type_name was previously registered,
@@ -127,7 +128,7 @@ var xTypeModuleRegisterType func(uintptr, []interface{}, string, *TypeInfo, Type
 //
 // Since 2.56 if @module is %NULL this will call g_type_register_static()
 // instead. This can be used when making a static build of the module.
-func (x *TypeModule) RegisterType(ParentTypeVar []interface{}, TypeNameVar string, TypeInfoVar *TypeInfo, FlagsVar TypeFlags) []interface{} {
+func (x *TypeModule) RegisterType(ParentTypeVar types.GType, TypeNameVar string, TypeInfoVar *TypeInfo, FlagsVar TypeFlags) types.GType {
 
 	cret := xTypeModuleRegisterType(x.GoPointer(), ParentTypeVar, TypeNameVar, TypeInfoVar, FlagsVar)
 	return cret
@@ -178,7 +179,7 @@ func (c *TypeModule) SetGoPointer(ptr uintptr) {
 // Calls the @complete_interface_info function from the
 // #GTypePluginClass of @plugin. There should be no need to use this
 // function outside of the GObject type system itself.
-func (x *TypeModule) CompleteInterfaceInfo(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}, InfoVar *InterfaceInfo) {
+func (x *TypeModule) CompleteInterfaceInfo(InstanceTypeVar types.GType, InterfaceTypeVar types.GType, InfoVar *InterfaceInfo) {
 
 	XGTypePluginCompleteInterfaceInfo(x.GoPointer(), InstanceTypeVar, InterfaceTypeVar, InfoVar)
 
@@ -187,7 +188,7 @@ func (x *TypeModule) CompleteInterfaceInfo(InstanceTypeVar []interface{}, Interf
 // Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
 // There should be no need to use this function outside of the GObject
 // type system itself.
-func (x *TypeModule) CompleteTypeInfo(GTypeVar []interface{}, InfoVar *TypeInfo, ValueTableVar *TypeValueTable) {
+func (x *TypeModule) CompleteTypeInfo(GTypeVar types.GType, InfoVar *TypeInfo, ValueTableVar *TypeValueTable) {
 
 	XGTypePluginCompleteTypeInfo(x.GoPointer(), GTypeVar, InfoVar, ValueTableVar)
 

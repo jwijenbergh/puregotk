@@ -4,21 +4,22 @@ package glib
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type Type = uint
 
-var xStrvGetType func() []interface{}
+var xStrvGetType func() types.GType
 
-func StrvGetType() []interface{} {
+func StrvGetType() types.GType {
 
 	cret := xStrvGetType()
 	return cret
 }
 
-var xVariantGetGtype func() []interface{}
+var xVariantGetGtype func() types.GType
 
-func VariantGetGtype() []interface{} {
+func VariantGetGtype() types.GType {
 
 	cret := xVariantGetGtype()
 	return cret

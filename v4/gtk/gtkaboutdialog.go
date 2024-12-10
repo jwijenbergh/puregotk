@@ -155,21 +155,21 @@ func (x *AboutDialog) AddCreditSection(SectionNameVar string, PeopleVar []string
 
 }
 
-var xAboutDialogGetArtists func(uintptr) uintptr
+var xAboutDialogGetArtists func(uintptr) []string
 
 // Returns the names of the artists which are displayed
 // in the credits page.
-func (x *AboutDialog) GetArtists() uintptr {
+func (x *AboutDialog) GetArtists() []string {
 
 	cret := xAboutDialogGetArtists(x.GoPointer())
 	return cret
 }
 
-var xAboutDialogGetAuthors func(uintptr) uintptr
+var xAboutDialogGetAuthors func(uintptr) []string
 
 // Returns the names of the authors which are displayed
 // in the credits page.
-func (x *AboutDialog) GetAuthors() uintptr {
+func (x *AboutDialog) GetAuthors() []string {
 
 	cret := xAboutDialogGetAuthors(x.GoPointer())
 	return cret
@@ -193,11 +193,11 @@ func (x *AboutDialog) GetCopyright() string {
 	return cret
 }
 
-var xAboutDialogGetDocumenters func(uintptr) uintptr
+var xAboutDialogGetDocumenters func(uintptr) []string
 
 // Returns the name of the documenters which are displayed
 // in the credits page.
-func (x *AboutDialog) GetDocumenters() uintptr {
+func (x *AboutDialog) GetDocumenters() []string {
 
 	cret := xAboutDialogGetDocumenters(x.GoPointer())
 	return cret
@@ -588,7 +588,7 @@ func (x *AboutDialog) UpdateProperty(FirstPropertyVar AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -624,7 +624,7 @@ func (x *AboutDialog) UpdateRelation(FirstRelationVar AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -657,7 +657,7 @@ func (x *AboutDialog) UpdateState(FirstStateVar AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutDialog) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
+func (x *AboutDialog) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

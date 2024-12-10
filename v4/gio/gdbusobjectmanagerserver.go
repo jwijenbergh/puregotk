@@ -14,7 +14,7 @@ import (
 type DBusObjectManagerServerClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *DBusObjectManagerServerClass) GoPointer() uintptr {

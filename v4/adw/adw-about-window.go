@@ -362,10 +362,10 @@ func (x *AboutWindow) GetApplicationName() string {
 	return cret
 }
 
-var xAboutWindowGetArtists func(uintptr) uintptr
+var xAboutWindowGetArtists func(uintptr) []string
 
 // Gets the list of artists of the application.
-func (x *AboutWindow) GetArtists() uintptr {
+func (x *AboutWindow) GetArtists() []string {
 
 	cret := xAboutWindowGetArtists(x.GoPointer())
 	return cret
@@ -407,10 +407,10 @@ func (x *AboutWindow) GetDebugInfoFilename() string {
 	return cret
 }
 
-var xAboutWindowGetDesigners func(uintptr) uintptr
+var xAboutWindowGetDesigners func(uintptr) []string
 
 // Gets the list of designers of the application.
-func (x *AboutWindow) GetDesigners() uintptr {
+func (x *AboutWindow) GetDesigners() []string {
 
 	cret := xAboutWindowGetDesigners(x.GoPointer())
 	return cret
@@ -425,19 +425,19 @@ func (x *AboutWindow) GetDeveloperName() string {
 	return cret
 }
 
-var xAboutWindowGetDevelopers func(uintptr) uintptr
+var xAboutWindowGetDevelopers func(uintptr) []string
 
 // Gets the list of developers of the application.
-func (x *AboutWindow) GetDevelopers() uintptr {
+func (x *AboutWindow) GetDevelopers() []string {
 
 	cret := xAboutWindowGetDevelopers(x.GoPointer())
 	return cret
 }
 
-var xAboutWindowGetDocumenters func(uintptr) uintptr
+var xAboutWindowGetDocumenters func(uintptr) []string
 
 // Gets the list of documenters of the application.
-func (x *AboutWindow) GetDocumenters() uintptr {
+func (x *AboutWindow) GetDocumenters() []string {
 
 	cret := xAboutWindowGetDocumenters(x.GoPointer())
 	return cret
@@ -983,7 +983,7 @@ func (x *AboutWindow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutWindow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar uintptr, ValuesVar uintptr) {
+func (x *AboutWindow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1019,7 +1019,7 @@ func (x *AboutWindow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutWindow) UpdateRelationValue(NRelationsVar int, RelationsVar uintptr, ValuesVar uintptr) {
+func (x *AboutWindow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1052,7 +1052,7 @@ func (x *AboutWindow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AboutWindow) UpdateStateValue(NStatesVar int, StatesVar uintptr, ValuesVar uintptr) {
+func (x *AboutWindow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

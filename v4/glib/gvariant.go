@@ -338,7 +338,7 @@ func NewVariantByte(ValueVar byte) *Variant {
 	return cret
 }
 
-var xNewVariantBytestring func(uintptr) *Variant
+var xNewVariantBytestring func([]byte) *Variant
 
 // Creates an array-of-bytes #GVariant with the contents of @string.
 // This function is just like g_variant_new_string() except that the
@@ -346,19 +346,19 @@ var xNewVariantBytestring func(uintptr) *Variant
 //
 // The nul terminator character at the end of the string is stored in
 // the array.
-func NewVariantBytestring(StringVar uintptr) *Variant {
+func NewVariantBytestring(StringVar []byte) *Variant {
 
 	cret := xNewVariantBytestring(StringVar)
 	return cret
 }
 
-var xNewVariantBytestringArray func(uintptr, int) *Variant
+var xNewVariantBytestringArray func([]string, int) *Variant
 
 // Constructs an array of bytestring #GVariant from the given array of
 // strings.
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewVariantBytestringArray(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantBytestringArray(StrvVar []string, LengthVar int) *Variant {
 
 	cret := xNewVariantBytestringArray(StrvVar, LengthVar)
 	return cret
@@ -424,7 +424,7 @@ func NewVariantFromBytes(TypeVar *VariantType, BytesVar *Bytes, TrustedVar bool)
 	return cret
 }
 
-var xNewVariantFromData func(*VariantType, uintptr, uint, bool, uintptr, uintptr) *Variant
+var xNewVariantFromData func(*VariantType, []byte, uint, bool, uintptr, uintptr) *Variant
 
 // Creates a new #GVariant instance from serialized data.
 //
@@ -455,7 +455,7 @@ var xNewVariantFromData func(*VariantType, uintptr, uint, bool, uintptr, uintptr
 // @type being loaded. Otherwise this function will internally create a copy of
 // the memory (since GLib 2.60) or (in older versions) fail and exit the
 // process.
-func NewVariantFromData(TypeVar *VariantType, DataVar uintptr, SizeVar uint, TrustedVar bool, NotifyVar *DestroyNotify, UserDataVar uintptr) *Variant {
+func NewVariantFromData(TypeVar *VariantType, DataVar []byte, SizeVar uint, TrustedVar bool, NotifyVar *DestroyNotify, UserDataVar uintptr) *Variant {
 
 	cret := xNewVariantFromData(TypeVar, DataVar, SizeVar, TrustedVar, NewCallback(NotifyVar), UserDataVar)
 	return cret
@@ -530,7 +530,7 @@ func NewVariantObjectPath(ObjectPathVar string) *Variant {
 	return cret
 }
 
-var xNewVariantObjv func(uintptr, int) *Variant
+var xNewVariantObjv func([]string, int) *Variant
 
 // Constructs an array of object paths #GVariant from the given array of
 // strings.
@@ -539,7 +539,7 @@ var xNewVariantObjv func(uintptr, int) *Variant
 // g_variant_is_object_path().
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewVariantObjv(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantObjv(StrvVar []string, LengthVar int) *Variant {
 
 	cret := xNewVariantObjv(StrvVar, LengthVar)
 	return cret
@@ -653,13 +653,13 @@ func NewVariantString(StringVar string) *Variant {
 	return cret
 }
 
-var xNewVariantStrv func(uintptr, int) *Variant
+var xNewVariantStrv func([]string, int) *Variant
 
 // Constructs an array of strings #GVariant from the given array of
 // strings.
 //
 // If @length is -1 then @strv is %NULL-terminated.
-func NewVariantStrv(StrvVar uintptr, LengthVar int) *Variant {
+func NewVariantStrv(StrvVar []string, LengthVar int) *Variant {
 
 	cret := xNewVariantStrv(StrvVar, LengthVar)
 	return cret
@@ -861,19 +861,19 @@ func (x *Variant) Compare(TwoVar uintptr) int {
 	return cret
 }
 
-var xVariantDupBytestring func(uintptr, uint) uintptr
+var xVariantDupBytestring func(uintptr, uint) []byte
 
 // Similar to g_variant_get_bytestring() except that instead of
 // returning a constant string, the string is duplicated.
 //
 // The return value must be freed using g_free().
-func (x *Variant) DupBytestring(LengthVar uint) uintptr {
+func (x *Variant) DupBytestring(LengthVar uint) []byte {
 
 	cret := xVariantDupBytestring(x.GoPointer(), LengthVar)
 	return cret
 }
 
-var xVariantDupBytestringArray func(uintptr, uint) uintptr
+var xVariantDupBytestringArray func(uintptr, uint) []string
 
 // Gets the contents of an array of array of bytes #GVariant.  This call
 // makes a deep copy; the return result should be released with
@@ -885,13 +885,13 @@ var xVariantDupBytestringArray func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) DupBytestringArray(LengthVar uint) uintptr {
+func (x *Variant) DupBytestringArray(LengthVar uint) []string {
 
 	cret := xVariantDupBytestringArray(x.GoPointer(), LengthVar)
 	return cret
 }
 
-var xVariantDupObjv func(uintptr, uint) uintptr
+var xVariantDupObjv func(uintptr, uint) []string
 
 // Gets the contents of an array of object paths #GVariant.  This call
 // makes a deep copy; the return result should be released with
@@ -903,7 +903,7 @@ var xVariantDupObjv func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) DupObjv(LengthVar uint) uintptr {
+func (x *Variant) DupObjv(LengthVar uint) []string {
 
 	cret := xVariantDupObjv(x.GoPointer(), LengthVar)
 	return cret
@@ -923,7 +923,7 @@ func (x *Variant) DupString(LengthVar uint) string {
 	return cret
 }
 
-var xVariantDupStrv func(uintptr, uint) uintptr
+var xVariantDupStrv func(uintptr, uint) []string
 
 // Gets the contents of an array of strings #GVariant.  This call
 // makes a deep copy; the return result should be released with
@@ -935,7 +935,7 @@ var xVariantDupStrv func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) DupStrv(LengthVar uint) uintptr {
+func (x *Variant) DupStrv(LengthVar uint) []string {
 
 	cret := xVariantDupStrv(x.GoPointer(), LengthVar)
 	return cret
@@ -1001,7 +1001,7 @@ func (x *Variant) GetByte() byte {
 	return cret
 }
 
-var xVariantGetBytestring func(uintptr) uintptr
+var xVariantGetBytestring func(uintptr) []byte
 
 // Returns the string value of a #GVariant instance with an
 // array-of-bytes type.  The string has no particular encoding.
@@ -1021,13 +1021,13 @@ var xVariantGetBytestring func(uintptr) uintptr
 // array of bytes.
 //
 // The return value remains valid as long as @value exists.
-func (x *Variant) GetBytestring() uintptr {
+func (x *Variant) GetBytestring() []byte {
 
 	cret := xVariantGetBytestring(x.GoPointer())
 	return cret
 }
 
-var xVariantGetBytestringArray func(uintptr, uint) uintptr
+var xVariantGetBytestringArray func(uintptr, uint) []string
 
 // Gets the contents of an array of array of bytes #GVariant.  This call
 // makes a shallow copy; the return result should be released with
@@ -1039,7 +1039,7 @@ var xVariantGetBytestringArray func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) GetBytestringArray(LengthVar uint) uintptr {
+func (x *Variant) GetBytestringArray(LengthVar uint) []string {
 
 	cret := xVariantGetBytestringArray(x.GoPointer(), LengthVar)
 	return cret
@@ -1150,7 +1150,7 @@ func (x *Variant) GetDouble() float64 {
 	return cret
 }
 
-var xVariantGetFixedArray func(uintptr, uint, uint) uintptr
+var xVariantGetFixedArray func(uintptr, uint, uint) []uintptr
 
 // Provides access to the serialized data for an array of fixed-sized
 // items.
@@ -1178,7 +1178,7 @@ var xVariantGetFixedArray func(uintptr, uint, uint) uintptr
 //
 // @n_elements, which must be non-%NULL, is set equal to the number of
 // items in the array.
-func (x *Variant) GetFixedArray(NElementsVar uint, ElementSizeVar uint) uintptr {
+func (x *Variant) GetFixedArray(NElementsVar uint, ElementSizeVar uint) []uintptr {
 
 	cret := xVariantGetFixedArray(x.GoPointer(), NElementsVar, ElementSizeVar)
 	return cret
@@ -1277,7 +1277,7 @@ func (x *Variant) GetNormalForm() *Variant {
 	return cret
 }
 
-var xVariantGetObjv func(uintptr, uint) uintptr
+var xVariantGetObjv func(uintptr, uint) []string
 
 // Gets the contents of an array of object paths #GVariant.  This call
 // makes a shallow copy; the return result should be released with
@@ -1289,7 +1289,7 @@ var xVariantGetObjv func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) GetObjv(LengthVar uint) uintptr {
+func (x *Variant) GetObjv(LengthVar uint) []string {
 
 	cret := xVariantGetObjv(x.GoPointer(), LengthVar)
 	return cret
@@ -1340,7 +1340,7 @@ func (x *Variant) GetString(LengthVar uint) string {
 	return cret
 }
 
-var xVariantGetStrv func(uintptr, uint) uintptr
+var xVariantGetStrv func(uintptr, uint) []string
 
 // Gets the contents of an array of strings #GVariant.  This call
 // makes a shallow copy; the return result should be released with
@@ -1352,7 +1352,7 @@ var xVariantGetStrv func(uintptr, uint) uintptr
 //
 // For an empty array, @length will be set to 0 and a pointer to a
 // %NULL pointer will be returned.
-func (x *Variant) GetStrv(LengthVar uint) uintptr {
+func (x *Variant) GetStrv(LengthVar uint) []string {
 
 	cret := xVariantGetStrv(x.GoPointer(), LengthVar)
 	return cret
@@ -2335,7 +2335,7 @@ func (x *VariantDict) Unref() {
 // #GVariantIter is an opaque data structure and can only be accessed
 // using the following functions.
 type VariantIter struct {
-	X uintptr
+	X [16]uint
 }
 
 func (x *VariantIter) GoPointer() uintptr {

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function which calculates display values from raw values in the model.
@@ -25,7 +26,7 @@ type TreeModelFilterVisibleFunc func(uintptr, *TreeIter, uintptr) bool
 type TreeModelFilterClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *TreeModelFilterClass) GoPointer() uintptr {
@@ -202,7 +203,7 @@ func (x *TreeModelFilter) Refilter() {
 
 }
 
-var xTreeModelFilterSetModifyFunc func(uintptr, int, uintptr, uintptr, uintptr, uintptr)
+var xTreeModelFilterSetModifyFunc func(uintptr, int, []types.GType, uintptr, uintptr, uintptr)
 
 // With the @n_columns and @types parameters, you give an array of column
 // types for this model (which will be exposed to the parent model/view).
@@ -214,7 +215,7 @@ var xTreeModelFilterSetModifyFunc func(uintptr, int, uintptr, uintptr, uintptr, 
 //
 // Note that gtk_tree_model_filter_set_modify_func()
 // can only be called once for a given filter model.
-func (x *TreeModelFilter) SetModifyFunc(NColumnsVar int, TypesVar uintptr, FuncVar *TreeModelFilterModifyFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
+func (x *TreeModelFilter) SetModifyFunc(NColumnsVar int, TypesVar []types.GType, FuncVar *TreeModelFilterModifyFunc, DataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
 	xTreeModelFilterSetModifyFunc(x.GoPointer(), NColumnsVar, TypesVar, glib.NewCallback(FuncVar), DataVar, glib.NewCallback(DestroyVar))
 
@@ -371,7 +372,7 @@ func (x *TreeModelFilter) Get(IterVar *TreeIter, varArgs ...interface{}) {
 }
 
 // Returns the type of the column.
-func (x *TreeModelFilter) GetColumnType(IndexVar int) []interface{} {
+func (x *TreeModelFilter) GetColumnType(IndexVar int) types.GType {
 
 	cret := XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
 	return cret
@@ -631,7 +632,7 @@ func (x *TreeModelFilter) RowsReordered(PathVar *TreePath, IterVar *TreeIter, Ne
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *TreeModelFilter) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr, LengthVar int) {
+func (x *TreeModelFilter) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int, LengthVar int) {
 
 	XGtkTreeModelRowsReorderedWithLength(x.GoPointer(), PathVar, IterVar, NewOrderVar, LengthVar)
 

@@ -82,7 +82,7 @@ type ThreadFunc func(uintptr) uintptr
 type Cond struct {
 	P uintptr
 
-	I uintptr
+	I [2]uint
 }
 
 func (x *Cond) GoPointer() uintptr {
@@ -270,7 +270,7 @@ type Private struct {
 
 	Notify DestroyNotify
 
-	Future uintptr
+	Future [2]uintptr
 }
 
 func (x *Private) GoPointer() uintptr {
@@ -385,7 +385,7 @@ func (x *Private) Set(ValueVar uintptr) {
 type RWLock struct {
 	P uintptr
 
-	I uintptr
+	I [2]uint
 }
 
 func (x *RWLock) GoPointer() uintptr {
@@ -541,7 +541,7 @@ func (x *RWLock) WriterUnlock() {
 type RecMutex struct {
 	P uintptr
 
-	I uintptr
+	I [2]uint
 }
 
 func (x *RecMutex) GoPointer() uintptr {

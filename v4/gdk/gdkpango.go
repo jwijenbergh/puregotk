@@ -26,7 +26,7 @@ func PangoLayoutGetClipRegion(LayoutVar *pango.Layout, XOriginVar int, YOriginVa
 	return cret
 }
 
-var xPangoLayoutLineGetClipRegion func(*pango.LayoutLine, int, int, uintptr, int) *cairo.Region
+var xPangoLayoutLineGetClipRegion func(*pango.LayoutLine, int, int, []int, int) *cairo.Region
 
 // Obtains a clip region which contains the areas where the given
 // ranges of text would be drawn.
@@ -43,7 +43,7 @@ var xPangoLayoutLineGetClipRegion func(*pango.LayoutLine, int, int, uintptr, int
 // ranges, not ink extents. So the drawn line may in fact touch areas out of
 // the clip region.  The clip region is mainly useful for highlightling parts
 // of text, such as when text is selected.
-func PangoLayoutLineGetClipRegion(LineVar *pango.LayoutLine, XOriginVar int, YOriginVar int, IndexRangesVar uintptr, NRangesVar int) *cairo.Region {
+func PangoLayoutLineGetClipRegion(LineVar *pango.LayoutLine, XOriginVar int, YOriginVar int, IndexRangesVar []int, NRangesVar int) *cairo.Region {
 
 	cret := xPangoLayoutLineGetClipRegion(LineVar, XOriginVar, YOriginVar, IndexRangesVar, NRangesVar)
 	return cret

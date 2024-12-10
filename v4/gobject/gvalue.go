@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of value transformation functions which can be registered with
@@ -26,9 +27,9 @@ type ValueTransform func(*Value, *Value)
 // within the 2 element @data union, and the @g_type member should
 // only be accessed through the G_VALUE_TYPE() macro.
 type Value struct {
-	GType []interface{}
+	GType types.GType
 
-	Data uintptr
+	Data [2]uint64
 }
 
 func (x *Value) GoPointer() uintptr {
@@ -186,10 +187,10 @@ func (x *Value) GetFloat() float32 {
 	return cret
 }
 
-var xValueGetGtype func(uintptr) []interface{}
+var xValueGetGtype func(uintptr) types.GType
 
 // Get the contents of a %G_TYPE_GTYPE #GValue.
-func (x *Value) GetGtype() []interface{} {
+func (x *Value) GetGtype() types.GType {
 
 	cret := xValueGetGtype(x.GoPointer())
 	return cret
@@ -328,10 +329,10 @@ func (x *Value) GetVariant() *glib.Variant {
 	return cret
 }
 
-var xValueInit func(uintptr, []interface{}) *Value
+var xValueInit func(uintptr, types.GType) *Value
 
 // Initializes @value with the default value of @type.
-func (x *Value) Init(GTypeVar []interface{}) *Value {
+func (x *Value) Init(GTypeVar types.GType) *Value {
 
 	cret := xValueInit(x.GoPointer(), GTypeVar)
 	return cret
@@ -445,10 +446,10 @@ func (x *Value) SetFloat(VFloatVar float32) {
 
 }
 
-var xValueSetGtype func(uintptr, []interface{})
+var xValueSetGtype func(uintptr, types.GType)
 
 // Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
-func (x *Value) SetGtype(VGtypeVar []interface{}) {
+func (x *Value) SetGtype(VGtypeVar types.GType) {
 
 	xValueSetGtype(x.GoPointer(), VGtypeVar)
 
@@ -760,34 +761,34 @@ const (
 	VALUE_NOCOPY_CONTENTS int = 134217728
 )
 
-var xValueRegisterTransformFunc func([]interface{}, []interface{}, uintptr)
+var xValueRegisterTransformFunc func(types.GType, types.GType, uintptr)
 
 // Registers a value transformation function for use in g_value_transform().
 // A previously registered transformation function for @src_type and @dest_type
 // will be replaced.
-func ValueRegisterTransformFunc(SrcTypeVar []interface{}, DestTypeVar []interface{}, TransformFuncVar *ValueTransform) {
+func ValueRegisterTransformFunc(SrcTypeVar types.GType, DestTypeVar types.GType, TransformFuncVar *ValueTransform) {
 
 	xValueRegisterTransformFunc(SrcTypeVar, DestTypeVar, glib.NewCallback(TransformFuncVar))
 
 }
 
-var xValueTypeCompatible func([]interface{}, []interface{}) bool
+var xValueTypeCompatible func(types.GType, types.GType) bool
 
 // Returns whether a #GValue of type @src_type can be copied into
 // a #GValue of type @dest_type.
-func ValueTypeCompatible(SrcTypeVar []interface{}, DestTypeVar []interface{}) bool {
+func ValueTypeCompatible(SrcTypeVar types.GType, DestTypeVar types.GType) bool {
 
 	cret := xValueTypeCompatible(SrcTypeVar, DestTypeVar)
 	return cret
 }
 
-var xValueTypeTransformable func([]interface{}, []interface{}) bool
+var xValueTypeTransformable func(types.GType, types.GType) bool
 
 // Check whether g_value_transform() is able to transform values
 // of type @src_type into values of type @dest_type. Note that for
 // the types to be transformable, they must be compatible or a
 // transformation function must be registered.
-func ValueTypeTransformable(SrcTypeVar []interface{}, DestTypeVar []interface{}) bool {
+func ValueTypeTransformable(SrcTypeVar types.GType, DestTypeVar types.GType) bool {
 
 	cret := xValueTypeTransformable(SrcTypeVar, DestTypeVar)
 	return cret

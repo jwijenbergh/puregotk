@@ -492,7 +492,7 @@ func StrToAscii(StrVar string, FromLocaleVar string) string {
 	return cret
 }
 
-var xStrTokenizeAndFold func(string, string, uintptr) uintptr
+var xStrTokenizeAndFold func(string, string, []string) []string
 
 // Tokenises @string and performs folding on each token.
 //
@@ -509,7 +509,7 @@ var xStrTokenizeAndFold func(string, string, uintptr) uintptr
 // for doing so is unspecified, but @translit_locale (if specified) may
 // improve the transliteration if the language of the source string is
 // known.
-func StrTokenizeAndFold(StringVar string, TranslitLocaleVar string, AsciiAlternatesVar uintptr) uintptr {
+func StrTokenizeAndFold(StringVar string, TranslitLocaleVar string, AsciiAlternatesVar []string) []string {
 
 	cret := xStrTokenizeAndFold(StringVar, TranslitLocaleVar, AsciiAlternatesVar)
 	return cret
@@ -703,13 +703,13 @@ func StrdupVprintf(FormatVar string, ArgsVar []interface{}) string {
 	return cret
 }
 
-var xStrdupv func(string) uintptr
+var xStrdupv func(string) []string
 
 // Copies %NULL-terminated array of strings. The copy is a deep copy;
 // the new array should be freed by first freeing each string, then
 // the array itself. g_strfreev() does this for you. If called
 // on a %NULL value, g_strdupv() simply returns %NULL.
-func Strdupv(StrArrayVar string) uintptr {
+func Strdupv(StrArrayVar string) []string {
 
 	cret := xStrdupv(StrArrayVar)
 	return cret
@@ -925,7 +925,7 @@ func Strsignal(SignumVar int) string {
 	return cret
 }
 
-var xStrsplit func(string, string, int) uintptr
+var xStrsplit func(string, string, int) []string
 
 // Splits a string into a maximum of @max_tokens pieces, using the given
 // @delimiter. If @max_tokens is reached, the remainder of @string is
@@ -941,13 +941,13 @@ var xStrsplit func(string, string, int) uintptr
 // more useful than consistent handling of empty elements. If you do need
 // to represent empty elements, you'll need to check for the empty string
 // before calling g_strsplit().
-func Strsplit(StringVar string, DelimiterVar string, MaxTokensVar int) uintptr {
+func Strsplit(StringVar string, DelimiterVar string, MaxTokensVar int) []string {
 
 	cret := xStrsplit(StringVar, DelimiterVar, MaxTokensVar)
 	return cret
 }
 
-var xStrsplitSet func(string, string, int) uintptr
+var xStrsplitSet func(string, string, int) []string
 
 // Splits @string into a number of tokens not containing any of the characters
 // in @delimiter. A token is the (possibly empty) longest string that does not
@@ -970,7 +970,7 @@ var xStrsplitSet func(string, string, int) uintptr
 //
 // Note that this function works on bytes not characters, so it can't be used
 // to delimit UTF-8 strings for anything but ASCII characters.
-func StrsplitSet(StringVar string, DelimitersVar string, MaxTokensVar int) uintptr {
+func StrsplitSet(StringVar string, DelimitersVar string, MaxTokensVar int) []string {
 
 	cret := xStrsplitSet(StringVar, DelimitersVar, MaxTokensVar)
 	return cret

@@ -163,13 +163,13 @@ func BorderNodeNewFromInternalPtr(ptr uintptr) *BorderNode {
 	return cls
 }
 
-var xNewBorderNode func(*RoundedRect, uintptr, uintptr) uintptr
+var xNewBorderNode func(*RoundedRect, [4]float32, [4]gdk.RGBA) uintptr
 
 // Creates a `GskRenderNode` that will stroke a border rectangle inside the
 // given @outline.
 //
 // The 4 sides of the border can have different widths and colors.
-func NewBorderNode(OutlineVar *RoundedRect, BorderWidthVar uintptr, BorderColorVar uintptr) *BorderNode {
+func NewBorderNode(OutlineVar *RoundedRect, BorderWidthVar [4]float32, BorderColorVar [4]gdk.RGBA) *BorderNode {
 	var cls *BorderNode
 
 	cret := xNewBorderNode(OutlineVar, BorderWidthVar, BorderColorVar)
@@ -200,10 +200,10 @@ func (x *BorderNode) GetOutline() *RoundedRect {
 	return cret
 }
 
-var xBorderNodeGetWidths func(uintptr) uintptr
+var xBorderNodeGetWidths func(uintptr) [4]float32
 
 // Retrieves the stroke widths of the border.
-func (x *BorderNode) GetWidths() uintptr {
+func (x *BorderNode) GetWidths() [4]float32 {
 
 	cret := xBorderNodeGetWidths(x.GoPointer())
 	return cret
@@ -472,14 +472,14 @@ func ConicGradientNodeNewFromInternalPtr(ptr uintptr) *ConicGradientNode {
 	return cls
 }
 
-var xNewConicGradientNode func(*graphene.Rect, *graphene.Point, float32, uintptr, uint) uintptr
+var xNewConicGradientNode func(*graphene.Rect, *graphene.Point, float32, []ColorStop, uint) uintptr
 
 // Creates a `GskRenderNode` that draws a conic gradient.
 //
 // The conic gradient
 // starts around @center in the direction of @rotation. A rotation of 0 means
 // that the gradient points up. Color stops are then added clockwise.
-func NewConicGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, RotationVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *ConicGradientNode {
+func NewConicGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, RotationVar float32, ColorStopsVar []ColorStop, NColorStopsVar uint) *ConicGradientNode {
 	var cls *ConicGradientNode
 
 	cret := xNewConicGradientNode(BoundsVar, CenterVar, RotationVar, ColorStopsVar, NColorStopsVar)
@@ -515,10 +515,10 @@ func (x *ConicGradientNode) GetCenter() *graphene.Point {
 	return cret
 }
 
-var xConicGradientNodeGetColorStops func(uintptr, uint) uintptr
+var xConicGradientNodeGetColorStops func(uintptr, uint) []ColorStop
 
 // Retrieves the color stops in the gradient.
-func (x *ConicGradientNode) GetColorStops(NStopsVar uint) uintptr {
+func (x *ConicGradientNode) GetColorStops(NStopsVar uint) []ColorStop {
 
 	cret := xConicGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
 	return cret
@@ -960,11 +960,11 @@ func LinearGradientNodeNewFromInternalPtr(ptr uintptr) *LinearGradientNode {
 	return cls
 }
 
-var xNewLinearGradientNode func(*graphene.Rect, *graphene.Point, *graphene.Point, uintptr, uint) uintptr
+var xNewLinearGradientNode func(*graphene.Rect, *graphene.Point, *graphene.Point, []ColorStop, uint) uintptr
 
 // Creates a `GskRenderNode` that will create a linear gradient from the given
 // points and color stops, and render that into the area given by @bounds.
-func NewLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar uintptr, NColorStopsVar uint) *LinearGradientNode {
+func NewLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar []ColorStop, NColorStopsVar uint) *LinearGradientNode {
 	var cls *LinearGradientNode
 
 	cret := xNewLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
@@ -977,10 +977,10 @@ func NewLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, E
 	return cls
 }
 
-var xLinearGradientNodeGetColorStops func(uintptr, uint) uintptr
+var xLinearGradientNodeGetColorStops func(uintptr, uint) []ColorStop
 
 // Retrieves the color stops in the gradient.
-func (x *LinearGradientNode) GetColorStops(NStopsVar uint) uintptr {
+func (x *LinearGradientNode) GetColorStops(NStopsVar uint) []ColorStop {
 
 	cret := xLinearGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
 	return cret
@@ -1184,14 +1184,14 @@ func RadialGradientNodeNewFromInternalPtr(ptr uintptr) *RadialGradientNode {
 	return cls
 }
 
-var xNewRadialGradientNode func(*graphene.Rect, *graphene.Point, float32, float32, float32, float32, uintptr, uint) uintptr
+var xNewRadialGradientNode func(*graphene.Rect, *graphene.Point, float32, float32, float32, float32, []ColorStop, uint) uintptr
 
 // Creates a `GskRenderNode` that draws a radial gradient.
 //
 // The radial gradient
 // starts around @center. The size of the gradient is dictated by @hradius
 // in horizontal orientation and by @vradius in vertial orientation.
-func NewRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *RadialGradientNode {
+func NewRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar []ColorStop, NColorStopsVar uint) *RadialGradientNode {
 	var cls *RadialGradientNode
 
 	cret := xNewRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
@@ -1213,10 +1213,10 @@ func (x *RadialGradientNode) GetCenter() *graphene.Point {
 	return cret
 }
 
-var xRadialGradientNodeGetColorStops func(uintptr, uint) uintptr
+var xRadialGradientNodeGetColorStops func(uintptr, uint) []ColorStop
 
 // Retrieves the color stops in the gradient.
-func (x *RadialGradientNode) GetColorStops(NStopsVar uint) uintptr {
+func (x *RadialGradientNode) GetColorStops(NStopsVar uint) []ColorStop {
 
 	cret := xRadialGradientNodeGetColorStops(x.GoPointer(), NStopsVar)
 	return cret
@@ -1348,12 +1348,12 @@ func RepeatingLinearGradientNodeNewFromInternalPtr(ptr uintptr) *RepeatingLinear
 	return cls
 }
 
-var xNewRepeatingLinearGradientNode func(*graphene.Rect, *graphene.Point, *graphene.Point, uintptr, uint) uintptr
+var xNewRepeatingLinearGradientNode func(*graphene.Rect, *graphene.Point, *graphene.Point, []ColorStop, uint) uintptr
 
 // Creates a `GskRenderNode` that will create a repeating linear gradient
 // from the given points and color stops, and render that into the area
 // given by @bounds.
-func NewRepeatingLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar uintptr, NColorStopsVar uint) *RepeatingLinearGradientNode {
+func NewRepeatingLinearGradientNode(BoundsVar *graphene.Rect, StartVar *graphene.Point, EndVar *graphene.Point, ColorStopsVar []ColorStop, NColorStopsVar uint) *RepeatingLinearGradientNode {
 	var cls *RepeatingLinearGradientNode
 
 	cret := xNewRepeatingLinearGradientNode(BoundsVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
@@ -1385,14 +1385,14 @@ func RepeatingRadialGradientNodeNewFromInternalPtr(ptr uintptr) *RepeatingRadial
 	return cls
 }
 
-var xNewRepeatingRadialGradientNode func(*graphene.Rect, *graphene.Point, float32, float32, float32, float32, uintptr, uint) uintptr
+var xNewRepeatingRadialGradientNode func(*graphene.Rect, *graphene.Point, float32, float32, float32, float32, []ColorStop, uint) uintptr
 
 // Creates a `GskRenderNode` that draws a repeating radial gradient.
 //
 // The radial gradient starts around @center. The size of the gradient
 // is dictated by @hradius in horizontal orientation and by @vradius
 // in vertial orientation.
-func NewRepeatingRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar uintptr, NColorStopsVar uint) *RepeatingRadialGradientNode {
+func NewRepeatingRadialGradientNode(BoundsVar *graphene.Rect, CenterVar *graphene.Point, HradiusVar float32, VradiusVar float32, StartVar float32, EndVar float32, ColorStopsVar []ColorStop, NColorStopsVar uint) *RepeatingRadialGradientNode {
 	var cls *RepeatingRadialGradientNode
 
 	cret := xNewRepeatingRadialGradientNode(BoundsVar, CenterVar, HradiusVar, VradiusVar, StartVar, EndVar, ColorStopsVar, NColorStopsVar)
@@ -1486,11 +1486,11 @@ func ShadowNodeNewFromInternalPtr(ptr uintptr) *ShadowNode {
 	return cls
 }
 
-var xNewShadowNode func(uintptr, uintptr, uint) uintptr
+var xNewShadowNode func(uintptr, []Shadow, uint) uintptr
 
 // Creates a `GskRenderNode` that will draw a @child with the given
 // @shadows below it.
-func NewShadowNode(ChildVar *RenderNode, ShadowsVar uintptr, NShadowsVar uint) *ShadowNode {
+func NewShadowNode(ChildVar *RenderNode, ShadowsVar []Shadow, NShadowsVar uint) *ShadowNode {
 	var cls *ShadowNode
 
 	cret := xNewShadowNode(ChildVar.GoPointer(), ShadowsVar, NShadowsVar)
@@ -1602,10 +1602,10 @@ func (x *TextNode) GetFont() *pango.Font {
 	return cls
 }
 
-var xTextNodeGetGlyphs func(uintptr, uint) uintptr
+var xTextNodeGetGlyphs func(uintptr, uint) []pango.GlyphInfo
 
 // Retrieves the glyph information in the @node.
-func (x *TextNode) GetGlyphs(NGlyphsVar uint) uintptr {
+func (x *TextNode) GetGlyphs(NGlyphsVar uint) []pango.GlyphInfo {
 
 	cret := xTextNodeGetGlyphs(x.GoPointer(), NGlyphsVar)
 	return cret

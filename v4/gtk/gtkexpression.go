@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Callback called by gtk_expression_watch() when the
@@ -156,14 +157,14 @@ func CClosureExpressionNewFromInternalPtr(ptr uintptr) *CClosureExpression {
 	return cls
 }
 
-var xNewCClosureExpression func([]interface{}, uintptr, uint, uintptr, uintptr, uintptr, uintptr) uintptr
+var xNewCClosureExpression func(types.GType, uintptr, uint, uintptr, uintptr, uintptr, uintptr) uintptr
 
 // Creates a `GtkExpression` that calls `callback_func` when it is evaluated.
 //
 // This function is a variant of [ctor@Gtk.ClosureExpression.new] that
 // creates a `GClosure` by calling g_cclosure_new() with the given
 // `callback_func`, `user_data` and `user_destroy`.
-func NewCClosureExpression(ValueTypeVar []interface{}, MarshalVar *gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar *gobject.Callback, UserDataVar uintptr, UserDestroyVar *gobject.ClosureNotify) *CClosureExpression {
+func NewCClosureExpression(ValueTypeVar types.GType, MarshalVar *gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar *gobject.Callback, UserDataVar uintptr, UserDestroyVar *gobject.ClosureNotify) *CClosureExpression {
 	var cls *CClosureExpression
 
 	cret := xNewCClosureExpression(ValueTypeVar, glib.NewCallback(MarshalVar), NParamsVar, ParamsVar, glib.NewCallback(CallbackFuncVar), UserDataVar, glib.NewCallback(UserDestroyVar))
@@ -196,13 +197,13 @@ func ClosureExpressionNewFromInternalPtr(ptr uintptr) *ClosureExpression {
 	return cls
 }
 
-var xNewClosureExpression func([]interface{}, *gobject.Closure, uint, uintptr) uintptr
+var xNewClosureExpression func(types.GType, *gobject.Closure, uint, uintptr) uintptr
 
 // Creates a `GtkExpression` that calls `closure` when it is evaluated.
 //
 // `closure` is called with the `this` object and the results of evaluating
 // the `params` expressions.
-func NewClosureExpression(ValueTypeVar []interface{}, ClosureVar *gobject.Closure, NParamsVar uint, ParamsVar uintptr) *ClosureExpression {
+func NewClosureExpression(ValueTypeVar types.GType, ClosureVar *gobject.Closure, NParamsVar uint, ParamsVar uintptr) *ClosureExpression {
 	var cls *ClosureExpression
 
 	cret := xNewClosureExpression(ValueTypeVar, ClosureVar, NParamsVar, ParamsVar)
@@ -234,11 +235,11 @@ func ConstantExpressionNewFromInternalPtr(ptr uintptr) *ConstantExpression {
 	return cls
 }
 
-var xNewConstantExpression func([]interface{}, ...interface{}) uintptr
+var xNewConstantExpression func(types.GType, ...interface{}) uintptr
 
 // Creates a `GtkExpression` that evaluates to the
 // object given by the arguments.
-func NewConstantExpression(ValueTypeVar []interface{}, varArgs ...interface{}) *ConstantExpression {
+func NewConstantExpression(ValueTypeVar types.GType, varArgs ...interface{}) *ConstantExpression {
 	var cls *ConstantExpression
 
 	cret := xNewConstantExpression(ValueTypeVar, varArgs...)
@@ -473,13 +474,13 @@ func (x *Expression) Evaluate(ThisVar *gobject.Object, ValueVar *gobject.Value) 
 	return cret
 }
 
-var xExpressionGetValueType func(uintptr) []interface{}
+var xExpressionGetValueType func(uintptr) types.GType
 
 // Gets the `GType` that this expression evaluates to.
 //
 // This type is constant and will not change over the lifetime
 // of this expression.
-func (x *Expression) GetValueType() []interface{} {
+func (x *Expression) GetValueType() types.GType {
 
 	cret := xExpressionGetValueType(x.GoPointer())
 	return cret
@@ -640,7 +641,7 @@ func PropertyExpressionNewFromInternalPtr(ptr uintptr) *PropertyExpression {
 	return cls
 }
 
-var xNewPropertyExpression func([]interface{}, uintptr, string) uintptr
+var xNewPropertyExpression func(types.GType, uintptr, string) uintptr
 
 // Creates an expression that looks up a property.
 //
@@ -652,7 +653,7 @@ var xNewPropertyExpression func([]interface{}, uintptr, string) uintptr
 // evaluation will fail.
 //
 // The given `this_type` must have a property with `property_name`.
-func NewPropertyExpression(ThisTypeVar []interface{}, ExpressionVar *Expression, PropertyNameVar string) *PropertyExpression {
+func NewPropertyExpression(ThisTypeVar types.GType, ExpressionVar *Expression, PropertyNameVar string) *PropertyExpression {
 	var cls *PropertyExpression
 
 	cret := xNewPropertyExpression(ThisTypeVar, ExpressionVar.GoPointer(), PropertyNameVar)

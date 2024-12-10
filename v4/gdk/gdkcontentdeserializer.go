@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of a function that can be registered with gdk_content_register_deserializer().
@@ -16,7 +17,7 @@ import (
 // operation.
 type ContentDeserializeFunc func(uintptr)
 
-var xContentDeserializeAsync func(uintptr, string, []interface{}, int, uintptr, uintptr, uintptr)
+var xContentDeserializeAsync func(uintptr, string, types.GType, int, uintptr, uintptr, uintptr)
 
 // Read content from the given input stream and deserialize it, asynchronously.
 //
@@ -25,7 +26,7 @@ var xContentDeserializeAsync func(uintptr, string, []interface{}, int, uintptr, 
 //
 // When the operation is finished, @callback will be called. You must then
 // call [func@Gdk.content_deserialize_finish] to get the result of the operation.
-func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar []interface{}, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentDeserializeAsync(StreamVar *gio.InputStream, MimeTypeVar string, TypeVar types.GType, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentDeserializeAsync(StreamVar.GoPointer(), MimeTypeVar, TypeVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 
@@ -45,10 +46,10 @@ func ContentDeserializeFinish(ResultVar gio.AsyncResult, ValueVar *gobject.Value
 
 }
 
-var xContentRegisterDeserializer func(string, []interface{}, uintptr, uintptr, uintptr)
+var xContentRegisterDeserializer func(string, types.GType, uintptr, uintptr, uintptr)
 
 // Registers a function to deserialize object of a given type.
-func ContentRegisterDeserializer(MimeTypeVar string, TypeVar []interface{}, DeserializeVar *ContentDeserializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
+func ContentRegisterDeserializer(MimeTypeVar string, TypeVar types.GType, DeserializeVar *ContentDeserializeFunc, DataVar uintptr, NotifyVar *glib.DestroyNotify) {
 
 	xContentRegisterDeserializer(MimeTypeVar, TypeVar, glib.NewCallback(DeserializeVar), DataVar, glib.NewCallback(NotifyVar))
 
@@ -94,10 +95,10 @@ func (x *ContentDeserializer) GetCancellable() *gio.Cancellable {
 	return cls
 }
 
-var xContentDeserializerGetGtype func(uintptr) []interface{}
+var xContentDeserializerGetGtype func(uintptr) types.GType
 
 // Gets the `GType` to create an instance of.
-func (x *ContentDeserializer) GetGtype() []interface{} {
+func (x *ContentDeserializer) GetGtype() types.GType {
 
 	cret := xContentDeserializerGetGtype(x.GoPointer())
 	return cret

@@ -9,13 +9,14 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for `GdkContentProvider`.
 type ContentProviderClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *ContentProviderClass) GoPointer() uintptr {
@@ -74,14 +75,14 @@ func NewContentProviderForValue(ValueVar *gobject.Value) *ContentProvider {
 	return cls
 }
 
-var xNewContentProviderTyped func([]interface{}, ...interface{}) uintptr
+var xNewContentProviderTyped func(types.GType, ...interface{}) uintptr
 
 // Create a content provider that provides the value of the given
 // @type.
 //
 // The value is provided using G_VALUE_COLLECT(), so the same rules
 // apply as when calling g_object_new() or g_object_set().
-func NewContentProviderTyped(TypeVar []interface{}, varArgs ...interface{}) *ContentProvider {
+func NewContentProviderTyped(TypeVar types.GType, varArgs ...interface{}) *ContentProvider {
 	var cls *ContentProvider
 
 	cret := xNewContentProviderTyped(TypeVar, varArgs...)

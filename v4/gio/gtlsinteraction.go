@@ -27,7 +27,7 @@ import (
 type TlsInteractionClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [21]uintptr
 }
 
 func (x *TlsInteractionClass) GoPointer() uintptr {

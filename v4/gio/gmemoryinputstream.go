@@ -71,10 +71,10 @@ func NewMemoryInputStreamFromBytes(BytesVar *glib.Bytes) *MemoryInputStream {
 	return cls
 }
 
-var xNewMemoryInputStreamFromData func(uintptr, int, uintptr) uintptr
+var xNewMemoryInputStreamFromData func([]byte, int, uintptr) uintptr
 
 // Creates a new #GMemoryInputStream with data in memory of a given size.
-func NewMemoryInputStreamFromData(DataVar uintptr, LenVar int, DestroyVar *glib.DestroyNotify) *MemoryInputStream {
+func NewMemoryInputStreamFromData(DataVar []byte, LenVar int, DestroyVar *glib.DestroyNotify) *MemoryInputStream {
 	var cls *MemoryInputStream
 
 	cret := xNewMemoryInputStreamFromData(DataVar, LenVar, glib.NewCallback(DestroyVar))
@@ -96,10 +96,10 @@ func (x *MemoryInputStream) AddBytes(BytesVar *glib.Bytes) {
 
 }
 
-var xMemoryInputStreamAddData func(uintptr, uintptr, int, uintptr)
+var xMemoryInputStreamAddData func(uintptr, []byte, int, uintptr)
 
 // Appends @data to data that can be read from the input stream
-func (x *MemoryInputStream) AddData(DataVar uintptr, LenVar int, DestroyVar *glib.DestroyNotify) {
+func (x *MemoryInputStream) AddData(DataVar []byte, LenVar int, DestroyVar *glib.DestroyNotify) {
 
 	xMemoryInputStreamAddData(x.GoPointer(), DataVar, LenVar, glib.NewCallback(DestroyVar))
 
@@ -165,7 +165,7 @@ func (x *MemoryInputStream) IsReadable() bool {
 // if @cancellable has already been cancelled when you call, which
 // may happen if you call this method after a source triggers due
 // to having been cancelled.
-func (x *MemoryInputStream) ReadNonblocking(BufferVar uintptr, CountVar uint, CancellableVar *Cancellable) (int, error) {
+func (x *MemoryInputStream) ReadNonblocking(BufferVar []byte, CountVar uint, CancellableVar *Cancellable) (int, error) {
 	var cerr *glib.Error
 
 	cret := XGPollableInputStreamReadNonblocking(x.GoPointer(), BufferVar, CountVar, CancellableVar.GoPointer(), &cerr)

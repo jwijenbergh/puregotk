@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkContentFormats` structure is used to advertise and negotiate the
@@ -61,19 +62,19 @@ func NewContentFormats(MimeTypesVar []string, NMimeTypesVar uint) *ContentFormat
 	return cret
 }
 
-var xNewContentFormatsForGtype func([]interface{}) *ContentFormats
+var xNewContentFormatsForGtype func(types.GType) *ContentFormats
 
 // Creates a new `GdkContentFormats` for a given `GType`.
-func NewContentFormatsForGtype(TypeVar []interface{}) *ContentFormats {
+func NewContentFormatsForGtype(TypeVar types.GType) *ContentFormats {
 
 	cret := xNewContentFormatsForGtype(TypeVar)
 	return cret
 }
 
-var xContentFormatsContainGtype func(uintptr, []interface{}) bool
+var xContentFormatsContainGtype func(uintptr, types.GType) bool
 
 // Checks if a given `GType` is part of the given @formats.
-func (x *ContentFormats) ContainGtype(TypeVar []interface{}) bool {
+func (x *ContentFormats) ContainGtype(TypeVar types.GType) bool {
 
 	cret := xContentFormatsContainGtype(x.GoPointer(), TypeVar)
 	return cret
@@ -88,25 +89,25 @@ func (x *ContentFormats) ContainMimeType(MimeTypeVar string) bool {
 	return cret
 }
 
-var xContentFormatsGetGtypes func(uintptr, uint) uintptr
+var xContentFormatsGetGtypes func(uintptr, uint) []types.GType
 
 // Gets the `GType`s included in @formats.
 //
 // Note that @formats may not contain any `GType`s, in particular when
 // they are empty. In that case %NULL will be returned.
-func (x *ContentFormats) GetGtypes(NGtypesVar uint) uintptr {
+func (x *ContentFormats) GetGtypes(NGtypesVar uint) []types.GType {
 
 	cret := xContentFormatsGetGtypes(x.GoPointer(), NGtypesVar)
 	return cret
 }
 
-var xContentFormatsGetMimeTypes func(uintptr, uint) uintptr
+var xContentFormatsGetMimeTypes func(uintptr, uint) []string
 
 // Gets the mime types included in @formats.
 //
 // Note that @formats may not contain any mime types, in particular
 // when they are empty. In that case %NULL will be returned.
-func (x *ContentFormats) GetMimeTypes(NMimeTypesVar uint) uintptr {
+func (x *ContentFormats) GetMimeTypes(NMimeTypesVar uint) []string {
 
 	cret := xContentFormatsGetMimeTypes(x.GoPointer(), NMimeTypesVar)
 	return cret
@@ -121,13 +122,13 @@ func (x *ContentFormats) Match(SecondVar *ContentFormats) bool {
 	return cret
 }
 
-var xContentFormatsMatchGtype func(uintptr, *ContentFormats) []interface{}
+var xContentFormatsMatchGtype func(uintptr, *ContentFormats) types.GType
 
 // Finds the first `GType` from @first that is also contained
 // in @second.
 //
 // If no matching `GType` is found, %G_TYPE_INVALID is returned.
-func (x *ContentFormats) MatchGtype(SecondVar *ContentFormats) []interface{} {
+func (x *ContentFormats) MatchGtype(SecondVar *ContentFormats) types.GType {
 
 	cret := xContentFormatsMatchGtype(x.GoPointer(), SecondVar)
 	return cret

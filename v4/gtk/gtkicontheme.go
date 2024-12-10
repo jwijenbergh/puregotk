@@ -276,7 +276,7 @@ func (x *IconPaintable) Snapshot(SnapshotVar *gdk.Snapshot, WidthVar float64, He
 //
 // If less than 4 colors are provided, GTK will pad the array with default
 // colors.
-func (x *IconPaintable) SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar uintptr, NColorsVar uint) {
+func (x *IconPaintable) SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar []gdk.RGBA, NColorsVar uint) {
 
 	XGtkSymbolicPaintableSnapshotSymbolic(x.GoPointer(), SnapshotVar.GoPointer(), WidthVar, HeightVar, ColorsVar, NColorsVar)
 
@@ -400,14 +400,14 @@ func (x *IconTheme) GetIconNames() []string {
 	return cret
 }
 
-var xIconThemeGetIconSizes func(uintptr, string) uintptr
+var xIconThemeGetIconSizes func(uintptr, string) []int
 
 // Returns an array of integers describing the sizes at which
 // the icon is available without scaling.
 //
 // A size of -1 means that the icon is available in a scalable
 // format. The array is zero-terminated.
-func (x *IconTheme) GetIconSizes(IconNameVar string) uintptr {
+func (x *IconTheme) GetIconSizes(IconNameVar string) []int {
 
 	cret := xIconThemeGetIconSizes(x.GoPointer(), IconNameVar)
 	return cret
@@ -516,7 +516,7 @@ func (x *IconTheme) LookupIcon(IconNameVar string, FallbacksVar []string, SizeVa
 	return cls
 }
 
-var xIconThemeSetResourcePath func(uintptr, uintptr)
+var xIconThemeSetResourcePath func(uintptr, []string)
 
 // Sets the resource paths that will be looked at when
 // looking for icons, similar to search paths.
@@ -529,13 +529,13 @@ var xIconThemeSetResourcePath func(uintptr, uintptr)
 // Icons that are directly placed in the resource path instead
 // of a subdirectory are also considered as ultimate fallback,
 // but they are treated like unthemed icons.
-func (x *IconTheme) SetResourcePath(PathVar uintptr) {
+func (x *IconTheme) SetResourcePath(PathVar []string) {
 
 	xIconThemeSetResourcePath(x.GoPointer(), PathVar)
 
 }
 
-var xIconThemeSetSearchPath func(uintptr, uintptr)
+var xIconThemeSetSearchPath func(uintptr, []string)
 
 // Sets the search path for the icon theme object.
 //
@@ -552,7 +552,7 @@ var xIconThemeSetSearchPath func(uintptr, uintptr)
 // (This is legacy feature, and new icons should be put
 // into the fallback icon theme, which is called hicolor,
 // rather than directly on the icon path.)
-func (x *IconTheme) SetSearchPath(PathVar uintptr) {
+func (x *IconTheme) SetSearchPath(PathVar []string) {
 
 	xIconThemeSetSearchPath(x.GoPointer(), PathVar)
 

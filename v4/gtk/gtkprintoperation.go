@@ -20,7 +20,7 @@ type PageSetupDoneFunc func(uintptr, uintptr)
 type PrintOperationClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [8]uintptr
 }
 
 func (x *PrintOperationClass) GoPointer() uintptr {

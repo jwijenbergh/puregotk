@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkLayoutManagerClass` structure contains only private data, and
@@ -15,9 +16,9 @@ import (
 type LayoutManagerClass struct {
 	ParentClass uintptr
 
-	LayoutChildType []interface{}
+	LayoutChildType types.GType
 
-	Padding uintptr
+	Padding [16]uintptr
 }
 
 func (x *LayoutManagerClass) GoPointer() uintptr {

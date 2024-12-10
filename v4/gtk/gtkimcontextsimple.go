@@ -99,7 +99,7 @@ func (x *IMContextSimple) AddComposeFile(ComposeFileVar string) {
 
 }
 
-var xIMContextSimpleAddTable func(uintptr, uintptr, int, int)
+var xIMContextSimpleAddTable func(uintptr, []uint16, int, int)
 
 // Adds an additional table to search to the input context.
 // Each row of the table consists of @max_seq_len key symbols
@@ -110,7 +110,7 @@ var xIMContextSimpleAddTable func(uintptr, uintptr, int, int)
 // The table must be sorted in dictionary order on the
 // numeric value of the key symbol fields. (Values beyond
 // the length of the sequence should be zero.)
-func (x *IMContextSimple) AddTable(DataVar uintptr, MaxSeqLenVar int, NSeqsVar int) {
+func (x *IMContextSimple) AddTable(DataVar []uint16, MaxSeqLenVar int, NSeqsVar int) {
 
 	xIMContextSimpleAddTable(x.GoPointer(), DataVar, MaxSeqLenVar, NSeqsVar)
 

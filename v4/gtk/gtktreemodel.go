@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Type of the callback passed to gtk_tree_model_foreach() to
@@ -104,10 +105,10 @@ func NewTreePathFromIndices(FirstIndexVar int, varArgs ...interface{}) *TreePath
 	return cret
 }
 
-var xNewTreePathFromIndicesv func(uintptr, uint) *TreePath
+var xNewTreePathFromIndicesv func([]int, uint) *TreePath
 
 // Creates a new path with the given @indices array of @length.
-func NewTreePathFromIndicesv(IndicesVar uintptr, LengthVar uint) *TreePath {
+func NewTreePathFromIndicesv(IndicesVar []int, LengthVar uint) *TreePath {
 
 	cret := xNewTreePathFromIndicesv(IndicesVar, LengthVar)
 	return cret
@@ -202,14 +203,14 @@ func (x *TreePath) GetIndices() int {
 	return cret
 }
 
-var xTreePathGetIndicesWithDepth func(uintptr, int) uintptr
+var xTreePathGetIndicesWithDepth func(uintptr, int) []int
 
 // Returns the current indices of @path.
 //
 // This is an array of integers, each representing a node in a tree.
 // It also returns the number of elements in the array.
 // The array should not be freed.
-func (x *TreePath) GetIndicesWithDepth(DepthVar int) uintptr {
+func (x *TreePath) GetIndicesWithDepth(DepthVar int) []int {
 
 	cret := xTreePathGetIndicesWithDepth(x.GoPointer(), DepthVar)
 	return cret
@@ -612,7 +613,7 @@ type TreeModel interface {
 	FilterNew(RootVar *TreePath) *TreeModelBase
 	Foreach(FuncVar *TreeModelForeachFunc, UserDataVar uintptr)
 	Get(IterVar *TreeIter, varArgs ...interface{})
-	GetColumnType(IndexVar int) []interface{}
+	GetColumnType(IndexVar int) types.GType
 	GetFlags() TreeModelFlags
 	GetIter(IterVar *TreeIter, PathVar *TreePath) bool
 	GetIterFirst(IterVar *TreeIter) bool
@@ -635,7 +636,7 @@ type TreeModel interface {
 	RowHasChildToggled(PathVar *TreePath, IterVar *TreeIter)
 	RowInserted(PathVar *TreePath, IterVar *TreeIter)
 	RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrderVar int)
-	RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr, LengthVar int)
+	RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int, LengthVar int)
 	UnrefNode(IterVar *TreeIter)
 }
 type TreeModelBase struct {
@@ -695,7 +696,7 @@ func (x *TreeModelBase) Get(IterVar *TreeIter, varArgs ...interface{}) {
 }
 
 // Returns the type of the column.
-func (x *TreeModelBase) GetColumnType(IndexVar int) []interface{} {
+func (x *TreeModelBase) GetColumnType(IndexVar int) types.GType {
 
 	cret := XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
 	return cret
@@ -955,7 +956,7 @@ func (x *TreeModelBase) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewO
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *TreeModelBase) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr, LengthVar int) {
+func (x *TreeModelBase) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int, LengthVar int) {
 
 	XGtkTreeModelRowsReorderedWithLength(x.GoPointer(), PathVar, IterVar, NewOrderVar, LengthVar)
 
@@ -978,7 +979,7 @@ func (x *TreeModelBase) UnrefNode(IterVar *TreeIter) {
 var XGtkTreeModelFilterNew func(uintptr, *TreePath) uintptr
 var XGtkTreeModelForeach func(uintptr, uintptr, uintptr)
 var XGtkTreeModelGet func(uintptr, *TreeIter, ...interface{})
-var XGtkTreeModelGetColumnType func(uintptr, int) []interface{}
+var XGtkTreeModelGetColumnType func(uintptr, int) types.GType
 var XGtkTreeModelGetFlags func(uintptr) TreeModelFlags
 var XGtkTreeModelGetIter func(uintptr, *TreeIter, *TreePath) bool
 var XGtkTreeModelGetIterFirst func(uintptr, *TreeIter) bool
@@ -1001,7 +1002,7 @@ var XGtkTreeModelRowDeleted func(uintptr, *TreePath)
 var XGtkTreeModelRowHasChildToggled func(uintptr, *TreePath, *TreeIter)
 var XGtkTreeModelRowInserted func(uintptr, *TreePath, *TreeIter)
 var XGtkTreeModelRowsReordered func(uintptr, *TreePath, *TreeIter, int)
-var XGtkTreeModelRowsReorderedWithLength func(uintptr, *TreePath, *TreeIter, uintptr, int)
+var XGtkTreeModelRowsReorderedWithLength func(uintptr, *TreePath, *TreeIter, []int, int)
 var XGtkTreeModelUnrefNode func(uintptr, *TreeIter)
 
 // These flags indicate various properties of a `GtkTreeModel`.
@@ -1044,12 +1045,12 @@ func TreeRowReferenceInserted(ProxyVar *gobject.Object, PathVar *TreePath) {
 
 }
 
-var xTreeRowReferenceReordered func(uintptr, *TreePath, *TreeIter, uintptr)
+var xTreeRowReferenceReordered func(uintptr, *TreePath, *TreeIter, []int)
 
 // Lets a set of row reference created by
 // gtk_tree_row_reference_new_proxy() know that the
 // model emitted the ::rows-reordered signal.
-func TreeRowReferenceReordered(ProxyVar *gobject.Object, PathVar *TreePath, IterVar *TreeIter, NewOrderVar uintptr) {
+func TreeRowReferenceReordered(ProxyVar *gobject.Object, PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int) {
 
 	xTreeRowReferenceReordered(ProxyVar.GoPointer(), PathVar, IterVar, NewOrderVar)
 

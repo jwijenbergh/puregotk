@@ -40,7 +40,7 @@ func (x *BuildableParseContext) GetElement() string {
 	return cret
 }
 
-var xBuildableParseContextGetElementStack func(uintptr) uintptr
+var xBuildableParseContextGetElementStack func(uintptr) []string
 
 // Retrieves the element stack from the internal state of the parser.
 //
@@ -53,7 +53,7 @@ var xBuildableParseContextGetElementStack func(uintptr) uintptr
 // end_element handlers where gtk_buildable_parse_context_get_element()
 // would merely return the name of the element that is being
 // processed.
-func (x *BuildableParseContext) GetElementStack() uintptr {
+func (x *BuildableParseContext) GetElementStack() []string {
 
 	cret := xBuildableParseContextGetElementStack(x.GoPointer())
 	return cret
@@ -131,7 +131,7 @@ func (x *BuildableParseContext) Push(ParserVar *BuildableParser, UserDataVar uin
 
 // A sub-parser for `GtkBuildable` implementations.
 type BuildableParser struct {
-	Padding uintptr
+	Padding [4]uintptr
 }
 
 func (x *BuildableParser) GoPointer() uintptr {

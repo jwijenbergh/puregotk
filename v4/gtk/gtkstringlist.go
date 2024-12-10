@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type StringListClass struct {
@@ -64,10 +65,10 @@ func StringListNewFromInternalPtr(ptr uintptr) *StringList {
 	return cls
 }
 
-var xNewStringList func(uintptr) uintptr
+var xNewStringList func([]string) uintptr
 
 // Creates a new `GtkStringList` with the given @strings.
-func NewStringList(StringsVar uintptr) *StringList {
+func NewStringList(StringsVar []string) *StringList {
 	var cls *StringList
 
 	cret := xNewStringList(StringsVar)
@@ -118,7 +119,7 @@ func (x *StringList) Remove(PositionVar uint) {
 
 }
 
-var xStringListSplice func(uintptr, uint, uint, uintptr)
+var xStringListSplice func(uintptr, uint, uint, []string)
 
 // Changes @self by removing @n_removals strings and adding @additions
 // to it.
@@ -132,7 +133,7 @@ var xStringListSplice func(uintptr, uint, uint, uintptr)
 // The parameters @position and @n_removals must be correct (ie:
 // @position + @n_removals must be less than or equal to the length
 // of the list at the time this function is called).
-func (x *StringList) Splice(PositionVar uint, NRemovalsVar uint, AdditionsVar uintptr) {
+func (x *StringList) Splice(PositionVar uint, NRemovalsVar uint, AdditionsVar []string) {
 
 	xStringListSplice(x.GoPointer(), PositionVar, NRemovalsVar, AdditionsVar)
 
@@ -186,7 +187,7 @@ func (x *StringList) GetItem(PositionVar uint) uintptr {
 //
 // The item type of a #GListModel can not change during the life of the
 // model.
-func (x *StringList) GetItemType() []interface{} {
+func (x *StringList) GetItemType() types.GType {
 
 	cret := gio.XGListModelGetItemType(x.GoPointer())
 	return cret

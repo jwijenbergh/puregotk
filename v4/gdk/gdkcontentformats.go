@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GdkContentFormatsBuilder` is an auxiliary struct used to create
@@ -40,10 +41,10 @@ func (x *ContentFormatsBuilder) AddFormats(FormatsVar *ContentFormats) {
 
 }
 
-var xContentFormatsBuilderAddGtype func(uintptr, []interface{})
+var xContentFormatsBuilderAddGtype func(uintptr, types.GType)
 
 // Appends @type to @builder if it has not already been added.
-func (x *ContentFormatsBuilder) AddGtype(TypeVar []interface{}) {
+func (x *ContentFormatsBuilder) AddGtype(TypeVar types.GType) {
 
 	xContentFormatsBuilderAddGtype(x.GoPointer(), TypeVar)
 

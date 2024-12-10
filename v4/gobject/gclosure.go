@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type used for callback functions in structure definitions and function
@@ -20,7 +21,7 @@ import (
 type Callback func()
 
 // The type used for marshaller functions.
-type ClosureMarshal func(*Closure, *Value, uint, uintptr, uintptr, uintptr)
+type ClosureMarshal func(*Closure, *Value, uint, []Value, uintptr, uintptr)
 
 // The type used for the various notification callbacks which can be registered
 // on closures.
@@ -29,7 +30,7 @@ type ClosureNotify func(uintptr, *Closure)
 // This is the signature of va_list marshaller functions, an optional
 // marshaller that can be used in some situations to avoid
 // marshalling the signal argument into GValues.
-type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int, uintptr)
+type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int, []types.GType)
 
 // A #GCClosure is a specialization of #GClosure for C function callbacks.
 type CClosure struct {
@@ -243,10 +244,10 @@ func (x *Closure) Invalidate() {
 
 }
 
-var xClosureInvoke func(uintptr, *Value, uint, uintptr, uintptr)
+var xClosureInvoke func(uintptr, *Value, uint, []Value, uintptr)
 
 // Invokes the closure, i.e. executes the callback represented by the @closure.
-func (x *Closure) Invoke(ReturnValueVar *Value, NParamValuesVar uint, ParamValuesVar uintptr, InvocationHintVar uintptr) {
+func (x *Closure) Invoke(ReturnValueVar *Value, NParamValuesVar uint, ParamValuesVar []Value, InvocationHintVar uintptr) {
 
 	xClosureInvoke(x.GoPointer(), ReturnValueVar, NParamValuesVar, ParamValuesVar, InvocationHintVar)
 
@@ -444,12 +445,12 @@ func CclosureNewSwap(CallbackFuncVar *Callback, UserDataVar uintptr, DestroyData
 	return cret
 }
 
-var xSignalTypeCclosureNew func([]interface{}, uint) *Closure
+var xSignalTypeCclosureNew func(types.GType, uint) *Closure
 
 // Creates a new closure which invokes the function found at the offset
 // @struct_offset in the class structure of the interface or classed type
 // identified by @itype.
-func SignalTypeCclosureNew(ItypeVar []interface{}, StructOffsetVar uint) *Closure {
+func SignalTypeCclosureNew(ItypeVar types.GType, StructOffsetVar uint) *Closure {
 
 	cret := xSignalTypeCclosureNew(ItypeVar, StructOffsetVar)
 	return cret

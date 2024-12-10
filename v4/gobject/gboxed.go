@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // This function is provided by the user and should produce a copy
@@ -15,25 +16,25 @@ type BoxedCopyFunc func(uintptr) uintptr
 // structure passed.
 type BoxedFreeFunc func(uintptr)
 
-var xBoxedCopy func([]interface{}, uintptr) uintptr
+var xBoxedCopy func(types.GType, uintptr) uintptr
 
 // Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
-func BoxedCopy(BoxedTypeVar []interface{}, SrcBoxedVar uintptr) uintptr {
+func BoxedCopy(BoxedTypeVar types.GType, SrcBoxedVar uintptr) uintptr {
 
 	cret := xBoxedCopy(BoxedTypeVar, SrcBoxedVar)
 	return cret
 }
 
-var xBoxedFree func([]interface{}, uintptr)
+var xBoxedFree func(types.GType, uintptr)
 
 // Free the boxed structure @boxed which is of type @boxed_type.
-func BoxedFree(BoxedTypeVar []interface{}, BoxedVar uintptr) {
+func BoxedFree(BoxedTypeVar types.GType, BoxedVar uintptr) {
 
 	xBoxedFree(BoxedTypeVar, BoxedVar)
 
 }
 
-var xBoxedTypeRegisterStatic func(string, uintptr, uintptr) []interface{}
+var xBoxedTypeRegisterStatic func(string, uintptr, uintptr) types.GType
 
 // This function creates a new %G_TYPE_BOXED derived type id for a new
 // boxed type with name @name.
@@ -44,7 +45,7 @@ var xBoxedTypeRegisterStatic func(string, uintptr, uintptr) []interface{}
 // For the general case, it is recommended to use G_DEFINE_BOXED_TYPE()
 // instead of calling g_boxed_type_register_static() directly. The macro
 // will create the appropriate `*_get_type()` function for the boxed type.
-func BoxedTypeRegisterStatic(NameVar string, BoxedCopyVar *BoxedCopyFunc, BoxedFreeVar *BoxedFreeFunc) []interface{} {
+func BoxedTypeRegisterStatic(NameVar string, BoxedCopyVar *BoxedCopyFunc, BoxedFreeVar *BoxedFreeFunc) types.GType {
 
 	cret := xBoxedTypeRegisterStatic(NameVar, glib.NewCallback(BoxedCopyVar), glib.NewCallback(BoxedFreeVar))
 	return cret

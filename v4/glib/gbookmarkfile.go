@@ -153,14 +153,14 @@ func (x *BookmarkFile) GetApplicationInfo(UriVar string, NameVar string, ExecVar
 
 }
 
-var xBookmarkFileGetApplications func(uintptr, string, uint, **Error) uintptr
+var xBookmarkFileGetApplications func(uintptr, string, uint, **Error) []string
 
 // Retrieves the names of the applications that have registered the
 // bookmark for @uri.
 //
 // In the event the URI cannot be found, %NULL is returned and
 // @error is set to %G_BOOKMARK_FILE_ERROR_URI_NOT_FOUND.
-func (x *BookmarkFile) GetApplications(UriVar string, LengthVar uint) (uintptr, error) {
+func (x *BookmarkFile) GetApplications(UriVar string, LengthVar uint) ([]string, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileGetApplications(x.GoPointer(), UriVar, LengthVar, &cerr)
@@ -188,7 +188,7 @@ func (x *BookmarkFile) GetDescription(UriVar string) (string, error) {
 
 }
 
-var xBookmarkFileGetGroups func(uintptr, string, uint, **Error) uintptr
+var xBookmarkFileGetGroups func(uintptr, string, uint, **Error) []string
 
 // Retrieves the list of group names of the bookmark for @uri.
 //
@@ -197,7 +197,7 @@ var xBookmarkFileGetGroups func(uintptr, string, uint, **Error) uintptr
 //
 // The returned array is %NULL terminated, so @length may optionally
 // be %NULL.
-func (x *BookmarkFile) GetGroups(UriVar string, LengthVar uint) (uintptr, error) {
+func (x *BookmarkFile) GetGroups(UriVar string, LengthVar uint) ([]string, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileGetGroups(x.GoPointer(), UriVar, LengthVar, &cerr)
@@ -325,12 +325,12 @@ func (x *BookmarkFile) GetTitle(UriVar string) (string, error) {
 
 }
 
-var xBookmarkFileGetUris func(uintptr, uint) uintptr
+var xBookmarkFileGetUris func(uintptr, uint) []string
 
 // Returns all URIs of the bookmarks in the bookmark file @bookmark.
 // The array of returned URIs will be %NULL-terminated, so @length may
 // optionally be %NULL.
-func (x *BookmarkFile) GetUris(LengthVar uint) uintptr {
+func (x *BookmarkFile) GetUris(LengthVar uint) []string {
 
 	cret := xBookmarkFileGetUris(x.GoPointer(), LengthVar)
 	return cret
@@ -415,12 +415,12 @@ func (x *BookmarkFile) HasItem(UriVar string) bool {
 	return cret
 }
 
-var xBookmarkFileLoadFromData func(uintptr, uintptr, uint, **Error) bool
+var xBookmarkFileLoadFromData func(uintptr, []byte, uint, **Error) bool
 
 // Loads a bookmark file from memory into an empty #GBookmarkFile
 // structure.  If the object cannot be created then @error is set to a
 // #GBookmarkFileError.
-func (x *BookmarkFile) LoadFromData(DataVar uintptr, LengthVar uint) (bool, error) {
+func (x *BookmarkFile) LoadFromData(DataVar []byte, LengthVar uint) (bool, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileLoadFromData(x.GoPointer(), DataVar, LengthVar, &cerr)
@@ -655,13 +655,13 @@ func (x *BookmarkFile) SetDescription(UriVar string, DescriptionVar string) {
 
 }
 
-var xBookmarkFileSetGroups func(uintptr, string, uintptr, uint)
+var xBookmarkFileSetGroups func(uintptr, string, []string, uint)
 
 // Sets a list of group names for the item with URI @uri.  Each previously
 // set group name list is removed.
 //
 // If @uri cannot be found then an item for it is created.
-func (x *BookmarkFile) SetGroups(UriVar string, GroupsVar uintptr, LengthVar uint) {
+func (x *BookmarkFile) SetGroups(UriVar string, GroupsVar []string, LengthVar uint) {
 
 	xBookmarkFileSetGroups(x.GoPointer(), UriVar, GroupsVar, LengthVar)
 
@@ -782,10 +782,10 @@ func (x *BookmarkFile) SetVisitedDateTime(UriVar string, VisitedVar *DateTime) {
 
 }
 
-var xBookmarkFileToData func(uintptr, uint, **Error) uintptr
+var xBookmarkFileToData func(uintptr, uint, **Error) []byte
 
 // This function outputs @bookmark as a string.
-func (x *BookmarkFile) ToData(LengthVar uint) (uintptr, error) {
+func (x *BookmarkFile) ToData(LengthVar uint) ([]byte, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileToData(x.GoPointer(), LengthVar, &cerr)

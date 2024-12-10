@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class structure for the GParamSpec type.
@@ -15,9 +16,9 @@ import (
 type ParamSpecClass struct {
 	GTypeClass uintptr
 
-	ValueType []interface{}
+	ValueType types.GType
 
-	Dummy uintptr
+	Dummy [4]uintptr
 }
 
 func (x *ParamSpecClass) GoPointer() uintptr {
@@ -36,39 +37,39 @@ func (x *ParamSpecPool) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xParamSpecPoolInsert func(uintptr, uintptr, []interface{})
+var xParamSpecPoolInsert func(uintptr, uintptr, types.GType)
 
 // Inserts a #GParamSpec in the pool.
-func (x *ParamSpecPool) Insert(PspecVar *ParamSpec, OwnerTypeVar []interface{}) {
+func (x *ParamSpecPool) Insert(PspecVar *ParamSpec, OwnerTypeVar types.GType) {
 
 	xParamSpecPoolInsert(x.GoPointer(), PspecVar.GoPointer(), OwnerTypeVar)
 
 }
 
-var xParamSpecPoolList func(uintptr, []interface{}, uint) uintptr
+var xParamSpecPoolList func(uintptr, types.GType, uint) uintptr
 
 // Gets an array of all #GParamSpecs owned by @owner_type in
 // the pool.
-func (x *ParamSpecPool) List(OwnerTypeVar []interface{}, NPspecsPVar uint) uintptr {
+func (x *ParamSpecPool) List(OwnerTypeVar types.GType, NPspecsPVar uint) uintptr {
 
 	cret := xParamSpecPoolList(x.GoPointer(), OwnerTypeVar, NPspecsPVar)
 	return cret
 }
 
-var xParamSpecPoolListOwned func(uintptr, []interface{}) *glib.List
+var xParamSpecPoolListOwned func(uintptr, types.GType) *glib.List
 
 // Gets an #GList of all #GParamSpecs owned by @owner_type in
 // the pool.
-func (x *ParamSpecPool) ListOwned(OwnerTypeVar []interface{}) *glib.List {
+func (x *ParamSpecPool) ListOwned(OwnerTypeVar types.GType) *glib.List {
 
 	cret := xParamSpecPoolListOwned(x.GoPointer(), OwnerTypeVar)
 	return cret
 }
 
-var xParamSpecPoolLookup func(uintptr, string, []interface{}, bool) uintptr
+var xParamSpecPoolLookup func(uintptr, string, types.GType, bool) uintptr
 
 // Looks up a #GParamSpec in the pool.
-func (x *ParamSpecPool) Lookup(ParamNameVar string, OwnerTypeVar []interface{}, WalkAncestorsVar bool) *ParamSpec {
+func (x *ParamSpecPool) Lookup(ParamNameVar string, OwnerTypeVar types.GType, WalkAncestorsVar bool) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xParamSpecPoolLookup(x.GoPointer(), ParamNameVar, OwnerTypeVar, WalkAncestorsVar)
@@ -104,7 +105,7 @@ type ParamSpecTypeInfo struct {
 
 	NPreallocs uint16
 
-	ValueType []interface{}
+	ValueType types.GType
 }
 
 func (x *ParamSpecTypeInfo) GoPointer() uintptr {
@@ -185,7 +186,7 @@ const (
 	GParamDeprecatedValue ParamFlags = 2147483648
 )
 
-var xParamTypeRegisterStatic func(string, *ParamSpecTypeInfo) []interface{}
+var xParamTypeRegisterStatic func(string, *ParamSpecTypeInfo) types.GType
 
 // Registers @name as the name of a new static type derived
 // from %G_TYPE_PARAM.
@@ -193,7 +194,7 @@ var xParamTypeRegisterStatic func(string, *ParamSpecTypeInfo) []interface{}
 // The type system uses the information contained in the #GParamSpecTypeInfo
 // structure pointed to by @info to manage the #GParamSpec type and its
 // instances.
-func ParamTypeRegisterStatic(NameVar string, PspecInfoVar *ParamSpecTypeInfo) []interface{} {
+func ParamTypeRegisterStatic(NameVar string, PspecInfoVar *ParamSpecTypeInfo) types.GType {
 
 	cret := xParamTypeRegisterStatic(NameVar, PspecInfoVar)
 	return cret
@@ -465,7 +466,7 @@ func (c *ParamSpec) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-var xParamSpecInternal func([]interface{}, string, string, string, ParamFlags) uintptr
+var xParamSpecInternal func(types.GType, string, string, string, ParamFlags) uintptr
 
 // Creates a new #GParamSpec instance.
 //
@@ -478,7 +479,7 @@ var xParamSpecInternal func([]interface{}, string, string, string, ParamFlags) u
 // for use as a label for the property in a property editor, and the
 // @blurb, which should be a somewhat longer description, suitable for
 // e.g. a tooltip. The @nick and @blurb should ideally be localized.
-func ParamSpecInternal(ParamTypeVar []interface{}, NameVar string, NickVar string, BlurbVar string, FlagsVar ParamFlags) *ParamSpec {
+func ParamSpecInternal(ParamTypeVar types.GType, NameVar string, NickVar string, BlurbVar string, FlagsVar ParamFlags) *ParamSpec {
 	var cls *ParamSpec
 
 	cret := xParamSpecInternal(ParamTypeVar, NameVar, NickVar, BlurbVar, FlagsVar)

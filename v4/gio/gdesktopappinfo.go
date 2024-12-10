@@ -218,10 +218,10 @@ func (x *DesktopAppInfo) GetIsHidden() bool {
 	return cret
 }
 
-var xDesktopAppInfoGetKeywords func(uintptr) uintptr
+var xDesktopAppInfoGetKeywords func(uintptr) []string
 
 // Gets the keywords from the desktop file.
-func (x *DesktopAppInfo) GetKeywords() uintptr {
+func (x *DesktopAppInfo) GetKeywords() []string {
 
 	cret := xDesktopAppInfoGetKeywords(x.GoPointer())
 	return cret
@@ -291,12 +291,12 @@ func (x *DesktopAppInfo) GetString(KeyVar string) string {
 	return cret
 }
 
-var xDesktopAppInfoGetStringList func(uintptr, string, uint) uintptr
+var xDesktopAppInfoGetStringList func(uintptr, string, uint) []string
 
 // Looks up a string list value in the keyfile backing @info.
 //
 // The @key is looked up in the "Desktop Entry" group.
-func (x *DesktopAppInfo) GetStringList(KeyVar string, LengthVar uint) uintptr {
+func (x *DesktopAppInfo) GetStringList(KeyVar string, LengthVar uint) []string {
 
 	cret := xDesktopAppInfoGetStringList(x.GoPointer(), KeyVar, LengthVar)
 	return cret
@@ -382,14 +382,14 @@ func (x *DesktopAppInfo) LaunchUrisAsManagerWithFds(UrisVar *glib.List, LaunchCo
 
 }
 
-var xDesktopAppInfoListActions func(uintptr) uintptr
+var xDesktopAppInfoListActions func(uintptr) []string
 
 // Returns the list of "additional application actions" supported on the
 // desktop file, as per the desktop file specification.
 //
 // As per the specification, this is the list of actions that are
 // explicitly listed in the "Actions" key of the [Desktop Entry] group.
-func (x *DesktopAppInfo) ListActions() uintptr {
+func (x *DesktopAppInfo) ListActions() []string {
 
 	cret := xDesktopAppInfoListActions(x.GoPointer())
 	return cret

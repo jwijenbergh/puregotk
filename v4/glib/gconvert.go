@@ -82,7 +82,7 @@ const (
 	GConvertErrorEmbeddedNulValue ConvertError = 7
 )
 
-var xConvert func(uintptr, int, string, string, uint, uint, **Error) uintptr
+var xConvert func([]byte, int, string, string, uint, uint, **Error) []byte
 
 // Converts a string from one character set to another.
 //
@@ -98,7 +98,7 @@ var xConvert func(uintptr, int, string, string, uint, uint, **Error) uintptr
 //
 // Using extensions such as "//TRANSLIT" may not work (or may not work
 // well) on many platforms.  Consider using g_str_to_ascii() instead.
-func Convert(StrVar uintptr, LenVar int, ToCodesetVar string, FromCodesetVar string, BytesReadVar uint, BytesWrittenVar uint) (uintptr, error) {
+func Convert(StrVar []byte, LenVar int, ToCodesetVar string, FromCodesetVar string, BytesReadVar uint, BytesWrittenVar uint) ([]byte, error) {
 	var cerr *Error
 
 	cret := xConvert(StrVar, LenVar, ToCodesetVar, FromCodesetVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -109,7 +109,7 @@ func Convert(StrVar uintptr, LenVar int, ToCodesetVar string, FromCodesetVar str
 
 }
 
-var xConvertWithFallback func(uintptr, int, string, string, string, uint, uint, **Error) uintptr
+var xConvertWithFallback func([]byte, int, string, string, string, uint, uint, **Error) []byte
 
 // Converts a string from one character set to another, possibly
 // including fallback sequences for characters not representable
@@ -128,7 +128,7 @@ var xConvertWithFallback func(uintptr, int, string, string, string, uint, uint, 
 // this is the GNU C converter for CP1255 which does not emit a base
 // character until it knows that the next character is not a mark that
 // could combine with the base character.)
-func ConvertWithFallback(StrVar uintptr, LenVar int, ToCodesetVar string, FromCodesetVar string, FallbackVar string, BytesReadVar uint, BytesWrittenVar uint) (uintptr, error) {
+func ConvertWithFallback(StrVar []byte, LenVar int, ToCodesetVar string, FromCodesetVar string, FallbackVar string, BytesReadVar uint, BytesWrittenVar uint) ([]byte, error) {
 	var cerr *Error
 
 	cret := xConvertWithFallback(StrVar, LenVar, ToCodesetVar, FromCodesetVar, FallbackVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -139,7 +139,7 @@ func ConvertWithFallback(StrVar uintptr, LenVar int, ToCodesetVar string, FromCo
 
 }
 
-var xConvertWithIconv func(uintptr, int, uintptr, uint, uint, **Error) uintptr
+var xConvertWithIconv func([]byte, int, uintptr, uint, uint, **Error) []byte
 
 // Converts a string from one character set to another.
 //
@@ -160,7 +160,7 @@ var xConvertWithIconv func(uintptr, int, uintptr, uint, uint, **Error) uintptr
 // this is the same error code as is returned for an invalid byte sequence in
 // the input character set. To get defined behaviour for conversion of
 // unrepresentable characters, use g_convert_with_fallback().
-func ConvertWithIconv(StrVar uintptr, LenVar int, ConverterVar uintptr, BytesReadVar uint, BytesWrittenVar uint) (uintptr, error) {
+func ConvertWithIconv(StrVar []byte, LenVar int, ConverterVar uintptr, BytesReadVar uint, BytesWrittenVar uint) ([]byte, error) {
 	var cerr *Error
 
 	cret := xConvertWithIconv(StrVar, LenVar, ConverterVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -296,7 +296,7 @@ func FilenameToUtf8(OpsysstringVar string, LenVar int, BytesReadVar uint, BytesW
 
 }
 
-var xGetFilenameCharsets func(uintptr) bool
+var xGetFilenameCharsets func([]string) bool
 
 // Determines the preferred character sets used for filenames.
 // The first character set from the @charsets is the filename encoding, the
@@ -322,7 +322,7 @@ var xGetFilenameCharsets func(uintptr) bool
 // Note that on Unix, regardless of the locale character set or
 // `G_FILENAME_ENCODING` value, the actual file names present
 // on a system might be in any random encoding or just gibberish.
-func GetFilenameCharsets(FilenameCharsetsVar uintptr) bool {
+func GetFilenameCharsets(FilenameCharsetsVar []string) bool {
 
 	cret := xGetFilenameCharsets(FilenameCharsetsVar)
 	return cret
@@ -363,7 +363,7 @@ func IconvOpen(ToCodesetVar string, FromCodesetVar string) uintptr {
 	return cret
 }
 
-var xLocaleFromUtf8 func(string, int, uint, uint, **Error) uintptr
+var xLocaleFromUtf8 func(string, int, uint, uint, **Error) []byte
 
 // Converts a string from UTF-8 to the encoding used for strings by
 // the C runtime (usually the same as that used by the operating
@@ -374,7 +374,7 @@ var xLocaleFromUtf8 func(string, int, uint, uint, **Error) uintptr
 // argument is positive. A nul character found inside the string will result
 // in error %G_CONVERT_ERROR_ILLEGAL_SEQUENCE. Use g_convert() to convert
 // input that may contain embedded nul characters.
-func LocaleFromUtf8(Utf8stringVar string, LenVar int, BytesReadVar uint, BytesWrittenVar uint) (uintptr, error) {
+func LocaleFromUtf8(Utf8stringVar string, LenVar int, BytesReadVar uint, BytesWrittenVar uint) ([]byte, error) {
 	var cerr *Error
 
 	cret := xLocaleFromUtf8(Utf8stringVar, LenVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -385,7 +385,7 @@ func LocaleFromUtf8(Utf8stringVar string, LenVar int, BytesReadVar uint, BytesWr
 
 }
 
-var xLocaleToUtf8 func(uintptr, int, uint, uint, **Error) string
+var xLocaleToUtf8 func([]byte, int, uint, uint, **Error) string
 
 // Converts a string which is in the encoding used for strings by
 // the C runtime (usually the same as that used by the operating
@@ -398,7 +398,7 @@ var xLocaleToUtf8 func(uintptr, int, uint, uint, **Error) string
 // the %G_CONVERT_ERROR_ILLEGAL_SEQUENCE error for backward compatibility with
 // earlier versions of this library. Use g_convert() to produce output that
 // may contain embedded nul characters.
-func LocaleToUtf8(OpsysstringVar uintptr, LenVar int, BytesReadVar uint, BytesWrittenVar uint) (string, error) {
+func LocaleToUtf8(OpsysstringVar []byte, LenVar int, BytesReadVar uint, BytesWrittenVar uint) (string, error) {
 	var cerr *Error
 
 	cret := xLocaleToUtf8(OpsysstringVar, LenVar, BytesReadVar, BytesWrittenVar, &cerr)
@@ -409,12 +409,12 @@ func LocaleToUtf8(OpsysstringVar uintptr, LenVar int, BytesReadVar uint, BytesWr
 
 }
 
-var xUriListExtractUris func(string) uintptr
+var xUriListExtractUris func(string) []string
 
 // Splits an URI list conforming to the text/uri-list
 // mime type defined in RFC 2483 into individual URIs,
 // discarding any comments. The URIs are not validated.
-func UriListExtractUris(UriListVar string) uintptr {
+func UriListExtractUris(UriListVar string) []string {
 
 	cret := xUriListExtractUris(UriListVar)
 	return cret

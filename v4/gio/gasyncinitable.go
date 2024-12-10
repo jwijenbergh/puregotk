@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for asynchronous initializing object such that
@@ -226,7 +227,7 @@ var XGAsyncInitableInitAsync func(uintptr, int, uintptr, uintptr, uintptr)
 var XGAsyncInitableInitFinish func(uintptr, uintptr, **glib.Error) bool
 var XGAsyncInitableNewFinish func(uintptr, uintptr, **glib.Error) uintptr
 
-var xAsyncInitableNewvAsync func([]interface{}, uint, *gobject.Parameter, int, uintptr, uintptr, uintptr)
+var xAsyncInitableNewvAsync func(types.GType, uint, *gobject.Parameter, int, uintptr, uintptr, uintptr)
 
 // Helper function for constructing #GAsyncInitable object. This is
 // similar to g_object_newv() but also initializes the object asynchronously.
@@ -234,7 +235,7 @@ var xAsyncInitableNewvAsync func([]interface{}, uint, *gobject.Parameter, int, u
 // When the initialization is finished, @callback will be called. You can
 // then call g_async_initable_new_finish() to get the new object and check
 // for any errors.
-func AsyncInitableNewvAsync(ObjectTypeVar []interface{}, NParametersVar uint, ParametersVar *gobject.Parameter, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func AsyncInitableNewvAsync(ObjectTypeVar types.GType, NParametersVar uint, ParametersVar *gobject.Parameter, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xAsyncInitableNewvAsync(ObjectTypeVar, NParametersVar, ParametersVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
 

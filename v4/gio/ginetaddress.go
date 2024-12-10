@@ -61,12 +61,12 @@ func NewInetAddressAny(FamilyVar SocketFamily) *InetAddress {
 	return cls
 }
 
-var xNewInetAddressFromBytes func(uintptr, SocketFamily) uintptr
+var xNewInetAddressFromBytes func([]byte, SocketFamily) uintptr
 
 // Creates a new #GInetAddress from the given @family and @bytes.
 // @bytes should be 4 bytes for %G_SOCKET_FAMILY_IPV4 and 16 bytes for
 // %G_SOCKET_FAMILY_IPV6.
-func NewInetAddressFromBytes(BytesVar uintptr, FamilyVar SocketFamily) *InetAddress {
+func NewInetAddressFromBytes(BytesVar []byte, FamilyVar SocketFamily) *InetAddress {
 	var cls *InetAddress
 
 	cret := xNewInetAddressFromBytes(BytesVar, FamilyVar)

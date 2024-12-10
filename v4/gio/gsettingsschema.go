@@ -160,26 +160,26 @@ func (x *SettingsSchema) HasKey(NameVar string) bool {
 	return cret
 }
 
-var xSettingsSchemaListChildren func(uintptr) uintptr
+var xSettingsSchemaListChildren func(uintptr) []string
 
 // Gets the list of children in @schema.
 //
 // You should free the return value with g_strfreev() when you are done
 // with it.
-func (x *SettingsSchema) ListChildren() uintptr {
+func (x *SettingsSchema) ListChildren() []string {
 
 	cret := xSettingsSchemaListChildren(x.GoPointer())
 	return cret
 }
 
-var xSettingsSchemaListKeys func(uintptr) uintptr
+var xSettingsSchemaListKeys func(uintptr) []string
 
 // Introspects the list of keys on @schema.
 //
 // You should probably not be calling this function from "normal" code
 // (since you should already know what keys are in your schema).  This
 // function is intended for introspection reasons.
-func (x *SettingsSchema) ListKeys() uintptr {
+func (x *SettingsSchema) ListKeys() []string {
 
 	cret := xSettingsSchemaListKeys(x.GoPointer())
 	return cret
@@ -412,7 +412,7 @@ func NewSettingsSchemaSourceFromDirectory(DirectoryVar string, ParentVar *Settin
 
 }
 
-var xSettingsSchemaSourceListSchemas func(uintptr, bool, uintptr, uintptr)
+var xSettingsSchemaSourceListSchemas func(uintptr, bool, []string, []string)
 
 // Lists the schemas in a given source.
 //
@@ -426,7 +426,7 @@ var xSettingsSchemaSourceListSchemas func(uintptr, bool, uintptr, uintptr)
 //
 // Do not call this function from normal programs.  This is designed for
 // use by database editors, commandline tools, etc.
-func (x *SettingsSchemaSource) ListSchemas(RecursiveVar bool, NonRelocatableVar uintptr, RelocatableVar uintptr) {
+func (x *SettingsSchemaSource) ListSchemas(RecursiveVar bool, NonRelocatableVar []string, RelocatableVar []string) {
 
 	xSettingsSchemaSourceListSchemas(x.GoPointer(), RecursiveVar, NonRelocatableVar, RelocatableVar)
 

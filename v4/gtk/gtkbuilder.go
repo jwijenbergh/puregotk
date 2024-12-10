@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BuilderClass struct {
@@ -534,14 +535,14 @@ func (x *Builder) ExposeObject(NameVar string, ObjectVar *gobject.Object) {
 
 }
 
-var xBuilderExtendWithTemplate func(uintptr, uintptr, []interface{}, string, int, **glib.Error) bool
+var xBuilderExtendWithTemplate func(uintptr, uintptr, types.GType, string, int, **glib.Error) bool
 
 // Main private entry point for building composite components
 // from template XML.
 //
 // Most likely you do not need to call this function in applications as
 // templates are handled by `GtkWidget`.
-func (x *Builder) ExtendWithTemplate(ObjectVar *gobject.Object, TemplateTypeVar []interface{}, BufferVar string, LengthVar int) (bool, error) {
+func (x *Builder) ExtendWithTemplate(ObjectVar *gobject.Object, TemplateTypeVar types.GType, BufferVar string, LengthVar int) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xBuilderExtendWithTemplate(x.GoPointer(), ObjectVar.GoPointer(), TemplateTypeVar, BufferVar, LengthVar, &cerr)
@@ -627,14 +628,14 @@ func (x *Builder) GetTranslationDomain() string {
 	return cret
 }
 
-var xBuilderGetTypeFromName func(uintptr, string) []interface{}
+var xBuilderGetTypeFromName func(uintptr, string) types.GType
 
 // Looks up a type by name.
 //
 // This is using the virtual function that `GtkBuilder` has
 // for that purpose. This is mainly used when implementing
 // the `GtkBuildable` interface on a type.
-func (x *Builder) GetTypeFromName(TypeNameVar string) []interface{} {
+func (x *Builder) GetTypeFromName(TypeNameVar string) types.GType {
 
 	cret := xBuilderGetTypeFromName(x.GoPointer(), TypeNameVar)
 	return cret
@@ -701,7 +702,7 @@ func (x *Builder) ValueFromString(PspecVar *gobject.ParamSpec, StringVar string,
 
 }
 
-var xBuilderValueFromStringType func(uintptr, []interface{}, string, *gobject.Value, **glib.Error) bool
+var xBuilderValueFromStringType func(uintptr, types.GType, string, *gobject.Value, **glib.Error) bool
 
 // Demarshals a value from a string.
 //
@@ -713,7 +714,7 @@ var xBuilderValueFromStringType func(uintptr, []interface{}, string, *gobject.Va
 //
 // Upon errors %FALSE will be returned and @error will be
 // assigned a `GError` from the %GTK_BUILDER_ERROR domain.
-func (x *Builder) ValueFromStringType(TypeVar []interface{}, StringVar string, ValueVar *gobject.Value) (bool, error) {
+func (x *Builder) ValueFromStringType(TypeVar types.GType, StringVar string, ValueVar *gobject.Value) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xBuilderValueFromStringType(x.GoPointer(), TypeVar, StringVar, ValueVar, &cerr)

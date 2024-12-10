@@ -80,7 +80,7 @@ type HookList struct {
 
 	FinalizeHook HookFinalizeFunc
 
-	Dummy uintptr
+	Dummy [2]uintptr
 }
 
 func (x *HookList) GoPointer() uintptr {

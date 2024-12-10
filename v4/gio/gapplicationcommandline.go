@@ -15,7 +15,7 @@ import (
 type ApplicationCommandLineClass struct {
 	ParentClass uintptr
 
-	Padding uintptr
+	Padding [11]uintptr
 }
 
 func (x *ApplicationCommandLineClass) GoPointer() uintptr {
@@ -231,7 +231,7 @@ func (x *ApplicationCommandLine) CreateFileForArg(ArgVar string) *FileBase {
 	return cls
 }
 
-var xApplicationCommandLineGetArguments func(uintptr, int) uintptr
+var xApplicationCommandLineGetArguments func(uintptr, int) []string
 
 // Gets the list of arguments that was passed on the command line.
 //
@@ -244,7 +244,7 @@ var xApplicationCommandLineGetArguments func(uintptr, int) uintptr
 //
 // The return value is %NULL-terminated and should be freed using
 // g_strfreev().
-func (x *ApplicationCommandLine) GetArguments(ArgcVar int) uintptr {
+func (x *ApplicationCommandLine) GetArguments(ArgcVar int) []string {
 
 	cret := xApplicationCommandLineGetArguments(x.GoPointer(), ArgcVar)
 	return cret
@@ -266,7 +266,7 @@ func (x *ApplicationCommandLine) GetCwd() string {
 	return cret
 }
 
-var xApplicationCommandLineGetEnviron func(uintptr) uintptr
+var xApplicationCommandLineGetEnviron func(uintptr) []string
 
 // Gets the contents of the 'environ' variable of the command line
 // invocation, as would be returned by g_get_environ(), ie as a
@@ -283,7 +283,7 @@ var xApplicationCommandLineGetEnviron func(uintptr) uintptr
 //
 // See g_application_command_line_getenv() if you are only interested
 // in the value of a single environment variable.
-func (x *ApplicationCommandLine) GetEnviron() uintptr {
+func (x *ApplicationCommandLine) GetEnviron() []string {
 
 	cret := xApplicationCommandLineGetEnviron(x.GoPointer())
 	return cret

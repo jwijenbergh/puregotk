@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type IOModuleClass struct {
@@ -49,14 +50,14 @@ func (x *IOModuleScope) Free() {
 
 }
 
-var xIoExtensionPointImplement func(string, []interface{}, string, int) *IOExtension
+var xIoExtensionPointImplement func(string, types.GType, string, int) *IOExtension
 
 // Registers @type as extension for the extension point with name
 // @extension_point_name.
 //
 // If @type has already been registered as an extension for this
 // extension point, the existing #GIOExtension object is returned.
-func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar []interface{}, ExtensionNameVar string, PriorityVar int) *IOExtension {
+func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar types.GType, ExtensionNameVar string, PriorityVar int) *IOExtension {
 
 	cret := xIoExtensionPointImplement(ExtensionPointNameVar, TypeVar, ExtensionNameVar, PriorityVar)
 	return cret
@@ -226,7 +227,7 @@ func (c *IOModule) SetGoPointer(ptr uintptr) {
 // Calls the @complete_interface_info function from the
 // #GTypePluginClass of @plugin. There should be no need to use this
 // function outside of the GObject type system itself.
-func (x *IOModule) CompleteInterfaceInfo(InstanceTypeVar []interface{}, InterfaceTypeVar []interface{}, InfoVar *gobject.InterfaceInfo) {
+func (x *IOModule) CompleteInterfaceInfo(InstanceTypeVar types.GType, InterfaceTypeVar types.GType, InfoVar *gobject.InterfaceInfo) {
 
 	gobject.XGTypePluginCompleteInterfaceInfo(x.GoPointer(), InstanceTypeVar, InterfaceTypeVar, InfoVar)
 
@@ -235,7 +236,7 @@ func (x *IOModule) CompleteInterfaceInfo(InstanceTypeVar []interface{}, Interfac
 // Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
 // There should be no need to use this function outside of the GObject
 // type system itself.
-func (x *IOModule) CompleteTypeInfo(GTypeVar []interface{}, InfoVar *gobject.TypeInfo, ValueTableVar *gobject.TypeValueTable) {
+func (x *IOModule) CompleteTypeInfo(GTypeVar types.GType, InfoVar *gobject.TypeInfo, ValueTableVar *gobject.TypeValueTable) {
 
 	gobject.XGTypePluginCompleteTypeInfo(x.GoPointer(), GTypeVar, InfoVar, ValueTableVar)
 

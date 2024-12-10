@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class of an enumeration type holds information about its
@@ -70,7 +71,7 @@ func (x *FlagsValue) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xEnumCompleteTypeInfo func([]interface{}, *TypeInfo, *EnumValue)
+var xEnumCompleteTypeInfo func(types.GType, *TypeInfo, *EnumValue)
 
 // This function is meant to be called from the `complete_type_info`
 // function of a #GTypePlugin implementation, as in the following
@@ -95,7 +96,7 @@ var xEnumCompleteTypeInfo func([]interface{}, *TypeInfo, *EnumValue)
 //	}
 //
 // ]|
-func EnumCompleteTypeInfo(GEnumTypeVar []interface{}, InfoVar *TypeInfo, ConstValuesVar *EnumValue) {
+func EnumCompleteTypeInfo(GEnumTypeVar types.GType, InfoVar *TypeInfo, ConstValuesVar *EnumValue) {
 
 	xEnumCompleteTypeInfo(GEnumTypeVar, InfoVar, ConstValuesVar)
 
@@ -128,37 +129,37 @@ func EnumGetValueByNick(EnumClassVar *EnumClass, NickVar string) *EnumValue {
 	return cret
 }
 
-var xEnumRegisterStatic func(string, *EnumValue) []interface{}
+var xEnumRegisterStatic func(string, *EnumValue) types.GType
 
 // Registers a new static enumeration type with the name @name.
 //
 // It is normally more convenient to let [glib-mkenums][glib-mkenums],
 // generate a my_enum_get_type() function from a usual C enumeration
 // definition  than to write one yourself using g_enum_register_static().
-func EnumRegisterStatic(NameVar string, ConstStaticValuesVar *EnumValue) []interface{} {
+func EnumRegisterStatic(NameVar string, ConstStaticValuesVar *EnumValue) types.GType {
 
 	cret := xEnumRegisterStatic(NameVar, ConstStaticValuesVar)
 	return cret
 }
 
-var xEnumToString func([]interface{}, int) string
+var xEnumToString func(types.GType, int) string
 
 // Pretty-prints @value in the form of the enum’s name.
 //
 // This is intended to be used for debugging purposes. The format of the output
 // may change in the future.
-func EnumToString(GEnumTypeVar []interface{}, ValueVar int) string {
+func EnumToString(GEnumTypeVar types.GType, ValueVar int) string {
 
 	cret := xEnumToString(GEnumTypeVar, ValueVar)
 	return cret
 }
 
-var xFlagsCompleteTypeInfo func([]interface{}, *TypeInfo, *FlagsValue)
+var xFlagsCompleteTypeInfo func(types.GType, *TypeInfo, *FlagsValue)
 
 // This function is meant to be called from the complete_type_info()
 // function of a #GTypePlugin implementation, see the example for
 // g_enum_complete_type_info() above.
-func FlagsCompleteTypeInfo(GFlagsTypeVar []interface{}, InfoVar *TypeInfo, ConstValuesVar *FlagsValue) {
+func FlagsCompleteTypeInfo(GFlagsTypeVar types.GType, InfoVar *TypeInfo, ConstValuesVar *FlagsValue) {
 
 	xFlagsCompleteTypeInfo(GFlagsTypeVar, InfoVar, ConstValuesVar)
 
@@ -191,27 +192,27 @@ func FlagsGetValueByNick(FlagsClassVar *FlagsClass, NickVar string) *FlagsValue 
 	return cret
 }
 
-var xFlagsRegisterStatic func(string, *FlagsValue) []interface{}
+var xFlagsRegisterStatic func(string, *FlagsValue) types.GType
 
 // Registers a new static flags type with the name @name.
 //
 // It is normally more convenient to let [glib-mkenums][glib-mkenums]
 // generate a my_flags_get_type() function from a usual C enumeration
 // definition than to write one yourself using g_flags_register_static().
-func FlagsRegisterStatic(NameVar string, ConstStaticValuesVar *FlagsValue) []interface{} {
+func FlagsRegisterStatic(NameVar string, ConstStaticValuesVar *FlagsValue) types.GType {
 
 	cret := xFlagsRegisterStatic(NameVar, ConstStaticValuesVar)
 	return cret
 }
 
-var xFlagsToString func([]interface{}, uint) string
+var xFlagsToString func(types.GType, uint) string
 
 // Pretty-prints @value in the form of the flag names separated by ` | ` and
 // sorted. Any extra bits will be shown at the end as a hexadecimal number.
 //
 // This is intended to be used for debugging purposes. The format of the output
 // may change in the future.
-func FlagsToString(FlagsTypeVar []interface{}, ValueVar uint) string {
+func FlagsToString(FlagsTypeVar types.GType, ValueVar uint) string {
 
 	cret := xFlagsToString(FlagsTypeVar, ValueVar)
 	return cret

@@ -121,7 +121,7 @@ func (x *UnixFDMessage) GetFdList() *UnixFDList {
 	return cls
 }
 
-var xUnixFDMessageStealFds func(uintptr, int) uintptr
+var xUnixFDMessageStealFds func(uintptr, int) []int
 
 // Returns the array of file descriptors that is contained in this
 // object.
@@ -140,7 +140,7 @@ var xUnixFDMessageStealFds func(uintptr, int) uintptr
 //
 // This function never returns %NULL. In case there are no file
 // descriptors contained in @message, an empty array is returned.
-func (x *UnixFDMessage) StealFds(LengthVar int) uintptr {
+func (x *UnixFDMessage) StealFds(LengthVar int) []int {
 
 	cret := xUnixFDMessageStealFds(x.GoPointer(), LengthVar)
 	return cret
