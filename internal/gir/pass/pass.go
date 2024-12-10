@@ -204,7 +204,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	for _, alias := range ns.Aliases {
 		fn := alias.FilenameSafe()
 		files = append(files, fn)
-		typeName := alias.Type.Template(ns.Name, p.Types)
+		typeName := alias.Type.Template(ns.Name, p.Types, false)
 		if typeName == "" {
 			typeName = "uintptr"
 		}
