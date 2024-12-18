@@ -28,6 +28,13 @@ type {{.Name}} struct {
      {{end}}
 }
 
+{{if .TypeGetter}}
+var x{{.Name}}GLibType func() types.GType
+func {{.Name}}GLibType() types.GType {
+	return x{{.Name}}GLibType()
+}
+{{end}}
+
 func (x *{{.Name}}) GoPointer() uintptr {
      return uintptr(unsafe.Pointer(x))
 }
@@ -69,6 +76,14 @@ type {{.Name}} interface {
      {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}}
      {{end}}
 }
+
+{{if .TypeGetter}}
+var x{{.Name}}GLibType func() types.GType
+func {{.Name}}GLibType() types.GType {
+	return x{{.Name}}GLibType()
+}
+{{end}}
+
 type {{.Name}}Base struct {
      Ptr uintptr
 }
@@ -99,6 +114,12 @@ var {{.Namespace}}X{{.FullName}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret
 {{range .Aliases -}}
 {{.Doc}}
 type {{.Name}} = {{.Value}}
+{{if .TypeGetter}}
+var x{{.Name}}GLibType func() types.GType
+func {{.Name}}GLibType() types.GType {
+	return x{{.Name}}GLibType()
+}
+{{end}}
 {{end}}
 
 {{if .Constants -}}
@@ -113,6 +134,12 @@ const (
 {{range .Enums -}}
 {{.Doc}}
 type {{.Name}} int
+{{if .TypeGetter}}
+var x{{.Name}}GLibType func() types.GType
+func {{.Name}}GLibType() types.GType {
+	return x{{.Name}}GLibType()
+}
+{{end}}
 const (
 {{$outer := .}}
 {{range .Values -}}
@@ -141,6 +168,13 @@ type {{.Name}} struct {
      Ptr uintptr
      {{end}}
 }
+
+{{if .TypeGetter -}}
+var x{{.Name}}GLibType func() types.GType
+func {{.Name}}GLibType() types.GType {
+	return x{{.Name}}GLibType()
+}
+{{end}}
 
 {{$outer := .}}
 func {{.Name}}NewFromInternalPtr(ptr uintptr) *{{.Name}} {
@@ -241,12 +275,25 @@ func init() {
     if err != nil {
             panic(err)
     }
+    {{range .Aliases -}}
+    {{if .TypeGetter -}}
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    {{end}}
+    {{end}}
+    {{range .Enums -}}
+    {{if .TypeGetter -}}
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    {{end}}
+    {{end}}
     {{range .Functions -}}
     core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
 
     {{range .Records -}}
     {{$rec := .}}
+    {{if .TypeGetter -}}
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    {{end}}
     {{range .Constructors -}}
     core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
@@ -257,6 +304,9 @@ func init() {
 
     {{range .Classes -}}
     {{$cls := .}}
+    {{if .TypeGetter -}}
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    {{end}}
     {{range .Constructors -}}
     core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
     {{end}}
@@ -269,6 +319,9 @@ func init() {
     {{end}}
 
     {{range .Interfaces -}}
+    {{if .TypeGetter -}}
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    {{end}}
     {{range .Methods -}}
     core.PuregoSafeRegister(&{{.Namespace}}X{{.FullName}}, lib, "{{.CName}}")
     {{end}}

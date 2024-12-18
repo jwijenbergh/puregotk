@@ -162,6 +162,9 @@ type AliasTemplate struct {
 
 	// Value is the value for the alias as a Go type
 	Value string
+
+	// TypeGetter is the function to get the GLib type
+	TypeGetter string
 }
 
 type RecordField struct {
@@ -187,6 +190,9 @@ type RecordTemplate struct {
 
 	// Fields is the list of record fields
 	Fields []RecordField
+
+	// TypeGetter is the function to get the GLib type
+	TypeGetter string
 }
 
 type enumValues struct {
@@ -205,6 +211,8 @@ type EnumTemplate struct {
 	Doc string
 	// Values are the list of values for the enumeration
 	Values []enumValues
+	// TypeGetter is the function to get the GLib type
+	TypeGetter string
 }
 
 type ConstantTemplate struct {
@@ -368,6 +376,8 @@ type ClassTemplate struct {
 	Functions []FuncTemplate
 	// Signals are helpers for ConnectX receivers
 	Signals []SignalsTemplate
+	// TypeGetter is the function to get the GLib type
+	TypeGetter string
 }
 
 type InterfaceTemplate struct {
@@ -375,6 +385,8 @@ type InterfaceTemplate struct {
 	Name string
 	// Methods is the methods that this interface defines
 	Methods []InterfaceFuncTemplate
+	// TypeGetter is the function to get the GLib type
+	TypeGetter string
 }
 
 type TemplateArg struct {

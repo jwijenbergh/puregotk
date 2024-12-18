@@ -163,6 +163,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Constructors: constructors,
 			Receivers:    receivers,
 			Fields:       fields,
+			TypeGetter:   rec.GLibGetType,
 		})
 		recordLookup[name] = true
 	}
@@ -298,6 +299,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Interfaces:   interfaces,
 			Functions:    functions,
 			Signals:      signals,
+			TypeGetter:   cls.GLibGetType,
 		})
 	}
 

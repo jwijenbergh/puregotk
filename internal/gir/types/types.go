@@ -204,9 +204,10 @@ func (b *Bitfield) Template(ns string) EnumTemplate {
 		}
 	}
 	return EnumTemplate{
-		Name:   util.SnakeToCamel(b.Name),
-		Doc:    b.Doc.StringSafe(),
-		Values: els,
+		Name:       util.SnakeToCamel(b.Name),
+		Doc:        b.Doc.StringSafe(),
+		Values:     els,
+		TypeGetter: b.GLibGetType,
 	}
 }
 
@@ -474,9 +475,10 @@ func (e *Enum) Template(ns string) EnumTemplate {
 		}
 	}
 	return EnumTemplate{
-		Name:   util.SnakeToCamel(e.Name),
-		Doc:    e.Doc.StringSafe(),
-		Values: els,
+		Name:       util.SnakeToCamel(e.Name),
+		Doc:        e.Doc.StringSafe(),
+		Values:     els,
+		TypeGetter: e.GLibGetType,
 	}
 }
 
