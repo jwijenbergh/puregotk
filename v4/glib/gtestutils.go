@@ -1227,6 +1227,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAssertionMessage, lib, "g_assertion_message")
 	core.PuregoSafeRegister(&xAssertionMessageCmpnum, lib, "g_assertion_message_cmpnum")
 	core.PuregoSafeRegister(&xAssertionMessageCmpstr, lib, "g_assertion_message_cmpstr")

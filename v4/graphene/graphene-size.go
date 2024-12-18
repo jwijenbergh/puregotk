@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A size.
@@ -13,6 +14,12 @@ type Size struct {
 	Width float32
 
 	Height float32
+}
+
+var xSizeGLibType func() types.GType
+
+func SizeGLibType() types.GType {
+	return xSizeGLibType()
 }
 
 func (x *Size) GoPointer() uintptr {
@@ -101,7 +108,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSizeZero, lib, "graphene_size_zero")
+
+	core.PuregoSafeRegister(&xSizeGLibType, lib, "graphene_size_get_type")
 
 	core.PuregoSafeRegister(&xSizeAlloc, lib, "graphene_size_alloc")
 

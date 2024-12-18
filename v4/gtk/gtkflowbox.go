@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Called for flow boxes that are bound to a `GListModel`.
@@ -89,6 +90,12 @@ func (x *FlowBoxChildClass) GoPointer() uintptr {
 // uses the %GTK_ACCESSIBLE_ROLE_GRID_CELL role.
 type FlowBox struct {
 	Widget
+}
+
+var xFlowBoxGLibType func() types.GType
+
+func FlowBoxGLibType() types.GType {
+	return xFlowBoxGLibType()
 }
 
 func FlowBoxNewFromInternalPtr(ptr uintptr) *FlowBox {
@@ -870,6 +877,12 @@ type FlowBoxChild struct {
 	Widget
 }
 
+var xFlowBoxChildGLibType func() types.GType
+
+func FlowBoxChildGLibType() types.GType {
+	return xFlowBoxChildGLibType()
+}
+
 func FlowBoxChildNewFromInternalPtr(ptr uintptr) *FlowBoxChild {
 	cls := &FlowBoxChild{}
 	cls.Ptr = ptr
@@ -1152,6 +1165,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xFlowBoxGLibType, lib, "gtk_flow_box_get_type")
+
 	core.PuregoSafeRegister(&xNewFlowBox, lib, "gtk_flow_box_new")
 
 	core.PuregoSafeRegister(&xFlowBoxAppend, lib, "gtk_flow_box_append")
@@ -1187,6 +1202,8 @@ func init() {
 	core.PuregoSafeRegister(&xFlowBoxSetVadjustment, lib, "gtk_flow_box_set_vadjustment")
 	core.PuregoSafeRegister(&xFlowBoxUnselectAll, lib, "gtk_flow_box_unselect_all")
 	core.PuregoSafeRegister(&xFlowBoxUnselectChild, lib, "gtk_flow_box_unselect_child")
+
+	core.PuregoSafeRegister(&xFlowBoxChildGLibType, lib, "gtk_flow_box_child_get_type")
 
 	core.PuregoSafeRegister(&xNewFlowBoxChild, lib, "gtk_flow_box_child_new")
 

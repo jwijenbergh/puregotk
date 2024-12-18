@@ -425,6 +425,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xConvert, lib, "g_convert")
 	core.PuregoSafeRegister(&xConvertWithFallback, lib, "g_convert_with_fallback")
 	core.PuregoSafeRegister(&xConvertWithIconv, lib, "g_convert_with_iconv")

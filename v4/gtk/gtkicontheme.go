@@ -10,10 +10,17 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Used to specify options for gtk_icon_theme_lookup_icon().
 type IconLookupFlags int
+
+var xIconLookupFlagsGLibType func() types.GType
+
+func IconLookupFlagsGLibType() types.GType {
+	return xIconLookupFlagsGLibType()
+}
 
 const (
 
@@ -31,6 +38,12 @@ const (
 // Error codes for `GtkIconTheme` operations.
 type IconThemeError int
 
+var xIconThemeErrorGLibType func() types.GType
+
+func IconThemeErrorGLibType() types.GType {
+	return xIconThemeErrorGLibType()
+}
+
 const (
 
 	// The icon specified does not exist in the theme
@@ -44,6 +57,12 @@ const (
 // `GtkIconPaintable` implements `GdkPaintable`.
 type IconPaintable struct {
 	gobject.Object
+}
+
+var xIconPaintableGLibType func() types.GType
+
+func IconPaintableGLibType() types.GType {
+	return xIconPaintableGLibType()
 }
 
 func IconPaintableNewFromInternalPtr(ptr uintptr) *IconPaintable {
@@ -318,6 +337,12 @@ func (x *IconPaintable) SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar flo
 // ```
 type IconTheme struct {
 	gobject.Object
+}
+
+var xIconThemeGLibType func() types.GType
+
+func IconThemeGLibType() types.GType {
+	return xIconThemeGLibType()
 }
 
 func IconThemeNewFromInternalPtr(ptr uintptr) *IconTheme {
@@ -633,11 +658,19 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xIconLookupFlagsGLibType, lib, "gtk_icon_lookup_flags_get_type")
+
+	core.PuregoSafeRegister(&xIconThemeErrorGLibType, lib, "gtk_icon_theme_error_get_type")
+
+	core.PuregoSafeRegister(&xIconPaintableGLibType, lib, "gtk_icon_paintable_get_type")
+
 	core.PuregoSafeRegister(&xNewIconPaintableForFile, lib, "gtk_icon_paintable_new_for_file")
 
 	core.PuregoSafeRegister(&xIconPaintableGetFile, lib, "gtk_icon_paintable_get_file")
 	core.PuregoSafeRegister(&xIconPaintableGetIconName, lib, "gtk_icon_paintable_get_icon_name")
 	core.PuregoSafeRegister(&xIconPaintableIsSymbolic, lib, "gtk_icon_paintable_is_symbolic")
+
+	core.PuregoSafeRegister(&xIconThemeGLibType, lib, "gtk_icon_theme_get_type")
 
 	core.PuregoSafeRegister(&xNewIconTheme, lib, "gtk_icon_theme_new")
 

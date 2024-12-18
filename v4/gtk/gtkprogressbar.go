@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -58,6 +59,12 @@ import (
 // `GtkProgressBar` uses the %GTK_ACCESSIBLE_ROLE_PROGRESS_BAR role.
 type ProgressBar struct {
 	Widget
+}
+
+var xProgressBarGLibType func() types.GType
+
+func ProgressBarGLibType() types.GType {
+	return xProgressBarGLibType()
 }
 
 func ProgressBarNewFromInternalPtr(ptr uintptr) *ProgressBar {
@@ -415,6 +422,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xProgressBarGLibType, lib, "gtk_progress_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewProgressBar, lib, "gtk_progress_bar_new")
 

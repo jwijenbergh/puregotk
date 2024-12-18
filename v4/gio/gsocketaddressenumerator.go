@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GSocketAddressEnumerator.
@@ -35,6 +36,12 @@ func (x *SocketAddressEnumeratorClass) GoPointer() uintptr {
 // be unreffed.
 type SocketAddressEnumerator struct {
 	gobject.Object
+}
+
+var xSocketAddressEnumeratorGLibType func() types.GType
+
+func SocketAddressEnumeratorGLibType() types.GType {
+	return xSocketAddressEnumeratorGLibType()
 }
 
 func SocketAddressEnumeratorNewFromInternalPtr(ptr uintptr) *SocketAddressEnumerator {
@@ -126,6 +133,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketAddressEnumeratorGLibType, lib, "g_socket_address_enumerator_get_type")
 
 	core.PuregoSafeRegister(&xSocketAddressEnumeratorNext, lib, "g_socket_address_enumerator_next")
 	core.PuregoSafeRegister(&xSocketAddressEnumeratorNextAsync, lib, "g_socket_address_enumerator_next_async")

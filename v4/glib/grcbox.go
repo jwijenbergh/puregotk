@@ -187,6 +187,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAtomicRcBoxAcquire, lib, "g_atomic_rc_box_acquire")
 	core.PuregoSafeRegister(&xAtomicRcBoxAlloc, lib, "g_atomic_rc_box_alloc")
 	core.PuregoSafeRegister(&xAtomicRcBoxAlloc0, lib, "g_atomic_rc_box_alloc0")

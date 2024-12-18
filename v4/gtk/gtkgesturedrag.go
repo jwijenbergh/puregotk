@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureDragClass struct {
@@ -28,6 +29,12 @@ func (x *GestureDragClass) GoPointer() uintptr {
 // [method@Gtk.GestureDrag.get_start_point].
 type GestureDrag struct {
 	GestureSingle
+}
+
+var xGestureDragGLibType func() types.GType
+
+func GestureDragGLibType() types.GType {
+	return xGestureDragGLibType()
 }
 
 func GestureDragNewFromInternalPtr(ptr uintptr) *GestureDrag {
@@ -151,6 +158,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureDragGLibType, lib, "gtk_gesture_drag_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureDrag, lib, "gtk_gesture_drag_new")
 

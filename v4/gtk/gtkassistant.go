@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -32,6 +33,12 @@ type AssistantPageFunc func(int, uintptr) int
 // The Cancel button will only be shown if the page isn’t “committed”.
 // See gtk_assistant_commit() for details.
 type AssistantPageType int
+
+var xAssistantPageTypeGLibType func() types.GType
+
+func AssistantPageTypeGLibType() types.GType {
+	return xAssistantPageTypeGLibType()
+}
 
 const (
 
@@ -96,6 +103,12 @@ const (
 // class .assistant.
 type Assistant struct {
 	Window
+}
+
+var xAssistantGLibType func() types.GType
+
+func AssistantGLibType() types.GType {
+	return xAssistantGLibType()
 }
 
 func AssistantNewFromInternalPtr(ptr uintptr) *Assistant {
@@ -777,6 +790,12 @@ type AssistantPage struct {
 	gobject.Object
 }
 
+var xAssistantPageGLibType func() types.GType
+
+func AssistantPageGLibType() types.GType {
+	return xAssistantPageGLibType()
+}
+
 func AssistantPageNewFromInternalPtr(ptr uintptr) *AssistantPage {
 	cls := &AssistantPage{}
 	cls.Ptr = ptr
@@ -814,6 +833,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xAssistantPageTypeGLibType, lib, "gtk_assistant_page_type_get_type")
+
+	core.PuregoSafeRegister(&xAssistantGLibType, lib, "gtk_assistant_get_type")
+
 	core.PuregoSafeRegister(&xNewAssistant, lib, "gtk_assistant_new")
 
 	core.PuregoSafeRegister(&xAssistantAddActionWidget, lib, "gtk_assistant_add_action_widget")
@@ -839,6 +862,8 @@ func init() {
 	core.PuregoSafeRegister(&xAssistantSetPageTitle, lib, "gtk_assistant_set_page_title")
 	core.PuregoSafeRegister(&xAssistantSetPageType, lib, "gtk_assistant_set_page_type")
 	core.PuregoSafeRegister(&xAssistantUpdateButtonsState, lib, "gtk_assistant_update_buttons_state")
+
+	core.PuregoSafeRegister(&xAssistantPageGLibType, lib, "gtk_assistant_page_get_type")
 
 	core.PuregoSafeRegister(&xAssistantPageGetChild, lib, "gtk_assistant_page_get_child")
 

@@ -27,6 +27,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTransformParse, lib, "gsk_transform_parse")
 
 }

@@ -237,6 +237,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xThreadPoolGetMaxIdleTime, lib, "g_thread_pool_get_max_idle_time")
 	core.PuregoSafeRegister(&xThreadPoolGetMaxUnusedThreads, lib, "g_thread_pool_get_max_unused_threads")
 	core.PuregoSafeRegister(&xThreadPoolGetNumUnusedThreads, lib, "g_thread_pool_get_num_unused_threads")

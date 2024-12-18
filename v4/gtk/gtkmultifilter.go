@@ -39,6 +39,12 @@ type AnyFilter struct {
 	MultiFilter
 }
 
+var xAnyFilterGLibType func() types.GType
+
+func AnyFilterGLibType() types.GType {
+	return xAnyFilterGLibType()
+}
+
 func AnyFilterNewFromInternalPtr(ptr uintptr) *AnyFilter {
 	cls := &AnyFilter{}
 	cls.Ptr = ptr
@@ -183,6 +189,12 @@ type EveryFilter struct {
 	MultiFilter
 }
 
+var xEveryFilterGLibType func() types.GType
+
+func EveryFilterGLibType() types.GType {
+	return xEveryFilterGLibType()
+}
+
 func EveryFilterNewFromInternalPtr(ptr uintptr) *EveryFilter {
 	cls := &EveryFilter{}
 	cls.Ptr = ptr
@@ -323,6 +335,12 @@ func (x *EveryFilter) GetBuildableId() string {
 // `GtkMultiFilter` is the base class for filters that combine multiple filters.
 type MultiFilter struct {
 	Filter
+}
+
+var xMultiFilterGLibType func() types.GType
+
+func MultiFilterGLibType() types.GType {
+	return xMultiFilterGLibType()
 }
 
 func MultiFilterNewFromInternalPtr(ptr uintptr) *MultiFilter {
@@ -468,9 +486,15 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xAnyFilterGLibType, lib, "gtk_any_filter_get_type")
+
 	core.PuregoSafeRegister(&xNewAnyFilter, lib, "gtk_any_filter_new")
 
+	core.PuregoSafeRegister(&xEveryFilterGLibType, lib, "gtk_every_filter_get_type")
+
 	core.PuregoSafeRegister(&xNewEveryFilter, lib, "gtk_every_filter_new")
+
+	core.PuregoSafeRegister(&xMultiFilterGLibType, lib, "gtk_multi_filter_get_type")
 
 	core.PuregoSafeRegister(&xMultiFilterAppend, lib, "gtk_multi_filter_append")
 	core.PuregoSafeRegister(&xMultiFilterRemove, lib, "gtk_multi_filter_remove")

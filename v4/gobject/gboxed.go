@@ -56,6 +56,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBoxedCopy, lib, "g_boxed_copy")
 	core.PuregoSafeRegister(&xBoxedFree, lib, "g_boxed_free")
 	core.PuregoSafeRegister(&xBoxedTypeRegisterStatic, lib, "g_boxed_type_register_static")

@@ -176,6 +176,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xUnixFdAdd, lib, "g_unix_fd_add")
 	core.PuregoSafeRegister(&xUnixFdAddFull, lib, "g_unix_fd_add_full")
 	core.PuregoSafeRegister(&xUnixFdSourceNew, lib, "g_unix_fd_source_new")

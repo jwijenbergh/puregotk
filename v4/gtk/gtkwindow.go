@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -87,6 +88,12 @@ func (x *WindowGroupPrivate) GoPointer() uintptr {
 // - `window.close`: Close the window.
 type Window struct {
 	Widget
+}
+
+var xWindowGLibType func() types.GType
+
+func WindowGLibType() types.GType {
+	return xWindowGLibType()
 }
 
 func WindowNewFromInternalPtr(ptr uintptr) *Window {
@@ -1377,6 +1384,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowGLibType, lib, "gtk_window_get_type")
 
 	core.PuregoSafeRegister(&xNewWindow, lib, "gtk_window_new")
 

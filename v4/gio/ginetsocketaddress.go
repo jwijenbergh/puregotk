@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type InetSocketAddressClass struct {
@@ -28,6 +29,12 @@ func (x *InetSocketAddressPrivate) GoPointer() uintptr {
 // #GInetAddress and a port number.
 type InetSocketAddress struct {
 	SocketAddress
+}
+
+var xInetSocketAddressGLibType func() types.GType
+
+func InetSocketAddressGLibType() types.GType {
+	return xInetSocketAddressGLibType()
 }
 
 func InetSocketAddressNewFromInternalPtr(ptr uintptr) *InetSocketAddress {
@@ -177,6 +184,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInetSocketAddressGLibType, lib, "g_inet_socket_address_get_type")
 
 	core.PuregoSafeRegister(&xNewInetSocketAddress, lib, "g_inet_socket_address_new")
 	core.PuregoSafeRegister(&xNewInetSocketAddressFromString, lib, "g_inet_socket_address_new_from_string")

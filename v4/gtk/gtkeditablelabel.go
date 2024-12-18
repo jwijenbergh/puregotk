@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EditableLabelClass struct {
@@ -49,6 +50,12 @@ func (x *EditableLabelClass) GoPointer() uintptr {
 // see [class@Gtk.Text].
 type EditableLabel struct {
 	Widget
+}
+
+var xEditableLabelGLibType func() types.GType
+
+func EditableLabelGLibType() types.GType {
+	return xEditableLabelGLibType()
 }
 
 func EditableLabelNewFromInternalPtr(ptr uintptr) *EditableLabel {
@@ -504,6 +511,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEditableLabelGLibType, lib, "gtk_editable_label_get_type")
 
 	core.PuregoSafeRegister(&xNewEditableLabel, lib, "gtk_editable_label_new")
 

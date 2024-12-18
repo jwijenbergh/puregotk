@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A ray emitted from an origin in a given direction.
@@ -16,6 +17,12 @@ type Ray struct {
 	Origin uintptr
 
 	Direction uintptr
+}
+
+var xRayGLibType func() types.GType
+
+func RayGLibType() types.GType {
+	return xRayGLibType()
 }
 
 func (x *Ray) GoPointer() uintptr {
@@ -230,6 +237,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRayGLibType, lib, "graphene_ray_get_type")
 
 	core.PuregoSafeRegister(&xRayAlloc, lib, "graphene_ray_alloc")
 

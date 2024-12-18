@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkVulkanContext` is an object representing the platform-specific
@@ -21,6 +22,12 @@ import (
 // can fail, returning %NULL context.
 type VulkanContext struct {
 	DrawContext
+}
+
+var xVulkanContextGLibType func() types.GType
+
+func VulkanContextGLibType() types.GType {
+	return xVulkanContextGLibType()
 }
 
 func VulkanContextNewFromInternalPtr(ptr uintptr) *VulkanContext {

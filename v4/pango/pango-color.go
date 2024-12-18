@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `PangoColor` structure is used to
@@ -16,6 +17,12 @@ type Color struct {
 	Green uint16
 
 	Blue uint16
+}
+
+var xColorGLibType func() types.GType
+
+func ColorGLibType() types.GType {
+	return xColorGLibType()
 }
 
 func (x *Color) GoPointer() uintptr {
@@ -103,6 +110,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorGLibType, lib, "pango_color_get_type")
 
 	core.PuregoSafeRegister(&xColorCopy, lib, "pango_color_copy")
 	core.PuregoSafeRegister(&xColorFree, lib, "pango_color_free")

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GCredentials.
@@ -57,6 +58,12 @@ func (x *CredentialsClass) GoPointer() uintptr {
 // process. This corresponds to %G_CREDENTIALS_TYPE_WIN32_PID.
 type Credentials struct {
 	gobject.Object
+}
+
+var xCredentialsGLibType func() types.GType
+
+func CredentialsGLibType() types.GType {
+	return xCredentialsGLibType()
 }
 
 func CredentialsNewFromInternalPtr(ptr uintptr) *Credentials {
@@ -209,6 +216,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCredentialsGLibType, lib, "g_credentials_get_type")
 
 	core.PuregoSafeRegister(&xNewCredentials, lib, "g_credentials_new")
 

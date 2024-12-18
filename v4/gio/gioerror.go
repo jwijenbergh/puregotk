@@ -26,6 +26,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIoErrorFromErrno, lib, "g_io_error_from_errno")
 
 }

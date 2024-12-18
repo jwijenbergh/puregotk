@@ -197,6 +197,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDbusEscapeObjectPath, lib, "g_dbus_escape_object_path")
 	core.PuregoSafeRegister(&xDbusEscapeObjectPathBytestring, lib, "g_dbus_escape_object_path_bytestring")
 	core.PuregoSafeRegister(&xDbusGenerateGuid, lib, "g_dbus_generate_guid")

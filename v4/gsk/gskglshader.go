@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 )
 
@@ -21,6 +22,12 @@ func (x *GLShaderClass) GoPointer() uintptr {
 
 // An object to build the uniforms data for a `GskGLShader`.
 type ShaderArgsBuilder struct {
+}
+
+var xShaderArgsBuilderGLibType func() types.GType
+
+func ShaderArgsBuilderGLibType() types.GType {
+	return xShaderArgsBuilderGLibType()
 }
 
 func (x *ShaderArgsBuilder) GoPointer() uintptr {
@@ -285,6 +292,12 @@ func (x *ShaderArgsBuilder) Unref() {
 // ```
 type GLShader struct {
 	gobject.Object
+}
+
+var xGLShaderGLibType func() types.GType
+
+func GLShaderGLibType() types.GType {
+	return xGLShaderGLibType()
 }
 
 func GLShaderNewFromInternalPtr(ptr uintptr) *GLShader {
@@ -564,6 +577,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xShaderArgsBuilderGLibType, lib, "gsk_shader_args_builder_get_type")
+
 	core.PuregoSafeRegister(&xNewShaderArgsBuilder, lib, "gsk_shader_args_builder_new")
 
 	core.PuregoSafeRegister(&xShaderArgsBuilderFreeToArgs, lib, "gsk_shader_args_builder_free_to_args")
@@ -577,6 +592,8 @@ func init() {
 	core.PuregoSafeRegister(&xShaderArgsBuilderSetVec4, lib, "gsk_shader_args_builder_set_vec4")
 	core.PuregoSafeRegister(&xShaderArgsBuilderToArgs, lib, "gsk_shader_args_builder_to_args")
 	core.PuregoSafeRegister(&xShaderArgsBuilderUnref, lib, "gsk_shader_args_builder_unref")
+
+	core.PuregoSafeRegister(&xGLShaderGLibType, lib, "gsk_gl_shader_get_type")
 
 	core.PuregoSafeRegister(&xNewGLShaderFromBytes, lib, "gsk_gl_shader_new_from_bytes")
 	core.PuregoSafeRegister(&xNewGLShaderFromResource, lib, "gsk_gl_shader_new_from_resource")

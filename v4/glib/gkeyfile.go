@@ -6,11 +6,18 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The GKeyFile struct contains only private data
 // and should not be accessed directly.
 type KeyFile struct {
+}
+
+var xKeyFileGLibType func() types.GType
+
+func KeyFileGLibType() types.GType {
+	return xKeyFileGLibType()
 }
 
 func (x *KeyFile) GoPointer() uintptr {
@@ -922,6 +929,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xKeyFileGLibType, lib, "g_key_file_get_type")
 
 	core.PuregoSafeRegister(&xNewKeyFile, lib, "g_key_file_new")
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GProxyAddress.
@@ -27,6 +28,12 @@ func (x *ProxyAddressPrivate) GoPointer() uintptr {
 // Support for proxied #GInetSocketAddress.
 type ProxyAddress struct {
 	InetSocketAddress
+}
+
+var xProxyAddressGLibType func() types.GType
+
+func ProxyAddressGLibType() types.GType {
+	return xProxyAddressGLibType()
 }
 
 func ProxyAddressNewFromInternalPtr(ptr uintptr) *ProxyAddress {
@@ -184,6 +191,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xProxyAddressGLibType, lib, "g_proxy_address_get_type")
 
 	core.PuregoSafeRegister(&xNewProxyAddress, lib, "g_proxy_address_new")
 

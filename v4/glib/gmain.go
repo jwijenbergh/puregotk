@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Prototype of a #GChildWatchSource callback, called when a child
@@ -42,6 +43,12 @@ type SourceFunc func(uintptr) bool
 // The `GMainContext` struct is an opaque data
 // type representing a set of sources to be handled in a main loop.
 type MainContext struct {
+}
+
+var xMainContextGLibType func() types.GType
+
+func MainContextGLibType() types.GType {
+	return xMainContextGLibType()
 }
 
 func (x *MainContext) GoPointer() uintptr {
@@ -458,6 +465,12 @@ func (x *MainContext) Wakeup() {
 type MainLoop struct {
 }
 
+var xMainLoopGLibType func() types.GType
+
+func MainLoopGLibType() types.GType {
+	return xMainLoopGLibType()
+}
+
 func (x *MainLoop) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -561,6 +574,12 @@ type Source struct {
 	Name uintptr
 
 	Priv *SourcePrivate
+}
+
+var xSourceGLibType func() types.GType
+
+func SourceGLibType() types.GType {
+	return xSourceGLibType()
 }
 
 func (x *Source) GoPointer() uintptr {
@@ -1918,6 +1937,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xChildWatchAdd, lib, "g_child_watch_add")
 	core.PuregoSafeRegister(&xChildWatchAddFull, lib, "g_child_watch_add_full")
 	core.PuregoSafeRegister(&xChildWatchSourceNew, lib, "g_child_watch_source_new")
@@ -1944,6 +1964,8 @@ func init() {
 	core.PuregoSafeRegister(&xTimeoutAddSecondsFull, lib, "g_timeout_add_seconds_full")
 	core.PuregoSafeRegister(&xTimeoutSourceNew, lib, "g_timeout_source_new")
 	core.PuregoSafeRegister(&xTimeoutSourceNewSeconds, lib, "g_timeout_source_new_seconds")
+
+	core.PuregoSafeRegister(&xMainContextGLibType, lib, "g_main_context_get_type")
 
 	core.PuregoSafeRegister(&xNewMainContext, lib, "g_main_context_new")
 	core.PuregoSafeRegister(&xNewMainContextWithFlags, lib, "g_main_context_new_with_flags")
@@ -1973,6 +1995,8 @@ func init() {
 	core.PuregoSafeRegister(&xMainContextWait, lib, "g_main_context_wait")
 	core.PuregoSafeRegister(&xMainContextWakeup, lib, "g_main_context_wakeup")
 
+	core.PuregoSafeRegister(&xMainLoopGLibType, lib, "g_main_loop_get_type")
+
 	core.PuregoSafeRegister(&xNewMainLoop, lib, "g_main_loop_new")
 
 	core.PuregoSafeRegister(&xMainLoopGetContext, lib, "g_main_loop_get_context")
@@ -1981,6 +2005,8 @@ func init() {
 	core.PuregoSafeRegister(&xMainLoopRef, lib, "g_main_loop_ref")
 	core.PuregoSafeRegister(&xMainLoopRun, lib, "g_main_loop_run")
 	core.PuregoSafeRegister(&xMainLoopUnref, lib, "g_main_loop_unref")
+
+	core.PuregoSafeRegister(&xSourceGLibType, lib, "g_source_get_type")
 
 	core.PuregoSafeRegister(&xNewSource, lib, "g_source_new")
 

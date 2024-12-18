@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders a spinning animation in a cell
@@ -21,6 +22,12 @@ import (
 // gtk_tree_view_column_add_attribute().
 type CellRendererSpinner struct {
 	CellRenderer
+}
+
+var xCellRendererSpinnerGLibType func() types.GType
+
+func CellRendererSpinnerGLibType() types.GType {
+	return xCellRendererSpinnerGLibType()
 }
 
 func CellRendererSpinnerNewFromInternalPtr(ptr uintptr) *CellRendererSpinner {
@@ -60,6 +67,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererSpinnerGLibType, lib, "gtk_cell_renderer_spinner_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererSpinner, lib, "gtk_cell_renderer_spinner_new")
 

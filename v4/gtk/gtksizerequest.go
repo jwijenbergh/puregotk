@@ -42,6 +42,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDistributeNaturalAllocation, lib, "gtk_distribute_natural_allocation")
 
 }

@@ -135,6 +135,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xComputeHmacForBytes, lib, "g_compute_hmac_for_bytes")
 	core.PuregoSafeRegister(&xComputeHmacForData, lib, "g_compute_hmac_for_data")
 	core.PuregoSafeRegister(&xComputeHmacForString, lib, "g_compute_hmac_for_string")

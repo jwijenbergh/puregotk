@@ -89,6 +89,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xLanguageFromString, lib, "pango_language_from_string")
 	core.PuregoSafeRegister(&xLanguageGetDefault, lib, "pango_language_get_default")
 	core.PuregoSafeRegister(&xLanguageGetPreferred, lib, "pango_language_get_preferred")

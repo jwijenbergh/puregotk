@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ContextClass struct {
@@ -26,6 +27,12 @@ func (x *ContextClass) GoPointer() uintptr {
 // To obtain a `PangoContext`, use [method@Pango.FontMap.create_context].
 type Context struct {
 	gobject.Object
+}
+
+var xContextGLibType func() types.GType
+
+func ContextGLibType() types.GType {
+	return xContextGLibType()
 }
 
 func ContextNewFromInternalPtr(ptr uintptr) *Context {
@@ -383,6 +390,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xContextGLibType, lib, "pango_context_get_type")
 
 	core.PuregoSafeRegister(&xNewContext, lib, "pango_context_new")
 

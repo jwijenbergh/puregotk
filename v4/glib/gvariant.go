@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // #GVariant is a variant datatype; it can contain one or more values
@@ -253,6 +254,12 @@ import (
 // management for those dictionaries, but the type information would
 // be shared.
 type Variant struct {
+}
+
+var xVariantGLibType func() types.GType
+
+func VariantGLibType() types.GType {
+	return xVariantGLibType()
 }
 
 func (x *Variant) GoPointer() uintptr {
@@ -1763,6 +1770,12 @@ func (x *Variant) Unref() {
 type VariantBuilder struct {
 }
 
+var xVariantBuilderGLibType func() types.GType
+
+func VariantBuilderGLibType() types.GType {
+	return xVariantBuilderGLibType()
+}
+
 func (x *VariantBuilder) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -2142,6 +2155,12 @@ func (x *VariantBuilder) Unref() {
 //
 // ]|
 type VariantDict struct {
+}
+
+var xVariantDictGLibType func() types.GType
+
+func VariantDictGLibType() types.GType {
+	return xVariantDictGLibType()
 }
 
 func (x *VariantDict) GoPointer() uintptr {
@@ -2772,10 +2791,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xVariantIsObjectPath, lib, "g_variant_is_object_path")
 	core.PuregoSafeRegister(&xVariantIsSignature, lib, "g_variant_is_signature")
 	core.PuregoSafeRegister(&xVariantParse, lib, "g_variant_parse")
 	core.PuregoSafeRegister(&xVariantParseErrorPrintContext, lib, "g_variant_parse_error_print_context")
+
+	core.PuregoSafeRegister(&xVariantGLibType, lib, "intern")
 
 	core.PuregoSafeRegister(&xNewVariant, lib, "g_variant_new")
 	core.PuregoSafeRegister(&xNewVariantArray, lib, "g_variant_new_array")
@@ -2864,6 +2886,8 @@ func init() {
 	core.PuregoSafeRegister(&xVariantTakeRef, lib, "g_variant_take_ref")
 	core.PuregoSafeRegister(&xVariantUnref, lib, "g_variant_unref")
 
+	core.PuregoSafeRegister(&xVariantBuilderGLibType, lib, "g_variant_builder_get_type")
+
 	core.PuregoSafeRegister(&xNewVariantBuilder, lib, "g_variant_builder_new")
 
 	core.PuregoSafeRegister(&xVariantBuilderAdd, lib, "g_variant_builder_add")
@@ -2876,6 +2900,8 @@ func init() {
 	core.PuregoSafeRegister(&xVariantBuilderOpen, lib, "g_variant_builder_open")
 	core.PuregoSafeRegister(&xVariantBuilderRef, lib, "g_variant_builder_ref")
 	core.PuregoSafeRegister(&xVariantBuilderUnref, lib, "g_variant_builder_unref")
+
+	core.PuregoSafeRegister(&xVariantDictGLibType, lib, "g_variant_dict_get_type")
 
 	core.PuregoSafeRegister(&xNewVariantDict, lib, "g_variant_dict_new")
 

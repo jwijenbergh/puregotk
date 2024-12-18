@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -203,6 +204,12 @@ func ShowAboutWindow(ParentVar *gtk.Window, FirstPropertyNameVar string, varArgs
 // style class `.about`.
 type AboutWindow struct {
 	Window
+}
+
+var xAboutWindowGLibType func() types.GType
+
+func AboutWindowGLibType() types.GType {
+	return xAboutWindowGLibType()
 }
 
 func AboutWindowNewFromInternalPtr(ptr uintptr) *AboutWindow {
@@ -1180,7 +1187,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xShowAboutWindow, lib, "adw_show_about_window")
+
+	core.PuregoSafeRegister(&xAboutWindowGLibType, lib, "adw_about_window_get_type")
 
 	core.PuregoSafeRegister(&xNewAboutWindow, lib, "adw_about_window_new")
 

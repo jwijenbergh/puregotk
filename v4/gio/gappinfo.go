@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Application Information interface, for operating system portability.
@@ -113,6 +114,13 @@ type AppInfo interface {
 	SupportsFiles() bool
 	SupportsUris() bool
 }
+
+var xAppInfoGLibType func() types.GType
+
+func AppInfoGLibType() types.GType {
+	return xAppInfoGLibType()
+}
+
 type AppInfoBase struct {
 	Ptr uintptr
 }
@@ -636,6 +644,12 @@ type AppLaunchContext struct {
 	gobject.Object
 }
 
+var xAppLaunchContextGLibType func() types.GType
+
+func AppLaunchContextGLibType() types.GType {
+	return xAppLaunchContextGLibType()
+}
+
 func AppLaunchContextNewFromInternalPtr(ptr uintptr) *AppLaunchContext {
 	cls := &AppLaunchContext{}
 	cls.Ptr = ptr
@@ -821,6 +835,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAppInfoCreateFromCommandline, lib, "g_app_info_create_from_commandline")
 	core.PuregoSafeRegister(&xAppInfoGetAll, lib, "g_app_info_get_all")
 	core.PuregoSafeRegister(&xAppInfoGetAllForType, lib, "g_app_info_get_all_for_type")
@@ -833,6 +848,8 @@ func init() {
 	core.PuregoSafeRegister(&xAppInfoLaunchDefaultForUriFinish, lib, "g_app_info_launch_default_for_uri_finish")
 	core.PuregoSafeRegister(&xAppInfoResetTypeAssociations, lib, "g_app_info_reset_type_associations")
 
+	core.PuregoSafeRegister(&xAppLaunchContextGLibType, lib, "g_app_launch_context_get_type")
+
 	core.PuregoSafeRegister(&xNewAppLaunchContext, lib, "g_app_launch_context_new")
 
 	core.PuregoSafeRegister(&xAppLaunchContextGetDisplay, lib, "g_app_launch_context_get_display")
@@ -841,6 +858,8 @@ func init() {
 	core.PuregoSafeRegister(&xAppLaunchContextLaunchFailed, lib, "g_app_launch_context_launch_failed")
 	core.PuregoSafeRegister(&xAppLaunchContextSetenv, lib, "g_app_launch_context_setenv")
 	core.PuregoSafeRegister(&xAppLaunchContextUnsetenv, lib, "g_app_launch_context_unsetenv")
+
+	core.PuregoSafeRegister(&xAppInfoGLibType, lib, "g_app_info_get_type")
 
 	core.PuregoSafeRegister(&XGAppInfoAddSupportsType, lib, "g_app_info_add_supports_type")
 	core.PuregoSafeRegister(&XGAppInfoCanDelete, lib, "g_app_info_can_delete")

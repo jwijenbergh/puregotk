@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function which decides whether the row indicated by @iter matches
@@ -59,6 +60,12 @@ type EntryCompletionMatchFunc func(uintptr, string, *TreeIter, uintptr) bool
 // matching iter.
 type EntryCompletion struct {
 	gobject.Object
+}
+
+var xEntryCompletionGLibType func() types.GType
+
+func EntryCompletionGLibType() types.GType {
+	return xEntryCompletionGLibType()
 }
 
 func EntryCompletionNewFromInternalPtr(ptr uintptr) *EntryCompletion {
@@ -600,6 +607,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEntryCompletionGLibType, lib, "gtk_entry_completion_get_type")
 
 	core.PuregoSafeRegister(&xNewEntryCompletion, lib, "gtk_entry_completion_new")
 	core.PuregoSafeRegister(&xNewEntryCompletionWithArea, lib, "gtk_entry_completion_new_with_area")

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SocketClientClass struct {
@@ -40,6 +41,12 @@ func (x *SocketClientPrivate) GoPointer() uintptr {
 // can just create a new one any time you need one.
 type SocketClient struct {
 	gobject.Object
+}
+
+var xSocketClientGLibType func() types.GType
+
+func SocketClientGLibType() types.GType {
+	return xSocketClientGLibType()
 }
 
 func SocketClientNewFromInternalPtr(ptr uintptr) *SocketClient {
@@ -734,6 +741,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketClientGLibType, lib, "g_socket_client_get_type")
 
 	core.PuregoSafeRegister(&xNewSocketClient, lib, "g_socket_client_new")
 

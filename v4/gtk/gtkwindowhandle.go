@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type WindowHandleClass struct {
@@ -31,6 +32,12 @@ func (x *WindowHandleClass) GoPointer() uintptr {
 // `GtkWindowHandle` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type WindowHandle struct {
 	Widget
+}
+
+var xWindowHandleGLibType func() types.GType
+
+func WindowHandleGLibType() types.GType {
+	return xWindowHandleGLibType()
 }
 
 func WindowHandleNewFromInternalPtr(ptr uintptr) *WindowHandle {
@@ -238,6 +245,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowHandleGLibType, lib, "gtk_window_handle_get_type")
 
 	core.PuregoSafeRegister(&xNewWindowHandle, lib, "gtk_window_handle_new")
 

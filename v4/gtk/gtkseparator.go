@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSeparator` is a horizontal or vertical separator widget.
@@ -25,6 +26,12 @@ import (
 // `GtkSeparator` uses the %GTK_ACCESSIBLE_ROLE_SEPARATOR role.
 type Separator struct {
 	Widget
+}
+
+var xSeparatorGLibType func() types.GType
+
+func SeparatorGLibType() types.GType {
+	return xSeparatorGLibType()
 }
 
 func SeparatorNewFromInternalPtr(ptr uintptr) *Separator {
@@ -220,6 +227,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSeparatorGLibType, lib, "gtk_separator_get_type")
 
 	core.PuregoSafeRegister(&xNewSeparator, lib, "gtk_separator_new")
 

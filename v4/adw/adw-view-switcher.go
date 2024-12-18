@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -20,6 +21,12 @@ func (x *ViewSwitcherClass) GoPointer() uintptr {
 
 // Describes the adaptive modes of [class@ViewSwitcher].
 type ViewSwitcherPolicy int
+
+var xViewSwitcherPolicyGLibType func() types.GType
+
+func ViewSwitcherPolicyGLibType() types.GType {
+	return xViewSwitcherPolicyGLibType()
+}
 
 const (
 
@@ -60,6 +67,12 @@ const (
 // `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
 type ViewSwitcher struct {
 	gtk.Widget
+}
+
+var xViewSwitcherGLibType func() types.GType
+
+func ViewSwitcherGLibType() types.GType {
+	return xViewSwitcherGLibType()
 }
 
 func ViewSwitcherNewFromInternalPtr(ptr uintptr) *ViewSwitcher {
@@ -285,6 +298,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xViewSwitcherPolicyGLibType, lib, "adw_view_switcher_policy_get_type")
+
+	core.PuregoSafeRegister(&xViewSwitcherGLibType, lib, "adw_view_switcher_get_type")
 
 	core.PuregoSafeRegister(&xNewViewSwitcher, lib, "adw_view_switcher_new")
 

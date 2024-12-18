@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type StringFilterClass struct {
@@ -19,6 +20,12 @@ func (x *StringFilterClass) GoPointer() uintptr {
 
 // Specifies how search strings are matched inside text.
 type StringFilterMatchMode int
+
+var xStringFilterMatchModeGLibType func() types.GType
+
+func StringFilterMatchModeGLibType() types.GType {
+	return xStringFilterMatchModeGLibType()
+}
 
 const (
 
@@ -48,6 +55,12 @@ const (
 // [method@Gtk.StringFilter.set_ignore_case].
 type StringFilter struct {
 	Filter
+}
+
+var xStringFilterGLibType func() types.GType
+
+func StringFilterGLibType() types.GType {
+	return xStringFilterGLibType()
 }
 
 func StringFilterNewFromInternalPtr(ptr uintptr) *StringFilter {
@@ -172,6 +185,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStringFilterMatchModeGLibType, lib, "gtk_string_filter_match_mode_get_type")
+
+	core.PuregoSafeRegister(&xStringFilterGLibType, lib, "gtk_string_filter_get_type")
 
 	core.PuregoSafeRegister(&xNewStringFilter, lib, "gtk_string_filter_new")
 

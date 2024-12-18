@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkCairoContext` is an object representing the platform-specific
@@ -15,6 +16,12 @@ import (
 // can then be used to draw on that surface.
 type CairoContext struct {
 	DrawContext
+}
+
+var xCairoContextGLibType func() types.GType
+
+func CairoContextGLibType() types.GType {
+	return xCairoContextGLibType()
 }
 
 func CairoContextNewFromInternalPtr(ptr uintptr) *CairoContext {
@@ -52,6 +59,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCairoContextGLibType, lib, "gdk_cairo_context_get_type")
 
 	core.PuregoSafeRegister(&xCairoContextCairoCreate, lib, "gdk_cairo_context_cairo_create")
 

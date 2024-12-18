@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkComboBoxText` is a simple variant of `GtkComboBox` for text-only
@@ -70,6 +71,12 @@ import (
 // children, and the .linked class to the node of its internal box.
 type ComboBoxText struct {
 	ComboBox
+}
+
+var xComboBoxTextGLibType func() types.GType
+
+func ComboBoxTextGLibType() types.GType {
+	return xComboBoxTextGLibType()
 }
 
 func ComboBoxTextNewFromInternalPtr(ptr uintptr) *ComboBoxText {
@@ -522,6 +529,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xComboBoxTextGLibType, lib, "gtk_combo_box_text_get_type")
 
 	core.PuregoSafeRegister(&xNewComboBoxText, lib, "gtk_combo_box_text_new")
 	core.PuregoSafeRegister(&xNewComboBoxTextWithEntry, lib, "gtk_combo_box_text_new_with_entry")

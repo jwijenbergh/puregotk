@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -35,6 +36,12 @@ func (x *TimedAnimationClass) GoPointer() uintptr {
 // direction every other iteration.
 type TimedAnimation struct {
 	Animation
+}
+
+var xTimedAnimationGLibType func() types.GType
+
+func TimedAnimationGLibType() types.GType {
+	return xTimedAnimationGLibType()
 }
 
 func TimedAnimationNewFromInternalPtr(ptr uintptr) *TimedAnimation {
@@ -218,6 +225,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTimedAnimationGLibType, lib, "adw_timed_animation_get_type")
 
 	core.PuregoSafeRegister(&xNewTimedAnimation, lib, "adw_timed_animation_new")
 

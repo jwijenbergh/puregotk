@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Interface for icons that can be loaded as a stream.
@@ -27,6 +28,13 @@ type LoadableIcon interface {
 	LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	LoadFinish(ResVar AsyncResult, TypeVar string) *InputStream
 }
+
+var xLoadableIconGLibType func() types.GType
+
+func LoadableIconGLibType() types.GType {
+	return xLoadableIconGLibType()
+}
+
 type LoadableIconBase struct {
 	Ptr uintptr
 }
@@ -96,6 +104,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLoadableIconGLibType, lib, "g_loadable_icon_get_type")
 
 	core.PuregoSafeRegister(&XGLoadableIconLoad, lib, "g_loadable_icon_load")
 	core.PuregoSafeRegister(&XGLoadableIconLoadAsync, lib, "g_loadable_icon_load_async")

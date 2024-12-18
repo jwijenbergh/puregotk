@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Physical parameters of a spring for [class@SpringAnimation].
@@ -39,6 +40,12 @@ import (
 //
 // As such
 type SpringParams struct {
+}
+
+var xSpringParamsGLibType func() types.GType
+
+func SpringParamsGLibType() types.GType {
+	return xSpringParamsGLibType()
 }
 
 func (x *SpringParams) GoPointer() uintptr {
@@ -141,6 +148,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSpringParamsGLibType, lib, "adw_spring_params_get_type")
 
 	core.PuregoSafeRegister(&xNewSpringParams, lib, "adw_spring_params_new")
 	core.PuregoSafeRegister(&xNewSpringParamsFull, lib, "adw_spring_params_new_full")

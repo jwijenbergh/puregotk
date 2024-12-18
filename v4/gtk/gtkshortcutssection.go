@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ShortcutsSectionClass struct {
@@ -31,6 +32,12 @@ func (x *ShortcutsSectionClass) GoPointer() uintptr {
 // This widget is only meant to be used with [class@Gtk.ShortcutsWindow].
 type ShortcutsSection struct {
 	Box
+}
+
+var xShortcutsSectionGLibType func() types.GType
+
+func ShortcutsSectionGLibType() types.GType {
+	return xShortcutsSectionGLibType()
 }
 
 func ShortcutsSectionNewFromInternalPtr(ptr uintptr) *ShortcutsSection {

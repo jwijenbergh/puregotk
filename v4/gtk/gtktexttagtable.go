@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function used with gtk_text_tag_table_foreach(),
@@ -39,6 +40,12 @@ type TextTagTableForeach func(uintptr, uintptr)
 // ```
 type TextTagTable struct {
 	gobject.Object
+}
+
+var xTextTagTableGLibType func() types.GType
+
+func TextTagTableGLibType() types.GType {
+	return xTextTagTableGLibType()
 }
 
 func TextTagTableNewFromInternalPtr(ptr uintptr) *TextTagTable {
@@ -217,6 +224,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextTagTableGLibType, lib, "gtk_text_tag_table_get_type")
 
 	core.PuregoSafeRegister(&xNewTextTagTable, lib, "gtk_text_tag_table_new")
 

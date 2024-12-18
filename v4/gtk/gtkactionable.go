@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The interface vtable for `GtkActionable`.
@@ -41,6 +42,13 @@ type Actionable interface {
 	SetActionTargetValue(TargetValueVar *glib.Variant)
 	SetDetailedActionName(DetailedActionNameVar string)
 }
+
+var xActionableGLibType func() types.GType
+
+func ActionableGLibType() types.GType {
+	return xActionableGLibType()
+}
+
 type ActionableBase struct {
 	Ptr uintptr
 }
@@ -148,6 +156,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xActionableGLibType, lib, "gtk_actionable_get_type")
 
 	core.PuregoSafeRegister(&XGtkActionableGetActionName, lib, "gtk_actionable_get_action_name")
 	core.PuregoSafeRegister(&XGtkActionableGetActionTargetValue, lib, "gtk_actionable_get_action_target_value")

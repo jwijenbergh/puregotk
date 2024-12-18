@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type UnixConnectionClass struct {
@@ -38,6 +39,12 @@ func (x *UnixConnectionPrivate) GoPointer() uintptr {
 // using it. This is no longer necessary since GLib 2.72.
 type UnixConnection struct {
 	SocketConnection
+}
+
+var xUnixConnectionGLibType func() types.GType
+
+func UnixConnectionGLibType() types.GType {
+	return xUnixConnectionGLibType()
 }
 
 func UnixConnectionNewFromInternalPtr(ptr uintptr) *UnixConnection {
@@ -236,6 +243,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixConnectionGLibType, lib, "g_unix_connection_get_type")
 
 	core.PuregoSafeRegister(&xUnixConnectionReceiveCredentials, lib, "g_unix_connection_receive_credentials")
 	core.PuregoSafeRegister(&xUnixConnectionReceiveCredentialsAsync, lib, "g_unix_connection_receive_credentials_async")

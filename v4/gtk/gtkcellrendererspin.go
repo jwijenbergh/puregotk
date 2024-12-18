@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders a spin button in a cell
@@ -24,6 +25,12 @@ import (
 // The `GtkCellRendererSpin` cell renderer was added in GTK 2.10.
 type CellRendererSpin struct {
 	CellRendererText
+}
+
+var xCellRendererSpinGLibType func() types.GType
+
+func CellRendererSpinGLibType() types.GType {
+	return xCellRendererSpinGLibType()
 }
 
 func CellRendererSpinNewFromInternalPtr(ptr uintptr) *CellRendererSpin {
@@ -62,6 +69,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererSpinGLibType, lib, "gtk_cell_renderer_spin_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererSpin, lib, "gtk_cell_renderer_spin_new")
 

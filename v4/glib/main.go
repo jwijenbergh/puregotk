@@ -139,6 +139,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBookmarkFileErrorQuark, lib, "g_bookmark_file_error_quark")
 	core.PuregoSafeRegister(&xConvertErrorQuark, lib, "g_convert_error_quark")
 	core.PuregoSafeRegister(&xFileErrorQuark, lib, "g_file_error_quark")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BoxClass struct {
@@ -53,6 +54,12 @@ func (x *BoxClass) GoPointer() uintptr {
 // `GtkBox` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type Box struct {
 	Widget
+}
+
+var xBoxGLibType func() types.GType
+
+func BoxGLibType() types.GType {
+	return xBoxGLibType()
 }
 
 func BoxNewFromInternalPtr(ptr uintptr) *Box {
@@ -365,6 +372,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBoxGLibType, lib, "gtk_box_get_type")
 
 	core.PuregoSafeRegister(&xNewBox, lib, "gtk_box_new")
 

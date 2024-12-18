@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An opaque, stack-allocated struct for iterating
@@ -16,6 +17,12 @@ import (
 // or [func@Gtk.BitsetIter.init_at].
 type BitsetIter struct {
 	PrivateData [10]uintptr
+}
+
+var xBitsetIterGLibType func() types.GType
+
+func BitsetIterGLibType() types.GType {
+	return xBitsetIterGLibType()
 }
 
 func (x *BitsetIter) GoPointer() uintptr {
@@ -108,9 +115,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBitsetIterInitAt, lib, "gtk_bitset_iter_init_at")
 	core.PuregoSafeRegister(&xBitsetIterInitFirst, lib, "gtk_bitset_iter_init_first")
 	core.PuregoSafeRegister(&xBitsetIterInitLast, lib, "gtk_bitset_iter_init_last")
+
+	core.PuregoSafeRegister(&xBitsetIterGLibType, lib, "gtk_bitset_iter_get_type")
 
 	core.PuregoSafeRegister(&xBitsetIterGetValue, lib, "gtk_bitset_iter_get_value")
 	core.PuregoSafeRegister(&xBitsetIterIsValid, lib, "gtk_bitset_iter_is_valid")

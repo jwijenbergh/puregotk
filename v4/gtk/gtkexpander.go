@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkExpander` allows the user to reveal its child by clicking
@@ -111,6 +112,12 @@ import (
 // `GtkExpander` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
 type Expander struct {
 	Widget
+}
+
+var xExpanderGLibType func() types.GType
+
+func ExpanderGLibType() types.GType {
+	return xExpanderGLibType()
 }
 
 func ExpanderNewFromInternalPtr(ptr uintptr) *Expander {
@@ -496,6 +503,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xExpanderGLibType, lib, "gtk_expander_get_type")
 
 	core.PuregoSafeRegister(&xNewExpander, lib, "gtk_expander_new")
 	core.PuregoSafeRegister(&xNewExpanderWithMnemonic, lib, "gtk_expander_new_with_mnemonic")

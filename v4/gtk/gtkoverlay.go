@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkOverlay` is a container which contains a single main child, on top
@@ -44,6 +45,12 @@ import (
 // “.left”, “.right”, “.top”, and/or “.bottom” according to their position.
 type Overlay struct {
 	Widget
+}
+
+var xOverlayGLibType func() types.GType
+
+func OverlayGLibType() types.GType {
+	return xOverlayGLibType()
 }
 
 func OverlayNewFromInternalPtr(ptr uintptr) *Overlay {
@@ -350,6 +357,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xOverlayGLibType, lib, "gtk_overlay_get_type")
 
 	core.PuregoSafeRegister(&xNewOverlay, lib, "gtk_overlay_new")
 

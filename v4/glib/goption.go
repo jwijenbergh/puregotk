@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
@@ -358,6 +359,12 @@ func (x *OptionEntry) GoPointer() uintptr {
 type OptionGroup struct {
 }
 
+var xOptionGroupGLibType func() types.GType
+
+func OptionGroupGLibType() types.GType {
+	return xOptionGroupGLibType()
+}
+
 func (x *OptionGroup) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -591,6 +598,8 @@ func init() {
 	core.PuregoSafeRegister(&xOptionContextSetSummary, lib, "g_option_context_set_summary")
 	core.PuregoSafeRegister(&xOptionContextSetTranslateFunc, lib, "g_option_context_set_translate_func")
 	core.PuregoSafeRegister(&xOptionContextSetTranslationDomain, lib, "g_option_context_set_translation_domain")
+
+	core.PuregoSafeRegister(&xOptionGroupGLibType, lib, "g_option_group_get_type")
 
 	core.PuregoSafeRegister(&xNewOptionGroup, lib, "g_option_group_new")
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GDebugController.
@@ -38,6 +39,13 @@ type DebugController interface {
 	GetDebugEnabled() bool
 	SetDebugEnabled(DebugEnabledVar bool)
 }
+
+var xDebugControllerGLibType func() types.GType
+
+func DebugControllerGLibType() types.GType {
+	return xDebugControllerGLibType()
+}
+
 type DebugControllerBase struct {
 	Ptr uintptr
 }
@@ -78,6 +86,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDebugControllerGLibType, lib, "g_debug_controller_get_type")
 
 	core.PuregoSafeRegister(&XGDebugControllerGetDebugEnabled, lib, "g_debug_controller_get_debug_enabled")
 	core.PuregoSafeRegister(&XGDebugControllerSetDebugEnabled, lib, "g_debug_controller_set_debug_enabled")

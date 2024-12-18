@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The list of functions that can be implemented for the `GdkPaintable`
@@ -83,6 +84,13 @@ type Paintable interface {
 	InvalidateSize()
 	Snapshot(SnapshotVar *Snapshot, WidthVar float64, HeightVar float64)
 }
+
+var xPaintableGLibType func() types.GType
+
+func PaintableGLibType() types.GType {
+	return xPaintableGLibType()
+}
+
 type PaintableBase struct {
 	Ptr uintptr
 }
@@ -254,6 +262,12 @@ var XGdkPaintableSnapshot func(uintptr, uintptr, float64, float64)
 // Implementations use these for optimizations such as caching.
 type PaintableFlags int
 
+var xPaintableFlagsGLibType func() types.GType
+
+func PaintableFlagsGLibType() types.GType {
+	return xPaintableFlagsGLibType()
+}
+
 const (
 
 	// The size is immutable.
@@ -292,7 +306,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPaintableFlagsGLibType, lib, "gdk_paintable_flags_get_type")
+
 	core.PuregoSafeRegister(&xPaintableNewEmpty, lib, "gdk_paintable_new_empty")
+
+	core.PuregoSafeRegister(&xPaintableGLibType, lib, "gdk_paintable_get_type")
 
 	core.PuregoSafeRegister(&XGdkPaintableComputeConcreteSize, lib, "gdk_paintable_compute_concrete_size")
 	core.PuregoSafeRegister(&XGdkPaintableGetCurrentImage, lib, "gdk_paintable_get_current_image")

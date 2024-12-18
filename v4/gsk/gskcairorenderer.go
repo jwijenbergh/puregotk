@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CairoRendererClass struct {
@@ -21,6 +22,12 @@ func (x *CairoRendererClass) GoPointer() uintptr {
 // 3D transformations.
 type CairoRenderer struct {
 	Renderer
+}
+
+var xCairoRendererGLibType func() types.GType
+
+func CairoRendererGLibType() types.GType {
+	return xCairoRendererGLibType()
 }
 
 func CairoRendererNewFromInternalPtr(ptr uintptr) *CairoRenderer {
@@ -65,6 +72,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCairoRendererGLibType, lib, "gsk_cairo_renderer_get_type")
 
 	core.PuregoSafeRegister(&xNewCairoRenderer, lib, "gsk_cairo_renderer_new")
 

@@ -86,6 +86,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTestAccessibleAssertionMessageRole, lib, "gtk_test_accessible_assertion_message_role")
 	core.PuregoSafeRegister(&xTestAccessibleCheckProperty, lib, "gtk_test_accessible_check_property")
 	core.PuregoSafeRegister(&xTestAccessibleCheckRelation, lib, "gtk_test_accessible_check_relation")

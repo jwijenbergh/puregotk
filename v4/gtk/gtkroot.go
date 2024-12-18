@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type RootInterface struct {
@@ -37,6 +38,13 @@ type Root interface {
 	GetFocus() *Widget
 	SetFocus(FocusVar *Widget)
 }
+
+var xRootGLibType func() types.GType
+
+func RootGLibType() types.GType {
+	return xRootGLibType()
+}
+
 type RootBase struct {
 	Ptr uintptr
 }
@@ -107,6 +115,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRootGLibType, lib, "gtk_root_get_type")
 
 	core.PuregoSafeRegister(&XGtkRootGetDisplay, lib, "gtk_root_get_display")
 	core.PuregoSafeRegister(&XGtkRootGetFocus, lib, "gtk_root_get_focus")

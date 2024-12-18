@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -40,6 +41,12 @@ func (x *StatusPageClass) GoPointer() uintptr {
 // needs to fit into a small space such a sidebar or a popover.
 type StatusPage struct {
 	gtk.Widget
+}
+
+var xStatusPageGLibType func() types.GType
+
+func StatusPageGLibType() types.GType {
+	return xStatusPageGLibType()
 }
 
 func StatusPageNewFromInternalPtr(ptr uintptr) *StatusPage {
@@ -335,6 +342,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStatusPageGLibType, lib, "adw_status_page_get_type")
 
 	core.PuregoSafeRegister(&xNewStatusPage, lib, "adw_status_page_new")
 

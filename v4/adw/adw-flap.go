@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -21,6 +22,12 @@ func (x *FlapClass) GoPointer() uintptr {
 
 // Describes the possible folding behavior of a [class@Flap] widget.
 type FlapFoldPolicy int
+
+var xFlapFoldPolicyGLibType func() types.GType
+
+func FlapFoldPolicyGLibType() types.GType {
+	return xFlapFoldPolicyGLibType()
+}
 
 const (
 
@@ -42,6 +49,12 @@ const (
 //
 // New values may be added to this enum over time.
 type FlapTransitionType int
+
+var xFlapTransitionTypeGLibType func() types.GType
+
+func FlapTransitionTypeGLibType() types.GType {
+	return xFlapTransitionTypeGLibType()
+}
 
 const (
 
@@ -120,6 +133,12 @@ const (
 // classes `.folded` when it is folded, and `.unfolded` when it's not.
 type Flap struct {
 	gtk.Widget
+}
+
+var xFlapGLibType func() types.GType
+
+func FlapGLibType() types.GType {
+	return xFlapGLibType()
 }
 
 func FlapNewFromInternalPtr(ptr uintptr) *Flap {
@@ -706,6 +725,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFlapFoldPolicyGLibType, lib, "adw_flap_fold_policy_get_type")
+
+	core.PuregoSafeRegister(&xFlapTransitionTypeGLibType, lib, "adw_flap_transition_type_get_type")
+
+	core.PuregoSafeRegister(&xFlapGLibType, lib, "adw_flap_get_type")
 
 	core.PuregoSafeRegister(&xNewFlap, lib, "adw_flap_new")
 

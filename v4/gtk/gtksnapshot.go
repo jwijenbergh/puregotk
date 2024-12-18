@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/pango"
@@ -35,6 +36,12 @@ func (x *SnapshotClass) GoPointer() uintptr {
 // `GtkSnapshot`, use [ctor@Gtk.Snapshot.new].
 type Snapshot struct {
 	gdk.Snapshot
+}
+
+var xSnapshotGLibType func() types.GType
+
+func SnapshotGLibType() types.GType {
+	return xSnapshotGLibType()
 }
 
 func SnapshotNewFromInternalPtr(ptr uintptr) *Snapshot {
@@ -643,6 +650,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSnapshotGLibType, lib, "gtk_snapshot_get_type")
 
 	core.PuregoSafeRegister(&xNewSnapshot, lib, "gtk_snapshot_new")
 

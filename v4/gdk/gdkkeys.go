@@ -107,6 +107,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xKeyvalConvertCase, lib, "gdk_keyval_convert_case")
 	core.PuregoSafeRegister(&xKeyvalFromName, lib, "gdk_keyval_from_name")
 	core.PuregoSafeRegister(&xKeyvalIsLower, lib, "gdk_keyval_is_lower")

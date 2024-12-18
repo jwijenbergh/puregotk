@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TextMarkClass struct {
@@ -54,6 +55,12 @@ func (x *TextMarkClass) GoPointer() uintptr {
 // function.
 type TextMark struct {
 	gobject.Object
+}
+
+var xTextMarkGLibType func() types.GType
+
+func TextMarkGLibType() types.GType {
+	return xTextMarkGLibType()
 }
 
 func TextMarkNewFromInternalPtr(ptr uintptr) *TextMark {
@@ -171,6 +178,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextMarkGLibType, lib, "gtk_text_mark_get_type")
 
 	core.PuregoSafeRegister(&xNewTextMark, lib, "gtk_text_mark_new")
 

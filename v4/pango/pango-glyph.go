@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `PangoGlyphGeometry` structure contains width and positioning
@@ -62,6 +63,12 @@ type GlyphString struct {
 	LogClusters int
 
 	Space int
+}
+
+var xGlyphStringGLibType func() types.GType
+
+func GlyphStringGLibType() types.GType {
+	return xGlyphStringGLibType()
 }
 
 func (x *GlyphString) GoPointer() uintptr {
@@ -250,6 +257,12 @@ type GlyphUnit = int32
 // `PangoShapeFlags` can be passed to [func@Pango.shape_with_flags].
 type ShapeFlags int
 
+var xShapeFlagsGLibType func() types.GType
+
+func ShapeFlagsGLibType() types.GType {
+	return xShapeFlagsGLibType()
+}
+
 const (
 
 	// Default value
@@ -353,10 +366,15 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xShapeFlagsGLibType, lib, "pango_shape_flags_get_type")
+
 	core.PuregoSafeRegister(&xShape, lib, "pango_shape")
 	core.PuregoSafeRegister(&xShapeFull, lib, "pango_shape_full")
 	core.PuregoSafeRegister(&xShapeItem, lib, "pango_shape_item")
 	core.PuregoSafeRegister(&xShapeWithFlags, lib, "pango_shape_with_flags")
+
+	core.PuregoSafeRegister(&xGlyphStringGLibType, lib, "pango_glyph_string_get_type")
 
 	core.PuregoSafeRegister(&xNewGlyphString, lib, "pango_glyph_string_new")
 

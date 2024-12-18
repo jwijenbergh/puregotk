@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSwitch` is a "light switch" that has two states: on or off.
@@ -38,6 +39,12 @@ import (
 // `GtkSwitch` uses the %GTK_ACCESSIBLE_ROLE_SWITCH role.
 type Switch struct {
 	Widget
+}
+
+var xSwitchGLibType func() types.GType
+
+func SwitchGLibType() types.GType {
+	return xSwitchGLibType()
 }
 
 func SwitchNewFromInternalPtr(ptr uintptr) *Switch {
@@ -401,6 +408,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSwitchGLibType, lib, "gtk_switch_get_type")
 
 	core.PuregoSafeRegister(&xNewSwitch, lib, "gtk_switch_new")
 

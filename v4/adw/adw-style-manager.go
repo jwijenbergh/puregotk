@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type StyleManagerClass struct {
@@ -20,6 +21,12 @@ func (x *StyleManagerClass) GoPointer() uintptr {
 
 // Application color schemes for [property@StyleManager:color-scheme].
 type ColorScheme int
+
+var xColorSchemeGLibType func() types.GType
+
+func ColorSchemeGLibType() types.GType {
+	return xColorSchemeGLibType()
+}
 
 const (
 
@@ -49,6 +56,12 @@ const (
 // appearance, as well as whether a system-wide color scheme preference exists.
 type StyleManager struct {
 	gobject.Object
+}
+
+var xStyleManagerGLibType func() types.GType
+
+func StyleManagerGLibType() types.GType {
+	return xStyleManagerGLibType()
 }
 
 func StyleManagerNewFromInternalPtr(ptr uintptr) *StyleManager {
@@ -218,6 +231,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorSchemeGLibType, lib, "adw_color_scheme_get_type")
+
+	core.PuregoSafeRegister(&xStyleManagerGLibType, lib, "adw_style_manager_get_type")
 
 	core.PuregoSafeRegister(&xStyleManagerGetColorScheme, lib, "adw_style_manager_get_color_scheme")
 	core.PuregoSafeRegister(&xStyleManagerGetDark, lib, "adw_style_manager_get_dark")

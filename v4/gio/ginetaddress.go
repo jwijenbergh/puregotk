@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type InetAddressClass struct {
@@ -36,6 +37,12 @@ func (x *InetAddressPrivate) GoPointer() uintptr {
 // port number).
 type InetAddress struct {
 	gobject.Object
+}
+
+var xInetAddressGLibType func() types.GType
+
+func InetAddressGLibType() types.GType {
+	return xInetAddressGLibType()
 }
 
 func InetAddressNewFromInternalPtr(ptr uintptr) *InetAddress {
@@ -265,6 +272,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInetAddressGLibType, lib, "g_inet_address_get_type")
 
 	core.PuregoSafeRegister(&xNewInetAddressAny, lib, "g_inet_address_new_any")
 	core.PuregoSafeRegister(&xNewInetAddressFromBytes, lib, "g_inet_address_new_from_bytes")

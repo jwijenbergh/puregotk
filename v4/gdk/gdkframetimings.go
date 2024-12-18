@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GdkFrameTimings` object holds timing information for a single frame
@@ -17,6 +18,12 @@ import (
 // the event or audio streams, and for measuring quality metrics for the
 // application’s display, such as latency and jitter.
 type FrameTimings struct {
+}
+
+var xFrameTimingsGLibType func() types.GType
+
+func FrameTimingsGLibType() types.GType {
+	return xFrameTimingsGLibType()
 }
 
 func (x *FrameTimings) GoPointer() uintptr {
@@ -135,6 +142,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFrameTimingsGLibType, lib, "gdk_frame_timings_get_type")
 
 	core.PuregoSafeRegister(&xFrameTimingsGetComplete, lib, "gdk_frame_timings_get_complete")
 	core.PuregoSafeRegister(&xFrameTimingsGetFrameCounter, lib, "gdk_frame_timings_get_frame_counter")

@@ -43,6 +43,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSourceSetClosure, lib, "g_source_set_closure")
 	core.PuregoSafeRegister(&xSourceSetDummyCallback, lib, "g_source_set_dummy_callback")
 

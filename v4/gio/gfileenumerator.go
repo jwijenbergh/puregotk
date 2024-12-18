@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileEnumeratorClass struct {
@@ -53,6 +54,12 @@ func (x *FileEnumeratorPrivate) GoPointer() uintptr {
 // on it, and it should be freed with g_object_unref().
 type FileEnumerator struct {
 	gobject.Object
+}
+
+var xFileEnumeratorGLibType func() types.GType
+
+func FileEnumeratorGLibType() types.GType {
+	return xFileEnumeratorGLibType()
 }
 
 func FileEnumeratorNewFromInternalPtr(ptr uintptr) *FileEnumerator {
@@ -330,6 +337,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileEnumeratorGLibType, lib, "g_file_enumerator_get_type")
 
 	core.PuregoSafeRegister(&xFileEnumeratorClose, lib, "g_file_enumerator_close")
 	core.PuregoSafeRegister(&xFileEnumeratorCloseAsync, lib, "g_file_enumerator_close_async")

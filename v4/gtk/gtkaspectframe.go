@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkAspectFrame` preserves the aspect ratio of its child.
@@ -17,6 +18,12 @@ import (
 // `GtkAspectFrame` uses a CSS node with name `frame`.
 type AspectFrame struct {
 	Widget
+}
+
+var xAspectFrameGLibType func() types.GType
+
+func AspectFrameGLibType() types.GType {
+	return xAspectFrameGLibType()
 }
 
 func AspectFrameNewFromInternalPtr(ptr uintptr) *AspectFrame {
@@ -303,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAspectFrameGLibType, lib, "gtk_aspect_frame_get_type")
 
 	core.PuregoSafeRegister(&xNewAspectFrame, lib, "gtk_aspect_frame_new")
 

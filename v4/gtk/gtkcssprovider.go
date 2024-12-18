@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CssProviderClass struct {
@@ -56,6 +57,12 @@ func (x *CssProviderPrivate) GoPointer() uintptr {
 // [signal@Gtk.CssProvider::parsing-error] signal.
 type CssProvider struct {
 	gobject.Object
+}
+
+var xCssProviderGLibType func() types.GType
+
+func CssProviderGLibType() types.GType {
+	return xCssProviderGLibType()
 }
 
 func CssProviderNewFromInternalPtr(ptr uintptr) *CssProvider {
@@ -198,6 +205,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCssProviderGLibType, lib, "gtk_css_provider_get_type")
 
 	core.PuregoSafeRegister(&xNewCssProvider, lib, "gtk_css_provider_new")
 

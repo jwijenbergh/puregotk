@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerScrollClass struct {
@@ -20,6 +21,12 @@ func (x *EventControllerScrollClass) GoPointer() uintptr {
 
 // Describes the behavior of a `GtkEventControllerScroll`.
 type EventControllerScrollFlags int
+
+var xEventControllerScrollFlagsGLibType func() types.GType
+
+func EventControllerScrollFlagsGLibType() types.GType {
+	return xEventControllerScrollFlagsGLibType()
+}
 
 const (
 
@@ -73,6 +80,12 @@ const (
 // motion that was received.
 type EventControllerScroll struct {
 	EventController
+}
+
+var xEventControllerScrollGLibType func() types.GType
+
+func EventControllerScrollGLibType() types.GType {
+	return xEventControllerScrollGLibType()
 }
 
 func EventControllerScrollNewFromInternalPtr(ptr uintptr) *EventControllerScroll {
@@ -234,6 +247,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerScrollFlagsGLibType, lib, "gtk_event_controller_scroll_flags_get_type")
+
+	core.PuregoSafeRegister(&xEventControllerScrollGLibType, lib, "gtk_event_controller_scroll_get_type")
 
 	core.PuregoSafeRegister(&xNewEventControllerScroll, lib, "gtk_event_controller_scroll_new")
 

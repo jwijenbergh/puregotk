@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerMotionClass struct {
@@ -28,6 +29,12 @@ func (x *EventControllerMotionClass) GoPointer() uintptr {
 // moves over the widget.
 type EventControllerMotion struct {
 	EventController
+}
+
+var xEventControllerMotionGLibType func() types.GType
+
+func EventControllerMotionGLibType() types.GType {
+	return xEventControllerMotionGLibType()
 }
 
 func EventControllerMotionNewFromInternalPtr(ptr uintptr) *EventControllerMotion {
@@ -143,6 +150,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerMotionGLibType, lib, "gtk_event_controller_motion_get_type")
 
 	core.PuregoSafeRegister(&xNewEventControllerMotion, lib, "gtk_event_controller_motion_new")
 

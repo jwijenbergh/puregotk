@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A #GValueArray contains an array of #GValue elements.
@@ -16,6 +17,12 @@ type ValueArray struct {
 	Values *Value
 
 	NPrealloced uint
+}
+
+var xValueArrayGLibType func() types.GType
+
+func ValueArrayGLibType() types.GType {
+	return xValueArrayGLibType()
 }
 
 func (x *ValueArray) GoPointer() uintptr {
@@ -131,6 +138,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xValueArrayGLibType, lib, "g_value_array_get_type")
 
 	core.PuregoSafeRegister(&xNewValueArray, lib, "g_value_array_new")
 

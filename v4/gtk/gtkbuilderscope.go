@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BuilderCScopeClass struct {
@@ -47,6 +48,13 @@ type BuilderScope interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 }
+
+var xBuilderScopeGLibType func() types.GType
+
+func BuilderScopeGLibType() types.GType {
+	return xBuilderScopeGLibType()
+}
+
 type BuilderScopeBase struct {
 	Ptr uintptr
 }
@@ -66,6 +74,12 @@ func (x *BuilderScopeBase) SetGoPointer(ptr uintptr) {
 // for unknown values and raise a %GTK_BUILDER_ERROR_INVALID_ATTRIBUTE error
 // when they encounter one.
 type BuilderClosureFlags int
+
+var xBuilderClosureFlagsGLibType func() types.GType
+
+func BuilderClosureFlagsGLibType() types.GType {
+	return xBuilderClosureFlagsGLibType()
+}
 
 const (
 
@@ -92,6 +106,12 @@ const (
 // this functionality will require that `GModule` be supported on the platform.
 type BuilderCScope struct {
 	gobject.Object
+}
+
+var xBuilderCScopeGLibType func() types.GType
+
+func BuilderCScopeGLibType() types.GType {
+	return xBuilderCScopeGLibType()
 }
 
 func BuilderCScopeNewFromInternalPtr(ptr uintptr) *BuilderCScope {
@@ -172,10 +192,16 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xBuilderClosureFlagsGLibType, lib, "gtk_builder_closure_flags_get_type")
+
+	core.PuregoSafeRegister(&xBuilderCScopeGLibType, lib, "gtk_builder_cscope_get_type")
+
 	core.PuregoSafeRegister(&xNewBuilderCScope, lib, "gtk_builder_cscope_new")
 
 	core.PuregoSafeRegister(&xBuilderCScopeAddCallbackSymbol, lib, "gtk_builder_cscope_add_callback_symbol")
 	core.PuregoSafeRegister(&xBuilderCScopeAddCallbackSymbols, lib, "gtk_builder_cscope_add_callback_symbols")
 	core.PuregoSafeRegister(&xBuilderCScopeLookupCallbackSymbol, lib, "gtk_builder_cscope_lookup_callback_symbol")
+
+	core.PuregoSafeRegister(&xBuilderScopeGLibType, lib, "gtk_builder_scope_get_type")
 
 }

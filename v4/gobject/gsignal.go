@@ -739,6 +739,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xClearSignalHandler, lib, "g_clear_signal_handler")
 	core.PuregoSafeRegister(&xSignalAccumulatorFirstWins, lib, "g_signal_accumulator_first_wins")
 	core.PuregoSafeRegister(&xSignalAccumulatorTrueHandled, lib, "g_signal_accumulator_true_handled")

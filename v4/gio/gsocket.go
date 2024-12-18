@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SocketClass struct {
@@ -78,6 +79,12 @@ func (x *SocketPrivate) GoPointer() uintptr {
 // locking.
 type Socket struct {
 	gobject.Object
+}
+
+var xSocketGLibType func() types.GType
+
+func SocketGLibType() types.GType {
+	return xSocketGLibType()
 }
 
 func SocketNewFromInternalPtr(ptr uintptr) *Socket {
@@ -1463,6 +1470,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketGLibType, lib, "g_socket_get_type")
 
 	core.PuregoSafeRegister(&xNewSocket, lib, "g_socket_new")
 	core.PuregoSafeRegister(&xNewSocketFromFd, lib, "g_socket_new_from_fd")

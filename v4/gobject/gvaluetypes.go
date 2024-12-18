@@ -42,6 +42,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xGtypeGetType, lib, "g_gtype_get_type")
 	core.PuregoSafeRegister(&xPointerTypeRegisterStatic, lib, "g_pointer_type_register_static")
 	core.PuregoSafeRegister(&xStrdupValueContents, lib, "g_strdup_value_contents")

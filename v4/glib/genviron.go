@@ -142,6 +142,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xEnvironGetenv, lib, "g_environ_getenv")
 	core.PuregoSafeRegister(&xEnvironSetenv, lib, "g_environ_setenv")
 	core.PuregoSafeRegister(&xEnvironUnsetenv, lib, "g_environ_unsetenv")

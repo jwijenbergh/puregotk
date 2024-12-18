@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of function that is passed to
@@ -38,6 +39,12 @@ func (x *PrintOperationPrivate) GoPointer() uintptr {
 // using the GTK printing support.
 type PrintError int
 
+var xPrintErrorGLibType func() types.GType
+
+func PrintErrorGLibType() types.GType {
+	return xPrintErrorGLibType()
+}
+
 const (
 
 	// An unspecified error occurred.
@@ -55,6 +62,12 @@ const (
 //
 // A parameter of this typs is passed to [method@Gtk.PrintOperation.run].
 type PrintOperationAction int
+
+var xPrintOperationActionGLibType func() types.GType
+
+func PrintOperationActionGLibType() types.GType {
+	return xPrintOperationActionGLibType()
+}
 
 const (
 
@@ -75,6 +88,12 @@ const (
 // A value of this type is returned by [method@Gtk.PrintOperation.run].
 type PrintOperationResult int
 
+var xPrintOperationResultGLibType func() types.GType
+
+func PrintOperationResultGLibType() types.GType {
+	return xPrintOperationResultGLibType()
+}
+
 const (
 
 	// An error has occurred.
@@ -92,6 +111,12 @@ const (
 // The status gives a rough indication of the completion of a running
 // print operation.
 type PrintStatus int
+
+var xPrintStatusGLibType func() types.GType
+
+func PrintStatusGLibType() types.GType {
+	return xPrintStatusGLibType()
+}
 
 const (
 
@@ -232,6 +257,12 @@ func PrintRunPageSetupDialogAsync(ParentVar *Window, PageSetupVar *PageSetup, Se
 // are useful when implementing a print preview.
 type PrintOperation struct {
 	gobject.Object
+}
+
+var xPrintOperationGLibType func() types.GType
+
+func PrintOperationGLibType() types.GType {
+	return xPrintOperationGLibType()
 }
 
 func PrintOperationNewFromInternalPtr(ptr uintptr) *PrintOperation {
@@ -1118,9 +1149,20 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintErrorGLibType, lib, "gtk_print_error_get_type")
+
+	core.PuregoSafeRegister(&xPrintOperationActionGLibType, lib, "gtk_print_operation_action_get_type")
+
+	core.PuregoSafeRegister(&xPrintOperationResultGLibType, lib, "gtk_print_operation_result_get_type")
+
+	core.PuregoSafeRegister(&xPrintStatusGLibType, lib, "gtk_print_status_get_type")
+
 	core.PuregoSafeRegister(&xPrintErrorQuark, lib, "gtk_print_error_quark")
 	core.PuregoSafeRegister(&xPrintRunPageSetupDialog, lib, "gtk_print_run_page_setup_dialog")
 	core.PuregoSafeRegister(&xPrintRunPageSetupDialogAsync, lib, "gtk_print_run_page_setup_dialog_async")
+
+	core.PuregoSafeRegister(&xPrintOperationGLibType, lib, "gtk_print_operation_get_type")
 
 	core.PuregoSafeRegister(&xNewPrintOperation, lib, "gtk_print_operation_new")
 

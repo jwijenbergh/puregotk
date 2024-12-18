@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GridViewClass struct {
@@ -54,6 +55,12 @@ func (x *GridViewClass) GoPointer() uintptr {
 // use the %GTK_ACCESSIBLE_ROLE_GRID_CELL role.
 type GridView struct {
 	ListBase
+}
+
+var xGridViewGLibType func() types.GType
+
+func GridViewGLibType() types.GType {
+	return xGridViewGLibType()
 }
 
 func GridViewNewFromInternalPtr(ptr uintptr) *GridView {
@@ -512,6 +519,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGridViewGLibType, lib, "gtk_grid_view_get_type")
 
 	core.PuregoSafeRegister(&xNewGridView, lib, "gtk_grid_view_new")
 

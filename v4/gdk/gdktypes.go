@@ -45,6 +45,12 @@ import (
 type ContentFormats struct {
 }
 
+var xContentFormatsGLibType func() types.GType
+
+func ContentFormatsGLibType() types.GType {
+	return xContentFormatsGLibType()
+}
+
 func (x *ContentFormats) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -280,6 +286,12 @@ type Rectangle struct {
 	Height int
 }
 
+var xRectangleGLibType func() types.GType
+
+func RectangleGLibType() types.GType {
+	return xRectangleGLibType()
+}
+
 func (x *Rectangle) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -344,6 +356,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xContentFormatsGLibType, lib, "gdk_content_formats_get_type")
+
 	core.PuregoSafeRegister(&xNewContentFormats, lib, "gdk_content_formats_new")
 	core.PuregoSafeRegister(&xNewContentFormatsForGtype, lib, "gdk_content_formats_new_for_gtype")
 
@@ -363,6 +377,8 @@ func init() {
 	core.PuregoSafeRegister(&xContentFormatsUnionSerializeGtypes, lib, "gdk_content_formats_union_serialize_gtypes")
 	core.PuregoSafeRegister(&xContentFormatsUnionSerializeMimeTypes, lib, "gdk_content_formats_union_serialize_mime_types")
 	core.PuregoSafeRegister(&xContentFormatsUnref, lib, "gdk_content_formats_unref")
+
+	core.PuregoSafeRegister(&xRectangleGLibType, lib, "gdk_rectangle_get_type")
 
 	core.PuregoSafeRegister(&xRectangleContainsPoint, lib, "gdk_rectangle_contains_point")
 	core.PuregoSafeRegister(&xRectangleEqual, lib, "gdk_rectangle_equal")

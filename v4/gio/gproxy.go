@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for handling proxy connection and payload.
@@ -32,6 +33,13 @@ type Proxy interface {
 	ConnectFinish(ResultVar AsyncResult) *IOStream
 	SupportsHostname() bool
 }
+
+var xProxyGLibType func() types.GType
+
+func ProxyGLibType() types.GType {
+	return xProxyGLibType()
+}
+
 type ProxyBase struct {
 	Ptr uintptr
 }
@@ -138,7 +146,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xProxyGetDefaultForProtocol, lib, "g_proxy_get_default_for_protocol")
+
+	core.PuregoSafeRegister(&xProxyGLibType, lib, "g_proxy_get_type")
 
 	core.PuregoSafeRegister(&XGProxyConnect, lib, "g_proxy_connect")
 	core.PuregoSafeRegister(&XGProxyConnectAsync, lib, "g_proxy_connect_async")

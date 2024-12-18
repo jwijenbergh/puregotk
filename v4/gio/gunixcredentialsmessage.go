@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GUnixCredentialsMessage.
@@ -46,6 +47,12 @@ func (x *UnixCredentialsMessagePrivate) GoPointer() uintptr {
 // when using it. This is no longer necessary since GLib 2.72.
 type UnixCredentialsMessage struct {
 	SocketControlMessage
+}
+
+var xUnixCredentialsMessageGLibType func() types.GType
+
+func UnixCredentialsMessageGLibType() types.GType {
+	return xUnixCredentialsMessageGLibType()
 }
 
 func UnixCredentialsMessageNewFromInternalPtr(ptr uintptr) *UnixCredentialsMessage {
@@ -125,6 +132,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixCredentialsMessageGLibType, lib, "g_unix_credentials_message_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixCredentialsMessage, lib, "g_unix_credentials_message_new")
 	core.PuregoSafeRegister(&xNewUnixCredentialsMessageWithCredentials, lib, "g_unix_credentials_message_new_with_credentials")

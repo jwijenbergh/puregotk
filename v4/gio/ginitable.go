@@ -50,6 +50,13 @@ type Initable interface {
 	SetGoPointer(uintptr)
 	Init(CancellableVar *Cancellable) bool
 }
+
+var xInitableGLibType func() types.GType
+
+func InitableGLibType() types.GType {
+	return xInitableGLibType()
+}
+
 type InitableBase struct {
 	Ptr uintptr
 }
@@ -141,7 +148,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xInitableNewv, lib, "g_initable_newv")
+
+	core.PuregoSafeRegister(&xInitableGLibType, lib, "g_initable_get_type")
 
 	core.PuregoSafeRegister(&XGInitableInit, lib, "g_initable_init")
 

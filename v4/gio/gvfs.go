@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // This function type is used by g_vfs_register_uri_scheme() to make it
@@ -35,6 +36,12 @@ const (
 // Entry point for using GIO functionality.
 type Vfs struct {
 	gobject.Object
+}
+
+var xVfsGLibType func() types.GType
+
+func VfsGLibType() types.GType {
+	return xVfsGLibType()
 }
 
 func VfsNewFromInternalPtr(ptr uintptr) *Vfs {
@@ -200,6 +207,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xVfsGLibType, lib, "g_vfs_get_type")
 
 	core.PuregoSafeRegister(&xVfsGetFileForPath, lib, "g_vfs_get_file_for_path")
 	core.PuregoSafeRegister(&xVfsGetFileForUri, lib, "g_vfs_get_file_for_uri")

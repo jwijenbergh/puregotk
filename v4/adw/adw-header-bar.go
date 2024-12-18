@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -20,6 +21,12 @@ func (x *HeaderBarClass) GoPointer() uintptr {
 
 // Describes title centering behavior of a [class@HeaderBar] widget.
 type CenteringPolicy int
+
+var xCenteringPolicyGLibType func() types.GType
+
+func CenteringPolicyGLibType() types.GType {
+	return xCenteringPolicyGLibType()
+}
 
 const (
 
@@ -123,6 +130,12 @@ const (
 // `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
 type HeaderBar struct {
 	gtk.Widget
+}
+
+var xHeaderBarGLibType func() types.GType
+
+func HeaderBarGLibType() types.GType {
+	return xHeaderBarGLibType()
 }
 
 func HeaderBarNewFromInternalPtr(ptr uintptr) *HeaderBar {
@@ -472,6 +485,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCenteringPolicyGLibType, lib, "adw_centering_policy_get_type")
+
+	core.PuregoSafeRegister(&xHeaderBarGLibType, lib, "adw_header_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewHeaderBar, lib, "adw_header_bar_new")
 

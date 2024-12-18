@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FontClass struct {
@@ -25,6 +26,12 @@ func (x *FontClass) GoPointer() uintptr {
 // available on the system and also for specifying the characteristics of
 // a font to load.
 type FontDescription struct {
+}
+
+var xFontDescriptionGLibType func() types.GType
+
+func FontDescriptionGLibType() types.GType {
+	return xFontDescriptionGLibType()
 }
 
 func (x *FontDescription) GoPointer() uintptr {
@@ -519,6 +526,12 @@ type FontMetrics struct {
 	StrikethroughThickness int
 }
 
+var xFontMetricsGLibType func() types.GType
+
+func FontMetricsGLibType() types.GType {
+	return xFontMetricsGLibType()
+}
+
 func (x *FontMetrics) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -681,6 +694,12 @@ const (
 // `PangoFontDescription`.
 type FontMask int
 
+var xFontMaskGLibType func() types.GType
+
+func FontMaskGLibType() types.GType {
+	return xFontMaskGLibType()
+}
+
 const (
 
 	// the font family is specified.
@@ -704,6 +723,12 @@ const (
 // An enumeration specifying the width of the font relative to other designs
 // within a family.
 type Stretch int
+
+var xStretchGLibType func() types.GType
+
+func StretchGLibType() types.GType {
+	return xStretchGLibType()
+}
 
 const (
 
@@ -730,6 +755,12 @@ const (
 // An enumeration specifying the various slant styles possible for a font.
 type Style int
 
+var xStyleGLibType func() types.GType
+
+func StyleGLibType() types.GType {
+	return xStyleGLibType()
+}
+
 const (
 
 	// the font is upright.
@@ -745,6 +776,12 @@ const (
 // Values other than `PANGO_VARIANT_NORMAL` and `PANGO_VARIANT_SMALL_CAPS` are
 // available since 1.50.
 type Variant int
+
+var xVariantGLibType func() types.GType
+
+func VariantGLibType() types.GType {
+	return xVariantGLibType()
+}
 
 const (
 
@@ -777,6 +814,12 @@ const (
 // Weight is specified as a numeric value ranging from 100 to 1000.
 // This enumeration simply provides some common, predefined values.
 type Weight int
+
+var xWeightGLibType func() types.GType
+
+func WeightGLibType() types.GType {
+	return xWeightGLibType()
+}
 
 const (
 
@@ -862,6 +905,12 @@ func FontDescriptionFromString(StrVar string) *FontDescription {
 // rendering-system-independent manner.
 type Font struct {
 	gobject.Object
+}
+
+var xFontGLibType func() types.GType
+
+func FontGLibType() types.GType {
+	return xFontGLibType()
 }
 
 func FontNewFromInternalPtr(ptr uintptr) *Font {
@@ -1111,6 +1160,12 @@ type FontFace struct {
 	gobject.Object
 }
 
+var xFontFaceGLibType func() types.GType
+
+func FontFaceGLibType() types.GType {
+	return xFontFaceGLibType()
+}
+
 func FontFaceNewFromInternalPtr(ptr uintptr) *FontFace {
 	cls := &FontFace{}
 	cls.Ptr = ptr
@@ -1202,6 +1257,12 @@ func (c *FontFace) SetGoPointer(ptr uintptr) {
 // slant, weight, width or other aspects.
 type FontFamily struct {
 	gobject.Object
+}
+
+var xFontFamilyGLibType func() types.GType
+
+func FontFamilyGLibType() types.GType {
+	return xFontFamilyGLibType()
 }
 
 func FontFamilyNewFromInternalPtr(ptr uintptr) *FontFamily {
@@ -1300,7 +1361,20 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontMaskGLibType, lib, "pango_font_mask_get_type")
+
+	core.PuregoSafeRegister(&xStretchGLibType, lib, "pango_stretch_get_type")
+
+	core.PuregoSafeRegister(&xStyleGLibType, lib, "pango_style_get_type")
+
+	core.PuregoSafeRegister(&xVariantGLibType, lib, "pango_variant_get_type")
+
+	core.PuregoSafeRegister(&xWeightGLibType, lib, "pango_weight_get_type")
+
 	core.PuregoSafeRegister(&xFontDescriptionFromString, lib, "pango_font_description_from_string")
+
+	core.PuregoSafeRegister(&xFontDescriptionGLibType, lib, "pango_font_description_get_type")
 
 	core.PuregoSafeRegister(&xNewFontDescription, lib, "pango_font_description_new")
 
@@ -1337,6 +1411,8 @@ func init() {
 	core.PuregoSafeRegister(&xFontDescriptionToString, lib, "pango_font_description_to_string")
 	core.PuregoSafeRegister(&xFontDescriptionUnsetFields, lib, "pango_font_description_unset_fields")
 
+	core.PuregoSafeRegister(&xFontMetricsGLibType, lib, "pango_font_metrics_get_type")
+
 	core.PuregoSafeRegister(&xFontMetricsGetApproximateCharWidth, lib, "pango_font_metrics_get_approximate_char_width")
 	core.PuregoSafeRegister(&xFontMetricsGetApproximateDigitWidth, lib, "pango_font_metrics_get_approximate_digit_width")
 	core.PuregoSafeRegister(&xFontMetricsGetAscent, lib, "pango_font_metrics_get_ascent")
@@ -1348,6 +1424,8 @@ func init() {
 	core.PuregoSafeRegister(&xFontMetricsGetUnderlineThickness, lib, "pango_font_metrics_get_underline_thickness")
 	core.PuregoSafeRegister(&xFontMetricsRef, lib, "pango_font_metrics_ref")
 	core.PuregoSafeRegister(&xFontMetricsUnref, lib, "pango_font_metrics_unref")
+
+	core.PuregoSafeRegister(&xFontGLibType, lib, "pango_font_get_type")
 
 	core.PuregoSafeRegister(&xFontDescribe, lib, "pango_font_describe")
 	core.PuregoSafeRegister(&xFontDescribeWithAbsoluteSize, lib, "pango_font_describe_with_absolute_size")
@@ -1365,11 +1443,15 @@ func init() {
 	core.PuregoSafeRegister(&xFontDescriptionsFree, lib, "pango_font_descriptions_free")
 	core.PuregoSafeRegister(&xFontDeserialize, lib, "pango_font_deserialize")
 
+	core.PuregoSafeRegister(&xFontFaceGLibType, lib, "pango_font_face_get_type")
+
 	core.PuregoSafeRegister(&xFontFaceDescribe, lib, "pango_font_face_describe")
 	core.PuregoSafeRegister(&xFontFaceGetFaceName, lib, "pango_font_face_get_face_name")
 	core.PuregoSafeRegister(&xFontFaceGetFamily, lib, "pango_font_face_get_family")
 	core.PuregoSafeRegister(&xFontFaceIsSynthesized, lib, "pango_font_face_is_synthesized")
 	core.PuregoSafeRegister(&xFontFaceListSizes, lib, "pango_font_face_list_sizes")
+
+	core.PuregoSafeRegister(&xFontFamilyGLibType, lib, "pango_font_family_get_type")
 
 	core.PuregoSafeRegister(&xFontFamilyGetFace, lib, "pango_font_family_get_face")
 	core.PuregoSafeRegister(&xFontFamilyGetName, lib, "pango_font_family_get_name")

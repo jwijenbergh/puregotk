@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type WindowGroupClass struct {
@@ -36,6 +37,12 @@ func (x *WindowGroupClass) GoPointer() uintptr {
 // freed.
 type WindowGroup struct {
 	gobject.Object
+}
+
+var xWindowGroupGLibType func() types.GType
+
+func WindowGroupGLibType() types.GType {
+	return xWindowGroupGLibType()
 }
 
 func WindowGroupNewFromInternalPtr(ptr uintptr) *WindowGroup {
@@ -103,6 +110,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowGroupGLibType, lib, "gtk_window_group_get_type")
 
 	core.PuregoSafeRegister(&xNewWindowGroup, lib, "gtk_window_group_new")
 

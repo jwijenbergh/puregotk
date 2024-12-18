@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -188,6 +189,12 @@ import (
 // when you use `GtkFileChooserDialog` to ensure proper operation.
 type FileChooserDialog struct {
 	Dialog
+}
+
+var xFileChooserDialogGLibType func() types.GType
+
+func FileChooserDialogGLibType() types.GType {
+	return xFileChooserDialogGLibType()
 }
 
 func FileChooserDialogNewFromInternalPtr(ptr uintptr) *FileChooserDialog {
@@ -831,6 +838,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileChooserDialogGLibType, lib, "gtk_file_chooser_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewFileChooserDialog, lib, "gtk_file_chooser_dialog_new")
 

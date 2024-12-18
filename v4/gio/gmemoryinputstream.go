@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MemoryInputStreamClass struct {
@@ -31,6 +32,12 @@ func (x *MemoryInputStreamPrivate) GoPointer() uintptr {
 // #GPollableInputStream.
 type MemoryInputStream struct {
 	InputStream
+}
+
+var xMemoryInputStreamGLibType func() types.GType
+
+func MemoryInputStreamGLibType() types.GType {
+	return xMemoryInputStreamGLibType()
 }
 
 func MemoryInputStreamNewFromInternalPtr(ptr uintptr) *MemoryInputStream {
@@ -248,6 +255,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMemoryInputStreamGLibType, lib, "g_memory_input_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewMemoryInputStream, lib, "g_memory_input_stream_new")
 	core.PuregoSafeRegister(&xNewMemoryInputStreamFromBytes, lib, "g_memory_input_stream_new_from_bytes")

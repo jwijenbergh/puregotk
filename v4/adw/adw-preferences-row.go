@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -32,6 +33,12 @@ func (x *PreferencesRowClass) GoPointer() uintptr {
 // compose the inputs of the preference around it.
 type PreferencesRow struct {
 	gtk.ListBoxRow
+}
+
+var xPreferencesRowGLibType func() types.GType
+
+func PreferencesRowGLibType() types.GType {
+	return xPreferencesRowGLibType()
 }
 
 func PreferencesRowNewFromInternalPtr(ptr uintptr) *PreferencesRow {
@@ -377,6 +384,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPreferencesRowGLibType, lib, "adw_preferences_row_get_type")
 
 	core.PuregoSafeRegister(&xNewPreferencesRow, lib, "adw_preferences_row_new")
 

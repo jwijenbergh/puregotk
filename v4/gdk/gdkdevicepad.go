@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DevicePadInterface struct {
@@ -40,6 +41,13 @@ type DevicePad interface {
 	GetNFeatures(FeatureVar DevicePadFeature) int
 	GetNGroups() int
 }
+
+var xDevicePadGLibType func() types.GType
+
+func DevicePadGLibType() types.GType {
+	return xDevicePadGLibType()
+}
+
 type DevicePadBase struct {
 	Ptr uintptr
 }
@@ -94,6 +102,12 @@ var XGdkDevicePadGetNGroups func(uintptr) int
 // A pad feature.
 type DevicePadFeature int
 
+var xDevicePadFeatureGLibType func() types.GType
+
+func DevicePadFeatureGLibType() types.GType {
+	return xDevicePadFeatureGLibType()
+}
+
 const (
 
 	// a button
@@ -109,6 +123,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDevicePadFeatureGLibType, lib, "gdk_device_pad_feature_get_type")
+
+	core.PuregoSafeRegister(&xDevicePadGLibType, lib, "gdk_device_pad_get_type")
 
 	core.PuregoSafeRegister(&XGdkDevicePadGetFeatureGroup, lib, "gdk_device_pad_get_feature_group")
 	core.PuregoSafeRegister(&XGdkDevicePadGetGroupNModes, lib, "gdk_device_pad_get_group_n_modes")

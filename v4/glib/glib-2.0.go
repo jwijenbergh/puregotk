@@ -4,11 +4,18 @@ package glib
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A bitwise combination representing a condition to watch for on an
 // event source.
 type IOCondition int
+
+var xIOConditionGLibType func() types.GType
+
+func IOConditionGLibType() types.GType {
+	return xIOConditionGLibType()
+}
 
 const (
 
@@ -41,6 +48,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIOConditionGLibType, lib, "g_io_condition_get_type")
+
 	core.PuregoSafeRegister(&xVariantParserGetErrorQuark, lib, "g_variant_parser_get_error_quark")
 
 }

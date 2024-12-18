@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkCursor` is used to create and destroy cursors.
@@ -42,6 +43,12 @@ import (
 // the default cursor will be the ultimate fallback.
 type Cursor struct {
 	gobject.Object
+}
+
+var xCursorGLibType func() types.GType
+
+func CursorGLibType() types.GType {
+	return xCursorGLibType()
 }
 
 func CursorNewFromInternalPtr(ptr uintptr) *Cursor {
@@ -194,6 +201,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCursorGLibType, lib, "gdk_cursor_get_type")
 
 	core.PuregoSafeRegister(&xNewCursorFromName, lib, "gdk_cursor_new_from_name")
 	core.PuregoSafeRegister(&xNewCursorFromTexture, lib, "gdk_cursor_new_from_texture")

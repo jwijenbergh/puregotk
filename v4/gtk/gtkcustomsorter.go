@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CustomSorterClass struct {
@@ -21,6 +22,12 @@ func (x *CustomSorterClass) GoPointer() uintptr {
 // function.
 type CustomSorter struct {
 	Sorter
+}
+
+var xCustomSorterGLibType func() types.GType
+
+func CustomSorterGLibType() types.GType {
+	return xCustomSorterGLibType()
 }
 
 func CustomSorterNewFromInternalPtr(ptr uintptr) *CustomSorter {
@@ -78,6 +85,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCustomSorterGLibType, lib, "gtk_custom_sorter_get_type")
 
 	core.PuregoSafeRegister(&xNewCustomSorter, lib, "gtk_custom_sorter_new")
 

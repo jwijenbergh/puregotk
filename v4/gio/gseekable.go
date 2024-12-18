@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for implementing seekable functionality on I/O Streams.
@@ -41,6 +42,13 @@ type Seekable interface {
 	Tell() int64
 	Truncate(OffsetVar int64, CancellableVar *Cancellable) bool
 }
+
+var xSeekableGLibType func() types.GType
+
+func SeekableGLibType() types.GType {
+	return xSeekableGLibType()
+}
+
 type SeekableBase struct {
 	Ptr uintptr
 }
@@ -131,6 +139,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSeekableGLibType, lib, "g_seekable_get_type")
 
 	core.PuregoSafeRegister(&XGSeekableCanSeek, lib, "g_seekable_can_seek")
 	core.PuregoSafeRegister(&XGSeekableCanTruncate, lib, "g_seekable_can_truncate")

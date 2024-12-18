@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkLockButton` is a widget to obtain and revoke authorizations
@@ -48,6 +49,12 @@ import (
 // [property@Gtk.LockButton:tooltip-not-authorized] properties.
 type LockButton struct {
 	Button
+}
+
+var xLockButtonGLibType func() types.GType
+
+func LockButtonGLibType() types.GType {
+	return xLockButtonGLibType()
 }
 
 func LockButtonNewFromInternalPtr(ptr uintptr) *LockButton {
@@ -338,6 +345,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLockButtonGLibType, lib, "gtk_lock_button_get_type")
 
 	core.PuregoSafeRegister(&xNewLockButton, lib, "gtk_lock_button_new")
 

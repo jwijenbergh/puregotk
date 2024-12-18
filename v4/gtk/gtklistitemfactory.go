@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ListItemFactoryClass struct {
@@ -64,6 +65,12 @@ func (x *ListItemFactoryClass) GoPointer() uintptr {
 // views is allowed, but very uncommon.
 type ListItemFactory struct {
 	gobject.Object
+}
+
+var xListItemFactoryGLibType func() types.GType
+
+func ListItemFactoryGLibType() types.GType {
+	return xListItemFactoryGLibType()
 }
 
 func ListItemFactoryNewFromInternalPtr(ptr uintptr) *ListItemFactory {

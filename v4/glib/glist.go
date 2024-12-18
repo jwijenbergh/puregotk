@@ -37,6 +37,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xClearList, lib, "g_clear_list")
 
 }

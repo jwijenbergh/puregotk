@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ConstraintLayoutChildClass struct {
@@ -205,6 +206,12 @@ func (x *ConstraintLayoutClass) GoPointer() uintptr {
 // ```
 type ConstraintLayout struct {
 	LayoutManager
+}
+
+var xConstraintLayoutGLibType func() types.GType
+
+func ConstraintLayoutGLibType() types.GType {
+	return xConstraintLayoutGLibType()
 }
 
 func ConstraintLayoutNewFromInternalPtr(ptr uintptr) *ConstraintLayout {
@@ -472,6 +479,12 @@ type ConstraintLayoutChild struct {
 	LayoutChild
 }
 
+var xConstraintLayoutChildGLibType func() types.GType
+
+func ConstraintLayoutChildGLibType() types.GType {
+	return xConstraintLayoutChildGLibType()
+}
+
 func ConstraintLayoutChildNewFromInternalPtr(ptr uintptr) *ConstraintLayoutChild {
 	cls := &ConstraintLayoutChild{}
 	cls.Ptr = ptr
@@ -492,6 +505,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xConstraintLayoutGLibType, lib, "gtk_constraint_layout_get_type")
+
 	core.PuregoSafeRegister(&xNewConstraintLayout, lib, "gtk_constraint_layout_new")
 
 	core.PuregoSafeRegister(&xConstraintLayoutAddConstraint, lib, "gtk_constraint_layout_add_constraint")
@@ -503,5 +518,7 @@ func init() {
 	core.PuregoSafeRegister(&xConstraintLayoutRemoveAllConstraints, lib, "gtk_constraint_layout_remove_all_constraints")
 	core.PuregoSafeRegister(&xConstraintLayoutRemoveConstraint, lib, "gtk_constraint_layout_remove_constraint")
 	core.PuregoSafeRegister(&xConstraintLayoutRemoveGuide, lib, "gtk_constraint_layout_remove_guide")
+
+	core.PuregoSafeRegister(&xConstraintLayoutChildGLibType, lib, "gtk_constraint_layout_child_get_type")
 
 }

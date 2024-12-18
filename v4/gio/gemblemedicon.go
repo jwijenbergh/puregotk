@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EmblemedIconClass struct {
@@ -33,6 +34,12 @@ func (x *EmblemedIconPrivate) GoPointer() uintptr {
 // of the emblems. See also #GEmblem for more information.
 type EmblemedIcon struct {
 	gobject.Object
+}
+
+var xEmblemedIconGLibType func() types.GType
+
+func EmblemedIconGLibType() types.GType {
+	return xEmblemedIconGLibType()
 }
 
 func EmblemedIconNewFromInternalPtr(ptr uintptr) *EmblemedIcon {
@@ -154,6 +161,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEmblemedIconGLibType, lib, "g_emblemed_icon_get_type")
 
 	core.PuregoSafeRegister(&xNewEmblemedIcon, lib, "g_emblemed_icon_new")
 

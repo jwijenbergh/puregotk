@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // This section introduces the GVariant type system. It is based, in
@@ -177,6 +178,12 @@ import (
 // that, due to the restriction that the key of a dictionary entry must
 // be a basic type, "{**}" is not a valid type string.
 type VariantType struct {
+}
+
+var xVariantTypeGLibType func() types.GType
+
+func VariantTypeGLibType() types.GType {
+	return xVariantTypeGLibType()
 }
 
 func (x *VariantType) GoPointer() uintptr {
@@ -614,10 +621,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xVariantTypeChecked, lib, "g_variant_type_checked_")
 	core.PuregoSafeRegister(&xVariantTypeStringGetDepth, lib, "g_variant_type_string_get_depth_")
 	core.PuregoSafeRegister(&xVariantTypeStringIsValid, lib, "g_variant_type_string_is_valid")
 	core.PuregoSafeRegister(&xVariantTypeStringScan, lib, "g_variant_type_string_scan")
+
+	core.PuregoSafeRegister(&xVariantTypeGLibType, lib, "g_variant_type_get_gtype")
 
 	core.PuregoSafeRegister(&xNewVariantType, lib, "g_variant_type_new")
 	core.PuregoSafeRegister(&xNewVariantTypeArray, lib, "g_variant_type_new_array")

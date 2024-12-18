@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TreeListRowSorterClass struct {
@@ -32,6 +33,12 @@ func (x *TreeListRowSorterClass) GoPointer() uintptr {
 // ```
 type TreeListRowSorter struct {
 	Sorter
+}
+
+var xTreeListRowSorterGLibType func() types.GType
+
+func TreeListRowSorterGLibType() types.GType {
+	return xTreeListRowSorterGLibType()
 }
 
 func TreeListRowSorterNewFromInternalPtr(ptr uintptr) *TreeListRowSorter {
@@ -102,6 +109,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeListRowSorterGLibType, lib, "gtk_tree_list_row_sorter_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeListRowSorter, lib, "gtk_tree_list_row_sorter_new")
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `PangoTabArray` contains an array of tab stops.
@@ -14,6 +15,12 @@ import (
 // Each tab stop has an alignment, a position, and optionally
 // a character to use as decimal point.
 type TabArray struct {
+}
+
+var xTabArrayGLibType func() types.GType
+
+func TabArrayGLibType() types.GType {
+	return xTabArrayGLibType()
 }
 
 func (x *TabArray) GoPointer() uintptr {
@@ -198,6 +205,12 @@ func (x *TabArray) ToString() string {
 // in Pango 1.50.
 type TabAlign int
 
+var xTabAlignGLibType func() types.GType
+
+func TabAlignGLibType() types.GType {
+	return xTabAlignGLibType()
+}
+
 const (
 
 	// the text appears to the right of the tab stop position
@@ -231,7 +244,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTabAlignGLibType, lib, "pango_tab_align_get_type")
+
 	core.PuregoSafeRegister(&xTabArrayFromString, lib, "pango_tab_array_from_string")
+
+	core.PuregoSafeRegister(&xTabArrayGLibType, lib, "pango_tab_array_get_type")
 
 	core.PuregoSafeRegister(&xNewTabArray, lib, "pango_tab_array_new")
 	core.PuregoSafeRegister(&xNewTabArrayWithPositions, lib, "pango_tab_array_new_with_positions")

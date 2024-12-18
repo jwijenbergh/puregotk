@@ -85,6 +85,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xRefStringAcquire, lib, "g_ref_string_acquire")
 	core.PuregoSafeRegister(&xRefStringLength, lib, "g_ref_string_length")
 	core.PuregoSafeRegister(&xRefStringNew, lib, "g_ref_string_new")

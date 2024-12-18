@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkDragSurfaceInterface` implementation is private to GDK.
@@ -22,6 +23,13 @@ type DragSurface interface {
 	SetGoPointer(uintptr)
 	Present(WidthVar int, HeightVar int) bool
 }
+
+var xDragSurfaceGLibType func() types.GType
+
+func DragSurfaceGLibType() types.GType {
+	return xDragSurfaceGLibType()
+}
+
 type DragSurfaceBase struct {
 	Ptr uintptr
 }
@@ -48,6 +56,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDragSurfaceGLibType, lib, "gdk_drag_surface_get_type")
 
 	core.PuregoSafeRegister(&XGdkDragSurfacePresent, lib, "gdk_drag_surface_present")
 

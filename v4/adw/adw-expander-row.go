@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -53,6 +54,12 @@ func (x *ExpanderRowClass) GoPointer() uintptr {
 // its arrow.
 type ExpanderRow struct {
 	PreferencesRow
+}
+
+var xExpanderRowGLibType func() types.GType
+
+func ExpanderRowGLibType() types.GType {
+	return xExpanderRowGLibType()
 }
 
 func ExpanderRowNewFromInternalPtr(ptr uintptr) *ExpanderRow {
@@ -491,6 +498,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xExpanderRowGLibType, lib, "adw_expander_row_get_type")
 
 	core.PuregoSafeRegister(&xNewExpanderRow, lib, "adw_expander_row_new")
 

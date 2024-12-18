@@ -22,6 +22,12 @@ func (x *BuilderClass) GoPointer() uintptr {
 // `GtkBuilder`.
 type BuilderError int
 
+var xBuilderErrorGLibType func() types.GType
+
+func BuilderErrorGLibType() types.GType {
+	return xBuilderErrorGLibType()
+}
+
 const (
 
 	// A type-func attribute didn’t name
@@ -251,6 +257,12 @@ const (
 // See the [GtkWidget documentation](class.Widget.html#building-composite-widgets-from-template-xml) for details.
 type Builder struct {
 	gobject.Object
+}
+
+var xBuilderGLibType func() types.GType
+
+func BuilderGLibType() types.GType {
+	return xBuilderGLibType()
 }
 
 func BuilderNewFromInternalPtr(ptr uintptr) *Builder {
@@ -738,6 +750,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBuilderErrorGLibType, lib, "gtk_builder_error_get_type")
+
+	core.PuregoSafeRegister(&xBuilderGLibType, lib, "gtk_builder_get_type")
 
 	core.PuregoSafeRegister(&xNewBuilder, lib, "gtk_builder_new")
 	core.PuregoSafeRegister(&xNewBuilderFromFile, lib, "gtk_builder_new_from_file")

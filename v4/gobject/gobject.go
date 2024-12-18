@@ -416,6 +416,12 @@ type InitiallyUnowned struct {
 	Object
 }
 
+var xInitiallyUnownedGLibType func() types.GType
+
+func InitiallyUnownedGLibType() types.GType {
+	return xInitiallyUnownedGLibType()
+}
+
 func InitiallyUnownedNewFromInternalPtr(ptr uintptr) *InitiallyUnowned {
 	cls := &InitiallyUnowned{}
 	cls.Ptr = ptr
@@ -444,6 +450,12 @@ func (c *InitiallyUnowned) SetGoPointer(ptr uintptr) {
 // by G_ADD_PRIVATE().
 type Object struct {
 	Ptr uintptr
+}
+
+var xObjectGLibType func() types.GType
+
+func ObjectGLibType() types.GType {
+	return xObjectGLibType()
 }
 
 func ObjectNewFromInternalPtr(ptr uintptr) *Object {
@@ -1572,6 +1584,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCclosureNewObject, lib, "g_cclosure_new_object")
 	core.PuregoSafeRegister(&xCclosureNewObjectSwap, lib, "g_cclosure_new_object_swap")
 	core.PuregoSafeRegister(&xClearObject, lib, "g_clear_object")
@@ -1587,6 +1600,10 @@ func init() {
 	core.PuregoSafeRegister(&xWeakRefGet, lib, "g_weak_ref_get")
 	core.PuregoSafeRegister(&xWeakRefInit, lib, "g_weak_ref_init")
 	core.PuregoSafeRegister(&xWeakRefSet, lib, "g_weak_ref_set")
+
+	core.PuregoSafeRegister(&xInitiallyUnownedGLibType, lib, "g_initially_unowned_get_type")
+
+	core.PuregoSafeRegister(&xObjectGLibType, lib, "g_object_get_type")
 
 	core.PuregoSafeRegister(&xNewObject, lib, "g_object_new")
 	core.PuregoSafeRegister(&xNewObjectValist, lib, "g_object_new_valist")

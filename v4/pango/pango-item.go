@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `PangoAnalysis` structure stores information about
@@ -47,6 +48,12 @@ type Item struct {
 	NumChars int
 
 	Analysis uintptr
+}
+
+var xItemGLibType func() types.GType
+
+func ItemGLibType() types.GType {
+	return xItemGLibType()
 }
 
 func (x *Item) GoPointer() uintptr {
@@ -185,9 +192,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xItemize, lib, "pango_itemize")
 	core.PuregoSafeRegister(&xItemizeWithBaseDir, lib, "pango_itemize_with_base_dir")
 	core.PuregoSafeRegister(&xReorderItems, lib, "pango_reorder_items")
+
+	core.PuregoSafeRegister(&xItemGLibType, lib, "pango_item_get_type")
 
 	core.PuregoSafeRegister(&xNewItem, lib, "pango_item_new")
 

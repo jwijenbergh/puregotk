@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ListBaseClass struct {
@@ -17,6 +18,12 @@ func (x *ListBaseClass) GoPointer() uintptr {
 // `GtkListBase` is the abstract base class for GTK's list widgets.
 type ListBase struct {
 	Widget
+}
+
+var xListBaseGLibType func() types.GType
+
+func ListBaseGLibType() types.GType {
+	return xListBaseGLibType()
 }
 
 func ListBaseNewFromInternalPtr(ptr uintptr) *ListBase {

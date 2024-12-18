@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type UnixFDListClass struct {
@@ -37,6 +38,12 @@ func (x *UnixFDListPrivate) GoPointer() uintptr {
 // file when using it.
 type UnixFDList struct {
 	gobject.Object
+}
+
+var xUnixFDListGLibType func() types.GType
+
+func UnixFDListGLibType() types.GType {
+	return xUnixFDListGLibType()
 }
 
 func UnixFDListNewFromInternalPtr(ptr uintptr) *UnixFDList {
@@ -204,6 +211,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixFDListGLibType, lib, "g_unix_fd_list_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixFDList, lib, "g_unix_fd_list_new")
 	core.PuregoSafeRegister(&xNewUnixFDListFromArray, lib, "g_unix_fd_list_new_from_array")

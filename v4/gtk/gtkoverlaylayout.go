@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type OverlayLayoutChildClass struct {
@@ -33,6 +34,12 @@ func (x *OverlayLayoutClass) GoPointer() uintptr {
 // properties get documented.
 type OverlayLayout struct {
 	LayoutManager
+}
+
+var xOverlayLayoutGLibType func() types.GType
+
+func OverlayLayoutGLibType() types.GType {
+	return xOverlayLayoutGLibType()
 }
 
 func OverlayLayoutNewFromInternalPtr(ptr uintptr) *OverlayLayout {
@@ -68,6 +75,12 @@ func (c *OverlayLayout) SetGoPointer(ptr uintptr) {
 // `GtkLayoutChild` subclass for children in a `GtkOverlayLayout`.
 type OverlayLayoutChild struct {
 	LayoutChild
+}
+
+var xOverlayLayoutChildGLibType func() types.GType
+
+func OverlayLayoutChildGLibType() types.GType {
+	return xOverlayLayoutChildGLibType()
 }
 
 func OverlayLayoutChildNewFromInternalPtr(ptr uintptr) *OverlayLayoutChild {
@@ -126,7 +139,11 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xOverlayLayoutGLibType, lib, "gtk_overlay_layout_get_type")
+
 	core.PuregoSafeRegister(&xNewOverlayLayout, lib, "gtk_overlay_layout_new")
+
+	core.PuregoSafeRegister(&xOverlayLayoutChildGLibType, lib, "gtk_overlay_layout_child_get_type")
 
 	core.PuregoSafeRegister(&xOverlayLayoutChildGetClipOverlay, lib, "gtk_overlay_layout_child_get_clip_overlay")
 	core.PuregoSafeRegister(&xOverlayLayoutChildGetMeasure, lib, "gtk_overlay_layout_child_get_measure")

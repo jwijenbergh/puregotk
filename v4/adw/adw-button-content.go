@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -70,6 +71,12 @@ func (x *ButtonContentClass) GoPointer() uintptr {
 // `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
 type ButtonContent struct {
 	gtk.Widget
+}
+
+var xButtonContentGLibType func() types.GType
+
+func ButtonContentGLibType() types.GType {
+	return xButtonContentGLibType()
 }
 
 func ButtonContentNewFromInternalPtr(ptr uintptr) *ButtonContent {
@@ -311,6 +318,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xButtonContentGLibType, lib, "adw_button_content_get_type")
 
 	core.PuregoSafeRegister(&xNewButtonContent, lib, "adw_button_content_new")
 

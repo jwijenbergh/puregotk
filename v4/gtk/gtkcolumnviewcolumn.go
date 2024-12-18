@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ColumnViewColumnClass struct {
@@ -31,6 +32,12 @@ func (x *ColumnViewColumnClass) GoPointer() uintptr {
 // by clicking on the column header.
 type ColumnViewColumn struct {
 	gobject.Object
+}
+
+var xColumnViewColumnGLibType func() types.GType
+
+func ColumnViewColumnGLibType() types.GType {
+	return xColumnViewColumnGLibType()
 }
 
 func ColumnViewColumnNewFromInternalPtr(ptr uintptr) *ColumnViewColumn {
@@ -291,6 +298,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColumnViewColumnGLibType, lib, "gtk_column_view_column_get_type")
 
 	core.PuregoSafeRegister(&xNewColumnViewColumn, lib, "gtk_column_view_column_new")
 

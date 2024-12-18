@@ -130,6 +130,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSliceAlloc, lib, "g_slice_alloc")
 	core.PuregoSafeRegister(&xSliceAlloc0, lib, "g_slice_alloc0")
 	core.PuregoSafeRegister(&xSliceCopy, lib, "g_slice_copy")

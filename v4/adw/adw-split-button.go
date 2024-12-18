@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -62,6 +63,12 @@ func (x *SplitButtonClass) GoPointer() uintptr {
 // `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
 type SplitButton struct {
 	gtk.Widget
+}
+
+var xSplitButtonGLibType func() types.GType
+
+func SplitButtonGLibType() types.GType {
+	return xSplitButtonGLibType()
 }
 
 func SplitButtonNewFromInternalPtr(ptr uintptr) *SplitButton {
@@ -589,6 +596,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSplitButtonGLibType, lib, "adw_split_button_get_type")
 
 	core.PuregoSafeRegister(&xNewSplitButton, lib, "adw_split_button_new")
 

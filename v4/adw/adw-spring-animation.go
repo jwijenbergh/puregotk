@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -50,6 +51,12 @@ func (x *SpringAnimationClass) GoPointer() uintptr {
 // the animation value will bounce and return to its resting position.
 type SpringAnimation struct {
 	Animation
+}
+
+var xSpringAnimationGLibType func() types.GType
+
+func SpringAnimationGLibType() types.GType {
+	return xSpringAnimationGLibType()
 }
 
 func SpringAnimationNewFromInternalPtr(ptr uintptr) *SpringAnimation {
@@ -272,6 +279,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSpringAnimationGLibType, lib, "adw_spring_animation_get_type")
 
 	core.PuregoSafeRegister(&xNewSpringAnimation, lib, "adw_spring_animation_new")
 

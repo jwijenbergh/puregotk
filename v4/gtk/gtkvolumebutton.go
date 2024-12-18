@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkVolumeButton` is a `GtkScaleButton` subclass tailored for
@@ -13,6 +14,12 @@ import (
 // ![An example GtkVolumeButton](volumebutton.png)
 type VolumeButton struct {
 	ScaleButton
+}
+
+var xVolumeButtonGLibType func() types.GType
+
+func VolumeButtonGLibType() types.GType {
+	return xVolumeButtonGLibType()
 }
 
 func VolumeButtonNewFromInternalPtr(ptr uintptr) *VolumeButton {
@@ -212,6 +219,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xVolumeButtonGLibType, lib, "gtk_volume_button_get_type")
 
 	core.PuregoSafeRegister(&xNewVolumeButton, lib, "gtk_volume_button_new")
 

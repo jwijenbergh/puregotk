@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -59,6 +60,12 @@ func (x *FixedClass) GoPointer() uintptr {
 // widget. But you should be aware of the tradeoffs.
 type Fixed struct {
 	Widget
+}
+
+var xFixedGLibType func() types.GType
+
+func FixedGLibType() types.GType {
+	return xFixedGLibType()
 }
 
 func FixedNewFromInternalPtr(ptr uintptr) *Fixed {
@@ -303,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFixedGLibType, lib, "gtk_fixed_get_type")
 
 	core.PuregoSafeRegister(&xNewFixed, lib, "gtk_fixed_new")
 

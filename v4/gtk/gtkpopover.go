@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -104,6 +105,12 @@ func (x *PopoverClass) GoPointer() uintptr {
 // used) and no box-shadow.
 type Popover struct {
 	Widget
+}
+
+var xPopoverGLibType func() types.GType
+
+func PopoverGLibType() types.GType {
+	return xPopoverGLibType()
 }
 
 func PopoverNewFromInternalPtr(ptr uintptr) *Popover {
@@ -614,6 +621,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPopoverGLibType, lib, "gtk_popover_get_type")
 
 	core.PuregoSafeRegister(&xNewPopover, lib, "gtk_popover_new")
 

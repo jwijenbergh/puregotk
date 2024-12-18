@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -21,6 +22,12 @@ func (x *ToastClass) GoPointer() uintptr {
 
 // [class@Toast] behavior when another toast is already displayed.
 type ToastPriority int
+
+var xToastPriorityGLibType func() types.GType
+
+func ToastPriorityGLibType() types.GType {
+	return xToastPriorityGLibType()
+}
 
 const (
 
@@ -165,6 +172,12 @@ const (
 // &lt;/picture&gt;
 type Toast struct {
 	gobject.Object
+}
+
+var xToastGLibType func() types.GType
+
+func ToastGLibType() types.GType {
+	return xToastGLibType()
 }
 
 func ToastNewFromInternalPtr(ptr uintptr) *Toast {
@@ -484,6 +497,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xToastPriorityGLibType, lib, "adw_toast_priority_get_type")
+
+	core.PuregoSafeRegister(&xToastGLibType, lib, "adw_toast_get_type")
 
 	core.PuregoSafeRegister(&xNewToast, lib, "adw_toast_new")
 	core.PuregoSafeRegister(&xNewToastFormat, lib, "adw_toast_new_format")

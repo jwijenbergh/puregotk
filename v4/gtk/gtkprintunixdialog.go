@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -69,6 +70,12 @@ import (
 // dialog and print are added.
 type PrintUnixDialog struct {
 	Dialog
+}
+
+var xPrintUnixDialogGLibType func() types.GType
+
+func PrintUnixDialogGLibType() types.GType {
+	return xPrintUnixDialogGLibType()
 }
 
 func PrintUnixDialogNewFromInternalPtr(ptr uintptr) *PrintUnixDialog {
@@ -550,6 +557,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintUnixDialogGLibType, lib, "gtk_print_unix_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewPrintUnixDialog, lib, "gtk_print_unix_dialog_new")
 

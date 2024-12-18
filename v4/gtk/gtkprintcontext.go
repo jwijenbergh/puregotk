@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -83,6 +84,12 @@ import (
 // ```
 type PrintContext struct {
 	gobject.Object
+}
+
+var xPrintContextGLibType func() types.GType
+
+func PrintContextGLibType() types.GType {
+	return xPrintContextGLibType()
 }
 
 func PrintContextNewFromInternalPtr(ptr uintptr) *PrintContext {
@@ -246,6 +253,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintContextGLibType, lib, "gtk_print_context_get_type")
 
 	core.PuregoSafeRegister(&xPrintContextCreatePangoContext, lib, "gtk_print_context_create_pango_context")
 	core.PuregoSafeRegister(&xPrintContextCreatePangoLayout, lib, "gtk_print_context_create_pango_layout")

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -60,6 +61,12 @@ type FixedLayout struct {
 	LayoutManager
 }
 
+var xFixedLayoutGLibType func() types.GType
+
+func FixedLayoutGLibType() types.GType {
+	return xFixedLayoutGLibType()
+}
+
 func FixedLayoutNewFromInternalPtr(ptr uintptr) *FixedLayout {
 	cls := &FixedLayout{}
 	cls.Ptr = ptr
@@ -93,6 +100,12 @@ func (c *FixedLayout) SetGoPointer(ptr uintptr) {
 // `GtkLayoutChild` subclass for children in a `GtkFixedLayout`.
 type FixedLayoutChild struct {
 	LayoutChild
+}
+
+var xFixedLayoutChildGLibType func() types.GType
+
+func FixedLayoutChildGLibType() types.GType {
+	return xFixedLayoutChildGLibType()
 }
 
 func FixedLayoutChildNewFromInternalPtr(ptr uintptr) *FixedLayoutChild {
@@ -133,7 +146,11 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xFixedLayoutGLibType, lib, "gtk_fixed_layout_get_type")
+
 	core.PuregoSafeRegister(&xNewFixedLayout, lib, "gtk_fixed_layout_new")
+
+	core.PuregoSafeRegister(&xFixedLayoutChildGLibType, lib, "gtk_fixed_layout_child_get_type")
 
 	core.PuregoSafeRegister(&xFixedLayoutChildGetTransform, lib, "gtk_fixed_layout_child_get_transform")
 	core.PuregoSafeRegister(&xFixedLayoutChildSetTransform, lib, "gtk_fixed_layout_child_set_transform")

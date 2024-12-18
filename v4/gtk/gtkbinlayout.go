@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BinLayoutClass struct {
@@ -25,6 +26,12 @@ func (x *BinLayoutClass) GoPointer() uintptr {
 // of each child to determine where they should be positioned.
 type BinLayout struct {
 	LayoutManager
+}
+
+var xBinLayoutGLibType func() types.GType
+
+func BinLayoutGLibType() types.GType {
+	return xBinLayoutGLibType()
 }
 
 func BinLayoutNewFromInternalPtr(ptr uintptr) *BinLayout {
@@ -62,6 +69,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBinLayoutGLibType, lib, "gtk_bin_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewBinLayout, lib, "gtk_bin_layout_new")
 

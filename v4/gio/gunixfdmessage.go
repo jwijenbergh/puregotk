@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type UnixFDMessageClass struct {
@@ -40,6 +41,12 @@ func (x *UnixFDMessagePrivate) GoPointer() uintptr {
 // file when using it.
 type UnixFDMessage struct {
 	SocketControlMessage
+}
+
+var xUnixFDMessageGLibType func() types.GType
+
+func UnixFDMessageGLibType() types.GType {
+	return xUnixFDMessageGLibType()
 }
 
 func UnixFDMessageNewFromInternalPtr(ptr uintptr) *UnixFDMessage {
@@ -159,6 +166,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixFDMessageGLibType, lib, "g_unix_fd_message_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixFDMessage, lib, "g_unix_fd_message_new")
 	core.PuregoSafeRegister(&xNewUnixFDMessageWithFdList, lib, "g_unix_fd_message_new_with_fd_list")

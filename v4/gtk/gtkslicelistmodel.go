@@ -28,6 +28,12 @@ type SliceListModel struct {
 	gobject.Object
 }
 
+var xSliceListModelGLibType func() types.GType
+
+func SliceListModelGLibType() types.GType {
+	return xSliceListModelGLibType()
+}
+
 func SliceListModelNewFromInternalPtr(ptr uintptr) *SliceListModel {
 	cls := &SliceListModel{}
 	cls.Ptr = ptr
@@ -228,6 +234,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSliceListModelGLibType, lib, "gtk_slice_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewSliceListModel, lib, "gtk_slice_list_model_new")
 

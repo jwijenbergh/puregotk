@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The prototype for a task function to be run in a thread via
@@ -543,6 +544,12 @@ func (x *TaskClass) GoPointer() uintptr {
 //     0 to g_input_stream_read_async()).
 type Task struct {
 	gobject.Object
+}
+
+var xTaskGLibType func() types.GType
+
+func TaskGLibType() types.GType {
+	return xTaskGLibType()
 }
 
 func TaskNewFromInternalPtr(ptr uintptr) *Task {
@@ -1175,6 +1182,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTaskGLibType, lib, "g_task_get_type")
 
 	core.PuregoSafeRegister(&xNewTask, lib, "g_task_new")
 

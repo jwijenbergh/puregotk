@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TlsCertificateClass struct {
@@ -34,6 +35,12 @@ func (x *TlsCertificatePrivate) GoPointer() uintptr {
 // #GTlsServerConnection).
 type TlsCertificate struct {
 	gobject.Object
+}
+
+var xTlsCertificateGLibType func() types.GType
+
+func TlsCertificateGLibType() types.GType {
+	return xTlsCertificateGLibType()
 }
 
 func TlsCertificateNewFromInternalPtr(ptr uintptr) *TlsCertificate {
@@ -405,6 +412,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTlsCertificateGLibType, lib, "g_tls_certificate_get_type")
 
 	core.PuregoSafeRegister(&xNewTlsCertificateFromFile, lib, "g_tls_certificate_new_from_file")
 	core.PuregoSafeRegister(&xNewTlsCertificateFromFileWithPassword, lib, "g_tls_certificate_new_from_file_with_password")

@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkColorChooserWidget` widget lets the user select a color.
@@ -34,6 +35,12 @@ import (
 // `GtkColorChooserWidget` has a single CSS node with name colorchooser.
 type ColorChooserWidget struct {
 	Widget
+}
+
+var xColorChooserWidgetGLibType func() types.GType
+
+func ColorChooserWidgetGLibType() types.GType {
+	return xColorChooserWidgetGLibType()
 }
 
 func ColorChooserWidgetNewFromInternalPtr(ptr uintptr) *ColorChooserWidget {
@@ -266,6 +273,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorChooserWidgetGLibType, lib, "gtk_color_chooser_widget_get_type")
 
 	core.PuregoSafeRegister(&xNewColorChooserWidget, lib, "gtk_color_chooser_widget_new")
 

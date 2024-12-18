@@ -40,6 +40,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIoSchedulerCancelAllJobs, lib, "g_io_scheduler_cancel_all_jobs")
 	core.PuregoSafeRegister(&xIoSchedulerPushJob, lib, "g_io_scheduler_push_job")
 

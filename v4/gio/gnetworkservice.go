@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type NetworkServiceClass struct {
@@ -35,6 +36,12 @@ func (x *NetworkServicePrivate) GoPointer() uintptr {
 // interface.
 type NetworkService struct {
 	gobject.Object
+}
+
+var xNetworkServiceGLibType func() types.GType
+
+func NetworkServiceGLibType() types.GType {
+	return xNetworkServiceGLibType()
 }
 
 func NetworkServiceNewFromInternalPtr(ptr uintptr) *NetworkService {
@@ -169,6 +176,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNetworkServiceGLibType, lib, "g_network_service_get_type")
 
 	core.PuregoSafeRegister(&xNewNetworkService, lib, "g_network_service_new")
 

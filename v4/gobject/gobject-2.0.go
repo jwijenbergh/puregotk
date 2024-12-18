@@ -66,6 +66,13 @@ type TypePlugin interface {
 	Unuse()
 	Use()
 }
+
+var xTypePluginGLibType func() types.GType
+
+func TypePluginGLibType() types.GType {
+	return xTypePluginGLibType()
+}
+
 type TypePluginBase struct {
 	Ptr uintptr
 }
@@ -207,6 +214,12 @@ var XGTypePluginUse func(uintptr)
 // #GBinding is available since GObject 2.26
 type Binding struct {
 	Object
+}
+
+var xBindingGLibType func() types.GType
+
+func BindingGLibType() types.GType {
+	return xBindingGLibType()
 }
 
 func BindingNewFromInternalPtr(ptr uintptr) *Binding {
@@ -372,6 +385,12 @@ type BindingGroup struct {
 	Object
 }
 
+var xBindingGroupGLibType func() types.GType
+
+func BindingGroupGLibType() types.GType {
+	return xBindingGroupGLibType()
+}
+
 func BindingGroupNewFromInternalPtr(ptr uintptr) *BindingGroup {
 	cls := &BindingGroup{}
 	cls.Ptr = ptr
@@ -498,6 +517,12 @@ func (c *BindingGroup) SetGoPointer(ptr uintptr) {
 // all of the signals will be transitioned correctly.
 type SignalGroup struct {
 	Object
+}
+
+var xSignalGroupGLibType func() types.GType
+
+func SignalGroupGLibType() types.GType {
+	return xSignalGroupGLibType()
 }
 
 func SignalGroupNewFromInternalPtr(ptr uintptr) *SignalGroup {
@@ -706,6 +731,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xBindingGLibType, lib, "g_binding_get_type")
+
 	core.PuregoSafeRegister(&xBindingDupSource, lib, "g_binding_dup_source")
 	core.PuregoSafeRegister(&xBindingDupTarget, lib, "g_binding_dup_target")
 	core.PuregoSafeRegister(&xBindingGetFlags, lib, "g_binding_get_flags")
@@ -715,6 +742,8 @@ func init() {
 	core.PuregoSafeRegister(&xBindingGetTargetProperty, lib, "g_binding_get_target_property")
 	core.PuregoSafeRegister(&xBindingUnbind, lib, "g_binding_unbind")
 
+	core.PuregoSafeRegister(&xBindingGroupGLibType, lib, "g_binding_group_get_type")
+
 	core.PuregoSafeRegister(&xNewBindingGroup, lib, "g_binding_group_new")
 
 	core.PuregoSafeRegister(&xBindingGroupBind, lib, "g_binding_group_bind")
@@ -722,6 +751,8 @@ func init() {
 	core.PuregoSafeRegister(&xBindingGroupBindWithClosures, lib, "g_binding_group_bind_with_closures")
 	core.PuregoSafeRegister(&xBindingGroupDupSource, lib, "g_binding_group_dup_source")
 	core.PuregoSafeRegister(&xBindingGroupSetSource, lib, "g_binding_group_set_source")
+
+	core.PuregoSafeRegister(&xSignalGroupGLibType, lib, "g_signal_group_get_type")
 
 	core.PuregoSafeRegister(&xNewSignalGroup, lib, "g_signal_group_new")
 
@@ -734,6 +765,8 @@ func init() {
 	core.PuregoSafeRegister(&xSignalGroupDupTarget, lib, "g_signal_group_dup_target")
 	core.PuregoSafeRegister(&xSignalGroupSetTarget, lib, "g_signal_group_set_target")
 	core.PuregoSafeRegister(&xSignalGroupUnblock, lib, "g_signal_group_unblock")
+
+	core.PuregoSafeRegister(&xTypePluginGLibType, lib, "g_type_plugin_get_type")
 
 	core.PuregoSafeRegister(&XGTypePluginCompleteInterfaceInfo, lib, "g_type_plugin_complete_interface_info")
 	core.PuregoSafeRegister(&XGTypePluginCompleteTypeInfo, lib, "g_type_plugin_complete_type_info")

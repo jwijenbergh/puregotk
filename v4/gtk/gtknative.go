@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -42,6 +43,13 @@ type Native interface {
 	Realize()
 	Unrealize()
 }
+
+var xNativeGLibType func() types.GType
+
+func NativeGLibType() types.GType {
+	return xNativeGLibType()
+}
+
 type NativeBase struct {
 	Ptr uintptr
 }
@@ -140,7 +148,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xNativeGetForSurface, lib, "gtk_native_get_for_surface")
+
+	core.PuregoSafeRegister(&xNativeGLibType, lib, "gtk_native_get_type")
 
 	core.PuregoSafeRegister(&XGtkNativeGetRenderer, lib, "gtk_native_get_renderer")
 	core.PuregoSafeRegister(&XGtkNativeGetSurface, lib, "gtk_native_get_surface")

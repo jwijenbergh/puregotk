@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureSwipeClass struct {
@@ -31,6 +32,12 @@ func (x *GestureSwipeClass) GoPointer() uintptr {
 // All velocities are reported in pixels/sec units.
 type GestureSwipe struct {
 	GestureSingle
+}
+
+var xGestureSwipeGLibType func() types.GType
+
+func GestureSwipeGLibType() types.GType {
+	return xGestureSwipeGLibType()
 }
 
 func GestureSwipeNewFromInternalPtr(ptr uintptr) *GestureSwipe {
@@ -103,6 +110,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureSwipeGLibType, lib, "gtk_gesture_swipe_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureSwipe, lib, "gtk_gesture_swipe_new")
 

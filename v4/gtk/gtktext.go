@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -77,6 +78,12 @@ import (
 // to accessibility.
 type Text struct {
 	Widget
+}
+
+var xTextGLibType func() types.GType
+
+func TextGLibType() types.GType {
+	return xTextGLibType()
 }
 
 func TextNewFromInternalPtr(ptr uintptr) *Text {
@@ -1224,6 +1231,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextGLibType, lib, "gtk_text_get_type")
 
 	core.PuregoSafeRegister(&xNewText, lib, "gtk_text_new")
 	core.PuregoSafeRegister(&xNewTextWithBuffer, lib, "gtk_text_new_with_buffer")

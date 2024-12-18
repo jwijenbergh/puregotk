@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SimpleProxyResolverClass struct {
@@ -35,6 +36,12 @@ func (x *SimpleProxyResolverPrivate) GoPointer() uintptr {
 // with g_socket_client_set_proxy_resolver().
 type SimpleProxyResolver struct {
 	gobject.Object
+}
+
+var xSimpleProxyResolverGLibType func() types.GType
+
+func SimpleProxyResolverGLibType() types.GType {
+	return xSimpleProxyResolverGLibType()
 }
 
 func SimpleProxyResolverNewFromInternalPtr(ptr uintptr) *SimpleProxyResolver {
@@ -175,6 +182,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSimpleProxyResolverGLibType, lib, "g_simple_proxy_resolver_get_type")
 
 	core.PuregoSafeRegister(&xSimpleProxyResolverSetDefaultProxy, lib, "g_simple_proxy_resolver_set_default_proxy")
 	core.PuregoSafeRegister(&xSimpleProxyResolverSetIgnoreHosts, lib, "g_simple_proxy_resolver_set_ignore_hosts")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Changes the size of the memory block pointed to by @data to
@@ -37,6 +38,12 @@ func (x *MemoryOutputStreamPrivate) GoPointer() uintptr {
 // #GPollableOutputStream: it always polls as ready.
 type MemoryOutputStream struct {
 	OutputStream
+}
+
+var xMemoryOutputStreamGLibType func() types.GType
+
+func MemoryOutputStreamGLibType() types.GType {
+	return xMemoryOutputStreamGLibType()
 }
 
 func MemoryOutputStreamNewFromInternalPtr(ptr uintptr) *MemoryOutputStream {
@@ -361,6 +368,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMemoryOutputStreamGLibType, lib, "g_memory_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewMemoryOutputStream, lib, "g_memory_output_stream_new")
 	core.PuregoSafeRegister(&xNewMemoryOutputStreamResizable, lib, "g_memory_output_stream_new_resizable")

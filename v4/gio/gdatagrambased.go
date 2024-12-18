@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for socket-like objects which have datagram semantics,
@@ -78,6 +79,13 @@ type DatagramBased interface {
 	ReceiveMessages(MessagesVar []InputMessage, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int
 	SendMessages(MessagesVar []OutputMessage, NumMessagesVar uint, FlagsVar int, TimeoutVar int64, CancellableVar *Cancellable) int
 }
+
+var xDatagramBasedGLibType func() types.GType
+
+func DatagramBasedGLibType() types.GType {
+	return xDatagramBasedGLibType()
+}
+
 type DatagramBasedBase struct {
 	Ptr uintptr
 }
@@ -293,6 +301,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDatagramBasedGLibType, lib, "g_datagram_based_get_type")
 
 	core.PuregoSafeRegister(&XGDatagramBasedConditionCheck, lib, "g_datagram_based_condition_check")
 	core.PuregoSafeRegister(&XGDatagramBasedConditionWait, lib, "g_datagram_based_condition_wait")

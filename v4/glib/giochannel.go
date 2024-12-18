@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of function passed to g_io_add_watch() or
@@ -56,6 +57,12 @@ type IOChannel struct {
 	Reserved1 uintptr
 
 	Reserved2 uintptr
+}
+
+var xIOChannelGLibType func() types.GType
+
+func IOChannelGLibType() types.GType {
+	return xIOChannelGLibType()
 }
 
 func (x *IOChannel) GoPointer() uintptr {
@@ -726,10 +733,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIoAddWatch, lib, "g_io_add_watch")
 	core.PuregoSafeRegister(&xIoAddWatchFull, lib, "g_io_add_watch_full")
 	core.PuregoSafeRegister(&xIoChannelErrorFromErrno, lib, "g_io_channel_error_from_errno")
 	core.PuregoSafeRegister(&xIoCreateWatch, lib, "g_io_create_watch")
+
+	core.PuregoSafeRegister(&xIOChannelGLibType, lib, "g_io_channel_get_type")
 
 	core.PuregoSafeRegister(&xNewIOChannelFile, lib, "g_io_channel_new_file")
 	core.PuregoSafeRegister(&xIOChannelUnixNew, lib, "g_io_channel_unix_new")

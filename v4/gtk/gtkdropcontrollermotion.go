@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DropControllerMotionClass struct {
@@ -28,6 +29,12 @@ func (x *DropControllerMotionClass) GoPointer() uintptr {
 // for that purpose.
 type DropControllerMotion struct {
 	EventController
+}
+
+var xDropControllerMotionGLibType func() types.GType
+
+func DropControllerMotionGLibType() types.GType {
+	return xDropControllerMotionGLibType()
 }
 
 func DropControllerMotionNewFromInternalPtr(ptr uintptr) *DropControllerMotion {
@@ -164,6 +171,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDropControllerMotionGLibType, lib, "gtk_drop_controller_motion_get_type")
 
 	core.PuregoSafeRegister(&xNewDropControllerMotion, lib, "gtk_drop_controller_motion_new")
 

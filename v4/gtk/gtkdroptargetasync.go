@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DropTargetAsyncClass struct {
@@ -54,6 +55,12 @@ func (x *DropTargetAsyncClass) GoPointer() uintptr {
 // state, which can be used by themes to style the widget as a drop target.
 type DropTargetAsync struct {
 	EventController
+}
+
+var xDropTargetAsyncGLibType func() types.GType
+
+func DropTargetAsyncGLibType() types.GType {
+	return xDropTargetAsyncGLibType()
 }
 
 func DropTargetAsyncNewFromInternalPtr(ptr uintptr) *DropTargetAsync {
@@ -274,6 +281,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDropTargetAsyncGLibType, lib, "gtk_drop_target_async_get_type")
 
 	core.PuregoSafeRegister(&xNewDropTargetAsync, lib, "gtk_drop_target_async_new")
 

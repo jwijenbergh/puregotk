@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The interface for pollable input streams.
@@ -39,6 +40,13 @@ type PollableInputStream interface {
 	IsReadable() bool
 	ReadNonblocking(BufferVar []byte, CountVar uint, CancellableVar *Cancellable) int
 }
+
+var xPollableInputStreamGLibType func() types.GType
+
+func PollableInputStreamGLibType() types.GType {
+	return xPollableInputStreamGLibType()
+}
+
 type PollableInputStreamBase struct {
 	Ptr uintptr
 }
@@ -124,6 +132,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPollableInputStreamGLibType, lib, "g_pollable_input_stream_get_type")
 
 	core.PuregoSafeRegister(&XGPollableInputStreamCanPoll, lib, "g_pollable_input_stream_can_poll")
 	core.PuregoSafeRegister(&XGPollableInputStreamCreateSource, lib, "g_pollable_input_stream_create_source")

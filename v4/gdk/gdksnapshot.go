@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SnapshotClass struct {
@@ -19,6 +20,12 @@ func (x *SnapshotClass) GoPointer() uintptr {
 // The subclass of `GdkSnapshot` used by GTK is [class@Gtk.Snapshot].
 type Snapshot struct {
 	gobject.Object
+}
+
+var xSnapshotGLibType func() types.GType
+
+func SnapshotGLibType() types.GType {
+	return xSnapshotGLibType()
 }
 
 func SnapshotNewFromInternalPtr(ptr uintptr) *Snapshot {

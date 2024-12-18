@@ -71,6 +71,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xGetMajorVersion, lib, "adw_get_major_version")
 	core.PuregoSafeRegister(&xGetMicroVersion, lib, "adw_get_micro_version")
 	core.PuregoSafeRegister(&xGetMinorVersion, lib, "adw_get_minor_version")

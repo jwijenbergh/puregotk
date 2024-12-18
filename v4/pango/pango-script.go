@@ -6,11 +6,18 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `PangoScriptIter` is used to iterate through a string
 // and identify ranges in different scripts.
 type ScriptIter struct {
+}
+
+var xScriptIterGLibType func() types.GType
+
+func ScriptIterGLibType() types.GType {
+	return xScriptIterGLibType()
 }
 
 func (x *ScriptIter) GoPointer() uintptr {
@@ -80,6 +87,12 @@ func (x *ScriptIter) Next() bool {
 // [enum@GLib.UnicodeScript] enumeration instead,
 // whose values are interchangeable with `PangoScript`.
 type Script int
+
+var xScriptGLibType func() types.GType
+
+func ScriptGLibType() types.GType {
+	return xScriptGLibType()
+}
 
 const (
 
@@ -384,8 +397,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xScriptGLibType, lib, "pango_script_get_type")
+
 	core.PuregoSafeRegister(&xScriptForUnichar, lib, "pango_script_for_unichar")
 	core.PuregoSafeRegister(&xScriptGetSampleLanguage, lib, "pango_script_get_sample_language")
+
+	core.PuregoSafeRegister(&xScriptIterGLibType, lib, "pango_script_iter_get_type")
 
 	core.PuregoSafeRegister(&xNewScriptIter, lib, "pango_script_iter_new")
 

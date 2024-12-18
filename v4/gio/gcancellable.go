@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CancellableClass struct {
@@ -30,6 +31,12 @@ func (x *CancellablePrivate) GoPointer() uintptr {
 // asynchronous operations.
 type Cancellable struct {
 	gobject.Object
+}
+
+var xCancellableGLibType func() types.GType
+
+func CancellableGLibType() types.GType {
+	return xCancellableGLibType()
 }
 
 func CancellableNewFromInternalPtr(ptr uintptr) *Cancellable {
@@ -385,6 +392,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCancellableGLibType, lib, "g_cancellable_get_type")
 
 	core.PuregoSafeRegister(&xNewCancellable, lib, "g_cancellable_new")
 

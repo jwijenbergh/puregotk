@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A structure capable of holding a vector with two dimensions, x and y.
@@ -14,6 +15,12 @@ import (
 // never be accessed directly.
 type Vec2 struct {
 	Value uintptr
+}
+
+var xVec2GLibType func() types.GType
+
+func Vec2GLibType() types.GType {
+	return xVec2GLibType()
 }
 
 func (x *Vec2) GoPointer() uintptr {
@@ -274,10 +281,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xVec2One, lib, "graphene_vec2_one")
 	core.PuregoSafeRegister(&xVec2XAxis, lib, "graphene_vec2_x_axis")
 	core.PuregoSafeRegister(&xVec2YAxis, lib, "graphene_vec2_y_axis")
 	core.PuregoSafeRegister(&xVec2Zero, lib, "graphene_vec2_zero")
+
+	core.PuregoSafeRegister(&xVec2GLibType, lib, "graphene_vec2_get_type")
 
 	core.PuregoSafeRegister(&xVec2Alloc, lib, "graphene_vec2_alloc")
 

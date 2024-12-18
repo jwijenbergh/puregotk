@@ -42,6 +42,12 @@ type SortListModel struct {
 	gobject.Object
 }
 
+var xSortListModelGLibType func() types.GType
+
+func SortListModelGLibType() types.GType {
+	return xSortListModelGLibType()
+}
+
 func SortListModelNewFromInternalPtr(ptr uintptr) *SortListModel {
 	cls := &SortListModel{}
 	cls.Ptr = ptr
@@ -282,6 +288,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSortListModelGLibType, lib, "gtk_sort_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewSortListModel, lib, "gtk_sort_list_model_new")
 

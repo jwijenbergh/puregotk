@@ -91,6 +91,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xMarkupParserFinish, lib, "pango_markup_parser_finish")
 	core.PuregoSafeRegister(&xMarkupParserNew, lib, "pango_markup_parser_new")
 	core.PuregoSafeRegister(&xParseMarkup, lib, "pango_parse_markup")

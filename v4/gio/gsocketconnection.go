@@ -46,6 +46,12 @@ type SocketConnection struct {
 	IOStream
 }
 
+var xSocketConnectionGLibType func() types.GType
+
+func SocketConnectionGLibType() types.GType {
+	return xSocketConnectionGLibType()
+}
+
 func SocketConnectionNewFromInternalPtr(ptr uintptr) *SocketConnection {
 	cls := &SocketConnection{}
 	cls.Ptr = ptr
@@ -209,6 +215,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketConnectionGLibType, lib, "g_socket_connection_get_type")
 
 	core.PuregoSafeRegister(&xSocketConnectionConnect, lib, "g_socket_connection_connect")
 	core.PuregoSafeRegister(&xSocketConnectionConnectAsync, lib, "g_socket_connection_connect_async")

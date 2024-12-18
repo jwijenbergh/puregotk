@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdkpixbuf"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Describes the image data representation used by a [class@Gtk.Image].
@@ -19,6 +20,12 @@ import (
 // For empty images, you can request any storage type (call any of the "get"
 // functions), but they will all return %NULL values.
 type ImageType int
+
+var xImageTypeGLibType func() types.GType
+
+func ImageTypeGLibType() types.GType {
+	return xImageTypeGLibType()
+}
 
 const (
 
@@ -73,6 +80,12 @@ const (
 // `GtkImage` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
 type Image struct {
 	Widget
+}
+
+var xImageGLibType func() types.GType
+
+func ImageGLibType() types.GType {
+	return xImageGLibType()
 }
 
 func ImageNewFromInternalPtr(ptr uintptr) *Image {
@@ -595,6 +608,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xImageTypeGLibType, lib, "gtk_image_type_get_type")
+
+	core.PuregoSafeRegister(&xImageGLibType, lib, "gtk_image_get_type")
 
 	core.PuregoSafeRegister(&xNewImage, lib, "gtk_image_new")
 	core.PuregoSafeRegister(&xNewImageFromFile, lib, "gtk_image_new_from_file")

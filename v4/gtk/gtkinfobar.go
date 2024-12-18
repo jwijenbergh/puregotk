@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkInfoBar` can be show messages to the user without a dialog.
@@ -90,6 +91,12 @@ import (
 // style class applied.
 type InfoBar struct {
 	Widget
+}
+
+var xInfoBarGLibType func() types.GType
+
+func InfoBarGLibType() types.GType {
+	return xInfoBarGLibType()
 }
 
 func InfoBarNewFromInternalPtr(ptr uintptr) *InfoBar {
@@ -525,6 +532,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInfoBarGLibType, lib, "gtk_info_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewInfoBar, lib, "gtk_info_bar_new")
 	core.PuregoSafeRegister(&xNewInfoBarWithButtons, lib, "gtk_info_bar_new_with_buttons")

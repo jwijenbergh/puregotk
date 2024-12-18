@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The list of virtual functions for the `GtkSelectionModel` interface.
@@ -80,6 +81,13 @@ type SelectionModel interface {
 	UnselectItem(PositionVar uint) bool
 	UnselectRange(PositionVar uint, NItemsVar uint) bool
 }
+
+var xSelectionModelGLibType func() types.GType
+
+func SelectionModelGLibType() types.GType {
+	return xSelectionModelGLibType()
+}
+
 type SelectionModelBase struct {
 	Ptr uintptr
 }
@@ -234,6 +242,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSelectionModelGLibType, lib, "gtk_selection_model_get_type")
 
 	core.PuregoSafeRegister(&XGtkSelectionModelGetSelection, lib, "gtk_selection_model_get_selection")
 	core.PuregoSafeRegister(&XGtkSelectionModelGetSelectionInRange, lib, "gtk_selection_model_get_selection_in_range")

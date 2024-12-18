@@ -6,9 +6,16 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type Context struct {
+}
+
+var xContextGLibType func() types.GType
+
+func ContextGLibType() types.GType {
+	return xContextGLibType()
 }
 
 func (x *Context) GoPointer() uintptr {
@@ -18,11 +25,23 @@ func (x *Context) GoPointer() uintptr {
 type Device struct {
 }
 
+var xDeviceGLibType func() types.GType
+
+func DeviceGLibType() types.GType {
+	return xDeviceGLibType()
+}
+
 func (x *Device) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
 type Surface struct {
+}
+
+var xSurfaceGLibType func() types.GType
+
+func SurfaceGLibType() types.GType {
+	return xSurfaceGLibType()
 }
 
 func (x *Surface) GoPointer() uintptr {
@@ -39,11 +58,23 @@ func (x *Matrix) GoPointer() uintptr {
 type Pattern struct {
 }
 
+var xPatternGLibType func() types.GType
+
+func PatternGLibType() types.GType {
+	return xPatternGLibType()
+}
+
 func (x *Pattern) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
 type Region struct {
+}
+
+var xRegionGLibType func() types.GType
+
+func RegionGLibType() types.GType {
+	return xRegionGLibType()
 }
 
 func (x *Region) GoPointer() uintptr {
@@ -53,6 +84,12 @@ func (x *Region) GoPointer() uintptr {
 type FontOptions struct {
 }
 
+var xFontOptionsGLibType func() types.GType
+
+func FontOptionsGLibType() types.GType {
+	return xFontOptionsGLibType()
+}
+
 func (x *FontOptions) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -60,11 +97,23 @@ func (x *FontOptions) GoPointer() uintptr {
 type FontFace struct {
 }
 
+var xFontFaceGLibType func() types.GType
+
+func FontFaceGLibType() types.GType {
+	return xFontFaceGLibType()
+}
+
 func (x *FontFace) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
 type ScaledFont struct {
+}
+
+var xScaledFontGLibType func() types.GType
+
+func ScaledFontGLibType() types.GType {
+	return xScaledFontGLibType()
 }
 
 func (x *ScaledFont) GoPointer() uintptr {
@@ -88,6 +137,12 @@ type Rectangle struct {
 	Height float64
 }
 
+var xRectangleGLibType func() types.GType
+
+func RectangleGLibType() types.GType {
+	return xRectangleGLibType()
+}
+
 func (x *Rectangle) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -102,11 +157,23 @@ type RectangleInt struct {
 	Height int32
 }
 
+var xRectangleIntGLibType func() types.GType
+
+func RectangleIntGLibType() types.GType {
+	return xRectangleIntGLibType()
+}
+
 func (x *RectangleInt) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
 type Status int
+
+var xStatusGLibType func() types.GType
+
+func StatusGLibType() types.GType {
+	return xStatusGLibType()
+}
 
 const (
 	StatusSuccessValue Status = 0
@@ -190,6 +257,12 @@ const (
 
 type Content int
 
+var xContentGLibType func() types.GType
+
+func ContentGLibType() types.GType {
+	return xContentGLibType()
+}
+
 const (
 	ContentColorValue Content = 4096
 
@@ -199,6 +272,12 @@ const (
 )
 
 type Operator int
+
+var xOperatorGLibType func() types.GType
+
+func OperatorGLibType() types.GType {
+	return xOperatorGLibType()
+}
 
 const (
 	OperatorClearValue Operator = 0
@@ -262,6 +341,12 @@ const (
 
 type Antialias int
 
+var xAntialiasGLibType func() types.GType
+
+func AntialiasGLibType() types.GType {
+	return xAntialiasGLibType()
+}
+
 const (
 	AntialiasDefaultValue Antialias = 0
 
@@ -280,6 +365,12 @@ const (
 
 type FillRule int
 
+var xFillRuleGLibType func() types.GType
+
+func FillRuleGLibType() types.GType {
+	return xFillRuleGLibType()
+}
+
 const (
 	FillRuleWindingValue FillRule = 0
 
@@ -287,6 +378,12 @@ const (
 )
 
 type LineCap int
+
+var xLineCapGLibType func() types.GType
+
+func LineCapGLibType() types.GType {
+	return xLineCapGLibType()
+}
 
 const (
 	LineCapButtValue LineCap = 0
@@ -298,6 +395,12 @@ const (
 
 type LineJoin int
 
+var xLineJoinGLibType func() types.GType
+
+func LineJoinGLibType() types.GType {
+	return xLineJoinGLibType()
+}
+
 const (
 	LineJoinMiterValue LineJoin = 0
 
@@ -308,11 +411,23 @@ const (
 
 type TextClusterFlags int
 
+var xTextClusterFlagsGLibType func() types.GType
+
+func TextClusterFlagsGLibType() types.GType {
+	return xTextClusterFlagsGLibType()
+}
+
 const (
 	TextClusterFlagBackwardValue TextClusterFlags = 1
 )
 
 type FontSlant int
+
+var xFontSlantGLibType func() types.GType
+
+func FontSlantGLibType() types.GType {
+	return xFontSlantGLibType()
+}
 
 const (
 	FontSlantNormalValue FontSlant = 0
@@ -324,6 +439,12 @@ const (
 
 type FontWeight int
 
+var xFontWeightGLibType func() types.GType
+
+func FontWeightGLibType() types.GType {
+	return xFontWeightGLibType()
+}
+
 const (
 	FontWeightNormalValue FontWeight = 0
 
@@ -331,6 +452,12 @@ const (
 )
 
 type SubpixelOrder int
+
+var xSubpixelOrderGLibType func() types.GType
+
+func SubpixelOrderGLibType() types.GType {
+	return xSubpixelOrderGLibType()
+}
 
 const (
 	SubpixelOrderDefaultValue SubpixelOrder = 0
@@ -346,6 +473,12 @@ const (
 
 type HintStyle int
 
+var xHintStyleGLibType func() types.GType
+
+func HintStyleGLibType() types.GType {
+	return xHintStyleGLibType()
+}
+
 const (
 	HintStyleDefaultValue HintStyle = 0
 
@@ -360,6 +493,12 @@ const (
 
 type HintMetrics int
 
+var xHintMetricsGLibType func() types.GType
+
+func HintMetricsGLibType() types.GType {
+	return xHintMetricsGLibType()
+}
+
 const (
 	HintMetricsDefaultValue HintMetrics = 0
 
@@ -369,6 +508,12 @@ const (
 )
 
 type FontType int
+
+var xFontTypeGLibType func() types.GType
+
+func FontTypeGLibType() types.GType {
+	return xFontTypeGLibType()
+}
 
 const (
 	FontTypeToyValue FontType = 0
@@ -384,6 +529,12 @@ const (
 
 type PathDataType int
 
+var xPathDataTypeGLibType func() types.GType
+
+func PathDataTypeGLibType() types.GType {
+	return xPathDataTypeGLibType()
+}
+
 const (
 	PathMoveToValue PathDataType = 0
 
@@ -395,6 +546,12 @@ const (
 )
 
 type DeviceType int
+
+var xDeviceTypeGLibType func() types.GType
+
+func DeviceTypeGLibType() types.GType {
+	return xDeviceTypeGLibType()
+}
 
 const (
 	DeviceTypeDrmValue DeviceType = 0
@@ -417,6 +574,12 @@ const (
 )
 
 type SurfaceType int
+
+var xSurfaceTypeGLibType func() types.GType
+
+func SurfaceTypeGLibType() types.GType {
+	return xSurfaceTypeGLibType()
+}
 
 const (
 	SurfaceTypeImageValue SurfaceType = 0
@@ -472,6 +635,12 @@ const (
 
 type Format int
 
+var xFormatGLibType func() types.GType
+
+func FormatGLibType() types.GType {
+	return xFormatGLibType()
+}
+
 const (
 	FormatInvalidValue Format = -1
 
@@ -490,6 +659,12 @@ const (
 
 type PatternType int
 
+var xPatternTypeGLibType func() types.GType
+
+func PatternTypeGLibType() types.GType {
+	return xPatternTypeGLibType()
+}
+
 const (
 	PatternTypeSolidValue PatternType = 0
 
@@ -506,6 +681,12 @@ const (
 
 type Extend int
 
+var xExtendGLibType func() types.GType
+
+func ExtendGLibType() types.GType {
+	return xExtendGLibType()
+}
+
 const (
 	ExtendNoneValue Extend = 0
 
@@ -517,6 +698,12 @@ const (
 )
 
 type Filter int
+
+var xFilterGLibType func() types.GType
+
+func FilterGLibType() types.GType {
+	return xFilterGLibType()
+}
 
 const (
 	FilterFastValue Filter = 0
@@ -533,6 +720,12 @@ const (
 )
 
 type RegionOverlap int
+
+var xRegionOverlapGLibType func() types.GType
+
+func RegionOverlapGLibType() types.GType {
+	return xRegionOverlapGLibType()
+}
 
 const (
 	RegionOverlapInValue RegionOverlap = 0
@@ -555,6 +748,71 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStatusGLibType, lib, "cairo_gobject_status_get_type")
+
+	core.PuregoSafeRegister(&xContentGLibType, lib, "cairo_gobject_content_get_type")
+
+	core.PuregoSafeRegister(&xOperatorGLibType, lib, "cairo_gobject_operator_get_type")
+
+	core.PuregoSafeRegister(&xAntialiasGLibType, lib, "cairo_gobject_antialias_get_type")
+
+	core.PuregoSafeRegister(&xFillRuleGLibType, lib, "cairo_gobject_fill_rule_get_type")
+
+	core.PuregoSafeRegister(&xLineCapGLibType, lib, "cairo_gobject_line_cap_get_type")
+
+	core.PuregoSafeRegister(&xLineJoinGLibType, lib, "cairo_gobject_line_join_get_type")
+
+	core.PuregoSafeRegister(&xTextClusterFlagsGLibType, lib, "cairo_gobject_text_cluster_flags_get_type")
+
+	core.PuregoSafeRegister(&xFontSlantGLibType, lib, "cairo_gobject_font_slant_get_type")
+
+	core.PuregoSafeRegister(&xFontWeightGLibType, lib, "cairo_gobject_font_weight_get_type")
+
+	core.PuregoSafeRegister(&xSubpixelOrderGLibType, lib, "cairo_gobject_subpixel_order_get_type")
+
+	core.PuregoSafeRegister(&xHintStyleGLibType, lib, "cairo_gobject_hint_style_get_type")
+
+	core.PuregoSafeRegister(&xHintMetricsGLibType, lib, "cairo_gobject_hint_metrics_get_type")
+
+	core.PuregoSafeRegister(&xFontTypeGLibType, lib, "cairo_gobject_font_type_get_type")
+
+	core.PuregoSafeRegister(&xPathDataTypeGLibType, lib, "cairo_gobject_path_data_type_get_type")
+
+	core.PuregoSafeRegister(&xDeviceTypeGLibType, lib, "cairo_gobject_device_type_get_type")
+
+	core.PuregoSafeRegister(&xSurfaceTypeGLibType, lib, "cairo_gobject_surface_type_get_type")
+
+	core.PuregoSafeRegister(&xFormatGLibType, lib, "cairo_gobject_format_get_type")
+
+	core.PuregoSafeRegister(&xPatternTypeGLibType, lib, "cairo_gobject_pattern_type_get_type")
+
+	core.PuregoSafeRegister(&xExtendGLibType, lib, "cairo_gobject_extend_get_type")
+
+	core.PuregoSafeRegister(&xFilterGLibType, lib, "cairo_gobject_filter_get_type")
+
+	core.PuregoSafeRegister(&xRegionOverlapGLibType, lib, "cairo_gobject_region_overlap_get_type")
+
 	core.PuregoSafeRegister(&xImageSurfaceCreate, lib, "cairo_image_surface_create")
+
+	core.PuregoSafeRegister(&xContextGLibType, lib, "cairo_gobject_context_get_type")
+
+	core.PuregoSafeRegister(&xDeviceGLibType, lib, "cairo_gobject_device_get_type")
+
+	core.PuregoSafeRegister(&xSurfaceGLibType, lib, "cairo_gobject_surface_get_type")
+
+	core.PuregoSafeRegister(&xPatternGLibType, lib, "cairo_gobject_pattern_get_type")
+
+	core.PuregoSafeRegister(&xRegionGLibType, lib, "cairo_gobject_region_get_type")
+
+	core.PuregoSafeRegister(&xFontOptionsGLibType, lib, "cairo_gobject_font_options_get_type")
+
+	core.PuregoSafeRegister(&xFontFaceGLibType, lib, "cairo_gobject_font_face_get_type")
+
+	core.PuregoSafeRegister(&xScaledFontGLibType, lib, "cairo_gobject_scaled_font_get_type")
+
+	core.PuregoSafeRegister(&xRectangleGLibType, lib, "cairo_gobject_rectangle_get_type")
+
+	core.PuregoSafeRegister(&xRectangleIntGLibType, lib, "cairo_gobject_rectangle_int_get_type")
 
 }

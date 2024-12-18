@@ -32,6 +32,12 @@ type EnumListItem struct {
 	gobject.Object
 }
 
+var xEnumListItemGLibType func() types.GType
+
+func EnumListItemGLibType() types.GType {
+	return xEnumListItemGLibType()
+}
+
 func EnumListItemNewFromInternalPtr(ptr uintptr) *EnumListItem {
 	cls := &EnumListItem{}
 	cls.Ptr = ptr
@@ -78,6 +84,12 @@ func (c *EnumListItem) SetGoPointer(ptr uintptr) {
 // `AdwEnumListModel` contains objects of type [class@EnumListItem].
 type EnumListModel struct {
 	gobject.Object
+}
+
+var xEnumListModelGLibType func() types.GType
+
+func EnumListModelGLibType() types.GType {
+	return xEnumListModelGLibType()
 }
 
 func EnumListModelNewFromInternalPtr(ptr uintptr) *EnumListModel {
@@ -225,9 +237,13 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xEnumListItemGLibType, lib, "adw_enum_list_item_get_type")
+
 	core.PuregoSafeRegister(&xEnumListItemGetName, lib, "adw_enum_list_item_get_name")
 	core.PuregoSafeRegister(&xEnumListItemGetNick, lib, "adw_enum_list_item_get_nick")
 	core.PuregoSafeRegister(&xEnumListItemGetValue, lib, "adw_enum_list_item_get_value")
+
+	core.PuregoSafeRegister(&xEnumListModelGLibType, lib, "adw_enum_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewEnumListModel, lib, "adw_enum_list_model_new")
 

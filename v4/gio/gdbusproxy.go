@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GDBusProxy.
@@ -74,6 +75,12 @@ func (x *DBusProxyPrivate) GoPointer() uintptr {
 // [gdbus-example-watch-proxy.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-watch-proxy.c)
 type DBusProxy struct {
 	gobject.Object
+}
+
+var xDBusProxyGLibType func() types.GType
+
+func DBusProxyGLibType() types.GType {
+	return xDBusProxyGLibType()
 }
 
 func DBusProxyNewFromInternalPtr(ptr uintptr) *DBusProxy {
@@ -816,6 +823,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDBusProxyGLibType, lib, "g_dbus_proxy_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusProxyFinish, lib, "g_dbus_proxy_new_finish")
 	core.PuregoSafeRegister(&xNewDBusProxyForBusFinish, lib, "g_dbus_proxy_new_for_bus_finish")

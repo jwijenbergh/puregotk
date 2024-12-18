@@ -463,6 +463,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSequenceGet, lib, "g_sequence_get")
 	core.PuregoSafeRegister(&xSequenceInsertBefore, lib, "g_sequence_insert_before")
 	core.PuregoSafeRegister(&xSequenceMove, lib, "g_sequence_move")

@@ -125,6 +125,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBusOwnName, lib, "g_bus_own_name")
 	core.PuregoSafeRegister(&xBusOwnNameOnConnection, lib, "g_bus_own_name_on_connection")
 	core.PuregoSafeRegister(&xBusOwnNameOnConnectionWithClosures, lib, "g_bus_own_name_on_connection_with_closures")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -27,6 +28,12 @@ func (x *ClampScrollableClass) GoPointer() uintptr {
 // [class@Gtk.ListView].
 type ClampScrollable struct {
 	gtk.Widget
+}
+
+var xClampScrollableGLibType func() types.GType
+
+func ClampScrollableGLibType() types.GType {
+	return xClampScrollableGLibType()
 }
 
 func ClampScrollableNewFromInternalPtr(ptr uintptr) *ClampScrollable {
@@ -389,6 +396,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xClampScrollableGLibType, lib, "adw_clamp_scrollable_get_type")
 
 	core.PuregoSafeRegister(&xNewClampScrollable, lib, "adw_clamp_scrollable_new")
 

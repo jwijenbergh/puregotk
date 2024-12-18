@@ -8,10 +8,17 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Used in `GdkDrag` to the reason of a cancelled DND operation.
 type DragCancelReason int
+
+var xDragCancelReasonGLibType func() types.GType
+
+func DragCancelReasonGLibType() types.GType {
+	return xDragCancelReasonGLibType()
+}
 
 const (
 
@@ -48,6 +55,12 @@ func DragActionIsUnique(ActionVar DragAction) bool {
 // "Drag and Drop" section of the GTK documentation for more information.
 type Drag struct {
 	gobject.Object
+}
+
+var xDragGLibType func() types.GType
+
+func DragGLibType() types.GType {
+	return xDragGLibType()
 }
 
 func DragNewFromInternalPtr(ptr uintptr) *Drag {
@@ -309,7 +322,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDragCancelReasonGLibType, lib, "gdk_drag_cancel_reason_get_type")
+
 	core.PuregoSafeRegister(&xDragActionIsUnique, lib, "gdk_drag_action_is_unique")
+
+	core.PuregoSafeRegister(&xDragGLibType, lib, "gdk_drag_get_type")
 
 	core.PuregoSafeRegister(&xDragDropDone, lib, "gdk_drag_drop_done")
 	core.PuregoSafeRegister(&xDragGetActions, lib, "gdk_drag_get_actions")

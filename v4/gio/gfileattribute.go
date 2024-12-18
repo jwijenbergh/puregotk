@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Information about a specific attribute.
@@ -27,6 +28,12 @@ type FileAttributeInfoList struct {
 	Infos *FileAttributeInfo
 
 	NInfos int
+}
+
+var xFileAttributeInfoListGLibType func() types.GType
+
+func FileAttributeInfoListGLibType() types.GType {
+	return xFileAttributeInfoListGLibType()
 }
 
 func (x *FileAttributeInfoList) GoPointer() uintptr {
@@ -94,6 +101,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileAttributeInfoListGLibType, lib, "g_file_attribute_info_list_get_type")
 
 	core.PuregoSafeRegister(&xNewFileAttributeInfoList, lib, "g_file_attribute_info_list_new")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ShortcutClass struct {
@@ -35,6 +36,12 @@ func (x *ShortcutClass) GoPointer() uintptr {
 // for display purposes or by allowing shortcuts to be configured.
 type Shortcut struct {
 	gobject.Object
+}
+
+var xShortcutGLibType func() types.GType
+
+func ShortcutGLibType() types.GType {
+	return xShortcutGLibType()
 }
 
 func ShortcutNewFromInternalPtr(ptr uintptr) *Shortcut {
@@ -160,6 +167,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xShortcutGLibType, lib, "gtk_shortcut_get_type")
 
 	core.PuregoSafeRegister(&xNewShortcut, lib, "gtk_shortcut_new")
 	core.PuregoSafeRegister(&xNewShortcutWithArguments, lib, "gtk_shortcut_new_with_arguments")

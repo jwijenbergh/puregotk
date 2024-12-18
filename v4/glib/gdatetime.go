@@ -6,10 +6,17 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An opaque structure that represents a date and time, including a time zone.
 type DateTime struct {
+}
+
+var xDateTimeGLibType func() types.GType
+
+func DateTimeGLibType() types.GType {
+	return xDateTimeGLibType()
 }
 
 func (x *DateTime) GoPointer() uintptr {
@@ -836,6 +843,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDateTimeGLibType, lib, "g_date_time_get_type")
 
 	core.PuregoSafeRegister(&xNewDateTime, lib, "g_date_time_new")
 	core.PuregoSafeRegister(&xNewDateTimeFromIso8601, lib, "g_date_time_new_from_iso8601")

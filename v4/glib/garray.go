@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Contains the public fields of a GArray.
@@ -13,6 +14,12 @@ type Array struct {
 	Data uintptr
 
 	Len uint
+}
+
+var xArrayGLibType func() types.GType
+
+func ArrayGLibType() types.GType {
+	return xArrayGLibType()
 }
 
 func (x *Array) GoPointer() uintptr {
@@ -24,6 +31,12 @@ type ByteArray struct {
 	Data byte
 
 	Len uint
+}
+
+var xByteArrayGLibType func() types.GType
+
+func ByteArrayGLibType() types.GType {
+	return xByteArrayGLibType()
 }
 
 func (x *ByteArray) GoPointer() uintptr {
@@ -55,6 +68,12 @@ func (x *ByteArray) GoPointer() uintptr {
 // mutable array for a #GBytes sequence. To create an immutable #GBytes from
 // a mutable #GByteArray, use the g_byte_array_free_to_bytes() function.
 type Bytes struct {
+}
+
+var xBytesGLibType func() types.GType
+
+func BytesGLibType() types.GType {
+	return xBytesGLibType()
 }
 
 func (x *Bytes) GoPointer() uintptr {
@@ -296,6 +315,12 @@ type PtrArray struct {
 	Len uint
 }
 
+var xPtrArrayGLibType func() types.GType
+
+func PtrArrayGLibType() types.GType {
+	return xPtrArrayGLibType()
+}
+
 func (x *PtrArray) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -411,6 +436,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xByteArrayFree, lib, "g_byte_array_free")
 	core.PuregoSafeRegister(&xByteArrayFreeToBytes, lib, "g_byte_array_free_to_bytes")
 	core.PuregoSafeRegister(&xByteArrayNew, lib, "g_byte_array_new")
@@ -419,6 +445,12 @@ func init() {
 	core.PuregoSafeRegister(&xByteArrayUnref, lib, "g_byte_array_unref")
 	core.PuregoSafeRegister(&xPtrArrayFind, lib, "g_ptr_array_find")
 	core.PuregoSafeRegister(&xPtrArrayFindWithEqualFunc, lib, "g_ptr_array_find_with_equal_func")
+
+	core.PuregoSafeRegister(&xArrayGLibType, lib, "g_array_get_type")
+
+	core.PuregoSafeRegister(&xByteArrayGLibType, lib, "g_byte_array_get_type")
+
+	core.PuregoSafeRegister(&xBytesGLibType, lib, "g_bytes_get_type")
 
 	core.PuregoSafeRegister(&xNewBytes, lib, "g_bytes_new")
 	core.PuregoSafeRegister(&xNewBytesStatic, lib, "g_bytes_new_static")
@@ -436,5 +468,7 @@ func init() {
 	core.PuregoSafeRegister(&xBytesUnref, lib, "g_bytes_unref")
 	core.PuregoSafeRegister(&xBytesUnrefToArray, lib, "g_bytes_unref_to_array")
 	core.PuregoSafeRegister(&xBytesUnrefToData, lib, "g_bytes_unref_to_data")
+
+	core.PuregoSafeRegister(&xPtrArrayGLibType, lib, "g_ptr_array_get_type")
 
 }

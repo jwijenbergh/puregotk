@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Type of a function that can duplicate user data for an attribute.
@@ -96,6 +97,12 @@ func (x *AttrInt) GoPointer() uintptr {
 // style change, the range of the current style segment and the attributes
 // currently in effect can be queried.
 type AttrIterator struct {
+}
+
+var xAttrIteratorGLibType func() types.GType
+
+func AttrIteratorGLibType() types.GType {
+	return xAttrIteratorGLibType()
 }
 
 func (x *AttrIterator) GoPointer() uintptr {
@@ -201,6 +208,12 @@ func (x *AttrLanguage) GoPointer() uintptr {
 // suitable for storing attributes for large amounts of text. In general, you
 // should not use a single `PangoAttrList` for more than one paragraph of text.
 type AttrList struct {
+}
+
+var xAttrListGLibType func() types.GType
+
+func AttrListGLibType() types.GType {
+	return xAttrListGLibType()
 }
 
 func (x *AttrList) GoPointer() uintptr {
@@ -458,6 +471,12 @@ type Attribute struct {
 	EndIndex uint
 }
 
+var xAttributeGLibType func() types.GType
+
+func AttributeGLibType() types.GType {
+	return xAttributeGLibType()
+}
+
 func (x *Attribute) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -617,6 +636,12 @@ const (
 // not visible in the output.
 type ShowFlags int
 
+var xShowFlagsGLibType func() types.GType
+
+func ShowFlagsGLibType() types.GType {
+	return xShowFlagsGLibType()
+}
+
 const (
 
 	// No special treatment for invisible characters
@@ -637,6 +662,12 @@ const (
 // values are given below. The type of structure used to store the attribute is
 // listed in parentheses after the description.
 type AttrType int
+
+var xAttrTypeGLibType func() types.GType
+
+func AttrTypeGLibType() types.GType {
+	return xAttrTypeGLibType()
+}
 
 const (
 
@@ -721,6 +752,12 @@ const (
 // An enumeration that affects baseline shifts between runs.
 type BaselineShift int
 
+var xBaselineShiftGLibType func() types.GType
+
+func BaselineShiftGLibType() types.GType {
+	return xBaselineShiftGLibType()
+}
+
 const (
 
 	// Leave the baseline unchanged
@@ -736,6 +773,12 @@ const (
 // An enumeration that affects font sizes for superscript
 // and subscript positioning and for (emulated) Small Caps.
 type FontScale int
+
+var xFontScaleGLibType func() types.GType
+
+func FontScaleGLibType() types.GType {
+	return xFontScaleGLibType()
+}
 
 const (
 
@@ -753,6 +796,12 @@ const (
 // should be overlined, and if so, the type of line.
 type Overline int
 
+var xOverlineGLibType func() types.GType
+
+func OverlineGLibType() types.GType {
+	return xOverlineGLibType()
+}
+
 const (
 
 	// no overline should be drawn
@@ -764,6 +813,12 @@ const (
 
 // An enumeration that affects how Pango treats characters during shaping.
 type TextTransform int
+
+var xTextTransformGLibType func() types.GType
+
+func TextTransformGLibType() types.GType {
+	return xTextTransformGLibType()
+}
 
 const (
 
@@ -781,6 +836,12 @@ const (
 // The `PangoUnderline` enumeration is used to specify whether text
 // should be underlined, and if so, the type of underlining.
 type Underline int
+
+var xUnderlineGLibType func() types.GType
+
+func UnderlineGLibType() types.GType {
+	return xUnderlineGLibType()
+}
 
 const (
 
@@ -1278,6 +1339,21 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xShowFlagsGLibType, lib, "pango_show_flags_get_type")
+
+	core.PuregoSafeRegister(&xAttrTypeGLibType, lib, "pango_attr_type_get_type")
+
+	core.PuregoSafeRegister(&xBaselineShiftGLibType, lib, "pango_baseline_shift_get_type")
+
+	core.PuregoSafeRegister(&xFontScaleGLibType, lib, "pango_font_scale_get_type")
+
+	core.PuregoSafeRegister(&xOverlineGLibType, lib, "pango_overline_get_type")
+
+	core.PuregoSafeRegister(&xTextTransformGLibType, lib, "pango_text_transform_get_type")
+
+	core.PuregoSafeRegister(&xUnderlineGLibType, lib, "pango_underline_get_type")
+
 	core.PuregoSafeRegister(&xAttrAllowBreaksNew, lib, "pango_attr_allow_breaks_new")
 	core.PuregoSafeRegister(&xAttrBackgroundAlphaNew, lib, "pango_attr_background_alpha_new")
 	core.PuregoSafeRegister(&xAttrBackgroundNew, lib, "pango_attr_background_new")
@@ -1320,6 +1396,8 @@ func init() {
 	core.PuregoSafeRegister(&xAttrWeightNew, lib, "pango_attr_weight_new")
 	core.PuregoSafeRegister(&xAttrWordNew, lib, "pango_attr_word_new")
 
+	core.PuregoSafeRegister(&xAttrIteratorGLibType, lib, "pango_attr_iterator_get_type")
+
 	core.PuregoSafeRegister(&xAttrIteratorCopy, lib, "pango_attr_iterator_copy")
 	core.PuregoSafeRegister(&xAttrIteratorDestroy, lib, "pango_attr_iterator_destroy")
 	core.PuregoSafeRegister(&xAttrIteratorGet, lib, "pango_attr_iterator_get")
@@ -1327,6 +1405,8 @@ func init() {
 	core.PuregoSafeRegister(&xAttrIteratorGetFont, lib, "pango_attr_iterator_get_font")
 	core.PuregoSafeRegister(&xAttrIteratorNext, lib, "pango_attr_iterator_next")
 	core.PuregoSafeRegister(&xAttrIteratorRange, lib, "pango_attr_iterator_range")
+
+	core.PuregoSafeRegister(&xAttrListGLibType, lib, "pango_attr_list_get_type")
 
 	core.PuregoSafeRegister(&xNewAttrList, lib, "pango_attr_list_new")
 
@@ -1343,6 +1423,8 @@ func init() {
 	core.PuregoSafeRegister(&xAttrListToString, lib, "pango_attr_list_to_string")
 	core.PuregoSafeRegister(&xAttrListUnref, lib, "pango_attr_list_unref")
 	core.PuregoSafeRegister(&xAttrListUpdate, lib, "pango_attr_list_update")
+
+	core.PuregoSafeRegister(&xAttributeGLibType, lib, "pango_attribute_get_type")
 
 	core.PuregoSafeRegister(&xAttributeAsColor, lib, "pango_attribute_as_color")
 	core.PuregoSafeRegister(&xAttributeAsFloat, lib, "pango_attribute_as_float")

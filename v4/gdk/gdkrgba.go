@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -25,6 +26,12 @@ type RGBA struct {
 	Blue float32
 
 	Alpha float32
+}
+
+var xRGBAGLibType func() types.GType
+
+func RGBAGLibType() types.GType {
+	return xRGBAGLibType()
 }
 
 func (x *RGBA) GoPointer() uintptr {
@@ -145,6 +152,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRGBAGLibType, lib, "gdk_rgba_get_type")
 
 	core.PuregoSafeRegister(&xRGBACopy, lib, "gdk_rgba_copy")
 	core.PuregoSafeRegister(&xRGBAEqual, lib, "gdk_rgba_equal")

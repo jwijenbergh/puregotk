@@ -5,11 +5,18 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Indicates the specific type of tool being used being a tablet. Such as an
 // airbrush, pencil, etc.
 type DeviceToolType int
+
+var xDeviceToolTypeGLibType func() types.GType
+
+func DeviceToolTypeGLibType() types.GType {
+	return xDeviceToolTypeGLibType()
+}
 
 const (
 
@@ -34,6 +41,12 @@ const (
 // A physical tool associated to a `GdkDevice`.
 type DeviceTool struct {
 	gobject.Object
+}
+
+var xDeviceToolGLibType func() types.GType
+
+func DeviceToolGLibType() types.GType {
+	return xDeviceToolGLibType()
 }
 
 func DeviceToolNewFromInternalPtr(ptr uintptr) *DeviceTool {
@@ -104,6 +117,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDeviceToolTypeGLibType, lib, "gdk_device_tool_type_get_type")
+
+	core.PuregoSafeRegister(&xDeviceToolGLibType, lib, "gdk_device_tool_get_type")
 
 	core.PuregoSafeRegister(&xDeviceToolGetAxes, lib, "gdk_device_tool_get_axes")
 	core.PuregoSafeRegister(&xDeviceToolGetHardwareId, lib, "gdk_device_tool_get_hardware_id")

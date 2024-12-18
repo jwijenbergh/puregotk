@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type for the function that is used to convert from #GSettings to
@@ -52,6 +53,12 @@ func (x *SettingsPrivate) GoPointer() uintptr {
 // direction the binding works. The default is to synchronize in both
 // directions.
 type SettingsBindFlags int
+
+var xSettingsBindFlagsGLibType func() types.GType
+
+func SettingsBindFlagsGLibType() types.GType {
+	return xSettingsBindFlagsGLibType()
+}
 
 const (
 
@@ -372,6 +379,12 @@ const (
 // `EXTRA_DIST`.
 type Settings struct {
 	gobject.Object
+}
+
+var xSettingsGLibType func() types.GType
+
+func SettingsGLibType() types.GType {
+	return xSettingsGLibType()
 }
 
 func SettingsNewFromInternalPtr(ptr uintptr) *Settings {
@@ -1405,6 +1418,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSettingsBindFlagsGLibType, lib, "g_settings_bind_flags_get_type")
+
+	core.PuregoSafeRegister(&xSettingsGLibType, lib, "g_settings_get_type")
 
 	core.PuregoSafeRegister(&xNewSettings, lib, "g_settings_new")
 	core.PuregoSafeRegister(&xNewSettingsFull, lib, "g_settings_new_full")

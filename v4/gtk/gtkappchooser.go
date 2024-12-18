@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkAppChooser` is an interface for widgets which allow the user to
@@ -33,6 +34,13 @@ type AppChooser interface {
 	GetContentType() string
 	Refresh()
 }
+
+var xAppChooserGLibType func() types.GType
+
+func AppChooserGLibType() types.GType {
+	return xAppChooserGLibType()
+}
+
 type AppChooserBase struct {
 	Ptr uintptr
 }
@@ -83,6 +91,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAppChooserGLibType, lib, "gtk_app_chooser_get_type")
 
 	core.PuregoSafeRegister(&XGtkAppChooserGetAppInfo, lib, "gtk_app_chooser_get_app_info")
 	core.PuregoSafeRegister(&XGtkAppChooserGetContentType, lib, "gtk_app_chooser_get_content_type")

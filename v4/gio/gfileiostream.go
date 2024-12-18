@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileIOStreamClass struct {
@@ -46,6 +47,12 @@ func (x *FileIOStreamPrivate) GoPointer() uintptr {
 // on the output stream.
 type FileIOStream struct {
 	IOStream
+}
+
+var xFileIOStreamGLibType func() types.GType
+
+func FileIOStreamGLibType() types.GType {
+	return xFileIOStreamGLibType()
 }
 
 func FileIOStreamNewFromInternalPtr(ptr uintptr) *FileIOStream {
@@ -218,6 +225,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileIOStreamGLibType, lib, "g_file_io_stream_get_type")
 
 	core.PuregoSafeRegister(&xFileIOStreamGetEtag, lib, "g_file_io_stream_get_etag")
 	core.PuregoSafeRegister(&xFileIOStreamQueryInfo, lib, "g_file_io_stream_query_info")

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `PangoMatrix` specifies a transformation between user-space
@@ -29,6 +30,12 @@ type Matrix struct {
 	X0 float64
 
 	Y0 float64
+}
+
+var xMatrixGLibType func() types.GType
+
+func MatrixGLibType() types.GType {
+	return xMatrixGLibType()
 }
 
 func (x *Matrix) GoPointer() uintptr {
@@ -207,6 +214,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMatrixGLibType, lib, "pango_matrix_get_type")
 
 	core.PuregoSafeRegister(&xMatrixConcat, lib, "pango_matrix_concat")
 	core.PuregoSafeRegister(&xMatrixCopy, lib, "pango_matrix_copy")

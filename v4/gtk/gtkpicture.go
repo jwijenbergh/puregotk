@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdkpixbuf"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PictureClass struct {
@@ -68,6 +69,12 @@ func (x *PictureClass) GoPointer() uintptr {
 // `GtkPicture` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
 type Picture struct {
 	Widget
+}
+
+var xPictureGLibType func() types.GType
+
+func PictureGLibType() types.GType {
+	return xPictureGLibType()
 }
 
 func PictureNewFromInternalPtr(ptr uintptr) *Picture {
@@ -552,6 +559,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPictureGLibType, lib, "gtk_picture_get_type")
 
 	core.PuregoSafeRegister(&xNewPicture, lib, "gtk_picture_new")
 	core.PuregoSafeRegister(&xNewPictureForFile, lib, "gtk_picture_new_for_file")

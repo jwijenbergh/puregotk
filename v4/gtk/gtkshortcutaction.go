@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Prototype for shortcuts based on user callbacks.
@@ -67,6 +68,12 @@ func (x *SignalActionClass) GoPointer() uintptr {
 // More flags may be added in the future.
 type ShortcutActionFlags int
 
+var xShortcutActionFlagsGLibType func() types.GType
+
+func ShortcutActionFlagsGLibType() types.GType {
+	return xShortcutActionFlagsGLibType()
+}
+
 const (
 
 	// The action is the only
@@ -78,6 +85,12 @@ const (
 // A `GtkShortcutAction` that calls gtk_widget_activate().
 type ActivateAction struct {
 	ShortcutAction
+}
+
+var xActivateActionGLibType func() types.GType
+
+func ActivateActionGLibType() types.GType {
+	return xActivateActionGLibType()
 }
 
 func ActivateActionNewFromInternalPtr(ptr uintptr) *ActivateAction {
@@ -119,6 +132,12 @@ type CallbackAction struct {
 	ShortcutAction
 }
 
+var xCallbackActionGLibType func() types.GType
+
+func CallbackActionGLibType() types.GType {
+	return xCallbackActionGLibType()
+}
+
 func CallbackActionNewFromInternalPtr(ptr uintptr) *CallbackAction {
 	cls := &CallbackAction{}
 	cls.Ptr = ptr
@@ -153,6 +172,12 @@ func (c *CallbackAction) SetGoPointer(ptr uintptr) {
 // A `GtkShortcutAction` that calls gtk_widget_mnemonic_activate().
 type MnemonicAction struct {
 	ShortcutAction
+}
+
+var xMnemonicActionGLibType func() types.GType
+
+func MnemonicActionGLibType() types.GType {
+	return xMnemonicActionGLibType()
 }
 
 func MnemonicActionNewFromInternalPtr(ptr uintptr) *MnemonicAction {
@@ -192,6 +217,12 @@ func MnemonicActionGet() *MnemonicAction {
 // A `GtkShortcutAction` that activates an action by name.
 type NamedAction struct {
 	ShortcutAction
+}
+
+var xNamedActionGLibType func() types.GType
+
+func NamedActionGLibType() types.GType {
+	return xNamedActionGLibType()
 }
 
 func NamedActionNewFromInternalPtr(ptr uintptr) *NamedAction {
@@ -242,6 +273,12 @@ func (c *NamedAction) SetGoPointer(ptr uintptr) {
 // A `GtkShortcutAction` that does nothing.
 type NothingAction struct {
 	ShortcutAction
+}
+
+var xNothingActionGLibType func() types.GType
+
+func NothingActionGLibType() types.GType {
+	return xNothingActionGLibType()
 }
 
 func NothingActionNewFromInternalPtr(ptr uintptr) *NothingAction {
@@ -307,6 +344,12 @@ func NothingActionGet() *NothingAction {
 //   - [class@Gtk.NothingAction]: a shortcut action that does nothing
 type ShortcutAction struct {
 	gobject.Object
+}
+
+var xShortcutActionGLibType func() types.GType
+
+func ShortcutActionGLibType() types.GType {
+	return xShortcutActionGLibType()
 }
 
 func ShortcutActionNewFromInternalPtr(ptr uintptr) *ShortcutAction {
@@ -399,6 +442,12 @@ type SignalAction struct {
 	ShortcutAction
 }
 
+var xSignalActionGLibType func() types.GType
+
+func SignalActionGLibType() types.GType {
+	return xSignalActionGLibType()
+}
+
 func SignalActionNewFromInternalPtr(ptr uintptr) *SignalAction {
 	cls := &SignalAction{}
 	cls.Ptr = ptr
@@ -447,23 +496,39 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xShortcutActionFlagsGLibType, lib, "gtk_shortcut_action_flags_get_type")
+
+	core.PuregoSafeRegister(&xActivateActionGLibType, lib, "gtk_activate_action_get_type")
+
 	core.PuregoSafeRegister(&xActivateActionGet, lib, "gtk_activate_action_get")
+
+	core.PuregoSafeRegister(&xCallbackActionGLibType, lib, "gtk_callback_action_get_type")
 
 	core.PuregoSafeRegister(&xNewCallbackAction, lib, "gtk_callback_action_new")
 
+	core.PuregoSafeRegister(&xMnemonicActionGLibType, lib, "gtk_mnemonic_action_get_type")
+
 	core.PuregoSafeRegister(&xMnemonicActionGet, lib, "gtk_mnemonic_action_get")
+
+	core.PuregoSafeRegister(&xNamedActionGLibType, lib, "gtk_named_action_get_type")
 
 	core.PuregoSafeRegister(&xNewNamedAction, lib, "gtk_named_action_new")
 
 	core.PuregoSafeRegister(&xNamedActionGetActionName, lib, "gtk_named_action_get_action_name")
 
+	core.PuregoSafeRegister(&xNothingActionGLibType, lib, "gtk_nothing_action_get_type")
+
 	core.PuregoSafeRegister(&xNothingActionGet, lib, "gtk_nothing_action_get")
+
+	core.PuregoSafeRegister(&xShortcutActionGLibType, lib, "gtk_shortcut_action_get_type")
 
 	core.PuregoSafeRegister(&xShortcutActionParseString, lib, "gtk_shortcut_action_parse_string")
 
 	core.PuregoSafeRegister(&xShortcutActionActivate, lib, "gtk_shortcut_action_activate")
 	core.PuregoSafeRegister(&xShortcutActionPrint, lib, "gtk_shortcut_action_print")
 	core.PuregoSafeRegister(&xShortcutActionToString, lib, "gtk_shortcut_action_to_string")
+
+	core.PuregoSafeRegister(&xSignalActionGLibType, lib, "gtk_signal_action_get_type")
 
 	core.PuregoSafeRegister(&xNewSignalAction, lib, "gtk_signal_action_new")
 

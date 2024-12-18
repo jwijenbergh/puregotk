@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ToplevelInterface struct {
@@ -44,6 +45,13 @@ type Toplevel interface {
 	SupportsEdgeConstraints() bool
 	TitlebarGesture(GestureVar TitlebarGesture) bool
 }
+
+var xToplevelGLibType func() types.GType
+
+func ToplevelGLibType() types.GType {
+	return xToplevelGLibType()
+}
+
 type ToplevelBase struct {
 	Ptr uintptr
 }
@@ -306,6 +314,12 @@ var XGdkToplevelTitlebarGesture func(uintptr, TitlebarGesture) bool
 // being set.
 type ToplevelState int
 
+var xToplevelStateGLibType func() types.GType
+
+func ToplevelStateGLibType() types.GType {
+	return xToplevelStateGLibType()
+}
+
 const (
 
 	// the surface is minimized
@@ -345,6 +359,12 @@ const (
 // Indicates which monitor a surface should span over when in fullscreen mode.
 type FullscreenMode int
 
+var xFullscreenModeGLibType func() types.GType
+
+func FullscreenModeGLibType() types.GType {
+	return xFullscreenModeGLibType()
+}
+
 const (
 
 	// Fullscreen on current monitor only.
@@ -355,6 +375,12 @@ const (
 
 // Determines a surface edge or corner.
 type SurfaceEdge int
+
+var xSurfaceEdgeGLibType func() types.GType
+
+func SurfaceEdgeGLibType() types.GType {
+	return xSurfaceEdgeGLibType()
+}
 
 const (
 
@@ -381,6 +407,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xToplevelStateGLibType, lib, "gdk_toplevel_state_get_type")
+
+	core.PuregoSafeRegister(&xFullscreenModeGLibType, lib, "gdk_fullscreen_mode_get_type")
+
+	core.PuregoSafeRegister(&xSurfaceEdgeGLibType, lib, "gdk_surface_edge_get_type")
+
+	core.PuregoSafeRegister(&xToplevelGLibType, lib, "gdk_toplevel_get_type")
 
 	core.PuregoSafeRegister(&XGdkToplevelBeginMove, lib, "gdk_toplevel_begin_move")
 	core.PuregoSafeRegister(&XGdkToplevelBeginResize, lib, "gdk_toplevel_begin_resize")

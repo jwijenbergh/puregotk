@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MountOperationClass struct {
@@ -48,6 +49,12 @@ func (x *MountOperationPrivate) GoPointer() uintptr {
 // improvements and auditing fixes.
 type MountOperation struct {
 	gobject.Object
+}
+
+var xMountOperationGLibType func() types.GType
+
+func MountOperationGLibType() types.GType {
+	return xMountOperationGLibType()
 }
 
 func MountOperationNewFromInternalPtr(ptr uintptr) *MountOperation {
@@ -418,6 +425,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMountOperationGLibType, lib, "g_mount_operation_get_type")
 
 	core.PuregoSafeRegister(&xNewMountOperation, lib, "g_mount_operation_new")
 

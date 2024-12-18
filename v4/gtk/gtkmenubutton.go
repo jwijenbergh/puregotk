@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // User-provided callback function to create a popup for a
@@ -85,6 +86,12 @@ type MenuButtonCreatePopupFunc func(uintptr, uintptr)
 // `GtkMenuButton` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
 type MenuButton struct {
 	Widget
+}
+
+var xMenuButtonGLibType func() types.GType
+
+func MenuButtonGLibType() types.GType {
+	return xMenuButtonGLibType()
 }
 
 func MenuButtonNewFromInternalPtr(ptr uintptr) *MenuButton {
@@ -585,6 +592,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMenuButtonGLibType, lib, "gtk_menu_button_get_type")
 
 	core.PuregoSafeRegister(&xNewMenuButton, lib, "gtk_menu_button_new")
 

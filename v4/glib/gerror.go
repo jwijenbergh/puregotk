@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of function which is called when an extended
@@ -43,6 +44,12 @@ type Error struct {
 	Code int32
 
 	Message uintptr
+}
+
+var xErrorGLibType func() types.GType
+
+func ErrorGLibType() types.GType {
+	return xErrorGLibType()
 }
 
 func (x *Error) GoPointer() uintptr {
@@ -211,6 +218,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xClearError, lib, "g_clear_error")
 	core.PuregoSafeRegister(&xPrefixError, lib, "g_prefix_error")
 	core.PuregoSafeRegister(&xPrefixErrorLiteral, lib, "g_prefix_error_literal")
@@ -218,6 +226,8 @@ func init() {
 	core.PuregoSafeRegister(&xPropagatePrefixedError, lib, "g_propagate_prefixed_error")
 	core.PuregoSafeRegister(&xSetError, lib, "g_set_error")
 	core.PuregoSafeRegister(&xSetErrorLiteral, lib, "g_set_error_literal")
+
+	core.PuregoSafeRegister(&xErrorGLibType, lib, "g_error_get_type")
 
 	core.PuregoSafeRegister(&xNewError, lib, "g_error_new")
 	core.PuregoSafeRegister(&xNewErrorLiteral, lib, "g_error_new_literal")

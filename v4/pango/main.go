@@ -20,6 +20,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xLayoutDeserializeErrorQuark, lib, "pango_layout_deserialize_error_quark")
 
 }

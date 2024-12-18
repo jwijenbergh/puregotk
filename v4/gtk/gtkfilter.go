@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FilterClass struct {
@@ -25,6 +26,12 @@ func (x *FilterClass) GoPointer() uintptr {
 // value to pass, %GTK_FILTER_CHANGE_DIFFERENT is always a correct
 // choice.
 type FilterChange int
+
+var xFilterChangeGLibType func() types.GType
+
+func FilterChangeGLibType() types.GType {
+	return xFilterChangeGLibType()
+}
 
 const (
 
@@ -47,6 +54,12 @@ const (
 // %GTK_FILTER_MATCH_SOME is always an acceptable value,
 // even if a filter does match all or no items.
 type FilterMatch int
+
+var xFilterMatchGLibType func() types.GType
+
+func FilterMatchGLibType() types.GType {
+	return xFilterMatchGLibType()
+}
 
 const (
 
@@ -81,6 +94,12 @@ const (
 // also possible to subclass `GtkFilter` and provide one's own filter.
 type Filter struct {
 	gobject.Object
+}
+
+var xFilterGLibType func() types.GType
+
+func FilterGLibType() types.GType {
+	return xFilterGLibType()
 }
 
 func FilterNewFromInternalPtr(ptr uintptr) *Filter {
@@ -177,6 +196,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFilterChangeGLibType, lib, "gtk_filter_change_get_type")
+
+	core.PuregoSafeRegister(&xFilterMatchGLibType, lib, "gtk_filter_match_get_type")
+
+	core.PuregoSafeRegister(&xFilterGLibType, lib, "gtk_filter_get_type")
 
 	core.PuregoSafeRegister(&xFilterChanged, lib, "gtk_filter_changed")
 	core.PuregoSafeRegister(&xFilterGetStrictness, lib, "gtk_filter_get_strictness")

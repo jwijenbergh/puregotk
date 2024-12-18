@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureRotateClass struct {
@@ -23,6 +24,12 @@ func (x *GestureRotateClass) GoPointer() uintptr {
 // [signal@Gtk.GestureRotate::angle-changed] signal is emitted.
 type GestureRotate struct {
 	Gesture
+}
+
+var xGestureRotateGLibType func() types.GType
+
+func GestureRotateGLibType() types.GType {
+	return xGestureRotateGLibType()
 }
 
 func GestureRotateNewFromInternalPtr(ptr uintptr) *GestureRotate {
@@ -94,6 +101,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureRotateGLibType, lib, "gtk_gesture_rotate_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureRotate, lib, "gtk_gesture_rotate_new")
 

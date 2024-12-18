@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GProxyResolver.
@@ -34,6 +35,13 @@ type ProxyResolver interface {
 	LookupAsync(UriVar string, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	LookupFinish(ResultVar AsyncResult) []string
 }
+
+var xProxyResolverGLibType func() types.GType
+
+func ProxyResolverGLibType() types.GType {
+	return xProxyResolverGLibType()
+}
+
 type ProxyResolverBase struct {
 	Ptr uintptr
 }
@@ -136,7 +144,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xProxyResolverGetDefault, lib, "g_proxy_resolver_get_default")
+
+	core.PuregoSafeRegister(&xProxyResolverGLibType, lib, "g_proxy_resolver_get_type")
 
 	core.PuregoSafeRegister(&XGProxyResolverIsSupported, lib, "g_proxy_resolver_is_supported")
 	core.PuregoSafeRegister(&XGProxyResolverLookup, lib, "g_proxy_resolver_lookup")

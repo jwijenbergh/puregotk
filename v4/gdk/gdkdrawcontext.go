@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Base class for objects implementing different rendering methods.
@@ -19,6 +20,12 @@ import (
 // A `GdkDrawContext` is always associated with a single toplevel surface.
 type DrawContext struct {
 	gobject.Object
+}
+
+var xDrawContextGLibType func() types.GType
+
+func DrawContextGLibType() types.GType {
+	return xDrawContextGLibType()
 }
 
 func DrawContextNewFromInternalPtr(ptr uintptr) *DrawContext {
@@ -151,6 +158,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDrawContextGLibType, lib, "gdk_draw_context_get_type")
 
 	core.PuregoSafeRegister(&xDrawContextBeginFrame, lib, "gdk_draw_context_begin_frame")
 	core.PuregoSafeRegister(&xDrawContextEndFrame, lib, "gdk_draw_context_end_frame")

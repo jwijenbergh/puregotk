@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ApplicationClass struct {
@@ -25,6 +26,12 @@ func (x *ApplicationClass) GoPointer() uintptr {
 //
 // See [method@Gtk.Application.inhibit].
 type ApplicationInhibitFlags int
+
+var xApplicationInhibitFlagsGLibType func() types.GType
+
+func ApplicationInhibitFlagsGLibType() types.GType {
+	return xApplicationInhibitFlagsGLibType()
+}
 
 const (
 
@@ -106,6 +113,12 @@ const (
 // [Getting Started with GTK: Basics](getting_started.html#basics)
 type Application struct {
 	gio.Application
+}
+
+var xApplicationGLibType func() types.GType
+
+func ApplicationGLibType() types.GType {
+	return xApplicationGLibType()
 }
 
 func ApplicationNewFromInternalPtr(ptr uintptr) *Application {
@@ -818,6 +831,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xApplicationInhibitFlagsGLibType, lib, "gtk_application_inhibit_flags_get_type")
+
+	core.PuregoSafeRegister(&xApplicationGLibType, lib, "gtk_application_get_type")
 
 	core.PuregoSafeRegister(&xNewApplication, lib, "gtk_application_new")
 

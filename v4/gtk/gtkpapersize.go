@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkPaperSize` handles paper sizes.
@@ -21,6 +22,12 @@ import (
 // and height) of a paper size and its name, it also provides
 // default print margins.
 type PaperSize struct {
+}
+
+var xPaperSizeGLibType func() types.GType
+
+func PaperSizeGLibType() types.GType {
+	return xPaperSizeGLibType()
 }
 
 func (x *PaperSize) GoPointer() uintptr {
@@ -303,8 +310,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPaperSizeGetDefault, lib, "gtk_paper_size_get_default")
 	core.PuregoSafeRegister(&xPaperSizeGetPaperSizes, lib, "gtk_paper_size_get_paper_sizes")
+
+	core.PuregoSafeRegister(&xPaperSizeGLibType, lib, "gtk_paper_size_get_type")
 
 	core.PuregoSafeRegister(&xNewPaperSize, lib, "gtk_paper_size_new")
 	core.PuregoSafeRegister(&xNewPaperSizeCustom, lib, "gtk_paper_size_new_custom")

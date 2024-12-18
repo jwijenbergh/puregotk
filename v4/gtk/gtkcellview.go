@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A widget displaying a single row of a GtkTreeModel
@@ -30,6 +31,12 @@ import (
 // GtkCellView has a single CSS node with name cellview.
 type CellView struct {
 	Widget
+}
+
+var xCellViewGLibType func() types.GType
+
+func CellViewGLibType() types.GType {
+	return xCellViewGLibType()
 }
 
 func CellViewNewFromInternalPtr(ptr uintptr) *CellView {
@@ -514,6 +521,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellViewGLibType, lib, "gtk_cell_view_get_type")
 
 	core.PuregoSafeRegister(&xNewCellView, lib, "gtk_cell_view_new")
 	core.PuregoSafeRegister(&xNewCellViewWithContext, lib, "gtk_cell_view_new_with_context")

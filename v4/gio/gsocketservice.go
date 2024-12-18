@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GSocketService.
@@ -54,6 +55,12 @@ func (x *SocketServicePrivate) GoPointer() uintptr {
 // handle incoming clients.
 type SocketService struct {
 	SocketListener
+}
+
+var xSocketServiceGLibType func() types.GType
+
+func SocketServiceGLibType() types.GType {
+	return xSocketServiceGLibType()
 }
 
 func SocketServiceNewFromInternalPtr(ptr uintptr) *SocketService {
@@ -173,6 +180,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketServiceGLibType, lib, "g_socket_service_get_type")
 
 	core.PuregoSafeRegister(&xNewSocketService, lib, "g_socket_service_new")
 

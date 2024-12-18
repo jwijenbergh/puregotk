@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CellRendererTextClass struct {
@@ -30,6 +31,12 @@ func (x *CellRendererTextClass) GoPointer() uintptr {
 // the `GtkCellRendererText` allows to edit its text using an entry.
 type CellRendererText struct {
 	CellRenderer
+}
+
+var xCellRendererTextGLibType func() types.GType
+
+func CellRendererTextGLibType() types.GType {
+	return xCellRendererTextGLibType()
 }
 
 func CellRendererTextNewFromInternalPtr(ptr uintptr) *CellRendererText {
@@ -112,6 +119,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererTextGLibType, lib, "gtk_cell_renderer_text_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererText, lib, "gtk_cell_renderer_text_new")
 

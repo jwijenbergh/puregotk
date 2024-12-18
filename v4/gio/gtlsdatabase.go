@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class for #GTlsDatabase. Derived classes should implement the various
@@ -50,6 +51,12 @@ const (
 // #GTlsDatabase. It is used internally by #GTlsConnection.
 type TlsDatabase struct {
 	gobject.Object
+}
+
+var xTlsDatabaseGLibType func() types.GType
+
+func TlsDatabaseGLibType() types.GType {
+	return xTlsDatabaseGLibType()
 }
 
 func TlsDatabaseNewFromInternalPtr(ptr uintptr) *TlsDatabase {
@@ -380,6 +387,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTlsDatabaseGLibType, lib, "g_tls_database_get_type")
 
 	core.PuregoSafeRegister(&xTlsDatabaseCreateCertificateHandle, lib, "g_tls_database_create_certificate_handle")
 	core.PuregoSafeRegister(&xTlsDatabaseLookupCertificateForHandle, lib, "g_tls_database_lookup_certificate_for_handle")

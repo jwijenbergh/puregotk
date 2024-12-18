@@ -114,6 +114,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPollableSourceNew, lib, "g_pollable_source_new")
 	core.PuregoSafeRegister(&xPollableSourceNewFull, lib, "g_pollable_source_new_full")
 	core.PuregoSafeRegister(&xPollableStreamRead, lib, "g_pollable_stream_read")

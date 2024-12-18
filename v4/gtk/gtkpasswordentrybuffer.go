@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PasswordEntryBufferClass struct {
@@ -22,6 +23,12 @@ func (x *PasswordEntryBufferClass) GoPointer() uintptr {
 // `GtkPasswordEntry` uses a `GtkPasswordEntryBuffer`.
 type PasswordEntryBuffer struct {
 	EntryBuffer
+}
+
+var xPasswordEntryBufferGLibType func() types.GType
+
+func PasswordEntryBufferGLibType() types.GType {
+	return xPasswordEntryBufferGLibType()
 }
 
 func PasswordEntryBufferNewFromInternalPtr(ptr uintptr) *PasswordEntryBuffer {
@@ -59,6 +66,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPasswordEntryBufferGLibType, lib, "gtk_password_entry_buffer_get_type")
 
 	core.PuregoSafeRegister(&xNewPasswordEntryBuffer, lib, "gtk_password_entry_buffer_new")
 

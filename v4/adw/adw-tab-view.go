@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -36,6 +37,12 @@ func (x *TabViewClass) GoPointer() uintptr {
 //
 // New values may be added to this enumeration over time.
 type TabViewShortcuts int
+
+var xTabViewShortcutsGLibType func() types.GType
+
+func TabViewShortcutsGLibType() types.GType {
+	return xTabViewShortcutsGLibType()
+}
 
 const (
 
@@ -77,6 +84,12 @@ const (
 // An auxiliary class used by [class@TabView].
 type TabPage struct {
 	gobject.Object
+}
+
+var xTabPageGLibType func() types.GType
+
+func TabPageGLibType() types.GType {
+	return xTabPageGLibType()
 }
 
 func TabPageNewFromInternalPtr(ptr uintptr) *TabPage {
@@ -665,6 +678,12 @@ func (x *TabPage) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleSta
 // are the accessible parent objects of the child widgets.
 type TabView struct {
 	gtk.Widget
+}
+
+var xTabViewGLibType func() types.GType
+
+func TabViewGLibType() types.GType {
+	return xTabViewGLibType()
 }
 
 func TabViewNewFromInternalPtr(ptr uintptr) *TabView {
@@ -1614,6 +1633,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xTabViewShortcutsGLibType, lib, "adw_tab_view_shortcuts_get_type")
+
+	core.PuregoSafeRegister(&xTabPageGLibType, lib, "adw_tab_page_get_type")
+
 	core.PuregoSafeRegister(&xTabPageGetChild, lib, "adw_tab_page_get_child")
 	core.PuregoSafeRegister(&xTabPageGetIcon, lib, "adw_tab_page_get_icon")
 	core.PuregoSafeRegister(&xTabPageGetIndicatorActivatable, lib, "adw_tab_page_get_indicator_activatable")
@@ -1643,6 +1666,8 @@ func init() {
 	core.PuregoSafeRegister(&xTabPageSetThumbnailYalign, lib, "adw_tab_page_set_thumbnail_yalign")
 	core.PuregoSafeRegister(&xTabPageSetTitle, lib, "adw_tab_page_set_title")
 	core.PuregoSafeRegister(&xTabPageSetTooltip, lib, "adw_tab_page_set_tooltip")
+
+	core.PuregoSafeRegister(&xTabViewGLibType, lib, "adw_tab_view_get_type")
 
 	core.PuregoSafeRegister(&xNewTabView, lib, "adw_tab_view_new")
 

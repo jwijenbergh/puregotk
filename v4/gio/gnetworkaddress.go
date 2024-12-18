@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type NetworkAddressClass struct {
@@ -37,6 +38,12 @@ func (x *NetworkAddressPrivate) GoPointer() uintptr {
 // interface.
 type NetworkAddress struct {
 	gobject.Object
+}
+
+var xNetworkAddressGLibType func() types.GType
+
+func NetworkAddressGLibType() types.GType {
+	return xNetworkAddressGLibType()
 }
 
 func NetworkAddressNewFromInternalPtr(ptr uintptr) *NetworkAddress {
@@ -250,6 +257,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNetworkAddressGLibType, lib, "g_network_address_get_type")
 
 	core.PuregoSafeRegister(&xNewNetworkAddress, lib, "g_network_address_new")
 	core.PuregoSafeRegister(&xNewNetworkAddressLoopback, lib, "g_network_address_new_loopback")

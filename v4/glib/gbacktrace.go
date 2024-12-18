@@ -90,6 +90,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xOnErrorQuery, lib, "g_on_error_query")
 	core.PuregoSafeRegister(&xOnErrorStackTrace, lib, "g_on_error_stack_trace")
 

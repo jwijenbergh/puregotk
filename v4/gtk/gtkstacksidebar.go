@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkStackSidebar` uses a sidebar to switch between `GtkStack` pages.
@@ -24,6 +25,12 @@ import (
 // pages.
 type StackSidebar struct {
 	Widget
+}
+
+var xStackSidebarGLibType func() types.GType
+
+func StackSidebarGLibType() types.GType {
+	return xStackSidebarGLibType()
 }
 
 func StackSidebarNewFromInternalPtr(ptr uintptr) *StackSidebar {
@@ -234,6 +241,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStackSidebarGLibType, lib, "gtk_stack_sidebar_get_type")
 
 	core.PuregoSafeRegister(&xNewStackSidebar, lib, "gtk_stack_sidebar_new")
 

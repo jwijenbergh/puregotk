@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GActionGroup.
@@ -81,6 +82,13 @@ type ActionGroup interface {
 	ListActions() []string
 	QueryAction(ActionNameVar string, EnabledVar bool, ParameterTypeVar **glib.VariantType, StateTypeVar **glib.VariantType, StateHintVar **glib.Variant, StateVar **glib.Variant) bool
 }
+
+var xActionGroupGLibType func() types.GType
+
+func ActionGroupGLibType() types.GType {
+	return xActionGroupGLibType()
+}
+
 type ActionGroupBase struct {
 	Ptr uintptr
 }
@@ -344,6 +352,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xActionGroupGLibType, lib, "g_action_group_get_type")
 
 	core.PuregoSafeRegister(&XGActionGroupActionAdded, lib, "g_action_group_action_added")
 	core.PuregoSafeRegister(&XGActionGroupActionEnabledChanged, lib, "g_action_group_action_enabled_changed")

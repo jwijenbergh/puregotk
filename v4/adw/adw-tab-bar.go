@@ -47,6 +47,12 @@ type TabBar struct {
 	gtk.Widget
 }
 
+var xTabBarGLibType func() types.GType
+
+func TabBarGLibType() types.GType {
+	return xTabBarGLibType()
+}
+
 func TabBarNewFromInternalPtr(ptr uintptr) *TabBar {
 	cls := &TabBar{}
 	cls.Ptr = ptr
@@ -483,6 +489,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTabBarGLibType, lib, "adw_tab_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewTabBar, lib, "adw_tab_bar_new")
 

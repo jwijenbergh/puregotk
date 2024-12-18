@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CellRendererClass struct {
@@ -38,6 +39,12 @@ func (x *CellRendererPrivate) GoPointer() uintptr {
 // Tells how a cell is to be rendered.
 type CellRendererState int
 
+var xCellRendererStateGLibType func() types.GType
+
+func CellRendererStateGLibType() types.GType {
+	return xCellRendererStateGLibType()
+}
+
 const (
 
 	// The cell is currently selected, and
@@ -59,6 +66,12 @@ const (
 
 // Identifies how the user can interact with a particular cell.
 type CellRendererMode int
+
+var xCellRendererModeGLibType func() types.GType
+
+func CellRendererModeGLibType() types.GType {
+	return xCellRendererModeGLibType()
+}
 
 const (
 
@@ -112,6 +125,12 @@ const (
 // has been set or not. You should not set them independently.
 type CellRenderer struct {
 	gobject.InitiallyUnowned
+}
+
+var xCellRendererGLibType func() types.GType
+
+func CellRendererGLibType() types.GType {
+	return xCellRendererGLibType()
 }
 
 func CellRendererNewFromInternalPtr(ptr uintptr) *CellRenderer {
@@ -481,6 +500,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererStateGLibType, lib, "gtk_cell_renderer_state_get_type")
+
+	core.PuregoSafeRegister(&xCellRendererModeGLibType, lib, "gtk_cell_renderer_mode_get_type")
+
+	core.PuregoSafeRegister(&xCellRendererGLibType, lib, "gtk_cell_renderer_get_type")
 
 	core.PuregoSafeRegister(&xCellRendererActivate, lib, "gtk_cell_renderer_activate")
 	core.PuregoSafeRegister(&xCellRendererGetAlignedArea, lib, "gtk_cell_renderer_get_aligned_area")

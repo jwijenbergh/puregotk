@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders a combobox in a cell
@@ -24,6 +25,12 @@ import (
 // can be set in a handler for the `GtkCellRenderer::editing-started` signal.
 type CellRendererCombo struct {
 	CellRendererText
+}
+
+var xCellRendererComboGLibType func() types.GType
+
+func CellRendererComboGLibType() types.GType {
+	return xCellRendererComboGLibType()
 }
 
 func CellRendererComboNewFromInternalPtr(ptr uintptr) *CellRendererCombo {
@@ -98,6 +105,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererComboGLibType, lib, "gtk_cell_renderer_combo_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererCombo, lib, "gtk_cell_renderer_combo_new")
 

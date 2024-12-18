@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CharsetConverterClass struct {
@@ -22,6 +23,12 @@ func (x *CharsetConverterClass) GoPointer() uintptr {
 // GIConv.
 type CharsetConverter struct {
 	gobject.Object
+}
+
+var xCharsetConverterGLibType func() types.GType
+
+func CharsetConverterGLibType() types.GType {
+	return xCharsetConverterGLibType()
 }
 
 func CharsetConverterNewFromInternalPtr(ptr uintptr) *CharsetConverter {
@@ -242,6 +249,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCharsetConverterGLibType, lib, "g_charset_converter_get_type")
 
 	core.PuregoSafeRegister(&xNewCharsetConverter, lib, "g_charset_converter_new")
 

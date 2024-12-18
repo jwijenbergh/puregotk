@@ -105,6 +105,12 @@ type SocketSourceFunc func(uintptr, glib.IOCondition, uintptr) bool
 type FileAttributeMatcher struct {
 }
 
+var xFileAttributeMatcherGLibType func() types.GType
+
+func FileAttributeMatcherGLibType() types.GType {
+	return xFileAttributeMatcherGLibType()
+}
+
 func (x *FileAttributeMatcher) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -601,6 +607,12 @@ func (x *OutputVector) GoPointer() uintptr {
 type Resource struct {
 }
 
+var xResourceGLibType func() types.GType
+
+func ResourceGLibType() types.GType {
+	return xResourceGLibType()
+}
+
 func (x *Resource) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -778,6 +790,12 @@ func (x *Resource) Unref() {
 type SrvTarget struct {
 }
 
+var xSrvTargetGLibType func() types.GType
+
+func SrvTargetGLibType() types.GType {
+	return xSrvTargetGLibType()
+}
+
 func (x *SrvTarget) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -861,6 +879,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xFileAttributeMatcherGLibType, lib, "g_file_attribute_matcher_get_type")
+
 	core.PuregoSafeRegister(&xNewFileAttributeMatcher, lib, "g_file_attribute_matcher_new")
 
 	core.PuregoSafeRegister(&xFileAttributeMatcherEnumerateNamespace, lib, "g_file_attribute_matcher_enumerate_namespace")
@@ -885,6 +905,8 @@ func init() {
 	core.PuregoSafeRegister(&xIOSchedulerJobSendToMainloop, lib, "g_io_scheduler_job_send_to_mainloop")
 	core.PuregoSafeRegister(&xIOSchedulerJobSendToMainloopAsync, lib, "g_io_scheduler_job_send_to_mainloop_async")
 
+	core.PuregoSafeRegister(&xResourceGLibType, lib, "g_resource_get_type")
+
 	core.PuregoSafeRegister(&xNewResourceFromData, lib, "g_resource_new_from_data")
 
 	core.PuregoSafeRegister(&xResourceRegister, lib, "g_resources_register")
@@ -895,6 +917,8 @@ func init() {
 	core.PuregoSafeRegister(&xResourceOpenStream, lib, "g_resource_open_stream")
 	core.PuregoSafeRegister(&xResourceRef, lib, "g_resource_ref")
 	core.PuregoSafeRegister(&xResourceUnref, lib, "g_resource_unref")
+
+	core.PuregoSafeRegister(&xSrvTargetGLibType, lib, "g_srv_target_get_type")
 
 	core.PuregoSafeRegister(&xNewSrvTarget, lib, "g_srv_target_new")
 

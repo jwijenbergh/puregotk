@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -24,6 +25,12 @@ func (x *DialogClass) GoPointer() uintptr {
 
 // Flags used to influence dialog construction.
 type DialogFlags int
+
+var xDialogFlagsGLibType func() types.GType
+
+func DialogFlagsGLibType() types.GType {
+	return xDialogFlagsGLibType()
+}
 
 const (
 
@@ -41,6 +48,12 @@ const (
 // All predefined values are negative; GTK leaves values of 0 or greater for
 // application-defined response ids.
 type ResponseType int
+
+var xResponseTypeGLibType func() types.GType
+
+func ResponseTypeGLibType() types.GType {
+	return xResponseTypeGLibType()
+}
 
 const (
 
@@ -196,6 +209,12 @@ const (
 // `GtkDialog` uses the %GTK_ACCESSIBLE_ROLE_DIALOG role.
 type Dialog struct {
 	Window
+}
+
+var xDialogGLibType func() types.GType
+
+func DialogGLibType() types.GType {
+	return xDialogGLibType()
 }
 
 func DialogNewFromInternalPtr(ptr uintptr) *Dialog {
@@ -740,6 +759,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDialogFlagsGLibType, lib, "gtk_dialog_flags_get_type")
+
+	core.PuregoSafeRegister(&xResponseTypeGLibType, lib, "gtk_response_type_get_type")
+
+	core.PuregoSafeRegister(&xDialogGLibType, lib, "gtk_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewDialog, lib, "gtk_dialog_new")
 	core.PuregoSafeRegister(&xNewDialogWithButtons, lib, "gtk_dialog_new_with_buttons")

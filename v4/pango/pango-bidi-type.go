@@ -4,6 +4,7 @@ package pango
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `PangoBidiType` represents the bidirectional character
@@ -12,6 +13,12 @@ import (
 // The values in this enumeration are specified by the
 // [Unicode bidirectional algorithm](http://www.unicode.org/reports/tr9/).
 type BidiType int
+
+var xBidiTypeGLibType func() types.GType
+
+func BidiTypeGLibType() types.GType {
+	return xBidiTypeGLibType()
+}
 
 const (
 
@@ -119,6 +126,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBidiTypeGLibType, lib, "pango_bidi_type_get_type")
+
 	core.PuregoSafeRegister(&xBidiTypeForUnichar, lib, "pango_bidi_type_for_unichar")
 	core.PuregoSafeRegister(&xFindBaseDir, lib, "pango_find_base_dir")
 	core.PuregoSafeRegister(&xGetMirrorChar, lib, "pango_get_mirror_char")

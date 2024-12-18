@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FilterOutputStreamClass struct {
@@ -23,6 +24,12 @@ func (x *FilterOutputStreamClass) GoPointer() uintptr {
 // and byte order flipping.
 type FilterOutputStream struct {
 	OutputStream
+}
+
+var xFilterOutputStreamGLibType func() types.GType
+
+func FilterOutputStreamGLibType() types.GType {
+	return xFilterOutputStreamGLibType()
 }
 
 func FilterOutputStreamNewFromInternalPtr(ptr uintptr) *FilterOutputStream {
@@ -80,6 +87,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFilterOutputStreamGLibType, lib, "g_filter_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xFilterOutputStreamGetBaseStream, lib, "g_filter_output_stream_get_base_stream")
 	core.PuregoSafeRegister(&xFilterOutputStreamGetCloseBaseStream, lib, "g_filter_output_stream_get_close_base_stream")

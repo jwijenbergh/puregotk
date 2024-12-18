@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
@@ -25,6 +26,12 @@ type GlyphItem struct {
 	StartXOffset int
 
 	EndXOffset int
+}
+
+var xGlyphItemGLibType func() types.GType
+
+func GlyphItemGLibType() types.GType {
+	return xGlyphItemGLibType()
 }
 
 func (x *GlyphItem) GoPointer() uintptr {
@@ -179,6 +186,12 @@ type GlyphItemIter struct {
 	EndChar int
 }
 
+var xGlyphItemIterGLibType func() types.GType
+
+func GlyphItemIterGLibType() types.GType {
+	return xGlyphItemIterGLibType()
+}
+
 func (x *GlyphItemIter) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -252,12 +265,16 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xGlyphItemGLibType, lib, "pango_glyph_item_get_type")
+
 	core.PuregoSafeRegister(&xGlyphItemApplyAttrs, lib, "pango_glyph_item_apply_attrs")
 	core.PuregoSafeRegister(&xGlyphItemCopy, lib, "pango_glyph_item_copy")
 	core.PuregoSafeRegister(&xGlyphItemFree, lib, "pango_glyph_item_free")
 	core.PuregoSafeRegister(&xGlyphItemGetLogicalWidths, lib, "pango_glyph_item_get_logical_widths")
 	core.PuregoSafeRegister(&xGlyphItemLetterSpace, lib, "pango_glyph_item_letter_space")
 	core.PuregoSafeRegister(&xGlyphItemSplit, lib, "pango_glyph_item_split")
+
+	core.PuregoSafeRegister(&xGlyphItemIterGLibType, lib, "pango_glyph_item_iter_get_type")
 
 	core.PuregoSafeRegister(&xGlyphItemIterCopy, lib, "pango_glyph_item_iter_copy")
 	core.PuregoSafeRegister(&xGlyphItemIterFree, lib, "pango_glyph_item_iter_free")

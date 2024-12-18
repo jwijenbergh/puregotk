@@ -65,6 +65,12 @@ type ShortcutController struct {
 	EventController
 }
 
+var xShortcutControllerGLibType func() types.GType
+
+func ShortcutControllerGLibType() types.GType {
+	return xShortcutControllerGLibType()
+}
+
 func ShortcutControllerNewFromInternalPtr(ptr uintptr) *ShortcutController {
 	cls := &ShortcutController{}
 	cls.Ptr = ptr
@@ -304,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xShortcutControllerGLibType, lib, "gtk_shortcut_controller_get_type")
 
 	core.PuregoSafeRegister(&xNewShortcutController, lib, "gtk_shortcut_controller_new")
 	core.PuregoSafeRegister(&xNewShortcutControllerForModel, lib, "gtk_shortcut_controller_new_for_model")

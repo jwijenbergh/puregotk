@@ -23,6 +23,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xQsortWithData, lib, "g_qsort_with_data")
 
 }

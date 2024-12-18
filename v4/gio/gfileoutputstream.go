@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileOutputStreamClass struct {
@@ -40,6 +41,12 @@ func (x *FileOutputStreamPrivate) GoPointer() uintptr {
 // stream, use g_seekable_truncate().
 type FileOutputStream struct {
 	OutputStream
+}
+
+var xFileOutputStreamGLibType func() types.GType
+
+func FileOutputStreamGLibType() types.GType {
+	return xFileOutputStreamGLibType()
 }
 
 func FileOutputStreamNewFromInternalPtr(ptr uintptr) *FileOutputStream {
@@ -212,6 +219,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileOutputStreamGLibType, lib, "g_file_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xFileOutputStreamGetEtag, lib, "g_file_output_stream_get_etag")
 	core.PuregoSafeRegister(&xFileOutputStreamQueryInfo, lib, "g_file_output_stream_query_info")

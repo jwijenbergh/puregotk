@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type AdjustmentClass struct {
@@ -31,6 +32,12 @@ func (x *AdjustmentClass) GoPointer() uintptr {
 // it is left up to the owner of the `GtkAdjustment` to control the value.
 type Adjustment struct {
 	gobject.InitiallyUnowned
+}
+
+var xAdjustmentGLibType func() types.GType
+
+func AdjustmentGLibType() types.GType {
+	return xAdjustmentGLibType()
 }
 
 func AdjustmentNewFromInternalPtr(ptr uintptr) *Adjustment {
@@ -301,6 +308,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAdjustmentGLibType, lib, "gtk_adjustment_get_type")
 
 	core.PuregoSafeRegister(&xNewAdjustment, lib, "gtk_adjustment_new")
 

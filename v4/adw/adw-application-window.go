@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -42,6 +43,12 @@ func (x *ApplicationWindowClass) GoPointer() uintptr {
 // visual glitches.
 type ApplicationWindow struct {
 	gtk.ApplicationWindow
+}
+
+var xApplicationWindowGLibType func() types.GType
+
+func ApplicationWindowGLibType() types.GType {
+	return xApplicationWindowGLibType()
 }
 
 func ApplicationWindowNewFromInternalPtr(ptr uintptr) *ApplicationWindow {
@@ -678,6 +685,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xApplicationWindowGLibType, lib, "adw_application_window_get_type")
 
 	core.PuregoSafeRegister(&xNewApplicationWindow, lib, "adw_application_window_new")
 

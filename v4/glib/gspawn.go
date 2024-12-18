@@ -581,6 +581,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSpawnAsync, lib, "g_spawn_async")
 	core.PuregoSafeRegister(&xSpawnAsyncWithFds, lib, "g_spawn_async_with_fds")
 	core.PuregoSafeRegister(&xSpawnAsyncWithPipes, lib, "g_spawn_async_with_pipes")

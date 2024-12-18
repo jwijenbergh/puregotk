@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -27,6 +28,12 @@ func (x *MessageDialogClass) GoPointer() uintptr {
 // &gt; and %GTK_BUTTONS_OK_CANCEL are discouraged by the
 // &gt; [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).
 type ButtonsType int
+
+var xButtonsTypeGLibType func() types.GType
+
+func ButtonsTypeGLibType() types.GType {
+	return xButtonsTypeGLibType()
+}
 
 const (
 
@@ -109,6 +116,12 @@ const (
 // the message area as an internal child with the name “message_area”.
 type MessageDialog struct {
 	Dialog
+}
+
+var xMessageDialogGLibType func() types.GType
+
+func MessageDialogGLibType() types.GType {
+	return xMessageDialogGLibType()
 }
 
 func MessageDialogNewFromInternalPtr(ptr uintptr) *MessageDialog {
@@ -517,6 +530,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xButtonsTypeGLibType, lib, "gtk_buttons_type_get_type")
+
+	core.PuregoSafeRegister(&xMessageDialogGLibType, lib, "gtk_message_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewMessageDialog, lib, "gtk_message_dialog_new")
 	core.PuregoSafeRegister(&xNewMessageDialogWithMarkup, lib, "gtk_message_dialog_new_with_markup")

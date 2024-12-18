@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PermissionClass struct {
@@ -44,6 +45,12 @@ func (x *PermissionPrivate) GoPointer() uintptr {
 // when that button is clicked.
 type Permission struct {
 	gobject.Object
+}
+
+var xPermissionGLibType func() types.GType
+
+func PermissionGLibType() types.GType {
+	return xPermissionGLibType()
 }
 
 func PermissionNewFromInternalPtr(ptr uintptr) *Permission {
@@ -227,6 +234,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPermissionGLibType, lib, "g_permission_get_type")
 
 	core.PuregoSafeRegister(&xPermissionAcquire, lib, "g_permission_acquire")
 	core.PuregoSafeRegister(&xPermissionAcquireAsync, lib, "g_permission_acquire_async")

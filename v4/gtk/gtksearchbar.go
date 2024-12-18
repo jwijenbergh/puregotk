@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSearchBar` is a container made to have a search entry.
@@ -55,6 +56,12 @@ import (
 // `GtkSearchBar` uses the %GTK_ACCESSIBLE_ROLE_SEARCH role.
 type SearchBar struct {
 	Widget
+}
+
+var xSearchBarGLibType func() types.GType
+
+func SearchBarGLibType() types.GType {
+	return xSearchBarGLibType()
 }
 
 func SearchBarNewFromInternalPtr(ptr uintptr) *SearchBar {
@@ -356,6 +363,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSearchBarGLibType, lib, "gtk_search_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewSearchBar, lib, "gtk_search_bar_new")
 

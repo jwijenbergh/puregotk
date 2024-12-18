@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EntryBufferClass struct {
@@ -30,6 +31,12 @@ func (x *EntryBufferClass) GoPointer() uintptr {
 // integrate with an application’s concept of undo/redo.
 type EntryBuffer struct {
 	gobject.Object
+}
+
+var xEntryBufferGLibType func() types.GType
+
+func EntryBufferGLibType() types.GType {
+	return xEntryBufferGLibType()
 }
 
 func EntryBufferNewFromInternalPtr(ptr uintptr) *EntryBuffer {
@@ -234,6 +241,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEntryBufferGLibType, lib, "gtk_entry_buffer_get_type")
 
 	core.PuregoSafeRegister(&xNewEntryBuffer, lib, "gtk_entry_buffer_new")
 

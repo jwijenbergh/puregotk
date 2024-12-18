@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for converting data from one type
@@ -33,6 +34,13 @@ type Converter interface {
 	Convert(InbufVar []byte, InbufSizeVar uint, OutbufVar []byte, OutbufSizeVar uint, FlagsVar ConverterFlags, BytesReadVar uint, BytesWrittenVar uint) ConverterResult
 	Reset()
 }
+
+var xConverterGLibType func() types.GType
+
+func ConverterGLibType() types.GType {
+	return xConverterGLibType()
+}
+
 type ConverterBase struct {
 	Ptr uintptr
 }
@@ -155,6 +163,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xConverterGLibType, lib, "g_converter_get_type")
 
 	core.PuregoSafeRegister(&XGConverterConvert, lib, "g_converter_convert")
 	core.PuregoSafeRegister(&XGConverterReset, lib, "g_converter_reset")

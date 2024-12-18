@@ -717,6 +717,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBasename, lib, "g_basename")
 	core.PuregoSafeRegister(&xBuildFilename, lib, "g_build_filename")
 	core.PuregoSafeRegister(&xBuildFilenameValist, lib, "g_build_filename_valist")

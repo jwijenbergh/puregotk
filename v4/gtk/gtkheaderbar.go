@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkHeaderBar` is a widget for creating custom title bars for windows.
@@ -84,6 +85,12 @@ import (
 // `GtkHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type HeaderBar struct {
 	Widget
+}
+
+var xHeaderBarGLibType func() types.GType
+
+func HeaderBarGLibType() types.GType {
+	return xHeaderBarGLibType()
 }
 
 func HeaderBarNewFromInternalPtr(ptr uintptr) *HeaderBar {
@@ -391,6 +398,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xHeaderBarGLibType, lib, "gtk_header_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewHeaderBar, lib, "gtk_header_bar_new")
 

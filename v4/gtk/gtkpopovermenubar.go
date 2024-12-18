@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkPopoverMenuBar` presents a horizontal bar of items that pop
@@ -41,6 +42,12 @@ import (
 // the menus use the %GTK_ACCESSIBLE_ROLE_MENU role.
 type PopoverMenuBar struct {
 	Widget
+}
+
+var xPopoverMenuBarGLibType func() types.GType
+
+func PopoverMenuBarGLibType() types.GType {
+	return xPopoverMenuBarGLibType()
 }
 
 func PopoverMenuBarNewFromInternalPtr(ptr uintptr) *PopoverMenuBar {
@@ -271,6 +278,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPopoverMenuBarGLibType, lib, "gtk_popover_menu_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewPopoverMenuBarFromModel, lib, "gtk_popover_menu_bar_new_from_model")
 

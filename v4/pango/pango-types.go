@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `PangoLanguage` structure is used to
@@ -14,6 +15,12 @@ import (
 // `PangoLanguage` pointers can be efficiently
 // copied and compared with each other.
 type Language struct {
+}
+
+var xLanguageGLibType func() types.GType
+
+func LanguageGLibType() types.GType {
+	return xLanguageGLibType()
 }
 
 func (x *Language) GoPointer() uintptr {
@@ -211,9 +218,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xExtentsToPixels, lib, "pango_extents_to_pixels")
 	core.PuregoSafeRegister(&xUnitsFromDouble, lib, "pango_units_from_double")
 	core.PuregoSafeRegister(&xUnitsToDouble, lib, "pango_units_to_double")
+
+	core.PuregoSafeRegister(&xLanguageGLibType, lib, "pango_language_get_type")
 
 	core.PuregoSafeRegister(&xLanguageGetSampleString, lib, "pango_language_get_sample_string")
 	core.PuregoSafeRegister(&xLanguageGetScripts, lib, "pango_language_get_scripts")

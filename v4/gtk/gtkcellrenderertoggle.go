@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders a toggle button in a cell
@@ -18,6 +19,12 @@ import (
 // When activated, it emits the `GtkCellRendererToggle::toggled` signal.
 type CellRendererToggle struct {
 	CellRenderer
+}
+
+var xCellRendererToggleGLibType func() types.GType
+
+func CellRendererToggleGLibType() types.GType {
+	return xCellRendererToggleGLibType()
 }
 
 func CellRendererToggleNewFromInternalPtr(ptr uintptr) *CellRendererToggle {
@@ -148,6 +155,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererToggleGLibType, lib, "gtk_cell_renderer_toggle_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererToggle, lib, "gtk_cell_renderer_toggle_new")
 

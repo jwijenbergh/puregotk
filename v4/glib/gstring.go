@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The GString struct contains the public fields of a GString.
@@ -15,6 +16,12 @@ type String struct {
 	Len uint
 
 	AllocatedLen uint
+}
+
+var xStringGLibType func() types.GType
+
+func StringGLibType() types.GType {
+	return xStringGLibType()
 }
 
 func (x *String) GoPointer() uintptr {
@@ -423,6 +430,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStringGLibType, lib, "g_gstring_get_type")
 
 	core.PuregoSafeRegister(&xNewString, lib, "g_string_new")
 	core.PuregoSafeRegister(&xNewStringLen, lib, "g_string_new_len")

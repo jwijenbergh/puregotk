@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -42,6 +43,12 @@ func (x *PasswordEntryRowClass) GoPointer() uintptr {
 // `.entry` and `.password` style classes.
 type PasswordEntryRow struct {
 	EntryRow
+}
+
+var xPasswordEntryRowGLibType func() types.GType
+
+func PasswordEntryRowGLibType() types.GType {
+	return xPasswordEntryRowGLibType()
 }
 
 func PasswordEntryRowNewFromInternalPtr(ptr uintptr) *PasswordEntryRow {
@@ -548,6 +555,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPasswordEntryRowGLibType, lib, "adw_password_entry_row_get_type")
 
 	core.PuregoSafeRegister(&xNewPasswordEntryRow, lib, "adw_password_entry_row_new")
 

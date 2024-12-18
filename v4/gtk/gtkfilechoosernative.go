@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileChooserNativeClass struct {
@@ -173,6 +174,12 @@ func (x *FileChooserNativeClass) GoPointer() uintptr {
 // * Shortcut folders.
 type FileChooserNative struct {
 	NativeDialog
+}
+
+var xFileChooserNativeGLibType func() types.GType
+
+func FileChooserNativeGLibType() types.GType {
+	return xFileChooserNativeGLibType()
 }
 
 func FileChooserNativeNewFromInternalPtr(ptr uintptr) *FileChooserNative {
@@ -613,6 +620,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileChooserNativeGLibType, lib, "gtk_file_chooser_native_get_type")
 
 	core.PuregoSafeRegister(&xNewFileChooserNative, lib, "gtk_file_chooser_native_new")
 

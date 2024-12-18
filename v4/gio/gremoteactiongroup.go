@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GRemoteActionGroup.
@@ -45,6 +46,13 @@ type RemoteActionGroup interface {
 	ActivateActionFull(ActionNameVar string, ParameterVar *glib.Variant, PlatformDataVar *glib.Variant)
 	ChangeActionStateFull(ActionNameVar string, ValueVar *glib.Variant, PlatformDataVar *glib.Variant)
 }
+
+var xRemoteActionGroupGLibType func() types.GType
+
+func RemoteActionGroupGLibType() types.GType {
+	return xRemoteActionGroupGLibType()
+}
+
 type RemoteActionGroupBase struct {
 	Ptr uintptr
 }
@@ -95,6 +103,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRemoteActionGroupGLibType, lib, "g_remote_action_group_get_type")
 
 	core.PuregoSafeRegister(&XGRemoteActionGroupActivateActionFull, lib, "g_remote_action_group_activate_action_full")
 	core.PuregoSafeRegister(&XGRemoteActionGroupChangeActionStateFull, lib, "g_remote_action_group_change_action_state_full")

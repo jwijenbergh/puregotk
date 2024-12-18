@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CheckButtonClass struct {
@@ -74,6 +75,12 @@ func (x *CheckButtonClass) GoPointer() uintptr {
 // `GtkCheckButton` uses the %GTK_ACCESSIBLE_ROLE_CHECKBOX role.
 type CheckButton struct {
 	Widget
+}
+
+var xCheckButtonGLibType func() types.GType
+
+func CheckButtonGLibType() types.GType {
+	return xCheckButtonGLibType()
 }
 
 func CheckButtonNewFromInternalPtr(ptr uintptr) *CheckButton {
@@ -557,6 +564,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCheckButtonGLibType, lib, "gtk_check_button_get_type")
 
 	core.PuregoSafeRegister(&xNewCheckButton, lib, "gtk_check_button_new")
 	core.PuregoSafeRegister(&xNewCheckButtonWithLabel, lib, "gtk_check_button_new_with_label")

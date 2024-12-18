@@ -28,6 +28,12 @@ type NoSelection struct {
 	gobject.Object
 }
 
+var xNoSelectionGLibType func() types.GType
+
+func NoSelectionGLibType() types.GType {
+	return xNoSelectionGLibType()
+}
+
 func NoSelectionNewFromInternalPtr(ptr uintptr) *NoSelection {
 	cls := &NoSelection{}
 	cls.Ptr = ptr
@@ -307,6 +313,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNoSelectionGLibType, lib, "gtk_no_selection_get_type")
 
 	core.PuregoSafeRegister(&xNewNoSelection, lib, "gtk_no_selection_new")
 

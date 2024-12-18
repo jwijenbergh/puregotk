@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PrintSettingsFunc func(string, string, uintptr)
@@ -111,6 +112,12 @@ const (
 // so that moving such a document between systems still works.
 type PrintSettings struct {
 	gobject.Object
+}
+
+var xPrintSettingsGLibType func() types.GType
+
+func PrintSettingsGLibType() types.GType {
+	return xPrintSettingsGLibType()
 }
 
 func PrintSettingsNewFromInternalPtr(ptr uintptr) *PrintSettings {
@@ -930,6 +937,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintSettingsGLibType, lib, "gtk_print_settings_get_type")
 
 	core.PuregoSafeRegister(&xNewPrintSettings, lib, "gtk_print_settings_new")
 	core.PuregoSafeRegister(&xNewPrintSettingsFromFile, lib, "gtk_print_settings_new_from_file")

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureClass struct {
@@ -109,6 +110,12 @@ func (x *GestureClass) GoPointer() uintptr {
 //     %GDK_TOUCHPAD_SWIPE and %GDK_TOUCHPAD_PINCH are handled by the `GtkGesture`
 type Gesture struct {
 	EventController
+}
+
+var xGestureGLibType func() types.GType
+
+func GestureGLibType() types.GType {
+	return xGestureGLibType()
 }
 
 func GestureNewFromInternalPtr(ptr uintptr) *Gesture {
@@ -528,6 +535,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureGLibType, lib, "gtk_gesture_get_type")
 
 	core.PuregoSafeRegister(&xGestureGetBoundingBox, lib, "gtk_gesture_get_bounding_box")
 	core.PuregoSafeRegister(&xGestureGetBoundingBoxCenter, lib, "gtk_gesture_get_bounding_box_center")

@@ -147,6 +147,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDisableSetlocale, lib, "gtk_disable_setlocale")
 	core.PuregoSafeRegister(&xGetDefaultLanguage, lib, "gtk_get_default_language")
 	core.PuregoSafeRegister(&xGetLocaleDirection, lib, "gtk_get_locale_direction")

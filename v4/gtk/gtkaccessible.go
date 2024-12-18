@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type AccessibleInterface struct {
@@ -46,6 +47,13 @@ type Accessible interface {
 	UpdateState(FirstStateVar AccessibleState, varArgs ...interface{})
 	UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value)
 }
+
+var xAccessibleGLibType func() types.GType
+
+func AccessibleGLibType() types.GType {
+	return xAccessibleGLibType()
+}
+
 type AccessibleBase struct {
 	Ptr uintptr
 }
@@ -231,9 +239,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAccessiblePropertyInitValue, lib, "gtk_accessible_property_init_value")
 	core.PuregoSafeRegister(&xAccessibleRelationInitValue, lib, "gtk_accessible_relation_init_value")
 	core.PuregoSafeRegister(&xAccessibleStateInitValue, lib, "gtk_accessible_state_init_value")
+
+	core.PuregoSafeRegister(&xAccessibleGLibType, lib, "gtk_accessible_get_type")
 
 	core.PuregoSafeRegister(&XGtkAccessibleGetAccessibleRole, lib, "gtk_accessible_get_accessible_role")
 	core.PuregoSafeRegister(&XGtkAccessibleResetProperty, lib, "gtk_accessible_reset_property")

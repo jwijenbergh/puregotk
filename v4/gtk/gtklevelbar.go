@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 const (
@@ -122,6 +123,12 @@ const (
 // `GtkLevelBar` uses the %GTK_ACCESSIBLE_ROLE_METER role.
 type LevelBar struct {
 	Widget
+}
+
+var xLevelBarGLibType func() types.GType
+
+func LevelBarGLibType() types.GType {
+	return xLevelBarGLibType()
 }
 
 func LevelBarNewFromInternalPtr(ptr uintptr) *LevelBar {
@@ -495,6 +502,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLevelBarGLibType, lib, "gtk_level_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewLevelBar, lib, "gtk_level_bar_new")
 	core.PuregoSafeRegister(&xNewLevelBarForInterval, lib, "gtk_level_bar_new_for_interval")

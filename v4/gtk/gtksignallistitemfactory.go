@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SignalListItemFactoryClass struct {
@@ -59,6 +60,12 @@ func (x *SignalListItemFactoryClass) GoPointer() uintptr {
 // [signal@Gtk.SignalListItemFactory::teardown].
 type SignalListItemFactory struct {
 	ListItemFactory
+}
+
+var xSignalListItemFactoryGLibType func() types.GType
+
+func SignalListItemFactoryGLibType() types.GType {
+	return xSignalListItemFactoryGLibType()
 }
 
 func SignalListItemFactoryNewFromInternalPtr(ptr uintptr) *SignalListItemFactory {
@@ -202,6 +209,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSignalListItemFactoryGLibType, lib, "gtk_signal_list_item_factory_get_type")
 
 	core.PuregoSafeRegister(&xNewSignalListItemFactory, lib, "gtk_signal_list_item_factory_new")
 

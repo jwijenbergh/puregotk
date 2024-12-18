@@ -1534,6 +1534,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xUcs4ToUtf16, lib, "g_ucs4_to_utf16")
 	core.PuregoSafeRegister(&xUcs4ToUtf8, lib, "g_ucs4_to_utf8")
 	core.PuregoSafeRegister(&xUnicharBreakType, lib, "g_unichar_break_type")

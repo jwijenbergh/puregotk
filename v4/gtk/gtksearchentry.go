@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSearchEntry` is an entry widget that has been tailored for use
@@ -56,6 +57,12 @@ import (
 // `GtkSearchEntry` uses the %GTK_ACCESSIBLE_ROLE_SEARCH_BOX role.
 type SearchEntry struct {
 	Widget
+}
+
+var xSearchEntryGLibType func() types.GType
+
+func SearchEntryGLibType() types.GType {
+	return xSearchEntryGLibType()
 }
 
 func SearchEntryNewFromInternalPtr(ptr uintptr) *SearchEntry {
@@ -688,6 +695,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSearchEntryGLibType, lib, "gtk_search_entry_get_type")
 
 	core.PuregoSafeRegister(&xNewSearchEntry, lib, "gtk_search_entry_new")
 

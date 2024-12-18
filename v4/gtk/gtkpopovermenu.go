@@ -7,12 +7,19 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
 // Flags that affect how popover menus are created from
 // a menu model.
 type PopoverMenuFlags int
+
+var xPopoverMenuFlagsGLibType func() types.GType
+
+func PopoverMenuFlagsGLibType() types.GType {
+	return xPopoverMenuFlagsGLibType()
+}
 
 const (
 
@@ -128,6 +135,12 @@ const (
 // action they are connected to.
 type PopoverMenu struct {
 	Popover
+}
+
+var xPopoverMenuGLibType func() types.GType
+
+func PopoverMenuGLibType() types.GType {
+	return xPopoverMenuGLibType()
 }
 
 func PopoverMenuNewFromInternalPtr(ptr uintptr) *PopoverMenu {
@@ -458,6 +471,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPopoverMenuFlagsGLibType, lib, "gtk_popover_menu_flags_get_type")
+
+	core.PuregoSafeRegister(&xPopoverMenuGLibType, lib, "gtk_popover_menu_get_type")
 
 	core.PuregoSafeRegister(&xNewPopoverMenuFromModel, lib, "gtk_popover_menu_new_from_model")
 	core.PuregoSafeRegister(&xNewPopoverMenuFromModelFull, lib, "gtk_popover_menu_new_from_model_full")

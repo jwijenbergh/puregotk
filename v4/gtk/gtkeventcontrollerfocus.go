@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerFocusClass struct {
@@ -28,6 +29,12 @@ func (x *EventControllerFocusClass) GoPointer() uintptr {
 // that is rooted at the controllers widget.
 type EventControllerFocus struct {
 	EventController
+}
+
+var xEventControllerFocusGLibType func() types.GType
+
+func EventControllerFocusGLibType() types.GType {
+	return xEventControllerFocusGLibType()
 }
 
 func EventControllerFocusNewFromInternalPtr(ptr uintptr) *EventControllerFocus {
@@ -140,6 +147,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerFocusGLibType, lib, "gtk_event_controller_focus_get_type")
 
 	core.PuregoSafeRegister(&xNewEventControllerFocus, lib, "gtk_event_controller_focus_new")
 

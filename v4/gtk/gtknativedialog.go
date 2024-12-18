@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for `GtkNativeDialog`.
@@ -38,6 +39,12 @@ func (x *NativeDialogClass) GoPointer() uintptr {
 // object.
 type NativeDialog struct {
 	gobject.Object
+}
+
+var xNativeDialogGLibType func() types.GType
+
+func NativeDialogGLibType() types.GType {
+	return xNativeDialogGLibType()
 }
 
 func NativeDialogNewFromInternalPtr(ptr uintptr) *NativeDialog {
@@ -216,6 +223,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNativeDialogGLibType, lib, "gtk_native_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNativeDialogDestroy, lib, "gtk_native_dialog_destroy")
 	core.PuregoSafeRegister(&xNativeDialogGetModal, lib, "gtk_native_dialog_get_modal")

@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xSerializationErrorQuark func() glib.Quark
@@ -17,6 +18,12 @@ func SerializationErrorQuark() glib.Quark {
 
 type NglRenderer struct {
 	Renderer
+}
+
+var xNglRendererGLibType func() types.GType
+
+func NglRendererGLibType() types.GType {
+	return xNglRendererGLibType()
 }
 
 func NglRendererNewFromInternalPtr(ptr uintptr) *NglRenderer {
@@ -54,7 +61,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSerializationErrorQuark, lib, "gsk_serialization_error_quark")
+
+	core.PuregoSafeRegister(&xNglRendererGLibType, lib, "gsk_ngl_renderer_get_type")
 
 	core.PuregoSafeRegister(&xNewNglRenderer, lib, "gsk_ngl_renderer_new")
 

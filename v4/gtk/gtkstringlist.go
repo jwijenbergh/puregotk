@@ -59,6 +59,12 @@ type StringList struct {
 	gobject.Object
 }
 
+var xStringListGLibType func() types.GType
+
+func StringListGLibType() types.GType {
+	return xStringListGLibType()
+}
+
 func StringListNewFromInternalPtr(ptr uintptr) *StringList {
 	cls := &StringList{}
 	cls.Ptr = ptr
@@ -273,6 +279,12 @@ type StringObject struct {
 	gobject.Object
 }
 
+var xStringObjectGLibType func() types.GType
+
+func StringObjectGLibType() types.GType {
+	return xStringObjectGLibType()
+}
+
 func StringObjectNewFromInternalPtr(ptr uintptr) *StringObject {
 	cls := &StringObject{}
 	cls.Ptr = ptr
@@ -318,6 +330,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xStringListGLibType, lib, "gtk_string_list_get_type")
+
 	core.PuregoSafeRegister(&xNewStringList, lib, "gtk_string_list_new")
 
 	core.PuregoSafeRegister(&xStringListAppend, lib, "gtk_string_list_append")
@@ -325,6 +339,8 @@ func init() {
 	core.PuregoSafeRegister(&xStringListRemove, lib, "gtk_string_list_remove")
 	core.PuregoSafeRegister(&xStringListSplice, lib, "gtk_string_list_splice")
 	core.PuregoSafeRegister(&xStringListTake, lib, "gtk_string_list_take")
+
+	core.PuregoSafeRegister(&xStringObjectGLibType, lib, "gtk_string_object_get_type")
 
 	core.PuregoSafeRegister(&xNewStringObject, lib, "gtk_string_object_new")
 

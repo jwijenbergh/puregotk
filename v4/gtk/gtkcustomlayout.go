@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function to be used by `GtkCustomLayout` to allocate a widget.
@@ -34,6 +35,12 @@ func (x *CustomLayoutClass) GoPointer() uintptr {
 // virtual functions.
 type CustomLayout struct {
 	LayoutManager
+}
+
+var xCustomLayoutGLibType func() types.GType
+
+func CustomLayoutGLibType() types.GType {
+	return xCustomLayoutGLibType()
 }
 
 func CustomLayoutNewFromInternalPtr(ptr uintptr) *CustomLayout {
@@ -75,6 +82,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCustomLayoutGLibType, lib, "gtk_custom_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewCustomLayout, lib, "gtk_custom_layout_new")
 

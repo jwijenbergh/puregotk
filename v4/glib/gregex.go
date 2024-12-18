@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of the function passed to g_regex_replace_eval().
@@ -17,6 +18,12 @@ type RegexEvalCallback func(*MatchInfo, *String, uintptr) bool
 // A GMatchInfo is an opaque struct used to return information about
 // matches.
 type MatchInfo struct {
+}
+
+var xMatchInfoGLibType func() types.GType
+
+func MatchInfoGLibType() types.GType {
+	return xMatchInfoGLibType()
 }
 
 func (x *MatchInfo) GoPointer() uintptr {
@@ -353,6 +360,12 @@ func (x *MatchInfo) Unref() {
 // [PCRE](http://www.pcre.org/)
 // library written by Philip Hazel.
 type Regex struct {
+}
+
+var xRegexGLibType func() types.GType
+
+func RegexGLibType() types.GType {
+	return xRegexGLibType()
 }
 
 func (x *Regex) GoPointer() uintptr {
@@ -1289,11 +1302,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xRegexCheckReplacement, lib, "g_regex_check_replacement")
 	core.PuregoSafeRegister(&xRegexEscapeNul, lib, "g_regex_escape_nul")
 	core.PuregoSafeRegister(&xRegexEscapeString, lib, "g_regex_escape_string")
 	core.PuregoSafeRegister(&xRegexMatchSimple, lib, "g_regex_match_simple")
 	core.PuregoSafeRegister(&xRegexSplitSimple, lib, "g_regex_split_simple")
+
+	core.PuregoSafeRegister(&xMatchInfoGLibType, lib, "g_match_info_get_type")
 
 	core.PuregoSafeRegister(&xMatchInfoExpandReferences, lib, "g_match_info_expand_references")
 	core.PuregoSafeRegister(&xMatchInfoFetch, lib, "g_match_info_fetch")
@@ -1310,6 +1326,8 @@ func init() {
 	core.PuregoSafeRegister(&xMatchInfoNext, lib, "g_match_info_next")
 	core.PuregoSafeRegister(&xMatchInfoRef, lib, "g_match_info_ref")
 	core.PuregoSafeRegister(&xMatchInfoUnref, lib, "g_match_info_unref")
+
+	core.PuregoSafeRegister(&xRegexGLibType, lib, "g_regex_get_type")
 
 	core.PuregoSafeRegister(&xNewRegex, lib, "g_regex_new")
 

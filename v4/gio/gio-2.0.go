@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xIoErrorQuark func() glib.Quark
@@ -76,6 +77,12 @@ type AppInfoMonitor struct {
 	gobject.Object
 }
 
+var xAppInfoMonitorGLibType func() types.GType
+
+func AppInfoMonitorGLibType() types.GType {
+	return xAppInfoMonitorGLibType()
+}
+
 func AppInfoMonitorNewFromInternalPtr(ptr uintptr) *AppInfoMonitor {
 	cls := &AppInfoMonitor{}
 	cls.Ptr = ptr
@@ -139,6 +146,12 @@ func AppInfoMonitorGet() *AppInfoMonitor {
 // png) to be used as icon.
 type BytesIcon struct {
 	gobject.Object
+}
+
+var xBytesIconGLibType func() types.GType
+
+func BytesIconGLibType() types.GType {
+	return xBytesIconGLibType()
 }
 
 func BytesIconNewFromInternalPtr(ptr uintptr) *BytesIcon {
@@ -276,6 +289,12 @@ func (x *BytesIcon) LoadFinish(ResVar AsyncResult, TypeVar string) (*InputStream
 // that is exported over D-Bus with g_dbus_connection_export_action_group().
 type DBusActionGroup struct {
 	gobject.Object
+}
+
+var xDBusActionGroupGLibType func() types.GType
+
+func DBusActionGroupGLibType() types.GType {
+	return xDBusActionGroupGLibType()
 }
 
 func DBusActionGroupNewFromInternalPtr(ptr uintptr) *DBusActionGroup {
@@ -653,6 +672,12 @@ type DBusAuthObserver struct {
 	gobject.Object
 }
 
+var xDBusAuthObserverGLibType func() types.GType
+
+func DBusAuthObserverGLibType() types.GType {
+	return xDBusAuthObserverGLibType()
+}
+
 func DBusAuthObserverNewFromInternalPtr(ptr uintptr) *DBusAuthObserver {
 	cls := &DBusAuthObserver{}
 	cls.Ptr = ptr
@@ -793,6 +818,12 @@ func (x *DBusAuthObserver) ConnectAuthorizeAuthenticatedPeer(cb *func(DBusAuthOb
 // [gdbus-example-export.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-export.c)
 type DBusConnection struct {
 	gobject.Object
+}
+
+var xDBusConnectionGLibType func() types.GType
+
+func DBusConnectionGLibType() types.GType {
+	return xDBusConnectionGLibType()
 }
 
 func DBusConnectionNewFromInternalPtr(ptr uintptr) *DBusConnection {
@@ -2114,6 +2145,12 @@ type DBusMenuModel struct {
 	MenuModel
 }
 
+var xDBusMenuModelGLibType func() types.GType
+
+func DBusMenuModelGLibType() types.GType {
+	return xDBusMenuModelGLibType()
+}
+
 func DBusMenuModelNewFromInternalPtr(ptr uintptr) *DBusMenuModel {
 	cls := &DBusMenuModel{}
 	cls.Ptr = ptr
@@ -2155,6 +2192,12 @@ func DBusMenuModelGet(ConnectionVar *DBusConnection, BusNameVar string, ObjectPa
 // on a #GDBusConnection.
 type DBusMessage struct {
 	gobject.Object
+}
+
+var xDBusMessageGLibType func() types.GType
+
+func DBusMessageGLibType() types.GType {
+	return xDBusMessageGLibType()
 }
 
 func DBusMessageNewFromInternalPtr(ptr uintptr) *DBusMessage {
@@ -2807,6 +2850,12 @@ type DBusMethodInvocation struct {
 	gobject.Object
 }
 
+var xDBusMethodInvocationGLibType func() types.GType
+
+func DBusMethodInvocationGLibType() types.GType {
+	return xDBusMethodInvocationGLibType()
+}
+
 func DBusMethodInvocationNewFromInternalPtr(ptr uintptr) *DBusMethodInvocation {
 	cls := &DBusMethodInvocation{}
 	cls.Ptr = ptr
@@ -3131,6 +3180,12 @@ type DBusServer struct {
 	gobject.Object
 }
 
+var xDBusServerGLibType func() types.GType
+
+func DBusServerGLibType() types.GType {
+	return xDBusServerGLibType()
+}
+
 func DBusServerNewFromInternalPtr(ptr uintptr) *DBusServer {
 	cls := &DBusServer{}
 	cls.Ptr = ptr
@@ -3342,6 +3397,12 @@ func (x *DBusServer) Init(CancellableVar *Cancellable) (bool, error) {
 // g_menu_insert_submenu().
 type Menu struct {
 	MenuModel
+}
+
+var xMenuGLibType func() types.GType
+
+func MenuGLibType() types.GType {
+	return xMenuGLibType()
 }
 
 func MenuNewFromInternalPtr(ptr uintptr) *Menu {
@@ -3569,6 +3630,12 @@ func (c *Menu) SetGoPointer(ptr uintptr) {
 // functions below.
 type MenuItem struct {
 	gobject.Object
+}
+
+var xMenuItemGLibType func() types.GType
+
+func MenuItemGLibType() types.GType {
+	return xMenuItemGLibType()
 }
 
 func MenuItemNewFromInternalPtr(ptr uintptr) *MenuItem {
@@ -4044,6 +4111,12 @@ type Notification struct {
 	gobject.Object
 }
 
+var xNotificationGLibType func() types.GType
+
+func NotificationGLibType() types.GType {
+	return xNotificationGLibType()
+}
+
 func NotificationNewFromInternalPtr(ptr uintptr) *Notification {
 	cls := &Notification{}
 	cls.Ptr = ptr
@@ -4293,6 +4366,12 @@ type PropertyAction struct {
 	gobject.Object
 }
 
+var xPropertyActionGLibType func() types.GType
+
+func PropertyActionGLibType() types.GType {
+	return xPropertyActionGLibType()
+}
+
 func PropertyActionNewFromInternalPtr(ptr uintptr) *PropertyAction {
 	cls := &PropertyAction{}
 	cls.Ptr = ptr
@@ -4453,6 +4532,12 @@ func (x *PropertyAction) GetStateType() *glib.VariantType {
 // See also #GtkAction.
 type SimpleAction struct {
 	gobject.Object
+}
+
+var xSimpleActionGLibType func() types.GType
+
+func SimpleActionGLibType() types.GType {
+	return xSimpleActionGLibType()
 }
 
 func SimpleActionNewFromInternalPtr(ptr uintptr) *SimpleAction {
@@ -4769,6 +4854,12 @@ type SimpleIOStream struct {
 	IOStream
 }
 
+var xSimpleIOStreamGLibType func() types.GType
+
+func SimpleIOStreamGLibType() types.GType {
+	return xSimpleIOStreamGLibType()
+}
+
 func SimpleIOStreamNewFromInternalPtr(ptr uintptr) *SimpleIOStream {
 	cls := &SimpleIOStream{}
 	cls.Ptr = ptr
@@ -4807,6 +4898,12 @@ func (c *SimpleIOStream) SetGoPointer(ptr uintptr) {
 // Calling request or release will result in errors.
 type SimplePermission struct {
 	Permission
+}
+
+var xSimplePermissionGLibType func() types.GType
+
+func SimplePermissionGLibType() types.GType {
+	return xSimplePermissionGLibType()
 }
 
 func SimplePermissionNewFromInternalPtr(ptr uintptr) *SimplePermission {
@@ -4899,6 +4996,12 @@ func (c *SimplePermission) SetGoPointer(ptr uintptr) {
 // are similar to the familiar WIFEXITED-style POSIX macros).
 type Subprocess struct {
 	gobject.Object
+}
+
+var xSubprocessGLibType func() types.GType
+
+func SubprocessGLibType() types.GType {
+	return xSubprocessGLibType()
 }
 
 func SubprocessNewFromInternalPtr(ptr uintptr) *Subprocess {
@@ -5428,6 +5531,12 @@ type SubprocessLauncher struct {
 	gobject.Object
 }
 
+var xSubprocessLauncherGLibType func() types.GType
+
+func SubprocessLauncherGLibType() types.GType {
+	return xSubprocessLauncherGLibType()
+}
+
 func SubprocessLauncherNewFromInternalPtr(ptr uintptr) *SubprocessLauncher {
 	cls := &SubprocessLauncher{}
 	cls.Ptr = ptr
@@ -5876,6 +5985,12 @@ type TestDBus struct {
 	gobject.Object
 }
 
+var xTestDBusGLibType func() types.GType
+
+func TestDBusGLibType() types.GType {
+	return xTestDBusGLibType()
+}
+
 func TestDBusNewFromInternalPtr(ptr uintptr) *TestDBus {
 	cls := &TestDBus{}
 	cls.Ptr = ptr
@@ -5998,24 +6113,35 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIoErrorQuark, lib, "g_io_error_quark")
 	core.PuregoSafeRegister(&xResolverErrorQuark, lib, "g_resolver_error_quark")
 	core.PuregoSafeRegister(&xResourceErrorQuark, lib, "g_resource_error_quark")
 	core.PuregoSafeRegister(&xTlsChannelBindingErrorQuark, lib, "g_tls_channel_binding_error_quark")
 	core.PuregoSafeRegister(&xTlsErrorQuark, lib, "g_tls_error_quark")
 
+	core.PuregoSafeRegister(&xAppInfoMonitorGLibType, lib, "g_app_info_monitor_get_type")
+
 	core.PuregoSafeRegister(&xAppInfoMonitorGet, lib, "g_app_info_monitor_get")
+
+	core.PuregoSafeRegister(&xBytesIconGLibType, lib, "g_bytes_icon_get_type")
 
 	core.PuregoSafeRegister(&xNewBytesIcon, lib, "g_bytes_icon_new")
 
 	core.PuregoSafeRegister(&xBytesIconGetBytes, lib, "g_bytes_icon_get_bytes")
 
+	core.PuregoSafeRegister(&xDBusActionGroupGLibType, lib, "g_dbus_action_group_get_type")
+
 	core.PuregoSafeRegister(&xDBusActionGroupGet, lib, "g_dbus_action_group_get")
+
+	core.PuregoSafeRegister(&xDBusAuthObserverGLibType, lib, "g_dbus_auth_observer_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusAuthObserver, lib, "g_dbus_auth_observer_new")
 
 	core.PuregoSafeRegister(&xDBusAuthObserverAllowMechanism, lib, "g_dbus_auth_observer_allow_mechanism")
 	core.PuregoSafeRegister(&xDBusAuthObserverAuthorizeAuthenticatedPeer, lib, "g_dbus_auth_observer_authorize_authenticated_peer")
+
+	core.PuregoSafeRegister(&xDBusConnectionGLibType, lib, "g_dbus_connection_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusConnectionFinish, lib, "g_dbus_connection_new_finish")
 	core.PuregoSafeRegister(&xNewDBusConnectionForAddressFinish, lib, "g_dbus_connection_new_for_address_finish")
@@ -6067,7 +6193,11 @@ func init() {
 	core.PuregoSafeRegister(&xDBusConnectionNew, lib, "g_dbus_connection_new")
 	core.PuregoSafeRegister(&xDBusConnectionNewForAddress, lib, "g_dbus_connection_new_for_address")
 
+	core.PuregoSafeRegister(&xDBusMenuModelGLibType, lib, "g_dbus_menu_model_get_type")
+
 	core.PuregoSafeRegister(&xDBusMenuModelGet, lib, "g_dbus_menu_model_get")
+
+	core.PuregoSafeRegister(&xDBusMessageGLibType, lib, "g_dbus_message_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusMessage, lib, "g_dbus_message_new")
 	core.PuregoSafeRegister(&xNewDBusMessageFromBlob, lib, "g_dbus_message_new_from_blob")
@@ -6121,6 +6251,8 @@ func init() {
 
 	core.PuregoSafeRegister(&xDBusMessageBytesNeeded, lib, "g_dbus_message_bytes_needed")
 
+	core.PuregoSafeRegister(&xDBusMethodInvocationGLibType, lib, "g_dbus_method_invocation_get_type")
+
 	core.PuregoSafeRegister(&xDBusMethodInvocationGetConnection, lib, "g_dbus_method_invocation_get_connection")
 	core.PuregoSafeRegister(&xDBusMethodInvocationGetInterfaceName, lib, "g_dbus_method_invocation_get_interface_name")
 	core.PuregoSafeRegister(&xDBusMethodInvocationGetMessage, lib, "g_dbus_method_invocation_get_message")
@@ -6140,6 +6272,8 @@ func init() {
 	core.PuregoSafeRegister(&xDBusMethodInvocationReturnValueWithUnixFdList, lib, "g_dbus_method_invocation_return_value_with_unix_fd_list")
 	core.PuregoSafeRegister(&xDBusMethodInvocationTakeError, lib, "g_dbus_method_invocation_take_error")
 
+	core.PuregoSafeRegister(&xDBusServerGLibType, lib, "g_dbus_server_get_type")
+
 	core.PuregoSafeRegister(&xNewDBusServerSync, lib, "g_dbus_server_new_sync")
 
 	core.PuregoSafeRegister(&xDBusServerGetClientAddress, lib, "g_dbus_server_get_client_address")
@@ -6148,6 +6282,8 @@ func init() {
 	core.PuregoSafeRegister(&xDBusServerIsActive, lib, "g_dbus_server_is_active")
 	core.PuregoSafeRegister(&xDBusServerStart, lib, "g_dbus_server_start")
 	core.PuregoSafeRegister(&xDBusServerStop, lib, "g_dbus_server_stop")
+
+	core.PuregoSafeRegister(&xMenuGLibType, lib, "g_menu_get_type")
 
 	core.PuregoSafeRegister(&xNewMenu, lib, "g_menu_new")
 
@@ -6166,6 +6302,8 @@ func init() {
 	core.PuregoSafeRegister(&xMenuPrependSubmenu, lib, "g_menu_prepend_submenu")
 	core.PuregoSafeRegister(&xMenuRemove, lib, "g_menu_remove")
 	core.PuregoSafeRegister(&xMenuRemoveAll, lib, "g_menu_remove_all")
+
+	core.PuregoSafeRegister(&xMenuItemGLibType, lib, "g_menu_item_get_type")
 
 	core.PuregoSafeRegister(&xNewMenuItem, lib, "g_menu_item_new")
 	core.PuregoSafeRegister(&xNewMenuItemFromModel, lib, "g_menu_item_new_from_model")
@@ -6186,6 +6324,8 @@ func init() {
 	core.PuregoSafeRegister(&xMenuItemSetSection, lib, "g_menu_item_set_section")
 	core.PuregoSafeRegister(&xMenuItemSetSubmenu, lib, "g_menu_item_set_submenu")
 
+	core.PuregoSafeRegister(&xNotificationGLibType, lib, "g_notification_get_type")
+
 	core.PuregoSafeRegister(&xNewNotification, lib, "g_notification_new")
 
 	core.PuregoSafeRegister(&xNotificationAddButton, lib, "g_notification_add_button")
@@ -6201,7 +6341,11 @@ func init() {
 	core.PuregoSafeRegister(&xNotificationSetTitle, lib, "g_notification_set_title")
 	core.PuregoSafeRegister(&xNotificationSetUrgent, lib, "g_notification_set_urgent")
 
+	core.PuregoSafeRegister(&xPropertyActionGLibType, lib, "g_property_action_get_type")
+
 	core.PuregoSafeRegister(&xNewPropertyAction, lib, "g_property_action_new")
+
+	core.PuregoSafeRegister(&xSimpleActionGLibType, lib, "g_simple_action_get_type")
 
 	core.PuregoSafeRegister(&xNewSimpleAction, lib, "g_simple_action_new")
 	core.PuregoSafeRegister(&xNewSimpleActionStateful, lib, "g_simple_action_new_stateful")
@@ -6210,9 +6354,15 @@ func init() {
 	core.PuregoSafeRegister(&xSimpleActionSetState, lib, "g_simple_action_set_state")
 	core.PuregoSafeRegister(&xSimpleActionSetStateHint, lib, "g_simple_action_set_state_hint")
 
+	core.PuregoSafeRegister(&xSimpleIOStreamGLibType, lib, "g_simple_io_stream_get_type")
+
 	core.PuregoSafeRegister(&xNewSimpleIOStream, lib, "g_simple_io_stream_new")
 
+	core.PuregoSafeRegister(&xSimplePermissionGLibType, lib, "g_simple_permission_get_type")
+
 	core.PuregoSafeRegister(&xNewSimplePermission, lib, "g_simple_permission_new")
+
+	core.PuregoSafeRegister(&xSubprocessGLibType, lib, "g_subprocess_get_type")
 
 	core.PuregoSafeRegister(&xNewSubprocess, lib, "g_subprocess_new")
 	core.PuregoSafeRegister(&xNewSubprocessv, lib, "g_subprocess_newv")
@@ -6242,6 +6392,8 @@ func init() {
 	core.PuregoSafeRegister(&xSubprocessWaitCheckFinish, lib, "g_subprocess_wait_check_finish")
 	core.PuregoSafeRegister(&xSubprocessWaitFinish, lib, "g_subprocess_wait_finish")
 
+	core.PuregoSafeRegister(&xSubprocessLauncherGLibType, lib, "g_subprocess_launcher_get_type")
+
 	core.PuregoSafeRegister(&xNewSubprocessLauncher, lib, "g_subprocess_launcher_new")
 
 	core.PuregoSafeRegister(&xSubprocessLauncherClose, lib, "g_subprocess_launcher_close")
@@ -6261,6 +6413,8 @@ func init() {
 	core.PuregoSafeRegister(&xSubprocessLauncherTakeStdinFd, lib, "g_subprocess_launcher_take_stdin_fd")
 	core.PuregoSafeRegister(&xSubprocessLauncherTakeStdoutFd, lib, "g_subprocess_launcher_take_stdout_fd")
 	core.PuregoSafeRegister(&xSubprocessLauncherUnsetenv, lib, "g_subprocess_launcher_unsetenv")
+
+	core.PuregoSafeRegister(&xTestDBusGLibType, lib, "g_test_dbus_get_type")
 
 	core.PuregoSafeRegister(&xNewTestDBus, lib, "g_test_dbus_new")
 

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Defines a part of a CSS document.
@@ -16,6 +17,12 @@ import (
 // Because sections are nested into one another, you can use
 // [method@CssSection.get_parent] to get the containing region.
 type CssSection struct {
+}
+
+var xCssSectionGLibType func() types.GType
+
+func CssSectionGLibType() types.GType {
+	return xCssSectionGLibType()
 }
 
 func (x *CssSection) GoPointer() uintptr {
@@ -133,6 +140,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCssSectionGLibType, lib, "gtk_css_section_get_type")
 
 	core.PuregoSafeRegister(&xNewCssSection, lib, "gtk_css_section_new")
 

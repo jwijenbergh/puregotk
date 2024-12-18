@@ -30,6 +30,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xStrvGetType, lib, "g_strv_get_type")
 	core.PuregoSafeRegister(&xVariantGetGtype, lib, "g_variant_get_gtype")
 

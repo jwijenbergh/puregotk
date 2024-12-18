@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkSpinner` widget displays an icon-size spinning animation.
@@ -24,6 +25,12 @@ import (
 // added to this node.
 type Spinner struct {
 	Widget
+}
+
+var xSpinnerGLibType func() types.GType
+
+func SpinnerGLibType() types.GType {
+	return xSpinnerGLibType()
 }
 
 func SpinnerNewFromInternalPtr(ptr uintptr) *Spinner {
@@ -241,6 +248,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSpinnerGLibType, lib, "gtk_spinner_get_type")
 
 	core.PuregoSafeRegister(&xNewSpinner, lib, "gtk_spinner_new")
 

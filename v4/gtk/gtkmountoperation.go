@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MountOperationClass struct {
@@ -41,6 +42,12 @@ func (x *MountOperationPrivate) GoPointer() uintptr {
 // enter passwords, ask questions or show processes blocking unmount.
 type MountOperation struct {
 	gio.MountOperation
+}
+
+var xMountOperationGLibType func() types.GType
+
+func MountOperationGLibType() types.GType {
+	return xMountOperationGLibType()
 }
 
 func MountOperationNewFromInternalPtr(ptr uintptr) *MountOperation {
@@ -142,6 +149,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMountOperationGLibType, lib, "gtk_mount_operation_get_type")
 
 	core.PuregoSafeRegister(&xNewMountOperation, lib, "gtk_mount_operation_new")
 

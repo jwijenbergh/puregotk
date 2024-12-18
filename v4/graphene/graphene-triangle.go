@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A triangle.
@@ -15,6 +16,12 @@ type Triangle struct {
 	B uintptr
 
 	C uintptr
+}
+
+var xTriangleGLibType func() types.GType
+
+func TriangleGLibType() types.GType {
+	return xTriangleGLibType()
 }
 
 func (x *Triangle) GoPointer() uintptr {
@@ -204,6 +211,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTriangleGLibType, lib, "graphene_triangle_get_type")
 
 	core.PuregoSafeRegister(&xTriangleAlloc, lib, "graphene_triangle_alloc")
 

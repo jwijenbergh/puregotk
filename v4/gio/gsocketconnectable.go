@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for returning a #GSocketAddressEnumerator
@@ -85,6 +86,13 @@ type SocketConnectable interface {
 	ProxyEnumerate() *SocketAddressEnumerator
 	ToString() string
 }
+
+var xSocketConnectableGLibType func() types.GType
+
+func SocketConnectableGLibType() types.GType {
+	return xSocketConnectableGLibType()
+}
+
 type SocketConnectableBase struct {
 	Ptr uintptr
 }
@@ -153,6 +161,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketConnectableGLibType, lib, "g_socket_connectable_get_type")
 
 	core.PuregoSafeRegister(&XGSocketConnectableEnumerate, lib, "g_socket_connectable_enumerate")
 	core.PuregoSafeRegister(&XGSocketConnectableProxyEnumerate, lib, "g_socket_connectable_proxy_enumerate")

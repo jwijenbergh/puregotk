@@ -30,6 +30,12 @@ type TreeIter struct {
 	UserData3 uintptr
 }
 
+var xTreeIterGLibType func() types.GType
+
+func TreeIterGLibType() types.GType {
+	return xTreeIterGLibType()
+}
+
 func (x *TreeIter) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -69,6 +75,12 @@ func (x *TreeModelIface) GoPointer() uintptr {
 
 // An opaque structure representing a path to a row in a model.
 type TreePath struct {
+}
+
+var xTreePathGLibType func() types.GType
+
+func TreePathGLibType() types.GType {
+	return xTreePathGLibType()
 }
 
 func (x *TreePath) GoPointer() uintptr {
@@ -291,6 +303,12 @@ func (x *TreePath) Up() bool {
 // same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
 // new GtkTreeRowReference with gtk_tree_row_reference_new().
 type TreeRowReference struct {
+}
+
+var xTreeRowReferenceGLibType func() types.GType
+
+func TreeRowReferenceGLibType() types.GType {
+	return xTreeRowReferenceGLibType()
 }
 
 func (x *TreeRowReference) GoPointer() uintptr {
@@ -639,6 +657,13 @@ type TreeModel interface {
 	RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int, LengthVar int)
 	UnrefNode(IterVar *TreeIter)
 }
+
+var xTreeModelGLibType func() types.GType
+
+func TreeModelGLibType() types.GType {
+	return xTreeModelGLibType()
+}
+
 type TreeModelBase struct {
 	Ptr uintptr
 }
@@ -1013,6 +1038,12 @@ var XGtkTreeModelUnrefNode func(uintptr, *TreeIter)
 // this section.
 type TreeModelFlags int
 
+var xTreeModelFlagsGLibType func() types.GType
+
+func TreeModelFlagsGLibType() types.GType {
+	return xTreeModelFlagsGLibType()
+}
+
 const (
 
 	// iterators survive all signals
@@ -1061,12 +1092,19 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeModelFlagsGLibType, lib, "gtk_tree_model_flags_get_type")
+
 	core.PuregoSafeRegister(&xTreeRowReferenceDeleted, lib, "gtk_tree_row_reference_deleted")
 	core.PuregoSafeRegister(&xTreeRowReferenceInserted, lib, "gtk_tree_row_reference_inserted")
 	core.PuregoSafeRegister(&xTreeRowReferenceReordered, lib, "gtk_tree_row_reference_reordered")
 
+	core.PuregoSafeRegister(&xTreeIterGLibType, lib, "gtk_tree_iter_get_type")
+
 	core.PuregoSafeRegister(&xTreeIterCopy, lib, "gtk_tree_iter_copy")
 	core.PuregoSafeRegister(&xTreeIterFree, lib, "gtk_tree_iter_free")
+
+	core.PuregoSafeRegister(&xTreePathGLibType, lib, "gtk_tree_path_get_type")
 
 	core.PuregoSafeRegister(&xNewTreePath, lib, "gtk_tree_path_new")
 	core.PuregoSafeRegister(&xNewTreePathFirst, lib, "gtk_tree_path_new_first")
@@ -1090,6 +1128,8 @@ func init() {
 	core.PuregoSafeRegister(&xTreePathToString, lib, "gtk_tree_path_to_string")
 	core.PuregoSafeRegister(&xTreePathUp, lib, "gtk_tree_path_up")
 
+	core.PuregoSafeRegister(&xTreeRowReferenceGLibType, lib, "gtk_tree_row_reference_get_type")
+
 	core.PuregoSafeRegister(&xNewTreeRowReference, lib, "gtk_tree_row_reference_new")
 	core.PuregoSafeRegister(&xNewTreeRowReferenceProxy, lib, "gtk_tree_row_reference_new_proxy")
 
@@ -1098,6 +1138,8 @@ func init() {
 	core.PuregoSafeRegister(&xTreeRowReferenceGetModel, lib, "gtk_tree_row_reference_get_model")
 	core.PuregoSafeRegister(&xTreeRowReferenceGetPath, lib, "gtk_tree_row_reference_get_path")
 	core.PuregoSafeRegister(&xTreeRowReferenceValid, lib, "gtk_tree_row_reference_valid")
+
+	core.PuregoSafeRegister(&xTreeModelGLibType, lib, "gtk_tree_model_get_type")
 
 	core.PuregoSafeRegister(&XGtkTreeModelFilterNew, lib, "gtk_tree_model_filter_new")
 	core.PuregoSafeRegister(&XGtkTreeModelForeach, lib, "gtk_tree_model_foreach")

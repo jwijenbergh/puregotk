@@ -229,6 +229,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xHookDestroy, lib, "g_hook_destroy")
 	core.PuregoSafeRegister(&xHookDestroyLink, lib, "g_hook_destroy_link")
 	core.PuregoSafeRegister(&xHookFree, lib, "g_hook_free")

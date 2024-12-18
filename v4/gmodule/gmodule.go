@@ -145,6 +145,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xModuleBuildPath, lib, "g_module_build_path")
 	core.PuregoSafeRegister(&xNewModuleError, lib, "g_module_error")
 	core.PuregoSafeRegister(&xModuleSupported, lib, "g_module_supported")

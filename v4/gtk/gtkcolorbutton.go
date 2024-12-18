@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkColorButton` allows to open a color chooser dialog to change
@@ -33,6 +34,12 @@ import (
 // it gets the .color style class.
 type ColorButton struct {
 	Widget
+}
+
+var xColorButtonGLibType func() types.GType
+
+func ColorButtonGLibType() types.GType {
+	return xColorButtonGLibType()
 }
 
 func ColorButtonNewFromInternalPtr(ptr uintptr) *ColorButton {
@@ -374,6 +381,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorButtonGLibType, lib, "gtk_color_button_get_type")
 
 	core.PuregoSafeRegister(&xNewColorButton, lib, "gtk_color_button_new")
 	core.PuregoSafeRegister(&xNewColorButtonWithRgba, lib, "gtk_color_button_new_with_rgba")

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -31,6 +32,12 @@ func (x *TimeCoord) GoPointer() uintptr {
 
 // An enumeration describing the type of an input device in general terms.
 type InputSource int
+
+var xInputSourceGLibType func() types.GType
+
+func InputSourceGLibType() types.GType {
+	return xInputSourceGLibType()
+}
 
 const (
 
@@ -61,6 +68,12 @@ const (
 // about the various kinds of devices, and their relationships.
 type Device struct {
 	gobject.Object
+}
+
+var xDeviceGLibType func() types.GType
+
+func DeviceGLibType() types.GType {
+	return xDeviceGLibType()
 }
 
 func DeviceNewFromInternalPtr(ptr uintptr) *Device {
@@ -372,6 +385,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInputSourceGLibType, lib, "gdk_input_source_get_type")
+
+	core.PuregoSafeRegister(&xDeviceGLibType, lib, "gdk_device_get_type")
 
 	core.PuregoSafeRegister(&xDeviceGetCapsLockState, lib, "gdk_device_get_caps_lock_state")
 	core.PuregoSafeRegister(&xDeviceGetDeviceTool, lib, "gdk_device_get_device_tool")

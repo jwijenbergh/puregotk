@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -40,6 +41,12 @@ const (
 // `GtkTextView::extend-selection` signal to customize the selection.
 type TextExtendSelection int
 
+var xTextExtendSelectionGLibType func() types.GType
+
+func TextExtendSelectionGLibType() types.GType {
+	return xTextExtendSelectionGLibType()
+}
+
 const (
 
 	// Selects the current word. It is triggered by
@@ -54,6 +61,12 @@ const (
 // drawing with the ::snapshot_layer vfunc.
 type TextViewLayer int
 
+var xTextViewLayerGLibType func() types.GType
+
+func TextViewLayerGLibType() types.GType {
+	return xTextViewLayerGLibType()
+}
+
 const (
 
 	// The layer rendered below the text (but above the background).
@@ -64,6 +77,12 @@ const (
 
 // Used to reference the parts of `GtkTextView`.
 type TextWindowType int
+
+var xTextWindowTypeGLibType func() types.GType
+
+func TextWindowTypeGLibType() types.GType {
+	return xTextWindowTypeGLibType()
+}
 
 const (
 
@@ -117,6 +136,12 @@ const (
 // `GtkTextView` uses the %GTK_ACCESSIBLE_ROLE_TEXT_BOX role.
 type TextView struct {
 	Widget
+}
+
+var xTextViewGLibType func() types.GType
+
+func TextViewGLibType() types.GType {
+	return xTextViewGLibType()
 }
 
 func TextViewNewFromInternalPtr(ptr uintptr) *TextView {
@@ -1775,6 +1800,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextExtendSelectionGLibType, lib, "gtk_text_extend_selection_get_type")
+
+	core.PuregoSafeRegister(&xTextViewLayerGLibType, lib, "gtk_text_view_layer_get_type")
+
+	core.PuregoSafeRegister(&xTextWindowTypeGLibType, lib, "gtk_text_window_type_get_type")
+
+	core.PuregoSafeRegister(&xTextViewGLibType, lib, "gtk_text_view_get_type")
 
 	core.PuregoSafeRegister(&xNewTextView, lib, "gtk_text_view_new")
 	core.PuregoSafeRegister(&xNewTextViewWithBuffer, lib, "gtk_text_view_new_with_buffer")

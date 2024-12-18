@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureSingleClass struct {
@@ -32,6 +33,12 @@ func (x *GestureSingleClass) GoPointer() uintptr {
 // [method@Gtk.GestureSingle.get_current_button].
 type GestureSingle struct {
 	Gesture
+}
+
+var xGestureSingleGLibType func() types.GType
+
+func GestureSingleGLibType() types.GType {
+	return xGestureSingleGLibType()
 }
 
 func GestureSingleNewFromInternalPtr(ptr uintptr) *GestureSingle {
@@ -145,6 +152,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureSingleGLibType, lib, "gtk_gesture_single_get_type")
 
 	core.PuregoSafeRegister(&xGestureSingleGetButton, lib, "gtk_gesture_single_get_button")
 	core.PuregoSafeRegister(&xGestureSingleGetCurrentButton, lib, "gtk_gesture_single_get_current_button")

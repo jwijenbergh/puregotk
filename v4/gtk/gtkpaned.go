@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A widget with two panes, arranged either horizontally or vertically.
@@ -79,6 +80,12 @@ import (
 // ```
 type Paned struct {
 	Widget
+}
+
+var xPanedGLibType func() types.GType
+
+func PanedGLibType() types.GType {
+	return xPanedGLibType()
 }
 
 func PanedNewFromInternalPtr(ptr uintptr) *Paned {
@@ -588,6 +595,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPanedGLibType, lib, "gtk_paned_get_type")
 
 	core.PuregoSafeRegister(&xNewPaned, lib, "gtk_paned_new")
 

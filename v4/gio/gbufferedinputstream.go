@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BufferedInputStreamClass struct {
@@ -40,6 +41,12 @@ func (x *BufferedInputStreamPrivate) GoPointer() uintptr {
 // cannot be reduced below the size of the data within the buffer.
 type BufferedInputStream struct {
 	FilterInputStream
+}
+
+var xBufferedInputStreamGLibType func() types.GType
+
+func BufferedInputStreamGLibType() types.GType {
+	return xBufferedInputStreamGLibType()
 }
 
 func BufferedInputStreamNewFromInternalPtr(ptr uintptr) *BufferedInputStream {
@@ -303,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBufferedInputStreamGLibType, lib, "g_buffered_input_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewBufferedInputStream, lib, "g_buffered_input_stream_new")
 	core.PuregoSafeRegister(&xNewBufferedInputStreamSized, lib, "g_buffered_input_stream_new_sized")

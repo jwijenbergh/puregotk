@@ -282,6 +282,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xFindParagraphBoundary, lib, "pango_find_paragraph_boundary")
 	core.PuregoSafeRegister(&xIsZeroWidth, lib, "pango_is_zero_width")
 	core.PuregoSafeRegister(&xLog2visGetEmbeddingLevels, lib, "pango_log2vis_get_embedding_levels")

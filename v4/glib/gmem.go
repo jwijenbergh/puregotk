@@ -255,6 +255,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAlignedAlloc, lib, "g_aligned_alloc")
 	core.PuregoSafeRegister(&xAlignedAlloc0, lib, "g_aligned_alloc0")
 	core.PuregoSafeRegister(&xAlignedFree, lib, "g_aligned_free")

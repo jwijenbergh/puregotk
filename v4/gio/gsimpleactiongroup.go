@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SimpleActionGroupClass struct {
@@ -31,6 +32,12 @@ func (x *SimpleActionGroupPrivate) GoPointer() uintptr {
 // implementing the #GActionGroup and #GActionMap interfaces.
 type SimpleActionGroup struct {
 	gobject.Object
+}
+
+var xSimpleActionGroupGLibType func() types.GType
+
+func SimpleActionGroupGLibType() types.GType {
+	return xSimpleActionGroupGLibType()
 }
 
 func SimpleActionGroupNewFromInternalPtr(ptr uintptr) *SimpleActionGroup {
@@ -440,6 +447,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSimpleActionGroupGLibType, lib, "g_simple_action_group_get_type")
 
 	core.PuregoSafeRegister(&xNewSimpleActionGroup, lib, "g_simple_action_group_new")
 

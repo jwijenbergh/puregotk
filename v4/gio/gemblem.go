@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EmblemClass struct {
@@ -25,6 +26,12 @@ func (x *EmblemClass) GoPointer() uintptr {
 // supported. More may be added in the future.
 type Emblem struct {
 	gobject.Object
+}
+
+var xEmblemGLibType func() types.GType
+
+func EmblemGLibType() types.GType {
+	return xEmblemGLibType()
 }
 
 func EmblemNewFromInternalPtr(ptr uintptr) *Emblem {
@@ -144,6 +151,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEmblemGLibType, lib, "g_emblem_get_type")
 
 	core.PuregoSafeRegister(&xNewEmblem, lib, "g_emblem_new")
 	core.PuregoSafeRegister(&xNewEmblemWithOrigin, lib, "g_emblem_new_with_origin")

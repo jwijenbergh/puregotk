@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileInputStreamClass struct {
@@ -35,6 +36,12 @@ func (x *FileInputStreamPrivate) GoPointer() uintptr {
 // To position a file input stream, use g_seekable_seek().
 type FileInputStream struct {
 	InputStream
+}
+
+var xFileInputStreamGLibType func() types.GType
+
+func FileInputStreamGLibType() types.GType {
+	return xFileInputStreamGLibType()
 }
 
 func FileInputStreamNewFromInternalPtr(ptr uintptr) *FileInputStream {
@@ -188,6 +195,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileInputStreamGLibType, lib, "g_file_input_stream_get_type")
 
 	core.PuregoSafeRegister(&xFileInputStreamQueryInfo, lib, "g_file_input_stream_query_info")
 	core.PuregoSafeRegister(&xFileInputStreamQueryInfoAsync, lib, "g_file_input_stream_query_info_async")

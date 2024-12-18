@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ButtonClass struct {
@@ -59,6 +60,12 @@ func (x *ButtonPrivate) GoPointer() uintptr {
 // `GtkButton` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
 type Button struct {
 	Widget
+}
+
+var xButtonGLibType func() types.GType
+
+func ButtonGLibType() types.GType {
+	return xButtonGLibType()
 }
 
 func ButtonNewFromInternalPtr(ptr uintptr) *Button {
@@ -552,6 +559,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xButtonGLibType, lib, "gtk_button_get_type")
 
 	core.PuregoSafeRegister(&xNewButton, lib, "gtk_button_new")
 	core.PuregoSafeRegister(&xNewButtonFromIconName, lib, "gtk_button_new_from_icon_name")

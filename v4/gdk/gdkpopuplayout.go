@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkPopupLayout` struct contains information that is
@@ -42,6 +43,12 @@ import (
 // But you have to be careful avoid changing the size of the popover, or it
 // has to be presented again.
 type PopupLayout struct {
+}
+
+var xPopupLayoutGLibType func() types.GType
+
+func PopupLayoutGLibType() types.GType {
+	return xPopupLayoutGLibType()
 }
 
 func (x *PopupLayout) GoPointer() uintptr {
@@ -239,6 +246,12 @@ func (x *PopupLayout) Unref() {
 // sliding, which should take precedence over resizing.
 type AnchorHints int
 
+var xAnchorHintsGLibType func() types.GType
+
+func AnchorHintsGLibType() types.GType {
+	return xAnchorHintsGLibType()
+}
+
 const (
 
 	// allow flipping anchors horizontally
@@ -266,6 +279,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAnchorHintsGLibType, lib, "gdk_anchor_hints_get_type")
+
+	core.PuregoSafeRegister(&xPopupLayoutGLibType, lib, "gdk_popup_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewPopupLayout, lib, "gdk_popup_layout_new")
 

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerKeyClass struct {
@@ -22,6 +23,12 @@ func (x *EventControllerKeyClass) GoPointer() uintptr {
 // to key events.
 type EventControllerKey struct {
 	EventController
+}
+
+var xEventControllerKeyGLibType func() types.GType
+
+func EventControllerKeyGLibType() types.GType {
+	return xEventControllerKeyGLibType()
 }
 
 func EventControllerKeyNewFromInternalPtr(ptr uintptr) *EventControllerKey {
@@ -194,6 +201,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerKeyGLibType, lib, "gtk_event_controller_key_get_type")
 
 	core.PuregoSafeRegister(&xNewEventControllerKey, lib, "gtk_event_controller_key_new")
 

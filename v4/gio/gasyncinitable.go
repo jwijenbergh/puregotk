@@ -136,6 +136,13 @@ type AsyncInitable interface {
 	InitFinish(ResVar AsyncResult) bool
 	NewFinish(ResVar AsyncResult) *gobject.Object
 }
+
+var xAsyncInitableGLibType func() types.GType
+
+func AsyncInitableGLibType() types.GType {
+	return xAsyncInitableGLibType()
+}
+
 type AsyncInitableBase struct {
 	Ptr uintptr
 }
@@ -246,7 +253,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAsyncInitableNewvAsync, lib, "g_async_initable_newv_async")
+
+	core.PuregoSafeRegister(&xAsyncInitableGLibType, lib, "g_async_initable_get_type")
 
 	core.PuregoSafeRegister(&XGAsyncInitableInitAsync, lib, "g_async_initable_init_async")
 	core.PuregoSafeRegister(&XGAsyncInitableInitFinish, lib, "g_async_initable_init_finish")

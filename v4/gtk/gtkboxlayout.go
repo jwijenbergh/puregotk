@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BoxLayoutClass struct {
@@ -32,6 +33,12 @@ func (x *BoxLayoutClass) GoPointer() uintptr {
 // you can use the [property@Gtk.BoxLayout:spacing] property.
 type BoxLayout struct {
 	LayoutManager
+}
+
+var xBoxLayoutGLibType func() types.GType
+
+func BoxLayoutGLibType() types.GType {
+	return xBoxLayoutGLibType()
 }
 
 func BoxLayoutNewFromInternalPtr(ptr uintptr) *BoxLayout {
@@ -144,6 +151,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBoxLayoutGLibType, lib, "gtk_box_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewBoxLayout, lib, "gtk_box_layout_new")
 

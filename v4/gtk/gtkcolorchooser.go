@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ColorChooserInterface struct {
@@ -36,6 +37,13 @@ type ColorChooser interface {
 	SetRgba(ColorVar *gdk.RGBA)
 	SetUseAlpha(UseAlphaVar bool)
 }
+
+var xColorChooserGLibType func() types.GType
+
+func ColorChooserGLibType() types.GType {
+	return xColorChooserGLibType()
+}
+
 type ColorChooserBase struct {
 	Ptr uintptr
 }
@@ -110,6 +118,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorChooserGLibType, lib, "gtk_color_chooser_get_type")
 
 	core.PuregoSafeRegister(&XGtkColorChooserAddPalette, lib, "gtk_color_chooser_add_palette")
 	core.PuregoSafeRegister(&XGtkColorChooserGetRgba, lib, "gtk_color_chooser_get_rgba")

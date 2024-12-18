@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ScrollableInterface struct {
@@ -58,6 +59,13 @@ type Scrollable interface {
 	SetVadjustment(VadjustmentVar *Adjustment)
 	SetVscrollPolicy(PolicyVar ScrollablePolicy)
 }
+
+var xScrollableGLibType func() types.GType
+
+func ScrollableGLibType() types.GType {
+	return xScrollableGLibType()
+}
+
 type ScrollableBase struct {
 	Ptr uintptr
 }
@@ -175,6 +183,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xScrollableGLibType, lib, "gtk_scrollable_get_type")
 
 	core.PuregoSafeRegister(&XGtkScrollableGetBorder, lib, "gtk_scrollable_get_border")
 	core.PuregoSafeRegister(&XGtkScrollableGetHadjustment, lib, "gtk_scrollable_get_hadjustment")

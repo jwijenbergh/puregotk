@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkFileFilter` filters files by name or mime type.
@@ -57,6 +58,12 @@ import (
 // ```
 type FileFilter struct {
 	Filter
+}
+
+var xFileFilterGLibType func() types.GType
+
+func FileFilterGLibType() types.GType {
+	return xFileFilterGLibType()
 }
 
 func FileFilterNewFromInternalPtr(ptr uintptr) *FileFilter {
@@ -232,6 +239,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileFilterGLibType, lib, "gtk_file_filter_get_type")
 
 	core.PuregoSafeRegister(&xNewFileFilter, lib, "gtk_file_filter_new")
 	core.PuregoSafeRegister(&xNewFileFilterFromGvariant, lib, "gtk_file_filter_new_from_gvariant")

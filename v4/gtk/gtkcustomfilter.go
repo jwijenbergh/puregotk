@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // User function that is called to determine if the @item should be matched.
@@ -26,6 +27,12 @@ func (x *CustomFilterClass) GoPointer() uintptr {
 // `GtkCustomFilter` determines whether to include items with a callback.
 type CustomFilter struct {
 	Filter
+}
+
+var xCustomFilterGLibType func() types.GType
+
+func CustomFilterGLibType() types.GType {
+	return xCustomFilterGLibType()
 }
 
 func CustomFilterNewFromInternalPtr(ptr uintptr) *CustomFilter {
@@ -86,6 +93,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCustomFilterGLibType, lib, "gtk_custom_filter_get_type")
 
 	core.PuregoSafeRegister(&xNewCustomFilter, lib, "gtk_custom_filter_new")
 

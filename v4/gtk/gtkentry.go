@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -30,6 +31,12 @@ func (x *EntryClass) GoPointer() uintptr {
 
 // Specifies the side of the entry at which an icon is placed.
 type EntryIconPosition int
+
+var xEntryIconPositionGLibType func() types.GType
+
+func EntryIconPositionGLibType() types.GType {
+	return xEntryIconPositionGLibType()
+}
 
 const (
 
@@ -130,6 +137,12 @@ const (
 // `GtkEntry` uses the %GTK_ACCESSIBLE_ROLE_TEXT_BOX role.
 type Entry struct {
 	Widget
+}
+
+var xEntryGLibType func() types.GType
+
+func EntryGLibType() types.GType {
+	return xEntryGLibType()
 }
 
 func EntryNewFromInternalPtr(ptr uintptr) *Entry {
@@ -1380,6 +1393,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEntryIconPositionGLibType, lib, "gtk_entry_icon_position_get_type")
+
+	core.PuregoSafeRegister(&xEntryGLibType, lib, "gtk_entry_get_type")
 
 	core.PuregoSafeRegister(&xNewEntry, lib, "gtk_entry_new")
 	core.PuregoSafeRegister(&xNewEntryWithBuffer, lib, "gtk_entry_new_with_buffer")

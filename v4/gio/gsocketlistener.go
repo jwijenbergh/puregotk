@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GSocketListener.
@@ -42,6 +43,12 @@ func (x *SocketListenerPrivate) GoPointer() uintptr {
 // that make this even easier.
 type SocketListener struct {
 	gobject.Object
+}
+
+var xSocketListenerGLibType func() types.GType
+
+func SocketListenerGLibType() types.GType {
+	return xSocketListenerGLibType()
 }
 
 func SocketListenerNewFromInternalPtr(ptr uintptr) *SocketListener {
@@ -369,6 +376,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketListenerGLibType, lib, "g_socket_listener_get_type")
 
 	core.PuregoSafeRegister(&xNewSocketListener, lib, "g_socket_listener_new")
 

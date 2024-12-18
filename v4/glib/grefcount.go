@@ -91,6 +91,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAtomicRefCountCompare, lib, "g_atomic_ref_count_compare")
 	core.PuregoSafeRegister(&xAtomicRefCountDec, lib, "g_atomic_ref_count_dec")
 	core.PuregoSafeRegister(&xAtomicRefCountInc, lib, "g_atomic_ref_count_inc")

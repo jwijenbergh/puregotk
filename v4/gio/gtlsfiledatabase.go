@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Provides an interface for #GTlsFileDatabase implementations.
@@ -27,6 +28,13 @@ type TlsFileDatabase interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 }
+
+var xTlsFileDatabaseGLibType func() types.GType
+
+func TlsFileDatabaseGLibType() types.GType {
+	return xTlsFileDatabaseGLibType()
+}
+
 type TlsFileDatabaseBase struct {
 	Ptr uintptr
 }
@@ -68,6 +76,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTlsFileDatabaseNew, lib, "g_tls_file_database_new")
+
+	core.PuregoSafeRegister(&xTlsFileDatabaseGLibType, lib, "g_tls_file_database_get_type")
 
 }

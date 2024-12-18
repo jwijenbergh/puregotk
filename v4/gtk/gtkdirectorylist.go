@@ -46,6 +46,12 @@ type DirectoryList struct {
 	gobject.Object
 }
 
+var xDirectoryListGLibType func() types.GType
+
+func DirectoryListGLibType() types.GType {
+	return xDirectoryListGLibType()
+}
+
 func DirectoryListNewFromInternalPtr(ptr uintptr) *DirectoryList {
 	cls := &DirectoryList{}
 	cls.Ptr = ptr
@@ -308,6 +314,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDirectoryListGLibType, lib, "gtk_directory_list_get_type")
 
 	core.PuregoSafeRegister(&xNewDirectoryList, lib, "gtk_directory_list_new")
 

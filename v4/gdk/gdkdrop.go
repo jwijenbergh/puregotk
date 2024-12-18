@@ -28,6 +28,12 @@ type Drop struct {
 	gobject.Object
 }
 
+var xDropGLibType func() types.GType
+
+func DropGLibType() types.GType {
+	return xDropGLibType()
+}
+
 func DropNewFromInternalPtr(ptr uintptr) *Drop {
 	cls := &Drop{}
 	cls.Ptr = ptr
@@ -255,6 +261,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDropGLibType, lib, "gdk_drop_get_type")
 
 	core.PuregoSafeRegister(&xDropFinish, lib, "gdk_drop_finish")
 	core.PuregoSafeRegister(&xDropGetActions, lib, "gdk_drop_get_actions")

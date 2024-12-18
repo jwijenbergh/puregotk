@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An interface for file descriptor based io objects.
@@ -28,6 +29,13 @@ type FileDescriptorBased interface {
 	SetGoPointer(uintptr)
 	GetFd() int
 }
+
+var xFileDescriptorBasedGLibType func() types.GType
+
+func FileDescriptorBasedGLibType() types.GType {
+	return xFileDescriptorBasedGLibType()
+}
+
 type FileDescriptorBasedBase struct {
 	Ptr uintptr
 }
@@ -54,6 +62,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileDescriptorBasedGLibType, lib, "g_file_descriptor_based_get_type")
 
 	core.PuregoSafeRegister(&XGFileDescriptorBasedGetFd, lib, "g_file_descriptor_based_get_fd")
 

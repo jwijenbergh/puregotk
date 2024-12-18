@@ -820,6 +820,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAssertWarning, lib, "g_assert_warning")
 	core.PuregoSafeRegister(&xLog, lib, "g_log")
 	core.PuregoSafeRegister(&xLogDefaultHandler, lib, "g_log_default_handler")

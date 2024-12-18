@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -107,6 +108,12 @@ func (x *ScaleClass) GoPointer() uintptr {
 // `GtkScale` uses the %GTK_ACCESSIBLE_ROLE_SLIDER role.
 type Scale struct {
 	Range
+}
+
+var xScaleGLibType func() types.GType
+
+func ScaleGLibType() types.GType {
+	return xScaleGLibType()
 }
 
 func ScaleNewFromInternalPtr(ptr uintptr) *Scale {
@@ -496,6 +503,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xScaleGLibType, lib, "gtk_scale_get_type")
 
 	core.PuregoSafeRegister(&xNewScale, lib, "gtk_scale_new")
 	core.PuregoSafeRegister(&xNewScaleWithRange, lib, "gtk_scale_new_with_range")

@@ -153,6 +153,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xRandomDouble, lib, "g_random_double")
 	core.PuregoSafeRegister(&xRandomDoubleRange, lib, "g_random_double_range")
 	core.PuregoSafeRegister(&xRandomInt, lib, "g_random_int")

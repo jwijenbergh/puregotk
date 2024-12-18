@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of the @func functions passed to g_thread_new()
@@ -656,6 +657,12 @@ func (x *RecMutex) Unlock() {
 type Thread struct {
 }
 
+var xThreadGLibType func() types.GType
+
+func ThreadGLibType() types.GType {
+	return xThreadGLibType()
+}
+
 func (x *Thread) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -964,6 +971,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xGetNumProcessors, lib, "g_get_num_processors")
 	core.PuregoSafeRegister(&xOnceInitEnter, lib, "g_once_init_enter")
 	core.PuregoSafeRegister(&xOnceInitLeave, lib, "g_once_init_leave")
@@ -998,6 +1006,8 @@ func init() {
 	core.PuregoSafeRegister(&xRecMutexLock, lib, "g_rec_mutex_lock")
 	core.PuregoSafeRegister(&xRecMutexTrylock, lib, "g_rec_mutex_trylock")
 	core.PuregoSafeRegister(&xRecMutexUnlock, lib, "g_rec_mutex_unlock")
+
+	core.PuregoSafeRegister(&xThreadGLibType, lib, "g_thread_get_type")
 
 	core.PuregoSafeRegister(&xNewThread, lib, "g_thread_new")
 	core.PuregoSafeRegister(&xThreadTryNew, lib, "g_thread_try_new")

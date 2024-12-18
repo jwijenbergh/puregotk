@@ -34,6 +34,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCheckVersion, lib, "glib_check_version")
 
 }

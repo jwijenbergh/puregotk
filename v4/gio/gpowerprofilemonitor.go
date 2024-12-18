@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GPowerProfileMonitor.
@@ -44,6 +45,13 @@ type PowerProfileMonitor interface {
 	SetGoPointer(uintptr)
 	GetPowerSaverEnabled() bool
 }
+
+var xPowerProfileMonitorGLibType func() types.GType
+
+func PowerProfileMonitorGLibType() types.GType {
+	return xPowerProfileMonitorGLibType()
+}
+
 type PowerProfileMonitorBase struct {
 	Ptr uintptr
 }
@@ -96,7 +104,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPowerProfileMonitorDupDefault, lib, "g_power_profile_monitor_dup_default")
+
+	core.PuregoSafeRegister(&xPowerProfileMonitorGLibType, lib, "g_power_profile_monitor_get_type")
 
 	core.PuregoSafeRegister(&XGPowerProfileMonitorGetPowerSaverEnabled, lib, "g_power_profile_monitor_get_power_saver_enabled")
 

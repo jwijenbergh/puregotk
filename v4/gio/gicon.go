@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // GIconIface is used to implement GIcon types for various
@@ -55,6 +56,13 @@ type Icon interface {
 	Serialize() *glib.Variant
 	ToString() string
 }
+
+var xIconGLibType func() types.GType
+
+func IconGLibType() types.GType {
+	return xIconGLibType()
+}
+
 type IconBase struct {
 	Ptr uintptr
 }
@@ -167,9 +175,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIconDeserialize, lib, "g_icon_deserialize")
 	core.PuregoSafeRegister(&xIconHash, lib, "g_icon_hash")
 	core.PuregoSafeRegister(&xIconNewForString, lib, "g_icon_new_for_string")
+
+	core.PuregoSafeRegister(&xIconGLibType, lib, "g_icon_get_type")
 
 	core.PuregoSafeRegister(&XGIconEqual, lib, "g_icon_equal")
 	core.PuregoSafeRegister(&XGIconSerialize, lib, "g_icon_serialize")

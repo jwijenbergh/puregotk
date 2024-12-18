@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkFileChooser` is an interface that can be implemented by file
@@ -78,6 +79,13 @@ type FileChooser interface {
 	SetFilter(FilterVar *FileFilter)
 	SetSelectMultiple(SelectMultipleVar bool)
 }
+
+var xFileChooserGLibType func() types.GType
+
+func FileChooserGLibType() types.GType {
+	return xFileChooserGLibType()
+}
+
 type FileChooserBase struct {
 	Ptr uintptr
 }
@@ -473,6 +481,12 @@ var XGtkFileChooserSetSelectMultiple func(uintptr, bool)
 // or to save to a possibly new file.
 type FileChooserAction int
 
+var xFileChooserActionGLibType func() types.GType
+
+func FileChooserActionGLibType() types.GType {
+	return xFileChooserActionGLibType()
+}
+
 const (
 
 	// Indicates open mode.  The file chooser
@@ -491,6 +505,12 @@ const (
 // These identify the various errors that can occur while calling
 // `GtkFileChooser` functions.
 type FileChooserError int
+
+var xFileChooserErrorGLibType func() types.GType
+
+func FileChooserErrorGLibType() types.GType {
+	return xFileChooserErrorGLibType()
+}
 
 const (
 
@@ -520,7 +540,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileChooserActionGLibType, lib, "gtk_file_chooser_action_get_type")
+
+	core.PuregoSafeRegister(&xFileChooserErrorGLibType, lib, "gtk_file_chooser_error_get_type")
+
 	core.PuregoSafeRegister(&xFileChooserErrorQuark, lib, "gtk_file_chooser_error_quark")
+
+	core.PuregoSafeRegister(&xFileChooserGLibType, lib, "gtk_file_chooser_get_type")
 
 	core.PuregoSafeRegister(&XGtkFileChooserAddChoice, lib, "gtk_file_chooser_add_choice")
 	core.PuregoSafeRegister(&XGtkFileChooserAddFilter, lib, "gtk_file_chooser_add_filter")

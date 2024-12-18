@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkAppLaunchContext` handles launching an application in a graphical context.
@@ -30,6 +31,12 @@ import (
 // ```
 type AppLaunchContext struct {
 	gio.AppLaunchContext
+}
+
+var xAppLaunchContextGLibType func() types.GType
+
+func AppLaunchContextGLibType() types.GType {
+	return xAppLaunchContextGLibType()
 }
 
 func AppLaunchContextNewFromInternalPtr(ptr uintptr) *AppLaunchContext {
@@ -138,6 +145,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAppLaunchContextGLibType, lib, "gdk_app_launch_context_get_type")
 
 	core.PuregoSafeRegister(&xAppLaunchContextGetDisplay, lib, "gdk_app_launch_context_get_display")
 	core.PuregoSafeRegister(&xAppLaunchContextSetDesktop, lib, "gdk_app_launch_context_set_desktop")

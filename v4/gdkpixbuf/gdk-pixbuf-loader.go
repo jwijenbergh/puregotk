@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PixbufLoaderClass struct {
@@ -65,6 +66,12 @@ func (x *PixbufLoaderClass) GoPointer() uintptr {
 // desired time stamp.
 type PixbufLoader struct {
 	gobject.Object
+}
+
+var xPixbufLoaderGLibType func() types.GType
+
+func PixbufLoaderGLibType() types.GType {
+	return xPixbufLoaderGLibType()
 }
 
 func PixbufLoaderNewFromInternalPtr(ptr uintptr) *PixbufLoader {
@@ -410,6 +417,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPixbufLoaderGLibType, lib, "gdk_pixbuf_loader_get_type")
 
 	core.PuregoSafeRegister(&xNewPixbufLoader, lib, "gdk_pixbuf_loader_new")
 	core.PuregoSafeRegister(&xNewPixbufLoaderWithMimeType, lib, "gdk_pixbuf_loader_new_with_mime_type")

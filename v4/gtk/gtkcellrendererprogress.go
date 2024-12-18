@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders numbers as progress bars
@@ -13,6 +14,12 @@ import (
 // Additionally, it can display a text on top of the progress bar.
 type CellRendererProgress struct {
 	CellRenderer
+}
+
+var xCellRendererProgressGLibType func() types.GType
+
+func CellRendererProgressGLibType() types.GType {
+	return xCellRendererProgressGLibType()
 }
 
 func CellRendererProgressNewFromInternalPtr(ptr uintptr) *CellRendererProgress {
@@ -65,6 +72,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererProgressGLibType, lib, "gtk_cell_renderer_progress_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererProgress, lib, "gtk_cell_renderer_progress_new")
 

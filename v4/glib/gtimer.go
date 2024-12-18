@@ -142,6 +142,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTimeValFromIso8601, lib, "g_time_val_from_iso8601")
 	core.PuregoSafeRegister(&xUsleep, lib, "g_usleep")
 

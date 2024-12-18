@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -28,6 +29,12 @@ import (
 // `GtkFontChooserWidget` has a single CSS node with name fontchooser.
 type FontChooserWidget struct {
 	Widget
+}
+
+var xFontChooserWidgetGLibType func() types.GType
+
+func FontChooserWidgetGLibType() types.GType {
+	return xFontChooserWidgetGLibType()
 }
 
 func FontChooserWidgetNewFromInternalPtr(ptr uintptr) *FontChooserWidget {
@@ -422,6 +429,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontChooserWidgetGLibType, lib, "gtk_font_chooser_widget_get_type")
 
 	core.PuregoSafeRegister(&xNewFontChooserWidget, lib, "gtk_font_chooser_widget_new")
 

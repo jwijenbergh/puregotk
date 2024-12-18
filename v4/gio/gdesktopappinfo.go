@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // During invocation, g_desktop_app_info_launch_uris_as_manager() may
@@ -40,6 +41,13 @@ type DesktopAppInfoLookup interface {
 	SetGoPointer(uintptr)
 	GetDefaultForUriScheme(UriSchemeVar string) *AppInfoBase
 }
+
+var xDesktopAppInfoLookupGLibType func() types.GType
+
+func DesktopAppInfoLookupGLibType() types.GType {
+	return xDesktopAppInfoLookupGLibType()
+}
+
 type DesktopAppInfoLookupBase struct {
 	Ptr uintptr
 }
@@ -89,6 +97,12 @@ const (
 // file when using it.
 type DesktopAppInfo struct {
 	gobject.Object
+}
+
+var xDesktopAppInfoGLibType func() types.GType
+
+func DesktopAppInfoGLibType() types.GType {
+	return xDesktopAppInfoGLibType()
 }
 
 func DesktopAppInfoNewFromInternalPtr(ptr uintptr) *DesktopAppInfo {
@@ -756,6 +770,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xDesktopAppInfoGLibType, lib, "g_desktop_app_info_get_type")
+
 	core.PuregoSafeRegister(&xNewDesktopAppInfo, lib, "g_desktop_app_info_new")
 	core.PuregoSafeRegister(&xNewDesktopAppInfoFromFilename, lib, "g_desktop_app_info_new_from_filename")
 	core.PuregoSafeRegister(&xNewDesktopAppInfoFromKeyfile, lib, "g_desktop_app_info_new_from_keyfile")
@@ -782,6 +798,8 @@ func init() {
 	core.PuregoSafeRegister(&xDesktopAppInfoGetImplementations, lib, "g_desktop_app_info_get_implementations")
 	core.PuregoSafeRegister(&xDesktopAppInfoSearch, lib, "g_desktop_app_info_search")
 	core.PuregoSafeRegister(&xDesktopAppInfoSetDesktopEnv, lib, "g_desktop_app_info_set_desktop_env")
+
+	core.PuregoSafeRegister(&xDesktopAppInfoLookupGLibType, lib, "g_desktop_app_info_lookup_get_type")
 
 	core.PuregoSafeRegister(&XGDesktopAppInfoLookupGetDefaultForUriScheme, lib, "g_desktop_app_info_lookup_get_default_for_uri_scheme")
 

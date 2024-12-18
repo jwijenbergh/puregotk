@@ -113,6 +113,12 @@ type Closure struct {
 	Notifiers *ClosureNotifyData
 }
 
+var xClosureGLibType func() types.GType
+
+func ClosureGLibType() types.GType {
+	return xClosureGLibType()
+}
+
 func (x *Closure) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -461,10 +467,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCclosureMarshalGeneric, lib, "g_cclosure_marshal_generic")
 	core.PuregoSafeRegister(&xCclosureNew, lib, "g_cclosure_new")
 	core.PuregoSafeRegister(&xCclosureNewSwap, lib, "g_cclosure_new_swap")
 	core.PuregoSafeRegister(&xSignalTypeCclosureNew, lib, "g_signal_type_cclosure_new")
+
+	core.PuregoSafeRegister(&xClosureGLibType, lib, "g_closure_get_type")
 
 	core.PuregoSafeRegister(&xNewClosureObject, lib, "g_closure_new_object")
 	core.PuregoSafeRegister(&xNewClosureSimple, lib, "g_closure_new_simple")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CenterBoxClass struct {
@@ -50,6 +51,12 @@ func (x *CenterBoxClass) GoPointer() uintptr {
 // `GtkCenterBox` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type CenterBox struct {
 	Widget
+}
+
+var xCenterBoxGLibType func() types.GType
+
+func CenterBoxGLibType() types.GType {
+	return xCenterBoxGLibType()
 }
 
 func CenterBoxNewFromInternalPtr(ptr uintptr) *CenterBox {
@@ -353,6 +360,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCenterBoxGLibType, lib, "gtk_center_box_get_type")
 
 	core.PuregoSafeRegister(&xNewCenterBox, lib, "gtk_center_box_new")
 
