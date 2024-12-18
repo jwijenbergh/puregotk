@@ -35,9 +35,10 @@ func ConvertInterface(currns string, ins string, inter Interface, implemented ma
 	}
 	name := util.SnakeToCamel(inter.Name)
 	return InterfaceTemplate{
-		Name:    name,
-		Doc:     inter.Doc.StringSafe(),
-		Methods: methods,
+		Name:       name,
+		Doc:        inter.Doc.StringSafe(),
+		Methods:    methods,
+		TypeGetter: inter.GLibGetType,
 	}
 }
 

@@ -28,7 +28,7 @@ func StarsInFront(str string, n int) string {
 	e := strings.Index(str, "]")
 	stars := strings.Repeat("*", n)
 	if b == 0 && e != -1 {
-		return str[b:e+1] + stars + str[e+1:len(str)]
+		return str[b:e+1] + stars + str[e+1:]
 	}
 	return stars + str
 }
