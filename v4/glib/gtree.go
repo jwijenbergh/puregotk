@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of function passed to g_tree_traverse(). It is
@@ -24,6 +25,12 @@ type TraverseNodeFunc func(*TreeNode, uintptr) bool
 // [balanced binary tree][glib-Balanced-Binary-Trees]. It should be
 // accessed only by using the following functions.
 type Tree struct {
+}
+
+var xTreeGLibType func() types.GType
+
+func TreeGLibType() types.GType {
+	return xTreeGLibType()
 }
 
 func (x *Tree) GoPointer() uintptr {
@@ -429,6 +436,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeGLibType, lib, "g_tree_get_type")
 
 	core.PuregoSafeRegister(&xNewTree, lib, "g_tree_new")
 	core.PuregoSafeRegister(&xNewTreeFull, lib, "g_tree_new_full")

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of callback that is passed to gtk_print_job_send().
@@ -28,6 +29,12 @@ type PrintJobCompleteFunc func(uintptr, uintptr, *glib.Error)
 // via [method@Gtk.PrintJob.set_source_file].
 type PrintJob struct {
 	gobject.Object
+}
+
+var xPrintJobGLibType func() types.GType
+
+func PrintJobGLibType() types.GType {
+	return xPrintJobGLibType()
 }
 
 func PrintJobNewFromInternalPtr(ptr uintptr) *PrintJob {
@@ -417,6 +424,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintJobGLibType, lib, "gtk_print_job_get_type")
 
 	core.PuregoSafeRegister(&xNewPrintJob, lib, "gtk_print_job_new")
 

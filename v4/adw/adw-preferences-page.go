@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -41,6 +42,12 @@ func (x *PreferencesPageClass) GoPointer() uintptr {
 // `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
 type PreferencesPage struct {
 	gtk.Widget
+}
+
+var xPreferencesPageGLibType func() types.GType
+
+func PreferencesPageGLibType() types.GType {
+	return xPreferencesPageGLibType()
 }
 
 func PreferencesPageNewFromInternalPtr(ptr uintptr) *PreferencesPage {
@@ -321,6 +328,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPreferencesPageGLibType, lib, "adw_preferences_page_get_type")
 
 	core.PuregoSafeRegister(&xNewPreferencesPage, lib, "adw_preferences_page_new")
 

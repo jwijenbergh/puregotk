@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GSettingsBackend.
@@ -166,6 +167,12 @@ func NullSettingsBackendNew() *SettingsBackend {
 // `gio/gsettingsbackend.h`.
 type SettingsBackend struct {
 	gobject.Object
+}
+
+var xSettingsBackendGLibType func() types.GType
+
+func SettingsBackendGLibType() types.GType {
+	return xSettingsBackendGLibType()
 }
 
 func SettingsBackendNewFromInternalPtr(ptr uintptr) *SettingsBackend {
@@ -346,9 +353,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xKeyfileSettingsBackendNew, lib, "g_keyfile_settings_backend_new")
 	core.PuregoSafeRegister(&xMemorySettingsBackendNew, lib, "g_memory_settings_backend_new")
 	core.PuregoSafeRegister(&xNullSettingsBackendNew, lib, "g_null_settings_backend_new")
+
+	core.PuregoSafeRegister(&xSettingsBackendGLibType, lib, "g_settings_backend_get_type")
 
 	core.PuregoSafeRegister(&xSettingsBackendChanged, lib, "g_settings_backend_changed")
 	core.PuregoSafeRegister(&xSettingsBackendChangedTree, lib, "g_settings_backend_changed_tree")

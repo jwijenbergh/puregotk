@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ConverterInputStreamClass struct {
@@ -32,6 +33,12 @@ func (x *ConverterInputStreamPrivate) GoPointer() uintptr {
 // #GPollableInputStream.
 type ConverterInputStream struct {
 	FilterInputStream
+}
+
+var xConverterInputStreamGLibType func() types.GType
+
+func ConverterInputStreamGLibType() types.GType {
+	return xConverterInputStreamGLibType()
 }
 
 func ConverterInputStreamNewFromInternalPtr(ptr uintptr) *ConverterInputStream {
@@ -149,6 +156,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xConverterInputStreamGLibType, lib, "g_converter_input_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewConverterInputStream, lib, "g_converter_input_stream_new")
 

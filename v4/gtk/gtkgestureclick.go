@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureClickClass struct {
@@ -26,6 +27,12 @@ func (x *GestureClickClass) GoPointer() uintptr {
 // click counter is reset.
 type GestureClick struct {
 	GestureSingle
+}
+
+var xGestureClickGLibType func() types.GType
+
+func GestureClickGLibType() types.GType {
+	return xGestureClickGLibType()
 }
 
 func GestureClickNewFromInternalPtr(ptr uintptr) *GestureClick {
@@ -154,6 +161,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureClickGLibType, lib, "gtk_gesture_click_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureClick, lib, "gtk_gesture_click_new")
 

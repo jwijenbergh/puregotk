@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -50,6 +51,12 @@ func (x *ClampClass) GoPointer() uintptr {
 // child, `.medium` in-between, or none if it hasn't computed its size yet.
 type Clamp struct {
 	gtk.Widget
+}
+
+var xClampGLibType func() types.GType
+
+func ClampGLibType() types.GType {
+	return xClampGLibType()
 }
 
 func ClampNewFromInternalPtr(ptr uintptr) *Clamp {
@@ -322,6 +329,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xClampGLibType, lib, "adw_clamp_get_type")
 
 	core.PuregoSafeRegister(&xNewClamp, lib, "adw_clamp_new")
 

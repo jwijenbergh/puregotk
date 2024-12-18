@@ -28,6 +28,12 @@ type ListStore struct {
 	gobject.Object
 }
 
+var xListStoreGLibType func() types.GType
+
+func ListStoreGLibType() types.GType {
+	return xListStoreGLibType()
+}
+
 func ListStoreNewFromInternalPtr(ptr uintptr) *ListStore {
 	cls := &ListStore{}
 	cls.Ptr = ptr
@@ -279,6 +285,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xListStoreGLibType, lib, "g_list_store_get_type")
 
 	core.PuregoSafeRegister(&xNewListStore, lib, "g_list_store_new")
 

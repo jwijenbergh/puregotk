@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Prototype for animation targets based on user callbacks.
@@ -39,6 +40,12 @@ type AnimationTarget struct {
 	gobject.Object
 }
 
+var xAnimationTargetGLibType func() types.GType
+
+func AnimationTargetGLibType() types.GType {
+	return xAnimationTargetGLibType()
+}
+
 func AnimationTargetNewFromInternalPtr(ptr uintptr) *AnimationTarget {
 	cls := &AnimationTarget{}
 	cls.Ptr = ptr
@@ -57,6 +64,12 @@ func (c *AnimationTarget) SetGoPointer(ptr uintptr) {
 // animation.
 type CallbackAnimationTarget struct {
 	AnimationTarget
+}
+
+var xCallbackAnimationTargetGLibType func() types.GType
+
+func CallbackAnimationTargetGLibType() types.GType {
+	return xCallbackAnimationTargetGLibType()
 }
 
 func CallbackAnimationTargetNewFromInternalPtr(ptr uintptr) *CallbackAnimationTarget {
@@ -94,6 +107,12 @@ func (c *CallbackAnimationTarget) SetGoPointer(ptr uintptr) {
 // [class@GObject.Object] instance.
 type PropertyAnimationTarget struct {
 	AnimationTarget
+}
+
+var xPropertyAnimationTargetGLibType func() types.GType
+
+func PropertyAnimationTargetGLibType() types.GType {
+	return xPropertyAnimationTargetGLibType()
 }
 
 func PropertyAnimationTargetNewFromInternalPtr(ptr uintptr) *PropertyAnimationTarget {
@@ -188,7 +207,13 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xAnimationTargetGLibType, lib, "adw_animation_target_get_type")
+
+	core.PuregoSafeRegister(&xCallbackAnimationTargetGLibType, lib, "adw_callback_animation_target_get_type")
+
 	core.PuregoSafeRegister(&xNewCallbackAnimationTarget, lib, "adw_callback_animation_target_new")
+
+	core.PuregoSafeRegister(&xPropertyAnimationTargetGLibType, lib, "adw_property_animation_target_get_type")
 
 	core.PuregoSafeRegister(&xNewPropertyAnimationTarget, lib, "adw_property_animation_target_new")
 	core.PuregoSafeRegister(&xNewPropertyAnimationTargetForPspec, lib, "adw_property_animation_target_new_for_pspec")

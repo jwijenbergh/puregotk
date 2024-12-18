@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkViewport` implements scrollability for widgets that lack their
@@ -25,6 +26,12 @@ import (
 // `GtkViewport` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type Viewport struct {
 	Widget
+}
+
+var xViewportGLibType func() types.GType
+
+func ViewportGLibType() types.GType {
+	return xViewportGLibType()
 }
 
 func ViewportNewFromInternalPtr(ptr uintptr) *Viewport {
@@ -345,6 +352,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xViewportGLibType, lib, "gtk_viewport_get_type")
 
 	core.PuregoSafeRegister(&xNewViewport, lib, "gtk_viewport_new")
 

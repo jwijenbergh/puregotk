@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkBuildableIface` interface contains methods that are
@@ -156,6 +157,13 @@ type Buildable interface {
 	SetGoPointer(uintptr)
 	GetBuildableId() string
 }
+
+var xBuildableGLibType func() types.GType
+
+func BuildableGLibType() types.GType {
+	return xBuildableGLibType()
+}
+
 type BuildableBase struct {
 	Ptr uintptr
 }
@@ -191,6 +199,8 @@ func init() {
 	core.PuregoSafeRegister(&xBuildableParseContextGetPosition, lib, "gtk_buildable_parse_context_get_position")
 	core.PuregoSafeRegister(&xBuildableParseContextPop, lib, "gtk_buildable_parse_context_pop")
 	core.PuregoSafeRegister(&xBuildableParseContextPush, lib, "gtk_buildable_parse_context_push")
+
+	core.PuregoSafeRegister(&xBuildableGLibType, lib, "gtk_buildable_get_type")
 
 	core.PuregoSafeRegister(&XGtkBuildableGetBuildableId, lib, "gtk_buildable_get_buildable_id")
 

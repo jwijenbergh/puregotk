@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EditableInterface struct {
@@ -186,6 +187,13 @@ type Editable interface {
 	SetText(TextVar string)
 	SetWidthChars(NCharsVar int)
 }
+
+var xEditableGLibType func() types.GType
+
+func EditableGLibType() types.GType {
+	return xEditableGLibType()
+}
+
 type EditableBase struct {
 	Ptr uintptr
 }
@@ -470,6 +478,12 @@ var XGtkEditableSetWidthChars func(uintptr, int)
 // implement the `GtkEditable` interface.
 type EditableProperties int
 
+var xEditablePropertiesGLibType func() types.GType
+
+func EditablePropertiesGLibType() types.GType {
+	return xEditablePropertiesGLibType()
+}
+
 const (
 
 	// the property id for [property@Gtk.Editable:text]
@@ -546,9 +560,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEditablePropertiesGLibType, lib, "gtk_editable_properties_get_type")
+
 	core.PuregoSafeRegister(&xEditableDelegateGetProperty, lib, "gtk_editable_delegate_get_property")
 	core.PuregoSafeRegister(&xEditableDelegateSetProperty, lib, "gtk_editable_delegate_set_property")
 	core.PuregoSafeRegister(&xEditableInstallProperties, lib, "gtk_editable_install_properties")
+
+	core.PuregoSafeRegister(&xEditableGLibType, lib, "gtk_editable_get_type")
 
 	core.PuregoSafeRegister(&XGtkEditableDeleteSelection, lib, "gtk_editable_delete_selection")
 	core.PuregoSafeRegister(&XGtkEditableDeleteText, lib, "gtk_editable_delete_text")

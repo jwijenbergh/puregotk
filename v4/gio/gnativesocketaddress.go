@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type NativeSocketAddressClass struct {
@@ -26,6 +27,12 @@ func (x *NativeSocketAddressPrivate) GoPointer() uintptr {
 // A socket address of some unknown native type.
 type NativeSocketAddress struct {
 	SocketAddress
+}
+
+var xNativeSocketAddressGLibType func() types.GType
+
+func NativeSocketAddressGLibType() types.GType {
+	return xNativeSocketAddressGLibType()
 }
 
 func NativeSocketAddressNewFromInternalPtr(ptr uintptr) *NativeSocketAddress {
@@ -110,6 +117,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNativeSocketAddressGLibType, lib, "g_native_socket_address_get_type")
 
 	core.PuregoSafeRegister(&xNewNativeSocketAddress, lib, "g_native_socket_address_new")
 

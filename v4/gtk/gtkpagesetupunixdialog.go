@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -19,6 +20,12 @@ import (
 // API in [class@Gtk.PrintOperation].
 type PageSetupUnixDialog struct {
 	Dialog
+}
+
+var xPageSetupUnixDialogGLibType func() types.GType
+
+func PageSetupUnixDialogGLibType() types.GType {
+	return xPageSetupUnixDialogGLibType()
 }
 
 func PageSetupUnixDialogNewFromInternalPtr(ptr uintptr) *PageSetupUnixDialog {
@@ -361,6 +368,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPageSetupUnixDialogGLibType, lib, "gtk_page_setup_unix_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewPageSetupUnixDialog, lib, "gtk_page_setup_unix_dialog_new")
 

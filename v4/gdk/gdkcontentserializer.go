@@ -71,6 +71,12 @@ type ContentSerializer struct {
 	gobject.Object
 }
 
+var xContentSerializerGLibType func() types.GType
+
+func ContentSerializerGLibType() types.GType {
+	return xContentSerializerGLibType()
+}
+
 func ContentSerializerNewFromInternalPtr(ptr uintptr) *ContentSerializer {
 	cls := &ContentSerializer{}
 	cls.Ptr = ptr
@@ -258,9 +264,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xContentRegisterSerializer, lib, "gdk_content_register_serializer")
 	core.PuregoSafeRegister(&xContentSerializeAsync, lib, "gdk_content_serialize_async")
 	core.PuregoSafeRegister(&xContentSerializeFinish, lib, "gdk_content_serialize_finish")
+
+	core.PuregoSafeRegister(&xContentSerializerGLibType, lib, "gdk_content_serializer_get_type")
 
 	core.PuregoSafeRegister(&xContentSerializerGetCancellable, lib, "gdk_content_serializer_get_cancellable")
 	core.PuregoSafeRegister(&xContentSerializerGetGtype, lib, "gdk_content_serializer_get_gtype")

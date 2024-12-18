@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSettings` provides a mechanism to share global settings between
@@ -36,6 +37,12 @@ import (
 // convenient to use [method@Gtk.Widget.get_settings].
 type Settings struct {
 	gobject.Object
+}
+
+var xSettingsGLibType func() types.GType
+
+func SettingsGLibType() types.GType {
+	return xSettingsGLibType()
 }
 
 func SettingsNewFromInternalPtr(ptr uintptr) *Settings {
@@ -107,6 +114,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSettingsGLibType, lib, "gtk_settings_get_type")
 
 	core.PuregoSafeRegister(&xSettingsResetProperty, lib, "gtk_settings_reset_property")
 

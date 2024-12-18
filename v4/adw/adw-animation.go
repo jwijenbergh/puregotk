@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -31,6 +32,12 @@ const (
 // [method@Animation.pause], [method@Animation.resume],
 // [method@Animation.reset] and [method@Animation.skip].
 type AnimationState int
+
+var xAnimationStateGLibType func() types.GType
+
+func AnimationStateGLibType() types.GType {
+	return xAnimationStateGLibType()
+}
 
 const (
 
@@ -95,6 +102,12 @@ const (
 // `AdwAnimation` object can be reused.
 type Animation struct {
 	gobject.Object
+}
+
+var xAnimationGLibType func() types.GType
+
+func AnimationGLibType() types.GType {
+	return xAnimationGLibType()
 }
 
 func AnimationNewFromInternalPtr(ptr uintptr) *Animation {
@@ -310,6 +323,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAnimationStateGLibType, lib, "adw_animation_state_get_type")
+
+	core.PuregoSafeRegister(&xAnimationGLibType, lib, "adw_animation_get_type")
 
 	core.PuregoSafeRegister(&xAnimationGetFollowEnableAnimationsSetting, lib, "adw_animation_get_follow_enable_animations_setting")
 	core.PuregoSafeRegister(&xAnimationGetState, lib, "adw_animation_get_state")

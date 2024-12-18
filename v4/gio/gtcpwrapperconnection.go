@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TcpWrapperConnectionClass struct {
@@ -31,6 +32,12 @@ func (x *TcpWrapperConnectionPrivate) GoPointer() uintptr {
 // actually created is not directly a #GSocketConnection.
 type TcpWrapperConnection struct {
 	TcpConnection
+}
+
+var xTcpWrapperConnectionGLibType func() types.GType
+
+func TcpWrapperConnectionGLibType() types.GType {
+	return xTcpWrapperConnectionGLibType()
 }
 
 func TcpWrapperConnectionNewFromInternalPtr(ptr uintptr) *TcpWrapperConnection {
@@ -85,6 +92,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTcpWrapperConnectionGLibType, lib, "g_tcp_wrapper_connection_get_type")
 
 	core.PuregoSafeRegister(&xNewTcpWrapperConnection, lib, "g_tcp_wrapper_connection_new")
 

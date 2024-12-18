@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ThreadedSocketServiceClass struct {
@@ -42,6 +43,12 @@ func (x *ThreadedSocketServicePrivate) GoPointer() uintptr {
 // or subclass and override the default handler.
 type ThreadedSocketService struct {
 	SocketService
+}
+
+var xThreadedSocketServiceGLibType func() types.GType
+
+func ThreadedSocketServiceGLibType() types.GType {
+	return xThreadedSocketServiceGLibType()
 }
 
 func ThreadedSocketServiceNewFromInternalPtr(ptr uintptr) *ThreadedSocketService {
@@ -103,6 +110,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xThreadedSocketServiceGLibType, lib, "g_threaded_socket_service_get_type")
 
 	core.PuregoSafeRegister(&xNewThreadedSocketService, lib, "g_threaded_socket_service_new")
 

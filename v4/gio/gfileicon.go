@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileIconClass struct {
@@ -21,6 +22,12 @@ func (x *FileIconClass) GoPointer() uintptr {
 // to be used as icon.
 type FileIcon struct {
 	gobject.Object
+}
+
+var xFileIconGLibType func() types.GType
+
+func FileIconGLibType() types.GType {
+	return xFileIconGLibType()
 }
 
 func FileIconNewFromInternalPtr(ptr uintptr) *FileIcon {
@@ -163,6 +170,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileIconGLibType, lib, "g_file_icon_get_type")
 
 	core.PuregoSafeRegister(&xNewFileIcon, lib, "g_file_icon_new")
 

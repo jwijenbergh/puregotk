@@ -32,6 +32,12 @@ type FilterListModel struct {
 	gobject.Object
 }
 
+var xFilterListModelGLibType func() types.GType
+
+func FilterListModelGLibType() types.GType {
+	return xFilterListModelGLibType()
+}
+
 func FilterListModelNewFromInternalPtr(ptr uintptr) *FilterListModel {
 	cls := &FilterListModel{}
 	cls.Ptr = ptr
@@ -275,6 +281,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFilterListModelGLibType, lib, "gtk_filter_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewFilterListModel, lib, "gtk_filter_list_model_new")
 

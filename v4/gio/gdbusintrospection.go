@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Information about an annotation.
@@ -18,6 +19,12 @@ type DBusAnnotationInfo struct {
 	Value uintptr
 
 	Annotations uintptr
+}
+
+var xDBusAnnotationInfoGLibType func() types.GType
+
+func DBusAnnotationInfoGLibType() types.GType {
+	return xDBusAnnotationInfoGLibType()
 }
 
 func (x *DBusAnnotationInfo) GoPointer() uintptr {
@@ -54,6 +61,12 @@ type DBusArgInfo struct {
 	Signature uintptr
 
 	Annotations uintptr
+}
+
+var xDBusArgInfoGLibType func() types.GType
+
+func DBusArgInfoGLibType() types.GType {
+	return xDBusArgInfoGLibType()
 }
 
 func (x *DBusArgInfo) GoPointer() uintptr {
@@ -94,6 +107,12 @@ type DBusInterfaceInfo struct {
 	Properties uintptr
 
 	Annotations uintptr
+}
+
+var xDBusInterfaceInfoGLibType func() types.GType
+
+func DBusInterfaceInfoGLibType() types.GType {
+	return xDBusInterfaceInfoGLibType()
 }
 
 func (x *DBusInterfaceInfo) GoPointer() uintptr {
@@ -213,6 +232,12 @@ type DBusMethodInfo struct {
 	Annotations uintptr
 }
 
+var xDBusMethodInfoGLibType func() types.GType
+
+func DBusMethodInfoGLibType() types.GType {
+	return xDBusMethodInfoGLibType()
+}
+
 func (x *DBusMethodInfo) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -249,6 +274,12 @@ type DBusNodeInfo struct {
 	Nodes uintptr
 
 	Annotations uintptr
+}
+
+var xDBusNodeInfoGLibType func() types.GType
+
+func DBusNodeInfoGLibType() types.GType {
+	return xDBusNodeInfoGLibType()
 }
 
 func (x *DBusNodeInfo) GoPointer() uintptr {
@@ -333,6 +364,12 @@ type DBusPropertyInfo struct {
 	Annotations uintptr
 }
 
+var xDBusPropertyInfoGLibType func() types.GType
+
+func DBusPropertyInfoGLibType() types.GType {
+	return xDBusPropertyInfoGLibType()
+}
+
 func (x *DBusPropertyInfo) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -367,6 +404,12 @@ type DBusSignalInfo struct {
 	Args uintptr
 
 	Annotations uintptr
+}
+
+var xDBusSignalInfoGLibType func() types.GType
+
+func DBusSignalInfoGLibType() types.GType {
+	return xDBusSignalInfoGLibType()
 }
 
 func (x *DBusSignalInfo) GoPointer() uintptr {
@@ -410,13 +453,20 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDbusAnnotationInfoLookup, lib, "g_dbus_annotation_info_lookup")
+
+	core.PuregoSafeRegister(&xDBusAnnotationInfoGLibType, lib, "g_dbus_annotation_info_get_type")
 
 	core.PuregoSafeRegister(&xDBusAnnotationInfoRef, lib, "g_dbus_annotation_info_ref")
 	core.PuregoSafeRegister(&xDBusAnnotationInfoUnref, lib, "g_dbus_annotation_info_unref")
 
+	core.PuregoSafeRegister(&xDBusArgInfoGLibType, lib, "g_dbus_arg_info_get_type")
+
 	core.PuregoSafeRegister(&xDBusArgInfoRef, lib, "g_dbus_arg_info_ref")
 	core.PuregoSafeRegister(&xDBusArgInfoUnref, lib, "g_dbus_arg_info_unref")
+
+	core.PuregoSafeRegister(&xDBusInterfaceInfoGLibType, lib, "g_dbus_interface_info_get_type")
 
 	core.PuregoSafeRegister(&xDBusInterfaceInfoCacheBuild, lib, "g_dbus_interface_info_cache_build")
 	core.PuregoSafeRegister(&xDBusInterfaceInfoCacheRelease, lib, "g_dbus_interface_info_cache_release")
@@ -427,8 +477,12 @@ func init() {
 	core.PuregoSafeRegister(&xDBusInterfaceInfoRef, lib, "g_dbus_interface_info_ref")
 	core.PuregoSafeRegister(&xDBusInterfaceInfoUnref, lib, "g_dbus_interface_info_unref")
 
+	core.PuregoSafeRegister(&xDBusMethodInfoGLibType, lib, "g_dbus_method_info_get_type")
+
 	core.PuregoSafeRegister(&xDBusMethodInfoRef, lib, "g_dbus_method_info_ref")
 	core.PuregoSafeRegister(&xDBusMethodInfoUnref, lib, "g_dbus_method_info_unref")
+
+	core.PuregoSafeRegister(&xDBusNodeInfoGLibType, lib, "g_dbus_node_info_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusNodeInfoForXml, lib, "g_dbus_node_info_new_for_xml")
 
@@ -437,8 +491,12 @@ func init() {
 	core.PuregoSafeRegister(&xDBusNodeInfoRef, lib, "g_dbus_node_info_ref")
 	core.PuregoSafeRegister(&xDBusNodeInfoUnref, lib, "g_dbus_node_info_unref")
 
+	core.PuregoSafeRegister(&xDBusPropertyInfoGLibType, lib, "g_dbus_property_info_get_type")
+
 	core.PuregoSafeRegister(&xDBusPropertyInfoRef, lib, "g_dbus_property_info_ref")
 	core.PuregoSafeRegister(&xDBusPropertyInfoUnref, lib, "g_dbus_property_info_unref")
+
+	core.PuregoSafeRegister(&xDBusSignalInfoGLibType, lib, "g_dbus_signal_info_get_type")
 
 	core.PuregoSafeRegister(&xDBusSignalInfoRef, lib, "g_dbus_signal_info_ref")
 	core.PuregoSafeRegister(&xDBusSignalInfoUnref, lib, "g_dbus_signal_info_unref")

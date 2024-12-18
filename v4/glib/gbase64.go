@@ -100,6 +100,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBase64Decode, lib, "g_base64_decode")
 	core.PuregoSafeRegister(&xBase64DecodeInplace, lib, "g_base64_decode_inplace")
 	core.PuregoSafeRegister(&xBase64DecodeStep, lib, "g_base64_decode_step")

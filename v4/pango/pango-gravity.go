@@ -4,6 +4,7 @@ package pango
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `PangoGravity` represents the orientation of glyphs in a segment
@@ -20,6 +21,12 @@ import (
 //
 // See also: [enum@Pango.GravityHint]
 type Gravity int
+
+var xGravityGLibType func() types.GType
+
+func GravityGLibType() types.GType {
+	return xGravityGLibType()
+}
 
 const (
 
@@ -42,6 +49,12 @@ const (
 //
 // See also [enum@Pango.Gravity]
 type GravityHint int
+
+var xGravityHintGLibType func() types.GType
+
+func GravityHintGLibType() types.GType {
+	return xGravityHintGLibType()
+}
 
 const (
 
@@ -124,6 +137,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGravityGLibType, lib, "pango_gravity_get_type")
+
+	core.PuregoSafeRegister(&xGravityHintGLibType, lib, "pango_gravity_hint_get_type")
+
 	core.PuregoSafeRegister(&xGravityGetForMatrix, lib, "pango_gravity_get_for_matrix")
 	core.PuregoSafeRegister(&xGravityGetForScript, lib, "pango_gravity_get_for_script")
 	core.PuregoSafeRegister(&xGravityGetForScriptAndWidth, lib, "pango_gravity_get_for_script_and_width")

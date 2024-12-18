@@ -5,9 +5,16 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TitlebarGesture int
+
+var xTitlebarGestureGLibType func() types.GType
+
+func TitlebarGestureGLibType() types.GType {
+	return xTitlebarGestureGLibType()
+}
 
 const (
 	TitlebarGestureDoubleClickValue TitlebarGesture = 1
@@ -46,6 +53,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTitlebarGestureGLibType, lib, "gdk_titlebar_gesture_get_type")
+
 	core.PuregoSafeRegister(&xGlErrorQuark, lib, "gdk_gl_error_quark")
 	core.PuregoSafeRegister(&xTextureErrorQuark, lib, "gdk_texture_error_quark")
 	core.PuregoSafeRegister(&xVulkanErrorQuark, lib, "gdk_vulkan_error_quark")

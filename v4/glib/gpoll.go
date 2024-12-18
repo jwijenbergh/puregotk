@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of function passed to g_main_context_set_poll_func().
@@ -20,6 +21,12 @@ type PollFD struct {
 	Events uint16
 
 	Revents uint16
+}
+
+var xPollFDGLibType func() types.GType
+
+func PollFDGLibType() types.GType {
+	return xPollFDGLibType()
 }
 
 func (x *PollFD) GoPointer() uintptr {
@@ -56,6 +63,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPoll, lib, "g_poll")
+
+	core.PuregoSafeRegister(&xPollFDGLibType, lib, "g_pollfd_get_type")
 
 }

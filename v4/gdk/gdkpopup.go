@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PopupInterface struct {
@@ -34,6 +35,13 @@ type Popup interface {
 	GetSurfaceAnchor() Gravity
 	Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool
 }
+
+var xPopupGLibType func() types.GType
+
+func PopupGLibType() types.GType {
+	return xPopupGLibType()
+}
+
 type PopupBase struct {
 	Ptr uintptr
 }
@@ -136,6 +144,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPopupGLibType, lib, "gdk_popup_get_type")
 
 	core.PuregoSafeRegister(&XGdkPopupGetAutohide, lib, "gdk_popup_get_autohide")
 	core.PuregoSafeRegister(&XGdkPopupGetParent, lib, "gdk_popup_get_parent")

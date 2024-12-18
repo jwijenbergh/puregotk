@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkFileChooserWidget` is a widget for choosing files.
@@ -22,6 +23,12 @@ import (
 // `GtkFileChooserWidget` has a single CSS node with name filechooser.
 type FileChooserWidget struct {
 	Widget
+}
+
+var xFileChooserWidgetGLibType func() types.GType
+
+func FileChooserWidgetGLibType() types.GType {
+	return xFileChooserWidgetGLibType()
 }
 
 func FileChooserWidgetNewFromInternalPtr(ptr uintptr) *FileChooserWidget {
@@ -896,6 +903,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileChooserWidgetGLibType, lib, "gtk_file_chooser_widget_get_type")
 
 	core.PuregoSafeRegister(&xNewFileChooserWidget, lib, "gtk_file_chooser_widget_new")
 

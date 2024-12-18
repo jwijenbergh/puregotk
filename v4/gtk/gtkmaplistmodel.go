@@ -63,6 +63,12 @@ type MapListModel struct {
 	gobject.Object
 }
 
+var xMapListModelGLibType func() types.GType
+
+func MapListModelGLibType() types.GType {
+	return xMapListModelGLibType()
+}
+
 func MapListModelNewFromInternalPtr(ptr uintptr) *MapListModel {
 	cls := &MapListModel{}
 	cls.Ptr = ptr
@@ -247,6 +253,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMapListModelGLibType, lib, "gtk_map_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewMapListModel, lib, "gtk_map_list_model_new")
 

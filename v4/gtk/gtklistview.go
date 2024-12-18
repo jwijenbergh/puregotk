@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ListViewClass struct {
@@ -123,6 +124,12 @@ func (x *ListViewClass) GoPointer() uintptr {
 // items use the %GTK_ACCESSIBLE_ROLE_LIST_ITEM role.
 type ListView struct {
 	ListBase
+}
+
+var xListViewGLibType func() types.GType
+
+func ListViewGLibType() types.GType {
+	return xListViewGLibType()
 }
 
 func ListViewNewFromInternalPtr(ptr uintptr) *ListView {
@@ -555,6 +562,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xListViewGLibType, lib, "gtk_list_view_get_type")
 
 	core.PuregoSafeRegister(&xNewListView, lib, "gtk_list_view_new")
 

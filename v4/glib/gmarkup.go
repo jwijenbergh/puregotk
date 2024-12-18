@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A parse context is used to parse a stream of bytes that
@@ -14,6 +15,12 @@ import (
 // See g_markup_parse_context_new(), #GMarkupParser, and so
 // on for more details.
 type MarkupParseContext struct {
+}
+
+var xMarkupParseContextGLibType func() types.GType
+
+func MarkupParseContextGLibType() types.GType {
+	return xMarkupParseContextGLibType()
 }
 
 func (x *MarkupParseContext) GoPointer() uintptr {
@@ -528,10 +535,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xMarkupCollectAttributes, lib, "g_markup_collect_attributes")
 	core.PuregoSafeRegister(&xMarkupEscapeText, lib, "g_markup_escape_text")
 	core.PuregoSafeRegister(&xMarkupPrintfEscaped, lib, "g_markup_printf_escaped")
 	core.PuregoSafeRegister(&xMarkupVprintfEscaped, lib, "g_markup_vprintf_escaped")
+
+	core.PuregoSafeRegister(&xMarkupParseContextGLibType, lib, "g_markup_parse_context_get_type")
 
 	core.PuregoSafeRegister(&xNewMarkupParseContext, lib, "g_markup_parse_context_new")
 

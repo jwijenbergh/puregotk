@@ -6,12 +6,19 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The #GMappedFile represents a file mapping created with
 // g_mapped_file_new(). It has only private members and should
 // not be accessed directly.
 type MappedFile struct {
+}
+
+var xMappedFileGLibType func() types.GType
+
+func MappedFileGLibType() types.GType {
+	return xMappedFileGLibType()
 }
 
 func (x *MappedFile) GoPointer() uintptr {
@@ -144,6 +151,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMappedFileGLibType, lib, "g_mapped_file_get_type")
 
 	core.PuregoSafeRegister(&xNewMappedFile, lib, "g_mapped_file_new")
 	core.PuregoSafeRegister(&xNewMappedFileFromFd, lib, "g_mapped_file_new_from_fd")

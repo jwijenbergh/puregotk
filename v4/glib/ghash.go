@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies the type of the function passed to
@@ -19,6 +20,12 @@ type HRFunc func(uintptr, uintptr, uintptr) bool
 // [Hash Table][glib-Hash-Tables]. It should only be accessed via the
 // following functions.
 type HashTable struct {
+}
+
+var xHashTableGLibType func() types.GType
+
+func HashTableGLibType() types.GType {
+	return xHashTableGLibType()
 }
 
 func (x *HashTable) GoPointer() uintptr {
@@ -524,6 +531,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDirectEqual, lib, "g_direct_equal")
 	core.PuregoSafeRegister(&xDirectHash, lib, "g_direct_hash")
 	core.PuregoSafeRegister(&xDoubleEqual, lib, "g_double_equal")
@@ -549,6 +557,8 @@ func init() {
 	core.PuregoSafeRegister(&xIntHash, lib, "g_int_hash")
 	core.PuregoSafeRegister(&xStrEqual, lib, "g_str_equal")
 	core.PuregoSafeRegister(&xStrHash, lib, "g_str_hash")
+
+	core.PuregoSafeRegister(&xHashTableGLibType, lib, "g_hash_table_get_type")
 
 	core.PuregoSafeRegister(&xHashTableIterGetHashTable, lib, "g_hash_table_iter_get_hash_table")
 	core.PuregoSafeRegister(&xHashTableIterInit, lib, "g_hash_table_iter_init")

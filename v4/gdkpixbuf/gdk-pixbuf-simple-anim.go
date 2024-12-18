@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PixbufSimpleAnimClass struct {
@@ -18,6 +19,12 @@ func (x *PixbufSimpleAnimClass) GoPointer() uintptr {
 // An opaque struct representing a simple animation.
 type PixbufSimpleAnim struct {
 	PixbufAnimation
+}
+
+var xPixbufSimpleAnimGLibType func() types.GType
+
+func PixbufSimpleAnimGLibType() types.GType {
+	return xPixbufSimpleAnimGLibType()
 }
 
 func PixbufSimpleAnimNewFromInternalPtr(ptr uintptr) *PixbufSimpleAnim {
@@ -84,6 +91,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPixbufSimpleAnimGLibType, lib, "gdk_pixbuf_simple_anim_get_type")
 
 	core.PuregoSafeRegister(&xNewPixbufSimpleAnim, lib, "gdk_pixbuf_simple_anim_new")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureZoomClass struct {
@@ -24,6 +25,12 @@ func (x *GestureZoomClass) GoPointer() uintptr {
 // the scale factor.
 type GestureZoom struct {
 	Gesture
+}
+
+var xGestureZoomGLibType func() types.GType
+
+func GestureZoomGLibType() types.GType {
+	return xGestureZoomGLibType()
 }
 
 func GestureZoomNewFromInternalPtr(ptr uintptr) *GestureZoom {
@@ -96,6 +103,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureZoomGLibType, lib, "gtk_gesture_zoom_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureZoom, lib, "gtk_gesture_zoom_new")
 

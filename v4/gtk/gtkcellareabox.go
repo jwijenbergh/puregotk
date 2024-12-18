@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A cell area that renders GtkCellRenderers into a row or a column
@@ -29,6 +30,12 @@ import (
 // argument to gtk_cell_area_box_pack_start() and gtk_cell_area_box_pack_end().
 type CellAreaBox struct {
 	CellArea
+}
+
+var xCellAreaBoxGLibType func() types.GType
+
+func CellAreaBoxGLibType() types.GType {
+	return xCellAreaBoxGLibType()
 }
 
 func CellAreaBoxNewFromInternalPtr(ptr uintptr) *CellAreaBox {
@@ -223,6 +230,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellAreaBoxGLibType, lib, "gtk_cell_area_box_get_type")
 
 	core.PuregoSafeRegister(&xNewCellAreaBox, lib, "gtk_cell_area_box_new")
 

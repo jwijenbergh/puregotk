@@ -133,6 +133,12 @@ type TreeModelSort struct {
 	gobject.Object
 }
 
+var xTreeModelSortGLibType func() types.GType
+
+func TreeModelSortGLibType() types.GType {
+	return xTreeModelSortGLibType()
+}
+
 func TreeModelSortNewFromInternalPtr(ptr uintptr) *TreeModelSort {
 	cls := &TreeModelSort{}
 	cls.Ptr = ptr
@@ -694,6 +700,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeModelSortGLibType, lib, "gtk_tree_model_sort_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeModelSortWithModel, lib, "gtk_tree_model_sort_new_with_model")
 

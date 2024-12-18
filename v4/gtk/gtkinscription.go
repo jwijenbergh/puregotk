@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -21,6 +22,12 @@ func (x *InscriptionClass) GoPointer() uintptr {
 // The different methods to handle text in #GtkInscription when it doesn't
 // fit the available space.
 type InscriptionOverflow int
+
+var xInscriptionOverflowGLibType func() types.GType
+
+func InscriptionOverflowGLibType() types.GType {
+	return xInscriptionOverflowGLibType()
+}
 
 const (
 
@@ -48,6 +55,12 @@ const (
 // where the text doesn't fit exactly in the allocated space, .
 type Inscription struct {
 	Widget
+}
+
+var xInscriptionGLibType func() types.GType
+
+func InscriptionGLibType() types.GType {
+	return xInscriptionGLibType()
 }
 
 func InscriptionNewFromInternalPtr(ptr uintptr) *Inscription {
@@ -448,6 +461,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInscriptionOverflowGLibType, lib, "gtk_inscription_overflow_get_type")
+
+	core.PuregoSafeRegister(&xInscriptionGLibType, lib, "gtk_inscription_get_type")
 
 	core.PuregoSafeRegister(&xNewInscription, lib, "gtk_inscription_new")
 

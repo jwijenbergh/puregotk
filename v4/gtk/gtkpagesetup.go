@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkPageSetup` object stores the page size, orientation and margins.
@@ -54,6 +55,12 @@ import (
 // ```
 type PageSetup struct {
 	gobject.Object
+}
+
+var xPageSetupGLibType func() types.GType
+
+func PageSetupGLibType() types.GType {
+	return xPageSetupGLibType()
 }
 
 func PageSetupNewFromInternalPtr(ptr uintptr) *PageSetup {
@@ -412,6 +419,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPageSetupGLibType, lib, "gtk_page_setup_get_type")
 
 	core.PuregoSafeRegister(&xNewPageSetup, lib, "gtk_page_setup_new")
 	core.PuregoSafeRegister(&xNewPageSetupFromFile, lib, "gtk_page_setup_new_from_file")

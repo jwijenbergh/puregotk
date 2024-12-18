@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SurfaceClass struct {
@@ -29,6 +30,12 @@ func (x *SurfaceClass) GoPointer() uintptr {
 // types exist, but you will rarely interact with them directly.
 type Surface struct {
 	gobject.Object
+}
+
+var xSurfaceGLibType func() types.GType
+
+func SurfaceGLibType() types.GType {
+	return xSurfaceGLibType()
 }
 
 func SurfaceNewFromInternalPtr(ptr uintptr) *Surface {
@@ -591,6 +598,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSurfaceGLibType, lib, "gdk_surface_get_type")
 
 	core.PuregoSafeRegister(&xNewSurfacePopup, lib, "gdk_surface_new_popup")
 	core.PuregoSafeRegister(&xNewSurfaceToplevel, lib, "gdk_surface_new_toplevel")

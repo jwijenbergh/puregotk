@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GesturePanClass struct {
@@ -33,6 +34,12 @@ func (x *GesturePanClass) GoPointer() uintptr {
 // events are received, containing the offset in the given axis.
 type GesturePan struct {
 	GestureDrag
+}
+
+var xGesturePanGLibType func() types.GType
+
+func GesturePanGLibType() types.GType {
+	return xGesturePanGLibType()
 }
 
 func GesturePanNewFromInternalPtr(ptr uintptr) *GesturePan {
@@ -108,6 +115,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGesturePanGLibType, lib, "gtk_gesture_pan_get_type")
 
 	core.PuregoSafeRegister(&xNewGesturePan, lib, "gtk_gesture_pan_new")
 

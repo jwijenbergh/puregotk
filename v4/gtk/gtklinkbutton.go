@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkLinkButton` is a button with a hyperlink.
@@ -38,6 +39,12 @@ import (
 // `GtkLinkButton` uses the %GTK_ACCESSIBLE_ROLE_LINK role.
 type LinkButton struct {
 	Button
+}
+
+var xLinkButtonGLibType func() types.GType
+
+func LinkButtonGLibType() types.GType {
+	return xLinkButtonGLibType()
 }
 
 func LinkButtonNewFromInternalPtr(ptr uintptr) *LinkButton {
@@ -391,6 +398,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLinkButtonGLibType, lib, "gtk_link_button_get_type")
 
 	core.PuregoSafeRegister(&xNewLinkButton, lib, "gtk_link_button_new")
 	core.PuregoSafeRegister(&xNewLinkButtonWithLabel, lib, "gtk_link_button_new_with_label")

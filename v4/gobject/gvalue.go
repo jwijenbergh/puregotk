@@ -32,6 +32,12 @@ type Value struct {
 	Data [2]uint64
 }
 
+var xValueGLibType func() types.GType
+
+func ValueGLibType() types.GType {
+	return xValueGLibType()
+}
+
 func (x *Value) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -799,9 +805,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xValueRegisterTransformFunc, lib, "g_value_register_transform_func")
 	core.PuregoSafeRegister(&xValueTypeCompatible, lib, "g_value_type_compatible")
 	core.PuregoSafeRegister(&xValueTypeTransformable, lib, "g_value_type_transformable")
+
+	core.PuregoSafeRegister(&xValueGLibType, lib, "g_value_get_type")
 
 	core.PuregoSafeRegister(&xValueCopy, lib, "g_value_copy")
 	core.PuregoSafeRegister(&xValueDupBoxed, lib, "g_value_dup_boxed")

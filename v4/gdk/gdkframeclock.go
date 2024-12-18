@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FrameClockClass struct {
@@ -28,6 +29,12 @@ func (x *FrameClockPrivate) GoPointer() uintptr {
 //
 // The elements of the enumeration correspond to the signals of `GdkFrameClock`.
 type FrameClockPhase int
+
+var xFrameClockPhaseGLibType func() types.GType
+
+func FrameClockPhaseGLibType() types.GType {
+	return xFrameClockPhaseGLibType()
+}
 
 const (
 
@@ -84,6 +91,12 @@ const (
 // they will stay exactly synchronized.
 type FrameClock struct {
 	gobject.Object
+}
+
+var xFrameClockGLibType func() types.GType
+
+func FrameClockGLibType() types.GType {
+	return xFrameClockGLibType()
 }
 
 func FrameClockNewFromInternalPtr(ptr uintptr) *FrameClock {
@@ -403,6 +416,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFrameClockPhaseGLibType, lib, "gdk_frame_clock_phase_get_type")
+
+	core.PuregoSafeRegister(&xFrameClockGLibType, lib, "gdk_frame_clock_get_type")
 
 	core.PuregoSafeRegister(&xFrameClockBeginUpdating, lib, "gdk_frame_clock_begin_updating")
 	core.PuregoSafeRegister(&xFrameClockEndUpdating, lib, "gdk_frame_clock_end_updating")

@@ -34,6 +34,13 @@ type TlsBackend interface {
 	SupportsDtls() bool
 	SupportsTls() bool
 }
+
+var xTlsBackendGLibType func() types.GType
+
+func TlsBackendGLibType() types.GType {
+	return xTlsBackendGLibType()
+}
+
 type TlsBackendBase struct {
 	Ptr uintptr
 }
@@ -171,7 +178,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTlsBackendGetDefault, lib, "g_tls_backend_get_default")
+
+	core.PuregoSafeRegister(&xTlsBackendGLibType, lib, "g_tls_backend_get_type")
 
 	core.PuregoSafeRegister(&XGTlsBackendGetCertificateType, lib, "g_tls_backend_get_certificate_type")
 	core.PuregoSafeRegister(&XGTlsBackendGetClientConnectionType, lib, "g_tls_backend_get_client_connection_type")

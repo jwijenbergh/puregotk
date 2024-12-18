@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An interface for writing VFS file handles.
@@ -233,6 +234,13 @@ type File interface {
 	UnmountMountableWithOperation(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	UnmountMountableWithOperationFinish(ResultVar AsyncResult) bool
 }
+
+var xFileGLibType func() types.GType
+
+func FileGLibType() types.GType {
+	return xFileGLibType()
+}
+
 type FileBase struct {
 	Ptr uintptr
 }
@@ -2996,12 +3004,15 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xFileNewForCommandlineArg, lib, "g_file_new_for_commandline_arg")
 	core.PuregoSafeRegister(&xFileNewForCommandlineArgAndCwd, lib, "g_file_new_for_commandline_arg_and_cwd")
 	core.PuregoSafeRegister(&xFileNewForPath, lib, "g_file_new_for_path")
 	core.PuregoSafeRegister(&xFileNewForUri, lib, "g_file_new_for_uri")
 	core.PuregoSafeRegister(&xFileNewTmp, lib, "g_file_new_tmp")
 	core.PuregoSafeRegister(&xFileParseName, lib, "g_file_parse_name")
+
+	core.PuregoSafeRegister(&xFileGLibType, lib, "g_file_get_type")
 
 	core.PuregoSafeRegister(&XGFileAppendTo, lib, "g_file_append_to")
 	core.PuregoSafeRegister(&XGFileAppendToAsync, lib, "g_file_append_to_async")

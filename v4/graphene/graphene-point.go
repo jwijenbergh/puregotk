@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A point with two coordinates.
@@ -13,6 +14,12 @@ type Point struct {
 	X float32
 
 	Y float32
+}
+
+var xPointGLibType func() types.GType
+
+func PointGLibType() types.GType {
+	return xPointGLibType()
 }
 
 func (x *Point) GoPointer() uintptr {
@@ -154,7 +161,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPointZero, lib, "graphene_point_zero")
+
+	core.PuregoSafeRegister(&xPointGLibType, lib, "graphene_point_get_type")
 
 	core.PuregoSafeRegister(&xPointAlloc, lib, "graphene_point_alloc")
 

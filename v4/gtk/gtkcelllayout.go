@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function which should set the value of @cell_layout’s cell renderer(s)
@@ -153,6 +154,13 @@ type CellLayout interface {
 	SetAttributes(CellVar *CellRenderer, varArgs ...interface{})
 	SetCellDataFunc(CellVar *CellRenderer, FuncVar *CellLayoutDataFunc, FuncDataVar uintptr, DestroyVar *glib.DestroyNotify)
 }
+
+var xCellLayoutGLibType func() types.GType
+
+func CellLayoutGLibType() types.GType {
+	return xCellLayoutGLibType()
+}
+
 type CellLayoutBase struct {
 	Ptr uintptr
 }
@@ -293,6 +301,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellLayoutGLibType, lib, "gtk_cell_layout_get_type")
 
 	core.PuregoSafeRegister(&XGtkCellLayoutAddAttribute, lib, "gtk_cell_layout_add_attribute")
 	core.PuregoSafeRegister(&XGtkCellLayoutClear, lib, "gtk_cell_layout_clear")

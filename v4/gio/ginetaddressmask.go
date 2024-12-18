@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type InetAddressMaskClass struct {
@@ -31,6 +32,12 @@ func (x *InetAddressMaskPrivate) GoPointer() uintptr {
 // often given in string form. Eg, "10.0.0.0/8", or "fe80::/10".
 type InetAddressMask struct {
 	gobject.Object
+}
+
+var xInetAddressMaskGLibType func() types.GType
+
+func InetAddressMaskGLibType() types.GType {
+	return xInetAddressMaskGLibType()
 }
 
 func InetAddressMaskNewFromInternalPtr(ptr uintptr) *InetAddressMask {
@@ -209,6 +216,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInetAddressMaskGLibType, lib, "g_inet_address_mask_get_type")
 
 	core.PuregoSafeRegister(&xNewInetAddressMask, lib, "g_inet_address_mask_new")
 	core.PuregoSafeRegister(&xNewInetAddressMaskFromString, lib, "g_inet_address_mask_new_from_string")

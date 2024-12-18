@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The location and size of a rectangle region.
@@ -24,6 +25,12 @@ type Rect struct {
 	Origin uintptr
 
 	Size uintptr
+}
+
+var xRectGLibType func() types.GType
+
+func RectGLibType() types.GType {
+	return xRectGLibType()
 }
 
 func (x *Rect) GoPointer() uintptr {
@@ -425,8 +432,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xRectAlloc, lib, "graphene_rect_alloc")
 	core.PuregoSafeRegister(&xRectZero, lib, "graphene_rect_zero")
+
+	core.PuregoSafeRegister(&xRectGLibType, lib, "graphene_rect_get_type")
 
 	core.PuregoSafeRegister(&xRectContainsPoint, lib, "graphene_rect_contains_point")
 	core.PuregoSafeRegister(&xRectContainsRect, lib, "graphene_rect_contains_rect")

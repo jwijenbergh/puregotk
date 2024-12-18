@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DragSourceClass struct {
@@ -104,6 +105,12 @@ func (x *DragSourceClass) GoPointer() uintptr {
 // data after it has been transferred.
 type DragSource struct {
 	GestureSingle
+}
+
+var xDragSourceGLibType func() types.GType
+
+func DragSourceGLibType() types.GType {
+	return xDragSourceGLibType()
 }
 
 func DragSourceNewFromInternalPtr(ptr uintptr) *DragSource {
@@ -343,6 +350,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDragSourceGLibType, lib, "gtk_drag_source_get_type")
 
 	core.PuregoSafeRegister(&xNewDragSource, lib, "gtk_drag_source_new")
 

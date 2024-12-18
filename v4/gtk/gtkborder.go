@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A struct that specifies a border around a rectangular area.
@@ -19,6 +20,12 @@ type Border struct {
 	Top int16
 
 	Bottom int16
+}
+
+var xBorderGLibType func() types.GType
+
+func BorderGLibType() types.GType {
+	return xBorderGLibType()
 }
 
 func (x *Border) GoPointer() uintptr {
@@ -57,6 +64,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBorderGLibType, lib, "gtk_border_get_type")
 
 	core.PuregoSafeRegister(&xNewBorder, lib, "gtk_border_new")
 

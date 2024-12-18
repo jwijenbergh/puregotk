@@ -6,11 +6,18 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // #GTimeZone is an opaque structure whose members cannot be accessed
 // directly.
 type TimeZone struct {
+}
+
+var xTimeZoneGLibType func() types.GType
+
+func TimeZoneGLibType() types.GType {
+	return xTimeZoneGLibType()
 }
 
 func (x *TimeZone) GoPointer() uintptr {
@@ -295,6 +302,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTimeZoneGLibType, lib, "g_time_zone_get_type")
 
 	core.PuregoSafeRegister(&xNewTimeZone, lib, "g_time_zone_new")
 	core.PuregoSafeRegister(&xNewTimeZoneIdentifier, lib, "g_time_zone_new_identifier")

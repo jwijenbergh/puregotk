@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -50,6 +51,12 @@ func (x *ApplicationClass) GoPointer() uintptr {
 //     preference is enabled and [property@StyleManager:dark] is `TRUE`.
 type Application struct {
 	gtk.Application
+}
+
+var xApplicationGLibType func() types.GType
+
+func ApplicationGLibType() types.GType {
+	return xApplicationGLibType()
 }
 
 func ApplicationNewFromInternalPtr(ptr uintptr) *Application {
@@ -431,6 +438,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xApplicationGLibType, lib, "adw_application_get_type")
 
 	core.PuregoSafeRegister(&xNewApplication, lib, "adw_application_new")
 

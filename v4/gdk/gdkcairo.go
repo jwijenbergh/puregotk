@@ -91,6 +91,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCairoDrawFromGl, lib, "gdk_cairo_draw_from_gl")
 	core.PuregoSafeRegister(&xCairoRectangle, lib, "gdk_cairo_rectangle")
 	core.PuregoSafeRegister(&xCairoRegion, lib, "gdk_cairo_region")

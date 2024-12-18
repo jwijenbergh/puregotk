@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A structure capable of holding a vector with four dimensions: x, y, z, and w.
@@ -14,6 +15,12 @@ import (
 // never be accessed directly.
 type Vec4 struct {
 	Value uintptr
+}
+
+var xVec4GLibType func() types.GType
+
+func Vec4GLibType() types.GType {
+	return xVec4GLibType()
 }
 
 func (x *Vec4) GoPointer() uintptr {
@@ -356,12 +363,15 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xVec4One, lib, "graphene_vec4_one")
 	core.PuregoSafeRegister(&xVec4WAxis, lib, "graphene_vec4_w_axis")
 	core.PuregoSafeRegister(&xVec4XAxis, lib, "graphene_vec4_x_axis")
 	core.PuregoSafeRegister(&xVec4YAxis, lib, "graphene_vec4_y_axis")
 	core.PuregoSafeRegister(&xVec4ZAxis, lib, "graphene_vec4_z_axis")
 	core.PuregoSafeRegister(&xVec4Zero, lib, "graphene_vec4_zero")
+
+	core.PuregoSafeRegister(&xVec4GLibType, lib, "graphene_vec4_get_type")
 
 	core.PuregoSafeRegister(&xVec4Alloc, lib, "graphene_vec4_alloc")
 

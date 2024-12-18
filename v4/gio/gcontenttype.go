@@ -220,6 +220,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xContentTypeCanBeExecutable, lib, "g_content_type_can_be_executable")
 	core.PuregoSafeRegister(&xContentTypeEquals, lib, "g_content_type_equals")
 	core.PuregoSafeRegister(&xContentTypeFromMimeType, lib, "g_content_type_from_mime_type")

@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Renders a pixbuf in a cell
@@ -23,6 +24,12 @@ import (
 // pixbuf, it renders that one.
 type CellRendererPixbuf struct {
 	CellRenderer
+}
+
+var xCellRendererPixbufGLibType func() types.GType
+
+func CellRendererPixbufGLibType() types.GType {
+	return xCellRendererPixbufGLibType()
 }
 
 func CellRendererPixbufNewFromInternalPtr(ptr uintptr) *CellRendererPixbuf {
@@ -67,6 +74,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererPixbufGLibType, lib, "gtk_cell_renderer_pixbuf_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererPixbuf, lib, "gtk_cell_renderer_pixbuf_new")
 

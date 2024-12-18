@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SocketAddressClass struct {
@@ -23,6 +24,12 @@ func (x *SocketAddressClass) GoPointer() uintptr {
 // for internet sockets, or #GUnixSocketAddress for UNIX domain sockets.
 type SocketAddress struct {
 	gobject.Object
+}
+
+var xSocketAddressGLibType func() types.GType
+
+func SocketAddressGLibType() types.GType {
+	return xSocketAddressGLibType()
 }
 
 func SocketAddressNewFromInternalPtr(ptr uintptr) *SocketAddress {
@@ -147,6 +154,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketAddressGLibType, lib, "g_socket_address_get_type")
 
 	core.PuregoSafeRegister(&xNewSocketAddressFromNative, lib, "g_socket_address_new_from_native")
 

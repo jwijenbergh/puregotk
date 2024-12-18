@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ATContextClass struct {
@@ -26,6 +27,12 @@ func (x *ATContextClass) GoPointer() uintptr {
 // changes in `GtkAccessible`.
 type ATContext struct {
 	gobject.Object
+}
+
+var xATContextGLibType func() types.GType
+
+func ATContextGLibType() types.GType {
+	return xATContextGLibType()
 }
 
 func ATContextNewFromInternalPtr(ptr uintptr) *ATContext {
@@ -114,6 +121,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xATContextGLibType, lib, "gtk_at_context_get_type")
 
 	core.PuregoSafeRegister(&xATContextCreate, lib, "gtk_at_context_create")
 

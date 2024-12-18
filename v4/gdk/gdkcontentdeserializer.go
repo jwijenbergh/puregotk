@@ -70,6 +70,12 @@ type ContentDeserializer struct {
 	gobject.Object
 }
 
+var xContentDeserializerGLibType func() types.GType
+
+func ContentDeserializerGLibType() types.GType {
+	return xContentDeserializerGLibType()
+}
+
 func ContentDeserializerNewFromInternalPtr(ptr uintptr) *ContentDeserializer {
 	cls := &ContentDeserializer{}
 	cls.Ptr = ptr
@@ -257,9 +263,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xContentDeserializeAsync, lib, "gdk_content_deserialize_async")
 	core.PuregoSafeRegister(&xContentDeserializeFinish, lib, "gdk_content_deserialize_finish")
 	core.PuregoSafeRegister(&xContentRegisterDeserializer, lib, "gdk_content_register_deserializer")
+
+	core.PuregoSafeRegister(&xContentDeserializerGLibType, lib, "gdk_content_deserializer_get_type")
 
 	core.PuregoSafeRegister(&xContentDeserializerGetCancellable, lib, "gdk_content_deserializer_get_cancellable")
 	core.PuregoSafeRegister(&xContentDeserializerGetGtype, lib, "gdk_content_deserializer_get_gtype")

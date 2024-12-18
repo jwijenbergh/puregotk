@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GDBusInterfaceSkeleton.
@@ -33,6 +34,12 @@ func (x *DBusInterfaceSkeletonPrivate) GoPointer() uintptr {
 // Abstract base class for D-Bus interfaces on the service side.
 type DBusInterfaceSkeleton struct {
 	gobject.Object
+}
+
+var xDBusInterfaceSkeletonGLibType func() types.GType
+
+func DBusInterfaceSkeletonGLibType() types.GType {
+	return xDBusInterfaceSkeletonGLibType()
 }
 
 func DBusInterfaceSkeletonNewFromInternalPtr(ptr uintptr) *DBusInterfaceSkeleton {
@@ -301,6 +308,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDBusInterfaceSkeletonGLibType, lib, "g_dbus_interface_skeleton_get_type")
 
 	core.PuregoSafeRegister(&xDBusInterfaceSkeletonExport, lib, "g_dbus_interface_skeleton_export")
 	core.PuregoSafeRegister(&xDBusInterfaceSkeletonFlush, lib, "g_dbus_interface_skeleton_flush")

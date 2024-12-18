@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -59,6 +60,12 @@ func (x *ActionRowClass) GoPointer() uintptr {
 // respectively the title label and subtitle label.
 type ActionRow struct {
 	PreferencesRow
+}
+
+var xActionRowGLibType func() types.GType
+
+func ActionRowGLibType() types.GType {
+	return xActionRowGLibType()
 }
 
 func ActionRowNewFromInternalPtr(ptr uintptr) *ActionRow {
@@ -515,6 +522,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xActionRowGLibType, lib, "adw_action_row_get_type")
 
 	core.PuregoSafeRegister(&xNewActionRow, lib, "adw_action_row_new")
 

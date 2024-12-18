@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkBitset` represents a set of unsigned integers.
@@ -24,6 +25,12 @@ import (
 // The main use case for `GtkBitset` is implementing complex selections for
 // [iface@Gtk.SelectionModel].
 type Bitset struct {
+}
+
+var xBitsetGLibType func() types.GType
+
+func BitsetGLibType() types.GType {
+	return xBitsetGLibType()
 }
 
 func (x *Bitset) GoPointer() uintptr {
@@ -378,6 +385,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBitsetGLibType, lib, "gtk_bitset_get_type")
 
 	core.PuregoSafeRegister(&xNewBitsetEmpty, lib, "gtk_bitset_new_empty")
 	core.PuregoSafeRegister(&xNewBitsetRange, lib, "gtk_bitset_new_range")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A GtkTreeIterCompareFunc should return a negative integer, zero, or a positive
@@ -46,6 +47,13 @@ type TreeSortable interface {
 	SetSortFunc(SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify)
 	SortColumnChanged()
 }
+
+var xTreeSortableGLibType func() types.GType
+
+func TreeSortableGLibType() types.GType {
+	return xTreeSortableGLibType()
+}
+
 type TreeSortableBase struct {
 	Ptr uintptr
 }
@@ -146,6 +154,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeSortableGLibType, lib, "gtk_tree_sortable_get_type")
 
 	core.PuregoSafeRegister(&XGtkTreeSortableGetSortColumnId, lib, "gtk_tree_sortable_get_sort_column_id")
 	core.PuregoSafeRegister(&XGtkTreeSortableHasDefaultSortFunc, lib, "gtk_tree_sortable_has_default_sort_func")

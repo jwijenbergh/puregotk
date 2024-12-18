@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class for #GTlsInteraction. Derived classes implement the various
@@ -63,6 +64,12 @@ func (x *TlsInteractionPrivate) GoPointer() uintptr {
 // it must also implement the corresponding finish method.
 type TlsInteraction struct {
 	gobject.Object
+}
+
+var xTlsInteractionGLibType func() types.GType
+
+func TlsInteractionGLibType() types.GType {
+	return xTlsInteractionGLibType()
 }
 
 func TlsInteractionNewFromInternalPtr(ptr uintptr) *TlsInteraction {
@@ -288,6 +295,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTlsInteractionGLibType, lib, "g_tls_interaction_get_type")
 
 	core.PuregoSafeRegister(&xTlsInteractionAskPassword, lib, "g_tls_interaction_ask_password")
 	core.PuregoSafeRegister(&xTlsInteractionAskPasswordAsync, lib, "g_tls_interaction_ask_password_async")

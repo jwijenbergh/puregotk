@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type WidgetPaintableClass struct {
@@ -40,6 +41,12 @@ func (x *WidgetPaintableClass) GoPointer() uintptr {
 // end up with an infinitely growing widget.
 type WidgetPaintable struct {
 	gobject.Object
+}
+
+var xWidgetPaintableGLibType func() types.GType
+
+func WidgetPaintableGLibType() types.GType {
+	return xWidgetPaintableGLibType()
 }
 
 func WidgetPaintableNewFromInternalPtr(ptr uintptr) *WidgetPaintable {
@@ -247,6 +254,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWidgetPaintableGLibType, lib, "gtk_widget_paintable_get_type")
 
 	core.PuregoSafeRegister(&xNewWidgetPaintable, lib, "gtk_widget_paintable_new")
 

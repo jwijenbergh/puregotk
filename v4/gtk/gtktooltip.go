@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkTooltip` is an object representing a widget tooltip.
@@ -38,6 +39,12 @@ import (
 //     to be show. If you return %FALSE, it will not be shown.
 type Tooltip struct {
 	gobject.Object
+}
+
+var xTooltipGLibType func() types.GType
+
+func TooltipGLibType() types.GType {
+	return xTooltipGLibType()
 }
 
 func TooltipNewFromInternalPtr(ptr uintptr) *Tooltip {
@@ -145,6 +152,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTooltipGLibType, lib, "gtk_tooltip_get_type")
 
 	core.PuregoSafeRegister(&xTooltipSetCustom, lib, "gtk_tooltip_set_custom")
 	core.PuregoSafeRegister(&xTooltipSetIcon, lib, "gtk_tooltip_set_icon")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CellEditableIface struct {
@@ -29,6 +30,13 @@ type CellEditable interface {
 	RemoveWidget()
 	StartEditing(EventVar *gdk.Event)
 }
+
+var xCellEditableGLibType func() types.GType
+
+func CellEditableGLibType() types.GType {
+	return xCellEditableGLibType()
+}
+
 type CellEditableBase struct {
 	Ptr uintptr
 }
@@ -80,6 +88,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellEditableGLibType, lib, "gtk_cell_editable_get_type")
 
 	core.PuregoSafeRegister(&XGtkCellEditableEditingDone, lib, "gtk_cell_editable_editing_done")
 	core.PuregoSafeRegister(&XGtkCellEditableRemoveWidget, lib, "gtk_cell_editable_remove_widget")

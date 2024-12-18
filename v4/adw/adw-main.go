@@ -40,6 +40,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xInit, lib, "adw_init")
 	core.PuregoSafeRegister(&xIsInitialized, lib, "adw_is_initialized")
 

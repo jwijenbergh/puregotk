@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TreeExpanderClass struct {
@@ -58,6 +59,12 @@ func (x *TreeExpanderClass) GoPointer() uintptr {
 // child, and toggling it will change the %GTK_ACCESSIBLE_STATE_EXPANDED state.
 type TreeExpander struct {
 	Widget
+}
+
+var xTreeExpanderGLibType func() types.GType
+
+func TreeExpanderGLibType() types.GType {
+	return xTreeExpanderGLibType()
 }
 
 func TreeExpanderNewFromInternalPtr(ptr uintptr) *TreeExpander {
@@ -331,6 +338,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeExpanderGLibType, lib, "gtk_tree_expander_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeExpander, lib, "gtk_tree_expander_new")
 

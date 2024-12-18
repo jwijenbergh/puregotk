@@ -75,6 +75,13 @@ type ListModel interface {
 	GetObject(PositionVar uint) *gobject.Object
 	ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint)
 }
+
+var xListModelGLibType func() types.GType
+
+func ListModelGLibType() types.GType {
+	return xListModelGLibType()
+}
+
 type ListModelBase struct {
 	Ptr uintptr
 }
@@ -189,6 +196,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xListModelGLibType, lib, "g_list_model_get_type")
 
 	core.PuregoSafeRegister(&XGListModelGetItem, lib, "g_list_model_get_item")
 	core.PuregoSafeRegister(&XGListModelGetItemType, lib, "g_list_model_get_item_type")

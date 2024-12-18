@@ -36,6 +36,12 @@ type ContentProvider struct {
 	gobject.Object
 }
 
+var xContentProviderGLibType func() types.GType
+
+func ContentProviderGLibType() types.GType {
+	return xContentProviderGLibType()
+}
+
 func ContentProviderNewFromInternalPtr(ptr uintptr) *ContentProvider {
 	cls := &ContentProvider{}
 	cls.Ptr = ptr
@@ -248,6 +254,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xContentProviderGLibType, lib, "gdk_content_provider_get_type")
 
 	core.PuregoSafeRegister(&xNewContentProviderForBytes, lib, "gdk_content_provider_new_for_bytes")
 	core.PuregoSafeRegister(&xNewContentProviderForValue, lib, "gdk_content_provider_new_for_value")

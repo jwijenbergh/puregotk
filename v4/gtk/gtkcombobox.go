@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ComboBoxClass struct {
@@ -83,6 +84,12 @@ func (x *ComboBoxClass) GoPointer() uintptr {
 // `GtkComboBox` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
 type ComboBox struct {
 	Widget
+}
+
+var xComboBoxGLibType func() types.GType
+
+func ComboBoxGLibType() types.GType {
+	return xComboBoxGLibType()
 }
 
 func ComboBoxNewFromInternalPtr(ptr uintptr) *ComboBox {
@@ -939,6 +946,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xComboBoxGLibType, lib, "gtk_combo_box_get_type")
 
 	core.PuregoSafeRegister(&xNewComboBox, lib, "gtk_combo_box_new")
 	core.PuregoSafeRegister(&xNewComboBoxWithEntry, lib, "gtk_combo_box_new_with_entry")

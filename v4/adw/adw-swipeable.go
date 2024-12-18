@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An interface for swipeable widgets.
@@ -34,6 +35,13 @@ type Swipeable interface {
 	GetSnapPoints(NSnapPointsVar int) []float64
 	GetSwipeArea(NavigationDirectionVar NavigationDirection, IsDragVar bool, RectVar *gdk.Rectangle)
 }
+
+var xSwipeableGLibType func() types.GType
+
+func SwipeableGLibType() types.GType {
+	return xSwipeableGLibType()
+}
+
 type SwipeableBase struct {
 	Ptr uintptr
 }
@@ -105,6 +113,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSwipeableGLibType, lib, "adw_swipeable_get_type")
 
 	core.PuregoSafeRegister(&XAdwSwipeableGetCancelProgress, lib, "adw_swipeable_get_cancel_progress")
 	core.PuregoSafeRegister(&XAdwSwipeableGetDistance, lib, "adw_swipeable_get_distance")

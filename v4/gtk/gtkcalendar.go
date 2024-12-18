@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkCalendar` is a widget that displays a Gregorian calendar, one month
@@ -63,6 +64,12 @@ import (
 // Marked day labels get the :selected state assigned.
 type Calendar struct {
 	Widget
+}
+
+var xCalendarGLibType func() types.GType
+
+func CalendarGLibType() types.GType {
+	return xCalendarGLibType()
 }
 
 func CalendarNewFromInternalPtr(ptr uintptr) *Calendar {
@@ -469,6 +476,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCalendarGLibType, lib, "gtk_calendar_get_type")
 
 	core.PuregoSafeRegister(&xNewCalendar, lib, "gtk_calendar_new")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MenuAttributeIterClass struct {
@@ -99,6 +100,12 @@ type MenuAttributeIter struct {
 	gobject.Object
 }
 
+var xMenuAttributeIterGLibType func() types.GType
+
+func MenuAttributeIterGLibType() types.GType {
+	return xMenuAttributeIterGLibType()
+}
+
 func MenuAttributeIterNewFromInternalPtr(ptr uintptr) *MenuAttributeIter {
 	cls := &MenuAttributeIter{}
 	cls.Ptr = ptr
@@ -180,6 +187,12 @@ func (c *MenuAttributeIter) SetGoPointer(ptr uintptr) {
 // the functions below.
 type MenuLinkIter struct {
 	gobject.Object
+}
+
+var xMenuLinkIterGLibType func() types.GType
+
+func MenuLinkIterGLibType() types.GType {
+	return xMenuLinkIterGLibType()
 }
 
 func MenuLinkIterNewFromInternalPtr(ptr uintptr) *MenuLinkIter {
@@ -378,6 +391,12 @@ func (c *MenuLinkIter) SetGoPointer(ptr uintptr) {
 // target value of the menu item.
 type MenuModel struct {
 	gobject.Object
+}
+
+var xMenuModelGLibType func() types.GType
+
+func MenuModelGLibType() types.GType {
+	return xMenuModelGLibType()
 }
 
 func MenuModelNewFromInternalPtr(ptr uintptr) *MenuModel {
@@ -584,15 +603,21 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xMenuAttributeIterGLibType, lib, "g_menu_attribute_iter_get_type")
+
 	core.PuregoSafeRegister(&xMenuAttributeIterGetName, lib, "g_menu_attribute_iter_get_name")
 	core.PuregoSafeRegister(&xMenuAttributeIterGetNext, lib, "g_menu_attribute_iter_get_next")
 	core.PuregoSafeRegister(&xMenuAttributeIterGetValue, lib, "g_menu_attribute_iter_get_value")
 	core.PuregoSafeRegister(&xMenuAttributeIterNext, lib, "g_menu_attribute_iter_next")
 
+	core.PuregoSafeRegister(&xMenuLinkIterGLibType, lib, "g_menu_link_iter_get_type")
+
 	core.PuregoSafeRegister(&xMenuLinkIterGetName, lib, "g_menu_link_iter_get_name")
 	core.PuregoSafeRegister(&xMenuLinkIterGetNext, lib, "g_menu_link_iter_get_next")
 	core.PuregoSafeRegister(&xMenuLinkIterGetValue, lib, "g_menu_link_iter_get_value")
 	core.PuregoSafeRegister(&xMenuLinkIterNext, lib, "g_menu_link_iter_next")
+
+	core.PuregoSafeRegister(&xMenuModelGLibType, lib, "g_menu_model_get_type")
 
 	core.PuregoSafeRegister(&xMenuModelGetItemAttribute, lib, "g_menu_model_get_item_attribute")
 	core.PuregoSafeRegister(&xMenuModelGetItemAttributeValue, lib, "g_menu_model_get_item_attribute_value")

@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkActionBar` is designed to present contextual actions.
@@ -49,6 +50,12 @@ import (
 // Each of the boxes contains children packed for that side.
 type ActionBar struct {
 	Widget
+}
+
+var xActionBarGLibType func() types.GType
+
+func ActionBarGLibType() types.GType {
+	return xActionBarGLibType()
 }
 
 func ActionBarNewFromInternalPtr(ptr uintptr) *ActionBar {
@@ -307,6 +314,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xActionBarGLibType, lib, "gtk_action_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewActionBar, lib, "gtk_action_bar_new")
 

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type IMContextSimpleClass struct {
@@ -66,6 +67,12 @@ const (
 //	depends on the keyboard layout including dead keys.
 type IMContextSimple struct {
 	IMContext
+}
+
+var xIMContextSimpleGLibType func() types.GType
+
+func IMContextSimpleGLibType() types.GType {
+	return xIMContextSimpleGLibType()
 }
 
 func IMContextSimpleNewFromInternalPtr(ptr uintptr) *IMContextSimple {
@@ -129,6 +136,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIMContextSimpleGLibType, lib, "gtk_im_context_simple_get_type")
 
 	core.PuregoSafeRegister(&xNewIMContextSimple, lib, "gtk_im_context_simple_new")
 

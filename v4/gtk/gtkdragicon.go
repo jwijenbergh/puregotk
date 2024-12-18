@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -32,6 +33,12 @@ func (x *DragIconClass) GoPointer() uintptr {
 // Keep in mind that drag icons do not allow user input.
 type DragIcon struct {
 	Widget
+}
+
+var xDragIconGLibType func() types.GType
+
+func DragIconGLibType() types.GType {
+	return xDragIconGLibType()
 }
 
 func DragIconNewFromInternalPtr(ptr uintptr) *DragIcon {
@@ -387,6 +394,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDragIconGLibType, lib, "gtk_drag_icon_get_type")
 
 	core.PuregoSafeRegister(&xDragIconGetChild, lib, "gtk_drag_icon_get_child")
 	core.PuregoSafeRegister(&xDragIconSetChild, lib, "gtk_drag_icon_set_child")

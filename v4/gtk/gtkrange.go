@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type RangeClass struct {
@@ -32,6 +33,12 @@ func (x *RangeClass) GoPointer() uintptr {
 // “fill level” on range widgets. See [method@Gtk.Range.set_fill_level].
 type Range struct {
 	Widget
+}
+
+var xRangeGLibType func() types.GType
+
+func RangeGLibType() types.GType {
+	return xRangeGLibType()
 }
 
 func RangeNewFromInternalPtr(ptr uintptr) *Range {
@@ -583,6 +590,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRangeGLibType, lib, "gtk_range_get_type")
 
 	core.PuregoSafeRegister(&xRangeGetAdjustment, lib, "gtk_range_get_adjustment")
 	core.PuregoSafeRegister(&xRangeGetFillLevel, lib, "gtk_range_get_fill_level")

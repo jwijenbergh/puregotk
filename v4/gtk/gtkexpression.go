@@ -22,6 +22,12 @@ type ExpressionNotify func(uintptr)
 type ExpressionWatch struct {
 }
 
+var xExpressionWatchGLibType func() types.GType
+
+func ExpressionWatchGLibType() types.GType {
+	return xExpressionWatchGLibType()
+}
+
 func (x *ExpressionWatch) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -151,6 +157,12 @@ type CClosureExpression struct {
 	Expression
 }
 
+var xCClosureExpressionGLibType func() types.GType
+
+func CClosureExpressionGLibType() types.GType {
+	return xCClosureExpressionGLibType()
+}
+
 func CClosureExpressionNewFromInternalPtr(ptr uintptr) *CClosureExpression {
 	cls := &CClosureExpression{}
 	cls.Ptr = ptr
@@ -191,6 +203,12 @@ type ClosureExpression struct {
 	Expression
 }
 
+var xClosureExpressionGLibType func() types.GType
+
+func ClosureExpressionGLibType() types.GType {
+	return xClosureExpressionGLibType()
+}
+
 func ClosureExpressionNewFromInternalPtr(ptr uintptr) *ClosureExpression {
 	cls := &ClosureExpression{}
 	cls.Ptr = ptr
@@ -227,6 +245,12 @@ func (c *ClosureExpression) SetGoPointer(ptr uintptr) {
 // A constant value in a `GtkExpression`.
 type ConstantExpression struct {
 	Expression
+}
+
+var xConstantExpressionGLibType func() types.GType
+
+func ConstantExpressionGLibType() types.GType {
+	return xConstantExpressionGLibType()
 }
 
 func ConstantExpressionNewFromInternalPtr(ptr uintptr) *ConstantExpression {
@@ -430,6 +454,12 @@ type Expression struct {
 	Ptr uintptr
 }
 
+var xExpressionGLibType func() types.GType
+
+func ExpressionGLibType() types.GType {
+	return xExpressionGLibType()
+}
+
 func ExpressionNewFromInternalPtr(ptr uintptr) *Expression {
 	cls := &Expression{}
 	cls.Ptr = ptr
@@ -558,6 +588,12 @@ type ObjectExpression struct {
 	Expression
 }
 
+var xObjectExpressionGLibType func() types.GType
+
+func ObjectExpressionGLibType() types.GType {
+	return xObjectExpressionGLibType()
+}
+
 func ObjectExpressionNewFromInternalPtr(ptr uintptr) *ObjectExpression {
 	cls := &ObjectExpression{}
 	cls.Ptr = ptr
@@ -616,6 +652,12 @@ type ParamSpecExpression struct {
 	gobject.ParamSpec
 }
 
+var xParamSpecExpressionGLibType func() types.GType
+
+func ParamSpecExpressionGLibType() types.GType {
+	return xParamSpecExpressionGLibType()
+}
+
 func ParamSpecExpressionNewFromInternalPtr(ptr uintptr) *ParamSpecExpression {
 	cls := &ParamSpecExpression{}
 	cls.Ptr = ptr
@@ -633,6 +675,12 @@ func (c *ParamSpecExpression) SetGoPointer(ptr uintptr) {
 // A `GObject` property value in a `GtkExpression`.
 type PropertyExpression struct {
 	Expression
+}
+
+var xPropertyExpressionGLibType func() types.GType
+
+func PropertyExpressionGLibType() types.GType {
+	return xPropertyExpressionGLibType()
 }
 
 func PropertyExpressionNewFromInternalPtr(ptr uintptr) *PropertyExpression {
@@ -738,25 +786,36 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xNewParamSpecExpression, lib, "gtk_param_spec_expression")
 	core.PuregoSafeRegister(&xValueDupExpression, lib, "gtk_value_dup_expression")
 	core.PuregoSafeRegister(&xValueGetExpression, lib, "gtk_value_get_expression")
 	core.PuregoSafeRegister(&xValueSetExpression, lib, "gtk_value_set_expression")
 	core.PuregoSafeRegister(&xValueTakeExpression, lib, "gtk_value_take_expression")
 
+	core.PuregoSafeRegister(&xExpressionWatchGLibType, lib, "gtk_expression_watch_get_type")
+
 	core.PuregoSafeRegister(&xExpressionWatchEvaluate, lib, "gtk_expression_watch_evaluate")
 	core.PuregoSafeRegister(&xExpressionWatchRef, lib, "gtk_expression_watch_ref")
 	core.PuregoSafeRegister(&xExpressionWatchUnref, lib, "gtk_expression_watch_unref")
 	core.PuregoSafeRegister(&xExpressionWatchUnwatch, lib, "gtk_expression_watch_unwatch")
 
+	core.PuregoSafeRegister(&xCClosureExpressionGLibType, lib, "gtk_cclosure_expression_get_type")
+
 	core.PuregoSafeRegister(&xNewCClosureExpression, lib, "gtk_cclosure_expression_new")
 
+	core.PuregoSafeRegister(&xClosureExpressionGLibType, lib, "gtk_closure_expression_get_type")
+
 	core.PuregoSafeRegister(&xNewClosureExpression, lib, "gtk_closure_expression_new")
+
+	core.PuregoSafeRegister(&xConstantExpressionGLibType, lib, "gtk_constant_expression_get_type")
 
 	core.PuregoSafeRegister(&xNewConstantExpression, lib, "gtk_constant_expression_new")
 	core.PuregoSafeRegister(&xNewConstantExpressionForValue, lib, "gtk_constant_expression_new_for_value")
 
 	core.PuregoSafeRegister(&xConstantExpressionGetValue, lib, "gtk_constant_expression_get_value")
+
+	core.PuregoSafeRegister(&xExpressionGLibType, lib, "gtk_expression_get_type")
 
 	core.PuregoSafeRegister(&xExpressionBind, lib, "gtk_expression_bind")
 	core.PuregoSafeRegister(&xExpressionEvaluate, lib, "gtk_expression_evaluate")
@@ -766,9 +825,15 @@ func init() {
 	core.PuregoSafeRegister(&xExpressionUnref, lib, "gtk_expression_unref")
 	core.PuregoSafeRegister(&xExpressionWatch, lib, "gtk_expression_watch")
 
+	core.PuregoSafeRegister(&xObjectExpressionGLibType, lib, "gtk_object_expression_get_type")
+
 	core.PuregoSafeRegister(&xNewObjectExpression, lib, "gtk_object_expression_new")
 
 	core.PuregoSafeRegister(&xObjectExpressionGetObject, lib, "gtk_object_expression_get_object")
+
+	core.PuregoSafeRegister(&xParamSpecExpressionGLibType, lib, "gtk_param_expression_get_type")
+
+	core.PuregoSafeRegister(&xPropertyExpressionGLibType, lib, "gtk_property_expression_get_type")
 
 	core.PuregoSafeRegister(&xNewPropertyExpression, lib, "gtk_property_expression_new")
 	core.PuregoSafeRegister(&xNewPropertyExpressionForPspec, lib, "gtk_property_expression_new_for_pspec")

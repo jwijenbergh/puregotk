@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -195,6 +196,12 @@ import (
 // [method@Gtk.Label.get_current_uri] function.
 type Label struct {
 	Widget
+}
+
+var xLabelGLibType func() types.GType
+
+func LabelGLibType() types.GType {
+	return xLabelGLibType()
 }
 
 func LabelNewFromInternalPtr(ptr uintptr) *Label {
@@ -1178,6 +1185,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLabelGLibType, lib, "gtk_label_get_type")
 
 	core.PuregoSafeRegister(&xNewLabel, lib, "gtk_label_new")
 	core.PuregoSafeRegister(&xNewLabelWithMnemonic, lib, "gtk_label_new_with_mnemonic")

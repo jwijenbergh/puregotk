@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type VideoClass struct {
@@ -34,6 +35,12 @@ func (x *VideoClass) GoPointer() uintptr {
 // such as Gstreamer directly.
 type Video struct {
 	Widget
+}
+
+var xVideoGLibType func() types.GType
+
+func VideoGLibType() types.GType {
+	return xVideoGLibType()
 }
 
 func VideoNewFromInternalPtr(ptr uintptr) *Video {
@@ -408,6 +415,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xVideoGLibType, lib, "gtk_video_get_type")
 
 	core.PuregoSafeRegister(&xNewVideo, lib, "gtk_video_new")
 	core.PuregoSafeRegister(&xNewVideoForFile, lib, "gtk_video_new_for_file")

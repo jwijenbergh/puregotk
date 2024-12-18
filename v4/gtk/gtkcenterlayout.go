@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CenterLayoutClass struct {
@@ -26,6 +27,12 @@ func (x *CenterLayoutClass) GoPointer() uintptr {
 // The center widget is centered regarding the full width of the layout's.
 type CenterLayout struct {
 	LayoutManager
+}
+
+var xCenterLayoutGLibType func() types.GType
+
+func CenterLayoutGLibType() types.GType {
+	return xCenterLayoutGLibType()
 }
 
 func CenterLayoutNewFromInternalPtr(ptr uintptr) *CenterLayout {
@@ -183,6 +190,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCenterLayoutGLibType, lib, "gtk_center_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewCenterLayout, lib, "gtk_center_layout_new")
 

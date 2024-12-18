@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Interface for creating #GDrive implementations.
@@ -76,6 +77,13 @@ type Drive interface {
 	Stop(FlagsVar MountUnmountFlags, MountOperationVar *MountOperation, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	StopFinish(ResultVar AsyncResult) bool
 }
+
+var xDriveGLibType func() types.GType
+
+func DriveGLibType() types.GType {
+	return xDriveGLibType()
+}
+
 type DriveBase struct {
 	Ptr uintptr
 }
@@ -391,6 +399,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDriveGLibType, lib, "g_drive_get_type")
 
 	core.PuregoSafeRegister(&XGDriveCanEject, lib, "g_drive_can_eject")
 	core.PuregoSafeRegister(&XGDriveCanPollForMedia, lib, "g_drive_can_poll_for_media")

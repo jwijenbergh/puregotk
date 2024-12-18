@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ColumnViewClass struct {
@@ -85,6 +86,12 @@ func (x *ColumnViewClass) GoPointer() uintptr {
 // the %GTK_ACCESSIBLE_ROLE_GRID_CELL role
 type ColumnView struct {
 	Widget
+}
+
+var xColumnViewGLibType func() types.GType
+
+func ColumnViewGLibType() types.GType {
+	return xColumnViewGLibType()
 }
 
 func ColumnViewNewFromInternalPtr(ptr uintptr) *ColumnView {
@@ -613,6 +620,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColumnViewGLibType, lib, "gtk_column_view_get_type")
 
 	core.PuregoSafeRegister(&xNewColumnView, lib, "gtk_column_view_new")
 

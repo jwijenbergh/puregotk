@@ -152,6 +152,12 @@ type IOModule struct {
 	gobject.TypeModule
 }
 
+var xIOModuleGLibType func() types.GType
+
+func IOModuleGLibType() types.GType {
+	return xIOModuleGLibType()
+}
+
 func IOModuleNewFromInternalPtr(ptr uintptr) *IOModule {
 	cls := &IOModule{}
 	cls.Ptr = ptr
@@ -304,6 +310,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xIoExtensionPointImplement, lib, "g_io_extension_point_implement")
 	core.PuregoSafeRegister(&xIoExtensionPointLookup, lib, "g_io_extension_point_lookup")
 	core.PuregoSafeRegister(&xIoExtensionPointRegister, lib, "g_io_extension_point_register")
@@ -314,6 +321,8 @@ func init() {
 
 	core.PuregoSafeRegister(&xIOModuleScopeBlock, lib, "g_io_module_scope_block")
 	core.PuregoSafeRegister(&xIOModuleScopeFree, lib, "g_io_module_scope_free")
+
+	core.PuregoSafeRegister(&xIOModuleGLibType, lib, "g_io_module_get_type")
 
 	core.PuregoSafeRegister(&xNewIOModule, lib, "g_io_module_new")
 

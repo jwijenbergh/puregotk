@@ -62,6 +62,12 @@ type TreeStore struct {
 	gobject.Object
 }
 
+var xTreeStoreGLibType func() types.GType
+
+func TreeStoreGLibType() types.GType {
+	return xTreeStoreGLibType()
+}
+
 func TreeStoreNewFromInternalPtr(ptr uintptr) *TreeStore {
 	cls := &TreeStore{}
 	cls.Ptr = ptr
@@ -854,6 +860,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeStoreGLibType, lib, "gtk_tree_store_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeStore, lib, "gtk_tree_store_new")
 	core.PuregoSafeRegister(&xNewTreeStorev, lib, "gtk_tree_store_newv")

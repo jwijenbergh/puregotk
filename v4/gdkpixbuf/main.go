@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xPixbufErrorQuark func() glib.Quark
@@ -17,6 +18,12 @@ func PixbufErrorQuark() glib.Quark {
 
 type PixbufNonAnim struct {
 	PixbufAnimation
+}
+
+var xPixbufNonAnimGLibType func() types.GType
+
+func PixbufNonAnimGLibType() types.GType {
+	return xPixbufNonAnimGLibType()
 }
 
 func PixbufNonAnimNewFromInternalPtr(ptr uintptr) *PixbufNonAnim {
@@ -52,6 +59,12 @@ type PixbufSimpleAnimIter struct {
 	PixbufAnimationIter
 }
 
+var xPixbufSimpleAnimIterGLibType func() types.GType
+
+func PixbufSimpleAnimIterGLibType() types.GType {
+	return xPixbufSimpleAnimIterGLibType()
+}
+
 func PixbufSimpleAnimIterNewFromInternalPtr(ptr uintptr) *PixbufSimpleAnimIter {
 	cls := &PixbufSimpleAnimIter{}
 	cls.Ptr = ptr
@@ -71,8 +84,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPixbufErrorQuark, lib, "gdk_pixbuf_error_quark")
 
+	core.PuregoSafeRegister(&xPixbufNonAnimGLibType, lib, "gdk_pixbuf_non_anim_get_type")
+
 	core.PuregoSafeRegister(&xNewPixbufNonAnim, lib, "gdk_pixbuf_non_anim_new")
+
+	core.PuregoSafeRegister(&xPixbufSimpleAnimIterGLibType, lib, "gdk_pixbuf_simple_anim_iter_get_type")
 
 }

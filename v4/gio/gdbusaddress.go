@@ -150,6 +150,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDbusAddressEscapeValue, lib, "g_dbus_address_escape_value")
 	core.PuregoSafeRegister(&xDbusAddressGetForBusSync, lib, "g_dbus_address_get_for_bus_sync")
 	core.PuregoSafeRegister(&xDbusAddressGetStream, lib, "g_dbus_address_get_stream")

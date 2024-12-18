@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GtkSizeGroup` groups widgets together so they all request the same size.
@@ -76,6 +77,12 @@ import (
 // ```
 type SizeGroup struct {
 	gobject.Object
+}
+
+var xSizeGroupGLibType func() types.GType
+
+func SizeGroupGLibType() types.GType {
+	return xSizeGroupGLibType()
 }
 
 func SizeGroupNewFromInternalPtr(ptr uintptr) *SizeGroup {
@@ -184,6 +191,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSizeGroupGLibType, lib, "gtk_size_group_get_type")
 
 	core.PuregoSafeRegister(&xNewSizeGroup, lib, "gtk_size_group_new")
 

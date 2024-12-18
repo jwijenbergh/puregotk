@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ShortcutsShortcutClass struct {
@@ -18,6 +19,12 @@ func (x *ShortcutsShortcutClass) GoPointer() uintptr {
 //
 // More values may be added to this enumeration over time.
 type ShortcutType int
+
+var xShortcutTypeGLibType func() types.GType
+
+func ShortcutTypeGLibType() types.GType {
+	return xShortcutTypeGLibType()
+}
 
 const (
 
@@ -51,6 +58,12 @@ const (
 // This widget is only meant to be used with `GtkShortcutsWindow`.
 type ShortcutsShortcut struct {
 	Widget
+}
+
+var xShortcutsShortcutGLibType func() types.GType
+
+func ShortcutsShortcutGLibType() types.GType {
+	return xShortcutsShortcutGLibType()
 }
 
 func ShortcutsShortcutNewFromInternalPtr(ptr uintptr) *ShortcutsShortcut {

@@ -234,6 +234,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCclosureMarshalBOOLEANBOXEDBOXED, lib, "g_cclosure_marshal_BOOLEAN__BOXED_BOXED")
 	core.PuregoSafeRegister(&xCclosureMarshalBOOLEANFLAGS, lib, "g_cclosure_marshal_BOOLEAN__FLAGS")
 	core.PuregoSafeRegister(&xCclosureMarshalSTRINGOBJECTPOINTER, lib, "g_cclosure_marshal_STRING__OBJECT_POINTER")

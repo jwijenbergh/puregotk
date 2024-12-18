@@ -6,11 +6,18 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A GPatternSpec struct is the 'compiled' form of a pattern. This
 // structure is opaque and its fields cannot be accessed directly.
 type PatternSpec struct {
+}
+
+var xPatternSpecGLibType func() types.GType
+
+func PatternSpecGLibType() types.GType {
+	return xPatternSpecGLibType()
 }
 
 func (x *PatternSpec) GoPointer() uintptr {
@@ -143,9 +150,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPatternMatch, lib, "g_pattern_match")
 	core.PuregoSafeRegister(&xPatternMatchSimple, lib, "g_pattern_match_simple")
 	core.PuregoSafeRegister(&xPatternMatchString, lib, "g_pattern_match_string")
+
+	core.PuregoSafeRegister(&xPatternSpecGLibType, lib, "g_pattern_spec_get_type")
 
 	core.PuregoSafeRegister(&xNewPatternSpec, lib, "g_pattern_spec_new")
 

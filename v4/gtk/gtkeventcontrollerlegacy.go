@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerLegacyClass struct {
@@ -24,6 +25,12 @@ func (x *EventControllerLegacyClass) GoPointer() uintptr {
 // controllers or gestures do the job.
 type EventControllerLegacy struct {
 	EventController
+}
+
+var xEventControllerLegacyGLibType func() types.GType
+
+func EventControllerLegacyGLibType() types.GType {
+	return xEventControllerLegacyGLibType()
 }
 
 func EventControllerLegacyNewFromInternalPtr(ptr uintptr) *EventControllerLegacy {
@@ -81,6 +88,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerLegacyGLibType, lib, "gtk_event_controller_legacy_get_type")
 
 	core.PuregoSafeRegister(&xNewEventControllerLegacy, lib, "gtk_event_controller_legacy_new")
 

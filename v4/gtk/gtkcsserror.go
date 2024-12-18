@@ -20,6 +20,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCssParserWarningQuark, lib, "gtk_css_parser_warning_quark")
 
 }

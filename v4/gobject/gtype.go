@@ -1265,6 +1265,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTypeAddClassCacheFunc, lib, "g_type_add_class_cache_func")
 	core.PuregoSafeRegister(&xTypeAddClassPrivate, lib, "g_type_add_class_private")
 	core.PuregoSafeRegister(&xTypeAddInstancePrivate, lib, "g_type_add_instance_private")

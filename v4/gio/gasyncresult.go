@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Interface definition for #GAsyncResult.
@@ -117,6 +118,13 @@ type AsyncResult interface {
 	IsTagged(SourceTagVar uintptr) bool
 	LegacyPropagateError() bool
 }
+
+var xAsyncResultGLibType func() types.GType
+
+func AsyncResultGLibType() types.GType {
+	return xAsyncResultGLibType()
+}
+
 type AsyncResultBase struct {
 	Ptr uintptr
 }
@@ -189,6 +197,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAsyncResultGLibType, lib, "g_async_result_get_type")
 
 	core.PuregoSafeRegister(&XGAsyncResultGetSourceObject, lib, "g_async_result_get_source_object")
 	core.PuregoSafeRegister(&XGAsyncResultGetUserData, lib, "g_async_result_get_user_data")

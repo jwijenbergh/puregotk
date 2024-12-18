@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkStackSwitcher` shows a row of buttons to switch between `GtkStack`
@@ -42,6 +43,12 @@ import (
 // `gtk_orientable_set_orientation()`.
 type StackSwitcher struct {
 	Widget
+}
+
+var xStackSwitcherGLibType func() types.GType
+
+func StackSwitcherGLibType() types.GType {
+	return xStackSwitcherGLibType()
 }
 
 func StackSwitcherNewFromInternalPtr(ptr uintptr) *StackSwitcher {
@@ -263,6 +270,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStackSwitcherGLibType, lib, "gtk_stack_switcher_get_type")
 
 	core.PuregoSafeRegister(&xNewStackSwitcher, lib, "gtk_stack_switcher_new")
 

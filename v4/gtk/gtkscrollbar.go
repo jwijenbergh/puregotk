@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkScrollbar` widget is a horizontal or vertical scrollbar.
@@ -53,6 +54,12 @@ import (
 // `GtkScrollbar` uses the %GTK_ACCESSIBLE_ROLE_SCROLLBAR role.
 type Scrollbar struct {
 	Widget
+}
+
+var xScrollbarGLibType func() types.GType
+
+func ScrollbarGLibType() types.GType {
+	return xScrollbarGLibType()
 }
 
 func ScrollbarNewFromInternalPtr(ptr uintptr) *Scrollbar {
@@ -274,6 +281,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xScrollbarGLibType, lib, "gtk_scrollbar_get_type")
 
 	core.PuregoSafeRegister(&xNewScrollbar, lib, "gtk_scrollbar_new")
 

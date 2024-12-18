@@ -20,6 +20,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xModuleErrorQuark, lib, "g_module_error_quark")
 
 }

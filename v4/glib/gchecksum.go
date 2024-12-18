@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // An opaque structure representing a checksumming operation.
@@ -13,6 +14,12 @@ import (
 // To create a new GChecksum, use g_checksum_new(). To free
 // a GChecksum, use g_checksum_free().
 type Checksum struct {
+}
+
+var xChecksumGLibType func() types.GType
+
+func ChecksumGLibType() types.GType {
+	return xChecksumGLibType()
 }
 
 func (x *Checksum) GoPointer() uintptr {
@@ -179,10 +186,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xChecksumTypeGetLength, lib, "g_checksum_type_get_length")
 	core.PuregoSafeRegister(&xComputeChecksumForBytes, lib, "g_compute_checksum_for_bytes")
 	core.PuregoSafeRegister(&xComputeChecksumForData, lib, "g_compute_checksum_for_data")
 	core.PuregoSafeRegister(&xComputeChecksumForString, lib, "g_compute_checksum_for_string")
+
+	core.PuregoSafeRegister(&xChecksumGLibType, lib, "g_checksum_get_type")
 
 	core.PuregoSafeRegister(&xNewChecksum, lib, "g_checksum_new")
 

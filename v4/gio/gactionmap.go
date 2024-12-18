@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // This struct defines a single action.  It is for use with
@@ -59,6 +60,13 @@ type ActionMap interface {
 	LookupAction(ActionNameVar string) *ActionBase
 	RemoveAction(ActionNameVar string)
 }
+
+var xActionMapGLibType func() types.GType
+
+func ActionMapGLibType() types.GType {
+	return xActionMapGLibType()
+}
+
 type ActionMapBase struct {
 	Ptr uintptr
 }
@@ -168,6 +176,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xActionMapGLibType, lib, "g_action_map_get_type")
 
 	core.PuregoSafeRegister(&XGActionMapAddAction, lib, "g_action_map_add_action")
 	core.PuregoSafeRegister(&XGActionMapAddActionEntries, lib, "g_action_map_add_action_entries")

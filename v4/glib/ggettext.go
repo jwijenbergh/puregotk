@@ -125,6 +125,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDcgettext, lib, "g_dcgettext")
 	core.PuregoSafeRegister(&xDgettext, lib, "g_dgettext")
 	core.PuregoSafeRegister(&xDngettext, lib, "g_dngettext")

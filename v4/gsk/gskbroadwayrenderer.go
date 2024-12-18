@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BroadwayRendererClass struct {
@@ -17,6 +18,12 @@ func (x *BroadwayRendererClass) GoPointer() uintptr {
 
 type BroadwayRenderer struct {
 	Renderer
+}
+
+var xBroadwayRendererGLibType func() types.GType
+
+func BroadwayRendererGLibType() types.GType {
+	return xBroadwayRendererGLibType()
 }
 
 func BroadwayRendererNewFromInternalPtr(ptr uintptr) *BroadwayRenderer {
@@ -61,6 +68,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBroadwayRendererGLibType, lib, "gsk_broadway_renderer_get_type")
 
 	core.PuregoSafeRegister(&xNewBroadwayRenderer, lib, "gsk_broadway_renderer_new")
 

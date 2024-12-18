@@ -1053,6 +1053,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAsciiDigitValue, lib, "g_ascii_digit_value")
 	core.PuregoSafeRegister(&xAsciiDtostr, lib, "g_ascii_dtostr")
 	core.PuregoSafeRegister(&xAsciiFormatd, lib, "g_ascii_formatd")

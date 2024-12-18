@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -51,6 +52,12 @@ func (x *EmojiChooserClass) GoPointer() uintptr {
 // .emoji-toolbar style class itself.
 type EmojiChooser struct {
 	Popover
+}
+
+var xEmojiChooserGLibType func() types.GType
+
+func EmojiChooserGLibType() types.GType {
+	return xEmojiChooserGLibType()
 }
 
 func EmojiChooserNewFromInternalPtr(ptr uintptr) *EmojiChooser {
@@ -310,6 +317,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEmojiChooserGLibType, lib, "gtk_emoji_chooser_get_type")
 
 	core.PuregoSafeRegister(&xNewEmojiChooser, lib, "gtk_emoji_chooser_new")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Callback used by pango_fontset_foreach() when enumerating
@@ -39,6 +40,12 @@ func (x *FontsetSimpleClass) GoPointer() uintptr {
 // composite set of metrics for the entire fontset.
 type Fontset struct {
 	gobject.Object
+}
+
+var xFontsetGLibType func() types.GType
+
+func FontsetGLibType() types.GType {
+	return xFontsetGLibType()
 }
 
 func FontsetNewFromInternalPtr(ptr uintptr) *Fontset {
@@ -102,6 +109,12 @@ type FontsetSimple struct {
 	Fontset
 }
 
+var xFontsetSimpleGLibType func() types.GType
+
+func FontsetSimpleGLibType() types.GType {
+	return xFontsetSimpleGLibType()
+}
+
 func FontsetSimpleNewFromInternalPtr(ptr uintptr) *FontsetSimple {
 	cls := &FontsetSimple{}
 	cls.Ptr = ptr
@@ -158,9 +171,13 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xFontsetGLibType, lib, "pango_fontset_get_type")
+
 	core.PuregoSafeRegister(&xFontsetForeach, lib, "pango_fontset_foreach")
 	core.PuregoSafeRegister(&xFontsetGetFont, lib, "pango_fontset_get_font")
 	core.PuregoSafeRegister(&xFontsetGetMetrics, lib, "pango_fontset_get_metrics")
+
+	core.PuregoSafeRegister(&xFontsetSimpleGLibType, lib, "pango_fontset_simple_get_type")
 
 	core.PuregoSafeRegister(&xNewFontsetSimple, lib, "pango_fontset_simple_new")
 

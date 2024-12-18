@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkAppChooserButton` lets the user select an application.
@@ -40,6 +41,12 @@ import (
 // `GtkAppChooserButton` has a single CSS node with the name “appchooserbutton”.
 type AppChooserButton struct {
 	Widget
+}
+
+var xAppChooserButtonGLibType func() types.GType
+
+func AppChooserButtonGLibType() types.GType {
+	return xAppChooserButtonGLibType()
 }
 
 func AppChooserButtonNewFromInternalPtr(ptr uintptr) *AppChooserButton {
@@ -436,6 +443,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAppChooserButtonGLibType, lib, "gtk_app_chooser_button_get_type")
 
 	core.PuregoSafeRegister(&xNewAppChooserButton, lib, "gtk_app_chooser_button_new")
 

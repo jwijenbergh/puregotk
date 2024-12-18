@@ -9,10 +9,17 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The parameter used in the action signals of `GtkNotebook`.
 type NotebookTab int
+
+var xNotebookTabGLibType func() types.GType
+
+func NotebookTabGLibType() types.GType {
+	return xNotebookTabGLibType()
+}
 
 const (
 
@@ -120,6 +127,12 @@ const (
 //   - %GTK_ACCESSIBLE_ROLE_TAB_PANEL for each page
 type Notebook struct {
 	Widget
+}
+
+var xNotebookGLibType func() types.GType
+
+func NotebookGLibType() types.GType {
+	return xNotebookGLibType()
 }
 
 func NotebookNewFromInternalPtr(ptr uintptr) *Notebook {
@@ -1049,6 +1062,12 @@ type NotebookPage struct {
 	gobject.Object
 }
 
+var xNotebookPageGLibType func() types.GType
+
+func NotebookPageGLibType() types.GType {
+	return xNotebookPageGLibType()
+}
+
 func NotebookPageNewFromInternalPtr(ptr uintptr) *NotebookPage {
 	cls := &NotebookPage{}
 	cls.Ptr = ptr
@@ -1085,6 +1104,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xNotebookTabGLibType, lib, "gtk_notebook_tab_get_type")
+
+	core.PuregoSafeRegister(&xNotebookGLibType, lib, "gtk_notebook_get_type")
 
 	core.PuregoSafeRegister(&xNewNotebook, lib, "gtk_notebook_new")
 
@@ -1132,6 +1155,8 @@ func init() {
 	core.PuregoSafeRegister(&xNotebookSetTabLabelText, lib, "gtk_notebook_set_tab_label_text")
 	core.PuregoSafeRegister(&xNotebookSetTabPos, lib, "gtk_notebook_set_tab_pos")
 	core.PuregoSafeRegister(&xNotebookSetTabReorderable, lib, "gtk_notebook_set_tab_reorderable")
+
+	core.PuregoSafeRegister(&xNotebookPageGLibType, lib, "gtk_notebook_page_get_type")
 
 	core.PuregoSafeRegister(&xNotebookPageGetChild, lib, "gtk_notebook_page_get_child")
 

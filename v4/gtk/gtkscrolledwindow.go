@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Specifies which corner a child widget should be placed in when packed into
@@ -15,6 +16,12 @@ import (
 //
 // This is effectively the opposite of where the scroll bars are placed.
 type CornerType int
+
+var xCornerTypeGLibType func() types.GType
+
+func CornerTypeGLibType() types.GType {
+	return xCornerTypeGLibType()
+}
 
 const (
 
@@ -35,6 +42,12 @@ const (
 // Determines how the size should be computed to achieve the one of the
 // visibility mode for the scrollbars.
 type PolicyType int
+
+var xPolicyTypeGLibType func() types.GType
+
+func PolicyTypeGLibType() types.GType {
+	return xPolicyTypeGLibType()
+}
 
 const (
 
@@ -140,6 +153,12 @@ const (
 // `GtkScrolledWindow` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type ScrolledWindow struct {
 	Widget
+}
+
+var xScrolledWindowGLibType func() types.GType
+
+func ScrolledWindowGLibType() types.GType {
+	return xScrolledWindowGLibType()
 }
 
 func ScrolledWindowNewFromInternalPtr(ptr uintptr) *ScrolledWindow {
@@ -807,6 +826,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCornerTypeGLibType, lib, "gtk_corner_type_get_type")
+
+	core.PuregoSafeRegister(&xPolicyTypeGLibType, lib, "gtk_policy_type_get_type")
+
+	core.PuregoSafeRegister(&xScrolledWindowGLibType, lib, "gtk_scrolled_window_get_type")
 
 	core.PuregoSafeRegister(&xNewScrolledWindow, lib, "gtk_scrolled_window_new")
 

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MediaStreamClass struct {
@@ -38,6 +39,12 @@ func (x *MediaStreamClass) GoPointer() uintptr {
 // [method@Gtk.MediaStream.error_valist].
 type MediaStream struct {
 	gobject.Object
+}
+
+var xMediaStreamGLibType func() types.GType
+
+func MediaStreamGLibType() types.GType {
+	return xMediaStreamGLibType()
 }
 
 func MediaStreamNewFromInternalPtr(ptr uintptr) *MediaStream {
@@ -654,6 +661,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMediaStreamGLibType, lib, "gtk_media_stream_get_type")
 
 	core.PuregoSafeRegister(&xMediaStreamEnded, lib, "gtk_media_stream_ended")
 	core.PuregoSafeRegister(&xMediaStreamError, lib, "gtk_media_stream_error")

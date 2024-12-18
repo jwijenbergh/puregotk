@@ -35,6 +35,12 @@ type Requisition struct {
 	Height int
 }
 
+var xRequisitionGLibType func() types.GType
+
+func RequisitionGLibType() types.GType {
+	return xRequisitionGLibType()
+}
+
 func (x *Requisition) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -851,6 +857,12 @@ type Allocation = uintptr
 // ```
 type Widget struct {
 	gobject.InitiallyUnowned
+}
+
+var xWidgetGLibType func() types.GType
+
+func WidgetGLibType() types.GType {
+	return xWidgetGLibType()
 }
 
 func WidgetNewFromInternalPtr(ptr uintptr) *Widget {
@@ -3932,6 +3944,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xRequisitionGLibType, lib, "gtk_requisition_get_type")
+
 	core.PuregoSafeRegister(&xNewRequisition, lib, "gtk_requisition_new")
 
 	core.PuregoSafeRegister(&xRequisitionCopy, lib, "gtk_requisition_copy")
@@ -3958,6 +3972,8 @@ func init() {
 	core.PuregoSafeRegister(&xWidgetClassSetTemplate, lib, "gtk_widget_class_set_template")
 	core.PuregoSafeRegister(&xWidgetClassSetTemplateFromResource, lib, "gtk_widget_class_set_template_from_resource")
 	core.PuregoSafeRegister(&xWidgetClassSetTemplateScope, lib, "gtk_widget_class_set_template_scope")
+
+	core.PuregoSafeRegister(&xWidgetGLibType, lib, "gtk_widget_get_type")
 
 	core.PuregoSafeRegister(&xWidgetActionSetEnabled, lib, "gtk_widget_action_set_enabled")
 	core.PuregoSafeRegister(&xWidgetActivate, lib, "gtk_widget_activate")

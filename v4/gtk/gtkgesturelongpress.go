@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureLongPressClass struct {
@@ -34,6 +35,12 @@ func (x *GestureLongPressClass) GoPointer() uintptr {
 // property.
 type GestureLongPress struct {
 	GestureSingle
+}
+
+var xGestureLongPressGLibType func() types.GType
+
+func GestureLongPressGLibType() types.GType {
+	return xGestureLongPressGLibType()
 }
 
 func GestureLongPressNewFromInternalPtr(ptr uintptr) *GestureLongPress {
@@ -134,6 +141,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureLongPressGLibType, lib, "gtk_gesture_long_press_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureLongPress, lib, "gtk_gesture_long_press_new")
 

@@ -290,6 +290,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBusGet, lib, "g_bus_get")
 	core.PuregoSafeRegister(&xBusGetFinish, lib, "g_bus_get_finish")
 	core.PuregoSafeRegister(&xBusGetSync, lib, "g_bus_get_sync")

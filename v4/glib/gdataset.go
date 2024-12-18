@@ -253,6 +253,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDatalistClear, lib, "g_datalist_clear")
 	core.PuregoSafeRegister(&xDatalistForeach, lib, "g_datalist_foreach")
 	core.PuregoSafeRegister(&xDatalistGetData, lib, "g_datalist_get_data")

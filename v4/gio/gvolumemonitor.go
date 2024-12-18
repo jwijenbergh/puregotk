@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type VolumeMonitorClass struct {
@@ -37,6 +38,12 @@ const (
 // a main loop must be running.
 type VolumeMonitor struct {
 	gobject.Object
+}
+
+var xVolumeMonitorGLibType func() types.GType
+
+func VolumeMonitorGLibType() types.GType {
+	return xVolumeMonitorGLibType()
 }
 
 func VolumeMonitorNewFromInternalPtr(ptr uintptr) *VolumeMonitor {
@@ -428,6 +435,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xVolumeMonitorGLibType, lib, "g_volume_monitor_get_type")
 
 	core.PuregoSafeRegister(&xVolumeMonitorGetConnectedDrives, lib, "g_volume_monitor_get_connected_drives")
 	core.PuregoSafeRegister(&xVolumeMonitorGetMountForUuid, lib, "g_volume_monitor_get_mount_for_uuid")

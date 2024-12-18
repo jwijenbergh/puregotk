@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Meta-data to be passed to gtk_recent_manager_add_full() when
@@ -36,6 +37,12 @@ func (x *RecentData) GoPointer() uintptr {
 // `GtkRecentInfo` contains the metadata associated with an item in the
 // recently used files list.
 type RecentInfo struct {
+}
+
+var xRecentInfoGLibType func() types.GType
+
+func RecentInfoGLibType() types.GType {
+	return xRecentInfoGLibType()
 }
 
 func (x *RecentInfo) GoPointer() uintptr {
@@ -333,6 +340,12 @@ func (x *RecentManagerPrivate) GoPointer() uintptr {
 // Error codes for `GtkRecentManager` operations
 type RecentManagerError int
 
+var xRecentManagerErrorGLibType func() types.GType
+
+func RecentManagerErrorGLibType() types.GType {
+	return xRecentManagerErrorGLibType()
+}
+
 const (
 
 	// the URI specified does not exists in
@@ -418,6 +431,12 @@ const (
 // property.
 type RecentManager struct {
 	gobject.Object
+}
+
+var xRecentManagerGLibType func() types.GType
+
+func RecentManagerGLibType() types.GType {
+	return xRecentManagerGLibType()
 }
 
 func RecentManagerNewFromInternalPtr(ptr uintptr) *RecentManager {
@@ -632,6 +651,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xRecentManagerErrorGLibType, lib, "gtk_recent_manager_error_get_type")
+
+	core.PuregoSafeRegister(&xRecentInfoGLibType, lib, "gtk_recent_info_get_type")
+
 	core.PuregoSafeRegister(&xRecentInfoCreateAppInfo, lib, "gtk_recent_info_create_app_info")
 	core.PuregoSafeRegister(&xRecentInfoExists, lib, "gtk_recent_info_exists")
 	core.PuregoSafeRegister(&xRecentInfoGetAdded, lib, "gtk_recent_info_get_added")
@@ -656,6 +679,8 @@ func init() {
 	core.PuregoSafeRegister(&xRecentInfoMatch, lib, "gtk_recent_info_match")
 	core.PuregoSafeRegister(&xRecentInfoRef, lib, "gtk_recent_info_ref")
 	core.PuregoSafeRegister(&xRecentInfoUnref, lib, "gtk_recent_info_unref")
+
+	core.PuregoSafeRegister(&xRecentManagerGLibType, lib, "gtk_recent_manager_get_type")
 
 	core.PuregoSafeRegister(&xNewRecentManager, lib, "gtk_recent_manager_new")
 

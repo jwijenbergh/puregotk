@@ -171,6 +171,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xRenderActivity, lib, "gtk_render_activity")
 	core.PuregoSafeRegister(&xRenderArrow, lib, "gtk_render_arrow")
 	core.PuregoSafeRegister(&xRenderBackground, lib, "gtk_render_background")

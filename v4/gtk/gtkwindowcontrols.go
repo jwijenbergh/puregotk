@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type WindowControlsClass struct {
@@ -71,6 +72,12 @@ func (x *WindowControlsClass) GoPointer() uintptr {
 // `GtkWindowControls` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type WindowControls struct {
 	Widget
+}
+
+var xWindowControlsGLibType func() types.GType
+
+func WindowControlsGLibType() types.GType {
+	return xWindowControlsGLibType()
 }
 
 func WindowControlsNewFromInternalPtr(ptr uintptr) *WindowControls {
@@ -313,6 +320,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowControlsGLibType, lib, "gtk_window_controls_get_type")
 
 	core.PuregoSafeRegister(&xNewWindowControls, lib, "gtk_window_controls_new")
 

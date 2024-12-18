@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type EventControllerClass struct {
@@ -31,6 +32,12 @@ func (x *EventControllerClass) GoPointer() uintptr {
 // phases of even propagation.
 type EventController struct {
 	gobject.Object
+}
+
+var xEventControllerGLibType func() types.GType
+
+func EventControllerGLibType() types.GType {
+	return xEventControllerGLibType()
 }
 
 func EventControllerNewFromInternalPtr(ptr uintptr) *EventController {
@@ -211,6 +218,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEventControllerGLibType, lib, "gtk_event_controller_get_type")
 
 	core.PuregoSafeRegister(&xEventControllerGetCurrentEvent, lib, "gtk_event_controller_get_current_event")
 	core.PuregoSafeRegister(&xEventControllerGetCurrentEventDevice, lib, "gtk_event_controller_get_current_event_device")

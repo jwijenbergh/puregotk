@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -51,6 +52,12 @@ func (x *IMContextClass) GoPointer() uintptr {
 // [class@Gtk.IMMulticontext].
 type IMContext struct {
 	gobject.Object
+}
+
+var xIMContextGLibType func() types.GType
+
+func IMContextGLibType() types.GType {
+	return xIMContextGLibType()
 }
 
 func IMContextNewFromInternalPtr(ptr uintptr) *IMContext {
@@ -420,6 +427,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIMContextGLibType, lib, "gtk_im_context_get_type")
 
 	core.PuregoSafeRegister(&xIMContextDeleteSurrounding, lib, "gtk_im_context_delete_surrounding")
 	core.PuregoSafeRegister(&xIMContextFilterKey, lib, "gtk_im_context_filter_key")

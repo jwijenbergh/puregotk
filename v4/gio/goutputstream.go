@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type OutputStreamClass struct {
@@ -38,6 +39,12 @@ func (x *OutputStreamPrivate) GoPointer() uintptr {
 // All of these functions have async variants too.
 type OutputStream struct {
 	gobject.Object
+}
+
+var xOutputStreamGLibType func() types.GType
+
+func OutputStreamGLibType() types.GType {
+	return xOutputStreamGLibType()
 }
 
 func OutputStreamNewFromInternalPtr(ptr uintptr) *OutputStream {
@@ -719,6 +726,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xOutputStreamGLibType, lib, "g_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xOutputStreamClearPending, lib, "g_output_stream_clear_pending")
 	core.PuregoSafeRegister(&xOutputStreamClose, lib, "g_output_stream_close")

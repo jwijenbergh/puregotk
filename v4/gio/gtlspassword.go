@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GTlsPassword.
@@ -31,6 +32,12 @@ func (x *TlsPasswordPrivate) GoPointer() uintptr {
 // Holds a password used in TLS.
 type TlsPassword struct {
 	gobject.Object
+}
+
+var xTlsPasswordGLibType func() types.GType
+
+func TlsPasswordGLibType() types.GType {
+	return xTlsPasswordGLibType()
 }
 
 func TlsPasswordNewFromInternalPtr(ptr uintptr) *TlsPassword {
@@ -171,6 +178,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTlsPasswordGLibType, lib, "g_tls_password_get_type")
 
 	core.PuregoSafeRegister(&xNewTlsPassword, lib, "g_tls_password_new")
 

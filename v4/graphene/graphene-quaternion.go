@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A quaternion.
@@ -20,6 +21,12 @@ type Quaternion struct {
 	Z float32
 
 	W float32
+}
+
+var xQuaternionGLibType func() types.GType
+
+func QuaternionGLibType() types.GType {
+	return xQuaternionGLibType()
 }
 
 func (x *Quaternion) GoPointer() uintptr {
@@ -270,6 +277,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xQuaternionGLibType, lib, "graphene_quaternion_get_type")
 
 	core.PuregoSafeRegister(&xQuaternionAlloc, lib, "graphene_quaternion_alloc")
 

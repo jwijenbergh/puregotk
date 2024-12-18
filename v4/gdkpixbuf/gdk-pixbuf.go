@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A pixel buffer.
@@ -149,6 +150,12 @@ import (
 // to a socket or store it in a database.
 type Pixbuf struct {
 	gobject.Object
+}
+
+var xPixbufGLibType func() types.GType
+
+func PixbufGLibType() types.GType {
+	return xPixbufGLibType()
 }
 
 func PixbufNewFromInternalPtr(ptr uintptr) *Pixbuf {
@@ -1569,6 +1576,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPixbufGLibType, lib, "gdk_pixbuf_get_type")
 
 	core.PuregoSafeRegister(&xNewPixbuf, lib, "gdk_pixbuf_new")
 	core.PuregoSafeRegister(&xNewPixbufFromBytes, lib, "gdk_pixbuf_new_from_bytes")

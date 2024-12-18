@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DataOutputStreamClass struct {
@@ -28,6 +29,12 @@ func (x *DataOutputStreamPrivate) GoPointer() uintptr {
 // writing data directly to an output stream.
 type DataOutputStream struct {
 	FilterOutputStream
+}
+
+var xDataOutputStreamGLibType func() types.GType
+
+func DataOutputStreamGLibType() types.GType {
+	return xDataOutputStreamGLibType()
 }
 
 func DataOutputStreamNewFromInternalPtr(ptr uintptr) *DataOutputStream {
@@ -262,6 +269,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDataOutputStreamGLibType, lib, "g_data_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewDataOutputStream, lib, "g_data_output_stream_new")
 

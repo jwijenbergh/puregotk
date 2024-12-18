@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A 4 vertex quadrilateral, as represented by four #graphene_point_t.
@@ -14,6 +15,12 @@ import (
 // accessed directly.
 type Quad struct {
 	Points [4]Point
+}
+
+var xQuadGLibType func() types.GType
+
+func QuadGLibType() types.GType {
+	return xQuadGLibType()
 }
 
 func (x *Quad) GoPointer() uintptr {
@@ -100,6 +107,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xQuadGLibType, lib, "graphene_quad_get_type")
 
 	core.PuregoSafeRegister(&xQuadAlloc, lib, "graphene_quad_alloc")
 

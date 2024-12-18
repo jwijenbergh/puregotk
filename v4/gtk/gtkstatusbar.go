@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A `GtkStatusbar` widget is usually placed along the bottom of an application's
@@ -48,6 +49,12 @@ import (
 // `GtkStatusbar` has a single CSS node with name `statusbar`.
 type Statusbar struct {
 	Widget
+}
+
+var xStatusbarGLibType func() types.GType
+
+func StatusbarGLibType() types.GType {
+	return xStatusbarGLibType()
 }
 
 func StatusbarNewFromInternalPtr(ptr uintptr) *Statusbar {
@@ -324,6 +331,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStatusbarGLibType, lib, "gtk_statusbar_get_type")
 
 	core.PuregoSafeRegister(&xNewStatusbar, lib, "gtk_statusbar_new")
 

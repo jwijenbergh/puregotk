@@ -98,6 +98,12 @@ type DropTarget struct {
 	EventController
 }
 
+var xDropTargetGLibType func() types.GType
+
+func DropTargetGLibType() types.GType {
+	return xDropTargetGLibType()
+}
+
 func DropTargetNewFromInternalPtr(ptr uintptr) *DropTarget {
 	cls := &DropTarget{}
 	cls.Ptr = ptr
@@ -395,6 +401,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDropTargetGLibType, lib, "gtk_drop_target_get_type")
 
 	core.PuregoSafeRegister(&xNewDropTarget, lib, "gtk_drop_target_new")
 

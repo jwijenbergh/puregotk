@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gmodule"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Sets up the image loading state.
@@ -121,6 +122,12 @@ type PixbufFormat struct {
 	Disabled bool
 
 	License uintptr
+}
+
+var xPixbufFormatGLibType func() types.GType
+
+func PixbufFormatGLibType() types.GType {
+	return xPixbufFormatGLibType()
 }
 
 func (x *PixbufFormat) GoPointer() uintptr {
@@ -396,6 +403,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPixbufFormatGLibType, lib, "gdk_pixbuf_format_get_type")
 
 	core.PuregoSafeRegister(&xPixbufFormatCopy, lib, "gdk_pixbuf_format_copy")
 	core.PuregoSafeRegister(&xPixbufFormatFree, lib, "gdk_pixbuf_format_free")

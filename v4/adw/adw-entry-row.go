@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -58,6 +59,12 @@ func (x *EntryRowClass) GoPointer() uintptr {
 // class.
 type EntryRow struct {
 	PreferencesRow
+}
+
+var xEntryRowGLibType func() types.GType
+
+func EntryRowGLibType() types.GType {
+	return xEntryRowGLibType()
 }
 
 func EntryRowNewFromInternalPtr(ptr uintptr) *EntryRow {
@@ -771,6 +778,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEntryRowGLibType, lib, "adw_entry_row_get_type")
 
 	core.PuregoSafeRegister(&xNewEntryRow, lib, "adw_entry_row_new")
 

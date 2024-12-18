@@ -33,6 +33,12 @@ type Clipboard struct {
 	gobject.Object
 }
 
+var xClipboardGLibType func() types.GType
+
+func ClipboardGLibType() types.GType {
+	return xClipboardGLibType()
+}
+
 func ClipboardNewFromInternalPtr(ptr uintptr) *Clipboard {
 	cls := &Clipboard{}
 	cls.Ptr = ptr
@@ -388,6 +394,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xClipboardGLibType, lib, "gdk_clipboard_get_type")
 
 	core.PuregoSafeRegister(&xClipboardGetContent, lib, "gdk_clipboard_get_content")
 	core.PuregoSafeRegister(&xClipboardGetDisplay, lib, "gdk_clipboard_get_display")

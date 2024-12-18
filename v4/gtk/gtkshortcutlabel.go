@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ShortcutLabelClass struct {
@@ -21,6 +22,12 @@ func (x *ShortcutLabelClass) GoPointer() uintptr {
 // The main use case for `GtkShortcutLabel` is inside a [class@Gtk.ShortcutsWindow].
 type ShortcutLabel struct {
 	Widget
+}
+
+var xShortcutLabelGLibType func() types.GType
+
+func ShortcutLabelGLibType() types.GType {
+	return xShortcutLabelGLibType()
 }
 
 func ShortcutLabelNewFromInternalPtr(ptr uintptr) *ShortcutLabel {
@@ -238,6 +245,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xShortcutLabelGLibType, lib, "gtk_shortcut_label_get_type")
 
 	core.PuregoSafeRegister(&xNewShortcutLabel, lib, "gtk_shortcut_label_new")
 

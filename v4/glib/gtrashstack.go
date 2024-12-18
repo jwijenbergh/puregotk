@@ -63,6 +63,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTrashStackHeight, lib, "g_trash_stack_height")
 	core.PuregoSafeRegister(&xTrashStackPeek, lib, "g_trash_stack_peek")
 	core.PuregoSafeRegister(&xTrashStackPop, lib, "g_trash_stack_pop")

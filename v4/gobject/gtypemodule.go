@@ -53,6 +53,12 @@ type TypeModule struct {
 	Object
 }
 
+var xTypeModuleGLibType func() types.GType
+
+func TypeModuleGLibType() types.GType {
+	return xTypeModuleGLibType()
+}
+
 func TypeModuleNewFromInternalPtr(ptr uintptr) *TypeModule {
 	cls := &TypeModule{}
 	cls.Ptr = ptr
@@ -199,6 +205,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTypeModuleGLibType, lib, "g_type_module_get_type")
 
 	core.PuregoSafeRegister(&xTypeModuleAddInterface, lib, "g_type_module_add_interface")
 	core.PuregoSafeRegister(&xTypeModuleRegisterEnum, lib, "g_type_module_register_enum")

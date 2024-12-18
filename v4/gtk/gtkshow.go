@@ -54,6 +54,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xShowUri, lib, "gtk_show_uri")
 	core.PuregoSafeRegister(&xShowUriFull, lib, "gtk_show_uri_full")
 	core.PuregoSafeRegister(&xShowUriFullFinish, lib, "gtk_show_uri_full_finish")

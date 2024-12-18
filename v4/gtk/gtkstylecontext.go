@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type StyleContextClass struct {
@@ -22,6 +23,12 @@ func (x *StyleContextClass) GoPointer() uintptr {
 //
 // New values may be added to this enumeration.
 type StyleContextPrintFlags int
+
+var xStyleContextPrintFlagsGLibType func() types.GType
+
+func StyleContextPrintFlagsGLibType() types.GType {
+	return xStyleContextPrintFlagsGLibType()
+}
 
 const (
 
@@ -77,6 +84,12 @@ const (
 // %GTK_STYLE_PROVIDER_PRIORITY_USER priority.
 type StyleContext struct {
 	gobject.Object
+}
+
+var xStyleContextGLibType func() types.GType
+
+func StyleContextGLibType() types.GType {
+	return xStyleContextGLibType()
 }
 
 func StyleContextNewFromInternalPtr(ptr uintptr) *StyleContext {
@@ -360,6 +373,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStyleContextPrintFlagsGLibType, lib, "gtk_style_context_print_flags_get_type")
+
+	core.PuregoSafeRegister(&xStyleContextGLibType, lib, "gtk_style_context_get_type")
 
 	core.PuregoSafeRegister(&xStyleContextAddClass, lib, "gtk_style_context_add_class")
 	core.PuregoSafeRegister(&xStyleContextAddProvider, lib, "gtk_style_context_add_provider")

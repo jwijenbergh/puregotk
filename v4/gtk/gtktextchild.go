@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TextChildAnchorClass struct {
@@ -23,6 +24,12 @@ func (x *TextChildAnchorClass) GoPointer() uintptr {
 // The anchor can have multiple widgets anchored, to allow for multiple views.
 type TextChildAnchor struct {
 	gobject.Object
+}
+
+var xTextChildAnchorGLibType func() types.GType
+
+func TextChildAnchorGLibType() types.GType {
+	return xTextChildAnchorGLibType()
 }
 
 func TextChildAnchorNewFromInternalPtr(ptr uintptr) *TextChildAnchor {
@@ -111,6 +118,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextChildAnchorGLibType, lib, "gtk_text_child_anchor_get_type")
 
 	core.PuregoSafeRegister(&xNewTextChildAnchor, lib, "gtk_text_child_anchor_new")
 	core.PuregoSafeRegister(&xNewTextChildAnchorWithReplacement, lib, "gtk_text_child_anchor_new_with_replacement")

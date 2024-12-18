@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function to set the properties of a cell instead of just using the
@@ -24,6 +25,12 @@ type TreeCellDataFunc func(uintptr, uintptr, uintptr, *TreeIter, uintptr)
 // that %GTK_TREE_VIEW_COLUMN_AUTOSIZE are inefficient for large views, and
 // can make columns appear choppy.
 type TreeViewColumnSizing int
+
+var xTreeViewColumnSizingGLibType func() types.GType
+
+func TreeViewColumnSizingGLibType() types.GType {
+	return xTreeViewColumnSizingGLibType()
+}
 
 const (
 
@@ -47,6 +54,12 @@ const (
 // about the CSS node structure for treeviews and their headers.
 type TreeViewColumn struct {
 	gobject.InitiallyUnowned
+}
+
+var xTreeViewColumnGLibType func() types.GType
+
+func TreeViewColumnGLibType() types.GType {
+	return xTreeViewColumnGLibType()
 }
 
 func TreeViewColumnNewFromInternalPtr(ptr uintptr) *TreeViewColumn {
@@ -769,6 +782,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeViewColumnSizingGLibType, lib, "gtk_tree_view_column_sizing_get_type")
+
+	core.PuregoSafeRegister(&xTreeViewColumnGLibType, lib, "gtk_tree_view_column_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeViewColumn, lib, "gtk_tree_view_column_new")
 	core.PuregoSafeRegister(&xNewTreeViewColumnWithArea, lib, "gtk_tree_view_column_new_with_area")

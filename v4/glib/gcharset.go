@@ -133,6 +133,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xGetCharset, lib, "g_get_charset")
 	core.PuregoSafeRegister(&xGetCodeset, lib, "g_get_codeset")
 	core.PuregoSafeRegister(&xGetConsoleCharset, lib, "g_get_console_charset")

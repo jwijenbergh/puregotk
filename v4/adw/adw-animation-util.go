@@ -33,6 +33,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xGetEnableAnimations, lib, "adw_get_enable_animations")
 	core.PuregoSafeRegister(&xLerp, lib, "adw_lerp")
 

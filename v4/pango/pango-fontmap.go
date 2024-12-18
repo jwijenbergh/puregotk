@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `PangoFontMapClass` structure holds the virtual functions for
@@ -28,6 +29,12 @@ func (x *FontMapClass) GoPointer() uintptr {
 // particular rendering systems.
 type FontMap struct {
 	gobject.Object
+}
+
+var xFontMapGLibType func() types.GType
+
+func FontMapGLibType() types.GType {
+	return xFontMapGLibType()
 }
 
 func FontMapNewFromInternalPtr(ptr uintptr) *FontMap {
@@ -167,6 +174,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontMapGLibType, lib, "pango_font_map_get_type")
 
 	core.PuregoSafeRegister(&xFontMapChanged, lib, "pango_font_map_changed")
 	core.PuregoSafeRegister(&xFontMapCreateContext, lib, "pango_font_map_create_context")

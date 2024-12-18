@@ -9,10 +9,17 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The available modes for [property@Gtk.CellRendererAccel:accel-mode].
 type CellRendererAccelMode int
+
+var xCellRendererAccelModeGLibType func() types.GType
+
+func CellRendererAccelModeGLibType() types.GType {
+	return xCellRendererAccelModeGLibType()
+}
 
 const (
 
@@ -29,6 +36,12 @@ const (
 // the accelerator can be changed by simply typing the new combination.
 type CellRendererAccel struct {
 	CellRendererText
+}
+
+var xCellRendererAccelGLibType func() types.GType
+
+func CellRendererAccelGLibType() types.GType {
+	return xCellRendererAccelGLibType()
 }
 
 func CellRendererAccelNewFromInternalPtr(ptr uintptr) *CellRendererAccel {
@@ -107,6 +120,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellRendererAccelModeGLibType, lib, "gtk_cell_renderer_accel_mode_get_type")
+
+	core.PuregoSafeRegister(&xCellRendererAccelGLibType, lib, "gtk_cell_renderer_accel_get_type")
 
 	core.PuregoSafeRegister(&xNewCellRendererAccel, lib, "gtk_cell_renderer_accel_new")
 

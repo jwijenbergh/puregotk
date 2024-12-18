@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TextureClass struct {
@@ -21,6 +22,12 @@ func (x *TextureClass) GoPointer() uintptr {
 
 // Possible errors that can be returned by `GdkTexture` constructors.
 type TextureError int
+
+var xTextureErrorGLibType func() types.GType
+
+func TextureErrorGLibType() types.GType {
+	return xTextureErrorGLibType()
+}
 
 const (
 
@@ -51,6 +58,12 @@ const (
 // [method@GObject.Object.ref], and consequently, it is a thread-safe object.
 type Texture struct {
 	gobject.Object
+}
+
+var xTextureGLibType func() types.GType
+
+func TextureGLibType() types.GType {
+	return xTextureGLibType()
 }
 
 func TextureNewFromInternalPtr(ptr uintptr) *Texture {
@@ -559,6 +572,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextureErrorGLibType, lib, "gdk_texture_error_get_type")
+
+	core.PuregoSafeRegister(&xTextureGLibType, lib, "gdk_texture_get_type")
 
 	core.PuregoSafeRegister(&xNewTextureForPixbuf, lib, "gdk_texture_new_for_pixbuf")
 	core.PuregoSafeRegister(&xNewTextureFromBytes, lib, "gdk_texture_new_from_bytes")

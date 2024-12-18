@@ -31,6 +31,12 @@ type BookmarkList struct {
 	gobject.Object
 }
 
+var xBookmarkListGLibType func() types.GType
+
+func BookmarkListGLibType() types.GType {
+	return xBookmarkListGLibType()
+}
+
 func BookmarkListNewFromInternalPtr(ptr uintptr) *BookmarkList {
 	cls := &BookmarkList{}
 	cls.Ptr = ptr
@@ -221,6 +227,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBookmarkListGLibType, lib, "gtk_bookmark_list_get_type")
 
 	core.PuregoSafeRegister(&xNewBookmarkList, lib, "gtk_bookmark_list_new")
 

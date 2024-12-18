@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type IOStreamClass struct {
@@ -73,6 +74,12 @@ func (x *IOStreamPrivate) GoPointer() uintptr {
 // stream in (though they are guaranteed not to crash).
 type IOStream struct {
 	gobject.Object
+}
+
+var xIOStreamGLibType func() types.GType
+
+func IOStreamGLibType() types.GType {
+	return xIOStreamGLibType()
 }
 
 func IOStreamNewFromInternalPtr(ptr uintptr) *IOStream {
@@ -280,6 +287,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIOStreamGLibType, lib, "g_io_stream_get_type")
 
 	core.PuregoSafeRegister(&xIOStreamClearPending, lib, "g_io_stream_clear_pending")
 	core.PuregoSafeRegister(&xIOStreamClose, lib, "g_io_stream_close")

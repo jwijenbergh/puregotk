@@ -203,6 +203,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xResourceLoad, lib, "g_resource_load")
 	core.PuregoSafeRegister(&xResourcesEnumerateChildren, lib, "g_resources_enumerate_children")
 	core.PuregoSafeRegister(&xResourcesGetInfo, lib, "g_resources_get_info")

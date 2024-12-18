@@ -113,6 +113,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xShellParseArgv, lib, "g_shell_parse_argv")
 	core.PuregoSafeRegister(&xShellQuote, lib, "g_shell_quote")
 	core.PuregoSafeRegister(&xShellUnquote, lib, "g_shell_unquote")

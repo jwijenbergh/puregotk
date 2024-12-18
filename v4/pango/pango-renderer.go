@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for `PangoRenderer`.
@@ -44,6 +45,12 @@ func (x *RendererPrivate) GoPointer() uintptr {
 // purposes as setting colors.
 type RenderPart int
 
+var xRenderPartGLibType func() types.GType
+
+func RenderPartGLibType() types.GType {
+	return xRenderPartGLibType()
+}
+
 const (
 
 	// the text itself
@@ -66,6 +73,12 @@ const (
 // backends and destinations can be created.
 type Renderer struct {
 	gobject.Object
+}
+
+var xRendererGLibType func() types.GType
+
+func RendererGLibType() types.GType {
+	return xRendererGLibType()
 }
 
 func RendererNewFromInternalPtr(ptr uintptr) *Renderer {
@@ -347,6 +360,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRenderPartGLibType, lib, "pango_render_part_get_type")
+
+	core.PuregoSafeRegister(&xRendererGLibType, lib, "pango_renderer_get_type")
 
 	core.PuregoSafeRegister(&xRendererActivate, lib, "pango_renderer_activate")
 	core.PuregoSafeRegister(&xRendererDeactivate, lib, "pango_renderer_deactivate")

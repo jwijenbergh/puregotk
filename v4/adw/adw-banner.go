@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -45,6 +46,12 @@ func (x *BannerClass) GoPointer() uintptr {
 // `AdwBanner` has a main CSS node with the name `banner`.
 type Banner struct {
 	gtk.Widget
+}
+
+var xBannerGLibType func() types.GType
+
+func BannerGLibType() types.GType {
+	return xBannerGLibType()
 }
 
 func BannerNewFromInternalPtr(ptr uintptr) *Banner {
@@ -412,6 +419,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBannerGLibType, lib, "adw_banner_get_type")
 
 	core.PuregoSafeRegister(&xNewBanner, lib, "adw_banner_new")
 

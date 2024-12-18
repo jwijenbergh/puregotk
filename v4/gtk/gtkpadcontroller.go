@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Struct defining a pad action entry.
@@ -36,6 +37,12 @@ func (x *PadControllerClass) GoPointer() uintptr {
 
 // The type of a pad action.
 type PadActionType int
+
+var xPadActionTypeGLibType func() types.GType
+
+func PadActionTypeGLibType() types.GType {
+	return xPadActionTypeGLibType()
+}
 
 const (
 
@@ -97,6 +104,12 @@ const (
 // is required that those are made stateful and accepting this `GVariantType`.
 type PadController struct {
 	EventController
+}
+
+var xPadControllerGLibType func() types.GType
+
+func PadControllerGLibType() types.GType {
+	return xPadControllerGLibType()
 }
 
 func PadControllerNewFromInternalPtr(ptr uintptr) *PadController {
@@ -176,6 +189,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPadActionTypeGLibType, lib, "gtk_pad_action_type_get_type")
+
+	core.PuregoSafeRegister(&xPadControllerGLibType, lib, "gtk_pad_controller_get_type")
 
 	core.PuregoSafeRegister(&xNewPadController, lib, "gtk_pad_controller_new")
 

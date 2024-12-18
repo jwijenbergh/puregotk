@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -28,6 +29,12 @@ func (x *SqueezerPageClass) GoPointer() uintptr {
 
 // Describes the possible transitions in a [class@Squeezer] widget.
 type SqueezerTransitionType int
+
+var xSqueezerTransitionTypeGLibType func() types.GType
+
+func SqueezerTransitionTypeGLibType() types.GType {
+	return xSqueezerTransitionTypeGLibType()
+}
 
 const (
 
@@ -65,6 +72,12 @@ const (
 // `AdwSqueezer` has a single CSS node with name `squeezer`.
 type Squeezer struct {
 	gtk.Widget
+}
+
+var xSqueezerGLibType func() types.GType
+
+func SqueezerGLibType() types.GType {
+	return xSqueezerGLibType()
 }
 
 func SqueezerNewFromInternalPtr(ptr uintptr) *Squeezer {
@@ -530,6 +543,12 @@ type SqueezerPage struct {
 	gobject.Object
 }
 
+var xSqueezerPageGLibType func() types.GType
+
+func SqueezerPageGLibType() types.GType {
+	return xSqueezerPageGLibType()
+}
+
 func SqueezerPageNewFromInternalPtr(ptr uintptr) *SqueezerPage {
 	cls := &SqueezerPage{}
 	cls.Ptr = ptr
@@ -594,6 +613,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xSqueezerTransitionTypeGLibType, lib, "adw_squeezer_transition_type_get_type")
+
+	core.PuregoSafeRegister(&xSqueezerGLibType, lib, "adw_squeezer_get_type")
+
 	core.PuregoSafeRegister(&xNewSqueezer, lib, "adw_squeezer_new")
 
 	core.PuregoSafeRegister(&xSqueezerAdd, lib, "adw_squeezer_add")
@@ -618,6 +641,8 @@ func init() {
 	core.PuregoSafeRegister(&xSqueezerSetTransitionType, lib, "adw_squeezer_set_transition_type")
 	core.PuregoSafeRegister(&xSqueezerSetXalign, lib, "adw_squeezer_set_xalign")
 	core.PuregoSafeRegister(&xSqueezerSetYalign, lib, "adw_squeezer_set_yalign")
+
+	core.PuregoSafeRegister(&xSqueezerPageGLibType, lib, "adw_squeezer_page_get_type")
 
 	core.PuregoSafeRegister(&xSqueezerPageGetChild, lib, "adw_squeezer_page_get_child")
 	core.PuregoSafeRegister(&xSqueezerPageGetEnabled, lib, "adw_squeezer_page_get_enabled")

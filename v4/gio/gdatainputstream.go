@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DataInputStreamClass struct {
@@ -28,6 +29,12 @@ func (x *DataInputStreamPrivate) GoPointer() uintptr {
 // reading structured data directly from a binary input stream.
 type DataInputStream struct {
 	BufferedInputStream
+}
+
+var xDataInputStreamGLibType func() types.GType
+
+func DataInputStreamGLibType() types.GType {
+	return xDataInputStreamGLibType()
 }
 
 func DataInputStreamNewFromInternalPtr(ptr uintptr) *DataInputStream {
@@ -519,6 +526,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDataInputStreamGLibType, lib, "g_data_input_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewDataInputStream, lib, "g_data_input_stream_new")
 

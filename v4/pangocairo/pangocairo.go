@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -24,6 +25,13 @@ type Font interface {
 	SetGoPointer(uintptr)
 	GetScaledFont() *cairo.ScaledFont
 }
+
+var xFontGLibType func() types.GType
+
+func FontGLibType() types.GType {
+	return xFontGLibType()
+}
+
 type FontBase struct {
 	Ptr uintptr
 }
@@ -61,6 +69,13 @@ type FontMap interface {
 	SetDefault()
 	SetResolution(DpiVar float64)
 }
+
+var xFontMapGLibType func() types.GType
+
+func FontMapGLibType() types.GType {
+	return xFontMapGLibType()
+}
+
 type FontMapBase struct {
 	Ptr uintptr
 }
@@ -508,6 +523,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xContextGetFontOptions, lib, "pango_cairo_context_get_font_options")
 	core.PuregoSafeRegister(&xContextGetResolution, lib, "pango_cairo_context_get_resolution")
 	core.PuregoSafeRegister(&xContextGetShapeRenderer, lib, "pango_cairo_context_get_shape_renderer")
@@ -531,7 +547,11 @@ func init() {
 	core.PuregoSafeRegister(&xUpdateContext, lib, "pango_cairo_update_context")
 	core.PuregoSafeRegister(&xUpdateLayout, lib, "pango_cairo_update_layout")
 
+	core.PuregoSafeRegister(&xFontGLibType, lib, "pango_cairo_font_get_type")
+
 	core.PuregoSafeRegister(&XPangoCairoFontGetScaledFont, lib, "pango_cairo_font_get_scaled_font")
+
+	core.PuregoSafeRegister(&xFontMapGLibType, lib, "pango_cairo_font_map_get_type")
 
 	core.PuregoSafeRegister(&XPangoCairoFontMapCreateContext, lib, "pango_cairo_font_map_create_context")
 	core.PuregoSafeRegister(&XPangoCairoFontMapGetFontType, lib, "pango_cairo_font_map_get_font_type")

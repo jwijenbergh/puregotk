@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GMemoryMonitor.
@@ -70,6 +71,13 @@ type MemoryMonitor interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 }
+
+var xMemoryMonitorGLibType func() types.GType
+
+func MemoryMonitorGLibType() types.GType {
+	return xMemoryMonitorGLibType()
+}
+
 type MemoryMonitorBase struct {
 	Ptr uintptr
 }
@@ -109,6 +117,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xMemoryMonitorDupDefault, lib, "g_memory_monitor_dup_default")
+
+	core.PuregoSafeRegister(&xMemoryMonitorGLibType, lib, "g_memory_monitor_get_type")
 
 }

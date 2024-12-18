@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type UnixSocketAddressClass struct {
@@ -43,6 +44,12 @@ func (x *UnixSocketAddressPrivate) GoPointer() uintptr {
 // when using it. This is no longer necessary since GLib 2.72.
 type UnixSocketAddress struct {
 	SocketAddress
+}
+
+var xUnixSocketAddressGLibType func() types.GType
+
+func UnixSocketAddressGLibType() types.GType {
+	return xUnixSocketAddressGLibType()
 }
 
 func UnixSocketAddressNewFromInternalPtr(ptr uintptr) *UnixSocketAddress {
@@ -245,6 +252,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixSocketAddressGLibType, lib, "g_unix_socket_address_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixSocketAddress, lib, "g_unix_socket_address_new")
 	core.PuregoSafeRegister(&xNewUnixSocketAddressAbstract, lib, "g_unix_socket_address_new_abstract")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ConstraintClass struct {
@@ -32,6 +33,13 @@ type ConstraintTarget interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 }
+
+var xConstraintTargetGLibType func() types.GType
+
+func ConstraintTargetGLibType() types.GType {
+	return xConstraintTargetGLibType()
+}
+
 type ConstraintTargetBase struct {
 	Ptr uintptr
 }
@@ -64,6 +72,12 @@ func (x *ConstraintTargetBase) SetGoPointer(ptr uintptr) {
 // instance are immutable after creation.
 type Constraint struct {
 	gobject.Object
+}
+
+var xConstraintGLibType func() types.GType
+
+func ConstraintGLibType() types.GType {
+	return xConstraintGLibType()
 }
 
 func ConstraintNewFromInternalPtr(ptr uintptr) *Constraint {
@@ -247,6 +261,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xConstraintGLibType, lib, "gtk_constraint_get_type")
+
 	core.PuregoSafeRegister(&xNewConstraint, lib, "gtk_constraint_new")
 	core.PuregoSafeRegister(&xNewConstraintConstant, lib, "gtk_constraint_new_constant")
 
@@ -261,5 +277,7 @@ func init() {
 	core.PuregoSafeRegister(&xConstraintIsAttached, lib, "gtk_constraint_is_attached")
 	core.PuregoSafeRegister(&xConstraintIsConstant, lib, "gtk_constraint_is_constant")
 	core.PuregoSafeRegister(&xConstraintIsRequired, lib, "gtk_constraint_is_required")
+
+	core.PuregoSafeRegister(&xConstraintTargetGLibType, lib, "gtk_constraint_target_get_type")
 
 }

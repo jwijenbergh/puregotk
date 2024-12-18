@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Called for list boxes that are bound to a `GListModel` with
@@ -99,6 +100,12 @@ func (x *ListBoxRowClass) GoPointer() uintptr {
 // the %GTK_ACCESSIBLE_ROLE_LIST_ITEM role.
 type ListBox struct {
 	Widget
+}
+
+var xListBoxGLibType func() types.GType
+
+func ListBoxGLibType() types.GType {
+	return xListBoxGLibType()
 }
 
 func ListBoxNewFromInternalPtr(ptr uintptr) *ListBox {
@@ -883,6 +890,12 @@ type ListBoxRow struct {
 	Widget
 }
 
+var xListBoxRowGLibType func() types.GType
+
+func ListBoxRowGLibType() types.GType {
+	return xListBoxRowGLibType()
+}
+
 func ListBoxRowNewFromInternalPtr(ptr uintptr) *ListBoxRow {
 	cls := &ListBoxRow{}
 	cls.Ptr = ptr
@@ -1313,6 +1326,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xListBoxGLibType, lib, "gtk_list_box_get_type")
+
 	core.PuregoSafeRegister(&xNewListBox, lib, "gtk_list_box_new")
 
 	core.PuregoSafeRegister(&xListBoxAppend, lib, "gtk_list_box_append")
@@ -1346,6 +1361,8 @@ func init() {
 	core.PuregoSafeRegister(&xListBoxSetSortFunc, lib, "gtk_list_box_set_sort_func")
 	core.PuregoSafeRegister(&xListBoxUnselectAll, lib, "gtk_list_box_unselect_all")
 	core.PuregoSafeRegister(&xListBoxUnselectRow, lib, "gtk_list_box_unselect_row")
+
+	core.PuregoSafeRegister(&xListBoxRowGLibType, lib, "gtk_list_box_row_get_type")
 
 	core.PuregoSafeRegister(&xNewListBoxRow, lib, "gtk_list_box_row_new")
 

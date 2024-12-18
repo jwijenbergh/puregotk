@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -40,6 +41,12 @@ func (x *CarouselClass) GoPointer() uintptr {
 // `AdwCarousel` has a single CSS node with name `carousel`.
 type Carousel struct {
 	gtk.Widget
+}
+
+var xCarouselGLibType func() types.GType
+
+func CarouselGLibType() types.GType {
+	return xCarouselGLibType()
 }
 
 func CarouselNewFromInternalPtr(ptr uintptr) *Carousel {
@@ -550,6 +557,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCarouselGLibType, lib, "adw_carousel_get_type")
 
 	core.PuregoSafeRegister(&xNewCarousel, lib, "adw_carousel_new")
 

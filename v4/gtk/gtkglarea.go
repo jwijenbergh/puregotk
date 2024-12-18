@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GtkGLAreaClass` structure contains only private data.
@@ -131,6 +132,12 @@ func (x *GLAreaClass) GoPointer() uintptr {
 // you should use the [signal@Gtk.GLArea::create-context] signal.
 type GLArea struct {
 	Widget
+}
+
+var xGLAreaGLibType func() types.GType
+
+func GLAreaGLibType() types.GType {
+	return xGLAreaGLibType()
 }
 
 func GLAreaNewFromInternalPtr(ptr uintptr) *GLArea {
@@ -599,6 +606,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGLAreaGLibType, lib, "gtk_gl_area_get_type")
 
 	core.PuregoSafeRegister(&xNewGLArea, lib, "gtk_gl_area_new")
 

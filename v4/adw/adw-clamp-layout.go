@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -45,6 +46,12 @@ func (x *ClampLayoutClass) GoPointer() uintptr {
 // if it hasn't been allocated yet.
 type ClampLayout struct {
 	gtk.LayoutManager
+}
+
+var xClampLayoutGLibType func() types.GType
+
+func ClampLayoutGLibType() types.GType {
+	return xClampLayoutGLibType()
 }
 
 func ClampLayoutNewFromInternalPtr(ptr uintptr) *ClampLayout {
@@ -147,6 +154,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xClampLayoutGLibType, lib, "adw_clamp_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewClampLayout, lib, "adw_clamp_layout_new")
 

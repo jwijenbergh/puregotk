@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Virtual method table for a #GDtlsConnection implementation.
@@ -69,6 +70,13 @@ type DtlsConnection interface {
 	ShutdownAsync(ShutdownReadVar bool, ShutdownWriteVar bool, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	ShutdownFinish(ResultVar AsyncResult) bool
 }
+
+var xDtlsConnectionGLibType func() types.GType
+
+func DtlsConnectionGLibType() types.GType {
+	return xDtlsConnectionGLibType()
+}
+
 type DtlsConnectionBase struct {
 	Ptr uintptr
 }
@@ -542,6 +550,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDtlsConnectionGLibType, lib, "g_dtls_connection_get_type")
 
 	core.PuregoSafeRegister(&XGDtlsConnectionClose, lib, "g_dtls_connection_close")
 	core.PuregoSafeRegister(&XGDtlsConnectionCloseAsync, lib, "g_dtls_connection_close_async")

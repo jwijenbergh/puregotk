@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GSocketControlMessage.
@@ -47,6 +48,12 @@ func (x *SocketControlMessagePrivate) GoPointer() uintptr {
 // g_socket_receive_message() to read such a message.
 type SocketControlMessage struct {
 	gobject.Object
+}
+
+var xSocketControlMessageGLibType func() types.GType
+
+func SocketControlMessageGLibType() types.GType {
+	return xSocketControlMessageGLibType()
 }
 
 func SocketControlMessageNewFromInternalPtr(ptr uintptr) *SocketControlMessage {
@@ -134,6 +141,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSocketControlMessageGLibType, lib, "g_socket_control_message_get_type")
 
 	core.PuregoSafeRegister(&xSocketControlMessageGetLevel, lib, "g_socket_control_message_get_level")
 	core.PuregoSafeRegister(&xSocketControlMessageGetMsgType, lib, "g_socket_control_message_get_msg_type")

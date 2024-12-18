@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BuilderListItemFactoryClass struct {
@@ -44,6 +45,12 @@ func (x *BuilderListItemFactoryClass) GoPointer() uintptr {
 // ```
 type BuilderListItemFactory struct {
 	ListItemFactory
+}
+
+var xBuilderListItemFactoryGLibType func() types.GType
+
+func BuilderListItemFactoryGLibType() types.GType {
+	return xBuilderListItemFactoryGLibType()
 }
 
 func BuilderListItemFactoryNewFromInternalPtr(ptr uintptr) *BuilderListItemFactory {
@@ -135,6 +142,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBuilderListItemFactoryGLibType, lib, "gtk_builder_list_item_factory_get_type")
 
 	core.PuregoSafeRegister(&xNewBuilderListItemFactoryFromBytes, lib, "gtk_builder_list_item_factory_new_from_bytes")
 	core.PuregoSafeRegister(&xNewBuilderListItemFactoryFromResource, lib, "gtk_builder_list_item_factory_new_from_resource")

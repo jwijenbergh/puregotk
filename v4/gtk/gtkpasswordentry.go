@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PasswordEntryClass struct {
@@ -54,6 +55,12 @@ func (x *PasswordEntryClass) GoPointer() uintptr {
 // `GtkPasswordEntry` uses the %GTK_ACCESSIBLE_ROLE_TEXT_BOX role.
 type PasswordEntry struct {
 	Widget
+}
+
+var xPasswordEntryGLibType func() types.GType
+
+func PasswordEntryGLibType() types.GType {
+	return xPasswordEntryGLibType()
 }
 
 func PasswordEntryNewFromInternalPtr(ptr uintptr) *PasswordEntry {
@@ -548,6 +555,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPasswordEntryGLibType, lib, "gtk_password_entry_get_type")
 
 	core.PuregoSafeRegister(&xNewPasswordEntry, lib, "gtk_password_entry_new")
 

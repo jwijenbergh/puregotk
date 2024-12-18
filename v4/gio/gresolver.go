@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ResolverClass struct {
@@ -27,6 +28,12 @@ func (x *ResolverPrivate) GoPointer() uintptr {
 
 // Flags to modify lookup behavior.
 type ResolverNameLookupFlags int
+
+var xResolverNameLookupFlagsGLibType func() types.GType
+
+func ResolverNameLookupFlagsGLibType() types.GType {
+	return xResolverNameLookupFlagsGLibType()
+}
 
 const (
 
@@ -48,6 +55,12 @@ const (
 // making it easy to connect to a remote host/service.
 type Resolver struct {
 	gobject.Object
+}
+
+var xResolverGLibType func() types.GType
+
+func ResolverGLibType() types.GType {
+	return xResolverGLibType()
 }
 
 func ResolverNewFromInternalPtr(ptr uintptr) *Resolver {
@@ -437,6 +450,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xResolverNameLookupFlagsGLibType, lib, "g_resolver_name_lookup_flags_get_type")
+
+	core.PuregoSafeRegister(&xResolverGLibType, lib, "g_resolver_get_type")
 
 	core.PuregoSafeRegister(&xResolverLookupByAddress, lib, "g_resolver_lookup_by_address")
 	core.PuregoSafeRegister(&xResolverLookupByAddressAsync, lib, "g_resolver_lookup_by_address_async")

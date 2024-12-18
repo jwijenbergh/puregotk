@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A sphere, represented by its center and radius.
@@ -13,6 +14,12 @@ type Sphere struct {
 	Center uintptr
 
 	Radius float32
+}
+
+var xSphereGLibType func() types.GType
+
+func SphereGLibType() types.GType {
+	return xSphereGLibType()
 }
 
 func (x *Sphere) GoPointer() uintptr {
@@ -155,6 +162,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSphereGLibType, lib, "graphene_sphere_get_type")
 
 	core.PuregoSafeRegister(&xSphereAlloc, lib, "graphene_sphere_alloc")
 

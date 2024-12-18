@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type LayoutClass struct {
@@ -24,6 +25,12 @@ func (x *LayoutClass) GoPointer() uintptr {
 //
 // The `PangoLayoutIter` structure is opaque, and has no user-visible fields.
 type LayoutIter struct {
+}
+
+var xLayoutIterGLibType func() types.GType
+
+func LayoutIterGLibType() types.GType {
+	return xLayoutIterGLibType()
 }
 
 func (x *LayoutIter) GoPointer() uintptr {
@@ -318,6 +325,12 @@ type LayoutLine struct {
 	ResolvedDir uint
 }
 
+var xLayoutLineGLibType func() types.GType
+
+func LayoutLineGLibType() types.GType {
+	return xLayoutLineGLibType()
+}
+
 func (x *LayoutLine) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -474,6 +487,12 @@ type LayoutRun = uintptr
 // New members may be added to this enumeration over time.
 type LayoutDeserializeFlags int
 
+var xLayoutDeserializeFlagsGLibType func() types.GType
+
+func LayoutDeserializeFlagsGLibType() types.GType {
+	return xLayoutDeserializeFlagsGLibType()
+}
+
 const (
 
 	// Default behavior
@@ -487,6 +506,12 @@ const (
 //
 // New members may be added to this enumeration over time.
 type LayoutSerializeFlags int
+
+var xLayoutSerializeFlagsGLibType func() types.GType
+
+func LayoutSerializeFlagsGLibType() types.GType {
+	return xLayoutSerializeFlagsGLibType()
+}
 
 const (
 
@@ -508,6 +533,12 @@ const (
 // the interpretation of `PangoAlignment` values.
 type Alignment int
 
+var xAlignmentGLibType func() types.GType
+
+func AlignmentGLibType() types.GType {
+	return xAlignmentGLibType()
+}
+
 const (
 
 	// Put all available space on the right
@@ -526,6 +557,12 @@ const (
 // with an ellipsis.
 type EllipsizeMode int
 
+var xEllipsizeModeGLibType func() types.GType
+
+func EllipsizeModeGLibType() types.GType {
+	return xEllipsizeModeGLibType()
+}
+
 const (
 
 	// No ellipsization
@@ -540,6 +577,12 @@ const (
 
 // Errors that can be returned by [func@Pango.Layout.deserialize].
 type LayoutDeserializeError int
+
+var xLayoutDeserializeErrorGLibType func() types.GType
+
+func LayoutDeserializeErrorGLibType() types.GType {
+	return xLayoutDeserializeErrorGLibType()
+}
 
 const (
 
@@ -561,6 +604,12 @@ const (
 // breaking at grapheme boundaries that are determined by the Unicode text
 // segmentation algorithm.
 type WrapMode int
+
+var xWrapModeGLibType func() types.GType
+
+func WrapModeGLibType() types.GType {
+	return xWrapModeGLibType()
+}
 
 const (
 
@@ -614,6 +663,12 @@ const (
 // and simply treat the results of a `PangoLayout` as a list of lines.
 type Layout struct {
 	gobject.Object
+}
+
+var xLayoutGLibType func() types.GType
+
+func LayoutGLibType() types.GType {
+	return xLayoutGLibType()
 }
 
 func LayoutNewFromInternalPtr(ptr uintptr) *Layout {
@@ -1651,6 +1706,20 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xLayoutDeserializeFlagsGLibType, lib, "pango_layout_deserialize_flags_get_type")
+
+	core.PuregoSafeRegister(&xLayoutSerializeFlagsGLibType, lib, "pango_layout_serialize_flags_get_type")
+
+	core.PuregoSafeRegister(&xAlignmentGLibType, lib, "pango_alignment_get_type")
+
+	core.PuregoSafeRegister(&xEllipsizeModeGLibType, lib, "pango_ellipsize_mode_get_type")
+
+	core.PuregoSafeRegister(&xLayoutDeserializeErrorGLibType, lib, "pango_layout_deserialize_error_get_type")
+
+	core.PuregoSafeRegister(&xWrapModeGLibType, lib, "pango_wrap_mode_get_type")
+
+	core.PuregoSafeRegister(&xLayoutIterGLibType, lib, "pango_layout_iter_get_type")
+
 	core.PuregoSafeRegister(&xLayoutIterAtLastLine, lib, "pango_layout_iter_at_last_line")
 	core.PuregoSafeRegister(&xLayoutIterCopy, lib, "pango_layout_iter_copy")
 	core.PuregoSafeRegister(&xLayoutIterFree, lib, "pango_layout_iter_free")
@@ -1673,6 +1742,8 @@ func init() {
 	core.PuregoSafeRegister(&xLayoutIterNextLine, lib, "pango_layout_iter_next_line")
 	core.PuregoSafeRegister(&xLayoutIterNextRun, lib, "pango_layout_iter_next_run")
 
+	core.PuregoSafeRegister(&xLayoutLineGLibType, lib, "pango_layout_line_get_type")
+
 	core.PuregoSafeRegister(&xLayoutLineGetExtents, lib, "pango_layout_line_get_extents")
 	core.PuregoSafeRegister(&xLayoutLineGetHeight, lib, "pango_layout_line_get_height")
 	core.PuregoSafeRegister(&xLayoutLineGetLength, lib, "pango_layout_line_get_length")
@@ -1685,6 +1756,8 @@ func init() {
 	core.PuregoSafeRegister(&xLayoutLineRef, lib, "pango_layout_line_ref")
 	core.PuregoSafeRegister(&xLayoutLineUnref, lib, "pango_layout_line_unref")
 	core.PuregoSafeRegister(&xLayoutLineXToIndex, lib, "pango_layout_line_x_to_index")
+
+	core.PuregoSafeRegister(&xLayoutGLibType, lib, "pango_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewLayout, lib, "pango_layout_new")
 

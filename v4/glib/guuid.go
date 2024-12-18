@@ -38,6 +38,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xUuidStringIsValid, lib, "g_uuid_string_is_valid")
 	core.PuregoSafeRegister(&xUuidStringRandom, lib, "g_uuid_string_random")
 

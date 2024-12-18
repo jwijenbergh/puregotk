@@ -42,6 +42,12 @@ type TreeListModel struct {
 	gobject.Object
 }
 
+var xTreeListModelGLibType func() types.GType
+
+func TreeListModelGLibType() types.GType {
+	return xTreeListModelGLibType()
+}
+
 func TreeListModelNewFromInternalPtr(ptr uintptr) *TreeListModel {
 	cls := &TreeListModel{}
 	cls.Ptr = ptr
@@ -294,6 +300,12 @@ type TreeListRow struct {
 	gobject.Object
 }
 
+var xTreeListRowGLibType func() types.GType
+
+func TreeListRowGLibType() types.GType {
+	return xTreeListRowGLibType()
+}
+
 func TreeListRowNewFromInternalPtr(ptr uintptr) *TreeListRow {
 	cls := &TreeListRow{}
 	cls.Ptr = ptr
@@ -461,6 +473,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xTreeListModelGLibType, lib, "gtk_tree_list_model_get_type")
+
 	core.PuregoSafeRegister(&xNewTreeListModel, lib, "gtk_tree_list_model_new")
 
 	core.PuregoSafeRegister(&xTreeListModelGetAutoexpand, lib, "gtk_tree_list_model_get_autoexpand")
@@ -469,6 +483,8 @@ func init() {
 	core.PuregoSafeRegister(&xTreeListModelGetPassthrough, lib, "gtk_tree_list_model_get_passthrough")
 	core.PuregoSafeRegister(&xTreeListModelGetRow, lib, "gtk_tree_list_model_get_row")
 	core.PuregoSafeRegister(&xTreeListModelSetAutoexpand, lib, "gtk_tree_list_model_set_autoexpand")
+
+	core.PuregoSafeRegister(&xTreeListRowGLibType, lib, "gtk_tree_list_row_get_type")
 
 	core.PuregoSafeRegister(&xTreeListRowGetChildRow, lib, "gtk_tree_list_row_get_child_row")
 	core.PuregoSafeRegister(&xTreeListRowGetChildren, lib, "gtk_tree_list_row_get_children")

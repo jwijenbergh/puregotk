@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GridLayoutChildClass struct {
@@ -40,6 +41,12 @@ func (x *GridLayoutClass) GoPointer() uintptr {
 // single row or column, you should consider using `GtkBoxLayout`.
 type GridLayout struct {
 	LayoutManager
+}
+
+var xGridLayoutGLibType func() types.GType
+
+func GridLayoutGLibType() types.GType {
+	return xGridLayoutGLibType()
 }
 
 func GridLayoutNewFromInternalPtr(ptr uintptr) *GridLayout {
@@ -195,6 +202,12 @@ type GridLayoutChild struct {
 	LayoutChild
 }
 
+var xGridLayoutChildGLibType func() types.GType
+
+func GridLayoutChildGLibType() types.GType {
+	return xGridLayoutChildGLibType()
+}
+
 func GridLayoutChildNewFromInternalPtr(ptr uintptr) *GridLayoutChild {
 	cls := &GridLayoutChild{}
 	cls.Ptr = ptr
@@ -287,6 +300,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xGridLayoutGLibType, lib, "gtk_grid_layout_get_type")
+
 	core.PuregoSafeRegister(&xNewGridLayout, lib, "gtk_grid_layout_new")
 
 	core.PuregoSafeRegister(&xGridLayoutGetBaselineRow, lib, "gtk_grid_layout_get_baseline_row")
@@ -301,6 +316,8 @@ func init() {
 	core.PuregoSafeRegister(&xGridLayoutSetRowBaselinePosition, lib, "gtk_grid_layout_set_row_baseline_position")
 	core.PuregoSafeRegister(&xGridLayoutSetRowHomogeneous, lib, "gtk_grid_layout_set_row_homogeneous")
 	core.PuregoSafeRegister(&xGridLayoutSetRowSpacing, lib, "gtk_grid_layout_set_row_spacing")
+
+	core.PuregoSafeRegister(&xGridLayoutChildGLibType, lib, "gtk_grid_layout_child_get_type")
 
 	core.PuregoSafeRegister(&xGridLayoutChildGetColumn, lib, "gtk_grid_layout_child_get_column")
 	core.PuregoSafeRegister(&xGridLayoutChildGetColumnSpan, lib, "gtk_grid_layout_child_get_column_span")

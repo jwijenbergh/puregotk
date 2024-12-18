@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function used by gtk_icon_view_selected_foreach() to map all
@@ -19,6 +20,12 @@ type IconViewForeachFunc func(uintptr, *TreePath, uintptr)
 
 // An enum for determining where a dropped item goes.
 type IconViewDropPosition int
+
+var xIconViewDropPositionGLibType func() types.GType
+
+func IconViewDropPositionGLibType() types.GType {
+	return xIconViewDropPositionGLibType()
+}
 
 const (
 
@@ -61,6 +68,12 @@ const (
 // For rubberband selection, a subnode with name rubberband is used.
 type IconView struct {
 	Widget
+}
+
+var xIconViewGLibType func() types.GType
+
+func IconViewGLibType() types.GType {
+	return xIconViewGLibType()
 }
 
 func IconViewNewFromInternalPtr(ptr uintptr) *IconView {
@@ -1369,6 +1382,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIconViewDropPositionGLibType, lib, "gtk_icon_view_drop_position_get_type")
+
+	core.PuregoSafeRegister(&xIconViewGLibType, lib, "gtk_icon_view_get_type")
 
 	core.PuregoSafeRegister(&xNewIconView, lib, "gtk_icon_view_new")
 	core.PuregoSafeRegister(&xNewIconViewWithArea, lib, "gtk_icon_view_new_with_area")

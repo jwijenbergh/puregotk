@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GLRendererClass struct {
@@ -17,6 +18,12 @@ func (x *GLRendererClass) GoPointer() uintptr {
 
 type GLRenderer struct {
 	Renderer
+}
+
+var xGLRendererGLibType func() types.GType
+
+func GLRendererGLibType() types.GType {
+	return xGLRendererGLibType()
 }
 
 func GLRendererNewFromInternalPtr(ptr uintptr) *GLRenderer {
@@ -54,6 +61,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGLRendererGLibType, lib, "gsk_gl_renderer_get_type")
 
 	core.PuregoSafeRegister(&xNewGLRenderer, lib, "gsk_gl_renderer_new")
 

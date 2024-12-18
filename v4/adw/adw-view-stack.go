@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -84,6 +85,12 @@ func (x *ViewStackPageClass) GoPointer() uintptr {
 // which are the accessible parent objects of the child widgets.
 type ViewStack struct {
 	gtk.Widget
+}
+
+var xViewStackGLibType func() types.GType
+
+func ViewStackGLibType() types.GType {
+	return xViewStackGLibType()
 }
 
 func ViewStackNewFromInternalPtr(ptr uintptr) *ViewStack {
@@ -498,6 +505,12 @@ type ViewStackPage struct {
 	gobject.Object
 }
 
+var xViewStackPageGLibType func() types.GType
+
+func ViewStackPageGLibType() types.GType {
+	return xViewStackPageGLibType()
+}
+
 func ViewStackPageNewFromInternalPtr(ptr uintptr) *ViewStackPage {
 	cls := &ViewStackPage{}
 	cls.Ptr = ptr
@@ -807,6 +820,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xViewStackGLibType, lib, "adw_view_stack_get_type")
+
 	core.PuregoSafeRegister(&xNewViewStack, lib, "adw_view_stack_new")
 
 	core.PuregoSafeRegister(&xViewStackAdd, lib, "adw_view_stack_add")
@@ -825,6 +840,8 @@ func init() {
 	core.PuregoSafeRegister(&xViewStackSetVhomogeneous, lib, "adw_view_stack_set_vhomogeneous")
 	core.PuregoSafeRegister(&xViewStackSetVisibleChild, lib, "adw_view_stack_set_visible_child")
 	core.PuregoSafeRegister(&xViewStackSetVisibleChildName, lib, "adw_view_stack_set_visible_child_name")
+
+	core.PuregoSafeRegister(&xViewStackPageGLibType, lib, "adw_view_stack_page_get_type")
 
 	core.PuregoSafeRegister(&xViewStackPageGetBadgeNumber, lib, "adw_view_stack_page_get_badge_number")
 	core.PuregoSafeRegister(&xViewStackPageGetChild, lib, "adw_view_stack_page_get_child")

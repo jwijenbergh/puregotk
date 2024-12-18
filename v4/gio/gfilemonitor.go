@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileMonitorClass struct {
@@ -41,6 +42,12 @@ func (x *FileMonitorPrivate) GoPointer() uintptr {
 // context is still running).
 type FileMonitor struct {
 	gobject.Object
+}
+
+var xFileMonitorGLibType func() types.GType
+
+func FileMonitorGLibType() types.GType {
+	return xFileMonitorGLibType()
 }
 
 func FileMonitorNewFromInternalPtr(ptr uintptr) *FileMonitor {
@@ -152,6 +159,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileMonitorGLibType, lib, "g_file_monitor_get_type")
 
 	core.PuregoSafeRegister(&xFileMonitorCancel, lib, "g_file_monitor_cancel")
 	core.PuregoSafeRegister(&xFileMonitorEmitEvent, lib, "g_file_monitor_emit_event")

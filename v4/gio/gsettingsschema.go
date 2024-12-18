@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The #GSettingsSchemaSource and #GSettingsSchema APIs provide a
@@ -109,6 +110,12 @@ import (
 type SettingsSchema struct {
 }
 
+var xSettingsSchemaGLibType func() types.GType
+
+func SettingsSchemaGLibType() types.GType {
+	return xSettingsSchemaGLibType()
+}
+
 func (x *SettingsSchema) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -206,6 +213,12 @@ func (x *SettingsSchema) Unref() {
 // #GSettingsSchemaKey is an opaque data structure and can only be accessed
 // using the following functions.
 type SettingsSchemaKey struct {
+}
+
+var xSettingsSchemaKeyGLibType func() types.GType
+
+func SettingsSchemaKeyGLibType() types.GType {
+	return xSettingsSchemaKeyGLibType()
 }
 
 func (x *SettingsSchemaKey) GoPointer() uintptr {
@@ -364,6 +377,12 @@ func (x *SettingsSchemaKey) Unref() {
 type SettingsSchemaSource struct {
 }
 
+var xSettingsSchemaSourceGLibType func() types.GType
+
+func SettingsSchemaSourceGLibType() types.GType {
+	return xSettingsSchemaSourceGLibType()
+}
+
 func (x *SettingsSchemaSource) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -494,7 +513,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSettingsSchemaSourceGetDefault, lib, "g_settings_schema_source_get_default")
+
+	core.PuregoSafeRegister(&xSettingsSchemaGLibType, lib, "g_settings_schema_get_type")
 
 	core.PuregoSafeRegister(&xSettingsSchemaGetId, lib, "g_settings_schema_get_id")
 	core.PuregoSafeRegister(&xSettingsSchemaGetKey, lib, "g_settings_schema_get_key")
@@ -505,6 +527,8 @@ func init() {
 	core.PuregoSafeRegister(&xSettingsSchemaRef, lib, "g_settings_schema_ref")
 	core.PuregoSafeRegister(&xSettingsSchemaUnref, lib, "g_settings_schema_unref")
 
+	core.PuregoSafeRegister(&xSettingsSchemaKeyGLibType, lib, "g_settings_schema_key_get_type")
+
 	core.PuregoSafeRegister(&xSettingsSchemaKeyGetDefaultValue, lib, "g_settings_schema_key_get_default_value")
 	core.PuregoSafeRegister(&xSettingsSchemaKeyGetDescription, lib, "g_settings_schema_key_get_description")
 	core.PuregoSafeRegister(&xSettingsSchemaKeyGetName, lib, "g_settings_schema_key_get_name")
@@ -514,6 +538,8 @@ func init() {
 	core.PuregoSafeRegister(&xSettingsSchemaKeyRangeCheck, lib, "g_settings_schema_key_range_check")
 	core.PuregoSafeRegister(&xSettingsSchemaKeyRef, lib, "g_settings_schema_key_ref")
 	core.PuregoSafeRegister(&xSettingsSchemaKeyUnref, lib, "g_settings_schema_key_unref")
+
+	core.PuregoSafeRegister(&xSettingsSchemaSourceGLibType, lib, "g_settings_schema_source_get_type")
 
 	core.PuregoSafeRegister(&xNewSettingsSchemaSourceFromDirectory, lib, "g_settings_schema_source_new_from_directory")
 

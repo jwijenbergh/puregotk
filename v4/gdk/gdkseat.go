@@ -8,10 +8,17 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Flags describing the seat capabilities.
 type SeatCapabilities int
+
+var xSeatCapabilitiesGLibType func() types.GType
+
+func SeatCapabilitiesGLibType() types.GType {
+	return xSeatCapabilitiesGLibType()
+}
 
 const (
 
@@ -37,6 +44,12 @@ const (
 // that belong to a user.
 type Seat struct {
 	gobject.Object
+}
+
+var xSeatGLibType func() types.GType
+
+func SeatGLibType() types.GType {
+	return xSeatGLibType()
 }
 
 func SeatNewFromInternalPtr(ptr uintptr) *Seat {
@@ -222,6 +235,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSeatCapabilitiesGLibType, lib, "gdk_seat_capabilities_get_type")
+
+	core.PuregoSafeRegister(&xSeatGLibType, lib, "gdk_seat_get_type")
 
 	core.PuregoSafeRegister(&xSeatGetCapabilities, lib, "gdk_seat_get_capabilities")
 	core.PuregoSafeRegister(&xSeatGetDevices, lib, "gdk_seat_get_devices")

@@ -67,6 +67,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTestInit, lib, "gtk_test_init")
 	core.PuregoSafeRegister(&xTestListAllTypes, lib, "gtk_test_list_all_types")
 	core.PuregoSafeRegister(&xTestRegisterAllTypes, lib, "gtk_test_register_all_types")

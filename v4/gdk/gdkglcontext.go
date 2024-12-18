@@ -6,10 +6,17 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The list of the different APIs that GdkGLContext can potentially support.
 type GLAPI int
+
+var xGLAPIGLibType func() types.GType
+
+func GLAPIGLibType() types.GType {
+	return xGLAPIGLibType()
+}
 
 const (
 
@@ -70,6 +77,12 @@ const (
 // that is currently set by calling [func@Gdk.GLContext.clear_current].
 type GLContext struct {
 	DrawContext
+}
+
+var xGLContextGLibType func() types.GType
+
+func GLContextGLibType() types.GType {
+	return xGLContextGLibType()
 }
 
 func GLContextNewFromInternalPtr(ptr uintptr) *GLContext {
@@ -407,6 +420,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGLAPIGLibType, lib, "gdk_gl_api_get_type")
+
+	core.PuregoSafeRegister(&xGLContextGLibType, lib, "gdk_gl_context_get_type")
 
 	core.PuregoSafeRegister(&xGLContextGetAllowedApis, lib, "gdk_gl_context_get_allowed_apis")
 	core.PuregoSafeRegister(&xGLContextGetApi, lib, "gdk_gl_context_get_api")

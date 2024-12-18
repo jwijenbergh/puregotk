@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A point with three components: X, Y, and Z.
@@ -15,6 +16,12 @@ type Point3D struct {
 	Y float32
 
 	Z float32
+}
+
+var xPoint3DGLibType func() types.GType
+
+func Point3DGLibType() types.GType {
+	return xPoint3DGLibType()
 }
 
 func (x *Point3D) GoPointer() uintptr {
@@ -191,7 +198,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPoint3dZero, lib, "graphene_point3d_zero")
+
+	core.PuregoSafeRegister(&xPoint3DGLibType, lib, "graphene_point3d_get_type")
 
 	core.PuregoSafeRegister(&xPoint3DAlloc, lib, "graphene_point3d_alloc")
 

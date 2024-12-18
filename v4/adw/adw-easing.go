@@ -4,6 +4,7 @@ package adw
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Describes the available easing functions for use with
@@ -11,6 +12,12 @@ import (
 //
 // New values may be added to this enumeration over time.
 type Easing int
+
+var xEasingGLibType func() types.GType
+
+func EasingGLibType() types.GType {
+	return xEasingGLibType()
+}
 
 const (
 
@@ -109,6 +116,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEasingGLibType, lib, "adw_easing_get_type")
+
 	core.PuregoSafeRegister(&xEasingEase, lib, "adw_easing_ease")
 
 }

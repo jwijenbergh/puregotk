@@ -90,6 +90,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xToplevelSizeGetType, lib, "gdk_toplevel_size_get_type")
 
 	core.PuregoSafeRegister(&xToplevelSizeGetBounds, lib, "gdk_toplevel_size_get_bounds")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type StringSorterClass struct {
@@ -27,6 +28,12 @@ func (x *StringSorterClass) GoPointer() uintptr {
 // [class@Gtk.Expression].
 type StringSorter struct {
 	Sorter
+}
+
+var xStringSorterGLibType func() types.GType
+
+func StringSorterGLibType() types.GType {
+	return xStringSorterGLibType()
 }
 
 func StringSorterNewFromInternalPtr(ptr uintptr) *StringSorter {
@@ -114,6 +121,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xStringSorterGLibType, lib, "gtk_string_sorter_get_type")
 
 	core.PuregoSafeRegister(&xNewStringSorter, lib, "gtk_string_sorter_new")
 

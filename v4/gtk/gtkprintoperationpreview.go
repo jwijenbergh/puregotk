@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type PrintOperationPreviewIface struct {
@@ -29,6 +30,13 @@ type PrintOperationPreview interface {
 	IsSelected(PageNrVar int) bool
 	RenderPage(PageNrVar int)
 }
+
+var xPrintOperationPreviewGLibType func() types.GType
+
+func PrintOperationPreviewGLibType() types.GType {
+	return xPrintOperationPreviewGLibType()
+}
+
 type PrintOperationPreviewBase struct {
 	Ptr uintptr
 }
@@ -84,6 +92,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintOperationPreviewGLibType, lib, "gtk_print_operation_preview_get_type")
 
 	core.PuregoSafeRegister(&XGtkPrintOperationPreviewEndPreview, lib, "gtk_print_operation_preview_end_preview")
 	core.PuregoSafeRegister(&XGtkPrintOperationPreviewIsSelected, lib, "gtk_print_operation_preview_is_selected")

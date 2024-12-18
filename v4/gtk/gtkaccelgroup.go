@@ -149,6 +149,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAcceleratorGetDefaultModMask, lib, "gtk_accelerator_get_default_mod_mask")
 	core.PuregoSafeRegister(&xAcceleratorGetLabel, lib, "gtk_accelerator_get_label")
 	core.PuregoSafeRegister(&xAcceleratorGetLabelWithKeycode, lib, "gtk_accelerator_get_label_with_keycode")

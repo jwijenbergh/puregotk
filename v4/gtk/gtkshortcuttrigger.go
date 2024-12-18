@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type AlternativeTriggerClass struct {
@@ -53,6 +54,12 @@ func (x *ShortcutTriggerClass) GoPointer() uintptr {
 // This can be cascaded to combine more than two triggers.
 type AlternativeTrigger struct {
 	ShortcutTrigger
+}
+
+var xAlternativeTriggerGLibType func() types.GType
+
+func AlternativeTriggerGLibType() types.GType {
+	return xAlternativeTriggerGLibType()
 }
 
 func AlternativeTriggerNewFromInternalPtr(ptr uintptr) *AlternativeTrigger {
@@ -136,6 +143,12 @@ type KeyvalTrigger struct {
 	ShortcutTrigger
 }
 
+var xKeyvalTriggerGLibType func() types.GType
+
+func KeyvalTriggerGLibType() types.GType {
+	return xKeyvalTriggerGLibType()
+}
+
 func KeyvalTriggerNewFromInternalPtr(ptr uintptr) *KeyvalTrigger {
 	cls := &KeyvalTrigger{}
 	cls.Ptr = ptr
@@ -195,6 +208,12 @@ type MnemonicTrigger struct {
 	ShortcutTrigger
 }
 
+var xMnemonicTriggerGLibType func() types.GType
+
+func MnemonicTriggerGLibType() types.GType {
+	return xMnemonicTriggerGLibType()
+}
+
 func MnemonicTriggerNewFromInternalPtr(ptr uintptr) *MnemonicTrigger {
 	cls := &MnemonicTrigger{}
 	cls.Ptr = ptr
@@ -241,6 +260,12 @@ func (c *MnemonicTrigger) SetGoPointer(ptr uintptr) {
 // A `GtkShortcutTrigger` that never triggers.
 type NeverTrigger struct {
 	ShortcutTrigger
+}
+
+var xNeverTriggerGLibType func() types.GType
+
+func NeverTriggerGLibType() types.GType {
+	return xNeverTriggerGLibType()
 }
 
 func NeverTriggerNewFromInternalPtr(ptr uintptr) *NeverTrigger {
@@ -291,6 +316,12 @@ func NeverTriggerGet() *NeverTrigger {
 // have to replace it with a new one.
 type ShortcutTrigger struct {
 	gobject.Object
+}
+
+var xShortcutTriggerGLibType func() types.GType
+
+func ShortcutTriggerGLibType() types.GType {
+	return xShortcutTriggerGLibType()
 }
 
 func ShortcutTriggerNewFromInternalPtr(ptr uintptr) *ShortcutTrigger {
@@ -458,21 +489,31 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xAlternativeTriggerGLibType, lib, "gtk_alternative_trigger_get_type")
+
 	core.PuregoSafeRegister(&xNewAlternativeTrigger, lib, "gtk_alternative_trigger_new")
 
 	core.PuregoSafeRegister(&xAlternativeTriggerGetFirst, lib, "gtk_alternative_trigger_get_first")
 	core.PuregoSafeRegister(&xAlternativeTriggerGetSecond, lib, "gtk_alternative_trigger_get_second")
+
+	core.PuregoSafeRegister(&xKeyvalTriggerGLibType, lib, "gtk_keyval_trigger_get_type")
 
 	core.PuregoSafeRegister(&xNewKeyvalTrigger, lib, "gtk_keyval_trigger_new")
 
 	core.PuregoSafeRegister(&xKeyvalTriggerGetKeyval, lib, "gtk_keyval_trigger_get_keyval")
 	core.PuregoSafeRegister(&xKeyvalTriggerGetModifiers, lib, "gtk_keyval_trigger_get_modifiers")
 
+	core.PuregoSafeRegister(&xMnemonicTriggerGLibType, lib, "gtk_mnemonic_trigger_get_type")
+
 	core.PuregoSafeRegister(&xNewMnemonicTrigger, lib, "gtk_mnemonic_trigger_new")
 
 	core.PuregoSafeRegister(&xMnemonicTriggerGetKeyval, lib, "gtk_mnemonic_trigger_get_keyval")
 
+	core.PuregoSafeRegister(&xNeverTriggerGLibType, lib, "gtk_never_trigger_get_type")
+
 	core.PuregoSafeRegister(&xNeverTriggerGet, lib, "gtk_never_trigger_get")
+
+	core.PuregoSafeRegister(&xShortcutTriggerGLibType, lib, "gtk_shortcut_trigger_get_type")
 
 	core.PuregoSafeRegister(&xShortcutTriggerParseString, lib, "gtk_shortcut_trigger_parse_string")
 

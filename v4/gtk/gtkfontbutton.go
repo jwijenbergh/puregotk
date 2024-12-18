@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -32,6 +33,12 @@ import (
 // contains a button node with the .font style class.
 type FontButton struct {
 	Widget
+}
+
+var xFontButtonGLibType func() types.GType
+
+func FontButtonGLibType() types.GType {
+	return xFontButtonGLibType()
 }
 
 func FontButtonNewFromInternalPtr(ptr uintptr) *FontButton {
@@ -567,6 +574,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontButtonGLibType, lib, "gtk_font_button_get_type")
 
 	core.PuregoSafeRegister(&xNewFontButton, lib, "gtk_font_button_new")
 	core.PuregoSafeRegister(&xNewFontButtonWithFont, lib, "gtk_font_button_new_with_font")

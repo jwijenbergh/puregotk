@@ -5,12 +5,19 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Possible transitions between pages in a `GtkStack` widget.
 //
 // New values may be added to this enumeration over time.
 type StackTransitionType int
+
+var xStackTransitionTypeGLibType func() types.GType
+
+func StackTransitionTypeGLibType() types.GType {
+	return xStackTransitionTypeGLibType()
+}
 
 const (
 
@@ -113,6 +120,12 @@ const (
 // pages, which are the accessible parent objects of the child widgets.
 type Stack struct {
 	Widget
+}
+
+var xStackGLibType func() types.GType
+
+func StackGLibType() types.GType {
+	return xStackGLibType()
 }
 
 func StackNewFromInternalPtr(ptr uintptr) *Stack {
@@ -618,6 +631,12 @@ type StackPage struct {
 	gobject.Object
 }
 
+var xStackPageGLibType func() types.GType
+
+func StackPageGLibType() types.GType {
+	return xStackPageGLibType()
+}
+
 func StackPageNewFromInternalPtr(ptr uintptr) *StackPage {
 	cls := &StackPage{}
 	cls.Ptr = ptr
@@ -899,6 +918,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xStackTransitionTypeGLibType, lib, "gtk_stack_transition_type_get_type")
+
+	core.PuregoSafeRegister(&xStackGLibType, lib, "gtk_stack_get_type")
+
 	core.PuregoSafeRegister(&xNewStack, lib, "gtk_stack_new")
 
 	core.PuregoSafeRegister(&xStackAddChild, lib, "gtk_stack_add_child")
@@ -924,6 +947,8 @@ func init() {
 	core.PuregoSafeRegister(&xStackSetVisibleChild, lib, "gtk_stack_set_visible_child")
 	core.PuregoSafeRegister(&xStackSetVisibleChildFull, lib, "gtk_stack_set_visible_child_full")
 	core.PuregoSafeRegister(&xStackSetVisibleChildName, lib, "gtk_stack_set_visible_child_name")
+
+	core.PuregoSafeRegister(&xStackPageGLibType, lib, "gtk_stack_page_get_type")
 
 	core.PuregoSafeRegister(&xStackPageGetChild, lib, "gtk_stack_page_get_child")
 	core.PuregoSafeRegister(&xStackPageGetIconName, lib, "gtk_stack_page_get_icon_name")

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A 2D plane that extends infinitely in a 3D volume.
@@ -16,6 +17,12 @@ type Plane struct {
 	Normal uintptr
 
 	Constant float32
+}
+
+var xPlaneGLibType func() types.GType
+
+func PlaneGLibType() types.GType {
+	return xPlaneGLibType()
 }
 
 func (x *Plane) GoPointer() uintptr {
@@ -174,6 +181,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPlaneGLibType, lib, "graphene_plane_get_type")
 
 	core.PuregoSafeRegister(&xPlaneAlloc, lib, "graphene_plane_alloc")
 

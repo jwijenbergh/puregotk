@@ -111,6 +111,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xFprintf, lib, "g_fprintf")
 	core.PuregoSafeRegister(&xPrintf, lib, "g_printf")
 	core.PuregoSafeRegister(&xSprintf, lib, "g_sprintf")

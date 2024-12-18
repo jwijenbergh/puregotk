@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -15,6 +16,12 @@ import (
 // A render node applying a blending function between its two child nodes.
 type BlendNode struct {
 	RenderNode
+}
+
+var xBlendNodeGLibType func() types.GType
+
+func BlendNodeGLibType() types.GType {
+	return xBlendNodeGLibType()
 }
 
 func BlendNodeNewFromInternalPtr(ptr uintptr) *BlendNode {
@@ -96,6 +103,12 @@ type BlurNode struct {
 	RenderNode
 }
 
+var xBlurNodeGLibType func() types.GType
+
+func BlurNodeGLibType() types.GType {
+	return xBlurNodeGLibType()
+}
+
 func BlurNodeNewFromInternalPtr(ptr uintptr) *BlurNode {
 	cls := &BlurNode{}
 	cls.Ptr = ptr
@@ -155,6 +168,12 @@ func (c *BlurNode) SetGoPointer(ptr uintptr) {
 // A render node for a border.
 type BorderNode struct {
 	RenderNode
+}
+
+var xBorderNodeGLibType func() types.GType
+
+func BorderNodeGLibType() types.GType {
+	return xBorderNodeGLibType()
 }
 
 func BorderNodeNewFromInternalPtr(ptr uintptr) *BorderNode {
@@ -222,6 +241,12 @@ type CairoNode struct {
 	RenderNode
 }
 
+var xCairoNodeGLibType func() types.GType
+
+func CairoNodeGLibType() types.GType {
+	return xCairoNodeGLibType()
+}
+
 func CairoNodeNewFromInternalPtr(ptr uintptr) *CairoNode {
 	cls := &CairoNode{}
 	cls.Ptr = ptr
@@ -280,6 +305,12 @@ func (c *CairoNode) SetGoPointer(ptr uintptr) {
 // A render node applying a rectangular clip to its single child node.
 type ClipNode struct {
 	RenderNode
+}
+
+var xClipNodeGLibType func() types.GType
+
+func ClipNodeGLibType() types.GType {
+	return xClipNodeGLibType()
 }
 
 func ClipNodeNewFromInternalPtr(ptr uintptr) *ClipNode {
@@ -342,6 +373,12 @@ func (c *ClipNode) SetGoPointer(ptr uintptr) {
 // A render node controlling the color matrix of its single child node.
 type ColorMatrixNode struct {
 	RenderNode
+}
+
+var xColorMatrixNodeGLibType func() types.GType
+
+func ColorMatrixNodeGLibType() types.GType {
+	return xColorMatrixNodeGLibType()
 }
 
 func ColorMatrixNodeNewFromInternalPtr(ptr uintptr) *ColorMatrixNode {
@@ -421,6 +458,12 @@ type ColorNode struct {
 	RenderNode
 }
 
+var xColorNodeGLibType func() types.GType
+
+func ColorNodeGLibType() types.GType {
+	return xColorNodeGLibType()
+}
+
 func ColorNodeNewFromInternalPtr(ptr uintptr) *ColorNode {
 	cls := &ColorNode{}
 	cls.Ptr = ptr
@@ -464,6 +507,12 @@ func (c *ColorNode) SetGoPointer(ptr uintptr) {
 // A render node for a conic gradient.
 type ConicGradientNode struct {
 	RenderNode
+}
+
+var xConicGradientNodeGLibType func() types.GType
+
+func ConicGradientNodeGLibType() types.GType {
+	return xConicGradientNodeGLibType()
 }
 
 func ConicGradientNodeNewFromInternalPtr(ptr uintptr) *ConicGradientNode {
@@ -555,6 +604,12 @@ type ContainerNode struct {
 	RenderNode
 }
 
+var xContainerNodeGLibType func() types.GType
+
+func ContainerNodeGLibType() types.GType {
+	return xContainerNodeGLibType()
+}
+
 func ContainerNodeNewFromInternalPtr(ptr uintptr) *ContainerNode {
 	cls := &ContainerNode{}
 	cls.Ptr = ptr
@@ -616,6 +671,12 @@ func (c *ContainerNode) SetGoPointer(ptr uintptr) {
 // A render node cross fading between two child nodes.
 type CrossFadeNode struct {
 	RenderNode
+}
+
+var xCrossFadeNodeGLibType func() types.GType
+
+func CrossFadeNodeGLibType() types.GType {
+	return xCrossFadeNodeGLibType()
 }
 
 func CrossFadeNodeNewFromInternalPtr(ptr uintptr) *CrossFadeNode {
@@ -697,6 +758,12 @@ type DebugNode struct {
 	RenderNode
 }
 
+var xDebugNodeGLibType func() types.GType
+
+func DebugNodeGLibType() types.GType {
+	return xDebugNodeGLibType()
+}
+
 func DebugNodeNewFromInternalPtr(ptr uintptr) *DebugNode {
 	cls := &DebugNode{}
 	cls.Ptr = ptr
@@ -759,6 +826,12 @@ func (c *DebugNode) SetGoPointer(ptr uintptr) {
 // A render node using a GL shader when drawing its children nodes.
 type GLShaderNode struct {
 	RenderNode
+}
+
+var xGLShaderNodeGLibType func() types.GType
+
+func GLShaderNodeGLibType() types.GType {
+	return xGLShaderNodeGLibType()
 }
 
 func GLShaderNodeNewFromInternalPtr(ptr uintptr) *GLShaderNode {
@@ -864,6 +937,12 @@ type InsetShadowNode struct {
 	RenderNode
 }
 
+var xInsetShadowNodeGLibType func() types.GType
+
+func InsetShadowNodeGLibType() types.GType {
+	return xInsetShadowNodeGLibType()
+}
+
 func InsetShadowNodeNewFromInternalPtr(ptr uintptr) *InsetShadowNode {
 	cls := &InsetShadowNode{}
 	cls.Ptr = ptr
@@ -954,6 +1033,12 @@ type LinearGradientNode struct {
 	RenderNode
 }
 
+var xLinearGradientNodeGLibType func() types.GType
+
+func LinearGradientNodeGLibType() types.GType {
+	return xLinearGradientNodeGLibType()
+}
+
 func LinearGradientNodeNewFromInternalPtr(ptr uintptr) *LinearGradientNode {
 	cls := &LinearGradientNode{}
 	cls.Ptr = ptr
@@ -1026,6 +1111,12 @@ type OpacityNode struct {
 	RenderNode
 }
 
+var xOpacityNodeGLibType func() types.GType
+
+func OpacityNodeGLibType() types.GType {
+	return xOpacityNodeGLibType()
+}
+
 func OpacityNodeNewFromInternalPtr(ptr uintptr) *OpacityNode {
 	cls := &OpacityNode{}
 	cls.Ptr = ptr
@@ -1086,6 +1177,12 @@ func (c *OpacityNode) SetGoPointer(ptr uintptr) {
 // A render node for an outset shadow.
 type OutsetShadowNode struct {
 	RenderNode
+}
+
+var xOutsetShadowNodeGLibType func() types.GType
+
+func OutsetShadowNodeGLibType() types.GType {
+	return xOutsetShadowNodeGLibType()
 }
 
 func OutsetShadowNodeNewFromInternalPtr(ptr uintptr) *OutsetShadowNode {
@@ -1176,6 +1273,12 @@ func (c *OutsetShadowNode) SetGoPointer(ptr uintptr) {
 // A render node for a radial gradient.
 type RadialGradientNode struct {
 	RenderNode
+}
+
+var xRadialGradientNodeGLibType func() types.GType
+
+func RadialGradientNodeGLibType() types.GType {
+	return xRadialGradientNodeGLibType()
 }
 
 func RadialGradientNodeNewFromInternalPtr(ptr uintptr) *RadialGradientNode {
@@ -1280,6 +1383,12 @@ type RepeatNode struct {
 	RenderNode
 }
 
+var xRepeatNodeGLibType func() types.GType
+
+func RepeatNodeGLibType() types.GType {
+	return xRepeatNodeGLibType()
+}
+
 func RepeatNodeNewFromInternalPtr(ptr uintptr) *RepeatNode {
 	cls := &RepeatNode{}
 	cls.Ptr = ptr
@@ -1342,6 +1451,12 @@ type RepeatingLinearGradientNode struct {
 	RenderNode
 }
 
+var xRepeatingLinearGradientNodeGLibType func() types.GType
+
+func RepeatingLinearGradientNodeGLibType() types.GType {
+	return xRepeatingLinearGradientNodeGLibType()
+}
+
 func RepeatingLinearGradientNodeNewFromInternalPtr(ptr uintptr) *RepeatingLinearGradientNode {
 	cls := &RepeatingLinearGradientNode{}
 	cls.Ptr = ptr
@@ -1377,6 +1492,12 @@ func (c *RepeatingLinearGradientNode) SetGoPointer(ptr uintptr) {
 // A render node for a repeating radial gradient.
 type RepeatingRadialGradientNode struct {
 	RenderNode
+}
+
+var xRepeatingRadialGradientNodeGLibType func() types.GType
+
+func RepeatingRadialGradientNodeGLibType() types.GType {
+	return xRepeatingRadialGradientNodeGLibType()
 }
 
 func RepeatingRadialGradientNodeNewFromInternalPtr(ptr uintptr) *RepeatingRadialGradientNode {
@@ -1416,6 +1537,12 @@ func (c *RepeatingRadialGradientNode) SetGoPointer(ptr uintptr) {
 // A render node applying a rounded rectangle clip to its single child.
 type RoundedClipNode struct {
 	RenderNode
+}
+
+var xRoundedClipNodeGLibType func() types.GType
+
+func RoundedClipNodeGLibType() types.GType {
+	return xRoundedClipNodeGLibType()
 }
 
 func RoundedClipNodeNewFromInternalPtr(ptr uintptr) *RoundedClipNode {
@@ -1478,6 +1605,12 @@ func (c *RoundedClipNode) SetGoPointer(ptr uintptr) {
 // A render node drawing one or more shadows behind its single child node.
 type ShadowNode struct {
 	RenderNode
+}
+
+var xShadowNodeGLibType func() types.GType
+
+func ShadowNodeGLibType() types.GType {
+	return xShadowNodeGLibType()
 }
 
 func ShadowNodeNewFromInternalPtr(ptr uintptr) *ShadowNode {
@@ -1549,6 +1682,12 @@ func (c *ShadowNode) SetGoPointer(ptr uintptr) {
 // A render node drawing a set of glyphs.
 type TextNode struct {
 	RenderNode
+}
+
+var xTextNodeGLibType func() types.GType
+
+func TextNodeGLibType() types.GType {
+	return xTextNodeGLibType()
 }
 
 func TextNodeNewFromInternalPtr(ptr uintptr) *TextNode {
@@ -1651,6 +1790,12 @@ type TextureNode struct {
 	RenderNode
 }
 
+var xTextureNodeGLibType func() types.GType
+
+func TextureNodeGLibType() types.GType {
+	return xTextureNodeGLibType()
+}
+
 func TextureNodeNewFromInternalPtr(ptr uintptr) *TextureNode {
 	cls := &TextureNode{}
 	cls.Ptr = ptr
@@ -1702,6 +1847,12 @@ func (c *TextureNode) SetGoPointer(ptr uintptr) {
 // A render node applying a `GskTransform` to its single child node.
 type TransformNode struct {
 	RenderNode
+}
+
+var xTransformNodeGLibType func() types.GType
+
+func TransformNodeGLibType() types.GType {
+	return xTransformNodeGLibType()
 }
 
 func TransformNodeNewFromInternalPtr(ptr uintptr) *TransformNode {
@@ -1767,16 +1918,22 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xBlendNodeGLibType, lib, "gsk_blend_node_get_type")
+
 	core.PuregoSafeRegister(&xNewBlendNode, lib, "gsk_blend_node_new")
 
 	core.PuregoSafeRegister(&xBlendNodeGetBlendMode, lib, "gsk_blend_node_get_blend_mode")
 	core.PuregoSafeRegister(&xBlendNodeGetBottomChild, lib, "gsk_blend_node_get_bottom_child")
 	core.PuregoSafeRegister(&xBlendNodeGetTopChild, lib, "gsk_blend_node_get_top_child")
 
+	core.PuregoSafeRegister(&xBlurNodeGLibType, lib, "gsk_blur_node_get_type")
+
 	core.PuregoSafeRegister(&xNewBlurNode, lib, "gsk_blur_node_new")
 
 	core.PuregoSafeRegister(&xBlurNodeGetChild, lib, "gsk_blur_node_get_child")
 	core.PuregoSafeRegister(&xBlurNodeGetRadius, lib, "gsk_blur_node_get_radius")
+
+	core.PuregoSafeRegister(&xBorderNodeGLibType, lib, "gsk_border_node_get_type")
 
 	core.PuregoSafeRegister(&xNewBorderNode, lib, "gsk_border_node_new")
 
@@ -1784,15 +1941,21 @@ func init() {
 	core.PuregoSafeRegister(&xBorderNodeGetOutline, lib, "gsk_border_node_get_outline")
 	core.PuregoSafeRegister(&xBorderNodeGetWidths, lib, "gsk_border_node_get_widths")
 
+	core.PuregoSafeRegister(&xCairoNodeGLibType, lib, "gsk_cairo_node_get_type")
+
 	core.PuregoSafeRegister(&xNewCairoNode, lib, "gsk_cairo_node_new")
 
 	core.PuregoSafeRegister(&xCairoNodeGetDrawContext, lib, "gsk_cairo_node_get_draw_context")
 	core.PuregoSafeRegister(&xCairoNodeGetSurface, lib, "gsk_cairo_node_get_surface")
 
+	core.PuregoSafeRegister(&xClipNodeGLibType, lib, "gsk_clip_node_get_type")
+
 	core.PuregoSafeRegister(&xNewClipNode, lib, "gsk_clip_node_new")
 
 	core.PuregoSafeRegister(&xClipNodeGetChild, lib, "gsk_clip_node_get_child")
 	core.PuregoSafeRegister(&xClipNodeGetClip, lib, "gsk_clip_node_get_clip")
+
+	core.PuregoSafeRegister(&xColorMatrixNodeGLibType, lib, "gsk_color_matrix_node_get_type")
 
 	core.PuregoSafeRegister(&xNewColorMatrixNode, lib, "gsk_color_matrix_node_new")
 
@@ -1800,9 +1963,13 @@ func init() {
 	core.PuregoSafeRegister(&xColorMatrixNodeGetColorMatrix, lib, "gsk_color_matrix_node_get_color_matrix")
 	core.PuregoSafeRegister(&xColorMatrixNodeGetColorOffset, lib, "gsk_color_matrix_node_get_color_offset")
 
+	core.PuregoSafeRegister(&xColorNodeGLibType, lib, "gsk_color_node_get_type")
+
 	core.PuregoSafeRegister(&xNewColorNode, lib, "gsk_color_node_new")
 
 	core.PuregoSafeRegister(&xColorNodeGetColor, lib, "gsk_color_node_get_color")
+
+	core.PuregoSafeRegister(&xConicGradientNodeGLibType, lib, "gsk_conic_gradient_node_get_type")
 
 	core.PuregoSafeRegister(&xNewConicGradientNode, lib, "gsk_conic_gradient_node_new")
 
@@ -1812,10 +1979,14 @@ func init() {
 	core.PuregoSafeRegister(&xConicGradientNodeGetNColorStops, lib, "gsk_conic_gradient_node_get_n_color_stops")
 	core.PuregoSafeRegister(&xConicGradientNodeGetRotation, lib, "gsk_conic_gradient_node_get_rotation")
 
+	core.PuregoSafeRegister(&xContainerNodeGLibType, lib, "gsk_container_node_get_type")
+
 	core.PuregoSafeRegister(&xNewContainerNode, lib, "gsk_container_node_new")
 
 	core.PuregoSafeRegister(&xContainerNodeGetChild, lib, "gsk_container_node_get_child")
 	core.PuregoSafeRegister(&xContainerNodeGetNChildren, lib, "gsk_container_node_get_n_children")
+
+	core.PuregoSafeRegister(&xCrossFadeNodeGLibType, lib, "gsk_cross_fade_node_get_type")
 
 	core.PuregoSafeRegister(&xNewCrossFadeNode, lib, "gsk_cross_fade_node_new")
 
@@ -1823,10 +1994,14 @@ func init() {
 	core.PuregoSafeRegister(&xCrossFadeNodeGetProgress, lib, "gsk_cross_fade_node_get_progress")
 	core.PuregoSafeRegister(&xCrossFadeNodeGetStartChild, lib, "gsk_cross_fade_node_get_start_child")
 
+	core.PuregoSafeRegister(&xDebugNodeGLibType, lib, "gsk_debug_node_get_type")
+
 	core.PuregoSafeRegister(&xNewDebugNode, lib, "gsk_debug_node_new")
 
 	core.PuregoSafeRegister(&xDebugNodeGetChild, lib, "gsk_debug_node_get_child")
 	core.PuregoSafeRegister(&xDebugNodeGetMessage, lib, "gsk_debug_node_get_message")
+
+	core.PuregoSafeRegister(&xGLShaderNodeGLibType, lib, "gsk_gl_shader_node_get_type")
 
 	core.PuregoSafeRegister(&xNewGLShaderNode, lib, "gsk_gl_shader_node_new")
 
@@ -1834,6 +2009,8 @@ func init() {
 	core.PuregoSafeRegister(&xGLShaderNodeGetChild, lib, "gsk_gl_shader_node_get_child")
 	core.PuregoSafeRegister(&xGLShaderNodeGetNChildren, lib, "gsk_gl_shader_node_get_n_children")
 	core.PuregoSafeRegister(&xGLShaderNodeGetShader, lib, "gsk_gl_shader_node_get_shader")
+
+	core.PuregoSafeRegister(&xInsetShadowNodeGLibType, lib, "gsk_inset_shadow_node_get_type")
 
 	core.PuregoSafeRegister(&xNewInsetShadowNode, lib, "gsk_inset_shadow_node_new")
 
@@ -1844,6 +2021,8 @@ func init() {
 	core.PuregoSafeRegister(&xInsetShadowNodeGetOutline, lib, "gsk_inset_shadow_node_get_outline")
 	core.PuregoSafeRegister(&xInsetShadowNodeGetSpread, lib, "gsk_inset_shadow_node_get_spread")
 
+	core.PuregoSafeRegister(&xLinearGradientNodeGLibType, lib, "gsk_linear_gradient_node_get_type")
+
 	core.PuregoSafeRegister(&xNewLinearGradientNode, lib, "gsk_linear_gradient_node_new")
 
 	core.PuregoSafeRegister(&xLinearGradientNodeGetColorStops, lib, "gsk_linear_gradient_node_get_color_stops")
@@ -1851,10 +2030,14 @@ func init() {
 	core.PuregoSafeRegister(&xLinearGradientNodeGetNColorStops, lib, "gsk_linear_gradient_node_get_n_color_stops")
 	core.PuregoSafeRegister(&xLinearGradientNodeGetStart, lib, "gsk_linear_gradient_node_get_start")
 
+	core.PuregoSafeRegister(&xOpacityNodeGLibType, lib, "gsk_opacity_node_get_type")
+
 	core.PuregoSafeRegister(&xNewOpacityNode, lib, "gsk_opacity_node_new")
 
 	core.PuregoSafeRegister(&xOpacityNodeGetChild, lib, "gsk_opacity_node_get_child")
 	core.PuregoSafeRegister(&xOpacityNodeGetOpacity, lib, "gsk_opacity_node_get_opacity")
+
+	core.PuregoSafeRegister(&xOutsetShadowNodeGLibType, lib, "gsk_outset_shadow_node_get_type")
 
 	core.PuregoSafeRegister(&xNewOutsetShadowNode, lib, "gsk_outset_shadow_node_new")
 
@@ -1864,6 +2047,8 @@ func init() {
 	core.PuregoSafeRegister(&xOutsetShadowNodeGetDy, lib, "gsk_outset_shadow_node_get_dy")
 	core.PuregoSafeRegister(&xOutsetShadowNodeGetOutline, lib, "gsk_outset_shadow_node_get_outline")
 	core.PuregoSafeRegister(&xOutsetShadowNodeGetSpread, lib, "gsk_outset_shadow_node_get_spread")
+
+	core.PuregoSafeRegister(&xRadialGradientNodeGLibType, lib, "gsk_radial_gradient_node_get_type")
 
 	core.PuregoSafeRegister(&xNewRadialGradientNode, lib, "gsk_radial_gradient_node_new")
 
@@ -1875,25 +2060,37 @@ func init() {
 	core.PuregoSafeRegister(&xRadialGradientNodeGetStart, lib, "gsk_radial_gradient_node_get_start")
 	core.PuregoSafeRegister(&xRadialGradientNodeGetVradius, lib, "gsk_radial_gradient_node_get_vradius")
 
+	core.PuregoSafeRegister(&xRepeatNodeGLibType, lib, "gsk_repeat_node_get_type")
+
 	core.PuregoSafeRegister(&xNewRepeatNode, lib, "gsk_repeat_node_new")
 
 	core.PuregoSafeRegister(&xRepeatNodeGetChild, lib, "gsk_repeat_node_get_child")
 	core.PuregoSafeRegister(&xRepeatNodeGetChildBounds, lib, "gsk_repeat_node_get_child_bounds")
 
+	core.PuregoSafeRegister(&xRepeatingLinearGradientNodeGLibType, lib, "gsk_repeating_linear_gradient_node_get_type")
+
 	core.PuregoSafeRegister(&xNewRepeatingLinearGradientNode, lib, "gsk_repeating_linear_gradient_node_new")
 
+	core.PuregoSafeRegister(&xRepeatingRadialGradientNodeGLibType, lib, "gsk_repeating_radial_gradient_node_get_type")
+
 	core.PuregoSafeRegister(&xNewRepeatingRadialGradientNode, lib, "gsk_repeating_radial_gradient_node_new")
+
+	core.PuregoSafeRegister(&xRoundedClipNodeGLibType, lib, "gsk_rounded_clip_node_get_type")
 
 	core.PuregoSafeRegister(&xNewRoundedClipNode, lib, "gsk_rounded_clip_node_new")
 
 	core.PuregoSafeRegister(&xRoundedClipNodeGetChild, lib, "gsk_rounded_clip_node_get_child")
 	core.PuregoSafeRegister(&xRoundedClipNodeGetClip, lib, "gsk_rounded_clip_node_get_clip")
 
+	core.PuregoSafeRegister(&xShadowNodeGLibType, lib, "gsk_shadow_node_get_type")
+
 	core.PuregoSafeRegister(&xNewShadowNode, lib, "gsk_shadow_node_new")
 
 	core.PuregoSafeRegister(&xShadowNodeGetChild, lib, "gsk_shadow_node_get_child")
 	core.PuregoSafeRegister(&xShadowNodeGetNShadows, lib, "gsk_shadow_node_get_n_shadows")
 	core.PuregoSafeRegister(&xShadowNodeGetShadow, lib, "gsk_shadow_node_get_shadow")
+
+	core.PuregoSafeRegister(&xTextNodeGLibType, lib, "gsk_text_node_get_type")
 
 	core.PuregoSafeRegister(&xNewTextNode, lib, "gsk_text_node_new")
 
@@ -1904,9 +2101,13 @@ func init() {
 	core.PuregoSafeRegister(&xTextNodeGetOffset, lib, "gsk_text_node_get_offset")
 	core.PuregoSafeRegister(&xTextNodeHasColorGlyphs, lib, "gsk_text_node_has_color_glyphs")
 
+	core.PuregoSafeRegister(&xTextureNodeGLibType, lib, "gsk_texture_node_get_type")
+
 	core.PuregoSafeRegister(&xNewTextureNode, lib, "gsk_texture_node_new")
 
 	core.PuregoSafeRegister(&xTextureNodeGetTexture, lib, "gsk_texture_node_get_texture")
+
+	core.PuregoSafeRegister(&xTransformNodeGLibType, lib, "gsk_transform_node_get_type")
 
 	core.PuregoSafeRegister(&xNewTransformNode, lib, "gsk_transform_node_new")
 

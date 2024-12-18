@@ -30,6 +30,12 @@ type SingleSelection struct {
 	gobject.Object
 }
 
+var xSingleSelectionGLibType func() types.GType
+
+func SingleSelectionGLibType() types.GType {
+	return xSingleSelectionGLibType()
+}
+
 func SingleSelectionNewFromInternalPtr(ptr uintptr) *SingleSelection {
 	cls := &SingleSelection{}
 	cls.Ptr = ptr
@@ -402,6 +408,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSingleSelectionGLibType, lib, "gtk_single_selection_get_type")
 
 	core.PuregoSafeRegister(&xNewSingleSelection, lib, "gtk_single_selection_new")
 

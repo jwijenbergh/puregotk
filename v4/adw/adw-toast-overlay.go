@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -63,6 +64,12 @@ func (x *ToastOverlayClass) GoPointer() uintptr {
 // `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
 type ToastOverlay struct {
 	gtk.Widget
+}
+
+var xToastOverlayGLibType func() types.GType
+
+func ToastOverlayGLibType() types.GType {
+	return xToastOverlayGLibType()
 }
 
 func ToastOverlayNewFromInternalPtr(ptr uintptr) *ToastOverlay {
@@ -288,6 +295,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xToastOverlayGLibType, lib, "adw_toast_overlay_get_type")
 
 	core.PuregoSafeRegister(&xNewToastOverlay, lib, "adw_toast_overlay_new")
 

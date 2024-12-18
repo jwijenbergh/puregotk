@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Describe a rotation using Euler angles.
@@ -16,6 +17,12 @@ type Euler struct {
 	Angles uintptr
 
 	Order EulerOrder
+}
+
+var xEulerGLibType func() types.GType
+
+func EulerGLibType() types.GType {
+	return xEulerGLibType()
 }
 
 func (x *Euler) GoPointer() uintptr {
@@ -349,6 +356,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xEulerGLibType, lib, "graphene_euler_get_type")
 
 	core.PuregoSafeRegister(&xEulerAlloc, lib, "graphene_euler_alloc")
 

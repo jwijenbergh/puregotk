@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -39,6 +40,12 @@ func (x *CarouselIndicatorLinesClass) GoPointer() uintptr {
 // `carouselindicatorlines`.
 type CarouselIndicatorLines struct {
 	gtk.Widget
+}
+
+var xCarouselIndicatorLinesGLibType func() types.GType
+
+func CarouselIndicatorLinesGLibType() types.GType {
+	return xCarouselIndicatorLinesGLibType()
 }
 
 func CarouselIndicatorLinesNewFromInternalPtr(ptr uintptr) *CarouselIndicatorLines {
@@ -260,6 +267,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCarouselIndicatorLinesGLibType, lib, "adw_carousel_indicator_lines_get_type")
 
 	core.PuregoSafeRegister(&xNewCarouselIndicatorLines, lib, "adw_carousel_indicator_lines_new")
 

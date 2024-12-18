@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type UnixOutputStreamClass struct {
@@ -35,6 +36,12 @@ func (x *UnixOutputStreamPrivate) GoPointer() uintptr {
 // when using it.
 type UnixOutputStream struct {
 	OutputStream
+}
+
+var xUnixOutputStreamGLibType func() types.GType
+
+func UnixOutputStreamGLibType() types.GType {
+	return xUnixOutputStreamGLibType()
 }
 
 func UnixOutputStreamNewFromInternalPtr(ptr uintptr) *UnixOutputStream {
@@ -198,6 +205,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xUnixOutputStreamGLibType, lib, "g_unix_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixOutputStream, lib, "g_unix_output_stream_new")
 

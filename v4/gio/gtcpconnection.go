@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TcpConnectionClass struct {
@@ -27,6 +28,12 @@ func (x *TcpConnectionPrivate) GoPointer() uintptr {
 // for TCP/IP sockets.
 type TcpConnection struct {
 	SocketConnection
+}
+
+var xTcpConnectionGLibType func() types.GType
+
+func TcpConnectionGLibType() types.GType {
+	return xTcpConnectionGLibType()
 }
 
 func TcpConnectionNewFromInternalPtr(ptr uintptr) *TcpConnection {
@@ -75,6 +82,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTcpConnectionGLibType, lib, "g_tcp_connection_get_type")
 
 	core.PuregoSafeRegister(&xTcpConnectionGetGracefulDisconnect, lib, "g_tcp_connection_get_graceful_disconnect")
 	core.PuregoSafeRegister(&xTcpConnectionSetGracefulDisconnect, lib, "g_tcp_connection_set_graceful_disconnect")

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The `GdkToplevelLayout` struct contains information that
@@ -19,6 +20,12 @@ import (
 // to the user in various states (maximized, on all workspaces,
 // etc).
 type ToplevelLayout struct {
+}
+
+var xToplevelLayoutGLibType func() types.GType
+
+func ToplevelLayoutGLibType() types.GType {
+	return xToplevelLayoutGLibType()
 }
 
 func (x *ToplevelLayout) GoPointer() uintptr {
@@ -161,6 +168,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xToplevelLayoutGLibType, lib, "gdk_toplevel_layout_get_type")
 
 	core.PuregoSafeRegister(&xNewToplevelLayout, lib, "gdk_toplevel_layout_new")
 

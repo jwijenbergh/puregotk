@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type CellAreaContextClass struct {
@@ -40,6 +41,12 @@ func (x *CellAreaContextPrivate) GoPointer() uintptr {
 // such as gtk_cell_area_render() and gtk_cell_area_event().
 type CellAreaContext struct {
 	gobject.Object
+}
+
+var xCellAreaContextGLibType func() types.GType
+
+func CellAreaContextGLibType() types.GType {
+	return xCellAreaContextGLibType()
 }
 
 func CellAreaContextNewFromInternalPtr(ptr uintptr) *CellAreaContext {
@@ -230,6 +237,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCellAreaContextGLibType, lib, "gtk_cell_area_context_get_type")
 
 	core.PuregoSafeRegister(&xCellAreaContextAllocate, lib, "gtk_cell_area_context_allocate")
 	core.PuregoSafeRegister(&xCellAreaContextGetAllocation, lib, "gtk_cell_area_context_get_allocation")

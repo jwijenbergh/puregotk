@@ -35,6 +35,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xHsvToRgb, lib, "gtk_hsv_to_rgb")
 	core.PuregoSafeRegister(&xRgbToHsv, lib, "gtk_rgb_to_hsv")
 

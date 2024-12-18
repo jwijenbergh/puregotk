@@ -275,6 +275,12 @@ type ParamSpec struct {
 	Ptr uintptr
 }
 
+var xParamSpecGLibType func() types.GType
+
+func ParamSpecGLibType() types.GType {
+	return xParamSpecGLibType()
+}
+
 func ParamSpecNewFromInternalPtr(ptr uintptr) *ParamSpec {
 	cls := &ParamSpec{}
 	cls.Ptr = ptr
@@ -512,6 +518,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xParamTypeRegisterStatic, lib, "g_param_type_register_static")
 	core.PuregoSafeRegister(&xParamValueConvert, lib, "g_param_value_convert")
 	core.PuregoSafeRegister(&xParamValueDefaults, lib, "g_param_value_defaults")
@@ -524,6 +531,8 @@ func init() {
 	core.PuregoSafeRegister(&xParamSpecPoolListOwned, lib, "g_param_spec_pool_list_owned")
 	core.PuregoSafeRegister(&xParamSpecPoolLookup, lib, "g_param_spec_pool_lookup")
 	core.PuregoSafeRegister(&xParamSpecPoolRemove, lib, "g_param_spec_pool_remove")
+
+	core.PuregoSafeRegister(&xParamSpecGLibType, lib, "intern")
 
 	core.PuregoSafeRegister(&xParamSpecGetBlurb, lib, "g_param_spec_get_blurb")
 	core.PuregoSafeRegister(&xParamSpecGetDefaultValue, lib, "g_param_spec_get_default_value")

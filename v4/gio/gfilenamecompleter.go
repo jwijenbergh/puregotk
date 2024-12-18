@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FilenameCompleterClass struct {
@@ -23,6 +24,12 @@ func (x *FilenameCompleterClass) GoPointer() uintptr {
 // completion strings for widget implementations.
 type FilenameCompleter struct {
 	gobject.Object
+}
+
+var xFilenameCompleterGLibType func() types.GType
+
+func FilenameCompleterGLibType() types.GType {
+	return xFilenameCompleterGLibType()
 }
 
 func FilenameCompleterNewFromInternalPtr(ptr uintptr) *FilenameCompleter {
@@ -108,6 +115,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFilenameCompleterGLibType, lib, "g_filename_completer_get_type")
 
 	core.PuregoSafeRegister(&xNewFilenameCompleter, lib, "g_filename_completer_new")
 

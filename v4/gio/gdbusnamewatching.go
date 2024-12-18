@@ -106,6 +106,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBusUnwatchName, lib, "g_bus_unwatch_name")
 	core.PuregoSafeRegister(&xBusWatchName, lib, "g_bus_watch_name")
 	core.PuregoSafeRegister(&xBusWatchNameOnConnection, lib, "g_bus_watch_name_on_connection")

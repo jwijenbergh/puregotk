@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type IMMulticontextClass struct {
@@ -31,6 +32,12 @@ func (x *IMMulticontextPrivate) GoPointer() uintptr {
 // input methods.
 type IMMulticontext struct {
 	IMContext
+}
+
+var xIMMulticontextGLibType func() types.GType
+
+func IMMulticontextGLibType() types.GType {
+	return xIMMulticontextGLibType()
 }
 
 func IMMulticontextNewFromInternalPtr(ptr uintptr) *IMMulticontext {
@@ -93,6 +100,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xIMMulticontextGLibType, lib, "gtk_im_multicontext_get_type")
 
 	core.PuregoSafeRegister(&xNewIMMulticontext, lib, "gtk_im_multicontext_new")
 

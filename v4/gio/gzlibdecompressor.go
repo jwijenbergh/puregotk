@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ZlibDecompressorClass struct {
@@ -22,6 +23,12 @@ func (x *ZlibDecompressorClass) GoPointer() uintptr {
 // decompresses data compressed with zlib.
 type ZlibDecompressor struct {
 	gobject.Object
+}
+
+var xZlibDecompressorGLibType func() types.GType
+
+func ZlibDecompressorGLibType() types.GType {
+	return xZlibDecompressorGLibType()
 }
 
 func ZlibDecompressorNewFromInternalPtr(ptr uintptr) *ZlibDecompressor {
@@ -182,6 +189,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xZlibDecompressorGLibType, lib, "g_zlib_decompressor_get_type")
 
 	core.PuregoSafeRegister(&xNewZlibDecompressor, lib, "g_zlib_decompressor_new")
 

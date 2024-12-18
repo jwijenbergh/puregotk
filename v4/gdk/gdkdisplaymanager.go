@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 var xSetAllowedBackends func(string)
@@ -101,6 +102,12 @@ func SetAllowedBackends(BackendsVar string) {
 // ```
 type DisplayManager struct {
 	gobject.Object
+}
+
+var xDisplayManagerGLibType func() types.GType
+
+func DisplayManagerGLibType() types.GType {
+	return xDisplayManagerGLibType()
 }
 
 func DisplayManagerNewFromInternalPtr(ptr uintptr) *DisplayManager {
@@ -219,7 +226,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSetAllowedBackends, lib, "gdk_set_allowed_backends")
+
+	core.PuregoSafeRegister(&xDisplayManagerGLibType, lib, "gdk_display_manager_get_type")
 
 	core.PuregoSafeRegister(&xDisplayManagerGetDefaultDisplay, lib, "gdk_display_manager_get_default_display")
 	core.PuregoSafeRegister(&xDisplayManagerListDisplays, lib, "gdk_display_manager_list_displays")

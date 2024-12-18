@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A structure capable of holding a 4x4 matrix.
@@ -14,6 +15,12 @@ import (
 // should never be accessed directly.
 type Matrix struct {
 	Value uintptr
+}
+
+var xMatrixGLibType func() types.GType
+
+func MatrixGLibType() types.GType {
+	return xMatrixGLibType()
 }
 
 func (x *Matrix) GoPointer() uintptr {
@@ -791,6 +798,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMatrixGLibType, lib, "graphene_matrix_get_type")
 
 	core.PuregoSafeRegister(&xMatrixAlloc, lib, "graphene_matrix_alloc")
 

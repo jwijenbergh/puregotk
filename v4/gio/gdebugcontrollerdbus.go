@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GDebugControllerDBus.
@@ -135,6 +136,12 @@ func (x *DebugControllerDBusClass) GoPointer() uintptr {
 // ]|
 type DebugControllerDBus struct {
 	gobject.Object
+}
+
+var xDebugControllerDBusGLibType func() types.GType
+
+func DebugControllerDBusGLibType() types.GType {
+	return xDebugControllerDBusGLibType()
 }
 
 func DebugControllerDBusNewFromInternalPtr(ptr uintptr) *DebugControllerDBus {
@@ -306,6 +313,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDebugControllerDBusGLibType, lib, "g_debug_controller_dbus_get_type")
 
 	core.PuregoSafeRegister(&xNewDebugControllerDBus, lib, "g_debug_controller_dbus_new")
 

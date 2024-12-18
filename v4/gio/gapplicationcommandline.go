@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The #GApplicationCommandLineClass-struct
@@ -202,6 +203,12 @@ func (x *ApplicationCommandLinePrivate) GoPointer() uintptr {
 // [gapplication-example-cmdline3.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline3.c)
 type ApplicationCommandLine struct {
 	gobject.Object
+}
+
+var xApplicationCommandLineGLibType func() types.GType
+
+func ApplicationCommandLineGLibType() types.GType {
+	return xApplicationCommandLineGLibType()
 }
 
 func ApplicationCommandLineNewFromInternalPtr(ptr uintptr) *ApplicationCommandLine {
@@ -455,6 +462,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xApplicationCommandLineGLibType, lib, "g_application_command_line_get_type")
 
 	core.PuregoSafeRegister(&xApplicationCommandLineCreateFileForArg, lib, "g_application_command_line_create_file_for_arg")
 	core.PuregoSafeRegister(&xApplicationCommandLineGetArguments, lib, "g_application_command_line_get_arguments")

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GestureStylusClass struct {
@@ -24,6 +25,12 @@ func (x *GestureStylusClass) GoPointer() uintptr {
 // stylus events.
 type GestureStylus struct {
 	GestureSingle
+}
+
+var xGestureStylusGLibType func() types.GType
+
+func GestureStylusGLibType() types.GType {
+	return xGestureStylusGLibType()
 }
 
 func GestureStylusNewFromInternalPtr(ptr uintptr) *GestureStylus {
@@ -212,6 +219,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGestureStylusGLibType, lib, "gtk_gesture_stylus_get_type")
 
 	core.PuregoSafeRegister(&xNewGestureStylus, lib, "gtk_gesture_stylus_new")
 

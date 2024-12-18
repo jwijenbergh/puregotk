@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
@@ -27,6 +28,12 @@ import (
 // and “cancel_button”.
 type FontChooserDialog struct {
 	Dialog
+}
+
+var xFontChooserDialogGLibType func() types.GType
+
+func FontChooserDialogGLibType() types.GType {
+	return xFontChooserDialogGLibType()
 }
 
 func FontChooserDialogNewFromInternalPtr(ptr uintptr) *FontChooserDialog {
@@ -528,6 +535,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontChooserDialogGLibType, lib, "gtk_font_chooser_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewFontChooserDialog, lib, "gtk_font_chooser_dialog_new")
 

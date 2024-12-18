@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -34,6 +35,12 @@ func (x *BinClass) GoPointer() uintptr {
 // for handling a single child widget.
 type Bin struct {
 	gtk.Widget
+}
+
+var xBinGLibType func() types.GType
+
+func BinGLibType() types.GType {
+	return xBinGLibType()
 }
 
 func BinNewFromInternalPtr(ptr uintptr) *Bin {
@@ -241,6 +248,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBinGLibType, lib, "adw_bin_get_type")
 
 	core.PuregoSafeRegister(&xNewBin, lib, "adw_bin_new")
 

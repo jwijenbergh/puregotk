@@ -223,6 +223,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xEnumCompleteTypeInfo, lib, "g_enum_complete_type_info")
 	core.PuregoSafeRegister(&xEnumGetValue, lib, "g_enum_get_value")
 	core.PuregoSafeRegister(&xEnumGetValueByName, lib, "g_enum_get_value_by_name")

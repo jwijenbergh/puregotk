@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // vtable for a #GTlsServerConnection implementation.
@@ -24,6 +25,13 @@ type TlsServerConnection interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 }
+
+var xTlsServerConnectionGLibType func() types.GType
+
+func TlsServerConnectionGLibType() types.GType {
+	return xTlsServerConnectionGLibType()
+}
+
 type TlsServerConnectionBase struct {
 	Ptr uintptr
 }
@@ -67,6 +75,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTlsServerConnectionNew, lib, "g_tls_server_connection_new")
+
+	core.PuregoSafeRegister(&xTlsServerConnectionGLibType, lib, "g_tls_server_connection_get_type")
 
 }

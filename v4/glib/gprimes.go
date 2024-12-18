@@ -25,6 +25,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSpacedPrimesClosest, lib, "g_spaced_primes_closest")
 
 }

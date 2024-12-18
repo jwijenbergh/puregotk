@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Interface for implementing operations for mounts.
@@ -68,6 +69,13 @@ type Mount interface {
 	UnmountWithOperationFinish(ResultVar AsyncResult) bool
 	Unshadow()
 }
+
+var xMountGLibType func() types.GType
+
+func MountGLibType() types.GType {
+	return xMountGLibType()
+}
+
 type MountBase struct {
 	Ptr uintptr
 }
@@ -458,6 +466,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMountGLibType, lib, "g_mount_get_type")
 
 	core.PuregoSafeRegister(&XGMountCanEject, lib, "g_mount_can_eject")
 	core.PuregoSafeRegister(&XGMountCanUnmount, lib, "g_mount_can_unmount")

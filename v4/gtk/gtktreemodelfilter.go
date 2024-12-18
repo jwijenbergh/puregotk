@@ -111,6 +111,12 @@ type TreeModelFilter struct {
 	gobject.Object
 }
 
+var xTreeModelFilterGLibType func() types.GType
+
+func TreeModelFilterGLibType() types.GType {
+	return xTreeModelFilterGLibType()
+}
+
 func TreeModelFilterNewFromInternalPtr(ptr uintptr) *TreeModelFilter {
 	cls := &TreeModelFilter{}
 	cls.Ptr = ptr
@@ -657,6 +663,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeModelFilterGLibType, lib, "gtk_tree_model_filter_get_type")
 
 	core.PuregoSafeRegister(&xTreeModelFilterClearCache, lib, "gtk_tree_model_filter_clear_cache")
 	core.PuregoSafeRegister(&xTreeModelFilterConvertChildIterToIter, lib, "gtk_tree_model_filter_convert_child_iter_to_iter")

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // vtable for a #GDtlsClientConnection implementation.
@@ -30,6 +31,13 @@ type DtlsClientConnection interface {
 	SetServerIdentity(IdentityVar SocketConnectable)
 	SetValidationFlags(FlagsVar TlsCertificateFlags)
 }
+
+var xDtlsClientConnectionGLibType func() types.GType
+
+func DtlsClientConnectionGLibType() types.GType {
+	return xDtlsClientConnectionGLibType()
+}
+
 type DtlsClientConnectionBase struct {
 	Ptr uintptr
 }
@@ -129,7 +137,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDtlsClientConnectionNew, lib, "g_dtls_client_connection_new")
+
+	core.PuregoSafeRegister(&xDtlsClientConnectionGLibType, lib, "g_dtls_client_connection_get_type")
 
 	core.PuregoSafeRegister(&XGDtlsClientConnectionGetAcceptedCas, lib, "g_dtls_client_connection_get_accepted_cas")
 	core.PuregoSafeRegister(&XGDtlsClientConnectionGetServerIdentity, lib, "g_dtls_client_connection_get_server_identity")

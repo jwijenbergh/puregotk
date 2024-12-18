@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ListItemClass struct {
@@ -32,6 +33,12 @@ func (x *ListItemClass) GoPointer() uintptr {
 //     The [property@Gtk.ListItem:item] property is not %NULL.
 type ListItem struct {
 	gobject.Object
+}
+
+var xListItemGLibType func() types.GType
+
+func ListItemGLibType() types.GType {
+	return xListItemGLibType()
 }
 
 func ListItemNewFromInternalPtr(ptr uintptr) *ListItem {
@@ -185,6 +192,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xListItemGLibType, lib, "gtk_list_item_get_type")
 
 	core.PuregoSafeRegister(&xListItemGetActivatable, lib, "gtk_list_item_get_activatable")
 	core.PuregoSafeRegister(&xListItemGetChild, lib, "gtk_list_item_get_child")

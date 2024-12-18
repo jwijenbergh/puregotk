@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TextTagClass struct {
@@ -46,6 +47,12 @@ func (x *TextTagPrivate) GoPointer() uintptr {
 // They are maintained by GTK and you should not set them independently.
 type TextTag struct {
 	gobject.Object
+}
+
+var xTextTagGLibType func() types.GType
+
+func TextTagGLibType() types.GType {
+	return xTextTagGLibType()
 }
 
 func TextTagNewFromInternalPtr(ptr uintptr) *TextTag {
@@ -127,6 +134,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextTagGLibType, lib, "gtk_text_tag_get_type")
 
 	core.PuregoSafeRegister(&xNewTextTag, lib, "gtk_text_tag_new")
 

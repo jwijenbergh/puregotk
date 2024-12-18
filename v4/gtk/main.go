@@ -52,6 +52,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBuilderErrorQuark, lib, "gtk_builder_error_quark")
 	core.PuregoSafeRegister(&xConstraintVflParserErrorQuark, lib, "gtk_constraint_vfl_parser_error_quark")
 	core.PuregoSafeRegister(&xCssParserErrorQuark, lib, "gtk_css_parser_error_quark")

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -54,6 +55,12 @@ import (
 // The .ui file for this example can be found [here](https://gitlab.gnome.org/GNOME/gtk/tree/main/demos/gtk-demo/shortcuts-builder.ui).
 type ShortcutsWindow struct {
 	Window
+}
+
+var xShortcutsWindowGLibType func() types.GType
+
+func ShortcutsWindowGLibType() types.GType {
+	return xShortcutsWindowGLibType()
 }
 
 func ShortcutsWindowNewFromInternalPtr(ptr uintptr) *ShortcutsWindow {

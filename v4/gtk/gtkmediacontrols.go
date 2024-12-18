@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MediaControlsClass struct {
@@ -24,6 +25,12 @@ func (x *MediaControlsClass) GoPointer() uintptr {
 // Usually, `GtkMediaControls` is used as part of [class@Gtk.Video].
 type MediaControls struct {
 	Widget
+}
+
+var xMediaControlsGLibType func() types.GType
+
+func MediaControlsGLibType() types.GType {
+	return xMediaControlsGLibType()
 }
 
 func MediaControlsNewFromInternalPtr(ptr uintptr) *MediaControls {
@@ -231,6 +238,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMediaControlsGLibType, lib, "gtk_media_controls_get_type")
 
 	core.PuregoSafeRegister(&xNewMediaControls, lib, "gtk_media_controls_new")
 

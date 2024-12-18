@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 const (
@@ -25,6 +26,12 @@ const (
 // See [method@Gtk.SpinButton.set_update_policy].
 type SpinButtonUpdatePolicy int
 
+var xSpinButtonUpdatePolicyGLibType func() types.GType
+
+func SpinButtonUpdatePolicyGLibType() types.GType {
+	return xSpinButtonUpdatePolicyGLibType()
+}
+
 const (
 
 	// When refreshing your `GtkSpinButton`, the value is
@@ -39,6 +46,12 @@ const (
 // The values of the GtkSpinType enumeration are used to specify the
 // change to make in gtk_spin_button_spin().
 type SpinType int
+
+var xSpinTypeGLibType func() types.GType
+
+func SpinTypeGLibType() types.GType {
+	return xSpinTypeGLibType()
+}
 
 const (
 
@@ -179,6 +192,12 @@ const (
 // `GtkSpinButton` uses the %GTK_ACCESSIBLE_ROLE_SPIN_BUTTON role.
 type SpinButton struct {
 	Widget
+}
+
+var xSpinButtonGLibType func() types.GType
+
+func SpinButtonGLibType() types.GType {
+	return xSpinButtonGLibType()
 }
 
 func SpinButtonNewFromInternalPtr(ptr uintptr) *SpinButton {
@@ -1069,6 +1088,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSpinButtonUpdatePolicyGLibType, lib, "gtk_spin_button_update_policy_get_type")
+
+	core.PuregoSafeRegister(&xSpinTypeGLibType, lib, "gtk_spin_type_get_type")
+
+	core.PuregoSafeRegister(&xSpinButtonGLibType, lib, "gtk_spin_button_get_type")
 
 	core.PuregoSafeRegister(&xNewSpinButton, lib, "gtk_spin_button_new")
 	core.PuregoSafeRegister(&xNewSpinButtonWithRange, lib, "gtk_spin_button_new_with_range")

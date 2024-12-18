@@ -300,6 +300,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAtomicIntAdd, lib, "g_atomic_int_add")
 	core.PuregoSafeRegister(&xAtomicIntAnd, lib, "g_atomic_int_and")
 	core.PuregoSafeRegister(&xAtomicIntCompareAndExchange, lib, "g_atomic_int_compare_and_exchange")

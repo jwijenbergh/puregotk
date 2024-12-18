@@ -55,6 +55,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPixbufGetFromSurface, lib, "gdk_pixbuf_get_from_surface")
 	core.PuregoSafeRegister(&xPixbufGetFromTexture, lib, "gdk_pixbuf_get_from_texture")
 

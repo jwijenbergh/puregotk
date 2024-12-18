@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A function used by gtk_tree_selection_selected_foreach() to map all
@@ -49,6 +50,12 @@ type TreeSelectionFunc func(uintptr, uintptr, *TreePath, bool, uintptr) bool
 // select_row on an already selected row).
 type TreeSelection struct {
 	gobject.Object
+}
+
+var xTreeSelectionGLibType func() types.GType
+
+func TreeSelectionGLibType() types.GType {
+	return xTreeSelectionGLibType()
 }
 
 func TreeSelectionNewFromInternalPtr(ptr uintptr) *TreeSelection {
@@ -307,6 +314,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeSelectionGLibType, lib, "gtk_tree_selection_get_type")
 
 	core.PuregoSafeRegister(&xTreeSelectionCountSelectedRows, lib, "gtk_tree_selection_count_selected_rows")
 	core.PuregoSafeRegister(&xTreeSelectionGetMode, lib, "gtk_tree_selection_get_mode")

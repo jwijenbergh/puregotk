@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MemoryTextureClass struct {
@@ -20,6 +21,12 @@ func (x *MemoryTextureClass) GoPointer() uintptr {
 // A `GdkTexture` representing image data in memory.
 type MemoryTexture struct {
 	Texture
+}
+
+var xMemoryTextureGLibType func() types.GType
+
+func MemoryTextureGLibType() types.GType {
+	return xMemoryTextureGLibType()
 }
 
 func MemoryTextureNewFromInternalPtr(ptr uintptr) *MemoryTexture {
@@ -292,6 +299,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMemoryTextureGLibType, lib, "gdk_memory_texture_get_type")
 
 	core.PuregoSafeRegister(&xNewMemoryTexture, lib, "gdk_memory_texture_new")
 

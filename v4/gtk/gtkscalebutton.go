@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ScaleButtonClass struct {
@@ -32,6 +33,12 @@ func (x *ScaleButtonClass) GoPointer() uintptr {
 // it from a plain `GtkButton`, it gets the .scale style class.
 type ScaleButton struct {
 	Widget
+}
+
+var xScaleButtonGLibType func() types.GType
+
+func ScaleButtonGLibType() types.GType {
+	return xScaleButtonGLibType()
 }
 
 func ScaleButtonNewFromInternalPtr(ptr uintptr) *ScaleButton {
@@ -414,6 +421,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xScaleButtonGLibType, lib, "gtk_scale_button_get_type")
 
 	core.PuregoSafeRegister(&xNewScaleButton, lib, "gtk_scale_button_new")
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -24,6 +25,12 @@ import (
 // use [method@Gtk.AppChooserDialog.set_heading].
 type AppChooserDialog struct {
 	Dialog
+}
+
+var xAppChooserDialogGLibType func() types.GType
+
+func AppChooserDialogGLibType() types.GType {
+	return xAppChooserDialogGLibType()
 }
 
 func AppChooserDialogNewFromInternalPtr(ptr uintptr) *AppChooserDialog {
@@ -399,6 +406,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAppChooserDialogGLibType, lib, "gtk_app_chooser_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewAppChooserDialog, lib, "gtk_app_chooser_dialog_new")
 	core.PuregoSafeRegister(&xNewAppChooserDialogForContentType, lib, "gtk_app_chooser_dialog_new_for_content_type")

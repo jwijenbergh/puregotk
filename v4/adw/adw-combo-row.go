@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -75,6 +76,12 @@ func (x *ComboRowClass) GoPointer() uintptr {
 // `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
 type ComboRow struct {
 	ActionRow
+}
+
+var xComboRowGLibType func() types.GType
+
+func ComboRowGLibType() types.GType {
+	return xComboRowGLibType()
 }
 
 func ComboRowNewFromInternalPtr(ptr uintptr) *ComboRow {
@@ -515,6 +522,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xComboRowGLibType, lib, "adw_combo_row_get_type")
 
 	core.PuregoSafeRegister(&xNewComboRow, lib, "adw_combo_row_new")
 

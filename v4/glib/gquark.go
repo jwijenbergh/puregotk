@@ -110,6 +110,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xInternStaticString, lib, "g_intern_static_string")
 	core.PuregoSafeRegister(&xInternString, lib, "g_intern_string")
 	core.PuregoSafeRegister(&xQuarkFromStaticString, lib, "g_quark_from_static_string")

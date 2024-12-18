@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual function table for #GAction.
@@ -59,6 +60,13 @@ type Action interface {
 	GetStateHint() *glib.Variant
 	GetStateType() *glib.VariantType
 }
+
+var xActionGLibType func() types.GType
+
+func ActionGLibType() types.GType {
+	return xActionGLibType()
+}
+
 type ActionBase struct {
 	Ptr uintptr
 }
@@ -271,9 +279,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xActionNameIsValid, lib, "g_action_name_is_valid")
 	core.PuregoSafeRegister(&xActionParseDetailedName, lib, "g_action_parse_detailed_name")
 	core.PuregoSafeRegister(&xActionPrintDetailedName, lib, "g_action_print_detailed_name")
+
+	core.PuregoSafeRegister(&xActionGLibType, lib, "g_action_get_type")
 
 	core.PuregoSafeRegister(&XGActionActivate, lib, "g_action_activate")
 	core.PuregoSafeRegister(&XGActionChangeState, lib, "g_action_change_state")

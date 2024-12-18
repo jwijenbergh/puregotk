@@ -8,11 +8,18 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Defines a Unix mount entry (e.g. &lt;filename&gt;/media/cdrom&lt;/filename&gt;).
 // This corresponds roughly to a mtab entry.
 type UnixMountEntry struct {
+}
+
+var xUnixMountEntryGLibType func() types.GType
+
+func UnixMountEntryGLibType() types.GType {
+	return xUnixMountEntryGLibType()
 }
 
 func (x *UnixMountEntry) GoPointer() uintptr {
@@ -29,6 +36,12 @@ func (x *UnixMountMonitorClass) GoPointer() uintptr {
 // Defines a Unix mount point (e.g. &lt;filename&gt;/dev&lt;/filename&gt;).
 // This corresponds roughly to a fstab entry.
 type UnixMountPoint struct {
+}
+
+var xUnixMountPointGLibType func() types.GType
+
+func UnixMountPointGLibType() types.GType {
+	return xUnixMountPointGLibType()
 }
 
 func (x *UnixMountPoint) GoPointer() uintptr {
@@ -476,6 +489,12 @@ type UnixMountMonitor struct {
 	gobject.Object
 }
 
+var xUnixMountMonitorGLibType func() types.GType
+
+func UnixMountMonitorGLibType() types.GType {
+	return xUnixMountMonitorGLibType()
+}
+
 func UnixMountMonitorNewFromInternalPtr(ptr uintptr) *UnixMountMonitor {
 	cls := &UnixMountMonitor{}
 	cls.Ptr = ptr
@@ -593,6 +612,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xUnixIsMountPathSystemInternal, lib, "g_unix_is_mount_path_system_internal")
 	core.PuregoSafeRegister(&xUnixIsSystemDevicePath, lib, "g_unix_is_system_device_path")
 	core.PuregoSafeRegister(&xUnixIsSystemFsType, lib, "g_unix_is_system_fs_type")
@@ -619,6 +639,10 @@ func init() {
 	core.PuregoSafeRegister(&xUnixMountsChangedSince, lib, "g_unix_mounts_changed_since")
 	core.PuregoSafeRegister(&xUnixMountsGet, lib, "g_unix_mounts_get")
 
+	core.PuregoSafeRegister(&xUnixMountEntryGLibType, lib, "g_unix_mount_entry_get_type")
+
+	core.PuregoSafeRegister(&xUnixMountPointGLibType, lib, "g_unix_mount_point_get_type")
+
 	core.PuregoSafeRegister(&xUnixMountPointCompare, lib, "g_unix_mount_point_compare")
 	core.PuregoSafeRegister(&xUnixMountPointCopy, lib, "g_unix_mount_point_copy")
 	core.PuregoSafeRegister(&xUnixMountPointFree, lib, "g_unix_mount_point_free")
@@ -633,6 +657,8 @@ func init() {
 	core.PuregoSafeRegister(&xUnixMountPointIsLoopback, lib, "g_unix_mount_point_is_loopback")
 	core.PuregoSafeRegister(&xUnixMountPointIsReadonly, lib, "g_unix_mount_point_is_readonly")
 	core.PuregoSafeRegister(&xUnixMountPointIsUserMountable, lib, "g_unix_mount_point_is_user_mountable")
+
+	core.PuregoSafeRegister(&xUnixMountMonitorGLibType, lib, "g_unix_mount_monitor_get_type")
 
 	core.PuregoSafeRegister(&xNewUnixMountMonitor, lib, "g_unix_mount_monitor_new")
 

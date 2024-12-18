@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class structure for the #GTlsConnection type.
@@ -36,6 +37,12 @@ func (x *TlsConnectionPrivate) GoPointer() uintptr {
 // For DTLS (Datagram TLS) support, see #GDtlsConnection.
 type TlsConnection struct {
 	IOStream
+}
+
+var xTlsConnectionGLibType func() types.GType
+
+func TlsConnectionGLibType() types.GType {
+	return xTlsConnectionGLibType()
 }
 
 func TlsConnectionNewFromInternalPtr(ptr uintptr) *TlsConnection {
@@ -523,6 +530,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTlsConnectionGLibType, lib, "g_tls_connection_get_type")
 
 	core.PuregoSafeRegister(&xTlsConnectionEmitAcceptCertificate, lib, "g_tls_connection_emit_accept_certificate")
 	core.PuregoSafeRegister(&xTlsConnectionGetCertificate, lib, "g_tls_connection_get_certificate")

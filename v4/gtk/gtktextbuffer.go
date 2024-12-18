@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The class structure for `GtkTextBuffer`.
@@ -38,6 +39,12 @@ func (x *TextBufferPrivate) GoPointer() uintptr {
 // content, see [method@Gtk.TextBuffer.set_enable_undo].
 type TextBuffer struct {
 	gobject.Object
+}
+
+var xTextBufferGLibType func() types.GType
+
+func TextBufferGLibType() types.GType {
+	return xTextBufferGLibType()
 }
 
 func TextBufferNewFromInternalPtr(ptr uintptr) *TextBuffer {
@@ -1543,6 +1550,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextBufferGLibType, lib, "gtk_text_buffer_get_type")
 
 	core.PuregoSafeRegister(&xNewTextBuffer, lib, "gtk_text_buffer_new")
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The interface for pollable output streams.
@@ -46,6 +47,13 @@ type PollableOutputStream interface {
 	WriteNonblocking(BufferVar []byte, CountVar uint, CancellableVar *Cancellable) int
 	WritevNonblocking(VectorsVar []OutputVector, NVectorsVar uint, BytesWrittenVar uint, CancellableVar *Cancellable) PollableReturn
 }
+
+var xPollableOutputStreamGLibType func() types.GType
+
+func PollableOutputStreamGLibType() types.GType {
+	return xPollableOutputStreamGLibType()
+}
+
 type PollableOutputStreamBase struct {
 	Ptr uintptr
 }
@@ -163,6 +171,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPollableOutputStreamGLibType, lib, "g_pollable_output_stream_get_type")
 
 	core.PuregoSafeRegister(&XGPollableOutputStreamCanPoll, lib, "g_pollable_output_stream_can_poll")
 	core.PuregoSafeRegister(&XGPollableOutputStreamCreateSource, lib, "g_pollable_output_stream_create_source")

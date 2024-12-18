@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of function passed to gtk_enumerate_printers().
@@ -29,6 +30,12 @@ func (x *PrintBackend) GoPointer() uintptr {
 // %GTK_PRINT_CAPABILITY_GENERATE_PS is specified, GTK assumes that all
 // formats are supported.
 type PrintCapabilities int
+
+var xPrintCapabilitiesGLibType func() types.GType
+
+func PrintCapabilitiesGLibType() types.GType {
+	return xPrintCapabilitiesGLibType()
+}
 
 const (
 
@@ -80,6 +87,12 @@ func EnumeratePrinters(FuncVar *PrinterFunc, DataVar uintptr, DestroyVar *glib.D
 // a [class@Gtk.PrintJob] object, which lets you print to the printer.
 type Printer struct {
 	gobject.Object
+}
+
+var xPrinterGLibType func() types.GType
+
+func PrinterGLibType() types.GType {
+	return xPrinterGLibType()
 }
 
 func PrinterNewFromInternalPtr(ptr uintptr) *Printer {
@@ -385,7 +398,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xPrintCapabilitiesGLibType, lib, "gtk_print_capabilities_get_type")
+
 	core.PuregoSafeRegister(&xEnumeratePrinters, lib, "gtk_enumerate_printers")
+
+	core.PuregoSafeRegister(&xPrinterGLibType, lib, "gtk_printer_get_type")
 
 	core.PuregoSafeRegister(&xNewPrinter, lib, "gtk_printer_new")
 

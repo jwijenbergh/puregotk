@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Function type for determining whether @column can be dropped in a
@@ -48,6 +49,12 @@ func (x *TreeViewClass) GoPointer() uintptr {
 
 // An enum for determining where a dropped row goes.
 type TreeViewDropPosition int
+
+var xTreeViewDropPositionGLibType func() types.GType
+
+func TreeViewDropPositionGLibType() types.GType {
+	return xTreeViewDropPositionGLibType()
+}
 
 const (
 
@@ -151,6 +158,12 @@ const (
 // For the drop target location during DND, a subnode with name `dndtarget` is used.
 type TreeView struct {
 	Widget
+}
+
+var xTreeViewGLibType func() types.GType
+
+func TreeViewGLibType() types.GType {
+	return xTreeViewGLibType()
 }
 
 func TreeViewNewFromInternalPtr(ptr uintptr) *TreeView {
@@ -1853,6 +1866,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTreeViewDropPositionGLibType, lib, "gtk_tree_view_drop_position_get_type")
+
+	core.PuregoSafeRegister(&xTreeViewGLibType, lib, "gtk_tree_view_get_type")
 
 	core.PuregoSafeRegister(&xNewTreeView, lib, "gtk_tree_view_new")
 	core.PuregoSafeRegister(&xNewTreeViewWithModel, lib, "gtk_tree_view_new_with_model")

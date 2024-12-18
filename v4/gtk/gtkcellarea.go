@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The type of the callback functions used for iterating over the
@@ -391,6 +392,12 @@ func (x *CellAreaClass) ListCellProperties(NPropertiesVar uint) uintptr {
 // [method@Gtk.CellArea.cell_get] or [method@Gtk.CellArea.cell_get_valist].
 type CellArea struct {
 	gobject.InitiallyUnowned
+}
+
+var xCellAreaGLibType func() types.GType
+
+func CellAreaGLibType() types.GType {
+	return xCellAreaGLibType()
 }
 
 func CellAreaNewFromInternalPtr(ptr uintptr) *CellArea {
@@ -1190,6 +1197,8 @@ func init() {
 	core.PuregoSafeRegister(&xCellAreaClassFindCellProperty, lib, "gtk_cell_area_class_find_cell_property")
 	core.PuregoSafeRegister(&xCellAreaClassInstallCellProperty, lib, "gtk_cell_area_class_install_cell_property")
 	core.PuregoSafeRegister(&xCellAreaClassListCellProperties, lib, "gtk_cell_area_class_list_cell_properties")
+
+	core.PuregoSafeRegister(&xCellAreaGLibType, lib, "gtk_cell_area_get_type")
 
 	core.PuregoSafeRegister(&xCellAreaActivate, lib, "gtk_cell_area_activate")
 	core.PuregoSafeRegister(&xCellAreaActivateCell, lib, "gtk_cell_area_activate_cell")

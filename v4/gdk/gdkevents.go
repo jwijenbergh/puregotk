@@ -7,11 +7,18 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkEventSequence` is an opaque type representing a sequence
 // of related touch events.
 type EventSequence struct {
+}
+
+var xEventSequenceGLibType func() types.GType
+
+func EventSequenceGLibType() types.GType {
+	return xEventSequenceGLibType()
 }
 
 func (x *EventSequence) GoPointer() uintptr {
@@ -40,6 +47,12 @@ const (
 
 // Specifies the crossing mode for enter and leave events.
 type CrossingMode int
+
+var xCrossingModeGLibType func() types.GType
+
+func CrossingModeGLibType() types.GType {
+	return xCrossingModeGLibType()
+}
 
 const (
 
@@ -70,6 +83,12 @@ const (
 
 // Specifies the type of the event.
 type EventType int
+
+var xEventTypeGLibType func() types.GType
+
+func EventTypeGLibType() types.GType {
+	return xEventTypeGLibType()
+}
 
 const (
 
@@ -148,6 +167,12 @@ const (
 // `GdkKeyMatch` values are returned by [method@Gdk.KeyEvent.matches].
 type KeyMatch int
 
+var xKeyMatchGLibType func() types.GType
+
+func KeyMatchGLibType() types.GType {
+	return xKeyMatchGLibType()
+}
+
 const (
 
 	// The key event does not match
@@ -164,6 +189,12 @@ const (
 // See the X11 protocol specification of LeaveNotify for
 // full details of crossing event generation.
 type NotifyType int
+
+var xNotifyTypeGLibType func() types.GType
+
+func NotifyTypeGLibType() types.GType {
+	return xNotifyTypeGLibType()
+}
 
 const (
 
@@ -190,6 +221,12 @@ const (
 
 // Specifies the direction for scroll events.
 type ScrollDirection int
+
+var xScrollDirectionGLibType func() types.GType
+
+func ScrollDirectionGLibType() types.GType {
+	return xScrollDirectionGLibType()
+}
 
 const (
 
@@ -224,6 +261,12 @@ const (
 // scale factor and eventually a custom scale factor in your app).
 type ScrollUnit int
 
+var xScrollUnitGLibType func() types.GType
+
+func ScrollUnitGLibType() types.GType {
+	return xScrollUnitGLibType()
+}
+
 const (
 
 	// The delta is in number of wheel clicks.
@@ -252,6 +295,12 @@ const (
 // to undo any visible/permanent changes that were done throughout the
 // progress of the gesture.
 type TouchpadGesturePhase int
+
+var xTouchpadGesturePhaseGLibType func() types.GType
+
+func TouchpadGesturePhaseGLibType() types.GType {
+	return xTouchpadGesturePhaseGLibType()
+}
 
 const (
 
@@ -312,6 +361,12 @@ type ButtonEvent struct {
 	Event
 }
 
+var xButtonEventGLibType func() types.GType
+
+func ButtonEventGLibType() types.GType {
+	return xButtonEventGLibType()
+}
+
 func ButtonEventNewFromInternalPtr(ptr uintptr) *ButtonEvent {
 	cls := &ButtonEvent{}
 	cls.Ptr = ptr
@@ -338,6 +393,12 @@ func (c *ButtonEvent) SetGoPointer(ptr uintptr) {
 // An event caused by a pointing device moving between surfaces.
 type CrossingEvent struct {
 	Event
+}
+
+var xCrossingEventGLibType func() types.GType
+
+func CrossingEventGLibType() types.GType {
+	return xCrossingEventGLibType()
 }
 
 func CrossingEventNewFromInternalPtr(ptr uintptr) *CrossingEvent {
@@ -386,6 +447,12 @@ type DNDEvent struct {
 	Event
 }
 
+var xDNDEventGLibType func() types.GType
+
+func DNDEventGLibType() types.GType {
+	return xDNDEventGLibType()
+}
+
 func DNDEventNewFromInternalPtr(ptr uintptr) *DNDEvent {
 	cls := &DNDEvent{}
 	cls.Ptr = ptr
@@ -422,6 +489,12 @@ type DeleteEvent struct {
 	Event
 }
 
+var xDeleteEventGLibType func() types.GType
+
+func DeleteEventGLibType() types.GType {
+	return xDeleteEventGLibType()
+}
+
 func DeleteEventNewFromInternalPtr(ptr uintptr) *DeleteEvent {
 	cls := &DeleteEvent{}
 	cls.Ptr = ptr
@@ -444,6 +517,12 @@ func (c *DeleteEvent) SetGoPointer(ptr uintptr) {
 // so using `GdkEvent` and its related API is rarely needed.
 type Event struct {
 	Ptr uintptr
+}
+
+var xEventGLibType func() types.GType
+
+func EventGLibType() types.GType {
+	return xEventGLibType()
 }
 
 func EventNewFromInternalPtr(ptr uintptr) *Event {
@@ -745,6 +824,12 @@ type FocusEvent struct {
 	Event
 }
 
+var xFocusEventGLibType func() types.GType
+
+func FocusEventGLibType() types.GType {
+	return xFocusEventGLibType()
+}
+
 func FocusEventNewFromInternalPtr(ptr uintptr) *FocusEvent {
 	cls := &FocusEvent{}
 	cls.Ptr = ptr
@@ -772,6 +857,12 @@ func (c *FocusEvent) SetGoPointer(ptr uintptr) {
 // An event related to a broken windowing system grab.
 type GrabBrokenEvent struct {
 	Event
+}
+
+var xGrabBrokenEventGLibType func() types.GType
+
+func GrabBrokenEventGLibType() types.GType {
+	return xGrabBrokenEventGLibType()
 }
 
 func GrabBrokenEventNewFromInternalPtr(ptr uintptr) *GrabBrokenEvent {
@@ -817,6 +908,12 @@ func (c *GrabBrokenEvent) SetGoPointer(ptr uintptr) {
 // An event related to a key-based device.
 type KeyEvent struct {
 	Event
+}
+
+var xKeyEventGLibType func() types.GType
+
+func KeyEventGLibType() types.GType {
+	return xKeyEventGLibType()
 }
 
 func KeyEventNewFromInternalPtr(ptr uintptr) *KeyEvent {
@@ -920,6 +1017,12 @@ type MotionEvent struct {
 	Event
 }
 
+var xMotionEventGLibType func() types.GType
+
+func MotionEventGLibType() types.GType {
+	return xMotionEventGLibType()
+}
+
 func MotionEventNewFromInternalPtr(ptr uintptr) *MotionEvent {
 	cls := &MotionEvent{}
 	cls.Ptr = ptr
@@ -937,6 +1040,12 @@ func (c *MotionEvent) SetGoPointer(ptr uintptr) {
 // An event related to a pad-based device.
 type PadEvent struct {
 	Event
+}
+
+var xPadEventGLibType func() types.GType
+
+func PadEventGLibType() types.GType {
+	return xPadEventGLibType()
 }
 
 func PadEventNewFromInternalPtr(ptr uintptr) *PadEvent {
@@ -986,6 +1095,12 @@ type ProximityEvent struct {
 	Event
 }
 
+var xProximityEventGLibType func() types.GType
+
+func ProximityEventGLibType() types.GType {
+	return xProximityEventGLibType()
+}
+
 func ProximityEventNewFromInternalPtr(ptr uintptr) *ProximityEvent {
 	cls := &ProximityEvent{}
 	cls.Ptr = ptr
@@ -1003,6 +1118,12 @@ func (c *ProximityEvent) SetGoPointer(ptr uintptr) {
 // An event related to a scrolling motion.
 type ScrollEvent struct {
 	Event
+}
+
+var xScrollEventGLibType func() types.GType
+
+func ScrollEventGLibType() types.GType {
+	return xScrollEventGLibType()
 }
 
 func ScrollEventNewFromInternalPtr(ptr uintptr) *ScrollEvent {
@@ -1077,6 +1198,12 @@ type TouchEvent struct {
 	Event
 }
 
+var xTouchEventGLibType func() types.GType
+
+func TouchEventGLibType() types.GType {
+	return xTouchEventGLibType()
+}
+
 func TouchEventNewFromInternalPtr(ptr uintptr) *TouchEvent {
 	cls := &TouchEvent{}
 	cls.Ptr = ptr
@@ -1108,6 +1235,12 @@ func (c *TouchEvent) SetGoPointer(ptr uintptr) {
 // processed by the system, resulting in these events.
 type TouchpadEvent struct {
 	Event
+}
+
+var xTouchpadEventGLibType func() types.GType
+
+func TouchpadEventGLibType() types.GType {
+	return xTouchpadEventGLibType()
 }
 
 func TouchpadEventNewFromInternalPtr(ptr uintptr) *TouchpadEvent {
@@ -1174,17 +1307,44 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCrossingModeGLibType, lib, "gdk_crossing_mode_get_type")
+
+	core.PuregoSafeRegister(&xEventTypeGLibType, lib, "gdk_event_type_get_type")
+
+	core.PuregoSafeRegister(&xKeyMatchGLibType, lib, "gdk_key_match_get_type")
+
+	core.PuregoSafeRegister(&xNotifyTypeGLibType, lib, "gdk_notify_type_get_type")
+
+	core.PuregoSafeRegister(&xScrollDirectionGLibType, lib, "gdk_scroll_direction_get_type")
+
+	core.PuregoSafeRegister(&xScrollUnitGLibType, lib, "gdk_scroll_unit_get_type")
+
+	core.PuregoSafeRegister(&xTouchpadGesturePhaseGLibType, lib, "gdk_touchpad_gesture_phase_get_type")
+
 	core.PuregoSafeRegister(&xEventsGetAngle, lib, "gdk_events_get_angle")
 	core.PuregoSafeRegister(&xEventsGetCenter, lib, "gdk_events_get_center")
 	core.PuregoSafeRegister(&xEventsGetDistance, lib, "gdk_events_get_distance")
 
+	core.PuregoSafeRegister(&xEventSequenceGLibType, lib, "gdk_event_sequence_get_type")
+
+	core.PuregoSafeRegister(&xButtonEventGLibType, lib, "gdk_button_event_get_type")
+
 	core.PuregoSafeRegister(&xButtonEventGetButton, lib, "gdk_button_event_get_button")
+
+	core.PuregoSafeRegister(&xCrossingEventGLibType, lib, "gdk_crossing_event_get_type")
 
 	core.PuregoSafeRegister(&xCrossingEventGetDetail, lib, "gdk_crossing_event_get_detail")
 	core.PuregoSafeRegister(&xCrossingEventGetFocus, lib, "gdk_crossing_event_get_focus")
 	core.PuregoSafeRegister(&xCrossingEventGetMode, lib, "gdk_crossing_event_get_mode")
 
+	core.PuregoSafeRegister(&xDNDEventGLibType, lib, "gdk_dnd_event_get_type")
+
 	core.PuregoSafeRegister(&xDNDEventGetDrop, lib, "gdk_dnd_event_get_drop")
+
+	core.PuregoSafeRegister(&xDeleteEventGLibType, lib, "gdk_delete_event_get_type")
+
+	core.PuregoSafeRegister(&xEventGLibType, lib, "gdk_event_get_type")
 
 	core.PuregoSafeRegister(&xEventGetAngle, lib, "gdk_events_get_angle")
 	core.PuregoSafeRegister(&xEventGetCenter, lib, "gdk_events_get_center")
@@ -1207,10 +1367,16 @@ func init() {
 	core.PuregoSafeRegister(&xEventTriggersContextMenu, lib, "gdk_event_triggers_context_menu")
 	core.PuregoSafeRegister(&xEventUnref, lib, "gdk_event_unref")
 
+	core.PuregoSafeRegister(&xFocusEventGLibType, lib, "gdk_focus_event_get_type")
+
 	core.PuregoSafeRegister(&xFocusEventGetIn, lib, "gdk_focus_event_get_in")
+
+	core.PuregoSafeRegister(&xGrabBrokenEventGLibType, lib, "gdk_grab_broken_event_get_type")
 
 	core.PuregoSafeRegister(&xGrabBrokenEventGetGrabSurface, lib, "gdk_grab_broken_event_get_grab_surface")
 	core.PuregoSafeRegister(&xGrabBrokenEventGetImplicit, lib, "gdk_grab_broken_event_get_implicit")
+
+	core.PuregoSafeRegister(&xKeyEventGLibType, lib, "gdk_key_event_get_type")
 
 	core.PuregoSafeRegister(&xKeyEventGetConsumedModifiers, lib, "gdk_key_event_get_consumed_modifiers")
 	core.PuregoSafeRegister(&xKeyEventGetKeycode, lib, "gdk_key_event_get_keycode")
@@ -1221,16 +1387,28 @@ func init() {
 	core.PuregoSafeRegister(&xKeyEventIsModifier, lib, "gdk_key_event_is_modifier")
 	core.PuregoSafeRegister(&xKeyEventMatches, lib, "gdk_key_event_matches")
 
+	core.PuregoSafeRegister(&xMotionEventGLibType, lib, "gdk_motion_event_get_type")
+
+	core.PuregoSafeRegister(&xPadEventGLibType, lib, "gdk_pad_event_get_type")
+
 	core.PuregoSafeRegister(&xPadEventGetAxisValue, lib, "gdk_pad_event_get_axis_value")
 	core.PuregoSafeRegister(&xPadEventGetButton, lib, "gdk_pad_event_get_button")
 	core.PuregoSafeRegister(&xPadEventGetGroupMode, lib, "gdk_pad_event_get_group_mode")
+
+	core.PuregoSafeRegister(&xProximityEventGLibType, lib, "gdk_proximity_event_get_type")
+
+	core.PuregoSafeRegister(&xScrollEventGLibType, lib, "gdk_scroll_event_get_type")
 
 	core.PuregoSafeRegister(&xScrollEventGetDeltas, lib, "gdk_scroll_event_get_deltas")
 	core.PuregoSafeRegister(&xScrollEventGetDirection, lib, "gdk_scroll_event_get_direction")
 	core.PuregoSafeRegister(&xScrollEventGetUnit, lib, "gdk_scroll_event_get_unit")
 	core.PuregoSafeRegister(&xScrollEventIsStop, lib, "gdk_scroll_event_is_stop")
 
+	core.PuregoSafeRegister(&xTouchEventGLibType, lib, "gdk_touch_event_get_type")
+
 	core.PuregoSafeRegister(&xTouchEventGetEmulatingPointer, lib, "gdk_touch_event_get_emulating_pointer")
+
+	core.PuregoSafeRegister(&xTouchpadEventGLibType, lib, "gdk_touchpad_event_get_type")
 
 	core.PuregoSafeRegister(&xTouchpadEventGetDeltas, lib, "gdk_touchpad_event_get_deltas")
 	core.PuregoSafeRegister(&xTouchpadEventGetGesturePhase, lib, "gdk_touchpad_event_get_gesture_phase")

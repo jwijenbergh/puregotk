@@ -118,6 +118,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBitLock, lib, "g_bit_lock")
 	core.PuregoSafeRegister(&xBitTrylock, lib, "g_bit_trylock")
 	core.PuregoSafeRegister(&xBitUnlock, lib, "g_bit_unlock")

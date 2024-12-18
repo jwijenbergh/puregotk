@@ -4,6 +4,7 @@ package gtk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 const (
@@ -24,6 +25,12 @@ const (
 // This enumeration may be extended in the future; input methods should
 // ignore unknown values.
 type InputHints int
+
+var xInputHintsGLibType func() types.GType
+
+func InputHintsGLibType() types.GType {
+	return xInputHintsGLibType()
+}
 
 const (
 
@@ -62,6 +69,12 @@ const (
 // Flags that influence the behavior of [method@Widget.pick].
 type PickFlags int
 
+var xPickFlagsGLibType func() types.GType
+
+func PickFlagsGLibType() types.GType {
+	return xPickFlagsGLibType()
+}
+
 const (
 
 	// The default behavior, include widgets that are receiving events
@@ -78,6 +91,12 @@ const (
 // Note that GTK extends the regular CSS classes and sometimes uses
 // different names.
 type StateFlags int
+
+var xStateFlagsGLibType func() types.GType
+
+func StateFlagsGLibType() types.GType {
+	return xStateFlagsGLibType()
+}
 
 const (
 
@@ -119,6 +138,12 @@ const (
 // accessible property.
 type AccessibleAutocomplete int
 
+var xAccessibleAutocompleteGLibType func() types.GType
+
+func AccessibleAutocompleteGLibType() types.GType {
+	return xAccessibleAutocompleteGLibType()
+}
+
 const (
 
 	// Automatic suggestions are not displayed.
@@ -147,6 +172,12 @@ const (
 // as %FALSE and %TRUE.
 type AccessibleInvalidState int
 
+var xAccessibleInvalidStateGLibType func() types.GType
+
+func AccessibleInvalidStateGLibType() types.GType {
+	return xAccessibleInvalidStateGLibType()
+}
+
 const (
 
 	// There are no detected errors in the value
@@ -161,6 +192,12 @@ const (
 
 // The possible accessible properties of a [iface@Accessible].
 type AccessibleProperty int
+
+var xAccessiblePropertyGLibType func() types.GType
+
+func AccessiblePropertyGLibType() types.GType {
+	return xAccessiblePropertyGLibType()
+}
 
 const (
 
@@ -237,6 +274,12 @@ const (
 // integers or strings.
 type AccessibleRelation int
 
+var xAccessibleRelationGLibType func() types.GType
+
+func AccessibleRelationGLibType() types.GType {
+	return xAccessibleRelationGLibType()
+}
+
 const (
 
 	// Identifies the currently active
@@ -307,6 +350,12 @@ const (
 // Abstract roles are only used as part of the ontology; application
 // developers must not use abstract roles in their code.
 type AccessibleRole int
+
+var xAccessibleRoleGLibType func() types.GType
+
+func AccessibleRoleGLibType() types.GType {
+	return xAccessibleRoleGLibType()
+}
 
 const (
 
@@ -492,6 +541,12 @@ const (
 // accessible property.
 type AccessibleSort int
 
+var xAccessibleSortGLibType func() types.GType
+
+func AccessibleSortGLibType() types.GType {
+	return xAccessibleSortGLibType()
+}
+
 const (
 
 	// There is no defined sort applied to the column.
@@ -507,6 +562,12 @@ const (
 
 // The possible accessible states of a [iface@Accessible].
 type AccessibleState int
+
+var xAccessibleStateGLibType func() types.GType
+
+func AccessibleStateGLibType() types.GType {
+	return xAccessibleStateGLibType()
+}
 
 const (
 
@@ -549,6 +610,12 @@ const (
 // as %FALSE and %TRUE.
 type AccessibleTristate int
 
+var xAccessibleTristateGLibType func() types.GType
+
+func AccessibleTristateGLibType() types.GType {
+	return xAccessibleTristateGLibType()
+}
+
 const (
 
 	// The state is `false`
@@ -576,6 +643,12 @@ const (
 // a child or a container it is treated as %GTK_ALIGN_FILL.
 type Align int
 
+var xAlignGLibType func() types.GType
+
+func AlignGLibType() types.GType {
+	return xAlignGLibType()
+}
+
 const (
 
 	// stretch to fill all space if possible, center if
@@ -594,6 +667,12 @@ const (
 
 // Used to indicate the direction in which an arrow should point.
 type ArrowType int
+
+var xArrowTypeGLibType func() types.GType
+
+func ArrowTypeGLibType() types.GType {
+	return xArrowTypeGLibType()
+}
 
 const (
 
@@ -619,6 +698,12 @@ const (
 // extra available space.
 type BaselinePosition int
 
+var xBaselinePositionGLibType func() types.GType
+
+func BaselinePositionGLibType() types.GType {
+	return xBaselinePositionGLibType()
+}
+
 const (
 
 	// Align the baseline at the top
@@ -631,6 +716,12 @@ const (
 
 // Describes how the border of a UI element should be rendered.
 type BorderStyle int
+
+var xBorderStyleGLibType func() types.GType
+
+func BorderStyleGLibType() types.GType {
+	return xBorderStyleGLibType()
+}
 
 const (
 
@@ -658,6 +749,12 @@ const (
 
 // The widget attributes that can be used when creating a [class@Constraint].
 type ConstraintAttribute int
+
+var xConstraintAttributeGLibType func() types.GType
+
+func ConstraintAttributeGLibType() types.GType {
+	return xConstraintAttributeGLibType()
+}
 
 const (
 
@@ -699,6 +796,12 @@ const (
 // The relation between two terms of a constraint.
 type ConstraintRelation int
 
+var xConstraintRelationGLibType func() types.GType
+
+func ConstraintRelationGLibType() types.GType {
+	return xConstraintRelationGLibType()
+}
+
 const (
 
 	// Less than, or equal
@@ -715,6 +818,12 @@ const (
 // integer; the values of this enumeration can be used for readability.
 type ConstraintStrength int
 
+var xConstraintStrengthGLibType func() types.GType
+
+func ConstraintStrengthGLibType() types.GType {
+	return xConstraintStrengthGLibType()
+}
+
 const (
 
 	// The constraint is required towards solving the layout
@@ -729,6 +838,12 @@ const (
 
 // Domain for VFL parsing errors.
 type ConstraintVflParserError int
+
+var xConstraintVflParserErrorGLibType func() types.GType
+
+func ConstraintVflParserErrorGLibType() types.GType {
+	return xConstraintVflParserErrorGLibType()
+}
 
 const (
 
@@ -748,6 +863,12 @@ const (
 
 // Controls how a content should be made to fit inside an allocation.
 type ContentFit int
+
+var xContentFitGLibType func() types.GType
+
+func ContentFitGLibType() types.GType {
+	return xContentFitGLibType()
+}
 
 const (
 
@@ -773,6 +894,12 @@ const (
 
 // Passed to various keybinding signals for deleting text.
 type DeleteType int
+
+var xDeleteTypeGLibType func() types.GType
+
+func DeleteTypeGLibType() types.GType {
+	return xDeleteTypeGLibType()
+}
 
 const (
 
@@ -803,6 +930,12 @@ const (
 // Focus movement types.
 type DirectionType int
 
+var xDirectionTypeGLibType func() types.GType
+
+func DirectionTypeGLibType() types.GType {
+	return xDirectionTypeGLibType()
+}
+
 const (
 
 	// Move forward.
@@ -821,6 +954,12 @@ const (
 
 // Describes the state of a [struct@Gdk.EventSequence] in a [class@Gesture].
 type EventSequenceState int
+
+var xEventSequenceStateGLibType func() types.GType
+
+func EventSequenceStateGLibType() types.GType {
+	return xEventSequenceStateGLibType()
+}
 
 const (
 
@@ -842,6 +981,12 @@ const (
 // determine the actual size to be used with the
 // `-gtk-icon-size` CSS property.
 type IconSize int
+
+var xIconSizeGLibType func() types.GType
+
+func IconSizeGLibType() types.GType {
+	return xIconSizeGLibType()
+}
 
 const (
 
@@ -874,6 +1019,12 @@ const (
 // interpret unknown values as “free form”.
 type InputPurpose int
 
+var xInputPurposeGLibType func() types.GType
+
+func InputPurposeGLibType() types.GType {
+	return xInputPurposeGLibType()
+}
+
 const (
 
 	// Allow any character
@@ -903,6 +1054,12 @@ const (
 // Used for justifying the text inside a [class@Label] widget.
 type Justification int
 
+var xJustificationGLibType func() types.GType
+
+func JustificationGLibType() types.GType {
+	return xJustificationGLibType()
+}
+
 const (
 
 	// The text is placed at the left edge of the label.
@@ -921,6 +1078,12 @@ const (
 // in the future.
 type LevelBarMode int
 
+var xLevelBarModeGLibType func() types.GType
+
+func LevelBarModeGLibType() types.GType {
+	return xLevelBarModeGLibType()
+}
+
 const (
 
 	// the bar has a continuous mode
@@ -931,6 +1094,12 @@ const (
 
 // The type of message being displayed in a [class@MessageDialog].
 type MessageType int
+
+var xMessageTypeGLibType func() types.GType
+
+func MessageTypeGLibType() types.GType {
+	return xMessageTypeGLibType()
+}
 
 const (
 
@@ -949,6 +1118,12 @@ const (
 // Passed as argument to various keybinding signals for moving the
 // cursor position.
 type MovementStep int
+
+var xMovementStepGLibType func() types.GType
+
+func MovementStepGLibType() types.GType {
+	return xMovementStepGLibType()
+}
 
 const (
 
@@ -980,6 +1155,12 @@ const (
 // See for example the [property@Gtk.Label:natural-wrap-mode] property.
 type NaturalWrapMode int
 
+var xNaturalWrapModeGLibType func() types.GType
+
+func NaturalWrapModeGLibType() types.GType {
+	return xNaturalWrapModeGLibType()
+}
+
 const (
 
 	// Inherit the minimum size request.
@@ -998,6 +1179,12 @@ const (
 // Used to determine the layout of pages on a sheet when printing
 // multiple pages per sheet.
 type NumberUpLayout int
+
+var xNumberUpLayoutGLibType func() types.GType
+
+func NumberUpLayoutGLibType() types.GType {
+	return xNumberUpLayoutGLibType()
+}
 
 const (
 
@@ -1027,6 +1214,12 @@ const (
 // [func@Gtk.Ordering.from_cmpfunc].
 type Ordering int
 
+var xOrderingGLibType func() types.GType
+
+func OrderingGLibType() types.GType {
+	return xOrderingGLibType()
+}
+
 const (
 
 	// the first value is smaller than the second
@@ -1041,6 +1234,12 @@ const (
 //
 // Typical examples are [class@Box] or [class@GesturePan].
 type Orientation int
+
+var xOrientationGLibType func() types.GType
+
+func OrientationGLibType() types.GType {
+	return xOrientationGLibType()
+}
 
 const (
 
@@ -1057,6 +1256,12 @@ const (
 // CSS overflow property, but implements it only partially.
 type Overflow int
 
+var xOverflowGLibType func() types.GType
+
+func OverflowGLibType() types.GType {
+	return xOverflowGLibType()
+}
+
 const (
 
 	// No change is applied. Content is drawn at the specified
@@ -1072,6 +1277,12 @@ const (
 // See [class@WindowControls] for example.
 type PackType int
 
+var xPackTypeGLibType func() types.GType
+
+func PackTypeGLibType() types.GType {
+	return xPackTypeGLibType()
+}
+
 const (
 
 	// The child is packed into the start of the widget
@@ -1082,6 +1293,12 @@ const (
 
 // See also gtk_print_settings_set_orientation().
 type PageOrientation int
+
+var xPageOrientationGLibType func() types.GType
+
+func PageOrientationGLibType() types.GType {
+	return xPageOrientationGLibType()
+}
 
 const (
 
@@ -1098,6 +1315,12 @@ const (
 // See also gtk_print_job_set_page_set().
 type PageSet int
 
+var xPageSetGLibType func() types.GType
+
+func PageSetGLibType() types.GType {
+	return xPageSetGLibType()
+}
+
 const (
 
 	// All pages.
@@ -1110,6 +1333,12 @@ const (
 
 // Describes the panning direction of a [class@GesturePan].
 type PanDirection int
+
+var xPanDirectionGLibType func() types.GType
+
+func PanDirectionGLibType() types.GType {
+	return xPanDirectionGLibType()
+}
 
 const (
 
@@ -1129,6 +1358,12 @@ const (
 // of a [class@Scale].
 type PositionType int
 
+var xPositionTypeGLibType func() types.GType
+
+func PositionTypeGLibType() types.GType {
+	return xPositionTypeGLibType()
+}
+
 const (
 
 	// The feature is at the left edge.
@@ -1144,6 +1379,12 @@ const (
 // See also gtk_print_settings_set_duplex().
 type PrintDuplex int
 
+var xPrintDuplexGLibType func() types.GType
+
+func PrintDuplexGLibType() types.GType {
+	return xPrintDuplexGLibType()
+}
+
 const (
 
 	// No duplex.
@@ -1156,6 +1397,12 @@ const (
 
 // See also gtk_print_job_set_pages()
 type PrintPages int
+
+var xPrintPagesGLibType func() types.GType
+
+func PrintPagesGLibType() types.GType {
+	return xPrintPagesGLibType()
+}
 
 const (
 
@@ -1171,6 +1418,12 @@ const (
 
 // See also gtk_print_settings_set_quality().
 type PrintQuality int
+
+var xPrintQualityGLibType func() types.GType
+
+func PrintQualityGLibType() types.GType {
+	return xPrintQualityGLibType()
+}
 
 const (
 
@@ -1188,6 +1441,12 @@ const (
 // targeting other widgets.
 type PropagationLimit int
 
+var xPropagationLimitGLibType func() types.GType
+
+func PropagationLimitGLibType() types.GType {
+	return xPropagationLimitGLibType()
+}
+
 const (
 
 	// Events are handled regardless of what their
@@ -1201,6 +1460,12 @@ const (
 
 // Describes the stage at which events are fed into a [class@EventController].
 type PropagationPhase int
+
+var xPropagationPhaseGLibType func() types.GType
+
+func PropagationPhaseGLibType() types.GType {
+	return xPropagationPhaseGLibType()
+}
 
 const (
 
@@ -1224,6 +1489,12 @@ const (
 // Passed as argument to various keybinding signals.
 type ScrollStep int
 
+var xScrollStepGLibType func() types.GType
+
+func ScrollStepGLibType() types.GType {
+	return xScrollStepGLibType()
+}
+
 const (
 
 	// Scroll in steps.
@@ -1242,6 +1513,12 @@ const (
 
 // Scrolling types.
 type ScrollType int
+
+var xScrollTypeGLibType func() types.GType
+
+func ScrollTypeGLibType() types.GType {
+	return xScrollTypeGLibType()
+}
 
 const (
 
@@ -1283,6 +1560,12 @@ const (
 // the scrolled window adjustments in a given orientation.
 type ScrollablePolicy int
 
+var xScrollablePolicyGLibType func() types.GType
+
+func ScrollablePolicyGLibType() types.GType {
+	return xScrollablePolicyGLibType()
+}
+
 const (
 
 	// Scrollable adjustments are based on the minimum size
@@ -1293,6 +1576,12 @@ const (
 
 // Used to control what selections users are allowed to make.
 type SelectionMode int
+
+var xSelectionModeGLibType func() types.GType
+
+func SelectionModeGLibType() types.GType {
+	return xSelectionModeGLibType()
+}
 
 const (
 
@@ -1318,6 +1607,12 @@ const (
 // such as combo box buttons.
 type SensitivityType int
 
+var xSensitivityTypeGLibType func() types.GType
+
+func SensitivityTypeGLibType() types.GType {
+	return xSensitivityTypeGLibType()
+}
+
 const (
 
 	// The control is made insensitive if no
@@ -1332,6 +1627,12 @@ const (
 // Describes where [class@Shortcut]s added to a
 // [class@ShortcutController] get handled.
 type ShortcutScope int
+
+var xShortcutScopeGLibType func() types.GType
+
+func ShortcutScopeGLibType() types.GType {
+	return xShortcutScopeGLibType()
+}
 
 const (
 
@@ -1350,6 +1651,12 @@ const (
 // group affects the requested sizes of its component widgets.
 type SizeGroupMode int
 
+var xSizeGroupModeGLibType func() types.GType
+
+func SizeGroupModeGLibType() types.GType {
+	return xSizeGroupModeGLibType()
+}
+
 const (
 
 	// group has no effect
@@ -1366,6 +1673,12 @@ const (
 // width-for-height geometry management.
 type SizeRequestMode int
 
+var xSizeRequestModeGLibType func() types.GType
+
+func SizeRequestModeGLibType() types.GType {
+	return xSizeRequestModeGLibType()
+}
+
 const (
 
 	// Prefer height-for-width geometry management
@@ -1378,6 +1691,12 @@ const (
 
 // Determines the direction of a sort.
 type SortType int
+
+var xSortTypeGLibType func() types.GType
+
+func SortTypeGLibType() types.GType {
+	return xSortTypeGLibType()
+}
 
 const (
 
@@ -1392,6 +1711,12 @@ const (
 //
 // More values may be added over time.
 type SymbolicColor int
+
+var xSymbolicColorGLibType func() types.GType
+
+func SymbolicColorGLibType() types.GType {
+	return xSymbolicColorGLibType()
+}
 
 const (
 
@@ -1415,6 +1740,12 @@ const (
 //
 // More values may be added over time.
 type SystemSetting int
+
+var xSystemSettingGLibType func() types.GType
+
+func SystemSettingGLibType() types.GType {
+	return xSystemSettingGLibType()
+}
 
 const (
 
@@ -1440,6 +1771,12 @@ const (
 // Reading directions for text.
 type TextDirection int
 
+var xTextDirectionGLibType func() types.GType
+
+func TextDirectionGLibType() types.GType {
+	return xTextDirectionGLibType()
+}
+
 const (
 
 	// No direction.
@@ -1452,6 +1789,12 @@ const (
 
 // Used to indicate which grid lines to draw in a tree view.
 type TreeViewGridLines int
+
+var xTreeViewGridLinesGLibType func() types.GType
+
+func TreeViewGridLinesGLibType() types.GType {
+	return xTreeViewGridLinesGLibType()
+}
 
 const (
 
@@ -1468,6 +1811,12 @@ const (
 // See also gtk_print_settings_set_paper_width().
 type Unit int
 
+var xUnitGLibType func() types.GType
+
+func UnitGLibType() types.GType {
+	return xUnitGLibType()
+}
+
 const (
 
 	// No units.
@@ -1482,6 +1831,12 @@ const (
 
 // Describes a type of line wrapping.
 type WrapMode int
+
+var xWrapModeGLibType func() types.GType
+
+func WrapModeGLibType() types.GType {
+	return xWrapModeGLibType()
+}
 
 const (
 
@@ -1513,6 +1868,125 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xInputHintsGLibType, lib, "gtk_input_hints_get_type")
+
+	core.PuregoSafeRegister(&xPickFlagsGLibType, lib, "gtk_pick_flags_get_type")
+
+	core.PuregoSafeRegister(&xStateFlagsGLibType, lib, "gtk_state_flags_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleAutocompleteGLibType, lib, "gtk_accessible_autocomplete_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleInvalidStateGLibType, lib, "gtk_accessible_invalid_state_get_type")
+
+	core.PuregoSafeRegister(&xAccessiblePropertyGLibType, lib, "gtk_accessible_property_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleRelationGLibType, lib, "gtk_accessible_relation_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleRoleGLibType, lib, "gtk_accessible_role_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleSortGLibType, lib, "gtk_accessible_sort_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleStateGLibType, lib, "gtk_accessible_state_get_type")
+
+	core.PuregoSafeRegister(&xAccessibleTristateGLibType, lib, "gtk_accessible_tristate_get_type")
+
+	core.PuregoSafeRegister(&xAlignGLibType, lib, "gtk_align_get_type")
+
+	core.PuregoSafeRegister(&xArrowTypeGLibType, lib, "gtk_arrow_type_get_type")
+
+	core.PuregoSafeRegister(&xBaselinePositionGLibType, lib, "gtk_baseline_position_get_type")
+
+	core.PuregoSafeRegister(&xBorderStyleGLibType, lib, "gtk_border_style_get_type")
+
+	core.PuregoSafeRegister(&xConstraintAttributeGLibType, lib, "gtk_constraint_attribute_get_type")
+
+	core.PuregoSafeRegister(&xConstraintRelationGLibType, lib, "gtk_constraint_relation_get_type")
+
+	core.PuregoSafeRegister(&xConstraintStrengthGLibType, lib, "gtk_constraint_strength_get_type")
+
+	core.PuregoSafeRegister(&xConstraintVflParserErrorGLibType, lib, "gtk_constraint_vfl_parser_error_get_type")
+
+	core.PuregoSafeRegister(&xContentFitGLibType, lib, "gtk_content_fit_get_type")
+
+	core.PuregoSafeRegister(&xDeleteTypeGLibType, lib, "gtk_delete_type_get_type")
+
+	core.PuregoSafeRegister(&xDirectionTypeGLibType, lib, "gtk_direction_type_get_type")
+
+	core.PuregoSafeRegister(&xEventSequenceStateGLibType, lib, "gtk_event_sequence_state_get_type")
+
+	core.PuregoSafeRegister(&xIconSizeGLibType, lib, "gtk_icon_size_get_type")
+
+	core.PuregoSafeRegister(&xInputPurposeGLibType, lib, "gtk_input_purpose_get_type")
+
+	core.PuregoSafeRegister(&xJustificationGLibType, lib, "gtk_justification_get_type")
+
+	core.PuregoSafeRegister(&xLevelBarModeGLibType, lib, "gtk_level_bar_mode_get_type")
+
+	core.PuregoSafeRegister(&xMessageTypeGLibType, lib, "gtk_message_type_get_type")
+
+	core.PuregoSafeRegister(&xMovementStepGLibType, lib, "gtk_movement_step_get_type")
+
+	core.PuregoSafeRegister(&xNaturalWrapModeGLibType, lib, "gtk_natural_wrap_mode_get_type")
+
+	core.PuregoSafeRegister(&xNumberUpLayoutGLibType, lib, "gtk_number_up_layout_get_type")
+
+	core.PuregoSafeRegister(&xOrderingGLibType, lib, "gtk_ordering_get_type")
+
+	core.PuregoSafeRegister(&xOrientationGLibType, lib, "gtk_orientation_get_type")
+
+	core.PuregoSafeRegister(&xOverflowGLibType, lib, "gtk_overflow_get_type")
+
+	core.PuregoSafeRegister(&xPackTypeGLibType, lib, "gtk_pack_type_get_type")
+
+	core.PuregoSafeRegister(&xPageOrientationGLibType, lib, "gtk_page_orientation_get_type")
+
+	core.PuregoSafeRegister(&xPageSetGLibType, lib, "gtk_page_set_get_type")
+
+	core.PuregoSafeRegister(&xPanDirectionGLibType, lib, "gtk_pan_direction_get_type")
+
+	core.PuregoSafeRegister(&xPositionTypeGLibType, lib, "gtk_position_type_get_type")
+
+	core.PuregoSafeRegister(&xPrintDuplexGLibType, lib, "gtk_print_duplex_get_type")
+
+	core.PuregoSafeRegister(&xPrintPagesGLibType, lib, "gtk_print_pages_get_type")
+
+	core.PuregoSafeRegister(&xPrintQualityGLibType, lib, "gtk_print_quality_get_type")
+
+	core.PuregoSafeRegister(&xPropagationLimitGLibType, lib, "gtk_propagation_limit_get_type")
+
+	core.PuregoSafeRegister(&xPropagationPhaseGLibType, lib, "gtk_propagation_phase_get_type")
+
+	core.PuregoSafeRegister(&xScrollStepGLibType, lib, "gtk_scroll_step_get_type")
+
+	core.PuregoSafeRegister(&xScrollTypeGLibType, lib, "gtk_scroll_type_get_type")
+
+	core.PuregoSafeRegister(&xScrollablePolicyGLibType, lib, "gtk_scrollable_policy_get_type")
+
+	core.PuregoSafeRegister(&xSelectionModeGLibType, lib, "gtk_selection_mode_get_type")
+
+	core.PuregoSafeRegister(&xSensitivityTypeGLibType, lib, "gtk_sensitivity_type_get_type")
+
+	core.PuregoSafeRegister(&xShortcutScopeGLibType, lib, "gtk_shortcut_scope_get_type")
+
+	core.PuregoSafeRegister(&xSizeGroupModeGLibType, lib, "gtk_size_group_mode_get_type")
+
+	core.PuregoSafeRegister(&xSizeRequestModeGLibType, lib, "gtk_size_request_mode_get_type")
+
+	core.PuregoSafeRegister(&xSortTypeGLibType, lib, "gtk_sort_type_get_type")
+
+	core.PuregoSafeRegister(&xSymbolicColorGLibType, lib, "gtk_symbolic_color_get_type")
+
+	core.PuregoSafeRegister(&xSystemSettingGLibType, lib, "gtk_system_setting_get_type")
+
+	core.PuregoSafeRegister(&xTextDirectionGLibType, lib, "gtk_text_direction_get_type")
+
+	core.PuregoSafeRegister(&xTreeViewGridLinesGLibType, lib, "gtk_tree_view_grid_lines_get_type")
+
+	core.PuregoSafeRegister(&xUnitGLibType, lib, "gtk_unit_get_type")
+
+	core.PuregoSafeRegister(&xWrapModeGLibType, lib, "gtk_wrap_mode_get_type")
+
 	core.PuregoSafeRegister(&xOrderingFromCmpfunc, lib, "gtk_ordering_from_cmpfunc")
 
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type BoolFilterClass struct {
@@ -21,6 +22,12 @@ func (x *BoolFilterClass) GoPointer() uintptr {
 // to determine whether to include items.
 type BoolFilter struct {
 	Filter
+}
+
+var xBoolFilterGLibType func() types.GType
+
+func BoolFilterGLibType() types.GType {
+	return xBoolFilterGLibType()
 }
 
 func BoolFilterNewFromInternalPtr(ptr uintptr) *BoolFilter {
@@ -106,6 +113,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xBoolFilterGLibType, lib, "gtk_bool_filter_get_type")
 
 	core.PuregoSafeRegister(&xNewBoolFilter, lib, "gtk_bool_filter_new")
 

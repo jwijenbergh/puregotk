@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MediaFileClass struct {
@@ -33,6 +34,12 @@ const (
 // GTK itself includes implementations using GStreamer and ffmpeg.
 type MediaFile struct {
 	MediaStream
+}
+
+var xMediaFileGLibType func() types.GType
+
+func MediaFileGLibType() types.GType {
+	return xMediaFileGLibType()
 }
 
 func MediaFileNewFromInternalPtr(ptr uintptr) *MediaFile {
@@ -385,6 +392,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMediaFileGLibType, lib, "gtk_media_file_get_type")
 
 	core.PuregoSafeRegister(&xNewMediaFile, lib, "gtk_media_file_new")
 	core.PuregoSafeRegister(&xNewMediaFileForFile, lib, "gtk_media_file_new_for_file")

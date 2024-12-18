@@ -20,6 +20,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDbusErrorQuark, lib, "g_dbus_error_quark")
 
 }

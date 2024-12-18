@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GLTextureClass struct {
@@ -20,6 +21,12 @@ func (x *GLTextureClass) GoPointer() uintptr {
 // A GdkTexture representing a GL texture object.
 type GLTexture struct {
 	Texture
+}
+
+var xGLTextureGLibType func() types.GType
+
+func GLTextureGLibType() types.GType {
+	return xGLTextureGLibType()
 }
 
 func GLTextureNewFromInternalPtr(ptr uintptr) *GLTexture {
@@ -306,6 +313,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGLTextureGLibType, lib, "gdk_gl_texture_get_type")
 
 	core.PuregoSafeRegister(&xNewGLTexture, lib, "gdk_gl_texture_new")
 

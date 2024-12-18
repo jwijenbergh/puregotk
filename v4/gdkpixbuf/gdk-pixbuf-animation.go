@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Modules supporting animations must derive a type from
@@ -48,6 +49,12 @@ func (x *PixbufAnimationIterClass) GoPointer() uintptr {
 // be displayed at a given point in time.
 type PixbufAnimation struct {
 	gobject.Object
+}
+
+var xPixbufAnimationGLibType func() types.GType
+
+func PixbufAnimationGLibType() types.GType {
+	return xPixbufAnimationGLibType()
 }
 
 func PixbufAnimationNewFromInternalPtr(ptr uintptr) *PixbufAnimation {
@@ -325,6 +332,12 @@ type PixbufAnimationIter struct {
 	gobject.Object
 }
 
+var xPixbufAnimationIterGLibType func() types.GType
+
+func PixbufAnimationIterGLibType() types.GType {
+	return xPixbufAnimationIterGLibType()
+}
+
 func PixbufAnimationIterNewFromInternalPtr(ptr uintptr) *PixbufAnimationIter {
 	cls := &PixbufAnimationIter{}
 	cls.Ptr = ptr
@@ -436,6 +449,8 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xPixbufAnimationGLibType, lib, "gdk_pixbuf_animation_get_type")
+
 	core.PuregoSafeRegister(&xNewPixbufAnimationFromFile, lib, "gdk_pixbuf_animation_new_from_file")
 	core.PuregoSafeRegister(&xNewPixbufAnimationFromResource, lib, "gdk_pixbuf_animation_new_from_resource")
 	core.PuregoSafeRegister(&xNewPixbufAnimationFromStream, lib, "gdk_pixbuf_animation_new_from_stream")
@@ -450,6 +465,8 @@ func init() {
 	core.PuregoSafeRegister(&xPixbufAnimationUnref, lib, "gdk_pixbuf_animation_unref")
 
 	core.PuregoSafeRegister(&xPixbufAnimationNewFromStreamAsync, lib, "gdk_pixbuf_animation_new_from_stream_async")
+
+	core.PuregoSafeRegister(&xPixbufAnimationIterGLibType, lib, "gdk_pixbuf_animation_iter_get_type")
 
 	core.PuregoSafeRegister(&xPixbufAnimationIterAdvance, lib, "gdk_pixbuf_animation_iter_advance")
 	core.PuregoSafeRegister(&xPixbufAnimationIterGetDelayTime, lib, "gdk_pixbuf_animation_iter_get_delay_time")

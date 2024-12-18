@@ -80,6 +80,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xHostnameIsAsciiEncoded, lib, "g_hostname_is_ascii_encoded")
 	core.PuregoSafeRegister(&xHostnameIsIpAddress, lib, "g_hostname_is_ip_address")
 	core.PuregoSafeRegister(&xHostnameIsNonAscii, lib, "g_hostname_is_non_ascii")

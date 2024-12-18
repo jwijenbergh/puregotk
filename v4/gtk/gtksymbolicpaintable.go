@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The list of virtual functions for the `GtkSymbolicPaintable` interface.
@@ -36,6 +37,13 @@ type SymbolicPaintable interface {
 	SetGoPointer(uintptr)
 	SnapshotSymbolic(SnapshotVar *gdk.Snapshot, WidthVar float64, HeightVar float64, ColorsVar []gdk.RGBA, NColorsVar uint)
 }
+
+var xSymbolicPaintableGLibType func() types.GType
+
+func SymbolicPaintableGLibType() types.GType {
+	return xSymbolicPaintableGLibType()
+}
+
 type SymbolicPaintableBase struct {
 	Ptr uintptr
 }
@@ -65,6 +73,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSymbolicPaintableGLibType, lib, "gtk_symbolic_paintable_get_type")
 
 	core.PuregoSafeRegister(&XGtkSymbolicPaintableSnapshotSymbolic, lib, "gtk_symbolic_paintable_snapshot_symbolic")
 

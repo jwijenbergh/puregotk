@@ -4,6 +4,7 @@ package gtk
 import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Flags to use with gtk_set_debug_flags().
@@ -12,6 +13,12 @@ import (
 // types of debugging information. Some of these flags are
 // only available when GTK has been configured with `-Ddebug=true`.
 type DebugFlags int
+
+var xDebugFlagsGLibType func() types.GType
+
+func DebugFlagsGLibType() types.GType {
+	return xDebugFlagsGLibType()
+}
 
 const (
 
@@ -83,6 +90,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDebugFlagsGLibType, lib, "gtk_debug_flags_get_type")
+
 	core.PuregoSafeRegister(&xGetDebugFlags, lib, "gtk_get_debug_flags")
 	core.PuregoSafeRegister(&xSetDebugFlags, lib, "gtk_set_debug_flags")
 

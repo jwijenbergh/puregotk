@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A 3D volume delimited by 2D clip planes.
@@ -14,6 +15,12 @@ import (
 // modified directly.
 type Frustum struct {
 	Planes [6]Plane
+}
+
+var xFrustumGLibType func() types.GType
+
+func FrustumGLibType() types.GType {
+	return xFrustumGLibType()
 }
 
 func (x *Frustum) GoPointer() uintptr {
@@ -122,6 +129,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFrustumGLibType, lib, "graphene_frustum_get_type")
 
 	core.PuregoSafeRegister(&xFrustumAlloc, lib, "graphene_frustum_alloc")
 

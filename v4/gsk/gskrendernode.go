@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 )
 
@@ -130,6 +131,12 @@ func ValueTakeRenderNode(ValueVar *gobject.Value, NodeVar *RenderNode) {
 // properties during construction.
 type RenderNode struct {
 	Ptr uintptr
+}
+
+var xRenderNodeGLibType func() types.GType
+
+func RenderNodeGLibType() types.GType {
+	return xRenderNodeGLibType()
 }
 
 func RenderNodeNewFromInternalPtr(ptr uintptr) *RenderNode {
@@ -270,10 +277,13 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xValueDupRenderNode, lib, "gsk_value_dup_render_node")
 	core.PuregoSafeRegister(&xValueGetRenderNode, lib, "gsk_value_get_render_node")
 	core.PuregoSafeRegister(&xValueSetRenderNode, lib, "gsk_value_set_render_node")
 	core.PuregoSafeRegister(&xValueTakeRenderNode, lib, "gsk_value_take_render_node")
+
+	core.PuregoSafeRegister(&xRenderNodeGLibType, lib, "gsk_render_node_get_type")
 
 	core.PuregoSafeRegister(&xRenderNodeDraw, lib, "gsk_render_node_draw")
 	core.PuregoSafeRegister(&xRenderNodeGetBounds, lib, "gsk_render_node_get_bounds")

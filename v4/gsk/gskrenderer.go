@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 )
 
@@ -33,6 +34,12 @@ func (x *RendererClass) GoPointer() uintptr {
 // to render the scene.
 type Renderer struct {
 	gobject.Object
+}
+
+var xRendererGLibType func() types.GType
+
+func RendererGLibType() types.GType {
+	return xRendererGLibType()
 }
 
 func RendererNewFromInternalPtr(ptr uintptr) *Renderer {
@@ -177,6 +184,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRendererGLibType, lib, "gsk_renderer_get_type")
 
 	core.PuregoSafeRegister(&xNewRendererForSurface, lib, "gsk_renderer_new_for_surface")
 

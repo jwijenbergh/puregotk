@@ -6,6 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -23,6 +24,12 @@ import (
 // [method@Gtk.ColorChooser.get_rgba].
 type ColorChooserDialog struct {
 	Dialog
+}
+
+var xColorChooserDialogGLibType func() types.GType
+
+func ColorChooserDialogGLibType() types.GType {
+	return xColorChooserDialogGLibType()
 }
 
 func ColorChooserDialogNewFromInternalPtr(ptr uintptr) *ColorChooserDialog {
@@ -362,6 +369,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xColorChooserDialogGLibType, lib, "gtk_color_chooser_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewColorChooserDialog, lib, "gtk_color_chooser_dialog_new")
 

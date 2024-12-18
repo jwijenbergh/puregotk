@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -31,6 +32,12 @@ func (x *LeafletPageClass) GoPointer() uintptr {
 //
 // New values may be added to this enumeration over time.
 type LeafletTransitionType int
+
+var xLeafletTransitionTypeGLibType func() types.GType
+
+func LeafletTransitionTypeGLibType() types.GType {
+	return xLeafletTransitionTypeGLibType()
+}
 
 const (
 
@@ -79,6 +86,12 @@ const (
 // if it hasn't computed its fold yet.
 type Leaflet struct {
 	gtk.Widget
+}
+
+var xLeafletGLibType func() types.GType
+
+func LeafletGLibType() types.GType {
+	return xLeafletGLibType()
 }
 
 func LeafletNewFromInternalPtr(ptr uintptr) *Leaflet {
@@ -761,6 +774,12 @@ type LeafletPage struct {
 	gobject.Object
 }
 
+var xLeafletPageGLibType func() types.GType
+
+func LeafletPageGLibType() types.GType {
+	return xLeafletPageGLibType()
+}
+
 func LeafletPageNewFromInternalPtr(ptr uintptr) *LeafletPage {
 	cls := &LeafletPage{}
 	cls.Ptr = ptr
@@ -839,6 +858,10 @@ func init() {
 		panic(err)
 	}
 
+	core.PuregoSafeRegister(&xLeafletTransitionTypeGLibType, lib, "adw_leaflet_transition_type_get_type")
+
+	core.PuregoSafeRegister(&xLeafletGLibType, lib, "adw_leaflet_get_type")
+
 	core.PuregoSafeRegister(&xNewLeaflet, lib, "adw_leaflet_new")
 
 	core.PuregoSafeRegister(&xLeafletAppend, lib, "adw_leaflet_append")
@@ -873,6 +896,8 @@ func init() {
 	core.PuregoSafeRegister(&xLeafletSetTransitionType, lib, "adw_leaflet_set_transition_type")
 	core.PuregoSafeRegister(&xLeafletSetVisibleChild, lib, "adw_leaflet_set_visible_child")
 	core.PuregoSafeRegister(&xLeafletSetVisibleChildName, lib, "adw_leaflet_set_visible_child_name")
+
+	core.PuregoSafeRegister(&xLeafletPageGLibType, lib, "adw_leaflet_page_get_type")
 
 	core.PuregoSafeRegister(&xLeafletPageGetChild, lib, "adw_leaflet_page_get_child")
 	core.PuregoSafeRegister(&xLeafletPageGetName, lib, "adw_leaflet_page_get_name")

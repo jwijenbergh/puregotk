@@ -5,6 +5,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `PangoCoverageLevel` is used to indicate how well a font can
@@ -13,6 +14,12 @@ import (
 // Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
 // will be returned.
 type CoverageLevel int
+
+var xCoverageLevelGLibType func() types.GType
+
+func CoverageLevelGLibType() types.GType {
+	return xCoverageLevelGLibType()
+}
 
 const (
 
@@ -44,6 +51,12 @@ const (
 // opaque structure with no public fields.
 type Coverage struct {
 	gobject.Object
+}
+
+var xCoverageGLibType func() types.GType
+
+func CoverageGLibType() types.GType {
+	return xCoverageGLibType()
 }
 
 func CoverageNewFromInternalPtr(ptr uintptr) *Coverage {
@@ -179,6 +192,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xCoverageLevelGLibType, lib, "pango_coverage_level_get_type")
+
+	core.PuregoSafeRegister(&xCoverageGLibType, lib, "pango_coverage_get_type")
 
 	core.PuregoSafeRegister(&xNewCoverage, lib, "pango_coverage_new")
 

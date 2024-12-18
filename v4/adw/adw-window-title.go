@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -35,6 +36,12 @@ func (x *WindowTitleClass) GoPointer() uintptr {
 // `AdwWindowTitle` has a single CSS node with name `windowtitle`.
 type WindowTitle struct {
 	gtk.Widget
+}
+
+var xWindowTitleGLibType func() types.GType
+
+func WindowTitleGLibType() types.GType {
+	return xWindowTitleGLibType()
 }
 
 func WindowTitleNewFromInternalPtr(ptr uintptr) *WindowTitle {
@@ -257,6 +264,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowTitleGLibType, lib, "adw_window_title_get_type")
 
 	core.PuregoSafeRegister(&xNewWindowTitle, lib, "adw_window_title_new")
 

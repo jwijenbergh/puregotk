@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -50,6 +51,12 @@ type TextIter struct {
 	Dummy13 int
 
 	Dummy14 uintptr
+}
+
+var xTextIterGLibType func() types.GType
+
+func TextIterGLibType() types.GType {
+	return xTextIterGLibType()
 }
 
 func (x *TextIter) GoPointer() uintptr {
@@ -1329,6 +1336,12 @@ func (x *TextIter) TogglesTag(TagVar *TextTag) bool {
 // embedded paintables or child widgets.
 type TextSearchFlags int
 
+var xTextSearchFlagsGLibType func() types.GType
+
+func TextSearchFlagsGLibType() types.GType {
+	return xTextSearchFlagsGLibType()
+}
+
 const (
 
 	// Search only visible data. A search match may
@@ -1347,6 +1360,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTextSearchFlagsGLibType, lib, "gtk_text_search_flags_get_type")
+
+	core.PuregoSafeRegister(&xTextIterGLibType, lib, "gtk_text_iter_get_type")
 
 	core.PuregoSafeRegister(&xTextIterAssign, lib, "gtk_text_iter_assign")
 	core.PuregoSafeRegister(&xTextIterBackwardChar, lib, "gtk_text_iter_backward_char")

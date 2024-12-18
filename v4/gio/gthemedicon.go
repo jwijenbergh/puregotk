@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ThemedIconClass struct {
@@ -26,6 +27,12 @@ func (x *ThemedIconClass) GoPointer() uintptr {
 // themes that inherit other themes.
 type ThemedIcon struct {
 	gobject.Object
+}
+
+var xThemedIconGLibType func() types.GType
+
+func ThemedIconGLibType() types.GType {
+	return xThemedIconGLibType()
 }
 
 func ThemedIconNewFromInternalPtr(ptr uintptr) *ThemedIcon {
@@ -183,6 +190,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xThemedIconGLibType, lib, "g_themed_icon_get_type")
 
 	core.PuregoSafeRegister(&xNewThemedIcon, lib, "g_themed_icon_new")
 	core.PuregoSafeRegister(&xNewThemedIconFromNames, lib, "g_themed_icon_new_from_names")

@@ -5,11 +5,18 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // These enumeration values describe the possible transitions
 // when the child of a `GtkRevealer` widget is shown or hidden.
 type RevealerTransitionType int
+
+var xRevealerTransitionTypeGLibType func() types.GType
+
+func RevealerTransitionTypeGLibType() types.GType {
+	return xRevealerTransitionTypeGLibType()
+}
 
 const (
 
@@ -58,6 +65,12 @@ const (
 // tree, regardless of the state of the revealer widget.
 type Revealer struct {
 	Widget
+}
+
+var xRevealerGLibType func() types.GType
+
+func RevealerGLibType() types.GType {
+	return xRevealerGLibType()
 }
 
 func RevealerNewFromInternalPtr(ptr uintptr) *Revealer {
@@ -344,6 +357,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xRevealerTransitionTypeGLibType, lib, "gtk_revealer_transition_type_get_type")
+
+	core.PuregoSafeRegister(&xRevealerGLibType, lib, "gtk_revealer_get_type")
 
 	core.PuregoSafeRegister(&xNewRevealer, lib, "gtk_revealer_new")
 

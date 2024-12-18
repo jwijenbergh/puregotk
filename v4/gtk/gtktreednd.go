@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type TreeDragDestIface struct {
@@ -33,6 +34,13 @@ type TreeDragDest interface {
 	DragDataReceived(DestVar *TreePath, ValueVar *gobject.Value) bool
 	RowDropPossible(DestPathVar *TreePath, ValueVar *gobject.Value) bool
 }
+
+var xTreeDragDestGLibType func() types.GType
+
+func TreeDragDestGLibType() types.GType {
+	return xTreeDragDestGLibType()
+}
+
 type TreeDragDestBase struct {
 	Ptr uintptr
 }
@@ -79,6 +87,13 @@ type TreeDragSource interface {
 	DragDataGet(PathVar *TreePath) *gdk.ContentProvider
 	RowDraggable(PathVar *TreePath) bool
 }
+
+var xTreeDragSourceGLibType func() types.GType
+
+func TreeDragSourceGLibType() types.GType {
+	return xTreeDragSourceGLibType()
+}
+
 type TreeDragSourceBase struct {
 	Ptr uintptr
 }
@@ -164,11 +179,16 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xTreeCreateRowDragContent, lib, "gtk_tree_create_row_drag_content")
 	core.PuregoSafeRegister(&xTreeGetRowDragData, lib, "gtk_tree_get_row_drag_data")
 
+	core.PuregoSafeRegister(&xTreeDragDestGLibType, lib, "gtk_tree_drag_dest_get_type")
+
 	core.PuregoSafeRegister(&XGtkTreeDragDestDragDataReceived, lib, "gtk_tree_drag_dest_drag_data_received")
 	core.PuregoSafeRegister(&XGtkTreeDragDestRowDropPossible, lib, "gtk_tree_drag_dest_row_drop_possible")
+
+	core.PuregoSafeRegister(&xTreeDragSourceGLibType, lib, "gtk_tree_drag_source_get_type")
 
 	core.PuregoSafeRegister(&XGtkTreeDragSourceDragDataDelete, lib, "gtk_tree_drag_source_drag_data_delete")
 	core.PuregoSafeRegister(&XGtkTreeDragSourceDragDataGet, lib, "gtk_tree_drag_source_drag_data_get")

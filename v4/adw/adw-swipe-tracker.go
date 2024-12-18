@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -31,6 +32,12 @@ func (x *SwipeTrackerClass) GoPointer() uintptr {
 // direction.
 type SwipeTracker struct {
 	gobject.Object
+}
+
+var xSwipeTrackerGLibType func() types.GType
+
+func SwipeTrackerGLibType() types.GType {
+	return xSwipeTrackerGLibType()
 }
 
 func SwipeTrackerNewFromInternalPtr(ptr uintptr) *SwipeTracker {
@@ -281,6 +288,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSwipeTrackerGLibType, lib, "adw_swipe_tracker_get_type")
 
 	core.PuregoSafeRegister(&xNewSwipeTracker, lib, "adw_swipe_tracker_new")
 

@@ -105,6 +105,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAccess, lib, "g_access")
 	core.PuregoSafeRegister(&xChdir, lib, "g_chdir")
 	core.PuregoSafeRegister(&xClose, lib, "g_close")

@@ -150,6 +150,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDbusErrorEncodeGerror, lib, "g_dbus_error_encode_gerror")
 	core.PuregoSafeRegister(&xDbusErrorGetRemoteError, lib, "g_dbus_error_get_remote_error")
 	core.PuregoSafeRegister(&xDbusErrorIsRemoteError, lib, "g_dbus_error_is_remote_error")

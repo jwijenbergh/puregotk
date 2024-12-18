@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ConstraintGuideClass struct {
@@ -31,6 +32,12 @@ func (x *ConstraintGuideClass) GoPointer() uintptr {
 // Unlike a `GtkWidget`, a `GtkConstraintGuide` will not be drawn.
 type ConstraintGuide struct {
 	gobject.Object
+}
+
+var xConstraintGuideGLibType func() types.GType
+
+func ConstraintGuideGLibType() types.GType {
+	return xConstraintGuideGLibType()
 }
 
 func ConstraintGuideNewFromInternalPtr(ptr uintptr) *ConstraintGuide {
@@ -170,6 +177,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xConstraintGuideGLibType, lib, "gtk_constraint_guide_get_type")
 
 	core.PuregoSafeRegister(&xNewConstraintGuide, lib, "gtk_constraint_guide_new")
 

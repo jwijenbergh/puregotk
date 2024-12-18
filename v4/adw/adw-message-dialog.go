@@ -10,6 +10,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -28,6 +29,12 @@ func (x *MessageDialogClass) GoPointer() uintptr {
 //
 // See [method@MessageDialog.set_response_appearance].
 type ResponseAppearance int
+
+var xResponseAppearanceGLibType func() types.GType
+
+func ResponseAppearanceGLibType() types.GType {
+	return xResponseAppearanceGLibType()
+}
 
 const (
 
@@ -184,6 +191,12 @@ const (
 // `AdwMessageDialog` uses the `GTK_ACCESSIBLE_ROLE_DIALOG` role.
 type MessageDialog struct {
 	gtk.Window
+}
+
+var xMessageDialogGLibType func() types.GType
+
+func MessageDialogGLibType() types.GType {
+	return xMessageDialogGLibType()
 }
 
 func MessageDialogNewFromInternalPtr(ptr uintptr) *MessageDialog {
@@ -902,6 +915,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xResponseAppearanceGLibType, lib, "adw_response_appearance_get_type")
+
+	core.PuregoSafeRegister(&xMessageDialogGLibType, lib, "adw_message_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewMessageDialog, lib, "adw_message_dialog_new")
 

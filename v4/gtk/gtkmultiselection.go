@@ -25,6 +25,12 @@ type MultiSelection struct {
 	gobject.Object
 }
 
+var xMultiSelectionGLibType func() types.GType
+
+func MultiSelectionGLibType() types.GType {
+	return xMultiSelectionGLibType()
+}
+
 func MultiSelectionNewFromInternalPtr(ptr uintptr) *MultiSelection {
 	cls := &MultiSelection{}
 	cls.Ptr = ptr
@@ -304,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMultiSelectionGLibType, lib, "gtk_multi_selection_get_type")
 
 	core.PuregoSafeRegister(&xNewMultiSelection, lib, "gtk_multi_selection_new")
 

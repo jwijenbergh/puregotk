@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type MonitorClass struct {
@@ -20,6 +21,12 @@ func (x *MonitorClass) GoPointer() uintptr {
 // This enumeration describes how the red, green and blue components
 // of physical pixels on an output device are laid out.
 type SubpixelLayout int
+
+var xSubpixelLayoutGLibType func() types.GType
+
+func SubpixelLayoutGLibType() types.GType {
+	return xSubpixelLayoutGLibType()
+}
 
 const (
 
@@ -46,6 +53,12 @@ const (
 // monitor.
 type Monitor struct {
 	gobject.Object
+}
+
+var xMonitorGLibType func() types.GType
+
+func MonitorGLibType() types.GType {
+	return xMonitorGLibType()
 }
 
 func MonitorNewFromInternalPtr(ptr uintptr) *Monitor {
@@ -220,6 +233,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSubpixelLayoutGLibType, lib, "gdk_subpixel_layout_get_type")
+
+	core.PuregoSafeRegister(&xMonitorGLibType, lib, "gdk_monitor_get_type")
 
 	core.PuregoSafeRegister(&xMonitorGetConnector, lib, "gdk_monitor_get_connector")
 	core.PuregoSafeRegister(&xMonitorGetDisplay, lib, "gdk_monitor_get_display")

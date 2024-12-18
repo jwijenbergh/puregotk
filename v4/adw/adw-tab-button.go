@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -53,6 +54,12 @@ func (x *TabButtonClass) GoPointer() uintptr {
 // `AdwTabButton` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
 type TabButton struct {
 	gtk.Widget
+}
+
+var xTabButtonGLibType func() types.GType
+
+func TabButtonGLibType() types.GType {
+	return xTabButtonGLibType()
 }
 
 func TabButtonNewFromInternalPtr(ptr uintptr) *TabButton {
@@ -386,6 +393,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTabButtonGLibType, lib, "adw_tab_button_get_type")
 
 	core.PuregoSafeRegister(&xNewTabButton, lib, "adw_tab_button_new")
 

@@ -715,6 +715,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAtexit, lib, "g_atexit")
 	core.PuregoSafeRegister(&xBitNthLsf, lib, "g_bit_nth_lsf")
 	core.PuregoSafeRegister(&xBitNthMsf, lib, "g_bit_nth_msf")

@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // A 3D box, described as the volume between a minimum and
@@ -14,6 +15,12 @@ type Box struct {
 	Min uintptr
 
 	Max uintptr
+}
+
+var xBoxGLibType func() types.GType
+
+func BoxGLibType() types.GType {
+	return xBoxGLibType()
 }
 
 func (x *Box) GoPointer() uintptr {
@@ -334,12 +341,15 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xBoxEmpty, lib, "graphene_box_empty")
 	core.PuregoSafeRegister(&xBoxInfinite, lib, "graphene_box_infinite")
 	core.PuregoSafeRegister(&xBoxMinusOne, lib, "graphene_box_minus_one")
 	core.PuregoSafeRegister(&xBoxOne, lib, "graphene_box_one")
 	core.PuregoSafeRegister(&xBoxOneMinusOne, lib, "graphene_box_one_minus_one")
 	core.PuregoSafeRegister(&xBoxZero, lib, "graphene_box_zero")
+
+	core.PuregoSafeRegister(&xBoxGLibType, lib, "graphene_box_get_type")
 
 	core.PuregoSafeRegister(&xBoxAlloc, lib, "graphene_box_alloc")
 

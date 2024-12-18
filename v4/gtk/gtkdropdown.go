@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type DropDownClass struct {
@@ -65,6 +66,12 @@ func (x *DropDownClass) GoPointer() uintptr {
 // `GtkDropDown` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
 type DropDown struct {
 	Widget
+}
+
+var xDropDownGLibType func() types.GType
+
+func DropDownGLibType() types.GType {
+	return xDropDownGLibType()
 }
 
 func DropDownNewFromInternalPtr(ptr uintptr) *DropDown {
@@ -478,6 +485,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDropDownGLibType, lib, "gtk_drop_down_get_type")
 
 	core.PuregoSafeRegister(&xNewDropDown, lib, "gtk_drop_down_new")
 	core.PuregoSafeRegister(&xNewDropDownFromStrings, lib, "gtk_drop_down_new_from_strings")

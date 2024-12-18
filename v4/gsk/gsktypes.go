@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/graphene"
 )
 
@@ -20,6 +21,12 @@ import (
 // This means code can safely expose them as properties of objects without
 // having to worry about others changing them.
 type Transform struct {
+}
+
+var xTransformGLibType func() types.GType
+
+func TransformGLibType() types.GType {
+	return xTransformGLibType()
 }
 
 func (x *Transform) GoPointer() uintptr {
@@ -341,6 +348,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTransformGLibType, lib, "gsk_transform_get_type")
 
 	core.PuregoSafeRegister(&xNewTransform, lib, "gsk_transform_new")
 

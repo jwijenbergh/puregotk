@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
@@ -56,6 +57,13 @@ type FontChooser interface {
 	SetPreviewText(TextVar string)
 	SetShowPreviewEntry(ShowPreviewEntryVar bool)
 }
+
+var xFontChooserGLibType func() types.GType
+
+func FontChooserGLibType() types.GType {
+	return xFontChooserGLibType()
+}
+
 type FontChooserBase struct {
 	Ptr uintptr
 }
@@ -308,6 +316,12 @@ var XGtkFontChooserSetShowPreviewEntry func(uintptr, bool)
 // ignore unknown values.
 type FontChooserLevel int
 
+var xFontChooserLevelGLibType func() types.GType
+
+func FontChooserLevelGLibType() types.GType {
+	return xFontChooserLevelGLibType()
+}
+
 const (
 
 	// Allow selecting a font family
@@ -327,6 +341,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFontChooserLevelGLibType, lib, "gtk_font_chooser_level_get_type")
+
+	core.PuregoSafeRegister(&xFontChooserGLibType, lib, "gtk_font_chooser_get_type")
 
 	core.PuregoSafeRegister(&XGtkFontChooserGetFont, lib, "gtk_font_chooser_get_font")
 	core.PuregoSafeRegister(&XGtkFontChooserGetFontDesc, lib, "gtk_font_chooser_get_font_desc")

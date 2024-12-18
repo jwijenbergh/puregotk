@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
@@ -57,6 +58,12 @@ func (x *WindowClass) GoPointer() uintptr {
 // instead.
 type Window struct {
 	gtk.Window
+}
+
+var xWindowGLibType func() types.GType
+
+func WindowGLibType() types.GType {
+	return xWindowGLibType()
 }
 
 func WindowNewFromInternalPtr(ptr uintptr) *Window {
@@ -375,6 +382,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xWindowGLibType, lib, "adw_window_get_type")
 
 	core.PuregoSafeRegister(&xNewWindow, lib, "adw_window_new")
 

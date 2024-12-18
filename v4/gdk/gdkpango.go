@@ -54,6 +54,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xPangoLayoutGetClipRegion, lib, "gdk_pango_layout_get_clip_region")
 	core.PuregoSafeRegister(&xPangoLayoutLineGetClipRegion, lib, "gdk_pango_layout_line_get_clip_region")
 

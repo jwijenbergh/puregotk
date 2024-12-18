@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Virtual function table for #GApplication.
@@ -144,6 +145,12 @@ func (x *ApplicationPrivate) GoPointer() uintptr {
 // [gapplication-example-dbushooks.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-dbushooks.c).
 type Application struct {
 	gobject.Object
+}
+
+var xApplicationGLibType func() types.GType
+
+func ApplicationGLibType() types.GType {
+	return xApplicationGLibType()
 }
 
 func ApplicationNewFromInternalPtr(ptr uintptr) *Application {
@@ -1494,6 +1501,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xApplicationGLibType, lib, "g_application_get_type")
 
 	core.PuregoSafeRegister(&xNewApplication, lib, "g_application_new")
 

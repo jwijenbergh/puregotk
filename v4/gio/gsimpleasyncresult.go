@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type SimpleAsyncResultClass struct {
@@ -224,6 +225,12 @@ func SimpleAsyncReportTakeGerrorInIdle(ObjectVar *gobject.Object, CallbackVar *A
 // ]|
 type SimpleAsyncResult struct {
 	gobject.Object
+}
+
+var xSimpleAsyncResultGLibType func() types.GType
+
+func SimpleAsyncResultGLibType() types.GType {
+	return xSimpleAsyncResultGLibType()
 }
 
 func SimpleAsyncResultNewFromInternalPtr(ptr uintptr) *SimpleAsyncResult {
@@ -590,9 +597,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xSimpleAsyncReportErrorInIdle, lib, "g_simple_async_report_error_in_idle")
 	core.PuregoSafeRegister(&xSimpleAsyncReportGerrorInIdle, lib, "g_simple_async_report_gerror_in_idle")
 	core.PuregoSafeRegister(&xSimpleAsyncReportTakeGerrorInIdle, lib, "g_simple_async_report_take_gerror_in_idle")
+
+	core.PuregoSafeRegister(&xSimpleAsyncResultGLibType, lib, "g_simple_async_result_get_type")
 
 	core.PuregoSafeRegister(&xNewSimpleAsyncResult, lib, "g_simple_async_result_new")
 	core.PuregoSafeRegister(&xNewSimpleAsyncResultError, lib, "g_simple_async_result_new_error")

@@ -25,6 +25,12 @@ type SelectionFilterModel struct {
 	gobject.Object
 }
 
+var xSelectionFilterModelGLibType func() types.GType
+
+func SelectionFilterModelGLibType() types.GType {
+	return xSelectionFilterModelGLibType()
+}
+
 func SelectionFilterModelNewFromInternalPtr(ptr uintptr) *SelectionFilterModel {
 	cls := &SelectionFilterModel{}
 	cls.Ptr = ptr
@@ -183,6 +189,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSelectionFilterModelGLibType, lib, "gtk_selection_filter_model_get_type")
 
 	core.PuregoSafeRegister(&xNewSelectionFilterModel, lib, "gtk_selection_filter_model_new")
 

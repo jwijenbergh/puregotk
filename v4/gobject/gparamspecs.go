@@ -446,6 +446,12 @@ type ParamSpecBoolean struct {
 	ParamSpec
 }
 
+var xParamSpecBooleanGLibType func() types.GType
+
+func ParamSpecBooleanGLibType() types.GType {
+	return xParamSpecBooleanGLibType()
+}
+
 func ParamSpecBooleanNewFromInternalPtr(ptr uintptr) *ParamSpecBoolean {
 	cls := &ParamSpecBoolean{}
 	cls.Ptr = ptr
@@ -463,6 +469,12 @@ func (c *ParamSpecBoolean) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for boxed properties.
 type ParamSpecBoxed struct {
 	ParamSpec
+}
+
+var xParamSpecBoxedGLibType func() types.GType
+
+func ParamSpecBoxedGLibType() types.GType {
+	return xParamSpecBoxedGLibType()
 }
 
 func ParamSpecBoxedNewFromInternalPtr(ptr uintptr) *ParamSpecBoxed {
@@ -484,6 +496,12 @@ type ParamSpecChar struct {
 	ParamSpec
 }
 
+var xParamSpecCharGLibType func() types.GType
+
+func ParamSpecCharGLibType() types.GType {
+	return xParamSpecCharGLibType()
+}
+
 func ParamSpecCharNewFromInternalPtr(ptr uintptr) *ParamSpecChar {
 	cls := &ParamSpecChar{}
 	cls.Ptr = ptr
@@ -501,6 +519,12 @@ func (c *ParamSpecChar) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for double properties.
 type ParamSpecDouble struct {
 	ParamSpec
+}
+
+var xParamSpecDoubleGLibType func() types.GType
+
+func ParamSpecDoubleGLibType() types.GType {
+	return xParamSpecDoubleGLibType()
 }
 
 func ParamSpecDoubleNewFromInternalPtr(ptr uintptr) *ParamSpecDouble {
@@ -523,6 +547,12 @@ type ParamSpecEnum struct {
 	ParamSpec
 }
 
+var xParamSpecEnumGLibType func() types.GType
+
+func ParamSpecEnumGLibType() types.GType {
+	return xParamSpecEnumGLibType()
+}
+
 func ParamSpecEnumNewFromInternalPtr(ptr uintptr) *ParamSpecEnum {
 	cls := &ParamSpecEnum{}
 	cls.Ptr = ptr
@@ -541,6 +571,12 @@ func (c *ParamSpecEnum) SetGoPointer(ptr uintptr) {
 // properties.
 type ParamSpecFlags struct {
 	ParamSpec
+}
+
+var xParamSpecFlagsGLibType func() types.GType
+
+func ParamSpecFlagsGLibType() types.GType {
+	return xParamSpecFlagsGLibType()
 }
 
 func ParamSpecFlagsNewFromInternalPtr(ptr uintptr) *ParamSpecFlags {
@@ -562,6 +598,12 @@ type ParamSpecFloat struct {
 	ParamSpec
 }
 
+var xParamSpecFloatGLibType func() types.GType
+
+func ParamSpecFloatGLibType() types.GType {
+	return xParamSpecFloatGLibType()
+}
+
 func ParamSpecFloatNewFromInternalPtr(ptr uintptr) *ParamSpecFloat {
 	cls := &ParamSpecFloat{}
 	cls.Ptr = ptr
@@ -579,6 +621,12 @@ func (c *ParamSpecFloat) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for #GType properties.
 type ParamSpecGType struct {
 	ParamSpec
+}
+
+var xParamSpecGTypeGLibType func() types.GType
+
+func ParamSpecGTypeGLibType() types.GType {
+	return xParamSpecGTypeGLibType()
 }
 
 func ParamSpecGTypeNewFromInternalPtr(ptr uintptr) *ParamSpecGType {
@@ -600,6 +648,12 @@ type ParamSpecInt struct {
 	ParamSpec
 }
 
+var xParamSpecIntGLibType func() types.GType
+
+func ParamSpecIntGLibType() types.GType {
+	return xParamSpecIntGLibType()
+}
+
 func ParamSpecIntNewFromInternalPtr(ptr uintptr) *ParamSpecInt {
 	cls := &ParamSpecInt{}
 	cls.Ptr = ptr
@@ -617,6 +671,12 @@ func (c *ParamSpecInt) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for 64bit integer properties.
 type ParamSpecInt64 struct {
 	ParamSpec
+}
+
+var xParamSpecInt64GLibType func() types.GType
+
+func ParamSpecInt64GLibType() types.GType {
+	return xParamSpecInt64GLibType()
 }
 
 func ParamSpecInt64NewFromInternalPtr(ptr uintptr) *ParamSpecInt64 {
@@ -638,6 +698,12 @@ type ParamSpecLong struct {
 	ParamSpec
 }
 
+var xParamSpecLongGLibType func() types.GType
+
+func ParamSpecLongGLibType() types.GType {
+	return xParamSpecLongGLibType()
+}
+
 func ParamSpecLongNewFromInternalPtr(ptr uintptr) *ParamSpecLong {
 	cls := &ParamSpecLong{}
 	cls.Ptr = ptr
@@ -655,6 +721,12 @@ func (c *ParamSpecLong) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for object properties.
 type ParamSpecObject struct {
 	ParamSpec
+}
+
+var xParamSpecObjectGLibType func() types.GType
+
+func ParamSpecObjectGLibType() types.GType {
+	return xParamSpecObjectGLibType()
 }
 
 func ParamSpecObjectNewFromInternalPtr(ptr uintptr) *ParamSpecObject {
@@ -686,6 +758,12 @@ type ParamSpecOverride struct {
 	ParamSpec
 }
 
+var xParamSpecOverrideGLibType func() types.GType
+
+func ParamSpecOverrideGLibType() types.GType {
+	return xParamSpecOverrideGLibType()
+}
+
 func ParamSpecOverrideNewFromInternalPtr(ptr uintptr) *ParamSpecOverride {
 	cls := &ParamSpecOverride{}
 	cls.Ptr = ptr
@@ -706,6 +784,12 @@ type ParamSpecParam struct {
 	ParamSpec
 }
 
+var xParamSpecParamGLibType func() types.GType
+
+func ParamSpecParamGLibType() types.GType {
+	return xParamSpecParamGLibType()
+}
+
 func ParamSpecParamNewFromInternalPtr(ptr uintptr) *ParamSpecParam {
 	cls := &ParamSpecParam{}
 	cls.Ptr = ptr
@@ -723,6 +807,12 @@ func (c *ParamSpecParam) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for pointer properties.
 type ParamSpecPointer struct {
 	ParamSpec
+}
+
+var xParamSpecPointerGLibType func() types.GType
+
+func ParamSpecPointerGLibType() types.GType {
+	return xParamSpecPointerGLibType()
 }
 
 func ParamSpecPointerNewFromInternalPtr(ptr uintptr) *ParamSpecPointer {
@@ -745,6 +835,12 @@ type ParamSpecString struct {
 	ParamSpec
 }
 
+var xParamSpecStringGLibType func() types.GType
+
+func ParamSpecStringGLibType() types.GType {
+	return xParamSpecStringGLibType()
+}
+
 func ParamSpecStringNewFromInternalPtr(ptr uintptr) *ParamSpecString {
 	cls := &ParamSpecString{}
 	cls.Ptr = ptr
@@ -762,6 +858,12 @@ func (c *ParamSpecString) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for unsigned character properties.
 type ParamSpecUChar struct {
 	ParamSpec
+}
+
+var xParamSpecUCharGLibType func() types.GType
+
+func ParamSpecUCharGLibType() types.GType {
+	return xParamSpecUCharGLibType()
 }
 
 func ParamSpecUCharNewFromInternalPtr(ptr uintptr) *ParamSpecUChar {
@@ -783,6 +885,12 @@ type ParamSpecUInt struct {
 	ParamSpec
 }
 
+var xParamSpecUIntGLibType func() types.GType
+
+func ParamSpecUIntGLibType() types.GType {
+	return xParamSpecUIntGLibType()
+}
+
 func ParamSpecUIntNewFromInternalPtr(ptr uintptr) *ParamSpecUInt {
 	cls := &ParamSpecUInt{}
 	cls.Ptr = ptr
@@ -800,6 +908,12 @@ func (c *ParamSpecUInt) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
 type ParamSpecUInt64 struct {
 	ParamSpec
+}
+
+var xParamSpecUInt64GLibType func() types.GType
+
+func ParamSpecUInt64GLibType() types.GType {
+	return xParamSpecUInt64GLibType()
 }
 
 func ParamSpecUInt64NewFromInternalPtr(ptr uintptr) *ParamSpecUInt64 {
@@ -821,6 +935,12 @@ type ParamSpecULong struct {
 	ParamSpec
 }
 
+var xParamSpecULongGLibType func() types.GType
+
+func ParamSpecULongGLibType() types.GType {
+	return xParamSpecULongGLibType()
+}
+
 func ParamSpecULongNewFromInternalPtr(ptr uintptr) *ParamSpecULong {
 	cls := &ParamSpecULong{}
 	cls.Ptr = ptr
@@ -840,6 +960,12 @@ type ParamSpecUnichar struct {
 	ParamSpec
 }
 
+var xParamSpecUnicharGLibType func() types.GType
+
+func ParamSpecUnicharGLibType() types.GType {
+	return xParamSpecUnicharGLibType()
+}
+
 func ParamSpecUnicharNewFromInternalPtr(ptr uintptr) *ParamSpecUnichar {
 	cls := &ParamSpecUnichar{}
 	cls.Ptr = ptr
@@ -857,6 +983,12 @@ func (c *ParamSpecUnichar) SetGoPointer(ptr uintptr) {
 // A #GParamSpec derived structure that contains the meta data for #GValueArray properties.
 type ParamSpecValueArray struct {
 	ParamSpec
+}
+
+var xParamSpecValueArrayGLibType func() types.GType
+
+func ParamSpecValueArrayGLibType() types.GType {
+	return xParamSpecValueArrayGLibType()
 }
 
 func ParamSpecValueArrayNewFromInternalPtr(ptr uintptr) *ParamSpecValueArray {
@@ -884,6 +1016,12 @@ type ParamSpecVariant struct {
 	ParamSpec
 }
 
+var xParamSpecVariantGLibType func() types.GType
+
+func ParamSpecVariantGLibType() types.GType {
+	return xParamSpecVariantGLibType()
+}
+
 func ParamSpecVariantNewFromInternalPtr(ptr uintptr) *ParamSpecVariant {
 	cls := &ParamSpecVariant{}
 	cls.Ptr = ptr
@@ -903,6 +1041,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xNewParamSpecBoolean, lib, "g_param_spec_boolean")
 	core.PuregoSafeRegister(&xNewParamSpecBoxed, lib, "g_param_spec_boxed")
 	core.PuregoSafeRegister(&xNewParamSpecChar, lib, "g_param_spec_char")
@@ -926,5 +1065,51 @@ func init() {
 	core.PuregoSafeRegister(&xNewParamSpecUnichar, lib, "g_param_spec_unichar")
 	core.PuregoSafeRegister(&xNewParamSpecValueArray, lib, "g_param_spec_value_array")
 	core.PuregoSafeRegister(&xNewParamSpecVariant, lib, "g_param_spec_variant")
+
+	core.PuregoSafeRegister(&xParamSpecBooleanGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecBoxedGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecCharGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecDoubleGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecEnumGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecFlagsGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecFloatGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecGTypeGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecIntGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecInt64GLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecLongGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecObjectGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecOverrideGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecParamGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecPointerGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecStringGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecUCharGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecUIntGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecUInt64GLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecULongGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecUnicharGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecValueArrayGLibType, lib, "intern")
+
+	core.PuregoSafeRegister(&xParamSpecVariantGLibType, lib, "intern")
 
 }

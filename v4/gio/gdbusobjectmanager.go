@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Base type for D-Bus object managers.
@@ -33,6 +34,13 @@ type DBusObjectManager interface {
 	GetObjectPath() string
 	GetObjects() *glib.List
 }
+
+var xDBusObjectManagerGLibType func() types.GType
+
+func DBusObjectManagerGLibType() types.GType {
+	return xDBusObjectManagerGLibType()
+}
+
 type DBusObjectManagerBase struct {
 	Ptr uintptr
 }
@@ -98,6 +106,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDBusObjectManagerGLibType, lib, "g_dbus_object_manager_get_type")
 
 	core.PuregoSafeRegister(&XGDbusObjectManagerGetInterface, lib, "g_dbus_object_manager_get_interface")
 	core.PuregoSafeRegister(&XGDbusObjectManagerGetObject, lib, "g_dbus_object_manager_get_object")

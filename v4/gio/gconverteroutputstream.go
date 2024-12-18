@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ConverterOutputStreamClass struct {
@@ -32,6 +33,12 @@ func (x *ConverterOutputStreamPrivate) GoPointer() uintptr {
 // #GPollableOutputStream.
 type ConverterOutputStream struct {
 	FilterOutputStream
+}
+
+var xConverterOutputStreamGLibType func() types.GType
+
+func ConverterOutputStreamGLibType() types.GType {
+	return xConverterOutputStreamGLibType()
 }
 
 func ConverterOutputStreamNewFromInternalPtr(ptr uintptr) *ConverterOutputStream {
@@ -180,6 +187,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xConverterOutputStreamGLibType, lib, "g_converter_output_stream_get_type")
 
 	core.PuregoSafeRegister(&xNewConverterOutputStream, lib, "g_converter_output_stream_new")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -46,6 +47,12 @@ func (x *AvatarClass) GoPointer() uintptr {
 // `AdwAvatar` has a single CSS node with name `avatar`.
 type Avatar struct {
 	gtk.Widget
+}
+
+var xAvatarGLibType func() types.GType
+
+func AvatarGLibType() types.GType {
+	return xAvatarGLibType()
 }
 
 func AvatarNewFromInternalPtr(ptr uintptr) *Avatar {
@@ -352,6 +359,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xAvatarGLibType, lib, "adw_avatar_get_type")
 
 	core.PuregoSafeRegister(&xNewAvatar, lib, "adw_avatar_new")
 

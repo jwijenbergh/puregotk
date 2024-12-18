@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type OrientableIface struct {
@@ -27,6 +28,13 @@ type Orientable interface {
 	GetOrientation() Orientation
 	SetOrientation(OrientationVar Orientation)
 }
+
+var xOrientableGLibType func() types.GType
+
+func OrientableGLibType() types.GType {
+	return xOrientableGLibType()
+}
+
 type OrientableBase struct {
 	Ptr uintptr
 }
@@ -61,6 +69,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xOrientableGLibType, lib, "gtk_orientable_get_type")
 
 	core.PuregoSafeRegister(&XGtkOrientableGetOrientation, lib, "gtk_orientable_get_orientation")
 	core.PuregoSafeRegister(&XGtkOrientableSetOrientation, lib, "gtk_orientable_set_orientation")

@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // `GdkDisplay` objects are the GDK representation of a workstation.
@@ -27,6 +28,12 @@ import (
 // be accessed with [method@Gdk.Display.get_monitor_at_surface] and similar APIs.
 type Display struct {
 	gobject.Object
+}
+
+var xDisplayGLibType func() types.GType
+
+func DisplayGLibType() types.GType {
+	return xDisplayGLibType()
 }
 
 func DisplayNewFromInternalPtr(ptr uintptr) *Display {
@@ -620,6 +627,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDisplayGLibType, lib, "gdk_display_get_type")
 
 	core.PuregoSafeRegister(&xDisplayBeep, lib, "gdk_display_beep")
 	core.PuregoSafeRegister(&xDisplayClose, lib, "gdk_display_close")

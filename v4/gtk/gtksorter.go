@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The virtual table for `GtkSorter`.
@@ -22,6 +23,12 @@ func (x *SorterClass) GoPointer() uintptr {
 // Describes changes in a sorter in more detail and allows users
 // to optimize resorting.
 type SorterChange int
+
+var xSorterChangeGLibType func() types.GType
+
+func SorterChangeGLibType() types.GType {
+	return xSorterChangeGLibType()
+}
 
 const (
 
@@ -42,6 +49,12 @@ const (
 
 // Describes the type of order that a `GtkSorter` may produce.
 type SorterOrder int
+
+var xSorterOrderGLibType func() types.GType
+
+func SorterOrderGLibType() types.GType {
+	return xSorterOrderGLibType()
+}
 
 const (
 
@@ -78,6 +91,12 @@ const (
 // `GtkSorter` and provide one's own sorter.
 type Sorter struct {
 	gobject.Object
+}
+
+var xSorterGLibType func() types.GType
+
+func SorterGLibType() types.GType {
+	return xSorterGLibType()
 }
 
 func SorterNewFromInternalPtr(ptr uintptr) *Sorter {
@@ -182,6 +201,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xSorterChangeGLibType, lib, "gtk_sorter_change_get_type")
+
+	core.PuregoSafeRegister(&xSorterOrderGLibType, lib, "gtk_sorter_order_get_type")
+
+	core.PuregoSafeRegister(&xSorterGLibType, lib, "gtk_sorter_get_type")
 
 	core.PuregoSafeRegister(&xSorterChanged, lib, "gtk_sorter_changed")
 	core.PuregoSafeRegister(&xSorterCompare, lib, "gtk_sorter_compare")

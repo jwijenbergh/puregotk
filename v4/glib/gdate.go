@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Represents a day between January 1, Year 1 and a few thousand years in
@@ -31,6 +32,12 @@ type Date struct {
 	Month uint
 
 	Year uint
+}
+
+var xDateGLibType func() types.GType
+
+func DateGLibType() types.GType {
+	return xDateGLibType()
 }
 
 func (x *Date) GoPointer() uintptr {
@@ -727,6 +734,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xDateGetDaysInMonth, lib, "g_date_get_days_in_month")
 	core.PuregoSafeRegister(&xDateGetMondayWeeksInYear, lib, "g_date_get_monday_weeks_in_year")
 	core.PuregoSafeRegister(&xDateGetSundayWeeksInYear, lib, "g_date_get_sunday_weeks_in_year")
@@ -738,6 +746,8 @@ func init() {
 	core.PuregoSafeRegister(&xDateValidMonth, lib, "g_date_valid_month")
 	core.PuregoSafeRegister(&xDateValidWeekday, lib, "g_date_valid_weekday")
 	core.PuregoSafeRegister(&xDateValidYear, lib, "g_date_valid_year")
+
+	core.PuregoSafeRegister(&xDateGLibType, lib, "g_date_get_type")
 
 	core.PuregoSafeRegister(&xNewDate, lib, "g_date_new")
 	core.PuregoSafeRegister(&xNewDateDmy, lib, "g_date_new_dmy")

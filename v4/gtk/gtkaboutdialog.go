@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
 )
 
@@ -16,6 +17,12 @@ import (
 //
 // This enumeration can be expanded at later date.
 type License int
+
+var xLicenseGLibType func() types.GType
+
+func LicenseGLibType() types.GType {
+	return xLicenseGLibType()
+}
 
 const (
 
@@ -121,6 +128,12 @@ func ShowAboutDialog(ParentVar *Window, FirstPropertyNameVar string, varArgs ...
 // class `.aboutdialog`.
 type AboutDialog struct {
 	Window
+}
+
+var xAboutDialogGLibType func() types.GType
+
+func AboutDialogGLibType() types.GType {
+	return xAboutDialogGLibType()
 }
 
 func AboutDialogNewFromInternalPtr(ptr uintptr) *AboutDialog {
@@ -785,7 +798,12 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLicenseGLibType, lib, "gtk_license_get_type")
+
 	core.PuregoSafeRegister(&xShowAboutDialog, lib, "gtk_show_about_dialog")
+
+	core.PuregoSafeRegister(&xAboutDialogGLibType, lib, "gtk_about_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewAboutDialog, lib, "gtk_about_dialog_new")
 

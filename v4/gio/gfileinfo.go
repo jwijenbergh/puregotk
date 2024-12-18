@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FileInfoClass struct {
@@ -596,6 +597,12 @@ const (
 // attributes.
 type FileInfo struct {
 	gobject.Object
+}
+
+var xFileInfoGLibType func() types.GType
+
+func FileInfoGLibType() types.GType {
+	return xFileInfoGLibType()
 }
 
 func FileInfoNewFromInternalPtr(ptr uintptr) *FileInfo {
@@ -1354,6 +1361,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFileInfoGLibType, lib, "g_file_info_get_type")
 
 	core.PuregoSafeRegister(&xNewFileInfo, lib, "g_file_info_new")
 

@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type LayoutChildClass struct {
@@ -28,6 +29,12 @@ func (x *LayoutChildClass) GoPointer() uintptr {
 // of a layout.
 type LayoutChild struct {
 	gobject.Object
+}
+
+var xLayoutChildGLibType func() types.GType
+
+func LayoutChildGLibType() types.GType {
+	return xLayoutChildGLibType()
 }
 
 func LayoutChildNewFromInternalPtr(ptr uintptr) *LayoutChild {
@@ -84,6 +91,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLayoutChildGLibType, lib, "gtk_layout_child_get_type")
 
 	core.PuregoSafeRegister(&xLayoutChildGetChildWidget, lib, "gtk_layout_child_get_child_widget")
 	core.PuregoSafeRegister(&xLayoutChildGetLayoutManager, lib, "gtk_layout_child_get_layout_manager")

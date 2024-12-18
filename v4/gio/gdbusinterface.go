@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Base type for D-Bus interfaces.
@@ -29,6 +30,13 @@ type DBusInterface interface {
 	GetObject() *DBusObjectBase
 	SetObject(ObjectVar DBusObject)
 }
+
+var xDBusInterfaceGLibType func() types.GType
+
+func DBusInterfaceGLibType() types.GType {
+	return xDBusInterfaceGLibType()
+}
+
 type DBusInterfaceBase struct {
 	Ptr uintptr
 }
@@ -101,6 +109,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDBusInterfaceGLibType, lib, "g_dbus_interface_get_type")
 
 	core.PuregoSafeRegister(&XGDbusInterfaceDupObject, lib, "g_dbus_interface_dup_object")
 	core.PuregoSafeRegister(&XGDbusInterfaceGetInfo, lib, "g_dbus_interface_get_info")

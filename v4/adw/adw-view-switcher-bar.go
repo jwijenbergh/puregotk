@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
@@ -78,6 +79,12 @@ func (x *ViewSwitcherBarClass) GoPointer() uintptr {
 // `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
 type ViewSwitcherBar struct {
 	gtk.Widget
+}
+
+var xViewSwitcherBarGLibType func() types.GType
+
+func ViewSwitcherBarGLibType() types.GType {
+	return xViewSwitcherBarGLibType()
 }
 
 func ViewSwitcherBarNewFromInternalPtr(ptr uintptr) *ViewSwitcherBar {
@@ -303,6 +310,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xViewSwitcherBarGLibType, lib, "adw_view_switcher_bar_get_type")
 
 	core.PuregoSafeRegister(&xNewViewSwitcherBar, lib, "adw_view_switcher_bar_new")
 

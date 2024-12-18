@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Class structure for #GDBusObjectManagerServer.
@@ -52,6 +53,12 @@ func (x *DBusObjectManagerServerPrivate) GoPointer() uintptr {
 // interface.
 type DBusObjectManagerServer struct {
 	gobject.Object
+}
+
+var xDBusObjectManagerServerGLibType func() types.GType
+
+func DBusObjectManagerServerGLibType() types.GType {
+	return xDBusObjectManagerServerGLibType()
 }
 
 func DBusObjectManagerServerNewFromInternalPtr(ptr uintptr) *DBusObjectManagerServer {
@@ -216,6 +223,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDBusObjectManagerServerGLibType, lib, "g_dbus_object_manager_server_get_type")
 
 	core.PuregoSafeRegister(&xNewDBusObjectManagerServer, lib, "g_dbus_object_manager_server_new")
 

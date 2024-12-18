@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type GridClass struct {
@@ -105,6 +106,12 @@ func (x *GridClass) GoPointer() uintptr {
 // `GtkGrid` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
 type Grid struct {
 	Widget
+}
+
+var xGridGLibType func() types.GType
+
+func GridGLibType() types.GType {
+	return xGridGLibType()
 }
 
 func GridNewFromInternalPtr(ptr uintptr) *Grid {
@@ -554,6 +561,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xGridGLibType, lib, "gtk_grid_get_type")
 
 	core.PuregoSafeRegister(&xNewGrid, lib, "gtk_grid_new")
 

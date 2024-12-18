@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Interface for implementing operations for mountable volumes.
@@ -81,6 +82,13 @@ type Volume interface {
 	MountFinish(ResultVar AsyncResult) bool
 	ShouldAutomount() bool
 }
+
+var xVolumeGLibType func() types.GType
+
+func VolumeGLibType() types.GType {
+	return xVolumeGLibType()
+}
+
 type VolumeBase struct {
 	Ptr uintptr
 }
@@ -373,6 +381,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xVolumeGLibType, lib, "g_volume_get_type")
 
 	core.PuregoSafeRegister(&XGVolumeCanEject, lib, "g_volume_can_eject")
 	core.PuregoSafeRegister(&XGVolumeCanMount, lib, "g_volume_can_mount")

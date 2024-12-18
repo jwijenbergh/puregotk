@@ -7,6 +7,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type FrameClass struct {
@@ -65,6 +66,12 @@ func (x *FrameClass) GoPointer() uintptr {
 // like “border-style” on this node.
 type Frame struct {
 	Widget
+}
+
+var xFrameGLibType func() types.GType
+
+func FrameGLibType() types.GType {
+	return xFrameGLibType()
 }
 
 func FrameNewFromInternalPtr(ptr uintptr) *Frame {
@@ -345,6 +352,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFrameGLibType, lib, "gtk_frame_get_type")
 
 	core.PuregoSafeRegister(&xNewFrame, lib, "gtk_frame_new")
 

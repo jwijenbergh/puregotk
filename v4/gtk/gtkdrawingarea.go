@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/cairo"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // Whenever @drawing_area needs to redraw, this function will be called.
@@ -114,6 +115,12 @@ func (x *DrawingAreaClass) GoPointer() uintptr {
 // creating your own `GtkWidget` subclass.
 type DrawingArea struct {
 	Widget
+}
+
+var xDrawingAreaGLibType func() types.GType
+
+func DrawingAreaGLibType() types.GType {
+	return xDrawingAreaGLibType()
 }
 
 func DrawingAreaNewFromInternalPtr(ptr uintptr) *DrawingArea {
@@ -391,6 +398,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xDrawingAreaGLibType, lib, "gtk_drawing_area_get_type")
 
 	core.PuregoSafeRegister(&xNewDrawingArea, lib, "gtk_drawing_area_new")
 

@@ -28,6 +28,12 @@ type FlattenListModel struct {
 	gobject.Object
 }
 
+var xFlattenListModelGLibType func() types.GType
+
+func FlattenListModelGLibType() types.GType {
+	return xFlattenListModelGLibType()
+}
+
 func FlattenListModelNewFromInternalPtr(ptr uintptr) *FlattenListModel {
 	cls := &FlattenListModel{}
 	cls.Ptr = ptr
@@ -197,6 +203,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xFlattenListModelGLibType, lib, "gtk_flatten_list_model_get_type")
 
 	core.PuregoSafeRegister(&xNewFlattenListModel, lib, "gtk_flatten_list_model_new")
 

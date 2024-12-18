@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type ToggleButtonClass struct {
@@ -97,6 +98,12 @@ func (x *ToggleButtonClass) GoPointer() uintptr {
 // ```
 type ToggleButton struct {
 	Button
+}
+
+var xToggleButtonGLibType func() types.GType
+
+func ToggleButtonGLibType() types.GType {
+	return xToggleButtonGLibType()
 }
 
 func ToggleButtonNewFromInternalPtr(ptr uintptr) *ToggleButton {
@@ -477,6 +484,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xToggleButtonGLibType, lib, "gtk_toggle_button_get_type")
 
 	core.PuregoSafeRegister(&xNewToggleButton, lib, "gtk_toggle_button_new")
 	core.PuregoSafeRegister(&xNewToggleButtonWithLabel, lib, "gtk_toggle_button_new_with_label")

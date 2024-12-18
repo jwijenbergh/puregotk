@@ -6,6 +6,7 @@ import (
 
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
+	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 // The #GUri type and related functions can be used to parse URIs into
@@ -117,6 +118,12 @@ import (
 // thing according to the `data:` URI specification which GLib does not
 // handle.
 type Uri struct {
+}
+
+var xUriGLibType func() types.GType
+
+func UriGLibType() types.GType {
+	return xUriGLibType()
 }
 
 func (x *Uri) GoPointer() uintptr {
@@ -898,6 +905,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xUriBuild, lib, "g_uri_build")
 	core.PuregoSafeRegister(&xUriBuildWithUser, lib, "g_uri_build_with_user")
 	core.PuregoSafeRegister(&xUriEscapeBytes, lib, "g_uri_escape_bytes")
@@ -916,6 +924,8 @@ func init() {
 	core.PuregoSafeRegister(&xUriUnescapeBytes, lib, "g_uri_unescape_bytes")
 	core.PuregoSafeRegister(&xUriUnescapeSegment, lib, "g_uri_unescape_segment")
 	core.PuregoSafeRegister(&xUriUnescapeString, lib, "g_uri_unescape_string")
+
+	core.PuregoSafeRegister(&xUriGLibType, lib, "g_uri_get_type")
 
 	core.PuregoSafeRegister(&xUriGetAuthParams, lib, "g_uri_get_auth_params")
 	core.PuregoSafeRegister(&xUriGetFlags, lib, "g_uri_get_flags")

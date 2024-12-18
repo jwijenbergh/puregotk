@@ -15,6 +15,12 @@ import (
 type ContentFormatsBuilder struct {
 }
 
+var xContentFormatsBuilderGLibType func() types.GType
+
+func ContentFormatsBuilderGLibType() types.GType {
+	return xContentFormatsBuilderGLibType()
+}
+
 func (x *ContentFormatsBuilder) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -109,6 +115,12 @@ func (x *ContentFormatsBuilder) Unref() {
 type FileList struct {
 }
 
+var xFileListGLibType func() types.GType
+
+func FileListGLibType() types.GType {
+	return xFileListGLibType()
+}
+
 func (x *FileList) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
@@ -180,8 +192,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xContentFormatsParse, lib, "gdk_content_formats_parse")
 	core.PuregoSafeRegister(&xInternMimeType, lib, "gdk_intern_mime_type")
+
+	core.PuregoSafeRegister(&xContentFormatsBuilderGLibType, lib, "gdk_content_formats_builder_get_type")
 
 	core.PuregoSafeRegister(&xNewContentFormatsBuilder, lib, "gdk_content_formats_builder_new")
 
@@ -192,6 +207,8 @@ func init() {
 	core.PuregoSafeRegister(&xContentFormatsBuilderRef, lib, "gdk_content_formats_builder_ref")
 	core.PuregoSafeRegister(&xContentFormatsBuilderToFormats, lib, "gdk_content_formats_builder_to_formats")
 	core.PuregoSafeRegister(&xContentFormatsBuilderUnref, lib, "gdk_content_formats_builder_unref")
+
+	core.PuregoSafeRegister(&xFileListGLibType, lib, "gdk_file_list_get_type")
 
 	core.PuregoSafeRegister(&xNewFileListFromArray, lib, "gdk_file_list_new_from_array")
 	core.PuregoSafeRegister(&xNewFileListFromList, lib, "gdk_file_list_new_from_list")

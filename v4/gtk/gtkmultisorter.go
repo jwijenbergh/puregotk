@@ -28,6 +28,12 @@ type MultiSorter struct {
 	Sorter
 }
 
+var xMultiSorterGLibType func() types.GType
+
+func MultiSorterGLibType() types.GType {
+	return xMultiSorterGLibType()
+}
+
 func MultiSorterNewFromInternalPtr(ptr uintptr) *MultiSorter {
 	cls := &MultiSorter{}
 	cls.Ptr = ptr
@@ -193,6 +199,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xMultiSorterGLibType, lib, "gtk_multi_sorter_get_type")
 
 	core.PuregoSafeRegister(&xNewMultiSorter, lib, "gtk_multi_sorter_new")
 

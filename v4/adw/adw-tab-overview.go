@@ -84,6 +84,12 @@ type TabOverview struct {
 	gtk.Widget
 }
 
+var xTabOverviewGLibType func() types.GType
+
+func TabOverviewGLibType() types.GType {
+	return xTabOverviewGLibType()
+}
+
 func TabOverviewNewFromInternalPtr(ptr uintptr) *TabOverview {
 	cls := &TabOverview{}
 	cls.Ptr = ptr
@@ -602,6 +608,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xTabOverviewGLibType, lib, "adw_tab_overview_get_type")
 
 	core.PuregoSafeRegister(&xNewTabOverview, lib, "adw_tab_overview_new")
 

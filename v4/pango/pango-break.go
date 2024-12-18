@@ -128,6 +128,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xAttrBreak, lib, "pango_attr_break")
 	core.PuregoSafeRegister(&xBreak, lib, "pango_break")
 	core.PuregoSafeRegister(&xDefaultBreak, lib, "pango_default_break")

@@ -80,6 +80,12 @@ type LayoutManager struct {
 	gobject.Object
 }
 
+var xLayoutManagerGLibType func() types.GType
+
+func LayoutManagerGLibType() types.GType {
+	return xLayoutManagerGLibType()
+}
+
 func LayoutManagerNewFromInternalPtr(ptr uintptr) *LayoutManager {
 	cls := &LayoutManager{}
 	cls.Ptr = ptr
@@ -185,6 +191,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	core.PuregoSafeRegister(&xLayoutManagerGLibType, lib, "gtk_layout_manager_get_type")
 
 	core.PuregoSafeRegister(&xLayoutManagerAllocate, lib, "gtk_layout_manager_allocate")
 	core.PuregoSafeRegister(&xLayoutManagerGetLayoutChild, lib, "gtk_layout_manager_get_layout_child")

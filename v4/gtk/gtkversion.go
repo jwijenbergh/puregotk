@@ -135,6 +135,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
 	core.PuregoSafeRegister(&xCheckVersion, lib, "gtk_check_version")
 	core.PuregoSafeRegister(&xGetBinaryAge, lib, "gtk_get_binary_age")
 	core.PuregoSafeRegister(&xGetInterfaceAge, lib, "gtk_get_interface_age")
