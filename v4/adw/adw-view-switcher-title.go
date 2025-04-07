@@ -51,25 +51,24 @@ func (x *ViewSwitcherTitleClass) GoPointer() uintptr {
 // switcher, as follows:
 //
 // ```xml
-// &lt;object class="GtkWindow"&gt;
+// &lt;object class="AdwWindow"&gt;
 //
-//	&lt;property name="titlebar"&gt;
-//	  &lt;object class="AdwHeaderBar"&gt;
-//	    &lt;property name="centering-policy"&gt;strict&lt;/property&gt;
-//	    &lt;property name="title-widget"&gt;
-//	      &lt;object class="AdwViewSwitcherTitle" id="title"&gt;
-//	        &lt;property name="stack"&gt;stack&lt;/property&gt;
+//	&lt;property name="content"&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar"&gt;
+//	        &lt;property name="centering-policy"&gt;strict&lt;/property&gt;
+//	        &lt;property name="title-widget"&gt;
+//	          &lt;object class="AdwViewSwitcherTitle" id="title"&gt;
+//	            &lt;property name="stack"&gt;stack&lt;/property&gt;
+//	          &lt;/object&gt;
+//	        &lt;/property&gt;
 //	      &lt;/object&gt;
-//	    &lt;/property&gt;
-//	  &lt;/object&gt;
-//	&lt;/property&gt;
-//	&lt;property name="child"&gt;
-//	  &lt;object class="GtkBox"&gt;
-//	    &lt;property name="orientation"&gt;vertical&lt;/property&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="AdwViewStack" id="stack"/&gt;
 //	    &lt;/child&gt;
-//	    &lt;child&gt;
+//	    &lt;property name="content"&gt;
+//	      &lt;object class="AdwViewStack" id="stack"/&gt;
+//	    &lt;/property&gt;
+//	    &lt;child type="bottom"&gt;
 //	      &lt;object class="AdwViewSwitcherBar"&gt;
 //	        &lt;property name="stack"&gt;stack&lt;/property&gt;
 //	        &lt;binding name="reveal"&gt;

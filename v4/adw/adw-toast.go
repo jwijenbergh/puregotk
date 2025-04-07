@@ -65,6 +65,9 @@ const (
 // [property@Toast:priority] determines how it behaves if another toast is
 // already being displayed.
 //
+// Toast titles use Pango markup by default, set [property@Toast:use-markup] to
+// `FALSE` if this is unwanted.
+//
 // [property@Toast:custom-title] can be used to replace the title label with a
 // custom widget.
 //
@@ -315,6 +318,15 @@ func (x *Toast) GetTitle() string {
 	return cret
 }
 
+var xToastGetUseMarkup func(uintptr) bool
+
+// Gets whether to use Pango markup for the toast title.
+func (x *Toast) GetUseMarkup() bool {
+
+	cret := xToastGetUseMarkup(x.GoPointer())
+	return cret
+}
+
 var xToastSetActionName func(uintptr, string)
 
 // Sets the name of the associated action.
@@ -445,6 +457,17 @@ func (x *Toast) SetTitle(TitleVar string) {
 
 }
 
+var xToastSetUseMarkup func(uintptr, bool)
+
+// Whether to use Pango markup for the toast title.
+//
+// See also [func@Pango.parse_markup].
+func (x *Toast) SetUseMarkup(UseMarkupVar bool) {
+
+	xToastSetUseMarkup(x.GoPointer(), UseMarkupVar)
+
+}
+
 func (c *Toast) GoPointer() uintptr {
 	return c.Ptr
 }
@@ -516,6 +539,7 @@ func init() {
 	core.PuregoSafeRegister(&xToastGetPriority, lib, "adw_toast_get_priority")
 	core.PuregoSafeRegister(&xToastGetTimeout, lib, "adw_toast_get_timeout")
 	core.PuregoSafeRegister(&xToastGetTitle, lib, "adw_toast_get_title")
+	core.PuregoSafeRegister(&xToastGetUseMarkup, lib, "adw_toast_get_use_markup")
 	core.PuregoSafeRegister(&xToastSetActionName, lib, "adw_toast_set_action_name")
 	core.PuregoSafeRegister(&xToastSetActionTarget, lib, "adw_toast_set_action_target")
 	core.PuregoSafeRegister(&xToastSetActionTargetValue, lib, "adw_toast_set_action_target_value")
@@ -525,5 +549,6 @@ func init() {
 	core.PuregoSafeRegister(&xToastSetPriority, lib, "adw_toast_set_priority")
 	core.PuregoSafeRegister(&xToastSetTimeout, lib, "adw_toast_set_timeout")
 	core.PuregoSafeRegister(&xToastSetTitle, lib, "adw_toast_set_title")
+	core.PuregoSafeRegister(&xToastSetUseMarkup, lib, "adw_toast_set_use_markup")
 
 }

@@ -29,6 +29,8 @@ func (x *ClampScrollableClass) GoPointer() uintptr {
 //
 // The primary use case for `AdwClampScrollable` is clamping
 // [class@Gtk.ListView].
+//
+// See also: [class@ClampLayout].
 type ClampScrollable struct {
 	gtk.Widget
 }
@@ -97,6 +99,15 @@ func (x *ClampScrollable) GetTighteningThreshold() int {
 	return cret
 }
 
+var xClampScrollableGetUnit func(uintptr) LengthUnit
+
+// Gets the length unit for maximum size and tightening threshold.
+func (x *ClampScrollable) GetUnit() LengthUnit {
+
+	cret := xClampScrollableGetUnit(x.GoPointer())
+	return cret
+}
+
 var xClampScrollableSetChild func(uintptr, uintptr)
 
 // Sets the child widget of @self.
@@ -136,6 +147,17 @@ var xClampScrollableSetTighteningThreshold func(uintptr, int)
 func (x *ClampScrollable) SetTighteningThreshold(TighteningThresholdVar int) {
 
 	xClampScrollableSetTighteningThreshold(x.GoPointer(), TighteningThresholdVar)
+
+}
+
+var xClampScrollableSetUnit func(uintptr, LengthUnit)
+
+// Sets the length unit for maximum size and tightening threshold.
+//
+// Allows the sizes to vary depending on the text scale factor.
+func (x *ClampScrollable) SetUnit(UnitVar LengthUnit) {
+
+	xClampScrollableSetUnit(x.GoPointer(), UnitVar)
 
 }
 
@@ -407,8 +429,10 @@ func init() {
 	core.PuregoSafeRegister(&xClampScrollableGetChild, lib, "adw_clamp_scrollable_get_child")
 	core.PuregoSafeRegister(&xClampScrollableGetMaximumSize, lib, "adw_clamp_scrollable_get_maximum_size")
 	core.PuregoSafeRegister(&xClampScrollableGetTighteningThreshold, lib, "adw_clamp_scrollable_get_tightening_threshold")
+	core.PuregoSafeRegister(&xClampScrollableGetUnit, lib, "adw_clamp_scrollable_get_unit")
 	core.PuregoSafeRegister(&xClampScrollableSetChild, lib, "adw_clamp_scrollable_set_child")
 	core.PuregoSafeRegister(&xClampScrollableSetMaximumSize, lib, "adw_clamp_scrollable_set_maximum_size")
 	core.PuregoSafeRegister(&xClampScrollableSetTighteningThreshold, lib, "adw_clamp_scrollable_set_tightening_threshold")
+	core.PuregoSafeRegister(&xClampScrollableSetUnit, lib, "adw_clamp_scrollable_set_unit")
 
 }

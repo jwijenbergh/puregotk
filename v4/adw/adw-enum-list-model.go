@@ -122,6 +122,8 @@ func NewEnumListModel(EnumTypeVar types.GType) *EnumListModel {
 var xEnumListModelFindPosition func(uintptr, int) uint
 
 // Finds the position of a given enum value in @self.
+//
+// If the value is not found, `GTK_INVALID_LIST_POSITION` is returned.
 func (x *EnumListModel) FindPosition(ValueVar int) uint {
 
 	cret := xEnumListModelFindPosition(x.GoPointer(), ValueVar)

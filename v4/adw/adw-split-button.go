@@ -61,6 +61,17 @@ func (x *SplitButtonClass) GoPointer() uintptr {
 // classes matching the button contents. The nested button nodes will never
 // contain them.
 //
+// ## Style classes
+//
+// `AdwSplitButton` can use some of the same style classes as [class@Gtk.Button]:
+//
+// - [`.suggested-action`](style-classes.html#suggested-action)
+// - [`.destructive-action`](style-classes.html#destructive-action)
+// - [`.flat`](style-classes.html#flat)
+// - [`.raised`](style-classes.html#raised)
+//
+// Other style classes, like `.pill`, cannot be used.
+//
 // ## Accessibility
 //
 // `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
@@ -95,6 +106,15 @@ func NewSplitButton() *SplitButton {
 	cls = &SplitButton{}
 	cls.Ptr = cret
 	return cls
+}
+
+var xSplitButtonGetCanShrink func(uintptr) bool
+
+// gets whether the button can be smaller than the natural size of its contents.
+func (x *SplitButton) GetCanShrink() bool {
+
+	cret := xSplitButtonGetCanShrink(x.GoPointer())
+	return cret
 }
 
 var xSplitButtonGetChild func(uintptr) uintptr
@@ -208,6 +228,20 @@ var xSplitButtonPopup func(uintptr)
 func (x *SplitButton) Popup() {
 
 	xSplitButtonPopup(x.GoPointer())
+
+}
+
+var xSplitButtonSetCanShrink func(uintptr, bool)
+
+// Sets whether the button can be smaller than the natural size of its contents.
+//
+// If set to `TRUE`, the label will ellipsize.
+//
+// See [method@Gtk.Button.set_can_shrink] and
+// [method@Gtk.MenuButton.set_can_shrink].
+func (x *SplitButton) SetCanShrink(CanShrinkVar bool) {
+
+	xSplitButtonSetCanShrink(x.GoPointer(), CanShrinkVar)
 
 }
 
@@ -604,6 +638,7 @@ func init() {
 
 	core.PuregoSafeRegister(&xNewSplitButton, lib, "adw_split_button_new")
 
+	core.PuregoSafeRegister(&xSplitButtonGetCanShrink, lib, "adw_split_button_get_can_shrink")
 	core.PuregoSafeRegister(&xSplitButtonGetChild, lib, "adw_split_button_get_child")
 	core.PuregoSafeRegister(&xSplitButtonGetDirection, lib, "adw_split_button_get_direction")
 	core.PuregoSafeRegister(&xSplitButtonGetDropdownTooltip, lib, "adw_split_button_get_dropdown_tooltip")
@@ -614,6 +649,7 @@ func init() {
 	core.PuregoSafeRegister(&xSplitButtonGetUseUnderline, lib, "adw_split_button_get_use_underline")
 	core.PuregoSafeRegister(&xSplitButtonPopdown, lib, "adw_split_button_popdown")
 	core.PuregoSafeRegister(&xSplitButtonPopup, lib, "adw_split_button_popup")
+	core.PuregoSafeRegister(&xSplitButtonSetCanShrink, lib, "adw_split_button_set_can_shrink")
 	core.PuregoSafeRegister(&xSplitButtonSetChild, lib, "adw_split_button_set_child")
 	core.PuregoSafeRegister(&xSplitButtonSetDirection, lib, "adw_split_button_set_direction")
 	core.PuregoSafeRegister(&xSplitButtonSetDropdownTooltip, lib, "adw_split_button_set_dropdown_tooltip")

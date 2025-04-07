@@ -37,38 +37,38 @@ func (x *ViewSwitcherBarClass) GoPointer() uintptr {
 // on mobile phones. It can't be revealed if there are less than two pages.
 //
 // `AdwViewSwitcherBar` is intended to be used together with
-// [class@ViewSwitcherTitle].
-//
-// A common use case is to bind the [property@ViewSwitcherBar:reveal] property
-// to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
-// view switcher bar when the title label is displayed in place of the view
-// switcher, as follows:
+// `AdwViewSwitcher` in a header bar, and a [class@Breakpoint] showing the view
+// switcher bar on narrow sizes, while removing the view switcher from the
+// header bar, as follows:
 //
 // ```xml
-// &lt;object class="GtkWindow"&gt;
+// &lt;object class="AdwWindow"&gt;
 //
-//	&lt;property name="titlebar"&gt;
-//	  &lt;object class="AdwHeaderBar"&gt;
-//	    &lt;property name="centering-policy"&gt;strict&lt;/property&gt;
-//	    &lt;property name="title-widget"&gt;
-//	      &lt;object class="AdwViewSwitcherTitle" id="title"&gt;
-//	        &lt;property name="stack"&gt;stack&lt;/property&gt;
-//	      &lt;/object&gt;
-//	    &lt;/property&gt;
+//	&lt;child&gt;
+//	  &lt;object class="AdwBreakpoint"&gt;
+//	    &lt;condition&gt;max-width: 550sp&lt;/condition&gt;
+//	    &lt;setter object="switcher_bar" property="reveal"&gt;True&lt;/setter&gt;
+//	    &lt;setter object="header_bar" property="title-widget"/&gt;
 //	  &lt;/object&gt;
-//	&lt;/property&gt;
-//	&lt;property name="child"&gt;
-//	  &lt;object class="GtkBox"&gt;
-//	    &lt;property name="orientation"&gt;vertical&lt;/property&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="AdwViewStack" id="stack"/&gt;
+//	&lt;/child&gt;
+//	&lt;property name="content"&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar" id="header_bar"&gt;
+//	        &lt;property name="title-widget"&gt;
+//	          &lt;object class="AdwViewSwitcher"&gt;
+//	            &lt;property name="stack"&gt;stack&lt;/property&gt;
+//	            &lt;property name="policy"&gt;wide&lt;/property&gt;
+//	          &lt;/object&gt;
+//	        &lt;/property&gt;
+//	      &lt;/object&gt;
 //	    &lt;/child&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="AdwViewSwitcherBar"&gt;
+//	    &lt;property name="content"&gt;
+//	      &lt;object class="AdwViewStack" id="stack"/&gt;
+//	    &lt;/property&gt;
+//	    &lt;child type="bottom"&gt;
+//	      &lt;object class="AdwViewSwitcherBar" id="switcher_bar"&gt;
 //	        &lt;property name="stack"&gt;stack&lt;/property&gt;
-//	        &lt;binding name="reveal"&gt;
-//	          &lt;lookup name="title-visible"&gt;title&lt;/lookup&gt;
-//	        &lt;/binding&gt;
 //	      &lt;/object&gt;
 //	    &lt;/child&gt;
 //	  &lt;/object&gt;
@@ -76,6 +76,11 @@ func (x *ViewSwitcherBarClass) GoPointer() uintptr {
 //
 // &lt;/object&gt;
 // ```
+//
+// It's recommended to set [property@ViewSwitcher:policy] to
+// `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+//
+// You may have to adjust the breakpoint condition for your specific pages.
 //
 // ## CSS nodes
 //

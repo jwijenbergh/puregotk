@@ -150,6 +150,15 @@ func (x *PreferencesWindow) GetVisiblePageName() string {
 	return cret
 }
 
+var xPreferencesWindowPopSubpage func(uintptr) bool
+
+// Pop the visible page from the subpage stack of @self.
+func (x *PreferencesWindow) PopSubpage() bool {
+
+	cret := xPreferencesWindowPopSubpage(x.GoPointer())
+	return cret
+}
+
 var xPreferencesWindowPresentSubpage func(uintptr, uintptr)
 
 // Sets @subpage as the window's subpage and opens it.
@@ -159,6 +168,17 @@ var xPreferencesWindowPresentSubpage func(uintptr, uintptr)
 func (x *PreferencesWindow) PresentSubpage(SubpageVar *gtk.Widget) {
 
 	xPreferencesWindowPresentSubpage(x.GoPointer(), SubpageVar.GoPointer())
+
+}
+
+var xPreferencesWindowPushSubpage func(uintptr, uintptr)
+
+// Pushes @page onto the subpage stack of @self.
+//
+// The page will be automatically removed when popped.
+func (x *PreferencesWindow) PushSubpage(PageVar *NavigationPage) {
+
+	xPreferencesWindowPushSubpage(x.GoPointer(), PageVar.GoPointer())
 
 }
 
@@ -185,6 +205,8 @@ var xPreferencesWindowSetCanNavigateBack func(uintptr, bool)
 // &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;←&lt;/kbd&gt; shortcut.
 //
 // For right-to-left locales, gestures and shortcuts are reversed.
+//
+// Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
 func (x *PreferencesWindow) SetCanNavigateBack(CanNavigateBackVar bool) {
 
 	xPreferencesWindowSetCanNavigateBack(x.GoPointer(), CanNavigateBackVar)
@@ -213,7 +235,7 @@ var xPreferencesWindowSetVisiblePageName func(uintptr, string)
 
 // Makes the page with the given name visible.
 //
-// See [property@ViewStack:visible-child].
+// See [property@PreferencesWindow:visible-page].
 func (x *PreferencesWindow) SetVisiblePageName(NameVar string) {
 
 	xPreferencesWindowSetVisiblePageName(x.GoPointer(), NameVar)
@@ -495,7 +517,9 @@ func init() {
 	core.PuregoSafeRegister(&xPreferencesWindowGetSearchEnabled, lib, "adw_preferences_window_get_search_enabled")
 	core.PuregoSafeRegister(&xPreferencesWindowGetVisiblePage, lib, "adw_preferences_window_get_visible_page")
 	core.PuregoSafeRegister(&xPreferencesWindowGetVisiblePageName, lib, "adw_preferences_window_get_visible_page_name")
+	core.PuregoSafeRegister(&xPreferencesWindowPopSubpage, lib, "adw_preferences_window_pop_subpage")
 	core.PuregoSafeRegister(&xPreferencesWindowPresentSubpage, lib, "adw_preferences_window_present_subpage")
+	core.PuregoSafeRegister(&xPreferencesWindowPushSubpage, lib, "adw_preferences_window_push_subpage")
 	core.PuregoSafeRegister(&xPreferencesWindowRemove, lib, "adw_preferences_window_remove")
 	core.PuregoSafeRegister(&xPreferencesWindowSetCanNavigateBack, lib, "adw_preferences_window_set_can_navigate_back")
 	core.PuregoSafeRegister(&xPreferencesWindowSetSearchEnabled, lib, "adw_preferences_window_set_search_enabled")

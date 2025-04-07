@@ -24,7 +24,7 @@ func (x *PreferencesPageClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-// A page from [class@PreferencesWindow].
+// A page from [class@PreferencesDialog].
 //
 // &lt;picture&gt;
 //
@@ -85,6 +85,24 @@ func (x *PreferencesPage) Add(GroupVar *PreferencesGroup) {
 
 }
 
+var xPreferencesPageGetDescription func(uintptr) string
+
+// Gets the description of @self.
+func (x *PreferencesPage) GetDescription() string {
+
+	cret := xPreferencesPageGetDescription(x.GoPointer())
+	return cret
+}
+
+var xPreferencesPageGetDescriptionCentered func(uintptr) bool
+
+// Gets whether the description is centered.
+func (x *PreferencesPage) GetDescriptionCentered() bool {
+
+	cret := xPreferencesPageGetDescriptionCentered(x.GoPointer())
+	return cret
+}
+
 var xPreferencesPageGetIconName func(uintptr) string
 
 // Gets the icon name for @self.
@@ -136,6 +154,26 @@ var xPreferencesPageScrollToTop func(uintptr)
 func (x *PreferencesPage) ScrollToTop() {
 
 	xPreferencesPageScrollToTop(x.GoPointer())
+
+}
+
+var xPreferencesPageSetDescription func(uintptr, string)
+
+// Sets the description of @self.
+//
+// The description is displayed at the top of the page.
+func (x *PreferencesPage) SetDescription(DescriptionVar string) {
+
+	xPreferencesPageSetDescription(x.GoPointer(), DescriptionVar)
+
+}
+
+var xPreferencesPageSetDescriptionCentered func(uintptr, bool)
+
+// Sets whether the description should be centered.
+func (x *PreferencesPage) SetDescriptionCentered(CenteredVar bool) {
+
+	xPreferencesPageSetDescriptionCentered(x.GoPointer(), CenteredVar)
 
 }
 
@@ -337,12 +375,16 @@ func init() {
 	core.PuregoSafeRegister(&xNewPreferencesPage, lib, "adw_preferences_page_new")
 
 	core.PuregoSafeRegister(&xPreferencesPageAdd, lib, "adw_preferences_page_add")
+	core.PuregoSafeRegister(&xPreferencesPageGetDescription, lib, "adw_preferences_page_get_description")
+	core.PuregoSafeRegister(&xPreferencesPageGetDescriptionCentered, lib, "adw_preferences_page_get_description_centered")
 	core.PuregoSafeRegister(&xPreferencesPageGetIconName, lib, "adw_preferences_page_get_icon_name")
 	core.PuregoSafeRegister(&xPreferencesPageGetName, lib, "adw_preferences_page_get_name")
 	core.PuregoSafeRegister(&xPreferencesPageGetTitle, lib, "adw_preferences_page_get_title")
 	core.PuregoSafeRegister(&xPreferencesPageGetUseUnderline, lib, "adw_preferences_page_get_use_underline")
 	core.PuregoSafeRegister(&xPreferencesPageRemove, lib, "adw_preferences_page_remove")
 	core.PuregoSafeRegister(&xPreferencesPageScrollToTop, lib, "adw_preferences_page_scroll_to_top")
+	core.PuregoSafeRegister(&xPreferencesPageSetDescription, lib, "adw_preferences_page_set_description")
+	core.PuregoSafeRegister(&xPreferencesPageSetDescriptionCentered, lib, "adw_preferences_page_set_description_centered")
 	core.PuregoSafeRegister(&xPreferencesPageSetIconName, lib, "adw_preferences_page_set_icon_name")
 	core.PuregoSafeRegister(&xPreferencesPageSetName, lib, "adw_preferences_page_set_name")
 	core.PuregoSafeRegister(&xPreferencesPageSetTitle, lib, "adw_preferences_page_set_title")

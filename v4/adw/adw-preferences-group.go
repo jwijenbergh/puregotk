@@ -37,8 +37,13 @@ func (x *PreferencesGroupClass) GoPointer() uintptr {
 // which in turn are represented by [class@PreferencesRow].
 //
 // To summarize the role of the preferences it gathers, a group can have both a
-// title and a description. The title will be used by [class@PreferencesWindow]
+// title and a description. The title will be used by [class@PreferencesDialog]
 // to let the user look for a preference.
+//
+// The [property@PreferencesGroup:separate-rows] property can be used to
+// separate the rows within the group, same as when using the
+// [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+// instead of `.boxed-list`.
 //
 // ## AdwPreferencesGroup as GtkBuildable
 //
@@ -125,6 +130,15 @@ func (x *PreferencesGroup) GetHeaderSuffix() *gtk.Widget {
 	return cls
 }
 
+var xPreferencesGroupGetSeparateRows func(uintptr) bool
+
+// Gets whether @self's rows are separated.
+func (x *PreferencesGroup) GetSeparateRows() bool {
+
+	cret := xPreferencesGroupGetSeparateRows(x.GoPointer())
+	return cret
+}
+
 var xPreferencesGroupGetTitle func(uintptr) string
 
 // Gets the title of @self.
@@ -162,6 +176,19 @@ var xPreferencesGroupSetHeaderSuffix func(uintptr, uintptr)
 func (x *PreferencesGroup) SetHeaderSuffix(SuffixVar *gtk.Widget) {
 
 	xPreferencesGroupSetHeaderSuffix(x.GoPointer(), SuffixVar.GoPointer())
+
+}
+
+var xPreferencesGroupSetSeparateRows func(uintptr, bool)
+
+// Sets whether @self's rows are separated.
+//
+// Equivalent to using the
+// [`.boxed-list-separate`](style-classes.html#boxed-lists-cards) style class
+// on a [class@Gtk.ListBox] instead of `.boxed-list`.
+func (x *PreferencesGroup) SetSeparateRows(SeparateRowsVar bool) {
+
+	xPreferencesGroupSetSeparateRows(x.GoPointer(), SeparateRowsVar)
 
 }
 
@@ -338,10 +365,12 @@ func init() {
 	core.PuregoSafeRegister(&xPreferencesGroupAdd, lib, "adw_preferences_group_add")
 	core.PuregoSafeRegister(&xPreferencesGroupGetDescription, lib, "adw_preferences_group_get_description")
 	core.PuregoSafeRegister(&xPreferencesGroupGetHeaderSuffix, lib, "adw_preferences_group_get_header_suffix")
+	core.PuregoSafeRegister(&xPreferencesGroupGetSeparateRows, lib, "adw_preferences_group_get_separate_rows")
 	core.PuregoSafeRegister(&xPreferencesGroupGetTitle, lib, "adw_preferences_group_get_title")
 	core.PuregoSafeRegister(&xPreferencesGroupRemove, lib, "adw_preferences_group_remove")
 	core.PuregoSafeRegister(&xPreferencesGroupSetDescription, lib, "adw_preferences_group_set_description")
 	core.PuregoSafeRegister(&xPreferencesGroupSetHeaderSuffix, lib, "adw_preferences_group_set_header_suffix")
+	core.PuregoSafeRegister(&xPreferencesGroupSetSeparateRows, lib, "adw_preferences_group_set_separate_rows")
 	core.PuregoSafeRegister(&xPreferencesGroupSetTitle, lib, "adw_preferences_group_set_title")
 
 }

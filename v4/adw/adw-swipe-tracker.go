@@ -23,7 +23,8 @@ func (x *SwipeTrackerClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-// A swipe tracker used in [class@Carousel], [class@Flap] and [class@Leaflet].
+// A swipe tracker used in [class@Carousel], [class@NavigationView] and
+// [class@OverlaySplitView].
 //
 // The `AdwSwipeTracker` object can be used for implementing widgets with swipe
 // gestures. It supports touch-based swipes, pointer dragging, and touchpad
@@ -83,12 +84,30 @@ func (x *SwipeTracker) GetAllowMouseDrag() bool {
 	return cret
 }
 
+var xSwipeTrackerGetAllowWindowHandle func(uintptr) bool
+
+// Gets whether to allow touchscreen swiping from `GtkWindowHandle`.
+func (x *SwipeTracker) GetAllowWindowHandle() bool {
+
+	cret := xSwipeTrackerGetAllowWindowHandle(x.GoPointer())
+	return cret
+}
+
 var xSwipeTrackerGetEnabled func(uintptr) bool
 
 // Gets whether @self is enabled.
 func (x *SwipeTracker) GetEnabled() bool {
 
 	cret := xSwipeTrackerGetEnabled(x.GoPointer())
+	return cret
+}
+
+var xSwipeTrackerGetLowerOvershoot func(uintptr) bool
+
+// Gets whether to allow swiping past the first available snap point.
+func (x *SwipeTracker) GetLowerOvershoot() bool {
+
+	cret := xSwipeTrackerGetLowerOvershoot(x.GoPointer())
 	return cret
 }
 
@@ -118,6 +137,15 @@ func (x *SwipeTracker) GetSwipeable() *SwipeableBase {
 	return cls
 }
 
+var xSwipeTrackerGetUpperOvershoot func(uintptr) bool
+
+// Gets whether to allow swiping past the last available snap point.
+func (x *SwipeTracker) GetUpperOvershoot() bool {
+
+	cret := xSwipeTrackerGetUpperOvershoot(x.GoPointer())
+	return cret
+}
+
 var xSwipeTrackerSetAllowLongSwipes func(uintptr, bool)
 
 // Sets whether to allow swiping for more than one snap point at a time.
@@ -139,6 +167,17 @@ func (x *SwipeTracker) SetAllowMouseDrag(AllowMouseDragVar bool) {
 
 }
 
+var xSwipeTrackerSetAllowWindowHandle func(uintptr, bool)
+
+// Sets whether to allow touchscreen swiping from `GtkWindowHandle`.
+//
+// Setting it to `TRUE` will make dragging the window impossible.
+func (x *SwipeTracker) SetAllowWindowHandle(AllowWindowHandleVar bool) {
+
+	xSwipeTrackerSetAllowWindowHandle(x.GoPointer(), AllowWindowHandleVar)
+
+}
+
 var xSwipeTrackerSetEnabled func(uintptr, bool)
 
 // Sets whether @self is enabled.
@@ -151,6 +190,15 @@ func (x *SwipeTracker) SetEnabled(EnabledVar bool) {
 
 }
 
+var xSwipeTrackerSetLowerOvershoot func(uintptr, bool)
+
+// Sets whether to allow swiping past the first available snap point.
+func (x *SwipeTracker) SetLowerOvershoot(OvershootVar bool) {
+
+	xSwipeTrackerSetLowerOvershoot(x.GoPointer(), OvershootVar)
+
+}
+
 var xSwipeTrackerSetReversed func(uintptr, bool)
 
 // Sets whether to reverse the swipe direction.
@@ -160,6 +208,15 @@ var xSwipeTrackerSetReversed func(uintptr, bool)
 func (x *SwipeTracker) SetReversed(ReversedVar bool) {
 
 	xSwipeTrackerSetReversed(x.GoPointer(), ReversedVar)
+
+}
+
+var xSwipeTrackerSetUpperOvershoot func(uintptr, bool)
+
+// Sets whether to allow swiping past the last available snap point.
+func (x *SwipeTracker) SetUpperOvershoot(OvershootVar bool) {
+
+	xSwipeTrackerSetUpperOvershoot(x.GoPointer(), OvershootVar)
 
 }
 
@@ -298,13 +355,19 @@ func init() {
 
 	core.PuregoSafeRegister(&xSwipeTrackerGetAllowLongSwipes, lib, "adw_swipe_tracker_get_allow_long_swipes")
 	core.PuregoSafeRegister(&xSwipeTrackerGetAllowMouseDrag, lib, "adw_swipe_tracker_get_allow_mouse_drag")
+	core.PuregoSafeRegister(&xSwipeTrackerGetAllowWindowHandle, lib, "adw_swipe_tracker_get_allow_window_handle")
 	core.PuregoSafeRegister(&xSwipeTrackerGetEnabled, lib, "adw_swipe_tracker_get_enabled")
+	core.PuregoSafeRegister(&xSwipeTrackerGetLowerOvershoot, lib, "adw_swipe_tracker_get_lower_overshoot")
 	core.PuregoSafeRegister(&xSwipeTrackerGetReversed, lib, "adw_swipe_tracker_get_reversed")
 	core.PuregoSafeRegister(&xSwipeTrackerGetSwipeable, lib, "adw_swipe_tracker_get_swipeable")
+	core.PuregoSafeRegister(&xSwipeTrackerGetUpperOvershoot, lib, "adw_swipe_tracker_get_upper_overshoot")
 	core.PuregoSafeRegister(&xSwipeTrackerSetAllowLongSwipes, lib, "adw_swipe_tracker_set_allow_long_swipes")
 	core.PuregoSafeRegister(&xSwipeTrackerSetAllowMouseDrag, lib, "adw_swipe_tracker_set_allow_mouse_drag")
+	core.PuregoSafeRegister(&xSwipeTrackerSetAllowWindowHandle, lib, "adw_swipe_tracker_set_allow_window_handle")
 	core.PuregoSafeRegister(&xSwipeTrackerSetEnabled, lib, "adw_swipe_tracker_set_enabled")
+	core.PuregoSafeRegister(&xSwipeTrackerSetLowerOvershoot, lib, "adw_swipe_tracker_set_lower_overshoot")
 	core.PuregoSafeRegister(&xSwipeTrackerSetReversed, lib, "adw_swipe_tracker_set_reversed")
+	core.PuregoSafeRegister(&xSwipeTrackerSetUpperOvershoot, lib, "adw_swipe_tracker_set_upper_overshoot")
 	core.PuregoSafeRegister(&xSwipeTrackerShiftPosition, lib, "adw_swipe_tracker_shift_position")
 
 }

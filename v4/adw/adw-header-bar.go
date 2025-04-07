@@ -49,56 +49,55 @@ const (
 // &lt;/picture&gt;
 //
 // `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
-// features compared to it. Refer to `GtkHeaderBar` for details.
+// features compared to it. Refer to `GtkHeaderBar` for details. It is typically
+// used as a top bar within [class@ToolbarView].
+//
+// ## Dialog Integration
+//
+// When placed inside an [class@Dialog], `AdwHeaderBar` will display the dialog
+// title instead of window title. It will also adjust the decoration layout to
+// ensure it always has a close button and nothing else. Set
+// [property@HeaderBar:show-start-title-buttons] and
+// [property@HeaderBar:show-end-title-buttons] to `FALSE` to remove it if it's
+// unwanted.
+//
+// ## Navigation View Integration
+//
+// When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
+// page title instead of window title.
+//
+// When used together with [class@NavigationView] or [class@NavigationSplitView],
+// it will also display a back button that can be used to go back to the previous
+// page. The button also has a context menu, allowing to pop multiple pages at
+// once, potentially across multiple navigation views.
+//
+// Set [property@HeaderBar:show-back-button] to `FALSE` to disable this behavior
+// in rare scenarios where it's unwanted.
+//
+// ## Split View Integration
+//
+// When placed inside [class@NavigationSplitView] or [class@OverlaySplitView],
+// `AdwHeaderBar` will automatically hide the title buttons other than at the
+// edges of the window.
+//
+// ## Bottom Sheet Integration
+//
+// When played inside [class@BottomSheet], `AdwHeaderBar` will not show the title
+// unless [property@BottomSheet:show-drag-handle] is set to `FALSE`, regardless
+// of [property@HeaderBar:show-title]. This only applies to the default title,
+// titles set with [property@HeaderBar:title-widget] will still be shown.
+//
+// ## Centering Policy
 //
 // [property@HeaderBar:centering-policy] allows to enforce strict centering of
-// the title widget, this is useful for [class@ViewSwitcherTitle].
+// the title widget. This can be useful for entries inside [class@Clamp].
 //
+// ## Title Buttons
+//
+// Unlike `GtkHeaderBar`, `AdwHeaderBar` allows to toggle title button
+// visibility for each side individually, using the
 // [property@HeaderBar:show-start-title-buttons] and
-// [property@HeaderBar:show-end-title-buttons] allow to easily create split
-// header bar layouts using [class@Leaflet], as follows:
-//
-// ```xml
-// &lt;object class="AdwLeaflet" id="leaflet"&gt;
-//
-//	&lt;child&gt;
-//	  &lt;object class="GtkBox"&gt;
-//	    &lt;property name="orientation"&gt;vertical&lt;/property&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="AdwHeaderBar"&gt;
-//	        &lt;binding name="show-end-title-buttons"&gt;
-//	          &lt;lookup name="folded"&gt;leaflet&lt;/lookup&gt;
-//	        &lt;/binding&gt;
-//	      &lt;/object&gt;
-//	    &lt;/child&gt;
-//	    &lt;!-- ... --&gt;
-//	  &lt;/object&gt;
-//	&lt;/child&gt;
-//	&lt;!-- ... --&gt;
-//	&lt;child&gt;
-//	  &lt;object class="GtkBox"&gt;
-//	    &lt;property name="orientation"&gt;vertical&lt;/property&gt;
-//	    &lt;property name="hexpand"&gt;True&lt;/property&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="AdwHeaderBar"&gt;
-//	        &lt;binding name="show-start-title-buttons"&gt;
-//	          &lt;lookup name="folded"&gt;leaflet&lt;/lookup&gt;
-//	        &lt;/binding&gt;
-//	      &lt;/object&gt;
-//	    &lt;/child&gt;
-//	    &lt;!-- ... --&gt;
-//	  &lt;/object&gt;
-//	&lt;/child&gt;
-//
-// &lt;/object&gt;
-// ```
-//
-// &lt;picture&gt;
-//
-//	&lt;source srcset="header-bar-split-dark.png" media="(prefers-color-scheme: dark)"&gt;
-//	&lt;img src="header-bar-split.png" alt="header-bar-split"&gt;
-//
-// &lt;/picture&gt;
+// [property@HeaderBar:show-end-title-buttons] properties.
 //
 // ## CSS nodes
 //
@@ -110,8 +109,11 @@ const (
 //	    ├── widget
 //	    │   ╰── box.start
 //	    │       ├── windowcontrols.start
+//	    │       ├── widget
+//	    │       │   ╰── [button.back]
 //	    │       ╰── [other children]
-//	    ├── [Title Widget]
+//	    ├── widget
+//	    │   ╰── [Title Widget]
 //	    ╰── widget
 //	        ╰── box.end
 //	            ├── [other children]
@@ -120,13 +122,17 @@ const (
 // ```
 //
 // `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
-// subnode, which contains a `box` subnode, which contains two `widget` subnodes
-// at the start and end of the header bar, each of which contains a `box`
-// subnode with the `.start` and `.end` style classes respectively, as well as a
-// center node that represents the title.
+// subnode, which contains a `box` subnode, which contains three `widget`
+// subnodes at the start, center and end of the header bar. The start and end
+// subnodes contain a `box` subnode with the `.start` and `.end` style classes
+// respectively, and the center node contains a node that represents the title.
 //
 // Each of the boxes contains a `windowcontrols` subnode, see
 // [class@Gtk.WindowControls] for details, as well as other children.
+//
+// When [property@HeaderBar:show-back-button] is `TRUE`, the start box also
+// contains a node with the name `widget` that contains a node with the name
+// `button` and `.back` style class.
 //
 // ## Accessibility
 //
@@ -182,6 +188,15 @@ func (x *HeaderBar) GetDecorationLayout() string {
 	return cret
 }
 
+var xHeaderBarGetShowBackButton func(uintptr) bool
+
+// Gets whether @self can show the back button.
+func (x *HeaderBar) GetShowBackButton() bool {
+
+	cret := xHeaderBarGetShowBackButton(x.GoPointer())
+	return cret
+}
+
 var xHeaderBarGetShowEndTitleButtons func(uintptr) bool
 
 // Gets whether to show title buttons at the end of @self.
@@ -197,6 +212,15 @@ var xHeaderBarGetShowStartTitleButtons func(uintptr) bool
 func (x *HeaderBar) GetShowStartTitleButtons() bool {
 
 	cret := xHeaderBarGetShowStartTitleButtons(x.GoPointer())
+	return cret
+}
+
+var xHeaderBarGetShowTitle func(uintptr) bool
+
+// Gets whether the title widget should be shown.
+func (x *HeaderBar) GetShowTitle() bool {
+
+	cret := xHeaderBarGetShowTitle(x.GoPointer())
 	return cret
 }
 
@@ -276,6 +300,18 @@ func (x *HeaderBar) SetDecorationLayout(LayoutVar string) {
 
 }
 
+var xHeaderBarSetShowBackButton func(uintptr, bool)
+
+// Sets whether @self can show the back button.
+//
+// The back button will never be shown unless the header bar is placed inside an
+// [class@NavigationView]. Usually, there is no reason to set it to `FALSE`.
+func (x *HeaderBar) SetShowBackButton(ShowBackButtonVar bool) {
+
+	xHeaderBarSetShowBackButton(x.GoPointer(), ShowBackButtonVar)
+
+}
+
 var xHeaderBarSetShowEndTitleButtons func(uintptr, bool)
 
 // Sets whether to show title buttons at the end of @self.
@@ -303,6 +339,15 @@ var xHeaderBarSetShowStartTitleButtons func(uintptr, bool)
 func (x *HeaderBar) SetShowStartTitleButtons(SettingVar bool) {
 
 	xHeaderBarSetShowStartTitleButtons(x.GoPointer(), SettingVar)
+
+}
+
+var xHeaderBarSetShowTitle func(uintptr, bool)
+
+// Sets whether the title widget should be shown.
+func (x *HeaderBar) SetShowTitle(ShowTitleVar bool) {
+
+	xHeaderBarSetShowTitle(x.GoPointer(), ShowTitleVar)
 
 }
 
@@ -497,16 +542,20 @@ func init() {
 
 	core.PuregoSafeRegister(&xHeaderBarGetCenteringPolicy, lib, "adw_header_bar_get_centering_policy")
 	core.PuregoSafeRegister(&xHeaderBarGetDecorationLayout, lib, "adw_header_bar_get_decoration_layout")
+	core.PuregoSafeRegister(&xHeaderBarGetShowBackButton, lib, "adw_header_bar_get_show_back_button")
 	core.PuregoSafeRegister(&xHeaderBarGetShowEndTitleButtons, lib, "adw_header_bar_get_show_end_title_buttons")
 	core.PuregoSafeRegister(&xHeaderBarGetShowStartTitleButtons, lib, "adw_header_bar_get_show_start_title_buttons")
+	core.PuregoSafeRegister(&xHeaderBarGetShowTitle, lib, "adw_header_bar_get_show_title")
 	core.PuregoSafeRegister(&xHeaderBarGetTitleWidget, lib, "adw_header_bar_get_title_widget")
 	core.PuregoSafeRegister(&xHeaderBarPackEnd, lib, "adw_header_bar_pack_end")
 	core.PuregoSafeRegister(&xHeaderBarPackStart, lib, "adw_header_bar_pack_start")
 	core.PuregoSafeRegister(&xHeaderBarRemove, lib, "adw_header_bar_remove")
 	core.PuregoSafeRegister(&xHeaderBarSetCenteringPolicy, lib, "adw_header_bar_set_centering_policy")
 	core.PuregoSafeRegister(&xHeaderBarSetDecorationLayout, lib, "adw_header_bar_set_decoration_layout")
+	core.PuregoSafeRegister(&xHeaderBarSetShowBackButton, lib, "adw_header_bar_set_show_back_button")
 	core.PuregoSafeRegister(&xHeaderBarSetShowEndTitleButtons, lib, "adw_header_bar_set_show_end_title_buttons")
 	core.PuregoSafeRegister(&xHeaderBarSetShowStartTitleButtons, lib, "adw_header_bar_set_show_start_title_buttons")
+	core.PuregoSafeRegister(&xHeaderBarSetShowTitle, lib, "adw_header_bar_set_show_title")
 	core.PuregoSafeRegister(&xHeaderBarSetTitleWidget, lib, "adw_header_bar_set_title_widget")
 
 }

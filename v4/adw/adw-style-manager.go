@@ -52,11 +52,13 @@ const (
 // A class for managing application-wide styling.
 //
 // `AdwStyleManager` provides a way to query and influence the application
-// styles, such as whether to use dark or high contrast appearance.
+// styles, such as whether to use dark style, the system accent color or high
+// contrast appearance.
 //
 // It allows to set the color scheme via the
 // [property@StyleManager:color-scheme] property, and to query the current
-// appearance, as well as whether a system-wide color scheme preference exists.
+// appearance, as well as whether a system-wide color scheme and accent color
+// preferences exists.
 type StyleManager struct {
 	gobject.Object
 }
@@ -71,6 +73,31 @@ func StyleManagerNewFromInternalPtr(ptr uintptr) *StyleManager {
 	cls := &StyleManager{}
 	cls.Ptr = ptr
 	return cls
+}
+
+var xStyleManagerGetAccentColor func(uintptr) AccentColor
+
+// Gets the current system accent color.
+//
+// See also [property@StyleManager:accent-color-rgba].
+func (x *StyleManager) GetAccentColor() AccentColor {
+
+	cret := xStyleManagerGetAccentColor(x.GoPointer())
+	return cret
+}
+
+var xStyleManagerGetAccentColorRgba func(uintptr) *gdk.RGBA
+
+// Gets the current system accent color as a `GdkRGBA`.
+//
+// Equivalent to calling [func@AccentColor.to_rgba] on the value of
+// [property@StyleManager:accent-color].
+//
+// This is a background color. The matching foreground color is white.
+func (x *StyleManager) GetAccentColorRgba() *gdk.RGBA {
+
+	cret := xStyleManagerGetAccentColorRgba(x.GoPointer())
+	return cret
 }
 
 var xStyleManagerGetColorScheme func(uintptr) ColorScheme
@@ -122,6 +149,21 @@ var xStyleManagerGetHighContrast func(uintptr) bool
 func (x *StyleManager) GetHighContrast() bool {
 
 	cret := xStyleManagerGetHighContrast(x.GoPointer())
+	return cret
+}
+
+var xStyleManagerGetSystemSupportsAccentColors func(uintptr) bool
+
+// Gets whether the system supports accent colors.
+//
+// This can be used to check if the current environment provides an accent color
+// preference. For example, applications might want to show a preference for
+// choosing accent color if it's set to `FALSE`.
+//
+// See [property@StyleManager:accent-color].
+func (x *StyleManager) GetSystemSupportsAccentColors() bool {
+
+	cret := xStyleManagerGetSystemSupportsAccentColors(x.GoPointer())
 	return cret
 }
 
@@ -239,10 +281,13 @@ func init() {
 
 	core.PuregoSafeRegister(&xStyleManagerGLibType, lib, "adw_style_manager_get_type")
 
+	core.PuregoSafeRegister(&xStyleManagerGetAccentColor, lib, "adw_style_manager_get_accent_color")
+	core.PuregoSafeRegister(&xStyleManagerGetAccentColorRgba, lib, "adw_style_manager_get_accent_color_rgba")
 	core.PuregoSafeRegister(&xStyleManagerGetColorScheme, lib, "adw_style_manager_get_color_scheme")
 	core.PuregoSafeRegister(&xStyleManagerGetDark, lib, "adw_style_manager_get_dark")
 	core.PuregoSafeRegister(&xStyleManagerGetDisplay, lib, "adw_style_manager_get_display")
 	core.PuregoSafeRegister(&xStyleManagerGetHighContrast, lib, "adw_style_manager_get_high_contrast")
+	core.PuregoSafeRegister(&xStyleManagerGetSystemSupportsAccentColors, lib, "adw_style_manager_get_system_supports_accent_colors")
 	core.PuregoSafeRegister(&xStyleManagerGetSystemSupportsColorSchemes, lib, "adw_style_manager_get_system_supports_color_schemes")
 	core.PuregoSafeRegister(&xStyleManagerSetColorScheme, lib, "adw_style_manager_set_color_scheme")
 

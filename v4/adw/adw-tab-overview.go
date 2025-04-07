@@ -151,6 +151,15 @@ func (x *TabOverview) GetEnableSearch() bool {
 	return cret
 }
 
+var xTabOverviewGetExtraDragPreferredAction func(uintptr) gdk.DragAction
+
+// Gets the current action during a drop on the extra_drop_target.
+func (x *TabOverview) GetExtraDragPreferredAction() gdk.DragAction {
+
+	cret := xTabOverviewGetExtraDragPreferredAction(x.GoPointer())
+	return cret
+}
+
 var xTabOverviewGetExtraDragPreload func(uintptr) bool
 
 // Gets whether drop data should be preloaded on hover.
@@ -383,7 +392,7 @@ func (c *TabOverview) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-// Emitted when a tab needs to be created;
+// Emitted when a tab needs to be created.
 //
 // This can happen after the new tab button has been pressed, see
 // [property@TabOverview:enable-new-tab].
@@ -619,6 +628,7 @@ func init() {
 	core.PuregoSafeRegister(&xTabOverviewGetChild, lib, "adw_tab_overview_get_child")
 	core.PuregoSafeRegister(&xTabOverviewGetEnableNewTab, lib, "adw_tab_overview_get_enable_new_tab")
 	core.PuregoSafeRegister(&xTabOverviewGetEnableSearch, lib, "adw_tab_overview_get_enable_search")
+	core.PuregoSafeRegister(&xTabOverviewGetExtraDragPreferredAction, lib, "adw_tab_overview_get_extra_drag_preferred_action")
 	core.PuregoSafeRegister(&xTabOverviewGetExtraDragPreload, lib, "adw_tab_overview_get_extra_drag_preload")
 	core.PuregoSafeRegister(&xTabOverviewGetInverted, lib, "adw_tab_overview_get_inverted")
 	core.PuregoSafeRegister(&xTabOverviewGetOpen, lib, "adw_tab_overview_get_open")
