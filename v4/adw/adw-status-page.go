@@ -39,9 +39,23 @@ func (x *StatusPageClass) GoPointer() uintptr {
 //
 // `AdwStatusPage` has a main CSS node with name `statuspage`.
 //
+// When setting an [class@SpinnerPaintable] as [property@StatusPage:paintable],
+// the main nodes gains the `.spinner` style class for a more compact
+// appearance.
+//
+// ## Style classes
+//
 // `AdwStatusPage` can use the
 // [`.compact`](style-classes.html#compact-status-page) style class for when it
-// needs to fit into a small space such a sidebar or a popover.
+// needs to fit into a small space such a sidebar or a popover, similar to when
+// using a spinner as the paintable.
+//
+// &lt;picture&gt;
+//
+//	&lt;source srcset="status-page-compact-dark.png" media="(prefers-color-scheme: dark)"&gt;
+//	&lt;img src="status-page-compact.png" alt="status-page-compact"&gt;
+//
+// &lt;/picture&gt;
 type StatusPage struct {
 	gtk.Widget
 }
@@ -94,7 +108,7 @@ func (x *StatusPage) GetChild() *gtk.Widget {
 
 var xStatusPageGetDescription func(uintptr) string
 
-// Gets the description for @self.
+// Gets the description markup for @self.
 func (x *StatusPage) GetDescription() string {
 
 	cret := xStatusPageGetDescription(x.GoPointer())
@@ -147,9 +161,9 @@ func (x *StatusPage) SetChild(ChildVar *gtk.Widget) {
 
 var xStatusPageSetDescription func(uintptr, string)
 
-// Sets the description for @self.
+// Sets the description markup for @self.
 //
-// The description is displayed below the title.
+// The description is displayed below the title. It is parsed as Pango markup.
 func (x *StatusPage) SetDescription(DescriptionVar string) {
 
 	xStatusPageSetDescription(x.GoPointer(), DescriptionVar)
@@ -182,7 +196,7 @@ var xStatusPageSetTitle func(uintptr, string)
 
 // Sets the title for @self.
 //
-// The title is displayed below the icon.
+// The title is displayed below the icon. It is not parsed as Pango markup.
 func (x *StatusPage) SetTitle(TitleVar string) {
 
 	xStatusPageSetTitle(x.GoPointer(), TitleVar)

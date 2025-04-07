@@ -53,10 +53,10 @@ const (
 
 	// No shortcuts
 	TabViewShortcutNoneValue TabViewShortcuts = 0
-	// &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; - switch to the next page, with looping
+	// &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; - switch to the next page
 	TabViewShortcutControlTabValue TabViewShortcuts = 1
 	// &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; - switch to the previous
-	//   page, with looping
+	//   page
 	TabViewShortcutControlShiftTabValue TabViewShortcuts = 2
 	// &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Page Up&lt;/kbd&gt; - switch to the previous page
 	TabViewShortcutControlPageUpValue TabViewShortcuts = 4
@@ -1325,6 +1325,9 @@ func (c *TabView) SetGoPointer(ptr uintptr) {
 //
 // A typical reason to connect to this signal is to show a confirmation dialog
 // for closing a tab.
+//
+// The signal handler should return `GDK_EVENT_STOP` to stop propagation or
+// `GDK_EVENT_CONTINUE` to invoke the default handler.
 func (x *TabView) ConnectClosePage(cb *func(TabView, uintptr) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {

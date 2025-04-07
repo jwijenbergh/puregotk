@@ -42,6 +42,25 @@ func (x *ApplicationWindowClass) GoPointer() uintptr {
 //
 // See [class@Window] for details.
 //
+// Example of an `AdwApplicationWindow` UI definition:
+//
+// ```xml
+// &lt;object class="AdwApplicationWindow"&gt;
+//
+//	&lt;property name="content"&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar"/&gt;
+//	    &lt;/child&gt;
+//	    &lt;property name="content"&gt;
+//	      &lt;!-- ... --&gt;
+//	    &lt;/property&gt;
+//	  &lt;/object&gt;
+//	&lt;/property&gt;
+//
+// &lt;/object&gt;
+// ```
+//
 // Using [property@Gtk.Application:menubar] is not supported and may result in
 // visual glitches.
 type ApplicationWindow struct {
@@ -77,6 +96,15 @@ func NewApplicationWindow(AppVar *gtk.Application) *ApplicationWindow {
 	return cls
 }
 
+var xApplicationWindowAddBreakpoint func(uintptr, uintptr)
+
+// Adds @breakpoint to @self.
+func (x *ApplicationWindow) AddBreakpoint(BreakpointVar *Breakpoint) {
+
+	xApplicationWindowAddBreakpoint(x.GoPointer(), BreakpointVar.GoPointer())
+
+}
+
 var xApplicationWindowGetContent func(uintptr) uintptr
 
 // Gets the content widget of @self.
@@ -92,6 +120,58 @@ func (x *ApplicationWindow) GetContent() *gtk.Widget {
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xApplicationWindowGetCurrentBreakpoint func(uintptr) uintptr
+
+// Gets the current breakpoint.
+func (x *ApplicationWindow) GetCurrentBreakpoint() *Breakpoint {
+	var cls *Breakpoint
+
+	cret := xApplicationWindowGetCurrentBreakpoint(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Breakpoint{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xApplicationWindowGetDialogs func(uintptr) uintptr
+
+// Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
+//
+// This can be used to keep an up-to-date view.
+func (x *ApplicationWindow) GetDialogs() *gio.ListModelBase {
+	var cls *gio.ListModelBase
+
+	cret := xApplicationWindowGetDialogs(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xApplicationWindowGetVisibleDialog func(uintptr) uintptr
+
+// Returns the currently visible dialog in @self, if there's one.
+func (x *ApplicationWindow) GetVisibleDialog() *Dialog {
+	var cls *Dialog
+
+	cret := xApplicationWindowGetVisibleDialog(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Dialog{}
 	cls.Ptr = cret
 	return cls
 }
@@ -693,7 +773,11 @@ func init() {
 
 	core.PuregoSafeRegister(&xNewApplicationWindow, lib, "adw_application_window_new")
 
+	core.PuregoSafeRegister(&xApplicationWindowAddBreakpoint, lib, "adw_application_window_add_breakpoint")
 	core.PuregoSafeRegister(&xApplicationWindowGetContent, lib, "adw_application_window_get_content")
+	core.PuregoSafeRegister(&xApplicationWindowGetCurrentBreakpoint, lib, "adw_application_window_get_current_breakpoint")
+	core.PuregoSafeRegister(&xApplicationWindowGetDialogs, lib, "adw_application_window_get_dialogs")
+	core.PuregoSafeRegister(&xApplicationWindowGetVisibleDialog, lib, "adw_application_window_get_visible_dialog")
 	core.PuregoSafeRegister(&xApplicationWindowSetContent, lib, "adw_application_window_set_content")
 
 }

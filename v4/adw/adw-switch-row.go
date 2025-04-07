@@ -13,172 +13,132 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 )
 
-type PreferencesRowClass struct {
+type SwitchRowClass struct {
 	_ structs.HostLayout
 
 	ParentClass uintptr
-
-	Padding [4]uintptr
 }
 
-func (x *PreferencesRowClass) GoPointer() uintptr {
+func (x *SwitchRowClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-// A [class@Gtk.ListBoxRow] used to present preferences.
+// A [class@Gtk.ListBoxRow] used to represent two states.
 //
-// The `AdwPreferencesRow` widget has a title that [class@PreferencesDialog]
-// will use to let the user look for a preference. It doesn't present the title
-// in any way and lets you present the preference as you please.
+// &lt;picture&gt;
 //
-// [class@ActionRow] and its derivatives are convenient to use as preference
-// rows as they take care of presenting the preference's title while letting you
-// compose the inputs of the preference around it.
-type PreferencesRow struct {
-	gtk.ListBoxRow
+//	&lt;source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)"&gt;
+//	&lt;img src="switch-row.png" alt="switch-row"&gt;
+//
+// &lt;/picture&gt;
+//
+// The `AdwSwitchRow` widget contains a [class@Gtk.Switch] that allows the user
+// to select between two states: "on" or "off". When activated, the row will
+// invert its active state.
+//
+// The user can control the switch by activating the row or by dragging on the
+// switch handle.
+//
+// See [class@Gtk.Switch] for details.
+//
+// Example of an `AdwSwitchRow` UI definition:
+// ```xml
+// &lt;object class="AdwSwitchRow"&gt;
+//
+//	&lt;property name="title" translatable="yes"&gt;Switch Row&lt;/property&gt;
+//	&lt;signal name="notify::active" handler="switch_row_notify_active_cb"/&gt;
+//
+// &lt;/object&gt;
+// ```
+//
+// The [property@SwitchRow:active] property should be connected to in order to
+// monitor changes to the active state.
+//
+// ## Accessibility
+//
+// `AdwSwitchRow` uses the `GTK_ACCESSIBLE_ROLE_SWITCH` role.
+type SwitchRow struct {
+	ActionRow
 }
 
-var xPreferencesRowGLibType func() types.GType
+var xSwitchRowGLibType func() types.GType
 
-func PreferencesRowGLibType() types.GType {
-	return xPreferencesRowGLibType()
+func SwitchRowGLibType() types.GType {
+	return xSwitchRowGLibType()
 }
 
-func PreferencesRowNewFromInternalPtr(ptr uintptr) *PreferencesRow {
-	cls := &PreferencesRow{}
+func SwitchRowNewFromInternalPtr(ptr uintptr) *SwitchRow {
+	cls := &SwitchRow{}
 	cls.Ptr = ptr
 	return cls
 }
 
-var xNewPreferencesRow func() uintptr
+var xNewSwitchRow func() uintptr
 
-// Creates a new `AdwPreferencesRow`.
-func NewPreferencesRow() *PreferencesRow {
-	var cls *PreferencesRow
+// Creates a new `AdwSwitchRow`.
+func NewSwitchRow() *SwitchRow {
+	var cls *SwitchRow
 
-	cret := xNewPreferencesRow()
+	cret := xNewSwitchRow()
 
 	if cret == 0 {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &PreferencesRow{}
+	cls = &SwitchRow{}
 	cls.Ptr = cret
 	return cls
 }
 
-var xPreferencesRowGetTitle func(uintptr) string
+var xSwitchRowGetActive func(uintptr) bool
 
-// Gets the title of the preference represented by @self.
-func (x *PreferencesRow) GetTitle() string {
+// Gets whether @self is in its "on" or "off" position.
+func (x *SwitchRow) GetActive() bool {
 
-	cret := xPreferencesRowGetTitle(x.GoPointer())
+	cret := xSwitchRowGetActive(x.GoPointer())
 	return cret
 }
 
-var xPreferencesRowGetTitleSelectable func(uintptr) bool
+var xSwitchRowSetActive func(uintptr, bool)
 
-// Gets whether the user can copy the title from the label
-func (x *PreferencesRow) GetTitleSelectable() bool {
+// Sets whether @self is in its "on" or "off" position
+func (x *SwitchRow) SetActive(IsActiveVar bool) {
 
-	cret := xPreferencesRowGetTitleSelectable(x.GoPointer())
-	return cret
-}
-
-var xPreferencesRowGetUseMarkup func(uintptr) bool
-
-// Gets whether to use Pango markup for the title label.
-func (x *PreferencesRow) GetUseMarkup() bool {
-
-	cret := xPreferencesRowGetUseMarkup(x.GoPointer())
-	return cret
-}
-
-var xPreferencesRowGetUseUnderline func(uintptr) bool
-
-// Gets whether an embedded underline in the title indicates a mnemonic.
-func (x *PreferencesRow) GetUseUnderline() bool {
-
-	cret := xPreferencesRowGetUseUnderline(x.GoPointer())
-	return cret
-}
-
-var xPreferencesRowSetTitle func(uintptr, string)
-
-// Sets the title of the preference represented by @self.
-//
-// The title is interpreted as Pango markup unless
-// [property@PreferencesRow:use-markup] is set to `FALSE`.
-func (x *PreferencesRow) SetTitle(TitleVar string) {
-
-	xPreferencesRowSetTitle(x.GoPointer(), TitleVar)
+	xSwitchRowSetActive(x.GoPointer(), IsActiveVar)
 
 }
 
-var xPreferencesRowSetTitleSelectable func(uintptr, bool)
-
-// Sets whether the user can copy the title from the label
-//
-// See also [property@Gtk.Label:selectable].
-func (x *PreferencesRow) SetTitleSelectable(TitleSelectableVar bool) {
-
-	xPreferencesRowSetTitleSelectable(x.GoPointer(), TitleSelectableVar)
-
-}
-
-var xPreferencesRowSetUseMarkup func(uintptr, bool)
-
-// Sets whether to use Pango markup for the title label.
-//
-// Subclasses may also use it for other labels, such as subtitle.
-//
-// See also [func@Pango.parse_markup].
-func (x *PreferencesRow) SetUseMarkup(UseMarkupVar bool) {
-
-	xPreferencesRowSetUseMarkup(x.GoPointer(), UseMarkupVar)
-
-}
-
-var xPreferencesRowSetUseUnderline func(uintptr, bool)
-
-// Sets whether an embedded underline in the title indicates a mnemonic.
-func (x *PreferencesRow) SetUseUnderline(UseUnderlineVar bool) {
-
-	xPreferencesRowSetUseUnderline(x.GoPointer(), UseUnderlineVar)
-
-}
-
-func (c *PreferencesRow) GoPointer() uintptr {
+func (c *SwitchRow) GoPointer() uintptr {
 	return c.Ptr
 }
 
-func (c *PreferencesRow) SetGoPointer(ptr uintptr) {
+func (c *SwitchRow) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
-func (x *PreferencesRow) GetAccessibleRole() gtk.AccessibleRole {
+func (x *SwitchRow) GetAccessibleRole() gtk.AccessibleRole {
 
 	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
 	return cret
 }
 
 // Resets the accessible @property to its default value.
-func (x *PreferencesRow) ResetProperty(PropertyVar gtk.AccessibleProperty) {
+func (x *SwitchRow) ResetProperty(PropertyVar gtk.AccessibleProperty) {
 
 	gtk.XGtkAccessibleResetProperty(x.GoPointer(), PropertyVar)
 
 }
 
 // Resets the accessible @relation to its default value.
-func (x *PreferencesRow) ResetRelation(RelationVar gtk.AccessibleRelation) {
+func (x *SwitchRow) ResetRelation(RelationVar gtk.AccessibleRelation) {
 
 	gtk.XGtkAccessibleResetRelation(x.GoPointer(), RelationVar)
 
 }
 
 // Resets the accessible @state to its default value.
-func (x *PreferencesRow) ResetState(StateVar gtk.AccessibleState) {
+func (x *SwitchRow) ResetState(StateVar gtk.AccessibleState) {
 
 	gtk.XGtkAccessibleResetState(x.GoPointer(), StateVar)
 
@@ -202,7 +162,7 @@ func (x *PreferencesRow) ResetState(StateVar gtk.AccessibleState) {
 //	-1);
 //
 // ```
-func (x *PreferencesRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs ...interface{}) {
+func (x *SwitchRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateProperty(x.GoPointer(), FirstPropertyVar, varArgs...)
 
@@ -214,7 +174,7 @@ func (x *PreferencesRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty,
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *SwitchRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -238,7 +198,7 @@ func (x *PreferencesRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar [
 //	-1);
 //
 // ```
-func (x *PreferencesRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs ...interface{}) {
+func (x *SwitchRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateRelation(x.GoPointer(), FirstRelationVar, varArgs...)
 
@@ -250,7 +210,7 @@ func (x *PreferencesRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation,
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *SwitchRow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -271,7 +231,7 @@ func (x *PreferencesRow) UpdateRelationValue(NRelationsVar int, RelationsVar []g
 //	-1);
 //
 // ```
-func (x *PreferencesRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interface{}) {
+func (x *SwitchRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateState(x.GoPointer(), FirstStateVar, varArgs...)
 
@@ -283,21 +243,21 @@ func (x *PreferencesRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs 
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesRow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *SwitchRow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
 }
 
 // Gets the action name for @actionable.
-func (x *PreferencesRow) GetActionName() string {
+func (x *SwitchRow) GetActionName() string {
 
 	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
 	return cret
 }
 
 // Gets the current target value of @actionable.
-func (x *PreferencesRow) GetActionTargetValue() *glib.Variant {
+func (x *SwitchRow) GetActionTargetValue() *glib.Variant {
 
 	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
 	return cret
@@ -316,7 +276,7 @@ func (x *PreferencesRow) GetActionTargetValue() *glib.Variant {
 // containing [class@ApplicationWindow] or its associated [class@Application],
 // respectively. This is the same form used for actions in the [class@Gio.Menu]
 // associated with the window.
-func (x *PreferencesRow) SetActionName(ActionNameVar string) {
+func (x *SwitchRow) SetActionName(ActionNameVar string) {
 
 	gtk.XGtkActionableSetActionName(x.GoPointer(), ActionNameVar)
 
@@ -331,7 +291,7 @@ func (x *PreferencesRow) SetActionName(ActionNameVar string) {
 // If you are setting a string-valued target and want to set
 // the action name at the same time, you can use
 // [method@Gtk.Actionable.set_detailed_action_name].
-func (x *PreferencesRow) SetActionTarget(FormatStringVar string, varArgs ...interface{}) {
+func (x *SwitchRow) SetActionTarget(FormatStringVar string, varArgs ...interface{}) {
 
 	gtk.XGtkActionableSetActionTarget(x.GoPointer(), FormatStringVar, varArgs...)
 
@@ -355,7 +315,7 @@ func (x *PreferencesRow) SetActionTarget(FormatStringVar string, varArgs ...inte
 // is now equal to the target value of the button, the button will now
 // be rendered as active (and the other buttons, with different targets,
 // rendered inactive).
-func (x *PreferencesRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
+func (x *SwitchRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
 
 	gtk.XGtkActionableSetActionTargetValue(x.GoPointer(), TargetValueVar)
 
@@ -366,7 +326,7 @@ func (x *PreferencesRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
 //
 // @detailed_action_name is a string in the format accepted by
 // [func@Gio.Action.parse_detailed_name].
-func (x *PreferencesRow) SetDetailedActionName(DetailedActionNameVar string) {
+func (x *SwitchRow) SetDetailedActionName(DetailedActionNameVar string) {
 
 	gtk.XGtkActionableSetDetailedActionName(x.GoPointer(), DetailedActionNameVar)
 
@@ -376,7 +336,7 @@ func (x *PreferencesRow) SetDetailedActionName(DetailedActionNameVar string) {
 //
 // `GtkBuilder` sets the name based on the ID attribute
 // of the &lt;object&gt; tag used to construct the @buildable.
-func (x *PreferencesRow) GetBuildableId() string {
+func (x *SwitchRow) GetBuildableId() string {
 
 	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
 	return cret
@@ -388,17 +348,11 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xPreferencesRowGLibType, lib, "adw_preferences_row_get_type")
+	core.PuregoSafeRegister(&xSwitchRowGLibType, lib, "adw_switch_row_get_type")
 
-	core.PuregoSafeRegister(&xNewPreferencesRow, lib, "adw_preferences_row_new")
+	core.PuregoSafeRegister(&xNewSwitchRow, lib, "adw_switch_row_new")
 
-	core.PuregoSafeRegister(&xPreferencesRowGetTitle, lib, "adw_preferences_row_get_title")
-	core.PuregoSafeRegister(&xPreferencesRowGetTitleSelectable, lib, "adw_preferences_row_get_title_selectable")
-	core.PuregoSafeRegister(&xPreferencesRowGetUseMarkup, lib, "adw_preferences_row_get_use_markup")
-	core.PuregoSafeRegister(&xPreferencesRowGetUseUnderline, lib, "adw_preferences_row_get_use_underline")
-	core.PuregoSafeRegister(&xPreferencesRowSetTitle, lib, "adw_preferences_row_set_title")
-	core.PuregoSafeRegister(&xPreferencesRowSetTitleSelectable, lib, "adw_preferences_row_set_title_selectable")
-	core.PuregoSafeRegister(&xPreferencesRowSetUseMarkup, lib, "adw_preferences_row_set_use_markup")
-	core.PuregoSafeRegister(&xPreferencesRowSetUseUnderline, lib, "adw_preferences_row_set_use_underline")
+	core.PuregoSafeRegister(&xSwitchRowGetActive, lib, "adw_switch_row_get_active")
+	core.PuregoSafeRegister(&xSwitchRowSetActive, lib, "adw_switch_row_set_active")
 
 }

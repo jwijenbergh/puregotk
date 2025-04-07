@@ -49,8 +49,6 @@ const (
 // It determines the type of animation when transitioning between children in a
 // [class@Flap] widget, as well as which areas can be swiped via
 // [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
-//
-// New values may be added to this enum over time.
 type FlapTransitionType int
 
 var xFlapTransitionTypeGLibType func() types.GType

@@ -11,319 +11,373 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
-	"github.com/jwijenbergh/puregotk/v4/pango"
 )
 
-type EntryRowClass struct {
+type SpinRowClass struct {
 	_ structs.HostLayout
 
 	ParentClass uintptr
 }
 
-func (x *EntryRowClass) GoPointer() uintptr {
+func (x *SpinRowClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-// A [class@Gtk.ListBoxRow] with an embedded text entry.
+// An [class@ActionRow] with an embedded spin button.
 //
 // &lt;picture&gt;
 //
-//	&lt;source srcset="entry-row-dark.png" media="(prefers-color-scheme: dark)"&gt;
-//	&lt;img src="entry-row.png" alt="entry-row"&gt;
+//	&lt;source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)"&gt;
+//	&lt;img src="spin-row.png" alt="spin-row"&gt;
 //
 // &lt;/picture&gt;
 //
-// `AdwEntryRow` has a title that doubles as placeholder text. It shows an icon
-// indicating that it's editable and can receive additional widgets before or
-// after the editable part.
+// Example of an `AdwSpinRow` UI definition:
 //
-// If [property@EntryRow:show-apply-button] is set to `TRUE`, `AdwEntryRow` can
-// show an apply button when editing its contents. This can be useful if
-// changing its contents can result in an expensive operation, such as network
-// activity.
+// ```xml
+// &lt;object class="AdwSpinRow"&gt;
 //
-// `AdwEntryRow` provides only minimal API and should be used with the
-// [iface@Gtk.Editable] API.
+//	&lt;property name="title" translatable="yes"&gt;Spin Row&lt;/property&gt;
+//	&lt;property name="adjustment"&gt;
+//	  &lt;object class="GtkAdjustment"&gt;
+//	    &lt;property name="lower"&gt;0&lt;/property&gt;
+//	    &lt;property name="upper"&gt;100&lt;/property&gt;
+//	    &lt;property name="value"&gt;50&lt;/property&gt;
+//	    &lt;property name="page-increment"&gt;10&lt;/property&gt;
+//	    &lt;property name="step-increment"&gt;1&lt;/property&gt;
+//	  &lt;/object&gt;
+//	&lt;/property&gt;
 //
-// See also [class@PasswordEntryRow].
+// &lt;/object&gt;
+// ```
 //
-// ## AdwEntryRow as GtkBuildable
-//
-// The `AdwEntryRow` implementation of the [iface@Gtk.Buildable] interface
-// supports adding a child at its end by specifying “suffix” or omitting the
-// “type” attribute of a &lt;child&gt; element.
-//
-// It also supports adding a child as a prefix widget by specifying “prefix” as
-// the “type” attribute of a &lt;child&gt; element.
+// See [class@Gtk.SpinButton] for details.
 //
 // ## CSS nodes
 //
-// `AdwEntryRow` has a single CSS node with name `row` and the `.entry` style
-// class.
-type EntryRow struct {
-	PreferencesRow
+// `AdwSpinRow` has the same structure as [class@ActionRow], as well as the
+// `.spin` style class on the main node.
+//
+// ## Accessibility
+//
+// `AdwSpinRow` uses an internal `GtkSpinButton` with the
+// `GTK_ACCESSIBLE_ROLE_SPIN_BUTTON` role.
+type SpinRow struct {
+	ActionRow
 }
 
-var xEntryRowGLibType func() types.GType
+var xSpinRowGLibType func() types.GType
 
-func EntryRowGLibType() types.GType {
-	return xEntryRowGLibType()
+func SpinRowGLibType() types.GType {
+	return xSpinRowGLibType()
 }
 
-func EntryRowNewFromInternalPtr(ptr uintptr) *EntryRow {
-	cls := &EntryRow{}
+func SpinRowNewFromInternalPtr(ptr uintptr) *SpinRow {
+	cls := &SpinRow{}
 	cls.Ptr = ptr
 	return cls
 }
 
-var xNewEntryRow func() uintptr
+var xNewSpinRow func(uintptr, float64, uint) uintptr
 
-// Creates a new `AdwEntryRow`.
-func NewEntryRow() *EntryRow {
-	var cls *EntryRow
+// Creates a new `AdwSpinRow`.
+func NewSpinRow(AdjustmentVar *gtk.Adjustment, ClimbRateVar float64, DigitsVar uint) *SpinRow {
+	var cls *SpinRow
 
-	cret := xNewEntryRow()
+	cret := xNewSpinRow(AdjustmentVar.GoPointer(), ClimbRateVar, DigitsVar)
 
 	if cret == 0 {
 		return nil
 	}
 	gobject.IncreaseRef(cret)
-	cls = &EntryRow{}
+	cls = &SpinRow{}
 	cls.Ptr = cret
 	return cls
 }
 
-var xEntryRowAddPrefix func(uintptr, uintptr)
+var xNewSpinRowWithRange func(float64, float64, float64) uintptr
 
-// Adds a prefix widget to @self.
-func (x *EntryRow) AddPrefix(WidgetVar *gtk.Widget) {
-
-	xEntryRowAddPrefix(x.GoPointer(), WidgetVar.GoPointer())
-
-}
-
-var xEntryRowAddSuffix func(uintptr, uintptr)
-
-// Adds a suffix widget to @self.
-func (x *EntryRow) AddSuffix(WidgetVar *gtk.Widget) {
-
-	xEntryRowAddSuffix(x.GoPointer(), WidgetVar.GoPointer())
-
-}
-
-var xEntryRowGetActivatesDefault func(uintptr) bool
-
-// Gets whether activating the embedded entry can activate the default widget.
-func (x *EntryRow) GetActivatesDefault() bool {
-
-	cret := xEntryRowGetActivatesDefault(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetAttributes func(uintptr) *pango.AttrList
-
-// Gets Pango attributes applied to the text of the embedded entry.
-func (x *EntryRow) GetAttributes() *pango.AttrList {
-
-	cret := xEntryRowGetAttributes(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetEnableEmojiCompletion func(uintptr) bool
-
-// Gets whether to suggest emoji replacements on @self.
-func (x *EntryRow) GetEnableEmojiCompletion() bool {
-
-	cret := xEntryRowGetEnableEmojiCompletion(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetInputHints func(uintptr) gtk.InputHints
-
-// Gets the additional input hints of @self.
-func (x *EntryRow) GetInputHints() gtk.InputHints {
-
-	cret := xEntryRowGetInputHints(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetInputPurpose func(uintptr) gtk.InputPurpose
-
-// Gets the input purpose of @self.
-func (x *EntryRow) GetInputPurpose() gtk.InputPurpose {
-
-	cret := xEntryRowGetInputPurpose(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetMaxLength func(uintptr) int
-
-// Retrieves the maximum length of the entry.
-func (x *EntryRow) GetMaxLength() int {
-
-	cret := xEntryRowGetMaxLength(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetShowApplyButton func(uintptr) bool
-
-// Gets whether @self can show the apply button.
-func (x *EntryRow) GetShowApplyButton() bool {
-
-	cret := xEntryRowGetShowApplyButton(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGetTextLength func(uintptr) uint
-
-// Retrieves the current length of the text in @self.
-func (x *EntryRow) GetTextLength() uint {
-
-	cret := xEntryRowGetTextLength(x.GoPointer())
-	return cret
-}
-
-var xEntryRowGrabFocusWithoutSelecting func(uintptr) bool
-
-// Causes @self to have keyboard focus without selecting the text.
+// Creates a new `AdwSpinRow` with the given properties.
 //
-// See [method@Gtk.Text.grab_focus_without_selecting] for more information.
-func (x *EntryRow) GrabFocusWithoutSelecting() bool {
+// This is a convenience constructor that allows creation of a numeric
+// `AdwSpinRow` without manually creating an adjustment. The value is initially
+// set to the minimum value and a page increment of 10 * @step is the default.
+// The precision of the spin row is equivalent to the precisions of @step.
+//
+// ::: note
+//
+//	The way in which the precision is derived works best if @step is a power
+//	of ten. If the resulting precision is not suitable for your needs, use
+//	[method@SpinRow.set_digits] to correct it.
+func NewSpinRowWithRange(MinVar float64, MaxVar float64, StepVar float64) *SpinRow {
+	var cls *SpinRow
 
-	cret := xEntryRowGrabFocusWithoutSelecting(x.GoPointer())
+	cret := xNewSpinRowWithRange(MinVar, MaxVar, StepVar)
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &SpinRow{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xSpinRowConfigure func(uintptr, uintptr, float64, uint)
+
+// Changes the properties of an existing spin row.
+//
+// The adjustment, climb rate, and number of decimal places are updated
+// accordingly.
+func (x *SpinRow) Configure(AdjustmentVar *gtk.Adjustment, ClimbRateVar float64, DigitsVar uint) {
+
+	xSpinRowConfigure(x.GoPointer(), AdjustmentVar.GoPointer(), ClimbRateVar, DigitsVar)
+
+}
+
+var xSpinRowGetAdjustment func(uintptr) uintptr
+
+// Gets the adjustment that holds the value for the spin row.
+func (x *SpinRow) GetAdjustment() *gtk.Adjustment {
+	var cls *gtk.Adjustment
+
+	cret := xSpinRowGetAdjustment(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &gtk.Adjustment{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xSpinRowGetClimbRate func(uintptr) float64
+
+// Gets the acceleration rate when you hold down a button or key.
+func (x *SpinRow) GetClimbRate() float64 {
+
+	cret := xSpinRowGetClimbRate(x.GoPointer())
 	return cret
 }
 
-var xEntryRowRemove func(uintptr, uintptr)
+var xSpinRowGetDigits func(uintptr) uint
 
-// Removes a child from @self.
-func (x *EntryRow) Remove(WidgetVar *gtk.Widget) {
+// Gets the number of decimal places to display.
+func (x *SpinRow) GetDigits() uint {
 
-	xEntryRowRemove(x.GoPointer(), WidgetVar.GoPointer())
+	cret := xSpinRowGetDigits(x.GoPointer())
+	return cret
+}
+
+var xSpinRowGetNumeric func(uintptr) bool
+
+// Gets whether non-numeric characters should be ignored.
+func (x *SpinRow) GetNumeric() bool {
+
+	cret := xSpinRowGetNumeric(x.GoPointer())
+	return cret
+}
+
+var xSpinRowGetSnapToTicks func(uintptr) bool
+
+// Gets whether invalid values are snapped to nearest step increment.
+func (x *SpinRow) GetSnapToTicks() bool {
+
+	cret := xSpinRowGetSnapToTicks(x.GoPointer())
+	return cret
+}
+
+var xSpinRowGetUpdatePolicy func(uintptr) gtk.SpinButtonUpdatePolicy
+
+// Gets the policy for updating the spin row.
+func (x *SpinRow) GetUpdatePolicy() gtk.SpinButtonUpdatePolicy {
+
+	cret := xSpinRowGetUpdatePolicy(x.GoPointer())
+	return cret
+}
+
+var xSpinRowGetValue func(uintptr) float64
+
+// Gets the current value.
+func (x *SpinRow) GetValue() float64 {
+
+	cret := xSpinRowGetValue(x.GoPointer())
+	return cret
+}
+
+var xSpinRowGetWrap func(uintptr) bool
+
+// Gets whether the spin row should wrap upon reaching its limits.
+func (x *SpinRow) GetWrap() bool {
+
+	cret := xSpinRowGetWrap(x.GoPointer())
+	return cret
+}
+
+var xSpinRowSetAdjustment func(uintptr, uintptr)
+
+// Sets the adjustment that holds the value for the spin row.
+func (x *SpinRow) SetAdjustment(AdjustmentVar *gtk.Adjustment) {
+
+	xSpinRowSetAdjustment(x.GoPointer(), AdjustmentVar.GoPointer())
 
 }
 
-var xEntryRowSetActivatesDefault func(uintptr, bool)
+var xSpinRowSetClimbRate func(uintptr, float64)
 
-// Sets whether activating the embedded entry can activate the default widget.
-func (x *EntryRow) SetActivatesDefault(ActivatesVar bool) {
+// Sets the acceleration rate when you hold down a button or key.
+func (x *SpinRow) SetClimbRate(ClimbRateVar float64) {
 
-	xEntryRowSetActivatesDefault(x.GoPointer(), ActivatesVar)
+	xSpinRowSetClimbRate(x.GoPointer(), ClimbRateVar)
 
 }
 
-var xEntryRowSetAttributes func(uintptr, *pango.AttrList)
+var xSpinRowSetDigits func(uintptr, uint)
 
-// Sets Pango attributes to apply to the text of the embedded entry.
+// Sets the number of decimal places to display.
+func (x *SpinRow) SetDigits(DigitsVar uint) {
+
+	xSpinRowSetDigits(x.GoPointer(), DigitsVar)
+
+}
+
+var xSpinRowSetNumeric func(uintptr, bool)
+
+// Sets whether non-numeric characters should be ignored.
+func (x *SpinRow) SetNumeric(NumericVar bool) {
+
+	xSpinRowSetNumeric(x.GoPointer(), NumericVar)
+
+}
+
+var xSpinRowSetRange func(uintptr, float64, float64)
+
+// Sets the minimum and maximum allowable values for @self.
 //
-// The [struct@Pango.Attribute]'s `start_index` and `end_index` must refer to
-// the [class@Gtk.EntryBuffer] text, i.e. without the preedit string.
-func (x *EntryRow) SetAttributes(AttributesVar *pango.AttrList) {
+// If the current value is outside this range, it will be adjusted
+// to fit within the range, otherwise it will remain unchanged.
+func (x *SpinRow) SetRange(MinVar float64, MaxVar float64) {
 
-	xEntryRowSetAttributes(x.GoPointer(), AttributesVar)
-
-}
-
-var xEntryRowSetEnableEmojiCompletion func(uintptr, bool)
-
-// Sets whether to suggest emoji replacements on @self.
-//
-// Emoji replacement is done with :-delimited names, like `:heart:`.
-func (x *EntryRow) SetEnableEmojiCompletion(EnableEmojiCompletionVar bool) {
-
-	xEntryRowSetEnableEmojiCompletion(x.GoPointer(), EnableEmojiCompletionVar)
+	xSpinRowSetRange(x.GoPointer(), MinVar, MaxVar)
 
 }
 
-var xEntryRowSetInputHints func(uintptr, gtk.InputHints)
+var xSpinRowSetSnapToTicks func(uintptr, bool)
 
-// Set additional input hints for @self.
-//
-// Input hints allow input methods to fine-tune their behavior.
-//
-// See also: [property@AdwEntryRow:input-purpose]
-func (x *EntryRow) SetInputHints(HintsVar gtk.InputHints) {
+// Sets whether invalid values are snapped to the nearest step increment.
+func (x *SpinRow) SetSnapToTicks(SnapToTicksVar bool) {
 
-	xEntryRowSetInputHints(x.GoPointer(), HintsVar)
+	xSpinRowSetSnapToTicks(x.GoPointer(), SnapToTicksVar)
 
 }
 
-var xEntryRowSetInputPurpose func(uintptr, gtk.InputPurpose)
+var xSpinRowSetUpdatePolicy func(uintptr, gtk.SpinButtonUpdatePolicy)
 
-// Sets the input purpose of @self.
+// Sets the policy for updating the spin row.
 //
-// The input purpose can be used by input methods to adjust their behavior.
-func (x *EntryRow) SetInputPurpose(PurposeVar gtk.InputPurpose) {
+// The options are always, or only when the value is invalid.
+func (x *SpinRow) SetUpdatePolicy(PolicyVar gtk.SpinButtonUpdatePolicy) {
 
-	xEntryRowSetInputPurpose(x.GoPointer(), PurposeVar)
+	xSpinRowSetUpdatePolicy(x.GoPointer(), PolicyVar)
 
 }
 
-var xEntryRowSetMaxLength func(uintptr, int)
+var xSpinRowSetValue func(uintptr, float64)
 
-// Sets the maximum length of the entry.
-func (x *EntryRow) SetMaxLength(MaxLengthVar int) {
+// Sets the current value.
+func (x *SpinRow) SetValue(ValueVar float64) {
 
-	xEntryRowSetMaxLength(x.GoPointer(), MaxLengthVar)
-
-}
-
-var xEntryRowSetShowApplyButton func(uintptr, bool)
-
-// Sets whether @self can show the apply button.
-//
-// When set to `TRUE`, typing text in the entry will reveal an apply button.
-// Clicking it or pressing the &lt;kbd&gt;Enter&lt;/kbd&gt; key will hide the button and
-// emit the [signal@EntryRow::apply] signal.
-//
-// This is useful if changing the entry contents can trigger an expensive
-// operation, e.g. network activity, to avoid triggering it after typing every
-// character.
-func (x *EntryRow) SetShowApplyButton(ShowApplyButtonVar bool) {
-
-	xEntryRowSetShowApplyButton(x.GoPointer(), ShowApplyButtonVar)
+	xSpinRowSetValue(x.GoPointer(), ValueVar)
 
 }
 
-func (c *EntryRow) GoPointer() uintptr {
+var xSpinRowSetWrap func(uintptr, bool)
+
+// Sets whether the spin row should wrap upon reaching its limits.
+func (x *SpinRow) SetWrap(WrapVar bool) {
+
+	xSpinRowSetWrap(x.GoPointer(), WrapVar)
+
+}
+
+var xSpinRowUpdate func(uintptr)
+
+// Manually force an update of the spin row.
+func (x *SpinRow) Update() {
+
+	xSpinRowUpdate(x.GoPointer())
+
+}
+
+func (c *SpinRow) GoPointer() uintptr {
 	return c.Ptr
 }
 
-func (c *EntryRow) SetGoPointer(ptr uintptr) {
+func (c *SpinRow) SetGoPointer(ptr uintptr) {
 	c.Ptr = ptr
 }
 
-// Emitted when the apply button is pressed.
+// Emitted to convert the user's input into a double value.
 //
-// See [property@EntryRow:show-apply-button].
-func (x *EntryRow) ConnectApply(cb *func(EntryRow)) uint32 {
+// The signal handler is expected to use [method@Gtk.Editable.get_text] to
+// retrieve the text of the spinbutton and set new_value to the new value.
+//
+// The default conversion uses [func@GLib.strtod].
+//
+// See [signal@Gtk.SpinButton::input].
+func (x *SpinRow) ConnectInput(cb *func(SpinRow, float64) int) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
-		return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
+		return gobject.SignalConnect(x.GoPointer(), "input", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr) {
-		fa := EntryRow{}
+	fcb := func(clsPtr uintptr, NewValueVarp float64) int {
+		fa := SpinRow{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
 
-		cbFn(fa)
+		return cbFn(fa, NewValueVarp)
 
 	}
 	cbRefPtr := purego.NewCallback(fcb)
 	glib.SaveCallback(cbPtr, cbRefPtr)
-	return gobject.SignalConnect(x.GoPointer(), "apply", cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "input", cbRefPtr)
 }
 
-// Emitted when the embedded entry is activated.
-func (x *EntryRow) ConnectEntryActivated(cb *func(EntryRow)) uint32 {
+// Emitted to tweak the formatting of the value for display.
+//
+// See [signal@Gtk.SpinButton::output].
+func (x *SpinRow) ConnectOutput(cb *func(SpinRow) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
-		return gobject.SignalConnect(x.GoPointer(), "entry-activated", cbRefPtr)
+		return gobject.SignalConnect(x.GoPointer(), "output", cbRefPtr)
+	}
+
+	fcb := func(clsPtr uintptr) bool {
+		fa := SpinRow{}
+		fa.Ptr = clsPtr
+		cbFn := *cb
+
+		return cbFn(fa)
+
+	}
+	cbRefPtr := purego.NewCallback(fcb)
+	glib.SaveCallback(cbPtr, cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "output", cbRefPtr)
+}
+
+// Emitted right after the spinbutton wraps.
+//
+// See [signal@Gtk.SpinButton::wrapped].
+func (x *SpinRow) ConnectWrapped(cb *func(SpinRow)) uint32 {
+	cbPtr := uintptr(unsafe.Pointer(cb))
+	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
+		return gobject.SignalConnect(x.GoPointer(), "wrapped", cbRefPtr)
 	}
 
 	fcb := func(clsPtr uintptr) {
-		fa := EntryRow{}
+		fa := SpinRow{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
 
@@ -332,32 +386,32 @@ func (x *EntryRow) ConnectEntryActivated(cb *func(EntryRow)) uint32 {
 	}
 	cbRefPtr := purego.NewCallback(fcb)
 	glib.SaveCallback(cbPtr, cbRefPtr)
-	return gobject.SignalConnect(x.GoPointer(), "entry-activated", cbRefPtr)
+	return gobject.SignalConnect(x.GoPointer(), "wrapped", cbRefPtr)
 }
 
 // Retrieves the `GtkAccessibleRole` for the given `GtkAccessible`.
-func (x *EntryRow) GetAccessibleRole() gtk.AccessibleRole {
+func (x *SpinRow) GetAccessibleRole() gtk.AccessibleRole {
 
 	cret := gtk.XGtkAccessibleGetAccessibleRole(x.GoPointer())
 	return cret
 }
 
 // Resets the accessible @property to its default value.
-func (x *EntryRow) ResetProperty(PropertyVar gtk.AccessibleProperty) {
+func (x *SpinRow) ResetProperty(PropertyVar gtk.AccessibleProperty) {
 
 	gtk.XGtkAccessibleResetProperty(x.GoPointer(), PropertyVar)
 
 }
 
 // Resets the accessible @relation to its default value.
-func (x *EntryRow) ResetRelation(RelationVar gtk.AccessibleRelation) {
+func (x *SpinRow) ResetRelation(RelationVar gtk.AccessibleRelation) {
 
 	gtk.XGtkAccessibleResetRelation(x.GoPointer(), RelationVar)
 
 }
 
 // Resets the accessible @state to its default value.
-func (x *EntryRow) ResetState(StateVar gtk.AccessibleState) {
+func (x *SpinRow) ResetState(StateVar gtk.AccessibleState) {
 
 	gtk.XGtkAccessibleResetState(x.GoPointer(), StateVar)
 
@@ -381,7 +435,7 @@ func (x *EntryRow) ResetState(StateVar gtk.AccessibleState) {
 //	-1);
 //
 // ```
-func (x *EntryRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs ...interface{}) {
+func (x *SpinRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateProperty(x.GoPointer(), FirstPropertyVar, varArgs...)
 
@@ -393,7 +447,7 @@ func (x *EntryRow) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EntryRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *SpinRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -417,7 +471,7 @@ func (x *EntryRow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.A
 //	-1);
 //
 // ```
-func (x *EntryRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs ...interface{}) {
+func (x *SpinRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateRelation(x.GoPointer(), FirstRelationVar, varArgs...)
 
@@ -429,7 +483,7 @@ func (x *EntryRow) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EntryRow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *SpinRow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -450,7 +504,7 @@ func (x *EntryRow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.Acc
 //	-1);
 //
 // ```
-func (x *EntryRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interface{}) {
+func (x *SpinRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interface{}) {
 
 	gtk.XGtkAccessibleUpdateState(x.GoPointer(), FirstStateVar, varArgs...)
 
@@ -462,21 +516,21 @@ func (x *EntryRow) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EntryRow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *SpinRow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
 }
 
 // Gets the action name for @actionable.
-func (x *EntryRow) GetActionName() string {
+func (x *SpinRow) GetActionName() string {
 
 	cret := gtk.XGtkActionableGetActionName(x.GoPointer())
 	return cret
 }
 
 // Gets the current target value of @actionable.
-func (x *EntryRow) GetActionTargetValue() *glib.Variant {
+func (x *SpinRow) GetActionTargetValue() *glib.Variant {
 
 	cret := gtk.XGtkActionableGetActionTargetValue(x.GoPointer())
 	return cret
@@ -495,7 +549,7 @@ func (x *EntryRow) GetActionTargetValue() *glib.Variant {
 // containing [class@ApplicationWindow] or its associated [class@Application],
 // respectively. This is the same form used for actions in the [class@Gio.Menu]
 // associated with the window.
-func (x *EntryRow) SetActionName(ActionNameVar string) {
+func (x *SpinRow) SetActionName(ActionNameVar string) {
 
 	gtk.XGtkActionableSetActionName(x.GoPointer(), ActionNameVar)
 
@@ -510,7 +564,7 @@ func (x *EntryRow) SetActionName(ActionNameVar string) {
 // If you are setting a string-valued target and want to set
 // the action name at the same time, you can use
 // [method@Gtk.Actionable.set_detailed_action_name].
-func (x *EntryRow) SetActionTarget(FormatStringVar string, varArgs ...interface{}) {
+func (x *SpinRow) SetActionTarget(FormatStringVar string, varArgs ...interface{}) {
 
 	gtk.XGtkActionableSetActionTarget(x.GoPointer(), FormatStringVar, varArgs...)
 
@@ -534,7 +588,7 @@ func (x *EntryRow) SetActionTarget(FormatStringVar string, varArgs ...interface{
 // is now equal to the target value of the button, the button will now
 // be rendered as active (and the other buttons, with different targets,
 // rendered inactive).
-func (x *EntryRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
+func (x *SpinRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
 
 	gtk.XGtkActionableSetActionTargetValue(x.GoPointer(), TargetValueVar)
 
@@ -545,7 +599,7 @@ func (x *EntryRow) SetActionTargetValue(TargetValueVar *glib.Variant) {
 //
 // @detailed_action_name is a string in the format accepted by
 // [func@Gio.Action.parse_detailed_name].
-func (x *EntryRow) SetDetailedActionName(DetailedActionNameVar string) {
+func (x *SpinRow) SetDetailedActionName(DetailedActionNameVar string) {
 
 	gtk.XGtkActionableSetDetailedActionName(x.GoPointer(), DetailedActionNameVar)
 
@@ -555,7 +609,7 @@ func (x *EntryRow) SetDetailedActionName(DetailedActionNameVar string) {
 //
 // `GtkBuilder` sets the name based on the ID attribute
 // of the &lt;object&gt; tag used to construct the @buildable.
-func (x *EntryRow) GetBuildableId() string {
+func (x *SpinRow) GetBuildableId() string {
 
 	cret := gtk.XGtkBuildableGetBuildableId(x.GoPointer())
 	return cret
@@ -564,7 +618,7 @@ func (x *EntryRow) GetBuildableId() string {
 // Deletes the currently selected text of the editable.
 //
 // This call doesn’t do anything if there is no selected text.
-func (x *EntryRow) DeleteSelection() {
+func (x *SpinRow) DeleteSelection() {
 
 	gtk.XGtkEditableDeleteSelection(x.GoPointer())
 
@@ -578,7 +632,7 @@ func (x *EntryRow) DeleteSelection() {
 // the end of the text.
 //
 // Note that the positions are specified in characters, not bytes.
-func (x *EntryRow) DeleteText(StartPosVar int, EndPosVar int) {
+func (x *SpinRow) DeleteText(StartPosVar int, EndPosVar int) {
 
 	gtk.XGtkEditableDeleteText(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -588,14 +642,14 @@ func (x *EntryRow) DeleteText(StartPosVar int, EndPosVar int) {
 //
 // This is a helper function that should be called from dispose,
 // before removing the delegate object.
-func (x *EntryRow) FinishDelegate() {
+func (x *SpinRow) FinishDelegate() {
 
 	gtk.XGtkEditableFinishDelegate(x.GoPointer())
 
 }
 
 // Gets the alignment of the editable.
-func (x *EntryRow) GetAlignment() float32 {
+func (x *SpinRow) GetAlignment() float32 {
 
 	cret := gtk.XGtkEditableGetAlignment(x.GoPointer())
 	return cret
@@ -609,7 +663,7 @@ func (x *EntryRow) GetAlignment() float32 {
 // the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EntryRow) GetChars(StartPosVar int, EndPosVar int) string {
+func (x *SpinRow) GetChars(StartPosVar int, EndPosVar int) string {
 
 	cret := gtk.XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
 	return cret
@@ -619,7 +673,7 @@ func (x *EntryRow) GetChars(StartPosVar int, EndPosVar int) string {
 // implementation to.
 //
 // Typically, the delegate is a [class@Gtk.Text] widget.
-func (x *EntryRow) GetDelegate() *gtk.EditableBase {
+func (x *SpinRow) GetDelegate() *gtk.EditableBase {
 	var cls *gtk.EditableBase
 
 	cret := gtk.XGtkEditableGetDelegate(x.GoPointer())
@@ -634,21 +688,21 @@ func (x *EntryRow) GetDelegate() *gtk.EditableBase {
 }
 
 // Retrieves whether @editable is editable.
-func (x *EntryRow) GetEditable() bool {
+func (x *SpinRow) GetEditable() bool {
 
 	cret := gtk.XGtkEditableGetEditable(x.GoPointer())
 	return cret
 }
 
 // Gets if undo/redo actions are enabled for @editable
-func (x *EntryRow) GetEnableUndo() bool {
+func (x *SpinRow) GetEnableUndo() bool {
 
 	cret := gtk.XGtkEditableGetEnableUndo(x.GoPointer())
 	return cret
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
-func (x *EntryRow) GetMaxWidthChars() int {
+func (x *SpinRow) GetMaxWidthChars() int {
 
 	cret := gtk.XGtkEditableGetMaxWidthChars(x.GoPointer())
 	return cret
@@ -658,7 +712,7 @@ func (x *EntryRow) GetMaxWidthChars() int {
 // to the start of the content of the editable.
 //
 // Note that this position is in characters, not in bytes.
-func (x *EntryRow) GetPosition() int {
+func (x *SpinRow) GetPosition() int {
 
 	cret := gtk.XGtkEditableGetPosition(x.GoPointer())
 	return cret
@@ -671,7 +725,7 @@ func (x *EntryRow) GetPosition() int {
 // and %FALSE will be returned.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EntryRow) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
+func (x *SpinRow) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 
 	cret := gtk.XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
 	return cret
@@ -680,7 +734,7 @@ func (x *EntryRow) GetSelectionBounds(StartPosVar int, EndPosVar int) bool {
 // Retrieves the contents of @editable.
 //
 // The returned string is owned by GTK and must not be modified or freed.
-func (x *EntryRow) GetText() string {
+func (x *SpinRow) GetText() string {
 
 	cret := gtk.XGtkEditableGetText(x.GoPointer())
 	return cret
@@ -688,7 +742,7 @@ func (x *EntryRow) GetText() string {
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
-func (x *EntryRow) GetWidthChars() int {
+func (x *SpinRow) GetWidthChars() int {
 
 	cret := gtk.XGtkEditableGetWidthChars(x.GoPointer())
 	return cret
@@ -701,7 +755,7 @@ func (x *EntryRow) GetWidthChars() int {
 //
 // This is a helper function that should be called in instance init,
 // after creating the delegate object.
-func (x *EntryRow) InitDelegate() {
+func (x *SpinRow) InitDelegate() {
 
 	gtk.XGtkEditableInitDelegate(x.GoPointer())
 
@@ -713,7 +767,7 @@ func (x *EntryRow) InitDelegate() {
 // Note that the position is in characters, not in bytes.
 // The function updates @position to point after the newly
 // inserted text.
-func (x *EntryRow) InsertText(TextVar string, LengthVar int, PositionVar int) {
+func (x *SpinRow) InsertText(TextVar string, LengthVar int, PositionVar int) {
 
 	gtk.XGtkEditableInsertText(x.GoPointer(), TextVar, LengthVar, PositionVar)
 
@@ -727,7 +781,7 @@ func (x *EntryRow) InsertText(TextVar string, LengthVar int, PositionVar int) {
 // @start_pos to  the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EntryRow) SelectRegion(StartPosVar int, EndPosVar int) {
+func (x *SpinRow) SelectRegion(StartPosVar int, EndPosVar int) {
 
 	gtk.XGtkEditableSelectRegion(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -737,14 +791,14 @@ func (x *EntryRow) SelectRegion(StartPosVar int, EndPosVar int) {
 //
 // This controls the horizontal positioning of the contents when
 // the displayed text is shorter than the width of the editable.
-func (x *EntryRow) SetAlignment(XalignVar float32) {
+func (x *SpinRow) SetAlignment(XalignVar float32) {
 
 	gtk.XGtkEditableSetAlignment(x.GoPointer(), XalignVar)
 
 }
 
 // Determines if the user can edit the text in the editable widget.
-func (x *EntryRow) SetEditable(IsEditableVar bool) {
+func (x *SpinRow) SetEditable(IsEditableVar bool) {
 
 	gtk.XGtkEditableSetEditable(x.GoPointer(), IsEditableVar)
 
@@ -756,14 +810,14 @@ func (x *EntryRow) SetEditable(IsEditableVar bool) {
 // This results in an additional copy of text changes and are not
 // stored in secure memory. As such, undo is forcefully disabled
 // when [property@Gtk.Text:visibility] is set to %FALSE.
-func (x *EntryRow) SetEnableUndo(EnableUndoVar bool) {
+func (x *SpinRow) SetEnableUndo(EnableUndoVar bool) {
 
 	gtk.XGtkEditableSetEnableUndo(x.GoPointer(), EnableUndoVar)
 
 }
 
 // Sets the desired maximum width in characters of @editable.
-func (x *EntryRow) SetMaxWidthChars(NCharsVar int) {
+func (x *SpinRow) SetMaxWidthChars(NCharsVar int) {
 
 	gtk.XGtkEditableSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -776,7 +830,7 @@ func (x *EntryRow) SetMaxWidthChars(NCharsVar int) {
 // or equal to the number of characters in the editable. A value of -1
 // indicates that the position should be set after the last character
 // of the editable. Note that @position is in characters, not in bytes.
-func (x *EntryRow) SetPosition(PositionVar int) {
+func (x *SpinRow) SetPosition(PositionVar int) {
 
 	gtk.XGtkEditableSetPosition(x.GoPointer(), PositionVar)
 
@@ -785,7 +839,7 @@ func (x *EntryRow) SetPosition(PositionVar int) {
 // Sets the text in the editable to the given value.
 //
 // This is replacing the current contents.
-func (x *EntryRow) SetText(TextVar string) {
+func (x *SpinRow) SetText(TextVar string) {
 
 	gtk.XGtkEditableSetText(x.GoPointer(), TextVar)
 
@@ -797,7 +851,7 @@ func (x *EntryRow) SetText(TextVar string) {
 // Note that it changes the size request, the size can still
 // be affected by how you pack the widget into containers.
 // If @n_chars is -1, the size reverts to the default size.
-func (x *EntryRow) SetWidthChars(NCharsVar int) {
+func (x *SpinRow) SetWidthChars(NCharsVar int) {
 
 	gtk.XGtkEditableSetWidthChars(x.GoPointer(), NCharsVar)
 
@@ -809,28 +863,29 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xEntryRowGLibType, lib, "adw_entry_row_get_type")
+	core.PuregoSafeRegister(&xSpinRowGLibType, lib, "adw_spin_row_get_type")
 
-	core.PuregoSafeRegister(&xNewEntryRow, lib, "adw_entry_row_new")
+	core.PuregoSafeRegister(&xNewSpinRow, lib, "adw_spin_row_new")
+	core.PuregoSafeRegister(&xNewSpinRowWithRange, lib, "adw_spin_row_new_with_range")
 
-	core.PuregoSafeRegister(&xEntryRowAddPrefix, lib, "adw_entry_row_add_prefix")
-	core.PuregoSafeRegister(&xEntryRowAddSuffix, lib, "adw_entry_row_add_suffix")
-	core.PuregoSafeRegister(&xEntryRowGetActivatesDefault, lib, "adw_entry_row_get_activates_default")
-	core.PuregoSafeRegister(&xEntryRowGetAttributes, lib, "adw_entry_row_get_attributes")
-	core.PuregoSafeRegister(&xEntryRowGetEnableEmojiCompletion, lib, "adw_entry_row_get_enable_emoji_completion")
-	core.PuregoSafeRegister(&xEntryRowGetInputHints, lib, "adw_entry_row_get_input_hints")
-	core.PuregoSafeRegister(&xEntryRowGetInputPurpose, lib, "adw_entry_row_get_input_purpose")
-	core.PuregoSafeRegister(&xEntryRowGetMaxLength, lib, "adw_entry_row_get_max_length")
-	core.PuregoSafeRegister(&xEntryRowGetShowApplyButton, lib, "adw_entry_row_get_show_apply_button")
-	core.PuregoSafeRegister(&xEntryRowGetTextLength, lib, "adw_entry_row_get_text_length")
-	core.PuregoSafeRegister(&xEntryRowGrabFocusWithoutSelecting, lib, "adw_entry_row_grab_focus_without_selecting")
-	core.PuregoSafeRegister(&xEntryRowRemove, lib, "adw_entry_row_remove")
-	core.PuregoSafeRegister(&xEntryRowSetActivatesDefault, lib, "adw_entry_row_set_activates_default")
-	core.PuregoSafeRegister(&xEntryRowSetAttributes, lib, "adw_entry_row_set_attributes")
-	core.PuregoSafeRegister(&xEntryRowSetEnableEmojiCompletion, lib, "adw_entry_row_set_enable_emoji_completion")
-	core.PuregoSafeRegister(&xEntryRowSetInputHints, lib, "adw_entry_row_set_input_hints")
-	core.PuregoSafeRegister(&xEntryRowSetInputPurpose, lib, "adw_entry_row_set_input_purpose")
-	core.PuregoSafeRegister(&xEntryRowSetMaxLength, lib, "adw_entry_row_set_max_length")
-	core.PuregoSafeRegister(&xEntryRowSetShowApplyButton, lib, "adw_entry_row_set_show_apply_button")
+	core.PuregoSafeRegister(&xSpinRowConfigure, lib, "adw_spin_row_configure")
+	core.PuregoSafeRegister(&xSpinRowGetAdjustment, lib, "adw_spin_row_get_adjustment")
+	core.PuregoSafeRegister(&xSpinRowGetClimbRate, lib, "adw_spin_row_get_climb_rate")
+	core.PuregoSafeRegister(&xSpinRowGetDigits, lib, "adw_spin_row_get_digits")
+	core.PuregoSafeRegister(&xSpinRowGetNumeric, lib, "adw_spin_row_get_numeric")
+	core.PuregoSafeRegister(&xSpinRowGetSnapToTicks, lib, "adw_spin_row_get_snap_to_ticks")
+	core.PuregoSafeRegister(&xSpinRowGetUpdatePolicy, lib, "adw_spin_row_get_update_policy")
+	core.PuregoSafeRegister(&xSpinRowGetValue, lib, "adw_spin_row_get_value")
+	core.PuregoSafeRegister(&xSpinRowGetWrap, lib, "adw_spin_row_get_wrap")
+	core.PuregoSafeRegister(&xSpinRowSetAdjustment, lib, "adw_spin_row_set_adjustment")
+	core.PuregoSafeRegister(&xSpinRowSetClimbRate, lib, "adw_spin_row_set_climb_rate")
+	core.PuregoSafeRegister(&xSpinRowSetDigits, lib, "adw_spin_row_set_digits")
+	core.PuregoSafeRegister(&xSpinRowSetNumeric, lib, "adw_spin_row_set_numeric")
+	core.PuregoSafeRegister(&xSpinRowSetRange, lib, "adw_spin_row_set_range")
+	core.PuregoSafeRegister(&xSpinRowSetSnapToTicks, lib, "adw_spin_row_set_snap_to_ticks")
+	core.PuregoSafeRegister(&xSpinRowSetUpdatePolicy, lib, "adw_spin_row_set_update_policy")
+	core.PuregoSafeRegister(&xSpinRowSetValue, lib, "adw_spin_row_set_value")
+	core.PuregoSafeRegister(&xSpinRowSetWrap, lib, "adw_spin_row_set_wrap")
+	core.PuregoSafeRegister(&xSpinRowUpdate, lib, "adw_spin_row_update")
 
 }

@@ -41,7 +41,7 @@ func (x *ExpanderRowClass) GoPointer() uintptr {
 // ## AdwExpanderRow as GtkBuildable
 //
 // The `AdwExpanderRow` implementation of the [iface@Gtk.Buildable] interface
-// supports adding a child as an action widget by specifying “action” as the
+// supports adding a child as an suffix widget by specifying “suffix” as the
 // “type” attribute of a &lt;child&gt; element.
 //
 // It also supports adding it as a prefix widget by specifying “prefix” as the
@@ -55,6 +55,15 @@ func (x *ExpanderRowClass) GoPointer() uintptr {
 // It contains the subnodes `row.header` for its main embedded row,
 // `list.nested` for the list it can expand, and `image.expander-row-arrow` for
 // its arrow.
+//
+// ## Style classes
+//
+// `AdwExpanderRow` can use the [`.`](style-classes.html#property-rows)
+// style class to emphasize the row subtitle instead of the row title, which is
+// useful for displaying read-only properties.
+//
+// When used together with the `.monospace` style class, only the subtitle
+// becomes monospace, not the title or any extra widgets.
 type ExpanderRow struct {
 	PreferencesRow
 }
@@ -117,6 +126,15 @@ func (x *ExpanderRow) AddRow(ChildVar *gtk.Widget) {
 
 }
 
+var xExpanderRowAddSuffix func(uintptr, uintptr)
+
+// Adds an suffix widget to @self.
+func (x *ExpanderRow) AddSuffix(WidgetVar *gtk.Widget) {
+
+	xExpanderRowAddSuffix(x.GoPointer(), WidgetVar.GoPointer())
+
+}
+
 var xExpanderRowGetEnableExpansion func(uintptr) bool
 
 // Gets whether the expansion of @self is enabled.
@@ -162,21 +180,21 @@ func (x *ExpanderRow) GetSubtitle() string {
 	return cret
 }
 
-var xExpanderRowGetSubtitleLines func(uintptr) bool
+var xExpanderRowGetSubtitleLines func(uintptr) int
 
 // Gets the number of lines at the end of which the subtitle label will be
 // ellipsized.
-func (x *ExpanderRow) GetSubtitleLines() bool {
+func (x *ExpanderRow) GetSubtitleLines() int {
 
 	cret := xExpanderRowGetSubtitleLines(x.GoPointer())
 	return cret
 }
 
-var xExpanderRowGetTitleLines func(uintptr) bool
+var xExpanderRowGetTitleLines func(uintptr) int
 
 // Gets the number of lines at the end of which the title label will be
 // ellipsized.
-func (x *ExpanderRow) GetTitleLines() bool {
+func (x *ExpanderRow) GetTitleLines() int {
 
 	cret := xExpanderRowGetTitleLines(x.GoPointer())
 	return cret
@@ -184,6 +202,7 @@ func (x *ExpanderRow) GetTitleLines() bool {
 
 var xExpanderRowRemove func(uintptr, uintptr)
 
+// Removes a child from @self.
 func (x *ExpanderRow) Remove(ChildVar *gtk.Widget) {
 
 	xExpanderRowRemove(x.GoPointer(), ChildVar.GoPointer())
@@ -509,6 +528,7 @@ func init() {
 	core.PuregoSafeRegister(&xExpanderRowAddAction, lib, "adw_expander_row_add_action")
 	core.PuregoSafeRegister(&xExpanderRowAddPrefix, lib, "adw_expander_row_add_prefix")
 	core.PuregoSafeRegister(&xExpanderRowAddRow, lib, "adw_expander_row_add_row")
+	core.PuregoSafeRegister(&xExpanderRowAddSuffix, lib, "adw_expander_row_add_suffix")
 	core.PuregoSafeRegister(&xExpanderRowGetEnableExpansion, lib, "adw_expander_row_get_enable_expansion")
 	core.PuregoSafeRegister(&xExpanderRowGetExpanded, lib, "adw_expander_row_get_expanded")
 	core.PuregoSafeRegister(&xExpanderRowGetIconName, lib, "adw_expander_row_get_icon_name")

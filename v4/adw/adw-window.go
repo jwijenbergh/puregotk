@@ -8,6 +8,7 @@ import (
 	"github.com/jwijenbergh/purego"
 	"github.com/jwijenbergh/puregotk/internal/core"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
+	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 	"github.com/jwijenbergh/puregotk/v4/gsk"
@@ -36,20 +37,20 @@ func (x *WindowClass) GoPointer() uintptr {
 // &lt;/picture&gt;
 //
 // The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
-// titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
+// titlebar area. Instead, [class@ToolbarView] can be used together with
+// [class@HeaderBar] or [class@Gtk.HeaderBar] as follows:
 //
 // ```xml
 // &lt;object class="AdwWindow"&gt;
 //
 //	&lt;property name="content"&gt;
-//	  &lt;object class="GtkBox"&gt;
-//	    &lt;property name="orientation"&gt;vertical&lt;/property&gt;
-//	    &lt;child&gt;
-//	      &lt;object class="GtkHeaderBar"/&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar"/&gt;
 //	    &lt;/child&gt;
-//	    &lt;child&gt;
+//	    &lt;property name="content"&gt;
 //	      &lt;!-- ... --&gt;
-//	    &lt;/child&gt;
+//	    &lt;/property&gt;
 //	  &lt;/object&gt;
 //	&lt;/property&gt;
 //
@@ -59,6 +60,52 @@ func (x *WindowClass) GoPointer() uintptr {
 // Using [property@Gtk.Window:titlebar] or [property@Gtk.Window:child]
 // is not supported and will result in a crash. Use [property@Window:content]
 // instead.
+//
+// ## Dialogs
+//
+// `AdwWindow` can contain [class@Dialog]. Use [method@Dialog.present] with the
+// window or a widget within a window to show a dialog.
+//
+// ## Breakpoints
+//
+// `AdwWindow` can be used with [class@Breakpoint] the same way as
+// [class@BreakpointBin]. Refer to that widget's documentation for details.
+//
+// Example:
+//
+// ```xml
+// &lt;object class="AdwWindow"&gt;
+//
+//	&lt;property name="content"&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar"/&gt;
+//	    &lt;/child&gt;
+//	    &lt;property name="content"&gt;
+//	      &lt;!-- ... --&gt;
+//	    &lt;/property&gt;
+//	    &lt;child type="bottom"&gt;
+//	      &lt;object class="GtkActionBar" id="bottom_bar"&gt;
+//	        &lt;property name="revealed"&gt;True&lt;/property&gt;
+//	        &lt;property name="visible"&gt;False&lt;/property&gt;
+//	      &lt;/object&gt;
+//	    &lt;/child&gt;
+//	  &lt;/object&gt;
+//	&lt;/property&gt;
+//	&lt;child&gt;
+//	  &lt;object class="AdwBreakpoint"&gt;
+//	    &lt;condition&gt;max-width: 500px&lt;/condition&gt;
+//	    &lt;setter object="bottom_bar" property="visible"&gt;True&lt;/setter&gt;
+//	  &lt;/object&gt;
+//	&lt;/child&gt;
+//
+// &lt;/object&gt;
+// ```
+//
+// When breakpoints are used, the minimum size must be larger than the smallest
+// UI state. `AdwWindow` defaults to the minimum size of 360×200 px. If that's
+// too small, set the [property@Gtk.Widget:width-request] and
+// [property@Gtk.Widget:height-request] properties manually.
 type Window struct {
 	gtk.Window
 }
@@ -92,6 +139,15 @@ func NewWindow() *Window {
 	return cls
 }
 
+var xWindowAddBreakpoint func(uintptr, uintptr)
+
+// Adds @breakpoint to @self.
+func (x *Window) AddBreakpoint(BreakpointVar *Breakpoint) {
+
+	xWindowAddBreakpoint(x.GoPointer(), BreakpointVar.GoPointer())
+
+}
+
 var xWindowGetContent func(uintptr) uintptr
 
 // Gets the content widget of @self.
@@ -107,6 +163,58 @@ func (x *Window) GetContent() *gtk.Widget {
 	}
 	gobject.IncreaseRef(cret)
 	cls = &gtk.Widget{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xWindowGetCurrentBreakpoint func(uintptr) uintptr
+
+// Gets the current breakpoint.
+func (x *Window) GetCurrentBreakpoint() *Breakpoint {
+	var cls *Breakpoint
+
+	cret := xWindowGetCurrentBreakpoint(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Breakpoint{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xWindowGetDialogs func(uintptr) uintptr
+
+// Returns a [iface@Gio.ListModel] that contains the open dialogs of @self.
+//
+// This can be used to keep an up-to-date view.
+func (x *Window) GetDialogs() *gio.ListModelBase {
+	var cls *gio.ListModelBase
+
+	cret := xWindowGetDialogs(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	cls = &gio.ListModelBase{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xWindowGetVisibleDialog func(uintptr) uintptr
+
+// Returns the currently visible dialog in @self, if there's one.
+func (x *Window) GetVisibleDialog() *Dialog {
+	var cls *Dialog
+
+	cret := xWindowGetVisibleDialog(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &Dialog{}
 	cls.Ptr = cret
 	return cls
 }
@@ -390,7 +498,11 @@ func init() {
 
 	core.PuregoSafeRegister(&xNewWindow, lib, "adw_window_new")
 
+	core.PuregoSafeRegister(&xWindowAddBreakpoint, lib, "adw_window_add_breakpoint")
 	core.PuregoSafeRegister(&xWindowGetContent, lib, "adw_window_get_content")
+	core.PuregoSafeRegister(&xWindowGetCurrentBreakpoint, lib, "adw_window_get_current_breakpoint")
+	core.PuregoSafeRegister(&xWindowGetDialogs, lib, "adw_window_get_dialogs")
+	core.PuregoSafeRegister(&xWindowGetVisibleDialog, lib, "adw_window_get_visible_dialog")
 	core.PuregoSafeRegister(&xWindowSetContent, lib, "adw_window_set_content")
 
 }

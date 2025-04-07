@@ -110,6 +110,20 @@ func NewComboRow() *ComboRow {
 	return cls
 }
 
+var xComboRowGetEnableSearch func(uintptr) bool
+
+// Gets whether search is enabled.
+//
+// If set to `TRUE`, a search entry will be shown in the popup that
+// allows to search for items in the list.
+//
+// Search requires [property@ComboRow:expression] to be set.
+func (x *ComboRow) GetEnableSearch() bool {
+
+	cret := xComboRowGetEnableSearch(x.GoPointer())
+	return cret
+}
+
 var xComboRowGetExpression func(uintptr) uintptr
 
 // Gets the expression used to obtain strings from items.
@@ -134,6 +148,23 @@ func (x *ComboRow) GetFactory() *gtk.ListItemFactory {
 	var cls *gtk.ListItemFactory
 
 	cret := xComboRowGetFactory(x.GoPointer())
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &gtk.ListItemFactory{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xComboRowGetHeaderFactory func(uintptr) uintptr
+
+// Gets the factory that's currently used to create header widgets for the popup.
+func (x *ComboRow) GetHeaderFactory() *gtk.ListItemFactory {
+	var cls *gtk.ListItemFactory
+
+	cret := xComboRowGetHeaderFactory(x.GoPointer())
 
 	if cret == 0 {
 		return nil
@@ -178,6 +209,15 @@ func (x *ComboRow) GetModel() *gio.ListModelBase {
 	return cls
 }
 
+var xComboRowGetSearchMatchMode func(uintptr) gtk.StringFilterMatchMode
+
+// Returns the match mode that the search filter is using.
+func (x *ComboRow) GetSearchMatchMode() gtk.StringFilterMatchMode {
+
+	cret := xComboRowGetSearchMatchMode(x.GoPointer())
+	return cret
+}
+
 var xComboRowGetSelected func(uintptr) uint
 
 // Gets the position of the selected item.
@@ -213,6 +253,20 @@ func (x *ComboRow) GetUseSubtitle() bool {
 	return cret
 }
 
+var xComboRowSetEnableSearch func(uintptr, bool)
+
+// Sets whether to enable search.
+//
+// If set to `TRUE`, a search entry will be shown in the popup that
+// allows to search for items in the list.
+//
+// Search requires [property@ComboRow:expression] to be set.
+func (x *ComboRow) SetEnableSearch(EnableSearchVar bool) {
+
+	xComboRowSetEnableSearch(x.GoPointer(), EnableSearchVar)
+
+}
+
 var xComboRowSetExpression func(uintptr, uintptr)
 
 // Sets the expression used to obtain strings from items.
@@ -240,6 +294,15 @@ func (x *ComboRow) SetFactory(FactoryVar *gtk.ListItemFactory) {
 
 }
 
+var xComboRowSetHeaderFactory func(uintptr, uintptr)
+
+// Sets the factory to use for creating header widgets for the popup.
+func (x *ComboRow) SetHeaderFactory(FactoryVar *gtk.ListItemFactory) {
+
+	xComboRowSetHeaderFactory(x.GoPointer(), FactoryVar.GoPointer())
+
+}
+
 var xComboRowSetListFactory func(uintptr, uintptr)
 
 // Sets the factory for populating list items in the popup.
@@ -257,6 +320,15 @@ var xComboRowSetModel func(uintptr, uintptr)
 func (x *ComboRow) SetModel(ModelVar gio.ListModel) {
 
 	xComboRowSetModel(x.GoPointer(), ModelVar.GoPointer())
+
+}
+
+var xComboRowSetSearchMatchMode func(uintptr, gtk.StringFilterMatchMode)
+
+// Sets the match mode for the search filter.
+func (x *ComboRow) SetSearchMatchMode(SearchMatchModeVar gtk.StringFilterMatchMode) {
+
+	xComboRowSetSearchMatchMode(x.GoPointer(), SearchMatchModeVar)
 
 }
 
@@ -530,17 +602,23 @@ func init() {
 
 	core.PuregoSafeRegister(&xNewComboRow, lib, "adw_combo_row_new")
 
+	core.PuregoSafeRegister(&xComboRowGetEnableSearch, lib, "adw_combo_row_get_enable_search")
 	core.PuregoSafeRegister(&xComboRowGetExpression, lib, "adw_combo_row_get_expression")
 	core.PuregoSafeRegister(&xComboRowGetFactory, lib, "adw_combo_row_get_factory")
+	core.PuregoSafeRegister(&xComboRowGetHeaderFactory, lib, "adw_combo_row_get_header_factory")
 	core.PuregoSafeRegister(&xComboRowGetListFactory, lib, "adw_combo_row_get_list_factory")
 	core.PuregoSafeRegister(&xComboRowGetModel, lib, "adw_combo_row_get_model")
+	core.PuregoSafeRegister(&xComboRowGetSearchMatchMode, lib, "adw_combo_row_get_search_match_mode")
 	core.PuregoSafeRegister(&xComboRowGetSelected, lib, "adw_combo_row_get_selected")
 	core.PuregoSafeRegister(&xComboRowGetSelectedItem, lib, "adw_combo_row_get_selected_item")
 	core.PuregoSafeRegister(&xComboRowGetUseSubtitle, lib, "adw_combo_row_get_use_subtitle")
+	core.PuregoSafeRegister(&xComboRowSetEnableSearch, lib, "adw_combo_row_set_enable_search")
 	core.PuregoSafeRegister(&xComboRowSetExpression, lib, "adw_combo_row_set_expression")
 	core.PuregoSafeRegister(&xComboRowSetFactory, lib, "adw_combo_row_set_factory")
+	core.PuregoSafeRegister(&xComboRowSetHeaderFactory, lib, "adw_combo_row_set_header_factory")
 	core.PuregoSafeRegister(&xComboRowSetListFactory, lib, "adw_combo_row_set_list_factory")
 	core.PuregoSafeRegister(&xComboRowSetModel, lib, "adw_combo_row_set_model")
+	core.PuregoSafeRegister(&xComboRowSetSearchMatchMode, lib, "adw_combo_row_set_search_match_mode")
 	core.PuregoSafeRegister(&xComboRowSetSelected, lib, "adw_combo_row_set_selected")
 	core.PuregoSafeRegister(&xComboRowSetUseSubtitle, lib, "adw_combo_row_set_use_subtitle")
 

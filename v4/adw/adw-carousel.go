@@ -329,8 +329,11 @@ func (c *Carousel) SetGoPointer(ptr uintptr) {
 // This signal is emitted after a page has been changed.
 //
 // It can be used to implement "infinite scrolling" by amending the pages
-// after every scroll. Note that an empty carousel is indicated by
-// `(int)index == -1`.
+// after every scroll.
+//
+// ::: note
+//
+//	An empty carousel is indicated by `(int)index == -1`.
 func (x *Carousel) ConnectPageChanged(cb *func(Carousel, uint)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {

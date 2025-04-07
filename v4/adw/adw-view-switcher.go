@@ -56,8 +56,51 @@ const (
 // displayed side by side, or icon on top of the label. This can be controlled
 // via the [property@ViewSwitcher:policy] property.
 //
-// Most applications should be using [class@ViewSwitcherBar] and
-// [class@ViewSwitcherTitle].
+// `AdwViewSwitcher` is intended to be used in a header bar together with
+// [class@ViewSwitcherBar] at the bottom of the window, and a [class@Breakpoint]
+// showing the view switcher bar on narrow sizes, while removing the view
+// switcher from the header bar, as follows:
+//
+// ```xml
+// &lt;object class="AdwWindow"&gt;
+//
+//	&lt;child&gt;
+//	  &lt;object class="AdwBreakpoint"&gt;
+//	    &lt;condition&gt;max-width: 550sp&lt;/condition&gt;
+//	    &lt;setter object="switcher_bar" property="reveal"&gt;True&lt;/setter&gt;
+//	    &lt;setter object="header_bar" property="title-widget"/&gt;
+//	  &lt;/object&gt;
+//	&lt;/child&gt;
+//	&lt;property name="content"&gt;
+//	  &lt;object class="AdwToolbarView"&gt;
+//	    &lt;child type="top"&gt;
+//	      &lt;object class="AdwHeaderBar" id="header_bar"&gt;
+//	        &lt;property name="title-widget"&gt;
+//	          &lt;object class="AdwViewSwitcher"&gt;
+//	            &lt;property name="stack"&gt;stack&lt;/property&gt;
+//	            &lt;property name="policy"&gt;wide&lt;/property&gt;
+//	          &lt;/object&gt;
+//	        &lt;/property&gt;
+//	      &lt;/object&gt;
+//	    &lt;/child&gt;
+//	    &lt;property name="content"&gt;
+//	      &lt;object class="AdwViewStack" id="stack"/&gt;
+//	    &lt;/property&gt;
+//	    &lt;child type="bottom"&gt;
+//	      &lt;object class="AdwViewSwitcherBar" id="switcher_bar"&gt;
+//	        &lt;property name="stack"&gt;stack&lt;/property&gt;
+//	      &lt;/object&gt;
+//	    &lt;/child&gt;
+//	  &lt;/object&gt;
+//	&lt;/property&gt;
+//
+// &lt;/object&gt;
+// ```
+//
+// It's recommended to set [property@ViewSwitcher:policy] to
+// `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+//
+// You may have to adjust the breakpoint condition for your specific pages.
 //
 // ## CSS nodes
 //

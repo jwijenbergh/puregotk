@@ -34,7 +34,7 @@ func (x *TabBarClass) GoPointer() uintptr {
 // &lt;/picture&gt;
 //
 // The `AdwTabBar` widget is a tab bar that can be used with conjunction with
-// `AdwTabView`.
+// `AdwTabView`. It is typically used as a top bar within [class@ToolbarView].
 //
 // `AdwTabBar` can autohide and can optionally contain action widgets on both
 // sides of the tabs.
@@ -46,6 +46,20 @@ func (x *TabBarClass) GoPointer() uintptr {
 // ## CSS nodes
 //
 // `AdwTabBar` has a single CSS node with name `tabbar`.
+//
+// ## Style classes
+//
+// By default `AdwTabBar` look like a part of an `AdwHeaderBar` and is intended
+// to be used directly attached to one or used as a [class@ToolbarView] toolbar.
+// The [`.inline`](style-classes.html#inline) style class removes its background,
+// so that it can be used in different contexts instead.
+//
+// &lt;picture&gt;
+//
+//	&lt;source srcset="tab-bar-inline-dark.png" media="(prefers-color-scheme: dark)"&gt;
+//	&lt;img src="tab-bar-inline.png" alt="tab-bar-inline"&gt;
+//
+// &lt;/picture&gt;
 type TabBar struct {
 	gtk.Widget
 }
@@ -111,6 +125,15 @@ var xTabBarGetExpandTabs func(uintptr) bool
 func (x *TabBar) GetExpandTabs() bool {
 
 	cret := xTabBarGetExpandTabs(x.GoPointer())
+	return cret
+}
+
+var xTabBarGetExtraDragPreferredAction func(uintptr) gdk.DragAction
+
+// Gets the current action during a drop on the extra_drop_target.
+func (x *TabBar) GetExtraDragPreferredAction() gdk.DragAction {
+
+	cret := xTabBarGetExtraDragPreferredAction(x.GoPointer())
 	return cret
 }
 
@@ -500,6 +523,7 @@ func init() {
 	core.PuregoSafeRegister(&xTabBarGetAutohide, lib, "adw_tab_bar_get_autohide")
 	core.PuregoSafeRegister(&xTabBarGetEndActionWidget, lib, "adw_tab_bar_get_end_action_widget")
 	core.PuregoSafeRegister(&xTabBarGetExpandTabs, lib, "adw_tab_bar_get_expand_tabs")
+	core.PuregoSafeRegister(&xTabBarGetExtraDragPreferredAction, lib, "adw_tab_bar_get_extra_drag_preferred_action")
 	core.PuregoSafeRegister(&xTabBarGetExtraDragPreload, lib, "adw_tab_bar_get_extra_drag_preload")
 	core.PuregoSafeRegister(&xTabBarGetInverted, lib, "adw_tab_bar_get_inverted")
 	core.PuregoSafeRegister(&xTabBarGetIsOverflowing, lib, "adw_tab_bar_get_is_overflowing")

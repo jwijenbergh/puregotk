@@ -28,30 +28,6 @@ func (x *MessageDialogClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-// Describes the possible styles of [class@MessageDialog] response buttons.
-//
-// See [method@MessageDialog.set_response_appearance].
-type ResponseAppearance int
-
-var xResponseAppearanceGLibType func() types.GType
-
-func ResponseAppearanceGLibType() types.GType {
-	return xResponseAppearanceGLibType()
-}
-
-const (
-
-	// the default appearance.
-	ResponseDefaultValue ResponseAppearance = 0
-	// used to denote important responses such as the
-	//     affirmative action.
-	ResponseSuggestedValue ResponseAppearance = 1
-	// used to draw attention to the potentially damaging
-	//     consequences of using the response. This appearance acts as a warning to
-	//     the user.
-	ResponseDestructiveValue ResponseAppearance = 2
-)
-
 // A dialog presenting a message or a question.
 //
 // &lt;picture&gt;
@@ -111,8 +87,7 @@ const (
 // ## Async API
 //
 // `AdwMessageDialog` can also be used via the [method@MessageDialog.choose]
-// method. This API follows the GIO async pattern, and the result can be
-// obtained by calling [method@MessageDialog.choose_finish], for example:
+// method. This API follows the GIO async pattern, for example:
 //
 // ```c
 // static void
@@ -158,7 +133,7 @@ const (
 //
 // `AdwMessageDialog` supports adding responses in UI definitions by via the
 // `&lt;responses&gt;` element that may contain multiple `&lt;response&gt;` elements, each
-// respresenting a response.
+// representing a response.
 //
 // Each of the `&lt;response&gt;` elements must have the `id` attribute specifying the
 // response ID. The contents of the element are used as the response label.
@@ -292,9 +267,6 @@ func (x *MessageDialog) AddResponses(FirstIdVar string, varArgs ...interface{}) 
 var xMessageDialogChoose func(uintptr, uintptr, uintptr, uintptr)
 
 // This function shows @self to the user.
-//
-// The @callback will be called when the alert is dismissed. It should call
-// [method@MessageDialog.choose_finish] to obtain the result.
 func (x *MessageDialog) Choose(CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xMessageDialogChoose(x.GoPointer(), CancellableVar.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar)
@@ -477,6 +449,15 @@ func (x *MessageDialog) HasResponse(ResponseVar string) bool {
 
 	cret := xMessageDialogHasResponse(x.GoPointer(), ResponseVar)
 	return cret
+}
+
+var xMessageDialogRemoveResponse func(uintptr, string)
+
+// Removes a response from @self.
+func (x *MessageDialog) RemoveResponse(IdVar string) {
+
+	xMessageDialogRemoveResponse(x.GoPointer(), IdVar)
+
 }
 
 var xMessageDialogResponse func(uintptr, string)
@@ -919,8 +900,6 @@ func init() {
 		panic(err)
 	}
 
-	core.PuregoSafeRegister(&xResponseAppearanceGLibType, lib, "adw_response_appearance_get_type")
-
 	core.PuregoSafeRegister(&xMessageDialogGLibType, lib, "adw_message_dialog_get_type")
 
 	core.PuregoSafeRegister(&xNewMessageDialog, lib, "adw_message_dialog_new")
@@ -944,6 +923,7 @@ func init() {
 	core.PuregoSafeRegister(&xMessageDialogGetResponseEnabled, lib, "adw_message_dialog_get_response_enabled")
 	core.PuregoSafeRegister(&xMessageDialogGetResponseLabel, lib, "adw_message_dialog_get_response_label")
 	core.PuregoSafeRegister(&xMessageDialogHasResponse, lib, "adw_message_dialog_has_response")
+	core.PuregoSafeRegister(&xMessageDialogRemoveResponse, lib, "adw_message_dialog_remove_response")
 	core.PuregoSafeRegister(&xMessageDialogResponse, lib, "adw_message_dialog_response")
 	core.PuregoSafeRegister(&xMessageDialogSetBody, lib, "adw_message_dialog_set_body")
 	core.PuregoSafeRegister(&xMessageDialogSetBodyUseMarkup, lib, "adw_message_dialog_set_body_use_markup")

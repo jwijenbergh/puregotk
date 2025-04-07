@@ -58,12 +58,15 @@ func (x *ButtonContentClass) GoPointer() uintptr {
 //
 // ```
 // buttoncontent
-// ├── image
-// ╰── label
+// ╰── box
+//
+//	├── image
+//	╰── label
+//
 // ```
 //
-// `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains the
-// subnodes `image` and `label`.
+// `AdwButtonContent`'s CSS node is called `buttoncontent`. It contains a `box`
+// subnode that serves as a container for the  `image` and `label` nodes.
 //
 // When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
 // `.image-text-button` style class. When inside a `GtkMenuButton`, the
@@ -105,6 +108,15 @@ func NewButtonContent() *ButtonContent {
 	return cls
 }
 
+var xButtonContentGetCanShrink func(uintptr) bool
+
+// gets whether the button can be smaller than the natural size of its contents.
+func (x *ButtonContent) GetCanShrink() bool {
+
+	cret := xButtonContentGetCanShrink(x.GoPointer())
+	return cret
+}
+
 var xButtonContentGetIconName func(uintptr) string
 
 // Gets the name of the displayed icon.
@@ -130,6 +142,19 @@ func (x *ButtonContent) GetUseUnderline() bool {
 
 	cret := xButtonContentGetUseUnderline(x.GoPointer())
 	return cret
+}
+
+var xButtonContentSetCanShrink func(uintptr, bool)
+
+// Sets whether the button can be smaller than the natural size of its contents.
+//
+// If set to `TRUE`, the label will ellipsize.
+//
+// See [method@Gtk.Button.set_can_shrink].
+func (x *ButtonContent) SetCanShrink(CanShrinkVar bool) {
+
+	xButtonContentSetCanShrink(x.GoPointer(), CanShrinkVar)
+
 }
 
 var xButtonContentSetIconName func(uintptr, string)
@@ -326,9 +351,11 @@ func init() {
 
 	core.PuregoSafeRegister(&xNewButtonContent, lib, "adw_button_content_new")
 
+	core.PuregoSafeRegister(&xButtonContentGetCanShrink, lib, "adw_button_content_get_can_shrink")
 	core.PuregoSafeRegister(&xButtonContentGetIconName, lib, "adw_button_content_get_icon_name")
 	core.PuregoSafeRegister(&xButtonContentGetLabel, lib, "adw_button_content_get_label")
 	core.PuregoSafeRegister(&xButtonContentGetUseUnderline, lib, "adw_button_content_get_use_underline")
+	core.PuregoSafeRegister(&xButtonContentSetCanShrink, lib, "adw_button_content_set_can_shrink")
 	core.PuregoSafeRegister(&xButtonContentSetIconName, lib, "adw_button_content_set_icon_name")
 	core.PuregoSafeRegister(&xButtonContentSetLabel, lib, "adw_button_content_set_label")
 	core.PuregoSafeRegister(&xButtonContentSetUseUnderline, lib, "adw_button_content_set_use_underline")

@@ -34,6 +34,18 @@ func ShowAboutWindow(ParentVar *gtk.Window, FirstPropertyNameVar string, varArgs
 
 }
 
+var xShowAboutWindowFromAppdata func(uintptr, string, string, string, ...interface{})
+
+// A convenience function for showing an application’s about window from
+// AppStream metadata.
+//
+// See [ctor@AboutWindow.new_from_appdata] for details.
+func ShowAboutWindowFromAppdata(ParentVar *gtk.Window, ResourcePathVar string, ReleaseNotesVersionVar string, FirstPropertyNameVar string, varArgs ...interface{}) {
+
+	xShowAboutWindowFromAppdata(ParentVar.GoPointer(), ResourcePathVar, ReleaseNotesVersionVar, FirstPropertyNameVar, varArgs...)
+
+}
+
 // A window showing information about the application.
 //
 // &lt;picture&gt;
@@ -191,7 +203,7 @@ func ShowAboutWindow(ParentVar *gtk.Window, FirstPropertyNameVar string, varArgs
 //	                         "application-icon", "org.example.App",
 //	                         "version", "1.2.3",
 //	                         "copyright", "© 2022 Angela Avery",
-//	                         "issue-url", "https://gitlab.gnome.org/example/example/-/issues/new",
+//	                         "issue-url", "https://gitlab.gnome.org/example/example/-/issues/",
 //	                         "license-type", GTK_LICENSE_GPL_3_0,
 //	                         "developers", developers,
 //	                         "designers", designers,
@@ -228,6 +240,43 @@ func NewAboutWindow() *AboutWindow {
 	var cls *AboutWindow
 
 	cret := xNewAboutWindow()
+
+	if cret == 0 {
+		return nil
+	}
+	gobject.IncreaseRef(cret)
+	cls = &AboutWindow{}
+	cls.Ptr = cret
+	return cls
+}
+
+var xNewAboutWindowFromAppdata func(string, string) uintptr
+
+// Creates a new `AdwAboutWindow` using AppStream metadata.
+//
+// This automatically sets the following properties with the following AppStream
+// values:
+//
+//   - [property@AboutWindow:application-icon] is set from the `&lt;id&gt;`
+//   - [property@AboutWindow:application-name] is set from the `&lt;name&gt;`
+//   - [property@AboutWindow:developer-name] is set from the `&lt;name&gt;` within
+//     `&lt;developer&gt;`
+//   - [property@AboutWindow:version] is set from the version of the latest release
+//   - [property@AboutWindow:website] is set from the `&lt;url type="homepage"&gt;`
+//   - [property@AboutWindow:support-url] is set from the `&lt;url type="help"&gt;`
+//   - [property@AboutWindow:issue-url] is set from the `&lt;url type="bugtracker"&gt;`
+//   - [property@AboutWindow:license-type] is set from the `&lt;project_license&gt;`.
+//     If the license type retrieved from AppStream is not listed in
+//     [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+//
+// If @release_notes_version is not `NULL`,
+// [property@AboutWindow:release-notes-version] is set to match it, while
+// [property@AboutWindow:release-notes] is set from the AppStream release
+// description for that version.
+func NewAboutWindowFromAppdata(ResourcePathVar string, ReleaseNotesVersionVar string) *AboutWindow {
+	var cls *AboutWindow
+
+	cret := xNewAboutWindowFromAppdata(ResourcePathVar, ReleaseNotesVersionVar)
 
 	if cret == 0 {
 		return nil
@@ -1192,10 +1241,12 @@ func init() {
 	}
 
 	core.PuregoSafeRegister(&xShowAboutWindow, lib, "adw_show_about_window")
+	core.PuregoSafeRegister(&xShowAboutWindowFromAppdata, lib, "adw_show_about_window_from_appdata")
 
 	core.PuregoSafeRegister(&xAboutWindowGLibType, lib, "adw_about_window_get_type")
 
 	core.PuregoSafeRegister(&xNewAboutWindow, lib, "adw_about_window_new")
+	core.PuregoSafeRegister(&xNewAboutWindowFromAppdata, lib, "adw_about_window_new_from_appdata")
 
 	core.PuregoSafeRegister(&xAboutWindowAddAcknowledgementSection, lib, "adw_about_window_add_acknowledgement_section")
 	core.PuregoSafeRegister(&xAboutWindowAddCreditSection, lib, "adw_about_window_add_credit_section")
