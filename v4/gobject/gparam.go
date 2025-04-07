@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // Normally, GParamSpec classes are filled by
 // g_param_type_register_static().
 type ParamSpecClass struct {
+	_ structs.HostLayout
+
 	GTypeClass uintptr
 
 	ValueType types.GType
@@ -31,6 +34,7 @@ func (x *ParamSpecClass) GoPointer() uintptr {
 // The implementation of the #GObject property system uses such a pool to
 // store the #GParamSpecs of the properties all object types.
 type ParamSpecPool struct {
+	_ structs.HostLayout
 }
 
 func (x *ParamSpecPool) GoPointer() uintptr {
@@ -101,6 +105,8 @@ func (x *ParamSpecPool) Remove(PspecVar *ParamSpec) {
 // does not need to be persistent across invocation of
 // g_param_type_register_static().
 type ParamSpecTypeInfo struct {
+	_ structs.HostLayout
+
 	InstanceSize uint16
 
 	NPreallocs uint16
@@ -115,6 +121,8 @@ func (x *ParamSpecTypeInfo) GoPointer() uintptr {
 // The GParameter struct is an auxiliary structure used
 // to hand parameter name/value pairs to g_object_newv().
 type Parameter struct {
+	_ structs.HostLayout
+
 	Name uintptr
 
 	Value uintptr

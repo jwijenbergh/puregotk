@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 // The list of virtual functions for the `GtkSymbolicPaintable` interface.
 // No function must be implemented, default implementations exist for each one.
 type SymbolicPaintableInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

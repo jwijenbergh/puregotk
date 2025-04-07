@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,8 @@ type TreeModelForeachFunc func(uintptr, *TreePath, *TreeIter, uintptr) bool
 // model-specific data in the three @user_data
 // members.
 type TreeIter struct {
+	_ structs.HostLayout
+
 	Stamp int
 
 	UserData uintptr
@@ -66,6 +69,8 @@ func (x *TreeIter) Free() {
 }
 
 type TreeModelIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 
@@ -75,6 +80,7 @@ func (x *TreeModelIface) GoPointer() uintptr {
 
 // An opaque structure representing a path to a row in a model.
 type TreePath struct {
+	_ structs.HostLayout
 }
 
 var xTreePathGLibType func() types.GType
@@ -303,6 +309,7 @@ func (x *TreePath) Up() bool {
 // same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
 // new GtkTreeRowReference with gtk_tree_row_reference_new().
 type TreeRowReference struct {
+	_ structs.HostLayout
 }
 
 var xTreeRowReferenceGLibType func() types.GType

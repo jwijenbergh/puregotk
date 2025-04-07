@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,8 @@ type CustomMeasureFunc func(uintptr, Orientation, int, int, int, int, int)
 type CustomRequestModeFunc func(uintptr) SizeRequestMode
 
 type CustomLayoutClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

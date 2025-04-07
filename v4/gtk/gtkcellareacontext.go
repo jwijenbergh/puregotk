@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type CellAreaContextClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -21,6 +24,7 @@ func (x *CellAreaContextClass) GoPointer() uintptr {
 }
 
 type CellAreaContextPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *CellAreaContextPrivate) GoPointer() uintptr {

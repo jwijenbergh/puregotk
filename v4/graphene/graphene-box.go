@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // A 3D box, described as the volume between a minimum and
 // a maximum vertices.
 type Box struct {
+	_ structs.HostLayout
+
 	Min uintptr
 
 	Max uintptr

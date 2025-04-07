@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -43,6 +44,7 @@ type SourceFunc func(uintptr) bool
 // The `GMainContext` struct is an opaque data
 // type representing a set of sources to be handled in a main loop.
 type MainContext struct {
+	_ structs.HostLayout
 }
 
 var xMainContextGLibType func() types.GType
@@ -463,6 +465,7 @@ func (x *MainContext) Wakeup() {
 // The `GMainLoop` struct is an opaque data type
 // representing the main event loop of a GLib or GTK+ application.
 type MainLoop struct {
+	_ structs.HostLayout
 }
 
 var xMainLoopGLibType func() types.GType
@@ -549,6 +552,8 @@ func (x *MainLoop) Unref() {
 // The `GSource` struct is an opaque data type
 // representing an event source.
 type Source struct {
+	_ structs.HostLayout
+
 	CallbackData uintptr
 
 	CallbackFuncs *SourceCallbackFuncs
@@ -1174,6 +1179,7 @@ func (x *Source) Unref() {
 // The `GSourceCallbackFuncs` struct contains
 // functions for managing callback objects.
 type SourceCallbackFuncs struct {
+	_ structs.HostLayout
 }
 
 func (x *SourceCallbackFuncs) GoPointer() uintptr {
@@ -1201,6 +1207,8 @@ func (x *SourceCallbackFuncs) GoPointer() uintptr {
 // check function, it tests the results of the poll() call to see if the
 // required condition has been met, and returns %TRUE if so.
 type SourceFuncs struct {
+	_ structs.HostLayout
+
 	ClosureCallback SourceFunc
 
 	ClosureMarshal SourceDummyMarshal
@@ -1211,6 +1219,7 @@ func (x *SourceFuncs) GoPointer() uintptr {
 }
 
 type SourcePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SourcePrivate) GoPointer() uintptr {

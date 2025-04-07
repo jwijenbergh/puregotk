@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // The #GApplicationCommandLineClass-struct
 // contains private data only.
 type ApplicationCommandLineClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [11]uintptr
@@ -24,6 +27,7 @@ func (x *ApplicationCommandLineClass) GoPointer() uintptr {
 }
 
 type ApplicationCommandLinePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *ApplicationCommandLinePrivate) GoPointer() uintptr {

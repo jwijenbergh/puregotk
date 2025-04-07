@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // A point with three components: X, Y, and Z.
 type Point3D struct {
+	_ structs.HostLayout
+
 	X float32
 
 	Y float32

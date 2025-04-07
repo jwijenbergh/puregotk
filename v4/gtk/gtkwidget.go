@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -30,6 +31,8 @@ type WidgetActionActivateFunc func(uintptr, string, *glib.Variant)
 // [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
 // more information.
 type Requisition struct {
+	_ structs.HostLayout
+
 	Width int
 
 	Height int
@@ -75,6 +78,8 @@ func (x *Requisition) Free() {
 }
 
 type WidgetClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Priv *WidgetClassPrivate
@@ -426,6 +431,7 @@ func (x *WidgetClass) SetTemplateScope(ScopeVar BuilderScope) {
 }
 
 type WidgetClassPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *WidgetClassPrivate) GoPointer() uintptr {
@@ -433,6 +439,7 @@ func (x *WidgetClassPrivate) GoPointer() uintptr {
 }
 
 type WidgetPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *WidgetPrivate) GoPointer() uintptr {

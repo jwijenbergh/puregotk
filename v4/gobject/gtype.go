@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -208,6 +209,8 @@ type TypeInterfaceCheckFunc func(uintptr, *TypeInterface)
 // A structure that provides information to the type system which is
 // used specifically for managing interface types.
 type InterfaceInfo struct {
+	_ structs.HostLayout
+
 	InterfaceInit InterfaceInitFunc
 
 	InterfaceFinalize InterfaceFinalizeFunc
@@ -221,6 +224,8 @@ func (x *InterfaceInfo) GoPointer() uintptr {
 
 // An opaque structure used as the base of all classes.
 type TypeClass struct {
+	_ structs.HostLayout
+
 	GType types.GType
 }
 
@@ -369,6 +374,8 @@ func (x *TypeClass) UnrefUncached() {
 // A structure that provides information to the type system which is
 // used specifically for managing fundamental types.
 type TypeFundamentalInfo struct {
+	_ structs.HostLayout
+
 	TypeFlags TypeFundamentalFlags
 }
 
@@ -386,6 +393,8 @@ func (x *TypeFundamentalInfo) GoPointer() uintptr {
 // copy of this structure, so its memory does not need to be persistent
 // across invocation of g_type_register_static().
 type TypeInfo struct {
+	_ structs.HostLayout
+
 	ClassSize uint16
 
 	BaseInit BaseInitFunc
@@ -413,6 +422,8 @@ func (x *TypeInfo) GoPointer() uintptr {
 
 // An opaque structure used as the base of all type instances.
 type TypeInstance struct {
+	_ structs.HostLayout
+
 	GClass *TypeClass
 }
 
@@ -430,6 +441,8 @@ func (x *TypeInstance) GetPrivate(PrivateTypeVar types.GType) uintptr {
 
 // An opaque structure used as the base of all interface types.
 type TypeInterface struct {
+	_ structs.HostLayout
+
 	GType types.GType
 
 	GInstanceType types.GType
@@ -455,6 +468,8 @@ func (x *TypeInterface) PeekParent() *TypeInterface {
 //
 // See also: g_type_query()
 type TypeQuery struct {
+	_ structs.HostLayout
+
 	Type types.GType
 
 	TypeName uintptr
@@ -471,6 +486,8 @@ func (x *TypeQuery) GoPointer() uintptr {
 // The #GTypeValueTable provides the functions required by the #GValue
 // implementation, to serve as a container for values of a type.
 type TypeValueTable struct {
+	_ structs.HostLayout
+
 	CollectFormat uintptr
 
 	LcopyFormat uintptr

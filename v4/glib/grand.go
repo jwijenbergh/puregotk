@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 // The GRand struct is an opaque data structure. It should only be
 // accessed through the g_rand_* functions.
 type Rand struct {
+	_ structs.HostLayout
 }
 
 func (x *Rand) GoPointer() uintptr {

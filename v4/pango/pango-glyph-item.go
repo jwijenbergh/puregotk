@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,8 @@ import (
 // of shaping text with `PangoLayout` is a list of `PangoLayoutLine`,
 // each of which contains a list of `PangoGlyphItem`.
 type GlyphItem struct {
+	_ structs.HostLayout
+
 	Item *Item
 
 	Glyphs *GlyphString
@@ -169,6 +172,8 @@ func (x *GlyphItem) Split(TextVar string, SplitIndexVar int) *GlyphItem {
 //
 // None of the members of a `PangoGlyphItemIter` should be modified manually.
 type GlyphItemIter struct {
+	_ structs.HostLayout
+
 	GlyphItem *GlyphItem
 
 	Text uintptr

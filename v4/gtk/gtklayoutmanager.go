@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // should only be accessed through the provided API, or when subclassing
 // `GtkLayoutManager`.
 type LayoutManagerClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	LayoutChildType types.GType

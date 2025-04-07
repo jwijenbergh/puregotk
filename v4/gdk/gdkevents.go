@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 // `GdkEventSequence` is an opaque type representing a sequence
 // of related touch events.
 type EventSequence struct {
+	_ structs.HostLayout
 }
 
 var xEventSequenceGLibType func() types.GType

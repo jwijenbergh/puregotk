@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 type FontFilterFunc func(uintptr, uintptr, uintptr) bool
 
 type FontChooserIface struct {
+	_ structs.HostLayout
+
 	BaseIface uintptr
 
 	Padding [10]uintptr

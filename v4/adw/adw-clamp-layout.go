@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type ClampLayoutClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type FileInputStreamClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -19,6 +22,7 @@ func (x *FileInputStreamClass) GoPointer() uintptr {
 }
 
 type FileInputStreamPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *FileInputStreamPrivate) GoPointer() uintptr {

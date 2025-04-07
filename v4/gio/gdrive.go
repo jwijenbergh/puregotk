@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Interface for creating #GDrive implementations.
 type DriveIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

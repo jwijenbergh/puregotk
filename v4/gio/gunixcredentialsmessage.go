@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Class structure for #GUnixCredentialsMessage.
 type UnixCredentialsMessageClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,7 @@ func (x *UnixCredentialsMessageClass) GoPointer() uintptr {
 }
 
 type UnixCredentialsMessagePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *UnixCredentialsMessagePrivate) GoPointer() uintptr {

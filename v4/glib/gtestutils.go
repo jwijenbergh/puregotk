@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -32,6 +33,7 @@ type TestLogFatalFunc func(string, LogLevelFlags, string, uintptr) bool
 
 // An opaque structure representing a test case.
 type TestCase struct {
+	_ structs.HostLayout
 }
 
 func (x *TestCase) GoPointer() uintptr {
@@ -48,6 +50,8 @@ func (x *TestCase) Free() {
 }
 
 type TestConfig struct {
+	_ structs.HostLayout
+
 	TestInitialized bool
 
 	TestQuick bool
@@ -66,6 +70,8 @@ func (x *TestConfig) GoPointer() uintptr {
 }
 
 type TestLogBuffer struct {
+	_ structs.HostLayout
+
 	Data *String
 
 	Msgs *SList
@@ -103,6 +109,8 @@ func (x *TestLogBuffer) Push(NBytesVar uint, BytesVar byte) {
 }
 
 type TestLogMsg struct {
+	_ structs.HostLayout
+
 	LogType TestLogType
 
 	NStrings uint
@@ -129,6 +137,7 @@ func (x *TestLogMsg) Free() {
 
 // An opaque structure representing a test suite.
 type TestSuite struct {
+	_ structs.HostLayout
 }
 
 func (x *TestSuite) GoPointer() uintptr {

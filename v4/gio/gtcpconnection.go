@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 )
 
 type TcpConnectionClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -18,6 +21,7 @@ func (x *TcpConnectionClass) GoPointer() uintptr {
 }
 
 type TcpConnectionPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TcpConnectionPrivate) GoPointer() uintptr {

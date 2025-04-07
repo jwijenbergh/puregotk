@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 
 // The `GdkDragSurfaceInterface` implementation is private to GDK.
 type DragSurfaceInterface struct {
+	_ structs.HostLayout
 }
 
 func (x *DragSurfaceInterface) GoPointer() uintptr {

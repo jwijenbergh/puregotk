@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ import (
 )
 
 type ApplicationWindowClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [4]uintptr

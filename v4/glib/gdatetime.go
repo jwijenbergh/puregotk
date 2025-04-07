@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 
 // An opaque structure that represents a date and time, including a time zone.
 type DateTime struct {
+	_ structs.HostLayout
 }
 
 var xDateTimeGLibType func() types.GType

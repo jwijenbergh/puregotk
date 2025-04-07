@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -178,6 +179,7 @@ import (
 // that, due to the restriction that the key of a dictionary entry must
 // be a basic type, "{**}" is not a valid type string.
 type VariantType struct {
+	_ structs.HostLayout
 }
 
 var xVariantTypeGLibType func() types.GType

@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type AnimationClass struct {
+	_ structs.HostLayout
 }
 
 func (x *AnimationClass) GoPointer() uintptr {

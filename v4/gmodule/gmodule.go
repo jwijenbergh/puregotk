@@ -2,6 +2,7 @@
 package gmodule
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -25,6 +26,7 @@ type ModuleUnload func(*Module)
 // [dynamically-loaded module][glib-Dynamic-Loading-of-Modules].
 // It should only be accessed via the following functions.
 type Module struct {
+	_ structs.HostLayout
 }
 
 func (x *Module) GoPointer() uintptr {

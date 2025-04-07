@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 
 // The class structure for `GtkTextBuffer`.
 type TextBufferClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -22,6 +25,7 @@ func (x *TextBufferClass) GoPointer() uintptr {
 }
 
 type TextBufferPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TextBufferPrivate) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // Contains the public fields of a GArray.
 type Array struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Len uint
@@ -28,6 +31,8 @@ func (x *Array) GoPointer() uintptr {
 
 // Contains the public fields of a GByteArray.
 type ByteArray struct {
+	_ structs.HostLayout
+
 	Data byte
 
 	Len uint
@@ -68,6 +73,7 @@ func (x *ByteArray) GoPointer() uintptr {
 // mutable array for a #GBytes sequence. To create an immutable #GBytes from
 // a mutable #GByteArray, use the g_byte_array_free_to_bytes() function.
 type Bytes struct {
+	_ structs.HostLayout
 }
 
 var xBytesGLibType func() types.GType
@@ -310,6 +316,8 @@ func (x *Bytes) UnrefToData(SizeVar uint) uintptr {
 
 // Contains the public fields of a pointer array.
 type PtrArray struct {
+	_ structs.HostLayout
+
 	Pdata uintptr
 
 	Len uint

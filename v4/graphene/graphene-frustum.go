@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // The contents of the `graphene_frustum_t` are private, and should not be
 // modified directly.
 type Frustum struct {
+	_ structs.HostLayout
+
 	Planes [6]Plane
 }
 

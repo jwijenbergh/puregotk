@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -33,6 +34,8 @@ type FlowBoxForeachFunc func(uintptr, uintptr, uintptr)
 type FlowBoxSortFunc func(uintptr, uintptr, uintptr) int
 
 type FlowBoxChildClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type SpringAnimationClass struct {
+	_ structs.HostLayout
 }
 
 func (x *SpringAnimationClass) GoPointer() uintptr {

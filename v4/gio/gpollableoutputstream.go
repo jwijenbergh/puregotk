@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -27,6 +28,8 @@ import (
 // override this where possible to avoid having to allocate a #GError to return
 // %G_IO_ERROR_WOULD_BLOCK.
 type PollableOutputStreamInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

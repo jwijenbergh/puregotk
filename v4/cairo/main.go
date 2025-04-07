@@ -2,6 +2,7 @@
 package cairo
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 )
 
 type Context struct {
+	_ structs.HostLayout
 }
 
 var xContextGLibType func() types.GType
@@ -23,6 +25,7 @@ func (x *Context) GoPointer() uintptr {
 }
 
 type Device struct {
+	_ structs.HostLayout
 }
 
 var xDeviceGLibType func() types.GType
@@ -36,6 +39,7 @@ func (x *Device) GoPointer() uintptr {
 }
 
 type Surface struct {
+	_ structs.HostLayout
 }
 
 var xSurfaceGLibType func() types.GType
@@ -49,6 +53,7 @@ func (x *Surface) GoPointer() uintptr {
 }
 
 type Matrix struct {
+	_ structs.HostLayout
 }
 
 func (x *Matrix) GoPointer() uintptr {
@@ -56,6 +61,7 @@ func (x *Matrix) GoPointer() uintptr {
 }
 
 type Pattern struct {
+	_ structs.HostLayout
 }
 
 var xPatternGLibType func() types.GType
@@ -69,6 +75,7 @@ func (x *Pattern) GoPointer() uintptr {
 }
 
 type Region struct {
+	_ structs.HostLayout
 }
 
 var xRegionGLibType func() types.GType
@@ -82,6 +89,7 @@ func (x *Region) GoPointer() uintptr {
 }
 
 type FontOptions struct {
+	_ structs.HostLayout
 }
 
 var xFontOptionsGLibType func() types.GType
@@ -95,6 +103,7 @@ func (x *FontOptions) GoPointer() uintptr {
 }
 
 type FontFace struct {
+	_ structs.HostLayout
 }
 
 var xFontFaceGLibType func() types.GType
@@ -108,6 +117,7 @@ func (x *FontFace) GoPointer() uintptr {
 }
 
 type ScaledFont struct {
+	_ structs.HostLayout
 }
 
 var xScaledFontGLibType func() types.GType
@@ -121,6 +131,7 @@ func (x *ScaledFont) GoPointer() uintptr {
 }
 
 type Path struct {
+	_ structs.HostLayout
 }
 
 func (x *Path) GoPointer() uintptr {
@@ -128,6 +139,8 @@ func (x *Path) GoPointer() uintptr {
 }
 
 type Rectangle struct {
+	_ structs.HostLayout
+
 	X float64
 
 	Y float64
@@ -148,6 +161,8 @@ func (x *Rectangle) GoPointer() uintptr {
 }
 
 type RectangleInt struct {
+	_ structs.HostLayout
+
 	X int32
 
 	Y int32

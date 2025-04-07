@@ -2,6 +2,7 @@
 package gdkpixbuf
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type PixbufLoaderClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

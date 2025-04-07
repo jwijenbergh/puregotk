@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -81,6 +82,8 @@ type ThreadFunc func(uintptr) uintptr
 //
 // A #GCond should only be accessed via the g_cond_ functions.
 type Cond struct {
+	_ structs.HostLayout
+
 	P uintptr
 
 	I [2]uint
@@ -232,6 +235,8 @@ func (x *Cond) WaitUntil(MutexVar *Mutex, EndTimeVar int64) bool {
 // one-time initialization function must have its own unique #GOnce
 // struct.
 type Once struct {
+	_ structs.HostLayout
+
 	Status OnceStatus
 
 	Retval uintptr
@@ -267,6 +272,8 @@ func (x *Once) Impl(FuncVar *ThreadFunc, ArgVar uintptr) uintptr {
 // The #GPrivate structure should be considered opaque.  It should only
 // be accessed via the g_private_ functions.
 type Private struct {
+	_ structs.HostLayout
+
 	P uintptr
 
 	Notify DestroyNotify
@@ -384,6 +391,8 @@ func (x *Private) Set(ValueVar uintptr) {
 //
 // A GRWLock should only be accessed with the g_rw_lock_ functions.
 type RWLock struct {
+	_ structs.HostLayout
+
 	P uintptr
 
 	I [2]uint
@@ -540,6 +549,8 @@ func (x *RWLock) WriterUnlock() {
 // A GRecMutex should only be accessed with the
 // g_rec_mutex_ functions.
 type RecMutex struct {
+	_ structs.HostLayout
+
 	P uintptr
 
 	I [2]uint
@@ -655,6 +666,7 @@ func (x *RecMutex) Unlock() {
 // The structure is opaque -- none of its fields may be directly
 // accessed.
 type Thread struct {
+	_ structs.HostLayout
 }
 
 var xThreadGLibType func() types.GType

@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type ColorChooserInterface struct {
+	_ structs.HostLayout
+
 	BaseInterface uintptr
 
 	Padding [12]uintptr

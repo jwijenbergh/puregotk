@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 
 // An opaque structure representing an opened directory.
 type Dir struct {
+	_ structs.HostLayout
 }
 
 func (x *Dir) GoPointer() uintptr {

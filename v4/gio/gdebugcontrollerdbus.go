@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // The virtual function table for #GDebugControllerDBus.
 type DebugControllerDBusClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [12]uintptr

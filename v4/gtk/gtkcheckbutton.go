@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type CheckButtonClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [7]uintptr

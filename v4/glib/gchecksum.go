@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,7 @@ import (
 // To create a new GChecksum, use g_checksum_new(). To free
 // a GChecksum, use g_checksum_free().
 type Checksum struct {
+	_ structs.HostLayout
 }
 
 var xChecksumGLibType func() types.GType

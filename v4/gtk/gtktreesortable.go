@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -25,6 +26,8 @@ import (
 type TreeIterCompareFunc func(uintptr, *TreeIter, *TreeIter, uintptr) int
 
 type TreeSortableIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

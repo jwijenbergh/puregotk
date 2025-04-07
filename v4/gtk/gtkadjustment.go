@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type AdjustmentClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

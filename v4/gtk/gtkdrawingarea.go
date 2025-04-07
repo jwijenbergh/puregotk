@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 type DrawingAreaDrawFunc func(uintptr, *cairo.Context, int, int, uintptr)
 
 type DrawingAreaClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

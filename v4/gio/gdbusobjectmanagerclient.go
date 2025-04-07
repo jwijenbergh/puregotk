@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GDBusObjectManagerClient.
 type DBusObjectManagerClientClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -23,6 +26,7 @@ func (x *DBusObjectManagerClientClass) GoPointer() uintptr {
 }
 
 type DBusObjectManagerClientPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *DBusObjectManagerClientPrivate) GoPointer() uintptr {

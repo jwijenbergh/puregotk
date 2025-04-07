@@ -2,6 +2,7 @@
 package gdkpixbuf
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -105,6 +106,8 @@ type PixbufModuleUpdatedFunc func(uintptr, int, int, int, int, uintptr)
 // Only modules should access the fields directly, applications should
 // use the `gdk_pixbuf_format_*` family of functions.
 type PixbufFormat struct {
+	_ structs.HostLayout
+
 	Name uintptr
 
 	Signature *PixbufModulePattern
@@ -308,6 +311,8 @@ func (x *PixbufFormat) SetDisabled(DisabledVar bool) {
 //     `$libdir/gdk-pixbuf-2.0/$version/loaders.cache`, unless overridden
 //     by the environment variable `GDK_PIXBUF_MODULE_FILE`)
 type PixbufModule struct {
+	_ structs.HostLayout
+
 	ModuleName uintptr
 
 	ModulePath uintptr
@@ -372,6 +377,8 @@ func (x *PixbufModule) GoPointer() uintptr {
 // In the example above, the signature matches e.g. "auud\0" with
 // relevance 100, and "blau" with relevance 90.
 type PixbufModulePattern struct {
+	_ structs.HostLayout
+
 	Prefix uintptr
 
 	Mask uintptr

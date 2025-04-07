@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 // Contains the public fields of a
 // [Queue][glib-Double-ended-Queues].
 type Queue struct {
+	_ structs.HostLayout
+
 	Head *List
 
 	Tail *List

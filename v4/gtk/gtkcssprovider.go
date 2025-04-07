@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type CssProviderClass struct {
+	_ structs.HostLayout
 }
 
 func (x *CssProviderClass) GoPointer() uintptr {
@@ -20,6 +22,7 @@ func (x *CssProviderClass) GoPointer() uintptr {
 }
 
 type CssProviderPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *CssProviderPrivate) GoPointer() uintptr {

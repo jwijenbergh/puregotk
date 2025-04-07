@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 )
 
 type CairoRendererClass struct {
+	_ structs.HostLayout
 }
 
 func (x *CairoRendererClass) GoPointer() uintptr {

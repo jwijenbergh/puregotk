@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 // y_device = x_user * matrix-&gt;yx + y_user * matrix-&gt;yy + matrix-&gt;y0;
 // ```
 type Matrix struct {
+	_ structs.HostLayout
+
 	Xx float64
 
 	Xy float64

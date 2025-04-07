@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,8 @@ import (
 // so it is sufficient to implement just that function for full selection
 // support.
 type SelectionModelInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

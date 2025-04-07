@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type FontClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -26,6 +29,7 @@ func (x *FontClass) GoPointer() uintptr {
 // available on the system and also for specifying the characteristics of
 // a font to load.
 type FontDescription struct {
+	_ structs.HostLayout
 }
 
 var xFontDescriptionGLibType func() types.GType
@@ -473,6 +477,8 @@ func (x *FontDescription) UnsetFields(ToUnsetVar FontMask) {
 }
 
 type FontFaceClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -481,6 +487,8 @@ func (x *FontFaceClass) GoPointer() uintptr {
 }
 
 type FontFamilyClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -505,6 +513,8 @@ func (x *FontFamilyClass) GoPointer() uintptr {
 //
 // &lt;/picture&gt;
 type FontMetrics struct {
+	_ structs.HostLayout
+
 	RefCount uint
 
 	Ascent int

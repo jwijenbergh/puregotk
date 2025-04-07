@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,8 @@ import (
 // will internally operate on a normalized copy; all functions returning a
 // #graphene_rect_t will always return a normalized rectangle.
 type Rect struct {
+	_ structs.HostLayout
+
 	Origin uintptr
 
 	Size uintptr

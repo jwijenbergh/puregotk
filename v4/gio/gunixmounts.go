@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,7 @@ import (
 // Defines a Unix mount entry (e.g. &lt;filename&gt;/media/cdrom&lt;/filename&gt;).
 // This corresponds roughly to a mtab entry.
 type UnixMountEntry struct {
+	_ structs.HostLayout
 }
 
 var xUnixMountEntryGLibType func() types.GType
@@ -27,6 +29,7 @@ func (x *UnixMountEntry) GoPointer() uintptr {
 }
 
 type UnixMountMonitorClass struct {
+	_ structs.HostLayout
 }
 
 func (x *UnixMountMonitorClass) GoPointer() uintptr {
@@ -36,6 +39,7 @@ func (x *UnixMountMonitorClass) GoPointer() uintptr {
 // Defines a Unix mount point (e.g. &lt;filename&gt;/dev&lt;/filename&gt;).
 // This corresponds roughly to a fstab entry.
 type UnixMountPoint struct {
+	_ structs.HostLayout
 }
 
 var xUnixMountPointGLibType func() types.GType

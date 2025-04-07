@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // are primarily used in container implementations when allocating a natural
 // size for children calling. See [func@distribute_natural_allocation].
 type RequestedSize struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	MinimumSize int

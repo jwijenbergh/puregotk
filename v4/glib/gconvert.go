@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 // The GIConv struct wraps an iconv() conversion descriptor. It contains
 // private data and should only be accessed using the following functions.
 type IConv struct {
+	_ structs.HostLayout
 }
 
 func (x *IConv) GoPointer() uintptr {

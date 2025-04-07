@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,8 @@ type NodeTraverseFunc func(*Node, uintptr) bool
 
 // The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
 type Node struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Next *Node

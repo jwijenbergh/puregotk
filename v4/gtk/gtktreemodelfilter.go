@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -24,6 +25,8 @@ type TreeModelFilterModifyFunc func(uintptr, *TreeIter, *gobject.Value, int, uin
 type TreeModelFilterVisibleFunc func(uintptr, *TreeIter, uintptr) bool
 
 type TreeModelFilterClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -34,6 +37,7 @@ func (x *TreeModelFilterClass) GoPointer() uintptr {
 }
 
 type TreeModelFilterPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TreeModelFilterPrivate) GoPointer() uintptr {

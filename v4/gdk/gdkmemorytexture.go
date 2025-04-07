@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type MemoryTextureClass struct {
+	_ structs.HostLayout
 }
 
 func (x *MemoryTextureClass) GoPointer() uintptr {

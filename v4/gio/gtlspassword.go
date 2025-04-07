@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GTlsPassword.
 type TlsPasswordClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [4]uintptr
@@ -23,6 +26,7 @@ func (x *TlsPasswordClass) GoPointer() uintptr {
 }
 
 type TlsPasswordPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TlsPasswordPrivate) GoPointer() uintptr {

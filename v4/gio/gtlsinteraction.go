@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -26,6 +27,8 @@ import (
 // %G_TLS_INTERACTION_FAILED and the error should be set with a domain of
 // %G_IO_ERROR and code of %G_IO_ERROR_CANCELLED.
 type TlsInteractionClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [21]uintptr
@@ -36,6 +39,7 @@ func (x *TlsInteractionClass) GoPointer() uintptr {
 }
 
 type TlsInteractionPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TlsInteractionPrivate) GoPointer() uintptr {

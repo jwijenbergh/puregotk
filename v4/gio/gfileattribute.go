@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // Information about a specific attribute.
 type FileAttributeInfo struct {
+	_ structs.HostLayout
+
 	Name uintptr
 
 	Type FileAttributeType
@@ -25,6 +28,8 @@ func (x *FileAttributeInfo) GoPointer() uintptr {
 // Acts as a lightweight registry for possible valid file attributes.
 // The registry stores Key-Value pair formats as #GFileAttributeInfos.
 type FileAttributeInfoList struct {
+	_ structs.HostLayout
+
 	Infos *FileAttributeInfo
 
 	NInfos int

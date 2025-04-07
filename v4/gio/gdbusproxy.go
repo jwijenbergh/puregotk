@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GDBusProxy.
 type DBusProxyClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [32]uintptr
@@ -23,6 +26,7 @@ func (x *DBusProxyClass) GoPointer() uintptr {
 }
 
 type DBusProxyPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *DBusProxyPrivate) GoPointer() uintptr {

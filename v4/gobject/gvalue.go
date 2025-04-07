@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -27,6 +28,8 @@ type ValueTransform func(*Value, *Value)
 // within the 2 element @data union, and the @g_type member should
 // only be accessed through the G_VALUE_TYPE() macro.
 type Value struct {
+	_ structs.HostLayout
+
 	GType types.GType
 
 	Data [2]uint64

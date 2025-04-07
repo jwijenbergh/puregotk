@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type FileMonitorClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,7 @@ func (x *FileMonitorClass) GoPointer() uintptr {
 }
 
 type FileMonitorPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *FileMonitorPrivate) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,7 @@ import (
 )
 
 type TextureClass struct {
+	_ structs.HostLayout
 }
 
 func (x *TextureClass) GoPointer() uintptr {

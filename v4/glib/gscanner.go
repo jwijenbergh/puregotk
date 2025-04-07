@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -26,6 +27,8 @@ type ScannerMsgFunc func(*Scanner, string, bool)
 // @msg_handler field. The type of the message handler function
 // is declared by #GScannerMsgFunc.
 type Scanner struct {
+	_ structs.HostLayout
+
 	UserData uintptr
 
 	MaxParseErrors uint
@@ -292,6 +295,8 @@ func (x *Scanner) Warn(FormatVar string, varArgs ...interface{}) {
 // be changed during the parsing phase and will affect the lexical
 // parsing of the next unpeeked token.
 type ScannerConfig struct {
+	_ structs.HostLayout
+
 	CsetSkipCharacters uintptr
 
 	CsetIdentifierFirst uintptr

@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -18,6 +19,7 @@ import (
 type PrinterFunc func(uintptr, uintptr) bool
 
 type PrintBackend struct {
+	_ structs.HostLayout
 }
 
 func (x *PrintBackend) GoPointer() uintptr {

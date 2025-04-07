@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type CellRendererClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -23,6 +26,7 @@ func (x *CellRendererClass) GoPointer() uintptr {
 }
 
 type CellRendererClassPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *CellRendererClassPrivate) GoPointer() uintptr {
@@ -30,6 +34,7 @@ func (x *CellRendererClassPrivate) GoPointer() uintptr {
 }
 
 type CellRendererPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *CellRendererPrivate) GoPointer() uintptr {

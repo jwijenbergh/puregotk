@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GSocketService.
 type SocketServiceClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -21,6 +24,7 @@ func (x *SocketServiceClass) GoPointer() uintptr {
 }
 
 type SocketServicePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SocketServicePrivate) GoPointer() uintptr {

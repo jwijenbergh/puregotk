@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 // image is not dynamic as the default implementation returns no flags and
 // that will make the implementation likely quite slow.
 type PaintableInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

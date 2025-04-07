@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 // The `PangoFontMapClass` structure holds the virtual functions for
 // a particular `PangoFontMap` implementation.
 type FontMapClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	ShapeEngineType uintptr

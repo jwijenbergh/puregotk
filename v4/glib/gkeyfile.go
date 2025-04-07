@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // The GKeyFile struct contains only private data
 // and should not be accessed directly.
 type KeyFile struct {
+	_ structs.HostLayout
 }
 
 var xKeyFileGLibType func() types.GType

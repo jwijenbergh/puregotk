@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type FrameClockClass struct {
+	_ structs.HostLayout
 }
 
 func (x *FrameClockClass) GoPointer() uintptr {
@@ -19,6 +21,7 @@ func (x *FrameClockClass) GoPointer() uintptr {
 }
 
 type FrameClockPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *FrameClockPrivate) GoPointer() uintptr {

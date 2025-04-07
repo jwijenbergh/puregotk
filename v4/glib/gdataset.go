@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -23,6 +24,7 @@ type DuplicateFunc func(uintptr, uintptr) uintptr
 //
 // See also: [Keyed data lists][glib-Keyed-Data-Lists].
 type Data struct {
+	_ structs.HostLayout
 }
 
 func (x *Data) GoPointer() uintptr {

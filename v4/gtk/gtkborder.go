@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 //
 // Each side can have different width.
 type Border struct {
+	_ structs.HostLayout
+
 	Left int16
 
 	Right int16

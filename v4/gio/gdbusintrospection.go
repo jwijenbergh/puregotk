@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Information about an annotation.
 type DBusAnnotationInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Key uintptr
@@ -54,6 +57,8 @@ func (x *DBusAnnotationInfo) Unref() {
 
 // Information about an argument for a method or a signal.
 type DBusArgInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Name uintptr
@@ -96,6 +101,8 @@ func (x *DBusArgInfo) Unref() {
 
 // Information about a D-Bus interface.
 type DBusInterfaceInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Name uintptr
@@ -221,6 +228,8 @@ func (x *DBusInterfaceInfo) Unref() {
 
 // Information about a method on an D-Bus interface.
 type DBusMethodInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Name uintptr
@@ -265,6 +274,8 @@ func (x *DBusMethodInfo) Unref() {
 
 // Information about nodes in a remote object hierarchy.
 type DBusNodeInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Path uintptr
@@ -353,6 +364,8 @@ func (x *DBusNodeInfo) Unref() {
 
 // Information about a D-Bus property on a D-Bus interface.
 type DBusPropertyInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Name uintptr
@@ -397,6 +410,8 @@ func (x *DBusPropertyInfo) Unref() {
 
 // Information about a signal on a D-Bus interface.
 type DBusSignalInfo struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Name uintptr

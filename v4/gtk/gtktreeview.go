@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -38,6 +39,8 @@ type TreeViewRowSeparatorFunc func(uintptr, *TreeIter, uintptr) bool
 type TreeViewSearchEqualFunc func(uintptr, int, string, *TreeIter, uintptr) bool
 
 type TreeViewClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Reserved [16]uintptr

@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // A sphere, represented by its center and radius.
 type Sphere struct {
+	_ structs.HostLayout
+
 	Center uintptr
 
 	Radius float32

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -23,6 +24,7 @@ type OptionParseFunc func(*OptionContext, *OptionGroup, uintptr, **Error) bool
 // are accepted by the commandline option parser. The struct has only private
 // fields and should not be directly accessed.
 type OptionContext struct {
+	_ structs.HostLayout
 }
 
 func (x *OptionContext) GoPointer() uintptr {
@@ -330,6 +332,8 @@ func (x *OptionContext) SetTranslationDomain(DomainVar string) {
 // must be added to a #GOptionGroup with g_option_context_add_main_entries()
 // or g_option_group_add_entries().
 type OptionEntry struct {
+	_ structs.HostLayout
+
 	LongName uintptr
 
 	ShortName byte
@@ -357,6 +361,7 @@ func (x *OptionEntry) GoPointer() uintptr {
 // getting a `GOptionGroup` holding their options, which
 // the application can then add to its #GOptionContext.
 type OptionGroup struct {
+	_ structs.HostLayout
 }
 
 var xOptionGroupGLibType func() types.GType

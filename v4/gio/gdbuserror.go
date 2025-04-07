@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // Struct used in g_dbus_error_register_error_domain().
 type DBusErrorEntry struct {
+	_ structs.HostLayout
+
 	ErrorCode int32
 
 	DbusErrorName uintptr

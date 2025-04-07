@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type SimpleAsyncResultClass struct {
+	_ structs.HostLayout
 }
 
 func (x *SimpleAsyncResultClass) GoPointer() uintptr {

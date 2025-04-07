@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,8 @@ import (
 type CustomFilterFunc func(uintptr, uintptr) bool
 
 type CustomFilterClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

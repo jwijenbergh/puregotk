@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // The interface vtable for `GtkActionable`.
 type ActionableInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

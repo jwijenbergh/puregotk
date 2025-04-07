@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // The virtual function table for #GPowerProfileMonitor.
 type PowerProfileMonitorInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

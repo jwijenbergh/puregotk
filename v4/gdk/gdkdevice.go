@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 // To access individual axis values, use the values of the values of
 // the [enum@Gdk.AxisUse] enumerations as indices.
 type TimeCoord struct {
+	_ structs.HostLayout
+
 	Time uint32
 
 	Flags AxisFlags

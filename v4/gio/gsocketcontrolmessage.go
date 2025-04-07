@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Class structure for #GSocketControlMessage.
 type SocketControlMessageClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,7 @@ func (x *SocketControlMessageClass) GoPointer() uintptr {
 }
 
 type SocketControlMessagePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SocketControlMessagePrivate) GoPointer() uintptr {

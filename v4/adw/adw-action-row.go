@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type ActionRowClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [4]uintptr

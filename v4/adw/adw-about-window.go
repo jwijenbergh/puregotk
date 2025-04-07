@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,8 @@ import (
 )
 
 type AboutWindowClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

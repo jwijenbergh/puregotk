@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 )
 
 type PopupInterface struct {
+	_ structs.HostLayout
 }
 
 func (x *PopupInterface) GoPointer() uintptr {

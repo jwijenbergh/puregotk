@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
@@ -23,6 +24,8 @@ type TypePluginUse func(uintptr)
 // The #GTypePlugin interface is used by the type system in order to handle
 // the lifecycle of dynamically loaded types.
 type TypePluginClass struct {
+	_ structs.HostLayout
+
 	BaseIface uintptr
 
 	UsePlugin TypePluginUse

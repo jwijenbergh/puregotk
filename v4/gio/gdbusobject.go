@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Base object type for D-Bus objects.
 type DBusObjectIface struct {
+	_ structs.HostLayout
+
 	ParentIface uintptr
 }
 

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // The GString struct contains the public fields of a GString.
 type String struct {
+	_ structs.HostLayout
+
 	Str uintptr
 
 	Len uint

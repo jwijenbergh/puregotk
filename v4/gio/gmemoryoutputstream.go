@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,8 @@ import (
 type ReallocFunc func(uintptr, uint) uintptr
 
 type MemoryOutputStreamClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -25,6 +28,7 @@ func (x *MemoryOutputStreamClass) GoPointer() uintptr {
 }
 
 type MemoryOutputStreamPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *MemoryOutputStreamPrivate) GoPointer() uintptr {

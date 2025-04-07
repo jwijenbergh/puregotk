@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // Provides an interface for asynchronous initializing object such that
 // initialization may fail.
 type AsyncInitableIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

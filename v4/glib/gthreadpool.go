@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // public read-only members, but the underlying struct is bigger,
 // so you must not copy this struct.
 type ThreadPool struct {
+	_ structs.HostLayout
+
 	Func Func
 
 	UserData uintptr

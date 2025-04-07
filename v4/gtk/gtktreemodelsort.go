@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type TreeModelSortClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -23,6 +26,7 @@ func (x *TreeModelSortClass) GoPointer() uintptr {
 }
 
 type TreeModelSortPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TreeModelSortPrivate) GoPointer() uintptr {

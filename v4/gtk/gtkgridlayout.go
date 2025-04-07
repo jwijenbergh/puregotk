@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 )
 
 type GridLayoutChildClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -18,6 +21,8 @@ func (x *GridLayoutChildClass) GoPointer() uintptr {
 }
 
 type GridLayoutClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

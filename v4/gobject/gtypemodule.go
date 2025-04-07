@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // In order to implement dynamic loading of types based on #GTypeModule,
 // the @load and @unload functions in #GTypeModuleClass must be implemented.
 type TypeModuleClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

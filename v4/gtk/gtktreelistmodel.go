@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,8 @@ import (
 type TreeListModelCreateModelFunc func(uintptr, uintptr) uintptr
 
 type TreeListModelClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -30,6 +33,8 @@ func (x *TreeListModelClass) GoPointer() uintptr {
 }
 
 type TreeListRowClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

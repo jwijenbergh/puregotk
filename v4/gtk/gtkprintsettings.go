@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,8 @@ type PrintSettingsFunc func(string, string, uintptr)
 //
 // See also [method@Gtk.PrintSettings.set_page_ranges].
 type PageRange struct {
+	_ structs.HostLayout
+
 	Start int
 
 	End int

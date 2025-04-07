@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -18,6 +19,8 @@ type IOFunc func(*IOChannel, IOCondition, uintptr) bool
 // considered private and should only be accessed with the following
 // functions.
 type IOChannel struct {
+	_ structs.HostLayout
+
 	RefCount int32
 
 	Funcs *IOFuncs
@@ -555,6 +558,7 @@ func (x *IOChannel) WriteUnichar(ThecharVar uint32) (IOStatus, error) {
 // A table of functions used to handle different types of #GIOChannel
 // in a generic way.
 type IOFuncs struct {
+	_ structs.HostLayout
 }
 
 func (x *IOFuncs) GoPointer() uintptr {

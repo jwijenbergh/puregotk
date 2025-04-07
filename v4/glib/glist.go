@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 
 // The #GList struct is used for each element in a doubly-linked list.
 type List struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Next *List

@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -39,6 +40,8 @@ type ListBoxSortFunc func(uintptr, uintptr, uintptr) int
 type ListBoxUpdateHeaderFunc func(uintptr, uintptr, uintptr)
 
 type ListBoxRowClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

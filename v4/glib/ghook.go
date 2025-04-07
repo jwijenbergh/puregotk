@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -35,6 +36,8 @@ type HookMarshaller func(*Hook, uintptr)
 
 // The #GHook struct represents a single hook function in a #GHookList.
 type Hook struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Next *Hook
@@ -68,6 +71,8 @@ func (x *Hook) CompareIds(SiblingVar *Hook) int {
 
 // The #GHookList struct represents a list of hook functions.
 type HookList struct {
+	_ structs.HostLayout
+
 	SeqId uint32
 
 	HookSize uint

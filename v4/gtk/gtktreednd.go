@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type TreeDragDestIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 
@@ -20,6 +23,8 @@ func (x *TreeDragDestIface) GoPointer() uintptr {
 }
 
 type TreeDragSourceIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

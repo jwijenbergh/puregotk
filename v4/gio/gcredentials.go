@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 
 // Class structure for #GCredentials.
 type CredentialsClass struct {
+	_ structs.HostLayout
 }
 
 func (x *CredentialsClass) GoPointer() uintptr {

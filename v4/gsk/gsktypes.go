@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,7 @@ import (
 // This means code can safely expose them as properties of objects without
 // having to worry about others changing them.
 type Transform struct {
+	_ structs.HostLayout
 }
 
 var xTransformGLibType func() types.GType

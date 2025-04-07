@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 type PageSetupDoneFunc func(uintptr, uintptr)
 
 type PrintOperationClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -29,6 +32,7 @@ func (x *PrintOperationClass) GoPointer() uintptr {
 }
 
 type PrintOperationPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *PrintOperationPrivate) GoPointer() uintptr {

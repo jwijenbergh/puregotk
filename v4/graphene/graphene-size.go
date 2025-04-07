@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // A size.
 type Size struct {
+	_ structs.HostLayout
+
 	Width float32
 
 	Height float32

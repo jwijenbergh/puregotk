@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
@@ -9,6 +10,8 @@ import (
 
 // Class structure for #GProxyAddressEnumerator.
 type ProxyAddressEnumeratorClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -17,6 +20,7 @@ func (x *ProxyAddressEnumeratorClass) GoPointer() uintptr {
 }
 
 type ProxyAddressEnumeratorPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *ProxyAddressEnumeratorPrivate) GoPointer() uintptr {

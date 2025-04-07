@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Virtual function table for #GApplication.
 type ApplicationClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [7]uintptr
@@ -23,6 +26,7 @@ func (x *ApplicationClass) GoPointer() uintptr {
 }
 
 type ApplicationPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *ApplicationPrivate) GoPointer() uintptr {

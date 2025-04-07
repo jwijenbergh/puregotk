@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type SurfaceClass struct {
+	_ structs.HostLayout
 }
 
 func (x *SurfaceClass) GoPointer() uintptr {

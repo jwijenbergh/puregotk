@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // vtable for a #GDtlsClientConnection implementation.
 type DtlsClientConnectionInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

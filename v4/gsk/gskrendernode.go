@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ type ParseErrorFunc func(*ParseLocation, *ParseLocation, *glib.Error, uintptr)
 
 // A color stop in a gradient node.
 type ColorStop struct {
+	_ structs.HostLayout
+
 	Offset float32
 
 	Color uintptr
@@ -30,6 +33,8 @@ func (x *ColorStop) GoPointer() uintptr {
 
 // A location in a parse buffer.
 type ParseLocation struct {
+	_ structs.HostLayout
+
 	Bytes uint
 
 	Chars uint
@@ -47,6 +52,8 @@ func (x *ParseLocation) GoPointer() uintptr {
 
 // The shadow parameters in a shadow node.
 type Shadow struct {
+	_ structs.HostLayout
+
 	Color uintptr
 
 	Dx float32

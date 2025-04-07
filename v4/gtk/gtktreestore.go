@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type TreeStoreClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -23,6 +26,7 @@ func (x *TreeStoreClass) GoPointer() uintptr {
 }
 
 type TreeStorePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TreeStorePrivate) GoPointer() uintptr {

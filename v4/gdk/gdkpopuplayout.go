@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -43,6 +44,7 @@ import (
 // But you have to be careful avoid changing the size of the popover, or it
 // has to be presented again.
 type PopupLayout struct {
+	_ structs.HostLayout
 }
 
 var xPopupLayoutGLibType func() types.GType

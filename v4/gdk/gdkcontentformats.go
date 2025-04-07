@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 // A `GdkContentFormatsBuilder` is an auxiliary struct used to create
 // new `GdkContentFormats`, and should not be kept around.
 type ContentFormatsBuilder struct {
+	_ structs.HostLayout
 }
 
 var xContentFormatsBuilderGLibType func() types.GType
@@ -113,6 +115,7 @@ func (x *ContentFormatsBuilder) Unref() {
 
 // An opaque type representing a list of files.
 type FileList struct {
+	_ structs.HostLayout
 }
 
 var xFileListGLibType func() types.GType
