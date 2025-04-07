@@ -484,7 +484,7 @@ type TypeCValue = uintptr
 
 // A numerical value which represents the unique identifier of a registered
 // type.
-type Type = uint
+type Type = types.GType
 
 const (
 	// A bit in the type number that's supposed to be left untouched.
