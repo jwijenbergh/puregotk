@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,8 @@ import (
 )
 
 type TextViewClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr
@@ -25,6 +28,7 @@ func (x *TextViewClass) GoPointer() uintptr {
 }
 
 type TextViewPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TextViewPrivate) GoPointer() uintptr {

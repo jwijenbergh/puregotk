@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 // necessary to allow `GtkBuilder` to construct an object from
 // a `GtkBuilder` UI definition.
 type BuildableIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 
@@ -22,6 +25,7 @@ func (x *BuildableIface) GoPointer() uintptr {
 
 // An opaque context struct for `GtkBuildableParser`.
 type BuildableParseContext struct {
+	_ structs.HostLayout
 }
 
 func (x *BuildableParseContext) GoPointer() uintptr {
@@ -132,6 +136,8 @@ func (x *BuildableParseContext) Push(ParserVar *BuildableParser, UserDataVar uin
 
 // A sub-parser for `GtkBuildable` implementations.
 type BuildableParser struct {
+	_ structs.HostLayout
+
 	Padding [4]uintptr
 }
 

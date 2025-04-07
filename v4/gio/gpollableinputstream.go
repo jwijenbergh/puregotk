@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,8 @@ import (
 // implementation may return %TRUE when the stream is not actually
 // readable.
 type PollableInputStreamInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

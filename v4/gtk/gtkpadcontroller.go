@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Struct defining a pad action entry.
 type PadActionEntry struct {
+	_ structs.HostLayout
+
 	Type PadActionType
 
 	Index int
@@ -29,6 +32,7 @@ func (x *PadActionEntry) GoPointer() uintptr {
 }
 
 type PadControllerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *PadControllerClass) GoPointer() uintptr {

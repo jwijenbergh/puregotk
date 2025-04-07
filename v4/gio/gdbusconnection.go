@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -172,6 +173,8 @@ type DBusSubtreeIntrospectFunc func(uintptr, string, string, string, uintptr) ui
 // function or provide an implementation of the `Set` call. If implementing
 // the call, you must return the value of type %G_VARIANT_TYPE_UNIT.
 type DBusInterfaceVTable struct {
+	_ structs.HostLayout
+
 	MethodCall DBusInterfaceMethodCallFunc
 
 	GetProperty DBusInterfaceGetPropertyFunc
@@ -187,6 +190,8 @@ func (x *DBusInterfaceVTable) GoPointer() uintptr {
 
 // Virtual table for handling subtrees registered with g_dbus_connection_register_subtree().
 type DBusSubtreeVTable struct {
+	_ structs.HostLayout
+
 	Enumerate DBusSubtreeEnumerateFunc
 
 	Introspect DBusSubtreeIntrospectFunc

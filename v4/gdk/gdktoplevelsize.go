@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // The `GdkToplevelSize` struct contains information that is useful
 // to compute the size of a toplevel.
 type ToplevelSize struct {
+	_ structs.HostLayout
 }
 
 func (x *ToplevelSize) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 // Each piece of memory that is pushed onto the stack
 // is cast to a GTrashStack*.
 type TrashStack struct {
+	_ structs.HostLayout
+
 	Next *TrashStack
 }
 

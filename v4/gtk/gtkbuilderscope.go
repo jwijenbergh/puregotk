@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type BuilderCScopeClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -23,6 +26,8 @@ func (x *BuilderCScopeClass) GoPointer() uintptr {
 // Default implementations for each function do exist, but they usually just fail,
 // so it is suggested that implementations implement all of them.
 type BuilderScopeInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

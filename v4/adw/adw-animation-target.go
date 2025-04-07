@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 type AnimationTargetFunc func(float64, uintptr)
 
 type AnimationTargetClass struct {
+	_ structs.HostLayout
 }
 
 func (x *AnimationTargetClass) GoPointer() uintptr {
@@ -22,6 +24,7 @@ func (x *AnimationTargetClass) GoPointer() uintptr {
 }
 
 type CallbackAnimationTargetClass struct {
+	_ structs.HostLayout
 }
 
 func (x *CallbackAnimationTargetClass) GoPointer() uintptr {
@@ -29,6 +32,7 @@ func (x *CallbackAnimationTargetClass) GoPointer() uintptr {
 }
 
 type PropertyAnimationTargetClass struct {
+	_ structs.HostLayout
 }
 
 func (x *PropertyAnimationTargetClass) GoPointer() uintptr {

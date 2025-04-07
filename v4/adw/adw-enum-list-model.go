@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type EnumListItemClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,8 @@ func (x *EnumListItemClass) GoPointer() uintptr {
 }
 
 type EnumListModelClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

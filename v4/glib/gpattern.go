@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // A GPatternSpec struct is the 'compiled' form of a pattern. This
 // structure is opaque and its fields cannot be accessed directly.
 type PatternSpec struct {
+	_ structs.HostLayout
 }
 
 var xPatternSpecGLibType func() types.GType

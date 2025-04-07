@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type LayoutClass struct {
+	_ structs.HostLayout
 }
 
 func (x *LayoutClass) GoPointer() uintptr {
@@ -25,6 +27,7 @@ func (x *LayoutClass) GoPointer() uintptr {
 //
 // The `PangoLayoutIter` structure is opaque, and has no user-visible fields.
 type LayoutIter struct {
+	_ structs.HostLayout
 }
 
 var xLayoutIterGLibType func() types.GType
@@ -312,6 +315,8 @@ func (x *LayoutIter) NextRun() bool {
 // [method@Pango.Layout.get_line] and are only valid until the text,
 // attributes, or settings of the parent `PangoLayout` are modified.
 type LayoutLine struct {
+	_ structs.HostLayout
+
 	Layout *Layout
 
 	StartIndex int32

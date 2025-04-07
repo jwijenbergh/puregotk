@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // A `PangoScriptIter` is used to iterate through a string
 // and identify ranges in different scripts.
 type ScriptIter struct {
+	_ structs.HostLayout
 }
 
 var xScriptIterGLibType func() types.GType

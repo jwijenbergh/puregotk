@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -33,6 +34,8 @@ type SettingsBindSetMapping func(*gobject.Value, *glib.VariantType, uintptr) *gl
 type SettingsGetMapping func(*glib.Variant, uintptr, uintptr) bool
 
 type SettingsClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [20]uintptr
@@ -43,6 +46,7 @@ func (x *SettingsClass) GoPointer() uintptr {
 }
 
 type SettingsPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SettingsPrivate) GoPointer() uintptr {

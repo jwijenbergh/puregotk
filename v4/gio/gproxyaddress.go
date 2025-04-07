@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // Class structure for #GProxyAddress.
 type ProxyAddressClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -19,6 +22,7 @@ func (x *ProxyAddressClass) GoPointer() uintptr {
 }
 
 type ProxyAddressPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *ProxyAddressPrivate) GoPointer() uintptr {

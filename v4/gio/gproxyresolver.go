@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // The virtual function table for #GProxyResolver.
 type ProxyResolverInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

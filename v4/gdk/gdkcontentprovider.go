@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 
 // Class structure for `GdkContentProvider`.
 type ContentProviderClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

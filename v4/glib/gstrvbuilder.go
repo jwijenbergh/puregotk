@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,7 @@ import (
 //
 // ]|
 type StrvBuilder struct {
+	_ structs.HostLayout
 }
 
 func (x *StrvBuilder) GoPointer() uintptr {

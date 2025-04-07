@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -23,6 +24,8 @@ import (
 // The algorithm used for normalizing corner sizes is described in
 // [the CSS specification](https://drafts.csswg.org/css-backgrounds-3/#border-radius).
 type RoundedRect struct {
+	_ structs.HostLayout
+
 	Bounds uintptr
 
 	Corner [4]graphene.Size

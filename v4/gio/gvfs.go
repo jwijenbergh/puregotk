@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,8 @@ import (
 type VfsFileLookupFunc func(uintptr, string, uintptr) uintptr
 
 type VfsClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

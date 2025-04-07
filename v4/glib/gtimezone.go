@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // #GTimeZone is an opaque structure whose members cannot be accessed
 // directly.
 type TimeZone struct {
+	_ structs.HostLayout
 }
 
 var xTimeZoneGLibType func() types.GType

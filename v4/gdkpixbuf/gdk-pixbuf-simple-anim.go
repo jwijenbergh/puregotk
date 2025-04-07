@@ -2,6 +2,7 @@
 package gdkpixbuf
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 )
 
 type PixbufSimpleAnimClass struct {
+	_ structs.HostLayout
 }
 
 func (x *PixbufSimpleAnimClass) GoPointer() uintptr {

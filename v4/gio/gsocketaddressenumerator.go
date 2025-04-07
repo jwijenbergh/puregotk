@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GSocketAddressEnumerator.
 type SocketAddressEnumeratorClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

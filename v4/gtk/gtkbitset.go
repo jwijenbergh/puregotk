@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ import (
 // [func@Gtk.BitsetIter.init_first], [func@Gtk.BitsetIter.init_last]
 // or [func@Gtk.BitsetIter.init_at].
 type BitsetIter struct {
+	_ structs.HostLayout
+
 	PrivateData [10]uintptr
 }
 

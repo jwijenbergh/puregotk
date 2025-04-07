@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type FileInfoClass struct {
+	_ structs.HostLayout
 }
 
 func (x *FileInfoClass) GoPointer() uintptr {

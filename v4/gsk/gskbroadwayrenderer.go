@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 )
 
 type BroadwayRendererClass struct {
+	_ structs.HostLayout
 }
 
 func (x *BroadwayRendererClass) GoPointer() uintptr {

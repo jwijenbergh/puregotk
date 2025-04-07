@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -52,6 +53,8 @@ type PrintFunc func(string)
 // have a trailing nul byte. Otherwise, @length must be set to a non-negative
 // value.
 type LogField struct {
+	_ structs.HostLayout
+
 	Key uintptr
 
 	Value uintptr

@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // A #GValueArray contains an array of #GValue elements.
 type ValueArray struct {
+	_ structs.HostLayout
+
 	NValues uint
 
 	Values *Value

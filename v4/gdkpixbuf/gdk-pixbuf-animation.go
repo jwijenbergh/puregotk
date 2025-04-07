@@ -2,6 +2,7 @@
 package gdkpixbuf
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ import (
 // #GdkPixbufAnimation, providing suitable implementations of the
 // virtual functions.
 type PixbufAnimationClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -27,6 +30,8 @@ func (x *PixbufAnimationClass) GoPointer() uintptr {
 // #GdkPixbufAnimationIter, providing suitable implementations of the
 // virtual functions.
 type PixbufAnimationIterClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

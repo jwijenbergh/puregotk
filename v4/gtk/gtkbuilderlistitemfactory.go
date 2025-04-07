@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type BuilderListItemFactoryClass struct {
+	_ structs.HostLayout
 }
 
 func (x *BuilderListItemFactoryClass) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // The contents of a #graphene_quad_t are private and should never be
 // accessed directly.
 type Quad struct {
+	_ structs.HostLayout
+
 	Points [4]Point
 }
 

@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -31,6 +32,8 @@ type SignalEmissionHook func(*SignalInvocationHint, uint, []Value, uintptr) bool
 // The #GSignalInvocationHint structure is used to pass on additional information
 // to callbacks during a signal emission.
 type SignalInvocationHint struct {
+	_ structs.HostLayout
+
 	SignalId uint
 
 	Detail glib.Quark
@@ -46,6 +49,8 @@ func (x *SignalInvocationHint) GoPointer() uintptr {
 //
 // See also: g_signal_query()
 type SignalQuery struct {
+	_ structs.HostLayout
+
 	SignalId uint
 
 	SignalName uintptr

@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type MenuAttributeIterClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,7 @@ func (x *MenuAttributeIterClass) GoPointer() uintptr {
 }
 
 type MenuAttributeIterPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *MenuAttributeIterPrivate) GoPointer() uintptr {
@@ -27,6 +31,8 @@ func (x *MenuAttributeIterPrivate) GoPointer() uintptr {
 }
 
 type MenuLinkIterClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -35,6 +41,7 @@ func (x *MenuLinkIterClass) GoPointer() uintptr {
 }
 
 type MenuLinkIterPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *MenuLinkIterPrivate) GoPointer() uintptr {
@@ -42,6 +49,8 @@ func (x *MenuLinkIterPrivate) GoPointer() uintptr {
 }
 
 type MenuModelClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -50,6 +59,7 @@ func (x *MenuModelClass) GoPointer() uintptr {
 }
 
 type MenuModelPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *MenuModelPrivate) GoPointer() uintptr {

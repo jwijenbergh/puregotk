@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // An interface for writing VFS file handles.
 type FileIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 
 	SupportsThreadContexts bool

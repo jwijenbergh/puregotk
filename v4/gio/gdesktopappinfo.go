@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,8 @@ import (
 type DesktopAppLaunchCallback func(uintptr, glib.Pid, uintptr)
 
 type DesktopAppInfoClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -27,6 +30,8 @@ func (x *DesktopAppInfoClass) GoPointer() uintptr {
 // Interface that is used by backends to associate default
 // handlers with URI schemes.
 type DesktopAppInfoLookupIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

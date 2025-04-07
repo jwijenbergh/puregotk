@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // to another type. The conversion can be stateful
 // and may fail at any place.
 type ConverterIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

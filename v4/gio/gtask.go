@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -29,6 +30,7 @@ import (
 type TaskThreadFunc func(uintptr, uintptr, uintptr, uintptr)
 
 type TaskClass struct {
+	_ structs.HostLayout
 }
 
 func (x *TaskClass) GoPointer() uintptr {

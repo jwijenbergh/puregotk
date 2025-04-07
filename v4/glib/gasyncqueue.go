@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 //
 // It should only be accessed through the `g_async_queue_*` functions.
 type AsyncQueue struct {
+	_ structs.HostLayout
 }
 
 func (x *AsyncQueue) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -118,6 +119,7 @@ import (
 // thing according to the `data:` URI specification which GLib does not
 // handle.
 type Uri struct {
+	_ structs.HostLayout
 }
 
 var xUriGLibType func() types.GType
@@ -334,6 +336,8 @@ func (x *Uri) Unref() {
 // g_uri_params_iter_init(). See the documentation for g_uri_params_iter_init()
 // for a usage example.
 type UriParamsIter struct {
+	_ structs.HostLayout
+
 	Dummy0 int32
 
 	Dummy1 uintptr

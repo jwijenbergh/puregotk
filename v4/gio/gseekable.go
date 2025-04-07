@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // Provides an interface for implementing seekable functionality on I/O Streams.
 type SeekableIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

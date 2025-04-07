@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -34,6 +35,8 @@ type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintp
 
 // A #GCClosure is a specialization of #GClosure for C function callbacks.
 type CClosure struct {
+	_ structs.HostLayout
+
 	Closure uintptr
 
 	Callback uintptr
@@ -88,6 +91,8 @@ func (x *CClosure) GoPointer() uintptr {
 //   - g_closure_invalidate() and invalidation notifiers allow callbacks to be
 //     automatically removed when the objects they point to go away.
 type Closure struct {
+	_ structs.HostLayout
+
 	RefCount uint
 
 	MetaMarshalNouse uint
@@ -405,6 +410,8 @@ func (x *Closure) Unref() {
 }
 
 type ClosureNotifyData struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Notify ClosureNotify

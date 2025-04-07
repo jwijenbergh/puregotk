@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 )
 
 type TabPageClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -22,6 +25,8 @@ func (x *TabPageClass) GoPointer() uintptr {
 }
 
 type TabViewClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

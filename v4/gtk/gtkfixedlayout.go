@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type FixedLayoutChildClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -19,6 +22,8 @@ func (x *FixedLayoutChildClass) GoPointer() uintptr {
 }
 
 type FixedLayoutClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

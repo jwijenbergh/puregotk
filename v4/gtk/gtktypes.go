@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -25,6 +26,7 @@ import (
 // The main use case for `GtkBitset` is implementing complex selections for
 // [iface@Gtk.SelectionModel].
 type Bitset struct {
+	_ structs.HostLayout
 }
 
 var xBitsetGLibType func() types.GType
@@ -361,6 +363,7 @@ func (x *Bitset) Unref() {
 }
 
 type CssStyleChange struct {
+	_ structs.HostLayout
 }
 
 func (x *CssStyleChange) GoPointer() uintptr {

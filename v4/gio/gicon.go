@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // different systems. See #GThemedIcon and #GLoadableIcon for
 // examples of how to implement this interface.
 type IconIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

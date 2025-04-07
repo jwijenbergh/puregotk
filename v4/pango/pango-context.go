@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 )
 
 type ContextClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ContextClass) GoPointer() uintptr {

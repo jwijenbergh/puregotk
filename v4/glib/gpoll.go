@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ type PollFunc func(*PollFD, uint, int) int
 // Represents a file descriptor, which events to poll for, and which events
 // occurred.
 type PollFD struct {
+	_ structs.HostLayout
+
 	Fd int32
 
 	Events uint16

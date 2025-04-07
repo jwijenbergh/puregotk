@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // A point with two coordinates.
 type Point struct {
+	_ structs.HostLayout
+
 	X float32
 
 	Y float32

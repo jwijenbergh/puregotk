@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,7 @@ import (
 // to the user in various states (maximized, on all workspaces,
 // etc).
 type ToplevelLayout struct {
+	_ structs.HostLayout
 }
 
 var xToplevelLayoutGLibType func() types.GType

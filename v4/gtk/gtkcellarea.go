@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,8 @@ type CellAllocCallback func(uintptr, *gdk.Rectangle, *gdk.Rectangle, uintptr) bo
 type CellCallback func(uintptr, uintptr) bool
 
 type CellAreaClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

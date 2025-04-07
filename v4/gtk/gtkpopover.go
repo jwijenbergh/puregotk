@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 )
 
 type PopoverClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Reserved [8]uintptr

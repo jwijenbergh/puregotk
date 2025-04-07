@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +10,7 @@ import (
 )
 
 type ShortcutsGroupClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ShortcutsGroupClass) GoPointer() uintptr {

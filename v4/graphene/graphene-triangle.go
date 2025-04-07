@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // A triangle.
 type Triangle struct {
+	_ structs.HostLayout
+
 	A uintptr
 
 	B uintptr

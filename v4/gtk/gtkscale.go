@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,8 @@ import (
 type ScaleFormatValueFunc func(uintptr, float64, uintptr) string
 
 type ScaleClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [8]uintptr

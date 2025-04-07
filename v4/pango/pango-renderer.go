@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -27,6 +28,8 @@ import (
 // - draw_trapezoid
 // - draw_glyph
 type RendererClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -35,6 +38,7 @@ func (x *RendererClass) GoPointer() uintptr {
 }
 
 type RendererPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *RendererPrivate) GoPointer() uintptr {

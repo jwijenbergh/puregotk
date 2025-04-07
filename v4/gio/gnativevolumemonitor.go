@@ -2,12 +2,15 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
 type NativeVolumeMonitorClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

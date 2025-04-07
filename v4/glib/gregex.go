@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -18,6 +19,7 @@ type RegexEvalCallback func(*MatchInfo, *String, uintptr) bool
 // A GMatchInfo is an opaque struct used to return information about
 // matches.
 type MatchInfo struct {
+	_ structs.HostLayout
 }
 
 var xMatchInfoGLibType func() types.GType
@@ -360,6 +362,7 @@ func (x *MatchInfo) Unref() {
 // [PCRE](http://www.pcre.org/)
 // library written by Philip Hazel.
 type Regex struct {
+	_ structs.HostLayout
 }
 
 var xRegexGLibType func() types.GType

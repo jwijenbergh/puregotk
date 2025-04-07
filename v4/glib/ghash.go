@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,7 @@ type HRFunc func(uintptr, uintptr, uintptr) bool
 // [Hash Table][glib-Hash-Tables]. It should only be accessed via the
 // following functions.
 type HashTable struct {
+	_ structs.HostLayout
 }
 
 var xHashTableGLibType func() types.GType
@@ -40,6 +42,8 @@ func (x *HashTable) GoPointer() uintptr {
 // The iteration order of a #GHashTableIter over the keys/values in a hash
 // table is not defined.
 type HashTableIter struct {
+	_ structs.HostLayout
+
 	Dummy1 uintptr
 
 	Dummy2 uintptr

@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 // The `PangoLogAttr` structure stores information about the attributes of a
 // single character.
 type LogAttr struct {
+	_ structs.HostLayout
+
 	IsLineBreak uint
 
 	IsMandatoryBreak uint

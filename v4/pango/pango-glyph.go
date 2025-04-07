@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -25,6 +26,8 @@ import (
 // 3. Advance the current point to (x + width, y)
 // 4. Render the next glyph
 type GlyphGeometry struct {
+	_ structs.HostLayout
+
 	Width GlyphUnit
 
 	XOffset GlyphUnit
@@ -39,6 +42,8 @@ func (x *GlyphGeometry) GoPointer() uintptr {
 // A `PangoGlyphInfo` structure represents a single glyph with
 // positioning information and visual attributes.
 type GlyphInfo struct {
+	_ structs.HostLayout
+
 	Glyph Glyph
 
 	Geometry uintptr
@@ -56,6 +61,8 @@ func (x *GlyphInfo) GoPointer() uintptr {
 // The storage for the glyph information is owned by the structure
 // which simplifies memory management.
 type GlyphString struct {
+	_ structs.HostLayout
+
 	NumGlyphs int
 
 	Glyphs []GlyphInfo
@@ -230,6 +237,8 @@ func (x *GlyphString) XToIndex(TextVar string, LengthVar int, AnalysisVar *Analy
 // that is, in Arabic text, accent glyphs follow the glyphs for the
 // base character.
 type GlyphVisAttr struct {
+	_ structs.HostLayout
+
 	IsClusterStart uint
 
 	IsColor uint

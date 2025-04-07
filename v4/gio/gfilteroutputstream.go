@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type FilterOutputStreamClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ import (
 // implemented — so implementations of this API must handle all functionality
 // documented in the interface methods.
 type DatagramBasedInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

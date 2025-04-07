@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -18,6 +19,7 @@ import (
 // the event or audio streams, and for measuring quality metrics for the
 // application’s display, such as latency and jitter.
 type FrameTimings struct {
+	_ structs.HostLayout
 }
 
 var xFrameTimingsGLibType func() types.GType

@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -43,6 +44,7 @@ import (
 // The [struct@Gdk.ContentFormatsBuilder] structure is meant to help in this
 // endeavor.
 type ContentFormats struct {
+	_ structs.HostLayout
 }
 
 var xContentFormatsGLibType func() types.GType
@@ -250,6 +252,8 @@ func (x *ContentFormats) Unref() {
 
 // A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
 type KeymapKey struct {
+	_ structs.HostLayout
+
 	Keycode uint
 
 	Group int
@@ -277,6 +281,8 @@ func (x *KeymapKey) GoPointer() uintptr {
 // The Graphene library has a number of other data types for regions and
 // volumes in 2D and 3D.
 type Rectangle struct {
+	_ structs.HostLayout
+
 	X int
 
 	Y int

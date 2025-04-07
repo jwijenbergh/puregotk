@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type SimpleActionGroupClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [12]uintptr
@@ -22,6 +25,7 @@ func (x *SimpleActionGroupClass) GoPointer() uintptr {
 }
 
 type SimpleActionGroupPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SimpleActionGroupPrivate) GoPointer() uintptr {

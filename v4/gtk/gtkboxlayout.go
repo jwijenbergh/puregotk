@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 )
 
 type BoxLayoutClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

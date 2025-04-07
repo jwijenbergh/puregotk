@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ type VoidFunc func()
 // Associates a string with a bit flag.
 // Used in g_parse_debug_string().
 type DebugKey struct {
+	_ structs.HostLayout
+
 	Key uintptr
 
 	Value uint

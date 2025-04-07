@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type PermissionClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Reserved [16]uintptr
@@ -22,6 +25,7 @@ func (x *PermissionClass) GoPointer() uintptr {
 }
 
 type PermissionPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *PermissionPrivate) GoPointer() uintptr {

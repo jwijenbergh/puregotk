@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 )
 
 type UnixSocketAddressClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -18,6 +21,7 @@ func (x *UnixSocketAddressClass) GoPointer() uintptr {
 }
 
 type UnixSocketAddressPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *UnixSocketAddressPrivate) GoPointer() uintptr {

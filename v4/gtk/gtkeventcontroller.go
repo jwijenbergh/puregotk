@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type EventControllerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *EventControllerClass) GoPointer() uintptr {

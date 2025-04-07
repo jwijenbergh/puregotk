@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type FileEnumeratorClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,7 @@ func (x *FileEnumeratorClass) GoPointer() uintptr {
 }
 
 type FileEnumeratorPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *FileEnumeratorPrivate) GoPointer() uintptr {

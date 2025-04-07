@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type ATContextClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ATContextClass) GoPointer() uintptr {

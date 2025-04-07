@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,7 @@ type SequenceIterCompareFunc func(*SequenceIter, *SequenceIter, uintptr) int
 // The #GSequence struct is an opaque data type representing a
 // [sequence][glib-Sequences] data type.
 type Sequence struct {
+	_ structs.HostLayout
 }
 
 func (x *Sequence) GoPointer() uintptr {
@@ -266,6 +268,7 @@ func (x *Sequence) SortIter(CmpFuncVar *SequenceIterCompareFunc, CmpDataVar uint
 // The #GSequenceIter struct is an opaque data type representing an
 // iterator pointing into a #GSequence.
 type SequenceIter struct {
+	_ structs.HostLayout
 }
 
 func (x *SequenceIter) GoPointer() uintptr {

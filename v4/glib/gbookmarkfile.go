@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 
 // An opaque data structure representing a set of bookmarks.
 type BookmarkFile struct {
+	_ structs.HostLayout
 }
 
 func (x *BookmarkFile) GoPointer() uintptr {

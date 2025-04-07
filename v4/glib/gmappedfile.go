@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 // g_mapped_file_new(). It has only private members and should
 // not be accessed directly.
 type MappedFile struct {
+	_ structs.HostLayout
 }
 
 var xMappedFileGLibType func() types.GType

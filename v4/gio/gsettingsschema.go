@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -108,6 +109,7 @@ import (
 // In that case, the plugin loading system must compile the schemas for
 // itself before attempting to create the settings source.
 type SettingsSchema struct {
+	_ structs.HostLayout
 }
 
 var xSettingsSchemaGLibType func() types.GType
@@ -213,6 +215,7 @@ func (x *SettingsSchema) Unref() {
 // #GSettingsSchemaKey is an opaque data structure and can only be accessed
 // using the following functions.
 type SettingsSchemaKey struct {
+	_ structs.HostLayout
 }
 
 var xSettingsSchemaKeyGLibType func() types.GType
@@ -375,6 +378,7 @@ func (x *SettingsSchemaKey) Unref() {
 
 // This is an opaque structure type.  You may not access it directly.
 type SettingsSchemaSource struct {
+	_ structs.HostLayout
 }
 
 var xSettingsSchemaSourceGLibType func() types.GType

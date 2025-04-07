@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 //
 // See g_stat() for more information.
 type StatBuf struct {
+	_ structs.HostLayout
 }
 
 func (x *StatBuf) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -25,6 +26,7 @@ type TraverseNodeFunc func(*TreeNode, uintptr) bool
 // [balanced binary tree][glib-Balanced-Binary-Trees]. It should be
 // accessed only by using the following functions.
 type Tree struct {
+	_ structs.HostLayout
 }
 
 var xTreeGLibType func() types.GType
@@ -387,6 +389,7 @@ func (x *Tree) UpperBound(KeyVar uintptr) *TreeNode {
 
 // An opaque type which identifies a specific node in a #GTree.
 type TreeNode struct {
+	_ structs.HostLayout
 }
 
 func (x *TreeNode) GoPointer() uintptr {

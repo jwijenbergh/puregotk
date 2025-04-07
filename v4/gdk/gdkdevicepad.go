@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 )
 
 type DevicePadInterface struct {
+	_ structs.HostLayout
 }
 
 func (x *DevicePadInterface) GoPointer() uintptr {

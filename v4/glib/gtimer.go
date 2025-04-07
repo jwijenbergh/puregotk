@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,7 @@ import (
 
 // Opaque datatype that records a start time.
 type Timer struct {
+	_ structs.HostLayout
 }
 
 func (x *Timer) GoPointer() uintptr {

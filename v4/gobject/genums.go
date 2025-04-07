@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // The class of an enumeration type holds information about its
 // possible values.
 type EnumClass struct {
+	_ structs.HostLayout
+
 	GTypeClass uintptr
 
 	Minimum int32
@@ -30,6 +33,8 @@ func (x *EnumClass) GoPointer() uintptr {
 // A structure which contains a single enum value, its name, and its
 // nickname.
 type EnumValue struct {
+	_ structs.HostLayout
+
 	Value int32
 
 	ValueName uintptr
@@ -44,6 +49,8 @@ func (x *EnumValue) GoPointer() uintptr {
 // The class of a flags type holds information about its
 // possible values.
 type FlagsClass struct {
+	_ structs.HostLayout
+
 	GTypeClass uintptr
 
 	Mask uint
@@ -60,6 +67,8 @@ func (x *FlagsClass) GoPointer() uintptr {
 // A structure which contains a single flags value, its name, and its
 // nickname.
 type FlagsValue struct {
+	_ structs.HostLayout
+
 	Value uint
 
 	ValueName uintptr

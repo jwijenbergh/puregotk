@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 
 // An interface for swipeable widgets.
 type SwipeableInterface struct {
+	_ structs.HostLayout
+
 	Parent uintptr
 
 	Padding [4]uintptr

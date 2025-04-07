@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type AnyFilterClass struct {
+	_ structs.HostLayout
 }
 
 func (x *AnyFilterClass) GoPointer() uintptr {
@@ -19,6 +21,7 @@ func (x *AnyFilterClass) GoPointer() uintptr {
 }
 
 type EveryFilterClass struct {
+	_ structs.HostLayout
 }
 
 func (x *EveryFilterClass) GoPointer() uintptr {
@@ -26,6 +29,7 @@ func (x *EveryFilterClass) GoPointer() uintptr {
 }
 
 type MultiFilterClass struct {
+	_ structs.HostLayout
 }
 
 func (x *MultiFilterClass) GoPointer() uintptr {

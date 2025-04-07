@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 // The `PangoAnalysis` structure stores information about
 // the properties of a segment of text.
 type Analysis struct {
+	_ structs.HostLayout
+
 	ShapeEngine uintptr
 
 	LangEngine uintptr
@@ -41,6 +44,8 @@ func (x *Analysis) GoPointer() uintptr {
 // You typically obtain `PangoItems` by itemizing a piece of text
 // with [func@itemize].
 type Item struct {
+	_ structs.HostLayout
+
 	Offset int
 
 	Length int

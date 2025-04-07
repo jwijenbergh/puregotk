@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
@@ -13,6 +14,8 @@ import (
 // Note that no function is mandatory to implement, the default implementation
 // will work fine.
 type ShortcutManagerInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

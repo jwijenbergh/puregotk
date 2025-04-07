@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -254,6 +255,7 @@ import (
 // management for those dictionaries, but the type information would
 // be shared.
 type Variant struct {
+	_ structs.HostLayout
 }
 
 var xVariantGLibType func() types.GType
@@ -1768,6 +1770,7 @@ func (x *Variant) Unref() {
 // #GVariantBuilder is not threadsafe in any way.  Do not attempt to
 // access it from more than one thread.
 type VariantBuilder struct {
+	_ structs.HostLayout
 }
 
 var xVariantBuilderGLibType func() types.GType
@@ -2155,6 +2158,7 @@ func (x *VariantBuilder) Unref() {
 //
 // ]|
 type VariantDict struct {
+	_ structs.HostLayout
 }
 
 var xVariantDictGLibType func() types.GType
@@ -2354,6 +2358,8 @@ func (x *VariantDict) Unref() {
 // #GVariantIter is an opaque data structure and can only be accessed
 // using the following functions.
 type VariantIter struct {
+	_ structs.HostLayout
+
 	X [16]uint
 }
 

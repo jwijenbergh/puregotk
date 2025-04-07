@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -17,6 +18,7 @@ import (
 // Because sections are nested into one another, you can use
 // [method@CssSection.get_parent] to get the containing region.
 type CssSection struct {
+	_ structs.HostLayout
 }
 
 var xCssSectionGLibType func() types.GType

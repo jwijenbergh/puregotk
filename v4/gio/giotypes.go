@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -103,6 +104,7 @@ type SocketSourceFunc func(uintptr, glib.IOCondition, uintptr) bool
 
 // Determines if a string matches a file attribute.
 type FileAttributeMatcher struct {
+	_ structs.HostLayout
 }
 
 var xFileAttributeMatcherGLibType func() types.GType
@@ -236,6 +238,7 @@ func (x *FileAttributeMatcher) Unref() {
 // #GIOExtension is an opaque data structure and can only be accessed
 // using the following functions.
 type IOExtension struct {
+	_ structs.HostLayout
 }
 
 func (x *IOExtension) GoPointer() uintptr {
@@ -285,6 +288,7 @@ func (x *IOExtension) RefClass() *gobject.TypeClass {
 // #GIOExtensionPoint is an opaque data structure and can only be accessed
 // using the following functions.
 type IOExtensionPoint struct {
+	_ structs.HostLayout
 }
 
 func (x *IOExtensionPoint) GoPointer() uintptr {
@@ -331,6 +335,7 @@ func (x *IOExtensionPoint) SetRequiredType(TypeVar types.GType) {
 
 // Opaque class for defining and scheduling IO jobs.
 type IOSchedulerJob struct {
+	_ structs.HostLayout
 }
 
 func (x *IOSchedulerJob) GoPointer() uintptr {
@@ -366,6 +371,7 @@ func (x *IOSchedulerJob) SendToMainloopAsync(FuncVar *glib.SourceFunc, UserDataV
 }
 
 type IOStreamAdapter struct {
+	_ structs.HostLayout
 }
 
 func (x *IOStreamAdapter) GoPointer() uintptr {
@@ -392,6 +398,8 @@ func (x *IOStreamAdapter) GoPointer() uintptr {
 // Flags relevant to this message will be returned in @flags. For example,
 // `MSG_EOR` or `MSG_TRUNC`.
 type InputMessage struct {
+	_ structs.HostLayout
+
 	Address **SocketAddress
 
 	Vectors []InputVector
@@ -416,6 +424,8 @@ func (x *InputMessage) GoPointer() uintptr {
 // and the operation will store the read data starting in the
 // first buffer, switching to the next as needed.
 type InputVector struct {
+	_ structs.HostLayout
+
 	Buffer uintptr
 
 	Size uint
@@ -433,6 +443,8 @@ func (x *InputVector) GoPointer() uintptr {
 // If @address is %NULL then the message is sent to the default receiver
 // (as previously set by g_socket_connect()).
 type OutputMessage struct {
+	_ structs.HostLayout
+
 	Address *SocketAddress
 
 	Vectors *OutputVector
@@ -455,6 +467,8 @@ func (x *OutputMessage) GoPointer() uintptr {
 // and the operation will use all the buffers as if they were
 // one buffer.
 type OutputVector struct {
+	_ structs.HostLayout
+
 	Buffer uintptr
 
 	Size uint
@@ -605,6 +619,7 @@ func (x *OutputVector) GoPointer() uintptr {
 // the slash should ideally be absolute, but this is not strictly required.  It is possible to overlay the
 // location of a single resource with an individual file.
 type Resource struct {
+	_ structs.HostLayout
 }
 
 var xResourceGLibType func() types.GType
@@ -788,6 +803,7 @@ func (x *Resource) Unref() {
 // #GSocketConnectable interface and not need to worry about
 // #GSrvTarget at all.
 type SrvTarget struct {
+	_ structs.HostLayout
 }
 
 var xSrvTargetGLibType func() types.GType

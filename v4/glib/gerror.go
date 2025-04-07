@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -39,6 +40,8 @@ type ErrorInitFunc func(*Error)
 // The `GError` structure contains information about
 // an error that has occurred.
 type Error struct {
+	_ structs.HostLayout
+
 	Domain Quark
 
 	Code int32

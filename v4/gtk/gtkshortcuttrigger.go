@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type AlternativeTriggerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *AlternativeTriggerClass) GoPointer() uintptr {
@@ -20,6 +22,7 @@ func (x *AlternativeTriggerClass) GoPointer() uintptr {
 }
 
 type KeyvalTriggerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *KeyvalTriggerClass) GoPointer() uintptr {
@@ -27,6 +30,7 @@ func (x *KeyvalTriggerClass) GoPointer() uintptr {
 }
 
 type MnemonicTriggerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *MnemonicTriggerClass) GoPointer() uintptr {
@@ -34,6 +38,7 @@ func (x *MnemonicTriggerClass) GoPointer() uintptr {
 }
 
 type NeverTriggerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *NeverTriggerClass) GoPointer() uintptr {
@@ -41,6 +46,7 @@ func (x *NeverTriggerClass) GoPointer() uintptr {
 }
 
 type ShortcutTriggerClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ShortcutTriggerClass) GoPointer() uintptr {

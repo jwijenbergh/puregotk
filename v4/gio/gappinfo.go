@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Application Information interface, for operating system portability.
 type AppInfoIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 
@@ -21,6 +24,8 @@ func (x *AppInfoIface) GoPointer() uintptr {
 }
 
 type AppLaunchContextClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -29,6 +34,7 @@ func (x *AppLaunchContextClass) GoPointer() uintptr {
 }
 
 type AppLaunchContextPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *AppLaunchContextPrivate) GoPointer() uintptr {

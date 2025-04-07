@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -16,6 +17,8 @@ import (
 type CellLayoutDataFunc func(uintptr, uintptr, uintptr, *TreeIter, uintptr)
 
 type CellLayoutIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

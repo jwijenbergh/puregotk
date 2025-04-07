@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,7 @@ import (
 // An opaque data structure representing String Chunks.
 // It should only be accessed by using the following functions.
 type StringChunk struct {
+	_ structs.HostLayout
 }
 
 func (x *StringChunk) GoPointer() uintptr {

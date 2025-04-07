@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // The `PangoColor` structure is used to
 // represent a color in an uncalibrated RGB color-space.
 type Color struct {
+	_ structs.HostLayout
+
 	Red uint16
 
 	Green uint16

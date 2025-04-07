@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type ViewStackClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,8 @@ func (x *ViewStackClass) GoPointer() uintptr {
 }
 
 type ViewStackPageClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

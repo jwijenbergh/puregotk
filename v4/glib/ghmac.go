@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 // To create a new GHmac, use g_hmac_new(). To free
 // a GHmac, use g_hmac_unref().
 type Hmac struct {
+	_ structs.HostLayout
 }
 
 func (x *Hmac) GoPointer() uintptr {

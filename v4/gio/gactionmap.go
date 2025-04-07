@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,8 @@ import (
 //
 // See g_action_map_add_action_entries() for an example.
 type ActionEntry struct {
+	_ structs.HostLayout
+
 	Name uintptr
 
 	ParameterType uintptr
@@ -36,6 +39,8 @@ func (x *ActionEntry) GoPointer() uintptr {
 
 // The virtual function table for #GActionMap.
 type ActionMapInterface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

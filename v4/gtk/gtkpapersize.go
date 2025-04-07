@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,7 @@ import (
 // and height) of a paper size and its name, it also provides
 // default print margins.
 type PaperSize struct {
+	_ structs.HostLayout
 }
 
 var xPaperSizeGLibType func() types.GType

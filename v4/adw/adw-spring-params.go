@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -40,6 +41,7 @@ import (
 //
 // As such
 type SpringParams struct {
+	_ structs.HostLayout
 }
 
 var xSpringParamsGLibType func() types.GType

@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,7 @@ import (
 //
 // This functions related to this has been deprecated in 2.46, and no longer work.
 type MemVTable struct {
+	_ structs.HostLayout
 }
 
 func (x *MemVTable) GoPointer() uintptr {

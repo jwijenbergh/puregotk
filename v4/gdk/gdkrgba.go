@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -19,6 +20,8 @@ import (
 // (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
 // be clamped to this range when drawing.
 type RGBA struct {
+	_ structs.HostLayout
+
 	Red float32
 
 	Green float32

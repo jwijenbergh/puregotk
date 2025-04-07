@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // The class structure for the #GTlsConnection type.
 type TlsConnectionClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [6]uintptr
@@ -23,6 +26,7 @@ func (x *TlsConnectionClass) GoPointer() uintptr {
 }
 
 type TlsConnectionPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TlsConnectionPrivate) GoPointer() uintptr {

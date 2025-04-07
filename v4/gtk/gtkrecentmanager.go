@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,8 @@ import (
 // Meta-data to be passed to gtk_recent_manager_add_full() when
 // registering a recently used resource.
 type RecentData struct {
+	_ structs.HostLayout
+
 	DisplayName uintptr
 
 	Description uintptr
@@ -37,6 +40,7 @@ func (x *RecentData) GoPointer() uintptr {
 // `GtkRecentInfo` contains the metadata associated with an item in the
 // recently used files list.
 type RecentInfo struct {
+	_ structs.HostLayout
 }
 
 var xRecentInfoGLibType func() types.GType
@@ -323,6 +327,8 @@ func (x *RecentInfo) Unref() {
 
 // `GtkRecentManagerClass` contains only private data.
 type RecentManagerClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -331,6 +337,7 @@ func (x *RecentManagerClass) GoPointer() uintptr {
 }
 
 type RecentManagerPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *RecentManagerPrivate) GoPointer() uintptr {

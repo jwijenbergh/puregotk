@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 )
 
 type ConstraintClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -19,6 +22,7 @@ func (x *ConstraintClass) GoPointer() uintptr {
 }
 
 type ConstraintTargetInterface struct {
+	_ structs.HostLayout
 }
 
 func (x *ConstraintTargetInterface) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -22,6 +23,8 @@ type AttrFilterFunc func(*Attribute, uintptr) bool
 // The functions in this structure should not be called directly. Instead,
 // one should use the wrapper functions provided for `PangoAttribute`.
 type AttrClass struct {
+	_ structs.HostLayout
+
 	Type AttrType
 }
 
@@ -32,6 +35,8 @@ func (x *AttrClass) GoPointer() uintptr {
 // The `PangoAttrColor` structure is used to represent attributes that
 // are colors.
 type AttrColor struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Color uintptr
@@ -44,6 +49,8 @@ func (x *AttrColor) GoPointer() uintptr {
 // The `PangoAttrFloat` structure is used to represent attributes with
 // a float or double value.
 type AttrFloat struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Value float64
@@ -56,6 +63,8 @@ func (x *AttrFloat) GoPointer() uintptr {
 // The `PangoAttrFontDesc` structure is used to store an attribute that
 // sets all aspects of the font description at once.
 type AttrFontDesc struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Desc *FontDescription
@@ -68,6 +77,8 @@ func (x *AttrFontDesc) GoPointer() uintptr {
 // The `PangoAttrFontFeatures` structure is used to represent OpenType
 // font features as an attribute.
 type AttrFontFeatures struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Features uintptr
@@ -80,6 +91,8 @@ func (x *AttrFontFeatures) GoPointer() uintptr {
 // The `PangoAttrInt` structure is used to represent attributes with
 // an integer or enumeration value.
 type AttrInt struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Value int
@@ -97,6 +110,7 @@ func (x *AttrInt) GoPointer() uintptr {
 // style change, the range of the current style segment and the attributes
 // currently in effect can be queried.
 type AttrIterator struct {
+	_ structs.HostLayout
 }
 
 var xAttrIteratorGLibType func() types.GType
@@ -187,6 +201,8 @@ func (x *AttrIterator) Range(StartVar int, EndVar int) {
 // The `PangoAttrLanguage` structure is used to represent attributes that
 // are languages.
 type AttrLanguage struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Value *Language
@@ -208,6 +224,7 @@ func (x *AttrLanguage) GoPointer() uintptr {
 // suitable for storing attributes for large amounts of text. In general, you
 // should not use a single `PangoAttrList` for more than one paragraph of text.
 type AttrList struct {
+	_ structs.HostLayout
 }
 
 var xAttrListGLibType func() types.GType
@@ -412,6 +429,8 @@ func (x *AttrList) Update(PosVar int, RemoveVar int, AddVar int) {
 // The `PangoAttrShape` structure is used to represent attributes which
 // impose shape restrictions.
 type AttrShape struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	InkRect uintptr
@@ -432,6 +451,8 @@ func (x *AttrShape) GoPointer() uintptr {
 // The `PangoAttrSize` structure is used to represent attributes which
 // set font size.
 type AttrSize struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Size int
@@ -446,6 +467,8 @@ func (x *AttrSize) GoPointer() uintptr {
 // The `PangoAttrString` structure is used to represent attributes with
 // a string value.
 type AttrString struct {
+	_ structs.HostLayout
+
 	Attr uintptr
 
 	Value uintptr
@@ -464,6 +487,8 @@ func (x *AttrString) GoPointer() uintptr {
 // be initialized using [method@Pango.Attribute.init]. By default, an attribute
 // will have an all-inclusive range of [0,%G_MAXUINT].
 type Attribute struct {
+	_ structs.HostLayout
+
 	Klass *AttrClass
 
 	StartIndex uint

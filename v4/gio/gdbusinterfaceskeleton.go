@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GDBusInterfaceSkeleton.
 type DBusInterfaceSkeletonClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	VfuncPadding [8]uintptr
@@ -25,6 +28,7 @@ func (x *DBusInterfaceSkeletonClass) GoPointer() uintptr {
 }
 
 type DBusInterfaceSkeletonPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *DBusInterfaceSkeletonPrivate) GoPointer() uintptr {

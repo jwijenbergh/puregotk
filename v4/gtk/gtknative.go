@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,7 @@ import (
 )
 
 type NativeInterface struct {
+	_ structs.HostLayout
 }
 
 func (x *NativeInterface) GoPointer() uintptr {

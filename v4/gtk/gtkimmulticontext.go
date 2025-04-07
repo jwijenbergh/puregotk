@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -10,6 +11,8 @@ import (
 )
 
 type IMMulticontextClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -18,6 +21,7 @@ func (x *IMMulticontextClass) GoPointer() uintptr {
 }
 
 type IMMulticontextPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *IMMulticontextPrivate) GoPointer() uintptr {

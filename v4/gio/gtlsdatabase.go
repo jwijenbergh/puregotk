@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,8 @@ import (
 // virtual methods. _async and _finish methods have a default
 // implementation that runs the corresponding sync method in a thread.
 type TlsDatabaseClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [16]uintptr
@@ -25,6 +28,7 @@ func (x *TlsDatabaseClass) GoPointer() uintptr {
 }
 
 type TlsDatabasePrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *TlsDatabasePrivate) GoPointer() uintptr {

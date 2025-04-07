@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,7 @@ type ExpressionNotify func(uintptr)
 // The contents of `GtkExpressionWatch` should only be accessed through the
 // provided API.
 type ExpressionWatch struct {
+	_ structs.HostLayout
 }
 
 var xExpressionWatchGLibType func() types.GType

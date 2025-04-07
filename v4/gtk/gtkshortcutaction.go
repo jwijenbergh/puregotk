@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 type ShortcutFunc func(uintptr, *glib.Variant, uintptr) bool
 
 type ActivateActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ActivateActionClass) GoPointer() uintptr {
@@ -22,6 +24,7 @@ func (x *ActivateActionClass) GoPointer() uintptr {
 }
 
 type CallbackActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *CallbackActionClass) GoPointer() uintptr {
@@ -29,6 +32,7 @@ func (x *CallbackActionClass) GoPointer() uintptr {
 }
 
 type MnemonicActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *MnemonicActionClass) GoPointer() uintptr {
@@ -36,6 +40,7 @@ func (x *MnemonicActionClass) GoPointer() uintptr {
 }
 
 type NamedActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *NamedActionClass) GoPointer() uintptr {
@@ -43,6 +48,7 @@ func (x *NamedActionClass) GoPointer() uintptr {
 }
 
 type NothingActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *NothingActionClass) GoPointer() uintptr {
@@ -50,6 +56,7 @@ func (x *NothingActionClass) GoPointer() uintptr {
 }
 
 type ShortcutActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *ShortcutActionClass) GoPointer() uintptr {
@@ -57,6 +64,7 @@ func (x *ShortcutActionClass) GoPointer() uintptr {
 }
 
 type SignalActionClass struct {
+	_ structs.HostLayout
 }
 
 func (x *SignalActionClass) GoPointer() uintptr {

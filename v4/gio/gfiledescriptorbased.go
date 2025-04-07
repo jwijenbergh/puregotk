@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 
 // An interface for file descriptor based io objects.
 type FileDescriptorBasedIface struct {
+	_ structs.HostLayout
+
 	GIface uintptr
 }
 

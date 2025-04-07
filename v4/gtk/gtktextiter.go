@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -24,6 +25,8 @@ type TextCharPredicate func(uint32, uintptr) bool
 // which gives an overview of all the objects and data types
 // related to the text widget and how they work together.
 type TextIter struct {
+	_ structs.HostLayout
+
 	Dummy1 uintptr
 
 	Dummy2 uintptr

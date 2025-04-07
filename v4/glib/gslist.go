@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -11,6 +12,8 @@ import (
 // The #GSList struct is used for each element in the singly-linked
 // list.
 type SList struct {
+	_ structs.HostLayout
+
 	Data uintptr
 
 	Next *SList

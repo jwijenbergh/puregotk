@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 // See g_markup_parse_context_new(), #GMarkupParser, and so
 // on for more details.
 type MarkupParseContext struct {
+	_ structs.HostLayout
 }
 
 var xMarkupParseContextGLibType func() types.GType
@@ -333,6 +335,7 @@ func (x *MarkupParseContext) Unref() {
 // from a callback, g_markup_parse_context_parse() will report that error
 // back to its caller.
 type MarkupParser struct {
+	_ structs.HostLayout
 }
 
 func (x *MarkupParser) GoPointer() uintptr {

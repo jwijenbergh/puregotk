@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -95,6 +96,8 @@ type TranslateFunc func(string, uintptr) string
 // `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
 // problem.
 type TimeVal struct {
+	_ structs.HostLayout
+
 	TvSec int32
 
 	TvUsec int32

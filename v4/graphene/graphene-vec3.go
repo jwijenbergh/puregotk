@@ -2,6 +2,7 @@
 package graphene
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -14,6 +15,8 @@ import (
 // The contents of the #graphene_vec3_t structure are private and should
 // never be accessed directly.
 type Vec3 struct {
+	_ structs.HostLayout
+
 	Value uintptr
 }
 

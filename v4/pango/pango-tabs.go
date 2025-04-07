@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 // Each tab stop has an alignment, a position, and optionally
 // a character to use as decimal point.
 type TabArray struct {
+	_ structs.HostLayout
 }
 
 var xTabArrayGLibType func() types.GType

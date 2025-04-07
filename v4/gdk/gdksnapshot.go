@@ -2,6 +2,7 @@
 package gdk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -9,6 +10,7 @@ import (
 )
 
 type SnapshotClass struct {
+	_ structs.HostLayout
 }
 
 func (x *SnapshotClass) GoPointer() uintptr {

@@ -2,6 +2,7 @@
 package adw
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type LeafletClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -21,6 +24,8 @@ func (x *LeafletClass) GoPointer() uintptr {
 }
 
 type LeafletPageClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

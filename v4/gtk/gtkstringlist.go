@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 )
 
 type StringListClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -20,6 +23,8 @@ func (x *StringListClass) GoPointer() uintptr {
 }
 
 type StringObjectClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

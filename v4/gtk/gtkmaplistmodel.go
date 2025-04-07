@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -20,6 +21,8 @@ import (
 type MapListModelMapFunc func(uintptr, uintptr) uintptr
 
 type MapListModelClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 

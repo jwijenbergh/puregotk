@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 )
 
 type RendererClass struct {
+	_ structs.HostLayout
 }
 
 func (x *RendererClass) GoPointer() uintptr {

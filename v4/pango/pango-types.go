@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -15,6 +16,7 @@ import (
 // `PangoLanguage` pointers can be efficiently
 // copied and compared with each other.
 type Language struct {
+	_ structs.HostLayout
 }
 
 var xLanguageGLibType func() types.GType
@@ -137,6 +139,8 @@ func (x *Language) ToString() string {
 // extents of a single glyph or section of text. (See, for instance,
 // [method@Pango.Font.get_glyph_extents].)
 type Rectangle struct {
+	_ structs.HostLayout
+
 	X int
 
 	Y int

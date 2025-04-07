@@ -2,6 +2,7 @@
 package gtk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type MountOperationClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -21,6 +24,7 @@ func (x *MountOperationClass) GoPointer() uintptr {
 }
 
 type MountOperationPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *MountOperationPrivate) GoPointer() uintptr {

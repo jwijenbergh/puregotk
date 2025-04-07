@@ -2,6 +2,7 @@
 package gsk
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 )
 
 type GLShaderClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -22,6 +25,7 @@ func (x *GLShaderClass) GoPointer() uintptr {
 
 // An object to build the uniforms data for a `GskGLShader`.
 type ShaderArgsBuilder struct {
+	_ structs.HostLayout
 }
 
 var xShaderArgsBuilderGLibType func() types.GType

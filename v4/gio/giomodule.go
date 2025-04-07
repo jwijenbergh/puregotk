@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,7 @@ import (
 )
 
 type IOModuleClass struct {
+	_ structs.HostLayout
 }
 
 func (x *IOModuleClass) GoPointer() uintptr {
@@ -24,6 +26,7 @@ func (x *IOModuleClass) GoPointer() uintptr {
 // The scope can be used with g_io_modules_load_all_in_directory_with_scope()
 // or g_io_modules_scan_all_in_directory_with_scope().
 type IOModuleScope struct {
+	_ structs.HostLayout
 }
 
 func (x *IOModuleScope) GoPointer() uintptr {

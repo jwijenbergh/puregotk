@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -12,6 +13,8 @@ import (
 // #GStaticResource is an opaque data structure and can only be accessed
 // using the following functions.
 type StaticResource struct {
+	_ structs.HostLayout
+
 	Data byte
 
 	DataLen uint

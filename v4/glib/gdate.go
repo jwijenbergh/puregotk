@@ -2,6 +2,7 @@
 package glib
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -21,6 +22,8 @@ import (
 // becomes valid after you set it to a Julian day or you set a day, month,
 // and year.
 type Date struct {
+	_ structs.HostLayout
+
 	JulianDays uint
 
 	Julian uint

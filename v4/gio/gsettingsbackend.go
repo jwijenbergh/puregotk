@@ -2,6 +2,7 @@
 package gio
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -13,6 +14,8 @@ import (
 
 // Class structure for #GSettingsBackend.
 type SettingsBackendClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 
 	Padding [23]uintptr
@@ -23,6 +26,7 @@ func (x *SettingsBackendClass) GoPointer() uintptr {
 }
 
 type SettingsBackendPrivate struct {
+	_ structs.HostLayout
 }
 
 func (x *SettingsBackendPrivate) GoPointer() uintptr {

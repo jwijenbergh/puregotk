@@ -2,6 +2,7 @@
 package gobject
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -40,6 +41,8 @@ type WeakNotify func(uintptr, uintptr)
 
 // The class structure for the GInitiallyUnowned type.
 type InitiallyUnownedClass struct {
+	_ structs.HostLayout
+
 	GTypeClass uintptr
 
 	ConstructProperties *glib.SList
@@ -83,6 +86,8 @@ func (x *InitiallyUnownedClass) GoPointer() uintptr {
 //
 // ]|
 type ObjectClass struct {
+	_ structs.HostLayout
+
 	GTypeClass uintptr
 
 	ConstructProperties *glib.SList
@@ -241,6 +246,8 @@ func (x *ObjectClass) OverrideProperty(PropertyIdVar uint, NameVar string) {
 // The GObjectConstructParam struct is an auxiliary structure used to hand
 // #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
 type ObjectConstructParam struct {
+	_ structs.HostLayout
+
 	Pspec *ParamSpec
 
 	Value *Value
@@ -275,6 +282,7 @@ func (x *ObjectConstructParam) GoPointer() uintptr {
 // It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
 // without first having or creating a strong reference to the object.
 type WeakRef struct {
+	_ structs.HostLayout
 }
 
 func (x *WeakRef) GoPointer() uintptr {

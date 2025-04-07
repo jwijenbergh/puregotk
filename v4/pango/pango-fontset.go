@@ -2,6 +2,7 @@
 package pango
 
 import (
+	"structs"
 	"unsafe"
 
 	"github.com/jwijenbergh/purego"
@@ -18,6 +19,8 @@ type FontsetForeachFunc func(uintptr, uintptr, uintptr) bool
 // The `PangoFontsetClass` structure holds the virtual functions for
 // a particular `PangoFontset` implementation.
 type FontsetClass struct {
+	_ structs.HostLayout
+
 	ParentClass uintptr
 }
 
@@ -26,6 +29,7 @@ func (x *FontsetClass) GoPointer() uintptr {
 }
 
 type FontsetSimpleClass struct {
+	_ structs.HostLayout
 }
 
 func (x *FontsetSimpleClass) GoPointer() uintptr {
