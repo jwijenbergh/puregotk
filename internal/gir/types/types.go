@@ -87,6 +87,13 @@ type Alias struct {
 	Type Type `xml:"http://www.gtk.org/introspection/core/1.0 type"`
 }
 
+func (a *Alias) Template(ns string, kinds KindMap) string {
+	if v, ok := convList[a.CType]; ok {
+		return util.NormalizeNamespace(ns, v, true)
+	}
+	return a.Type.Template(ns, kinds, false)
+}
+
 type AnyType struct {
 	// Possible variants.
 	Type  *Type  `xml:"http://www.gtk.org/introspection/core/1.0 type"`
