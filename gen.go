@@ -6,8 +6,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/jwijenbergh/puregotk/internal/gir/pass"
-	"github.com/jwijenbergh/puregotk/internal/gir/util"
+	"github.com/jwijenbergh/puregotk/pkg/gir/pass"
+	"github.com/jwijenbergh/puregotk/pkg/gir/util"
 )
 
 //go:generate go run gen.go
