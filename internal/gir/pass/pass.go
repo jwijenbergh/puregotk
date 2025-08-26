@@ -133,21 +133,30 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			}
 		}
 		for _, f := range rec.Fields {
-			_type := f.Translate(ns.Name, p.Types)
-			if _type == "" {
-				continue
-			}
-			// HACK: Handle the specific case where a gint is converted to an int
-			// But for structs this needs to be an int32 as purego just gets the pointer to the struct
-			// Instead of converting each field separately
-			if f.AnyType.Type != nil && f.AnyType.Type.CType == "gint" {
-				_type = "int32"
-			}
-
-			// HACK: in structs the strings should be uintptr as we convert it ourselves
-			if _type == "string" {
+			var _type string
+			
+			// Check if this field is a callback
+			if f.Callback != nil {
+				// Callbacks in structs are function pointers, represented as uintptr
 				_type = "uintptr"
+			} else {
+				_type = f.Translate(ns.Name, p.Types)
+				if _type == "" {
+					continue
+				}
+				// HACK: Handle the specific case where a gint is converted to an int
+				// But for structs this needs to be an int32 as purego just gets the pointer to the struct
+				// Instead of converting each field separately
+				if f.AnyType.Type != nil && f.AnyType.Type.CType == "gint" {
+					_type = "int32"
+				}
+
+				// HACK: in structs the strings should be uintptr as we convert it ourselves
+				if _type == "string" {
+					_type = "uintptr"
+				}
 			}
+			
 			fields = append(fields, types.RecordField{
 				Name: util.SnakeToCamel(f.Name),
 				Type: _type,

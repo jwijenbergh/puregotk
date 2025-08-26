@@ -3,14 +3,30 @@ package {{.PkgName}}
 
 {{ $NotGObject := ne .PkgName "gobject" }}
 {{ $NotGLib := ne .PkgName "glib" }}
+{{ $HasSignals := false }}
+{{range .Classes -}}
+  {{if .Signals}}
+    {{ $HasSignals = true }}
+  {{end}}
+{{end}}
+{{ $NeedsUnsafe := or .Records $HasSignals }}
+{{ $NeedsPurego := or .NeedsInit $HasSignals }}
+{{ $AnyImports := or .NeedsInit .Records $HasSignals }}
 
-{{if .NeedsInit}}
+{{if $AnyImports}}
 import (
-       {{if .Records}}
-       "structs"
-       {{end}}
-       "github.com/jwijenbergh/purego"
-       "github.com/jwijenbergh/puregotk/pkg/core"
+{{- if $NeedsUnsafe}}
+	"unsafe"
+{{- end}}
+{{- if .Records}}
+	"structs"
+{{- end}}
+{{- if $NeedsPurego}}
+	"github.com/jwijenbergh/purego"
+{{- end}}
+{{- if .NeedsInit}}
+	"github.com/jwijenbergh/puregotk/pkg/core"
+{{- end}}
 )
 {{end}}
 
