@@ -304,6 +304,14 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 	}
 
 	pkgName := strings.ToLower(ns.Name)
+
+	var pkgConfigName string
+	if len(r.Packages) > 0 {
+		pkgConfigName = r.Packages[0].Name
+	}
+
+	sharedLibrary := ns.SharedLibrary
+
 	for _, fn := range files {
 		methods := 0
 		for _, i := range interfaces[fn] {
@@ -323,17 +331,19 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		needsInit := (len(functions[fn]) + methods) > 0
 
 		args := types.TemplateArg{
-			PkgName:    pkgName,
-			PkgEnv:     strings.ToUpper(pkgName),
-			NeedsInit:  needsInit,
-			Aliases:    aliases[fn],
-			Callbacks:  callbacks[fn],
-			Records:    records[fn],
-			Enums:      enums[fn],
-			Constants:  constants[fn],
-			Functions:  functions[fn],
-			Interfaces: interfaces[fn],
-			Classes:    classes[fn],
+			PkgName:       pkgName,
+			PkgEnv:        strings.ToUpper(pkgName),
+			PkgConfigName: pkgConfigName,
+			SharedLibrary: sharedLibrary,
+			NeedsInit:     needsInit,
+			Aliases:       aliases[fn],
+			Callbacks:     callbacks[fn],
+			Records:       records[fn],
+			Enums:         enums[fn],
+			Constants:     constants[fn],
+			Functions:     functions[fn],
+			Interfaces:    interfaces[fn],
+			Classes:       classes[fn],
 		}
 
 		os.MkdirAll(fmt.Sprintf(dir+"/%s", pkgName), 0o755)

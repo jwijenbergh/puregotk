@@ -38,6 +38,7 @@ var paths = map[string][]string{
 }
 
 // names is a lookup from library names to shared object filenames
+// This is populated dynamically via SetSharedLibrary and has defaults for common libraries
 var names = map[string][]string{
 	"ADW":        {"libadwaita-1.so"},
 	"CAIRO":      {"libcairo.so"},
@@ -60,7 +61,7 @@ var aliases = map[string]string{
 }
 
 // pkgConfNames is a lookup from library names to pkg-config library names
-// TODO: Get this from the package name in the gir files with a fallback to gtk's package name
+// This is populated dynamically via SetPackageName and has defaults for common libraries
 var pkgConfNames = map[string]string{
 	"ADW":        "libadwaita-1",
 	"CAIRO":      "cairo",
@@ -73,6 +74,24 @@ var pkgConfNames = map[string]string{
 	"GTK":        "gtk4",
 	"PANGO":      "pango",
 	"PANGOCAIRO": "pangocairo",
+}
+
+// SetPackageName registers a pkg-config package name for a library.
+// This is used by the code generator to set package names from GIR files.
+// It won't override existing entries to preserve defaults.
+func SetPackageName(libName, pkgName string) {
+	if _, exists := pkgConfNames[libName]; !exists && pkgName != "" {
+		pkgConfNames[libName] = pkgName
+	}
+}
+
+// SetSharedLibrary registers a shared library name for a library.
+// This is used by the code generator to set library names from GIR files.
+// It won't override existing entries to preserve defaults.
+func SetSharedLibrary(libName, sharedLib string) {
+	if _, exists := names[libName]; !exists && sharedLib != "" {
+		names[libName] = []string{sharedLib}
+	}
 }
 
 // findSo tries to find a shared object from a path and a library name

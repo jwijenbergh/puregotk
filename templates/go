@@ -279,7 +279,11 @@ func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
 {{if .NeedsInit}}
 
 func init() {
-    lib, err := purego.Dlopen(core.GetPath("{{.PkgEnv}}"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
+    {{if .PkgConfigName}}
+    core.SetPackageName("{{.PkgEnv}}", "{{.PkgConfigName}}")
+    {{end}}{{if .SharedLibrary}}
+    core.SetSharedLibrary("{{.PkgEnv}}", "{{.SharedLibrary}}")
+    {{end}}lib, err := purego.Dlopen(core.GetPath("{{.PkgEnv}}"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
     if err != nil {
             panic(err)
     }
