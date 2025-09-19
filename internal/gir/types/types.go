@@ -42,6 +42,10 @@ var convList = map[string]string{
 	"utf8":     "string",
 	"filename": "string",
 	"GType":    "types.GType",
+	"uid_t":    "uint",
+	"pid_t":    "int",
+	"time_t":   "int",
+	"gintptr":  "int",
 
 	// these are probably not correct but needed to compile
 	"_Value__data__union": "uint64",
