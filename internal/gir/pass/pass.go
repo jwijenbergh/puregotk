@@ -63,6 +63,21 @@ func (p *Pass) collectTypes(r types.Repository) {
 	for _, inter := range ns.Interfaces {
 		p.Types.Add(ns.Name, inter.Name, types.InterfacesType, inter)
 	}
+	for _, alias := range ns.Aliases {
+		// Check what the alias points to and use the same type
+		aliasTarget := alias.Type.Name
+		if aliasTarget != "" {
+			targetKind := p.Types.Kind(ns.Name, aliasTarget)
+			if targetKind != types.UnknownType {
+				p.Types.Add(ns.Name, alias.Name, targetKind, alias)
+			} else {
+				// If we don't know the target type yet, default to alias type
+				p.Types.Add(ns.Name, alias.Name, types.AliasType, alias)
+			}
+		} else {
+			p.Types.Add(ns.Name, alias.Name, types.AliasType, alias)
+		}
+	}
 }
 
 // First does a "first pass" meaning it collects basic type information for all the repositories

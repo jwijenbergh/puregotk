@@ -29,7 +29,7 @@ type funcArgsTemplate struct {
 	API argsTemplate
 }
 
-func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string) {
+func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string, nullable bool) {
 	c := n
 	stars := strings.Count(t, "*")
 	gobjectNs := "gobject."
@@ -42,7 +42,11 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string) {
 	}
 	switch k {
 	case CallbackType:
-		c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
+		if nullable {
+			c = fmt.Sprintf("%sNewCallbackNullable(%s)", glibNs, n)
+		} else {
+			c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
+		}
 		t = "*" + t
 	case ClassesType:
 		if stars == 0 {
@@ -133,7 +137,7 @@ func (f *funcArgsTemplate) Add(p Parameter, ins string, ns string, kinds KindMap
 	// Get a suitable variable name
 	varName := p.VarName()
 
-	f.AddAPI(goType, varName, kind, ns)
+	f.AddAPI(goType, varName, kind, ns, p.Nullable)
 	f.AddPure(goType, varName, kind)
 }
 

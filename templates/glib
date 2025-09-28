@@ -2,6 +2,7 @@ package glib
 
 import (
 	"fmt"
+	"reflect"
 	"sync"
 
 	"github.com/jwijenbergh/purego"
@@ -44,6 +45,16 @@ func UnrefCallback(fnPtr interface{}) error {
 // NewCallback is an alias to purego.NewCallback
 func NewCallback(fnPtr interface{}) uintptr {
 	return purego.NewCallbackFnPtr(fnPtr)
+}
+
+// NewCallbackNullable is an alias to purego.NewCallback that returns a null pointer for null functions
+func NewCallbackNullable(fn interface{}) uintptr {
+	val := reflect.ValueOf(fn)
+	if val.IsNil() {
+		return 0
+	}
+
+	return NewCallback(fn)
 }
 
 func (e *Error) Error() string {
