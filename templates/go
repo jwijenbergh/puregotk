@@ -66,7 +66,7 @@ var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 {{.Doc}}
 func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{convd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -78,8 +78,45 @@ var x{{$outer.Name}}{{.Name}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Ra
 {{.Doc}}
 func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convcd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
+}
+{{end}}
+
+{{range .CallbackAccessors -}}
+{{if .Doc}}// SetCallback{{.Name}} sets the callback function.
+{{.Doc}}{{else}}// SetCallback{{.Name}} sets the callback function.{{end}}
+func (x *{{$outer.Name}}) SetCallback{{.Name}}(cb {{.CallbackType}}) {
+     if cb == nil {
+          x.x{{.Name}} = 0
+     } else {
+          x.x{{.Name}} = purego.NewCallback(func({{conv .Args.Pure.Full}}) {{.Ret.Raw}} {
+               {{if .Ret.Value}}{{if .Ret.Class}}ret := cb({{convcb .Args.Pure.Call}})
+               if ret == nil {
+                    return 0
+               }
+               return ret.GoPointer(){{else}}return cb({{convcb .Args.Pure.Call}}){{end}}{{else}}cb({{convcb .Args.Pure.Call}}){{end}}
+          })
+     }
+}
+
+{{if .Doc}}// GetCallback{{.Name}} gets the callback function.
+{{.Doc}}{{else}}// GetCallback{{.Name}} gets the callback function.{{end}}
+func (x *{{$outer.Name}}) GetCallback{{.Name}}() {{.CallbackType}} {
+     if x.x{{.Name}} == 0 {
+          return nil
+     }
+     var rawCallback func({{conv .Args.Pure.Full}}) {{.Ret.Raw}}
+     purego.RegisterFunc(&rawCallback, x.x{{.Name}})
+     return func({{conv .Args.API.Full}}) {{.Ret.Value}} {
+          {{if .Ret.Value}}{{if .Ret.Class}}rawRet := rawCallback({{convcbne .Args.API.Call}})
+          if rawRet == 0 {
+               return nil
+          }
+          ret := {{.Ret.Instance}}
+          ret.Ptr = rawRet
+          return ret{{else}}return rawCallback({{convcbne .Args.API.Call}}){{end}}{{else}}rawCallback({{convcbne .Args.API.Call}}){{end}}
+     }
 }
 {{end}}
 
@@ -91,7 +128,7 @@ type {{.Name}} interface {
      GoPointer() uintptr
      SetGoPointer(uintptr)
      {{range .Methods -}}
-     {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Value}}
+     {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
      {{end}}
 }
 
@@ -122,7 +159,7 @@ func (x *{{.Name}}Base) SetGoPointer(ptr uintptr) {
 {{.Doc}}
 func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret := {{end}}{{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{if .Ret.Value}}cret := {{end}}{{.Namespace}}X{{.FullName}}(x.GoPointer() {{convcd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -176,7 +213,7 @@ var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 {{.Doc}}
 func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{convd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -211,7 +248,7 @@ var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 {{.Doc}}
 func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{.Name}}({{convd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -223,7 +260,7 @@ var x{{$outer.Name}}{{.Name}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Ra
 {{.Doc}}
 func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{if .Ret.Value}}cret :={{end}}x{{$outer.Name}}{{.Name}}(x.GoPointer() {{convcd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -272,7 +309,7 @@ func (x *{{$outer.Name}}) Connect{{.Name}}(cb *func({{$outer.Name}} {{convc .Arg
 {{.Doc}}
 func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret := {{end}} {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convc .Args.API.Call}})
+     {{if .Ret.Value}}cret := {{end}} {{.Namespace}}X{{.FullName}}(x.GoPointer() {{convcd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}
@@ -284,7 +321,7 @@ var x{{.Name}} func({{conv .Args.Pure.Types}}) {{.Ret.Raw}}
 {{.Doc}}
 func {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      {{.Ret.Preamble $NotGLib}}
-     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{conv .Args.API.Call}})
+     {{if .Ret.Value}}cret := {{end}}x{{.Name}}({{convd .Args.API.Call}})
      {{.Ret.Fmt $NotGObject}}
 }
 {{end}}

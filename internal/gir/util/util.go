@@ -9,6 +9,18 @@ import (
 	"strings"
 )
 
+var (
+	// Variable names that should not be dereferenced when using ConvertPtr() in handlePtr mode
+	// TODO: This was mostly discovered via trial and error, and might point towards issues in
+	// the GIR files
+	specialConvertPtrVars = []string{
+		"ModelVar",
+		"TreeModelVar",
+		"OutChildVar",
+		"ChildVar",
+	}
+)
+
 // delimToCamel to camel converts a string with parts separated by `delim` to CamelCase
 func delimToCamel(s string, delim string) string {
 	var sb strings.Builder
@@ -121,6 +133,70 @@ func ConvertArgsComma(a []string) string {
 		return ""
 	}
 	return ", " + strings.Join(a, ", ")
+}
+
+func convertCallbackArgs(a []string, prependComma, skipEmpty, skipErr, handlePtr bool) string {
+	var validArgs []string
+	for _, arg := range a {
+		if skipEmpty && arg == "" {
+			continue
+		}
+		if skipErr && arg == "&cerr" {
+			continue
+		}
+
+		if strings.Contains(arg, "{Ptr:") {
+			if !handlePtr {
+				// For ConvertCallbackArgs: remove * prefix and add &
+				arg = strings.TrimPrefix(arg, "*")
+			}
+			validArgs = append(validArgs, "&"+arg)
+		} else if strings.Contains(arg, "ConvertPtr(") && handlePtr {
+			isSpecialVar := false
+			for _, specialVar := range specialConvertPtrVars {
+				if strings.Contains(arg, specialVar) {
+					isSpecialVar = true
+
+					break
+				}
+			}
+
+			if isSpecialVar {
+				validArgs = append(validArgs, arg)
+			} else {
+				validArgs = append(validArgs, "*"+arg)
+			}
+		} else {
+			validArgs = append(validArgs, arg)
+		}
+	}
+
+	if len(validArgs) == 0 {
+		return ""
+	}
+
+	result := strings.Join(validArgs, ", ")
+	if prependComma {
+		return ", " + result
+	}
+
+	return result
+}
+
+func ConvertCallbackArgs(a []string) string {
+	return convertCallbackArgs(a, false, false, false, false)
+}
+
+func ConvertArgsCommaDeref(a []string) string {
+	return convertCallbackArgs(a, true, true, false, true)
+}
+
+func ConvertArgsDeref(a []string) string {
+	return convertCallbackArgs(a, false, true, false, true)
+}
+
+func ConvertCallbackArgsNoErr(a []string) string {
+	return convertCallbackArgs(a, false, true, true, true)
 }
 
 // ConstructorName returns a Go friendly constructor name given the raw constructor name `name` and the class/record name `outer`

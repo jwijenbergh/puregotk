@@ -114,6 +114,11 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		constants[fn] = append(constants[fn], con.Template(ns.Name, p.Types))
 	}
 
+	callbackDocs := make(map[string]string)
+	for _, cb := range ns.Callbacks {
+		callbackDocs[cb.Name] = cb.Doc.StringSafe()
+	}
+
 	records := make(map[string][]types.RecordTemplate)
 	recordLookup := make(map[string]bool)
 	for _, rec := range ns.Records {
@@ -121,6 +126,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		constructors := make([]types.FuncTemplate, len(rec.Constructors))
 		receivers := make([]types.FuncTemplate, 0, len(rec.Methods))
 		fields := make([]types.RecordField, 0, len(rec.Fields))
+		callbackAccessors := make([]types.CallbackAccessor, 0)
 		fn := rec.FilenameSafe()
 		files = append(files, fn)
 		for i, c := range rec.Constructors {
@@ -134,11 +140,40 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		}
 		for _, f := range rec.Fields {
 			var _type string
-			
+			var fieldName string
+
 			// Check if this field is a callback
 			if f.Callback != nil {
-				// Callbacks in structs are function pointers, represented as uintptr
 				_type = "uintptr"
+				fieldName = "x" + util.SnakeToCamel(f.Name) // Prefix callback pointer fields with `x` to make them private
+
+				callbackName := util.SnakeToCamel(f.Name)
+				args := f.Callback.Parameters.Template(ns.Name, "", p.Types, f.Callback.Throws)
+				ret := f.Callback.ReturnValue.Template(ns.Name, "", p.Types, f.Callback.Throws)
+
+				apiTypes := args.API.Types
+
+				var doc string
+				if f.Callback.Doc != nil && f.Callback.Doc.String != "" {
+					doc = f.Callback.Doc.StringSafe()
+				} else {
+					baseClassName := strings.TrimSuffix(rec.Name, "Class")
+					callbackName := baseClassName + util.SnakeToCamel(f.Name) + "Func"
+
+					if callbackDoc, exists := callbackDocs[callbackName]; exists && callbackDoc != "" {
+						doc = callbackDoc
+					} else {
+						doc = f.Doc.StringSafe()
+					}
+				}
+
+				callbackAccessors = append(callbackAccessors, types.CallbackAccessor{
+					Name:         callbackName,
+					Doc:          doc,
+					CallbackType: "func(" + strings.Join(apiTypes, ", ") + ") " + ret.Value,
+					Args:         args,
+					Ret:          ret,
+				})
 			} else {
 				_type = f.Translate(ns.Name, p.Types)
 				if _type == "" {
@@ -155,10 +190,11 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				if _type == "string" {
 					_type = "uintptr"
 				}
+				fieldName = util.SnakeToCamel(f.Name)
 			}
-			
+
 			fields = append(fields, types.RecordField{
-				Name: util.SnakeToCamel(f.Name),
+				Name: fieldName,
 				Type: _type,
 			})
 		}
@@ -182,12 +218,13 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			})
 		}
 		records[fn] = append(records[fn], types.RecordTemplate{
-			Name:         name,
-			Doc:          rec.Doc.StringSafe(),
-			Constructors: constructors,
-			Receivers:    receivers,
-			Fields:       fields,
-			TypeGetter:   rec.GLibGetType,
+			Name:              name,
+			Doc:               rec.Doc.StringSafe(),
+			Constructors:      constructors,
+			Receivers:         receivers,
+			Fields:            fields,
+			CallbackAccessors: callbackAccessors,
+			TypeGetter:        rec.GLibGetType,
 		})
 		recordLookup[name] = true
 	}

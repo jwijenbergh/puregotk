@@ -89,14 +89,22 @@ func (f *funcArgsTemplate) AddPure(t string, n string, k Kind) {
 			t = "uintptr"
 		}
 	case CallbackType:
+		c = fmt.Sprintf("(*%s)(unsafe.Pointer(%s))", strings.TrimPrefix(t, "*"), n)
 		t = "uintptr"
 	case ClassesType:
 		if stars == 0 {
 			c = n
 			t = "uintptr"
 		} else {
-			c = fmt.Sprintf("%sNewFromInternalPtr(%s)", strings.TrimPrefix(t, "*"), n)
-			t = strings.Repeat("*", stars-1) + "uintptr"
+			// Remove all dereference operators to get the base class name
+			baseName := strings.TrimPrefix(t, strings.Repeat("*", stars))
+			if stars > 1 {
+				// For double pointers like **ParamSpec, we need to pass the double pointer directly
+				c = fmt.Sprintf("(**%s)(unsafe.Pointer(%s))", baseName, n)
+			} else {
+				c = fmt.Sprintf("%sNewFromInternalPtr(%s)", baseName, n)
+			}
+			t = "uintptr"
 		}
 	case InterfacesType:
 		if stars == 0 {
@@ -179,6 +187,23 @@ type RecordField struct {
 	Type string
 }
 
+type CallbackAccessor struct {
+	// Name is the Go name of the callback field (without x prefix)
+	Name string
+
+	// Doc is the documentation for the callback
+	Doc string
+
+	// CallbackType is the name of the callback function type
+	CallbackType string
+
+	// Args are the callback function arguments template
+	Args funcArgsTemplate
+
+	// Ret is the callback function return template
+	Ret funcRetTemplate
+}
+
 type RecordTemplate struct {
 	// Name is the name of the record given to the Go type declaration
 	Name string
@@ -194,6 +219,9 @@ type RecordTemplate struct {
 
 	// Fields is the list of record fields
 	Fields []RecordField
+
+	// CallbackAccessors are the setter/getter methods for callback fields
+	CallbackAccessors []CallbackAccessor
 
 	// TypeGetter is the function to get the GLib type
 	TypeGetter string
