@@ -190,6 +190,20 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 				if _type == "string" {
 					_type = "uintptr"
 				}
+
+				// HACK: Special handling for parent_class field - it should be embedded as a full struct
+				// to match C's memory layout, not converted to uintptr
+				// See https://docs.gtk.org/gobject/tutorial.html
+				if f.Name == "parent_class" && f.AnyType.Type != nil {
+					// Check if this is a Record type with no pointers (embedded struct)
+					typeName := util.NormalizeNamespace(ns.Name, f.AnyType.Type.Name, true)
+					kind := p.Types.Kind(ns.Name, typeName)
+					if kind == types.RecordsType && !strings.Contains(f.AnyType.Type.CType, "*") {
+						// Use the full struct type for embedding
+						_type = typeName
+					}
+				}
+
 				fieldName = util.SnakeToCamel(f.Name)
 			}
 
