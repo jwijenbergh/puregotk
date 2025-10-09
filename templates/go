@@ -84,9 +84,9 @@ func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
 {{end}}
 
 {{range .CallbackAccessors -}}
-{{if .Doc}}// SetCallback{{.Name}} sets the callback function.
-{{.Doc}}{{else}}// SetCallback{{.Name}} sets the callback function.{{end}}
-func (x *{{$outer.Name}}) SetCallback{{.Name}}(cb {{.CallbackType}}) {
+{{if .Doc}}// Override{{.Name}} sets the callback function.
+{{.Doc}}{{else}}// Override{{.Name}} sets the callback function.{{end}}
+func (x *{{$outer.Name}}) Override{{.Name}}(cb {{.CallbackType}}) {
      if cb == nil {
           x.x{{.Name}} = 0
      } else {
@@ -100,9 +100,9 @@ func (x *{{$outer.Name}}) SetCallback{{.Name}}(cb {{.CallbackType}}) {
      }
 }
 
-{{if .Doc}}// GetCallback{{.Name}} gets the callback function.
-{{.Doc}}{{else}}// GetCallback{{.Name}} gets the callback function.{{end}}
-func (x *{{$outer.Name}}) GetCallback{{.Name}}() {{.CallbackType}} {
+{{if .Doc}}// Get{{.Name}} gets the callback function.
+{{.Doc}}{{else}}// Get{{.Name}} gets the callback function.{{end}}
+func (x *{{$outer.Name}}) Get{{.Name}}() {{.CallbackType}} {
      if x.x{{.Name}} == 0 {
           return nil
      }
