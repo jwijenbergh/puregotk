@@ -385,7 +385,14 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		pkgConfigName = r.Packages[0].Name
 	}
 
-	sharedLibrary := ns.SharedLibrary
+	var sharedLibraries []string
+	if ns.SharedLibrary != "" {
+		for _, lib := range libs := strings.Split(ns.SharedLibrary, ",") {
+			if trimmed := strings.TrimSpace(lib); trimmed != "" {
+				sharedLibraries = append(sharedLibraries, trimmed)
+			}
+		}
+	}
 
 	for _, fn := range files {
 		methods := 0
@@ -409,7 +416,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			PkgName:       pkgName,
 			PkgEnv:        strings.ToUpper(pkgName),
 			PkgConfigName: pkgConfigName,
-			SharedLibrary: sharedLibrary,
+			SharedLibraries: sharedLibraries,
 			NeedsInit:     needsInit,
 			Aliases:       aliases[fn],
 			Callbacks:     callbacks[fn],

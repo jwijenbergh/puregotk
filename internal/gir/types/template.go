@@ -428,8 +428,8 @@ type TemplateArg struct {
 	PkgEnv string
 	// PkgConfigName is the pkg-config package name from the GIR file
 	PkgConfigName string
-	// SharedLibrary is the shared library name from the GIR file
-	SharedLibrary string
+	// SharedLibraries is the list of shared library names from the GIR file
+	SharedLibraries []string
 	// NeedsInit declares whether or not this file needs an init code to register functions with purego
 	NeedsInit bool
 	// Imports defines the package imports that we need

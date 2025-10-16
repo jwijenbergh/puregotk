@@ -44,7 +44,7 @@ var names = map[string][]string{
 	"CAIRO":      {"libcairo.so"},
 	"GDKPIXBUF":  {"libgdk_pixbuf-2.0.so"},
 	"GIO":        {"libgio-2.0.so"},
-	"GLIB":       {"libglib-2.0.so"},
+	"GLIB":       {"libglib-2.0.so", "libgobject-2.0.so"},
 	"GMODULE":    {"libgmodule-2.0.so"},
 	"GOBJECT":    {"libgobject-2.0.so"},
 	"GRAPHENE":   {"libgraphene-1.0.so"},
@@ -85,12 +85,12 @@ func SetPackageName(libName, pkgName string) {
 	}
 }
 
-// SetSharedLibrary registers a shared library name for a library.
+// SetSharedLibraries registers shared library names for a library.
 // This is used by the code generator to set library names from GIR files.
 // It won't override existing entries to preserve defaults.
-func SetSharedLibrary(libName, sharedLib string) {
-	if _, exists := names[libName]; !exists && sharedLib != "" {
-		names[libName] = []string{sharedLib}
+func SetSharedLibraries(libName string, sharedLibs []string) {
+	if _, exists := names[libName]; !exists && len(sharedLibs) > 0 {
+		names[libName] = sharedLibs
 	}
 }
 
@@ -204,4 +204,74 @@ func GoString(c uintptr) string {
 		length++
 	}
 	return string(unsafe.Slice((*byte)(ptr), length))
+}
+
+// GetPaths gets all shared object file paths for a library name that may have multiple libraries.
+// This is used when a package needs to load multiple shared libraries (e.g., GLIB needs both libgobject and libglib).
+// Returns a slice of full paths to all libraries for this package.
+func GetPaths(name string) []string {
+	// resolve alias
+	if v, ok := aliases[name]; ok {
+		name = v
+	}
+
+	libNames, ok := names[name]
+	if !ok || len(libNames) == 0 {
+		// Fallback to single GetPath for backward compatibility
+		return []string{GetPath(name)}
+	}
+
+	// If only one library, use the original GetPath logic
+	if len(libNames) == 1 {
+		return []string{GetPath(name)}
+	}
+
+	var result []string
+	for _, libName := range libNames {
+		// Try PUREGOTK_LIB_FOLDER first
+		ep := os.Getenv("PUREGOTK_LIB_FOLDER")
+		if ep != "" {
+			suffixes := []string{"", ".0", ".1", ".2"}
+			found := false
+			for _, s := range suffixes {
+				fullPath := filepath.Join(ep, libName+s)
+				if _, err := os.Stat(fullPath); err == nil {
+					result = append(result, fullPath)
+					found = true
+					break
+				}
+			}
+			if found {
+				continue
+			}
+		}
+
+		// Try hardcoded paths
+		gp, pathsOk := paths[runtime.GOARCH]
+		if pathsOk {
+			found := false
+			for _, p := range gp {
+				suffixes := []string{"", ".0", ".1", ".2"}
+				fn := filepath.Join(p, libName)
+				for _, s := range suffixes {
+					if _, err := os.Stat(fn + s); err == nil {
+						result = append(result, fn+s)
+						found = true
+						break
+					}
+				}
+				if found {
+					break
+				}
+			}
+			if found {
+				continue
+			}
+		}
+
+		// If we get here, we couldn't find this library
+		panic(fmt.Sprintf("Path for library %s (package %s) not found. Please set PUREGOTK_LIB_FOLDER or ensure the library is in standard paths", libName, name))
+	}
+
+	return result
 }

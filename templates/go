@@ -335,62 +335,76 @@ func init() {
     {{if .PkgConfigName -}}
     core.SetPackageName("{{.PkgEnv}}", "{{.PkgConfigName}}")
     {{end -}}
-    {{if .SharedLibrary -}}
-    core.SetSharedLibrary("{{.PkgEnv}}", "{{.SharedLibrary}}")
+    {{if .SharedLibraries -}}
+    core.SetSharedLibraries("{{.PkgEnv}}", []string{ {{range .SharedLibraries}}"{{.}}", {{end}} })
     {{end -}}
-    lib, err := purego.Dlopen(core.GetPath("{{.PkgEnv}}"), purego.RTLD_NOW|purego.RTLD_GLOBAL)
-    if err != nil {
+
+    var libs []uintptr
+    for _, libPath := range core.GetPaths("{{.PkgEnv}}") {
+        lib, err := purego.Dlopen(libPath, purego.RTLD_NOW|purego.RTLD_GLOBAL)
+        if err != nil {
             panic(err)
+        }
+        libs = append(libs, lib)
     }
+
+    tryRegister := func(fptr interface{}, name string) {
+        for _, lib := range libs {
+            if err := core.PuregoSafeRegister(fptr, lib, name); err == nil {
+                return
+            }
+        }
+    }
+
     {{range .Aliases -}}
     {{if .TypeGetter -}}
-    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
     {{end}}
     {{end}}
     {{range .Enums -}}
     {{if .TypeGetter -}}
-    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
     {{end}}
     {{end}}
     {{range .Functions -}}
-    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{.Name}}, "{{.CName}}")
     {{end}}
 
     {{range .Records -}}
     {{$rec := .}}
     {{if .TypeGetter -}}
-    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
     {{end}}
     {{range .Constructors -}}
-    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{.Name}}, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
-    core.PuregoSafeRegister(&x{{$rec.Name}}{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{$rec.Name}}{{.Name}}, "{{.CName}}")
     {{end}}
     {{end}}
 
     {{range .Classes -}}
     {{$cls := .}}
     {{if .TypeGetter -}}
-    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
     {{end}}
     {{range .Constructors -}}
-    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{.Name}}, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
-    core.PuregoSafeRegister(&x{{$cls.Name}}{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{$cls.Name}}{{.Name}}, "{{.CName}}")
     {{end}}
     {{range .Functions -}}
-    core.PuregoSafeRegister(&x{{.Name}}, lib, "{{.CName}}")
+    tryRegister(&x{{.Name}}, "{{.CName}}")
     {{end}}
     {{end}}
 
     {{range .Interfaces -}}
     {{if .TypeGetter -}}
-    core.PuregoSafeRegister(&x{{.Name}}GLibType, lib, "{{.TypeGetter}}")
+    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
     {{end}}
     {{range .Methods -}}
-    core.PuregoSafeRegister(&{{.Namespace}}X{{.FullName}}, lib, "{{.CName}}")
+    tryRegister(&{{.Namespace}}X{{.FullName}}, "{{.CName}}")
     {{end}}
     {{end}}
 }
