@@ -348,63 +348,55 @@ func init() {
         libs = append(libs, lib)
     }
 
-    tryRegister := func(fptr interface{}, name string) {
-        for _, lib := range libs {
-            if err := core.PuregoSafeRegister(fptr, lib, name); err == nil {
-                return
-            }
-        }
-    }
-
     {{range .Aliases -}}
     {{if .TypeGetter -}}
-    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, libs, "{{.TypeGetter}}")
     {{end}}
     {{end}}
     {{range .Enums -}}
     {{if .TypeGetter -}}
-    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, libs, "{{.TypeGetter}}")
     {{end}}
     {{end}}
     {{range .Functions -}}
-    tryRegister(&x{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, libs, "{{.CName}}")
     {{end}}
 
     {{range .Records -}}
     {{$rec := .}}
     {{if .TypeGetter -}}
-    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, libs, "{{.TypeGetter}}")
     {{end}}
     {{range .Constructors -}}
-    tryRegister(&x{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, libs, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
-    tryRegister(&x{{$rec.Name}}{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{$rec.Name}}{{.Name}}, libs, "{{.CName}}")
     {{end}}
     {{end}}
 
     {{range .Classes -}}
     {{$cls := .}}
     {{if .TypeGetter -}}
-    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, libs, "{{.TypeGetter}}")
     {{end}}
     {{range .Constructors -}}
-    tryRegister(&x{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, libs, "{{.CName}}")
     {{end}}
     {{range .Receivers -}}
-    tryRegister(&x{{$cls.Name}}{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{$cls.Name}}{{.Name}}, libs, "{{.CName}}")
     {{end}}
     {{range .Functions -}}
-    tryRegister(&x{{.Name}}, "{{.CName}}")
+    core.PuregoSafeRegister(&x{{.Name}}, libs, "{{.CName}}")
     {{end}}
     {{end}}
 
     {{range .Interfaces -}}
     {{if .TypeGetter -}}
-    tryRegister(&x{{.Name}}GLibType, "{{.TypeGetter}}")
+    core.PuregoSafeRegister(&x{{.Name}}GLibType, libs, "{{.TypeGetter}}")
     {{end}}
     {{range .Methods -}}
-    tryRegister(&{{.Namespace}}X{{.FullName}}, "{{.CName}}")
+    core.PuregoSafeRegister(&{{.Namespace}}X{{.FullName}}, libs, "{{.CName}}")
     {{end}}
     {{end}}
 }

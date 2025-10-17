@@ -15,13 +15,15 @@ import (
 	"github.com/jwijenbergh/purego"
 )
 
-func PuregoSafeRegister(fptr interface{}, handle uintptr, name string) error {
-	sym, err := purego.Dlsym(handle, name)
-	if err != nil {
-		return err
+func PuregoSafeRegister(fptr interface{}, libs []uintptr, name string) {
+	for _, lib := range libs {
+		sym, err := purego.Dlsym(lib, name)
+		if err == nil {
+			purego.RegisterFunc(fptr, sym)
+
+			return
+		}
 	}
-	purego.RegisterFunc(fptr, sym)
-	return nil
 }
 
 // paths to where the shared object files should be located
@@ -105,7 +107,7 @@ func findPkgConf(name string) string {
 	return ""
 }
 
-// GetPath gets a shared object file from a library name
+// getPath gets a shared object file from a library name
 // it does it in the following order
 // see if PUREGOTK_LIBNAME_PATH is set (full path to the lib)
 // - e.g. PUREGOTK_GTK_PATH
@@ -115,7 +117,7 @@ func findPkgConf(name string) string {
 // panic if failed
 // TODO: Hardcore a library shared object with linker -X flag
 // This is useful for packaging
-func GetPath(name string) string {
+func getPath(name string) string {
 	// try to get from env var
 	ev := fmt.Sprintf("PUREGOTK_%s_PATH", name)
 	if v := os.Getenv(ev); v != "" {
@@ -178,12 +180,12 @@ func GetPaths(name string) []string {
 	libNames, ok := names[name]
 	if !ok || len(libNames) == 0 {
 		// Fallback to single GetPath for backward compatibility
-		return []string{GetPath(name)}
+		return []string{getPath(name)}
 	}
 
 	// If only one library, use the original GetPath logic
 	if len(libNames) == 1 {
-		return []string{GetPath(name)}
+		return []string{getPath(name)}
 	}
 
 	var result []string
