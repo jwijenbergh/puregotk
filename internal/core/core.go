@@ -38,36 +38,12 @@ var paths = map[string][]string{
 }
 
 // names is a lookup from library names to shared object filenames
-// This is populated dynamically via SetSharedLibrary and has defaults for common libraries
-var names = map[string][]string{
-	"ADW":        {"libadwaita-1.so"},
-	"CAIRO":      {"libcairo.so"},
-	"GDKPIXBUF":  {"libgdk_pixbuf-2.0.so"},
-	"GIO":        {"libgio-2.0.so"},
-	"GLIB":       {"libglib-2.0.so", "libgobject-2.0.so"},
-	"GMODULE":    {"libgmodule-2.0.so"},
-	"GOBJECT":    {"libgobject-2.0.so"},
-	"GRAPHENE":   {"libgraphene-1.0.so"},
-	"GTK":        {"libgtk-4.so"},
-	"PANGO":      {"libpango-1.0.so"},
-	"PANGOCAIRO": {"libpangocairo-1.0.so"},
-}
+// This is populated dynamically via SetSharedLibrary
+var names = map[string][]string{}
 
 // pkgConfNames is a lookup from library names to pkg-config library names
-// This is populated dynamically via SetPackageName and has defaults for common libraries
-var pkgConfNames = map[string]string{
-	"ADW":        "libadwaita-1",
-	"CAIRO":      "cairo",
-	"GDKPIXBUF":  "gdk-pixbuf-2.0",
-	"GIO":        "gio-2.0",
-	"GLIB":       "glib-2.0",
-	"GMODULE":    "gmodule-2.0",
-	"GOBJECT":    "gobject-2.0",
-	"GRAPHENE":   "graphene-gobject-1.0",
-	"GTK":        "gtk4",
-	"PANGO":      "pango",
-	"PANGOCAIRO": "pangocairo",
-}
+// This is populated dynamically via SetPackageName
+var pkgConfNames = map[string]string{}
 
 // SetPackageName registers a pkg-config package name for a library.
 // This is used by the code generator to set package names from GIR files.
