@@ -53,13 +53,6 @@ var names = map[string][]string{
 	"PANGOCAIRO": {"libpangocairo-1.0.so"},
 }
 
-// aliases are lib aliases
-// for example when we load the GSK lib, we should get the functions from the GTK shared library
-var aliases = map[string]string{
-	"GSK": "GTK",
-	"GDK": "GTK",
-}
-
 // pkgConfNames is a lookup from library names to pkg-config library names
 // This is populated dynamically via SetPackageName and has defaults for common libraries
 var pkgConfNames = map[string]string{
@@ -147,10 +140,6 @@ func findPkgConf(name string) string {
 // TODO: Hardcore a library shared object with linker -X flag
 // This is useful for packaging
 func GetPath(name string) string {
-	// resolve alias
-	if v, ok := aliases[name]; ok {
-		name = v
-	}
 	// try to get from env var
 	ev := fmt.Sprintf("PUREGOTK_%s_PATH", name)
 	if v := os.Getenv(ev); v != "" {
@@ -210,11 +199,6 @@ func GoString(c uintptr) string {
 // This is used when a package needs to load multiple shared libraries (e.g., GLIB needs both libgobject and libglib).
 // Returns a slice of full paths to all libraries for this package.
 func GetPaths(name string) []string {
-	// resolve alias
-	if v, ok := aliases[name]; ok {
-		name = v
-	}
-
 	libNames, ok := names[name]
 	if !ok || len(libNames) == 0 {
 		// Fallback to single GetPath for backward compatibility

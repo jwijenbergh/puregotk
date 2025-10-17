@@ -387,7 +387,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 
 	var sharedLibraries []string
 	if ns.SharedLibrary != "" {
-		for _, lib := range libs := strings.Split(ns.SharedLibrary, ",") {
+		for _, lib := range strings.Split(ns.SharedLibrary, ",") {
 			if trimmed := strings.TrimSpace(lib); trimmed != "" {
 				sharedLibraries = append(sharedLibraries, trimmed)
 			}
@@ -413,19 +413,19 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		needsInit := (len(functions[fn]) + methods) > 0
 
 		args := types.TemplateArg{
-			PkgName:       pkgName,
-			PkgEnv:        strings.ToUpper(pkgName),
-			PkgConfigName: pkgConfigName,
+			PkgName:         pkgName,
+			PkgEnv:          strings.ToUpper(pkgName),
+			PkgConfigName:   pkgConfigName,
 			SharedLibraries: sharedLibraries,
-			NeedsInit:     needsInit,
-			Aliases:       aliases[fn],
-			Callbacks:     callbacks[fn],
-			Records:       records[fn],
-			Enums:         enums[fn],
-			Constants:     constants[fn],
-			Functions:     functions[fn],
-			Interfaces:    interfaces[fn],
-			Classes:       classes[fn],
+			NeedsInit:       needsInit,
+			Aliases:         aliases[fn],
+			Callbacks:       callbacks[fn],
+			Records:         records[fn],
+			Enums:           enums[fn],
+			Constants:       constants[fn],
+			Functions:       functions[fn],
+			Interfaces:      interfaces[fn],
+			Classes:         classes[fn],
 		}
 
 		os.MkdirAll(fmt.Sprintf(dir+"/%s", pkgName), 0o755)
