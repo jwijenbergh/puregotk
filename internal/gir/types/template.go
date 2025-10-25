@@ -29,7 +29,7 @@ type funcArgsTemplate struct {
 	API argsTemplate
 }
 
-func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string, nullable bool) {
+func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string, nullable bool, isOut bool) {
 	c := n
 	stars := strings.Count(t, "*")
 	gobjectNs := "gobject."
@@ -40,79 +40,102 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string, nullabl
 	if strings.ToLower(ns) == "glib" {
 		glibNs = ""
 	}
-	switch k {
-	case CallbackType:
-		if nullable {
-			c = fmt.Sprintf("%sNewCallbackNullable(%s)", glibNs, n)
-		} else {
-			c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
-		}
-		t = "*" + t
-	case ClassesType:
+
+	if isOut {
 		if stars == 0 {
-			c = n
-			t = "uintptr"
-		} else if stars > 1 {
-			c = fmt.Sprintf("%sConvertPtr(%s)", gobjectNs, n)
-		} else if stars == 1 {
-			c = n + ".GoPointer()"
+			// For out parameters, the C type already has a pointer, and so do non-primitive Go types.
+			// For primitive Go types we need to manually add the *
+			t = "*" + t
 		}
-	case InterfacesType:
-		t = strings.TrimPrefix(t, "*")
-		if stars == 0 {
-			c = n
-			t = "uintptr"
-		} else if stars > 1 {
-			c = fmt.Sprintf("%sConvertPtr(%s)", gobjectNs, n)
-		} else if stars == 1 {
-			c = n + ".GoPointer()"
+		c = fmt.Sprintf("uintptr(unsafe.Pointer(%s))", n)
+	} else {
+		switch k {
+		case CallbackType:
+			if nullable {
+				c = fmt.Sprintf("%sNewCallbackNullable(%s)", glibNs, n)
+			} else {
+				c = fmt.Sprintf("%sNewCallback(%s)", glibNs, n)
+			}
+			t = "*" + t
+		case ClassesType:
+			if stars == 0 {
+				c = n
+				t = "uintptr"
+			} else if stars > 1 {
+				c = fmt.Sprintf("%sConvertPtr(%s)", gobjectNs, n)
+			} else if stars == 1 {
+				c = n + ".GoPointer()"
+			}
+		case InterfacesType:
+			t = strings.TrimPrefix(t, "*")
+			if stars == 0 {
+				c = n
+				t = "uintptr"
+			} else if stars > 1 {
+				c = fmt.Sprintf("%sConvertPtr(%s)", gobjectNs, n)
+			} else if stars == 1 {
+				c = n + ".GoPointer()"
+			}
+		}
+
+		// special case for varargs
+		if n == "varArgs" {
+			c = n + "..."
 		}
 	}
 
-	// special case for varargs
-	if n == "varArgs" {
-		c = n + "..."
-	}
 	f.API.Names = append(f.API.Names, n)
 	f.API.Types = append(f.API.Types, t)
 	f.API.Call = append(f.API.Call, c)
 	f.API.Full = append(f.API.Full, n+" "+t)
 }
 
-func (f *funcArgsTemplate) AddPure(t string, n string, k Kind) {
+func (f *funcArgsTemplate) AddPure(t string, n string, k Kind, isOut bool) {
 	n += "p"
 	c := n
 	stars := strings.Count(t, "*")
-	switch k {
-	case RecordsType:
+
+	if isOut {
+		// Out parameters are always pointers in C, so we can use uintptr for the type
+		goPointerType := t
 		if stars == 0 {
-			t = "uintptr"
+			// For primitive Go types we need to manually add the *
+			goPointerType = "*" + t
 		}
-	case CallbackType:
-		c = fmt.Sprintf("(*%s)(unsafe.Pointer(%s))", strings.TrimPrefix(t, "*"), n)
 		t = "uintptr"
-	case ClassesType:
-		if stars == 0 {
-			c = n
-			t = "uintptr"
-		} else {
-			// Remove all dereference operators to get the base class name
-			baseName := strings.TrimPrefix(t, strings.Repeat("*", stars))
-			if stars > 1 {
-				// For double pointers like **ParamSpec, we need to pass the double pointer directly
-				c = fmt.Sprintf("(**%s)(unsafe.Pointer(%s))", baseName, n)
-			} else {
-				c = fmt.Sprintf("%sNewFromInternalPtr(%s)", baseName, n)
+		c = fmt.Sprintf("(%s)(unsafe.Pointer(%s))", goPointerType, n)
+	} else {
+		switch k {
+		case RecordsType:
+			if stars == 0 {
+				t = "uintptr"
 			}
+		case CallbackType:
+			c = fmt.Sprintf("(*%s)(unsafe.Pointer(%s))", strings.TrimPrefix(t, "*"), n)
 			t = "uintptr"
-		}
-	case InterfacesType:
-		if stars == 0 {
-			c = n
-			t = "uintptr"
-		} else {
-			c = fmt.Sprintf("%s{Ptr: %s}", t+"Base", n)
-			t = strings.Repeat("*", stars-1) + "uintptr"
+		case ClassesType:
+			if stars == 0 {
+				c = n
+				t = "uintptr"
+			} else {
+				// Remove all dereference operators to get the base class name
+				baseName := strings.TrimPrefix(t, strings.Repeat("*", stars))
+				if stars > 1 {
+					// For double pointers like **ParamSpec, we need to pass the double pointer directly
+					c = fmt.Sprintf("(**%s)(unsafe.Pointer(%s))", baseName, n)
+				} else {
+					c = fmt.Sprintf("%sNewFromInternalPtr(%s)", baseName, n)
+				}
+				t = "uintptr"
+			}
+		case InterfacesType:
+			if stars == 0 {
+				c = n
+				t = "uintptr"
+			} else {
+				c = fmt.Sprintf("%s{Ptr: %s}", t+"Base", n)
+				t = strings.Repeat("*", stars-1) + "uintptr"
+			}
 		}
 	}
 	f.Pure.Names = append(f.Pure.Names, n)
@@ -145,8 +168,10 @@ func (f *funcArgsTemplate) Add(p Parameter, ins string, ns string, kinds KindMap
 	// Get a suitable variable name
 	varName := p.VarName()
 
-	f.AddAPI(goType, varName, kind, ns, p.Nullable)
-	f.AddPure(goType, varName, kind)
+	isOut := p.Direction == "out"
+
+	f.AddAPI(goType, varName, kind, ns, p.Nullable, isOut)
+	f.AddPure(goType, varName, kind, isOut)
 }
 
 func (f *funcArgsTemplate) AddThrows(ns string) {
