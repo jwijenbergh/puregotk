@@ -33,11 +33,23 @@ func ConvertInterface(currns string, ins string, inter Interface, implemented ma
 			},
 		})
 	}
+
+	properties := make([]PropertyTemplate, 0, len(inter.Properties))
+	for _, prop := range inter.Properties {
+		propTemp := prop.Template(currns, kinds)
+
+		// TODO: Implement non-primitive types, then remove this
+		if propTemp.GValueType != "" {
+			properties = append(properties, propTemp)
+		}
+	}
+
 	name := util.SnakeToCamel(inter.Name)
 	return InterfaceTemplate{
 		Name:       name,
 		Doc:        inter.Doc.StringSafe(),
 		Methods:    methods,
+		Properties: properties,
 		TypeGetter: inter.GLibGetType,
 	}
 }

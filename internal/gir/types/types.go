@@ -376,6 +376,7 @@ type Class struct {
 	Methods        []Method        `xml:"http://www.gtk.org/introspection/core/1.0 method"`
 	VirtualMethods []VirtualMethod `xml:"http://www.gtk.org/introspection/core/1.0 virtual-method"`
 	Fields         []Field         `xml:"http://www.gtk.org/introspection/core/1.0 field"`
+	Properties     []Property      `xml:"http://www.gtk.org/introspection/core/1.0 property"`
 	Signals        []Signal        `xml:"http://www.gtk.org/introspection/glib/1.0 signal"`
 }
 
@@ -565,6 +566,7 @@ type Interface struct {
 	Methods        []Method        `xml:"http://www.gtk.org/introspection/core/1.0 method"`
 	VirtualMethods []VirtualMethod `xml:"http://www.gtk.org/introspection/core/1.0 virtual-method"`
 	Prerequisites  []Prerequisite  `xml:"http://www.gtk.org/introspection/core/1.0 prerequisite"`
+	Properties     []Property      `xml:"http://www.gtk.org/introspection/core/1.0 property"`
 	Signals        []Signal        `xml:"http://www.gtk.org/introspection/glib/1.0 signal"`
 
 	InfoAttrs
@@ -701,7 +703,76 @@ type Prerequisite struct {
 	Name    string   `xml:"name,attr"`
 }
 
-type Property struct{}
+type Property struct {
+	XMLName           xml.Name `xml:"http://www.gtk.org/introspection/core/1.0 property"`
+	Name              string   `xml:"name,attr"`
+	Writable          bool     `xml:"writable,attr"`
+	Readable          *bool    `xml:"readable,attr"` // default true
+	Construct         bool     `xml:"construct,attr"`
+	ConstructOnly     bool     `xml:"construct-only,attr"`
+	DefaultValue      string   `xml:"default-value,attr"`
+	Getter            string   `xml:"getter,attr"`
+	Setter            string   `xml:"setter,attr"`
+	TransferOwnership string   `xml:"transfer-ownership,attr"`
+
+	AnyType
+	InfoElements
+}
+
+func (p Property) IsReadable() bool {
+	return p.Readable == nil || *p.Readable
+}
+
+func (p *Property) Template(ns string, kinds KindMap) PropertyTemplate {
+	var (
+		goType                           = p.AnyType.Translate(ns, kinds)
+		cName                            = p.Name
+		gvalueType, setMethod, getMethod = mapGoTypeToGValue(goType)
+	)
+
+	return PropertyTemplate{
+		Doc:        p.Doc.StringSafe(),
+		Name:       util.DashToCamel(cName),
+		CName:      cName,
+		GoType:     goType,
+		GValueType: gvalueType,
+		SetMethod:  setMethod,
+		GetMethod:  getMethod,
+		Readable:   p.IsReadable(),
+		Writable:   p.Writable,
+	}
+}
+
+func mapGoTypeToGValue(goType string) (gvalueType, setMethod, getMethod string) {
+	switch strings.TrimPrefix(goType, "*") {
+	case "bool":
+		return "TypeBooleanVal", "SetBoolean", "GetBoolean"
+	case "byte":
+		return "TypeUcharVal", "SetUchar", "GetUchar"
+	case "int8":
+		return "TypeCharVal", "SetSchar", "GetSchar"
+	case "int":
+		return "TypeIntVal", "SetInt", "GetInt"
+	case "uint":
+		return "TypeUintVal", "SetUint", "GetUint"
+	case "int32":
+		return "TypeLongVal", "SetLong", "GetLong"
+	case "uint32":
+		return "TypeUlongVal", "SetUlong", "GetUlong"
+	case "int64":
+		return "TypeInt64Val", "SetInt64", "GetInt64"
+	case "uint64":
+		return "TypeUint64Val", "SetUint64", "GetUint64"
+	case "float32":
+		return "TypeFloatVal", "SetFloat", "GetFloat"
+	case "float64":
+		return "TypeDoubleVal", "SetDouble", "GetDouble"
+	case "string":
+		return "TypeStringVal", "SetString", "GetString"
+	default:
+		return "", "", ""
+	}
+}
 
 type Record struct {
 	XMLName              xml.Name `xml:"http://www.gtk.org/introspection/core/1.0 record"`

@@ -365,6 +365,15 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		for _, impl := range cls.Implements {
 			interfaces = append(interfaces, types.GetInterfaceFuncs(ns.Name, impl.Name, implemented, p.Types))
 		}
+		properties := make([]types.PropertyTemplate, 0, len(cls.Properties))
+		for _, prop := range cls.Properties {
+			propTemp := prop.Template(ns.Name, p.Types)
+
+			// TODO: Implement non-primitive types, then remove this
+			if propTemp.GValueType != "" {
+				properties = append(properties, propTemp)
+			}
+		}
 		classes[fn] = append(classes[fn], types.ClassTemplate{
 			Doc:          cls.Doc.StringSafe(),
 			Name:         cls.Name,
@@ -373,6 +382,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 			Receivers:    receivers,
 			Interfaces:   interfaces,
 			Functions:    functions,
+			Properties:   properties,
 			Signals:      signals,
 			TypeGetter:   cls.GLibGetType,
 		})

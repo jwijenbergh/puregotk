@@ -164,6 +164,33 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 }
 {{end}}
 
+{{range .Properties -}}
+{{if .Writable}}
+// SetProperty{{.Name}} sets the "{{.CName}}" property.
+{{.Doc}}
+func (x *{{$outer.Name}}Base) SetProperty{{.Name}}(value {{.GoType}}) {
+	obj := {{if $NotGObject}}gobject.{{end}}Object{}
+	obj.Ptr = x.GoPointer()
+	var v {{if $NotGObject}}gobject.{{end}}Value
+	v.Init({{if $NotGObject}}gobject.{{end}}{{.GValueType}})
+	v.{{.SetMethod}}(value)
+	obj.SetProperty("{{.CName}}", &v)
+}
+{{end}}
+
+{{if .Readable}}
+// GetProperty{{.Name}} gets the "{{.CName}}" property.
+{{.Doc}}
+func (x *{{$outer.Name}}Base) GetProperty{{.Name}}() {{.GoType}} {
+	obj := {{if $NotGObject}}gobject.{{end}}Object{}
+	obj.Ptr = x.GoPointer()
+	var v {{if $NotGObject}}gobject.{{end}}Value
+	obj.GetProperty("{{.CName}}", &v)
+	return v.{{.GetMethod}}()
+}
+{{end}}
+{{end}}
+
 {{range .Methods -}}
 var {{.Namespace}}X{{.FullName}} func(uintptr {{convc .Args.Pure.Types}}) {{.Ret.Raw}}
 {{end}}
@@ -275,6 +302,29 @@ func (c *{{.Name}}) GoPointer() uintptr {
 func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
      c.Ptr = ptr
 }
+
+{{range .Properties -}}
+{{if .Writable}}
+// SetProperty{{.Name}} sets the "{{.CName}}" property.
+{{.Doc}}
+func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
+	var v {{if $NotGObject}}gobject.{{end}}Value
+	v.Init({{if $NotGObject}}gobject.{{end}}{{.GValueType}})
+	v.{{.SetMethod}}(value)
+	x.SetProperty("{{.CName}}", &v)
+}
+{{end}}
+
+{{if .Readable}}
+// GetProperty{{.Name}} gets the "{{.CName}}" property.
+{{.Doc}}
+func (x *{{$outer.Name}}) GetProperty{{.Name}}() {{.GoType}} {
+	var v {{if $NotGObject}}gobject.{{end}}Value
+	x.GetProperty("{{.CName}}", &v)
+	return v.{{.GetMethod}}()
+}
+{{end}}
+{{end}}
 
 {{range .Signals -}}
 
