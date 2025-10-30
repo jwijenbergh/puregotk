@@ -84,9 +84,9 @@ func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
 {{end}}
 
 {{range .CallbackAccessors -}}
-{{if .Doc}}// Override{{.Name}} sets the callback function.
-{{.Doc}}{{else}}// Override{{.Name}} sets the callback function.{{end}}
-func (x *{{$outer.Name}}) Override{{.Name}}(cb {{.CallbackType}}) {
+// Override{{.Name}} sets the "{{.CName}}" callback function.
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}) Override{{.Name}}(cb {{.CallbackType}}) {
      if cb == nil {
           x.x{{.Name}} = 0
      } else {
@@ -100,9 +100,9 @@ func (x *{{$outer.Name}}) Override{{.Name}}(cb {{.CallbackType}}) {
      }
 }
 
-{{if .Doc}}// Get{{.Name}} gets the callback function.
-{{.Doc}}{{else}}// Get{{.Name}} gets the callback function.{{end}}
-func (x *{{$outer.Name}}) Get{{.Name}}() {{.CallbackType}} {
+// Get{{.Name}} gets the "{{.CName}}" callback function.
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}) Get{{.Name}}() {{.CallbackType}} {
      if x.x{{.Name}} == 0 {
           return nil
      }
@@ -167,8 +167,8 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 {{range .Properties -}}
 {{if .Writable}}
 // SetProperty{{.Name}} sets the "{{.CName}}" property.
-{{.Doc}}
-func (x *{{$outer.Name}}Base) SetProperty{{.Name}}(value {{.GoType}}) {
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}Base) SetProperty{{.Name}}(value {{.GoType}}) {
 	obj := {{if $NotGObject}}gobject.{{end}}Object{}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
@@ -180,8 +180,8 @@ func (x *{{$outer.Name}}Base) SetProperty{{.Name}}(value {{.GoType}}) {
 
 {{if .Readable}}
 // GetProperty{{.Name}} gets the "{{.CName}}" property.
-{{.Doc}}
-func (x *{{$outer.Name}}Base) GetProperty{{.Name}}() {{.GoType}} {
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}Base) GetProperty{{.Name}}() {{.GoType}} {
 	obj := {{if $NotGObject}}gobject.{{end}}Object{}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
@@ -306,8 +306,8 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{range .Properties -}}
 {{if .Writable}}
 // SetProperty{{.Name}} sets the "{{.CName}}" property.
-{{.Doc}}
-func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	v.Init({{if $NotGObject}}gobject.{{end}}{{.GValueType}})
 	v.{{.SetMethod}}(value)
@@ -317,8 +317,8 @@ func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
 
 {{if .Readable}}
 // GetProperty{{.Name}} gets the "{{.CName}}" property.
-{{.Doc}}
-func (x *{{$outer.Name}}) GetProperty{{.Name}}() {{.GoType}} {
+{{if .Doc}}{{.Doc}}
+{{end}}func (x *{{$outer.Name}}) GetProperty{{.Name}}() {{.GoType}} {
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	x.GetProperty("{{.CName}}", &v)
 	return v.{{.GetMethod}}()

@@ -169,6 +169,7 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 
 				callbackAccessors = append(callbackAccessors, types.CallbackAccessor{
 					Name:         callbackName,
+					CName:        f.Name,
 					Doc:          doc,
 					CallbackType: "func(" + strings.Join(apiTypes, ", ") + ") " + ret.Value,
 					Args:         args,
