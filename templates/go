@@ -172,20 +172,7 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 	obj := {{if $NotGObject}}gobject.{{end}}Object{}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
-	{{if eq .GValueType "BoxedStrv"}}v.Init({{if $NotGLib}}glib.{{end}}StrvGetType())
-
-	cStrBytes := make([][]byte, len(value))
-	cStrings := make([]uintptr, len(value)+1)
-	for i, s := range value {
-		cStrBytes[i] = make([]byte, len(s)+1)
-		copy(cStrBytes[i], s)
-		cStrBytes[i][len(s)] = 0
-		cStrings[i] = uintptr(unsafe.Pointer(&cStrBytes[i][0]))
-	}
-	cStrings[len(value)] = 0
-
-	v.SetBoxed(uintptr(unsafe.Pointer(&cStrings[0]))){{else}}v.Init({{if $NotGObject}}gobject.{{end}}{{.GValueType}})
-	v.{{.SetMethod}}(value){{end}}
+	{{if eq .GValueType "BoxedStrv"}}v.Init({{propvset $NotGLib}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
 	obj.SetProperty("{{.CName}}", &v)
 }
 {{end}}
@@ -198,32 +185,7 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	obj.GetProperty("{{.CName}}", &v)
-	{{if eq .GValueType "BoxedStrv"}}cStrvPtr := v.GetBoxed()
-	if cStrvPtr == 0 {
-		return nil
-	}
-
-	var result []string
-	ptr := cStrvPtr
-	for {
-		strPtr := *(*uintptr)(unsafe.Pointer(ptr))
-		if strPtr == 0 {
-			break
-		}
-
-		var length int
-		for i := 0; ; i++ {
-			if *(*byte)(unsafe.Pointer(strPtr + uintptr(i))) == 0 {
-				length = i
-				break
-			}
-		}
-
-		bytes := unsafe.Slice((*byte)(unsafe.Pointer(strPtr)), length)
-		result = append(result, string(bytes))
-		ptr += unsafe.Sizeof(uintptr(0))
-	}
-	return result{{else}}return v.{{.GetMethod}}(){{end}}
+	{{if eq .GValueType "BoxedStrv"}}{{propvget}}{{else}}return {{propsget .GetMethod}}{{end}}
 }
 {{end}}
 {{end}}
@@ -346,20 +308,7 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{if .Doc}}{{.Doc}}
 {{end}}func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
 	var v {{if $NotGObject}}gobject.{{end}}Value
-	{{if eq .GValueType "BoxedStrv"}}v.Init({{if $NotGLib}}glib.{{end}}StrvGetType())
-
-	cStrBytes := make([][]byte, len(value))
-	cStrings := make([]uintptr, len(value)+1)
-	for i, s := range value {
-		cStrBytes[i] = make([]byte, len(s)+1)
-		copy(cStrBytes[i], s)
-		cStrBytes[i][len(s)] = 0
-		cStrings[i] = uintptr(unsafe.Pointer(&cStrBytes[i][0]))
-	}
-	cStrings[len(value)] = 0
-
-	v.SetBoxed(uintptr(unsafe.Pointer(&cStrings[0]))){{else}}v.Init({{if $NotGObject}}gobject.{{end}}{{.GValueType}})
-	v.{{.SetMethod}}(value){{end}}
+	{{if eq .GValueType "BoxedStrv"}}v.Init({{propvset $NotGLib}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
 	x.SetProperty("{{.CName}}", &v)
 }
 {{end}}
@@ -370,32 +319,7 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{end}}func (x *{{$outer.Name}}) GetProperty{{.Name}}() {{.GoType}} {
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	x.GetProperty("{{.CName}}", &v)
-	{{if eq .GValueType "BoxedStrv"}}cStrvPtr := v.GetBoxed()
-	if cStrvPtr == 0 {
-		return nil
-	}
-
-	var result []string
-	ptr := cStrvPtr
-	for {
-		strPtr := *(*uintptr)(unsafe.Pointer(ptr))
-		if strPtr == 0 {
-			break
-		}
-
-		var length int
-		for i := 0; ; i++ {
-			if *(*byte)(unsafe.Pointer(strPtr + uintptr(i))) == 0 {
-				length = i
-				break
-			}
-		}
-
-		bytes := unsafe.Slice((*byte)(unsafe.Pointer(strPtr)), length)
-		result = append(result, string(bytes))
-		ptr += unsafe.Sizeof(uintptr(0))
-	}
-	return result{{else}}return v.{{.GetMethod}}(){{end}}
+	{{if eq .GValueType "BoxedStrv"}}{{propvget}}{{else}}return {{propsget .GetMethod}}{{end}}
 }
 {{end}}
 {{end}}

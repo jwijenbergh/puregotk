@@ -38,6 +38,10 @@ func main() {
 		"convcd":   util.ConvertArgsCommaDeref,
 		"convd":    util.ConvertArgsDeref,
 		"convcbne": util.ConvertCallbackArgsNoErr,
+		"propsset": util.PropertyScalarSet,
+		"propsget": util.PropertyScalarGet,
+		"propvset": util.PropertyVectorSet,
+		"propvget": util.PropertyVectorGet,
 	}).ParseFiles("templates/go")
 	if err != nil {
 		panic(err)
