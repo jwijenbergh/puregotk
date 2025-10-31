@@ -156,6 +156,57 @@ func GetPaths(name string) []string {
 	panic(fmt.Sprintf("Path for library: %s not found. Please set the path to this library shared object file manually with env variable: %s or PUREGOTK_LIB_FOLDER. Or make sure pkg-config is setup correctly", strings.ToLower(name), ev))
 }
 
+// hasSuffix tests whether the string s ends with suffix.
+// This function was copied from purego
+func hasSuffix(s, suffix string) bool {
+	return len(s) >= len(suffix) && s[len(s)-len(suffix):] == suffix
+}
+
+// ByteSlice creates a pointer to a byte slice of C strings
+// This function was copied from purego
+func ByteSlice(name []string) **byte {
+	if name == nil {
+		return nil
+	}
+	res := make([]*byte, len(name)+1)
+	for i, v := range name {
+		res[i] = CString(v)
+	}
+
+	// the last element is NULL terminated for GTK
+	res[len(name)] = nil
+	return &res[0]
+}
+
+// CString converts a go string to *byte that can be passed to C code.
+// This function was copied from purego
+func CString(name string) *byte {
+	if hasSuffix(name, "\x00") {
+		return &(*(*[]byte)(unsafe.Pointer(&name)))[0]
+	}
+	b := make([]byte, len(name)+1)
+	copy(b, name)
+	return &b[0]
+}
+
+// GoStringSlice gets a string slice from a char** array
+// This function was copied from purego
+func GoStringSlice(c uintptr) []string {
+	var ret []string
+	for i := 0; ; i++ {
+		ptrAddr := c + uintptr(i)*unsafe.Sizeof(uintptr(0))
+		addr := *(*unsafe.Pointer)(unsafe.Pointer(&ptrAddr))
+		// We take the address and then dereference it to trick go vet from creating a possible misuse of unsafe.Pointer
+		ptr := *(*uintptr)(addr)
+		if ptr == 0 {
+			break
+		}
+		ret = append(ret, GoString(ptr))
+	}
+
+	return ret
+}
+
 // GoString copies a char* to a Go string.
 // This function was copied from purego
 func GoString(c uintptr) string {

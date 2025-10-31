@@ -236,46 +236,10 @@ func PropertyVectorSet(notGLib bool) string {
 	}
 
 	return prefix + `StrvGetType())
-
-	cStrBytes := make([][]byte, len(value))
-	cStrings := make([]uintptr, len(value)+1)
-	for i, s := range value {
-		cStrBytes[i] = make([]byte, len(s)+1)
-		copy(cStrBytes[i], s)
-		cStrBytes[i][len(s)] = 0
-		cStrings[i] = uintptr(unsafe.Pointer(&cStrBytes[i][0]))
-	}
-	cStrings[len(value)] = 0
-
-	v.SetBoxed(uintptr(unsafe.Pointer(&cStrings[0])))`
+	v.SetBoxed(uintptr(unsafe.Pointer(core.ByteSlice(value))))`
 }
 
 // PropertyVectorGet returns the code for getting a vector property value
 func PropertyVectorGet() string {
-	return `cStrvPtr := v.GetBoxed()
-	if cStrvPtr == 0 {
-		return nil
-	}
-
-	var result []string
-	ptr := cStrvPtr
-	for {
-		strPtr := *(*uintptr)(unsafe.Pointer(ptr))
-		if strPtr == 0 {
-			break
-		}
-
-		var length int
-		for i := 0; ; i++ {
-			if *(*byte)(unsafe.Pointer(strPtr + uintptr(i))) == 0 {
-				length = i
-				break
-			}
-		}
-
-		bytes := unsafe.Slice((*byte)(unsafe.Pointer(strPtr)), length)
-		result = append(result, string(bytes))
-		ptr += unsafe.Sizeof(uintptr(0))
-	}
-	return result`
+	return `return core.GoStringSlice(v.GetBoxed())`
 }
