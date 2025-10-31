@@ -769,6 +769,8 @@ func mapGoTypeToGValue(goType string) (gvalueType, setMethod, getMethod string) 
 		return "TypeDoubleVal", "SetDouble", "GetDouble"
 	case "string":
 		return "TypeStringVal", "SetString", "GetString"
+	case "[]string":
+		return "BoxedStrv", "SetBoxed", "GetBoxed"
 	default:
 		return "", "", ""
 	}
