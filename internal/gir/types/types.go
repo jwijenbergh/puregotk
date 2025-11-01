@@ -773,6 +773,10 @@ func mapGoTypeToGValue(goType string) (gvalueType, setMethod, getMethod string) 
 		return "TypePointerVal", "SetPointer", "GetPointer"
 	case "[]string":
 		return "BoxedStrv", "SetBoxed", "GetBoxed"
+	case "[]byte":
+		return "BoxedByteArray", "SetBoxed", "GetBoxed"
+	case "[]uintptr":
+		return "BoxedPtrArray", "SetBoxed", "GetBoxed"
 	default:
 		return "", "", ""
 	}

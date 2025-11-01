@@ -229,17 +229,46 @@ func PropertyScalarGet(getMethod string) string {
 }
 
 // PropertyVectorSet returns the code for setting a vector property value
-func PropertyVectorSet(notGLib bool) string {
+func PropertyVectorSet(notGLib bool, goType string) string {
 	prefix := ""
 	if notGLib {
 		prefix = "glib."
 	}
 
-	return prefix + `StrvGetType())
+	switch goType {
+	case "[]string":
+		return prefix + `StrvGetType())
 	v.SetBoxed(uintptr(unsafe.Pointer(core.ByteSlice(value))))`
+	case "[]byte":
+		return prefix + `ByteArrayGLibType())
+	v.SetBoxed(uintptr(unsafe.Pointer(&value[0])))`
+	case "[]uintptr":
+		return prefix + `PtrArrayGLibType())
+	v.SetBoxed(uintptr(unsafe.Pointer(&value[0])))`
+	default:
+		return prefix + `StrvGetType())
+	v.SetBoxed(uintptr(unsafe.Pointer(core.ByteSlice(value))))`
+	}
 }
 
 // PropertyVectorGet returns the code for getting a vector property value
-func PropertyVectorGet() string {
-	return `return core.GoStringSlice(v.GetBoxed())`
+func PropertyVectorGet(goType string) string {
+	switch goType {
+	case "[]string":
+		return `return core.GoStringSlice(v.GetBoxed())`
+	case "[]byte":
+		return `ptr := v.GetBoxed()
+	if ptr == 0 {
+		return nil
+	}
+	return unsafe.Slice((*byte)(unsafe.Pointer(ptr)), 0)[:0]`
+	case "[]uintptr":
+		return `ptr := v.GetBoxed()
+	if ptr == 0 {
+		return nil
+	}
+	return unsafe.Slice((*uintptr)(unsafe.Pointer(ptr)), 0)[:0]`
+	default:
+		return `return core.GoStringSlice(v.GetBoxed())`
+	}
 }

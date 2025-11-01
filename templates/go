@@ -172,7 +172,7 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 	obj := {{if $NotGObject}}gobject.{{end}}Object{}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
-	{{if eq .GValueType "BoxedStrv"}}v.Init({{propvset $NotGLib}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
+	{{if or (eq .GValueType "BoxedStrv") (eq .GValueType "BoxedByteArray") (eq .GValueType "BoxedPtrArray")}}v.Init({{propvset $NotGLib .GoType}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
 	obj.SetProperty("{{.CName}}", &v)
 }
 {{end}}
@@ -185,7 +185,7 @@ func (x *{{$outer.Name}}Base) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}}
 	obj.Ptr = x.GoPointer()
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	obj.GetProperty("{{.CName}}", &v)
-	{{if eq .GValueType "BoxedStrv"}}{{propvget}}{{else}}return {{propsget .GetMethod}}{{end}}
+	{{if or (eq .GValueType "BoxedStrv") (eq .GValueType "BoxedByteArray") (eq .GValueType "BoxedPtrArray")}}{{propvget .GoType}}{{else}}return {{propsget .GetMethod}}{{end}}
 }
 {{end}}
 {{end}}
@@ -308,7 +308,7 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{if .Doc}}{{.Doc}}
 {{end}}func (x *{{$outer.Name}}) SetProperty{{.Name}}(value {{.GoType}}) {
 	var v {{if $NotGObject}}gobject.{{end}}Value
-	{{if eq .GValueType "BoxedStrv"}}v.Init({{propvset $NotGLib}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
+	{{if or (eq .GValueType "BoxedStrv") (eq .GValueType "BoxedByteArray") (eq .GValueType "BoxedPtrArray")}}v.Init({{propvset $NotGLib .GoType}}{{else}}v.Init({{propsset $NotGObject .GValueType .SetMethod}}){{end}}
 	x.SetProperty("{{.CName}}", &v)
 }
 {{end}}
@@ -319,7 +319,7 @@ func (c *{{.Name}}) SetGoPointer(ptr uintptr) {
 {{end}}func (x *{{$outer.Name}}) GetProperty{{.Name}}() {{.GoType}} {
 	var v {{if $NotGObject}}gobject.{{end}}Value
 	x.GetProperty("{{.CName}}", &v)
-	{{if eq .GValueType "BoxedStrv"}}{{propvget}}{{else}}return {{propsget .GetMethod}}{{end}}
+	{{if or (eq .GValueType "BoxedStrv") (eq .GValueType "BoxedByteArray") (eq .GValueType "BoxedPtrArray")}}{{propvget .GoType}}{{else}}return {{propsget .GetMethod}}{{end}}
 }
 {{end}}
 {{end}}
