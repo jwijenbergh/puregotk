@@ -47,7 +47,7 @@ func (f *funcArgsTemplate) AddAPI(t string, n string, k Kind, ns string, nullabl
 			// For primitive Go types we need to manually add the *
 			t = "*" + t
 		}
-		c = fmt.Sprintf("uintptr(unsafe.Pointer(%s))", n)
+		c = n
 	} else {
 		switch k {
 		case CallbackType:
@@ -96,14 +96,12 @@ func (f *funcArgsTemplate) AddPure(t string, n string, k Kind, isOut bool) {
 	stars := strings.Count(t, "*")
 
 	if isOut {
-		// Out parameters are always pointers in C, so we can use uintptr for the type
-		goPointerType := t
+		// Out parameters are always pointers in C
 		if stars == 0 {
 			// For primitive Go types we need to manually add the *
-			goPointerType = "*" + t
+			t = "*" + t
 		}
-		t = "uintptr"
-		c = fmt.Sprintf("(%s)(unsafe.Pointer(%s))", goPointerType, n)
+		c = n
 	} else {
 		switch k {
 		case RecordsType:
