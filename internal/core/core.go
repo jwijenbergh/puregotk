@@ -29,14 +29,16 @@ func PuregoSafeRegister(fptr interface{}, libs []uintptr, name string) {
 // paths to where the shared object files should be located
 // this is unique per architecture
 // Debian/Ubuntu has it split into specific arch folder, Fedora is just /usr/lib64
+// Flatpak uses /app/lib for application libraries and runtimes don't vendor `pkg-config` as the fallback
 // see:
 // https://fedora.pkgs.org/38/fedora-x86_64/gtk4-4.10.1-1.fc38.x86_64.rpm.html
 // https://fedora.pkgs.org/38/fedora-aarch64/gtk4-4.10.1-1.fc38.aarch64.rpm.html
 // https://ubuntu.pkgs.org/23.04/ubuntu-main-amd64/libgtk-4-1_4.10.1+ds-2ubuntu1_amd64.deb.html
 // https://ubuntu.pkgs.org/23.04/ubuntu-main-arm64/libgtk-4-1_4.10.1+ds-2ubuntu1_arm64.deb.html
+// https://docs.flatpak.org/en/latest/flatpak-builder-command-reference.html (see --libdir)
 var paths = map[string][]string{
-	"amd64": {"/usr/lib/x86_64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
-	"arm64": {"/usr/lib/aarch64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
+	"amd64": {"/app/lib/", "/usr/lib/x86_64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
+	"arm64": {"/app/lib/", "/usr/lib/aarch64-linux-gnu/", "/usr/lib64/", "/usr/lib/"},
 }
 
 // names is a lookup from library names to shared object filenames
