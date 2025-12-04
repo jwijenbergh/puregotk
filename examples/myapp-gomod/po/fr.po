@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-29 22:52-0800\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ../src/window.go:91
+msgid "Button was clicked!"
+msgstr "Le bouton a été cliqué !"
+
+#: ../src/window.go:103
+msgid "Button re-enabled after 3 seconds"
+msgstr "Bouton réactivé après 3 secondes"
+
+#: ../src/window.blp:5
+msgid "myapp-gomod Main Application Window"
+msgstr "Fenêtre principale de myapp-gomod"
+
+#: ../src/window.blp:11
+msgid "My App Gomod"
+msgstr "My App Gomod"
+
+#: ../src/window.blp:16
+msgid "Open mylib-meson example window"
+msgstr "Ouvrir la fenêtre d'exemple mylib-meson"
