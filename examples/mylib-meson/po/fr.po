@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/window.blp:7
 msgid "mylib-meson Main Application Window"
-msgstr "Fenêtre principale de l'application senbara-gtk-gtk"
+msgstr "Fenêtre principale de l'application mylib-meson"
 
 #: src/window.blp:14
 msgid "My Lib Meson"

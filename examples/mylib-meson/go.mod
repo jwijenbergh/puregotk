@@ -1,4 +1,4 @@
-module io.github.puregotk/mylib-meson
+module github.com/jwijenbergh/puregotk/examples/mylib-meson
 
 go 1.25.0
 
