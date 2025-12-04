@@ -1,0 +1,46 @@
+{
+  "id": "io.github.puregotk.MyAppGomod",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "49",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
+  "command": "myapp-gomod",
+  "build-options": {
+    "append-path": "/usr/lib/sdk/golang/bin",
+    "build-args": ["--filesystem=home"]
+  },
+  "finish-args": [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--device=dri"
+  ],
+  "modules": [
+    {
+      "name": "mylib-meson",
+      "buildsystem": "meson",
+      "sources": [
+        { "type": "dir", "path": "../mylib-meson/" },
+        "mylibmeson.go.mod.json"
+      ]
+    },
+    {
+      "name": "myapp-gomod",
+      "buildsystem": "simple",
+      "build-commands": [
+        "mkdir -p vendor && cp modules.txt vendor/modules.txt",
+        ". /usr/lib/sdk/golang/enable.sh && export GOBIN=\"/app/bin\" && go generate ./... && go build -o /app/bin/myapp-gomod -v -mod=vendor -ldflags='-X main.LocaleDir=/app/share/locale' ./src",
+        "mkdir -p /app/share/locale && (cd po && find . -name '*.mo' -exec cp --parents {} /app/share/locale/ \\;)"
+      ],
+      "sources": [
+        { "type": "dir", "path": "." },
+        {
+          "type": "dir",
+          "path": "../mylib-go-meson",
+          "dest": "vendor/github.com/jwijenbergh/puregotk/examples/mylib-go-meson"
+        },
+        "go.mod.json"
+      ]
+    }
+  ]
+}
