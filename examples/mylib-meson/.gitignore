@@ -1,0 +1,7 @@
+_build
+repo
+builddir
+*.gresource
+*.ui
+*.mo
+LINGUAS
