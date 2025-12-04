@@ -1,0 +1,41 @@
+{
+  "id": "io.github.puregotk.MyAppMeson",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "49",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
+  "command": "myapp-meson",
+  "build-options": {
+    "append-path": "/usr/lib/sdk/golang/bin",
+    "build-args": ["--filesystem=home"]
+  },
+  "finish-args": [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--device=dri"
+  ],
+  "modules": [
+    {
+      "name": "mylib-meson",
+      "buildsystem": "meson",
+      "sources": [
+        { "type": "dir", "path": "../mylib-meson/" },
+        "mylibmeson.go.mod.json"
+      ]
+    },
+    {
+      "name": "myapp-meson",
+      "buildsystem": "meson",
+      "sources": [
+        { "type": "dir", "path": "." },
+        {
+          "type": "dir",
+          "path": "../mylib-go-meson",
+          "dest": "vendor/github.com/jwijenbergh/puregotk/examples/mylib-go-meson"
+        },
+        "go.mod.json"
+      ]
+    }
+  ]
+}
