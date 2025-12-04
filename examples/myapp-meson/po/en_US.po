@@ -1,0 +1,36 @@
+# American English translations for myapp-meson package.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the myapp-meson package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: myapp-meson\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-03 23:42-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/window.blp:5 src/window.ui:10
+msgid "myapp-meson Main Application Window"
+msgstr "myapp-meson Main Application Window"
+
+#: src/window.blp:11 src/window.ui:17
+msgid "My App Meson"
+msgstr "My App Meson"
+
+#: src/window.blp:16 src/window.ui:24
+msgid "Open mylib-meson example window"
+msgstr "Open mylib-meson example window"
+
+#: src/window.go:91
+msgid "Button was clicked!"
+msgstr "Button was clicked!"
+
+#: src/window.go:103
+msgid "Button re-enabled after 3 seconds"
+msgstr "Button re-enabled after 3 seconds"
