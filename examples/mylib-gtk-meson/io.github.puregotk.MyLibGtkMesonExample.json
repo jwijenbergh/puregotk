@@ -1,0 +1,39 @@
+{
+  "id": "io.github.puregotk.MyLibGtkMesonExample",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "49",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
+  "command": "example.js",
+  "build-options": {
+    "append-path": "/usr/lib/sdk/golang/bin",
+    "build-args": ["--filesystem=home"]
+  },
+  "finish-args": [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--device=dri"
+  ],
+  "modules": [
+    {
+      "name": "mylib-gtk-meson",
+      "buildsystem": "meson",
+      "sources": [
+        { "type": "dir", "path": "." },
+        {
+          "type": "dir",
+          "path": "../..",
+          "dest": "vendor/github.com/jwijenbergh/puregotk"
+        },
+        "go.mod.json"
+      ]
+    },
+    {
+      "name": "mylib-gtk-meson-example",
+      "buildsystem": "simple",
+      "build-commands": ["install -Dm755 example.js /app/bin/example.js"],
+      "sources": [{ "type": "file", "path": "example.js" }]
+    }
+  ]
+}
