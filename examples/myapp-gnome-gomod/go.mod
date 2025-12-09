@@ -6,7 +6,7 @@ tool github.com/dennwc/flatpak-go-mod
 
 require (
 	github.com/jwijenbergh/puregotk v0.0.0-00010101000000-000000000000
-	github.com/jwijenbergh/puregotk/examples/mylib-gtk-go-meson v0.0.0-00010101000000-000000000000
+	github.com/jwijenbergh/puregotk/examples/mylib-gtk-meson-go v0.0.0-00010101000000-000000000000
 	github.com/pojntfx/go-gettext v0.2.0
 )
 
@@ -19,5 +19,5 @@ require (
 
 replace (
 	github.com/jwijenbergh/puregotk v0.0.0-00010101000000-000000000000 => ../..
-	github.com/jwijenbergh/puregotk/examples/mylib-gtk-go-meson v0.0.0-00010101000000-000000000000 => ../mylib-gtk-go-meson
+	github.com/jwijenbergh/puregotk/examples/mylib-gtk-meson-go v0.0.0-00010101000000-000000000000 => ../mylib-gtk-meson-go
 )

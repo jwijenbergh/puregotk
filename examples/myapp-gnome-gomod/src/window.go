@@ -6,7 +6,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/jwijenbergh/puregotk/examples/mylib-gtk-go-meson/mylibgtkmeson"
+	"github.com/jwijenbergh/puregotk/examples/mylib-gtk-meson-go/mylibgtkmeson"
 	"github.com/jwijenbergh/puregotk/v4/adw"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"

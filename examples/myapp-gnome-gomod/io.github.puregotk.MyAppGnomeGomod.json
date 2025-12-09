@@ -46,8 +46,8 @@
         },
         {
           "type": "dir",
-          "path": "../mylib-gtk-go-meson",
-          "dest": "vendor/github.com/jwijenbergh/puregotk/examples/mylib-gtk-go-meson"
+          "path": "../mylib-gtk-meson-go",
+          "dest": "vendor/github.com/jwijenbergh/puregotk/examples/mylib-gtk-meson-go"
         },
         "go.mod.json"
       ]
