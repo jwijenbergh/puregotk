@@ -32,6 +32,8 @@ In order of priority:
 
 # Basic example
 
+> You can find more examples for advanced features, such as GObject subclassing for custom widgets, writing GObject GTK libraries in Go, generating bindings from external GIR files, using Meson and Flatpak, Blueprint files and more in [examples](./examples)
+
 ```go
 package main
 
