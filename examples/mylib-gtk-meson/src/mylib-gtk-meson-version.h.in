@@ -1,0 +1,76 @@
+#pragma once
+
+#if !defined(MYLIB_GTK_MESON_INSIDE) && !defined(MYLIB_GTK_MESON_COMPILATION)
+# error "Only <mylib-gtk-meson.h> can be included directly."
+#endif
+
+/**
+ * SECTION:mylib-gtk-mesonversion
+ * @short_description: mylib-gtk-meson version checking
+ *
+ * mylib-gtk-meson provides macros to check the version of the library
+ * at compile-time
+ */
+
+/**
+ * MYLIB_GTK_MESON_MAJOR_VERSION:
+ *
+ * mylib-gtk-meson major version component (e.g. 1 if %MYLIB_GTK_MESON_VERSION is 1.2.3)
+ */
+#define MYLIB_GTK_MESON_MAJOR_VERSION (@MAJOR_VERSION@)
+
+/**
+ * MYLIB_GTK_MESON_MINOR_VERSION:
+ *
+ * mylib-gtk-meson minor version component (e.g. 2 if %MYLIB_GTK_MESON_VERSION is 1.2.3)
+ */
+#define MYLIB_GTK_MESON_MINOR_VERSION (@MINOR_VERSION@)
+
+/**
+ * MYLIB_GTK_MESON_MICRO_VERSION:
+ *
+ * mylib-gtk-meson micro version component (e.g. 3 if %MYLIB_GTK_MESON_VERSION is 1.2.3)
+ */
+#define MYLIB_GTK_MESON_MICRO_VERSION (@MICRO_VERSION@)
+
+/**
+ * MYLIB_GTK_MESON_VERSION
+ *
+ * mylib-gtk-meson version.
+ */
+#define MYLIB_GTK_MESON_VERSION (@VERSION@)
+
+/**
+ * MYLIB_GTK_MESON_VERSION_S:
+ *
+ * mylib-gtk-meson version, encoded as a string, useful for printing and
+ * concatenation.
+ */
+#define MYLIB_GTK_MESON_VERSION_S "@VERSION@"
+
+#define MYLIB_GTK_MESON_ENCODE_VERSION(major,minor,micro) \
+        ((major) << 24 | (minor) << 16 | (micro) << 8)
+
+/**
+ * MYLIB_GTK_MESON_VERSION_HEX:
+ *
+ * mylib-gtk-meson version, encoded as an hexadecimal number, useful for
+ * integer comparisons.
+ */
+#define MYLIB_GTK_MESON_VERSION_HEX \
+        (MYLIB_GTK_MESON_ENCODE_VERSION (MYLIB_GTK_MESON_MAJOR_VERSION, MYLIB_GTK_MESON_MINOR_VERSION, MYLIB_GTK_MESON_MICRO_VERSION))
+
+/**
+ * MYLIB_GTK_MESON_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Compile-time version checking. Evaluates to %TRUE if the version
+ * of mylib-gtk-meson is greater than the required one.
+ */
+#define MYLIB_GTK_MESON_CHECK_VERSION(major,minor,micro)   \
+        (MYLIB_GTK_MESON_MAJOR_VERSION > (major) || \
+         (MYLIB_GTK_MESON_MAJOR_VERSION == (major) && MYLIB_GTK_MESON_MINOR_VERSION > (minor)) || \
+         (MYLIB_GTK_MESON_MAJOR_VERSION == (major) && MYLIB_GTK_MESON_MINOR_VERSION == (minor) && \
+          MYLIB_GTK_MESON_MICRO_VERSION >= (micro)))
