@@ -1,10 +1,10 @@
 [library]
     version = @PACKAGE_VERSION@
-    authors = "puregotk"
+    authors = "Felicitas Pojtinger"
     license = "AGPL-3.0"
-    website_url = "https://github.com/nicholasrobinson/puregotk"
-    browse_url = "https://github.com/nicholasrobinson/puregotk"
-    repository_url = "https://github.com/nicholasrobinson/puregotk.git"
+    website_url = "https://github.com/jwijenbergh/puregotk"
+    browse_url = "https://github.com/jwijenbergh/puregotk"
+    repository_url = "https://github.com/jwijenbergh/puregotk.git"
     description = "Example GTK library built with Go"
     devhelp = true
     search_index = true
@@ -25,4 +25,4 @@
     show_class_hierarchy = true
 
 [source-location]
-    base_url = "https://github.com/nicholasrobinson/puregotk/blob/main/examples/mylib-gtk-meson"
+    base_url = "https://github.com/jwijenbergh/puregotk/blob/main/examples/mylib-gtk-meson"
