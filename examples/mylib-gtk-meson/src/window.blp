@@ -1,0 +1,29 @@
+using Gtk 4.0;
+using Adw 1;
+
+translation-domain "mylib-gtk-meson";
+
+template $MyLibGtkMesonMainApplicationWindow: Adw.ApplicationWindow {
+    title: _("mylib-gtk-meson Main Application Window");
+
+    content: Adw.ToastOverlay toast_overlay {
+        child: Adw.ToolbarView {
+            [top]
+            Adw.HeaderBar {
+                title-widget: Adw.WindowTitle {
+                    title: _("My Lib Gtk Meson");
+                };
+            }
+
+            content: Button button_test {
+                label: _("Click me");
+                halign: center;
+                valign: center;
+                margin-top: 12;
+                margin-bottom: 12;
+                margin-start: 12;
+                margin-end: 12;
+            };
+        };
+    };
+}

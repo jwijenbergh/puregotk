@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:doc="http://www.gtk.org/introspection/doc/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="Adw" version="1"/>
+  <include name="Gtk" version="4.0"/>
+  <package name="mylib-gtk-meson-0.1"/>
+  <c:include name="mylib-gtk-meson.h"/>
+  <doc:format name="unknown"/>
+  <namespace name="MyLibGtkMeson"
+             version="0.1"
+             shared-library="libmylib-gtk-meson-0.1.so"
+             c:identifier-prefixes="MyLibGtkMeson"
+             c:symbol-prefixes="mylib_gtk_meson">
+    <class name="MainApplicationWindow"
+           c:symbol-prefix="main_application_window"
+           c:type="MyLibGtkMesonMainApplicationWindow"
+           parent="Adw.ApplicationWindow"
+           glib:type-name="MyLibGtkMesonMainApplicationWindow"
+           glib:get-type="mylib_gtk_meson_main_application_window_get_type">
+      <doc xml:space="preserve"
+           filename="src/window.h"
+           line="9">Example application window with a test button and toast notifications.</doc>
+      <implements name="Gio.ActionGroup"/>
+      <implements name="Gio.ActionMap"/>
+      <implements name="Gtk.Accessible"/>
+      <implements name="Gtk.Buildable"/>
+      <implements name="Gtk.ConstraintTarget"/>
+      <implements name="Gtk.Native"/>
+      <implements name="Gtk.Root"/>
+      <implements name="Gtk.ShortcutManager"/>
+      <method name="show_toast"
+              c:identifier="mylib_gtk_meson_main_application_window_show_toast">
+        <doc xml:space="preserve"
+             filename="src/window.h"
+             line="28">Shows a toast notification with the given message inside the window.</doc>
+        <source-position filename="src/window.h" line="35"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="window" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="src/window.h"
+                 line="30">a MyLibGtkMesonMainApplicationWindow</doc>
+            <type name="MainApplicationWindow"
+                  c:type="MyLibGtkMesonMainApplicationWindow*"/>
+          </instance-parameter>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="src/window.h"
+                 line="31">the message to display in the toast</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="test-button-sensitive"
+                writable="1"
+                transfer-ownership="none"
+                default-value="TRUE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <glib:signal name="button-test-clicked" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+    </class>
+  </namespace>
+</repository>

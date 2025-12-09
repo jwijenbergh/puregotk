@@ -1,0 +1,28 @@
+[library]
+    version = @PACKAGE_VERSION@
+    authors = "puregotk"
+    license = "AGPL-3.0"
+    website_url = "https://github.com/nicholasrobinson/puregotk"
+    browse_url = "https://github.com/nicholasrobinson/puregotk"
+    repository_url = "https://github.com/nicholasrobinson/puregotk.git"
+    description = "Example GTK library built with Go"
+    devhelp = true
+    search_index = true
+    dependencies = ["Gtk-4.0", "Adw-1"]
+
+[dependencies."Gtk—4.0"]
+    name = "Gtk"
+    description = "The GTK toolkit"
+    docs_url = "https://docs.gtk.org/gtk4/"
+
+[dependencies."Adw-1"]
+    name = "Adw"
+    description = "Building blocks for modern GNOME applications"
+    docs_url = "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.7/"
+
+[theme]
+    show_index_summary = true
+    show_class_hierarchy = true
+
+[source-location]
+    base_url = "https://github.com/nicholasrobinson/puregotk/blob/main/examples/mylib-gtk-meson"
