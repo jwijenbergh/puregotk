@@ -12,6 +12,13 @@ meson setup _build --prefix=/usr --wipe && meson compile -C _build && sudo meson
 myapp-gnome-meson
 ```
 
+To update the `gettext` i18n resources, you can use:
+
+```shell
+meson compile -C _build myapp-gnome-meson-pot
+meson compile -C _build myapp-gnome-meson-update-po
+```
+
 ![Screenshot of myapp-gnome-meson showing the main application window](../../docs/screenshot-myapp-gnome-meson.png)
 
 Alternatively, you can build and run the application using Flatpak, which will also build `mylib-gtk-meson` for you:
