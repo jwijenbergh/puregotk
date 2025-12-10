@@ -1,14 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mylib-meson package.
+# This file is distributed under the same license as the mylib-gtk-meson package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mylib-meson\n"
+"Project-Id-Version: mylib-gtk-meson\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-03 23:20-0800\n"
+"POT-Creation-Date: 2025-12-10 01:08-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/window.blp:7
-msgid "mylib-meson Main Application Window"
-msgstr "mylib-meson Hauptanwendungsfenster"
+msgid "mylib-gtk-meson Main Application Window"
+msgstr "mylib-gtk-meson Hauptanwendungsfenster"
 
 #: src/window.blp:14
-msgid "My Lib Meson"
-msgstr "My Lib Meson"
+msgid "My Lib Gtk Meson"
+msgstr "My Lib Gtk Meson"
 
 #: src/window.blp:19
 msgid "Click me"

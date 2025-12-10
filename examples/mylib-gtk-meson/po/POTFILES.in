@@ -1,6 +1,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 src/constants.go
-src/mylib-meson.go
+src/mylib-gtk-meson.go
 src/window.blp
 src/window.go

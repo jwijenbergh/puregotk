@@ -1,12 +1,12 @@
-# French translations for myapp-meson package.
-# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the myapp-meson package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the myapp-gnome-meson package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: myapp-meson\n"
+"Project-Id-Version: myapp-gnome-meson\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-03 23:42-0800\n"
+"POT-Creation-Date: 2025-12-10 01:18-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/window.blp:5 src/window.ui:10
-msgid "myapp-meson Main Application Window"
+msgid "myapp-gnome-meson Main Application Window"
 msgstr "Fenêtre principale de myapp-meson"
 
 #: src/window.blp:11 src/window.ui:17
-msgid "My App Meson"
+msgid "My App Gnome Meson"
 msgstr "My App Meson"
 
 #: src/window.blp:16 src/window.ui:24
-msgid "Open mylib-meson example window"
-msgstr "Ouvrir la fenêtre d'exemple mylib-meson"
+msgid "Open mylib-gtk-meson example window"
+msgstr "Ouvrir la fenêtre d'exemple mylib-gtk-meson"
 
 #: src/window.go:91
 msgid "Button was clicked!"
