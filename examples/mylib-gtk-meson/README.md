@@ -10,6 +10,13 @@ sudo ninja -C _build uninstall || true
 meson setup _build --prefix=/usr --wipe && meson compile -C _build && sudo meson install -C _build
 ```
 
+To update the `gettext` i18n resources, you can use:
+
+```shell
+meson compile -C _build mylib-gtk-meson-pot
+meson compile -C _build mylib-gtk-meson-update-po
+```
+
 You can see which GObject resources it exposes by using [Manuals](https://flathub.org/en/apps/app.devsuite.Manuals):
 
 ![Screenshot of Manuals showing the installed MyLibGtkMeson library](../../docs/screenshot-manuals-overview.png)
