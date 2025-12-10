@@ -1,23 +1,31 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the myapp-gnome-gomod package.
+#
 msgid ""
 msgstr ""
+"Project-Id-Version: myapp-gnome-gomod\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-29 22:52-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/window.blp:5
-#, fuzzy
 msgid "myapp-gnome-gomod Main Application Window"
-msgstr "myapp-gomod Main Application Window"
+msgstr "myapp-gnome-gomod Main Application Window"
 
 #: ../src/window.blp:11
-#, fuzzy
 msgid "My App Gnome Gomod"
-msgstr "My App Gomod"
+msgstr "My App Gnome Gomod"
 
 #: ../src/window.blp:16
-#, fuzzy
 msgid "Open mylib-gtk-meson example window"
-msgstr "Open mylib-meson example window"
+msgstr "Open mylib-gtk-meson example window"
 
 #: ../src/window.go:91
 msgid "Button was clicked!"

@@ -4,4 +4,3 @@ builddir
 *.gresource
 *.ui
 *.mo
-LINGUAS
