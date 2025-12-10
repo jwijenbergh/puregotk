@@ -9,7 +9,7 @@ To then run the application using the standard Go build system, run:
 ```shell
 go generate ./...
 
-go run -ldflags="-X main.LocaleDir=\"${PWD}/po\"" ./src/
+go run -ldflags="-X 'main.LocaleDir=${PWD}/po'" ./src/
 ```
 
 Note the `ldflags` flag; without using Meson, the `.mo` files for i18n don't get installed to `/usr/share/locale` automatically, so we instead point `gettext` to read them from the local directory instead. If you install them manually, that is not something you have to do.
