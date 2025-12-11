@@ -1311,47 +1311,47 @@ where k is the smallest value such that
                    version="4.20">
         <doc xml:space="preserve"
              filename="gsk/gskrendernodeimpl.c"
-             line="8739">Creates a render node that will apply component
+             line="8744">Creates a render node that will apply component
 transfers to a child node.</doc>
         <source-position filename="gsk/gskrendernode.h" line="624"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="gsk/gskrendernodeimpl.c"
-               line="8750">A new `GskRenderNode`</doc>
+               line="8755">A new `GskRenderNode`</doc>
           <type name="ComponentTransferNode" c:type="GskRenderNode*"/>
         </return-value>
         <parameters>
           <parameter name="child" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8741">The child to apply component transfers to</doc>
+                 line="8746">The child to apply component transfers to</doc>
             <type name="RenderNode" c:type="GskRenderNode*"/>
           </parameter>
           <parameter name="r" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8742">transfer for the red component</doc>
+                 line="8747">transfer for the red component</doc>
             <type name="ComponentTransfer"
                   c:type="const GskComponentTransfer*"/>
           </parameter>
           <parameter name="g" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8743">transfer for the green component</doc>
+                 line="8748">transfer for the green component</doc>
             <type name="ComponentTransfer"
                   c:type="const GskComponentTransfer*"/>
           </parameter>
           <parameter name="b" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8744">transfer for the blue component</doc>
+                 line="8749">transfer for the blue component</doc>
             <type name="ComponentTransfer"
                   c:type="const GskComponentTransfer*"/>
           </parameter>
           <parameter name="a" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8745">transfer for the alpha component</doc>
+                 line="8750">transfer for the alpha component</doc>
             <type name="ComponentTransfer"
                   c:type="const GskComponentTransfer*"/>
           </parameter>
@@ -1362,19 +1362,19 @@ transfers to a child node.</doc>
               version="4.20">
         <doc xml:space="preserve"
              filename="gsk/gskrendernodeimpl.c"
-             line="8785">Gets the child node that is getting drawn by the given @node.</doc>
+             line="8790">Gets the child node that is getting drawn by the given @node.</doc>
         <source-position filename="gsk/gskrendernode.h" line="630"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="gsk/gskrendernodeimpl.c"
-               line="8791">the child `GskRenderNode`</doc>
+               line="8796">the child `GskRenderNode`</doc>
           <type name="RenderNode" c:type="GskRenderNode*"/>
         </return-value>
         <parameters>
           <instance-parameter name="node" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8787">a debug `GskRenderNode`</doc>
+                 line="8792">a component transfer `GskRenderNode`</doc>
             <type name="ComponentTransferNode" c:type="const GskRenderNode*"/>
           </instance-parameter>
         </parameters>
@@ -1384,25 +1384,25 @@ transfers to a child node.</doc>
               version="4.20">
         <doc xml:space="preserve"
              filename="gsk/gskrendernodeimpl.c"
-             line="8803">Gets the component transfer for one of the components.</doc>
+             line="8808">Gets the component transfer for one of the components.</doc>
         <source-position filename="gsk/gskrendernode.h" line="633"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="gsk/gskrendernodeimpl.c"
-               line="8811">the `GskComponentTransfer`</doc>
+               line="8816">the `GskComponentTransfer`</doc>
           <type name="ComponentTransfer" c:type="const GskComponentTransfer*"/>
         </return-value>
         <parameters>
           <instance-parameter name="node" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8805">a debug `GskRenderNode`</doc>
+                 line="8810">a component transfer `GskRenderNode`</doc>
             <type name="ComponentTransferNode" c:type="const GskRenderNode*"/>
           </instance-parameter>
           <parameter name="component" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8806">a value between 0 and 3 to indicate the red, green, blue
+                 line="8811">a value between 0 and 3 to indicate the red, green, blue
   or alpha component</doc>
             <type name="guint" c:type="guint"/>
           </parameter>
@@ -5058,7 +5058,7 @@ Use addition functions to add types to it.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="386">Adds a Cairo path to the builder.
+             line="387">Adds a Cairo path to the builder.
 
 You can use cairo_copy_path() to access the path
 from a Cairo context.</doc>
@@ -5070,13 +5070,13 @@ from a Cairo context.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="388">a path builder</doc>
+                 line="389">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="path" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="389">a path</doc>
+                 line="390">a path</doc>
             <type name="cairo.Path" c:type="const cairo_path_t*"/>
           </parameter>
         </parameters>
@@ -5086,7 +5086,7 @@ from a Cairo context.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="492">Adds a circle as a new contour.
+             line="493">Adds a circle as a new contour.
 
 The path is going around the circle in clockwise direction.
 
@@ -5099,19 +5099,19 @@ If @radius is zero, the contour will be a closed point.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="494">a path builder</doc>
+                 line="495">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="center" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="495">the center of the circle</doc>
+                 line="496">the center of the circle</doc>
             <type name="Graphene.Point" c:type="const graphene_point_t*"/>
           </parameter>
           <parameter name="radius" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="496">the radius of the circle</doc>
+                 line="497">the radius of the circle</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5121,7 +5121,7 @@ If @radius is zero, the contour will be a closed point.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1559">Adds the outlines for the glyphs in @layout to the builder.</doc>
+             line="1560">Adds the outlines for the glyphs in @layout to the builder.</doc>
         <source-position filename="gsk/gskpathbuilder.h" line="61"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -5130,13 +5130,13 @@ If @radius is zero, the contour will be a closed point.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1561">a path builder</doc>
+                 line="1562">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="layout" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1562">the pango layout to add</doc>
+                 line="1563">the pango layout to add</doc>
             <type name="Pango.Layout" c:type="PangoLayout*"/>
           </parameter>
         </parameters>
@@ -5146,7 +5146,7 @@ If @radius is zero, the contour will be a closed point.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="338">Appends all of @path to the builder.</doc>
+             line="339">Appends all of @path to the builder.</doc>
         <source-position filename="gsk/gskpathbuilder.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -5155,13 +5155,13 @@ If @radius is zero, the contour will be a closed point.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="340">a path builder</doc>
+                 line="341">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="path" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="341">the path to append</doc>
+                 line="342">the path to append</doc>
             <type name="Path" c:type="GskPath*"/>
           </parameter>
         </parameters>
@@ -5171,7 +5171,7 @@ If @radius is zero, the contour will be a closed point.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="444">Adds a rectangle as a new contour.
+             line="445">Adds a rectangle as a new contour.
 
 The path is going around the rectangle in clockwise direction.
 
@@ -5185,13 +5185,13 @@ horizontal or vertical line. If both are 0, it'll be a closed dot.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="446">a path builder</doc>
+                 line="447">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="rect" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="447">the rectangle to create a path for</doc>
+                 line="448">the rectangle to create a path for</doc>
             <type name="Graphene.Rect" c:type="const graphene_rect_t*"/>
           </parameter>
         </parameters>
@@ -5201,7 +5201,7 @@ horizontal or vertical line. If both are 0, it'll be a closed dot.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="362">Appends all of @path to the builder, in reverse order.</doc>
+             line="363">Appends all of @path to the builder, in reverse order.</doc>
         <source-position filename="gsk/gskpathbuilder.h" line="55"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -5210,13 +5210,13 @@ horizontal or vertical line. If both are 0, it'll be a closed dot.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="364">a path builder</doc>
+                 line="365">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="path" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="365">the path to append</doc>
+                 line="366">the path to append</doc>
             <type name="Path" c:type="GskPath*"/>
           </parameter>
         </parameters>
@@ -5226,7 +5226,7 @@ horizontal or vertical line. If both are 0, it'll be a closed dot.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="471">Adds a rounded rectangle as a new contour.
+             line="472">Adds a rounded rectangle as a new contour.
 
 The path is going around the rectangle in clockwise direction.</doc>
         <source-position filename="gsk/gskpathbuilder.h" line="68"/>
@@ -5237,13 +5237,13 @@ The path is going around the rectangle in clockwise direction.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="473">a path builder</doc>
+                 line="474">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="rect" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="474">the rounded rect</doc>
+                 line="475">the rounded rect</doc>
             <type name="RoundedRect" c:type="const GskRoundedRect*"/>
           </parameter>
         </parameters>
@@ -5253,7 +5253,7 @@ The path is going around the rectangle in clockwise direction.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1589">Adds a segment of a path to the builder.
+             line="1590">Adds a segment of a path to the builder.
 
 If @start is equal to or after @end, the path will first add the
 segment from @start to the end of the path, and then add the segment
@@ -5270,25 +5270,25 @@ and end point. To add a closed path, use [method@Gsk.PathBuilder.add_path].</doc
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1591">a path builder</doc>
+                 line="1592">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="path" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1592">the path to take the segment to</doc>
+                 line="1593">the path to take the segment to</doc>
             <type name="Path" c:type="GskPath*"/>
           </parameter>
           <parameter name="start" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1593">the point on @path to start at</doc>
+                 line="1594">the point on @path to start at</doc>
             <type name="PathPoint" c:type="const GskPathPoint*"/>
           </parameter>
           <parameter name="end" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1594">the point on @path to end at</doc>
+                 line="1595">the point on @path to end at</doc>
             <type name="PathPoint" c:type="const GskPathPoint*"/>
           </parameter>
         </parameters>
@@ -5298,7 +5298,7 @@ and end point. To add a closed path, use [method@Gsk.PathBuilder.add_path].</doc
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1087">Adds an elliptical arc from the current point to @x2, @y2
+             line="1088">Adds an elliptical arc from the current point to @x2, @y2
 with @x1, @y1 determining the tangent directions.
 
 After this, @x2, @y2 will be the new current point.
@@ -5320,31 +5320,31 @@ or [method@Gsk.PathBuilder.svg_arc_to].
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1089">a path builder</doc>
+                 line="1090">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1090">x coordinate of first control point</doc>
+                 line="1091">x coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1091">y coordinate of first control point</doc>
+                 line="1092">y coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1092">x coordinate of second control point</doc>
+                 line="1093">x coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1093">y coordinate of second control point</doc>
+                 line="1094">y coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5354,7 +5354,7 @@ or [method@Gsk.PathBuilder.svg_arc_to].
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1157">Ends the current contour with a line back to the start point.
+             line="1158">Ends the current contour with a line back to the start point.
 
 Note that this is different from calling [method@Gsk.PathBuilder.line_to]
 with the start point in that the contour will be closed. A closed
@@ -5369,7 +5369,7 @@ joined via the line join, and not ended with line caps.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1159">a path builder</doc>
+                 line="1160">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
         </parameters>
@@ -5379,7 +5379,7 @@ joined via the line join, and not ended with line caps.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="955">Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
+             line="956">Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
 from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
 control point.
 
@@ -5403,37 +5403,37 @@ After this, @x2, @y2 will be the new current point.
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="957">a path builder</doc>
+                 line="958">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="958">x coordinate of control point</doc>
+                 line="959">x coordinate of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="959">y coordinate of control point</doc>
+                 line="960">y coordinate of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="960">x coordinate of the end of the curve</doc>
+                 line="961">x coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="961">y coordinate of the end of the curve</doc>
+                 line="962">y coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="weight" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="962">weight of the control point, must be greater than zero</doc>
+                 line="963">weight of the control point, must be greater than zero</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5443,7 +5443,7 @@ After this, @x2, @y2 will be the new current point.
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="802">Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             line="803">Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
 from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
 points.
 
@@ -5461,43 +5461,43 @@ After this, @x3, @y3 will be the new current point.
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="804">a path builder</doc>
+                 line="805">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="805">x coordinate of first control point</doc>
+                 line="806">x coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="806">y coordinate of first control point</doc>
+                 line="807">y coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="807">x coordinate of second control point</doc>
+                 line="808">x coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="808">y coordinate of second control point</doc>
+                 line="809">y coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x3" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="809">x coordinate of the end of the curve</doc>
+                 line="810">x coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y3" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="810">y coordinate of the end of the curve</doc>
+                 line="811">y coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5519,7 +5519,7 @@ builder, and unrefs the builder.</doc>
           <type name="Path" c:type="GskPath*"/>
         </return-value>
         <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
+          <instance-parameter name="self" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
                  line="244">a path builder</doc>
@@ -5532,7 +5532,7 @@ builder, and unrefs the builder.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="313">Gets the current point.
+             line="314">Gets the current point.
 
 The current point is used for relative drawing commands and
 updated after every operation.
@@ -5544,14 +5544,14 @@ out without a current point.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="gsk/gskpathbuilder.c"
-               line="326">the current point</doc>
+               line="327">the current point</doc>
           <type name="Graphene.Point" c:type="const graphene_point_t*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="315">a path builder</doc>
+                 line="316">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
         </parameters>
@@ -5561,7 +5561,7 @@ out without a current point.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1461">Implements arc-to according to the HTML Canvas spec.
+             line="1462">Implements arc-to according to the HTML Canvas spec.
 
 A convenience function that implements the
 [HTML arc_to](https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-arcto-dev)
@@ -5578,37 +5578,37 @@ the circle with the given radius touches the line from
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1463">a path builder</doc>
+                 line="1464">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1464">x coordinate of first control point</doc>
+                 line="1465">x coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1465">y coordinate of first control point</doc>
+                 line="1466">y coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1466">x coordinate of second control point</doc>
+                 line="1467">x coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1467">y coordinate of second control point</doc>
+                 line="1468">y coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="radius" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1468">radius of the circle</doc>
+                 line="1469">radius of the circle</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5618,7 +5618,7 @@ the circle with the given radius touches the line from
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="571">Draws a line from the current point to @x, @y and makes it
+             line="572">Draws a line from the current point to @x, @y and makes it
 the new current point.
 
 &lt;picture&gt;
@@ -5633,19 +5633,19 @@ the new current point.
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="573">a path builder</doc>
+                 line="574">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="574">x coordinate</doc>
+                 line="575">x coordinate</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="575">y coordinate</doc>
+                 line="576">y coordinate</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5655,7 +5655,7 @@ the new current point.
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="518">Starts a new contour by placing the pen at @x, @y.
+             line="519">Starts a new contour by placing the pen at @x, @y.
 
 If this function is called twice in succession, the first
 call will result in a contour made up of a single point.
@@ -5668,19 +5668,19 @@ The second call will start a new contour.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="520">a path builder</doc>
+                 line="521">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="521">x coordinate</doc>
+                 line="522">x coordinate</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="522">y coordinate</doc>
+                 line="523">y coordinate</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5690,7 +5690,7 @@ The second call will start a new contour.</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="665">Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             line="666">Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
 from the current point to @x2, @y2 with @x1, @y1 as the control point.
 
 After this, @x2, @y2 will be the new current point.
@@ -5707,31 +5707,31 @@ After this, @x2, @y2 will be the new current point.
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="667">a path builder</doc>
+                 line="668">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="668">x coordinate of control point</doc>
+                 line="669">x coordinate of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="669">y coordinate of control point</doc>
+                 line="670">y coordinate of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="670">x coordinate of the end of the curve</doc>
+                 line="671">x coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="671">y coordinate of the end of the curve</doc>
+                 line="672">y coordinate of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5765,7 +5765,7 @@ This function is intended primarily for language bindings.
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1124">Adds an elliptical arc from the current point to @x2, @y2
+             line="1125">Adds an elliptical arc from the current point to @x2, @y2
 with @x1, @y1 determining the tangent directions.
 
 All coordinates are given relative to the current point.
@@ -5779,31 +5779,31 @@ This is the relative version of [method@Gsk.PathBuilder.arc_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1126">a path builder</doc>
+                 line="1127">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1127">x coordinate of first control point</doc>
+                 line="1128">x coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1128">y coordinate of first control point</doc>
+                 line="1129">y coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1129">x coordinate of second control point</doc>
+                 line="1130">x coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1130">y coordinate of second control point</doc>
+                 line="1131">y coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5813,7 +5813,7 @@ This is the relative version of [method@Gsk.PathBuilder.arc_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1049">Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
+             line="1050">Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
 from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
 control point.
 
@@ -5828,37 +5828,37 @@ This is the relative version of [method@Gsk.PathBuilder.conic_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1051">a path builder</doc>
+                 line="1052">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1052">x offset of control point</doc>
+                 line="1053">x offset of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1053">y offset of control point</doc>
+                 line="1054">y offset of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1054">x offset of the end of the curve</doc>
+                 line="1055">x offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1055">y offset of the end of the curve</doc>
+                 line="1056">y offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="weight" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1056">weight of the curve, must be greater than zero</doc>
+                 line="1057">weight of the curve, must be greater than zero</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5868,7 +5868,7 @@ This is the relative version of [method@Gsk.PathBuilder.conic_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="915">Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             line="916">Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
 from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
 points.
 
@@ -5883,43 +5883,43 @@ This is the relative version of [method@Gsk.PathBuilder.cubic_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="917">a path builder</doc>
+                 line="918">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="918">x offset of first control point</doc>
+                 line="919">x offset of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="919">y offset of first control point</doc>
+                 line="920">y offset of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="920">x offset of second control point</doc>
+                 line="921">x offset of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="921">y offset of second control point</doc>
+                 line="922">y offset of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x3" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="922">x offset of the end of the curve</doc>
+                 line="923">x offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y3" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="923">y offset of the end of the curve</doc>
+                 line="924">y offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5929,7 +5929,7 @@ This is the relative version of [method@Gsk.PathBuilder.cubic_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1526">Implements arc-to according to the HTML Canvas spec.
+             line="1527">Implements arc-to according to the HTML Canvas spec.
 
 All coordinates are given relative to the current point.
 
@@ -5942,37 +5942,37 @@ This is the relative version of [method@Gsk.PathBuilder.html_arc_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1528">a path builder</doc>
+                 line="1529">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1529">x coordinate of first control point</doc>
+                 line="1530">x coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1530">y coordinate of first control point</doc>
+                 line="1531">y coordinate of first control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1531">x coordinate of second control point</doc>
+                 line="1532">x coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1532">y coordinate of second control point</doc>
+                 line="1533">y coordinate of second control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="radius" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1533">radius of the circle</doc>
+                 line="1534">radius of the circle</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -5982,7 +5982,7 @@ This is the relative version of [method@Gsk.PathBuilder.html_arc_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="606">Draws a line from the current point to a point offset from it
+             line="607">Draws a line from the current point to a point offset from it
 by @x, @y and makes it the new current point.
 
 This is the relative version of [method@Gsk.PathBuilder.line_to].</doc>
@@ -5994,19 +5994,19 @@ This is the relative version of [method@Gsk.PathBuilder.line_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="608">a path builder</doc>
+                 line="609">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="609">x offset</doc>
+                 line="610">x offset</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="610">y offset</doc>
+                 line="611">y offset</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -6016,7 +6016,7 @@ This is the relative version of [method@Gsk.PathBuilder.line_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="546">Starts a new contour by placing the pen at @x, @y
+             line="547">Starts a new contour by placing the pen at @x, @y
 relative to the current point.
 
 This is the relative version of [method@Gsk.PathBuilder.move_to].</doc>
@@ -6028,19 +6028,19 @@ This is the relative version of [method@Gsk.PathBuilder.move_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="548">a path builder</doc>
+                 line="549">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="549">x offset</doc>
+                 line="550">x offset</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="550">y offset</doc>
+                 line="551">y offset</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -6050,7 +6050,7 @@ This is the relative version of [method@Gsk.PathBuilder.move_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="737">Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+             line="738">Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
 from the current point to @x2, @y2 with @x1, @y1 the control point.
 
 All coordinates are given relative to the current point.
@@ -6064,31 +6064,31 @@ This is the relative version of [method@Gsk.PathBuilder.quad_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="739">a path builder</doc>
+                 line="740">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="x1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="740">x offset of control point</doc>
+                 line="741">x offset of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y1" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="741">y offset of control point</doc>
+                 line="742">y offset of control point</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="742">x offset of the end of the curve</doc>
+                 line="743">x offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y2" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="743">y offset of the end of the curve</doc>
+                 line="744">y offset of the end of the curve</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -6098,7 +6098,7 @@ This is the relative version of [method@Gsk.PathBuilder.quad_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1387">Implements arc-to according to the SVG spec.
+             line="1388">Implements arc-to according to the SVG spec.
 
 All coordinates are given relative to the current point.
 
@@ -6111,49 +6111,49 @@ This is the relative version of [method@Gsk.PathBuilder.svg_arc_to].</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1389">a path builder</doc>
+                 line="1390">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="rx" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1390">x radius</doc>
+                 line="1391">x radius</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="ry" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1391">y radius</doc>
+                 line="1392">y radius</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x_axis_rotation" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1392">the rotation of the ellipsis</doc>
+                 line="1393">the rotation of the ellipsis</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="large_arc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1393">whether to add the large arc</doc>
+                 line="1394">whether to add the large arc</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
           <parameter name="positive_sweep" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1394">whether to sweep in the positive direction</doc>
+                 line="1395">whether to sweep in the positive direction</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1395">x coordinate of the endpoint</doc>
+                 line="1396">x coordinate of the endpoint</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1396">y coordinate of the endpoint</doc>
+                 line="1397">y coordinate of the endpoint</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -6163,7 +6163,7 @@ This is the relative version of [method@Gsk.PathBuilder.svg_arc_to].</doc>
               version="4.14">
         <doc xml:space="preserve"
              filename="gsk/gskpathbuilder.c"
-             line="1234">Implements arc-to according to the SVG spec.
+             line="1235">Implements arc-to according to the SVG spec.
 
 A convenience function that implements the
 [SVG arc_to](https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands)
@@ -6178,49 +6178,49 @@ After this, @x, @y will be the new current point.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1236">a path builder</doc>
+                 line="1237">a path builder</doc>
             <type name="PathBuilder" c:type="GskPathBuilder*"/>
           </instance-parameter>
           <parameter name="rx" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1237">x radius</doc>
+                 line="1238">x radius</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="ry" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1238">y radius</doc>
+                 line="1239">y radius</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="x_axis_rotation" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1239">the rotation of the ellipsis</doc>
+                 line="1240">the rotation of the ellipsis</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="large_arc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1240">whether to add the large arc</doc>
+                 line="1241">whether to add the large arc</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
           <parameter name="positive_sweep" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1241">whether to sweep in the positive direction</doc>
+                 line="1242">whether to sweep in the positive direction</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1242">x coordinate of the endpoint</doc>
+                 line="1243">x coordinate of the endpoint</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskpathbuilder.c"
-                 line="1243">y coordinate of the endpoint</doc>
+                 line="1244">y coordinate of the endpoint</doc>
             <type name="gfloat" c:type="float"/>
           </parameter>
         </parameters>
@@ -6232,9 +6232,10 @@ After this, @x, @y will be the new current point.</doc>
              filename="gsk/gskpathbuilder.c"
              line="268">Creates a new path from the given builder.
 
-The given `GskPathBuilder` is reset once this function returns;
-you cannot call this function multiple times on the same builder
-instance.
+The given `GskPathBuilder` is reset to the initial state once this
+function returns. Calling this function again on the same builder
+instance will therefore produce an empty path, not a copy of the same
+path.
 
 This function is intended primarily for language bindings.
 C code should use [method@Gsk.PathBuilder.free_to_path].</doc>
@@ -6242,7 +6243,7 @@ C code should use [method@Gsk.PathBuilder.free_to_path].</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="gsk/gskpathbuilder.c"
-               line="281">the newly created path
+               line="282">the newly created path
   with all the contours added to the builder</doc>
           <type name="Path" c:type="GskPath*"/>
         </return-value>
@@ -7699,7 +7700,7 @@ The rectangle will be fully contained in the bounds of the node.</doc>
       <method name="serialize" c:identifier="gsk_render_node_serialize">
         <doc xml:space="preserve"
              filename="gsk/gskrendernodeparser.c"
-             line="6087">Serializes the @node for later deserialization via
+             line="6088">Serializes the @node for later deserialization via
 gsk_render_node_deserialize(). No guarantees are made about the format
 used other than that the same version of GTK will be able to deserialize
 the result of a call to gsk_render_node_serialize() and
@@ -7712,14 +7713,14 @@ The format is not meant as a permanent storage format.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="gsk/gskrendernodeparser.c"
-               line="6101">a `GBytes` representing the node.</doc>
+               line="6102">a `GBytes` representing the node.</doc>
           <type name="GLib.Bytes" c:type="GBytes*"/>
         </return-value>
         <parameters>
           <instance-parameter name="node" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeparser.c"
-                 line="6089">a `GskRenderNode`</doc>
+                 line="6090">a `GskRenderNode`</doc>
             <type name="RenderNode" c:type="GskRenderNode*"/>
           </instance-parameter>
         </parameters>
@@ -9209,7 +9210,7 @@ on the @builder are zero-initialized.</doc>
           <type name="GLib.Bytes" c:type="GBytes*"/>
         </return-value>
         <parameters>
-          <instance-parameter name="builder" transfer-ownership="none">
+          <instance-parameter name="builder" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="gsk/gskglshader.c"
                  line="1257">a `GskShaderArgsBuilder`</doc>
@@ -10364,7 +10365,7 @@ currently be created outside of GTK. See
           <parameter name="node" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8589">a debug `GskRenderNode`</doc>
+                 line="8589">a subsurface `GskRenderNode`</doc>
             <type name="DebugNode" c:type="const GskRenderNode*"/>
           </parameter>
         </parameters>
@@ -10386,7 +10387,7 @@ currently be created outside of GTK. See
           <instance-parameter name="node" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gsk/gskrendernodeimpl.c"
-                 line="8571">a debug `GskRenderNode`</doc>
+                 line="8571">a subsurface `GskRenderNode`</doc>
             <type name="SubsurfaceNode" c:type="const GskRenderNode*"/>
           </instance-parameter>
         </parameters>
@@ -11358,7 +11359,7 @@ by this function, use
     gsk_transform_skew (
         gsk_transform_scale (
             gsk_transform_rotate (
-                gsk_transform_translate (NULL, &amp;GRAPHENE_POINT_T (dx, dy)),
+                gsk_transform_translate (NULL, &amp;GRAPHENE_POINT_INIT (dx, dy)),
                 angle),
             scale_x, scale_y),
         skew_x, skew_y)
