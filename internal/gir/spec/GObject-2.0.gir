@@ -16769,7 +16769,7 @@ class pointer after g_type_class_unref() are invalid.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <instance-parameter name="g_class" transfer-ownership="full">
+          <instance-parameter name="g_class" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="gobject/gtype.c"
                  line="2791">a #GTypeClass structure to unref</doc>
@@ -16905,7 +16905,6 @@ static types.</doc>
       </function>
       <function name="ref"
                 c:identifier="g_type_class_ref"
-                introspectable="0"
                 deprecated="1"
                 deprecated-version="2.84">
         <doc xml:space="preserve"
@@ -16916,7 +16915,7 @@ static types.</doc>
 This function will demand-create the class if it doesn't exist already.</doc>
         <doc-deprecated xml:space="preserve">Use g_type_class_get() instead</doc-deprecated>
         <source-position filename="gobject/gtype.h" line="765"/>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="gobject/gtype.c"
                line="2778">the #GTypeClass
@@ -28530,6 +28529,35 @@ static types.</doc>
         </parameter>
       </parameters>
     </function>
+    <function name="type_class_ref"
+              c:identifier="g_type_class_ref"
+              moved-to="TypeClass.ref"
+              deprecated="1"
+              deprecated-version="2.84">
+      <doc xml:space="preserve"
+           filename="gobject/gtype.c"
+           line="2769">Increments the reference count of the class structure belonging to
+@type.
+
+This function will demand-create the class if it doesn't exist already.</doc>
+      <doc-deprecated xml:space="preserve">Use g_type_class_get() instead</doc-deprecated>
+      <source-position filename="gobject/gtype.h" line="765"/>
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="gobject/gtype.c"
+             line="2778">the #GTypeClass
+  structure for the given type ID</doc>
+        <type name="TypeClass" c:type="gpointer"/>
+      </return-value>
+      <parameters>
+        <parameter name="type" transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="gobject/gtype.c"
+               line="2771">type ID of a classed type</doc>
+          <type name="GType" c:type="GType"/>
+        </parameter>
+      </parameters>
+    </function>
     <function name="type_create_instance"
               c:identifier="g_type_create_instance"
               introspectable="0">
@@ -28631,7 +28659,6 @@ default interface vtable.</doc>
     <function name="type_default_interface_ref"
               c:identifier="g_type_default_interface_ref"
               version="2.4"
-              introspectable="0"
               deprecated="1"
               deprecated-version="2.84">
       <doc xml:space="preserve"
@@ -28648,7 +28675,7 @@ want to make sure that signals and properties for an interface
 have been installed.</doc>
       <doc-deprecated xml:space="preserve">Use g_type_default_interface_get() instead</doc-deprecated>
       <source-position filename="gobject/gtype.h" line="783"/>
-      <return-value transfer-ownership="full">
+      <return-value transfer-ownership="none">
         <doc xml:space="preserve"
              filename="gobject/gtype.c"
              line="3031">the default
@@ -28686,7 +28713,7 @@ default vtable (the @class_finalize member of #GTypeInfo) will be called.</doc>
         <type name="none" c:type="void"/>
       </return-value>
       <parameters>
-        <parameter name="g_iface" transfer-ownership="full">
+        <parameter name="g_iface" transfer-ownership="none">
           <doc xml:space="preserve"
                filename="gobject/gtype.c"
                line="3128">the default vtable
