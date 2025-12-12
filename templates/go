@@ -11,6 +11,7 @@ package {{.PkgName}}
 {{end}}
 {{ $NeedsUnsafe := or .Records $HasSignals }}
 {{ $NeedsPurego := or .NeedsInit $HasSignals }}
+{{ $NeedsCore := or .NeedsInit $HasSignals }}
 {{ $AnyImports := or .NeedsInit .Records $HasSignals }}
 
 {{if $AnyImports}}
@@ -24,7 +25,7 @@ import (
 {{- if $NeedsPurego}}
 	"github.com/jwijenbergh/purego"
 {{- end}}
-{{- if .NeedsInit}}
+{{- if $NeedsCore}}
 	"github.com/jwijenbergh/puregotk/pkg/core"
 {{- end}}
 )
@@ -90,12 +91,12 @@ func (x *{{$outer.Name}}) {{.Name}}({{conv .Args.API.Full}}) {{.Ret.Return}} {
      if cb == nil {
           x.x{{.Name}} = 0
      } else {
-          x.x{{.Name}} = purego.NewCallback(func({{conv .Args.Pure.Full}}) {{.Ret.Raw}} {
-               {{if .Ret.Value}}{{if .Ret.Class}}ret := cb({{convcb .Args.Pure.Call}})
+          x.x{{.Name}} = purego.NewCallback(func({{conv .Args.Pure.FullCToGo}}) {{.Ret.Raw}} {
+               {{if .Ret.Value}}{{if .Ret.Class}}ret := cb({{convcb .Args.Pure.CallCToGo}})
                if ret == nil {
                     return 0
                }
-               return ret.GoPointer(){{else}}return cb({{convcb .Args.Pure.Call}}){{end}}{{else}}cb({{convcb .Args.Pure.Call}}){{end}}
+               return ret.GoPointer(){{else}}return cb({{convcb .Args.Pure.CallCToGo}}){{end}}{{else}}cb({{convcb .Args.Pure.CallCToGo}}){{end}}
           })
      }
 }
@@ -333,17 +334,17 @@ func (x *{{$outer.Name}}) Connect{{.Name}}(cb *func({{$outer.Name}} {{convc .Arg
           return {{if $NotGObject}}gobject.{{end}}SignalConnect(x.GoPointer(), "{{.CName}}", cbRefPtr)
      }
 
-     fcb := func(clsPtr uintptr {{convc .Args.Pure.Full}}) {{.Ret.Raw}} {
+     fcb := func(clsPtr uintptr {{convc .Args.Pure.FullCToGo}}) {{.Ret.Raw}} {
           fa := {{$outer.Name}}{}
           fa.Ptr = clsPtr
           cbFn := *cb
           {{if .Ret.Class}}
-          {{.Name}}Cls := cbFn(fa {{convc .Args.Pure.Call}})
+          {{.Name}}Cls := cbFn(fa {{convc .Args.Pure.CallCToGo}})
           return {{.Name}}Cls.Ptr
           {{else if .Ret.Value}}
-          return cbFn(fa {{convc .Args.Pure.Call}})
+          return cbFn(fa {{convc .Args.Pure.CallCToGo}})
           {{else}}
-          cbFn(fa {{convc .Args.Pure.Call}})
+          cbFn(fa {{convc .Args.Pure.CallCToGo}})
           {{end}}
      }
      cbRefPtr := purego.NewCallback(fcb)

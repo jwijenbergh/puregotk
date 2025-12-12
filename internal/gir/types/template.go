@@ -18,6 +18,11 @@ type argsTemplate struct {
 	Call []string
 
 	Full []string
+
+	// CallCToGo are the variables as given in a C-to-Go callback call
+	CallCToGo []string
+
+	FullCToGo []string
 }
 
 type funcArgsTemplate struct {
@@ -140,6 +145,16 @@ func (f *funcArgsTemplate) AddPure(t string, n string, k Kind, isOut bool) {
 	f.Pure.Types = append(f.Pure.Types, t)
 	f.Pure.Call = append(f.Pure.Call, c)
 	f.Pure.Full = append(f.Pure.Full, n+" "+t)
+
+	// For C-to-Go callbacks, purego doesn't automatically convert strings, we need to manually convert them with GoString
+	cToGoType := t
+	cToGoCall := c
+	if t == "string" {
+		cToGoType = "uintptr"
+		cToGoCall = fmt.Sprintf("core.GoString(%s)", n)
+	}
+	f.Pure.FullCToGo = append(f.Pure.FullCToGo, n+" "+cToGoType)
+	f.Pure.CallCToGo = append(f.Pure.CallCToGo, cToGoCall)
 }
 
 func (f *funcArgsTemplate) Add(p Parameter, ins string, ns string, kinds KindMap) {
