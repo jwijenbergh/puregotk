@@ -447,5 +447,27 @@ func init() {
     core.PuregoSafeRegister(&{{.Namespace}}X{{.FullName}}, libs, "{{.CName}}")
     {{end}}
     {{end}}
+
+{{- if .RegisterTypes}}
+     {{- $hasTypes := false}}
+     {{- range .Classes}}{{if .TypeGetter}}{{$hasTypes = true}}{{end}}{{end}}
+     {{- range .Interfaces}}{{if .TypeGetter}}{{$hasTypes = true}}{{end}}{{end}}
+     {{- if $hasTypes}}
+
+     // Manually register types since they aren't being automatically registered when
+     // the library is loaded
+     // See https://bugs.webkit.org/show_bug.cgi?id=175937
+     {{- range .Classes}}
+     {{- if .TypeGetter}}
+         {{.Name}}GLibType()
+     {{- end}}
+     {{- end}}
+     {{- range .Interfaces}}
+     {{- if .TypeGetter}}
+         {{.Name}}GLibType()
+     {{- end}}
+     {{- end}}
+     {{- end}}
+{{- end}}
 }
 {{end}}

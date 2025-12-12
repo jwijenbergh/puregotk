@@ -499,6 +499,9 @@ type TemplateArg struct {
 	SharedLibraries []string
 	// NeedsInit declares whether or not this file needs an init code to register functions with purego
 	NeedsInit bool
+	// RegisterTypes declares whether the types in the GIR file need to be manually registered
+	// See https://bugs.webkit.org/show_bug.cgi?id=175937
+	RegisterTypes bool
 	// Imports defines the package imports that we need
 	// This does not include purego
 	// As the template already includes that if `NeedsInit` is set to true

@@ -423,12 +423,17 @@ func (p *Pass) writeGo(r types.Repository, gotemp *template.Template, dir string
 		// as they should only be loaded when there are classes
 		needsInit := (len(functions[fn]) + methods) > 0
 
+		// Packages that need to have their types manually registered
+		// See https://bugs.webkit.org/show_bug.cgi?id=175937
+		registerTypes := pkgName == "webkit"
+
 		args := types.TemplateArg{
 			PkgName:         pkgName,
 			PkgEnv:          strings.ToUpper(pkgName),
 			PkgConfigName:   pkgConfigName,
 			SharedLibraries: sharedLibraries,
 			NeedsInit:       needsInit,
+			RegisterTypes:   registerTypes,
 			Aliases:         aliases[fn],
 			Callbacks:       callbacks[fn],
 			Records:         records[fn],
