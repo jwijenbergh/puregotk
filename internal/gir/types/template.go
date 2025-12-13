@@ -142,12 +142,14 @@ func (f *funcArgsTemplate) AddPure(t string, n string, k Kind, isOut bool) {
 	f.Pure.Full = append(f.Pure.Full, n+" "+t)
 }
 
-// isGoPrimitive checks if a type name (without [] or *) is a Go primitive type
+// isGoPrimitive checks if a scalar or vector type name is a Go primitive type
 func isGoPrimitive(typeName string) bool {
-	baseType := strings.TrimLeft(typeName, "[]*")       // Strip [] and * prefixes to get the base type
-	if idx := strings.Index(baseType, "]"); idx != -1 { // Handle cases like "[2]byte" by removing the array size
-		baseType = baseType[idx+1:]
-	}
+	baseType := strings.TrimLeftFunc(
+		typeName,
+		func(r rune) bool {
+			return r == '*' || r == '[' || r == ']' || (r >= '0' && r <= '9') // Strip pointer, slice and array prefixes
+		},
+	)
 
 	for _, goType := range convList {
 		if goType == baseType {
@@ -172,7 +174,7 @@ func (f *funcArgsTemplate) Add(p Parameter, ins string, ns string, kinds KindMap
 	stars := strings.Count(goType, "*")
 	goType = util.NormalizeNamespace(ns, goType, true)
 
-	if kind != OtherType && kind != UnknownType && !isGoPrimitive(goType) { // // Only add namespace for non-primitive types
+	if kind != OtherType && kind != UnknownType && !isGoPrimitive(goType) { // Only add namespace for non-primitive types
 		goType = util.AddNamespace(goType, ins)
 	}
 	if stars > 0 {
