@@ -11,6 +11,29 @@ This is not a fault for these libraries as CGo compilation is just inherently sl
 
 Compilation speed currently is around 40 seconds for me on basic examples.
 
+## Available libraries
+
+Bindings for the following GObject-introspectable libraries are currently generated from the [GNOME Flatpak SDK](./copygir.sh):
+
+* [Adw-1](./internal/gir/spec/Adw-1.gir)
+* [cairo-1.0](./internal/gir/spec/cairo-1.0.gir)
+* [Gdk-4.0](./internal/gir/spec/Gdk-4.0.gir)
+* [GdkPixbuf-2.0](./internal/gir/spec/GdkPixbuf-2.0.gir)
+* [Gio-2.0](./internal/gir/spec/Gio-2.0.gir)
+* [GLib-2.0](./internal/gir/spec/GLib-2.0.gir)
+* [GModule-2.0](./internal/gir/spec/GModule-2.0.gir)
+* [GObject-2.0](./internal/gir/spec/GObject-2.0.gir)
+* [Graphene-1.0](./internal/gir/spec/Graphene-1.0.gir)
+* [Gsk-4.0](./internal/gir/spec/Gsk-4.0.gir)
+* [Gtk-4.0](./internal/gir/spec/Gtk-4.0.gir)
+* [JavaScriptCore-6.0](./internal/gir/spec/JavaScriptCore-6.0.gir)
+* [Pango-1.0](./internal/gir/spec/Pango-1.0.gir)
+* [PangoCairo-1.0](./internal/gir/spec/PangoCairo-1.0.gir)
+* [Soup-3.0](./internal/gir/spec/Soup-3.0.gir)
+* [WebKit-6.0](./internal/gir/spec/WebKit-6.0.gir)
+
+If you want to add bindings for another GObject-introspectable library to puregotk, you can either add the GIR file to [internal/gir/spec](./internal/gir/spec) in this repository or generate the bindings in your own external repository (see [examples/mylib-gtk-meson-go](examples/mylib-gtk-meson-go)).
+
 ## Advantages
 
 No Cgo needed, thus:
