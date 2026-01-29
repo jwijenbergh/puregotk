@@ -12,22 +12,38 @@ import (
 )
 
 // convList maps the given GIR primitive type to a Go builtin type.
-// See https://github.com/diamondburned/gotk4/blob/fd960d20b525a07580938d10a214336bafb47d12/gir/girgen/types/types.go#LL483C1-L512C2
+// Based on https://github.com/diamondburned/gotk4/blob/fd960d20b525a07580938d10a214336bafb47d12/gir/girgen/types/types.go#LL483C1-L512C2
+// Adapted to match https://en.wikipedia.org/wiki/64-bit_computing#64-bit_data_models; we only support Linux on AMD64/ARM64, so this is based on LLP64
+// | Data model | short | int | long int | long long | Pointer, size_t | Sample operating systems |
+// |------------|-------|-----|----------|-----------|-----------------|--------------------------|
+// | ILP32 | 16 | 32 | 32 | 64 | 32 | x32 and arm64ilp32 ABIs on Linux systems; MIPS N32 ABI |
+// | LLP64 | 16 | 32 | 32 | 64 | 64 | Microsoft Windows (x86-64, IA-64, and ARM64) using Visual C++; and MinGW |
+// | LP64 | 16 | 32 | 64 | 64 | 64 | Most Unix and Unix-like systems, e.g., Solaris, Linux, BSD, macOS. Windows when using Cygwin; z/OS |
+// | ILP64 | 16 | 64 | 64 | 64 | 64 | HAL Computer Systems port of Solaris to the SPARC64 |
+// | SILP64 | 64 | 64 | 64 | 64 | 64 | Classic UNICOS (versus UNICOS/mp, etc.) |
 var convList = map[string]string{
 	"none":     "",
 	"gboolean": "bool",
 	"gfloat":   "float32",
 	"gdouble":  "float64",
-	"gint":     "int",
-	"gssize":   "int",
-	"gint8":    "int8",
-	"gint16":   "int16",
-	"gshort":   "int16",
-	"gint32":   "int32",
-	"glong":    "int32",
-	"int32":    "int32",
-	"gint64":   "int64",
-	"guint":    "uint",
+
+	// Not just `int` since the Go int is 64 bit on 64 bit systems and 32 bit on 32 bit systems,
+	// whereas the LLP64 int is always 32-bit
+	"gint": "int32",
+
+	"gssize": "int",
+	"gint8":  "int8",
+	"gint16": "int16",
+	"gshort": "int16",
+	"gint32": "int32",
+	"glong":  "int32",
+	"int32":  "int32",
+	"gint64": "int64",
+
+	// Not just `uint` since the Go uint is 64 bit on 64 bit systems and 32 bit on 32 bit systems,
+	// whereas the LLP64 int is always 32-bit
+	"guint": "uint32",
+
 	"gsize":    "uint",
 	"guchar":   "byte",
 	"gchar":    "byte",
