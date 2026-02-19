@@ -373,7 +373,7 @@ func (x *MainApplicationWindow) AddAction(ActionVar gio.Action) {
 //	}
 //
 // ```
-func (x *MainApplicationWindow) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *MainApplicationWindow) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	gio.XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -430,7 +430,7 @@ func (x *MainApplicationWindow) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *MainApplicationWindow) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int) {
+func (x *MainApplicationWindow) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32) {
 
 	gio.XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 
@@ -493,7 +493,7 @@ func (x *MainApplicationWindow) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *MainApplicationWindow) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *MainApplicationWindow) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -625,7 +625,7 @@ func (x *MainApplicationWindow) UpdateProperty(FirstPropertyVar gtk.AccessiblePr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *MainApplicationWindow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *MainApplicationWindow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -661,7 +661,7 @@ func (x *MainApplicationWindow) UpdateRelation(FirstRelationVar gtk.AccessibleRe
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *MainApplicationWindow) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *MainApplicationWindow) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -698,7 +698,7 @@ func (x *MainApplicationWindow) UpdateState(FirstStateVar gtk.AccessibleState, v
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *MainApplicationWindow) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *MainApplicationWindow) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

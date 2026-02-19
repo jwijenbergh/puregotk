@@ -87,7 +87,7 @@ func init() {
 		"MyAppGnomeGomodApplication",
 		appParentQuery.ClassSize,
 		&appClassInit,
-		appParentQuery.InstanceSize+uint(unsafe.Sizeof(Application{}))+uint(unsafe.Sizeof(&Application{}))+uint(unsafe.Sizeof(&adw.ApplicationWindow{})),
+		appParentQuery.InstanceSize,
 		&appInstanceInit,
 		0,
 	)
