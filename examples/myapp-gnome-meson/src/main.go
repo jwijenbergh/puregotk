@@ -28,5 +28,5 @@ func main() {
 		"flags", gio.GApplicationDefaultFlagsValue,
 	)
 
-	os.Exit(app.Run(len(os.Args), os.Args))
+	os.Exit(int(app.Run(int32(len(os.Args)), os.Args)))
 }

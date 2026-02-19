@@ -99,7 +99,7 @@ func init() {
 			buttonTest.ConnectClicked(&onButtonTestClicked)
 		})
 
-		objClass.OverrideSetProperty(func(o *gobject.Object, u uint, v *gobject.Value, ps *gobject.ParamSpec) {
+		objClass.OverrideSetProperty(func(o *gobject.Object, u uint32, v *gobject.Value, ps *gobject.ParamSpec) {
 			switch u {
 			case propertyIdTestButtonSensitive:
 				w := (*myLibGtkMesonMainApplicationWindow)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
@@ -108,7 +108,7 @@ func init() {
 			}
 		})
 
-		objClass.OverrideGetProperty(func(o *gobject.Object, u uint, v *gobject.Value, ps *gobject.ParamSpec) {
+		objClass.OverrideGetProperty(func(o *gobject.Object, u uint32, v *gobject.Value, ps *gobject.ParamSpec) {
 			switch u {
 			case propertyIdTestButtonSensitive:
 				w := (*myLibGtkMesonMainApplicationWindow)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
@@ -138,7 +138,7 @@ func init() {
 		"MyLibGtkMesonMainApplicationWindow",
 		parentQuery.ClassSize,
 		&classInit,
-		parentQuery.InstanceSize+uint(unsafe.Sizeof(myLibGtkMesonMainApplicationWindow{}))+uint(unsafe.Sizeof(&myLibGtkMesonMainApplicationWindow{})),
+		parentQuery.InstanceSize,
 		&instanceInit,
 		0,
 	)

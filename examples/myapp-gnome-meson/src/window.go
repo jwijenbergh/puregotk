@@ -122,7 +122,7 @@ func init() {
 		"MyAppGnomeMesonWindow",
 		windowParentQuery.ClassSize,
 		&windowClassInit,
-		windowParentQuery.InstanceSize+uint(unsafe.Sizeof(Window{}))+uint(unsafe.Sizeof(&Window{}))+uint(unsafe.Sizeof(&gtk.Button{})),
+		windowParentQuery.InstanceSize,
 		&windowInstanceInit,
 		0,
 	)
