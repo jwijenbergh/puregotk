@@ -18,16 +18,16 @@ type RequestedSize struct {
 
 	Data uintptr
 
-	MinimumSize int
+	MinimumSize int32
 
-	NaturalSize int
+	NaturalSize int32
 }
 
 func (x *RequestedSize) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xDistributeNaturalAllocation func(int, uint, []RequestedSize) int
+var xDistributeNaturalAllocation func(int32, uint32, []RequestedSize) int32
 
 // Distributes @extra_space to child @sizes by bringing smaller
 // children up to natural size first.
@@ -35,7 +35,7 @@ var xDistributeNaturalAllocation func(int, uint, []RequestedSize) int
 // The remaining space will be added to the @minimum_size member of the
 // `GtkRequestedSize` struct. If all sizes reach their natural size then
 // the remaining space is returned.
-func DistributeNaturalAllocation(ExtraSpaceVar int, NRequestedSizesVar uint, SizesVar []RequestedSize) int {
+func DistributeNaturalAllocation(ExtraSpaceVar int32, NRequestedSizesVar uint32, SizesVar []RequestedSize) int32 {
 
 	cret := xDistributeNaturalAllocation(ExtraSpaceVar, NRequestedSizesVar, SizesVar)
 	return cret

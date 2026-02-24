@@ -56,7 +56,7 @@ func MarkupParserNew(AccelMarkerVar uint32) *glib.MarkupParseContext {
 	return cret
 }
 
-var xParseMarkup func(string, int, uint32, **AttrList, *string, *uint32, **glib.Error) bool
+var xParseMarkup func(string, int32, uint32, **AttrList, *string, *uint32, **glib.Error) bool
 
 // Parses marked-up text to create a plain-text string and an attribute list.
 //
@@ -75,7 +75,7 @@ var xParseMarkup func(string, int, uint32, **AttrList, *string, *uint32, **glib.
 //
 // If any error happens, none of the output arguments are touched except
 // for @error.
-func ParseMarkup(MarkupTextVar string, LengthVar int, AccelMarkerVar uint32, AttrListVar **AttrList, TextVar *string, AccelCharVar *uint32) (bool, error) {
+func ParseMarkup(MarkupTextVar string, LengthVar int32, AccelMarkerVar uint32, AttrListVar **AttrList, TextVar *string, AccelCharVar *uint32) (bool, error) {
 	var cerr *glib.Error
 
 	cret := xParseMarkup(MarkupTextVar, LengthVar, AccelMarkerVar, AttrListVar, TextVar, AccelCharVar, &cerr)

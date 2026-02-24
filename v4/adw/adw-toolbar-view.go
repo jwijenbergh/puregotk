@@ -251,7 +251,7 @@ func (x *ToolbarView) AddTopBar(WidgetVar *gtk.Widget) {
 
 }
 
-var xToolbarViewGetBottomBarHeight func(uintptr) int
+var xToolbarViewGetBottomBarHeight func(uintptr) int32
 
 // Gets the current bottom bar height for @self.
 //
@@ -259,7 +259,7 @@ var xToolbarViewGetBottomBarHeight func(uintptr) int
 // [property@ToolbarView:reveal-bottom-bars], including during the transition.
 //
 // See [method@ToolbarView.get_top_bar_height].
-func (x *ToolbarView) GetBottomBarHeight() int {
+func (x *ToolbarView) GetBottomBarHeight() int32 {
 
 	cret := xToolbarViewGetBottomBarHeight(x.GoPointer())
 	return cret
@@ -327,7 +327,7 @@ func (x *ToolbarView) GetRevealTopBars() bool {
 	return cret
 }
 
-var xToolbarViewGetTopBarHeight func(uintptr) int
+var xToolbarViewGetTopBarHeight func(uintptr) int32
 
 // Gets the current top bar height for @self.
 //
@@ -335,7 +335,7 @@ var xToolbarViewGetTopBarHeight func(uintptr) int
 // [property@ToolbarView:reveal-top-bars], including during the transition.
 //
 // See [method@ToolbarView.get_bottom_bar_height].
-func (x *ToolbarView) GetTopBarHeight() int {
+func (x *ToolbarView) GetTopBarHeight() int32 {
 
 	cret := xToolbarViewGetTopBarHeight(x.GoPointer())
 	return cret
@@ -512,10 +512,10 @@ func (c *ToolbarView) SetGoPointer(ptr uintptr) {
 // [property@ToolbarView:reveal-bottom-bars], including during the transition.
 //
 // See [property@ToolbarView:top-bar-height].
-func (x *ToolbarView) GetPropertyBottomBarHeight() int {
+func (x *ToolbarView) GetPropertyBottomBarHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("bottom-bar-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyExtendContentToBottomEdge sets the "extend-content-to-bottom-edge" property.
@@ -647,10 +647,10 @@ func (x *ToolbarView) GetPropertyRevealTopBars() bool {
 // including during the transition.
 //
 // See [property@ToolbarView:bottom-bar-height].
-func (x *ToolbarView) GetPropertyTopBarHeight() int {
+func (x *ToolbarView) GetPropertyTopBarHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("top-bar-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Requests the user's screen reader to announce the given message.
@@ -710,7 +710,7 @@ func (x *ToolbarView) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ToolbarView) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ToolbarView) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -842,7 +842,7 @@ func (x *ToolbarView) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToolbarView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ToolbarView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -878,7 +878,7 @@ func (x *ToolbarView) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToolbarView) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ToolbarView) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -915,7 +915,7 @@ func (x *ToolbarView) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToolbarView) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *ToolbarView) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

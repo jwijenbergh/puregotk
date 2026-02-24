@@ -98,10 +98,10 @@ const (
 	//
 	// This is not used if structured logging is enabled; see
 	// [Using Structured Logging](logging.html#using-structured-logging).
-	LOG_FATAL_MASK int = 5
+	LOG_FATAL_MASK int32 = 5
 	// Log levels below `1&lt;&lt;G_LOG_LEVEL_USER_SHIFT` are used by GLib.
 	// Higher bits can be used for user-defined log levels.
-	LOG_LEVEL_USER_SHIFT int = 8
+	LOG_LEVEL_USER_SHIFT int32 = 8
 )
 
 // Flags specifying the level of log messages.
@@ -151,9 +151,9 @@ const (
 	GLogWriterUnhandledValue LogWriterOutput = 0
 )
 
-var xAssertWarning func(string, string, int, string, string)
+var xAssertWarning func(string, string, int32, string, string)
 
-func AssertWarning(LogDomainVar string, FileVar string, LineVar int, PrettyFunctionVar string, ExpressionVar string) {
+func AssertWarning(LogDomainVar string, FileVar string, LineVar int32, PrettyFunctionVar string, ExpressionVar string) {
 
 	xAssertWarning(LogDomainVar, FileVar, LineVar, PrettyFunctionVar, ExpressionVar)
 
@@ -274,13 +274,13 @@ func LogGetDebugEnabled() bool {
 	return cret
 }
 
-var xLogRemoveHandler func(string, uint)
+var xLogRemoveHandler func(string, uint32)
 
 // Removes the log handler.
 //
 // This has no effect if structured logging is enabled; see
 // [Using Structured Logging](logging.html#using-structured-logging).
-func LogRemoveHandler(LogDomainVar string, HandlerIdVar uint) {
+func LogRemoveHandler(LogDomainVar string, HandlerIdVar uint32) {
 
 	xLogRemoveHandler(LogDomainVar, HandlerIdVar)
 
@@ -365,7 +365,7 @@ func LogSetFatalMask(LogDomainVar string, FatalMaskVar LogLevelFlags) LogLevelFl
 	return cret
 }
 
-var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint
+var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint32
 
 // Sets the log handler for a domain and a set of log levels.
 //
@@ -410,13 +410,13 @@ var xLogSetHandler func(string, LogLevelFlags, uintptr, uintptr) uint
 //	| G_LOG_FLAG_RECURSION, my_log_handler, NULL);
 //
 // ```
-func LogSetHandler(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr) uint {
+func LogSetHandler(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr) uint32 {
 
 	cret := xLogSetHandler(LogDomainVar, LogLevelsVar, NewCallback(LogFuncVar), UserDataVar)
 	return cret
 }
 
-var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) uint
+var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) uint32
 
 // Like [func@GLib.log_set_handler], but takes a destroy notify for the @user_data.
 //
@@ -425,7 +425,7 @@ var xLogSetHandlerFull func(string, LogLevelFlags, uintptr, uintptr, uintptr) ui
 //
 // The `log_domain` parameter can be set to `NULL` or an empty string to use the default
 // application domain.
-func LogSetHandlerFull(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr, DestroyVar *DestroyNotify) uint {
+func LogSetHandlerFull(LogDomainVar string, LogLevelsVar LogLevelFlags, LogFuncVar *LogFunc, UserDataVar uintptr, DestroyVar *DestroyNotify) uint32 {
 
 	cret := xLogSetHandlerFull(LogDomainVar, LogLevelsVar, NewCallback(LogFuncVar), UserDataVar, NewCallback(DestroyVar))
 	return cret
@@ -724,7 +724,7 @@ func LogWriterFormatFields(LogLevelVar LogLevelFlags, FieldsVar []LogField, NFie
 	return cret
 }
 
-var xLogWriterIsJournald func(int) bool
+var xLogWriterIsJournald func(int32) bool
 
 // Check whether the given @output_fd file descriptor is a connection to the
 // systemd journal, or something else (like a log file or `stdout` or
@@ -735,7 +735,7 @@ var xLogWriterIsJournald func(int) bool
 // ```c
 // is_journald = g_log_writer_is_journald (fileno (stderr));
 // ```
-func LogWriterIsJournald(OutputFdVar int) bool {
+func LogWriterIsJournald(OutputFdVar int32) bool {
 
 	cret := xLogWriterIsJournald(OutputFdVar)
 	return cret
@@ -785,13 +785,13 @@ func LogWriterStandardStreams(LogLevelVar LogLevelFlags, FieldsVar []LogField, N
 	return cret
 }
 
-var xLogWriterSupportsColor func(int) bool
+var xLogWriterSupportsColor func(int32) bool
 
 // Check whether the given @output_fd file descriptor supports
 // [ANSI color escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).
 //
 // If so, they can safely be used when formatting log messages.
-func LogWriterSupportsColor(OutputFdVar int) bool {
+func LogWriterSupportsColor(OutputFdVar int32) bool {
 
 	cret := xLogWriterSupportsColor(OutputFdVar)
 	return cret
@@ -950,11 +950,11 @@ func SetPrinterrHandler(FuncVar *PrintFunc) uintptr {
 	return cret
 }
 
-var xWarnMessage func(string, string, int, string, string)
+var xWarnMessage func(string, string, int32, string, string)
 
 // Internal function used to print messages from the public [func@GLib.warn_if_reached]
 // and [func@GLib.warn_if_fail] macros.
-func WarnMessage(DomainVar string, FileVar string, LineVar int, FuncVar string, WarnexprVar string) {
+func WarnMessage(DomainVar string, FileVar string, LineVar int32, FuncVar string, WarnexprVar string) {
 
 	xWarnMessage(DomainVar, FileVar, LineVar, FuncVar, WarnexprVar)
 

@@ -188,7 +188,7 @@ type AttrInt struct {
 
 	Attr uintptr
 
-	Value int
+	Value int32
 }
 
 func (x *AttrInt) GoPointer() uintptr {
@@ -277,7 +277,7 @@ func (x *AttrIterator) Next() bool {
 	return cret
 }
 
-var xAttrIteratorRange func(uintptr, *int, *int)
+var xAttrIteratorRange func(uintptr, *int32, *int32)
 
 // Get the range of the current segment.
 //
@@ -285,7 +285,7 @@ var xAttrIteratorRange func(uintptr, *int, *int)
 // like the values in `PangoAttribute`. To deal with this API
 // oversight, stored return values that wouldn't fit into
 // a signed integer are clamped to %G_MAXINT.
-func (x *AttrIterator) Range(StartVar *int, EndVar *int) {
+func (x *AttrIterator) Range(StartVar *int32, EndVar *int32) {
 
 	xAttrIteratorRange(x.GoPointer(), StartVar, EndVar)
 
@@ -448,7 +448,7 @@ func (x *AttrList) Ref() *AttrList {
 	return cret
 }
 
-var xAttrListSplice func(uintptr, *AttrList, int, int)
+var xAttrListSplice func(uintptr, *AttrList, int32, int32)
 
 // This function opens up a hole in @list, fills it
 // in with attributes from the left, and then merges
@@ -468,7 +468,7 @@ var xAttrListSplice func(uintptr, *AttrList, int, int)
 // not imited to @len, and are just overlayed on top of @list.
 //
 // This mode is useful for merging two lists of attributes together.
-func (x *AttrList) Splice(OtherVar *AttrList, PosVar int, LenVar int) {
+func (x *AttrList) Splice(OtherVar *AttrList, PosVar int32, LenVar int32) {
 
 	xAttrListSplice(x.GoPointer(), OtherVar, PosVar, LenVar)
 
@@ -529,7 +529,7 @@ func (x *AttrList) Unref() {
 
 }
 
-var xAttrListUpdate func(uintptr, int, int, int)
+var xAttrListUpdate func(uintptr, int32, int32, int32)
 
 // Update indices of attributes in @list for a change in the
 // text they refer to.
@@ -545,7 +545,7 @@ var xAttrListUpdate func(uintptr, int, int, int)
 //
 // Attributes start and end positions are updated if they are
 // behind @pos + @remove.
-func (x *AttrList) Update(PosVar int, RemoveVar int, AddVar int) {
+func (x *AttrList) Update(PosVar int32, RemoveVar int32, AddVar int32) {
 
 	xAttrListUpdate(x.GoPointer(), PosVar, RemoveVar, AddVar)
 
@@ -580,9 +580,9 @@ type AttrSize struct {
 
 	Attr uintptr
 
-	Size int
+	Size int32
 
-	Absolute uint
+	Absolute uint32
 }
 
 func (x *AttrSize) GoPointer() uintptr {
@@ -616,9 +616,9 @@ type Attribute struct {
 
 	Klass *AttrClass
 
-	StartIndex uint
+	StartIndex uint32
 
-	EndIndex uint
+	EndIndex uint32
 }
 
 var xAttributeGLibType func() types.GType
@@ -776,10 +776,10 @@ func (x *Attribute) Init(KlassVar *AttrClass) {
 const (
 	// Value for @start_index in `PangoAttribute` that indicates
 	// the beginning of the text.
-	ATTR_INDEX_FROM_TEXT_BEGINNING uint = 0
+	ATTR_INDEX_FROM_TEXT_BEGINNING uint32 = 0
 	// Value for @end_index in `PangoAttribute` that indicates
 	// the end of the text.
-	ATTR_INDEX_TO_TEXT_END uint = 4294967295
+	ATTR_INDEX_TO_TEXT_END uint32 = 4294967295
 )
 
 // These flags affect how Pango treats characters that are normally
@@ -1061,7 +1061,7 @@ func AttrBackgroundNew(RedVar uint16, GreenVar uint16, BlueVar uint16) *Attribut
 	return cret
 }
 
-var xAttrBaselineShiftNew func(int) *Attribute
+var xAttrBaselineShiftNew func(int32) *Attribute
 
 // Create a new baseline displacement attribute.
 //
@@ -1074,7 +1074,7 @@ var xAttrBaselineShiftNew func(int) *Attribute
 //	&lt;img alt="Baseline Shift" src="baseline-shift-light.png"&gt;
 //
 // &lt;/picture&gt;
-func AttrBaselineShiftNew(ShiftVar int) *Attribute {
+func AttrBaselineShiftNew(ShiftVar int32) *Attribute {
 
 	cret := xAttrBaselineShiftNew(ShiftVar)
 	return cret
@@ -1197,10 +1197,10 @@ func AttrLanguageNew(LanguageVar *Language) *Attribute {
 	return cret
 }
 
-var xAttrLetterSpacingNew func(int) *Attribute
+var xAttrLetterSpacingNew func(int32) *Attribute
 
 // Create a new letter-spacing attribute.
-func AttrLetterSpacingNew(LetterSpacingVar int) *Attribute {
+func AttrLetterSpacingNew(LetterSpacingVar int32) *Attribute {
 
 	cret := xAttrLetterSpacingNew(LetterSpacingVar)
 	return cret
@@ -1220,7 +1220,7 @@ func AttrLineHeightNew(FactorVar float64) *Attribute {
 	return cret
 }
 
-var xAttrLineHeightNewAbsolute func(int) *Attribute
+var xAttrLineHeightNewAbsolute func(int32) *Attribute
 
 // Override the height of logical line extents to be @height.
 //
@@ -1228,7 +1228,7 @@ var xAttrLineHeightNewAbsolute func(int) *Attribute
 // [method@Pango.LayoutLine.get_extents],
 // [method@Pango.LayoutLine.get_pixel_extents] and
 // [method@Pango.LayoutIter.get_line_extents].
-func AttrLineHeightNewAbsolute(HeightVar int) *Attribute {
+func AttrLineHeightNewAbsolute(HeightVar int32) *Attribute {
 
 	cret := xAttrLineHeightNewAbsolute(HeightVar)
 	return cret
@@ -1267,10 +1267,10 @@ func AttrOverlineNew(OverlineVar Overline) *Attribute {
 	return cret
 }
 
-var xAttrRiseNew func(int) *Attribute
+var xAttrRiseNew func(int32) *Attribute
 
 // Create a new baseline displacement attribute.
-func AttrRiseNew(RiseVar int) *Attribute {
+func AttrRiseNew(RiseVar int32) *Attribute {
 
 	cret := xAttrRiseNew(RiseVar)
 	return cret
@@ -1337,19 +1337,19 @@ func AttrShowNew(FlagsVar ShowFlags) *Attribute {
 	return cret
 }
 
-var xAttrSizeNew func(int) *Attribute
+var xAttrSizeNew func(int32) *Attribute
 
 // Create a new font-size attribute in fractional points.
-func AttrSizeNew(SizeVar int) *Attribute {
+func AttrSizeNew(SizeVar int32) *Attribute {
 
 	cret := xAttrSizeNew(SizeVar)
 	return cret
 }
 
-var xAttrSizeNewAbsolute func(int) *Attribute
+var xAttrSizeNewAbsolute func(int32) *Attribute
 
 // Create a new font-size attribute in device units.
-func AttrSizeNewAbsolute(SizeVar int) *Attribute {
+func AttrSizeNewAbsolute(SizeVar int32) *Attribute {
 
 	cret := xAttrSizeNewAbsolute(SizeVar)
 	return cret

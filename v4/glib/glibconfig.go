@@ -8,13 +8,13 @@ package glib
 //
 // GPid is used in GLib only for descendant processes spawned with
 // the g_spawn functions.
-type Pid = int
+type Pid = int32
 
 const (
 	// The directory separator character.
 	//
 	// This is `'/'` on UNIX machines and `'\'` under Windows.
-	DIR_SEPARATOR int = 47
+	DIR_SEPARATOR int32 = 47
 	// The directory separator as a string.
 	//
 	// This is `"/"` on UNIX machines and `"\"` under Windows.
@@ -52,31 +52,31 @@ const (
 
 	GUINTPTR_FORMAT string = "lu"
 
-	HAVE_GINT64 int = 1
+	HAVE_GINT64 int32 = 1
 
-	HAVE_GNUC_VARARGS int = 1
+	HAVE_GNUC_VARARGS int32 = 1
 
-	HAVE_GROWING_STACK int = 0
+	HAVE_GROWING_STACK int32 = 0
 
-	HAVE_ISO_VARARGS int = 1
+	HAVE_ISO_VARARGS int32 = 1
 	// The major version number of the GLib library.
 	//
 	// Like #glib_major_version, but from the headers used at
 	// application compile time, rather than from the library
 	// linked against at application run time.
-	MAJOR_VERSION int = 2
+	MAJOR_VERSION int32 = 2
 	// The micro version number of the GLib library.
 	//
 	// Like #gtk_micro_version, but from the headers used at
 	// application compile time, rather than from the library
 	// linked against at application run time.
-	MICRO_VERSION int = 0
+	MICRO_VERSION int32 = 2
 	// The minor version number of the GLib library.
 	//
 	// Like #gtk_minor_version, but from the headers used at
 	// application compile time, rather than from the library
 	// linked against at application run time.
-	MINOR_VERSION int = 86
+	MINOR_VERSION int32 = 86
 
 	MODULE_SUFFIX string = "so"
 	// A format specifier that can be used in printf()-style format strings
@@ -87,28 +87,30 @@ const (
 	POLLFD_FORMAT string = "%d"
 	// The search path separator character.
 	// This is ':' on UNIX machines and ';' under Windows.
-	SEARCHPATH_SEPARATOR int = 58
+	SEARCHPATH_SEPARATOR int32 = 58
 	// The search path separator as a string.
 	// This is ":" on UNIX machines and ";" under Windows.
 	SEARCHPATH_SEPARATOR_S string = ":"
 
-	SIZEOF_LONG int = 8
+	SIZEOF_LONG int32 = 8
 
-	SIZEOF_SIZE_T int = 8
+	SIZEOF_SIZE_T int32 = 8
 
-	SIZEOF_SSIZE_T int = 8
+	SIZEOF_SSIZE_T int32 = 8
 
-	SIZEOF_VOID_P int = 8
+	SIZEOF_VOID_P int32 = 8
 
-	SYSDEF_AF_INET int = 2
+	SYSDEF_AF_INET int32 = 2
 
-	SYSDEF_AF_INET6 int = 10
+	SYSDEF_AF_INET6 int32 = 10
 
-	SYSDEF_AF_UNIX int = 1
+	SYSDEF_AF_UNIX int32 = 1
 
-	SYSDEF_MSG_DONTROUTE int = 4
+	SYSDEF_MSG_DONTROUTE int32 = 4
 
-	SYSDEF_MSG_OOB int = 1
+	SYSDEF_MSG_OOB int32 = 1
 
-	SYSDEF_MSG_PEEK int = 2
+	SYSDEF_MSG_PEEK int32 = 2
+
+	VA_COPY_AS_ARRAY int32 = 1
 )

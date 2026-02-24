@@ -22,7 +22,7 @@ import (
 type Callback func()
 
 // The type used for marshaller functions.
-type ClosureMarshal func(*Closure, *Value, uint, []Value, uintptr, uintptr)
+type ClosureMarshal func(*Closure, *Value, uint32, []Value, uintptr, uintptr)
 
 // The type used for the various notification callbacks which can be registered
 // on closures.
@@ -31,7 +31,7 @@ type ClosureNotify func(uintptr, *Closure)
 // This is the signature of va_list marshaller functions, an optional
 // marshaller that can be used in some situations to avoid
 // marshalling the signal argument into GValues.
-type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int, []types.GType)
+type VaClosureMarshal func(*Closure, *Value, *TypeInstance, []interface{}, uintptr, int32, []types.GType)
 
 // A #GCClosure is a specialization of #GClosure for C function callbacks.
 type CClosure struct {
@@ -93,25 +93,25 @@ func (x *CClosure) GoPointer() uintptr {
 type Closure struct {
 	_ structs.HostLayout
 
-	RefCount uint
+	RefCount uint32
 
-	MetaMarshalNouse uint
+	MetaMarshalNouse uint32
 
-	NGuards uint
+	NGuards uint32
 
-	NFnotifiers uint
+	NFnotifiers uint32
 
-	NInotifiers uint
+	NInotifiers uint32
 
-	InInotify uint
+	InInotify uint32
 
-	Floating uint
+	Floating uint32
 
-	DerivativeFlag uint
+	DerivativeFlag uint32
 
-	InMarshal uint
+	InMarshal uint32
 
-	IsInvalid uint
+	IsInvalid uint32
 
 	xMarshal uintptr
 
@@ -130,19 +130,19 @@ func (x *Closure) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewClosureObject func(uint, uintptr) *Closure
+var xNewClosureObject func(uint32, uintptr) *Closure
 
 // A variant of g_closure_new_simple() which stores @object in the
 // @data field of the closure and calls g_object_watch_closure() on
 // @object and the created closure. This function is mainly useful
 // when implementing new types of closures.
-func NewClosureObject(SizeofClosureVar uint, ObjectVar *Object) *Closure {
+func NewClosureObject(SizeofClosureVar uint32, ObjectVar *Object) *Closure {
 
 	cret := xNewClosureObject(SizeofClosureVar, ObjectVar.GoPointer())
 	return cret
 }
 
-var xNewClosureSimple func(uint, uintptr) *Closure
+var xNewClosureSimple func(uint32, uintptr) *Closure
 
 // Allocates a struct of the given size and initializes the initial
 // part as a #GClosure.
@@ -186,7 +186,7 @@ var xNewClosureSimple func(uint, uintptr) *Closure
 //	}
 //
 // ]|
-func NewClosureSimple(SizeofClosureVar uint, DataVar uintptr) *Closure {
+func NewClosureSimple(SizeofClosureVar uint32, DataVar uintptr) *Closure {
 
 	cret := xNewClosureSimple(SizeofClosureVar, DataVar)
 	return cret
@@ -257,10 +257,10 @@ func (x *Closure) Invalidate() {
 
 }
 
-var xClosureInvoke func(uintptr, *Value, uint, []Value, uintptr)
+var xClosureInvoke func(uintptr, *Value, uint32, []Value, uintptr)
 
 // Invokes the closure, i.e. executes the callback represented by the @closure.
-func (x *Closure) Invoke(ReturnValueVar *Value, NParamValuesVar uint, ParamValuesVar []Value, InvocationHintVar uintptr) {
+func (x *Closure) Invoke(ReturnValueVar *Value, NParamValuesVar uint32, ParamValuesVar []Value, InvocationHintVar uintptr) {
 
 	xClosureInvoke(x.GoPointer(), ReturnValueVar, NParamValuesVar, ParamValuesVar, InvocationHintVar)
 
@@ -412,24 +412,24 @@ func (x *Closure) Unref() {
 }
 
 // OverrideMarshal sets the "marshal" callback function.
-func (x *Closure) OverrideMarshal(cb func(*Closure, *Value, uint, *Value, uintptr, uintptr)) {
+func (x *Closure) OverrideMarshal(cb func(*Closure, *Value, uint32, *Value, uintptr, uintptr)) {
 	if cb == nil {
 		x.xMarshal = 0
 	} else {
-		x.xMarshal = purego.NewCallback(func(ClosureVarp *Closure, ReturnValueVarp *Value, NParamValuesVarp uint, ParamValuesVarp *Value, InvocationHintVarp uintptr, MarshalDataVarp uintptr) {
+		x.xMarshal = purego.NewCallback(func(ClosureVarp *Closure, ReturnValueVarp *Value, NParamValuesVarp uint32, ParamValuesVarp *Value, InvocationHintVarp uintptr, MarshalDataVarp uintptr) {
 			cb(ClosureVarp, ReturnValueVarp, NParamValuesVarp, ParamValuesVarp, InvocationHintVarp, MarshalDataVarp)
 		})
 	}
 }
 
 // GetMarshal gets the "marshal" callback function.
-func (x *Closure) GetMarshal() func(*Closure, *Value, uint, *Value, uintptr, uintptr) {
+func (x *Closure) GetMarshal() func(*Closure, *Value, uint32, *Value, uintptr, uintptr) {
 	if x.xMarshal == 0 {
 		return nil
 	}
-	var rawCallback func(ClosureVarp *Closure, ReturnValueVarp *Value, NParamValuesVarp uint, ParamValuesVarp *Value, InvocationHintVarp uintptr, MarshalDataVarp uintptr)
+	var rawCallback func(ClosureVarp *Closure, ReturnValueVarp *Value, NParamValuesVarp uint32, ParamValuesVarp *Value, InvocationHintVarp uintptr, MarshalDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xMarshal)
-	return func(ClosureVar *Closure, ReturnValueVar *Value, NParamValuesVar uint, ParamValuesVar *Value, InvocationHintVar uintptr, MarshalDataVar uintptr) {
+	return func(ClosureVar *Closure, ReturnValueVar *Value, NParamValuesVar uint32, ParamValuesVar *Value, InvocationHintVar uintptr, MarshalDataVar uintptr) {
 		rawCallback(ClosureVar, ReturnValueVar, NParamValuesVar, ParamValuesVar, InvocationHintVar, MarshalDataVar)
 	}
 }
@@ -446,14 +446,14 @@ func (x *ClosureNotifyData) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xCclosureMarshalGeneric func(*Closure, *Value, uint, *Value, uintptr, uintptr)
+var xCclosureMarshalGeneric func(*Closure, *Value, uint32, *Value, uintptr, uintptr)
 
 // A generic marshaller function implemented via
 // [libffi](http://sourceware.org/libffi/).
 //
 // Normally this function is not passed explicitly to g_signal_new(),
 // but used automatically by GLib when specifying a %NULL marshaller.
-func CclosureMarshalGeneric(ClosureVar *Closure, ReturnGvalueVar *Value, NParamValuesVar uint, ParamValuesVar *Value, InvocationHintVar uintptr, MarshalDataVar uintptr) {
+func CclosureMarshalGeneric(ClosureVar *Closure, ReturnGvalueVar *Value, NParamValuesVar uint32, ParamValuesVar *Value, InvocationHintVar uintptr, MarshalDataVar uintptr) {
 
 	xCclosureMarshalGeneric(ClosureVar, ReturnGvalueVar, NParamValuesVar, ParamValuesVar, InvocationHintVar, MarshalDataVar)
 
@@ -483,12 +483,12 @@ func CclosureNewSwap(CallbackFuncVar *Callback, UserDataVar uintptr, DestroyData
 	return cret
 }
 
-var xSignalTypeCclosureNew func(types.GType, uint) *Closure
+var xSignalTypeCclosureNew func(types.GType, uint32) *Closure
 
 // Creates a new closure which invokes the function found at the offset
 // @struct_offset in the class structure of the interface or classed type
 // identified by @itype.
-func SignalTypeCclosureNew(ItypeVar types.GType, StructOffsetVar uint) *Closure {
+func SignalTypeCclosureNew(ItypeVar types.GType, StructOffsetVar uint32) *Closure {
 
 	cret := xSignalTypeCclosureNew(ItypeVar, StructOffsetVar)
 	return cret

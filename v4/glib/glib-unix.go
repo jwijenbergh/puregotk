@@ -11,7 +11,7 @@ import (
 
 // The type of functions to be called when a UNIX fd watch source
 // triggers.
-type UnixFDSourceFunc func(int, IOCondition, uintptr) bool
+type UnixFDSourceFunc func(int32, IOCondition, uintptr) bool
 
 // A Unix pipe. The advantage of this type over `int[2]` is that it can
 // be closed automatically when it goes out of scope, using `g_auto(GUnixPipe)`,
@@ -19,7 +19,7 @@ type UnixFDSourceFunc func(int, IOCondition, uintptr) bool
 type UnixPipe struct {
 	_ structs.HostLayout
 
-	Fds [2]int
+	Fds [2]int32
 }
 
 func (x *UnixPipe) GoPointer() uintptr {
@@ -37,7 +37,7 @@ const (
 	GUnixPipeEndWriteValue UnixPipeEnd = 1
 )
 
-var xClosefrom func(int) int
+var xClosefrom func(int32) int32
 
 // Close every file descriptor equal to or greater than @lowfd.
 //
@@ -54,13 +54,13 @@ var xClosefrom func(int) int
 // non-negative.
 // See [`signal(7)`](man:signal(7)) and
 // [`signal-safety(7)`](man:signal-safety(7)) for more details.
-func Closefrom(LowfdVar int) int {
+func Closefrom(LowfdVar int32) int32 {
 
 	cret := xClosefrom(LowfdVar)
 	return cret
 }
 
-var xFdwalkSetCloexec func(int) int
+var xFdwalkSetCloexec func(int32) int32
 
 // Mark every file descriptor equal to or greater than @lowfd to be closed
 // at the next `execve()` or similar, as if via the `FD_CLOEXEC` flag.
@@ -76,13 +76,13 @@ var xFdwalkSetCloexec func(int) int
 // non-negative.
 // See [`signal(7)`](man:signal(7)) and
 // [`signal-safety(7)`](man:signal-safety(7)) for more details.
-func FdwalkSetCloexec(LowfdVar int) int {
+func FdwalkSetCloexec(LowfdVar int32) int32 {
 
 	cret := xFdwalkSetCloexec(LowfdVar)
 	return cret
 }
 
-var xUnixFdAdd func(int, IOCondition, uintptr, uintptr) uint
+var xUnixFdAdd func(int32, IOCondition, uintptr, uintptr) uint32
 
 // Sets a function to be called when the IO condition, as specified by
 // @condition becomes true for @fd.
@@ -97,13 +97,13 @@ var xUnixFdAdd func(int, IOCondition, uintptr, uintptr) uint
 // to cancel the watch at any time that it exists.
 //
 // The source will never close the fd -- you must do it yourself.
-func UnixFdAdd(FdVar int, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr) uint {
+func UnixFdAdd(FdVar int32, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr) uint32 {
 
 	cret := xUnixFdAdd(FdVar, ConditionVar, NewCallback(FunctionVar), UserDataVar)
 	return cret
 }
 
-var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
+var xUnixFdAddFull func(int32, int32, IOCondition, uintptr, uintptr, uintptr) uint32
 
 // Sets a function to be called when the IO condition, as specified by
 // @condition becomes true for @fd.
@@ -111,13 +111,13 @@ var xUnixFdAddFull func(int, int, IOCondition, uintptr, uintptr, uintptr) uint
 // This is the same as g_unix_fd_add(), except that it allows you to
 // specify a non-default priority and a provide a #GDestroyNotify for
 // @user_data.
-func UnixFdAddFull(PriorityVar int, FdVar int, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint {
+func UnixFdAddFull(PriorityVar int32, FdVar int32, ConditionVar IOCondition, FunctionVar *UnixFDSourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xUnixFdAddFull(PriorityVar, FdVar, ConditionVar, NewCallback(FunctionVar), UserDataVar, NewCallback(NotifyVar))
 	return cret
 }
 
-var xUnixFdSourceNew func(int, IOCondition) *Source
+var xUnixFdSourceNew func(int32, IOCondition) *Source
 
 // Creates a #GSource to watch for a particular I/O condition on a file
 // descriptor.
@@ -126,7 +126,7 @@ var xUnixFdSourceNew func(int, IOCondition) *Source
 //
 // Any callback attached to the returned #GSource must have type
 // #GUnixFDSourceFunc.
-func UnixFdSourceNew(FdVar int, ConditionVar IOCondition) *Source {
+func UnixFdSourceNew(FdVar int32, ConditionVar IOCondition) *Source {
 
 	cret := xUnixFdSourceNew(FdVar, ConditionVar)
 	return cret
@@ -156,7 +156,7 @@ func UnixGetPasswdEntry(UserNameVar string) (uintptr, error) {
 
 }
 
-var xUnixOpenPipe func([2]int, int, **Error) bool
+var xUnixOpenPipe func([2]int32, int32, **Error) bool
 
 // Similar to the UNIX pipe() call, but on modern systems like Linux
 // uses the pipe2() system call, which atomically creates a pipe with
@@ -177,7 +177,7 @@ var xUnixOpenPipe func([2]int, int, **Error) bool
 // `FD_CLOEXEC`, as that matches the underlying `pipe()` API more closely. Prior
 // to 2.78, only `FD_CLOEXEC` was supported. Support for `FD_CLOEXEC` may be
 // deprecated and removed in future.
-func UnixOpenPipe(FdsVar [2]int, FlagsVar int) (bool, error) {
+func UnixOpenPipe(FdsVar [2]int32, FlagsVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xUnixOpenPipe(FdsVar, FlagsVar, &cerr)
@@ -188,12 +188,12 @@ func UnixOpenPipe(FdsVar [2]int, FlagsVar int) (bool, error) {
 
 }
 
-var xUnixSetFdNonblocking func(int, bool, **Error) bool
+var xUnixSetFdNonblocking func(int32, bool, **Error) bool
 
 // Control the non-blocking state of the given file descriptor,
 // according to @nonblock. On most systems this uses %O_NONBLOCK, but
 // on some older ones may use %O_NDELAY.
-func UnixSetFdNonblocking(FdVar int, NonblockVar bool) (bool, error) {
+func UnixSetFdNonblocking(FdVar int32, NonblockVar bool) (bool, error) {
 	var cerr *Error
 
 	cret := xUnixSetFdNonblocking(FdVar, NonblockVar, &cerr)
@@ -204,29 +204,29 @@ func UnixSetFdNonblocking(FdVar int, NonblockVar bool) (bool, error) {
 
 }
 
-var xUnixSignalAdd func(int, uintptr, uintptr) uint
+var xUnixSignalAdd func(int32, uintptr, uintptr) uint32
 
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAdd(SignumVar int, HandlerVar *SourceFunc, UserDataVar uintptr) uint {
+func UnixSignalAdd(SignumVar int32, HandlerVar *SourceFunc, UserDataVar uintptr) uint32 {
 
 	cret := xUnixSignalAdd(SignumVar, NewCallback(HandlerVar), UserDataVar)
 	return cret
 }
 
-var xUnixSignalAddFull func(int, int, uintptr, uintptr, uintptr) uint
+var xUnixSignalAddFull func(int32, int32, uintptr, uintptr, uintptr) uint32
 
 // A convenience function for g_unix_signal_source_new(), which
 // attaches to the default #GMainContext.  You can remove the watch
 // using g_source_remove().
-func UnixSignalAddFull(PriorityVar int, SignumVar int, HandlerVar *SourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint {
+func UnixSignalAddFull(PriorityVar int32, SignumVar int32, HandlerVar *SourceFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xUnixSignalAddFull(PriorityVar, SignumVar, NewCallback(HandlerVar), UserDataVar, NewCallback(NotifyVar))
 	return cret
 }
 
-var xUnixSignalSourceNew func(int) *Source
+var xUnixSignalSourceNew func(int32) *Source
 
 // Create a #GSource that will be dispatched upon delivery of the UNIX
 // signal @signum.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,
@@ -251,7 +251,7 @@ var xUnixSignalSourceNew func(int) *Source
 // The source will not initially be associated with any #GMainContext
 // and must be added to one with g_source_attach() before it will be
 // executed.
-func UnixSignalSourceNew(SignumVar int) *Source {
+func UnixSignalSourceNew(SignumVar int32) *Source {
 
 	cret := xUnixSignalSourceNew(SignumVar)
 	return cret

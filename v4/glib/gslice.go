@@ -114,9 +114,9 @@ func SliceGetConfig(CkeyVar SliceConfig) int64 {
 	return cret
 }
 
-var xSliceGetConfigState func(SliceConfig, int64, uint) int64
+var xSliceGetConfigState func(SliceConfig, int64, uint32) int64
 
-func SliceGetConfigState(CkeyVar SliceConfig, AddressVar int64, NValuesVar uint) int64 {
+func SliceGetConfigState(CkeyVar SliceConfig, AddressVar int64, NValuesVar uint32) int64 {
 
 	cret := xSliceGetConfigState(CkeyVar, AddressVar, NValuesVar)
 	return cret

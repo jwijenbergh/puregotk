@@ -160,24 +160,24 @@ func (x *ContentProviderClass) GetRefStorableFormats() func(*ContentProvider) *C
 }
 
 // OverrideWriteMimeTypeAsync sets the "write_mime_type_async" callback function.
-func (x *ContentProviderClass) OverrideWriteMimeTypeAsync(cb func(*ContentProvider, string, *gio.OutputStream, int, *gio.Cancellable, *gio.AsyncReadyCallback, uintptr)) {
+func (x *ContentProviderClass) OverrideWriteMimeTypeAsync(cb func(*ContentProvider, string, *gio.OutputStream, int32, *gio.Cancellable, *gio.AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xWriteMimeTypeAsync = 0
 	} else {
-		x.xWriteMimeTypeAsync = purego.NewCallback(func(ProviderVarp uintptr, MimeTypeVarp string, StreamVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xWriteMimeTypeAsync = purego.NewCallback(func(ProviderVarp uintptr, MimeTypeVarp string, StreamVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(ContentProviderNewFromInternalPtr(ProviderVarp), MimeTypeVarp, gio.OutputStreamNewFromInternalPtr(StreamVarp), IoPriorityVarp, gio.CancellableNewFromInternalPtr(CancellableVarp), (*gio.AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetWriteMimeTypeAsync gets the "write_mime_type_async" callback function.
-func (x *ContentProviderClass) GetWriteMimeTypeAsync() func(*ContentProvider, string, *gio.OutputStream, int, *gio.Cancellable, *gio.AsyncReadyCallback, uintptr) {
+func (x *ContentProviderClass) GetWriteMimeTypeAsync() func(*ContentProvider, string, *gio.OutputStream, int32, *gio.Cancellable, *gio.AsyncReadyCallback, uintptr) {
 	if x.xWriteMimeTypeAsync == 0 {
 		return nil
 	}
-	var rawCallback func(ProviderVarp uintptr, MimeTypeVarp string, StreamVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(ProviderVarp uintptr, MimeTypeVarp string, StreamVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xWriteMimeTypeAsync)
-	return func(ProviderVar *ContentProvider, MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+	return func(ProviderVar *ContentProvider, MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(ProviderVar.GoPointer(), MimeTypeVar, StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -390,7 +390,7 @@ func (x *ContentProvider) RefStorableFormats() *ContentFormats {
 	return cret
 }
 
-var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int, uintptr, uintptr, uintptr)
+var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int32, uintptr, uintptr, uintptr)
 
 // Asynchronously writes the contents of @provider to @stream in the given
 // @mime_type.
@@ -400,7 +400,7 @@ var xContentProviderWriteMimeTypeAsync func(uintptr, string, uintptr, int, uintp
 // not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
 //
 // The given @stream will not be closed.
-func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *ContentProvider) WriteMimeTypeAsync(MimeTypeVar string, StreamVar *gio.OutputStream, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentProviderWriteMimeTypeAsync(x.GoPointer(), MimeTypeVar, StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

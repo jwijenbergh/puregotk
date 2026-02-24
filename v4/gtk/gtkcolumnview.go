@@ -292,12 +292,12 @@ func (x *ColumnView) GetTabBehavior() ListTabBehavior {
 	return cret
 }
 
-var xColumnViewInsertColumn func(uintptr, uint, uintptr)
+var xColumnViewInsertColumn func(uintptr, uint32, uintptr)
 
 // Inserts a column at the given position in the columns of @self.
 //
 // If @column is already a column of @self, it will be repositioned.
-func (x *ColumnView) InsertColumn(PositionVar uint, ColumnVar *ColumnViewColumn) {
+func (x *ColumnView) InsertColumn(PositionVar uint32, ColumnVar *ColumnViewColumn) {
 
 	xColumnViewInsertColumn(x.GoPointer(), PositionVar, ColumnVar.GoPointer())
 
@@ -312,14 +312,14 @@ func (x *ColumnView) RemoveColumn(ColumnVar *ColumnViewColumn) {
 
 }
 
-var xColumnViewScrollTo func(uintptr, uint, uintptr, ListScrollFlags, *ScrollInfo)
+var xColumnViewScrollTo func(uintptr, uint32, uintptr, ListScrollFlags, *ScrollInfo)
 
 // Scroll to the row at the given position - or cell if a column is
 // given - and performs the actions specified in @flags.
 //
 // This function works no matter if the columnview is shown or focused.
 // If it isn't, then the changes will take effect once that happens.
-func (x *ColumnView) ScrollTo(PosVar uint, ColumnVar *ColumnViewColumn, FlagsVar ListScrollFlags, ScrollVar *ScrollInfo) {
+func (x *ColumnView) ScrollTo(PosVar uint32, ColumnVar *ColumnViewColumn, FlagsVar ListScrollFlags, ScrollVar *ScrollInfo) {
 
 	xColumnViewScrollTo(x.GoPointer(), PosVar, ColumnVar.GoPointer(), FlagsVar, ScrollVar)
 
@@ -548,13 +548,13 @@ func (x *ColumnView) GetPropertySingleClickActivate() bool {
 // This allows for a convenient way to handle activation in a columnview.
 // See [method@Gtk.ListItem.set_activatable] for details on how to use this
 // signal.
-func (x *ColumnView) ConnectActivate(cb *func(ColumnView, uint)) uint32 {
+func (x *ColumnView) ConnectActivate(cb *func(ColumnView, uint32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "activate", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, PositionVarp uint) {
+	fcb := func(clsPtr uintptr, PositionVarp uint32) {
 		fa := ColumnView{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -624,7 +624,7 @@ func (x *ColumnView) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ColumnView) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ColumnView) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -756,7 +756,7 @@ func (x *ColumnView) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColumnView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ColumnView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -792,7 +792,7 @@ func (x *ColumnView) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColumnView) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ColumnView) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -829,7 +829,7 @@ func (x *ColumnView) UpdateState(FirstStateVar AccessibleState, varArgs ...inter
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColumnView) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ColumnView) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

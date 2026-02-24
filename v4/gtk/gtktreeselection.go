@@ -64,10 +64,10 @@ func TreeSelectionNewFromInternalPtr(ptr uintptr) *TreeSelection {
 	return cls
 }
 
-var xTreeSelectionCountSelectedRows func(uintptr) int
+var xTreeSelectionCountSelectedRows func(uintptr) int32
 
 // Returns the number of rows that have been selected in @tree.
-func (x *TreeSelection) CountSelectedRows() int {
+func (x *TreeSelection) CountSelectedRows() int32 {
 
 	cret := xTreeSelectionCountSelectedRows(x.GoPointer())
 	return cret

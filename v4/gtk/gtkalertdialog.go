@@ -78,10 +78,10 @@ func (x *AlertDialog) Choose(ParentVar *Window, CancellableVar *gio.Cancellable,
 
 }
 
-var xAlertDialogChooseFinish func(uintptr, uintptr, **glib.Error) int
+var xAlertDialogChooseFinish func(uintptr, uintptr, **glib.Error) int32
 
 // Finishes the [method@Gtk.AlertDialog.choose] call.
-func (x *AlertDialog) ChooseFinish(ResultVar gio.AsyncResult) (int, error) {
+func (x *AlertDialog) ChooseFinish(ResultVar gio.AsyncResult) (int32, error) {
 	var cerr *glib.Error
 
 	cret := xAlertDialogChooseFinish(x.GoPointer(), ResultVar.GoPointer(), &cerr)
@@ -101,19 +101,19 @@ func (x *AlertDialog) GetButtons() []string {
 	return cret
 }
 
-var xAlertDialogGetCancelButton func(uintptr) int
+var xAlertDialogGetCancelButton func(uintptr) int32
 
 // Returns the index of the cancel button.
-func (x *AlertDialog) GetCancelButton() int {
+func (x *AlertDialog) GetCancelButton() int32 {
 
 	cret := xAlertDialogGetCancelButton(x.GoPointer())
 	return cret
 }
 
-var xAlertDialogGetDefaultButton func(uintptr) int
+var xAlertDialogGetDefaultButton func(uintptr) int32
 
 // Returns the index of the default button.
-func (x *AlertDialog) GetDefaultButton() int {
+func (x *AlertDialog) GetDefaultButton() int32 {
 
 	cret := xAlertDialogGetDefaultButton(x.GoPointer())
 	return cret
@@ -156,25 +156,25 @@ func (x *AlertDialog) SetButtons(LabelsVar []string) {
 
 }
 
-var xAlertDialogSetCancelButton func(uintptr, int)
+var xAlertDialogSetCancelButton func(uintptr, int32)
 
 // Sets the index of the cancel button.
 //
 // See [property@Gtk.AlertDialog:cancel-button] for
 // details of how this value is used.
-func (x *AlertDialog) SetCancelButton(ButtonVar int) {
+func (x *AlertDialog) SetCancelButton(ButtonVar int32) {
 
 	xAlertDialogSetCancelButton(x.GoPointer(), ButtonVar)
 
 }
 
-var xAlertDialogSetDefaultButton func(uintptr, int)
+var xAlertDialogSetDefaultButton func(uintptr, int32)
 
 // Sets the index of the default button.
 //
 // See [property@Gtk.AlertDialog:default-button] for
 // details of how this value is used.
-func (x *AlertDialog) SetDefaultButton(ButtonVar int) {
+func (x *AlertDialog) SetDefaultButton(ButtonVar int32) {
 
 	xAlertDialogSetDefaultButton(x.GoPointer(), ButtonVar)
 
@@ -274,10 +274,10 @@ func (x *AlertDialog) GetPropertyButtons() []string {
 //
 // If `buttons` is `NULL`, then the automatically created 'Close' button
 // is treated as both cancel and default button, so 0 is returned.
-func (x *AlertDialog) SetPropertyCancelButton(value int) {
+func (x *AlertDialog) SetPropertyCancelButton(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("cancel-button", &v)
 }
 
@@ -291,10 +291,10 @@ func (x *AlertDialog) SetPropertyCancelButton(value int) {
 //
 // If `buttons` is `NULL`, then the automatically created 'Close' button
 // is treated as both cancel and default button, so 0 is returned.
-func (x *AlertDialog) GetPropertyCancelButton() int {
+func (x *AlertDialog) GetPropertyCancelButton() int32 {
 	var v gobject.Value
 	x.GetProperty("cancel-button", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDefaultButton sets the "default-button" property.
@@ -307,10 +307,10 @@ func (x *AlertDialog) GetPropertyCancelButton() int {
 //
 // If `buttons` is `NULL`, then the automatically created 'Close' button
 // is treated as both cancel and default button, so 0 is returned.
-func (x *AlertDialog) SetPropertyDefaultButton(value int) {
+func (x *AlertDialog) SetPropertyDefaultButton(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("default-button", &v)
 }
 
@@ -324,10 +324,10 @@ func (x *AlertDialog) SetPropertyDefaultButton(value int) {
 //
 // If `buttons` is `NULL`, then the automatically created 'Close' button
 // is treated as both cancel and default button, so 0 is returned.
-func (x *AlertDialog) GetPropertyDefaultButton() int {
+func (x *AlertDialog) GetPropertyDefaultButton() int32 {
 	var v gobject.Value
 	x.GetProperty("default-button", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDetail sets the "detail" property.

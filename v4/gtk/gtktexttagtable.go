@@ -98,10 +98,10 @@ func (x *TextTagTable) Foreach(FuncVar *TextTagTableForeach, DataVar uintptr) {
 
 }
 
-var xTextTagTableGetSize func(uintptr) int
+var xTextTagTableGetSize func(uintptr) int32
 
 // Returns the size of the table (number of tags)
-func (x *TextTagTable) GetSize() int {
+func (x *TextTagTable) GetSize() int32 {
 
 	cret := xTextTagTableGetSize(x.GoPointer())
 	return cret

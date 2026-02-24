@@ -206,13 +206,13 @@ func (x *Drag) GetSurface() *Surface {
 	return cls
 }
 
-var xDragSetHotspot func(uintptr, int, int)
+var xDragSetHotspot func(uintptr, int32, int32)
 
 // Sets the position of the drag surface that will be kept
 // under the cursor hotspot.
 //
 // Initially, the hotspot is at the top left corner of the drag surface.
-func (x *Drag) SetHotspot(HotXVar int, HotYVar int) {
+func (x *Drag) SetHotspot(HotXVar int32, HotYVar int32) {
 
 	xDragSetHotspot(x.GoPointer(), HotXVar, HotYVar)
 

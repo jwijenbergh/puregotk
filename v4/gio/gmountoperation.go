@@ -469,10 +469,10 @@ func (x *MountOperation) GetAnonymous() bool {
 	return cret
 }
 
-var xMountOperationGetChoice func(uintptr) int
+var xMountOperationGetChoice func(uintptr) int32
 
 // Gets a choice from the mount operation.
-func (x *MountOperation) GetChoice() int {
+func (x *MountOperation) GetChoice() int32 {
 
 	cret := xMountOperationGetChoice(x.GoPointer())
 	return cret
@@ -525,10 +525,10 @@ func (x *MountOperation) GetPasswordSave() PasswordSave {
 	return cret
 }
 
-var xMountOperationGetPim func(uintptr) uint
+var xMountOperationGetPim func(uintptr) uint32
 
 // Gets a PIM from the mount operation.
-func (x *MountOperation) GetPim() uint {
+func (x *MountOperation) GetPim() uint32 {
 
 	cret := xMountOperationGetPim(x.GoPointer())
 	return cret
@@ -561,10 +561,10 @@ func (x *MountOperation) SetAnonymous(AnonymousVar bool) {
 
 }
 
-var xMountOperationSetChoice func(uintptr, int)
+var xMountOperationSetChoice func(uintptr, int32)
 
 // Sets a default choice for the mount operation.
-func (x *MountOperation) SetChoice(ChoiceVar int) {
+func (x *MountOperation) SetChoice(ChoiceVar int32) {
 
 	xMountOperationSetChoice(x.GoPointer(), ChoiceVar)
 
@@ -615,10 +615,10 @@ func (x *MountOperation) SetPasswordSave(SaveVar PasswordSave) {
 
 }
 
-var xMountOperationSetPim func(uintptr, uint)
+var xMountOperationSetPim func(uintptr, uint32)
 
 // Sets the mount operation's PIM to @pim.
-func (x *MountOperation) SetPim(PimVar uint) {
+func (x *MountOperation) SetPim(PimVar uint32) {
 
 	xMountOperationSetPim(x.GoPointer(), PimVar)
 
@@ -664,20 +664,20 @@ func (x *MountOperation) GetPropertyAnonymous() bool {
 // SetPropertyChoice sets the "choice" property.
 // The index of the user's choice when a question is asked during the
 // mount operation. See the #GMountOperation::ask-question signal.
-func (x *MountOperation) SetPropertyChoice(value int) {
+func (x *MountOperation) SetPropertyChoice(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("choice", &v)
 }
 
 // GetPropertyChoice gets the "choice" property.
 // The index of the user's choice when a question is asked during the
 // mount operation. See the #GMountOperation::ask-question signal.
-func (x *MountOperation) GetPropertyChoice() int {
+func (x *MountOperation) GetPropertyChoice() int32 {
 	var v gobject.Value
 	x.GetProperty("choice", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDomain sets the "domain" property.
@@ -763,20 +763,20 @@ func (x *MountOperation) GetPropertyPassword() string {
 // SetPropertyPim sets the "pim" property.
 // The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
 // [the VeraCrypt documentation](https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html).
-func (x *MountOperation) SetPropertyPim(value uint) {
+func (x *MountOperation) SetPropertyPim(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("pim", &v)
 }
 
 // GetPropertyPim gets the "pim" property.
 // The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
 // [the VeraCrypt documentation](https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html).
-func (x *MountOperation) GetPropertyPim() uint {
+func (x *MountOperation) GetPropertyPim() uint32 {
 	var v gobject.Value
 	x.GetProperty("pim", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyUsername sets the "username" property.

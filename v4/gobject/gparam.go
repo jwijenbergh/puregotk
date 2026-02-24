@@ -133,11 +133,11 @@ func (x *ParamSpecClass) GetValueValidate() func(*ParamSpec, *Value) bool {
 // Compares @value1 with @value2 according to this type
 //
 //	(recommended, the default is memcmp()), see g_param_values_cmp().
-func (x *ParamSpecClass) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value) int) {
+func (x *ParamSpecClass) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value) int32) {
 	if cb == nil {
 		x.xValuesCmp = 0
 	} else {
-		x.xValuesCmp = purego.NewCallback(func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int {
+		x.xValuesCmp = purego.NewCallback(func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int32 {
 			return cb(ParamSpecNewFromInternalPtr(PspecVarp), Value1Varp, Value2Varp)
 		})
 	}
@@ -147,13 +147,13 @@ func (x *ParamSpecClass) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value) i
 // Compares @value1 with @value2 according to this type
 //
 //	(recommended, the default is memcmp()), see g_param_values_cmp().
-func (x *ParamSpecClass) GetValuesCmp() func(*ParamSpec, *Value, *Value) int {
+func (x *ParamSpecClass) GetValuesCmp() func(*ParamSpec, *Value, *Value) int32 {
 	if x.xValuesCmp == 0 {
 		return nil
 	}
-	var rawCallback func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int
+	var rawCallback func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int32
 	purego.RegisterFunc(&rawCallback, x.xValuesCmp)
-	return func(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int {
+	return func(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int32 {
 		return rawCallback(PspecVar.GoPointer(), Value1Var, Value2Var)
 	}
 }
@@ -220,11 +220,11 @@ func (x *ParamSpecPool) Insert(PspecVar *ParamSpec, OwnerTypeVar types.GType) {
 
 }
 
-var xParamSpecPoolList func(uintptr, types.GType, *uint) uintptr
+var xParamSpecPoolList func(uintptr, types.GType, *uint32) uintptr
 
 // Gets an array of all #GParamSpecs owned by @owner_type in
 // the pool.
-func (x *ParamSpecPool) List(OwnerTypeVar types.GType, NPspecsPVar *uint) uintptr {
+func (x *ParamSpecPool) List(OwnerTypeVar types.GType, NPspecsPVar *uint32) uintptr {
 
 	cret := xParamSpecPoolList(x.GoPointer(), OwnerTypeVar, NPspecsPVar)
 	return cret
@@ -414,11 +414,11 @@ func (x *ParamSpecTypeInfo) GetValueValidate() func(*ParamSpec, *Value) bool {
 // Compares @value1 with @value2 according to @pspec
 //
 //	(recommended, the default is memcmp()), see g_param_values_cmp().
-func (x *ParamSpecTypeInfo) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value) int) {
+func (x *ParamSpecTypeInfo) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value) int32) {
 	if cb == nil {
 		x.xValuesCmp = 0
 	} else {
-		x.xValuesCmp = purego.NewCallback(func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int {
+		x.xValuesCmp = purego.NewCallback(func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int32 {
 			return cb(ParamSpecNewFromInternalPtr(PspecVarp), Value1Varp, Value2Varp)
 		})
 	}
@@ -428,13 +428,13 @@ func (x *ParamSpecTypeInfo) OverrideValuesCmp(cb func(*ParamSpec, *Value, *Value
 // Compares @value1 with @value2 according to @pspec
 //
 //	(recommended, the default is memcmp()), see g_param_values_cmp().
-func (x *ParamSpecTypeInfo) GetValuesCmp() func(*ParamSpec, *Value, *Value) int {
+func (x *ParamSpecTypeInfo) GetValuesCmp() func(*ParamSpec, *Value, *Value) int32 {
 	if x.xValuesCmp == 0 {
 		return nil
 	}
-	var rawCallback func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int
+	var rawCallback func(PspecVarp uintptr, Value1Varp *Value, Value2Varp *Value) int32
 	purego.RegisterFunc(&rawCallback, x.xValuesCmp)
-	return func(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int {
+	return func(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int32 {
 		return rawCallback(PspecVar.GoPointer(), Value1Var, Value2Var)
 	}
 }
@@ -455,7 +455,7 @@ func (x *Parameter) GoPointer() uintptr {
 
 const (
 	// Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
-	PARAM_MASK int = 255
+	PARAM_MASK int32 = 255
 	// #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
 	//
 	// It is recommended to use this for all properties by default, as it allows for
@@ -465,10 +465,10 @@ const (
 	// nickname or blurb.
 	//
 	// Since 2.13.0
-	PARAM_STATIC_STRINGS int = 224
+	PARAM_STATIC_STRINGS int32 = 224
 	// Minimum shift count to be used for user defined flags, to be stored in
 	// #GParamSpec.flags. The maximum allowed is 10.
-	PARAM_USER_SHIFT int = 8
+	PARAM_USER_SHIFT int32 = 8
 )
 
 // Through the #GParamFlags flag values, certain aspects of parameters
@@ -594,12 +594,12 @@ func ParamValueValidate(PspecVar *ParamSpec, ValueVar *Value) bool {
 	return cret
 }
 
-var xParamValuesCmp func(uintptr, *Value, *Value) int
+var xParamValuesCmp func(uintptr, *Value, *Value) int32
 
 // Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
 // if @value1 is found to be less than, equal to or greater than @value2,
 // respectively.
-func ParamValuesCmp(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int {
+func ParamValuesCmp(PspecVar *ParamSpec, Value1Var *Value, Value2Var *Value) int32 {
 
 	cret := xParamValuesCmp(PspecVar.GoPointer(), Value1Var, Value2Var)
 	return cret

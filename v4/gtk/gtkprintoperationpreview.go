@@ -93,47 +93,47 @@ func (x *PrintOperationPreviewIface) GetGotPageSize() func(PrintOperationPreview
 }
 
 // OverrideRenderPage sets the "render_page" callback function.
-func (x *PrintOperationPreviewIface) OverrideRenderPage(cb func(PrintOperationPreview, int)) {
+func (x *PrintOperationPreviewIface) OverrideRenderPage(cb func(PrintOperationPreview, int32)) {
 	if cb == nil {
 		x.xRenderPage = 0
 	} else {
-		x.xRenderPage = purego.NewCallback(func(PreviewVarp uintptr, PageNrVarp int) {
+		x.xRenderPage = purego.NewCallback(func(PreviewVarp uintptr, PageNrVarp int32) {
 			cb(&PrintOperationPreviewBase{Ptr: PreviewVarp}, PageNrVarp)
 		})
 	}
 }
 
 // GetRenderPage gets the "render_page" callback function.
-func (x *PrintOperationPreviewIface) GetRenderPage() func(PrintOperationPreview, int) {
+func (x *PrintOperationPreviewIface) GetRenderPage() func(PrintOperationPreview, int32) {
 	if x.xRenderPage == 0 {
 		return nil
 	}
-	var rawCallback func(PreviewVarp uintptr, PageNrVarp int)
+	var rawCallback func(PreviewVarp uintptr, PageNrVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xRenderPage)
-	return func(PreviewVar PrintOperationPreview, PageNrVar int) {
+	return func(PreviewVar PrintOperationPreview, PageNrVar int32) {
 		rawCallback(PreviewVar.GoPointer(), PageNrVar)
 	}
 }
 
 // OverrideIsSelected sets the "is_selected" callback function.
-func (x *PrintOperationPreviewIface) OverrideIsSelected(cb func(PrintOperationPreview, int) bool) {
+func (x *PrintOperationPreviewIface) OverrideIsSelected(cb func(PrintOperationPreview, int32) bool) {
 	if cb == nil {
 		x.xIsSelected = 0
 	} else {
-		x.xIsSelected = purego.NewCallback(func(PreviewVarp uintptr, PageNrVarp int) bool {
+		x.xIsSelected = purego.NewCallback(func(PreviewVarp uintptr, PageNrVarp int32) bool {
 			return cb(&PrintOperationPreviewBase{Ptr: PreviewVarp}, PageNrVarp)
 		})
 	}
 }
 
 // GetIsSelected gets the "is_selected" callback function.
-func (x *PrintOperationPreviewIface) GetIsSelected() func(PrintOperationPreview, int) bool {
+func (x *PrintOperationPreviewIface) GetIsSelected() func(PrintOperationPreview, int32) bool {
 	if x.xIsSelected == 0 {
 		return nil
 	}
-	var rawCallback func(PreviewVarp uintptr, PageNrVarp int) bool
+	var rawCallback func(PreviewVarp uintptr, PageNrVarp int32) bool
 	purego.RegisterFunc(&rawCallback, x.xIsSelected)
-	return func(PreviewVar PrintOperationPreview, PageNrVar int) bool {
+	return func(PreviewVar PrintOperationPreview, PageNrVar int32) bool {
 		return rawCallback(PreviewVar.GoPointer(), PageNrVar)
 	}
 }
@@ -354,8 +354,8 @@ type PrintOperationPreview interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	EndPreview()
-	IsSelected(PageNrVar int) bool
-	RenderPage(PageNrVar int)
+	IsSelected(PageNrVar int32) bool
+	RenderPage(PageNrVar int32)
 }
 
 var xPrintOperationPreviewGLibType func() types.GType
@@ -390,7 +390,7 @@ func (x *PrintOperationPreviewBase) EndPreview() {
 
 // Returns whether the given page is included in the set of pages that
 // have been selected for printing.
-func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int) bool {
+func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int32) bool {
 
 	cret := XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
 	return cret
@@ -407,15 +407,15 @@ func (x *PrintOperationPreviewBase) IsSelected(PageNrVar int) bool {
 //
 // Note that this function requires a suitable cairo context to
 // be associated with the print context.
-func (x *PrintOperationPreviewBase) RenderPage(PageNrVar int) {
+func (x *PrintOperationPreviewBase) RenderPage(PageNrVar int32) {
 
 	XGtkPrintOperationPreviewRenderPage(x.GoPointer(), PageNrVar)
 
 }
 
 var XGtkPrintOperationPreviewEndPreview func(uintptr)
-var XGtkPrintOperationPreviewIsSelected func(uintptr, int) bool
-var XGtkPrintOperationPreviewRenderPage func(uintptr, int)
+var XGtkPrintOperationPreviewIsSelected func(uintptr, int32) bool
+var XGtkPrintOperationPreviewRenderPage func(uintptr, int32)
 
 func init() {
 	core.SetPackageName("GTK", "gtk4")

@@ -125,28 +125,28 @@ func (x *Calendar) GetDate() *glib.DateTime {
 	return cret
 }
 
-var xCalendarGetDay func(uintptr) int
+var xCalendarGetDay func(uintptr) int32
 
 // Gets the day of the selected date.
-func (x *Calendar) GetDay() int {
+func (x *Calendar) GetDay() int32 {
 
 	cret := xCalendarGetDay(x.GoPointer())
 	return cret
 }
 
-var xCalendarGetDayIsMarked func(uintptr, uint) bool
+var xCalendarGetDayIsMarked func(uintptr, uint32) bool
 
 // Returns if the @day of the @calendar is already marked.
-func (x *Calendar) GetDayIsMarked(DayVar uint) bool {
+func (x *Calendar) GetDayIsMarked(DayVar uint32) bool {
 
 	cret := xCalendarGetDayIsMarked(x.GoPointer(), DayVar)
 	return cret
 }
 
-var xCalendarGetMonth func(uintptr) int
+var xCalendarGetMonth func(uintptr) int32
 
 // Gets the month of the selected date.
-func (x *Calendar) GetMonth() int {
+func (x *Calendar) GetMonth() int32 {
 
 	cret := xCalendarGetMonth(x.GoPointer())
 	return cret
@@ -190,19 +190,19 @@ func (x *Calendar) GetShowWeekNumbers() bool {
 	return cret
 }
 
-var xCalendarGetYear func(uintptr) int
+var xCalendarGetYear func(uintptr) int32
 
 // Gets the year of the selected date.
-func (x *Calendar) GetYear() int {
+func (x *Calendar) GetYear() int32 {
 
 	cret := xCalendarGetYear(x.GoPointer())
 	return cret
 }
 
-var xCalendarMarkDay func(uintptr, uint)
+var xCalendarMarkDay func(uintptr, uint32)
 
 // Places a visual marker on a particular day of the current month.
-func (x *Calendar) MarkDay(DayVar uint) {
+func (x *Calendar) MarkDay(DayVar uint32) {
 
 	xCalendarMarkDay(x.GoPointer(), DayVar)
 
@@ -226,25 +226,25 @@ func (x *Calendar) SetDate(DateVar *glib.DateTime) {
 
 }
 
-var xCalendarSetDay func(uintptr, int)
+var xCalendarSetDay func(uintptr, int32)
 
 // Sets the day for the selected date.
 //
 // The new date must be valid. For example, setting the day to 31 when the
 // month is February will fail.
-func (x *Calendar) SetDay(DayVar int) {
+func (x *Calendar) SetDay(DayVar int32) {
 
 	xCalendarSetDay(x.GoPointer(), DayVar)
 
 }
 
-var xCalendarSetMonth func(uintptr, int)
+var xCalendarSetMonth func(uintptr, int32)
 
 // Sets the month for the selected date.
 //
 // The new date must be valid. For example, setting the month to 1 (February)
 // when the day is 31 will fail.
-func (x *Calendar) SetMonth(MonthVar int) {
+func (x *Calendar) SetMonth(MonthVar int32) {
 
 	xCalendarSetMonth(x.GoPointer(), MonthVar)
 
@@ -280,22 +280,22 @@ func (x *Calendar) SetShowWeekNumbers(ValueVar bool) {
 
 }
 
-var xCalendarSetYear func(uintptr, int)
+var xCalendarSetYear func(uintptr, int32)
 
 // Sets the year for the selected date.
 //
 // The new date must be valid. For example, setting the year to 2023 when the
 // date is February 29 will fail.
-func (x *Calendar) SetYear(YearVar int) {
+func (x *Calendar) SetYear(YearVar int32) {
 
 	xCalendarSetYear(x.GoPointer(), YearVar)
 
 }
 
-var xCalendarUnmarkDay func(uintptr, uint)
+var xCalendarUnmarkDay func(uintptr, uint32)
 
 // Removes the visual marker from a particular day.
-func (x *Calendar) UnmarkDay(DayVar uint) {
+func (x *Calendar) UnmarkDay(DayVar uint32) {
 
 	xCalendarUnmarkDay(x.GoPointer(), DayVar)
 
@@ -335,29 +335,29 @@ func (x *Calendar) GetPropertyDate() uintptr {
 
 // SetPropertyDay sets the "day" property.
 // The selected day (as a number between 1 and 31).
-func (x *Calendar) SetPropertyDay(value int) {
+func (x *Calendar) SetPropertyDay(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("day", &v)
 }
 
 // GetPropertyDay gets the "day" property.
 // The selected day (as a number between 1 and 31).
-func (x *Calendar) GetPropertyDay() int {
+func (x *Calendar) GetPropertyDay() int32 {
 	var v gobject.Value
 	x.GetProperty("day", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMonth sets the "month" property.
 // The selected month (as a number between 0 and 11).
 //
 // This property gets initially set to the current month.
-func (x *Calendar) SetPropertyMonth(value int) {
+func (x *Calendar) SetPropertyMonth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("month", &v)
 }
 
@@ -365,10 +365,10 @@ func (x *Calendar) SetPropertyMonth(value int) {
 // The selected month (as a number between 0 and 11).
 //
 // This property gets initially set to the current month.
-func (x *Calendar) GetPropertyMonth() int {
+func (x *Calendar) GetPropertyMonth() int32 {
 	var v gobject.Value
 	x.GetProperty("month", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyShowDayNames sets the "show-day-names" property.
@@ -426,10 +426,10 @@ func (x *Calendar) GetPropertyShowWeekNumbers() bool {
 // The selected year.
 //
 // This property gets initially set to the current year.
-func (x *Calendar) SetPropertyYear(value int) {
+func (x *Calendar) SetPropertyYear(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("year", &v)
 }
 
@@ -437,10 +437,10 @@ func (x *Calendar) SetPropertyYear(value int) {
 // The selected year.
 //
 // This property gets initially set to the current year.
-func (x *Calendar) GetPropertyYear() int {
+func (x *Calendar) GetPropertyYear() int32 {
 	var v gobject.Value
 	x.GetProperty("year", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when the user selects a day.
@@ -600,7 +600,7 @@ func (x *Calendar) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Calendar) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Calendar) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -732,7 +732,7 @@ func (x *Calendar) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Calendar) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Calendar) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -768,7 +768,7 @@ func (x *Calendar) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Calendar) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Calendar) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -805,7 +805,7 @@ func (x *Calendar) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Calendar) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Calendar) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

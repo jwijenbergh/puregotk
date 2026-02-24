@@ -52,11 +52,11 @@ func TimedAnimationNewFromInternalPtr(ptr uintptr) *TimedAnimation {
 	return cls
 }
 
-var xNewTimedAnimation func(uintptr, float64, float64, uint, uintptr) uintptr
+var xNewTimedAnimation func(uintptr, float64, float64, uint32, uintptr) uintptr
 
 // Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
 // to @to.
-func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, DurationVar uint, TargetVar *AnimationTarget) *TimedAnimation {
+func NewTimedAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, DurationVar uint32, TargetVar *AnimationTarget) *TimedAnimation {
 	var cls *TimedAnimation
 
 	cret := xNewTimedAnimation(WidgetVar.GoPointer(), FromVar, ToVar, DurationVar, TargetVar.GoPointer())
@@ -79,10 +79,10 @@ func (x *TimedAnimation) GetAlternate() bool {
 	return cret
 }
 
-var xTimedAnimationGetDuration func(uintptr) uint
+var xTimedAnimationGetDuration func(uintptr) uint32
 
 // Gets the duration of @self.
-func (x *TimedAnimation) GetDuration() uint {
+func (x *TimedAnimation) GetDuration() uint32 {
 
 	cret := xTimedAnimationGetDuration(x.GoPointer())
 	return cret
@@ -97,10 +97,10 @@ func (x *TimedAnimation) GetEasing() Easing {
 	return cret
 }
 
-var xTimedAnimationGetRepeatCount func(uintptr) uint
+var xTimedAnimationGetRepeatCount func(uintptr) uint32
 
 // Gets the number of times @self will play.
-func (x *TimedAnimation) GetRepeatCount() uint {
+func (x *TimedAnimation) GetRepeatCount() uint32 {
 
 	cret := xTimedAnimationGetRepeatCount(x.GoPointer())
 	return cret
@@ -142,12 +142,12 @@ func (x *TimedAnimation) SetAlternate(AlternateVar bool) {
 
 }
 
-var xTimedAnimationSetDuration func(uintptr, uint)
+var xTimedAnimationSetDuration func(uintptr, uint32)
 
 // Sets the duration of @self.
 //
 // If the animation repeats more than once, sets the duration of one iteration.
-func (x *TimedAnimation) SetDuration(DurationVar uint) {
+func (x *TimedAnimation) SetDuration(DurationVar uint32) {
 
 	xTimedAnimationSetDuration(x.GoPointer(), DurationVar)
 
@@ -164,12 +164,12 @@ func (x *TimedAnimation) SetEasing(EasingVar Easing) {
 
 }
 
-var xTimedAnimationSetRepeatCount func(uintptr, uint)
+var xTimedAnimationSetRepeatCount func(uintptr, uint32)
 
 // Sets the number of times @self will play.
 //
 // If set to 0, @self will repeat endlessly.
-func (x *TimedAnimation) SetRepeatCount(RepeatCountVar uint) {
+func (x *TimedAnimation) SetRepeatCount(RepeatCountVar uint32) {
 
 	xTimedAnimationSetRepeatCount(x.GoPointer(), RepeatCountVar)
 
@@ -249,10 +249,10 @@ func (x *TimedAnimation) GetPropertyAlternate() bool {
 //
 // If the animation repeats more than once, describes the duration of one
 // iteration.
-func (x *TimedAnimation) SetPropertyDuration(value uint) {
+func (x *TimedAnimation) SetPropertyDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("duration", &v)
 }
 
@@ -263,20 +263,20 @@ func (x *TimedAnimation) SetPropertyDuration(value uint) {
 //
 // If the animation repeats more than once, describes the duration of one
 // iteration.
-func (x *TimedAnimation) GetPropertyDuration() uint {
+func (x *TimedAnimation) GetPropertyDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyRepeatCount sets the "repeat-count" property.
 // Number of times the animation will play.
 //
 // If set to 0, the animation will repeat endlessly.
-func (x *TimedAnimation) SetPropertyRepeatCount(value uint) {
+func (x *TimedAnimation) SetPropertyRepeatCount(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("repeat-count", &v)
 }
 
@@ -284,10 +284,10 @@ func (x *TimedAnimation) SetPropertyRepeatCount(value uint) {
 // Number of times the animation will play.
 //
 // If set to 0, the animation will repeat endlessly.
-func (x *TimedAnimation) GetPropertyRepeatCount() uint {
+func (x *TimedAnimation) GetPropertyRepeatCount() uint32 {
 	var v gobject.Value
 	x.GetProperty("repeat-count", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyReverse sets the "reverse" property.

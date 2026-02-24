@@ -62,7 +62,7 @@ func (x *AppLaunchContext) GetDisplay() *Display {
 	return cls
 }
 
-var xAppLaunchContextSetDesktop func(uintptr, int)
+var xAppLaunchContextSetDesktop func(uintptr, int32)
 
 // Sets the workspace on which applications will be launched.
 //
@@ -77,7 +77,7 @@ var xAppLaunchContextSetDesktop func(uintptr, int)
 // When the workspace is not specified or @desktop is set to -1,
 // it is up to the window manager to pick one, typically it will
 // be the current workspace.
-func (x *AppLaunchContext) SetDesktop(DesktopVar int) {
+func (x *AppLaunchContext) SetDesktop(DesktopVar int32) {
 
 	xAppLaunchContextSetDesktop(x.GoPointer(), DesktopVar)
 

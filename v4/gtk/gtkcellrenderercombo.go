@@ -102,10 +102,10 @@ func (x *CellRendererCombo) GetPropertyHasEntry() bool {
 //
 // `GtkCellRendererCombo` automatically adds a text cell renderer for
 // this column to its combo box.
-func (x *CellRendererCombo) SetPropertyTextColumn(value int) {
+func (x *CellRendererCombo) SetPropertyTextColumn(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("text-column", &v)
 }
 
@@ -119,10 +119,10 @@ func (x *CellRendererCombo) SetPropertyTextColumn(value int) {
 //
 // `GtkCellRendererCombo` automatically adds a text cell renderer for
 // this column to its combo box.
-func (x *CellRendererCombo) GetPropertyTextColumn() int {
+func (x *CellRendererCombo) GetPropertyTextColumn() int32 {
 	var v gobject.Value
 	x.GetProperty("text-column", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // This signal is emitted each time after the user selected an item in

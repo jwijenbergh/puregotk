@@ -66,7 +66,7 @@ type IOChannel struct {
 
 	LineTerm uintptr
 
-	LineTermLen uint
+	LineTermLen uint32
 
 	BufSize uint
 
@@ -78,17 +78,17 @@ type IOChannel struct {
 
 	PartialWriteBuf [6]byte
 
-	UseBuffer uint
+	UseBuffer uint32
 
-	DoEncode uint
+	DoEncode uint32
 
-	CloseOnUnref uint
+	CloseOnUnref uint32
 
-	IsReadable uint
+	IsReadable uint32
 
-	IsWriteable uint
+	IsWriteable uint32
 
-	IsSeekable uint
+	IsSeekable uint32
 
 	Reserved1 uintptr
 
@@ -123,7 +123,7 @@ func NewIOChannelFile(FilenameVar string, ModeVar string) (*IOChannel, error) {
 
 }
 
-var xIOChannelUnixNew func(int) *IOChannel
+var xIOChannelUnixNew func(int32) *IOChannel
 
 // Creates a new #GIOChannel given a file descriptor. On UNIX systems
 // this works for plain files, pipes, and sockets.
@@ -147,7 +147,7 @@ var xIOChannelUnixNew func(int) *IOChannel
 // in case the argument you pass to this function happens to be both a
 // valid file descriptor and socket. If that happens a warning is
 // issued, and GLib assumes that it is the file descriptor you mean.
-func IOChannelUnixNew(FdVar int) *IOChannel {
+func IOChannelUnixNew(FdVar int32) *IOChannel {
 
 	cret := xIOChannelUnixNew(FdVar)
 	return cret
@@ -247,13 +247,13 @@ func (x *IOChannel) GetFlags() IOFlags {
 	return cret
 }
 
-var xIOChannelGetLineTerm func(uintptr, *int) string
+var xIOChannelGetLineTerm func(uintptr, *int32) string
 
 // This returns the string that #GIOChannel uses to determine
 // where in the file a line break occurs. A value of %NULL
 // indicates autodetection. Since 2.84, the return value is always
 // nul-terminated.
-func (x *IOChannel) GetLineTerm(LengthVar *int) string {
+func (x *IOChannel) GetLineTerm(LengthVar *int32) string {
 
 	cret := xIOChannelGetLineTerm(x.GoPointer(), LengthVar)
 	return cret
@@ -499,11 +499,11 @@ func (x *IOChannel) SetFlags(FlagsVar IOFlags) (IOStatus, error) {
 
 }
 
-var xIOChannelSetLineTerm func(uintptr, string, int)
+var xIOChannelSetLineTerm func(uintptr, string, int32)
 
 // This sets the string that #GIOChannel uses to determine
 // where in the file a line break occurs.
-func (x *IOChannel) SetLineTerm(LineTermVar string, LengthVar int) {
+func (x *IOChannel) SetLineTerm(LineTermVar string, LengthVar int32) {
 
 	xIOChannelSetLineTerm(x.GoPointer(), LineTermVar, LengthVar)
 
@@ -525,13 +525,13 @@ func (x *IOChannel) Shutdown(FlushVar bool) (IOStatus, error) {
 
 }
 
-var xIOChannelUnixGetFd func(uintptr) int
+var xIOChannelUnixGetFd func(uintptr) int32
 
 // Returns the file descriptor of the #GIOChannel.
 //
 // On Windows this function returns the file descriptor or socket of
 // the #GIOChannel.
-func (x *IOChannel) UnixGetFd() int {
+func (x *IOChannel) UnixGetFd() int32 {
 
 	cret := xIOChannelUnixGetFd(x.GoPointer())
 	return cret
@@ -872,7 +872,7 @@ func (x *IOFuncs) GetIoGetFlags() func(*IOChannel) IOFlags {
 }
 
 const (
-	WIN32_MSG_HANDLE int = 19981206
+	WIN32_MSG_HANDLE int32 = 19981206
 )
 
 // A bitwise combination representing a condition to watch for on an
@@ -1012,17 +1012,17 @@ const (
 	GSeekEndValue SeekType = 2
 )
 
-var xIoAddWatch func(*IOChannel, IOCondition, uintptr, uintptr) uint
+var xIoAddWatch func(*IOChannel, IOCondition, uintptr, uintptr) uint32
 
 // Adds the #GIOChannel into the default main loop context
 // with the default priority.
-func IoAddWatch(ChannelVar *IOChannel, ConditionVar IOCondition, FuncVar *IOFunc, UserDataVar uintptr) uint {
+func IoAddWatch(ChannelVar *IOChannel, ConditionVar IOCondition, FuncVar *IOFunc, UserDataVar uintptr) uint32 {
 
 	cret := xIoAddWatch(ChannelVar, ConditionVar, NewCallback(FuncVar), UserDataVar)
 	return cret
 }
 
-var xIoAddWatchFull func(*IOChannel, int, IOCondition, uintptr, uintptr, uintptr) uint
+var xIoAddWatchFull func(*IOChannel, int32, IOCondition, uintptr, uintptr, uintptr) uint32
 
 // Adds the #GIOChannel into the default main loop context
 // with the given priority.
@@ -1030,16 +1030,16 @@ var xIoAddWatchFull func(*IOChannel, int, IOCondition, uintptr, uintptr, uintptr
 // This internally creates a main loop source using g_io_create_watch()
 // and attaches it to the main loop context with g_source_attach().
 // You can do these steps manually if you need greater control.
-func IoAddWatchFull(ChannelVar *IOChannel, PriorityVar int, ConditionVar IOCondition, FuncVar *IOFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint {
+func IoAddWatchFull(ChannelVar *IOChannel, PriorityVar int32, ConditionVar IOCondition, FuncVar *IOFunc, UserDataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xIoAddWatchFull(ChannelVar, PriorityVar, ConditionVar, NewCallback(FuncVar), UserDataVar, NewCallback(NotifyVar))
 	return cret
 }
 
-var xIoChannelErrorFromErrno func(int) IOChannelError
+var xIoChannelErrorFromErrno func(int32) IOChannelError
 
 // Converts an `errno` error number to a #GIOChannelError.
-func IoChannelErrorFromErrno(EnVar int) IOChannelError {
+func IoChannelErrorFromErrno(EnVar int32) IOChannelError {
 
 	cret := xIoChannelErrorFromErrno(EnVar)
 	return cret

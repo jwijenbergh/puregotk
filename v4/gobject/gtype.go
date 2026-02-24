@@ -285,7 +285,7 @@ type TypeInterfaceCheckFunc func(uintptr, *TypeInterface)
 // to return a correctly setup @value for error returns, simply because
 // any non-`NULL` return is considered a fatal programming error, and
 // further program behaviour is undefined.
-type TypeValueCollectFunc func(*Value, uint, []TypeCValue, uint) string
+type TypeValueCollectFunc func(*Value, uint32, []TypeCValue, uint32) string
 
 // Copies the content of a #GValue into another.
 //
@@ -382,7 +382,7 @@ type TypeValueInitFunc func(*Value)
 //
 // return NULL;
 // ]|
-type TypeValueLCopyFunc func(*Value, uint, []TypeCValue, uint) string
+type TypeValueLCopyFunc func(*Value, uint32, []TypeCValue, uint32) string
 
 // If the value contents fit into a pointer, such as objects or strings,
 // return this pointer, so the caller can peek at the current contents.
@@ -495,7 +495,7 @@ func (x *TypeClass) AddPrivate(PrivateSizeVar uint) {
 
 }
 
-var xTypeClassGetInstancePrivateOffset func(uintptr) int
+var xTypeClassGetInstancePrivateOffset func(uintptr) int32
 
 // Gets the offset of the private data for instances of @g_class.
 //
@@ -505,7 +505,7 @@ var xTypeClassGetInstancePrivateOffset func(uintptr) int
 //
 // You can only call this function after you have registered a private
 // data area for @g_class using g_type_class_add_private().
-func (x *TypeClass) GetInstancePrivateOffset() int {
+func (x *TypeClass) GetInstancePrivateOffset() int32 {
 
 	cret := xTypeClassGetInstancePrivateOffset(x.GoPointer())
 	return cret
@@ -668,9 +668,9 @@ type TypeQuery struct {
 
 	TypeName uintptr
 
-	ClassSize uint
+	ClassSize uint32
 
-	InstanceSize uint
+	InstanceSize uint32
 }
 
 func (x *TypeQuery) GoPointer() uintptr {
@@ -721,22 +721,22 @@ const (
 	TYPE_FLAG_RESERVED_ID_BIT Type = 1
 	// An integer constant that represents the number of identifiers reserved
 	// for types that are assigned at compile-time.
-	TYPE_FUNDAMENTAL_MAX int = 1020
+	TYPE_FUNDAMENTAL_MAX int32 = 1020
 	// Shift value used in converting numbers to type IDs.
-	TYPE_FUNDAMENTAL_SHIFT int = 2
+	TYPE_FUNDAMENTAL_SHIFT int32 = 2
 	// First fundamental type number to create a new fundamental type id with
 	// G_TYPE_MAKE_FUNDAMENTAL() reserved for BSE.
-	TYPE_RESERVED_BSE_FIRST int = 32
+	TYPE_RESERVED_BSE_FIRST int32 = 32
 	// Last fundamental type number reserved for BSE.
-	TYPE_RESERVED_BSE_LAST int = 48
+	TYPE_RESERVED_BSE_LAST int32 = 48
 	// First fundamental type number to create a new fundamental type id with
 	// G_TYPE_MAKE_FUNDAMENTAL() reserved for GLib.
-	TYPE_RESERVED_GLIB_FIRST int = 22
+	TYPE_RESERVED_GLIB_FIRST int32 = 22
 	// Last fundamental type number reserved for GLib.
-	TYPE_RESERVED_GLIB_LAST int = 31
+	TYPE_RESERVED_GLIB_LAST int32 = 31
 	// First available fundamental type number to create new fundamental
 	// type id with G_TYPE_MAKE_FUNDAMENTAL().
-	TYPE_RESERVED_USER_FIRST int = 49
+	TYPE_RESERVED_USER_FIRST int32 = 49
 )
 
 // These flags used to be passed to g_type_init_with_debug_flags() which
@@ -832,9 +832,9 @@ func TypeAddClassPrivate(ClassTypeVar types.GType, PrivateSizeVar uint) {
 
 }
 
-var xTypeAddInstancePrivate func(types.GType, uint) int
+var xTypeAddInstancePrivate func(types.GType, uint) int32
 
-func TypeAddInstancePrivate(ClassTypeVar types.GType, PrivateSizeVar uint) int {
+func TypeAddInstancePrivate(ClassTypeVar types.GType, PrivateSizeVar uint) int32 {
 
 	cret := xTypeAddInstancePrivate(ClassTypeVar, PrivateSizeVar)
 	return cret
@@ -953,19 +953,19 @@ func TypeCheckValueHolds(ValueVar *Value, TypeVar types.GType) bool {
 	return cret
 }
 
-var xTypeChildren func(types.GType, *uint) uintptr
+var xTypeChildren func(types.GType, *uint32) uintptr
 
 // Return a newly allocated and 0-terminated array of type IDs, listing
 // the child types of @type.
-func TypeChildren(TypeVar types.GType, NChildrenVar *uint) uintptr {
+func TypeChildren(TypeVar types.GType, NChildrenVar *uint32) uintptr {
 
 	cret := xTypeChildren(TypeVar, NChildrenVar)
 	return cret
 }
 
-var xTypeClassAdjustPrivateOffset func(uintptr, int)
+var xTypeClassAdjustPrivateOffset func(uintptr, int32)
 
-func TypeClassAdjustPrivateOffset(GClassVar uintptr, PrivateSizeOrOffsetVar int) {
+func TypeClassAdjustPrivateOffset(GClassVar uintptr, PrivateSizeOrOffsetVar int32) {
 
 	xTypeClassAdjustPrivateOffset(GClassVar, PrivateSizeOrOffsetVar)
 
@@ -1008,6 +1008,18 @@ var xTypeClassPeekStatic func(types.GType) *TypeClass
 func TypeClassPeekStatic(TypeVar types.GType) *TypeClass {
 
 	cret := xTypeClassPeekStatic(TypeVar)
+	return cret
+}
+
+var xTypeClassRef func(types.GType) *TypeClass
+
+// Increments the reference count of the class structure belonging to
+// @type.
+//
+// This function will demand-create the class if it doesn't exist already.
+func TypeClassRef(TypeVar types.GType) *TypeClass {
+
+	cret := xTypeClassRef(TypeVar)
 	return cret
 }
 
@@ -1098,11 +1110,11 @@ func TypeDefaultInterfaceUnref(GIfaceVar *TypeInterface) {
 
 }
 
-var xTypeDepth func(types.GType) uint
+var xTypeDepth func(types.GType) uint32
 
 // Returns the length of the ancestry of the passed in type. This
 // includes the type itself, so that e.g. a fundamental type has depth 1.
-func TypeDepth(TypeVar types.GType) uint {
+func TypeDepth(TypeVar types.GType) uint32 {
 
 	cret := xTypeDepth(TypeVar)
 	return cret
@@ -1175,13 +1187,13 @@ func TypeFundamentalNext() types.GType {
 	return cret
 }
 
-var xTypeGetInstanceCount func(types.GType) int
+var xTypeGetInstanceCount func(types.GType) int32
 
 // Returns the number of instances allocated of the particular type;
 // this is only available if GLib is built with debugging support and
 // the `instance-count` debug flag is set (by setting the `GOBJECT_DEBUG`
 // variable to include `instance-count`).
-func TypeGetInstanceCount(TypeVar types.GType) int {
+func TypeGetInstanceCount(TypeVar types.GType) int32 {
 
 	cret := xTypeGetInstanceCount(TypeVar)
 	return cret
@@ -1218,14 +1230,14 @@ func TypeGetQdata(TypeVar types.GType, QuarkVar glib.Quark) uintptr {
 	return cret
 }
 
-var xTypeGetTypeRegistrationSerial func() uint
+var xTypeGetTypeRegistrationSerial func() uint32
 
 // Returns an opaque serial number that represents the state of the set
 // of registered types. Any time a type is registered this serial changes,
 // which means you can cache information based on type lookups (such as
 // g_type_from_name()) and know if the cache is still valid at a later
 // time by comparing the current serial with the one at the type lookup.
-func TypeGetTypeRegistrationSerial() uint {
+func TypeGetTypeRegistrationSerial() uint32 {
 
 	cret := xTypeGetTypeRegistrationSerial()
 	return cret
@@ -1313,20 +1325,20 @@ func TypeInterfacePeek(InstanceClassVar *TypeClass, IfaceTypeVar types.GType) *T
 	return cret
 }
 
-var xTypeInterfacePrerequisites func(types.GType, *uint) uintptr
+var xTypeInterfacePrerequisites func(types.GType, *uint32) uintptr
 
 // Returns the prerequisites of an interfaces type.
-func TypeInterfacePrerequisites(InterfaceTypeVar types.GType, NPrerequisitesVar *uint) uintptr {
+func TypeInterfacePrerequisites(InterfaceTypeVar types.GType, NPrerequisitesVar *uint32) uintptr {
 
 	cret := xTypeInterfacePrerequisites(InterfaceTypeVar, NPrerequisitesVar)
 	return cret
 }
 
-var xTypeInterfaces func(types.GType, *uint) uintptr
+var xTypeInterfaces func(types.GType, *uint32) uintptr
 
 // Return a newly allocated and 0-terminated array of type IDs, listing
 // the interface types that @type conforms to.
-func TypeInterfaces(TypeVar types.GType, NInterfacesVar *uint) uintptr {
+func TypeInterfaces(TypeVar types.GType, NInterfacesVar *uint32) uintptr {
 
 	cret := xTypeInterfaces(TypeVar, NInterfacesVar)
 	return cret
@@ -1466,13 +1478,13 @@ func TypeRegisterStatic(ParentTypeVar types.GType, TypeNameVar string, InfoVar *
 	return cret
 }
 
-var xTypeRegisterStaticSimple func(types.GType, string, uint, uintptr, uint, uintptr, TypeFlags) types.GType
+var xTypeRegisterStaticSimple func(types.GType, string, uint32, uintptr, uint32, uintptr, TypeFlags) types.GType
 
 // Registers @type_name as the name of a new static type derived from
 // @parent_type.  The value of @flags determines the nature (e.g.
 // abstract or not) of the type. It works by filling a #GTypeInfo
 // struct and calling g_type_register_static().
-func TypeRegisterStaticSimple(ParentTypeVar types.GType, TypeNameVar string, ClassSizeVar uint, ClassInitVar *ClassInitFunc, InstanceSizeVar uint, InstanceInitVar *InstanceInitFunc, FlagsVar TypeFlags) types.GType {
+func TypeRegisterStaticSimple(ParentTypeVar types.GType, TypeNameVar string, ClassSizeVar uint32, ClassInitVar *ClassInitFunc, InstanceSizeVar uint32, InstanceInitVar *InstanceInitFunc, FlagsVar TypeFlags) types.GType {
 
 	cret := xTypeRegisterStaticSimple(ParentTypeVar, TypeNameVar, ClassSizeVar, glib.NewCallback(ClassInitVar), InstanceSizeVar, glib.NewCallback(InstanceInitVar), FlagsVar)
 	return cret
@@ -1508,9 +1520,9 @@ func TypeSetQdata(TypeVar types.GType, QuarkVar glib.Quark, DataVar uintptr) {
 
 }
 
-var xTypeTestFlags func(types.GType, uint) bool
+var xTypeTestFlags func(types.GType, uint32) bool
 
-func TypeTestFlags(TypeVar types.GType, FlagsVar uint) bool {
+func TypeTestFlags(TypeVar types.GType, FlagsVar uint32) bool {
 
 	cret := xTypeTestFlags(TypeVar, FlagsVar)
 	return cret
@@ -1561,6 +1573,7 @@ func init() {
 	core.PuregoSafeRegister(&xTypeClassGet, libs, "g_type_class_get")
 	core.PuregoSafeRegister(&xTypeClassPeek, libs, "g_type_class_peek")
 	core.PuregoSafeRegister(&xTypeClassPeekStatic, libs, "g_type_class_peek_static")
+	core.PuregoSafeRegister(&xTypeClassRef, libs, "g_type_class_ref")
 	core.PuregoSafeRegister(&xTypeCreateInstance, libs, "g_type_create_instance")
 	core.PuregoSafeRegister(&xTypeDefaultInterfaceGet, libs, "g_type_default_interface_get")
 	core.PuregoSafeRegister(&xTypeDefaultInterfacePeek, libs, "g_type_default_interface_peek")

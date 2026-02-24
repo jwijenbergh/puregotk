@@ -326,7 +326,7 @@ func (x *CenterBox) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *CenterBox) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *CenterBox) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -458,7 +458,7 @@ func (x *CenterBox) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CenterBox) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *CenterBox) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -494,7 +494,7 @@ func (x *CenterBox) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CenterBox) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *CenterBox) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -531,7 +531,7 @@ func (x *CenterBox) UpdateState(FirstStateVar AccessibleState, varArgs ...interf
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *CenterBox) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *CenterBox) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

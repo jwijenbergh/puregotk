@@ -30,11 +30,11 @@ func (x *LoadableIconIface) GoPointer() uintptr {
 
 // OverrideLoad sets the "load" callback function.
 // Loads an icon.
-func (x *LoadableIconIface) OverrideLoad(cb func(LoadableIcon, int, *string, *Cancellable) *InputStream) {
+func (x *LoadableIconIface) OverrideLoad(cb func(LoadableIcon, int32, *string, *Cancellable) *InputStream) {
 	if cb == nil {
 		x.xLoad = 0
 	} else {
-		x.xLoad = purego.NewCallback(func(IconVarp uintptr, SizeVarp int, TypeVarp *string, CancellableVarp uintptr) uintptr {
+		x.xLoad = purego.NewCallback(func(IconVarp uintptr, SizeVarp int32, TypeVarp *string, CancellableVarp uintptr) uintptr {
 			ret := cb(&LoadableIconBase{Ptr: IconVarp}, SizeVarp, TypeVarp, CancellableNewFromInternalPtr(CancellableVarp))
 			if ret == nil {
 				return 0
@@ -46,13 +46,13 @@ func (x *LoadableIconIface) OverrideLoad(cb func(LoadableIcon, int, *string, *Ca
 
 // GetLoad gets the "load" callback function.
 // Loads an icon.
-func (x *LoadableIconIface) GetLoad() func(LoadableIcon, int, *string, *Cancellable) *InputStream {
+func (x *LoadableIconIface) GetLoad() func(LoadableIcon, int32, *string, *Cancellable) *InputStream {
 	if x.xLoad == 0 {
 		return nil
 	}
-	var rawCallback func(IconVarp uintptr, SizeVarp int, TypeVarp *string, CancellableVarp uintptr) uintptr
+	var rawCallback func(IconVarp uintptr, SizeVarp int32, TypeVarp *string, CancellableVarp uintptr) uintptr
 	purego.RegisterFunc(&rawCallback, x.xLoad)
-	return func(IconVar LoadableIcon, SizeVar int, TypeVar *string, CancellableVar *Cancellable) *InputStream {
+	return func(IconVar LoadableIcon, SizeVar int32, TypeVar *string, CancellableVar *Cancellable) *InputStream {
 		rawRet := rawCallback(IconVar.GoPointer(), SizeVar, TypeVar, CancellableVar.GoPointer())
 		if rawRet == 0 {
 			return nil
@@ -65,11 +65,11 @@ func (x *LoadableIconIface) GetLoad() func(LoadableIcon, int, *string, *Cancella
 
 // OverrideLoadAsync sets the "load_async" callback function.
 // Loads an icon asynchronously.
-func (x *LoadableIconIface) OverrideLoadAsync(cb func(LoadableIcon, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *LoadableIconIface) OverrideLoadAsync(cb func(LoadableIcon, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xLoadAsync = 0
 	} else {
-		x.xLoadAsync = purego.NewCallback(func(IconVarp uintptr, SizeVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xLoadAsync = purego.NewCallback(func(IconVarp uintptr, SizeVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(&LoadableIconBase{Ptr: IconVarp}, SizeVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
@@ -77,13 +77,13 @@ func (x *LoadableIconIface) OverrideLoadAsync(cb func(LoadableIcon, int, *Cancel
 
 // GetLoadAsync gets the "load_async" callback function.
 // Loads an icon asynchronously.
-func (x *LoadableIconIface) GetLoadAsync() func(LoadableIcon, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *LoadableIconIface) GetLoadAsync() func(LoadableIcon, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xLoadAsync == 0 {
 		return nil
 	}
-	var rawCallback func(IconVarp uintptr, SizeVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(IconVarp uintptr, SizeVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xLoadAsync)
-	return func(IconVar LoadableIcon, SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(IconVar LoadableIcon, SizeVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(IconVar.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -128,8 +128,8 @@ func (x *LoadableIconIface) GetLoadFinish() func(LoadableIcon, AsyncResult, *str
 type LoadableIcon interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	Load(SizeVar int, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error)
-	LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
+	Load(SizeVar int32, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error)
+	LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	LoadFinish(ResVar AsyncResult, TypeVar *string) (*InputStream, error)
 }
 
@@ -156,7 +156,7 @@ func (x *LoadableIconBase) SetGoPointer(ptr uintptr) {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *LoadableIconBase) Load(SizeVar int, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error) {
+func (x *LoadableIconBase) Load(SizeVar int32, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error) {
 	var cls *InputStream
 	var cerr *glib.Error
 
@@ -177,7 +177,7 @@ func (x *LoadableIconBase) Load(SizeVar int, TypeVar *string, CancellableVar *Ca
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *LoadableIconBase) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *LoadableIconBase) LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -202,8 +202,8 @@ func (x *LoadableIconBase) LoadFinish(ResVar AsyncResult, TypeVar *string) (*Inp
 
 }
 
-var XGLoadableIconLoad func(uintptr, int, *string, uintptr, **glib.Error) uintptr
-var XGLoadableIconLoadAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var XGLoadableIconLoad func(uintptr, int32, *string, uintptr, **glib.Error) uintptr
+var XGLoadableIconLoadAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 var XGLoadableIconLoadFinish func(uintptr, uintptr, *string, **glib.Error) uintptr
 
 func init() {

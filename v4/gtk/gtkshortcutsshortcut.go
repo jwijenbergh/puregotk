@@ -320,7 +320,7 @@ func (x *ShortcutsShortcut) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ShortcutsShortcut) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ShortcutsShortcut) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -452,7 +452,7 @@ func (x *ShortcutsShortcut) UpdateProperty(FirstPropertyVar AccessibleProperty, 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsShortcut) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ShortcutsShortcut) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -488,7 +488,7 @@ func (x *ShortcutsShortcut) UpdateRelation(FirstRelationVar AccessibleRelation, 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsShortcut) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ShortcutsShortcut) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -525,7 +525,7 @@ func (x *ShortcutsShortcut) UpdateState(FirstStateVar AccessibleState, varArgs .
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsShortcut) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ShortcutsShortcut) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

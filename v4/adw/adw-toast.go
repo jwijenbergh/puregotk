@@ -297,10 +297,10 @@ func (x *Toast) GetPriority() ToastPriority {
 	return cret
 }
 
-var xToastGetTimeout func(uintptr) uint
+var xToastGetTimeout func(uintptr) uint32
 
 // Gets timeout for @self.
-func (x *Toast) GetTimeout() uint {
+func (x *Toast) GetTimeout() uint32 {
 
 	cret := xToastGetTimeout(x.GoPointer())
 	return cret
@@ -427,7 +427,7 @@ func (x *Toast) SetPriority(PriorityVar ToastPriority) {
 
 }
 
-var xToastSetTimeout func(uintptr, uint)
+var xToastSetTimeout func(uintptr, uint32)
 
 // Sets timeout for @self.
 //
@@ -436,7 +436,7 @@ var xToastSetTimeout func(uintptr, uint)
 //
 // Toasts cannot disappear while being hovered, pressed (on touchscreen), or
 // have keyboard focus inside them.
-func (x *Toast) SetTimeout(TimeoutVar uint) {
+func (x *Toast) SetTimeout(TimeoutVar uint32) {
 
 	xToastSetTimeout(x.GoPointer(), TimeoutVar)
 
@@ -558,10 +558,10 @@ func (x *Toast) GetPropertyButtonLabel() string {
 //
 // Toasts cannot disappear while being hovered, pressed (on touchscreen), or
 // have keyboard focus inside them.
-func (x *Toast) SetPropertyTimeout(value uint) {
+func (x *Toast) SetPropertyTimeout(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("timeout", &v)
 }
 
@@ -573,10 +573,10 @@ func (x *Toast) SetPropertyTimeout(value uint) {
 //
 // Toasts cannot disappear while being hovered, pressed (on touchscreen), or
 // have keyboard focus inside them.
-func (x *Toast) GetPropertyTimeout() uint {
+func (x *Toast) GetPropertyTimeout() uint32 {
 	var v gobject.Value
 	x.GetProperty("timeout", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyTitle sets the "title" property.

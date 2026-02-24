@@ -28,13 +28,13 @@ func (x *EventSequence) GoPointer() uintptr {
 
 const (
 	// The middle button.
-	BUTTON_MIDDLE int = 2
+	BUTTON_MIDDLE int32 = 2
 	// The primary button. This is typically the left mouse button, or the
 	// right button in a left-handed setup.
-	BUTTON_PRIMARY int = 1
+	BUTTON_PRIMARY int32 = 1
 	// The secondary button. This is typically the right mouse button, or the
 	// left button in a left-handed setup.
-	BUTTON_SECONDARY int = 3
+	BUTTON_SECONDARY int32 = 3
 	// Use this macro as the return value for continuing the propagation of
 	// an event handler.
 	EVENT_PROPAGATE bool = false
@@ -43,7 +43,7 @@ const (
 	EVENT_STOP bool = true
 	// This is the priority that the idle handler processing surface updates
 	// is given in the main loop.
-	PRIORITY_REDRAW int = 120
+	PRIORITY_REDRAW int32 = 120
 )
 
 // Specifies the crossing mode for enter and leave events.
@@ -376,10 +376,10 @@ func ButtonEventNewFromInternalPtr(ptr uintptr) *ButtonEvent {
 	return cls
 }
 
-var xButtonEventGetButton func(uintptr) uint
+var xButtonEventGetButton func(uintptr) uint32
 
 // Extract the button number from a button event.
-func (x *ButtonEvent) GetButton() uint {
+func (x *ButtonEvent) GetButton() uint32 {
 
 	cret := xButtonEventGetButton(x.GoPointer())
 	return cret
@@ -587,13 +587,13 @@ func (x *Event) GetDistance(Event2Var *Event, DistanceVar *float64) bool {
 	return cret
 }
 
-var xEventGetAxes func(uintptr, *[]float64, *uint) bool
+var xEventGetAxes func(uintptr, *[]float64, *uint32) bool
 
 // Extracts all axis values from an event.
 //
 // To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
 // on the device tool returned by [method@Gdk.Event.get_device_tool].
-func (x *Event) GetAxes(AxesVar *[]float64, NAxesVar *uint) bool {
+func (x *Event) GetAxes(AxesVar *[]float64, NAxesVar *uint32) bool {
 
 	cret := xEventGetAxes(x.GoPointer(), AxesVar, NAxesVar)
 	return cret
@@ -693,7 +693,7 @@ func (x *Event) GetEventType() EventType {
 	return cret
 }
 
-var xEventGetHistory func(uintptr, *uint) uintptr
+var xEventGetHistory func(uintptr, *uint32) uintptr
 
 // Retrieves the history of the device that @event is for, as a list of
 // time and coordinates.
@@ -704,7 +704,7 @@ var xEventGetHistory func(uintptr, *uint) uintptr
 // Note that only motion and scroll events record history, and motion
 // events do it only if one of the mouse buttons is down, or the device
 // has a tool.
-func (x *Event) GetHistory(OutNCoordsVar *uint) uintptr {
+func (x *Event) GetHistory(OutNCoordsVar *uint32) uintptr {
 
 	cret := xEventGetHistory(x.GoPointer(), OutNCoordsVar)
 	return cret
@@ -962,49 +962,49 @@ func (x *KeyEvent) GetConsumedModifiers() ModifierType {
 	return cret
 }
 
-var xKeyEventGetKeycode func(uintptr) uint
+var xKeyEventGetKeycode func(uintptr) uint32
 
 // Extracts the keycode from a key event.
-func (x *KeyEvent) GetKeycode() uint {
+func (x *KeyEvent) GetKeycode() uint32 {
 
 	cret := xKeyEventGetKeycode(x.GoPointer())
 	return cret
 }
 
-var xKeyEventGetKeyval func(uintptr) uint
+var xKeyEventGetKeyval func(uintptr) uint32
 
 // Extracts the keyval from a key event.
-func (x *KeyEvent) GetKeyval() uint {
+func (x *KeyEvent) GetKeyval() uint32 {
 
 	cret := xKeyEventGetKeyval(x.GoPointer())
 	return cret
 }
 
-var xKeyEventGetLayout func(uintptr) uint
+var xKeyEventGetLayout func(uintptr) uint32
 
 // Extracts the layout from a key event.
-func (x *KeyEvent) GetLayout() uint {
+func (x *KeyEvent) GetLayout() uint32 {
 
 	cret := xKeyEventGetLayout(x.GoPointer())
 	return cret
 }
 
-var xKeyEventGetLevel func(uintptr) uint
+var xKeyEventGetLevel func(uintptr) uint32
 
 // Extracts the shift level from a key event.
-func (x *KeyEvent) GetLevel() uint {
+func (x *KeyEvent) GetLevel() uint32 {
 
 	cret := xKeyEventGetLevel(x.GoPointer())
 	return cret
 }
 
-var xKeyEventGetMatch func(uintptr, *uint, *ModifierType) bool
+var xKeyEventGetMatch func(uintptr, *uint32, *ModifierType) bool
 
 // Gets a keyval and modifier combination that will match
 // the event.
 //
 // See [method@Gdk.KeyEvent.matches].
-func (x *KeyEvent) GetMatch(KeyvalVar *uint, ModifiersVar *ModifierType) bool {
+func (x *KeyEvent) GetMatch(KeyvalVar *uint32, ModifiersVar *ModifierType) bool {
 
 	cret := xKeyEventGetMatch(x.GoPointer(), KeyvalVar, ModifiersVar)
 	return cret
@@ -1019,7 +1019,7 @@ func (x *KeyEvent) IsModifier() bool {
 	return cret
 }
 
-var xKeyEventMatches func(uintptr, uint, ModifierType) KeyMatch
+var xKeyEventMatches func(uintptr, uint32, ModifierType) KeyMatch
 
 // Matches a key event against a keyval and modifiers.
 //
@@ -1029,7 +1029,7 @@ var xKeyEventMatches func(uintptr, uint, ModifierType) KeyMatch
 // if the currently active group is ignored.
 //
 // Note that we ignore Caps Lock for matching.
-func (x *KeyEvent) Matches(KeyvalVar uint, ModifiersVar ModifierType) KeyMatch {
+func (x *KeyEvent) Matches(KeyvalVar uint32, ModifiersVar ModifierType) KeyMatch {
 
 	cret := xKeyEventMatches(x.GoPointer(), KeyvalVar, ModifiersVar)
 	return cret
@@ -1091,29 +1091,29 @@ func PadEventNewFromInternalPtr(ptr uintptr) *PadEvent {
 	return cls
 }
 
-var xPadEventGetAxisValue func(uintptr, *uint, *float64)
+var xPadEventGetAxisValue func(uintptr, *uint32, *float64)
 
 // Extracts the information from a pad strip or ring event.
-func (x *PadEvent) GetAxisValue(IndexVar *uint, ValueVar *float64) {
+func (x *PadEvent) GetAxisValue(IndexVar *uint32, ValueVar *float64) {
 
 	xPadEventGetAxisValue(x.GoPointer(), IndexVar, ValueVar)
 
 }
 
-var xPadEventGetButton func(uintptr) uint
+var xPadEventGetButton func(uintptr) uint32
 
 // Extracts information about the pressed button from
 // a pad event.
-func (x *PadEvent) GetButton() uint {
+func (x *PadEvent) GetButton() uint32 {
 
 	cret := xPadEventGetButton(x.GoPointer())
 	return cret
 }
 
-var xPadEventGetGroupMode func(uintptr, *uint, *uint)
+var xPadEventGetGroupMode func(uintptr, *uint32, *uint32)
 
 // Extracts group and mode information from a pad event.
-func (x *PadEvent) GetGroupMode(GroupVar *uint, ModeVar *uint) {
+func (x *PadEvent) GetGroupMode(GroupVar *uint32, ModeVar *uint32) {
 
 	xPadEventGetGroupMode(x.GoPointer(), GroupVar, ModeVar)
 
@@ -1324,10 +1324,10 @@ func (x *TouchpadEvent) GetGesturePhase() TouchpadGesturePhase {
 	return cret
 }
 
-var xTouchpadEventGetNFingers func(uintptr) uint
+var xTouchpadEventGetNFingers func(uintptr) uint32
 
 // Extracts the number of fingers from a touchpad event.
-func (x *TouchpadEvent) GetNFingers() uint {
+func (x *TouchpadEvent) GetNFingers() uint32 {
 
 	cret := xTouchpadEventGetNFingers(x.GoPointer())
 	return cret

@@ -33,24 +33,24 @@ func (x *ScaleClass) GoPointer() uintptr {
 }
 
 // OverrideGetLayoutOffsets sets the "get_layout_offsets" callback function.
-func (x *ScaleClass) OverrideGetLayoutOffsets(cb func(*Scale, *int, *int)) {
+func (x *ScaleClass) OverrideGetLayoutOffsets(cb func(*Scale, *int32, *int32)) {
 	if cb == nil {
 		x.xGetLayoutOffsets = 0
 	} else {
-		x.xGetLayoutOffsets = purego.NewCallback(func(ScaleVarp uintptr, XVarp *int, YVarp *int) {
+		x.xGetLayoutOffsets = purego.NewCallback(func(ScaleVarp uintptr, XVarp *int32, YVarp *int32) {
 			cb(ScaleNewFromInternalPtr(ScaleVarp), XVarp, YVarp)
 		})
 	}
 }
 
 // GetGetLayoutOffsets gets the "get_layout_offsets" callback function.
-func (x *ScaleClass) GetGetLayoutOffsets() func(*Scale, *int, *int) {
+func (x *ScaleClass) GetGetLayoutOffsets() func(*Scale, *int32, *int32) {
 	if x.xGetLayoutOffsets == 0 {
 		return nil
 	}
-	var rawCallback func(ScaleVarp uintptr, XVarp *int, YVarp *int)
+	var rawCallback func(ScaleVarp uintptr, XVarp *int32, YVarp *int32)
 	purego.RegisterFunc(&rawCallback, x.xGetLayoutOffsets)
-	return func(ScaleVar *Scale, XVar *int, YVar *int) {
+	return func(ScaleVar *Scale, XVar *int32, YVar *int32) {
 		rawCallback(ScaleVar.GoPointer(), XVar, YVar)
 	}
 }
@@ -237,10 +237,10 @@ func (x *Scale) ClearMarks() {
 
 }
 
-var xScaleGetDigits func(uintptr) int
+var xScaleGetDigits func(uintptr) int32
 
 // Gets the number of decimal places that are displayed in the value.
-func (x *Scale) GetDigits() int {
+func (x *Scale) GetDigits() int32 {
 
 	cret := xScaleGetDigits(x.GoPointer())
 	return cret
@@ -285,7 +285,7 @@ func (x *Scale) GetLayout() *pango.Layout {
 	return cls
 }
 
-var xScaleGetLayoutOffsets func(uintptr, *int, *int)
+var xScaleGetLayoutOffsets func(uintptr, *int32, *int32)
 
 // Obtains the coordinates where the scale will draw the
 // `PangoLayout` representing the text in the scale.
@@ -295,7 +295,7 @@ var xScaleGetLayoutOffsets func(uintptr, *int, *int)
 //
 // If the [property@Gtk.Scale:draw-value] property is %FALSE, the return
 // values are undefined.
-func (x *Scale) GetLayoutOffsets(XVar *int, YVar *int) {
+func (x *Scale) GetLayoutOffsets(XVar *int32, YVar *int32) {
 
 	xScaleGetLayoutOffsets(x.GoPointer(), XVar, YVar)
 
@@ -310,7 +310,7 @@ func (x *Scale) GetValuePos() PositionType {
 	return cret
 }
 
-var xScaleSetDigits func(uintptr, int)
+var xScaleSetDigits func(uintptr, int32)
 
 // Sets the number of decimal places that are displayed in the value.
 //
@@ -324,7 +324,7 @@ var xScaleSetDigits func(uintptr, int)
 // the smooth autoscrolling that is built into `GtkScale`. As an alternative,
 // you can use [method@Gtk.Scale.set_format_value_func] to format the displayed
 // value yourself.
-func (x *Scale) SetDigits(DigitsVar int) {
+func (x *Scale) SetDigits(DigitsVar int32) {
 
 	xScaleSetDigits(x.GoPointer(), DigitsVar)
 
@@ -391,19 +391,19 @@ func (c *Scale) SetGoPointer(ptr uintptr) {
 
 // SetPropertyDigits sets the "digits" property.
 // The number of decimal places that are displayed in the value.
-func (x *Scale) SetPropertyDigits(value int) {
+func (x *Scale) SetPropertyDigits(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("digits", &v)
 }
 
 // GetPropertyDigits gets the "digits" property.
 // The number of decimal places that are displayed in the value.
-func (x *Scale) GetPropertyDigits() int {
+func (x *Scale) GetPropertyDigits() int32 {
 	var v gobject.Value
 	x.GetProperty("digits", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDrawValue sets the "draw-value" property.
@@ -497,7 +497,7 @@ func (x *Scale) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Scale) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Scale) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -629,7 +629,7 @@ func (x *Scale) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Scale) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -665,7 +665,7 @@ func (x *Scale) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Scale) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -702,7 +702,7 @@ func (x *Scale) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Scale) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Scale) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

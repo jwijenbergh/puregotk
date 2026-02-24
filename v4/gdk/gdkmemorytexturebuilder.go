@@ -114,20 +114,20 @@ func (x *MemoryTextureBuilder) GetFormat() MemoryFormat {
 	return cret
 }
 
-var xMemoryTextureBuilderGetHeight func(uintptr) int
+var xMemoryTextureBuilderGetHeight func(uintptr) int32
 
 // Gets the height previously set via gdk_memory_texture_builder_set_height()
 // or 0 if the height wasn't set.
-func (x *MemoryTextureBuilder) GetHeight() int {
+func (x *MemoryTextureBuilder) GetHeight() int32 {
 
 	cret := xMemoryTextureBuilderGetHeight(x.GoPointer())
 	return cret
 }
 
-var xMemoryTextureBuilderGetOffset func(uintptr, uint) uint
+var xMemoryTextureBuilderGetOffset func(uintptr, uint32) uint
 
 // Gets the offset previously set via gdk_memory_texture_builder_set_offset().
-func (x *MemoryTextureBuilder) GetOffset(PlaneVar uint) uint {
+func (x *MemoryTextureBuilder) GetOffset(PlaneVar uint32) uint {
 
 	cret := xMemoryTextureBuilderGetOffset(x.GoPointer(), PlaneVar)
 	return cret
@@ -142,10 +142,10 @@ func (x *MemoryTextureBuilder) GetStride() uint {
 	return cret
 }
 
-var xMemoryTextureBuilderGetStrideForPlane func(uintptr, uint) uint
+var xMemoryTextureBuilderGetStrideForPlane func(uintptr, uint32) uint
 
 // Gets the stride previously set via gdk_memory_texture_builder_set_stride_for_plane().
-func (x *MemoryTextureBuilder) GetStrideForPlane(PlaneVar uint) uint {
+func (x *MemoryTextureBuilder) GetStrideForPlane(PlaneVar uint32) uint {
 
 	cret := xMemoryTextureBuilderGetStrideForPlane(x.GoPointer(), PlaneVar)
 	return cret
@@ -179,11 +179,11 @@ func (x *MemoryTextureBuilder) GetUpdateTexture() *Texture {
 	return cls
 }
 
-var xMemoryTextureBuilderGetWidth func(uintptr) int
+var xMemoryTextureBuilderGetWidth func(uintptr) int32
 
 // Gets the width previously set via gdk_memory_texture_builder_set_width()
 // or 0 if the width wasn't set.
-func (x *MemoryTextureBuilder) GetWidth() int {
+func (x *MemoryTextureBuilder) GetWidth() int32 {
 
 	cret := xMemoryTextureBuilderGetWidth(x.GoPointer())
 	return cret
@@ -223,22 +223,22 @@ func (x *MemoryTextureBuilder) SetFormat(FormatVar MemoryFormat) {
 
 }
 
-var xMemoryTextureBuilderSetHeight func(uintptr, int)
+var xMemoryTextureBuilderSetHeight func(uintptr, int32)
 
 // Sets the height of the texture.
 //
 // The height must be set before calling [method@Gdk.MemoryTextureBuilder.build]
 // and conform to size requirements of the provided format.
-func (x *MemoryTextureBuilder) SetHeight(HeightVar int) {
+func (x *MemoryTextureBuilder) SetHeight(HeightVar int32) {
 
 	xMemoryTextureBuilderSetHeight(x.GoPointer(), HeightVar)
 
 }
 
-var xMemoryTextureBuilderSetOffset func(uintptr, uint, uint)
+var xMemoryTextureBuilderSetOffset func(uintptr, uint32, uint)
 
 // Sets the offset of the texture for @plane.
-func (x *MemoryTextureBuilder) SetOffset(PlaneVar uint, OffsetVar uint) {
+func (x *MemoryTextureBuilder) SetOffset(PlaneVar uint32, OffsetVar uint) {
 
 	xMemoryTextureBuilderSetOffset(x.GoPointer(), PlaneVar, OffsetVar)
 
@@ -255,10 +255,10 @@ func (x *MemoryTextureBuilder) SetStride(StrideVar uint) {
 
 }
 
-var xMemoryTextureBuilderSetStrideForPlane func(uintptr, uint, uint)
+var xMemoryTextureBuilderSetStrideForPlane func(uintptr, uint32, uint)
 
 // Sets the stride of the texture for @plane.
-func (x *MemoryTextureBuilder) SetStrideForPlane(PlaneVar uint, StrideVar uint) {
+func (x *MemoryTextureBuilder) SetStrideForPlane(PlaneVar uint32, StrideVar uint) {
 
 	xMemoryTextureBuilderSetStrideForPlane(x.GoPointer(), PlaneVar, StrideVar)
 
@@ -294,13 +294,13 @@ func (x *MemoryTextureBuilder) SetUpdateTexture(TextureVar *Texture) {
 
 }
 
-var xMemoryTextureBuilderSetWidth func(uintptr, int)
+var xMemoryTextureBuilderSetWidth func(uintptr, int32)
 
 // Sets the width of the texture.
 //
 // The width must be set before calling [method@Gdk.MemoryTextureBuilder.build]
 // and conform to size requirements of the provided format.
-func (x *MemoryTextureBuilder) SetWidth(WidthVar int) {
+func (x *MemoryTextureBuilder) SetWidth(WidthVar int32) {
 
 	xMemoryTextureBuilderSetWidth(x.GoPointer(), WidthVar)
 
@@ -353,19 +353,19 @@ func (x *MemoryTextureBuilder) GetPropertyColorState() uintptr {
 
 // SetPropertyHeight sets the "height" property.
 // The height of the texture.
-func (x *MemoryTextureBuilder) SetPropertyHeight(value int) {
+func (x *MemoryTextureBuilder) SetPropertyHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("height", &v)
 }
 
 // GetPropertyHeight gets the "height" property.
 // The height of the texture.
-func (x *MemoryTextureBuilder) GetPropertyHeight() int {
+func (x *MemoryTextureBuilder) GetPropertyHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyStride sets the "stride" property.
@@ -410,19 +410,19 @@ func (x *MemoryTextureBuilder) GetPropertyUpdateRegion() uintptr {
 
 // SetPropertyWidth sets the "width" property.
 // The width of the texture.
-func (x *MemoryTextureBuilder) SetPropertyWidth(value int) {
+func (x *MemoryTextureBuilder) SetPropertyWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("width", &v)
 }
 
 // GetPropertyWidth gets the "width" property.
 // The width of the texture.
-func (x *MemoryTextureBuilder) GetPropertyWidth() int {
+func (x *MemoryTextureBuilder) GetPropertyWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 func init() {

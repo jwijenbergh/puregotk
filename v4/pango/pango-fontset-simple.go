@@ -66,10 +66,10 @@ func (x *FontsetSimple) Append(FontVar *Font) {
 
 }
 
-var xFontsetSimpleSize func(uintptr) int
+var xFontsetSimpleSize func(uintptr) int32
 
 // Returns the number of fonts in the fontset.
-func (x *FontsetSimple) Size() int {
+func (x *FontsetSimple) Size() int32 {
 
 	cret := xFontsetSimpleSize(x.GoPointer())
 	return cret

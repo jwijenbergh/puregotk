@@ -357,7 +357,7 @@ func (x *TreeModelSort) Get(IterVar *TreeIter, varArgs ...interface{}) {
 }
 
 // Returns the type of the column.
-func (x *TreeModelSort) GetColumnType(IndexVar int) types.GType {
+func (x *TreeModelSort) GetColumnType(IndexVar int32) types.GType {
 
 	cret := XGtkTreeModelGetColumnType(x.GoPointer(), IndexVar)
 	return cret
@@ -405,7 +405,7 @@ func (x *TreeModelSort) GetIterFromString(IterVar *TreeIter, PathStringVar strin
 }
 
 // Returns the number of columns supported by @tree_model.
-func (x *TreeModelSort) GetNColumns() int {
+func (x *TreeModelSort) GetNColumns() int32 {
 
 	cret := XGtkTreeModelGetNColumns(x.GoPointer())
 	return cret
@@ -445,7 +445,7 @@ func (x *TreeModelSort) GetValist(IterVar *TreeIter, VarArgsVar []interface{}) {
 //
 // When done with @value, g_value_unset() needs to be called
 // to free any allocated memory.
-func (x *TreeModelSort) GetValue(IterVar *TreeIter, ColumnVar int, ValueVar *gobject.Value) {
+func (x *TreeModelSort) GetValue(IterVar *TreeIter, ColumnVar int32, ValueVar *gobject.Value) {
 
 	XGtkTreeModelGetValue(x.GoPointer(), IterVar, ColumnVar, ValueVar)
 
@@ -476,7 +476,7 @@ func (x *TreeModelSort) IterHasChild(IterVar *TreeIter) bool {
 //
 // As a special case, if @iter is %NULL, then the number
 // of toplevel nodes is returned.
-func (x *TreeModelSort) IterNChildren(IterVar *TreeIter) int {
+func (x *TreeModelSort) IterNChildren(IterVar *TreeIter) int32 {
 
 	cret := XGtkTreeModelIterNChildren(x.GoPointer(), IterVar)
 	return cret
@@ -499,7 +499,7 @@ func (x *TreeModelSort) IterNext(IterVar *TreeIter) bool {
 // will remain a valid node after this function has been called. As a
 // special case, if @parent is %NULL, then the @n-th root node
 // is set.
-func (x *TreeModelSort) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, NVar int) bool {
+func (x *TreeModelSort) IterNthChild(IterVar *TreeIter, ParentVar *TreeIter, NVar int32) bool {
 
 	cret := XGtkTreeModelIterNthChild(x.GoPointer(), IterVar, ParentVar, NVar)
 	return cret
@@ -605,7 +605,7 @@ func (x *TreeModelSort) RowInserted(PathVar *TreePath, IterVar *TreeIter) {
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *TreeModelSort) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrderVar int) {
+func (x *TreeModelSort) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewOrderVar int32) {
 
 	XGtkTreeModelRowsReordered(x.GoPointer(), PathVar, IterVar, NewOrderVar)
 
@@ -617,7 +617,7 @@ func (x *TreeModelSort) RowsReordered(PathVar *TreePath, IterVar *TreeIter, NewO
 //
 // This should be called by models when their rows have been
 // reordered.
-func (x *TreeModelSort) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int, LengthVar int) {
+func (x *TreeModelSort) RowsReorderedWithLength(PathVar *TreePath, IterVar *TreeIter, NewOrderVar []int32, LengthVar int32) {
 
 	XGtkTreeModelRowsReorderedWithLength(x.GoPointer(), PathVar, IterVar, NewOrderVar, LengthVar)
 
@@ -641,7 +641,7 @@ func (x *TreeModelSort) UnrefNode(IterVar *TreeIter) {
 // order. It returns %TRUE unless the @sort_column_id is
 // %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or
 // %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
-func (x *TreeModelSort) GetSortColumnId(SortColumnIdVar *int, OrderVar *SortType) bool {
+func (x *TreeModelSort) GetSortColumnId(SortColumnIdVar *int32, OrderVar *SortType) bool {
 
 	cret := XGtkTreeSortableGetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 	return cret
@@ -680,7 +680,7 @@ func (x *TreeModelSort) SetDefaultSortFunc(SortFuncVar *TreeIterCompareFunc, Use
 //     will be used, if it is set
 //
 // - %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: no sorting will occur
-func (x *TreeModelSort) SetSortColumnId(SortColumnIdVar int, OrderVar SortType) {
+func (x *TreeModelSort) SetSortColumnId(SortColumnIdVar int32, OrderVar SortType) {
 
 	XGtkTreeSortableSetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 
@@ -689,7 +689,7 @@ func (x *TreeModelSort) SetSortColumnId(SortColumnIdVar int, OrderVar SortType) 
 // Sets the comparison function used when sorting to be @sort_func. If the
 // current sort column id of @sortable is the same as @sort_column_id, then
 // the model will sort using this function.
-func (x *TreeModelSort) SetSortFunc(SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
+func (x *TreeModelSort) SetSortFunc(SortColumnIdVar int32, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
 	XGtkTreeSortableSetSortFunc(x.GoPointer(), SortColumnIdVar, glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallbackNullable(DestroyVar))
 

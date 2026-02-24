@@ -32,13 +32,13 @@ func (x *TrashStack) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xTrashStackHeight func(**TrashStack) uint
+var xTrashStackHeight func(**TrashStack) uint32
 
 // Returns the height of a #GTrashStack.
 //
 // Note that execution of this function is of O(N) complexity
 // where N denotes the number of items on the stack.
-func TrashStackHeight(StackPVar **TrashStack) uint {
+func TrashStackHeight(StackPVar **TrashStack) uint32 {
 
 	cret := xTrashStackHeight(StackPVar)
 	return cret

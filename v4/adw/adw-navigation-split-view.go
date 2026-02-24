@@ -634,7 +634,7 @@ func (x *NavigationSplitView) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *NavigationSplitView) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *NavigationSplitView) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -766,7 +766,7 @@ func (x *NavigationSplitView) UpdateProperty(FirstPropertyVar gtk.AccessibleProp
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationSplitView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *NavigationSplitView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -802,7 +802,7 @@ func (x *NavigationSplitView) UpdateRelation(FirstRelationVar gtk.AccessibleRela
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationSplitView) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *NavigationSplitView) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -839,7 +839,7 @@ func (x *NavigationSplitView) UpdateState(FirstStateVar gtk.AccessibleState, var
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationSplitView) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *NavigationSplitView) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

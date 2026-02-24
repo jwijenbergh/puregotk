@@ -81,11 +81,11 @@ func (x *FontMapClass) GetLoadFont() func(*FontMap, *Context, *FontDescription) 
 // OverrideListFamilies sets the "list_families" callback function.
 // A function to list available font families. See
 // pango_font_map_list_families().
-func (x *FontMapClass) OverrideListFamilies(cb func(*FontMap, *uintptr, *int)) {
+func (x *FontMapClass) OverrideListFamilies(cb func(*FontMap, *uintptr, *int32)) {
 	if cb == nil {
 		x.xListFamilies = 0
 	} else {
-		x.xListFamilies = purego.NewCallback(func(FontmapVarp uintptr, FamiliesVarp *uintptr, NFamiliesVarp *int) {
+		x.xListFamilies = purego.NewCallback(func(FontmapVarp uintptr, FamiliesVarp *uintptr, NFamiliesVarp *int32) {
 			cb(FontMapNewFromInternalPtr(FontmapVarp), FamiliesVarp, NFamiliesVarp)
 		})
 	}
@@ -94,13 +94,13 @@ func (x *FontMapClass) OverrideListFamilies(cb func(*FontMap, *uintptr, *int)) {
 // GetListFamilies gets the "list_families" callback function.
 // A function to list available font families. See
 // pango_font_map_list_families().
-func (x *FontMapClass) GetListFamilies() func(*FontMap, *uintptr, *int) {
+func (x *FontMapClass) GetListFamilies() func(*FontMap, *uintptr, *int32) {
 	if x.xListFamilies == 0 {
 		return nil
 	}
-	var rawCallback func(FontmapVarp uintptr, FamiliesVarp *uintptr, NFamiliesVarp *int)
+	var rawCallback func(FontmapVarp uintptr, FamiliesVarp *uintptr, NFamiliesVarp *int32)
 	purego.RegisterFunc(&rawCallback, x.xListFamilies)
-	return func(FontmapVar *FontMap, FamiliesVar *uintptr, NFamiliesVar *int) {
+	return func(FontmapVar *FontMap, FamiliesVar *uintptr, NFamiliesVar *int32) {
 		rawCallback(FontmapVar.GoPointer(), FamiliesVar, NFamiliesVar)
 	}
 }
@@ -145,11 +145,11 @@ func (x *FontMapClass) GetLoadFontset() func(*FontMap, *Context, *FontDescriptio
 // OverrideGetSerial sets the "get_serial" callback function.
 // a function to get the serial number of the fontmap.
 // See pango_font_map_get_serial().
-func (x *FontMapClass) OverrideGetSerial(cb func(*FontMap) uint) {
+func (x *FontMapClass) OverrideGetSerial(cb func(*FontMap) uint32) {
 	if cb == nil {
 		x.xGetSerial = 0
 	} else {
-		x.xGetSerial = purego.NewCallback(func(FontmapVarp uintptr) uint {
+		x.xGetSerial = purego.NewCallback(func(FontmapVarp uintptr) uint32 {
 			return cb(FontMapNewFromInternalPtr(FontmapVarp))
 		})
 	}
@@ -158,13 +158,13 @@ func (x *FontMapClass) OverrideGetSerial(cb func(*FontMap) uint) {
 // GetGetSerial gets the "get_serial" callback function.
 // a function to get the serial number of the fontmap.
 // See pango_font_map_get_serial().
-func (x *FontMapClass) GetGetSerial() func(*FontMap) uint {
+func (x *FontMapClass) GetGetSerial() func(*FontMap) uint32 {
 	if x.xGetSerial == 0 {
 		return nil
 	}
-	var rawCallback func(FontmapVarp uintptr) uint
+	var rawCallback func(FontmapVarp uintptr) uint32
 	purego.RegisterFunc(&rawCallback, x.xGetSerial)
-	return func(FontmapVar *FontMap) uint {
+	return func(FontmapVar *FontMap) uint32 {
 		return rawCallback(FontmapVar.GoPointer())
 	}
 }
@@ -354,7 +354,7 @@ func (x *FontMap) GetFamily(NameVar string) *FontFamily {
 	return cls
 }
 
-var xFontMapGetSerial func(uintptr) uint
+var xFontMapGetSerial func(uintptr) uint32
 
 // Returns the current serial number of @fontmap.
 //
@@ -368,13 +368,13 @@ var xFontMapGetSerial func(uintptr) uint
 //
 // This can be used to automatically detect changes to a `PangoFontMap`,
 // like in `PangoContext`.
-func (x *FontMap) GetSerial() uint {
+func (x *FontMap) GetSerial() uint32 {
 
 	cret := xFontMapGetSerial(x.GoPointer())
 	return cret
 }
 
-var xFontMapListFamilies func(uintptr, *uintptr, *int)
+var xFontMapListFamilies func(uintptr, *uintptr, *int32)
 
 // List all families for a fontmap.
 //
@@ -382,7 +382,7 @@ var xFontMapListFamilies func(uintptr, *uintptr, *int)
 //
 // `PangoFontMap` also implemented the [iface@Gio.ListModel] interface
 // for enumerating families.
-func (x *FontMap) ListFamilies(FamiliesVar *uintptr, NFamiliesVar *int) {
+func (x *FontMap) ListFamilies(FamiliesVar *uintptr, NFamiliesVar *int32) {
 
 	xFontMapListFamilies(x.GoPointer(), FamiliesVar, NFamiliesVar)
 
@@ -457,10 +457,10 @@ func (c *FontMap) SetGoPointer(ptr uintptr) {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items contained in this list.
-func (x *FontMap) GetPropertyNItems() uint {
+func (x *FontMap) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -472,7 +472,7 @@ func (x *FontMap) GetPropertyNItems() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *FontMap) GetItem(PositionVar uint) uintptr {
+func (x *FontMap) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -497,7 +497,7 @@ func (x *FontMap) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *FontMap) GetNItems() uint {
+func (x *FontMap) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -515,7 +515,7 @@ func (x *FontMap) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *FontMap) GetObject(PositionVar uint) *gobject.Object {
+func (x *FontMap) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -548,7 +548,7 @@ func (x *FontMap) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *FontMap) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *FontMap) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 

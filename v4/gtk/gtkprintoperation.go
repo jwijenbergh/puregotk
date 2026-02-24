@@ -144,11 +144,11 @@ func (x *PrintOperationClass) GetPaginate() func(*PrintOperation, *PrintContext)
 // Emitted once for every page that is printed,
 //
 //	to give the application a chance to modify the page setup.
-func (x *PrintOperationClass) OverrideRequestPageSetup(cb func(*PrintOperation, *PrintContext, int, *PageSetup)) {
+func (x *PrintOperationClass) OverrideRequestPageSetup(cb func(*PrintOperation, *PrintContext, int32, *PageSetup)) {
 	if cb == nil {
 		x.xRequestPageSetup = 0
 	} else {
-		x.xRequestPageSetup = purego.NewCallback(func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int, SetupVarp uintptr) {
+		x.xRequestPageSetup = purego.NewCallback(func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int32, SetupVarp uintptr) {
 			cb(PrintOperationNewFromInternalPtr(OperationVarp), PrintContextNewFromInternalPtr(ContextVarp), PageNrVarp, PageSetupNewFromInternalPtr(SetupVarp))
 		})
 	}
@@ -158,24 +158,24 @@ func (x *PrintOperationClass) OverrideRequestPageSetup(cb func(*PrintOperation, 
 // Emitted once for every page that is printed,
 //
 //	to give the application a chance to modify the page setup.
-func (x *PrintOperationClass) GetRequestPageSetup() func(*PrintOperation, *PrintContext, int, *PageSetup) {
+func (x *PrintOperationClass) GetRequestPageSetup() func(*PrintOperation, *PrintContext, int32, *PageSetup) {
 	if x.xRequestPageSetup == 0 {
 		return nil
 	}
-	var rawCallback func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int, SetupVarp uintptr)
+	var rawCallback func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int32, SetupVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xRequestPageSetup)
-	return func(OperationVar *PrintOperation, ContextVar *PrintContext, PageNrVar int, SetupVar *PageSetup) {
+	return func(OperationVar *PrintOperation, ContextVar *PrintContext, PageNrVar int32, SetupVar *PageSetup) {
 		rawCallback(OperationVar.GoPointer(), ContextVar.GoPointer(), PageNrVar, SetupVar.GoPointer())
 	}
 }
 
 // OverrideDrawPage sets the "draw_page" callback function.
 // Signal emitted for every page that is printed.
-func (x *PrintOperationClass) OverrideDrawPage(cb func(*PrintOperation, *PrintContext, int)) {
+func (x *PrintOperationClass) OverrideDrawPage(cb func(*PrintOperation, *PrintContext, int32)) {
 	if cb == nil {
 		x.xDrawPage = 0
 	} else {
-		x.xDrawPage = purego.NewCallback(func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int) {
+		x.xDrawPage = purego.NewCallback(func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int32) {
 			cb(PrintOperationNewFromInternalPtr(OperationVarp), PrintContextNewFromInternalPtr(ContextVarp), PageNrVarp)
 		})
 	}
@@ -183,13 +183,13 @@ func (x *PrintOperationClass) OverrideDrawPage(cb func(*PrintOperation, *PrintCo
 
 // GetDrawPage gets the "draw_page" callback function.
 // Signal emitted for every page that is printed.
-func (x *PrintOperationClass) GetDrawPage() func(*PrintOperation, *PrintContext, int) {
+func (x *PrintOperationClass) GetDrawPage() func(*PrintOperation, *PrintContext, int32) {
 	if x.xDrawPage == 0 {
 		return nil
 	}
-	var rawCallback func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int)
+	var rawCallback func(OperationVarp uintptr, ContextVarp uintptr, PageNrVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawPage)
-	return func(OperationVar *PrintOperation, ContextVar *PrintContext, PageNrVar int) {
+	return func(OperationVar *PrintOperation, ContextVar *PrintContext, PageNrVar int32) {
 		rawCallback(OperationVar.GoPointer(), ContextVar.GoPointer(), PageNrVar)
 	}
 }
@@ -711,7 +711,7 @@ func (x *PrintOperation) GetHasSelection() bool {
 	return cret
 }
 
-var xPrintOperationGetNPagesToPrint func(uintptr) int
+var xPrintOperationGetNPagesToPrint func(uintptr) int32
 
 // Returns the number of pages that will be printed.
 //
@@ -723,7 +723,7 @@ var xPrintOperationGetNPagesToPrint func(uintptr) int
 // print status is %GTK_PRINT_STATUS_GENERATING_DATA.
 //
 // This is typically used to track the progress of print operation.
-func (x *PrintOperation) GetNPagesToPrint() int {
+func (x *PrintOperation) GetNPagesToPrint() int32 {
 
 	cret := xPrintOperationGetNPagesToPrint(x.GoPointer())
 	return cret
@@ -896,7 +896,7 @@ func (x *PrintOperation) SetAllowAsync(AllowAsyncVar bool) {
 
 }
 
-var xPrintOperationSetCurrentPage func(uintptr, int)
+var xPrintOperationSetCurrentPage func(uintptr, int32)
 
 // Sets the current page.
 //
@@ -904,7 +904,7 @@ var xPrintOperationSetCurrentPage func(uintptr, int)
 // the user will be able to select to print only the current page.
 //
 // Note that this only makes sense for pre-paginated documents.
-func (x *PrintOperation) SetCurrentPage(CurrentPageVar int) {
+func (x *PrintOperation) SetCurrentPage(CurrentPageVar int32) {
 
 	xPrintOperationSetCurrentPage(x.GoPointer(), CurrentPageVar)
 
@@ -1004,7 +1004,7 @@ func (x *PrintOperation) SetJobName(JobNameVar string) {
 
 }
 
-var xPrintOperationSetNPages func(uintptr, int)
+var xPrintOperationSetNPages func(uintptr, int32)
 
 // Sets the number of pages in the document.
 //
@@ -1017,7 +1017,7 @@ var xPrintOperationSetNPages func(uintptr, int)
 // and [signal@Gtk.PrintOperation::draw-page] signals are 0-based, i.e.
 // if the user chooses to print all pages, the last ::draw-page signal
 // will be for page @n_pages - 1.
-func (x *PrintOperation) SetNPages(NPagesVar int) {
+func (x *PrintOperation) SetNPages(NPagesVar int32) {
 
 	xPrintOperationSetNPages(x.GoPointer(), NPagesVar)
 
@@ -1149,10 +1149,10 @@ func (x *PrintOperation) GetPropertyAllowAsync() bool {
 // the user will be able to select to print only the current page.
 //
 // Note that this only makes sense for pre-paginated documents.
-func (x *PrintOperation) SetPropertyCurrentPage(value int) {
+func (x *PrintOperation) SetPropertyCurrentPage(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("current-page", &v)
 }
 
@@ -1163,10 +1163,10 @@ func (x *PrintOperation) SetPropertyCurrentPage(value int) {
 // the user will be able to select to print only the current page.
 //
 // Note that this only makes sense for pre-paginated documents.
-func (x *PrintOperation) GetPropertyCurrentPage() int {
+func (x *PrintOperation) GetPropertyCurrentPage() int32 {
 	var v gobject.Value
 	x.GetProperty("current-page", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyCustomTabLabel sets the "custom-tab-label" property.
@@ -1308,10 +1308,10 @@ func (x *PrintOperation) GetPropertyJobName() string {
 // [signal@Gtk.PrintOperation::draw-page] signals are 0-based, i.e.
 // if the user chooses to print all pages, the last ::draw-page signal
 // will be for page @n_pages - 1.
-func (x *PrintOperation) SetPropertyNPages(value int) {
+func (x *PrintOperation) SetPropertyNPages(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("n-pages", &v)
 }
 
@@ -1327,10 +1327,10 @@ func (x *PrintOperation) SetPropertyNPages(value int) {
 // [signal@Gtk.PrintOperation::draw-page] signals are 0-based, i.e.
 // if the user chooses to print all pages, the last ::draw-page signal
 // will be for page @n_pages - 1.
-func (x *PrintOperation) GetPropertyNPages() int {
+func (x *PrintOperation) GetPropertyNPages() int32 {
 	var v gobject.Value
 	x.GetProperty("n-pages", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyNPagesToPrint gets the "n-pages-to-print" property.
@@ -1344,10 +1344,10 @@ func (x *PrintOperation) GetPropertyNPages() int {
 // print status is %GTK_PRINT_STATUS_GENERATING_DATA.
 //
 // This is typically used to track the progress of print operation.
-func (x *PrintOperation) GetPropertyNPagesToPrint() int {
+func (x *PrintOperation) GetPropertyNPagesToPrint() int32 {
 	var v gobject.Value
 	x.GetProperty("n-pages-to-print", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyShowProgress sets the "show-progress" property.
@@ -1629,13 +1629,13 @@ func (x *PrintOperation) ConnectDone(cb *func(PrintOperation, PrintOperationResu
 // [method@Gtk.PrintOperation.set_unit] before starting the print
 // operation to set up the transformation of the cairo context
 // according to your needs.
-func (x *PrintOperation) ConnectDrawPage(cb *func(PrintOperation, uintptr, int)) uint32 {
+func (x *PrintOperation) ConnectDrawPage(cb *func(PrintOperation, uintptr, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "draw-page", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int) {
+	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int32) {
 		fa := PrintOperation{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1745,13 +1745,13 @@ func (x *PrintOperation) ConnectPreview(cb *func(PrintOperation, uintptr, uintpt
 // This gives the application a chance to modify the page setup.
 // Any changes done to @setup will be in force only for printing
 // this page.
-func (x *PrintOperation) ConnectRequestPageSetup(cb *func(PrintOperation, uintptr, int, uintptr)) uint32 {
+func (x *PrintOperation) ConnectRequestPageSetup(cb *func(PrintOperation, uintptr, int32, uintptr)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "request-page-setup", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int, SetupVarp uintptr) {
+	fcb := func(clsPtr uintptr, ContextVarp uintptr, PageNrVarp int32, SetupVarp uintptr) {
 		fa := PrintOperation{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1822,7 +1822,7 @@ func (x *PrintOperation) EndPreview() {
 
 // Returns whether the given page is included in the set of pages that
 // have been selected for printing.
-func (x *PrintOperation) IsSelected(PageNrVar int) bool {
+func (x *PrintOperation) IsSelected(PageNrVar int32) bool {
 
 	cret := XGtkPrintOperationPreviewIsSelected(x.GoPointer(), PageNrVar)
 	return cret
@@ -1839,7 +1839,7 @@ func (x *PrintOperation) IsSelected(PageNrVar int) bool {
 //
 // Note that this function requires a suitable cairo context to
 // be associated with the print context.
-func (x *PrintOperation) RenderPage(PageNrVar int) {
+func (x *PrintOperation) RenderPage(PageNrVar int32) {
 
 	XGtkPrintOperationPreviewRenderPage(x.GoPointer(), PageNrVar)
 

@@ -21,7 +21,7 @@ type EnumClass struct {
 
 	Maximum int32
 
-	NValues uint
+	NValues uint32
 
 	Values *EnumValue
 }
@@ -53,9 +53,9 @@ type FlagsClass struct {
 
 	GTypeClass uintptr
 
-	Mask uint
+	Mask uint32
 
-	NValues uint
+	NValues uint32
 
 	Values *FlagsValue
 }
@@ -69,7 +69,7 @@ func (x *FlagsClass) GoPointer() uintptr {
 type FlagsValue struct {
 	_ structs.HostLayout
 
-	Value uint
+	Value uint32
 
 	ValueName uintptr
 
@@ -111,10 +111,10 @@ func EnumCompleteTypeInfo(GEnumTypeVar types.GType, InfoVar *TypeInfo, ConstValu
 
 }
 
-var xEnumGetValue func(*EnumClass, int) *EnumValue
+var xEnumGetValue func(*EnumClass, int32) *EnumValue
 
 // Returns the #GEnumValue for a value.
-func EnumGetValue(EnumClassVar *EnumClass, ValueVar int) *EnumValue {
+func EnumGetValue(EnumClassVar *EnumClass, ValueVar int32) *EnumValue {
 
 	cret := xEnumGetValue(EnumClassVar, ValueVar)
 	return cret
@@ -151,13 +151,13 @@ func EnumRegisterStatic(NameVar string, ConstStaticValuesVar []EnumValue) types.
 	return cret
 }
 
-var xEnumToString func(types.GType, int) string
+var xEnumToString func(types.GType, int32) string
 
 // Pretty-prints @value in the form of the enum’s name.
 //
 // This is intended to be used for debugging purposes. The format of the output
 // may change in the future.
-func EnumToString(GEnumTypeVar types.GType, ValueVar int) string {
+func EnumToString(GEnumTypeVar types.GType, ValueVar int32) string {
 
 	cret := xEnumToString(GEnumTypeVar, ValueVar)
 	return cret
@@ -174,10 +174,10 @@ func FlagsCompleteTypeInfo(GFlagsTypeVar types.GType, InfoVar *TypeInfo, ConstVa
 
 }
 
-var xFlagsGetFirstValue func(*FlagsClass, uint) *FlagsValue
+var xFlagsGetFirstValue func(*FlagsClass, uint32) *FlagsValue
 
 // Returns the first #GFlagsValue which is set in @value.
-func FlagsGetFirstValue(FlagsClassVar *FlagsClass, ValueVar uint) *FlagsValue {
+func FlagsGetFirstValue(FlagsClassVar *FlagsClass, ValueVar uint32) *FlagsValue {
 
 	cret := xFlagsGetFirstValue(FlagsClassVar, ValueVar)
 	return cret
@@ -214,14 +214,14 @@ func FlagsRegisterStatic(NameVar string, ConstStaticValuesVar []FlagsValue) type
 	return cret
 }
 
-var xFlagsToString func(types.GType, uint) string
+var xFlagsToString func(types.GType, uint32) string
 
 // Pretty-prints @value in the form of the flag names separated by ` | ` and
 // sorted. Any extra bits will be shown at the end as a hexadecimal number.
 //
 // This is intended to be used for debugging purposes. The format of the output
 // may change in the future.
-func FlagsToString(FlagsTypeVar types.GType, ValueVar uint) string {
+func FlagsToString(FlagsTypeVar types.GType, ValueVar uint32) string {
 
 	cret := xFlagsToString(FlagsTypeVar, ValueVar)
 	return cret

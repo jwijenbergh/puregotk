@@ -124,24 +124,24 @@ func (x *SettingsClass) GetWritableChangeEvent() func(*Settings, glib.Quark) boo
 }
 
 // OverrideChangeEvent sets the "change_event" callback function.
-func (x *SettingsClass) OverrideChangeEvent(cb func(*Settings, *glib.Quark, int) bool) {
+func (x *SettingsClass) OverrideChangeEvent(cb func(*Settings, *glib.Quark, int32) bool) {
 	if cb == nil {
 		x.xChangeEvent = 0
 	} else {
-		x.xChangeEvent = purego.NewCallback(func(SettingsVarp uintptr, KeysVarp *glib.Quark, NKeysVarp int) bool {
+		x.xChangeEvent = purego.NewCallback(func(SettingsVarp uintptr, KeysVarp *glib.Quark, NKeysVarp int32) bool {
 			return cb(SettingsNewFromInternalPtr(SettingsVarp), KeysVarp, NKeysVarp)
 		})
 	}
 }
 
 // GetChangeEvent gets the "change_event" callback function.
-func (x *SettingsClass) GetChangeEvent() func(*Settings, *glib.Quark, int) bool {
+func (x *SettingsClass) GetChangeEvent() func(*Settings, *glib.Quark, int32) bool {
 	if x.xChangeEvent == 0 {
 		return nil
 	}
-	var rawCallback func(SettingsVarp uintptr, KeysVarp *glib.Quark, NKeysVarp int) bool
+	var rawCallback func(SettingsVarp uintptr, KeysVarp *glib.Quark, NKeysVarp int32) bool
 	purego.RegisterFunc(&rawCallback, x.xChangeEvent)
-	return func(SettingsVar *Settings, KeysVar *glib.Quark, NKeysVar int) bool {
+	return func(SettingsVar *Settings, KeysVar *glib.Quark, NKeysVar int32) bool {
 		return rawCallback(SettingsVar.GoPointer(), KeysVar, NKeysVar)
 	}
 }
@@ -973,7 +973,7 @@ func (x *Settings) GetDouble(KeyVar string) float64 {
 	return cret
 }
 
-var xSettingsGetEnum func(uintptr, string) int
+var xSettingsGetEnum func(uintptr, string) int32
 
 // Gets the value that is stored in @settings for @key and converts it
 // to the enum value that it represents.
@@ -987,13 +987,13 @@ var xSettingsGetEnum func(uintptr, string) int
 // If the value stored in the configuration database is not a valid
 // value for the enumerated type then this function will return the
 // default value.
-func (x *Settings) GetEnum(KeyVar string) int {
+func (x *Settings) GetEnum(KeyVar string) int32 {
 
 	cret := xSettingsGetEnum(x.GoPointer(), KeyVar)
 	return cret
 }
 
-var xSettingsGetFlags func(uintptr, string) uint
+var xSettingsGetFlags func(uintptr, string) uint32
 
 // Gets the value that is stored in @settings for @key and converts it
 // to the flags value that it represents.
@@ -1007,7 +1007,7 @@ var xSettingsGetFlags func(uintptr, string) uint
 // If the value stored in the configuration database is not a valid
 // value for the flags type then this function will return the default
 // value.
-func (x *Settings) GetFlags(KeyVar string) uint {
+func (x *Settings) GetFlags(KeyVar string) uint32 {
 
 	cret := xSettingsGetFlags(x.GoPointer(), KeyVar)
 	return cret
@@ -1026,7 +1026,7 @@ func (x *Settings) GetHasUnapplied() bool {
 	return cret
 }
 
-var xSettingsGetInt func(uintptr, string) int
+var xSettingsGetInt func(uintptr, string) int32
 
 // Gets the value that is stored at @key in @settings.
 //
@@ -1034,7 +1034,7 @@ var xSettingsGetInt func(uintptr, string) int
 //
 // It is a programmer error to give a @key that isn’t specified as
 // having an `i` type in the schema for @settings (see [struct@GLib.VariantType]).
-func (x *Settings) GetInt(KeyVar string) int {
+func (x *Settings) GetInt(KeyVar string) int32 {
 
 	cret := xSettingsGetInt(x.GoPointer(), KeyVar)
 	return cret
@@ -1124,7 +1124,7 @@ func (x *Settings) GetStrv(KeyVar string) []string {
 	return cret
 }
 
-var xSettingsGetUint func(uintptr, string) uint
+var xSettingsGetUint func(uintptr, string) uint32
 
 // Gets the value that is stored at @key in @settings.
 //
@@ -1133,7 +1133,7 @@ var xSettingsGetUint func(uintptr, string) uint
 //
 // It is a programmer error to give a @key that isn’t specified as
 // having a `u` type in the schema for @settings (see [struct@GLib.VariantType]).
-func (x *Settings) GetUint(KeyVar string) uint {
+func (x *Settings) GetUint(KeyVar string) uint32 {
 
 	cret := xSettingsGetUint(x.GoPointer(), KeyVar)
 	return cret
@@ -1318,7 +1318,7 @@ func (x *Settings) SetDouble(KeyVar string, ValueVar float64) bool {
 	return cret
 }
 
-var xSettingsSetEnum func(uintptr, string, int) bool
+var xSettingsSetEnum func(uintptr, string, int32) bool
 
 // Looks up the enumerated type nick for @value and writes it to @key,
 // within @settings.
@@ -1330,13 +1330,13 @@ var xSettingsSetEnum func(uintptr, string, int) bool
 // After performing the write, accessing @key directly with
 // [method@Gio.Settings.get_string] will return the ‘nick’ associated with
 // @value.
-func (x *Settings) SetEnum(KeyVar string, ValueVar int) bool {
+func (x *Settings) SetEnum(KeyVar string, ValueVar int32) bool {
 
 	cret := xSettingsSetEnum(x.GoPointer(), KeyVar, ValueVar)
 	return cret
 }
 
-var xSettingsSetFlags func(uintptr, string, uint) bool
+var xSettingsSetFlags func(uintptr, string, uint32) bool
 
 // Looks up the flags type nicks for the bits specified by @value, puts
 // them in an array of strings and writes the array to @key, within
@@ -1349,13 +1349,13 @@ var xSettingsSetFlags func(uintptr, string, uint) bool
 // After performing the write, accessing @key directly with
 // [method@Gio.Settings.get_strv] will return an array of ‘nicks’; one for each
 // bit in @value.
-func (x *Settings) SetFlags(KeyVar string, ValueVar uint) bool {
+func (x *Settings) SetFlags(KeyVar string, ValueVar uint32) bool {
 
 	cret := xSettingsSetFlags(x.GoPointer(), KeyVar, ValueVar)
 	return cret
 }
 
-var xSettingsSetInt func(uintptr, string, int) bool
+var xSettingsSetInt func(uintptr, string, int32) bool
 
 // Sets @key in @settings to @value.
 //
@@ -1363,7 +1363,7 @@ var xSettingsSetInt func(uintptr, string, int) bool
 //
 // It is a programmer error to give a @key that isn’t specified as
 // having an `i` type in the schema for @settings (see [struct@GLib.VariantType]).
-func (x *Settings) SetInt(KeyVar string, ValueVar int) bool {
+func (x *Settings) SetInt(KeyVar string, ValueVar int32) bool {
 
 	cret := xSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
 	return cret
@@ -1412,7 +1412,7 @@ func (x *Settings) SetStrv(KeyVar string, ValueVar []string) bool {
 	return cret
 }
 
-var xSettingsSetUint func(uintptr, string, uint) bool
+var xSettingsSetUint func(uintptr, string, uint32) bool
 
 // Sets @key in @settings to @value.
 //
@@ -1421,7 +1421,7 @@ var xSettingsSetUint func(uintptr, string, uint) bool
 //
 // It is a programmer error to give a @key that isn’t specified as
 // having a `u` type in the schema for @settings (see [struct@GLib.VariantType]).
-func (x *Settings) SetUint(KeyVar string, ValueVar uint) bool {
+func (x *Settings) SetUint(KeyVar string, ValueVar uint32) bool {
 
 	cret := xSettingsSetUint(x.GoPointer(), KeyVar, ValueVar)
 	return cret
@@ -1603,13 +1603,13 @@ func (x *Settings) GetPropertySettingsSchema() uintptr {
 // The default handler for this signal invokes the [signal@Gio.Settings::changed] signal
 // for each affected key.  If any other connected handler returns
 // true then this default functionality will be suppressed.
-func (x *Settings) ConnectChangeEvent(cb *func(Settings, uintptr, int) bool) uint32 {
+func (x *Settings) ConnectChangeEvent(cb *func(Settings, uintptr, int32) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "change-event", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int) bool {
+	fcb := func(clsPtr uintptr, KeysVarp uintptr, NKeysVarp int32) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1671,13 +1671,13 @@ func (x *Settings) ConnectChanged(cb *func(Settings, string)) uint32 {
 // example, a new mandatory setting is introduced).  If any other
 // connected handler returns true then this default functionality
 // will be suppressed.
-func (x *Settings) ConnectWritableChangeEvent(cb *func(Settings, uint) bool) uint32 {
+func (x *Settings) ConnectWritableChangeEvent(cb *func(Settings, uint32) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "writable-change-event", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, KeyVarp uint) bool {
+	fcb := func(clsPtr uintptr, KeyVarp uint32) bool {
 		fa := Settings{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

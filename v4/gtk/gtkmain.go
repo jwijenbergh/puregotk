@@ -13,7 +13,7 @@ const (
 	// It is used internally by GTK+ to compute the sizes of widgets.
 	// This priority is higher than %GDK_PRIORITY_REDRAW to avoid
 	// resizing a widget which was just redrawn.
-	PRIORITY_RESIZE int = 110
+	PRIORITY_RESIZE int32 = 110
 )
 
 var xDisablePortals func()

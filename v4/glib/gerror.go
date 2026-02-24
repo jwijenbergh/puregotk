@@ -59,33 +59,33 @@ func (x *Error) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewError func(Quark, int, string, ...interface{}) *Error
+var xNewError func(Quark, int32, string, ...interface{}) *Error
 
 // Creates a new #GError with the given @domain and @code,
 // and a message formatted with @format.
-func NewError(DomainVar Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *Error {
+func NewError(DomainVar Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) *Error {
 
 	cret := xNewError(DomainVar, CodeVar, FormatVar, varArgs...)
 	return cret
 }
 
-var xNewErrorLiteral func(Quark, int, string) *Error
+var xNewErrorLiteral func(Quark, int32, string) *Error
 
 // Creates a new #GError; unlike g_error_new(), @message is
 // not a printf()-style format string. Use this function if
 // @message contains text you don't have control over,
 // that could include printf() escape sequences.
-func NewErrorLiteral(DomainVar Quark, CodeVar int, MessageVar string) *Error {
+func NewErrorLiteral(DomainVar Quark, CodeVar int32, MessageVar string) *Error {
 
 	cret := xNewErrorLiteral(DomainVar, CodeVar, MessageVar)
 	return cret
 }
 
-var xNewErrorValist func(Quark, int, string, []interface{}) *Error
+var xNewErrorValist func(Quark, int32, string, []interface{}) *Error
 
 // Creates a new #GError with the given @domain and @code,
 // and a message formatted with @format.
-func NewErrorValist(DomainVar Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) *Error {
+func NewErrorValist(DomainVar Quark, CodeVar int32, FormatVar string, ArgsVar []interface{}) *Error {
 
 	cret := xNewErrorValist(DomainVar, CodeVar, FormatVar, ArgsVar)
 	return cret
@@ -109,7 +109,7 @@ func (x *Error) Free() {
 
 }
 
-var xErrorMatches func(uintptr, Quark, int) bool
+var xErrorMatches func(uintptr, Quark, int32) bool
 
 // Returns %TRUE if @error matches @domain and @code, %FALSE
 // otherwise. In particular, when @error is %NULL, %FALSE will
@@ -121,7 +121,7 @@ var xErrorMatches func(uintptr, Quark, int) bool
 // equivalent to the `FAILED` code. This way, if the domain is
 // extended in the future to provide a more specific error code for
 // a certain case, your code will still work.
-func (x *Error) Matches(DomainVar Quark, CodeVar int) bool {
+func (x *Error) Matches(DomainVar Quark, CodeVar int32) bool {
 
 	cret := xErrorMatches(x.GoPointer(), DomainVar, CodeVar)
 	return cret
@@ -229,24 +229,24 @@ func PropagatePrefixedError(DestVar **Error, SrcVar *Error, FormatVar string, va
 
 }
 
-var xSetError func(**Error, Quark, int, string, ...interface{})
+var xSetError func(**Error, Quark, int32, string, ...interface{})
 
 // Does nothing if @err is %NULL; if @err is non-%NULL, then `*err`
 // must be %NULL. A new #GError is created and assigned to `*err`.
-func SetError(ErrVar **Error, DomainVar Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func SetError(ErrVar **Error, DomainVar Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
 
 	xSetError(ErrVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xSetErrorLiteral func(**Error, Quark, int, string)
+var xSetErrorLiteral func(**Error, Quark, int32, string)
 
 // Does nothing if @err is %NULL; if @err is non-%NULL, then `*err`
 // must be %NULL. A new #GError is created and assigned to `*err`.
 // Unlike g_set_error(), @message is not a printf()-style format string.
 // Use this function if @message contains text you don't have control over,
 // that could include printf() escape sequences.
-func SetErrorLiteral(ErrVar **Error, DomainVar Quark, CodeVar int, MessageVar string) {
+func SetErrorLiteral(ErrVar **Error, DomainVar Quark, CodeVar int32, MessageVar string) {
 
 	xSetErrorLiteral(ErrVar, DomainVar, CodeVar, MessageVar)
 

@@ -6,71 +6,71 @@ import (
 	"github.com/jwijenbergh/puregotk/pkg/core"
 )
 
-var xKeyvalConvertCase func(uint, *uint, *uint)
+var xKeyvalConvertCase func(uint32, *uint32, *uint32)
 
 // Obtains the upper- and lower-case versions of the keyval @symbol.
 //
 // Examples of keyvals are `GDK_KEY_a`, `GDK_KEY_Enter`, `GDK_KEY_F1`, etc.
-func KeyvalConvertCase(SymbolVar uint, LowerVar *uint, UpperVar *uint) {
+func KeyvalConvertCase(SymbolVar uint32, LowerVar *uint32, UpperVar *uint32) {
 
 	xKeyvalConvertCase(SymbolVar, LowerVar, UpperVar)
 
 }
 
-var xKeyvalFromName func(string) uint
+var xKeyvalFromName func(string) uint32
 
 // Converts a key name to a key value.
 //
 // The names are the same as those in the
 // `gdk/gdkkeysyms.h` header file
 // but without the leading “GDK_KEY_”.
-func KeyvalFromName(KeyvalNameVar string) uint {
+func KeyvalFromName(KeyvalNameVar string) uint32 {
 
 	cret := xKeyvalFromName(KeyvalNameVar)
 	return cret
 }
 
-var xKeyvalIsLower func(uint) bool
+var xKeyvalIsLower func(uint32) bool
 
 // Returns true if the given key value is in lower case.
-func KeyvalIsLower(KeyvalVar uint) bool {
+func KeyvalIsLower(KeyvalVar uint32) bool {
 
 	cret := xKeyvalIsLower(KeyvalVar)
 	return cret
 }
 
-var xKeyvalIsUpper func(uint) bool
+var xKeyvalIsUpper func(uint32) bool
 
 // Returns true if the given key value is in upper case.
-func KeyvalIsUpper(KeyvalVar uint) bool {
+func KeyvalIsUpper(KeyvalVar uint32) bool {
 
 	cret := xKeyvalIsUpper(KeyvalVar)
 	return cret
 }
 
-var xKeyvalName func(uint) string
+var xKeyvalName func(uint32) string
 
 // Converts a key value into a symbolic name.
 //
 // The names are the same as those in the
 // `gdk/gdkkeysyms.h` header file
 // but without the leading “GDK_KEY_”.
-func KeyvalName(KeyvalVar uint) string {
+func KeyvalName(KeyvalVar uint32) string {
 
 	cret := xKeyvalName(KeyvalVar)
 	return cret
 }
 
-var xKeyvalToLower func(uint) uint
+var xKeyvalToLower func(uint32) uint32
 
 // Converts a key value to lower case, if applicable.
-func KeyvalToLower(KeyvalVar uint) uint {
+func KeyvalToLower(KeyvalVar uint32) uint32 {
 
 	cret := xKeyvalToLower(KeyvalVar)
 	return cret
 }
 
-var xKeyvalToUnicode func(uint) uint32
+var xKeyvalToUnicode func(uint32) uint32
 
 // Converts from a GDK key symbol to the corresponding Unicode
 // character.
@@ -78,25 +78,25 @@ var xKeyvalToUnicode func(uint) uint32
 // Note that the conversion does not take the current locale
 // into consideration, which might be expected for particular
 // keyvals, such as `GDK_KEY_KP_Decimal`.
-func KeyvalToUnicode(KeyvalVar uint) uint32 {
+func KeyvalToUnicode(KeyvalVar uint32) uint32 {
 
 	cret := xKeyvalToUnicode(KeyvalVar)
 	return cret
 }
 
-var xKeyvalToUpper func(uint) uint
+var xKeyvalToUpper func(uint32) uint32
 
 // Converts a key value to upper case, if applicable.
-func KeyvalToUpper(KeyvalVar uint) uint {
+func KeyvalToUpper(KeyvalVar uint32) uint32 {
 
 	cret := xKeyvalToUpper(KeyvalVar)
 	return cret
 }
 
-var xUnicodeToKeyval func(uint32) uint
+var xUnicodeToKeyval func(uint32) uint32
 
 // Converts from a Unicode character to a key symbol.
-func UnicodeToKeyval(WcVar uint32) uint {
+func UnicodeToKeyval(WcVar uint32) uint32 {
 
 	cret := xUnicodeToKeyval(WcVar)
 	return cret

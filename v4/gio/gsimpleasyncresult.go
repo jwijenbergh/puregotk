@@ -20,12 +20,12 @@ func (x *SimpleAsyncResultClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xSimpleAsyncReportErrorInIdle func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{})
+var xSimpleAsyncReportErrorInIdle func(uintptr, uintptr, uintptr, glib.Quark, int32, string, ...interface{})
 
 // Reports an error in an asynchronous function in an idle function by
 // directly setting the contents of the #GAsyncResult with the given error
 // information.
-func SimpleAsyncReportErrorInIdle(ObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func SimpleAsyncReportErrorInIdle(ObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
 
 	xSimpleAsyncReportErrorInIdle(ObjectVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
 
@@ -267,10 +267,10 @@ func NewSimpleAsyncResult(SourceObjectVar *gobject.Object, CallbackVar *AsyncRea
 	return cls
 }
 
-var xNewSimpleAsyncResultError func(uintptr, uintptr, uintptr, glib.Quark, int, string, ...interface{}) uintptr
+var xNewSimpleAsyncResultError func(uintptr, uintptr, uintptr, glib.Quark, int32, string, ...interface{}) uintptr
 
 // Creates a new #GSimpleAsyncResult with a set error.
-func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
+func NewSimpleAsyncResultError(SourceObjectVar *gobject.Object, CallbackVar *AsyncReadyCallback, UserDataVar uintptr, DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) *SimpleAsyncResult {
 	var cls *SimpleAsyncResult
 
 	cret := xNewSimpleAsyncResultError(SourceObjectVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar, DomainVar, CodeVar, FormatVar, varArgs...)
@@ -401,7 +401,7 @@ func (x *SimpleAsyncResult) PropagateError() (bool, error) {
 
 }
 
-var xSimpleAsyncResultRunInThread func(uintptr, uintptr, int, uintptr)
+var xSimpleAsyncResultRunInThread func(uintptr, uintptr, int32, uintptr)
 
 // Runs the asynchronous job in a separate thread and then calls
 // g_simple_async_result_complete_in_idle() on @simple to return
@@ -409,7 +409,7 @@ var xSimpleAsyncResultRunInThread func(uintptr, uintptr, int, uintptr)
 //
 // Calling this function takes a reference to @simple for as long as
 // is needed to run the job and report its completion.
-func (x *SimpleAsyncResult) RunInThread(FuncVar *SimpleAsyncThreadFunc, IoPriorityVar int, CancellableVar *Cancellable) {
+func (x *SimpleAsyncResult) RunInThread(FuncVar *SimpleAsyncThreadFunc, IoPriorityVar int32, CancellableVar *Cancellable) {
 
 	xSimpleAsyncResultRunInThread(x.GoPointer(), glib.NewCallback(FuncVar), IoPriorityVar, CancellableVar.GoPointer())
 
@@ -438,20 +438,20 @@ func (x *SimpleAsyncResult) SetCheckCancellable(CheckCancellableVar *Cancellable
 
 }
 
-var xSimpleAsyncResultSetError func(uintptr, glib.Quark, int, string, ...interface{})
+var xSimpleAsyncResultSetError func(uintptr, glib.Quark, int32, string, ...interface{})
 
 // Sets an error within the asynchronous result without a #GError.
-func (x *SimpleAsyncResult) SetError(DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func (x *SimpleAsyncResult) SetError(DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
 
 	xSimpleAsyncResultSetError(x.GoPointer(), DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xSimpleAsyncResultSetErrorVa func(uintptr, glib.Quark, int, string, []interface{})
+var xSimpleAsyncResultSetErrorVa func(uintptr, glib.Quark, int32, string, []interface{})
 
 // Sets an error within the asynchronous result without a #GError.
 // Unless writing a binding, see g_simple_async_result_set_error().
-func (x *SimpleAsyncResult) SetErrorVa(DomainVar glib.Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) {
+func (x *SimpleAsyncResult) SetErrorVa(DomainVar glib.Quark, CodeVar int32, FormatVar string, ArgsVar []interface{}) {
 
 	xSimpleAsyncResultSetErrorVa(x.GoPointer(), DomainVar, CodeVar, FormatVar, ArgsVar)
 

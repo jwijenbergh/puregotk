@@ -96,12 +96,12 @@ func (x *ColumnViewRow) GetItem() *gobject.Object {
 	return cls
 }
 
-var xColumnViewRowGetPosition func(uintptr) uint
+var xColumnViewRowGetPosition func(uintptr) uint32
 
 // Gets the position in the model that @self currently displays.
 //
 // If @self is unbound, %GTK_INVALID_LIST_POSITION is returned.
-func (x *ColumnViewRow) GetPosition() uint {
+func (x *ColumnViewRow) GetPosition() uint32 {
 
 	cret := xColumnViewRowGetPosition(x.GoPointer())
 	return cret
@@ -284,10 +284,10 @@ func (x *ColumnViewRow) GetPropertyFocusable() bool {
 
 // GetPropertyPosition gets the "position" property.
 // Position of the row.
-func (x *ColumnViewRow) GetPropertyPosition() uint {
+func (x *ColumnViewRow) GetPropertyPosition() uint32 {
 	var v gobject.Value
 	x.GetProperty("position", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertySelectable sets the "selectable" property.

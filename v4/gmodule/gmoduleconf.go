@@ -2,11 +2,11 @@
 package gmodule
 
 const (
-	MODULE_IMPL_AR int = 7
+	MODULE_IMPL_AR int32 = 7
 
-	MODULE_IMPL_DL int = 1
+	MODULE_IMPL_DL int32 = 1
 
-	MODULE_IMPL_NONE int = 0
+	MODULE_IMPL_NONE int32 = 0
 
-	MODULE_IMPL_WIN32 int = 3
+	MODULE_IMPL_WIN32 int32 = 3
 )

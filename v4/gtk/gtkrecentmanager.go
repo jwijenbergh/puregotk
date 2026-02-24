@@ -98,24 +98,24 @@ func (x *RecentInfo) GetAdded() *glib.DateTime {
 	return cret
 }
 
-var xRecentInfoGetAge func(uintptr) int
+var xRecentInfoGetAge func(uintptr) int32
 
 // Gets the number of days elapsed since the last update
 // of the resource pointed by @info.
-func (x *RecentInfo) GetAge() int {
+func (x *RecentInfo) GetAge() int32 {
 
 	cret := xRecentInfoGetAge(x.GoPointer())
 	return cret
 }
 
-var xRecentInfoGetApplicationInfo func(uintptr, string, *string, *uint, **glib.DateTime) bool
+var xRecentInfoGetApplicationInfo func(uintptr, string, *string, *uint32, **glib.DateTime) bool
 
 // Gets the data regarding the application that has registered the resource
 // pointed by @info.
 //
 // If the command line contains any escape characters defined inside the
 // storage specification, they will be expanded.
-func (x *RecentInfo) GetApplicationInfo(AppNameVar string, AppExecVar *string, CountVar *uint, StampVar **glib.DateTime) bool {
+func (x *RecentInfo) GetApplicationInfo(AppNameVar string, AppExecVar *string, CountVar *uint32, StampVar **glib.DateTime) bool {
 
 	cret := xRecentInfoGetApplicationInfo(x.GoPointer(), AppNameVar, AppExecVar, CountVar, StampVar)
 	return cret
@@ -707,10 +707,10 @@ func (x *RecentManager) MoveItem(UriVar string, NewUriVar string) (bool, error) 
 
 }
 
-var xRecentManagerPurgeItems func(uintptr) int
+var xRecentManagerPurgeItems func(uintptr) int32
 
 // Purges every item from the recently used resources list.
-func (x *RecentManager) PurgeItems() (int, error) {
+func (x *RecentManager) PurgeItems() (int32, error) {
 	var cerr *glib.Error
 
 	cret := xRecentManagerPurgeItems(x.GoPointer())
@@ -768,10 +768,10 @@ func (x *RecentManager) GetPropertyFilename() string {
 
 // GetPropertySize gets the "size" property.
 // The size of the recently used resources list.
-func (x *RecentManager) GetPropertySize() int {
+func (x *RecentManager) GetPropertySize() int32 {
 	var v gobject.Value
 	x.GetProperty("size", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when the current recently used resources manager changes

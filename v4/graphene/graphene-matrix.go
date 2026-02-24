@@ -114,19 +114,19 @@ func (x *Matrix) Free() {
 
 }
 
-var xMatrixGetRow func(uintptr, uint, *Vec4)
+var xMatrixGetRow func(uintptr, uint32, *Vec4)
 
 // Retrieves the given row vector at @index_ inside a matrix.
-func (x *Matrix) GetRow(IndexVar uint, ResVar *Vec4) {
+func (x *Matrix) GetRow(IndexVar uint32, ResVar *Vec4) {
 
 	xMatrixGetRow(x.GoPointer(), IndexVar, ResVar)
 
 }
 
-var xMatrixGetValue func(uintptr, uint, uint) float32
+var xMatrixGetValue func(uintptr, uint32, uint32) float32
 
 // Retrieves the value at the given @row and @col index.
-func (x *Matrix) GetValue(RowVar uint, ColVar uint) float32 {
+func (x *Matrix) GetValue(RowVar uint32, ColVar uint32) float32 {
 
 	cret := xMatrixGetValue(x.GoPointer(), RowVar, ColVar)
 	return cret

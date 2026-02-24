@@ -213,14 +213,14 @@ func (x *Box) InitFromBox(SrcVar *Box) *Box {
 	return cret
 }
 
-var xBoxInitFromPoints func(uintptr, uint, []Point3D) *Box
+var xBoxInitFromPoints func(uintptr, uint32, []Point3D) *Box
 
 // Initializes the given #graphene_box_t with the given array
 // of vertices.
 //
 // If @n_points is 0, the returned box is initialized with
 // graphene_box_empty().
-func (x *Box) InitFromPoints(NPointsVar uint, PointsVar []Point3D) *Box {
+func (x *Box) InitFromPoints(NPointsVar uint32, PointsVar []Point3D) *Box {
 
 	cret := xBoxInitFromPoints(x.GoPointer(), NPointsVar, PointsVar)
 	return cret
@@ -236,14 +236,14 @@ func (x *Box) InitFromVec3(MinVar *Vec3, MaxVar *Vec3) *Box {
 	return cret
 }
 
-var xBoxInitFromVectors func(uintptr, uint, []Vec3) *Box
+var xBoxInitFromVectors func(uintptr, uint32, []Vec3) *Box
 
 // Initializes the given #graphene_box_t with the given array
 // of vertices.
 //
 // If @n_vectors is 0, the returned box is initialized with
 // graphene_box_empty().
-func (x *Box) InitFromVectors(NVectorsVar uint, VectorsVar []Vec3) *Box {
+func (x *Box) InitFromVectors(NVectorsVar uint32, VectorsVar []Vec3) *Box {
 
 	cret := xBoxInitFromVectors(x.GoPointer(), NVectorsVar, VectorsVar)
 	return cret

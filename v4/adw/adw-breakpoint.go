@@ -67,12 +67,12 @@ func NewBreakpointConditionOr(Condition1Var *BreakpointCondition, Condition2Var 
 	return cret
 }
 
-var xNewBreakpointConditionRatio func(BreakpointConditionRatioType, int, int) *BreakpointCondition
+var xNewBreakpointConditionRatio func(BreakpointConditionRatioType, int32, int32) *BreakpointCondition
 
 // Creates a condition that triggers on ratio changes.
 //
 // The ratio is represented as @width divided by @height.
-func NewBreakpointConditionRatio(TypeVar BreakpointConditionRatioType, WidthVar int, HeightVar int) *BreakpointCondition {
+func NewBreakpointConditionRatio(TypeVar BreakpointConditionRatioType, WidthVar int32, HeightVar int32) *BreakpointCondition {
 
 	cret := xNewBreakpointConditionRatio(TypeVar, WidthVar, HeightVar)
 	return cret
@@ -387,7 +387,7 @@ func (x *Breakpoint) AddSettersValist(FirstObjectVar *gobject.Object, FirstPrope
 
 }
 
-var xBreakpointAddSettersv func(uintptr, int, uintptr, []string, uintptr)
+var xBreakpointAddSettersv func(uintptr, int32, uintptr, []string, uintptr)
 
 // Adds @n_setters setters to @self.
 //
@@ -396,7 +396,7 @@ var xBreakpointAddSettersv func(uintptr, int, uintptr, []string, uintptr)
 // See [method@Breakpoint.add_setter].
 //
 // This function is meant to be used by language bindings.
-func (x *Breakpoint) AddSettersv(NSettersVar int, ObjectsVar uintptr, NamesVar []string, ValuesVar uintptr) {
+func (x *Breakpoint) AddSettersv(NSettersVar int32, ObjectsVar uintptr, NamesVar []string, ValuesVar uintptr) {
 
 	xBreakpointAddSettersv(x.GoPointer(), NSettersVar, ObjectsVar, NamesVar, ValuesVar)
 

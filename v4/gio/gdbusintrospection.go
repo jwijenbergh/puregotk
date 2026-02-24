@@ -155,7 +155,7 @@ func (x *DBusInterfaceInfo) CacheRelease() {
 
 }
 
-var xDBusInterfaceInfoGenerateXml func(uintptr, uint, *glib.String)
+var xDBusInterfaceInfoGenerateXml func(uintptr, uint32, *glib.String)
 
 // Appends an XML representation of @info (and its children) to @string_builder.
 //
@@ -163,7 +163,7 @@ var xDBusInterfaceInfoGenerateXml func(uintptr, uint, *glib.String)
 // documents at run-time for handling the
 // `org.freedesktop.DBus.Introspectable.Introspect`
 // method.
-func (x *DBusInterfaceInfo) GenerateXml(IndentVar uint, StringBuilderVar *glib.String) {
+func (x *DBusInterfaceInfo) GenerateXml(IndentVar uint32, StringBuilderVar *glib.String) {
 
 	xDBusInterfaceInfoGenerateXml(x.GoPointer(), IndentVar, StringBuilderVar)
 
@@ -318,13 +318,13 @@ func NewDBusNodeInfoForXml(XmlDataVar string) (*DBusNodeInfo, error) {
 
 }
 
-var xDBusNodeInfoGenerateXml func(uintptr, uint, *glib.String)
+var xDBusNodeInfoGenerateXml func(uintptr, uint32, *glib.String)
 
 // Appends an XML representation of @info (and its children) to @string_builder.
 //
 // This function is typically used for generating introspection XML documents at run-time for
 // handling the `org.freedesktop.DBus.Introspectable.Introspect`  method.
-func (x *DBusNodeInfo) GenerateXml(IndentVar uint, StringBuilderVar *glib.String) {
+func (x *DBusNodeInfo) GenerateXml(IndentVar uint32, StringBuilderVar *glib.String) {
 
 	xDBusNodeInfoGenerateXml(x.GoPointer(), IndentVar, StringBuilderVar)
 

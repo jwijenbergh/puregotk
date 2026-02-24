@@ -10,7 +10,7 @@ import (
 const (
 	// An undefined value. The accessible attribute is either unset, or its
 	// value is undefined.
-	ACCESSIBLE_VALUE_UNDEFINED int = -1
+	ACCESSIBLE_VALUE_UNDEFINED int32 = -1
 )
 
 // Describes hints that might be taken into account by input methods
@@ -2117,11 +2117,11 @@ const (
 	WrapWordCharValue WrapMode = 3
 )
 
-var xOrderingFromCmpfunc func(int) Ordering
+var xOrderingFromCmpfunc func(int32) Ordering
 
 // Converts the result of a `GCompareFunc` like strcmp() to a
 // `GtkOrdering` value.
-func OrderingFromCmpfunc(CmpfuncResultVar int) Ordering {
+func OrderingFromCmpfunc(CmpfuncResultVar int32) Ordering {
 
 	cret := xOrderingFromCmpfunc(CmpfuncResultVar)
 	return cret

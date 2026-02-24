@@ -406,7 +406,7 @@ func (x *Label) GetLayout() *pango.Layout {
 	return cls
 }
 
-var xLabelGetLayoutOffsets func(uintptr, *int, *int)
+var xLabelGetLayoutOffsets func(uintptr, *int32, *int32)
 
 // Obtains the coordinates where the label will draw its Pango layout.
 //
@@ -415,43 +415,43 @@ var xLabelGetLayoutOffsets func(uintptr, *int, *int)
 // of the label is clicked. Remember when using the [class@Pango.Layout]
 // functions you need to convert to and from pixels using `PANGO_PIXELS()`
 // or [const@Pango.SCALE].
-func (x *Label) GetLayoutOffsets(XVar *int, YVar *int) {
+func (x *Label) GetLayoutOffsets(XVar *int32, YVar *int32) {
 
 	xLabelGetLayoutOffsets(x.GoPointer(), XVar, YVar)
 
 }
 
-var xLabelGetLines func(uintptr) int
+var xLabelGetLines func(uintptr) int32
 
 // Gets the number of lines to which an ellipsized, wrapping
 // label should be limited.
 //
 // See [method@Gtk.Label.set_lines].
-func (x *Label) GetLines() int {
+func (x *Label) GetLines() int32 {
 
 	cret := xLabelGetLines(x.GoPointer())
 	return cret
 }
 
-var xLabelGetMaxWidthChars func(uintptr) int
+var xLabelGetMaxWidthChars func(uintptr) int32
 
 // Retrieves the maximum width of the label in characters.
 //
 // See [method@Gtk.Label.set_width_chars].
-func (x *Label) GetMaxWidthChars() int {
+func (x *Label) GetMaxWidthChars() int32 {
 
 	cret := xLabelGetMaxWidthChars(x.GoPointer())
 	return cret
 }
 
-var xLabelGetMnemonicKeyval func(uintptr) uint
+var xLabelGetMnemonicKeyval func(uintptr) uint32
 
 // Return the mnemonic accelerator.
 //
 // If the label has been set so that it has a mnemonic key this function
 // returns the keyval used for the mnemonic accelerator. If there is no
 // mnemonic set up it returns `GDK_KEY_VoidSymbol`.
-func (x *Label) GetMnemonicKeyval() uint {
+func (x *Label) GetMnemonicKeyval() uint32 {
 
 	cret := xLabelGetMnemonicKeyval(x.GoPointer())
 	return cret
@@ -496,12 +496,12 @@ func (x *Label) GetSelectable() bool {
 	return cret
 }
 
-var xLabelGetSelectionBounds func(uintptr, *int, *int) bool
+var xLabelGetSelectionBounds func(uintptr, *int32, *int32) bool
 
 // Gets the selected range of characters in the label.
 //
 // The returned @start and @end positions are in characters.
-func (x *Label) GetSelectionBounds(StartVar *int, EndVar *int) bool {
+func (x *Label) GetSelectionBounds(StartVar *int32, EndVar *int32) bool {
 
 	cret := xLabelGetSelectionBounds(x.GoPointer(), StartVar, EndVar)
 	return cret
@@ -562,12 +562,12 @@ func (x *Label) GetUseUnderline() bool {
 	return cret
 }
 
-var xLabelGetWidthChars func(uintptr) int
+var xLabelGetWidthChars func(uintptr) int32
 
 // Retrieves the desired width of the label in characters.
 //
 // See [method@Gtk.Label.set_width_chars].
-func (x *Label) GetWidthChars() int {
+func (x *Label) GetWidthChars() int32 {
 
 	cret := xLabelGetWidthChars(x.GoPointer())
 	return cret
@@ -617,14 +617,14 @@ func (x *Label) GetYalign() float32 {
 	return cret
 }
 
-var xLabelSelectRegion func(uintptr, int, int)
+var xLabelSelectRegion func(uintptr, int32, int32)
 
 // Selects a range of characters in the label, if the label is selectable.
 //
 // See [method@Gtk.Label.set_selectable]. If the label is not selectable,
 // this function has no effect. If @start_offset or
 // @end_offset are -1, then the end of the label will be substituted.
-func (x *Label) SelectRegion(StartOffsetVar int, EndOffsetVar int) {
+func (x *Label) SelectRegion(StartOffsetVar int32, EndOffsetVar int32) {
 
 	xLabelSelectRegion(x.GoPointer(), StartOffsetVar, EndOffsetVar)
 
@@ -699,14 +699,14 @@ func (x *Label) SetLabel(StrVar string) {
 
 }
 
-var xLabelSetLines func(uintptr, int)
+var xLabelSetLines func(uintptr, int32)
 
 // Sets the number of lines to which an ellipsized, wrapping label
 // should be limited.
 //
 // This has no effect if the label is not wrapping or ellipsized.
 // Set this to -1 if you don’t want to limit the number of lines.
-func (x *Label) SetLines(LinesVar int) {
+func (x *Label) SetLines(LinesVar int32) {
 
 	xLabelSetLines(x.GoPointer(), LinesVar)
 
@@ -760,10 +760,10 @@ func (x *Label) SetMarkupWithMnemonic(StrVar string) {
 
 }
 
-var xLabelSetMaxWidthChars func(uintptr, int)
+var xLabelSetMaxWidthChars func(uintptr, int32)
 
 // Sets the maximum width of the label in characters.
-func (x *Label) SetMaxWidthChars(NCharsVar int) {
+func (x *Label) SetMaxWidthChars(NCharsVar int32) {
 
 	xLabelSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -886,10 +886,10 @@ func (x *Label) SetUseUnderline(SettingVar bool) {
 
 }
 
-var xLabelSetWidthChars func(uintptr, int)
+var xLabelSetWidthChars func(uintptr, int32)
 
 // Sets the desired width in characters of the label.
-func (x *Label) SetWidthChars(NCharsVar int) {
+func (x *Label) SetWidthChars(NCharsVar int32) {
 
 	xLabelSetWidthChars(x.GoPointer(), NCharsVar)
 
@@ -1038,10 +1038,10 @@ func (x *Label) GetPropertyLabel() string {
 // This property has no effect if the label is not wrapping or ellipsized.
 //
 // Set this property to -1 if you don't want to limit the number of lines.
-func (x *Label) SetPropertyLines(value int) {
+func (x *Label) SetPropertyLines(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("lines", &v)
 }
 
@@ -1062,10 +1062,10 @@ func (x *Label) SetPropertyLines(value int) {
 // This property has no effect if the label is not wrapping or ellipsized.
 //
 // Set this property to -1 if you don't want to limit the number of lines.
-func (x *Label) GetPropertyLines() int {
+func (x *Label) GetPropertyLines() int32 {
 	var v gobject.Value
 	x.GetProperty("lines", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMaxWidthChars sets the "max-width-chars" property.
@@ -1076,10 +1076,10 @@ func (x *Label) GetPropertyLines() int {
 // See the section on [text layout](class.Label.html#text-layout) for details
 // of how [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
 // determine the width of ellipsized and wrapped labels.
-func (x *Label) SetPropertyMaxWidthChars(value int) {
+func (x *Label) SetPropertyMaxWidthChars(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("max-width-chars", &v)
 }
 
@@ -1091,18 +1091,18 @@ func (x *Label) SetPropertyMaxWidthChars(value int) {
 // See the section on [text layout](class.Label.html#text-layout) for details
 // of how [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
 // determine the width of ellipsized and wrapped labels.
-func (x *Label) GetPropertyMaxWidthChars() int {
+func (x *Label) GetPropertyMaxWidthChars() int32 {
 	var v gobject.Value
 	x.GetProperty("max-width-chars", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyMnemonicKeyval gets the "mnemonic-keyval" property.
 // The mnemonic accelerator key for the label.
-func (x *Label) GetPropertyMnemonicKeyval() uint {
+func (x *Label) GetPropertyMnemonicKeyval() uint32 {
 	var v gobject.Value
 	x.GetProperty("mnemonic-keyval", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertySelectable sets the "selectable" property.
@@ -1214,10 +1214,10 @@ func (x *Label) GetPropertyUseUnderline() bool {
 // See the section on [text layout](class.Label.html#text-layout) for details
 // of how [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
 // determine the width of ellipsized and wrapped labels.
-func (x *Label) SetPropertyWidthChars(value int) {
+func (x *Label) SetPropertyWidthChars(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("width-chars", &v)
 }
 
@@ -1229,10 +1229,10 @@ func (x *Label) SetPropertyWidthChars(value int) {
 // See the section on [text layout](class.Label.html#text-layout) for details
 // of how [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
 // determine the width of ellipsized and wrapped labels.
-func (x *Label) GetPropertyWidthChars() int {
+func (x *Label) GetPropertyWidthChars() int32 {
 	var v gobject.Value
 	x.GetProperty("width-chars", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyWrap sets the "wrap" property.
@@ -1391,13 +1391,13 @@ func (x *Label) ConnectCopyClipboard(cb *func(Label)) uint32 {
 //     move by individual characters/lines
 //   - &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;←&lt;/kbd&gt;, etc. move by words/paragraphs
 //   - &lt;kbd&gt;Home&lt;/kbd&gt; and &lt;kbd&gt;End&lt;/kbd&gt; move to the ends of the buffer
-func (x *Label) ConnectMoveCursor(cb *func(Label, MovementStep, int, bool)) uint32 {
+func (x *Label) ConnectMoveCursor(cb *func(Label, MovementStep, int32, bool)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "move-cursor", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int, ExtendSelectionVarp bool) {
+	fcb := func(clsPtr uintptr, StepVarp MovementStep, CountVarp int32, ExtendSelectionVarp bool) {
 		fa := Label{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1467,7 +1467,7 @@ func (x *Label) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Label) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Label) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1599,7 +1599,7 @@ func (x *Label) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Label) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1635,7 +1635,7 @@ func (x *Label) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Label) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1672,7 +1672,7 @@ func (x *Label) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Label) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Label) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1698,7 +1698,7 @@ func (x *Label) UpdateCaretPosition() {
 // Note: If the change is a deletion, this function must be called *before*
 // removing the contents, if it is an insertion, it must be called *after*
 // inserting the new contents.
-func (x *Label) UpdateContents(ChangeVar AccessibleTextContentChange, StartVar uint, EndVar uint) {
+func (x *Label) UpdateContents(ChangeVar AccessibleTextContentChange, StartVar uint32, EndVar uint32) {
 
 	XGtkAccessibleTextUpdateContents(x.GoPointer(), ChangeVar, StartVar, EndVar)
 

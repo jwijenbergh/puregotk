@@ -267,11 +267,11 @@ func (x *FileMonitor) IsCancelled() bool {
 	return cret
 }
 
-var xFileMonitorSetRateLimit func(uintptr, int)
+var xFileMonitorSetRateLimit func(uintptr, int32)
 
 // Sets the rate limit to which the @monitor will report
 // consecutive change events to the same file.
-func (x *FileMonitor) SetRateLimit(LimitMsecsVar int) {
+func (x *FileMonitor) SetRateLimit(LimitMsecsVar int32) {
 
 	xFileMonitorSetRateLimit(x.GoPointer(), LimitMsecsVar)
 
@@ -298,19 +298,19 @@ func (x *FileMonitor) GetPropertyCancelled() bool {
 
 // SetPropertyRateLimit sets the "rate-limit" property.
 // The limit of the monitor to watch for changes, in milliseconds.
-func (x *FileMonitor) SetPropertyRateLimit(value int) {
+func (x *FileMonitor) SetPropertyRateLimit(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("rate-limit", &v)
 }
 
 // GetPropertyRateLimit gets the "rate-limit" property.
 // The limit of the monitor to watch for changes, in milliseconds.
-func (x *FileMonitor) GetPropertyRateLimit() int {
+func (x *FileMonitor) GetPropertyRateLimit() int32 {
 	var v gobject.Value
 	x.GetProperty("rate-limit", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when @file has been changed.

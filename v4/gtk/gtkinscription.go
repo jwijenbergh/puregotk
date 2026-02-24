@@ -102,45 +102,45 @@ func (x *Inscription) GetAttributes() *pango.AttrList {
 	return cret
 }
 
-var xInscriptionGetMinChars func(uintptr) uint
+var xInscriptionGetMinChars func(uintptr) uint32
 
 // Gets the `min-chars` of the inscription.
 //
 // See the [property@Gtk.Inscription:min-chars] property.
-func (x *Inscription) GetMinChars() uint {
+func (x *Inscription) GetMinChars() uint32 {
 
 	cret := xInscriptionGetMinChars(x.GoPointer())
 	return cret
 }
 
-var xInscriptionGetMinLines func(uintptr) uint
+var xInscriptionGetMinLines func(uintptr) uint32
 
 // Gets the `min-lines` of the inscription.
 //
 // See the [property@Gtk.Inscription:min-lines] property.
-func (x *Inscription) GetMinLines() uint {
+func (x *Inscription) GetMinLines() uint32 {
 
 	cret := xInscriptionGetMinLines(x.GoPointer())
 	return cret
 }
 
-var xInscriptionGetNatChars func(uintptr) uint
+var xInscriptionGetNatChars func(uintptr) uint32
 
 // Gets the `nat-chars` of the inscription.
 //
 // See the [property@Gtk.Inscription:nat-chars] property.
-func (x *Inscription) GetNatChars() uint {
+func (x *Inscription) GetNatChars() uint32 {
 
 	cret := xInscriptionGetNatChars(x.GoPointer())
 	return cret
 }
 
-var xInscriptionGetNatLines func(uintptr) uint
+var xInscriptionGetNatLines func(uintptr) uint32
 
 // Gets the `nat-lines` of the inscription.
 //
 // See the [property@Gtk.Inscription:nat-lines] property.
-func (x *Inscription) GetNatLines() uint {
+func (x *Inscription) GetNatLines() uint32 {
 
 	cret := xInscriptionGetNatLines(x.GoPointer())
 	return cret
@@ -219,45 +219,45 @@ func (x *Inscription) SetMarkup(MarkupVar string) {
 
 }
 
-var xInscriptionSetMinChars func(uintptr, uint)
+var xInscriptionSetMinChars func(uintptr, uint32)
 
 // Sets the `min-chars` of the inscription.
 //
 // See the [property@Gtk.Inscription:min-chars] property.
-func (x *Inscription) SetMinChars(MinCharsVar uint) {
+func (x *Inscription) SetMinChars(MinCharsVar uint32) {
 
 	xInscriptionSetMinChars(x.GoPointer(), MinCharsVar)
 
 }
 
-var xInscriptionSetMinLines func(uintptr, uint)
+var xInscriptionSetMinLines func(uintptr, uint32)
 
 // Sets the `min-lines` of the inscription.
 //
 // See the [property@Gtk.Inscription:min-lines] property.
-func (x *Inscription) SetMinLines(MinLinesVar uint) {
+func (x *Inscription) SetMinLines(MinLinesVar uint32) {
 
 	xInscriptionSetMinLines(x.GoPointer(), MinLinesVar)
 
 }
 
-var xInscriptionSetNatChars func(uintptr, uint)
+var xInscriptionSetNatChars func(uintptr, uint32)
 
 // Sets the `nat-chars` of the inscription.
 //
 // See the [property@Gtk.Inscription:nat-chars] property.
-func (x *Inscription) SetNatChars(NatCharsVar uint) {
+func (x *Inscription) SetNatChars(NatCharsVar uint32) {
 
 	xInscriptionSetNatChars(x.GoPointer(), NatCharsVar)
 
 }
 
-var xInscriptionSetNatLines func(uintptr, uint)
+var xInscriptionSetNatLines func(uintptr, uint32)
 
 // Sets the `nat-lines` of the inscription.
 //
 // See the [property@Gtk.Inscription:nat-lines] property.
-func (x *Inscription) SetNatLines(NatLinesVar uint) {
+func (x *Inscription) SetNatLines(NatLinesVar uint32) {
 
 	xInscriptionSetNatLines(x.GoPointer(), NatLinesVar)
 
@@ -367,10 +367,10 @@ func (x *Inscription) SetPropertyMarkup(value string) {
 //
 // If you set this property to 0, the inscription will not request any width at all
 // and its width will be determined entirely by its surroundings.
-func (x *Inscription) SetPropertyMinChars(value uint) {
+func (x *Inscription) SetPropertyMinChars(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("min-chars", &v)
 }
 
@@ -386,10 +386,10 @@ func (x *Inscription) SetPropertyMinChars(value uint) {
 //
 // If you set this property to 0, the inscription will not request any width at all
 // and its width will be determined entirely by its surroundings.
-func (x *Inscription) GetPropertyMinChars() uint {
+func (x *Inscription) GetPropertyMinChars() uint32 {
 	var v gobject.Value
 	x.GetProperty("min-chars", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyMinLines sets the "min-lines" property.
@@ -403,10 +403,10 @@ func (x *Inscription) GetPropertyMinChars() uint {
 //
 // If you set this property to 0, the inscription will not request any height at all
 // and its height will be determined entirely by its surroundings.
-func (x *Inscription) SetPropertyMinLines(value uint) {
+func (x *Inscription) SetPropertyMinLines(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("min-lines", &v)
 }
 
@@ -421,10 +421,10 @@ func (x *Inscription) SetPropertyMinLines(value uint) {
 //
 // If you set this property to 0, the inscription will not request any height at all
 // and its height will be determined entirely by its surroundings.
-func (x *Inscription) GetPropertyMinLines() uint {
+func (x *Inscription) GetPropertyMinLines() uint32 {
 	var v gobject.Value
 	x.GetProperty("min-lines", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyNatChars sets the "nat-chars" property.
@@ -436,10 +436,10 @@ func (x *Inscription) GetPropertyMinLines() uint {
 // If this property is set to a value smaller than [property@Gtk.Inscription:min-chars],
 // that value will be used. In particular, for the default value of 0, this will always
 // be the case.
-func (x *Inscription) SetPropertyNatChars(value uint) {
+func (x *Inscription) SetPropertyNatChars(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("nat-chars", &v)
 }
 
@@ -452,10 +452,10 @@ func (x *Inscription) SetPropertyNatChars(value uint) {
 // If this property is set to a value smaller than [property@Gtk.Inscription:min-chars],
 // that value will be used. In particular, for the default value of 0, this will always
 // be the case.
-func (x *Inscription) GetPropertyNatChars() uint {
+func (x *Inscription) GetPropertyNatChars() uint32 {
 	var v gobject.Value
 	x.GetProperty("nat-chars", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyNatLines sets the "nat-lines" property.
@@ -467,10 +467,10 @@ func (x *Inscription) GetPropertyNatChars() uint {
 // If this property is set to a value smaller than [property@Gtk.Inscription:min-lines],
 // that value will be used. In particular, for the default value of 0, this will always
 // be the case.
-func (x *Inscription) SetPropertyNatLines(value uint) {
+func (x *Inscription) SetPropertyNatLines(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("nat-lines", &v)
 }
 
@@ -483,10 +483,10 @@ func (x *Inscription) SetPropertyNatLines(value uint) {
 // If this property is set to a value smaller than [property@Gtk.Inscription:min-lines],
 // that value will be used. In particular, for the default value of 0, this will always
 // be the case.
-func (x *Inscription) GetPropertyNatLines() uint {
+func (x *Inscription) GetPropertyNatLines() uint32 {
 	var v gobject.Value
 	x.GetProperty("nat-lines", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyText sets the "text" property.
@@ -609,7 +609,7 @@ func (x *Inscription) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Inscription) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Inscription) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -741,7 +741,7 @@ func (x *Inscription) UpdateProperty(FirstPropertyVar AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Inscription) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Inscription) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -777,7 +777,7 @@ func (x *Inscription) UpdateRelation(FirstRelationVar AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Inscription) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Inscription) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -814,7 +814,7 @@ func (x *Inscription) UpdateState(FirstStateVar AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Inscription) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Inscription) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -840,7 +840,7 @@ func (x *Inscription) UpdateCaretPosition() {
 // Note: If the change is a deletion, this function must be called *before*
 // removing the contents, if it is an insertion, it must be called *after*
 // inserting the new contents.
-func (x *Inscription) UpdateContents(ChangeVar AccessibleTextContentChange, StartVar uint, EndVar uint) {
+func (x *Inscription) UpdateContents(ChangeVar AccessibleTextContentChange, StartVar uint32, EndVar uint32) {
 
 	XGtkAccessibleTextUpdateContents(x.GoPointer(), ChangeVar, StartVar, EndVar)
 

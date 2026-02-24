@@ -107,27 +107,27 @@ func DbusErrorNewForDbusError(DbusErrorNameVar string, DbusErrorMessageVar strin
 	return cret
 }
 
-var xDbusErrorRegisterError func(glib.Quark, int, string) bool
+var xDbusErrorRegisterError func(glib.Quark, int32, string) bool
 
 // Creates an association mapping between @dbus_error_name and
 // [type@GLib.Error]s specified by @error_domain and @error_code.
 //
 // This is typically done in the function that returns the [type@GLib.Quark] for
 // an error domain.
-func DbusErrorRegisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
+func DbusErrorRegisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int32, DbusErrorNameVar string) bool {
 
 	cret := xDbusErrorRegisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
 	return cret
 }
 
-var xDbusErrorRegisterErrorDomain func(string, uint, []DBusErrorEntry, uint)
+var xDbusErrorRegisterErrorDomain func(string, uint, []DBusErrorEntry, uint32)
 
 // Helper function for associating a [type@GLib.Error] error domain with D-Bus
 // error names.
 //
 // While @quark_volatile has a `volatile` qualifier, this is a historical
 // artifact and the argument passed to it should not be `volatile`.
-func DbusErrorRegisterErrorDomain(ErrorDomainQuarkNameVar string, QuarkVolatileVar uint, EntriesVar []DBusErrorEntry, NumEntriesVar uint) {
+func DbusErrorRegisterErrorDomain(ErrorDomainQuarkNameVar string, QuarkVolatileVar uint, EntriesVar []DBusErrorEntry, NumEntriesVar uint32) {
 
 	xDbusErrorRegisterErrorDomain(ErrorDomainQuarkNameVar, QuarkVolatileVar, EntriesVar, NumEntriesVar)
 
@@ -149,11 +149,11 @@ func DbusErrorStripRemoteError(ErrorVar *glib.Error) bool {
 	return cret
 }
 
-var xDbusErrorUnregisterError func(glib.Quark, int, string) bool
+var xDbusErrorUnregisterError func(glib.Quark, int32, string) bool
 
 // Destroys an association previously set up with
 // [func@Gio.DBusError.register_error].
-func DbusErrorUnregisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int, DbusErrorNameVar string) bool {
+func DbusErrorUnregisterError(ErrorDomainVar glib.Quark, ErrorCodeVar int32, DbusErrorNameVar string) bool {
 
 	cret := xDbusErrorUnregisterError(ErrorDomainVar, ErrorCodeVar, DbusErrorNameVar)
 	return cret

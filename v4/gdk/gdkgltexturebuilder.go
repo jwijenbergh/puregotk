@@ -136,21 +136,21 @@ func (x *GLTextureBuilder) GetHasMipmap() bool {
 	return cret
 }
 
-var xGLTextureBuilderGetHeight func(uintptr) int
+var xGLTextureBuilderGetHeight func(uintptr) int32
 
 // Gets the height previously set via gdk_gl_texture_builder_set_height() or
 // 0 if the height wasn't set.
-func (x *GLTextureBuilder) GetHeight() int {
+func (x *GLTextureBuilder) GetHeight() int32 {
 
 	cret := xGLTextureBuilderGetHeight(x.GoPointer())
 	return cret
 }
 
-var xGLTextureBuilderGetId func(uintptr) uint
+var xGLTextureBuilderGetId func(uintptr) uint32
 
 // Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
 // 0 if the id wasn't set.
-func (x *GLTextureBuilder) GetId() uint {
+func (x *GLTextureBuilder) GetId() uint32 {
 
 	cret := xGLTextureBuilderGetId(x.GoPointer())
 	return cret
@@ -193,11 +193,11 @@ func (x *GLTextureBuilder) GetUpdateTexture() *Texture {
 	return cls
 }
 
-var xGLTextureBuilderGetWidth func(uintptr) int
+var xGLTextureBuilderGetWidth func(uintptr) int32
 
 // Gets the width previously set via gdk_gl_texture_builder_set_width() or
 // 0 if the width wasn't set.
-func (x *GLTextureBuilder) GetWidth() int {
+func (x *GLTextureBuilder) GetWidth() int32 {
 
 	cret := xGLTextureBuilderGetWidth(x.GoPointer())
 	return cret
@@ -263,25 +263,25 @@ func (x *GLTextureBuilder) SetHasMipmap(HasMipmapVar bool) {
 
 }
 
-var xGLTextureBuilderSetHeight func(uintptr, int)
+var xGLTextureBuilderSetHeight func(uintptr, int32)
 
 // Sets the height of the texture.
 //
 // The height must be set before calling [method@Gdk.GLTextureBuilder.build].
-func (x *GLTextureBuilder) SetHeight(HeightVar int) {
+func (x *GLTextureBuilder) SetHeight(HeightVar int32) {
 
 	xGLTextureBuilderSetHeight(x.GoPointer(), HeightVar)
 
 }
 
-var xGLTextureBuilderSetId func(uintptr, uint)
+var xGLTextureBuilderSetId func(uintptr, uint32)
 
 // Sets the texture id of the texture. The texture id must remain unmodified
 // until the texture was finalized. See [method@Gdk.GLTextureBuilder.build]
 // for a longer discussion.
 //
 // The id must be set before calling [method@Gdk.GLTextureBuilder.build].
-func (x *GLTextureBuilder) SetId(IdVar uint) {
+func (x *GLTextureBuilder) SetId(IdVar uint32) {
 
 	xGLTextureBuilderSetId(x.GoPointer(), IdVar)
 
@@ -331,12 +331,12 @@ func (x *GLTextureBuilder) SetUpdateTexture(TextureVar *Texture) {
 
 }
 
-var xGLTextureBuilderSetWidth func(uintptr, int)
+var xGLTextureBuilderSetWidth func(uintptr, int32)
 
 // Sets the width of the texture.
 //
 // The width must be set before calling [method@Gdk.GLTextureBuilder.build].
-func (x *GLTextureBuilder) SetWidth(WidthVar int) {
+func (x *GLTextureBuilder) SetWidth(WidthVar int32) {
 
 	xGLTextureBuilderSetWidth(x.GoPointer(), WidthVar)
 
@@ -389,36 +389,36 @@ func (x *GLTextureBuilder) GetPropertyHasMipmap() bool {
 
 // SetPropertyHeight sets the "height" property.
 // The height of the texture.
-func (x *GLTextureBuilder) SetPropertyHeight(value int) {
+func (x *GLTextureBuilder) SetPropertyHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("height", &v)
 }
 
 // GetPropertyHeight gets the "height" property.
 // The height of the texture.
-func (x *GLTextureBuilder) GetPropertyHeight() int {
+func (x *GLTextureBuilder) GetPropertyHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyId sets the "id" property.
 // The texture ID to use.
-func (x *GLTextureBuilder) SetPropertyId(value uint) {
+func (x *GLTextureBuilder) SetPropertyId(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("id", &v)
 }
 
 // GetPropertyId gets the "id" property.
 // The texture ID to use.
-func (x *GLTextureBuilder) GetPropertyId() uint {
+func (x *GLTextureBuilder) GetPropertyId() uint32 {
 	var v gobject.Value
 	x.GetProperty("id", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertySync sets the "sync" property.
@@ -461,19 +461,19 @@ func (x *GLTextureBuilder) GetPropertyUpdateRegion() uintptr {
 
 // SetPropertyWidth sets the "width" property.
 // The width of the texture.
-func (x *GLTextureBuilder) SetPropertyWidth(value int) {
+func (x *GLTextureBuilder) SetPropertyWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("width", &v)
 }
 
 // GetPropertyWidth gets the "width" property.
 // The width of the texture.
-func (x *GLTextureBuilder) GetPropertyWidth() int {
+func (x *GLTextureBuilder) GetPropertyWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 func init() {

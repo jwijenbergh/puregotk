@@ -644,12 +644,12 @@ func ContainerNodeNewFromInternalPtr(ptr uintptr) *ContainerNode {
 	return cls
 }
 
-var xNewContainerNode func(uintptr, uint) uintptr
+var xNewContainerNode func(uintptr, uint32) uintptr
 
 // Creates a new `GskRenderNode` instance for holding the given @children.
 //
 // The new node will acquire a reference to each of the children.
-func NewContainerNode(ChildrenVar uintptr, NChildrenVar uint) *ContainerNode {
+func NewContainerNode(ChildrenVar uintptr, NChildrenVar uint32) *ContainerNode {
 	var cls *ContainerNode
 
 	cret := xNewContainerNode(ChildrenVar, NChildrenVar)
@@ -662,10 +662,10 @@ func NewContainerNode(ChildrenVar uintptr, NChildrenVar uint) *ContainerNode {
 	return cls
 }
 
-var xContainerNodeGetChild func(uintptr, uint) uintptr
+var xContainerNodeGetChild func(uintptr, uint32) uintptr
 
 // Gets one of the children of @container.
-func (x *ContainerNode) GetChild(IdxVar uint) *RenderNode {
+func (x *ContainerNode) GetChild(IdxVar uint32) *RenderNode {
 	var cls *RenderNode
 
 	cret := xContainerNodeGetChild(x.GoPointer(), IdxVar)
@@ -679,10 +679,10 @@ func (x *ContainerNode) GetChild(IdxVar uint) *RenderNode {
 	return cls
 }
 
-var xContainerNodeGetNChildren func(uintptr) uint
+var xContainerNodeGetNChildren func(uintptr) uint32
 
 // Retrieves the number of direct children of @node.
-func (x *ContainerNode) GetNChildren() uint {
+func (x *ContainerNode) GetNChildren() uint32 {
 
 	cret := xContainerNodeGetNChildren(x.GoPointer())
 	return cret
@@ -960,7 +960,7 @@ func GLShaderNodeNewFromInternalPtr(ptr uintptr) *GLShaderNode {
 	return cls
 }
 
-var xNewGLShaderNode func(uintptr, *graphene.Rect, *glib.Bytes, uintptr, uint) uintptr
+var xNewGLShaderNode func(uintptr, *graphene.Rect, *glib.Bytes, uintptr, uint32) uintptr
 
 // Creates a `GskRenderNode` that will render the given @shader into the
 // area given by @bounds.
@@ -979,7 +979,7 @@ var xNewGLShaderNode func(uintptr, *graphene.Rect, *glib.Bytes, uintptr, uint) u
 // when compiling the shader, then the node will draw pink. You should use
 // [method@Gsk.GLShader.compile] to ensure the @shader will work for the
 // renderer before using it.
-func NewGLShaderNode(ShaderVar *GLShader, BoundsVar *graphene.Rect, ArgsVar *glib.Bytes, ChildrenVar uintptr, NChildrenVar uint) *GLShaderNode {
+func NewGLShaderNode(ShaderVar *GLShader, BoundsVar *graphene.Rect, ArgsVar *glib.Bytes, ChildrenVar uintptr, NChildrenVar uint32) *GLShaderNode {
 	var cls *GLShaderNode
 
 	cret := xNewGLShaderNode(ShaderVar.GoPointer(), BoundsVar, ArgsVar, ChildrenVar, NChildrenVar)
@@ -1001,10 +1001,10 @@ func (x *GLShaderNode) GetArgs() *glib.Bytes {
 	return cret
 }
 
-var xGLShaderNodeGetChild func(uintptr, uint) uintptr
+var xGLShaderNodeGetChild func(uintptr, uint32) uintptr
 
 // Gets one of the children.
-func (x *GLShaderNode) GetChild(IdxVar uint) *RenderNode {
+func (x *GLShaderNode) GetChild(IdxVar uint32) *RenderNode {
 	var cls *RenderNode
 
 	cret := xGLShaderNodeGetChild(x.GoPointer(), IdxVar)
@@ -1018,10 +1018,10 @@ func (x *GLShaderNode) GetChild(IdxVar uint) *RenderNode {
 	return cls
 }
 
-var xGLShaderNodeGetNChildren func(uintptr) uint
+var xGLShaderNodeGetNChildren func(uintptr) uint32
 
 // Returns the number of children
-func (x *GLShaderNode) GetNChildren() uint {
+func (x *GLShaderNode) GetNChildren() uint32 {
 
 	cret := xGLShaderNodeGetNChildren(x.GoPointer())
 	return cret
@@ -2154,19 +2154,19 @@ func (x *TextNode) GetFont() *pango.Font {
 	return cls
 }
 
-var xTextNodeGetGlyphs func(uintptr, *uint) uintptr
+var xTextNodeGetGlyphs func(uintptr, *uint32) uintptr
 
 // Retrieves the glyph information in the @node.
-func (x *TextNode) GetGlyphs(NGlyphsVar *uint) uintptr {
+func (x *TextNode) GetGlyphs(NGlyphsVar *uint32) uintptr {
 
 	cret := xTextNodeGetGlyphs(x.GoPointer(), NGlyphsVar)
 	return cret
 }
 
-var xTextNodeGetNumGlyphs func(uintptr) uint
+var xTextNodeGetNumGlyphs func(uintptr) uint32
 
 // Retrieves the number of glyphs in the text node.
-func (x *TextNode) GetNumGlyphs() uint {
+func (x *TextNode) GetNumGlyphs() uint32 {
 
 	cret := xTextNodeGetNumGlyphs(x.GoPointer())
 	return cret

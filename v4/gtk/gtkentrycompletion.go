@@ -182,10 +182,10 @@ func (x *EntryCompletion) GetInlineSelection() bool {
 	return cret
 }
 
-var xEntryCompletionGetMinimumKeyLength func(uintptr) int
+var xEntryCompletionGetMinimumKeyLength func(uintptr) int32
 
 // Returns the minimum key length as set for @completion.
-func (x *EntryCompletion) GetMinimumKeyLength() int {
+func (x *EntryCompletion) GetMinimumKeyLength() int32 {
 
 	cret := xEntryCompletionGetMinimumKeyLength(x.GoPointer())
 	return cret
@@ -239,10 +239,10 @@ func (x *EntryCompletion) GetPopupSingleMatch() bool {
 	return cret
 }
 
-var xEntryCompletionGetTextColumn func(uintptr) int
+var xEntryCompletionGetTextColumn func(uintptr) int32
 
 // Returns the column in the model of @completion to get strings from.
-func (x *EntryCompletion) GetTextColumn() int {
+func (x *EntryCompletion) GetTextColumn() int32 {
 
 	cret := xEntryCompletionGetTextColumn(x.GoPointer())
 	return cret
@@ -289,7 +289,7 @@ func (x *EntryCompletion) SetMatchFunc(FuncVar *EntryCompletionMatchFunc, FuncDa
 
 }
 
-var xEntryCompletionSetMinimumKeyLength func(uintptr, int)
+var xEntryCompletionSetMinimumKeyLength func(uintptr, int32)
 
 // Requires the length of the search key for @completion to be at least
 // @length.
@@ -297,7 +297,7 @@ var xEntryCompletionSetMinimumKeyLength func(uintptr, int)
 // This is useful for long lists, where completing using a small
 // key takes a lot of time and will come up with meaningless results anyway
 // (ie, a too large dataset).
-func (x *EntryCompletion) SetMinimumKeyLength(LengthVar int) {
+func (x *EntryCompletion) SetMinimumKeyLength(LengthVar int32) {
 
 	xEntryCompletionSetMinimumKeyLength(x.GoPointer(), LengthVar)
 
@@ -348,7 +348,7 @@ func (x *EntryCompletion) SetPopupSingleMatch(PopupSingleMatchVar bool) {
 
 }
 
-var xEntryCompletionSetTextColumn func(uintptr, int)
+var xEntryCompletionSetTextColumn func(uintptr, int32)
 
 // Convenience function for setting up the most used case of this code: a
 // completion list with just strings.
@@ -361,7 +361,7 @@ var xEntryCompletionSetTextColumn func(uintptr, int)
 // column. If you need to set the text column, but don't want the cell
 // renderer, use g_object_set() to set the
 // [property@Gtk.EntryCompletion:text-column] property directly.
-func (x *EntryCompletion) SetTextColumn(ColumnVar int) {
+func (x *EntryCompletion) SetTextColumn(ColumnVar int32) {
 
 	xEntryCompletionSetTextColumn(x.GoPointer(), ColumnVar)
 
@@ -424,19 +424,19 @@ func (x *EntryCompletion) GetPropertyInlineSelection() bool {
 
 // SetPropertyMinimumKeyLength sets the "minimum-key-length" property.
 // The minimum key length as set for completion.
-func (x *EntryCompletion) SetPropertyMinimumKeyLength(value int) {
+func (x *EntryCompletion) SetPropertyMinimumKeyLength(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("minimum-key-length", &v)
 }
 
 // GetPropertyMinimumKeyLength gets the "minimum-key-length" property.
 // The minimum key length as set for completion.
-func (x *EntryCompletion) GetPropertyMinimumKeyLength() int {
+func (x *EntryCompletion) GetPropertyMinimumKeyLength() int32 {
 	var v gobject.Value
 	x.GetProperty("minimum-key-length", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyPopupCompletion sets the "popup-completion" property.
@@ -506,10 +506,10 @@ func (x *EntryCompletion) GetPropertyPopupSingleMatch() bool {
 // The column of the model containing the strings.
 //
 // Note that the strings must be UTF-8.
-func (x *EntryCompletion) SetPropertyTextColumn(value int) {
+func (x *EntryCompletion) SetPropertyTextColumn(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("text-column", &v)
 }
 
@@ -517,10 +517,10 @@ func (x *EntryCompletion) SetPropertyTextColumn(value int) {
 // The column of the model containing the strings.
 //
 // Note that the strings must be UTF-8.
-func (x *EntryCompletion) GetPropertyTextColumn() int {
+func (x *EntryCompletion) GetPropertyTextColumn() int32 {
 	var v gobject.Value
 	x.GetProperty("text-column", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when a match from the cursor is on a match of the list.
@@ -645,7 +645,7 @@ func (x *EntryCompletion) GetBuildableId() string {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *EntryCompletion) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
+func (x *EntryCompletion) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -717,7 +717,7 @@ func (x *EntryCompletion) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *EntryCompletion) Reorder(CellVar *CellRenderer, PositionVar int) {
+func (x *EntryCompletion) Reorder(CellVar *CellRenderer, PositionVar int32) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

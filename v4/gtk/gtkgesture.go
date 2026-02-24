@@ -451,20 +451,20 @@ func (c *Gesture) SetGoPointer(ptr uintptr) {
 // SetPropertyNPoints sets the "n-points" property.
 // The number of touch points that trigger
 // recognition on this gesture.
-func (x *Gesture) SetPropertyNPoints(value uint) {
+func (x *Gesture) SetPropertyNPoints(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("n-points", &v)
 }
 
 // GetPropertyNPoints gets the "n-points" property.
 // The number of touch points that trigger
 // recognition on this gesture.
-func (x *Gesture) GetPropertyNPoints() uint {
+func (x *Gesture) GetPropertyNPoints() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-points", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Emitted when the gesture is recognized.

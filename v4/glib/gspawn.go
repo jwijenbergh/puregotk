@@ -164,13 +164,13 @@ func SpawnAsync(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, 
 
 }
 
-var xSpawnAsyncWithFds func(string, []string, []string, SpawnFlags, uintptr, uintptr, *Pid, int, int, int, **Error) bool
+var xSpawnAsyncWithFds func(string, []string, []string, SpawnFlags, uintptr, uintptr, *Pid, int32, int32, int32, **Error) bool
 
 // Executes a child program asynchronously.
 //
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int, StdoutFdVar int, StderrFdVar int) (bool, error) {
+func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StdinFdVar int32, StdoutFdVar int32, StderrFdVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnAsyncWithFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallbackNullable(ChildSetupVar), UserDataVar, ChildPidVar, StdinFdVar, StdoutFdVar, StderrFdVar, &cerr)
@@ -181,11 +181,11 @@ func SpawnAsyncWithFds(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []s
 
 }
 
-var xSpawnAsyncWithPipes func(string, []string, []string, SpawnFlags, uintptr, uintptr, *Pid, *int, *int, *int, **Error) bool
+var xSpawnAsyncWithPipes func(string, []string, []string, SpawnFlags, uintptr, uintptr, *Pid, *int32, *int32, *int32, **Error) bool
 
 // Identical to g_spawn_async_with_pipes_and_fds() but with `n_fds` set to zero,
 // so no FD assignments are used.
-func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar *int, StandardOutputVar *int, StandardErrorVar *int) (bool, error) {
+func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, ChildPidVar *Pid, StandardInputVar *int32, StandardOutputVar *int32, StandardErrorVar *int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnAsyncWithPipes(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallbackNullable(ChildSetupVar), UserDataVar, ChildPidVar, StandardInputVar, StandardOutputVar, StandardErrorVar, &cerr)
@@ -196,7 +196,7 @@ func SpawnAsyncWithPipes(WorkingDirectoryVar string, ArgvVar []string, EnvpVar [
 
 }
 
-var xSpawnAsyncWithPipesAndFds func(string, []string, []string, SpawnFlags, uintptr, uintptr, int, int, int, []int, []int, uint, *Pid, *int, *int, *int, **Error) bool
+var xSpawnAsyncWithPipesAndFds func(string, []string, []string, SpawnFlags, uintptr, uintptr, int32, int32, int32, []int32, []int32, uint, *Pid, *int32, *int32, *int32, **Error) bool
 
 // Executes a child program asynchronously (your program will not
 // block waiting for the child to exit).
@@ -392,7 +392,7 @@ var xSpawnAsyncWithPipesAndFds func(string, []string, []string, SpawnFlags, uint
 // graphical application too, then to ensure that the spawned program opens its
 // windows on the right screen, you may want to use #GdkAppLaunchContext,
 // #GAppLaunchContext, or set the `DISPLAY` environment variable.
-func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int, StdoutFdVar int, StderrFdVar int, SourceFdsVar []int, TargetFdsVar []int, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar *int, StdoutPipeOutVar *int, StderrPipeOutVar *int) (bool, error) {
+func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StdinFdVar int32, StdoutFdVar int32, StderrFdVar int32, SourceFdsVar []int32, TargetFdsVar []int32, NFdsVar uint, ChildPidOutVar *Pid, StdinPipeOutVar *int32, StdoutPipeOutVar *int32, StderrPipeOutVar *int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnAsyncWithPipesAndFds(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallbackNullable(ChildSetupVar), UserDataVar, StdinFdVar, StdoutFdVar, StderrFdVar, SourceFdsVar, TargetFdsVar, NFdsVar, ChildPidOutVar, StdinPipeOutVar, StdoutPipeOutVar, StderrPipeOutVar, &cerr)
@@ -403,7 +403,7 @@ func SpawnAsyncWithPipesAndFds(WorkingDirectoryVar string, ArgvVar []string, Env
 
 }
 
-var xSpawnCheckExitStatus func(int, **Error) bool
+var xSpawnCheckExitStatus func(int32, **Error) bool
 
 // An old name for g_spawn_check_wait_status(), deprecated because its
 // name is misleading.
@@ -413,7 +413,7 @@ var xSpawnCheckExitStatus func(int, **Error) bool
 // etc. On Unix platforms, it is incorrect for it to be the exit status
 // as passed to `exit()` or returned by g_subprocess_get_exit_status() or
 // `WEXITSTATUS()`.
-func SpawnCheckExitStatus(WaitStatusVar int) (bool, error) {
+func SpawnCheckExitStatus(WaitStatusVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnCheckExitStatus(WaitStatusVar, &cerr)
@@ -424,7 +424,7 @@ func SpawnCheckExitStatus(WaitStatusVar int) (bool, error) {
 
 }
 
-var xSpawnCheckWaitStatus func(int, **Error) bool
+var xSpawnCheckWaitStatus func(int32, **Error) bool
 
 // Set @error if @wait_status indicates the child exited abnormally
 // (e.g. with a nonzero exit code, or via a fatal signal).
@@ -465,7 +465,7 @@ var xSpawnCheckWaitStatus func(int, **Error) bool
 //
 // Prior to version 2.70, g_spawn_check_exit_status() provides the same
 // functionality, although under a misleading name.
-func SpawnCheckWaitStatus(WaitStatusVar int) (bool, error) {
+func SpawnCheckWaitStatus(WaitStatusVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnCheckWaitStatus(WaitStatusVar, &cerr)
@@ -511,7 +511,7 @@ func SpawnCommandLineAsync(CommandLineVar string) (bool, error) {
 
 }
 
-var xSpawnCommandLineSync func(string, *[]byte, *[]byte, *int, **Error) bool
+var xSpawnCommandLineSync func(string, *[]byte, *[]byte, *int32, **Error) bool
 
 // A simple version of g_spawn_sync() with little-used parameters
 // removed, taking a command line instead of an argument vector.
@@ -542,7 +542,7 @@ var xSpawnCommandLineSync func(string, *[]byte, *[]byte, *int, **Error) bool
 // the backslashes will be eaten, and the space will act as a
 // separator. You need to enclose such paths with single quotes, like
 // "'c:\\program files\\app\\app.exe' 'e:\\folder\\argument.txt'".
-func SpawnCommandLineSync(CommandLineVar string, StandardOutputVar *[]byte, StandardErrorVar *[]byte, WaitStatusVar *int) (bool, error) {
+func SpawnCommandLineSync(CommandLineVar string, StandardOutputVar *[]byte, StandardErrorVar *[]byte, WaitStatusVar *int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnCommandLineSync(CommandLineVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)
@@ -553,7 +553,7 @@ func SpawnCommandLineSync(CommandLineVar string, StandardOutputVar *[]byte, Stan
 
 }
 
-var xSpawnSync func(string, []string, []string, SpawnFlags, uintptr, uintptr, *[]byte, *[]byte, *int, **Error) bool
+var xSpawnSync func(string, []string, []string, SpawnFlags, uintptr, uintptr, *[]byte, *[]byte, *int32, **Error) bool
 
 // Executes a child synchronously (waits for the child to exit before returning).
 //
@@ -578,7 +578,7 @@ var xSpawnSync func(string, []string, []string, SpawnFlags, uintptr, uintptr, *[
 // This function calls g_spawn_async_with_pipes() internally; see that
 // function for full details on the other parameters and details on
 // how these functions work on Windows.
-func SpawnSync(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar *[]byte, StandardErrorVar *[]byte, WaitStatusVar *int) (bool, error) {
+func SpawnSync(WorkingDirectoryVar string, ArgvVar []string, EnvpVar []string, FlagsVar SpawnFlags, ChildSetupVar *SpawnChildSetupFunc, UserDataVar uintptr, StandardOutputVar *[]byte, StandardErrorVar *[]byte, WaitStatusVar *int32) (bool, error) {
 	var cerr *Error
 
 	cret := xSpawnSync(WorkingDirectoryVar, ArgvVar, EnvpVar, FlagsVar, NewCallbackNullable(ChildSetupVar), UserDataVar, StandardOutputVar, StandardErrorVar, WaitStatusVar, &cerr)

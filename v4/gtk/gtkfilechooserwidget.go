@@ -335,13 +335,13 @@ func (x *FileChooserWidget) ConnectPlacesShortcut(cb *func(FileChooserWidget)) u
 // Note that in the default binding, that &lt;kbd&gt;Alt&lt;/kbd&gt;-&lt;kbd&gt;1&lt;/kbd&gt; is
 // actually defined to switch to the bookmark at index 0, and so on
 // successively.
-func (x *FileChooserWidget) ConnectQuickBookmark(cb *func(FileChooserWidget, int)) uint32 {
+func (x *FileChooserWidget) ConnectQuickBookmark(cb *func(FileChooserWidget, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "quick-bookmark", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, BookmarkIndexVarp int) {
+	fcb := func(clsPtr uintptr, BookmarkIndexVarp int32) {
 		fa := FileChooserWidget{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -516,7 +516,7 @@ func (x *FileChooserWidget) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *FileChooserWidget) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *FileChooserWidget) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -648,7 +648,7 @@ func (x *FileChooserWidget) UpdateProperty(FirstPropertyVar AccessibleProperty, 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *FileChooserWidget) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -684,7 +684,7 @@ func (x *FileChooserWidget) UpdateRelation(FirstRelationVar AccessibleRelation, 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *FileChooserWidget) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -721,7 +721,7 @@ func (x *FileChooserWidget) UpdateState(FirstStateVar AccessibleState, varArgs .
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FileChooserWidget) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *FileChooserWidget) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

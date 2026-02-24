@@ -12,7 +12,7 @@ const (
 	// decomposition of a single Unicode character.
 	//
 	// This is as defined by Unicode 6.1.
-	UNICHAR_MAX_DECOMPOSITION_LENGTH int = 18
+	UNICHAR_MAX_DECOMPOSITION_LENGTH int32 = 18
 )
 
 // Defines how a Unicode string is transformed in a canonical
@@ -660,10 +660,10 @@ func UnicharBreakType(CVar uint32) UnicodeBreakType {
 	return cret
 }
 
-var xUnicharCombiningClass func(uint32) int
+var xUnicharCombiningClass func(uint32) int32
 
 // Determines the canonical combining class of a Unicode character.
-func UnicharCombiningClass(UcVar uint32) int {
+func UnicharCombiningClass(UcVar uint32) int32 {
 
 	cret := xUnicharCombiningClass(UcVar)
 	return cret
@@ -724,11 +724,11 @@ func UnicharDecompose(ChVar uint32, AVar *uint32, BVar *uint32) bool {
 	return cret
 }
 
-var xUnicharDigitValue func(uint32) int
+var xUnicharDigitValue func(uint32) int32
 
 // Determines the numeric value of a character as a decimal
 // digit.
-func UnicharDigitValue(CVar uint32) int {
+func UnicharDigitValue(CVar uint32) int32 {
 
 	cret := xUnicharDigitValue(CVar)
 	return cret
@@ -1003,10 +1003,10 @@ func UnicharIszerowidth(CVar uint32) bool {
 	return cret
 }
 
-var xUnicharToUtf8 func(uint32, *string) int
+var xUnicharToUtf8 func(uint32, *string) int32
 
 // Converts a single character to UTF-8.
-func UnicharToUtf8(CVar uint32, OutbufVar *string) int {
+func UnicharToUtf8(CVar uint32, OutbufVar *string) int32 {
 
 	cret := xUnicharToUtf8(CVar, OutbufVar)
 	return cret
@@ -1060,11 +1060,11 @@ func UnicharValidate(ChVar uint32) bool {
 	return cret
 }
 
-var xUnicharXdigitValue func(uint32) int
+var xUnicharXdigitValue func(uint32) int32
 
 // Determines the numeric value of a character as a hexadecimal
 // digit.
-func UnicharXdigitValue(CVar uint32) int {
+func UnicharXdigitValue(CVar uint32) int32 {
 
 	cret := xUnicharXdigitValue(CVar)
 	return cret
@@ -1187,7 +1187,7 @@ func Utf8Casefold(StrVar string, LenVar int) string {
 	return cret
 }
 
-var xUtf8Collate func(string, string) int
+var xUtf8Collate func(string, string) int32
 
 // Compares two strings for ordering using the linguistically
 // correct rules for the [current locale](running.html#locale).
@@ -1199,7 +1199,7 @@ var xUtf8Collate func(string, string) int
 // If the two strings are not comparable due to being in different collation
 // sequences, the result is undefined. This can happen if the strings are in
 // different language scripts, for example.
-func Utf8Collate(Str1Var string, Str2Var string) int {
+func Utf8Collate(Str1Var string, Str2Var string) int32 {
 
 	cret := xUtf8Collate(Str1Var, Str2Var)
 	return cret

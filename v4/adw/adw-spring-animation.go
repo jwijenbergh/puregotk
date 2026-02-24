@@ -87,7 +87,7 @@ func NewSpringAnimation(WidgetVar *gtk.Widget, FromVar float64, ToVar float64, S
 	return cls
 }
 
-var xSpringAnimationCalculateValue func(uintptr, uint) float64
+var xSpringAnimationCalculateValue func(uintptr, uint32) float64
 
 // Calculates the value @self will have at @time.
 //
@@ -95,13 +95,13 @@ var xSpringAnimationCalculateValue func(uintptr, uint) float64
 // [property@SpringAnimation:estimated_duration].
 //
 // See also [method@SpringAnimation.calculate_velocity].
-func (x *SpringAnimation) CalculateValue(TimeVar uint) float64 {
+func (x *SpringAnimation) CalculateValue(TimeVar uint32) float64 {
 
 	cret := xSpringAnimationCalculateValue(x.GoPointer(), TimeVar)
 	return cret
 }
 
-var xSpringAnimationCalculateVelocity func(uintptr, uint) float64
+var xSpringAnimationCalculateVelocity func(uintptr, uint32) float64
 
 // Calculates the velocity @self will have at @time.
 //
@@ -109,7 +109,7 @@ var xSpringAnimationCalculateVelocity func(uintptr, uint) float64
 // [property@SpringAnimation:estimated_duration].
 //
 // See also [method@SpringAnimation.calculate_value].
-func (x *SpringAnimation) CalculateVelocity(TimeVar uint) float64 {
+func (x *SpringAnimation) CalculateVelocity(TimeVar uint32) float64 {
 
 	cret := xSpringAnimationCalculateVelocity(x.GoPointer(), TimeVar)
 	return cret
@@ -133,12 +133,12 @@ func (x *SpringAnimation) GetEpsilon() float64 {
 	return cret
 }
 
-var xSpringAnimationGetEstimatedDuration func(uintptr) uint
+var xSpringAnimationGetEstimatedDuration func(uintptr) uint32
 
 // Gets the estimated duration of @self, in milliseconds.
 //
 // Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
-func (x *SpringAnimation) GetEstimatedDuration() uint {
+func (x *SpringAnimation) GetEstimatedDuration() uint32 {
 
 	cret := xSpringAnimationGetEstimatedDuration(x.GoPointer())
 	return cret
@@ -351,10 +351,10 @@ func (x *SpringAnimation) GetPropertyEpsilon() float64 {
 // Estimated duration of the animation, in milliseconds.
 //
 // Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
-func (x *SpringAnimation) GetPropertyEstimatedDuration() uint {
+func (x *SpringAnimation) GetPropertyEstimatedDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("estimated-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyInitialVelocity sets the "initial-velocity" property.

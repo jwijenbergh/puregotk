@@ -701,7 +701,7 @@ func (x *TabOverview) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *TabOverview) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *TabOverview) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -833,7 +833,7 @@ func (x *TabOverview) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabOverview) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *TabOverview) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -869,7 +869,7 @@ func (x *TabOverview) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabOverview) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *TabOverview) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -906,7 +906,7 @@ func (x *TabOverview) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *TabOverview) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *TabOverview) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

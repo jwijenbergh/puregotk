@@ -528,14 +528,14 @@ func (x *SocketListener) Close() {
 
 }
 
-var xSocketListenerSetBacklog func(uintptr, int)
+var xSocketListenerSetBacklog func(uintptr, int32)
 
 // Sets the listen backlog on the sockets in the listener. This must be called
 // before adding any sockets, addresses or ports to the #GSocketListener (for
 // example, by calling g_socket_listener_add_inet_port()) to be effective.
 //
 // See g_socket_set_listen_backlog() for details
-func (x *SocketListener) SetBacklog(ListenBacklogVar int) {
+func (x *SocketListener) SetBacklog(ListenBacklogVar int32) {
 
 	xSocketListenerSetBacklog(x.GoPointer(), ListenBacklogVar)
 
@@ -554,19 +554,19 @@ func (c *SocketListener) SetGoPointer(ptr uintptr) {
 
 // SetPropertyListenBacklog sets the "listen-backlog" property.
 // The number of outstanding connections in the listen queue.
-func (x *SocketListener) SetPropertyListenBacklog(value int) {
+func (x *SocketListener) SetPropertyListenBacklog(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("listen-backlog", &v)
 }
 
 // GetPropertyListenBacklog gets the "listen-backlog" property.
 // The number of outstanding connections in the listen queue.
-func (x *SocketListener) GetPropertyListenBacklog() int {
+func (x *SocketListener) GetPropertyListenBacklog() int32 {
 	var v gobject.Value
 	x.GetProperty("listen-backlog", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when @listener's activity on @socket changes state.

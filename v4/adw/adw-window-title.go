@@ -223,7 +223,7 @@ func (x *WindowTitle) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *WindowTitle) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *WindowTitle) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -355,7 +355,7 @@ func (x *WindowTitle) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *WindowTitle) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *WindowTitle) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -391,7 +391,7 @@ func (x *WindowTitle) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *WindowTitle) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *WindowTitle) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -428,7 +428,7 @@ func (x *WindowTitle) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *WindowTitle) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *WindowTitle) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

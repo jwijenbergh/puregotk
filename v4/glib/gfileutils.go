@@ -328,7 +328,7 @@ func DirMakeTmp(TmplVar string) (string, error) {
 
 }
 
-var xFileErrorFromErrno func(int) FileError
+var xFileErrorFromErrno func(int32) FileError
 
 // Gets a #GFileError constant based on the passed-in @err_no.
 //
@@ -339,7 +339,7 @@ var xFileErrorFromErrno func(int) FileError
 // Normally a #GFileError value goes into a #GError returned
 // from a function that manipulates files. So you would use
 // g_file_error_from_errno() when constructing a #GError.
-func FileErrorFromErrno(ErrNoVar int) FileError {
+func FileErrorFromErrno(ErrNoVar int32) FileError {
 
 	cret := xFileErrorFromErrno(ErrNoVar)
 	return cret
@@ -368,7 +368,7 @@ func FileGetContents(FilenameVar string, ContentsVar *[]byte, LengthVar *uint) (
 
 }
 
-var xFileOpenTmp func(string, *string, **Error) int
+var xFileOpenTmp func(string, *string, **Error) int32
 
 // Opens a file for writing in the preferred directory for temporary
 // files (as returned by g_get_tmp_dir()).
@@ -386,7 +386,7 @@ var xFileOpenTmp func(string, *string, **Error) int
 // is returned in @name_used. This string should be freed with g_free()
 // when not needed any longer. The returned name is in the GLib file
 // name encoding.
-func FileOpenTmp(TmplVar string, NameUsedVar *string) (int, error) {
+func FileOpenTmp(TmplVar string, NameUsedVar *string) (int32, error) {
 	var cerr *Error
 
 	cret := xFileOpenTmp(TmplVar, NameUsedVar, &cerr)
@@ -453,7 +453,7 @@ func FileSetContents(FilenameVar string, ContentsVar []byte, LengthVar int) (boo
 
 }
 
-var xFileSetContentsFull func(string, []byte, int, FileSetContentsFlags, int, **Error) bool
+var xFileSetContentsFull func(string, []byte, int, FileSetContentsFlags, int32, **Error) bool
 
 // Writes all of @contents to a file named @filename, with good error checking.
 // If a file called @filename already exists it will be overwritten.
@@ -509,7 +509,7 @@ var xFileSetContentsFull func(string, []byte, int, FileSetContentsFlags, int, **
 // If the file didn’t exist before and is created, it will be given the
 // permissions from @mode. Otherwise, the permissions of the existing file will
 // remain unchanged.
-func FileSetContentsFull(FilenameVar string, ContentsVar []byte, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int) (bool, error) {
+func FileSetContentsFull(FilenameVar string, ContentsVar []byte, LengthVar int, FlagsVar FileSetContentsFlags, ModeVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xFileSetContentsFull(FilenameVar, ContentsVar, LengthVar, FlagsVar, ModeVar, &cerr)
@@ -607,11 +607,11 @@ func GetCurrentDir() string {
 	return cret
 }
 
-var xMkdirWithParents func(string, int) int
+var xMkdirWithParents func(string, int32) int32
 
 // Create a directory if it doesn't already exist. Create intermediate
 // parent directories as needed, too.
-func MkdirWithParents(PathnameVar string, ModeVar int) int {
+func MkdirWithParents(PathnameVar string, ModeVar int32) int32 {
 
 	cret := xMkdirWithParents(PathnameVar, ModeVar)
 	return cret
@@ -641,7 +641,7 @@ func Mkdtemp(TmplVar string) string {
 	return cret
 }
 
-var xMkdtempFull func(string, int) string
+var xMkdtempFull func(string, int32) string
 
 // Creates a temporary directory in the current directory.
 //
@@ -659,13 +659,13 @@ var xMkdtempFull func(string, int) string
 // If you are going to be creating a temporary directory inside the
 // directory returned by g_get_tmp_dir(), you might want to use
 // g_dir_make_tmp() instead.
-func MkdtempFull(TmplVar string, ModeVar int) string {
+func MkdtempFull(TmplVar string, ModeVar int32) string {
 
 	cret := xMkdtempFull(TmplVar, ModeVar)
 	return cret
 }
 
-var xMkstemp func(string) int
+var xMkstemp func(string) int32
 
 // Opens a temporary file in the current directory.
 //
@@ -678,13 +678,13 @@ var xMkstemp func(string) int
 // The X string will be modified to form the name of a file that
 // didn't exist. The string should be in the GLib file name encoding.
 // Most importantly, on Windows it should be in UTF-8.
-func Mkstemp(TmplVar string) int {
+func Mkstemp(TmplVar string) int32 {
 
 	cret := xMkstemp(TmplVar)
 	return cret
 }
 
-var xMkstempFull func(string, int, int) int
+var xMkstempFull func(string, int32, int32) int32
 
 // Opens a temporary file in the current directory.
 //
@@ -698,7 +698,7 @@ var xMkstempFull func(string, int, int) int
 // string will be modified to form the name of a file that didn't exist.
 // The string should be in the GLib file name encoding. Most importantly,
 // on Windows it should be in UTF-8.
-func MkstempFull(TmplVar string, FlagsVar int, ModeVar int) int {
+func MkstempFull(TmplVar string, FlagsVar int32, ModeVar int32) int32 {
 
 	cret := xMkstempFull(TmplVar, FlagsVar, ModeVar)
 	return cret

@@ -85,19 +85,19 @@ func NewStatusbar() *Statusbar {
 	return cls
 }
 
-var xStatusbarGetContextId func(uintptr, string) uint
+var xStatusbarGetContextId func(uintptr, string) uint32
 
 // Returns a new context identifier, given a description
 // of the actual context.
 //
 // Note that the description is not shown in the UI.
-func (x *Statusbar) GetContextId(ContextDescriptionVar string) uint {
+func (x *Statusbar) GetContextId(ContextDescriptionVar string) uint32 {
 
 	cret := xStatusbarGetContextId(x.GoPointer(), ContextDescriptionVar)
 	return cret
 }
 
-var xStatusbarPop func(uintptr, uint)
+var xStatusbarPop func(uintptr, uint32)
 
 // Removes the first message in the `GtkStatusbar`’s stack
 // with the given context id.
@@ -105,36 +105,36 @@ var xStatusbarPop func(uintptr, uint)
 // Note that this may not change the displayed message,
 // if the message at the top of the stack has a different
 // context id.
-func (x *Statusbar) Pop(ContextIdVar uint) {
+func (x *Statusbar) Pop(ContextIdVar uint32) {
 
 	xStatusbarPop(x.GoPointer(), ContextIdVar)
 
 }
 
-var xStatusbarPush func(uintptr, uint, string) uint
+var xStatusbarPush func(uintptr, uint32, string) uint32
 
 // Pushes a new message onto a statusbar’s stack.
-func (x *Statusbar) Push(ContextIdVar uint, TextVar string) uint {
+func (x *Statusbar) Push(ContextIdVar uint32, TextVar string) uint32 {
 
 	cret := xStatusbarPush(x.GoPointer(), ContextIdVar, TextVar)
 	return cret
 }
 
-var xStatusbarRemove func(uintptr, uint, uint)
+var xStatusbarRemove func(uintptr, uint32, uint32)
 
 // Forces the removal of a message from a statusbar’s stack.
 // The exact @context_id and @message_id must be specified.
-func (x *Statusbar) Remove(ContextIdVar uint, MessageIdVar uint) {
+func (x *Statusbar) Remove(ContextIdVar uint32, MessageIdVar uint32) {
 
 	xStatusbarRemove(x.GoPointer(), ContextIdVar, MessageIdVar)
 
 }
 
-var xStatusbarRemoveAll func(uintptr, uint)
+var xStatusbarRemoveAll func(uintptr, uint32)
 
 // Forces the removal of all messages from a statusbar's
 // stack with the exact @context_id.
-func (x *Statusbar) RemoveAll(ContextIdVar uint) {
+func (x *Statusbar) RemoveAll(ContextIdVar uint32) {
 
 	xStatusbarRemoveAll(x.GoPointer(), ContextIdVar)
 
@@ -152,13 +152,13 @@ func (c *Statusbar) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a new message is popped off a statusbar's stack.
-func (x *Statusbar) ConnectTextPopped(cb *func(Statusbar, uint, string)) uint32 {
+func (x *Statusbar) ConnectTextPopped(cb *func(Statusbar, uint32, string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "text-popped", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
+	fcb := func(clsPtr uintptr, ContextIdVarp uint32, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -172,13 +172,13 @@ func (x *Statusbar) ConnectTextPopped(cb *func(Statusbar, uint, string)) uint32 
 }
 
 // Emitted whenever a new message gets pushed onto a statusbar's stack.
-func (x *Statusbar) ConnectTextPushed(cb *func(Statusbar, uint, string)) uint32 {
+func (x *Statusbar) ConnectTextPushed(cb *func(Statusbar, uint32, string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "text-pushed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ContextIdVarp uint, TextVarp string) {
+	fcb := func(clsPtr uintptr, ContextIdVarp uint32, TextVarp string) {
 		fa := Statusbar{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -248,7 +248,7 @@ func (x *Statusbar) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Statusbar) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Statusbar) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -380,7 +380,7 @@ func (x *Statusbar) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Statusbar) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Statusbar) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -416,7 +416,7 @@ func (x *Statusbar) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Statusbar) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Statusbar) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -453,7 +453,7 @@ func (x *Statusbar) UpdateState(FirstStateVar AccessibleState, varArgs ...interf
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Statusbar) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Statusbar) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

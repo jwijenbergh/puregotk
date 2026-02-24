@@ -30,13 +30,13 @@ func ContentRegisterSerializer(TypeVar types.GType, MimeTypeVar string, Serializ
 
 }
 
-var xContentSerializeAsync func(uintptr, string, *gobject.Value, int, uintptr, uintptr, uintptr)
+var xContentSerializeAsync func(uintptr, string, *gobject.Value, int32, uintptr, uintptr, uintptr)
 
 // Serialize content and write it to the given output stream, asynchronously.
 //
 // The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
 // indicate a higher priority.
-func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func ContentSerializeAsync(StreamVar *gio.OutputStream, MimeTypeVar string, ValueVar *gobject.Value, IoPriorityVar int32, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	xContentSerializeAsync(StreamVar.GoPointer(), MimeTypeVar, ValueVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -139,12 +139,12 @@ func (x *ContentSerializer) GetOutputStream() *gio.OutputStream {
 	return cls
 }
 
-var xContentSerializerGetPriority func(uintptr) int
+var xContentSerializerGetPriority func(uintptr) int32
 
 // Gets the I/O priority for the current operation.
 //
 // This is the priority that was passed to [func@content_serialize_async].
-func (x *ContentSerializer) GetPriority() int {
+func (x *ContentSerializer) GetPriority() int32 {
 
 	cret := xContentSerializerGetPriority(x.GoPointer())
 	return cret

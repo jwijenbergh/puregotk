@@ -84,7 +84,7 @@ func DeviceNewFromInternalPtr(ptr uintptr) *Device {
 	return cls
 }
 
-var xDeviceGetActiveLayoutIndex func(uintptr) int
+var xDeviceGetActiveLayoutIndex func(uintptr) int32
 
 // Retrieves the index of the active layout of the keyboard.
 //
@@ -92,7 +92,7 @@ var xDeviceGetActiveLayoutIndex func(uintptr) int
 // return -1;
 //
 // This is only relevant for keyboard devices.
-func (x *Device) GetActiveLayoutIndex() int {
+func (x *Device) GetActiveLayoutIndex() int32 {
 
 	cret := xDeviceGetActiveLayoutIndex(x.GoPointer())
 	return cret
@@ -211,10 +211,10 @@ func (x *Device) GetNumLockState() bool {
 	return cret
 }
 
-var xDeviceGetNumTouches func(uintptr) uint
+var xDeviceGetNumTouches func(uintptr) uint32
 
 // Retrieves the number of touch points associated to @device.
-func (x *Device) GetNumTouches() uint {
+func (x *Device) GetNumTouches() uint32 {
 
 	cret := xDeviceGetNumTouches(x.GoPointer())
 	return cret
@@ -370,10 +370,10 @@ func (c *Device) SetGoPointer(ptr uintptr) {
 // Will be -1 if there is no valid active layout.
 //
 // This is only relevant for keyboard devices.
-func (x *Device) GetPropertyActiveLayoutIndex() int {
+func (x *Device) GetPropertyActiveLayoutIndex() int32 {
 	var v gobject.Value
 	x.GetProperty("active-layout-index", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyCapsLockState gets the "caps-lock-state" property.
@@ -425,10 +425,10 @@ func (x *Device) GetPropertyLayoutNames() []string {
 
 // GetPropertyNAxes gets the "n-axes" property.
 // Number of axes in the device.
-func (x *Device) GetPropertyNAxes() uint {
+func (x *Device) GetPropertyNAxes() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-axes", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyName sets the "name" property.
@@ -463,10 +463,10 @@ func (x *Device) GetPropertyNumLockState() bool {
 //
 // Will be 0 if the device is not a touch device or if the number
 // of touches is unknown.
-func (x *Device) SetPropertyNumTouches(value uint) {
+func (x *Device) SetPropertyNumTouches(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("num-touches", &v)
 }
 
@@ -475,10 +475,10 @@ func (x *Device) SetPropertyNumTouches(value uint) {
 //
 // Will be 0 if the device is not a touch device or if the number
 // of touches is unknown.
-func (x *Device) GetPropertyNumTouches() uint {
+func (x *Device) GetPropertyNumTouches() uint32 {
 	var v gobject.Value
 	x.GetProperty("num-touches", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyProductId sets the "product-id" property.

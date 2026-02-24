@@ -6,19 +6,19 @@ import (
 	"github.com/jwijenbergh/puregotk/pkg/core"
 )
 
-var xFprintf func(uintptr, string, ...interface{}) int
+var xFprintf func(uintptr, string, ...interface{}) int32
 
 // An implementation of the standard `fprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Fprintf(FileVar uintptr, FormatVar string, varArgs ...interface{}) int {
+func Fprintf(FileVar uintptr, FormatVar string, varArgs ...interface{}) int32 {
 
 	cret := xFprintf(FileVar, FormatVar, varArgs...)
 	return cret
 }
 
-var xPrintf func(string, ...interface{}) int
+var xPrintf func(string, ...interface{}) int32
 
 // An implementation of the standard `printf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
@@ -28,13 +28,13 @@ var xPrintf func(string, ...interface{}) int
 // own new-line character.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Printf(FormatVar string, varArgs ...interface{}) int {
+func Printf(FormatVar string, varArgs ...interface{}) int32 {
 
 	cret := xPrintf(FormatVar, varArgs...)
 	return cret
 }
 
-var xSprintf func(string, string, ...interface{}) int
+var xSprintf func(string, string, ...interface{}) int32
 
 // An implementation of the standard `sprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
@@ -45,13 +45,13 @@ var xSprintf func(string, string, ...interface{}) int
 // `glib/gprintf.h` must be explicitly included in order to use this function.
 //
 // See also [func@GLib.strdup_printf].
-func Sprintf(StringVar string, FormatVar string, varArgs ...interface{}) int {
+func Sprintf(StringVar string, FormatVar string, varArgs ...interface{}) int32 {
 
 	cret := xSprintf(StringVar, FormatVar, varArgs...)
 	return cret
 }
 
-var xVasprintf func(*string, string, []interface{}) int
+var xVasprintf func(*string, string, []interface{}) int32
 
 // An implementation of the GNU `vasprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
@@ -64,43 +64,43 @@ var xVasprintf func(*string, string, []interface{}) int
 // multibyte representation is available for the given character.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Vasprintf(StringVar *string, FormatVar string, ArgsVar []interface{}) int {
+func Vasprintf(StringVar *string, FormatVar string, ArgsVar []interface{}) int32 {
 
 	cret := xVasprintf(StringVar, FormatVar, ArgsVar)
 	return cret
 }
 
-var xVfprintf func(uintptr, string, []interface{}) int
+var xVfprintf func(uintptr, string, []interface{}) int32
 
 // An implementation of the standard `fprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Vfprintf(FileVar uintptr, FormatVar string, ArgsVar []interface{}) int {
+func Vfprintf(FileVar uintptr, FormatVar string, ArgsVar []interface{}) int32 {
 
 	cret := xVfprintf(FileVar, FormatVar, ArgsVar)
 	return cret
 }
 
-var xVprintf func(string, []interface{}) int
+var xVprintf func(string, []interface{}) int32
 
 // An implementation of the standard `vprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Vprintf(FormatVar string, ArgsVar []interface{}) int {
+func Vprintf(FormatVar string, ArgsVar []interface{}) int32 {
 
 	cret := xVprintf(FormatVar, ArgsVar)
 	return cret
 }
 
-var xVsprintf func(string, string, []interface{}) int
+var xVsprintf func(string, string, []interface{}) int32
 
 // An implementation of the standard `vsprintf()` function which supports
 // positional parameters, as specified in the Single Unix Specification.
 //
 // `glib/gprintf.h` must be explicitly included in order to use this function.
-func Vsprintf(StringVar string, FormatVar string, ArgsVar []interface{}) int {
+func Vsprintf(StringVar string, FormatVar string, ArgsVar []interface{}) int32 {
 
 	cret := xVsprintf(StringVar, FormatVar, ArgsVar)
 	return cret

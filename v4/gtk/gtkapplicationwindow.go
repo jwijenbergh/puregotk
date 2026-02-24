@@ -149,12 +149,12 @@ func (x *ApplicationWindow) GetHelpOverlay() *ShortcutsWindow {
 	return cls
 }
 
-var xApplicationWindowGetId func(uintptr) uint
+var xApplicationWindowGetId func(uintptr) uint32
 
 // Returns the unique ID of the window.
 //
 //	If the window has not yet been added to a `GtkApplication`, returns `0`.
-func (x *ApplicationWindow) GetId() uint {
+func (x *ApplicationWindow) GetId() uint32 {
 
 	cret := xApplicationWindowGetId(x.GoPointer())
 	return cret
@@ -520,7 +520,7 @@ func (x *ApplicationWindow) AddAction(ActionVar gio.Action) {
 //	}
 //
 // ```
-func (x *ApplicationWindow) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *ApplicationWindow) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	gio.XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -577,7 +577,7 @@ func (x *ApplicationWindow) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *ApplicationWindow) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int) {
+func (x *ApplicationWindow) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32) {
 
 	gio.XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 
@@ -640,7 +640,7 @@ func (x *ApplicationWindow) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ApplicationWindow) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ApplicationWindow) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -772,7 +772,7 @@ func (x *ApplicationWindow) UpdateProperty(FirstPropertyVar AccessibleProperty, 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ApplicationWindow) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ApplicationWindow) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -808,7 +808,7 @@ func (x *ApplicationWindow) UpdateRelation(FirstRelationVar AccessibleRelation, 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ApplicationWindow) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ApplicationWindow) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -845,7 +845,7 @@ func (x *ApplicationWindow) UpdateState(FirstStateVar AccessibleState, varArgs .
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ApplicationWindow) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ApplicationWindow) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

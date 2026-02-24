@@ -493,10 +493,10 @@ func ResolverNewFromInternalPtr(ptr uintptr) *Resolver {
 	return cls
 }
 
-var xResolverGetTimeout func(uintptr) uint
+var xResolverGetTimeout func(uintptr) uint32
 
 // Get the timeout applied to all resolver lookups. See #GResolver:timeout.
-func (x *Resolver) GetTimeout() uint {
+func (x *Resolver) GetTimeout() uint32 {
 
 	cret := xResolverGetTimeout(x.GoPointer())
 	return cret
@@ -807,10 +807,10 @@ func (x *Resolver) SetDefault() {
 
 }
 
-var xResolverSetTimeout func(uintptr, uint)
+var xResolverSetTimeout func(uintptr, uint32)
 
 // Set the timeout applied to all resolver lookups. See #GResolver:timeout.
-func (x *Resolver) SetTimeout(TimeoutMsVar uint) {
+func (x *Resolver) SetTimeout(TimeoutMsVar uint32) {
 
 	xResolverSetTimeout(x.GoPointer(), TimeoutMsVar)
 
@@ -838,10 +838,10 @@ func (c *Resolver) SetGoPointer(ptr uintptr) {
 //
 // No timeout was applied to lookups before this property was added in
 // GLib 2.78.
-func (x *Resolver) SetPropertyTimeout(value uint) {
+func (x *Resolver) SetPropertyTimeout(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("timeout", &v)
 }
 
@@ -856,10 +856,10 @@ func (x *Resolver) SetPropertyTimeout(value uint) {
 //
 // No timeout was applied to lookups before this property was added in
 // GLib 2.78.
-func (x *Resolver) GetPropertyTimeout() uint {
+func (x *Resolver) GetPropertyTimeout() uint32 {
 	var v gobject.Value
 	x.GetProperty("timeout", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Emitted when the resolver notices that the system resolver

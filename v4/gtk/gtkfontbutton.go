@@ -346,7 +346,7 @@ func (x *FontButton) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *FontButton) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *FontButton) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -478,7 +478,7 @@ func (x *FontButton) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FontButton) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *FontButton) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -514,7 +514,7 @@ func (x *FontButton) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FontButton) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *FontButton) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -551,7 +551,7 @@ func (x *FontButton) UpdateState(FirstStateVar AccessibleState, varArgs ...inter
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *FontButton) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *FontButton) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -663,7 +663,7 @@ func (x *FontButton) GetFontMap() *pango.FontMap {
 }
 
 // The selected font size.
-func (x *FontButton) GetFontSize() int {
+func (x *FontButton) GetFontSize() int32 {
 
 	cret := XGtkFontChooserGetFontSize(x.GoPointer())
 	return cret

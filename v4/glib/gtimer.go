@@ -101,7 +101,7 @@ func (x *Timer) Stop() {
 const (
 	// Number of microseconds in one second (1 million).
 	// This macro is provided for code readability.
-	USEC_PER_SEC int = 1000000
+	USEC_PER_SEC int32 = 1000000
 )
 
 var xTimeValFromIso8601 func(string, *TimeVal) bool

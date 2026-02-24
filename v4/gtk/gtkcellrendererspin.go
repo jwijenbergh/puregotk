@@ -84,19 +84,19 @@ func (x *CellRendererSpin) GetPropertyClimbRate() float64 {
 
 // SetPropertyDigits sets the "digits" property.
 // The number of decimal places to display.
-func (x *CellRendererSpin) SetPropertyDigits(value uint) {
+func (x *CellRendererSpin) SetPropertyDigits(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("digits", &v)
 }
 
 // GetPropertyDigits gets the "digits" property.
 // The number of decimal places to display.
-func (x *CellRendererSpin) GetPropertyDigits() uint {
+func (x *CellRendererSpin) GetPropertyDigits() uint32 {
 	var v gobject.Value
 	x.GetProperty("digits", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 func init() {

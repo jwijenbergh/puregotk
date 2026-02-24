@@ -23,7 +23,7 @@ import (
 // For example, if @model is a product catalogue, then a compare function
 // for the “price” column could be one which returns
 // `price_of(@a) - price_of(@b)`.
-type TreeIterCompareFunc func(uintptr, *TreeIter, *TreeIter, uintptr) int
+type TreeIterCompareFunc func(uintptr, *TreeIter, *TreeIter, uintptr) int32
 
 type TreeSortableIface struct {
 	_ structs.HostLayout
@@ -80,11 +80,11 @@ func (x *TreeSortableIface) GetSortColumnChanged() func(TreeSortable) {
 // Fills in sort_column_id and order with the
 //
 //	current sort column and the order.
-func (x *TreeSortableIface) OverrideGetSortColumnId(cb func(TreeSortable, *int, *SortType) bool) {
+func (x *TreeSortableIface) OverrideGetSortColumnId(cb func(TreeSortable, *int32, *SortType) bool) {
 	if cb == nil {
 		x.xGetSortColumnId = 0
 	} else {
-		x.xGetSortColumnId = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp *int, OrderVarp *SortType) bool {
+		x.xGetSortColumnId = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp *int32, OrderVarp *SortType) bool {
 			return cb(&TreeSortableBase{Ptr: SortableVarp}, SortColumnIdVarp, OrderVarp)
 		})
 	}
@@ -94,13 +94,13 @@ func (x *TreeSortableIface) OverrideGetSortColumnId(cb func(TreeSortable, *int, 
 // Fills in sort_column_id and order with the
 //
 //	current sort column and the order.
-func (x *TreeSortableIface) GetGetSortColumnId() func(TreeSortable, *int, *SortType) bool {
+func (x *TreeSortableIface) GetGetSortColumnId() func(TreeSortable, *int32, *SortType) bool {
 	if x.xGetSortColumnId == 0 {
 		return nil
 	}
-	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp *int, OrderVarp *SortType) bool
+	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp *int32, OrderVarp *SortType) bool
 	purego.RegisterFunc(&rawCallback, x.xGetSortColumnId)
-	return func(SortableVar TreeSortable, SortColumnIdVar *int, OrderVar *SortType) bool {
+	return func(SortableVar TreeSortable, SortColumnIdVar *int32, OrderVar *SortType) bool {
 		return rawCallback(SortableVar.GoPointer(), SortColumnIdVar, OrderVar)
 	}
 }
@@ -109,11 +109,11 @@ func (x *TreeSortableIface) GetGetSortColumnId() func(TreeSortable, *int, *SortT
 // Sets the current sort column to be
 //
 //	sort_column_id.
-func (x *TreeSortableIface) OverrideSetSortColumnId(cb func(TreeSortable, int, SortType)) {
+func (x *TreeSortableIface) OverrideSetSortColumnId(cb func(TreeSortable, int32, SortType)) {
 	if cb == nil {
 		x.xSetSortColumnId = 0
 	} else {
-		x.xSetSortColumnId = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp int, OrderVarp SortType) {
+		x.xSetSortColumnId = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp int32, OrderVarp SortType) {
 			cb(&TreeSortableBase{Ptr: SortableVarp}, SortColumnIdVarp, OrderVarp)
 		})
 	}
@@ -123,13 +123,13 @@ func (x *TreeSortableIface) OverrideSetSortColumnId(cb func(TreeSortable, int, S
 // Sets the current sort column to be
 //
 //	sort_column_id.
-func (x *TreeSortableIface) GetSetSortColumnId() func(TreeSortable, int, SortType) {
+func (x *TreeSortableIface) GetSetSortColumnId() func(TreeSortable, int32, SortType) {
 	if x.xSetSortColumnId == 0 {
 		return nil
 	}
-	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp int, OrderVarp SortType)
+	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp int32, OrderVarp SortType)
 	purego.RegisterFunc(&rawCallback, x.xSetSortColumnId)
-	return func(SortableVar TreeSortable, SortColumnIdVar int, OrderVar SortType) {
+	return func(SortableVar TreeSortable, SortColumnIdVar int32, OrderVar SortType) {
 		rawCallback(SortableVar.GoPointer(), SortColumnIdVar, OrderVar)
 	}
 }
@@ -138,11 +138,11 @@ func (x *TreeSortableIface) GetSetSortColumnId() func(TreeSortable, int, SortTyp
 // Sets the comparison function used when sorting to
 //
 //	be sort_func.
-func (x *TreeSortableIface) OverrideSetSortFunc(cb func(TreeSortable, int, *TreeIterCompareFunc, uintptr, *glib.DestroyNotify)) {
+func (x *TreeSortableIface) OverrideSetSortFunc(cb func(TreeSortable, int32, *TreeIterCompareFunc, uintptr, *glib.DestroyNotify)) {
 	if cb == nil {
 		x.xSetSortFunc = 0
 	} else {
-		x.xSetSortFunc = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp int, SortFuncVarp uintptr, UserDataVarp uintptr, DestroyVarp uintptr) {
+		x.xSetSortFunc = purego.NewCallback(func(SortableVarp uintptr, SortColumnIdVarp int32, SortFuncVarp uintptr, UserDataVarp uintptr, DestroyVarp uintptr) {
 			cb(&TreeSortableBase{Ptr: SortableVarp}, SortColumnIdVarp, (*TreeIterCompareFunc)(unsafe.Pointer(SortFuncVarp)), UserDataVarp, (*glib.DestroyNotify)(unsafe.Pointer(DestroyVarp)))
 		})
 	}
@@ -152,13 +152,13 @@ func (x *TreeSortableIface) OverrideSetSortFunc(cb func(TreeSortable, int, *Tree
 // Sets the comparison function used when sorting to
 //
 //	be sort_func.
-func (x *TreeSortableIface) GetSetSortFunc() func(TreeSortable, int, *TreeIterCompareFunc, uintptr, *glib.DestroyNotify) {
+func (x *TreeSortableIface) GetSetSortFunc() func(TreeSortable, int32, *TreeIterCompareFunc, uintptr, *glib.DestroyNotify) {
 	if x.xSetSortFunc == 0 {
 		return nil
 	}
-	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp int, SortFuncVarp uintptr, UserDataVarp uintptr, DestroyVarp uintptr)
+	var rawCallback func(SortableVarp uintptr, SortColumnIdVarp int32, SortFuncVarp uintptr, UserDataVarp uintptr, DestroyVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xSetSortFunc)
-	return func(SortableVar TreeSortable, SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
+	return func(SortableVar TreeSortable, SortColumnIdVar int32, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 		rawCallback(SortableVar.GoPointer(), SortColumnIdVar, glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallbackNullable(DestroyVar))
 	}
 }
@@ -227,11 +227,11 @@ func (x *TreeSortableIface) GetHasDefaultSortFunc() func(TreeSortable) bool {
 type TreeSortable interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	GetSortColumnId(SortColumnIdVar *int, OrderVar *SortType) bool
+	GetSortColumnId(SortColumnIdVar *int32, OrderVar *SortType) bool
 	HasDefaultSortFunc() bool
 	SetDefaultSortFunc(SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify)
-	SetSortColumnId(SortColumnIdVar int, OrderVar SortType)
-	SetSortFunc(SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify)
+	SetSortColumnId(SortColumnIdVar int32, OrderVar SortType)
+	SetSortFunc(SortColumnIdVar int32, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify)
 	SortColumnChanged()
 }
 
@@ -260,7 +260,7 @@ func (x *TreeSortableBase) SetGoPointer(ptr uintptr) {
 // order. It returns %TRUE unless the @sort_column_id is
 // %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or
 // %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
-func (x *TreeSortableBase) GetSortColumnId(SortColumnIdVar *int, OrderVar *SortType) bool {
+func (x *TreeSortableBase) GetSortColumnId(SortColumnIdVar *int32, OrderVar *SortType) bool {
 
 	cret := XGtkTreeSortableGetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 	return cret
@@ -299,7 +299,7 @@ func (x *TreeSortableBase) SetDefaultSortFunc(SortFuncVar *TreeIterCompareFunc, 
 //     will be used, if it is set
 //
 // - %GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: no sorting will occur
-func (x *TreeSortableBase) SetSortColumnId(SortColumnIdVar int, OrderVar SortType) {
+func (x *TreeSortableBase) SetSortColumnId(SortColumnIdVar int32, OrderVar SortType) {
 
 	XGtkTreeSortableSetSortColumnId(x.GoPointer(), SortColumnIdVar, OrderVar)
 
@@ -308,7 +308,7 @@ func (x *TreeSortableBase) SetSortColumnId(SortColumnIdVar int, OrderVar SortTyp
 // Sets the comparison function used when sorting to be @sort_func. If the
 // current sort column id of @sortable is the same as @sort_column_id, then
 // the model will sort using this function.
-func (x *TreeSortableBase) SetSortFunc(SortColumnIdVar int, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
+func (x *TreeSortableBase) SetSortFunc(SortColumnIdVar int32, SortFuncVar *TreeIterCompareFunc, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) {
 
 	XGtkTreeSortableSetSortFunc(x.GoPointer(), SortColumnIdVar, glib.NewCallback(SortFuncVar), UserDataVar, glib.NewCallbackNullable(DestroyVar))
 
@@ -321,22 +321,22 @@ func (x *TreeSortableBase) SortColumnChanged() {
 
 }
 
-var XGtkTreeSortableGetSortColumnId func(uintptr, *int, *SortType) bool
+var XGtkTreeSortableGetSortColumnId func(uintptr, *int32, *SortType) bool
 var XGtkTreeSortableHasDefaultSortFunc func(uintptr) bool
 var XGtkTreeSortableSetDefaultSortFunc func(uintptr, uintptr, uintptr, uintptr)
-var XGtkTreeSortableSetSortColumnId func(uintptr, int, SortType)
-var XGtkTreeSortableSetSortFunc func(uintptr, int, uintptr, uintptr, uintptr)
+var XGtkTreeSortableSetSortColumnId func(uintptr, int32, SortType)
+var XGtkTreeSortableSetSortFunc func(uintptr, int32, uintptr, uintptr, uintptr)
 var XGtkTreeSortableSortColumnChanged func(uintptr)
 
 const (
 	// Uses the default sort function in a [iface@Gtk.TreeSortable].
 	//
 	// See also: [method@Gtk.TreeSortable.set_sort_column_id]
-	TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID int = -1
+	TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID int32 = -1
 	// Disables sorting in a [iface@Gtk.TreeSortable].
 	//
 	// See also: [method@Gtk.TreeSortable.set_sort_column_id]
-	TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID int = -2
+	TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID int32 = -2
 )
 
 func init() {

@@ -36,11 +36,11 @@ func (x *IconIface) GoPointer() uintptr {
 
 // OverrideHash sets the "hash" callback function.
 // A hash for a given #GIcon.
-func (x *IconIface) OverrideHash(cb func(Icon) uint) {
+func (x *IconIface) OverrideHash(cb func(Icon) uint32) {
 	if cb == nil {
 		x.xHash = 0
 	} else {
-		x.xHash = purego.NewCallback(func(IconVarp uintptr) uint {
+		x.xHash = purego.NewCallback(func(IconVarp uintptr) uint32 {
 			return cb(&IconBase{Ptr: IconVarp})
 		})
 	}
@@ -48,13 +48,13 @@ func (x *IconIface) OverrideHash(cb func(Icon) uint) {
 
 // GetHash gets the "hash" callback function.
 // A hash for a given #GIcon.
-func (x *IconIface) GetHash() func(Icon) uint {
+func (x *IconIface) GetHash() func(Icon) uint32 {
 	if x.xHash == 0 {
 		return nil
 	}
-	var rawCallback func(IconVarp uintptr) uint
+	var rawCallback func(IconVarp uintptr) uint32
 	purego.RegisterFunc(&rawCallback, x.xHash)
-	return func(IconVar Icon) uint {
+	return func(IconVar Icon) uint32 {
 		return rawCallback(IconVar.GoPointer())
 	}
 }
@@ -88,11 +88,11 @@ func (x *IconIface) GetEqual() func(Icon, Icon) bool {
 // Serializes a #GIcon into tokens. The tokens must not
 // contain any whitespace. Don't implement if the #GIcon can't be
 // serialized (Since 2.20).
-func (x *IconIface) OverrideToTokens(cb func(Icon, *[]string, *int) bool) {
+func (x *IconIface) OverrideToTokens(cb func(Icon, *[]string, *int32) bool) {
 	if cb == nil {
 		x.xToTokens = 0
 	} else {
-		x.xToTokens = purego.NewCallback(func(IconVarp uintptr, TokensVarp *[]string, OutVersionVarp *int) bool {
+		x.xToTokens = purego.NewCallback(func(IconVarp uintptr, TokensVarp *[]string, OutVersionVarp *int32) bool {
 			return cb(&IconBase{Ptr: IconVarp}, TokensVarp, OutVersionVarp)
 		})
 	}
@@ -102,13 +102,13 @@ func (x *IconIface) OverrideToTokens(cb func(Icon, *[]string, *int) bool) {
 // Serializes a #GIcon into tokens. The tokens must not
 // contain any whitespace. Don't implement if the #GIcon can't be
 // serialized (Since 2.20).
-func (x *IconIface) GetToTokens() func(Icon, *[]string, *int) bool {
+func (x *IconIface) GetToTokens() func(Icon, *[]string, *int32) bool {
 	if x.xToTokens == 0 {
 		return nil
 	}
-	var rawCallback func(IconVarp uintptr, TokensVarp *[]string, OutVersionVarp *int) bool
+	var rawCallback func(IconVarp uintptr, TokensVarp *[]string, OutVersionVarp *int32) bool
 	purego.RegisterFunc(&rawCallback, x.xToTokens)
-	return func(IconVar Icon, TokensVar *[]string, OutVersionVar *int) bool {
+	return func(IconVar Icon, TokensVar *[]string, OutVersionVar *int32) bool {
 		return rawCallback(IconVar.GoPointer(), TokensVar, OutVersionVar)
 	}
 }
@@ -117,11 +117,11 @@ func (x *IconIface) GetToTokens() func(Icon, *[]string, *int) bool {
 // Constructs a #GIcon from tokens. Set the #GError if
 // the tokens are malformed. Don't implement if the #GIcon can't be
 // serialized (Since 2.20).
-func (x *IconIface) OverrideFromTokens(cb func(string, int, int) *IconBase) {
+func (x *IconIface) OverrideFromTokens(cb func(string, int32, int32) *IconBase) {
 	if cb == nil {
 		x.xFromTokens = 0
 	} else {
-		x.xFromTokens = purego.NewCallback(func(TokensVarp string, NumTokensVarp int, VersionVarp int) uintptr {
+		x.xFromTokens = purego.NewCallback(func(TokensVarp string, NumTokensVarp int32, VersionVarp int32) uintptr {
 			ret := cb(TokensVarp, NumTokensVarp, VersionVarp)
 			if ret == nil {
 				return 0
@@ -135,13 +135,13 @@ func (x *IconIface) OverrideFromTokens(cb func(string, int, int) *IconBase) {
 // Constructs a #GIcon from tokens. Set the #GError if
 // the tokens are malformed. Don't implement if the #GIcon can't be
 // serialized (Since 2.20).
-func (x *IconIface) GetFromTokens() func(string, int, int) *IconBase {
+func (x *IconIface) GetFromTokens() func(string, int32, int32) *IconBase {
 	if x.xFromTokens == 0 {
 		return nil
 	}
-	var rawCallback func(TokensVarp string, NumTokensVarp int, VersionVarp int) uintptr
+	var rawCallback func(TokensVarp string, NumTokensVarp int32, VersionVarp int32) uintptr
 	purego.RegisterFunc(&rawCallback, x.xFromTokens)
-	return func(TokensVar string, NumTokensVar int, VersionVar int) *IconBase {
+	return func(TokensVar string, NumTokensVar int32, VersionVar int32) *IconBase {
 		rawRet := rawCallback(TokensVar, NumTokensVar, VersionVar)
 		if rawRet == 0 {
 			return nil
@@ -211,7 +211,7 @@ type Icon interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	Equal(Icon2Var Icon) bool
-	Hash() uint
+	Hash() uint32
 	Serialize() *glib.Variant
 	ToString() string
 }
@@ -245,7 +245,7 @@ func (x *IconBase) Equal(Icon2Var Icon) bool {
 }
 
 // Gets a hash for an icon.
-func (x *IconBase) Hash() uint {
+func (x *IconBase) Hash() uint32 {
 
 	cret := XGIconHash(x.GoPointer())
 	return cret
@@ -285,7 +285,7 @@ func (x *IconBase) ToString() string {
 }
 
 var XGIconEqual func(uintptr, uintptr) bool
-var XGIconHash func(uintptr) uint
+var XGIconHash func(uintptr) uint32
 var XGIconSerialize func(uintptr) *glib.Variant
 var XGIconToString func(uintptr) string
 

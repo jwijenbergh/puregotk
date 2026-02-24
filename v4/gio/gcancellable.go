@@ -316,7 +316,7 @@ func (x *Cancellable) Disconnect(HandlerIdVar uint32) {
 
 }
 
-var xCancellableGetFd func(uintptr) int
+var xCancellableGetFd func(uintptr) int32
 
 // Gets the file descriptor for a cancellable job. This can be used to
 // implement cancellable operations on Unix systems. The returned fd will
@@ -331,7 +331,7 @@ var xCancellableGetFd func(uintptr) int
 // the returned file descriptor.
 //
 // See also g_cancellable_make_pollfd().
-func (x *Cancellable) GetFd() int {
+func (x *Cancellable) GetFd() int32 {
 
 	cret := xCancellableGetFd(x.GoPointer())
 	return cret

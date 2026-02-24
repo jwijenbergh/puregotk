@@ -306,7 +306,7 @@ func (x *ColorButton) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ColorButton) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ColorButton) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -438,7 +438,7 @@ func (x *ColorButton) UpdateProperty(FirstPropertyVar AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorButton) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ColorButton) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -474,7 +474,7 @@ func (x *ColorButton) UpdateRelation(FirstRelationVar AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorButton) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ColorButton) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -511,7 +511,7 @@ func (x *ColorButton) UpdateState(FirstStateVar AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorButton) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ColorButton) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -544,7 +544,7 @@ func (x *ColorButton) GetBuildableId() string {
 // of removing the default color palette from the color chooser.
 //
 // If @colors is %NULL, removes all previously added palettes.
-func (x *ColorButton) AddPalette(OrientationVar Orientation, ColorsPerLineVar int, NColorsVar int, ColorsVar []gdk.RGBA) {
+func (x *ColorButton) AddPalette(OrientationVar Orientation, ColorsPerLineVar int32, NColorsVar int32, ColorsVar []gdk.RGBA) {
 
 	XGtkColorChooserAddPalette(x.GoPointer(), OrientationVar, ColorsPerLineVar, NColorsVar, ColorsVar)
 

@@ -84,10 +84,10 @@ func (x *CellRendererProgress) GetPropertyInverted() bool {
 //
 // To indicate that the activity has not started yet, set the property
 // to zero. To indicate completion, set the property to %G_MAXINT.
-func (x *CellRendererProgress) SetPropertyPulse(value int) {
+func (x *CellRendererProgress) SetPropertyPulse(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("pulse", &v)
 }
 
@@ -102,10 +102,10 @@ func (x *CellRendererProgress) SetPropertyPulse(value int) {
 //
 // To indicate that the activity has not started yet, set the property
 // to zero. To indicate completion, set the property to %G_MAXINT.
-func (x *CellRendererProgress) GetPropertyPulse() int {
+func (x *CellRendererProgress) GetPropertyPulse() int32 {
 	var v gobject.Value
 	x.GetProperty("pulse", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyText sets the "text" property.
@@ -176,20 +176,20 @@ func (x *CellRendererProgress) GetPropertyTextYalign() float32 {
 // SetPropertyValue sets the "value" property.
 // The "value" property determines the percentage to which the
 // progress bar will be "filled in".
-func (x *CellRendererProgress) SetPropertyValue(value int) {
+func (x *CellRendererProgress) SetPropertyValue(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("value", &v)
 }
 
 // GetPropertyValue gets the "value" property.
 // The "value" property determines the percentage to which the
 // progress bar will be "filled in".
-func (x *CellRendererProgress) GetPropertyValue() int {
+func (x *CellRendererProgress) GetPropertyValue() int32 {
 	var v gobject.Value
 	x.GetProperty("value", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Retrieves the orientation of the @orientable.

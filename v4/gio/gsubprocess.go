@@ -270,7 +270,7 @@ func (x *Subprocess) ForceExit() {
 
 }
 
-var xSubprocessGetExitStatus func(uintptr) int
+var xSubprocessGetExitStatus func(uintptr) int32
 
 // Check the exit status of the subprocess, given that it exited
 // normally.  This is the value passed to the exit() system call or the
@@ -280,7 +280,7 @@ var xSubprocessGetExitStatus func(uintptr) int
 //
 // It is an error to call this function before g_subprocess_wait() and
 // unless g_subprocess_get_if_exited() returned %TRUE.
-func (x *Subprocess) GetExitStatus() int {
+func (x *Subprocess) GetExitStatus() int32 {
 
 	cret := xSubprocessGetExitStatus(x.GoPointer())
 	return cret
@@ -326,7 +326,7 @@ func (x *Subprocess) GetIfSignaled() bool {
 	return cret
 }
 
-var xSubprocessGetStatus func(uintptr) int
+var xSubprocessGetStatus func(uintptr) int32
 
 // Gets the raw status code of the process, as from waitpid().
 //
@@ -339,7 +339,7 @@ var xSubprocessGetStatus func(uintptr) int
 //
 // It is an error to call this function before g_subprocess_wait() has
 // returned.
-func (x *Subprocess) GetStatus() int {
+func (x *Subprocess) GetStatus() int32 {
 
 	cret := xSubprocessGetStatus(x.GoPointer())
 	return cret
@@ -422,7 +422,7 @@ func (x *Subprocess) GetSuccessful() bool {
 	return cret
 }
 
-var xSubprocessGetTermSig func(uintptr) int
+var xSubprocessGetTermSig func(uintptr) int32
 
 // Get the signal number that caused the subprocess to terminate, given
 // that it terminated due to a signal.
@@ -431,13 +431,13 @@ var xSubprocessGetTermSig func(uintptr) int
 //
 // It is an error to call this function before g_subprocess_wait() and
 // unless g_subprocess_get_if_signaled() returned %TRUE.
-func (x *Subprocess) GetTermSig() int {
+func (x *Subprocess) GetTermSig() int32 {
 
 	cret := xSubprocessGetTermSig(x.GoPointer())
 	return cret
 }
 
-var xSubprocessSendSignal func(uintptr, int)
+var xSubprocessSendSignal func(uintptr, int32)
 
 // Sends the UNIX signal @signal_num to the subprocess, if it is still
 // running.
@@ -446,7 +446,7 @@ var xSubprocessSendSignal func(uintptr, int)
 // be signalled.
 //
 // This API is not available on Windows.
-func (x *Subprocess) SendSignal(SignalNumVar int) {
+func (x *Subprocess) SendSignal(SignalNumVar int32) {
 
 	xSubprocessSendSignal(x.GoPointer(), SignalNumVar)
 

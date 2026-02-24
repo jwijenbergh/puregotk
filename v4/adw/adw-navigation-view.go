@@ -571,7 +571,7 @@ func (x *NavigationPage) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *NavigationPage) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *NavigationPage) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -703,7 +703,7 @@ func (x *NavigationPage) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty,
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationPage) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *NavigationPage) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -739,7 +739,7 @@ func (x *NavigationPage) UpdateRelation(FirstRelationVar gtk.AccessibleRelation,
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationPage) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *NavigationPage) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -776,7 +776,7 @@ func (x *NavigationPage) UpdateState(FirstStateVar gtk.AccessibleState, varArgs 
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationPage) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *NavigationPage) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1230,7 +1230,7 @@ func (x *NavigationView) Remove(PageVar *NavigationPage) {
 
 }
 
-var xNavigationViewReplace func(uintptr, uintptr, int)
+var xNavigationViewReplace func(uintptr, uintptr, int32)
 
 // Replaces the current navigation stack with @pages.
 //
@@ -1247,13 +1247,13 @@ var xNavigationViewReplace func(uintptr, uintptr, int)
 // The [signal@NavigationView::replaced] signal will be emitted.
 //
 // See [method@NavigationView.replace_with_tags].
-func (x *NavigationView) Replace(PagesVar uintptr, NPagesVar int) {
+func (x *NavigationView) Replace(PagesVar uintptr, NPagesVar int32) {
 
 	xNavigationViewReplace(x.GoPointer(), PagesVar, NPagesVar)
 
 }
 
-var xNavigationViewReplaceWithTags func(uintptr, []string, int)
+var xNavigationViewReplaceWithTags func(uintptr, []string, int32)
 
 // Replaces the current navigation stack with pages with the tags @tags.
 //
@@ -1270,7 +1270,7 @@ var xNavigationViewReplaceWithTags func(uintptr, []string, int)
 // The [signal@NavigationView::replaced] signal will be emitted.
 //
 // See [method@NavigationView.replace] and [property@NavigationPage:tag].
-func (x *NavigationView) ReplaceWithTags(TagsVar []string, NTagsVar int) {
+func (x *NavigationView) ReplaceWithTags(TagsVar []string, NTagsVar int32) {
 
 	xNavigationViewReplaceWithTags(x.GoPointer(), TagsVar, NTagsVar)
 
@@ -1577,7 +1577,7 @@ func (x *NavigationView) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *NavigationView) GetSnapPoints(NSnapPointsVar *int) uintptr {
+func (x *NavigationView) GetSnapPoints(NSnapPointsVar *int32) uintptr {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -1655,7 +1655,7 @@ func (x *NavigationView) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *NavigationView) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *NavigationView) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1787,7 +1787,7 @@ func (x *NavigationView) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty,
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationView) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *NavigationView) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1823,7 +1823,7 @@ func (x *NavigationView) UpdateRelation(FirstRelationVar gtk.AccessibleRelation,
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationView) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *NavigationView) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1860,7 +1860,7 @@ func (x *NavigationView) UpdateState(FirstStateVar gtk.AccessibleState, varArgs 
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *NavigationView) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *NavigationView) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

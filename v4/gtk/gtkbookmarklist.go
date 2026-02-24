@@ -81,10 +81,10 @@ func (x *BookmarkList) GetFilename() string {
 	return cret
 }
 
-var xBookmarkListGetIoPriority func(uintptr) int
+var xBookmarkListGetIoPriority func(uintptr) int32
 
 // Gets the IO priority to use while loading file.
-func (x *BookmarkList) GetIoPriority() int {
+func (x *BookmarkList) GetIoPriority() int32 {
 
 	cret := xBookmarkListGetIoPriority(x.GoPointer())
 	return cret
@@ -115,12 +115,12 @@ func (x *BookmarkList) SetAttributes(AttributesVar string) {
 
 }
 
-var xBookmarkListSetIoPriority func(uintptr, int)
+var xBookmarkListSetIoPriority func(uintptr, int32)
 
 // Sets the IO priority to use while loading files.
 //
 // The default IO priority is %G_PRIORITY_DEFAULT.
-func (x *BookmarkList) SetIoPriority(IoPriorityVar int) {
+func (x *BookmarkList) SetIoPriority(IoPriorityVar int32) {
 
 	xBookmarkListSetIoPriority(x.GoPointer(), IoPriorityVar)
 
@@ -173,19 +173,19 @@ func (x *BookmarkList) GetPropertyFilename() string {
 
 // SetPropertyIoPriority sets the "io-priority" property.
 // Priority used when loading.
-func (x *BookmarkList) SetPropertyIoPriority(value int) {
+func (x *BookmarkList) SetPropertyIoPriority(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("io-priority", &v)
 }
 
 // GetPropertyIoPriority gets the "io-priority" property.
 // Priority used when loading.
-func (x *BookmarkList) GetPropertyIoPriority() int {
+func (x *BookmarkList) GetPropertyIoPriority() int32 {
 	var v gobject.Value
 	x.GetProperty("io-priority", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyLoading gets the "loading" property.
@@ -198,10 +198,10 @@ func (x *BookmarkList) GetPropertyLoading() bool {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *BookmarkList) GetPropertyNItems() uint {
+func (x *BookmarkList) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -213,7 +213,7 @@ func (x *BookmarkList) GetPropertyNItems() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *BookmarkList) GetItem(PositionVar uint) uintptr {
+func (x *BookmarkList) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -238,7 +238,7 @@ func (x *BookmarkList) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *BookmarkList) GetNItems() uint {
+func (x *BookmarkList) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -256,7 +256,7 @@ func (x *BookmarkList) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *BookmarkList) GetObject(PositionVar uint) *gobject.Object {
+func (x *BookmarkList) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -289,7 +289,7 @@ func (x *BookmarkList) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *BookmarkList) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *BookmarkList) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 

@@ -6,14 +6,14 @@ import (
 	"github.com/jwijenbergh/puregotk/pkg/core"
 )
 
-var xQsortWithData func(uintptr, int, uint, uintptr, uintptr)
+var xQsortWithData func(uintptr, int32, uint, uintptr, uintptr)
 
 // This is just like the standard C [`qsort()`](man:qsort(3)) function, but
 // the comparison routine accepts a user data argument
 // (like [`qsort_r()`](man:qsort_r(3))).
 //
 // Unlike `qsort()`, this is guaranteed to be a stable sort (since GLib 2.32).
-func QsortWithData(PbaseVar uintptr, TotalElemsVar int, SizeVar uint, CompareFuncVar *CompareDataFunc, UserDataVar uintptr) {
+func QsortWithData(PbaseVar uintptr, TotalElemsVar int32, SizeVar uint, CompareFuncVar *CompareDataFunc, UserDataVar uintptr) {
 
 	xQsortWithData(PbaseVar, TotalElemsVar, SizeVar, NewCallback(CompareFuncVar), UserDataVar)
 

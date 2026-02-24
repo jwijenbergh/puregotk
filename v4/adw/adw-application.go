@@ -425,7 +425,7 @@ func (x *Application) AddAction(ActionVar gio.Action) {
 //	}
 //
 // ```
-func (x *Application) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	gio.XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -482,7 +482,7 @@ func (x *Application) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *Application) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int) {
+func (x *Application) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32) {
 
 	gio.XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 

@@ -113,10 +113,10 @@ func (x *PopupLayout) GetAnchorRect() *Rectangle {
 	return cret
 }
 
-var xPopupLayoutGetOffset func(uintptr, *int, *int)
+var xPopupLayoutGetOffset func(uintptr, *int32, *int32)
 
 // Retrieves the offset for the anchor rectangle.
-func (x *PopupLayout) GetOffset(DxVar *int, DyVar *int) {
+func (x *PopupLayout) GetOffset(DxVar *int32, DyVar *int32) {
 
 	xPopupLayoutGetOffset(x.GoPointer(), DxVar, DyVar)
 
@@ -131,10 +131,10 @@ func (x *PopupLayout) GetRectAnchor() Gravity {
 	return cret
 }
 
-var xPopupLayoutGetShadowWidth func(uintptr, *int, *int, *int, *int)
+var xPopupLayoutGetShadowWidth func(uintptr, *int32, *int32, *int32, *int32)
 
 // Obtains the shadow widths of this layout.
-func (x *PopupLayout) GetShadowWidth(LeftVar *int, RightVar *int, TopVar *int, BottomVar *int) {
+func (x *PopupLayout) GetShadowWidth(LeftVar *int32, RightVar *int32, TopVar *int32, BottomVar *int32) {
 
 	xPopupLayoutGetShadowWidth(x.GoPointer(), LeftVar, RightVar, TopVar, BottomVar)
 
@@ -182,10 +182,10 @@ func (x *PopupLayout) SetAnchorRect(AnchorRectVar *Rectangle) {
 
 }
 
-var xPopupLayoutSetOffset func(uintptr, int, int)
+var xPopupLayoutSetOffset func(uintptr, int32, int32)
 
 // Offset the position of the anchor rectangle with the given delta.
-func (x *PopupLayout) SetOffset(DxVar int, DyVar int) {
+func (x *PopupLayout) SetOffset(DxVar int32, DyVar int32) {
 
 	xPopupLayoutSetOffset(x.GoPointer(), DxVar, DyVar)
 
@@ -200,14 +200,14 @@ func (x *PopupLayout) SetRectAnchor(AnchorVar Gravity) {
 
 }
 
-var xPopupLayoutSetShadowWidth func(uintptr, int, int, int, int)
+var xPopupLayoutSetShadowWidth func(uintptr, int32, int32, int32, int32)
 
 // Sets the shadow width of the popup.
 //
 // The shadow width corresponds to the part of the computed
 // surface size that would consist of the shadow margin
 // surrounding the window, would there be any.
-func (x *PopupLayout) SetShadowWidth(LeftVar int, RightVar int, TopVar int, BottomVar int) {
+func (x *PopupLayout) SetShadowWidth(LeftVar int32, RightVar int32, TopVar int32, BottomVar int32) {
 
 	xPopupLayoutSetShadowWidth(x.GoPointer(), LeftVar, RightVar, TopVar, BottomVar)
 

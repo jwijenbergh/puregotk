@@ -139,11 +139,11 @@ func (x *Revealer) GetRevealChild() bool {
 	return cret
 }
 
-var xRevealerGetTransitionDuration func(uintptr) uint
+var xRevealerGetTransitionDuration func(uintptr) uint32
 
 // Returns the amount of time (in milliseconds) that
 // transitions will take.
-func (x *Revealer) GetTransitionDuration() uint {
+func (x *Revealer) GetTransitionDuration() uint32 {
 
 	cret := xRevealerGetTransitionDuration(x.GoPointer())
 	return cret
@@ -180,10 +180,10 @@ func (x *Revealer) SetRevealChild(RevealChildVar bool) {
 
 }
 
-var xRevealerSetTransitionDuration func(uintptr, uint)
+var xRevealerSetTransitionDuration func(uintptr, uint32)
 
 // Sets the duration that transitions will take.
-func (x *Revealer) SetTransitionDuration(DurationVar uint) {
+func (x *Revealer) SetTransitionDuration(DurationVar uint32) {
 
 	xRevealerSetTransitionDuration(x.GoPointer(), DurationVar)
 
@@ -239,19 +239,19 @@ func (x *Revealer) GetPropertyRevealChild() bool {
 
 // SetPropertyTransitionDuration sets the "transition-duration" property.
 // The animation duration, in milliseconds.
-func (x *Revealer) SetPropertyTransitionDuration(value uint) {
+func (x *Revealer) SetPropertyTransitionDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("transition-duration", &v)
 }
 
 // GetPropertyTransitionDuration gets the "transition-duration" property.
 // The animation duration, in milliseconds.
-func (x *Revealer) GetPropertyTransitionDuration() uint {
+func (x *Revealer) GetPropertyTransitionDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("transition-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Requests the user's screen reader to announce the given message.
@@ -311,7 +311,7 @@ func (x *Revealer) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Revealer) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Revealer) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -443,7 +443,7 @@ func (x *Revealer) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Revealer) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Revealer) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -479,7 +479,7 @@ func (x *Revealer) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Revealer) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Revealer) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -516,7 +516,7 @@ func (x *Revealer) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Revealer) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Revealer) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

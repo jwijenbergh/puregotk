@@ -55,7 +55,7 @@ type HashTableIter struct {
 
 	Dummy3 uintptr
 
-	Dummy4 int
+	Dummy4 int32
 
 	Dummy5 bool
 
@@ -183,7 +183,7 @@ func DirectEqual(V1Var uintptr, V2Var uintptr) bool {
 	return cret
 }
 
-var xDirectHash func(uintptr) uint
+var xDirectHash func(uintptr) uint32
 
 // Converts a gpointer to a hash value.
 // It can be passed to g_hash_table_new() as the @hash_func parameter,
@@ -192,7 +192,7 @@ var xDirectHash func(uintptr) uint
 //
 // This hash function is also appropriate for keys that are integers
 // stored in pointers, such as `GINT_TO_POINTER (n)`.
-func DirectHash(VVar uintptr) uint {
+func DirectHash(VVar uintptr) uint32 {
 
 	cret := xDirectHash(VVar)
 	return cret
@@ -211,13 +211,13 @@ func DoubleEqual(V1Var uintptr, V2Var uintptr) bool {
 	return cret
 }
 
-var xDoubleHash func(uintptr) uint
+var xDoubleHash func(uintptr) uint32
 
 // Converts a pointer to a #gdouble to a hash value.
 // It can be passed to g_hash_table_new() as the @hash_func parameter,
 // It can be passed to g_hash_table_new() as the @hash_func parameter,
 // when using non-%NULL pointers to doubles as keys in a #GHashTable.
-func DoubleHash(VVar uintptr) uint {
+func DoubleHash(VVar uintptr) uint32 {
 
 	cret := xDoubleHash(VVar)
 	return cret
@@ -310,7 +310,7 @@ func HashTableForeach(HashTableVar *HashTable, FuncVar *HFunc, UserDataVar uintp
 
 }
 
-var xHashTableForeachRemove func(*HashTable, uintptr, uintptr) uint
+var xHashTableForeachRemove func(*HashTable, uintptr, uintptr) uint32
 
 // Calls the given function for each key/value pair in the
 // #GHashTable. If the function returns %TRUE, then the key/value
@@ -320,13 +320,13 @@ var xHashTableForeachRemove func(*HashTable, uintptr, uintptr) uint
 //
 // See #GHashTableIter for an alternative way to loop over the
 // key/value pairs in the hash table.
-func HashTableForeachRemove(HashTableVar *HashTable, FuncVar *HRFunc, UserDataVar uintptr) uint {
+func HashTableForeachRemove(HashTableVar *HashTable, FuncVar *HRFunc, UserDataVar uintptr) uint32 {
 
 	cret := xHashTableForeachRemove(HashTableVar, NewCallback(FuncVar), UserDataVar)
 	return cret
 }
 
-var xHashTableForeachSteal func(*HashTable, uintptr, uintptr) uint
+var xHashTableForeachSteal func(*HashTable, uintptr, uintptr) uint32
 
 // Calls the given function for each key/value pair in the
 // #GHashTable. If the function returns %TRUE, then the key/value
@@ -335,7 +335,7 @@ var xHashTableForeachSteal func(*HashTable, uintptr, uintptr) uint
 //
 // See #GHashTableIter for an alternative way to loop over the
 // key/value pairs in the hash table.
-func HashTableForeachSteal(HashTableVar *HashTable, FuncVar *HRFunc, UserDataVar uintptr) uint {
+func HashTableForeachSteal(HashTableVar *HashTable, FuncVar *HRFunc, UserDataVar uintptr) uint32 {
 
 	cret := xHashTableForeachSteal(HashTableVar, NewCallback(FuncVar), UserDataVar)
 	return cret
@@ -494,10 +494,10 @@ func HashTableReplace(HashTableVar *HashTable, KeyVar uintptr, ValueVar uintptr)
 	return cret
 }
 
-var xHashTableSize func(*HashTable) uint
+var xHashTableSize func(*HashTable) uint32
 
 // Returns the number of elements contained in the #GHashTable.
-func HashTableSize(HashTableVar *HashTable) uint {
+func HashTableSize(HashTableVar *HashTable) uint32 {
 
 	cret := xHashTableSize(HashTableVar)
 	return cret
@@ -597,14 +597,14 @@ func Int64Equal(V1Var uintptr, V2Var uintptr) bool {
 	return cret
 }
 
-var xInt64Hash func(uintptr) uint
+var xInt64Hash func(uintptr) uint32
 
 // Converts a pointer to a #gint64 to a hash value.
 //
 // It can be passed to g_hash_table_new() as the @hash_func parameter,
 // when using non-%NULL pointers to 64-bit integer values as keys in a
 // #GHashTable.
-func Int64Hash(VVar uintptr) uint {
+func Int64Hash(VVar uintptr) uint32 {
 
 	cret := xInt64Hash(VVar)
 	return cret
@@ -627,7 +627,7 @@ func IntEqual(V1Var uintptr, V2Var uintptr) bool {
 	return cret
 }
 
-var xIntHash func(uintptr) uint
+var xIntHash func(uintptr) uint32
 
 // Converts a pointer to a #gint to a hash value.
 // It can be passed to g_hash_table_new() as the @hash_func parameter,
@@ -636,7 +636,7 @@ var xIntHash func(uintptr) uint
 // Note that this function acts on pointers to #gint, not on #gint
 // directly: if your hash table's keys are of the form
 // `GINT_TO_POINTER (n)`, use g_direct_hash() instead.
-func IntHash(VVar uintptr) uint {
+func IntHash(VVar uintptr) uint32 {
 
 	cret := xIntHash(VVar)
 	return cret
@@ -658,7 +658,7 @@ func StrEqual(V1Var uintptr, V2Var uintptr) bool {
 	return cret
 }
 
-var xStrHash func(uintptr) uint
+var xStrHash func(uintptr) uint32
 
 // Converts a string to a hash value.
 //
@@ -674,7 +674,7 @@ var xStrHash func(uintptr) uint
 // Note that this function may not be a perfect fit for all use cases.
 // For example, it produces some hash collisions with strings as short
 // as 2.
-func StrHash(VVar uintptr) uint {
+func StrHash(VVar uintptr) uint32 {
 
 	cret := xStrHash(VVar)
 	return cret

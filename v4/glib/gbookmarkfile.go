@@ -168,7 +168,7 @@ func (x *BookmarkFile) GetAddedDateTime(UriVar string) (*DateTime, error) {
 
 }
 
-var xBookmarkFileGetAppInfo func(uintptr, string, string, *string, *uint, *int, **Error) bool
+var xBookmarkFileGetAppInfo func(uintptr, string, string, *string, *uint32, *int, **Error) bool
 
 // Gets the registration information of @app_name for the bookmark for
 // @uri.  See g_bookmark_file_set_application_info() for more information about
@@ -183,7 +183,7 @@ var xBookmarkFileGetAppInfo func(uintptr, string, string, *string, *uint, *int, 
 // %G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED. In the event that unquoting
 // the command line fails, an error of the %G_SHELL_ERROR domain is
 // set and %FALSE is returned.
-func (x *BookmarkFile) GetAppInfo(UriVar string, NameVar string, ExecVar *string, CountVar *uint, StampVar *int) (bool, error) {
+func (x *BookmarkFile) GetAppInfo(UriVar string, NameVar string, ExecVar *string, CountVar *uint32, StampVar *int) (bool, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileGetAppInfo(x.GoPointer(), UriVar, NameVar, ExecVar, CountVar, StampVar, &cerr)
@@ -194,7 +194,7 @@ func (x *BookmarkFile) GetAppInfo(UriVar string, NameVar string, ExecVar *string
 
 }
 
-var xBookmarkFileGetApplicationInfo func(uintptr, string, string, *string, *uint, **DateTime, **Error) bool
+var xBookmarkFileGetApplicationInfo func(uintptr, string, string, *string, *uint32, **DateTime, **Error) bool
 
 // Gets the registration information of @app_name for the bookmark for
 // @uri.  See g_bookmark_file_set_application_info() for more information about
@@ -209,7 +209,7 @@ var xBookmarkFileGetApplicationInfo func(uintptr, string, string, *string, *uint
 // %G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED. In the event that unquoting
 // the command line fails, an error of the %G_SHELL_ERROR domain is
 // set and %FALSE is returned.
-func (x *BookmarkFile) GetApplicationInfo(UriVar string, NameVar string, ExecVar *string, CountVar *uint, StampVar **DateTime) (bool, error) {
+func (x *BookmarkFile) GetApplicationInfo(UriVar string, NameVar string, ExecVar *string, CountVar *uint32, StampVar **DateTime) (bool, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileGetApplicationInfo(x.GoPointer(), UriVar, NameVar, ExecVar, CountVar, StampVar, &cerr)
@@ -364,10 +364,10 @@ func (x *BookmarkFile) GetModifiedDateTime(UriVar string) (*DateTime, error) {
 
 }
 
-var xBookmarkFileGetSize func(uintptr) int
+var xBookmarkFileGetSize func(uintptr) int32
 
 // Gets the number of bookmarks inside @bookmark.
-func (x *BookmarkFile) GetSize() int {
+func (x *BookmarkFile) GetSize() int32 {
 
 	cret := xBookmarkFileGetSize(x.GoPointer())
 	return cret
@@ -628,7 +628,7 @@ func (x *BookmarkFile) SetAddedDateTime(UriVar string, AddedVar *DateTime) {
 
 }
 
-var xBookmarkFileSetAppInfo func(uintptr, string, string, string, int, int, **Error) bool
+var xBookmarkFileSetAppInfo func(uintptr, string, string, string, int32, int, **Error) bool
 
 // Sets the meta-data of application @name inside the list of
 // applications that have registered a bookmark for @uri inside
@@ -658,7 +658,7 @@ var xBookmarkFileSetAppInfo func(uintptr, string, string, string, int, int, **Er
 // for @uri,  %FALSE is returned and error is set to
 // %G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED.  Otherwise, if no bookmark
 // for @uri is found, one is created.
-func (x *BookmarkFile) SetAppInfo(UriVar string, NameVar string, ExecVar string, CountVar int, StampVar int) (bool, error) {
+func (x *BookmarkFile) SetAppInfo(UriVar string, NameVar string, ExecVar string, CountVar int32, StampVar int) (bool, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileSetAppInfo(x.GoPointer(), UriVar, NameVar, ExecVar, CountVar, StampVar, &cerr)
@@ -669,7 +669,7 @@ func (x *BookmarkFile) SetAppInfo(UriVar string, NameVar string, ExecVar string,
 
 }
 
-var xBookmarkFileSetApplicationInfo func(uintptr, string, string, string, int, *DateTime, **Error) bool
+var xBookmarkFileSetApplicationInfo func(uintptr, string, string, string, int32, *DateTime, **Error) bool
 
 // Sets the meta-data of application @name inside the list of
 // applications that have registered a bookmark for @uri inside
@@ -698,7 +698,7 @@ var xBookmarkFileSetApplicationInfo func(uintptr, string, string, string, int, *
 // for @uri,  %FALSE is returned and error is set to
 // %G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED.  Otherwise, if no bookmark
 // for @uri is found, one is created.
-func (x *BookmarkFile) SetApplicationInfo(UriVar string, NameVar string, ExecVar string, CountVar int, StampVar *DateTime) (bool, error) {
+func (x *BookmarkFile) SetApplicationInfo(UriVar string, NameVar string, ExecVar string, CountVar int32, StampVar *DateTime) (bool, error) {
 	var cerr *Error
 
 	cret := xBookmarkFileSetApplicationInfo(x.GoPointer(), UriVar, NameVar, ExecVar, CountVar, StampVar, &cerr)

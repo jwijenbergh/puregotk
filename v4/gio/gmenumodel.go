@@ -148,57 +148,57 @@ func (x *MenuModelClass) GetIsMutable() func(*MenuModel) bool {
 }
 
 // OverrideGetNItems sets the "get_n_items" callback function.
-func (x *MenuModelClass) OverrideGetNItems(cb func(*MenuModel) int) {
+func (x *MenuModelClass) OverrideGetNItems(cb func(*MenuModel) int32) {
 	if cb == nil {
 		x.xGetNItems = 0
 	} else {
-		x.xGetNItems = purego.NewCallback(func(ModelVarp uintptr) int {
+		x.xGetNItems = purego.NewCallback(func(ModelVarp uintptr) int32 {
 			return cb(MenuModelNewFromInternalPtr(ModelVarp))
 		})
 	}
 }
 
 // GetGetNItems gets the "get_n_items" callback function.
-func (x *MenuModelClass) GetGetNItems() func(*MenuModel) int {
+func (x *MenuModelClass) GetGetNItems() func(*MenuModel) int32 {
 	if x.xGetNItems == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr) int
+	var rawCallback func(ModelVarp uintptr) int32
 	purego.RegisterFunc(&rawCallback, x.xGetNItems)
-	return func(ModelVar *MenuModel) int {
+	return func(ModelVar *MenuModel) int32 {
 		return rawCallback(ModelVar.GoPointer())
 	}
 }
 
 // OverrideGetItemAttributes sets the "get_item_attributes" callback function.
-func (x *MenuModelClass) OverrideGetItemAttributes(cb func(*MenuModel, int, **glib.HashTable)) {
+func (x *MenuModelClass) OverrideGetItemAttributes(cb func(*MenuModel, int32, **glib.HashTable)) {
 	if cb == nil {
 		x.xGetItemAttributes = 0
 	} else {
-		x.xGetItemAttributes = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int, AttributesVarp **glib.HashTable) {
+		x.xGetItemAttributes = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32, AttributesVarp **glib.HashTable) {
 			cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp, AttributesVarp)
 		})
 	}
 }
 
 // GetGetItemAttributes gets the "get_item_attributes" callback function.
-func (x *MenuModelClass) GetGetItemAttributes() func(*MenuModel, int, **glib.HashTable) {
+func (x *MenuModelClass) GetGetItemAttributes() func(*MenuModel, int32, **glib.HashTable) {
 	if x.xGetItemAttributes == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int, AttributesVarp **glib.HashTable)
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32, AttributesVarp **glib.HashTable)
 	purego.RegisterFunc(&rawCallback, x.xGetItemAttributes)
-	return func(ModelVar *MenuModel, ItemIndexVar int, AttributesVar **glib.HashTable) {
+	return func(ModelVar *MenuModel, ItemIndexVar int32, AttributesVar **glib.HashTable) {
 		rawCallback(ModelVar.GoPointer(), ItemIndexVar, AttributesVar)
 	}
 }
 
 // OverrideIterateItemAttributes sets the "iterate_item_attributes" callback function.
-func (x *MenuModelClass) OverrideIterateItemAttributes(cb func(*MenuModel, int) *MenuAttributeIter) {
+func (x *MenuModelClass) OverrideIterateItemAttributes(cb func(*MenuModel, int32) *MenuAttributeIter) {
 	if cb == nil {
 		x.xIterateItemAttributes = 0
 	} else {
-		x.xIterateItemAttributes = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int) uintptr {
+		x.xIterateItemAttributes = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32) uintptr {
 			ret := cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp)
 			if ret == nil {
 				return 0
@@ -209,13 +209,13 @@ func (x *MenuModelClass) OverrideIterateItemAttributes(cb func(*MenuModel, int) 
 }
 
 // GetIterateItemAttributes gets the "iterate_item_attributes" callback function.
-func (x *MenuModelClass) GetIterateItemAttributes() func(*MenuModel, int) *MenuAttributeIter {
+func (x *MenuModelClass) GetIterateItemAttributes() func(*MenuModel, int32) *MenuAttributeIter {
 	if x.xIterateItemAttributes == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int) uintptr
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32) uintptr
 	purego.RegisterFunc(&rawCallback, x.xIterateItemAttributes)
-	return func(ModelVar *MenuModel, ItemIndexVar int) *MenuAttributeIter {
+	return func(ModelVar *MenuModel, ItemIndexVar int32) *MenuAttributeIter {
 		rawRet := rawCallback(ModelVar.GoPointer(), ItemIndexVar)
 		if rawRet == 0 {
 			return nil
@@ -227,57 +227,57 @@ func (x *MenuModelClass) GetIterateItemAttributes() func(*MenuModel, int) *MenuA
 }
 
 // OverrideGetItemAttributeValue sets the "get_item_attribute_value" callback function.
-func (x *MenuModelClass) OverrideGetItemAttributeValue(cb func(*MenuModel, int, string, *glib.VariantType) *glib.Variant) {
+func (x *MenuModelClass) OverrideGetItemAttributeValue(cb func(*MenuModel, int32, string, *glib.VariantType) *glib.Variant) {
 	if cb == nil {
 		x.xGetItemAttributeValue = 0
 	} else {
-		x.xGetItemAttributeValue = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int, AttributeVarp string, ExpectedTypeVarp *glib.VariantType) *glib.Variant {
+		x.xGetItemAttributeValue = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32, AttributeVarp string, ExpectedTypeVarp *glib.VariantType) *glib.Variant {
 			return cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp, AttributeVarp, ExpectedTypeVarp)
 		})
 	}
 }
 
 // GetGetItemAttributeValue gets the "get_item_attribute_value" callback function.
-func (x *MenuModelClass) GetGetItemAttributeValue() func(*MenuModel, int, string, *glib.VariantType) *glib.Variant {
+func (x *MenuModelClass) GetGetItemAttributeValue() func(*MenuModel, int32, string, *glib.VariantType) *glib.Variant {
 	if x.xGetItemAttributeValue == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int, AttributeVarp string, ExpectedTypeVarp *glib.VariantType) *glib.Variant
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32, AttributeVarp string, ExpectedTypeVarp *glib.VariantType) *glib.Variant
 	purego.RegisterFunc(&rawCallback, x.xGetItemAttributeValue)
-	return func(ModelVar *MenuModel, ItemIndexVar int, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
+	return func(ModelVar *MenuModel, ItemIndexVar int32, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
 		return rawCallback(ModelVar.GoPointer(), ItemIndexVar, AttributeVar, ExpectedTypeVar)
 	}
 }
 
 // OverrideGetItemLinks sets the "get_item_links" callback function.
-func (x *MenuModelClass) OverrideGetItemLinks(cb func(*MenuModel, int, **glib.HashTable)) {
+func (x *MenuModelClass) OverrideGetItemLinks(cb func(*MenuModel, int32, **glib.HashTable)) {
 	if cb == nil {
 		x.xGetItemLinks = 0
 	} else {
-		x.xGetItemLinks = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int, LinksVarp **glib.HashTable) {
+		x.xGetItemLinks = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32, LinksVarp **glib.HashTable) {
 			cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp, LinksVarp)
 		})
 	}
 }
 
 // GetGetItemLinks gets the "get_item_links" callback function.
-func (x *MenuModelClass) GetGetItemLinks() func(*MenuModel, int, **glib.HashTable) {
+func (x *MenuModelClass) GetGetItemLinks() func(*MenuModel, int32, **glib.HashTable) {
 	if x.xGetItemLinks == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int, LinksVarp **glib.HashTable)
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32, LinksVarp **glib.HashTable)
 	purego.RegisterFunc(&rawCallback, x.xGetItemLinks)
-	return func(ModelVar *MenuModel, ItemIndexVar int, LinksVar **glib.HashTable) {
+	return func(ModelVar *MenuModel, ItemIndexVar int32, LinksVar **glib.HashTable) {
 		rawCallback(ModelVar.GoPointer(), ItemIndexVar, LinksVar)
 	}
 }
 
 // OverrideIterateItemLinks sets the "iterate_item_links" callback function.
-func (x *MenuModelClass) OverrideIterateItemLinks(cb func(*MenuModel, int) *MenuLinkIter) {
+func (x *MenuModelClass) OverrideIterateItemLinks(cb func(*MenuModel, int32) *MenuLinkIter) {
 	if cb == nil {
 		x.xIterateItemLinks = 0
 	} else {
-		x.xIterateItemLinks = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int) uintptr {
+		x.xIterateItemLinks = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32) uintptr {
 			ret := cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp)
 			if ret == nil {
 				return 0
@@ -288,13 +288,13 @@ func (x *MenuModelClass) OverrideIterateItemLinks(cb func(*MenuModel, int) *Menu
 }
 
 // GetIterateItemLinks gets the "iterate_item_links" callback function.
-func (x *MenuModelClass) GetIterateItemLinks() func(*MenuModel, int) *MenuLinkIter {
+func (x *MenuModelClass) GetIterateItemLinks() func(*MenuModel, int32) *MenuLinkIter {
 	if x.xIterateItemLinks == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int) uintptr
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32) uintptr
 	purego.RegisterFunc(&rawCallback, x.xIterateItemLinks)
-	return func(ModelVar *MenuModel, ItemIndexVar int) *MenuLinkIter {
+	return func(ModelVar *MenuModel, ItemIndexVar int32) *MenuLinkIter {
 		rawRet := rawCallback(ModelVar.GoPointer(), ItemIndexVar)
 		if rawRet == 0 {
 			return nil
@@ -306,11 +306,11 @@ func (x *MenuModelClass) GetIterateItemLinks() func(*MenuModel, int) *MenuLinkIt
 }
 
 // OverrideGetItemLink sets the "get_item_link" callback function.
-func (x *MenuModelClass) OverrideGetItemLink(cb func(*MenuModel, int, string) *MenuModel) {
+func (x *MenuModelClass) OverrideGetItemLink(cb func(*MenuModel, int32, string) *MenuModel) {
 	if cb == nil {
 		x.xGetItemLink = 0
 	} else {
-		x.xGetItemLink = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int, LinkVarp string) uintptr {
+		x.xGetItemLink = purego.NewCallback(func(ModelVarp uintptr, ItemIndexVarp int32, LinkVarp string) uintptr {
 			ret := cb(MenuModelNewFromInternalPtr(ModelVarp), ItemIndexVarp, LinkVarp)
 			if ret == nil {
 				return 0
@@ -321,13 +321,13 @@ func (x *MenuModelClass) OverrideGetItemLink(cb func(*MenuModel, int, string) *M
 }
 
 // GetGetItemLink gets the "get_item_link" callback function.
-func (x *MenuModelClass) GetGetItemLink() func(*MenuModel, int, string) *MenuModel {
+func (x *MenuModelClass) GetGetItemLink() func(*MenuModel, int32, string) *MenuModel {
 	if x.xGetItemLink == 0 {
 		return nil
 	}
-	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int, LinkVarp string) uintptr
+	var rawCallback func(ModelVarp uintptr, ItemIndexVarp int32, LinkVarp string) uintptr
 	purego.RegisterFunc(&rawCallback, x.xGetItemLink)
-	return func(ModelVar *MenuModel, ItemIndexVar int, LinkVar string) *MenuModel {
+	return func(ModelVar *MenuModel, ItemIndexVar int32, LinkVar string) *MenuModel {
 		rawRet := rawCallback(ModelVar.GoPointer(), ItemIndexVar, LinkVar)
 		if rawRet == 0 {
 			return nil
@@ -709,7 +709,7 @@ func MenuModelNewFromInternalPtr(ptr uintptr) *MenuModel {
 	return cls
 }
 
-var xMenuModelGetItemAttribute func(uintptr, int, string, string, ...interface{}) bool
+var xMenuModelGetItemAttribute func(uintptr, int32, string, string, ...interface{}) bool
 
 // Queries item at position @item_index in @model for the attribute
 // specified by @attribute.
@@ -727,13 +727,13 @@ var xMenuModelGetItemAttribute func(uintptr, int, string, string, ...interface{}
 // @format_string must make a complete copy of the data (since the
 // #GVariant may go away after the call to g_variant_unref()).  In
 // particular, no '&amp;' characters are allowed in @format_string.
-func (x *MenuModel) GetItemAttribute(ItemIndexVar int, AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
+func (x *MenuModel) GetItemAttribute(ItemIndexVar int32, AttributeVar string, FormatStringVar string, varArgs ...interface{}) bool {
 
 	cret := xMenuModelGetItemAttribute(x.GoPointer(), ItemIndexVar, AttributeVar, FormatStringVar, varArgs...)
 	return cret
 }
 
-var xMenuModelGetItemAttributeValue func(uintptr, int, string, *glib.VariantType) *glib.Variant
+var xMenuModelGetItemAttributeValue func(uintptr, int32, string, *glib.VariantType) *glib.Variant
 
 // Queries the item at position @item_index in @model for the attribute
 // specified by @attribute.
@@ -746,20 +746,20 @@ var xMenuModelGetItemAttributeValue func(uintptr, int, string, *glib.VariantType
 //
 // If the attribute does not exist, or does not match the expected type
 // then %NULL is returned.
-func (x *MenuModel) GetItemAttributeValue(ItemIndexVar int, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
+func (x *MenuModel) GetItemAttributeValue(ItemIndexVar int32, AttributeVar string, ExpectedTypeVar *glib.VariantType) *glib.Variant {
 
 	cret := xMenuModelGetItemAttributeValue(x.GoPointer(), ItemIndexVar, AttributeVar, ExpectedTypeVar)
 	return cret
 }
 
-var xMenuModelGetItemLink func(uintptr, int, string) uintptr
+var xMenuModelGetItemLink func(uintptr, int32, string) uintptr
 
 // Queries the item at position @item_index in @model for the link
 // specified by @link.
 //
 // If the link exists, the linked #GMenuModel is returned.  If the link
 // does not exist, %NULL is returned.
-func (x *MenuModel) GetItemLink(ItemIndexVar int, LinkVar string) *MenuModel {
+func (x *MenuModel) GetItemLink(ItemIndexVar int32, LinkVar string) *MenuModel {
 	var cls *MenuModel
 
 	cret := xMenuModelGetItemLink(x.GoPointer(), ItemIndexVar, LinkVar)
@@ -772,10 +772,10 @@ func (x *MenuModel) GetItemLink(ItemIndexVar int, LinkVar string) *MenuModel {
 	return cls
 }
 
-var xMenuModelGetNItems func(uintptr) int
+var xMenuModelGetNItems func(uintptr) int32
 
 // Query the number of items in @model.
-func (x *MenuModel) GetNItems() int {
+func (x *MenuModel) GetNItems() int32 {
 
 	cret := xMenuModelGetNItems(x.GoPointer())
 	return cret
@@ -793,7 +793,7 @@ func (x *MenuModel) IsMutable() bool {
 	return cret
 }
 
-var xMenuModelItemsChanged func(uintptr, int, int, int)
+var xMenuModelItemsChanged func(uintptr, int32, int32, int32)
 
 // Requests emission of the #GMenuModel::items-changed signal on @model.
 //
@@ -810,19 +810,19 @@ var xMenuModelItemsChanged func(uintptr, int, int, int)
 // entry and not in response to calls -- particularly those from the
 // #GMenuModel API.  Said another way: the menu must not change while
 // user code is running without returning to the mainloop.
-func (x *MenuModel) ItemsChanged(PositionVar int, RemovedVar int, AddedVar int) {
+func (x *MenuModel) ItemsChanged(PositionVar int32, RemovedVar int32, AddedVar int32) {
 
 	xMenuModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
 }
 
-var xMenuModelIterateItemAttributes func(uintptr, int) uintptr
+var xMenuModelIterateItemAttributes func(uintptr, int32) uintptr
 
 // Creates a #GMenuAttributeIter to iterate over the attributes of
 // the item at position @item_index in @model.
 //
 // You must free the iterator with g_object_unref() when you are done.
-func (x *MenuModel) IterateItemAttributes(ItemIndexVar int) *MenuAttributeIter {
+func (x *MenuModel) IterateItemAttributes(ItemIndexVar int32) *MenuAttributeIter {
 	var cls *MenuAttributeIter
 
 	cret := xMenuModelIterateItemAttributes(x.GoPointer(), ItemIndexVar)
@@ -835,13 +835,13 @@ func (x *MenuModel) IterateItemAttributes(ItemIndexVar int) *MenuAttributeIter {
 	return cls
 }
 
-var xMenuModelIterateItemLinks func(uintptr, int) uintptr
+var xMenuModelIterateItemLinks func(uintptr, int32) uintptr
 
 // Creates a #GMenuLinkIter to iterate over the links of the item at
 // position @item_index in @model.
 //
 // You must free the iterator with g_object_unref() when you are done.
-func (x *MenuModel) IterateItemLinks(ItemIndexVar int) *MenuLinkIter {
+func (x *MenuModel) IterateItemLinks(ItemIndexVar int32) *MenuLinkIter {
 	var cls *MenuLinkIter
 
 	cret := xMenuModelIterateItemLinks(x.GoPointer(), ItemIndexVar)
@@ -885,13 +885,13 @@ func (c *MenuModel) SetGoPointer(ptr uintptr) {
 // Signal handlers may query the model (particularly the added items)
 // and expect to see the results of the modification that is being
 // reported.  The signal is emitted after the modification.
-func (x *MenuModel) ConnectItemsChanged(cb *func(MenuModel, int, int, int)) uint32 {
+func (x *MenuModel) ConnectItemsChanged(cb *func(MenuModel, int32, int32, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "items-changed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, PositionVarp int, RemovedVarp int, AddedVarp int) {
+	fcb := func(clsPtr uintptr, PositionVarp int32, RemovedVarp int32, AddedVarp int32) {
 		fa := MenuModel{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

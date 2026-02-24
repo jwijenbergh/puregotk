@@ -6,7 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/pkg/core"
 )
 
-var xCheckVersion func(uint, uint, uint) string
+var xCheckVersion func(uint32, uint32, uint32) string
 
 // Checks that the GLib library in use is compatible with the
 // given version.
@@ -23,7 +23,7 @@ var xCheckVersion func(uint, uint, uint) string
 // the running library must be binary compatible with the
 // version `@required_major.@required_minor.@required_micro`
 // (same major version.)
-func CheckVersion(RequiredMajorVar uint, RequiredMinorVar uint, RequiredMicroVar uint) string {
+func CheckVersion(RequiredMajorVar uint32, RequiredMinorVar uint32, RequiredMicroVar uint32) string {
 
 	cret := xCheckVersion(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
 	return cret

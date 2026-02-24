@@ -86,7 +86,7 @@ type Cond struct {
 
 	P uintptr
 
-	I [2]uint
+	I [2]uint32
 }
 
 func (x *Cond) GoPointer() uintptr {
@@ -426,7 +426,7 @@ type RWLock struct {
 
 	P uintptr
 
-	I [2]uint
+	I [2]uint32
 }
 
 func (x *RWLock) GoPointer() uintptr {
@@ -582,7 +582,7 @@ type RecMutex struct {
 
 	P uintptr
 
-	I [2]uint
+	I [2]uint32
 }
 
 func (x *RecMutex) GoPointer() uintptr {
@@ -802,7 +802,7 @@ func (x *StaticMutex) Init() {
 type StaticPrivate struct {
 	_ structs.HostLayout
 
-	Index uint
+	Index uint32
 }
 
 func (x *StaticPrivate) GoPointer() uintptr {
@@ -946,13 +946,13 @@ type StaticRWLock struct {
 
 	WriteCond *Cond
 
-	ReadCounter uint
+	ReadCounter uint32
 
 	HaveWriter bool
 
-	WantToRead uint
+	WantToRead uint32
 
-	WantToWrite uint
+	WantToWrite uint32
 }
 
 func (x *StaticRWLock) GoPointer() uintptr {
@@ -1090,7 +1090,7 @@ type StaticRecMutex struct {
 
 	Mutex uintptr
 
-	Depth uint
+	Depth uint32
 }
 
 func (x *StaticRecMutex) GoPointer() uintptr {
@@ -1134,10 +1134,10 @@ func (x *StaticRecMutex) Lock() {
 
 }
 
-var xStaticRecMutexLockFull func(uintptr, uint)
+var xStaticRecMutexLockFull func(uintptr, uint32)
 
 // Works like calling g_static_rec_mutex_lock() for @mutex @depth times.
-func (x *StaticRecMutex) LockFull(DepthVar uint) {
+func (x *StaticRecMutex) LockFull(DepthVar uint32) {
 
 	xStaticRecMutexLockFull(x.GoPointer(), DepthVar)
 
@@ -1169,7 +1169,7 @@ func (x *StaticRecMutex) Unlock() {
 
 }
 
-var xStaticRecMutexUnlockFull func(uintptr) uint
+var xStaticRecMutexUnlockFull func(uintptr) uint32
 
 // Completely unlocks @mutex. If another thread is blocked in a
 // g_static_rec_mutex_lock() call for @mutex, it will be woken and can
@@ -1178,7 +1178,7 @@ var xStaticRecMutexUnlockFull func(uintptr) uint
 // before the call to g_static_rec_mutex_unlock_full() you can call
 // g_static_rec_mutex_lock_full() with the depth returned by this
 // function.
-func (x *StaticRecMutex) UnlockFull() uint {
+func (x *StaticRecMutex) UnlockFull() uint32 {
 
 	cret := xStaticRecMutexUnlockFull(x.GoPointer())
 	return cret
@@ -2034,13 +2034,13 @@ func CondNew() *Cond {
 	return cret
 }
 
-var xGetNumProcessors func() uint
+var xGetNumProcessors func() uint32
 
 // Determine the approximate number of threads that the system will
 // schedule simultaneously for this process.  This is intended to be
 // used as a parameter to g_thread_pool_new() for CPU bound tasks and
 // similar cases.
-func GetNumProcessors() uint {
+func GetNumProcessors() uint32 {
 
 	cret := xGetNumProcessors()
 	return cret

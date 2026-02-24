@@ -79,24 +79,24 @@ func (x *ColorChooserInterface) GetSetRgba() func(ColorChooser, *gdk.RGBA) {
 }
 
 // OverrideAddPalette sets the "add_palette" callback function.
-func (x *ColorChooserInterface) OverrideAddPalette(cb func(ColorChooser, Orientation, int, int, []gdk.RGBA)) {
+func (x *ColorChooserInterface) OverrideAddPalette(cb func(ColorChooser, Orientation, int32, int32, []gdk.RGBA)) {
 	if cb == nil {
 		x.xAddPalette = 0
 	} else {
-		x.xAddPalette = purego.NewCallback(func(ChooserVarp uintptr, OrientationVarp Orientation, ColorsPerLineVarp int, NColorsVarp int, ColorsVarp []gdk.RGBA) {
+		x.xAddPalette = purego.NewCallback(func(ChooserVarp uintptr, OrientationVarp Orientation, ColorsPerLineVarp int32, NColorsVarp int32, ColorsVarp []gdk.RGBA) {
 			cb(&ColorChooserBase{Ptr: ChooserVarp}, OrientationVarp, ColorsPerLineVarp, NColorsVarp, ColorsVarp)
 		})
 	}
 }
 
 // GetAddPalette gets the "add_palette" callback function.
-func (x *ColorChooserInterface) GetAddPalette() func(ColorChooser, Orientation, int, int, []gdk.RGBA) {
+func (x *ColorChooserInterface) GetAddPalette() func(ColorChooser, Orientation, int32, int32, []gdk.RGBA) {
 	if x.xAddPalette == 0 {
 		return nil
 	}
-	var rawCallback func(ChooserVarp uintptr, OrientationVarp Orientation, ColorsPerLineVarp int, NColorsVarp int, ColorsVarp []gdk.RGBA)
+	var rawCallback func(ChooserVarp uintptr, OrientationVarp Orientation, ColorsPerLineVarp int32, NColorsVarp int32, ColorsVarp []gdk.RGBA)
 	purego.RegisterFunc(&rawCallback, x.xAddPalette)
-	return func(ChooserVar ColorChooser, OrientationVar Orientation, ColorsPerLineVar int, NColorsVar int, ColorsVar []gdk.RGBA) {
+	return func(ChooserVar ColorChooser, OrientationVar Orientation, ColorsPerLineVar int32, NColorsVar int32, ColorsVar []gdk.RGBA) {
 		rawCallback(ChooserVar.GoPointer(), OrientationVar, ColorsPerLineVar, NColorsVar, ColorsVar)
 	}
 }
@@ -135,7 +135,7 @@ func (x *ColorChooserInterface) GetColorActivated() func(ColorChooser, *gdk.RGBA
 type ColorChooser interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	AddPalette(OrientationVar Orientation, ColorsPerLineVar int, NColorsVar int, ColorsVar []gdk.RGBA)
+	AddPalette(OrientationVar Orientation, ColorsPerLineVar int32, NColorsVar int32, ColorsVar []gdk.RGBA)
 	GetRgba(ColorVar *gdk.RGBA)
 	GetUseAlpha() bool
 	SetRgba(ColorVar *gdk.RGBA)
@@ -180,7 +180,7 @@ func (x *ColorChooserBase) SetGoPointer(ptr uintptr) {
 // of removing the default color palette from the color chooser.
 //
 // If @colors is %NULL, removes all previously added palettes.
-func (x *ColorChooserBase) AddPalette(OrientationVar Orientation, ColorsPerLineVar int, NColorsVar int, ColorsVar []gdk.RGBA) {
+func (x *ColorChooserBase) AddPalette(OrientationVar Orientation, ColorsPerLineVar int32, NColorsVar int32, ColorsVar []gdk.RGBA) {
 
 	XGtkColorChooserAddPalette(x.GoPointer(), OrientationVar, ColorsPerLineVar, NColorsVar, ColorsVar)
 
@@ -276,7 +276,7 @@ func (x *ColorChooserBase) GetPropertyUseAlpha() bool {
 	return v.GetBoolean()
 }
 
-var XGtkColorChooserAddPalette func(uintptr, Orientation, int, int, []gdk.RGBA)
+var XGtkColorChooserAddPalette func(uintptr, Orientation, int32, int32, []gdk.RGBA)
 var XGtkColorChooserGetRgba func(uintptr, *gdk.RGBA)
 var XGtkColorChooserGetUseAlpha func(uintptr) bool
 var XGtkColorChooserSetRgba func(uintptr, *gdk.RGBA)

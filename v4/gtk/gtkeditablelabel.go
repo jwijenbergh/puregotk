@@ -219,7 +219,7 @@ func (x *EditableLabel) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *EditableLabel) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *EditableLabel) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -351,7 +351,7 @@ func (x *EditableLabel) UpdateProperty(FirstPropertyVar AccessibleProperty, varA
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EditableLabel) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *EditableLabel) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -387,7 +387,7 @@ func (x *EditableLabel) UpdateRelation(FirstRelationVar AccessibleRelation, varA
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EditableLabel) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *EditableLabel) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -424,7 +424,7 @@ func (x *EditableLabel) UpdateState(FirstStateVar AccessibleState, varArgs ...in
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *EditableLabel) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *EditableLabel) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -499,7 +499,7 @@ func (x *EditableLabel) DeleteSelection() {
 // the end of the text.
 //
 // Note that the positions are specified in characters, not bytes.
-func (x *EditableLabel) DeleteText(StartPosVar int, EndPosVar int) {
+func (x *EditableLabel) DeleteText(StartPosVar int32, EndPosVar int32) {
 
 	XGtkEditableDeleteText(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -530,7 +530,7 @@ func (x *EditableLabel) GetAlignment() float32 {
 // the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableLabel) GetChars(StartPosVar int, EndPosVar int) string {
+func (x *EditableLabel) GetChars(StartPosVar int32, EndPosVar int32) string {
 
 	cret := XGtkEditableGetChars(x.GoPointer(), StartPosVar, EndPosVar)
 	return cret
@@ -569,7 +569,7 @@ func (x *EditableLabel) GetEnableUndo() bool {
 }
 
 // Retrieves the desired maximum width of @editable, in characters.
-func (x *EditableLabel) GetMaxWidthChars() int {
+func (x *EditableLabel) GetMaxWidthChars() int32 {
 
 	cret := XGtkEditableGetMaxWidthChars(x.GoPointer())
 	return cret
@@ -579,7 +579,7 @@ func (x *EditableLabel) GetMaxWidthChars() int {
 // to the start of the content of the editable.
 //
 // Note that this position is in characters, not in bytes.
-func (x *EditableLabel) GetPosition() int {
+func (x *EditableLabel) GetPosition() int32 {
 
 	cret := XGtkEditableGetPosition(x.GoPointer())
 	return cret
@@ -592,7 +592,7 @@ func (x *EditableLabel) GetPosition() int {
 // and %FALSE will be returned.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableLabel) GetSelectionBounds(StartPosVar *int, EndPosVar *int) bool {
+func (x *EditableLabel) GetSelectionBounds(StartPosVar *int32, EndPosVar *int32) bool {
 
 	cret := XGtkEditableGetSelectionBounds(x.GoPointer(), StartPosVar, EndPosVar)
 	return cret
@@ -609,7 +609,7 @@ func (x *EditableLabel) GetText() string {
 
 // Gets the number of characters of space reserved
 // for the contents of the editable.
-func (x *EditableLabel) GetWidthChars() int {
+func (x *EditableLabel) GetWidthChars() int32 {
 
 	cret := XGtkEditableGetWidthChars(x.GoPointer())
 	return cret
@@ -634,7 +634,7 @@ func (x *EditableLabel) InitDelegate() {
 // Note that the position is in characters, not in bytes.
 // The function updates @position to point after the newly
 // inserted text.
-func (x *EditableLabel) InsertText(TextVar string, LengthVar int, PositionVar int) {
+func (x *EditableLabel) InsertText(TextVar string, LengthVar int32, PositionVar int32) {
 
 	XGtkEditableInsertText(x.GoPointer(), TextVar, LengthVar, PositionVar)
 
@@ -648,7 +648,7 @@ func (x *EditableLabel) InsertText(TextVar string, LengthVar int, PositionVar in
 // @start_pos to  the end of the text.
 //
 // Note that positions are specified in characters, not bytes.
-func (x *EditableLabel) SelectRegion(StartPosVar int, EndPosVar int) {
+func (x *EditableLabel) SelectRegion(StartPosVar int32, EndPosVar int32) {
 
 	XGtkEditableSelectRegion(x.GoPointer(), StartPosVar, EndPosVar)
 
@@ -684,7 +684,7 @@ func (x *EditableLabel) SetEnableUndo(EnableUndoVar bool) {
 }
 
 // Sets the desired maximum width in characters of @editable.
-func (x *EditableLabel) SetMaxWidthChars(NCharsVar int) {
+func (x *EditableLabel) SetMaxWidthChars(NCharsVar int32) {
 
 	XGtkEditableSetMaxWidthChars(x.GoPointer(), NCharsVar)
 
@@ -697,7 +697,7 @@ func (x *EditableLabel) SetMaxWidthChars(NCharsVar int) {
 // or equal to the number of characters in the editable. A value of -1
 // indicates that the position should be set after the last character
 // of the editable. Note that @position is in characters, not in bytes.
-func (x *EditableLabel) SetPosition(PositionVar int) {
+func (x *EditableLabel) SetPosition(PositionVar int32) {
 
 	XGtkEditableSetPosition(x.GoPointer(), PositionVar)
 
@@ -718,7 +718,7 @@ func (x *EditableLabel) SetText(TextVar string) {
 // Note that it changes the size request, the size can still
 // be affected by how you pack the widget into containers.
 // If @n_chars is -1, the size reverts to the default size.
-func (x *EditableLabel) SetWidthChars(NCharsVar int) {
+func (x *EditableLabel) SetWidthChars(NCharsVar int32) {
 
 	XGtkEditableSetWidthChars(x.GoPointer(), NCharsVar)
 

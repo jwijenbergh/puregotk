@@ -179,19 +179,19 @@ func (x *Value) GetDouble() float64 {
 	return cret
 }
 
-var xValueGetEnum func(uintptr) int
+var xValueGetEnum func(uintptr) int32
 
 // Get the contents of a %G_TYPE_ENUM #GValue.
-func (x *Value) GetEnum() int {
+func (x *Value) GetEnum() int32 {
 
 	cret := xValueGetEnum(x.GoPointer())
 	return cret
 }
 
-var xValueGetFlags func(uintptr) uint
+var xValueGetFlags func(uintptr) uint32
 
 // Get the contents of a %G_TYPE_FLAGS #GValue.
-func (x *Value) GetFlags() uint {
+func (x *Value) GetFlags() uint32 {
 
 	cret := xValueGetFlags(x.GoPointer())
 	return cret
@@ -215,10 +215,10 @@ func (x *Value) GetGtype() types.GType {
 	return cret
 }
 
-var xValueGetInt func(uintptr) int
+var xValueGetInt func(uintptr) int32
 
 // Get the contents of a %G_TYPE_INT #GValue.
-func (x *Value) GetInt() int {
+func (x *Value) GetInt() int32 {
 
 	cret := xValueGetInt(x.GoPointer())
 	return cret
@@ -312,10 +312,10 @@ func (x *Value) GetUchar() byte {
 	return cret
 }
 
-var xValueGetUint func(uintptr) uint
+var xValueGetUint func(uintptr) uint32
 
 // Get the contents of a %G_TYPE_UINT #GValue.
-func (x *Value) GetUint() uint {
+func (x *Value) GetUint() uint32 {
 
 	cret := xValueGetUint(x.GoPointer())
 	return cret
@@ -458,19 +458,19 @@ func (x *Value) SetDouble(VDoubleVar float64) {
 
 }
 
-var xValueSetEnum func(uintptr, int)
+var xValueSetEnum func(uintptr, int32)
 
 // Set the contents of a %G_TYPE_ENUM #GValue to @v_enum.
-func (x *Value) SetEnum(VEnumVar int) {
+func (x *Value) SetEnum(VEnumVar int32) {
 
 	xValueSetEnum(x.GoPointer(), VEnumVar)
 
 }
 
-var xValueSetFlags func(uintptr, uint)
+var xValueSetFlags func(uintptr, uint32)
 
 // Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
-func (x *Value) SetFlags(VFlagsVar uint) {
+func (x *Value) SetFlags(VFlagsVar uint32) {
 
 	xValueSetFlags(x.GoPointer(), VFlagsVar)
 
@@ -506,10 +506,10 @@ func (x *Value) SetInstance(InstanceVar uintptr) {
 
 }
 
-var xValueSetInt func(uintptr, int)
+var xValueSetInt func(uintptr, int32)
 
 // Set the contents of a %G_TYPE_INT #GValue to @v_int.
-func (x *Value) SetInt(VIntVar int) {
+func (x *Value) SetInt(VIntVar int32) {
 
 	xValueSetInt(x.GoPointer(), VIntVar)
 
@@ -661,10 +661,10 @@ func (x *Value) SetUchar(VUcharVar byte) {
 
 }
 
-var xValueSetUint func(uintptr, uint)
+var xValueSetUint func(uintptr, uint32)
 
 // Set the contents of a %G_TYPE_UINT #GValue to @v_uint.
-func (x *Value) SetUint(VUintVar uint) {
+func (x *Value) SetUint(VUintVar uint32) {
 
 	xValueSetUint(x.GoPointer(), VUintVar)
 
@@ -823,7 +823,7 @@ const (
 	// This flag should be checked by implementations of
 	// [callback@GObject.TypeValueFreeFunc], [callback@GObject.TypeValueCollectFunc]
 	// and [callback@GObject.TypeValueLCopyFunc].
-	VALUE_INTERNED_STRING int = 268435456
+	VALUE_INTERNED_STRING int32 = 268435456
 	// Flag to indicate that allocated data in a [struct@GObject.Value] shouldn’t be
 	// copied.
 	//
@@ -836,7 +836,7 @@ const (
 	// This flag should be checked by implementations of
 	// [callback@GObject.TypeValueFreeFunc], [callback@GObject.TypeValueCollectFunc]
 	// and [callback@GObject.TypeValueLCopyFunc].
-	VALUE_NOCOPY_CONTENTS int = 134217728
+	VALUE_NOCOPY_CONTENTS int32 = 134217728
 )
 
 var xValueRegisterTransformFunc func(types.GType, types.GType, uintptr)

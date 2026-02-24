@@ -10,26 +10,26 @@ const (
 	// Like [func@get_binary_age], but from the headers used at
 	// application compile time, rather than from the library linked
 	// against at application run time.
-	BINARY_AGE int = 2002
+	BINARY_AGE int32 = 2003
 	// Like [func@get_interface_age], but from the headers used at
 	// application compile time, rather than from the library linked
 	// against at application run time.
-	INTERFACE_AGE int = 2
+	INTERFACE_AGE int32 = 3
 	// Like [func@get_major_version], but from the headers used at
 	// application compile time, rather than from the library linked
 	// against at application run time.
-	MAJOR_VERSION int = 4
+	MAJOR_VERSION int32 = 4
 	// Like [func@get_micro_version], but from the headers used at
 	// application compile time, rather than from the library linked
 	// against at application run time.
-	MICRO_VERSION int = 2
+	MICRO_VERSION int32 = 3
 	// Like [func@get_minor_version], but from the headers used at
 	// application compile time, rather than from the library linked
 	// against at application run time.
-	MINOR_VERSION int = 20
+	MINOR_VERSION int32 = 20
 )
 
-var xCheckVersion func(uint, uint, uint) string
+var xCheckVersion func(uint32, uint32, uint32) string
 
 // Checks that the GTK library in use is compatible with the
 // given version.
@@ -54,35 +54,35 @@ var xCheckVersion func(uint, uint, uint) string
 // linked against an old version of GTK and calling the
 // old version of gtk_check_version(), but still get loaded
 // into an application using a newer version of GTK.
-func CheckVersion(RequiredMajorVar uint, RequiredMinorVar uint, RequiredMicroVar uint) string {
+func CheckVersion(RequiredMajorVar uint32, RequiredMinorVar uint32, RequiredMicroVar uint32) string {
 
 	cret := xCheckVersion(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
 	return cret
 }
 
-var xGetBinaryAge func() uint
+var xGetBinaryAge func() uint32
 
 // Returns the binary age as passed to `libtool`.
 //
 // If `libtool` means nothing to you, don't worry about it.
-func GetBinaryAge() uint {
+func GetBinaryAge() uint32 {
 
 	cret := xGetBinaryAge()
 	return cret
 }
 
-var xGetInterfaceAge func() uint
+var xGetInterfaceAge func() uint32
 
 // Returns the interface age as passed to `libtool`.
 //
 // If `libtool` means nothing to you, don't worry about it.
-func GetInterfaceAge() uint {
+func GetInterfaceAge() uint32 {
 
 	cret := xGetInterfaceAge()
 	return cret
 }
 
-var xGetMajorVersion func() uint
+var xGetMajorVersion func() uint32
 
 // Returns the major version number of the GTK library.
 //
@@ -92,13 +92,13 @@ var xGetMajorVersion func() uint
 // your code is running against. Contrast with the %GTK_MAJOR_VERSION
 // macro, which represents the major version of the GTK headers you
 // have included when compiling your code.
-func GetMajorVersion() uint {
+func GetMajorVersion() uint32 {
 
 	cret := xGetMajorVersion()
 	return cret
 }
 
-var xGetMicroVersion func() uint
+var xGetMicroVersion func() uint32
 
 // Returns the micro version number of the GTK library.
 //
@@ -108,13 +108,13 @@ var xGetMicroVersion func() uint
 // your code is are running against. Contrast with the
 // %GTK_MICRO_VERSION macro, which represents the micro version of the
 // GTK headers you have included when compiling your code.
-func GetMicroVersion() uint {
+func GetMicroVersion() uint32 {
 
 	cret := xGetMicroVersion()
 	return cret
 }
 
-var xGetMinorVersion func() uint
+var xGetMinorVersion func() uint32
 
 // Returns the minor version number of the GTK library.
 //
@@ -124,7 +124,7 @@ var xGetMinorVersion func() uint
 // your code is are running against. Contrast with the
 // %GTK_MINOR_VERSION macro, which represents the minor version of the
 // GTK headers you have included when compiling your code.
-func GetMinorVersion() uint {
+func GetMinorVersion() uint32 {
 
 	cret := xGetMinorVersion()
 	return cret

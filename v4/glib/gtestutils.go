@@ -100,10 +100,10 @@ func (x *TestLogBuffer) Pop() *TestLogMsg {
 	return cret
 }
 
-var xTestLogBufferPush func(uintptr, uint, byte)
+var xTestLogBufferPush func(uintptr, uint32, byte)
 
 // Internal function for gtester to decode test log messages, no ABI guarantees provided.
-func (x *TestLogBuffer) Push(NBytesVar uint, BytesVar byte) {
+func (x *TestLogBuffer) Push(NBytesVar uint32, BytesVar byte) {
 
 	xTestLogBufferPush(x.GoPointer(), NBytesVar, BytesVar)
 
@@ -114,11 +114,11 @@ type TestLogMsg struct {
 
 	LogType TestLogType
 
-	NStrings uint
+	NStrings uint32
 
 	Strings uintptr
 
-	NNums uint
+	NNums uint32
 
 	Nums float64
 }
@@ -331,71 +331,71 @@ const (
 	GTestRunIncompleteValue TestResult = 3
 )
 
-var xAssertionMessage func(string, string, int, string, string)
+var xAssertionMessage func(string, string, int32, string, string)
 
-func AssertionMessage(DomainVar string, FileVar string, LineVar int, FuncVar string, MessageVar string) {
+func AssertionMessage(DomainVar string, FileVar string, LineVar int32, FuncVar string, MessageVar string) {
 
 	xAssertionMessage(DomainVar, FileVar, LineVar, FuncVar, MessageVar)
 
 }
 
-var xAssertionMessageCmpint func(string, string, int, string, string, uint64, string, uint64, byte)
+var xAssertionMessageCmpint func(string, string, int32, string, string, uint64, string, uint64, byte)
 
-func AssertionMessageCmpint(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, Arg1Var uint64, CmpVar string, Arg2Var uint64, NumtypeVar byte) {
+func AssertionMessageCmpint(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, Arg1Var uint64, CmpVar string, Arg2Var uint64, NumtypeVar byte) {
 
 	xAssertionMessageCmpint(DomainVar, FileVar, LineVar, FuncVar, ExprVar, Arg1Var, CmpVar, Arg2Var, NumtypeVar)
 
 }
 
-var xAssertionMessageCmpnum func(string, string, int, string, string, float64, string, float64, byte)
+var xAssertionMessageCmpnum func(string, string, int32, string, string, float64, string, float64, byte)
 
-func AssertionMessageCmpnum(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, Arg1Var float64, CmpVar string, Arg2Var float64, NumtypeVar byte) {
+func AssertionMessageCmpnum(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, Arg1Var float64, CmpVar string, Arg2Var float64, NumtypeVar byte) {
 
 	xAssertionMessageCmpnum(DomainVar, FileVar, LineVar, FuncVar, ExprVar, Arg1Var, CmpVar, Arg2Var, NumtypeVar)
 
 }
 
-var xAssertionMessageCmpstr func(string, string, int, string, string, string, string, string)
+var xAssertionMessageCmpstr func(string, string, int32, string, string, string, string, string)
 
-func AssertionMessageCmpstr(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, Arg1Var string, CmpVar string, Arg2Var string) {
+func AssertionMessageCmpstr(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, Arg1Var string, CmpVar string, Arg2Var string) {
 
 	xAssertionMessageCmpstr(DomainVar, FileVar, LineVar, FuncVar, ExprVar, Arg1Var, CmpVar, Arg2Var)
 
 }
 
-var xAssertionMessageCmpstrv func(string, string, int, string, string, string, string, uint)
+var xAssertionMessageCmpstrv func(string, string, int32, string, string, string, string, uint)
 
-func AssertionMessageCmpstrv(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, Arg1Var string, Arg2Var string, FirstWrongIdxVar uint) {
+func AssertionMessageCmpstrv(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, Arg1Var string, Arg2Var string, FirstWrongIdxVar uint) {
 
 	xAssertionMessageCmpstrv(DomainVar, FileVar, LineVar, FuncVar, ExprVar, Arg1Var, Arg2Var, FirstWrongIdxVar)
 
 }
 
-var xAssertionMessageError func(string, string, int, string, string, *Error, Quark, int)
+var xAssertionMessageError func(string, string, int32, string, string, *Error, Quark, int32)
 
-func AssertionMessageError(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string, ErrorVar *Error, ErrorDomainVar Quark, ErrorCodeVar int) {
+func AssertionMessageError(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string, ErrorVar *Error, ErrorDomainVar Quark, ErrorCodeVar int32) {
 
 	xAssertionMessageError(DomainVar, FileVar, LineVar, FuncVar, ExprVar, ErrorVar, ErrorDomainVar, ErrorCodeVar)
 
 }
 
-var xAssertionMessageExpr func(string, string, int, string, string)
+var xAssertionMessageExpr func(string, string, int32, string, string)
 
 // Internal function used to print messages from the public
 // g_assert() and g_assert_not_reached() macros.
-func AssertionMessageExpr(DomainVar string, FileVar string, LineVar int, FuncVar string, ExprVar string) {
+func AssertionMessageExpr(DomainVar string, FileVar string, LineVar int32, FuncVar string, ExprVar string) {
 
 	xAssertionMessageExpr(DomainVar, FileVar, LineVar, FuncVar, ExprVar)
 
 }
 
-var xStrcmp0 func(string, string) int
+var xStrcmp0 func(string, string) int32
 
 // Compares @str1 and @str2 like `strcmp()`.
 //
 // Handles `NULL` gracefully by sorting it before non-`NULL` strings.
 // Comparing two `NULL` pointers returns 0.
-func Strcmp0(Str1Var string, Str2Var string) int {
+func Strcmp0(Str1Var string, Str2Var string) int32 {
 
 	cret := xStrcmp0(Str1Var, Str2Var)
 	return cret
@@ -466,9 +466,9 @@ func TestAddVtable(TestpathVar string, DataSizeVar uint, TestDataVar uintptr, Da
 
 }
 
-var xTestAssertExpectedMessagesInternal func(string, string, int, string)
+var xTestAssertExpectedMessagesInternal func(string, string, int32, string)
 
-func TestAssertExpectedMessagesInternal(DomainVar string, FileVar string, LineVar int, FuncVar string) {
+func TestAssertExpectedMessagesInternal(DomainVar string, FileVar string, LineVar int32, FuncVar string) {
 
 	xTestAssertExpectedMessagesInternal(DomainVar, FileVar, LineVar, FuncVar)
 
@@ -787,7 +787,7 @@ func TestIncompletePrintf(FormatVar string, varArgs ...interface{}) {
 
 }
 
-var xTestInit func(int, string, ...interface{})
+var xTestInit func(int32, string, ...interface{})
 
 // Initializes the GLib testing framework.
 //
@@ -848,7 +848,7 @@ var xTestInit func(int, string, ...interface{})
 // as [func@GLib.assert] is commonly (erroneously) used in unit tests, and is a no-op
 // when compiled with `G_DISABLE_ASSERT`. Ensure your tests are compiled without
 // `G_DISABLE_ASSERT` defined.
-func TestInit(ArgcVar int, ArgvVar string, varArgs ...interface{}) {
+func TestInit(ArgcVar int32, ArgvVar string, varArgs ...interface{}) {
 
 	xTestInit(ArgcVar, ArgvVar, varArgs...)
 
@@ -1006,7 +1006,7 @@ func TestRandIntRange(BeginVar int32, EndVar int32) int32 {
 	return cret
 }
 
-var xTestRun func() int
+var xTestRun func() int32
 
 // Runs all tests under the toplevel suite.
 //
@@ -1042,13 +1042,13 @@ var xTestRun func() int
 // If all tests are skipped or marked as incomplete (expected failures),
 // this function will return 0 if producing TAP output, or 77 (treated
 // as "skip test" by Automake) otherwise.
-func TestRun() int {
+func TestRun() int32 {
 
 	cret := xTestRun()
 	return cret
 }
 
-var xTestRunSuite func(*TestSuite) int
+var xTestRunSuite func(*TestSuite) int32
 
 // Executes the tests within @suite and all nested test suites.
 //
@@ -1059,7 +1059,7 @@ var xTestRunSuite func(*TestSuite) int
 //
 // [func@GLib.test_run_suite] or [func@GLib.test_run] may only be
 // called once in a program.
-func TestRunSuite(SuiteVar *TestSuite) int {
+func TestRunSuite(SuiteVar *TestSuite) int32 {
 
 	cret := xTestRunSuite(SuiteVar)
 	return cret
@@ -1188,9 +1188,9 @@ func TestTimerStart() {
 
 }
 
-var xTestTrapAssertions func(string, string, int, string, uint64, string)
+var xTestTrapAssertions func(string, string, int32, string, uint64, string)
 
-func TestTrapAssertions(DomainVar string, FileVar string, LineVar int, FuncVar string, AssertionFlagsVar uint64, PatternVar string) {
+func TestTrapAssertions(DomainVar string, FileVar string, LineVar int32, FuncVar string, AssertionFlagsVar uint64, PatternVar string) {
 
 	xTestTrapAssertions(DomainVar, FileVar, LineVar, FuncVar, AssertionFlagsVar, PatternVar)
 

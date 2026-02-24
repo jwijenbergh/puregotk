@@ -166,19 +166,19 @@ func (x *ProxyAddress) GetPropertyDestinationHostname() string {
 
 // SetPropertyDestinationPort sets the "destination-port" property.
 // The proxy destination port.
-func (x *ProxyAddress) SetPropertyDestinationPort(value uint) {
+func (x *ProxyAddress) SetPropertyDestinationPort(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("destination-port", &v)
 }
 
 // GetPropertyDestinationPort gets the "destination-port" property.
 // The proxy destination port.
-func (x *ProxyAddress) GetPropertyDestinationPort() uint {
+func (x *ProxyAddress) GetPropertyDestinationPort() uint32 {
 	var v gobject.Value
 	x.GetProperty("destination-port", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyDestinationProtocol sets the "destination-protocol" property.

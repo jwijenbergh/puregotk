@@ -36,9 +36,9 @@ type WidgetActionActivateFunc func(uintptr, string, *glib.Variant)
 type Requisition struct {
 	_ structs.HostLayout
 
-	Width int
+	Width int32
 
-	Height int
+	Height int32
 }
 
 var xRequisitionGLibType func() types.GType
@@ -144,7 +144,7 @@ func (x *WidgetClass) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xWidgetClassAddBinding func(uintptr, uint, gdk.ModifierType, uintptr, string, ...interface{})
+var xWidgetClassAddBinding func(uintptr, uint32, gdk.ModifierType, uintptr, string, ...interface{})
 
 // Creates a new shortcut for @widget_class that calls the given @callback
 // with arguments according to @format_string.
@@ -157,13 +157,13 @@ var xWidgetClassAddBinding func(uintptr, uint, gdk.ModifierType, uintptr, string
 // initialization. It does not provide for user data, if you need that,
 // you will have to use [method@Gtk.WidgetClass.add_shortcut] with a custom
 // shortcut.
-func (x *WidgetClass) AddBinding(KeyvalVar uint, ModsVar gdk.ModifierType, CallbackVar *ShortcutFunc, FormatStringVar string, varArgs ...interface{}) {
+func (x *WidgetClass) AddBinding(KeyvalVar uint32, ModsVar gdk.ModifierType, CallbackVar *ShortcutFunc, FormatStringVar string, varArgs ...interface{}) {
 
 	xWidgetClassAddBinding(x.GoPointer(), KeyvalVar, ModsVar, glib.NewCallback(CallbackVar), FormatStringVar, varArgs...)
 
 }
 
-var xWidgetClassAddBindingAction func(uintptr, uint, gdk.ModifierType, string, string, ...interface{})
+var xWidgetClassAddBindingAction func(uintptr, uint32, gdk.ModifierType, string, string, ...interface{})
 
 // Creates a new shortcut for @widget_class that activates the given
 // @action_name with arguments read according to @format_string.
@@ -174,13 +174,13 @@ var xWidgetClassAddBindingAction func(uintptr, uint, gdk.ModifierType, string, s
 // This function is a convenience wrapper around
 // [method@Gtk.WidgetClass.add_shortcut] and must be called during class
 // initialization.
-func (x *WidgetClass) AddBindingAction(KeyvalVar uint, ModsVar gdk.ModifierType, ActionNameVar string, FormatStringVar string, varArgs ...interface{}) {
+func (x *WidgetClass) AddBindingAction(KeyvalVar uint32, ModsVar gdk.ModifierType, ActionNameVar string, FormatStringVar string, varArgs ...interface{}) {
 
 	xWidgetClassAddBindingAction(x.GoPointer(), KeyvalVar, ModsVar, ActionNameVar, FormatStringVar, varArgs...)
 
 }
 
-var xWidgetClassAddBindingSignal func(uintptr, uint, gdk.ModifierType, string, string, ...interface{})
+var xWidgetClassAddBindingSignal func(uintptr, uint32, gdk.ModifierType, string, string, ...interface{})
 
 // Creates a new shortcut for @widget_class that emits the given action
 // @signal with arguments read according to @format_string.
@@ -191,7 +191,7 @@ var xWidgetClassAddBindingSignal func(uintptr, uint, gdk.ModifierType, string, s
 // This function is a convenience wrapper around
 // [method@Gtk.WidgetClass.add_shortcut] and must be called during class
 // initialization.
-func (x *WidgetClass) AddBindingSignal(KeyvalVar uint, ModsVar gdk.ModifierType, SignalVar string, FormatStringVar string, varArgs ...interface{}) {
+func (x *WidgetClass) AddBindingSignal(KeyvalVar uint32, ModsVar gdk.ModifierType, SignalVar string, FormatStringVar string, varArgs ...interface{}) {
 
 	xWidgetClassAddBindingSignal(x.GoPointer(), KeyvalVar, ModsVar, SignalVar, FormatStringVar, varArgs...)
 
@@ -282,13 +282,13 @@ func (x *WidgetClass) GetAccessibleRole() AccessibleRole {
 	return cret
 }
 
-var xWidgetClassGetActivateSignal func(uintptr) uint
+var xWidgetClassGetActivateSignal func(uintptr) uint32
 
 // Retrieves the signal id for the activation signal.
 //
 // The activation signal is set using
 // [method@Gtk.WidgetClass.set_activate_signal].
-func (x *WidgetClass) GetActivateSignal() uint {
+func (x *WidgetClass) GetActivateSignal() uint32 {
 
 	cret := xWidgetClassGetActivateSignal(x.GoPointer())
 	return cret
@@ -355,7 +355,7 @@ func (x *WidgetClass) InstallPropertyAction(ActionNameVar string, PropertyNameVa
 
 }
 
-var xWidgetClassQueryAction func(uintptr, uint, *types.GType, *string, **glib.VariantType, *string) bool
+var xWidgetClassQueryAction func(uintptr, uint32, *types.GType, *string, **glib.VariantType, *string) bool
 
 // Returns details about an action that has been
 // installed for @widget_class.
@@ -366,7 +366,7 @@ var xWidgetClassQueryAction func(uintptr, uint, *types.GType, *string, **glib.Va
 // Note that this function will also return actions defined
 // by parent classes. You can identify those by looking
 // at @owner.
-func (x *WidgetClass) QueryAction(IndexVar uint, OwnerVar *types.GType, ActionNameVar *string, ParameterTypeVar **glib.VariantType, PropertyNameVar *string) bool {
+func (x *WidgetClass) QueryAction(IndexVar uint32, OwnerVar *types.GType, ActionNameVar *string, ParameterTypeVar **glib.VariantType, PropertyNameVar *string) bool {
 
 	cret := xWidgetClassQueryAction(x.GoPointer(), IndexVar, OwnerVar, ActionNameVar, ParameterTypeVar, PropertyNameVar)
 	return cret
@@ -384,7 +384,7 @@ func (x *WidgetClass) SetAccessibleRole(AccessibleRoleVar AccessibleRole) {
 
 }
 
-var xWidgetClassSetActivateSignal func(uintptr, uint)
+var xWidgetClassSetActivateSignal func(uintptr, uint32)
 
 // Sets the activation signal for a widget class.
 //
@@ -392,7 +392,7 @@ var xWidgetClassSetActivateSignal func(uintptr, uint)
 //
 // The @signal_id must have been registered with [function.GObject.signal_new]
 // or [func@GObject.signal_newv] before calling this function.
-func (x *WidgetClass) SetActivateSignal(SignalIdVar uint) {
+func (x *WidgetClass) SetActivateSignal(SignalIdVar uint32) {
 
 	xWidgetClassSetActivateSignal(x.GoPointer(), SignalIdVar)
 
@@ -726,11 +726,11 @@ func (x *WidgetClass) GetUnroot() func(*Widget) {
 // Called to set the allocation, if the widget does
 //
 //	not have a layout manager.
-func (x *WidgetClass) OverrideSizeAllocate(cb func(*Widget, int, int, int)) {
+func (x *WidgetClass) OverrideSizeAllocate(cb func(*Widget, int32, int32, int32)) {
 	if cb == nil {
 		x.xSizeAllocate = 0
 	} else {
-		x.xSizeAllocate = purego.NewCallback(func(WidgetVarp uintptr, WidthVarp int, HeightVarp int, BaselineVarp int) {
+		x.xSizeAllocate = purego.NewCallback(func(WidgetVarp uintptr, WidthVarp int32, HeightVarp int32, BaselineVarp int32) {
 			cb(WidgetNewFromInternalPtr(WidgetVarp), WidthVarp, HeightVarp, BaselineVarp)
 		})
 	}
@@ -740,13 +740,13 @@ func (x *WidgetClass) OverrideSizeAllocate(cb func(*Widget, int, int, int)) {
 // Called to set the allocation, if the widget does
 //
 //	not have a layout manager.
-func (x *WidgetClass) GetSizeAllocate() func(*Widget, int, int, int) {
+func (x *WidgetClass) GetSizeAllocate() func(*Widget, int32, int32, int32) {
 	if x.xSizeAllocate == 0 {
 		return nil
 	}
-	var rawCallback func(WidgetVarp uintptr, WidthVarp int, HeightVarp int, BaselineVarp int)
+	var rawCallback func(WidgetVarp uintptr, WidthVarp int32, HeightVarp int32, BaselineVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xSizeAllocate)
-	return func(WidgetVar *Widget, WidthVar int, HeightVar int, BaselineVar int) {
+	return func(WidgetVar *Widget, WidthVar int32, HeightVar int32, BaselineVar int32) {
 		rawCallback(WidgetVar.GoPointer(), WidthVar, HeightVar, BaselineVar)
 	}
 }
@@ -871,11 +871,11 @@ func (x *WidgetClass) GetGetRequestMode() func(*Widget) SizeRequestMode {
 //	Depending on the orientation parameter, the passed for_size can be
 //	interpreted as width or height. A widget will never be allocated less
 //	than its minimum size.
-func (x *WidgetClass) OverrideMeasure(cb func(*Widget, Orientation, int, *int, *int, *int, *int)) {
+func (x *WidgetClass) OverrideMeasure(cb func(*Widget, Orientation, int32, *int32, *int32, *int32, *int32)) {
 	if cb == nil {
 		x.xMeasure = 0
 	} else {
-		x.xMeasure = purego.NewCallback(func(WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int, MinimumVarp *int, NaturalVarp *int, MinimumBaselineVarp *int, NaturalBaselineVarp *int) {
+		x.xMeasure = purego.NewCallback(func(WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int32, MinimumVarp *int32, NaturalVarp *int32, MinimumBaselineVarp *int32, NaturalBaselineVarp *int32) {
 			cb(WidgetNewFromInternalPtr(WidgetVarp), OrientationVarp, ForSizeVarp, MinimumVarp, NaturalVarp, MinimumBaselineVarp, NaturalBaselineVarp)
 		})
 	}
@@ -888,13 +888,13 @@ func (x *WidgetClass) OverrideMeasure(cb func(*Widget, Orientation, int, *int, *
 //	Depending on the orientation parameter, the passed for_size can be
 //	interpreted as width or height. A widget will never be allocated less
 //	than its minimum size.
-func (x *WidgetClass) GetMeasure() func(*Widget, Orientation, int, *int, *int, *int, *int) {
+func (x *WidgetClass) GetMeasure() func(*Widget, Orientation, int32, *int32, *int32, *int32, *int32) {
 	if x.xMeasure == 0 {
 		return nil
 	}
-	var rawCallback func(WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int, MinimumVarp *int, NaturalVarp *int, MinimumBaselineVarp *int, NaturalBaselineVarp *int)
+	var rawCallback func(WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int32, MinimumVarp *int32, NaturalVarp *int32, MinimumBaselineVarp *int32, NaturalBaselineVarp *int32)
 	purego.RegisterFunc(&rawCallback, x.xMeasure)
-	return func(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int, MinimumVar *int, NaturalVar *int, MinimumBaselineVar *int, NaturalBaselineVar *int) {
+	return func(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int32, MinimumVar *int32, NaturalVar *int32, MinimumBaselineVar *int32, NaturalBaselineVar *int32) {
 		rawCallback(WidgetVar.GoPointer(), OrientationVar, ForSizeVar, MinimumVar, NaturalVar, MinimumBaselineVar, NaturalBaselineVar)
 	}
 }
@@ -1062,11 +1062,11 @@ func (x *WidgetClass) GetKeynavFailed() func(*Widget, DirectionType) bool {
 //
 //	hover timeout has expired with the cursor hovering “above”
 //	widget; or emitted when widget got focus in keyboard mode.
-func (x *WidgetClass) OverrideQueryTooltip(cb func(*Widget, int, int, bool, *Tooltip) bool) {
+func (x *WidgetClass) OverrideQueryTooltip(cb func(*Widget, int32, int32, bool, *Tooltip) bool) {
 	if cb == nil {
 		x.xQueryTooltip = 0
 	} else {
-		x.xQueryTooltip = purego.NewCallback(func(WidgetVarp uintptr, XVarp int, YVarp int, KeyboardTooltipVarp bool, TooltipVarp uintptr) bool {
+		x.xQueryTooltip = purego.NewCallback(func(WidgetVarp uintptr, XVarp int32, YVarp int32, KeyboardTooltipVarp bool, TooltipVarp uintptr) bool {
 			return cb(WidgetNewFromInternalPtr(WidgetVarp), XVarp, YVarp, KeyboardTooltipVarp, TooltipNewFromInternalPtr(TooltipVarp))
 		})
 	}
@@ -1077,13 +1077,13 @@ func (x *WidgetClass) OverrideQueryTooltip(cb func(*Widget, int, int, bool, *Too
 //
 //	hover timeout has expired with the cursor hovering “above”
 //	widget; or emitted when widget got focus in keyboard mode.
-func (x *WidgetClass) GetQueryTooltip() func(*Widget, int, int, bool, *Tooltip) bool {
+func (x *WidgetClass) GetQueryTooltip() func(*Widget, int32, int32, bool, *Tooltip) bool {
 	if x.xQueryTooltip == 0 {
 		return nil
 	}
-	var rawCallback func(WidgetVarp uintptr, XVarp int, YVarp int, KeyboardTooltipVarp bool, TooltipVarp uintptr) bool
+	var rawCallback func(WidgetVarp uintptr, XVarp int32, YVarp int32, KeyboardTooltipVarp bool, TooltipVarp uintptr) bool
 	purego.RegisterFunc(&rawCallback, x.xQueryTooltip)
-	return func(WidgetVar *Widget, XVar int, YVar int, KeyboardTooltipVar bool, TooltipVar *Tooltip) bool {
+	return func(WidgetVar *Widget, XVar int32, YVar int32, KeyboardTooltipVar bool, TooltipVar *Tooltip) bool {
 		return rawCallback(WidgetVar.GoPointer(), XVar, YVar, KeyboardTooltipVar, TooltipVar.GoPointer())
 	}
 }
@@ -1802,7 +1802,7 @@ func (x *Widget) AddMnemonicLabel(LabelVar *Widget) {
 
 }
 
-var xWidgetAddTickCallback func(uintptr, uintptr, uintptr, uintptr) uint
+var xWidgetAddTickCallback func(uintptr, uintptr, uintptr, uintptr) uint32
 
 // Queues an animation frame update and adds a callback to be called
 // before each frame.
@@ -1830,13 +1830,13 @@ var xWidgetAddTickCallback func(uintptr, uintptr, uintptr, uintptr) uint
 //
 // To remove a tick callback, pass the ID that is returned by this function
 // to [method@Gtk.Widget.remove_tick_callback].
-func (x *Widget) AddTickCallback(CallbackVar *TickCallback, UserDataVar uintptr, NotifyVar *glib.DestroyNotify) uint {
+func (x *Widget) AddTickCallback(CallbackVar *TickCallback, UserDataVar uintptr, NotifyVar *glib.DestroyNotify) uint32 {
 
 	cret := xWidgetAddTickCallback(x.GoPointer(), glib.NewCallback(CallbackVar), UserDataVar, glib.NewCallback(NotifyVar))
 	return cret
 }
 
-var xWidgetAllocate func(uintptr, int, int, int, *gsk.Transform)
+var xWidgetAllocate func(uintptr, int32, int32, int32, *gsk.Transform)
 
 // Assigns size, position, (optionally) a baseline and transform
 // to a child widget.
@@ -1849,7 +1849,7 @@ var xWidgetAllocate func(uintptr, int, int, int, *gsk.Transform)
 //
 // For a version that does not take a transform, see
 // [method@Gtk.Widget.size_allocate].
-func (x *Widget) Allocate(WidthVar int, HeightVar int, BaselineVar int, TransformVar *gsk.Transform) {
+func (x *Widget) Allocate(WidthVar int32, HeightVar int32, BaselineVar int32, TransformVar *gsk.Transform) {
 
 	xWidgetAllocate(x.GoPointer(), WidthVar, HeightVar, BaselineVar, TransformVar)
 
@@ -2047,10 +2047,10 @@ func (x *Widget) DisposeTemplate(WidgetTypeVar types.GType) {
 
 }
 
-var xWidgetDragCheckThreshold func(uintptr, int, int, int, int) bool
+var xWidgetDragCheckThreshold func(uintptr, int32, int32, int32, int32) bool
 
 // Checks to see if a drag movement has passed the GTK drag threshold.
-func (x *Widget) DragCheckThreshold(StartXVar int, StartYVar int, CurrentXVar int, CurrentYVar int) bool {
+func (x *Widget) DragCheckThreshold(StartXVar int32, StartYVar int32, CurrentXVar int32, CurrentYVar int32) bool {
 
 	cret := xWidgetDragCheckThreshold(x.GoPointer(), StartXVar, StartYVar, CurrentXVar, CurrentYVar)
 	return cret
@@ -2072,38 +2072,38 @@ func (x *Widget) ErrorBell() {
 
 }
 
-var xWidgetGetAllocatedBaseline func(uintptr) int
+var xWidgetGetAllocatedBaseline func(uintptr) int32
 
 // Returns the baseline that has currently been allocated to the widget.
 //
 // This function is intended to be used when implementing handlers
 // for the `GtkWidget`Class.snapshot() function, and when allocating
 // child widgets in `GtkWidget`Class.size_allocate().
-func (x *Widget) GetAllocatedBaseline() int {
+func (x *Widget) GetAllocatedBaseline() int32 {
 
 	cret := xWidgetGetAllocatedBaseline(x.GoPointer())
 	return cret
 }
 
-var xWidgetGetAllocatedHeight func(uintptr) int
+var xWidgetGetAllocatedHeight func(uintptr) int32
 
 // Returns the height that has currently been allocated to the widget.
 //
 // To learn more about widget sizes, see the coordinate
 // system [overview](coordinates.html).
-func (x *Widget) GetAllocatedHeight() int {
+func (x *Widget) GetAllocatedHeight() int32 {
 
 	cret := xWidgetGetAllocatedHeight(x.GoPointer())
 	return cret
 }
 
-var xWidgetGetAllocatedWidth func(uintptr) int
+var xWidgetGetAllocatedWidth func(uintptr) int32
 
 // Returns the width that has currently been allocated to the widget.
 //
 // To learn more about widget sizes, see the coordinate
 // system [overview](coordinates.html).
-func (x *Widget) GetAllocatedWidth() int {
+func (x *Widget) GetAllocatedWidth() int32 {
 
 	cret := xWidgetGetAllocatedWidth(x.GoPointer())
 	return cret
@@ -2157,14 +2157,14 @@ func (x *Widget) GetAncestor(WidgetTypeVar types.GType) *Widget {
 	return cls
 }
 
-var xWidgetGetBaseline func(uintptr) int
+var xWidgetGetBaseline func(uintptr) int32
 
 // Returns the baseline that has currently been allocated to the widget.
 //
 // This function is intended to be used when implementing handlers
 // for the `GtkWidgetClass.snapshot()` function, and when allocating
 // child widgets in `GtkWidgetClass.size_allocate()`.
-func (x *Widget) GetBaseline() int {
+func (x *Widget) GetBaseline() int32 {
 
 	cret := xWidgetGetBaseline(x.GoPointer())
 	return cret
@@ -2465,7 +2465,7 @@ func (x *Widget) GetHasTooltip() bool {
 	return cret
 }
 
-var xWidgetGetHeight func(uintptr) int
+var xWidgetGetHeight func(uintptr) int32
 
 // Returns the content height of the widget.
 //
@@ -2477,7 +2477,7 @@ var xWidgetGetHeight func(uintptr) int
 //
 // To learn more about widget sizes, see the coordinate
 // system [overview](coordinates.html).
-func (x *Widget) GetHeight() int {
+func (x *Widget) GetHeight() int32 {
 
 	cret := xWidgetGetHeight(x.GoPointer())
 	return cret
@@ -2579,37 +2579,37 @@ func (x *Widget) GetMapped() bool {
 	return cret
 }
 
-var xWidgetGetMarginBottom func(uintptr) int
+var xWidgetGetMarginBottom func(uintptr) int32
 
 // Gets the bottom margin of the widget.
-func (x *Widget) GetMarginBottom() int {
+func (x *Widget) GetMarginBottom() int32 {
 
 	cret := xWidgetGetMarginBottom(x.GoPointer())
 	return cret
 }
 
-var xWidgetGetMarginEnd func(uintptr) int
+var xWidgetGetMarginEnd func(uintptr) int32
 
 // Gets the end margin of the widget.
-func (x *Widget) GetMarginEnd() int {
+func (x *Widget) GetMarginEnd() int32 {
 
 	cret := xWidgetGetMarginEnd(x.GoPointer())
 	return cret
 }
 
-var xWidgetGetMarginStart func(uintptr) int
+var xWidgetGetMarginStart func(uintptr) int32
 
 // Gets the start margin of the widget.
-func (x *Widget) GetMarginStart() int {
+func (x *Widget) GetMarginStart() int32 {
 
 	cret := xWidgetGetMarginStart(x.GoPointer())
 	return cret
 }
 
-var xWidgetGetMarginTop func(uintptr) int
+var xWidgetGetMarginTop func(uintptr) int32
 
 // Gets the top margin of the widget.
-func (x *Widget) GetMarginTop() int {
+func (x *Widget) GetMarginTop() int32 {
 
 	cret := xWidgetGetMarginTop(x.GoPointer())
 	return cret
@@ -2854,7 +2854,7 @@ func (x *Widget) GetRoot() *RootBase {
 	return cls
 }
 
-var xWidgetGetScaleFactor func(uintptr) int
+var xWidgetGetScaleFactor func(uintptr) int32
 
 // Retrieves the internal scale factor that maps from window
 // coordinates to the actual device pixels.
@@ -2869,7 +2869,7 @@ var xWidgetGetScaleFactor func(uintptr) int
 // this function will return the next higher integer value,
 // but you probably want to use [method@Gdk.Surface.get_scale]
 // to get the fractional scale value.
-func (x *Widget) GetScaleFactor() int {
+func (x *Widget) GetScaleFactor() int32 {
 
 	cret := xWidgetGetScaleFactor(x.GoPointer())
 	return cret
@@ -2913,7 +2913,7 @@ func (x *Widget) GetSettings() *Settings {
 	return cls
 }
 
-var xWidgetGetSize func(uintptr, Orientation) int
+var xWidgetGetSize func(uintptr, Orientation) int32
 
 // Returns the content width or height of the widget.
 //
@@ -2927,13 +2927,13 @@ var xWidgetGetSize func(uintptr, Orientation) int
 //
 // To learn more about widget sizes, see the coordinate
 // system [overview](coordinates.html).
-func (x *Widget) GetSize(OrientationVar Orientation) int {
+func (x *Widget) GetSize(OrientationVar Orientation) int32 {
 
 	cret := xWidgetGetSize(x.GoPointer(), OrientationVar)
 	return cret
 }
 
-var xWidgetGetSizeRequest func(uintptr, *int, *int)
+var xWidgetGetSizeRequest func(uintptr, *int32, *int32)
 
 // Gets the size request that was explicitly set for the widget.
 //
@@ -2945,7 +2945,7 @@ var xWidgetGetSizeRequest func(uintptr, *int, *int)
 //
 // To get the size a widget will actually request, call
 // [method@Gtk.Widget.measure] instead of this function.
-func (x *Widget) GetSizeRequest(WidthVar *int, HeightVar *int) {
+func (x *Widget) GetSizeRequest(WidthVar *int32, HeightVar *int32) {
 
 	xWidgetGetSizeRequest(x.GoPointer(), WidthVar, HeightVar)
 
@@ -3090,7 +3090,7 @@ func (x *Widget) GetVisible() bool {
 	return cret
 }
 
-var xWidgetGetWidth func(uintptr) int
+var xWidgetGetWidth func(uintptr) int32
 
 // Returns the content width of the widget.
 //
@@ -3102,7 +3102,7 @@ var xWidgetGetWidth func(uintptr) int
 //
 // To learn more about widget sizes, see the coordinate
 // system [overview](coordinates.html).
-func (x *Widget) GetWidth() int {
+func (x *Widget) GetWidth() int32 {
 
 	cret := xWidgetGetWidth(x.GoPointer())
 	return cret
@@ -3426,7 +3426,7 @@ func (x *Widget) Map() {
 
 }
 
-var xWidgetMeasure func(uintptr, Orientation, int, *int, *int, *int, *int)
+var xWidgetMeasure func(uintptr, Orientation, int32, *int32, *int32, *int32, *int32)
 
 // Measures @widget in the orientation @orientation and for the given @for_size.
 //
@@ -3436,7 +3436,7 @@ var xWidgetMeasure func(uintptr, Orientation, int, *int, *int, *int, *int)
 //
 // See [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
 // a more details on implementing `GtkWidgetClass.measure()`.
-func (x *Widget) Measure(OrientationVar Orientation, ForSizeVar int, MinimumVar *int, NaturalVar *int, MinimumBaselineVar *int, NaturalBaselineVar *int) {
+func (x *Widget) Measure(OrientationVar Orientation, ForSizeVar int32, MinimumVar *int32, NaturalVar *int32, MinimumBaselineVar *int32, NaturalBaselineVar *int32) {
 
 	xWidgetMeasure(x.GoPointer(), OrientationVar, ForSizeVar, MinimumVar, NaturalVar, MinimumBaselineVar, NaturalBaselineVar)
 
@@ -3645,11 +3645,11 @@ func (x *Widget) RemoveMnemonicLabel(LabelVar *Widget) {
 
 }
 
-var xWidgetRemoveTickCallback func(uintptr, uint)
+var xWidgetRemoveTickCallback func(uintptr, uint32)
 
 // Removes a tick callback previously registered with
 // [method@Gtk.Widget.add_tick_callback].
-func (x *Widget) RemoveTickCallback(IdVar uint) {
+func (x *Widget) RemoveTickCallback(IdVar uint32) {
 
 	xWidgetRemoveTickCallback(x.GoPointer(), IdVar)
 
@@ -3945,37 +3945,37 @@ func (x *Widget) SetLimitEvents(LimitEventsVar bool) {
 
 }
 
-var xWidgetSetMarginBottom func(uintptr, int)
+var xWidgetSetMarginBottom func(uintptr, int32)
 
 // Sets the bottom margin of the widget.
-func (x *Widget) SetMarginBottom(MarginVar int) {
+func (x *Widget) SetMarginBottom(MarginVar int32) {
 
 	xWidgetSetMarginBottom(x.GoPointer(), MarginVar)
 
 }
 
-var xWidgetSetMarginEnd func(uintptr, int)
+var xWidgetSetMarginEnd func(uintptr, int32)
 
 // Sets the end margin of the widget.
-func (x *Widget) SetMarginEnd(MarginVar int) {
+func (x *Widget) SetMarginEnd(MarginVar int32) {
 
 	xWidgetSetMarginEnd(x.GoPointer(), MarginVar)
 
 }
 
-var xWidgetSetMarginStart func(uintptr, int)
+var xWidgetSetMarginStart func(uintptr, int32)
 
 // Sets the start margin of the widget.
-func (x *Widget) SetMarginStart(MarginVar int) {
+func (x *Widget) SetMarginStart(MarginVar int32) {
 
 	xWidgetSetMarginStart(x.GoPointer(), MarginVar)
 
 }
 
-var xWidgetSetMarginTop func(uintptr, int)
+var xWidgetSetMarginTop func(uintptr, int32)
 
 // Sets the top margin of the widget.
-func (x *Widget) SetMarginTop(MarginVar int) {
+func (x *Widget) SetMarginTop(MarginVar int32) {
 
 	xWidgetSetMarginTop(x.GoPointer(), MarginVar)
 
@@ -4089,7 +4089,7 @@ func (x *Widget) SetSensitive(SensitiveVar bool) {
 
 }
 
-var xWidgetSetSizeRequest func(uintptr, int, int)
+var xWidgetSetSizeRequest func(uintptr, int32, int32)
 
 // Sets the minimum size of the widget.
 //
@@ -4125,7 +4125,7 @@ var xWidgetSetSizeRequest func(uintptr, int, int)
 // [property@Gtk.Widget:margin-bottom], but it does include pretty
 // much all other padding or border properties set by any subclass
 // of `GtkWidget`.
-func (x *Widget) SetSizeRequest(WidthVar int, HeightVar int) {
+func (x *Widget) SetSizeRequest(WidthVar int32, HeightVar int32) {
 
 	xWidgetSetSizeRequest(x.GoPointer(), WidthVar, HeightVar)
 
@@ -4259,13 +4259,13 @@ func (x *Widget) Show() {
 
 }
 
-var xWidgetSizeAllocate func(uintptr, *Allocation, int)
+var xWidgetSizeAllocate func(uintptr, *Allocation, int32)
 
 // Allocates widget with a transformation that translates
 // the origin to the position in @allocation.
 //
 // This is a simple form of [method@Gtk.Widget.allocate].
-func (x *Widget) SizeAllocate(AllocationVar *Allocation, BaselineVar int) {
+func (x *Widget) SizeAllocate(AllocationVar *Allocation, BaselineVar int32) {
 
 	xWidgetSizeAllocate(x.GoPointer(), AllocationVar, BaselineVar)
 
@@ -4543,10 +4543,10 @@ func (x *Widget) GetPropertyHasTooltip() bool {
 // Overrides for height request of the widget.
 //
 // If this is -1, the natural request will be used.
-func (x *Widget) SetPropertyHeightRequest(value int) {
+func (x *Widget) SetPropertyHeightRequest(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("height-request", &v)
 }
 
@@ -4554,10 +4554,10 @@ func (x *Widget) SetPropertyHeightRequest(value int) {
 // Overrides for height request of the widget.
 //
 // If this is -1, the natural request will be used.
-func (x *Widget) GetPropertyHeightRequest() int {
+func (x *Widget) GetPropertyHeightRequest() int32 {
 	var v gobject.Value
 	x.GetProperty("height-request", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyHexpand sets the "hexpand" property.
@@ -4627,10 +4627,10 @@ func (x *Widget) GetPropertyLimitEvents() bool {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) SetPropertyMarginBottom(value int) {
+func (x *Widget) SetPropertyMarginBottom(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("margin-bottom", &v)
 }
 
@@ -4640,10 +4640,10 @@ func (x *Widget) SetPropertyMarginBottom(value int) {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) GetPropertyMarginBottom() int {
+func (x *Widget) GetPropertyMarginBottom() int32 {
 	var v gobject.Value
 	x.GetProperty("margin-bottom", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMarginEnd sets the "margin-end" property.
@@ -4655,10 +4655,10 @@ func (x *Widget) GetPropertyMarginBottom() int {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) SetPropertyMarginEnd(value int) {
+func (x *Widget) SetPropertyMarginEnd(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("margin-end", &v)
 }
 
@@ -4671,10 +4671,10 @@ func (x *Widget) SetPropertyMarginEnd(value int) {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) GetPropertyMarginEnd() int {
+func (x *Widget) GetPropertyMarginEnd() int32 {
 	var v gobject.Value
 	x.GetProperty("margin-end", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMarginStart sets the "margin-start" property.
@@ -4686,10 +4686,10 @@ func (x *Widget) GetPropertyMarginEnd() int {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) SetPropertyMarginStart(value int) {
+func (x *Widget) SetPropertyMarginStart(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("margin-start", &v)
 }
 
@@ -4702,10 +4702,10 @@ func (x *Widget) SetPropertyMarginStart(value int) {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) GetPropertyMarginStart() int {
+func (x *Widget) GetPropertyMarginStart() int32 {
 	var v gobject.Value
 	x.GetProperty("margin-start", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMarginTop sets the "margin-top" property.
@@ -4714,10 +4714,10 @@ func (x *Widget) GetPropertyMarginStart() int {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) SetPropertyMarginTop(value int) {
+func (x *Widget) SetPropertyMarginTop(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("margin-top", &v)
 }
 
@@ -4727,10 +4727,10 @@ func (x *Widget) SetPropertyMarginTop(value int) {
 // This property adds margin outside of the widget's normal size
 // request, the margin will be added in addition to the size from
 // [method@Gtk.Widget.set_size_request] for example.
-func (x *Widget) GetPropertyMarginTop() int {
+func (x *Widget) GetPropertyMarginTop() int32 {
 	var v gobject.Value
 	x.GetProperty("margin-top", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyName sets the "name" property.
@@ -4786,10 +4786,10 @@ func (x *Widget) GetPropertyReceivesDefault() bool {
 
 // GetPropertyScaleFactor gets the "scale-factor" property.
 // The scale factor of the widget.
-func (x *Widget) GetPropertyScaleFactor() int {
+func (x *Widget) GetPropertyScaleFactor() int32 {
 	var v gobject.Value
 	x.GetProperty("scale-factor", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertySensitive sets the "sensitive" property.
@@ -4944,10 +4944,10 @@ func (x *Widget) GetPropertyVisible() bool {
 // Overrides for width request of the widget.
 //
 // If this is -1, the natural request will be used.
-func (x *Widget) SetPropertyWidthRequest(value int) {
+func (x *Widget) SetPropertyWidthRequest(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("width-request", &v)
 }
 
@@ -4955,10 +4955,10 @@ func (x *Widget) SetPropertyWidthRequest(value int) {
 // Overrides for width request of the widget.
 //
 // If this is -1, the natural request will be used.
-func (x *Widget) GetPropertyWidthRequest() int {
+func (x *Widget) GetPropertyWidthRequest() int32 {
 	var v gobject.Value
 	x.GetProperty("width-request", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Signals that all holders of a reference to the widget should release
@@ -5137,13 +5137,13 @@ func (x *Widget) ConnectMoveFocus(cb *func(Widget, DirectionType)) uint32 {
 //
 // The signal handler is free to manipulate @tooltip with the therefore
 // destined function calls.
-func (x *Widget) ConnectQueryTooltip(cb *func(Widget, int, int, bool, uintptr) bool) uint32 {
+func (x *Widget) ConnectQueryTooltip(cb *func(Widget, int32, int32, bool, uintptr) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "query-tooltip", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, XVarp int, YVarp int, KeyboardModeVarp bool, TooltipVarp uintptr) bool {
+	fcb := func(clsPtr uintptr, XVarp int32, YVarp int32, KeyboardModeVarp bool, TooltipVarp uintptr) bool {
 		fa := Widget{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -5327,7 +5327,7 @@ func (x *Widget) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Widget) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Widget) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -5459,7 +5459,7 @@ func (x *Widget) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Widget) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -5495,7 +5495,7 @@ func (x *Widget) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Widget) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -5532,7 +5532,7 @@ func (x *Widget) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Widget) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Widget) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -6,5 +6,5 @@ const (
 	// g_dbus_connection_export_menu_model().
 	//
 	// The exact value of the limit may change in future GLib versions.
-	MENU_EXPORTER_MAX_SECTION_SIZE int = 1000
+	MENU_EXPORTER_MAX_SECTION_SIZE int32 = 1000
 )

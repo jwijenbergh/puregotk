@@ -451,7 +451,7 @@ func (x *Window) GetDecorated() bool {
 	return cret
 }
 
-var xWindowGetDefaultSize func(uintptr, *int, *int)
+var xWindowGetDefaultSize func(uintptr, *int32, *int32)
 
 // Gets the default size of the window.
 //
@@ -461,7 +461,7 @@ var xWindowGetDefaultSize func(uintptr, *int, *int)
 //
 // This function is the recommended way for [saving window state
 // across restarts of applications](https://developer.gnome.org/documentation/tutorials/save-state.html).
-func (x *Window) GetDefaultSize(WidthVar *int, HeightVar *int) {
+func (x *Window) GetDefaultSize(WidthVar *int32, HeightVar *int32) {
 
 	xWindowGetDefaultSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -866,7 +866,7 @@ func (x *Window) SetDecorated(SettingVar bool) {
 
 }
 
-var xWindowSetDefaultSize func(uintptr, int, int)
+var xWindowSetDefaultSize func(uintptr, int32, int32)
 
 // Sets the default size of a window.
 //
@@ -898,7 +898,7 @@ var xWindowSetDefaultSize func(uintptr, int, int)
 // [method@Gtk.Window.get_default_size]. Using the window allocation
 // directly will not work in all circumstances and can lead to growing
 // or shrinking windows.
-func (x *Window) SetDefaultSize(WidthVar int, HeightVar int) {
+func (x *Window) SetDefaultSize(WidthVar int32, HeightVar int32) {
 
 	xWindowSetDefaultSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -1246,36 +1246,36 @@ func (x *Window) GetPropertyDecorated() bool {
 
 // SetPropertyDefaultHeight sets the "default-height" property.
 // The default height of the window.
-func (x *Window) SetPropertyDefaultHeight(value int) {
+func (x *Window) SetPropertyDefaultHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("default-height", &v)
 }
 
 // GetPropertyDefaultHeight gets the "default-height" property.
 // The default height of the window.
-func (x *Window) GetPropertyDefaultHeight() int {
+func (x *Window) GetPropertyDefaultHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("default-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDefaultWidth sets the "default-width" property.
 // The default width of the window.
-func (x *Window) SetPropertyDefaultWidth(value int) {
+func (x *Window) SetPropertyDefaultWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("default-width", &v)
 }
 
 // GetPropertyDefaultWidth gets the "default-width" property.
 // The default width of the window.
-func (x *Window) GetPropertyDefaultWidth() int {
+func (x *Window) GetPropertyDefaultWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("default-width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyDeletable sets the "deletable" property.
@@ -1730,7 +1730,7 @@ func (x *Window) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Window) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Window) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1862,7 +1862,7 @@ func (x *Window) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Window) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1898,7 +1898,7 @@ func (x *Window) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Window) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1935,7 +1935,7 @@ func (x *Window) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Window) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Window) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

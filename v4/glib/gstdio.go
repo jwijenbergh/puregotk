@@ -21,7 +21,7 @@ func (x *StatBuf) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAccess func(string, int) int
+var xAccess func(string, int32) int32
 
 // A wrapper for the POSIX access() function. This function is used to
 // test a pathname for one or several of read, write or execute
@@ -35,25 +35,25 @@ var xAccess func(string, int) int
 // more exactly should use the Win32 API.
 //
 // See your C library manual for more details about access().
-func Access(FilenameVar string, ModeVar int) int {
+func Access(FilenameVar string, ModeVar int32) int32 {
 
 	cret := xAccess(FilenameVar, ModeVar)
 	return cret
 }
 
-var xChdir func(string) int
+var xChdir func(string) int32
 
 // A wrapper for the POSIX chdir() function. The function changes the
 // current directory of the process to @path.
 //
 // See your C library manual for more details about chdir().
-func Chdir(PathVar string) int {
+func Chdir(PathVar string) int32 {
 
 	cret := xChdir(PathVar)
 	return cret
 }
 
-var xChmod func(string, int) int
+var xChmod func(string, int32) int32
 
 // A wrapper for the POSIX chmod() function. The chmod() function is
 // used to set the permissions of a file system object.
@@ -65,13 +65,13 @@ var xChmod func(string, int) int
 // exactly should use the Win32 API.
 //
 // See your C library manual for more details about chmod().
-func Chmod(FilenameVar string, ModeVar int) int {
+func Chmod(FilenameVar string, ModeVar int32) int32 {
 
 	cret := xChmod(FilenameVar, ModeVar)
 	return cret
 }
 
-var xClose func(int, **Error) bool
+var xClose func(int32, **Error) bool
 
 // This wraps the close() call. In case of error, %errno will be
 // preserved, but the error will also be stored as a #GError in @error.
@@ -90,7 +90,7 @@ var xClose func(int, **Error) bool
 // under those conditions.
 // See [`signal(7)`](man:signal(7)) and
 // [`signal-safety(7)`](man:signal-safety(7)) for more details.
-func Close(FdVar int) (bool, error) {
+func Close(FdVar int32) (bool, error) {
 	var cerr *Error
 
 	cret := xClose(FdVar, &cerr)
@@ -101,7 +101,7 @@ func Close(FdVar int) (bool, error) {
 
 }
 
-var xCreat func(string, int) int
+var xCreat func(string, int32) int32
 
 // A wrapper for the POSIX creat() function. The creat() function is
 // used to convert a pathname into a file descriptor, creating a file
@@ -122,7 +122,7 @@ var xCreat func(string, int) int
 // or read().
 //
 // See your C library manual for more details about creat().
-func Creat(FilenameVar string, ModeVar int) int {
+func Creat(FilenameVar string, ModeVar int32) int32 {
 
 	cret := xCreat(FilenameVar, ModeVar)
 	return cret
@@ -174,7 +174,7 @@ func Freopen(FilenameVar string, ModeVar string, StreamVar uintptr) uintptr {
 	return cret
 }
 
-var xFsync func(int) int
+var xFsync func(int32) int32
 
 // A wrapper for the POSIX `fsync()` function. On Windows, `_commit()` will be
 // used. On macOS, `fcntl(F_FULLFSYNC)` will be used.
@@ -184,13 +184,13 @@ var xFsync func(int) int
 // This wrapper will handle retrying on `EINTR`.
 //
 // See the C library manual for more details about fsync().
-func Fsync(FdVar int) int {
+func Fsync(FdVar int32) int32 {
 
 	cret := xFsync(FdVar)
 	return cret
 }
 
-var xLstat func(string, *StatBuf) int
+var xLstat func(string, *StatBuf) int32
 
 // A wrapper for the POSIX lstat() function. The lstat() function is
 // like stat() except that in the case of symbolic links, it returns
@@ -199,26 +199,26 @@ var xLstat func(string, *StatBuf) int
 // is identical to g_stat().
 //
 // See your C library manual for more details about lstat().
-func Lstat(FilenameVar string, BufVar *StatBuf) int {
+func Lstat(FilenameVar string, BufVar *StatBuf) int32 {
 
 	cret := xLstat(FilenameVar, BufVar)
 	return cret
 }
 
-var xMkdir func(string, int) int
+var xMkdir func(string, int32) int32
 
 // A wrapper for the POSIX mkdir() function. The mkdir() function
 // attempts to create a directory with the given name and permissions.
 // The mode argument is ignored on Windows.
 //
 // See your C library manual for more details about mkdir().
-func Mkdir(FilenameVar string, ModeVar int) int {
+func Mkdir(FilenameVar string, ModeVar int32) int32 {
 
 	cret := xMkdir(FilenameVar, ModeVar)
 	return cret
 }
 
-var xOpen func(string, int, int) int
+var xOpen func(string, int32, int32) int32
 
 // A wrapper for the POSIX open() function. The open() function is
 // used to convert a pathname into a file descriptor.
@@ -238,13 +238,13 @@ var xOpen func(string, int, int) int
 // or read().
 //
 // See your C library manual for more details about open().
-func Open(FilenameVar string, FlagsVar int, ModeVar int) int {
+func Open(FilenameVar string, FlagsVar int32, ModeVar int32) int32 {
 
 	cret := xOpen(FilenameVar, FlagsVar, ModeVar)
 	return cret
 }
 
-var xRemove func(string) int
+var xRemove func(string) int32
 
 // A wrapper for the POSIX remove() function. The remove() function
 // deletes a name from the filesystem.
@@ -262,13 +262,13 @@ var xRemove func(string) int
 // errno value. rmdir() is tried regardless of what caused remove() to
 // fail. Any errno value set by remove() will be overwritten by that
 // set by rmdir().
-func Remove(FilenameVar string) int {
+func Remove(FilenameVar string) int32 {
 
 	cret := xRemove(FilenameVar)
 	return cret
 }
 
-var xRename func(string, string) int
+var xRename func(string, string) int32
 
 // A wrapper for the POSIX rename() function. The rename() function
 // renames a file, moving it between directories if required.
@@ -276,26 +276,26 @@ var xRename func(string, string) int
 // See your C library manual for more details about how rename() works
 // on your system. It is not possible in general on Windows to rename
 // a file that is open to some process.
-func Rename(OldfilenameVar string, NewfilenameVar string) int {
+func Rename(OldfilenameVar string, NewfilenameVar string) int32 {
 
 	cret := xRename(OldfilenameVar, NewfilenameVar)
 	return cret
 }
 
-var xRmdir func(string) int
+var xRmdir func(string) int32
 
 // A wrapper for the POSIX rmdir() function. The rmdir() function
 // deletes a directory from the filesystem.
 //
 // See your C library manual for more details about how rmdir() works
 // on your system.
-func Rmdir(FilenameVar string) int {
+func Rmdir(FilenameVar string) int32 {
 
 	cret := xRmdir(FilenameVar)
 	return cret
 }
 
-var xStat func(string, *StatBuf) int
+var xStat func(string, *StatBuf) int32
 
 // A wrapper for the POSIX stat() function. The stat() function
 // returns information about a file. On Windows the stat() function in
@@ -317,13 +317,13 @@ var xStat func(string, *StatBuf) int
 // might be a macro.
 //
 // See your C library manual for more details about stat().
-func Stat(FilenameVar string, BufVar *StatBuf) int {
+func Stat(FilenameVar string, BufVar *StatBuf) int32 {
 
 	cret := xStat(FilenameVar, BufVar)
 	return cret
 }
 
-var xUnlink func(string) int
+var xUnlink func(string) int32
 
 // A wrapper for the POSIX unlink() function. The unlink() function
 // deletes a name from the filesystem. If this was the last link to the
@@ -333,20 +333,20 @@ var xUnlink func(string) int
 // See your C library manual for more details about unlink(). Note
 // that on Windows, it is in general not possible to delete files that
 // are open to some process, or mapped into memory.
-func Unlink(FilenameVar string) int {
+func Unlink(FilenameVar string) int32 {
 
 	cret := xUnlink(FilenameVar)
 	return cret
 }
 
-var xUtime func(string, uintptr) int
+var xUtime func(string, uintptr) int32
 
 // A wrapper for the POSIX utime() function. The utime() function
 // sets the access and modification timestamps of a file.
 //
 // See your C library manual for more details about how utime() works
 // on your system.
-func Utime(FilenameVar string, UtbVar uintptr) int {
+func Utime(FilenameVar string, UtbVar uintptr) int32 {
 
 	cret := xUtime(FilenameVar, UtbVar)
 	return cret

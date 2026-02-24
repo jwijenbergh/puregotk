@@ -244,20 +244,20 @@ func (c *ProxyAddressEnumerator) SetGoPointer(ptr uintptr) {
 // SetPropertyDefaultPort sets the "default-port" property.
 // The default port to use if #GProxyAddressEnumerator:uri does not
 // specify one.
-func (x *ProxyAddressEnumerator) SetPropertyDefaultPort(value uint) {
+func (x *ProxyAddressEnumerator) SetPropertyDefaultPort(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("default-port", &v)
 }
 
 // GetPropertyDefaultPort gets the "default-port" property.
 // The default port to use if #GProxyAddressEnumerator:uri does not
 // specify one.
-func (x *ProxyAddressEnumerator) GetPropertyDefaultPort() uint {
+func (x *ProxyAddressEnumerator) GetPropertyDefaultPort() uint32 {
 	var v gobject.Value
 	x.GetProperty("default-port", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyUri sets the "uri" property.

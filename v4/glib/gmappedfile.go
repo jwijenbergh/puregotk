@@ -56,7 +56,7 @@ func NewMappedFile(FilenameVar string, WritableVar bool) (*MappedFile, error) {
 
 }
 
-var xNewMappedFileFromFd func(int, bool, **Error) *MappedFile
+var xNewMappedFileFromFd func(int32, bool, **Error) *MappedFile
 
 // Maps a file into memory. On UNIX, this is using the mmap() function.
 //
@@ -69,7 +69,7 @@ var xNewMappedFileFromFd func(int, bool, **Error) *MappedFile
 // of the #GMappedFile. Therefore, mapping should only be used if the file
 // will not be modified, or if all modifications of the file are done
 // atomically (e.g. using g_file_set_contents()).
-func NewMappedFileFromFd(FdVar int, WritableVar bool) (*MappedFile, error) {
+func NewMappedFileFromFd(FdVar int32, WritableVar bool) (*MappedFile, error) {
 	var cerr *Error
 
 	cret := xNewMappedFileFromFd(FdVar, WritableVar, &cerr)

@@ -56,21 +56,21 @@ func (x *Relation) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xRelationCount func(uintptr, uintptr, int) int
+var xRelationCount func(uintptr, uintptr, int32) int32
 
 // Returns the number of tuples in a #GRelation that have the given
 // value in the given field.
-func (x *Relation) Count(KeyVar uintptr, FieldVar int) int {
+func (x *Relation) Count(KeyVar uintptr, FieldVar int32) int32 {
 
 	cret := xRelationCount(x.GoPointer(), KeyVar, FieldVar)
 	return cret
 }
 
-var xRelationDelete func(uintptr, uintptr, int) int
+var xRelationDelete func(uintptr, uintptr, int32) int32
 
 // Deletes any records from a #GRelation that have the given key value
 // in the given field.
-func (x *Relation) Delete(KeyVar uintptr, FieldVar int) int {
+func (x *Relation) Delete(KeyVar uintptr, FieldVar int32) int32 {
 
 	cret := xRelationDelete(x.GoPointer(), KeyVar, FieldVar)
 	return cret
@@ -98,11 +98,11 @@ func (x *Relation) Exists(varArgs ...interface{}) bool {
 	return cret
 }
 
-var xRelationIndex func(uintptr, int, uintptr, uintptr)
+var xRelationIndex func(uintptr, int32, uintptr, uintptr)
 
 // Creates an index on the given field. Note that this must be called
 // before any records are added to the #GRelation.
-func (x *Relation) Index(FieldVar int, HashFuncVar *HashFunc, KeyEqualFuncVar *EqualFunc) {
+func (x *Relation) Index(FieldVar int32, HashFuncVar *HashFunc, KeyEqualFuncVar *EqualFunc) {
 
 	xRelationIndex(x.GoPointer(), FieldVar, NewCallback(HashFuncVar), NewCallback(KeyEqualFuncVar))
 
@@ -127,12 +127,12 @@ func (x *Relation) Print() {
 
 }
 
-var xRelationSelect func(uintptr, uintptr, int) *Tuples
+var xRelationSelect func(uintptr, uintptr, int32) *Tuples
 
 // Returns all of the tuples which have the given key in the given
 // field. Use g_tuples_index() to access the returned records. The
 // returned records should be freed with g_tuples_destroy().
-func (x *Relation) Select(KeyVar uintptr, FieldVar int) *Tuples {
+func (x *Relation) Select(KeyVar uintptr, FieldVar int32) *Tuples {
 
 	cret := xRelationSelect(x.GoPointer(), KeyVar, FieldVar)
 	return cret
@@ -145,7 +145,7 @@ func (x *Relation) Select(KeyVar uintptr, FieldVar int) *Tuples {
 type Tuples struct {
 	_ structs.HostLayout
 
-	Len uint
+	Len uint32
 }
 
 func (x *Tuples) GoPointer() uintptr {
@@ -164,12 +164,12 @@ func (x *Tuples) Destroy() {
 
 }
 
-var xTuplesIndex func(uintptr, int, int) uintptr
+var xTuplesIndex func(uintptr, int32, int32) uintptr
 
 // Gets a field from the records returned by g_relation_select(). It
 // returns the given field of the record at the given index. The
 // returned value should not be changed.
-func (x *Tuples) Index(IndexVar int, FieldVar int) uintptr {
+func (x *Tuples) Index(IndexVar int32, FieldVar int32) uintptr {
 
 	cret := xTuplesIndex(x.GoPointer(), IndexVar, FieldVar)
 	return cret

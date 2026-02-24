@@ -17,13 +17,13 @@ import (
 // [func@GLib.spawn_check_wait_status]. In particular,
 // on Unix platforms, note that it is usually not equal
 // to the integer passed to `exit()` or returned from `main()`.
-type ChildWatchFunc func(Pid, int, uintptr)
+type ChildWatchFunc func(Pid, int32, uintptr)
 
 // Specifies the type of function passed to [func@GLib.clear_handle_id] The
 // implementation is expected to free the resource identified by @handle_id;
 // for instance, if @handle_id is a [struct@GLib.Source] ID,
 // [func@GLib.Source.remove] can be used.
-type ClearHandleFunc func(uint)
+type ClearHandleFunc func(uint32)
 
 // Dispose function for @source. See [method@GLib.Source.set_dispose_function]
 // for details.
@@ -88,7 +88,7 @@ type SourceFuncsFinalizeFunc func(*Source)
 //
 // Since 2.36 this may be `NULL`, in which case the effect is as if the
 // function always returns `FALSE` with a timeout of `-1`.
-type SourceFuncsPrepareFunc func(*Source, *int) bool
+type SourceFuncsPrepareFunc func(*Source, *int32) bool
 
 // A source function that is only called once before being removed from the main
 // context automatically.
@@ -153,20 +153,20 @@ func (x *MainContext) Acquire() bool {
 	return cret
 }
 
-var xMainContextAddPoll func(uintptr, *PollFD, int)
+var xMainContextAddPoll func(uintptr, *PollFD, int32)
 
 // Adds a file descriptor to the set of file descriptors polled for
 // this context.
 //
 // This will very seldom be used directly. Instead
 // a typical event source will use `g_source_add_unix_fd()` instead.
-func (x *MainContext) AddPoll(FdVar *PollFD, PriorityVar int) {
+func (x *MainContext) AddPoll(FdVar *PollFD, PriorityVar int32) {
 
 	xMainContextAddPoll(x.GoPointer(), FdVar, PriorityVar)
 
 }
 
-var xMainContextCheck func(uintptr, int, []PollFD, int) bool
+var xMainContextCheck func(uintptr, int32, []PollFD, int32) bool
 
 // Passes the results of polling back to the main loop.
 //
@@ -180,7 +180,7 @@ var xMainContextCheck func(uintptr, int, []PollFD, int) bool
 //
 // Since 2.76 @context can be `NULL` to use the global-default
 // main context.
-func (x *MainContext) Check(MaxPriorityVar int, FdsVar []PollFD, NFdsVar int) bool {
+func (x *MainContext) Check(MaxPriorityVar int32, FdsVar []PollFD, NFdsVar int32) bool {
 
 	cret := xMainContextCheck(x.GoPointer(), MaxPriorityVar, FdsVar, NFdsVar)
 	return cret
@@ -213,7 +213,7 @@ func (x *MainContext) FindSourceByFuncsUserData(FuncsVar *SourceFuncs, UserDataV
 	return cret
 }
 
-var xMainContextFindSourceById func(uintptr, uint) *Source
+var xMainContextFindSourceById func(uintptr, uint32) *Source
 
 // Finds a [struct@GLib.Source] given a pair of context and ID.
 //
@@ -227,7 +227,7 @@ var xMainContextFindSourceById func(uintptr, uint) *Source
 // is called on its (now invalid) source ID.  This source ID may have
 // been reissued, leading to the operation being performed against the
 // wrong source.
-func (x *MainContext) FindSourceById(SourceIdVar uint) *Source {
+func (x *MainContext) FindSourceById(SourceIdVar uint32) *Source {
 
 	cret := xMainContextFindSourceById(x.GoPointer(), SourceIdVar)
 	return cret
@@ -283,7 +283,7 @@ func (x *MainContext) Invoke(FunctionVar *SourceFunc, DataVar uintptr) {
 
 }
 
-var xMainContextInvokeFull func(uintptr, int, uintptr, uintptr, uintptr)
+var xMainContextInvokeFull func(uintptr, int32, uintptr, uintptr, uintptr)
 
 // Invokes a function in such a way that @context is owned during the
 // invocation of @function.
@@ -295,7 +295,7 @@ var xMainContextInvokeFull func(uintptr, int, uintptr, uintptr, uintptr)
 //
 // The @notify function should not assume that it is called from any particular
 // thread or with any particular context acquired.
-func (x *MainContext) InvokeFull(PriorityVar int, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) {
+func (x *MainContext) InvokeFull(PriorityVar int32, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) {
 
 	xMainContextInvokeFull(x.GoPointer(), PriorityVar, NewCallback(FunctionVar), DataVar, NewCallbackNullable(NotifyVar))
 
@@ -355,7 +355,7 @@ func (x *MainContext) PopThreadDefault() {
 
 }
 
-var xMainContextPrepare func(uintptr, *int) bool
+var xMainContextPrepare func(uintptr, *int32) bool
 
 // Prepares to poll sources within a main loop.
 //
@@ -364,7 +364,7 @@ var xMainContextPrepare func(uintptr, *int) bool
 //
 // You must have successfully acquired the context with
 // [method@GLib.MainContext.acquire] before you may call this function.
-func (x *MainContext) Prepare(PriorityVar *int) bool {
+func (x *MainContext) Prepare(PriorityVar *int32) bool {
 
 	cret := xMainContextPrepare(x.GoPointer(), PriorityVar)
 	return cret
@@ -465,7 +465,7 @@ func (x *MainContext) PusherNew() *MainContextPusher {
 	return cret
 }
 
-var xMainContextQuery func(uintptr, int, *int, *[]PollFD, int) int
+var xMainContextQuery func(uintptr, int32, *int32, *[]PollFD, int32) int32
 
 // Determines information necessary to poll this main loop.
 //
@@ -476,7 +476,7 @@ var xMainContextQuery func(uintptr, int, *int, *[]PollFD, int) int
 //
 // You must have successfully acquired the context with
 // [method@GLib.MainContext.acquire] before you may call this function.
-func (x *MainContext) Query(MaxPriorityVar int, TimeoutVar *int, FdsVar *[]PollFD, NFdsVar int) int {
+func (x *MainContext) Query(MaxPriorityVar int32, TimeoutVar *int32, FdsVar *[]PollFD, NFdsVar int32) int32 {
 
 	cret := xMainContextQuery(x.GoPointer(), MaxPriorityVar, TimeoutVar, FdsVar, NFdsVar)
 	return cret
@@ -704,15 +704,15 @@ type Source struct {
 
 	SourceFuncs *SourceFuncs
 
-	RefCount uint
+	RefCount uint32
 
 	Context *MainContext
 
 	Priority int32
 
-	Flags uint
+	Flags uint32
 
-	SourceId uint
+	SourceId uint32
 
 	PollFds *SList
 
@@ -735,7 +735,7 @@ func (x *Source) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewSource func(*SourceFuncs, uint) *Source
+var xNewSource func(*SourceFuncs, uint32) *Source
 
 // Creates a new [struct@GLib.Source] structure.
 //
@@ -747,7 +747,7 @@ var xNewSource func(*SourceFuncs, uint) *Source
 // The source will not initially be associated with any [struct@GLib.MainContext]
 // and must be added to one with [method@GLib.Source.attach] before it will be
 // executed.
-func NewSource(SourceFuncsVar *SourceFuncs, StructSizeVar uint) *Source {
+func NewSource(SourceFuncsVar *SourceFuncs, StructSizeVar uint32) *Source {
 
 	cret := xNewSource(SourceFuncsVar, StructSizeVar)
 	return cret
@@ -802,7 +802,7 @@ func (x *Source) AddPoll(FdVar *PollFD) {
 
 }
 
-var xSourceAddUnixFd func(uintptr, int, IOCondition) uintptr
+var xSourceAddUnixFd func(uintptr, int32, IOCondition) uintptr
 
 // Monitors @fd for the IO events in @events.
 //
@@ -817,13 +817,13 @@ var xSourceAddUnixFd func(uintptr, int, IOCondition) uintptr
 // Do not call this API on a [struct@GLib.Source] that you did not create.
 //
 // As the name suggests, this function is not available on Windows.
-func (x *Source) AddUnixFd(FdVar int, EventsVar IOCondition) uintptr {
+func (x *Source) AddUnixFd(FdVar int32, EventsVar IOCondition) uintptr {
 
 	cret := xSourceAddUnixFd(x.GoPointer(), FdVar, EventsVar)
 	return cret
 }
 
-var xSourceAttach func(uintptr, *MainContext) uint
+var xSourceAttach func(uintptr, *MainContext) uint32
 
 // Adds a [struct@GLib.Source] to a @context so that it will be executed within
 // that context.
@@ -832,7 +832,7 @@ var xSourceAttach func(uintptr, *MainContext) uint
 //
 // This function is safe to call from any thread, regardless of which thread
 // the @context is running in.
-func (x *Source) Attach(ContextVar *MainContext) uint {
+func (x *Source) Attach(ContextVar *MainContext) uint32 {
 
 	cret := xSourceAttach(x.GoPointer(), ContextVar)
 	return cret
@@ -918,7 +918,7 @@ func (x *Source) GetCurrentTime(TimevalVar *TimeVal) {
 
 }
 
-var xSourceGetId func(uintptr) uint
+var xSourceGetId func(uintptr) uint32
 
 // Returns the numeric ID for a particular source.
 //
@@ -932,7 +932,7 @@ var xSourceGetId func(uintptr) uint
 // [method@GLib.Source.attach] or after [method@GLib.Source.destroy] yields
 // undefined behavior. The ID returned is unique within the
 // [struct@GLib.MainContext] instance passed to [method@GLib.Source.attach].
-func (x *Source) GetId() uint {
+func (x *Source) GetId() uint32 {
 
 	cret := xSourceGetId(x.GoPointer())
 	return cret
@@ -950,10 +950,10 @@ func (x *Source) GetName() string {
 	return cret
 }
 
-var xSourceGetPriority func(uintptr) int
+var xSourceGetPriority func(uintptr) int32
 
 // Gets the priority of a source.
-func (x *Source) GetPriority() int {
+func (x *Source) GetPriority() int32 {
 
 	cret := xSourceGetPriority(x.GoPointer())
 	return cret
@@ -1301,7 +1301,7 @@ func (x *Source) SetName(NameVar string) {
 
 }
 
-var xSourceSetPriority func(uintptr, int)
+var xSourceSetPriority func(uintptr, int32)
 
 // Sets the priority of a source.
 //
@@ -1313,7 +1313,7 @@ var xSourceSetPriority func(uintptr, int)
 // A child source always has the same priority as its parent.  It is not
 // permitted to change the priority of a source once it has been added
 // as a child of another source.
-func (x *Source) SetPriority(PriorityVar int) {
+func (x *Source) SetPriority(PriorityVar int32) {
 
 	xSourceSetPriority(x.GoPointer(), PriorityVar)
 
@@ -1526,27 +1526,27 @@ const (
 	// In GLib this priority is used when adding timeout functions
 	// with [func@GLib.timeout_add]. In GDK this priority is used for events
 	// from the X server.
-	PRIORITY_DEFAULT int = 0
+	PRIORITY_DEFAULT int32 = 0
 	// Use this for default priority idle functions.
 	//
 	// In GLib this priority is used when adding idle functions with
 	// [func@GLib.idle_add].
-	PRIORITY_DEFAULT_IDLE int = 200
+	PRIORITY_DEFAULT_IDLE int32 = 200
 	// Use this for high priority event sources.
 	//
 	// It is not used within GLib or GTK.
-	PRIORITY_HIGH int = -100
+	PRIORITY_HIGH int32 = -100
 	// Use this for high priority idle functions.
 	//
 	// GTK uses %G_PRIORITY_HIGH_IDLE + 10 for resizing operations,
 	// and %G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is
 	// done to ensure that any pending resizes are processed before any
 	// pending redraws, so that widgets are not redrawn twice unnecessarily.)
-	PRIORITY_HIGH_IDLE int = 100
+	PRIORITY_HIGH_IDLE int32 = 100
 	// Use this for very low priority background tasks.
 	//
 	// It is not used within GLib or GTK.
-	PRIORITY_LOW int = 300
+	PRIORITY_LOW int32 = 300
 	// Use this macro as the return value of a [callback@GLib.SourceFunc] to leave
 	// the [struct@GLib.Source] in the main loop.
 	SOURCE_CONTINUE bool = true
@@ -1570,7 +1570,7 @@ const (
 	GMainContextFlagsOwnerlessPollingValue MainContextFlags = 1
 )
 
-var xChildWatchAdd func(Pid, uintptr, uintptr) uint
+var xChildWatchAdd func(Pid, uintptr, uintptr) uint32
 
 // Sets a function to be called when the child indicated by @pid
 // exits, at a default priority, [const@GLib.PRIORITY_DEFAULT].
@@ -1593,13 +1593,13 @@ var xChildWatchAdd func(Pid, uintptr, uintptr) uint
 // [func@GLib.child_watch_source_new] and attaches it to the main loop context
 // using [method@GLib.Source.attach]. You can do these steps manually if you
 // need greater control.
-func ChildWatchAdd(PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr) uint {
+func ChildWatchAdd(PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr) uint32 {
 
 	cret := xChildWatchAdd(PidVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
+var xChildWatchAddFull func(int32, Pid, uintptr, uintptr, uintptr) uint32
 
 // Sets a function to be called when the child indicated by @pid
 // exits, at the priority @priority.
@@ -1626,7 +1626,7 @@ var xChildWatchAddFull func(int, Pid, uintptr, uintptr, uintptr) uint
 // [func@GLib.child_watch_source_new] and attaches it to the main loop context
 // using [method@GLib.Source.attach]. You can do these steps manually if you
 // need greater control.
-func ChildWatchAddFull(PriorityVar int, PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
+func ChildWatchAddFull(PriorityVar int32, PidVar Pid, FunctionVar *ChildWatchFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xChildWatchAddFull(PriorityVar, PidVar, NewCallback(FunctionVar), DataVar, NewCallbackNullable(NotifyVar))
 	return cret
@@ -1680,7 +1680,7 @@ func ChildWatchSourceNew(PidVar Pid) *Source {
 	return cret
 }
 
-var xClearHandleId func(uint, uintptr)
+var xClearHandleId func(uint32, uintptr)
 
 // Clears a numeric handler, such as a [struct@GLib.Source] ID.
 //
@@ -1692,7 +1692,7 @@ var xClearHandleId func(uint, uintptr)
 //
 // A macro is also included that allows this function to be used without
 // pointer casts.
-func ClearHandleId(TagPtrVar uint, ClearFuncVar *ClearHandleFunc) {
+func ClearHandleId(TagPtrVar uint32, ClearFuncVar *ClearHandleFunc) {
 
 	xClearHandleId(TagPtrVar, NewCallback(ClearFuncVar))
 
@@ -1747,7 +1747,7 @@ func GetRealTime() int64 {
 	return cret
 }
 
-var xIdleAdd func(uintptr, uintptr) uint
+var xIdleAdd func(uintptr, uintptr) uint32
 
 // Adds a function to be called whenever there are no higher priority
 // events pending to the default main loop.
@@ -1765,13 +1765,13 @@ var xIdleAdd func(uintptr, uintptr) uint
 // [method@GLib.Source.attach], so the callback will be invoked in whichever
 // thread is running that main context. You can do these steps manually if you
 // need greater control or to use a custom main context.
-func IdleAdd(FunctionVar *SourceFunc, DataVar uintptr) uint {
+func IdleAdd(FunctionVar *SourceFunc, DataVar uintptr) uint32 {
 
 	cret := xIdleAdd(NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
+var xIdleAddFull func(int32, uintptr, uintptr, uintptr) uint32
 
 // Adds a function to be called whenever there are no higher priority
 // events pending.
@@ -1787,13 +1787,13 @@ var xIdleAddFull func(int, uintptr, uintptr, uintptr) uint
 // [method@GLib.Source.attach], so the callback will be invoked in whichever
 // thread is running that main context. You can do these steps manually if you
 // need greater control or to use a custom main context.
-func IdleAddFull(PriorityVar int, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
+func IdleAddFull(PriorityVar int32, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xIdleAddFull(PriorityVar, NewCallback(FunctionVar), DataVar, NewCallbackNullable(NotifyVar))
 	return cret
 }
 
-var xIdleAddOnce func(uintptr, uintptr) uint
+var xIdleAddOnce func(uintptr, uintptr) uint32
 
 // Adds a function to be called whenever there are no higher priority
 // events pending to the default main loop.
@@ -1805,7 +1805,7 @@ var xIdleAddOnce func(uintptr, uintptr) uint
 // automatically removed from the main context.
 //
 // This function otherwise behaves like [func@GLib.idle_add].
-func IdleAddOnce(FunctionVar *SourceOnceFunc, DataVar uintptr) uint {
+func IdleAddOnce(FunctionVar *SourceOnceFunc, DataVar uintptr) uint32 {
 
 	cret := xIdleAddOnce(NewCallback(FunctionVar), DataVar)
 	return cret
@@ -1897,7 +1897,7 @@ func MainCurrentSource() *Source {
 	return cret
 }
 
-var xMainDepth func() int
+var xMainDepth func() int32
 
 // Returns the depth of the stack of calls to
 // [method@GLib.MainContext.dispatch] on any #GMainContext in the current thread.
@@ -2008,13 +2008,13 @@ var xMainDepth func() int
 //     arbitrary  callbacks. Instead, structure your code so that you
 //     simply return to the main loop and then get called again when
 //     there is more work to do.
-func MainDepth() int {
+func MainDepth() int32 {
 
 	cret := xMainDepth()
 	return cret
 }
 
-var xSourceRemove func(uint) bool
+var xSourceRemove func(uint32) bool
 
 // Removes the source with the given ID from the default main context.
 //
@@ -2038,7 +2038,7 @@ var xSourceRemove func(uint) bool
 // is called on its (now invalid) source ID.  This source ID may have
 // been reissued, leading to the operation being performed against the
 // wrong source.
-func SourceRemove(TagVar uint) bool {
+func SourceRemove(TagVar uint32) bool {
 
 	cret := xSourceRemove(TagVar)
 	return cret
@@ -2069,7 +2069,7 @@ func SourceRemoveByUserData(UserDataVar uintptr) bool {
 	return cret
 }
 
-var xSourceSetNameById func(uint, string)
+var xSourceSetNameById func(uint32, string)
 
 // Sets the name of a source using its ID.
 //
@@ -2087,13 +2087,13 @@ var xSourceSetNameById func(uint, string)
 // is called on its (now invalid) source ID.  This source ID may have
 // been reissued, leading to the operation being performed against the
 // wrong source.
-func SourceSetNameById(TagVar uint, NameVar string) {
+func SourceSetNameById(TagVar uint32, NameVar string) {
 
 	xSourceSetNameById(TagVar, NameVar)
 
 }
 
-var xTimeoutAdd func(uint, uintptr, uintptr) uint
+var xTimeoutAdd func(uint32, uintptr, uintptr) uint32
 
 // Sets a function to be called at regular intervals, with the default
 // priority, [const@GLib.PRIORITY_DEFAULT].
@@ -2128,13 +2128,13 @@ var xTimeoutAdd func(uint, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time. See [func@GLib.get_monotonic_time].
-func TimeoutAdd(IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr) uint {
+func TimeoutAdd(IntervalVar uint32, FunctionVar *SourceFunc, DataVar uintptr) uint32 {
 
 	cret := xTimeoutAdd(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
+var xTimeoutAddFull func(int32, uint32, uintptr, uintptr, uintptr) uint32
 
 // Sets a function to be called at regular intervals, with the given
 // priority.
@@ -2164,13 +2164,13 @@ var xTimeoutAddFull func(int, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock time.
 // See [func@GLib.get_monotonic_time].
-func TimeoutAddFull(PriorityVar int, IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
+func TimeoutAddFull(PriorityVar int32, IntervalVar uint32, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xTimeoutAddFull(PriorityVar, IntervalVar, NewCallback(FunctionVar), DataVar, NewCallbackNullable(NotifyVar))
 	return cret
 }
 
-var xTimeoutAddOnce func(uint, uintptr, uintptr) uint
+var xTimeoutAddOnce func(uint32, uintptr, uintptr) uint32
 
 // Sets a function to be called after @interval milliseconds have elapsed,
 // with the default priority, [const@GLib.PRIORITY_DEFAULT].
@@ -2179,13 +2179,13 @@ var xTimeoutAddOnce func(uint, uintptr, uintptr) uint
 // removed from the main context.
 //
 // This function otherwise behaves like [func@GLib.timeout_add].
-func TimeoutAddOnce(IntervalVar uint, FunctionVar *SourceOnceFunc, DataVar uintptr) uint {
+func TimeoutAddOnce(IntervalVar uint32, FunctionVar *SourceOnceFunc, DataVar uintptr) uint32 {
 
 	cret := xTimeoutAddOnce(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xTimeoutAddSeconds func(uint, uintptr, uintptr) uint
+var xTimeoutAddSeconds func(uint32, uintptr, uintptr) uint32
 
 // Sets a function to be called at regular intervals with the default
 // priority, [const@GLib.PRIORITY_DEFAULT].
@@ -2210,13 +2210,13 @@ var xTimeoutAddSeconds func(uint, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time. See [func@GLib.get_monotonic_time].
-func TimeoutAddSeconds(IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr) uint {
+func TimeoutAddSeconds(IntervalVar uint32, FunctionVar *SourceFunc, DataVar uintptr) uint32 {
 
 	cret := xTimeoutAddSeconds(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
+var xTimeoutAddSecondsFull func(int32, uint32, uintptr, uintptr, uintptr) uint32
 
 // Sets a function to be called at regular intervals, with @priority.
 //
@@ -2258,23 +2258,23 @@ var xTimeoutAddSecondsFull func(int, uint, uintptr, uintptr, uintptr) uint
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time. See [func@GLib.get_monotonic_time].
-func TimeoutAddSecondsFull(PriorityVar int, IntervalVar uint, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint {
+func TimeoutAddSecondsFull(PriorityVar int32, IntervalVar uint32, FunctionVar *SourceFunc, DataVar uintptr, NotifyVar *DestroyNotify) uint32 {
 
 	cret := xTimeoutAddSecondsFull(PriorityVar, IntervalVar, NewCallback(FunctionVar), DataVar, NewCallbackNullable(NotifyVar))
 	return cret
 }
 
-var xTimeoutAddSecondsOnce func(uint, uintptr, uintptr) uint
+var xTimeoutAddSecondsOnce func(uint32, uintptr, uintptr) uint32
 
 // This function behaves like [func@GLib.timeout_add_once] but with a range in
 // seconds.
-func TimeoutAddSecondsOnce(IntervalVar uint, FunctionVar *SourceOnceFunc, DataVar uintptr) uint {
+func TimeoutAddSecondsOnce(IntervalVar uint32, FunctionVar *SourceOnceFunc, DataVar uintptr) uint32 {
 
 	cret := xTimeoutAddSecondsOnce(IntervalVar, NewCallback(FunctionVar), DataVar)
 	return cret
 }
 
-var xTimeoutSourceNew func(uint) *Source
+var xTimeoutSourceNew func(uint32) *Source
 
 // Creates a new timeout source.
 //
@@ -2284,13 +2284,13 @@ var xTimeoutSourceNew func(uint) *Source
 //
 // The interval given is in terms of monotonic time, not wall clock
 // time.  See [func@GLib.get_monotonic_time].
-func TimeoutSourceNew(IntervalVar uint) *Source {
+func TimeoutSourceNew(IntervalVar uint32) *Source {
 
 	cret := xTimeoutSourceNew(IntervalVar)
 	return cret
 }
 
-var xTimeoutSourceNewSeconds func(uint) *Source
+var xTimeoutSourceNewSeconds func(uint32) *Source
 
 // Creates a new timeout source.
 //
@@ -2303,7 +2303,7 @@ var xTimeoutSourceNewSeconds func(uint) *Source
 //
 // The interval given is in terms of monotonic time, not wall clock time.
 // See [func@GLib.get_monotonic_time].
-func TimeoutSourceNewSeconds(IntervalVar uint) *Source {
+func TimeoutSourceNewSeconds(IntervalVar uint32) *Source {
 
 	cret := xTimeoutSourceNewSeconds(IntervalVar)
 	return cret

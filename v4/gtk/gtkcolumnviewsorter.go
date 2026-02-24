@@ -70,7 +70,7 @@ func ColumnViewSorterNewFromInternalPtr(ptr uintptr) *ColumnViewSorter {
 	return cls
 }
 
-var xColumnViewSorterGetNSortColumns func(uintptr) uint
+var xColumnViewSorterGetNSortColumns func(uintptr) uint32
 
 // Returns the number of columns by which the sorter sorts.
 //
@@ -80,19 +80,19 @@ var xColumnViewSorterGetNSortColumns func(uintptr) uint
 //
 // Use the [signal@Gtk.Sorter::changed] signal to get notified
 // when the number of sort columns changes.
-func (x *ColumnViewSorter) GetNSortColumns() uint {
+func (x *ColumnViewSorter) GetNSortColumns() uint32 {
 
 	cret := xColumnViewSorterGetNSortColumns(x.GoPointer())
 	return cret
 }
 
-var xColumnViewSorterGetNthSortColumn func(uintptr, uint, *SortType) uintptr
+var xColumnViewSorterGetNthSortColumn func(uintptr, uint32, *SortType) uintptr
 
 // Gets the @position'th sort column and its associated sort order.
 //
 // Use the [signal@Gtk.Sorter::changed] signal to get notified
 // when sort columns change.
-func (x *ColumnViewSorter) GetNthSortColumn(PositionVar uint, SortOrderVar *SortType) *ColumnViewColumn {
+func (x *ColumnViewSorter) GetNthSortColumn(PositionVar uint32, SortOrderVar *SortType) *ColumnViewColumn {
 	var cls *ColumnViewColumn
 
 	cret := xColumnViewSorterGetNthSortColumn(x.GoPointer(), PositionVar, SortOrderVar)

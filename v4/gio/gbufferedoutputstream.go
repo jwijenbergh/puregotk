@@ -210,19 +210,19 @@ func (x *BufferedOutputStream) GetPropertyAutoGrow() bool {
 
 // SetPropertyBufferSize sets the "buffer-size" property.
 // The size of the backend buffer, in bytes.
-func (x *BufferedOutputStream) SetPropertyBufferSize(value uint) {
+func (x *BufferedOutputStream) SetPropertyBufferSize(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("buffer-size", &v)
 }
 
 // GetPropertyBufferSize gets the "buffer-size" property.
 // The size of the backend buffer, in bytes.
-func (x *BufferedOutputStream) GetPropertyBufferSize() uint {
+func (x *BufferedOutputStream) GetPropertyBufferSize() uint32 {
 	var v gobject.Value
 	x.GetProperty("buffer-size", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Tests if the stream supports the #GSeekableIface.

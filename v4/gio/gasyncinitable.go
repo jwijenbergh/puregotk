@@ -30,11 +30,11 @@ func (x *AsyncInitableIface) GoPointer() uintptr {
 
 // OverrideInitAsync sets the "init_async" callback function.
 // Starts initialization of the object.
-func (x *AsyncInitableIface) OverrideInitAsync(cb func(AsyncInitable, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *AsyncInitableIface) OverrideInitAsync(cb func(AsyncInitable, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xInitAsync = 0
 	} else {
-		x.xInitAsync = purego.NewCallback(func(InitableVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xInitAsync = purego.NewCallback(func(InitableVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(&AsyncInitableBase{Ptr: InitableVarp}, IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
@@ -42,13 +42,13 @@ func (x *AsyncInitableIface) OverrideInitAsync(cb func(AsyncInitable, int, *Canc
 
 // GetInitAsync gets the "init_async" callback function.
 // Starts initialization of the object.
-func (x *AsyncInitableIface) GetInitAsync() func(AsyncInitable, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *AsyncInitableIface) GetInitAsync() func(AsyncInitable, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xInitAsync == 0 {
 		return nil
 	}
-	var rawCallback func(InitableVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(InitableVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xInitAsync)
-	return func(InitableVar AsyncInitable, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(InitableVar AsyncInitable, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(InitableVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -191,7 +191,7 @@ func (x *AsyncInitableIface) GetInitFinish() func(AsyncInitable, AsyncResult) bo
 type AsyncInitable interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
+	InitAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr)
 	InitFinish(ResVar AsyncResult) (bool, error)
 	NewFinish(ResVar AsyncResult) (*gobject.Object, error)
 }
@@ -253,7 +253,7 @@ func (x *AsyncInitableBase) SetGoPointer(ptr uintptr) {
 // in a thread, so if you want to support asynchronous initialization via
 // threads, just implement the #GAsyncInitable interface without overriding
 // any interface methods.
-func (x *AsyncInitableBase) InitAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *AsyncInitableBase) InitAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGAsyncInitableInitAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -292,11 +292,11 @@ func (x *AsyncInitableBase) NewFinish(ResVar AsyncResult) (*gobject.Object, erro
 
 }
 
-var XGAsyncInitableInitAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var XGAsyncInitableInitAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 var XGAsyncInitableInitFinish func(uintptr, uintptr, **glib.Error) bool
 var XGAsyncInitableNewFinish func(uintptr, uintptr, **glib.Error) uintptr
 
-var xAsyncInitableNewvAsync func(types.GType, uint, *gobject.Parameter, int, uintptr, uintptr, uintptr)
+var xAsyncInitableNewvAsync func(types.GType, uint32, *gobject.Parameter, int32, uintptr, uintptr, uintptr)
 
 // Helper function for constructing #GAsyncInitable object. This is
 // similar to g_object_newv() but also initializes the object asynchronously.
@@ -304,7 +304,7 @@ var xAsyncInitableNewvAsync func(types.GType, uint, *gobject.Parameter, int, uin
 // When the initialization is finished, @callback will be called. You can
 // then call g_async_initable_new_finish() to get the new object and check
 // for any errors.
-func AsyncInitableNewvAsync(ObjectTypeVar types.GType, NParametersVar uint, ParametersVar *gobject.Parameter, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func AsyncInitableNewvAsync(ObjectTypeVar types.GType, NParametersVar uint32, ParametersVar *gobject.Parameter, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xAsyncInitableNewvAsync(ObjectTypeVar, NParametersVar, ParametersVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

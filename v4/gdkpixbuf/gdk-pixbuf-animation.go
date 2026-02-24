@@ -96,11 +96,11 @@ func (x *PixbufAnimationClass) GetGetStaticImage() func(*PixbufAnimation) *Pixbu
 
 // OverrideGetSize sets the "get_size" callback function.
 // fills @width and @height with the frame size of the animation.
-func (x *PixbufAnimationClass) OverrideGetSize(cb func(*PixbufAnimation, int, int)) {
+func (x *PixbufAnimationClass) OverrideGetSize(cb func(*PixbufAnimation, int32, int32)) {
 	if cb == nil {
 		x.xGetSize = 0
 	} else {
-		x.xGetSize = purego.NewCallback(func(AnimationVarp uintptr, WidthVarp int, HeightVarp int) {
+		x.xGetSize = purego.NewCallback(func(AnimationVarp uintptr, WidthVarp int32, HeightVarp int32) {
 			cb(PixbufAnimationNewFromInternalPtr(AnimationVarp), WidthVarp, HeightVarp)
 		})
 	}
@@ -108,13 +108,13 @@ func (x *PixbufAnimationClass) OverrideGetSize(cb func(*PixbufAnimation, int, in
 
 // GetGetSize gets the "get_size" callback function.
 // fills @width and @height with the frame size of the animation.
-func (x *PixbufAnimationClass) GetGetSize() func(*PixbufAnimation, int, int) {
+func (x *PixbufAnimationClass) GetGetSize() func(*PixbufAnimation, int32, int32) {
 	if x.xGetSize == 0 {
 		return nil
 	}
-	var rawCallback func(AnimationVarp uintptr, WidthVarp int, HeightVarp int)
+	var rawCallback func(AnimationVarp uintptr, WidthVarp int32, HeightVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xGetSize)
-	return func(AnimationVar *PixbufAnimation, WidthVar int, HeightVar int) {
+	return func(AnimationVar *PixbufAnimation, WidthVar int32, HeightVar int32) {
 		rawCallback(AnimationVar.GoPointer(), WidthVar, HeightVar)
 	}
 }
@@ -179,11 +179,11 @@ func (x *PixbufAnimationIterClass) GoPointer() uintptr {
 // returns the time in milliseconds that the current frame
 //
 //	should be shown.
-func (x *PixbufAnimationIterClass) OverrideGetDelayTime(cb func(*PixbufAnimationIter) int) {
+func (x *PixbufAnimationIterClass) OverrideGetDelayTime(cb func(*PixbufAnimationIter) int32) {
 	if cb == nil {
 		x.xGetDelayTime = 0
 	} else {
-		x.xGetDelayTime = purego.NewCallback(func(IterVarp uintptr) int {
+		x.xGetDelayTime = purego.NewCallback(func(IterVarp uintptr) int32 {
 			return cb(PixbufAnimationIterNewFromInternalPtr(IterVarp))
 		})
 	}
@@ -193,13 +193,13 @@ func (x *PixbufAnimationIterClass) OverrideGetDelayTime(cb func(*PixbufAnimation
 // returns the time in milliseconds that the current frame
 //
 //	should be shown.
-func (x *PixbufAnimationIterClass) GetGetDelayTime() func(*PixbufAnimationIter) int {
+func (x *PixbufAnimationIterClass) GetGetDelayTime() func(*PixbufAnimationIter) int32 {
 	if x.xGetDelayTime == 0 {
 		return nil
 	}
-	var rawCallback func(IterVarp uintptr) int
+	var rawCallback func(IterVarp uintptr) int32
 	purego.RegisterFunc(&rawCallback, x.xGetDelayTime)
-	return func(IterVar *PixbufAnimationIter) int {
+	return func(IterVar *PixbufAnimationIter) int32 {
 		return rawCallback(IterVar.GoPointer())
 	}
 }
@@ -432,10 +432,10 @@ func NewPixbufAnimationFromStreamFinish(AsyncResultVar gio.AsyncResult) (*Pixbuf
 
 }
 
-var xPixbufAnimationGetHeight func(uintptr) int
+var xPixbufAnimationGetHeight func(uintptr) int32
 
 // Queries the height of the bounding box of a pixbuf animation.
-func (x *PixbufAnimation) GetHeight() int {
+func (x *PixbufAnimation) GetHeight() int32 {
 
 	cret := xPixbufAnimationGetHeight(x.GoPointer())
 	return cret
@@ -517,10 +517,10 @@ func (x *PixbufAnimation) GetStaticImage() *Pixbuf {
 	return cls
 }
 
-var xPixbufAnimationGetWidth func(uintptr) int
+var xPixbufAnimationGetWidth func(uintptr) int32
 
 // Queries the width of the bounding box of a pixbuf animation.
-func (x *PixbufAnimation) GetWidth() int {
+func (x *PixbufAnimation) GetWidth() int32 {
 
 	cret := xPixbufAnimationGetWidth(x.GoPointer())
 	return cret
@@ -639,7 +639,7 @@ func (x *PixbufAnimationIter) Advance(CurrentTimeVar *glib.TimeVal) bool {
 	return cret
 }
 
-var xPixbufAnimationIterGetDelayTime func(uintptr) int
+var xPixbufAnimationIterGetDelayTime func(uintptr) int32
 
 // Gets the number of milliseconds the current pixbuf should be displayed,
 // or -1 if the current pixbuf should be displayed forever.
@@ -650,7 +650,7 @@ var xPixbufAnimationIterGetDelayTime func(uintptr) int
 // Note that some formats, like GIF, might clamp the timeout values in the
 // image file to avoid updates that are just too quick. The minimum timeout
 // for GIF images is currently 20 milliseconds.
-func (x *PixbufAnimationIter) GetDelayTime() int {
+func (x *PixbufAnimationIter) GetDelayTime() int32 {
 
 	cret := xPixbufAnimationIterGetDelayTime(x.GoPointer())
 	return cret

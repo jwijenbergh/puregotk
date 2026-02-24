@@ -35,7 +35,7 @@ const (
 	// A bitmask that restricts the possible flags passed to
 	// g_datalist_set_flags(). Passing a flags value where
 	// flags &amp; ~G_DATALIST_FLAGS_MASK != 0 is an error.
-	DATALIST_FLAGS_MASK int = 3
+	DATALIST_FLAGS_MASK int32 = 3
 )
 
 var xDatalistClear func(**Data)
@@ -77,11 +77,11 @@ func DatalistGetData(DatalistVar **Data, KeyVar string) uintptr {
 	return cret
 }
 
-var xDatalistGetFlags func(**Data) uint
+var xDatalistGetFlags func(**Data) uint32
 
 // Gets flags values packed in together with the datalist.
 // See g_datalist_set_flags().
-func DatalistGetFlags(DatalistVar **Data) uint {
+func DatalistGetFlags(DatalistVar **Data) uint32 {
 
 	cret := xDatalistGetFlags(DatalistVar)
 	return cret
@@ -185,7 +185,7 @@ func DatalistInit(DatalistVar **Data) {
 
 }
 
-var xDatalistSetFlags func(**Data, uint)
+var xDatalistSetFlags func(**Data, uint32)
 
 // Turns on flag values for a data list. This function is used
 // to keep a small number of boolean flags in an object with
@@ -193,16 +193,16 @@ var xDatalistSetFlags func(**Data, uint)
 // not generally useful except in circumstances where space
 // is very tight. (It is used in the base #GObject type, for
 // example.)
-func DatalistSetFlags(DatalistVar **Data, FlagsVar uint) {
+func DatalistSetFlags(DatalistVar **Data, FlagsVar uint32) {
 
 	xDatalistSetFlags(DatalistVar, FlagsVar)
 
 }
 
-var xDatalistUnsetFlags func(**Data, uint)
+var xDatalistUnsetFlags func(**Data, uint32)
 
 // Turns off flag values for a data list. See g_datalist_unset_flags()
-func DatalistUnsetFlags(DatalistVar **Data, FlagsVar uint) {
+func DatalistUnsetFlags(DatalistVar **Data, FlagsVar uint32) {
 
 	xDatalistUnsetFlags(DatalistVar, FlagsVar)
 

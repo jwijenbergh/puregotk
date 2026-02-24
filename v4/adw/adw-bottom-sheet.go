@@ -157,13 +157,13 @@ func (x *BottomSheet) GetBottomBar() *gtk.Widget {
 	return cls
 }
 
-var xBottomSheetGetBottomBarHeight func(uintptr) int
+var xBottomSheetGetBottomBarHeight func(uintptr) int32
 
 // Gets the current bottom bar height.
 //
 // It can be used to shift the content upwards permanently to accommodate for
 // the bottom bar.
-func (x *BottomSheet) GetBottomBarHeight() int {
+func (x *BottomSheet) GetBottomBarHeight() int32 {
 
 	cret := xBottomSheetGetBottomBarHeight(x.GoPointer())
 	return cret
@@ -257,12 +257,12 @@ func (x *BottomSheet) GetSheet() *gtk.Widget {
 	return cls
 }
 
-var xBottomSheetGetSheetHeight func(uintptr) int
+var xBottomSheetGetSheetHeight func(uintptr) int32
 
 // Gets the current bottom sheet height.
 //
 // It can be used to shift the content upwards when the bottom sheet is open.
-func (x *BottomSheet) GetSheetHeight() int {
+func (x *BottomSheet) GetSheetHeight() int32 {
 
 	cret := xBottomSheetGetSheetHeight(x.GoPointer())
 	return cret
@@ -466,10 +466,10 @@ func (x *BottomSheet) GetPropertyAlign() float32 {
 //
 // It can be used to shift the content upwards permanently to accommodate for
 // the bottom bar.
-func (x *BottomSheet) GetPropertyBottomBarHeight() int {
+func (x *BottomSheet) GetPropertyBottomBarHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("bottom-bar-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyCanClose sets the "can-close" property.
@@ -626,10 +626,10 @@ func (x *BottomSheet) GetPropertyRevealBottomBar() bool {
 // The current bottom sheet height.
 //
 // It can be used to shift the content upwards when the bottom sheet is open.
-func (x *BottomSheet) GetPropertySheetHeight() int {
+func (x *BottomSheet) GetPropertySheetHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("sheet-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyShowDragHandle sets the "show-drag-handle" property.
@@ -713,7 +713,7 @@ func (x *BottomSheet) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *BottomSheet) GetSnapPoints(NSnapPointsVar *int) uintptr {
+func (x *BottomSheet) GetSnapPoints(NSnapPointsVar *int32) uintptr {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -791,7 +791,7 @@ func (x *BottomSheet) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *BottomSheet) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *BottomSheet) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -923,7 +923,7 @@ func (x *BottomSheet) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *BottomSheet) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *BottomSheet) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -959,7 +959,7 @@ func (x *BottomSheet) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *BottomSheet) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *BottomSheet) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -996,7 +996,7 @@ func (x *BottomSheet) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *BottomSheet) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *BottomSheet) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

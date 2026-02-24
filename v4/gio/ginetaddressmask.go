@@ -50,11 +50,11 @@ func InetAddressMaskNewFromInternalPtr(ptr uintptr) *InetAddressMask {
 	return cls
 }
 
-var xNewInetAddressMask func(uintptr, uint, **glib.Error) uintptr
+var xNewInetAddressMask func(uintptr, uint32, **glib.Error) uintptr
 
 // Creates a new #GInetAddressMask representing all addresses whose
 // first @length bits match @addr.
-func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint) (*InetAddressMask, error) {
+func NewInetAddressMask(AddrVar *InetAddress, LengthVar uint32) (*InetAddressMask, error) {
 	var cls *InetAddressMask
 	var cerr *glib.Error
 
@@ -131,10 +131,10 @@ func (x *InetAddressMask) GetFamily() SocketFamily {
 	return cret
 }
 
-var xInetAddressMaskGetLength func(uintptr) uint
+var xInetAddressMaskGetLength func(uintptr) uint32
 
 // Gets @mask's length
-func (x *InetAddressMask) GetLength() uint {
+func (x *InetAddressMask) GetLength() uint32 {
 
 	cret := xInetAddressMaskGetLength(x.GoPointer())
 	return cret
@@ -171,19 +171,19 @@ func (c *InetAddressMask) SetGoPointer(ptr uintptr) {
 
 // SetPropertyLength sets the "length" property.
 // The prefix length, in bytes.
-func (x *InetAddressMask) SetPropertyLength(value uint) {
+func (x *InetAddressMask) SetPropertyLength(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("length", &v)
 }
 
 // GetPropertyLength gets the "length" property.
 // The prefix length, in bytes.
-func (x *InetAddressMask) GetPropertyLength() uint {
+func (x *InetAddressMask) GetPropertyLength() uint32 {
 	var v gobject.Value
 	x.GetProperty("length", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Initializes the object implementing the interface.

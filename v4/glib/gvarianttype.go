@@ -259,7 +259,7 @@ func NewVariantTypeMaybe(ElementVar *VariantType) *VariantType {
 	return cret
 }
 
-var xNewVariantTypeTuple func(uintptr, int) *VariantType
+var xNewVariantTypeTuple func(uintptr, int32) *VariantType
 
 // Constructs a new tuple type, from @items.
 //
@@ -267,7 +267,7 @@ var xNewVariantTypeTuple func(uintptr, int) *VariantType
 // @items is `NULL`-terminated.
 //
 // It is appropriate to call [method@GLib.VariantType.free] on the return value.
-func NewVariantTypeTuple(ItemsVar uintptr, LengthVar int) *VariantType {
+func NewVariantTypeTuple(ItemsVar uintptr, LengthVar int32) *VariantType {
 
 	cret := xNewVariantTypeTuple(ItemsVar, LengthVar)
 	return cret
@@ -375,14 +375,14 @@ func (x *VariantType) GetStringLength() uint {
 	return cret
 }
 
-var xVariantTypeHash func(uintptr) uint
+var xVariantTypeHash func(uintptr) uint32
 
 // Hashes @type.
 //
 // The argument type of @type is only `gconstpointer` to allow use with
 // [type@GLib.HashTable] without function pointer casting.  A valid
 // [type@GLib.VariantType] must be provided.
-func (x *VariantType) Hash() uint {
+func (x *VariantType) Hash() uint32 {
 
 	cret := xVariantTypeHash(x.GoPointer())
 	return cret

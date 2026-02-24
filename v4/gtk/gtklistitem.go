@@ -124,12 +124,12 @@ func (x *ListItem) GetItem() *gobject.Object {
 	return cls
 }
 
-var xListItemGetPosition func(uintptr) uint
+var xListItemGetPosition func(uintptr) uint32
 
 // Gets the position in the model that @self currently displays.
 //
 // If @self is unbound, `GTK_INVALID_LIST_POSITION` is returned.
-func (x *ListItem) GetPosition() uint {
+func (x *ListItem) GetPosition() uint32 {
 
 	cret := xListItemGetPosition(x.GoPointer())
 	return cret
@@ -329,10 +329,10 @@ func (x *ListItem) GetPropertyFocusable() bool {
 
 // GetPropertyPosition gets the "position" property.
 // Position of the item.
-func (x *ListItem) GetPropertyPosition() uint {
+func (x *ListItem) GetPropertyPosition() uint32 {
 	var v gobject.Value
 	x.GetProperty("position", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertySelectable sets the "selectable" property.

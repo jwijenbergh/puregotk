@@ -58,13 +58,13 @@ func (x *ListHeader) GetChild() *Widget {
 	return cls
 }
 
-var xListHeaderGetEnd func(uintptr) uint
+var xListHeaderGetEnd func(uintptr) uint32
 
 // Gets the end position in the model of the section that @self is
 // currently the header for.
 //
 // If @self is unbound, %GTK_INVALID_LIST_POSITION is returned.
-func (x *ListHeader) GetEnd() uint {
+func (x *ListHeader) GetEnd() uint32 {
 
 	cret := xListHeaderGetEnd(x.GoPointer())
 	return cret
@@ -91,24 +91,24 @@ func (x *ListHeader) GetItem() *gobject.Object {
 	return cls
 }
 
-var xListHeaderGetNItems func(uintptr) uint
+var xListHeaderGetNItems func(uintptr) uint32
 
 // Gets the the number of items in the section.
 //
 // If @self is unbound, 0 is returned.
-func (x *ListHeader) GetNItems() uint {
+func (x *ListHeader) GetNItems() uint32 {
 
 	cret := xListHeaderGetNItems(x.GoPointer())
 	return cret
 }
 
-var xListHeaderGetStart func(uintptr) uint
+var xListHeaderGetStart func(uintptr) uint32
 
 // Gets the start position in the model of the section that @self is
 // currently the header for.
 //
 // If @self is unbound, %GTK_INVALID_LIST_POSITION is returned.
-func (x *ListHeader) GetStart() uint {
+func (x *ListHeader) GetStart() uint32 {
 
 	cret := xListHeaderGetStart(x.GoPointer())
 	return cret
@@ -140,26 +140,26 @@ func (c *ListHeader) SetGoPointer(ptr uintptr) {
 
 // GetPropertyEnd gets the "end" property.
 // The first position no longer part of this section.
-func (x *ListHeader) GetPropertyEnd() uint {
+func (x *ListHeader) GetPropertyEnd() uint32 {
 	var v gobject.Value
 	x.GetProperty("end", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyNItems gets the "n-items" property.
 // Number of items in this section.
-func (x *ListHeader) GetPropertyNItems() uint {
+func (x *ListHeader) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyStart gets the "start" property.
 // First position of items in this section.
-func (x *ListHeader) GetPropertyStart() uint {
+func (x *ListHeader) GetPropertyStart() uint32 {
 	var v gobject.Value
 	x.GetProperty("start", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 func init() {

@@ -204,7 +204,7 @@ func (x *SpinnerPaintable) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *SpinnerPaintable) GetIntrinsicHeight() int {
+func (x *SpinnerPaintable) GetIntrinsicHeight() int32 {
 
 	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 	return cret
@@ -220,7 +220,7 @@ func (x *SpinnerPaintable) GetIntrinsicHeight() int {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *SpinnerPaintable) GetIntrinsicWidth() int {
+func (x *SpinnerPaintable) GetIntrinsicWidth() int32 {
 
 	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 	return cret

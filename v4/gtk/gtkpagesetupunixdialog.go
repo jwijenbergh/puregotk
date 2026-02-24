@@ -183,7 +183,7 @@ func (x *PageSetupUnixDialog) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *PageSetupUnixDialog) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *PageSetupUnixDialog) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -315,7 +315,7 @@ func (x *PageSetupUnixDialog) UpdateProperty(FirstPropertyVar AccessibleProperty
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PageSetupUnixDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *PageSetupUnixDialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -351,7 +351,7 @@ func (x *PageSetupUnixDialog) UpdateRelation(FirstRelationVar AccessibleRelation
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PageSetupUnixDialog) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *PageSetupUnixDialog) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -388,7 +388,7 @@ func (x *PageSetupUnixDialog) UpdateState(FirstStateVar AccessibleState, varArgs
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PageSetupUnixDialog) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *PageSetupUnixDialog) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

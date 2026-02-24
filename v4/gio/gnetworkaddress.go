@@ -164,19 +164,19 @@ func (x *NetworkAddress) GetPropertyHostname() string {
 
 // SetPropertyPort sets the "port" property.
 // Network port.
-func (x *NetworkAddress) SetPropertyPort(value uint) {
+func (x *NetworkAddress) SetPropertyPort(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("port", &v)
 }
 
 // GetPropertyPort gets the "port" property.
 // Network port.
-func (x *NetworkAddress) GetPropertyPort() uint {
+func (x *NetworkAddress) GetPropertyPort() uint32 {
 	var v gobject.Value
 	x.GetProperty("port", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyScheme sets the "scheme" property.

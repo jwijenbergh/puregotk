@@ -31,11 +31,11 @@ type Popup interface {
 	SetGoPointer(uintptr)
 	GetAutohide() bool
 	GetParent() *Surface
-	GetPositionX() int
-	GetPositionY() int
+	GetPositionX() int32
+	GetPositionY() int32
 	GetRectAnchor() Gravity
 	GetSurfaceAnchor() Gravity
-	Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool
+	Present(WidthVar int32, HeightVar int32, LayoutVar *PopupLayout) bool
 }
 
 var xPopupGLibType func() types.GType
@@ -82,14 +82,14 @@ func (x *PopupBase) GetParent() *Surface {
 }
 
 // Obtains the position of the popup relative to its parent.
-func (x *PopupBase) GetPositionX() int {
+func (x *PopupBase) GetPositionX() int32 {
 
 	cret := XGdkPopupGetPositionX(x.GoPointer())
 	return cret
 }
 
 // Obtains the position of the popup relative to its parent.
-func (x *PopupBase) GetPositionY() int {
+func (x *PopupBase) GetPositionY() int32 {
 
 	cret := XGdkPopupGetPositionY(x.GoPointer())
 	return cret
@@ -130,7 +130,7 @@ func (x *PopupBase) GetSurfaceAnchor() Gravity {
 // Presenting may fail, for example if the @popup is set to autohide
 // and is immediately hidden upon being presented. If presenting failed,
 // the [signal@Gdk.Surface::layout] signal will not me emitted.
-func (x *PopupBase) Present(WidthVar int, HeightVar int, LayoutVar *PopupLayout) bool {
+func (x *PopupBase) Present(WidthVar int32, HeightVar int32, LayoutVar *PopupLayout) bool {
 
 	cret := XGdkPopupPresent(x.GoPointer(), WidthVar, HeightVar, LayoutVar)
 	return cret
@@ -159,11 +159,11 @@ func (x *PopupBase) GetPropertyAutohide() bool {
 
 var XGdkPopupGetAutohide func(uintptr) bool
 var XGdkPopupGetParent func(uintptr) uintptr
-var XGdkPopupGetPositionX func(uintptr) int
-var XGdkPopupGetPositionY func(uintptr) int
+var XGdkPopupGetPositionX func(uintptr) int32
+var XGdkPopupGetPositionY func(uintptr) int32
 var XGdkPopupGetRectAnchor func(uintptr) Gravity
 var XGdkPopupGetSurfaceAnchor func(uintptr) Gravity
-var XGdkPopupPresent func(uintptr, int, int, *PopupLayout) bool
+var XGdkPopupPresent func(uintptr, int32, int32, *PopupLayout) bool
 
 func init() {
 	core.SetPackageName("GDK", "gtk4")

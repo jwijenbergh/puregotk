@@ -39,22 +39,22 @@ func (x *Node) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNodeChildIndex func(uintptr, uintptr) int
+var xNodeChildIndex func(uintptr, uintptr) int32
 
 // Gets the position of the first child of a #GNode
 // which contains the given data.
-func (x *Node) ChildIndex(DataVar uintptr) int {
+func (x *Node) ChildIndex(DataVar uintptr) int32 {
 
 	cret := xNodeChildIndex(x.GoPointer(), DataVar)
 	return cret
 }
 
-var xNodeChildPosition func(uintptr, *Node) int
+var xNodeChildPosition func(uintptr, *Node) int32
 
 // Gets the position of a #GNode with respect to its siblings.
 // @child must be a child of @node. The first child is numbered 0,
 // the second 1, and so on.
-func (x *Node) ChildPosition(ChildVar *Node) int {
+func (x *Node) ChildPosition(ChildVar *Node) int32 {
 
 	cret := xNodeChildPosition(x.GoPointer(), ChildVar)
 	return cret
@@ -90,13 +90,13 @@ func (x *Node) CopyDeep(CopyFuncVar *CopyFunc, DataVar uintptr) *Node {
 	return cret
 }
 
-var xNodeDepth func(uintptr) uint
+var xNodeDepth func(uintptr) uint32
 
 // Gets the depth of a #GNode.
 //
 // If @node is %NULL the depth is 0. The root node has a depth of 1.
 // For the children of the root node the depth is 2. And so on.
-func (x *Node) Depth() uint {
+func (x *Node) Depth() uint32 {
 
 	cret := xNodeDepth(x.GoPointer())
 	return cret
@@ -149,10 +149,10 @@ func (x *Node) GetRoot() *Node {
 	return cret
 }
 
-var xNodeInsert func(uintptr, int, *Node) *Node
+var xNodeInsert func(uintptr, int32, *Node) *Node
 
 // Inserts a #GNode beneath the parent at the given position.
-func (x *Node) Insert(PositionVar int, NodeVar *Node) *Node {
+func (x *Node) Insert(PositionVar int32, NodeVar *Node) *Node {
 
 	cret := xNodeInsert(x.GoPointer(), PositionVar, NodeVar)
 	return cret
@@ -206,43 +206,43 @@ func (x *Node) LastSibling() *Node {
 	return cret
 }
 
-var xNodeMaxHeight func(uintptr) uint
+var xNodeMaxHeight func(uintptr) uint32
 
 // Gets the maximum height of all branches beneath a #GNode.
 // This is the maximum distance from the #GNode to all leaf nodes.
 //
 // If @root is %NULL, 0 is returned. If @root has no children,
 // 1 is returned. If @root has children, 2 is returned. And so on.
-func (x *Node) MaxHeight() uint {
+func (x *Node) MaxHeight() uint32 {
 
 	cret := xNodeMaxHeight(x.GoPointer())
 	return cret
 }
 
-var xNodeNChildren func(uintptr) uint
+var xNodeNChildren func(uintptr) uint32
 
 // Gets the number of children of a #GNode.
-func (x *Node) NChildren() uint {
+func (x *Node) NChildren() uint32 {
 
 	cret := xNodeNChildren(x.GoPointer())
 	return cret
 }
 
-var xNodeNNodes func(uintptr, TraverseFlags) uint
+var xNodeNNodes func(uintptr, TraverseFlags) uint32
 
 // Gets the number of nodes in a tree.
-func (x *Node) NNodes(FlagsVar TraverseFlags) uint {
+func (x *Node) NNodes(FlagsVar TraverseFlags) uint32 {
 
 	cret := xNodeNNodes(x.GoPointer(), FlagsVar)
 	return cret
 }
 
-var xNodeNthChild func(uintptr, uint) *Node
+var xNodeNthChild func(uintptr, uint32) *Node
 
 // Gets a child of a #GNode, using the given index.
 // The first child is at index 0. If the index is
 // too big, %NULL is returned.
-func (x *Node) NthChild(NVar uint) *Node {
+func (x *Node) NthChild(NVar uint32) *Node {
 
 	cret := xNodeNthChild(x.GoPointer(), NVar)
 	return cret
@@ -267,13 +267,13 @@ func (x *Node) ReverseChildren() {
 
 }
 
-var xNodeTraverse func(uintptr, TraverseType, TraverseFlags, int, uintptr, uintptr)
+var xNodeTraverse func(uintptr, TraverseType, TraverseFlags, int32, uintptr, uintptr)
 
 // Traverses a tree starting at the given root #GNode.
 // It calls the given function for each node visited.
 // The traversal can be halted at any point by returning %TRUE from @func.
 // @func must not do anything that would modify the structure of the tree.
-func (x *Node) Traverse(OrderVar TraverseType, FlagsVar TraverseFlags, MaxDepthVar int, FuncVar *NodeTraverseFunc, DataVar uintptr) {
+func (x *Node) Traverse(OrderVar TraverseType, FlagsVar TraverseFlags, MaxDepthVar int32, FuncVar *NodeTraverseFunc, DataVar uintptr) {
 
 	xNodeTraverse(x.GoPointer(), OrderVar, FlagsVar, MaxDepthVar, NewCallback(FuncVar), DataVar)
 

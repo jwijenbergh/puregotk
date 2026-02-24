@@ -112,24 +112,24 @@ func (x *FontChooserIface) GetGetFontFace() func(FontChooser) *pango.FontFace {
 }
 
 // OverrideGetFontSize sets the "get_font_size" callback function.
-func (x *FontChooserIface) OverrideGetFontSize(cb func(FontChooser) int) {
+func (x *FontChooserIface) OverrideGetFontSize(cb func(FontChooser) int32) {
 	if cb == nil {
 		x.xGetFontSize = 0
 	} else {
-		x.xGetFontSize = purego.NewCallback(func(FontchooserVarp uintptr) int {
+		x.xGetFontSize = purego.NewCallback(func(FontchooserVarp uintptr) int32 {
 			return cb(&FontChooserBase{Ptr: FontchooserVarp})
 		})
 	}
 }
 
 // GetGetFontSize gets the "get_font_size" callback function.
-func (x *FontChooserIface) GetGetFontSize() func(FontChooser) int {
+func (x *FontChooserIface) GetGetFontSize() func(FontChooser) int32 {
 	if x.xGetFontSize == 0 {
 		return nil
 	}
-	var rawCallback func(FontchooserVarp uintptr) int
+	var rawCallback func(FontchooserVarp uintptr) int32
 	purego.RegisterFunc(&rawCallback, x.xGetFontSize)
-	return func(FontchooserVar FontChooser) int {
+	return func(FontchooserVar FontChooser) int32 {
 		return rawCallback(FontchooserVar.GoPointer())
 	}
 }
@@ -251,7 +251,7 @@ type FontChooser interface {
 	GetFontFamily() *pango.FontFamily
 	GetFontFeatures() string
 	GetFontMap() *pango.FontMap
-	GetFontSize() int
+	GetFontSize() int32
 	GetLanguage() string
 	GetLevel() FontChooserLevel
 	GetPreviewText() string
@@ -383,7 +383,7 @@ func (x *FontChooserBase) GetFontMap() *pango.FontMap {
 }
 
 // The selected font size.
-func (x *FontChooserBase) GetFontSize() int {
+func (x *FontChooserBase) GetFontSize() int32 {
 
 	cret := XGtkFontChooserGetFontSize(x.GoPointer())
 	return cret
@@ -624,7 +624,7 @@ var XGtkFontChooserGetFontFace func(uintptr) uintptr
 var XGtkFontChooserGetFontFamily func(uintptr) uintptr
 var XGtkFontChooserGetFontFeatures func(uintptr) string
 var XGtkFontChooserGetFontMap func(uintptr) uintptr
-var XGtkFontChooserGetFontSize func(uintptr) int
+var XGtkFontChooserGetFontSize func(uintptr) int32
 var XGtkFontChooserGetLanguage func(uintptr) string
 var XGtkFontChooserGetLevel func(uintptr) FontChooserLevel
 var XGtkFontChooserGetPreviewText func(uintptr) string

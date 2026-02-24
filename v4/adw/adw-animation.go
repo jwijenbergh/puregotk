@@ -25,7 +25,7 @@ const (
 	// Indicates an [class@Animation] with an infinite duration.
 	//
 	// This value is mostly used internally.
-	DURATION_INFINITE uint = 4294967295
+	DURATION_INFINITE uint32 = 4294967295
 )
 
 // Describes the possible states of an [class@Animation].

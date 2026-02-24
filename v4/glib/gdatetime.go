@@ -49,7 +49,7 @@ func (x *DateTime) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewDateTime func(*TimeZone, int, int, int, int, int, float64) *DateTime
+var xNewDateTime func(*TimeZone, int32, int32, int32, int32, int32, float64) *DateTime
 
 // Creates a new #GDateTime corresponding to the given date and time in
 // the time zone @tz.
@@ -79,7 +79,7 @@ var xNewDateTime func(*TimeZone, int, int, int, int, int, float64) *DateTime
 //
 // You should release the return value by calling g_date_time_unref()
 // when you are done with it.
-func NewDateTime(TzVar *TimeZone, YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
+func NewDateTime(TzVar *TimeZone, YearVar int32, MonthVar int32, DayVar int32, HourVar int32, MinuteVar int32, SecondsVar float64) *DateTime {
 
 	cret := xNewDateTime(TzVar, YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
 	return cret
@@ -248,14 +248,14 @@ func NewDateTimeFromUnixUtcUsec(UsecsVar int64) *DateTime {
 	return cret
 }
 
-var xNewDateTimeLocal func(int, int, int, int, int, float64) *DateTime
+var xNewDateTimeLocal func(int32, int32, int32, int32, int32, float64) *DateTime
 
 // Creates a new #GDateTime corresponding to the given date and time in
 // the local time zone.
 //
 // This call is equivalent to calling g_date_time_new() with the time
 // zone returned by g_time_zone_new_local().
-func NewDateTimeLocal(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
+func NewDateTimeLocal(YearVar int32, MonthVar int32, DayVar int32, HourVar int32, MinuteVar int32, SecondsVar float64) *DateTime {
 
 	cret := xNewDateTimeLocal(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
 	return cret
@@ -303,14 +303,14 @@ func NewDateTimeNowUtc() *DateTime {
 	return cret
 }
 
-var xNewDateTimeUtc func(int, int, int, int, int, float64) *DateTime
+var xNewDateTimeUtc func(int32, int32, int32, int32, int32, float64) *DateTime
 
 // Creates a new #GDateTime corresponding to the given date and time in
 // UTC.
 //
 // This call is equivalent to calling g_date_time_new() with the time
 // zone returned by g_time_zone_new_utc().
-func NewDateTimeUtc(YearVar int, MonthVar int, DayVar int, HourVar int, MinuteVar int, SecondsVar float64) *DateTime {
+func NewDateTimeUtc(YearVar int32, MonthVar int32, DayVar int32, HourVar int32, MinuteVar int32, SecondsVar float64) *DateTime {
 
 	cret := xNewDateTimeUtc(YearVar, MonthVar, DayVar, HourVar, MinuteVar, SecondsVar)
 	return cret
@@ -325,47 +325,47 @@ func (x *DateTime) Add(TimespanVar TimeSpan) *DateTime {
 	return cret
 }
 
-var xDateTimeAddDays func(uintptr, int) *DateTime
+var xDateTimeAddDays func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime and adds the specified number of days to the
 // copy. Add negative values to subtract days.
-func (x *DateTime) AddDays(DaysVar int) *DateTime {
+func (x *DateTime) AddDays(DaysVar int32) *DateTime {
 
 	cret := xDateTimeAddDays(x.GoPointer(), DaysVar)
 	return cret
 }
 
-var xDateTimeAddFull func(uintptr, int, int, int, int, int, float64) *DateTime
+var xDateTimeAddFull func(uintptr, int32, int32, int32, int32, int32, float64) *DateTime
 
 // Creates a new #GDateTime adding the specified values to the current date and
 // time in @datetime. Add negative values to subtract.
-func (x *DateTime) AddFull(YearsVar int, MonthsVar int, DaysVar int, HoursVar int, MinutesVar int, SecondsVar float64) *DateTime {
+func (x *DateTime) AddFull(YearsVar int32, MonthsVar int32, DaysVar int32, HoursVar int32, MinutesVar int32, SecondsVar float64) *DateTime {
 
 	cret := xDateTimeAddFull(x.GoPointer(), YearsVar, MonthsVar, DaysVar, HoursVar, MinutesVar, SecondsVar)
 	return cret
 }
 
-var xDateTimeAddHours func(uintptr, int) *DateTime
+var xDateTimeAddHours func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime and adds the specified number of hours.
 // Add negative values to subtract hours.
-func (x *DateTime) AddHours(HoursVar int) *DateTime {
+func (x *DateTime) AddHours(HoursVar int32) *DateTime {
 
 	cret := xDateTimeAddHours(x.GoPointer(), HoursVar)
 	return cret
 }
 
-var xDateTimeAddMinutes func(uintptr, int) *DateTime
+var xDateTimeAddMinutes func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime adding the specified number of minutes.
 // Add negative values to subtract minutes.
-func (x *DateTime) AddMinutes(MinutesVar int) *DateTime {
+func (x *DateTime) AddMinutes(MinutesVar int32) *DateTime {
 
 	cret := xDateTimeAddMinutes(x.GoPointer(), MinutesVar)
 	return cret
 }
 
-var xDateTimeAddMonths func(uintptr, int) *DateTime
+var xDateTimeAddMonths func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime and adds the specified number of months to the
 // copy. Add negative values to subtract months.
@@ -374,7 +374,7 @@ var xDateTimeAddMonths func(uintptr, int) *DateTime
 // of days in the updated calendar month. For example, if adding 1 month to
 // 31st January 2018, the result would be 28th February 2018. In 2020 (a leap
 // year), the result would be 29th February.
-func (x *DateTime) AddMonths(MonthsVar int) *DateTime {
+func (x *DateTime) AddMonths(MonthsVar int32) *DateTime {
 
 	cret := xDateTimeAddMonths(x.GoPointer(), MonthsVar)
 	return cret
@@ -390,34 +390,34 @@ func (x *DateTime) AddSeconds(SecondsVar float64) *DateTime {
 	return cret
 }
 
-var xDateTimeAddWeeks func(uintptr, int) *DateTime
+var xDateTimeAddWeeks func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime and adds the specified number of weeks to the
 // copy. Add negative values to subtract weeks.
-func (x *DateTime) AddWeeks(WeeksVar int) *DateTime {
+func (x *DateTime) AddWeeks(WeeksVar int32) *DateTime {
 
 	cret := xDateTimeAddWeeks(x.GoPointer(), WeeksVar)
 	return cret
 }
 
-var xDateTimeAddYears func(uintptr, int) *DateTime
+var xDateTimeAddYears func(uintptr, int32) *DateTime
 
 // Creates a copy of @datetime and adds the specified number of years to the
 // copy. Add negative values to subtract years.
 //
 // As with g_date_time_add_months(), if the resulting date would be 29th
 // February on a non-leap year, the day will be clamped to 28th February.
-func (x *DateTime) AddYears(YearsVar int) *DateTime {
+func (x *DateTime) AddYears(YearsVar int32) *DateTime {
 
 	cret := xDateTimeAddYears(x.GoPointer(), YearsVar)
 	return cret
 }
 
-var xDateTimeCompare func(uintptr, uintptr) int
+var xDateTimeCompare func(uintptr, uintptr) int32
 
 // A comparison function for #GDateTimes that is suitable
 // as a #GCompareFunc. Both #GDateTimes must be non-%NULL.
-func (x *DateTime) Compare(Dt2Var uintptr) int {
+func (x *DateTime) Compare(Dt2Var uintptr) int32 {
 
 	cret := xDateTimeCompare(x.GoPointer(), Dt2Var)
 	return cret
@@ -591,77 +591,77 @@ func (x *DateTime) FormatIso8601() string {
 	return cret
 }
 
-var xDateTimeGetDayOfMonth func(uintptr) int
+var xDateTimeGetDayOfMonth func(uintptr) int32
 
 // Retrieves the day of the month represented by @datetime in the gregorian
 // calendar.
-func (x *DateTime) GetDayOfMonth() int {
+func (x *DateTime) GetDayOfMonth() int32 {
 
 	cret := xDateTimeGetDayOfMonth(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetDayOfWeek func(uintptr) int
+var xDateTimeGetDayOfWeek func(uintptr) int32
 
 // Retrieves the ISO 8601 day of the week on which @datetime falls (1 is
 // Monday, 2 is Tuesday... 7 is Sunday).
-func (x *DateTime) GetDayOfWeek() int {
+func (x *DateTime) GetDayOfWeek() int32 {
 
 	cret := xDateTimeGetDayOfWeek(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetDayOfYear func(uintptr) int
+var xDateTimeGetDayOfYear func(uintptr) int32
 
 // Retrieves the day of the year represented by @datetime in the Gregorian
 // calendar.
-func (x *DateTime) GetDayOfYear() int {
+func (x *DateTime) GetDayOfYear() int32 {
 
 	cret := xDateTimeGetDayOfYear(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetHour func(uintptr) int
+var xDateTimeGetHour func(uintptr) int32
 
 // Retrieves the hour of the day represented by @datetime
-func (x *DateTime) GetHour() int {
+func (x *DateTime) GetHour() int32 {
 
 	cret := xDateTimeGetHour(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetMicrosecond func(uintptr) int
+var xDateTimeGetMicrosecond func(uintptr) int32
 
 // Retrieves the microsecond of the date represented by @datetime
-func (x *DateTime) GetMicrosecond() int {
+func (x *DateTime) GetMicrosecond() int32 {
 
 	cret := xDateTimeGetMicrosecond(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetMinute func(uintptr) int
+var xDateTimeGetMinute func(uintptr) int32
 
 // Retrieves the minute of the hour represented by @datetime
-func (x *DateTime) GetMinute() int {
+func (x *DateTime) GetMinute() int32 {
 
 	cret := xDateTimeGetMinute(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetMonth func(uintptr) int
+var xDateTimeGetMonth func(uintptr) int32
 
 // Retrieves the month of the year represented by @datetime in the Gregorian
 // calendar.
-func (x *DateTime) GetMonth() int {
+func (x *DateTime) GetMonth() int32 {
 
 	cret := xDateTimeGetMonth(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetSecond func(uintptr) int
+var xDateTimeGetSecond func(uintptr) int32
 
 // Retrieves the second of the minute represented by @datetime
-func (x *DateTime) GetSecond() int {
+func (x *DateTime) GetSecond() int32 {
 
 	cret := xDateTimeGetSecond(x.GoPointer())
 	return cret
@@ -716,7 +716,7 @@ func (x *DateTime) GetUtcOffset() TimeSpan {
 	return cret
 }
 
-var xDateTimeGetWeekNumberingYear func(uintptr) int
+var xDateTimeGetWeekNumberingYear func(uintptr) int32
 
 // Returns the ISO 8601 week-numbering year in which the week containing
 // @datetime falls.
@@ -749,13 +749,13 @@ var xDateTimeGetWeekNumberingYear func(uintptr) int
 //
 // Note that January 1 0001 in the proleptic Gregorian calendar is a
 // Monday, so this function never returns 0.
-func (x *DateTime) GetWeekNumberingYear() int {
+func (x *DateTime) GetWeekNumberingYear() int32 {
 
 	cret := xDateTimeGetWeekNumberingYear(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetWeekOfYear func(uintptr) int
+var xDateTimeGetWeekOfYear func(uintptr) int32
 
 // Returns the ISO 8601 week number for the week containing @datetime.
 // The ISO 8601 week number is the same for every day of the week (from
@@ -772,34 +772,34 @@ var xDateTimeGetWeekOfYear func(uintptr) int
 // previous year.  Similarly, the final days of a calendar year may be
 // considered as being part of the first ISO 8601 week of the next year
 // if 4 or more days of that week are contained within the new year.
-func (x *DateTime) GetWeekOfYear() int {
+func (x *DateTime) GetWeekOfYear() int32 {
 
 	cret := xDateTimeGetWeekOfYear(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetYear func(uintptr) int
+var xDateTimeGetYear func(uintptr) int32
 
 // Retrieves the year represented by @datetime in the Gregorian calendar.
-func (x *DateTime) GetYear() int {
+func (x *DateTime) GetYear() int32 {
 
 	cret := xDateTimeGetYear(x.GoPointer())
 	return cret
 }
 
-var xDateTimeGetYmd func(uintptr, *int, *int, *int)
+var xDateTimeGetYmd func(uintptr, *int32, *int32, *int32)
 
 // Retrieves the Gregorian day, month, and year of a given #GDateTime.
-func (x *DateTime) GetYmd(YearVar *int, MonthVar *int, DayVar *int) {
+func (x *DateTime) GetYmd(YearVar *int32, MonthVar *int32, DayVar *int32) {
 
 	xDateTimeGetYmd(x.GoPointer(), YearVar, MonthVar, DayVar)
 
 }
 
-var xDateTimeHash func(uintptr) uint
+var xDateTimeHash func(uintptr) uint32
 
 // Hashes @datetime into a #guint, suitable for use within #GHashTable.
-func (x *DateTime) Hash() uint {
+func (x *DateTime) Hash() uint32 {
 
 	cret := xDateTimeHash(x.GoPointer())
 	return cret

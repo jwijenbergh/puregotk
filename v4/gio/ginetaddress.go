@@ -386,20 +386,20 @@ func (x *InetAddress) GetPropertyBytes() uintptr {
 // SetPropertyFlowinfo sets the "flowinfo" property.
 // The flowinfo for an IPv6 address.
 // See [method@Gio.InetAddress.get_flowinfo].
-func (x *InetAddress) SetPropertyFlowinfo(value uint) {
+func (x *InetAddress) SetPropertyFlowinfo(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("flowinfo", &v)
 }
 
 // GetPropertyFlowinfo gets the "flowinfo" property.
 // The flowinfo for an IPv6 address.
 // See [method@Gio.InetAddress.get_flowinfo].
-func (x *InetAddress) GetPropertyFlowinfo() uint {
+func (x *InetAddress) GetPropertyFlowinfo() uint32 {
 	var v gobject.Value
 	x.GetProperty("flowinfo", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyIsAny gets the "is-any" property.
@@ -495,20 +495,20 @@ func (x *InetAddress) GetPropertyIsSiteLocal() bool {
 // SetPropertyScopeId sets the "scope-id" property.
 // The scope-id for an IPv6 address.
 // See [method@Gio.InetAddress.get_scope_id].
-func (x *InetAddress) SetPropertyScopeId(value uint) {
+func (x *InetAddress) SetPropertyScopeId(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("scope-id", &v)
 }
 
 // GetPropertyScopeId gets the "scope-id" property.
 // The scope-id for an IPv6 address.
 // See [method@Gio.InetAddress.get_scope_id].
-func (x *InetAddress) GetPropertyScopeId() uint {
+func (x *InetAddress) GetPropertyScopeId() uint32 {
 	var v gobject.Value
 	x.GetProperty("scope-id", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 func init() {

@@ -329,7 +329,7 @@ func (x *InlineViewSwitcher) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *InlineViewSwitcher) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *InlineViewSwitcher) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -461,7 +461,7 @@ func (x *InlineViewSwitcher) UpdateProperty(FirstPropertyVar gtk.AccessiblePrope
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *InlineViewSwitcher) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *InlineViewSwitcher) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -497,7 +497,7 @@ func (x *InlineViewSwitcher) UpdateRelation(FirstRelationVar gtk.AccessibleRelat
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *InlineViewSwitcher) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *InlineViewSwitcher) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -534,7 +534,7 @@ func (x *InlineViewSwitcher) UpdateState(FirstStateVar gtk.AccessibleState, varA
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *InlineViewSwitcher) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *InlineViewSwitcher) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

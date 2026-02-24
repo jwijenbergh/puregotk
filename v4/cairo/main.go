@@ -205,9 +205,9 @@ func (x *Glyph) GoPointer() uintptr {
 type TextCluster struct {
 	_ structs.HostLayout
 
-	NumBytes int
+	NumBytes int32
 
-	NumGlyphs int
+	NumGlyphs int32
 }
 
 var xTextClusterGLibType func() types.GType

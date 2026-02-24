@@ -53,14 +53,14 @@ func (x *IOModuleScope) Free() {
 
 }
 
-var xIoExtensionPointImplement func(string, types.GType, string, int) *IOExtension
+var xIoExtensionPointImplement func(string, types.GType, string, int32) *IOExtension
 
 // Registers @type as extension for the extension point with name
 // @extension_point_name.
 //
 // If @type has already been registered as an extension for this
 // extension point, the existing #GIOExtension object is returned.
-func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar types.GType, ExtensionNameVar string, PriorityVar int) *IOExtension {
+func IoExtensionPointImplement(ExtensionPointNameVar string, TypeVar types.GType, ExtensionNameVar string, PriorityVar int32) *IOExtension {
 
 	cret := xIoExtensionPointImplement(ExtensionPointNameVar, TypeVar, ExtensionNameVar, PriorityVar)
 	return cret

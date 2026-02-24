@@ -6,7 +6,7 @@ import (
 	"github.com/jwijenbergh/puregotk/pkg/core"
 )
 
-var xAtomicIntAdd func(uintptr, int) int
+var xAtomicIntAdd func(uintptr, int32) int32
 
 // Atomically adds @val to the value of @atomic.
 //
@@ -20,13 +20,13 @@ var xAtomicIntAdd func(uintptr, int) int
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntAdd(AtomicVar uintptr, ValVar int) int {
+func AtomicIntAdd(AtomicVar uintptr, ValVar int32) int32 {
 
 	cret := xAtomicIntAdd(AtomicVar, ValVar)
 	return cret
 }
 
-var xAtomicIntAnd func(uintptr, uint) uint
+var xAtomicIntAnd func(uintptr, uint32) uint32
 
 // Performs an atomic bitwise 'and' of the value of @atomic and @val,
 // storing the result back in @atomic.
@@ -38,13 +38,13 @@ var xAtomicIntAnd func(uintptr, uint) uint
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntAnd(AtomicVar uintptr, ValVar uint) uint {
+func AtomicIntAnd(AtomicVar uintptr, ValVar uint32) uint32 {
 
 	cret := xAtomicIntAnd(AtomicVar, ValVar)
 	return cret
 }
 
-var xAtomicIntCompareAndExchange func(uintptr, int, int) bool
+var xAtomicIntCompareAndExchange func(uintptr, int32, int32) bool
 
 // Compares @atomic to @oldval and, if equal, sets it to @newval.
 // If @atomic was not equal to @oldval then no change occurs.
@@ -58,13 +58,13 @@ var xAtomicIntCompareAndExchange func(uintptr, int, int) bool
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntCompareAndExchange(AtomicVar uintptr, OldvalVar int, NewvalVar int) bool {
+func AtomicIntCompareAndExchange(AtomicVar uintptr, OldvalVar int32, NewvalVar int32) bool {
 
 	cret := xAtomicIntCompareAndExchange(AtomicVar, OldvalVar, NewvalVar)
 	return cret
 }
 
-var xAtomicIntCompareAndExchangeFull func(uintptr, int, int, *int) bool
+var xAtomicIntCompareAndExchangeFull func(uintptr, int32, int32, *int32) bool
 
 // Compares @atomic to @oldval and, if equal, sets it to @newval.
 // If @atomic was not equal to @oldval then no change occurs.
@@ -78,7 +78,7 @@ var xAtomicIntCompareAndExchangeFull func(uintptr, int, int, *int) bool
 // This call acts as a full compiler and hardware memory barrier.
 //
 // See also g_atomic_int_compare_and_exchange()
-func AtomicIntCompareAndExchangeFull(AtomicVar uintptr, OldvalVar int, NewvalVar int, PrevalVar *int) bool {
+func AtomicIntCompareAndExchangeFull(AtomicVar uintptr, OldvalVar int32, NewvalVar int32, PrevalVar *int32) bool {
 
 	cret := xAtomicIntCompareAndExchangeFull(AtomicVar, OldvalVar, NewvalVar, PrevalVar)
 	return cret
@@ -101,7 +101,7 @@ func AtomicIntDecAndTest(AtomicVar uintptr) bool {
 	return cret
 }
 
-var xAtomicIntExchange func(uintptr, int) int
+var xAtomicIntExchange func(uintptr, int32) int32
 
 // Sets the @atomic to @newval and returns the old value from @atomic.
 //
@@ -111,24 +111,24 @@ var xAtomicIntExchange func(uintptr, int) int
 // `{ tmp = *atomic; *atomic = val; return tmp; }`.
 //
 // This call acts as a full compiler and hardware memory barrier.
-func AtomicIntExchange(AtomicVar uintptr, NewvalVar int) int {
+func AtomicIntExchange(AtomicVar uintptr, NewvalVar int32) int32 {
 
 	cret := xAtomicIntExchange(AtomicVar, NewvalVar)
 	return cret
 }
 
-var xAtomicIntExchangeAndAdd func(uintptr, int) int
+var xAtomicIntExchangeAndAdd func(uintptr, int32) int32
 
 // This function existed before g_atomic_int_add() returned the prior
 // value of the integer (which it now does).  It is retained only for
 // compatibility reasons.  Don't use this function in new code.
-func AtomicIntExchangeAndAdd(AtomicVar uintptr, ValVar int) int {
+func AtomicIntExchangeAndAdd(AtomicVar uintptr, ValVar int32) int32 {
 
 	cret := xAtomicIntExchangeAndAdd(AtomicVar, ValVar)
 	return cret
 }
 
-var xAtomicIntGet func(uintptr) int
+var xAtomicIntGet func(uintptr) int32
 
 // Gets the current value of @atomic.
 //
@@ -137,7 +137,7 @@ var xAtomicIntGet func(uintptr) int
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntGet(AtomicVar uintptr) int {
+func AtomicIntGet(AtomicVar uintptr) int32 {
 
 	cret := xAtomicIntGet(AtomicVar)
 	return cret
@@ -159,7 +159,7 @@ func AtomicIntInc(AtomicVar uintptr) {
 
 }
 
-var xAtomicIntOr func(uintptr, uint) uint
+var xAtomicIntOr func(uintptr, uint32) uint32
 
 // Performs an atomic bitwise 'or' of the value of @atomic and @val,
 // storing the result back in @atomic.
@@ -171,13 +171,13 @@ var xAtomicIntOr func(uintptr, uint) uint
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntOr(AtomicVar uintptr, ValVar uint) uint {
+func AtomicIntOr(AtomicVar uintptr, ValVar uint32) uint32 {
 
 	cret := xAtomicIntOr(AtomicVar, ValVar)
 	return cret
 }
 
-var xAtomicIntSet func(uintptr, int)
+var xAtomicIntSet func(uintptr, int32)
 
 // Sets the value of @atomic to @newval.
 //
@@ -186,13 +186,13 @@ var xAtomicIntSet func(uintptr, int)
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntSet(AtomicVar uintptr, NewvalVar int) {
+func AtomicIntSet(AtomicVar uintptr, NewvalVar int32) {
 
 	xAtomicIntSet(AtomicVar, NewvalVar)
 
 }
 
-var xAtomicIntXor func(uintptr, uint) uint
+var xAtomicIntXor func(uintptr, uint32) uint32
 
 // Performs an atomic bitwise 'xor' of the value of @atomic and @val,
 // storing the result back in @atomic.
@@ -204,7 +204,7 @@ var xAtomicIntXor func(uintptr, uint) uint
 //
 // While @atomic has a `volatile` qualifier, this is a historical artifact and
 // the pointer passed to it should not be `volatile`.
-func AtomicIntXor(AtomicVar uintptr, ValVar uint) uint {
+func AtomicIntXor(AtomicVar uintptr, ValVar uint32) uint32 {
 
 	cret := xAtomicIntXor(AtomicVar, ValVar)
 	return cret

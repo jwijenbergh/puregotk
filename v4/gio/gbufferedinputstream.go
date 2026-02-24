@@ -62,24 +62,24 @@ func (x *BufferedInputStreamClass) GetFill() func(*BufferedInputStream, int, *Ca
 }
 
 // OverrideFillAsync sets the "fill_async" callback function.
-func (x *BufferedInputStreamClass) OverrideFillAsync(cb func(*BufferedInputStream, int, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *BufferedInputStreamClass) OverrideFillAsync(cb func(*BufferedInputStream, int, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xFillAsync = 0
 	} else {
-		x.xFillAsync = purego.NewCallback(func(StreamVarp uintptr, CountVarp int, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xFillAsync = purego.NewCallback(func(StreamVarp uintptr, CountVarp int, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(BufferedInputStreamNewFromInternalPtr(StreamVarp), CountVarp, IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetFillAsync gets the "fill_async" callback function.
-func (x *BufferedInputStreamClass) GetFillAsync() func(*BufferedInputStream, int, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *BufferedInputStreamClass) GetFillAsync() func(*BufferedInputStream, int, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xFillAsync == 0 {
 		return nil
 	}
-	var rawCallback func(StreamVarp uintptr, CountVarp int, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(StreamVarp uintptr, CountVarp int, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xFillAsync)
-	return func(StreamVar *BufferedInputStream, CountVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(StreamVar *BufferedInputStream, CountVar int, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(StreamVar.GoPointer(), CountVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -331,7 +331,7 @@ func (x *BufferedInputStream) Fill(CountVar int, CancellableVar *Cancellable) (i
 
 }
 
-var xBufferedInputStreamFillAsync func(uintptr, int, int, uintptr, uintptr, uintptr)
+var xBufferedInputStreamFillAsync func(uintptr, int, int32, uintptr, uintptr, uintptr)
 
 // Reads data into @stream's buffer asynchronously, up to @count size.
 // @io_priority can be used to prioritize reads. For the synchronous
@@ -339,7 +339,7 @@ var xBufferedInputStreamFillAsync func(uintptr, int, int, uintptr, uintptr, uint
 //
 // If @count is `-1` then the attempted read size is equal to the number
 // of bytes that are required to fill the buffer.
-func (x *BufferedInputStream) FillAsync(CountVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *BufferedInputStream) FillAsync(CountVar int, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xBufferedInputStreamFillAsync(x.GoPointer(), CountVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -398,7 +398,7 @@ func (x *BufferedInputStream) PeekBuffer(CountVar *uint) uintptr {
 	return cret
 }
 
-var xBufferedInputStreamReadByte func(uintptr, uintptr, **glib.Error) int
+var xBufferedInputStreamReadByte func(uintptr, uintptr, **glib.Error) int32
 
 // Tries to read a single byte from the stream or the buffer. Will block
 // during this read.
@@ -413,7 +413,7 @@ var xBufferedInputStreamReadByte func(uintptr, uintptr, **glib.Error) int
 // partial result will be returned, without an error.
 //
 // On error `-1` is returned and @error is set accordingly.
-func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) (int, error) {
+func (x *BufferedInputStream) ReadByte(CancellableVar *Cancellable) (int32, error) {
 	var cerr *glib.Error
 
 	cret := xBufferedInputStreamReadByte(x.GoPointer(), CancellableVar.GoPointer(), &cerr)
@@ -448,19 +448,19 @@ func (c *BufferedInputStream) SetGoPointer(ptr uintptr) {
 
 // SetPropertyBufferSize sets the "buffer-size" property.
 // The size of the backend buffer, in bytes.
-func (x *BufferedInputStream) SetPropertyBufferSize(value uint) {
+func (x *BufferedInputStream) SetPropertyBufferSize(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("buffer-size", &v)
 }
 
 // GetPropertyBufferSize gets the "buffer-size" property.
 // The size of the backend buffer, in bytes.
-func (x *BufferedInputStream) GetPropertyBufferSize() uint {
+func (x *BufferedInputStream) GetPropertyBufferSize() uint32 {
 	var v gobject.Value
 	x.GetProperty("buffer-size", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Tests if the stream supports the #GSeekableIface.

@@ -40,7 +40,7 @@ func (x *StyleProviderBase) SetGoPointer(ptr uintptr) {
 const (
 	// A priority that can be used when adding a `GtkStyleProvider`
 	// for application-specific style information.
-	STYLE_PROVIDER_PRIORITY_APPLICATION int = 600
+	STYLE_PROVIDER_PRIORITY_APPLICATION int32 = 600
 	// The priority used for default style information
 	// that is used in the absence of themes.
 	//
@@ -48,20 +48,20 @@ const (
 	// styling for custom style classes - themes are likely to
 	// override styling provided at this priority with
 	// catch-all `* {...}` rules.
-	STYLE_PROVIDER_PRIORITY_FALLBACK int = 1
+	STYLE_PROVIDER_PRIORITY_FALLBACK int32 = 1
 	// The priority used for style information provided
 	// via `GtkSettings`.
 	//
 	// This priority is higher than %GTK_STYLE_PROVIDER_PRIORITY_THEME
 	// to let settings override themes.
-	STYLE_PROVIDER_PRIORITY_SETTINGS int = 400
+	STYLE_PROVIDER_PRIORITY_SETTINGS int32 = 400
 	// The priority used for style information provided
 	// by themes.
-	STYLE_PROVIDER_PRIORITY_THEME int = 200
+	STYLE_PROVIDER_PRIORITY_THEME int32 = 200
 	// The priority used for the style information from
 	// `$XDG_CONFIG_HOME/gtk-4.0/gtk.css`.
 	//
 	// You should not use priorities higher than this, to
 	// give the user the last word.
-	STYLE_PROVIDER_PRIORITY_USER int = 800
+	STYLE_PROVIDER_PRIORITY_USER int32 = 800
 )

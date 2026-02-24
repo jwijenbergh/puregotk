@@ -105,24 +105,24 @@ func (x *FileEnumeratorClass) GetCloseFn() func(*FileEnumerator, *Cancellable) b
 }
 
 // OverrideNextFilesAsync sets the "next_files_async" callback function.
-func (x *FileEnumeratorClass) OverrideNextFilesAsync(cb func(*FileEnumerator, int, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *FileEnumeratorClass) OverrideNextFilesAsync(cb func(*FileEnumerator, int32, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xNextFilesAsync = 0
 	} else {
-		x.xNextFilesAsync = purego.NewCallback(func(EnumeratorVarp uintptr, NumFilesVarp int, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xNextFilesAsync = purego.NewCallback(func(EnumeratorVarp uintptr, NumFilesVarp int32, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(FileEnumeratorNewFromInternalPtr(EnumeratorVarp), NumFilesVarp, IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetNextFilesAsync gets the "next_files_async" callback function.
-func (x *FileEnumeratorClass) GetNextFilesAsync() func(*FileEnumerator, int, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *FileEnumeratorClass) GetNextFilesAsync() func(*FileEnumerator, int32, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xNextFilesAsync == 0 {
 		return nil
 	}
-	var rawCallback func(EnumeratorVarp uintptr, NumFilesVarp int, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(EnumeratorVarp uintptr, NumFilesVarp int32, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xNextFilesAsync)
-	return func(EnumeratorVar *FileEnumerator, NumFilesVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(EnumeratorVar *FileEnumerator, NumFilesVar int32, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(EnumeratorVar.GoPointer(), NumFilesVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -151,24 +151,24 @@ func (x *FileEnumeratorClass) GetNextFilesFinish() func(*FileEnumerator, AsyncRe
 }
 
 // OverrideCloseAsync sets the "close_async" callback function.
-func (x *FileEnumeratorClass) OverrideCloseAsync(cb func(*FileEnumerator, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *FileEnumeratorClass) OverrideCloseAsync(cb func(*FileEnumerator, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xCloseAsync = 0
 	} else {
-		x.xCloseAsync = purego.NewCallback(func(EnumeratorVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xCloseAsync = purego.NewCallback(func(EnumeratorVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(FileEnumeratorNewFromInternalPtr(EnumeratorVarp), IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetCloseAsync gets the "close_async" callback function.
-func (x *FileEnumeratorClass) GetCloseAsync() func(*FileEnumerator, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *FileEnumeratorClass) GetCloseAsync() func(*FileEnumerator, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xCloseAsync == 0 {
 		return nil
 	}
-	var rawCallback func(EnumeratorVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(EnumeratorVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xCloseAsync)
-	return func(EnumeratorVar *FileEnumerator, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(EnumeratorVar *FileEnumerator, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(EnumeratorVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -426,7 +426,7 @@ func (x *FileEnumerator) Close(CancellableVar *Cancellable) (bool, error) {
 
 }
 
-var xFileEnumeratorCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var xFileEnumeratorCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 
 // Asynchronously closes the file enumerator.
 //
@@ -434,7 +434,7 @@ var xFileEnumeratorCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 // triggering the cancellable object from another thread. If the operation
 // was cancelled, the error %G_IO_ERROR_CANCELLED will be returned in
 // g_file_enumerator_close_finish().
-func (x *FileEnumerator) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileEnumerator) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileEnumeratorCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -613,7 +613,7 @@ func (x *FileEnumerator) NextFile(CancellableVar *Cancellable) (*FileInfo, error
 
 }
 
-var xFileEnumeratorNextFilesAsync func(uintptr, int, int, uintptr, uintptr, uintptr)
+var xFileEnumeratorNextFilesAsync func(uintptr, int32, int32, uintptr, uintptr, uintptr)
 
 // Request information for a number of files from the enumerator asynchronously.
 // When all I/O for the operation is finished the @callback will be called with
@@ -686,7 +686,7 @@ var xFileEnumeratorNextFilesAsync func(uintptr, int, int, uintptr, uintptr, uint
 // Any outstanding I/O request with higher priority (lower numerical value) will
 // be executed before an outstanding request with lower priority. Default
 // priority is %G_PRIORITY_DEFAULT.
-func (x *FileEnumerator) NextFilesAsync(NumFilesVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileEnumerator) NextFilesAsync(NumFilesVar int32, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileEnumeratorNextFilesAsync(x.GoPointer(), NumFilesVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

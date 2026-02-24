@@ -7,5 +7,5 @@ type TypeCValue = uintptr
 const (
 	// The maximal number of #GTypeCValues which can be collected for a
 	// single #GValue.
-	VALUE_COLLECT_FORMAT_MAX_LENGTH int = 8
+	VALUE_COLLECT_FORMAT_MAX_LENGTH int32 = 8
 )

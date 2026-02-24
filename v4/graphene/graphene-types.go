@@ -17,7 +17,7 @@ const (
 	//   for (int i = 0; i &lt; GRAPHENE_VEC2_LEN; i++)
 	//     fprintf (stdout, "component %d: %g\n", i, v[i]);
 	// ]|
-	VEC2_LEN int = 2
+	VEC2_LEN int32 = 2
 	// Evaluates to the number of components of a #graphene_vec3_t.
 	//
 	// This symbol is useful when declaring a C array of floating
@@ -33,7 +33,7 @@ const (
 	//   for (int i = 0; i &lt; GRAPHENE_VEC2_LEN; i++)
 	//     fprintf (stdout, "component %d: %g\n", i, v[i]);
 	// ]|
-	VEC3_LEN int = 3
+	VEC3_LEN int32 = 3
 	// Evaluates to the number of components of a #graphene_vec4_t.
 	//
 	// This symbol is useful when declaring a C array of floating
@@ -49,5 +49,5 @@ const (
 	//   for (int i = 0; i &lt; GRAPHENE_VEC4_LEN; i++)
 	//     fprintf (stdout, "component %d: %g\n", i, v[i]);
 	// ]|
-	VEC4_LEN int = 4
+	VEC4_LEN int32 = 4
 )

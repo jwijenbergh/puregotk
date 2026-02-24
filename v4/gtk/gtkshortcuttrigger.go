@@ -164,11 +164,11 @@ func KeyvalTriggerNewFromInternalPtr(ptr uintptr) *KeyvalTrigger {
 	return cls
 }
 
-var xNewKeyvalTrigger func(uint, gdk.ModifierType) uintptr
+var xNewKeyvalTrigger func(uint32, gdk.ModifierType) uintptr
 
 // Creates a `GtkShortcutTrigger` that will trigger whenever
 // the key with the given @keyval and @modifiers is pressed.
-func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *KeyvalTrigger {
+func NewKeyvalTrigger(KeyvalVar uint32, ModifiersVar gdk.ModifierType) *KeyvalTrigger {
 	var cls *KeyvalTrigger
 
 	cret := xNewKeyvalTrigger(KeyvalVar, ModifiersVar)
@@ -181,11 +181,11 @@ func NewKeyvalTrigger(KeyvalVar uint, ModifiersVar gdk.ModifierType) *KeyvalTrig
 	return cls
 }
 
-var xKeyvalTriggerGetKeyval func(uintptr) uint
+var xKeyvalTriggerGetKeyval func(uintptr) uint32
 
 // Gets the keyval that must be pressed to succeed
 // triggering @self.
-func (x *KeyvalTrigger) GetKeyval() uint {
+func (x *KeyvalTrigger) GetKeyval() uint32 {
 
 	cret := xKeyvalTriggerGetKeyval(x.GoPointer())
 	return cret
@@ -214,19 +214,19 @@ func (c *KeyvalTrigger) SetGoPointer(ptr uintptr) {
 
 // SetPropertyKeyval sets the "keyval" property.
 // The key value for the trigger.
-func (x *KeyvalTrigger) SetPropertyKeyval(value uint) {
+func (x *KeyvalTrigger) SetPropertyKeyval(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("keyval", &v)
 }
 
 // GetPropertyKeyval gets the "keyval" property.
 // The key value for the trigger.
-func (x *KeyvalTrigger) GetPropertyKeyval() uint {
+func (x *KeyvalTrigger) GetPropertyKeyval() uint32 {
 	var v gobject.Value
 	x.GetProperty("keyval", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Triggers when a specific mnemonic is pressed.
@@ -249,14 +249,14 @@ func MnemonicTriggerNewFromInternalPtr(ptr uintptr) *MnemonicTrigger {
 	return cls
 }
 
-var xNewMnemonicTrigger func(uint) uintptr
+var xNewMnemonicTrigger func(uint32) uintptr
 
 // Creates a `GtkShortcutTrigger` that will trigger whenever the key with
 // the given @keyval is pressed and mnemonics have been activated.
 //
 // Mnemonics are activated by calling code when a key event with the right
 // modifiers is detected.
-func NewMnemonicTrigger(KeyvalVar uint) *MnemonicTrigger {
+func NewMnemonicTrigger(KeyvalVar uint32) *MnemonicTrigger {
 	var cls *MnemonicTrigger
 
 	cret := xNewMnemonicTrigger(KeyvalVar)
@@ -269,10 +269,10 @@ func NewMnemonicTrigger(KeyvalVar uint) *MnemonicTrigger {
 	return cls
 }
 
-var xMnemonicTriggerGetKeyval func(uintptr) uint
+var xMnemonicTriggerGetKeyval func(uintptr) uint32
 
 // Gets the keyval that must be pressed to succeed triggering @self.
-func (x *MnemonicTrigger) GetKeyval() uint {
+func (x *MnemonicTrigger) GetKeyval() uint32 {
 
 	cret := xMnemonicTriggerGetKeyval(x.GoPointer())
 	return cret
@@ -291,19 +291,19 @@ func (c *MnemonicTrigger) SetGoPointer(ptr uintptr) {
 
 // SetPropertyKeyval sets the "keyval" property.
 // The key value for the trigger.
-func (x *MnemonicTrigger) SetPropertyKeyval(value uint) {
+func (x *MnemonicTrigger) SetPropertyKeyval(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("keyval", &v)
 }
 
 // GetPropertyKeyval gets the "keyval" property.
 // The key value for the trigger.
-func (x *MnemonicTrigger) GetPropertyKeyval() uint {
+func (x *MnemonicTrigger) GetPropertyKeyval() uint32 {
 	var v gobject.Value
 	x.GetProperty("keyval", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // A `GtkShortcutTrigger` that never triggers.
@@ -413,13 +413,13 @@ func ShortcutTriggerParseString(StringVar string) *ShortcutTrigger {
 	return cls
 }
 
-var xShortcutTriggerCompare func(uintptr, uintptr) int
+var xShortcutTriggerCompare func(uintptr, uintptr) int32
 
 // The types of @trigger1 and @trigger2 are `gconstpointer` only to allow
 // use of this function as a `GCompareFunc`.
 //
 // They must each be a `GtkShortcutTrigger`.
-func (x *ShortcutTrigger) Compare(Trigger2Var uintptr) int {
+func (x *ShortcutTrigger) Compare(Trigger2Var uintptr) int32 {
 
 	cret := xShortcutTriggerCompare(x.GoPointer(), Trigger2Var)
 	return cret
@@ -437,7 +437,7 @@ func (x *ShortcutTrigger) Equal(Trigger2Var uintptr) bool {
 	return cret
 }
 
-var xShortcutTriggerHash func(uintptr) uint
+var xShortcutTriggerHash func(uintptr) uint32
 
 // Generates a hash value for a `GtkShortcutTrigger`.
 //
@@ -448,7 +448,7 @@ var xShortcutTriggerHash func(uintptr) uint
 //
 // The types of @trigger is `gconstpointer` only to allow use of this
 // function with `GHashTable`. They must each be a `GtkShortcutTrigger`.
-func (x *ShortcutTrigger) Hash() uint {
+func (x *ShortcutTrigger) Hash() uint32 {
 
 	cret := xShortcutTriggerHash(x.GoPointer())
 	return cret

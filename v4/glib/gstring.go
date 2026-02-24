@@ -283,10 +283,10 @@ func (x *String) FreeToBytes() *Bytes {
 	return cret
 }
 
-var xStringHash func(uintptr) uint
+var xStringHash func(uintptr) uint32
 
 // Creates a hash code for @str; for use with #GHashTable.
-func (x *String) Hash() uint {
+func (x *String) Hash() uint32 {
 
 	cret := xStringHash(x.GoPointer())
 	return cret
@@ -418,7 +418,7 @@ func (x *String) Printf(FormatVar string, varArgs ...interface{}) {
 
 }
 
-var xStringReplace func(uintptr, string, string, uint) uint
+var xStringReplace func(uintptr, string, string, uint32) uint32
 
 // Replaces the string @find with the string @replace in a #GString up to
 // @limit times. If the number of instances of @find in the #GString is
@@ -429,7 +429,7 @@ var xStringReplace func(uintptr, string, string, uint) uint
 // replacement will be inserted no more than once per possible position
 // (beginning of string, end of string and between characters). This did
 // not work correctly in earlier versions.
-func (x *String) Replace(FindVar string, ReplaceVar string, LimitVar uint) uint {
+func (x *String) Replace(FindVar string, ReplaceVar string, LimitVar uint32) uint32 {
 
 	cret := xStringReplace(x.GoPointer(), FindVar, ReplaceVar, LimitVar)
 	return cret

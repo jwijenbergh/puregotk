@@ -13,13 +13,13 @@ import (
 // values.  The function should return a negative integer if the first
 // value comes before the second, 0 if they are equal, or a positive
 // integer if the first value comes after the second.
-type CompareDataFunc func(uintptr, uintptr, uintptr) int
+type CompareDataFunc func(uintptr, uintptr, uintptr) int32
 
 // Specifies the type of a comparison function used to compare two
 // values.  The function should return a negative integer if the first
 // value comes before the second, 0 if they are equal, or a positive
 // integer if the first value comes after the second.
-type CompareFunc func(uintptr, uintptr) int
+type CompareFunc func(uintptr, uintptr) int32
 
 // A function of this signature is used to copy the node data
 // when doing a deep-copy of a tree.
@@ -87,7 +87,7 @@ type HFunc func(uintptr, uintptr, uintptr)
 // cryptographic hashes are very easy to find collisions for when the
 // remainder is taken modulo a somewhat predictable prime number.  There
 // must be an element of randomness that an attacker is unable to guess.
-type HashFunc func(uintptr) uint
+type HashFunc func(uintptr) uint32
 
 // The type of functions which are used to translate user-visible
 // strings, for &lt;option&gt;--help&lt;/option&gt; output.
@@ -182,16 +182,16 @@ type FloatIEEE754 = uintptr
 const (
 	// Specifies one of the possible types of byte order.
 	// See %G_BYTE_ORDER.
-	BIG_ENDIAN int = 4321
+	BIG_ENDIAN int32 = 4321
 	// The base of natural logarithms.
 	E float64 = 2.718282
 	// The bias by which exponents in double-precision floats are offset.
-	IEEE754_DOUBLE_BIAS int = 1023
+	IEEE754_DOUBLE_BIAS int32 = 1023
 	// The bias by which exponents in single-precision floats are offset.
-	IEEE754_FLOAT_BIAS int = 127
+	IEEE754_FLOAT_BIAS int32 = 127
 	// Specifies one of the possible types of byte order.
 	// See %G_BYTE_ORDER.
-	LITTLE_ENDIAN int = 1234
+	LITTLE_ENDIAN int32 = 1234
 	// The natural logarithm of 10.
 	LN10 float64 = 2.302585
 	// The natural logarithm of 2.
@@ -224,7 +224,7 @@ const (
 	MININT8 int8 = -128
 	// Specifies one of the possible types of byte order
 	// (currently unused). See %G_BYTE_ORDER.
-	PDP_ENDIAN int = 3412
+	PDP_ENDIAN int32 = 3412
 	// The value of pi (ratio of circle's circumference to its diameter).
 	PI float64 = 3.141593
 	// Pi divided by 2.

@@ -175,10 +175,10 @@ func (x *MapListModel) GetPropertyHasMap() bool {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *MapListModel) GetPropertyNItems() uint {
+func (x *MapListModel) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -190,7 +190,7 @@ func (x *MapListModel) GetPropertyNItems() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *MapListModel) GetItem(PositionVar uint) uintptr {
+func (x *MapListModel) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -215,7 +215,7 @@ func (x *MapListModel) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *MapListModel) GetNItems() uint {
+func (x *MapListModel) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -233,7 +233,7 @@ func (x *MapListModel) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *MapListModel) GetObject(PositionVar uint) *gobject.Object {
+func (x *MapListModel) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -266,7 +266,7 @@ func (x *MapListModel) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *MapListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *MapListModel) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
@@ -277,7 +277,7 @@ func (x *MapListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar 
 //
 // If the position is larger than the number of items, a single
 // range from n_items to G_MAXUINT will be returned.
-func (x *MapListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar *uint) {
+func (x *MapListModel) GetSection(PositionVar uint32, OutStartVar *uint32, OutEndVar *uint32) {
 
 	XGtkSectionModelGetSection(x.GoPointer(), PositionVar, OutStartVar, OutEndVar)
 
@@ -298,7 +298,7 @@ func (x *MapListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar
 // in a larger range, that the larger range is included in the emission
 // of the [signal@Gio.ListModel::items-changed] instead of emitting
 // two signals.
-func (x *MapListModel) SectionsChanged(PositionVar uint, NItemsVar uint) {
+func (x *MapListModel) SectionsChanged(PositionVar uint32, NItemsVar uint32) {
 
 	XGtkSectionModelSectionsChanged(x.GoPointer(), PositionVar, NItemsVar)
 

@@ -408,7 +408,7 @@ func (x *DBusMessage) NewMethodReply() *DBusMessage {
 	return cls
 }
 
-var xDBusMessagePrint func(uintptr, uint) string
+var xDBusMessagePrint func(uintptr, uint32) string
 
 // Produces a human-readable multi-line description of @message.
 //
@@ -450,7 +450,7 @@ var xDBusMessagePrint func(uintptr, uint) string
 //	fd 12: dev=0:10,mode=020620,ino=5,uid=500,gid=5,rdev=136:2,size=0,atime=1273085037,mtime=1273085851,ctime=1272982635
 //
 // ```
-func (x *DBusMessage) Print(IndentVar uint) string {
+func (x *DBusMessage) Print(IndentVar uint32) string {
 
 	cret := xDBusMessagePrint(x.GoPointer(), IndentVar)
 	return cret

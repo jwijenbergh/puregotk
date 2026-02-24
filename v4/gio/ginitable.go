@@ -153,12 +153,12 @@ func (x *InitableBase) Init(CancellableVar *Cancellable) (bool, error) {
 
 var XGInitableInit func(uintptr, uintptr, **glib.Error) bool
 
-var xInitableNewv func(types.GType, uint, []gobject.Parameter, uintptr, **glib.Error) uintptr
+var xInitableNewv func(types.GType, uint32, []gobject.Parameter, uintptr, **glib.Error) uintptr
 
 // Helper function for constructing #GInitable object. This is
 // similar to g_object_newv() but also initializes the object
 // and returns %NULL, setting an error on failure.
-func InitableNewv(ObjectTypeVar types.GType, NParametersVar uint, ParametersVar []gobject.Parameter, CancellableVar *Cancellable) (*gobject.Object, error) {
+func InitableNewv(ObjectTypeVar types.GType, NParametersVar uint32, ParametersVar []gobject.Parameter, CancellableVar *Cancellable) (*gobject.Object, error) {
 	var cls *gobject.Object
 	var cerr *glib.Error
 

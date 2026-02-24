@@ -212,11 +212,11 @@ func ThreadedSocketServiceNewFromInternalPtr(ptr uintptr) *ThreadedSocketService
 	return cls
 }
 
-var xNewThreadedSocketService func(int) uintptr
+var xNewThreadedSocketService func(int32) uintptr
 
 // Creates a new #GThreadedSocketService with no listeners. Listeners
 // must be added with one of the #GSocketListener "add" methods.
-func NewThreadedSocketService(MaxThreadsVar int) *ThreadedSocketService {
+func NewThreadedSocketService(MaxThreadsVar int32) *ThreadedSocketService {
 	var cls *ThreadedSocketService
 
 	cret := xNewThreadedSocketService(MaxThreadsVar)
@@ -242,19 +242,19 @@ func (c *ThreadedSocketService) SetGoPointer(ptr uintptr) {
 
 // SetPropertyMaxThreads sets the "max-threads" property.
 // The maximum number of threads handling clients for this service.
-func (x *ThreadedSocketService) SetPropertyMaxThreads(value int) {
+func (x *ThreadedSocketService) SetPropertyMaxThreads(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("max-threads", &v)
 }
 
 // GetPropertyMaxThreads gets the "max-threads" property.
 // The maximum number of threads handling clients for this service.
-func (x *ThreadedSocketService) GetPropertyMaxThreads() int {
+func (x *ThreadedSocketService) GetPropertyMaxThreads() int32 {
 	var v gobject.Value
 	x.GetProperty("max-threads", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // The ::run signal is emitted in a worker thread in response to an

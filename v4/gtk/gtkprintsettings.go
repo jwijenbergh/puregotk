@@ -22,9 +22,9 @@ type PrintSettingsFunc func(string, string, uintptr)
 type PageRange struct {
 	_ structs.HostLayout
 
-	Start int
+	Start int32
 
-	End int
+	End int32
 }
 
 func (x *PageRange) GoPointer() uintptr {
@@ -346,20 +346,20 @@ func (x *PrintSettings) GetFinishings() string {
 	return cret
 }
 
-var xPrintSettingsGetInt func(uintptr, string) int
+var xPrintSettingsGetInt func(uintptr, string) int32
 
 // Returns the integer value of @key, or 0.
-func (x *PrintSettings) GetInt(KeyVar string) int {
+func (x *PrintSettings) GetInt(KeyVar string) int32 {
 
 	cret := xPrintSettingsGetInt(x.GoPointer(), KeyVar)
 	return cret
 }
 
-var xPrintSettingsGetIntWithDefault func(uintptr, string, int) int
+var xPrintSettingsGetIntWithDefault func(uintptr, string, int32) int32
 
 // Returns the value of @key, interpreted as
 // an integer, or the default value.
-func (x *PrintSettings) GetIntWithDefault(KeyVar string, DefVar int) int {
+func (x *PrintSettings) GetIntWithDefault(KeyVar string, DefVar int32) int32 {
 
 	cret := xPrintSettingsGetIntWithDefault(x.GoPointer(), KeyVar, DefVar)
 	return cret
@@ -388,19 +388,19 @@ func (x *PrintSettings) GetMediaType() string {
 	return cret
 }
 
-var xPrintSettingsGetNCopies func(uintptr) int
+var xPrintSettingsGetNCopies func(uintptr) int32
 
 // Gets the value of %GTK_PRINT_SETTINGS_N_COPIES.
-func (x *PrintSettings) GetNCopies() int {
+func (x *PrintSettings) GetNCopies() int32 {
 
 	cret := xPrintSettingsGetNCopies(x.GoPointer())
 	return cret
 }
 
-var xPrintSettingsGetNumberUp func(uintptr) int
+var xPrintSettingsGetNumberUp func(uintptr) int32
 
 // Gets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
-func (x *PrintSettings) GetNumberUp() int {
+func (x *PrintSettings) GetNumberUp() int32 {
 
 	cret := xPrintSettingsGetNumberUp(x.GoPointer())
 	return cret
@@ -434,10 +434,10 @@ func (x *PrintSettings) GetOutputBin() string {
 	return cret
 }
 
-var xPrintSettingsGetPageRanges func(uintptr, *int) uintptr
+var xPrintSettingsGetPageRanges func(uintptr, *int32) uintptr
 
 // Gets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
-func (x *PrintSettings) GetPageRanges(NumRangesVar *int) uintptr {
+func (x *PrintSettings) GetPageRanges(NumRangesVar *int32) uintptr {
 
 	cret := xPrintSettingsGetPageRanges(x.GoPointer(), NumRangesVar)
 	return cret
@@ -519,28 +519,28 @@ func (x *PrintSettings) GetQuality() PrintQuality {
 	return cret
 }
 
-var xPrintSettingsGetResolution func(uintptr) int
+var xPrintSettingsGetResolution func(uintptr) int32
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION.
-func (x *PrintSettings) GetResolution() int {
+func (x *PrintSettings) GetResolution() int32 {
 
 	cret := xPrintSettingsGetResolution(x.GoPointer())
 	return cret
 }
 
-var xPrintSettingsGetResolutionX func(uintptr) int
+var xPrintSettingsGetResolutionX func(uintptr) int32
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_X.
-func (x *PrintSettings) GetResolutionX() int {
+func (x *PrintSettings) GetResolutionX() int32 {
 
 	cret := xPrintSettingsGetResolutionX(x.GoPointer())
 	return cret
 }
 
-var xPrintSettingsGetResolutionY func(uintptr) int
+var xPrintSettingsGetResolutionY func(uintptr) int32
 
 // Gets the value of %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) GetResolutionY() int {
+func (x *PrintSettings) GetResolutionY() int32 {
 
 	cret := xPrintSettingsGetResolutionY(x.GoPointer())
 	return cret
@@ -690,10 +690,10 @@ func (x *PrintSettings) SetFinishings(FinishingsVar string) {
 
 }
 
-var xPrintSettingsSetInt func(uintptr, string, int)
+var xPrintSettingsSetInt func(uintptr, string, int32)
 
 // Sets @key to an integer value.
-func (x *PrintSettings) SetInt(KeyVar string, ValueVar int) {
+func (x *PrintSettings) SetInt(KeyVar string, ValueVar int32) {
 
 	xPrintSettingsSetInt(x.GoPointer(), KeyVar, ValueVar)
 
@@ -719,19 +719,19 @@ func (x *PrintSettings) SetMediaType(MediaTypeVar string) {
 
 }
 
-var xPrintSettingsSetNCopies func(uintptr, int)
+var xPrintSettingsSetNCopies func(uintptr, int32)
 
 // Sets the value of %GTK_PRINT_SETTINGS_N_COPIES.
-func (x *PrintSettings) SetNCopies(NumCopiesVar int) {
+func (x *PrintSettings) SetNCopies(NumCopiesVar int32) {
 
 	xPrintSettingsSetNCopies(x.GoPointer(), NumCopiesVar)
 
 }
 
-var xPrintSettingsSetNumberUp func(uintptr, int)
+var xPrintSettingsSetNumberUp func(uintptr, int32)
 
 // Sets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
-func (x *PrintSettings) SetNumberUp(NumberUpVar int) {
+func (x *PrintSettings) SetNumberUp(NumberUpVar int32) {
 
 	xPrintSettingsSetNumberUp(x.GoPointer(), NumberUpVar)
 
@@ -764,10 +764,10 @@ func (x *PrintSettings) SetOutputBin(OutputBinVar string) {
 
 }
 
-var xPrintSettingsSetPageRanges func(uintptr, []PageRange, int)
+var xPrintSettingsSetPageRanges func(uintptr, []PageRange, int32)
 
 // Sets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
-func (x *PrintSettings) SetPageRanges(PageRangesVar []PageRange, NumRangesVar int) {
+func (x *PrintSettings) SetPageRanges(PageRangesVar []PageRange, NumRangesVar int32) {
 
 	xPrintSettingsSetPageRanges(x.GoPointer(), PageRangesVar, NumRangesVar)
 
@@ -848,23 +848,23 @@ func (x *PrintSettings) SetQuality(QualityVar PrintQuality) {
 
 }
 
-var xPrintSettingsSetResolution func(uintptr, int)
+var xPrintSettingsSetResolution func(uintptr, int32)
 
 // Sets the values of %GTK_PRINT_SETTINGS_RESOLUTION,
 // %GTK_PRINT_SETTINGS_RESOLUTION_X and
 // %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) SetResolution(ResolutionVar int) {
+func (x *PrintSettings) SetResolution(ResolutionVar int32) {
 
 	xPrintSettingsSetResolution(x.GoPointer(), ResolutionVar)
 
 }
 
-var xPrintSettingsSetResolutionXy func(uintptr, int, int)
+var xPrintSettingsSetResolutionXy func(uintptr, int32, int32)
 
 // Sets the values of %GTK_PRINT_SETTINGS_RESOLUTION,
 // %GTK_PRINT_SETTINGS_RESOLUTION_X and
 // %GTK_PRINT_SETTINGS_RESOLUTION_Y.
-func (x *PrintSettings) SetResolutionXy(ResolutionXVar int, ResolutionYVar int) {
+func (x *PrintSettings) SetResolutionXy(ResolutionXVar int32, ResolutionYVar int32) {
 
 	xPrintSettingsSetResolutionXy(x.GoPointer(), ResolutionXVar, ResolutionYVar)
 

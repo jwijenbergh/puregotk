@@ -17,7 +17,7 @@ type BusNameAcquiredCallback func(uintptr, string, uintptr)
 // Invoked when the name is lost or @connection has been closed.
 type BusNameLostCallback func(uintptr, string, uintptr)
 
-var xBusOwnName func(BusType, string, BusNameOwnerFlags, uintptr, uintptr, uintptr, uintptr, uintptr) uint
+var xBusOwnName func(BusType, string, BusNameOwnerFlags, uintptr, uintptr, uintptr, uintptr, uintptr) uint32
 
 // Requests ownership of @name on the bus specified by @bus_type.
 //
@@ -69,43 +69,43 @@ var xBusOwnName func(BusType, string, BusNameOwnerFlags, uintptr, uintptr, uintp
 // to [own names](dbus-name-owning.html#d-bus-name-owning) and export objects.
 // Simply register objects to be exported in @bus_acquired_handler and
 // unregister the objects (if any) in @name_lost_handler.
-func BusOwnName(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredHandlerVar *BusAcquiredCallback, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
+func BusOwnName(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredHandlerVar *BusAcquiredCallback, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint32 {
 
 	cret := xBusOwnName(BusTypeVar, NameVar, FlagsVar, glib.NewCallbackNullable(BusAcquiredHandlerVar), glib.NewCallbackNullable(NameAcquiredHandlerVar), glib.NewCallbackNullable(NameLostHandlerVar), UserDataVar, glib.NewCallbackNullable(UserDataFreeFuncVar))
 	return cret
 }
 
-var xBusOwnNameOnConnection func(uintptr, string, BusNameOwnerFlags, uintptr, uintptr, uintptr, uintptr) uint
+var xBusOwnNameOnConnection func(uintptr, string, BusNameOwnerFlags, uintptr, uintptr, uintptr, uintptr) uint32
 
 // Like [func@Gio.bus_own_name] but takes a [class@Gio.DBusConnection] instead
 // of a [enum@Gio.BusType].
-func BusOwnNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint {
+func BusOwnNameOnConnection(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredHandlerVar *BusNameAcquiredCallback, NameLostHandlerVar *BusNameLostCallback, UserDataVar uintptr, UserDataFreeFuncVar *glib.DestroyNotify) uint32 {
 
 	cret := xBusOwnNameOnConnection(ConnectionVar.GoPointer(), NameVar, FlagsVar, glib.NewCallbackNullable(NameAcquiredHandlerVar), glib.NewCallbackNullable(NameLostHandlerVar), UserDataVar, glib.NewCallbackNullable(UserDataFreeFuncVar))
 	return cret
 }
 
-var xBusOwnNameOnConnectionWithClosures func(uintptr, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure) uint
+var xBusOwnNameOnConnectionWithClosures func(uintptr, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure) uint32
 
 // Version of [func@Gio.bus_own_name_on_connection] using closures instead of
 // callbacks for easier binding in other languages.
-func BusOwnNameOnConnectionWithClosures(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint {
+func BusOwnNameOnConnectionWithClosures(ConnectionVar *DBusConnection, NameVar string, FlagsVar BusNameOwnerFlags, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint32 {
 
 	cret := xBusOwnNameOnConnectionWithClosures(ConnectionVar.GoPointer(), NameVar, FlagsVar, NameAcquiredClosureVar, NameLostClosureVar)
 	return cret
 }
 
-var xBusOwnNameWithClosures func(BusType, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure, *gobject.Closure) uint
+var xBusOwnNameWithClosures func(BusType, string, BusNameOwnerFlags, *gobject.Closure, *gobject.Closure, *gobject.Closure) uint32
 
 // Version of [func@Gio.bus_own_name using closures instead of callbacks for
 // easier binding in other languages.
-func BusOwnNameWithClosures(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredClosureVar *gobject.Closure, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint {
+func BusOwnNameWithClosures(BusTypeVar BusType, NameVar string, FlagsVar BusNameOwnerFlags, BusAcquiredClosureVar *gobject.Closure, NameAcquiredClosureVar *gobject.Closure, NameLostClosureVar *gobject.Closure) uint32 {
 
 	cret := xBusOwnNameWithClosures(BusTypeVar, NameVar, FlagsVar, BusAcquiredClosureVar, NameAcquiredClosureVar, NameLostClosureVar)
 	return cret
 }
 
-var xBusUnownName func(uint)
+var xBusUnownName func(uint32)
 
 // Stops owning a name.
 //
@@ -116,7 +116,7 @@ var xBusUnownName func(uint)
 // [callback@GLib.DestroyNotify] function passed to [func@Gio.bus_own_name] is
 // called, in order to avoid memory leaks through callbacks queued on the
 // [struct@GLib.MainContext] after it’s stopped being iterated.
-func BusUnownName(OwnerIdVar uint) {
+func BusUnownName(OwnerIdVar uint32) {
 
 	xBusUnownName(OwnerIdVar)
 

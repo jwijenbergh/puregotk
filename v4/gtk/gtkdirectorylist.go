@@ -122,10 +122,10 @@ func (x *DirectoryList) GetFile() *gio.FileBase {
 	return cls
 }
 
-var xDirectoryListGetIoPriority func(uintptr) int
+var xDirectoryListGetIoPriority func(uintptr) int32
 
 // Gets the IO priority set via gtk_directory_list_set_io_priority().
-func (x *DirectoryList) GetIoPriority() int {
+func (x *DirectoryList) GetIoPriority() int32 {
 
 	cret := xDirectoryListGetIoPriority(x.GoPointer())
 	return cret
@@ -178,7 +178,7 @@ func (x *DirectoryList) SetFile(FileVar gio.File) {
 
 }
 
-var xDirectoryListSetIoPriority func(uintptr, int)
+var xDirectoryListSetIoPriority func(uintptr, int32)
 
 // Sets the IO priority to use while loading directories.
 //
@@ -189,7 +189,7 @@ var xDirectoryListSetIoPriority func(uintptr, int)
 // the GTK redraw priority. If you are loading a lot of directories in
 // parallel, lowering it to something like %G_PRIORITY_DEFAULT_IDLE
 // may increase responsiveness.
-func (x *DirectoryList) SetIoPriority(IoPriorityVar int) {
+func (x *DirectoryList) SetIoPriority(IoPriorityVar int32) {
 
 	xDirectoryListSetIoPriority(x.GoPointer(), IoPriorityVar)
 
@@ -251,19 +251,19 @@ func (x *DirectoryList) GetPropertyError() uintptr {
 
 // SetPropertyIoPriority sets the "io-priority" property.
 // Priority used when loading.
-func (x *DirectoryList) SetPropertyIoPriority(value int) {
+func (x *DirectoryList) SetPropertyIoPriority(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("io-priority", &v)
 }
 
 // GetPropertyIoPriority gets the "io-priority" property.
 // Priority used when loading.
-func (x *DirectoryList) GetPropertyIoPriority() int {
+func (x *DirectoryList) GetPropertyIoPriority() int32 {
 	var v gobject.Value
 	x.GetProperty("io-priority", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyLoading gets the "loading" property.
@@ -293,10 +293,10 @@ func (x *DirectoryList) GetPropertyMonitored() bool {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *DirectoryList) GetPropertyNItems() uint {
+func (x *DirectoryList) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -308,7 +308,7 @@ func (x *DirectoryList) GetPropertyNItems() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *DirectoryList) GetItem(PositionVar uint) uintptr {
+func (x *DirectoryList) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -333,7 +333,7 @@ func (x *DirectoryList) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *DirectoryList) GetNItems() uint {
+func (x *DirectoryList) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -351,7 +351,7 @@ func (x *DirectoryList) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *DirectoryList) GetObject(PositionVar uint) *gobject.Object {
+func (x *DirectoryList) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -384,7 +384,7 @@ func (x *DirectoryList) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *DirectoryList) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *DirectoryList) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 

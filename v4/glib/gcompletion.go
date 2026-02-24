@@ -17,7 +17,7 @@ type CompletionFunc func(uintptr) string
 // Specifies the type of the function passed to
 // g_completion_set_compare(). This is used when you use strings as
 // #GCompletion items.
-type CompletionStrncmpFunc func(string, string, uint) int
+type CompletionStrncmpFunc func(string, string, uint) int32
 
 // `GCompletion` provides support for automatic completion of a string
 // using any group of target strings. It is typically used for file

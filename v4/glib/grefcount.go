@@ -25,7 +25,7 @@ const (
 	//   .address = "Default address",
 	// };
 	// ]|
-	ATOMIC_REF_COUNT_INIT int = 1
+	ATOMIC_REF_COUNT_INIT int32 = 1
 	// Evaluates to the initial reference count for `grefcount`.
 	//
 	// This macro is useful for initializing `grefcount` fields inside
@@ -44,84 +44,84 @@ const (
 	//   .address = "Default address",
 	// };
 	// ]|
-	REF_COUNT_INIT int = -1
+	REF_COUNT_INIT int32 = -1
 )
 
-var xAtomicRefCountCompare func(int, int) bool
+var xAtomicRefCountCompare func(int32, int32) bool
 
 // Atomically compares the current value of @arc with @val.
-func AtomicRefCountCompare(ArcVar int, ValVar int) bool {
+func AtomicRefCountCompare(ArcVar int32, ValVar int32) bool {
 
 	cret := xAtomicRefCountCompare(ArcVar, ValVar)
 	return cret
 }
 
-var xAtomicRefCountDec func(int) bool
+var xAtomicRefCountDec func(int32) bool
 
 // Atomically decreases the reference count.
 //
 // If %TRUE is returned, the reference count reached 0. After this point, @arc
 // is an undefined state and must be reinitialized with
 // g_atomic_ref_count_init() to be used again.
-func AtomicRefCountDec(ArcVar int) bool {
+func AtomicRefCountDec(ArcVar int32) bool {
 
 	cret := xAtomicRefCountDec(ArcVar)
 	return cret
 }
 
-var xAtomicRefCountInc func(int)
+var xAtomicRefCountInc func(int32)
 
 // Atomically increases the reference count.
-func AtomicRefCountInc(ArcVar int) {
+func AtomicRefCountInc(ArcVar int32) {
 
 	xAtomicRefCountInc(ArcVar)
 
 }
 
-var xAtomicRefCountInit func(*int)
+var xAtomicRefCountInit func(*int32)
 
 // Initializes a reference count variable to 1.
-func AtomicRefCountInit(ArcVar *int) {
+func AtomicRefCountInit(ArcVar *int32) {
 
 	xAtomicRefCountInit(ArcVar)
 
 }
 
-var xRefCountCompare func(int, int) bool
+var xRefCountCompare func(int32, int32) bool
 
 // Compares the current value of @rc with @val.
-func RefCountCompare(RcVar int, ValVar int) bool {
+func RefCountCompare(RcVar int32, ValVar int32) bool {
 
 	cret := xRefCountCompare(RcVar, ValVar)
 	return cret
 }
 
-var xRefCountDec func(int) bool
+var xRefCountDec func(int32) bool
 
 // Decreases the reference count.
 //
 // If %TRUE is returned, the reference count reached 0. After this point, @rc
 // is an undefined state and must be reinitialized with
 // g_ref_count_init() to be used again.
-func RefCountDec(RcVar int) bool {
+func RefCountDec(RcVar int32) bool {
 
 	cret := xRefCountDec(RcVar)
 	return cret
 }
 
-var xRefCountInc func(int)
+var xRefCountInc func(int32)
 
 // Increases the reference count.
-func RefCountInc(RcVar int) {
+func RefCountInc(RcVar int32) {
 
 	xRefCountInc(RcVar)
 
 }
 
-var xRefCountInit func(*int)
+var xRefCountInit func(*int32)
 
 // Initializes a reference count variable to 1.
-func RefCountInit(RcVar *int) {
+func RefCountInit(RcVar *int32) {
 
 	xRefCountInit(RcVar)
 

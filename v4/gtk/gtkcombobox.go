@@ -263,7 +263,7 @@ func NewComboBoxWithModelAndEntry(ModelVar TreeModel) *ComboBox {
 	return cls
 }
 
-var xComboBoxGetActive func(uintptr) int
+var xComboBoxGetActive func(uintptr) int32
 
 // Returns the index of the currently active item.
 //
@@ -271,7 +271,7 @@ var xComboBoxGetActive func(uintptr) int
 // an immediate child of the root of the tree, this function returns
 // `gtk_tree_path_get_indices (path)[0]`, where `path` is the
 // [struct@Gtk.TreePath] of the active item.
-func (x *ComboBox) GetActive() int {
+func (x *ComboBox) GetActive() int32 {
 
 	cret := xComboBoxGetActive(x.GoPointer())
 	return cret
@@ -336,11 +336,11 @@ func (x *ComboBox) GetChild() *Widget {
 	return cls
 }
 
-var xComboBoxGetEntryTextColumn func(uintptr) int
+var xComboBoxGetEntryTextColumn func(uintptr) int32
 
 // Returns the column which @combo_box is using to get the strings
 // from to display in the internal entry.
-func (x *ComboBox) GetEntryTextColumn() int {
+func (x *ComboBox) GetEntryTextColumn() int32 {
 
 	cret := xComboBoxGetEntryTextColumn(x.GoPointer())
 	return cret
@@ -355,11 +355,11 @@ func (x *ComboBox) GetHasEntry() bool {
 	return cret
 }
 
-var xComboBoxGetIdColumn func(uintptr) int
+var xComboBoxGetIdColumn func(uintptr) int32
 
 // Returns the column which @combo_box is using to get string IDs
 // for values from.
-func (x *ComboBox) GetIdColumn() int {
+func (x *ComboBox) GetIdColumn() int32 {
 
 	cret := xComboBoxGetIdColumn(x.GoPointer())
 	return cret
@@ -440,10 +440,10 @@ func (x *ComboBox) PopupForDevice(DeviceVar *gdk.Device) {
 
 }
 
-var xComboBoxSetActive func(uintptr, int)
+var xComboBoxSetActive func(uintptr, int32)
 
 // Sets the active item of @combo_box to be the item at @index.
-func (x *ComboBox) SetActive(IndexVar int) {
+func (x *ComboBox) SetActive(IndexVar int32) {
 
 	xComboBoxSetActive(x.GoPointer(), IndexVar)
 
@@ -496,7 +496,7 @@ func (x *ComboBox) SetChild(ChildVar *Widget) {
 
 }
 
-var xComboBoxSetEntryTextColumn func(uintptr, int)
+var xComboBoxSetEntryTextColumn func(uintptr, int32)
 
 // Sets the model column which @combo_box should use to get strings
 // from to be @text_column.
@@ -509,20 +509,20 @@ var xComboBoxSetEntryTextColumn func(uintptr, int)
 //
 // This is only relevant if @combo_box has been created with
 // [property@Gtk.ComboBox:has-entry] as %TRUE.
-func (x *ComboBox) SetEntryTextColumn(TextColumnVar int) {
+func (x *ComboBox) SetEntryTextColumn(TextColumnVar int32) {
 
 	xComboBoxSetEntryTextColumn(x.GoPointer(), TextColumnVar)
 
 }
 
-var xComboBoxSetIdColumn func(uintptr, int)
+var xComboBoxSetIdColumn func(uintptr, int32)
 
 // Sets the model column which @combo_box should use to get string IDs
 // for values from.
 //
 // The column @id_column in the model of @combo_box must be of type
 // %G_TYPE_STRING.
-func (x *ComboBox) SetIdColumn(IdColumnVar int) {
+func (x *ComboBox) SetIdColumn(IdColumnVar int32) {
 
 	xComboBoxSetIdColumn(x.GoPointer(), IdColumnVar)
 
@@ -587,10 +587,10 @@ func (c *ComboBox) SetGoPointer(ptr uintptr) {
 // immediate child of the root of the tree, this property has the value
 // `gtk_tree_path_get_indices (path)[0]`, where `path` is the
 // [struct@Gtk.TreePath] of the active item.
-func (x *ComboBox) SetPropertyActive(value int) {
+func (x *ComboBox) SetPropertyActive(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("active", &v)
 }
 
@@ -601,10 +601,10 @@ func (x *ComboBox) SetPropertyActive(value int) {
 // immediate child of the root of the tree, this property has the value
 // `gtk_tree_path_get_indices (path)[0]`, where `path` is the
 // [struct@Gtk.TreePath] of the active item.
-func (x *ComboBox) GetPropertyActive() int {
+func (x *ComboBox) GetPropertyActive() int32 {
 	var v gobject.Value
 	x.GetProperty("active", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyActiveId sets the "active-id" property.
@@ -629,10 +629,10 @@ func (x *ComboBox) GetPropertyActiveId() string {
 //
 // This is property only relevant if the combo was created with
 // [property@Gtk.ComboBox:has-entry] is %TRUE.
-func (x *ComboBox) SetPropertyEntryTextColumn(value int) {
+func (x *ComboBox) SetPropertyEntryTextColumn(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("entry-text-column", &v)
 }
 
@@ -641,10 +641,10 @@ func (x *ComboBox) SetPropertyEntryTextColumn(value int) {
 //
 // This is property only relevant if the combo was created with
 // [property@Gtk.ComboBox:has-entry] is %TRUE.
-func (x *ComboBox) GetPropertyEntryTextColumn() int {
+func (x *ComboBox) GetPropertyEntryTextColumn() int32 {
 	var v gobject.Value
 	x.GetProperty("entry-text-column", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyHasEntry sets the "has-entry" property.
@@ -684,20 +684,20 @@ func (x *ComboBox) GetPropertyHasFrame() bool {
 // SetPropertyIdColumn sets the "id-column" property.
 // The model column that provides string IDs for the values
 // in the model, if != -1.
-func (x *ComboBox) SetPropertyIdColumn(value int) {
+func (x *ComboBox) SetPropertyIdColumn(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("id-column", &v)
 }
 
 // GetPropertyIdColumn gets the "id-column" property.
 // The model column that provides string IDs for the values
 // in the model, if != -1.
-func (x *ComboBox) GetPropertyIdColumn() int {
+func (x *ComboBox) GetPropertyIdColumn() int32 {
 	var v gobject.Value
 	x.GetProperty("id-column", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyPopupFixedWidth sets the "popup-fixed-width" property.
@@ -957,7 +957,7 @@ func (x *ComboBox) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ComboBox) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ComboBox) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1089,7 +1089,7 @@ func (x *ComboBox) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ComboBox) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1125,7 +1125,7 @@ func (x *ComboBox) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ComboBox) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1162,7 +1162,7 @@ func (x *ComboBox) UpdateState(FirstStateVar AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ComboBox) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ComboBox) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1215,7 +1215,7 @@ func (x *ComboBox) StartEditing(EventVar *gdk.Event) {
 // example if column 2 of the model contains strings, you could have the
 // “text” attribute of a `GtkCellRendererText` get its values from column 2.
 // In this context "attribute" and "property" are used interchangeably.
-func (x *ComboBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int) {
+func (x *ComboBox) AddAttribute(CellVar *CellRenderer, AttributeVar string, ColumnVar int32) {
 
 	XGtkCellLayoutAddAttribute(x.GoPointer(), CellVar.GoPointer(), AttributeVar, ColumnVar)
 
@@ -1287,7 +1287,7 @@ func (x *ComboBox) PackStart(CellVar *CellRenderer, ExpandVar bool) {
 //
 // Note that @cell has already to be packed into @cell_layout
 // for this to function properly.
-func (x *ComboBox) Reorder(CellVar *CellRenderer, PositionVar int) {
+func (x *ComboBox) Reorder(CellVar *CellRenderer, PositionVar int32) {
 
 	XGtkCellLayoutReorder(x.GoPointer(), CellVar.GoPointer(), PositionVar)
 

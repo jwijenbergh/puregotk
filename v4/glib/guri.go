@@ -257,10 +257,10 @@ func (x *Uri) GetPath() string {
 	return cret
 }
 
-var xUriGetPort func(uintptr) int
+var xUriGetPort func(uintptr) int32
 
 // Gets @uri's port.
-func (x *Uri) GetPort() int {
+func (x *Uri) GetPort() int32 {
 
 	cret := xUriGetPort(x.GoPointer())
 	return cret
@@ -598,19 +598,19 @@ const (
 	GUriErrorBadFragmentValue UriError = 9
 )
 
-var xUriBuild func(UriFlags, string, string, string, int, string, string, string) *Uri
+var xUriBuild func(UriFlags, string, string, string, int32, string, string, string) *Uri
 
 // Creates a new #GUri from the given components according to @flags.
 //
 // See also g_uri_build_with_user(), which allows specifying the
 // components of the "userinfo" separately.
-func UriBuild(FlagsVar UriFlags, SchemeVar string, UserinfoVar string, HostVar string, PortVar int, PathVar string, QueryVar string, FragmentVar string) *Uri {
+func UriBuild(FlagsVar UriFlags, SchemeVar string, UserinfoVar string, HostVar string, PortVar int32, PathVar string, QueryVar string, FragmentVar string) *Uri {
 
 	cret := xUriBuild(FlagsVar, SchemeVar, UserinfoVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar)
 	return cret
 }
 
-var xUriBuildWithUser func(UriFlags, string, string, string, string, string, int, string, string, string) *Uri
+var xUriBuildWithUser func(UriFlags, string, string, string, string, string, int32, string, string, string) *Uri
 
 // Creates a new #GUri from the given components according to @flags
 // (%G_URI_FLAGS_HAS_PASSWORD is added unconditionally). The @flags must be
@@ -620,7 +620,7 @@ var xUriBuildWithUser func(UriFlags, string, string, string, string, string, int
 // In contrast to g_uri_build(), this allows specifying the components
 // of the ‘userinfo’ field separately. Note that @user must be non-%NULL
 // if either @password or @auth_params is non-%NULL.
-func UriBuildWithUser(FlagsVar UriFlags, SchemeVar string, UserVar string, PasswordVar string, AuthParamsVar string, HostVar string, PortVar int, PathVar string, QueryVar string, FragmentVar string) *Uri {
+func UriBuildWithUser(FlagsVar UriFlags, SchemeVar string, UserVar string, PasswordVar string, AuthParamsVar string, HostVar string, PortVar int32, PathVar string, QueryVar string, FragmentVar string) *Uri {
 
 	cret := xUriBuildWithUser(FlagsVar, SchemeVar, UserVar, PasswordVar, AuthParamsVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar)
 	return cret
@@ -682,7 +682,7 @@ func UriIsValid(UriStringVar string, FlagsVar UriFlags) (bool, error) {
 
 }
 
-var xUriJoin func(UriFlags, string, string, string, int, string, string, string) string
+var xUriJoin func(UriFlags, string, string, string, int32, string, string, string) string
 
 // Joins the given components together according to @flags to create
 // an absolute URI string. @path may not be %NULL (though it may be the empty
@@ -698,13 +698,13 @@ var xUriJoin func(UriFlags, string, string, string, int, string, string, string)
 //
 // %G_URI_FLAGS_HAS_PASSWORD and %G_URI_FLAGS_HAS_AUTH_PARAMS are ignored if set
 // in @flags.
-func UriJoin(FlagsVar UriFlags, SchemeVar string, UserinfoVar string, HostVar string, PortVar int, PathVar string, QueryVar string, FragmentVar string) string {
+func UriJoin(FlagsVar UriFlags, SchemeVar string, UserinfoVar string, HostVar string, PortVar int32, PathVar string, QueryVar string, FragmentVar string) string {
 
 	cret := xUriJoin(FlagsVar, SchemeVar, UserinfoVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar)
 	return cret
 }
 
-var xUriJoinWithUser func(UriFlags, string, string, string, string, string, int, string, string, string) string
+var xUriJoinWithUser func(UriFlags, string, string, string, string, string, int32, string, string, string) string
 
 // Joins the given components together according to @flags to create
 // an absolute URI string. @path may not be %NULL (though it may be the empty
@@ -715,7 +715,7 @@ var xUriJoinWithUser func(UriFlags, string, string, string, string, string, int,
 //
 // %G_URI_FLAGS_HAS_PASSWORD and %G_URI_FLAGS_HAS_AUTH_PARAMS are ignored if set
 // in @flags.
-func UriJoinWithUser(FlagsVar UriFlags, SchemeVar string, UserVar string, PasswordVar string, AuthParamsVar string, HostVar string, PortVar int, PathVar string, QueryVar string, FragmentVar string) string {
+func UriJoinWithUser(FlagsVar UriFlags, SchemeVar string, UserVar string, PasswordVar string, AuthParamsVar string, HostVar string, PortVar int32, PathVar string, QueryVar string, FragmentVar string) string {
 
 	cret := xUriJoinWithUser(FlagsVar, SchemeVar, UserVar, PasswordVar, AuthParamsVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar)
 	return cret
@@ -827,7 +827,7 @@ func UriResolveRelative(BaseUriStringVar string, UriRefVar string, FlagsVar UriF
 
 }
 
-var xUriSplit func(string, UriFlags, *string, *string, *string, *int, *string, *string, *string, **Error) bool
+var xUriSplit func(string, UriFlags, *string, *string, *string, *int32, *string, *string, *string, **Error) bool
 
 // Parses @uri_ref (which can be an
 // [absolute or relative URI](#relative-and-absolute-uris)) according to @flags, and
@@ -845,7 +845,7 @@ var xUriSplit func(string, UriFlags, *string, *string, *string, *int, *string, *
 // %G_URI_FLAGS_HAS_AUTH_PARAMS @flags are ignored by g_uri_split(),
 // since it always returns only the full userinfo; use
 // g_uri_split_with_user() if you want it split up.
-func UriSplit(UriRefVar string, FlagsVar UriFlags, SchemeVar *string, UserinfoVar *string, HostVar *string, PortVar *int, PathVar *string, QueryVar *string, FragmentVar *string) (bool, error) {
+func UriSplit(UriRefVar string, FlagsVar UriFlags, SchemeVar *string, UserinfoVar *string, HostVar *string, PortVar *int32, PathVar *string, QueryVar *string, FragmentVar *string) (bool, error) {
 	var cerr *Error
 
 	cret := xUriSplit(UriRefVar, FlagsVar, SchemeVar, UserinfoVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar, &cerr)
@@ -856,7 +856,7 @@ func UriSplit(UriRefVar string, FlagsVar UriFlags, SchemeVar *string, UserinfoVa
 
 }
 
-var xUriSplitNetwork func(string, UriFlags, *string, *string, *int, **Error) bool
+var xUriSplitNetwork func(string, UriFlags, *string, *string, *int32, **Error) bool
 
 // Parses @uri_string (which must be an [absolute URI](#relative-and-absolute-uris))
 // according to @flags, and returns the pieces relevant to connecting to a host.
@@ -864,7 +864,7 @@ var xUriSplitNetwork func(string, UriFlags, *string, *string, *int, **Error) boo
 // mostly a wrapper around that function with simpler arguments.
 // However, it will return an error if @uri_string is a relative URI,
 // or does not contain a hostname component.
-func UriSplitNetwork(UriStringVar string, FlagsVar UriFlags, SchemeVar *string, HostVar *string, PortVar *int) (bool, error) {
+func UriSplitNetwork(UriStringVar string, FlagsVar UriFlags, SchemeVar *string, HostVar *string, PortVar *int32) (bool, error) {
 	var cerr *Error
 
 	cret := xUriSplitNetwork(UriStringVar, FlagsVar, SchemeVar, HostVar, PortVar, &cerr)
@@ -875,7 +875,7 @@ func UriSplitNetwork(UriStringVar string, FlagsVar UriFlags, SchemeVar *string, 
 
 }
 
-var xUriSplitWithUser func(string, UriFlags, *string, *string, *string, *string, *string, *int, *string, *string, *string, **Error) bool
+var xUriSplitWithUser func(string, UriFlags, *string, *string, *string, *string, *string, *int32, *string, *string, *string, **Error) bool
 
 // Parses @uri_ref (which can be an
 // [absolute or relative URI](#relative-and-absolute-uris)) according to @flags, and
@@ -888,7 +888,7 @@ var xUriSplitWithUser func(string, UriFlags, *string, *string, *string, *string,
 // be parsed out if @flags contains %G_URI_FLAGS_HAS_PASSWORD, and
 // @auth_params will only be parsed out if @flags contains
 // %G_URI_FLAGS_HAS_AUTH_PARAMS.
-func UriSplitWithUser(UriRefVar string, FlagsVar UriFlags, SchemeVar *string, UserVar *string, PasswordVar *string, AuthParamsVar *string, HostVar *string, PortVar *int, PathVar *string, QueryVar *string, FragmentVar *string) (bool, error) {
+func UriSplitWithUser(UriRefVar string, FlagsVar UriFlags, SchemeVar *string, UserVar *string, PasswordVar *string, AuthParamsVar *string, HostVar *string, PortVar *int32, PathVar *string, QueryVar *string, FragmentVar *string) (bool, error) {
 	var cerr *Error
 
 	cret := xUriSplitWithUser(UriRefVar, FlagsVar, SchemeVar, UserVar, PasswordVar, AuthParamsVar, HostVar, PortVar, PathVar, QueryVar, FragmentVar, &cerr)

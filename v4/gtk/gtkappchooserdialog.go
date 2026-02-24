@@ -213,7 +213,7 @@ func (x *AppChooserDialog) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *AppChooserDialog) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *AppChooserDialog) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -345,7 +345,7 @@ func (x *AppChooserDialog) UpdateProperty(FirstPropertyVar AccessibleProperty, v
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *AppChooserDialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -381,7 +381,7 @@ func (x *AppChooserDialog) UpdateRelation(FirstRelationVar AccessibleRelation, v
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserDialog) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *AppChooserDialog) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -418,7 +418,7 @@ func (x *AppChooserDialog) UpdateState(FirstStateVar AccessibleState, varArgs ..
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *AppChooserDialog) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *AppChooserDialog) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -61,10 +61,10 @@ func NewThemedIcon(IconnameVar string) *ThemedIcon {
 	return cls
 }
 
-var xNewThemedIconFromNames func([]string, int) uintptr
+var xNewThemedIconFromNames func([]string, int32) uintptr
 
 // Creates a new themed icon for @iconnames.
-func NewThemedIconFromNames(IconnamesVar []string, LenVar int) *ThemedIcon {
+func NewThemedIconFromNames(IconnamesVar []string, LenVar int32) *ThemedIcon {
 	var cls *ThemedIcon
 
 	cret := xNewThemedIconFromNames(IconnamesVar, LenVar)
@@ -235,7 +235,7 @@ func (x *ThemedIcon) Equal(Icon2Var Icon) bool {
 }
 
 // Gets a hash for an icon.
-func (x *ThemedIcon) Hash() uint {
+func (x *ThemedIcon) Hash() uint32 {
 
 	cret := XGIconHash(x.GoPointer())
 	return cret

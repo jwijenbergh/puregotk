@@ -89,11 +89,11 @@ func (x *TlsConnectionClass) GetHandshake() func(*TlsConnection, *Cancellable) b
 
 // OverrideHandshakeAsync sets the "handshake_async" callback function.
 // Start an asynchronous handshake operation.
-func (x *TlsConnectionClass) OverrideHandshakeAsync(cb func(*TlsConnection, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *TlsConnectionClass) OverrideHandshakeAsync(cb func(*TlsConnection, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xHandshakeAsync = 0
 	} else {
-		x.xHandshakeAsync = purego.NewCallback(func(ConnVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xHandshakeAsync = purego.NewCallback(func(ConnVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(TlsConnectionNewFromInternalPtr(ConnVarp), IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
@@ -101,13 +101,13 @@ func (x *TlsConnectionClass) OverrideHandshakeAsync(cb func(*TlsConnection, int,
 
 // GetHandshakeAsync gets the "handshake_async" callback function.
 // Start an asynchronous handshake operation.
-func (x *TlsConnectionClass) GetHandshakeAsync() func(*TlsConnection, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *TlsConnectionClass) GetHandshakeAsync() func(*TlsConnection, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xHandshakeAsync == 0 {
 		return nil
 	}
-	var rawCallback func(ConnVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(ConnVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xHandshakeAsync)
-	return func(ConnVar *TlsConnection, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(ConnVar *TlsConnection, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(ConnVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -477,11 +477,11 @@ func (x *TlsConnection) Handshake(CancellableVar *Cancellable) (bool, error) {
 
 }
 
-var xTlsConnectionHandshakeAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var xTlsConnectionHandshakeAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 
 // Asynchronously performs a TLS handshake on @conn. See
 // g_tls_connection_handshake() for more information.
-func (x *TlsConnection) HandshakeAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *TlsConnection) HandshakeAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xTlsConnectionHandshakeAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

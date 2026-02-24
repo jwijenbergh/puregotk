@@ -45,13 +45,13 @@ func SliceListModelNewFromInternalPtr(ptr uintptr) *SliceListModel {
 	return cls
 }
 
-var xNewSliceListModel func(uintptr, uint, uint) uintptr
+var xNewSliceListModel func(uintptr, uint32, uint32) uintptr
 
 // Creates a new slice model.
 //
 // It presents the slice from @offset to offset + @size
 // of the given @model.
-func NewSliceListModel(ModelVar gio.ListModel, OffsetVar uint, SizeVar uint) *SliceListModel {
+func NewSliceListModel(ModelVar gio.ListModel, OffsetVar uint32, SizeVar uint32) *SliceListModel {
 	var cls *SliceListModel
 
 	cret := xNewSliceListModel(ModelVar.GoPointer(), OffsetVar, SizeVar)
@@ -81,19 +81,19 @@ func (x *SliceListModel) GetModel() *gio.ListModelBase {
 	return cls
 }
 
-var xSliceListModelGetOffset func(uintptr) uint
+var xSliceListModelGetOffset func(uintptr) uint32
 
 // Gets the offset set via gtk_slice_list_model_set_offset().
-func (x *SliceListModel) GetOffset() uint {
+func (x *SliceListModel) GetOffset() uint32 {
 
 	cret := xSliceListModelGetOffset(x.GoPointer())
 	return cret
 }
 
-var xSliceListModelGetSize func(uintptr) uint
+var xSliceListModelGetSize func(uintptr) uint32
 
 // Gets the size set via gtk_slice_list_model_set_size().
-func (x *SliceListModel) GetSize() uint {
+func (x *SliceListModel) GetSize() uint32 {
 
 	cret := xSliceListModelGetSize(x.GoPointer())
 	return cret
@@ -110,26 +110,26 @@ func (x *SliceListModel) SetModel(ModelVar gio.ListModel) {
 
 }
 
-var xSliceListModelSetOffset func(uintptr, uint)
+var xSliceListModelSetOffset func(uintptr, uint32)
 
 // Sets the offset into the original model for this slice.
 //
 // If the offset is too large for the sliced model,
 // @self will end up empty.
-func (x *SliceListModel) SetOffset(OffsetVar uint) {
+func (x *SliceListModel) SetOffset(OffsetVar uint32) {
 
 	xSliceListModelSetOffset(x.GoPointer(), OffsetVar)
 
 }
 
-var xSliceListModelSetSize func(uintptr, uint)
+var xSliceListModelSetSize func(uintptr, uint32)
 
 // Sets the maximum size. @self will never have more items
 // than @size.
 //
 // It can however have fewer items if the offset is too large
 // or the model sliced from doesn't have enough items.
-func (x *SliceListModel) SetSize(SizeVar uint) {
+func (x *SliceListModel) SetSize(SizeVar uint32) {
 
 	xSliceListModelSetSize(x.GoPointer(), SizeVar)
 
@@ -148,44 +148,44 @@ func (c *SliceListModel) SetGoPointer(ptr uintptr) {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *SliceListModel) GetPropertyNItems() uint {
+func (x *SliceListModel) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyOffset sets the "offset" property.
 // Offset of slice.
-func (x *SliceListModel) SetPropertyOffset(value uint) {
+func (x *SliceListModel) SetPropertyOffset(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("offset", &v)
 }
 
 // GetPropertyOffset gets the "offset" property.
 // Offset of slice.
-func (x *SliceListModel) GetPropertyOffset() uint {
+func (x *SliceListModel) GetPropertyOffset() uint32 {
 	var v gobject.Value
 	x.GetProperty("offset", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertySize sets the "size" property.
 // Maximum size of slice.
-func (x *SliceListModel) SetPropertySize(value uint) {
+func (x *SliceListModel) SetPropertySize(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("size", &v)
 }
 
 // GetPropertySize gets the "size" property.
 // Maximum size of slice.
-func (x *SliceListModel) GetPropertySize() uint {
+func (x *SliceListModel) GetPropertySize() uint32 {
 	var v gobject.Value
 	x.GetProperty("size", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -197,7 +197,7 @@ func (x *SliceListModel) GetPropertySize() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *SliceListModel) GetItem(PositionVar uint) uintptr {
+func (x *SliceListModel) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -222,7 +222,7 @@ func (x *SliceListModel) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *SliceListModel) GetNItems() uint {
+func (x *SliceListModel) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -240,7 +240,7 @@ func (x *SliceListModel) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *SliceListModel) GetObject(PositionVar uint) *gobject.Object {
+func (x *SliceListModel) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -273,7 +273,7 @@ func (x *SliceListModel) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *SliceListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *SliceListModel) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
@@ -284,7 +284,7 @@ func (x *SliceListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVa
 //
 // If the position is larger than the number of items, a single
 // range from n_items to G_MAXUINT will be returned.
-func (x *SliceListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar *uint) {
+func (x *SliceListModel) GetSection(PositionVar uint32, OutStartVar *uint32, OutEndVar *uint32) {
 
 	XGtkSectionModelGetSection(x.GoPointer(), PositionVar, OutStartVar, OutEndVar)
 
@@ -305,7 +305,7 @@ func (x *SliceListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndV
 // in a larger range, that the larger range is included in the emission
 // of the [signal@Gio.ListModel::items-changed] instead of emitting
 // two signals.
-func (x *SliceListModel) SectionsChanged(PositionVar uint, NItemsVar uint) {
+func (x *SliceListModel) SectionsChanged(PositionVar uint32, NItemsVar uint32) {
 
 	XGtkSectionModelSectionsChanged(x.GoPointer(), PositionVar, NItemsVar)
 

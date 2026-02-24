@@ -319,7 +319,7 @@ func (x *KeyFile) GetInt64(GroupNameVar string, KeyVar string) (int64, error) {
 
 }
 
-var xKeyFileGetInteger func(uintptr, string, string, **Error) int
+var xKeyFileGetInteger func(uintptr, string, string, **Error) int32
 
 // Returns the value associated with @key under @group_name as an
 // integer.
@@ -328,7 +328,7 @@ var xKeyFileGetInteger func(uintptr, string, string, **Error) int
 // returned. Likewise, if the value associated with @key cannot be interpreted
 // as an integer, or is out of range for a `gint`, then
 // [error@GLib.KeyFileError.INVALID_VALUE] is returned.
-func (x *KeyFile) GetInteger(GroupNameVar string, KeyVar string) (int, error) {
+func (x *KeyFile) GetInteger(GroupNameVar string, KeyVar string) (int32, error) {
 	var cerr *Error
 
 	cret := xKeyFileGetInteger(x.GoPointer(), GroupNameVar, KeyVar, &cerr)
@@ -837,23 +837,23 @@ func (x *KeyFile) SetInt64(GroupNameVar string, KeyVar string, ValueVar int64) {
 
 }
 
-var xKeyFileSetInteger func(uintptr, string, string, int)
+var xKeyFileSetInteger func(uintptr, string, string, int32)
 
 // Associates a new integer value with @key under @group_name.
 //
 // If @key cannot be found then it is created.
-func (x *KeyFile) SetInteger(GroupNameVar string, KeyVar string, ValueVar int) {
+func (x *KeyFile) SetInteger(GroupNameVar string, KeyVar string, ValueVar int32) {
 
 	xKeyFileSetInteger(x.GoPointer(), GroupNameVar, KeyVar, ValueVar)
 
 }
 
-var xKeyFileSetIntegerList func(uintptr, string, string, []int, uint)
+var xKeyFileSetIntegerList func(uintptr, string, string, []int32, uint)
 
 // Associates a list of integer values with @key under @group_name.
 //
 // If @key cannot be found then it is created.
-func (x *KeyFile) SetIntegerList(GroupNameVar string, KeyVar string, ListVar []int, LengthVar uint) {
+func (x *KeyFile) SetIntegerList(GroupNameVar string, KeyVar string, ListVar []int32, LengthVar uint) {
 
 	xKeyFileSetIntegerList(x.GoPointer(), GroupNameVar, KeyVar, ListVar, LengthVar)
 

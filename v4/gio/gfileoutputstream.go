@@ -198,24 +198,24 @@ func (x *FileOutputStreamClass) GetQueryInfo() func(*FileOutputStream, string, *
 }
 
 // OverrideQueryInfoAsync sets the "query_info_async" callback function.
-func (x *FileOutputStreamClass) OverrideQueryInfoAsync(cb func(*FileOutputStream, string, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *FileOutputStreamClass) OverrideQueryInfoAsync(cb func(*FileOutputStream, string, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xQueryInfoAsync = 0
 	} else {
-		x.xQueryInfoAsync = purego.NewCallback(func(StreamVarp uintptr, AttributesVarp string, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xQueryInfoAsync = purego.NewCallback(func(StreamVarp uintptr, AttributesVarp string, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(FileOutputStreamNewFromInternalPtr(StreamVarp), AttributesVarp, IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetQueryInfoAsync gets the "query_info_async" callback function.
-func (x *FileOutputStreamClass) GetQueryInfoAsync() func(*FileOutputStream, string, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *FileOutputStreamClass) GetQueryInfoAsync() func(*FileOutputStream, string, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xQueryInfoAsync == 0 {
 		return nil
 	}
-	var rawCallback func(StreamVarp uintptr, AttributesVarp string, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(StreamVarp uintptr, AttributesVarp string, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xQueryInfoAsync)
-	return func(StreamVar *FileOutputStream, AttributesVar string, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(StreamVar *FileOutputStream, AttributesVar string, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(StreamVar.GoPointer(), AttributesVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -477,7 +477,7 @@ func (x *FileOutputStream) QueryInfo(AttributesVar string, CancellableVar *Cance
 
 }
 
-var xFileOutputStreamQueryInfoAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
+var xFileOutputStreamQueryInfoAsync func(uintptr, string, int32, uintptr, uintptr, uintptr)
 
 // Asynchronously queries the @stream for a #GFileInfo. When completed,
 // @callback will be called with a #GAsyncResult which can be used to
@@ -485,7 +485,7 @@ var xFileOutputStreamQueryInfoAsync func(uintptr, string, int, uintptr, uintptr,
 //
 // For the synchronous version of this function, see
 // g_file_output_stream_query_info().
-func (x *FileOutputStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *FileOutputStream) QueryInfoAsync(AttributesVar string, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xFileOutputStreamQueryInfoAsync(x.GoPointer(), AttributesVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

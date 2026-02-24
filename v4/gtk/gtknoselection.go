@@ -101,10 +101,10 @@ func (c *NoSelection) SetGoPointer(ptr uintptr) {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *NoSelection) GetPropertyNItems() uint {
+func (x *NoSelection) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -116,7 +116,7 @@ func (x *NoSelection) GetPropertyNItems() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *NoSelection) GetItem(PositionVar uint) uintptr {
+func (x *NoSelection) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -141,7 +141,7 @@ func (x *NoSelection) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *NoSelection) GetNItems() uint {
+func (x *NoSelection) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -159,7 +159,7 @@ func (x *NoSelection) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *NoSelection) GetObject(PositionVar uint) *gobject.Object {
+func (x *NoSelection) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -192,7 +192,7 @@ func (x *NoSelection) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *NoSelection) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *NoSelection) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
@@ -203,7 +203,7 @@ func (x *NoSelection) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar u
 //
 // If the position is larger than the number of items, a single
 // range from n_items to G_MAXUINT will be returned.
-func (x *NoSelection) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar *uint) {
+func (x *NoSelection) GetSection(PositionVar uint32, OutStartVar *uint32, OutEndVar *uint32) {
 
 	XGtkSectionModelGetSection(x.GoPointer(), PositionVar, OutStartVar, OutEndVar)
 
@@ -224,7 +224,7 @@ func (x *NoSelection) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar 
 // in a larger range, that the larger range is included in the emission
 // of the [signal@Gio.ListModel::items-changed] instead of emitting
 // two signals.
-func (x *NoSelection) SectionsChanged(PositionVar uint, NItemsVar uint) {
+func (x *NoSelection) SectionsChanged(PositionVar uint32, NItemsVar uint32) {
 
 	XGtkSectionModelSectionsChanged(x.GoPointer(), PositionVar, NItemsVar)
 
@@ -248,14 +248,14 @@ func (x *NoSelection) GetSelection() *Bitset {
 // interested in part of the model's selected state. A common use
 // case is in response to the [signal@Gtk.SelectionModel::selection-changed]
 // signal.
-func (x *NoSelection) GetSelectionInRange(PositionVar uint, NItemsVar uint) *Bitset {
+func (x *NoSelection) GetSelectionInRange(PositionVar uint32, NItemsVar uint32) *Bitset {
 
 	cret := XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
 	return cret
 }
 
 // Checks if the given item is selected.
-func (x *NoSelection) IsSelected(PositionVar uint) bool {
+func (x *NoSelection) IsSelected(PositionVar uint32) bool {
 
 	cret := XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
 	return cret
@@ -269,14 +269,14 @@ func (x *NoSelection) SelectAll() bool {
 }
 
 // Requests to select an item in the model.
-func (x *NoSelection) SelectItem(PositionVar uint, UnselectRestVar bool) bool {
+func (x *NoSelection) SelectItem(PositionVar uint32, UnselectRestVar bool) bool {
 
 	cret := XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
 	return cret
 }
 
 // Requests to select a range of items in the model.
-func (x *NoSelection) SelectRange(PositionVar uint, NItemsVar uint, UnselectRestVar bool) bool {
+func (x *NoSelection) SelectRange(PositionVar uint32, NItemsVar uint32, UnselectRestVar bool) bool {
 
 	cret := XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
 	return cret
@@ -286,7 +286,7 @@ func (x *NoSelection) SelectRange(PositionVar uint, NItemsVar uint, UnselectRest
 //
 // Call this when the selection changes to emit the
 // [signal@Gtk.SelectionModel::selection-changed] signal.
-func (x *NoSelection) SelectionChanged(PositionVar uint, NItemsVar uint) {
+func (x *NoSelection) SelectionChanged(PositionVar uint32, NItemsVar uint32) {
 
 	XGtkSelectionModelSelectionChanged(x.GoPointer(), PositionVar, NItemsVar)
 
@@ -342,14 +342,14 @@ func (x *NoSelection) UnselectAll() bool {
 }
 
 // Requests to unselect an item in the model.
-func (x *NoSelection) UnselectItem(PositionVar uint) bool {
+func (x *NoSelection) UnselectItem(PositionVar uint32) bool {
 
 	cret := XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
 	return cret
 }
 
 // Requests to unselect a range of items in the model.
-func (x *NoSelection) UnselectRange(PositionVar uint, NItemsVar uint) bool {
+func (x *NoSelection) UnselectRange(PositionVar uint32, NItemsVar uint32) bool {
 
 	cret := XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
 	return cret

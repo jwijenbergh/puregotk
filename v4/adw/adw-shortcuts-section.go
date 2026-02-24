@@ -130,7 +130,7 @@ func (x *ShortcutsSection) GetPropertyTitle() string {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *ShortcutsSection) GetItem(PositionVar uint) uintptr {
+func (x *ShortcutsSection) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -155,7 +155,7 @@ func (x *ShortcutsSection) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *ShortcutsSection) GetNItems() uint {
+func (x *ShortcutsSection) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -173,7 +173,7 @@ func (x *ShortcutsSection) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *ShortcutsSection) GetObject(PositionVar uint) *gobject.Object {
+func (x *ShortcutsSection) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -206,7 +206,7 @@ func (x *ShortcutsSection) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *ShortcutsSection) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *ShortcutsSection) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 

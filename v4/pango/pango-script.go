@@ -26,7 +26,7 @@ func (x *ScriptIter) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewScriptIter func(string, int) *ScriptIter
+var xNewScriptIter func(string, int32) *ScriptIter
 
 // Create a new `PangoScriptIter`, used to break a string of
 // Unicode text into runs by Unicode script.
@@ -34,7 +34,7 @@ var xNewScriptIter func(string, int) *ScriptIter
 // No copy is made of @text, so the caller needs to make
 // sure it remains valid until the iterator is freed with
 // [method@Pango.ScriptIter.free].
-func NewScriptIter(TextVar string, LengthVar int) *ScriptIter {
+func NewScriptIter(TextVar string, LengthVar int32) *ScriptIter {
 
 	cret := xNewScriptIter(TextVar, LengthVar)
 	return cret

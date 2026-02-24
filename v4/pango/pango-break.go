@@ -14,68 +14,68 @@ import (
 type LogAttr struct {
 	_ structs.HostLayout
 
-	IsLineBreak uint
+	IsLineBreak uint32
 
-	IsMandatoryBreak uint
+	IsMandatoryBreak uint32
 
-	IsCharBreak uint
+	IsCharBreak uint32
 
-	IsWhite uint
+	IsWhite uint32
 
-	IsCursorPosition uint
+	IsCursorPosition uint32
 
-	IsWordStart uint
+	IsWordStart uint32
 
-	IsWordEnd uint
+	IsWordEnd uint32
 
-	IsSentenceBoundary uint
+	IsSentenceBoundary uint32
 
-	IsSentenceStart uint
+	IsSentenceStart uint32
 
-	IsSentenceEnd uint
+	IsSentenceEnd uint32
 
-	BackspaceDeletesCharacter uint
+	BackspaceDeletesCharacter uint32
 
-	IsExpandableSpace uint
+	IsExpandableSpace uint32
 
-	IsWordBoundary uint
+	IsWordBoundary uint32
 
-	BreakInsertsHyphen uint
+	BreakInsertsHyphen uint32
 
-	BreakRemovesPreceding uint
+	BreakRemovesPreceding uint32
 
-	Reserved uint
+	Reserved uint32
 }
 
 func (x *LogAttr) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAttrBreak func(string, int, *AttrList, int, *[]LogAttr, int)
+var xAttrBreak func(string, int32, *AttrList, int32, *[]LogAttr, int32)
 
 // Apply customization from attributes to the breaks in @attrs.
 //
 // The line breaks are assumed to have been produced
 // by [func@Pango.default_break] and [func@Pango.tailor_break].
-func AttrBreak(TextVar string, LengthVar int, AttrListVar *AttrList, OffsetVar int, AttrsVar *[]LogAttr, AttrsLenVar int) {
+func AttrBreak(TextVar string, LengthVar int32, AttrListVar *AttrList, OffsetVar int32, AttrsVar *[]LogAttr, AttrsLenVar int32) {
 
 	xAttrBreak(TextVar, LengthVar, AttrListVar, OffsetVar, AttrsVar, AttrsLenVar)
 
 }
 
-var xBreak func(string, int, *Analysis, *[]LogAttr, int)
+var xBreak func(string, int32, *Analysis, *[]LogAttr, int32)
 
 // Determines possible line, word, and character breaks
 // for a string of Unicode text with a single analysis.
 //
 // For most purposes you may want to use [func@Pango.get_log_attrs].
-func Break(TextVar string, LengthVar int, AnalysisVar *Analysis, AttrsVar *[]LogAttr, AttrsLenVar int) {
+func Break(TextVar string, LengthVar int32, AnalysisVar *Analysis, AttrsVar *[]LogAttr, AttrsLenVar int32) {
 
 	xBreak(TextVar, LengthVar, AnalysisVar, AttrsVar, AttrsLenVar)
 
 }
 
-var xDefaultBreak func(string, int, *Analysis, *[]LogAttr, int)
+var xDefaultBreak func(string, int32, *Analysis, *[]LogAttr, int32)
 
 // This is the default break algorithm.
 //
@@ -86,13 +86,13 @@ var xDefaultBreak func(string, int, *Analysis, *[]LogAttr, int)
 // See [func@Pango.tailor_break] for language-specific breaks.
 //
 // See [func@Pango.attr_break] for attribute-based customization.
-func DefaultBreak(TextVar string, LengthVar int, AnalysisVar *Analysis, AttrsVar *[]LogAttr, AttrsLenVar int) {
+func DefaultBreak(TextVar string, LengthVar int32, AnalysisVar *Analysis, AttrsVar *[]LogAttr, AttrsLenVar int32) {
 
 	xDefaultBreak(TextVar, LengthVar, AnalysisVar, AttrsVar, AttrsLenVar)
 
 }
 
-var xGetLogAttrs func(string, int, int, *Language, *[]LogAttr, int)
+var xGetLogAttrs func(string, int32, int32, *Language, *[]LogAttr, int32)
 
 // Computes a `PangoLogAttr` for each character in @text.
 //
@@ -103,13 +103,13 @@ var xGetLogAttrs func(string, int, int, *Language, *[]LogAttr, int)
 // logical attributes can't be computed without context
 // (for example you need to see spaces on either side of
 // a word to know the word is a word).
-func GetLogAttrs(TextVar string, LengthVar int, LevelVar int, LanguageVar *Language, AttrsVar *[]LogAttr, AttrsLenVar int) {
+func GetLogAttrs(TextVar string, LengthVar int32, LevelVar int32, LanguageVar *Language, AttrsVar *[]LogAttr, AttrsLenVar int32) {
 
 	xGetLogAttrs(TextVar, LengthVar, LevelVar, LanguageVar, AttrsVar, AttrsLenVar)
 
 }
 
-var xTailorBreak func(string, int, *Analysis, int, *[]LogAttr, int)
+var xTailorBreak func(string, int32, *Analysis, int32, *[]LogAttr, int32)
 
 // Apply language-specific tailoring to the breaks in @attrs.
 //
@@ -120,7 +120,7 @@ var xTailorBreak func(string, int, *Analysis, int, *[]LogAttr, int)
 //
 // Note that it is better to pass -1 for @offset and use [func@Pango.attr_break]
 // to apply attributes to the whole paragraph.
-func TailorBreak(TextVar string, LengthVar int, AnalysisVar *Analysis, OffsetVar int, AttrsVar *[]LogAttr, AttrsLenVar int) {
+func TailorBreak(TextVar string, LengthVar int32, AnalysisVar *Analysis, OffsetVar int32, AttrsVar *[]LogAttr, AttrsLenVar int32) {
 
 	xTailorBreak(TextVar, LengthVar, AnalysisVar, OffsetVar, AttrsVar, AttrsLenVar)
 

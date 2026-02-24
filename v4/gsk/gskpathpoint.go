@@ -38,10 +38,10 @@ func (x *PathPoint) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xPathPointCompare func(uintptr, *PathPoint) int
+var xPathPointCompare func(uintptr, *PathPoint) int32
 
 // Returns whether @point1 is before or after @point2.
-func (x *PathPoint) Compare(Point2Var *PathPoint) int {
+func (x *PathPoint) Compare(Point2Var *PathPoint) int32 {
 
 	cret := xPathPointCompare(x.GoPointer(), Point2Var)
 	return cret

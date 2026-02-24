@@ -110,7 +110,7 @@ func (x *SortListModel) GetModel() *gio.ListModelBase {
 	return cls
 }
 
-var xSortListModelGetPending func(uintptr) uint
+var xSortListModelGetPending func(uintptr) uint32
 
 // Estimates progress of an ongoing sorting operation.
 //
@@ -129,7 +129,7 @@ var xSortListModelGetPending func(uintptr) uint
 // If no sort operation is ongoing - in particular when
 // [property@Gtk.SortListModel:incremental] is %FALSE - this
 // function returns 0.
-func (x *SortListModel) GetPending() uint {
+func (x *SortListModel) GetPending() uint32 {
 
 	cret := xSortListModelGetPending(x.GoPointer())
 	return cret
@@ -253,18 +253,18 @@ func (x *SortListModel) GetPropertyIncremental() bool {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *SortListModel) GetPropertyNItems() uint {
+func (x *SortListModel) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyPending gets the "pending" property.
 // Estimate of unsorted items remaining.
-func (x *SortListModel) GetPropertyPending() uint {
+func (x *SortListModel) GetPropertyPending() uint32 {
 	var v gobject.Value
 	x.GetProperty("pending", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Get the item at @position.
@@ -276,7 +276,7 @@ func (x *SortListModel) GetPropertyPending() uint {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *SortListModel) GetItem(PositionVar uint) uintptr {
+func (x *SortListModel) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -301,7 +301,7 @@ func (x *SortListModel) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *SortListModel) GetNItems() uint {
+func (x *SortListModel) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -319,7 +319,7 @@ func (x *SortListModel) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *SortListModel) GetObject(PositionVar uint) *gobject.Object {
+func (x *SortListModel) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -352,7 +352,7 @@ func (x *SortListModel) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *SortListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *SortListModel) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
@@ -363,7 +363,7 @@ func (x *SortListModel) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar
 //
 // If the position is larger than the number of items, a single
 // range from n_items to G_MAXUINT will be returned.
-func (x *SortListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndVar *uint) {
+func (x *SortListModel) GetSection(PositionVar uint32, OutStartVar *uint32, OutEndVar *uint32) {
 
 	XGtkSectionModelGetSection(x.GoPointer(), PositionVar, OutStartVar, OutEndVar)
 
@@ -384,7 +384,7 @@ func (x *SortListModel) GetSection(PositionVar uint, OutStartVar *uint, OutEndVa
 // in a larger range, that the larger range is included in the emission
 // of the [signal@Gio.ListModel::items-changed] instead of emitting
 // two signals.
-func (x *SortListModel) SectionsChanged(PositionVar uint, NItemsVar uint) {
+func (x *SortListModel) SectionsChanged(PositionVar uint32, NItemsVar uint32) {
 
 	XGtkSectionModelSectionsChanged(x.GoPointer(), PositionVar, NItemsVar)
 

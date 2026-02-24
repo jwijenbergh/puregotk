@@ -2,7 +2,7 @@
 package glib
 
 const (
-	ANALYZER_ANALYZING int = 1
+	ANALYZER_ANALYZING int32 = 1
 	// The C standard version the code is compiling against, it's normally
 	// defined with the same value of `__STDC_VERSION__` for C standard
 	// compatible compilers, while it uses the lowest standard version
@@ -12,7 +12,7 @@ const (
 	// This is granted to be undefined when compiling with a C++ compiler.
 	//
 	// See also: %G_C_STD_CHECK_VERSION and %G_CXX_STD_VERSION
-	C_STD_VERSION int = 199000
+	C_STD_VERSION int32 = 199000
 	// Expands to "" on all modern compilers, and to  __FUNCTION__ on gcc
 	// version 2.x. Don't use it.
 	GNUC_FUNCTION string = ""
@@ -20,11 +20,11 @@ const (
 	// on gcc version 2.x. Don't use it.
 	GNUC_PRETTY_FUNCTION string = ""
 	// Defined to 1 if gcc-style visibility handling is supported.
-	HAVE_GNUC_VISIBILITY int = 1
+	HAVE_GNUC_VISIBILITY int32 = 1
 
-	macro__has_attribute___noreturn__ int = 0
+	macro__has_attribute___noreturn__ int32 = 0
 
-	macro__has_attribute_ifunc int = 0
+	macro__has_attribute_ifunc int32 = 0
 
-	macro__has_attribute_no_sanitize_address int = 0
+	macro__has_attribute_no_sanitize_address int32 = 0
 )

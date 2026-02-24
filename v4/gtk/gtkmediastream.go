@@ -420,25 +420,25 @@ func (x *MediaStream) Ended() {
 
 }
 
-var xMediaStreamError func(uintptr, glib.Quark, int, string, ...interface{})
+var xMediaStreamError func(uintptr, glib.Quark, int32, string, ...interface{})
 
 // Sets @self into an error state using a printf()-style format string.
 //
 // This is a utility function that calls [method@Gtk.MediaStream.gerror].
 // See that function for details.
-func (x *MediaStream) Error(DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func (x *MediaStream) Error(DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
 
 	xMediaStreamError(x.GoPointer(), DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xMediaStreamErrorValist func(uintptr, glib.Quark, int, string, []interface{})
+var xMediaStreamErrorValist func(uintptr, glib.Quark, int32, string, []interface{})
 
 // Sets @self into an error state using a printf()-style format string.
 //
 // This is a utility function that calls [method@Gtk.MediaStream.gerror].
 // See that function for details.
-func (x *MediaStream) ErrorValist(DomainVar glib.Quark, CodeVar int, FormatVar string, ArgsVar []interface{}) {
+func (x *MediaStream) ErrorValist(DomainVar glib.Quark, CodeVar int32, FormatVar string, ArgsVar []interface{}) {
 
 	xMediaStreamErrorValist(x.GoPointer(), DomainVar, CodeVar, FormatVar, ArgsVar)
 
@@ -1089,7 +1089,7 @@ func (x *MediaStream) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *MediaStream) GetIntrinsicHeight() int {
+func (x *MediaStream) GetIntrinsicHeight() int32 {
 
 	cret := gdk.XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 	return cret
@@ -1105,7 +1105,7 @@ func (x *MediaStream) GetIntrinsicHeight() int {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *MediaStream) GetIntrinsicWidth() int {
+func (x *MediaStream) GetIntrinsicWidth() int32 {
 
 	cret := gdk.XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 	return cret

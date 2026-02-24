@@ -67,11 +67,11 @@ func NewSimpleActionGroup() *SimpleActionGroup {
 	return cls
 }
 
-var xSimpleActionGroupAddEntries func(uintptr, []ActionEntry, int, uintptr)
+var xSimpleActionGroupAddEntries func(uintptr, []ActionEntry, int32, uintptr)
 
 // A convenience function for creating multiple #GSimpleAction instances
 // and adding them to the action group.
-func (x *SimpleActionGroup) AddEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *SimpleActionGroup) AddEntries(EntriesVar []ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	xSimpleActionGroupAddEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -418,7 +418,7 @@ func (x *SimpleActionGroup) AddAction(ActionVar Action) {
 //	}
 //
 // ```
-func (x *SimpleActionGroup) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *SimpleActionGroup) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -475,7 +475,7 @@ func (x *SimpleActionGroup) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *SimpleActionGroup) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int) {
+func (x *SimpleActionGroup) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int32) {
 
 	XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 

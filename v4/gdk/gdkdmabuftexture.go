@@ -141,7 +141,7 @@ func (x *DmabufTexture) GetIntrinsicAspectRatio() float64 {
 //
 // If the @paintable does not have a preferred height, it returns 0.
 // Negative values are never returned.
-func (x *DmabufTexture) GetIntrinsicHeight() int {
+func (x *DmabufTexture) GetIntrinsicHeight() int32 {
 
 	cret := XGdkPaintableGetIntrinsicHeight(x.GoPointer())
 	return cret
@@ -157,7 +157,7 @@ func (x *DmabufTexture) GetIntrinsicHeight() int {
 //
 // If the @paintable does not have a preferred width, it returns 0.
 // Negative values are never returned.
-func (x *DmabufTexture) GetIntrinsicWidth() int {
+func (x *DmabufTexture) GetIntrinsicWidth() int32 {
 
 	cret := XGdkPaintableGetIntrinsicWidth(x.GoPointer())
 	return cret
@@ -214,7 +214,7 @@ func (x *DmabufTexture) Equal(Icon2Var gio.Icon) bool {
 }
 
 // Gets a hash for an icon.
-func (x *DmabufTexture) Hash() uint {
+func (x *DmabufTexture) Hash() uint32 {
 
 	cret := gio.XGIconHash(x.GoPointer())
 	return cret
@@ -255,7 +255,7 @@ func (x *DmabufTexture) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *DmabufTexture) Load(SizeVar int, TypeVar *string, CancellableVar *gio.Cancellable) (*gio.InputStream, error) {
+func (x *DmabufTexture) Load(SizeVar int32, TypeVar *string, CancellableVar *gio.Cancellable) (*gio.InputStream, error) {
 	var cls *gio.InputStream
 	var cerr *glib.Error
 
@@ -276,7 +276,7 @@ func (x *DmabufTexture) Load(SizeVar int, TypeVar *string, CancellableVar *gio.C
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *DmabufTexture) LoadAsync(SizeVar int, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DmabufTexture) LoadAsync(SizeVar int32, CancellableVar *gio.Cancellable, CallbackVar *gio.AsyncReadyCallback, UserDataVar uintptr) {
 
 	gio.XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

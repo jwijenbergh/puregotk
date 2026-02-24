@@ -78,10 +78,10 @@ func BoxNewFromInternalPtr(ptr uintptr) *Box {
 	return cls
 }
 
-var xNewBox func(Orientation, int) uintptr
+var xNewBox func(Orientation, int32) uintptr
 
 // Creates a new box.
-func NewBox(OrientationVar Orientation, SpacingVar int) *Box {
+func NewBox(OrientationVar Orientation, SpacingVar int32) *Box {
 	var cls *Box
 
 	cret := xNewBox(OrientationVar, SpacingVar)
@@ -104,10 +104,10 @@ func (x *Box) Append(ChildVar *Widget) {
 
 }
 
-var xBoxGetBaselineChild func(uintptr) int
+var xBoxGetBaselineChild func(uintptr) int32
 
 // Gets the value set by [method@Gtk.Box.set_baseline_child].
-func (x *Box) GetBaselineChild() int {
+func (x *Box) GetBaselineChild() int32 {
 
 	cret := xBoxGetBaselineChild(x.GoPointer())
 	return cret
@@ -133,10 +133,10 @@ func (x *Box) GetHomogeneous() bool {
 	return cret
 }
 
-var xBoxGetSpacing func(uintptr) int
+var xBoxGetSpacing func(uintptr) int32
 
 // Gets the value set by [method@Gtk.Box.set_spacing].
-func (x *Box) GetSpacing() int {
+func (x *Box) GetSpacing() int32 {
 
 	cret := xBoxGetSpacing(x.GoPointer())
 	return cret
@@ -191,12 +191,12 @@ func (x *Box) ReorderChildAfter(ChildVar *Widget, SiblingVar *Widget) {
 
 }
 
-var xBoxSetBaselineChild func(uintptr, int)
+var xBoxSetBaselineChild func(uintptr, int32)
 
 // Sets the baseline child of a box.
 //
 // This affects only vertical boxes.
-func (x *Box) SetBaselineChild(ChildVar int) {
+func (x *Box) SetBaselineChild(ChildVar int32) {
 
 	xBoxSetBaselineChild(x.GoPointer(), ChildVar)
 
@@ -227,10 +227,10 @@ func (x *Box) SetHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xBoxSetSpacing func(uintptr, int)
+var xBoxSetSpacing func(uintptr, int32)
 
 // Sets the number of pixels to place between children.
-func (x *Box) SetSpacing(SpacingVar int) {
+func (x *Box) SetSpacing(SpacingVar int32) {
 
 	xBoxSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -251,10 +251,10 @@ func (c *Box) SetGoPointer(ptr uintptr) {
 // The position of the child that determines the baseline.
 //
 // This is only relevant if the box is in vertical orientation.
-func (x *Box) SetPropertyBaselineChild(value int) {
+func (x *Box) SetPropertyBaselineChild(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("baseline-child", &v)
 }
 
@@ -262,10 +262,10 @@ func (x *Box) SetPropertyBaselineChild(value int) {
 // The position of the child that determines the baseline.
 //
 // This is only relevant if the box is in vertical orientation.
-func (x *Box) GetPropertyBaselineChild() int {
+func (x *Box) GetPropertyBaselineChild() int32 {
 	var v gobject.Value
 	x.GetProperty("baseline-child", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyHomogeneous sets the "homogeneous" property.
@@ -287,19 +287,19 @@ func (x *Box) GetPropertyHomogeneous() bool {
 
 // SetPropertySpacing sets the "spacing" property.
 // The amount of space between children.
-func (x *Box) SetPropertySpacing(value int) {
+func (x *Box) SetPropertySpacing(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("spacing", &v)
 }
 
 // GetPropertySpacing gets the "spacing" property.
 // The amount of space between children.
-func (x *Box) GetPropertySpacing() int {
+func (x *Box) GetPropertySpacing() int32 {
 	var v gobject.Value
 	x.GetProperty("spacing", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Requests the user's screen reader to announce the given message.
@@ -359,7 +359,7 @@ func (x *Box) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Box) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Box) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -491,7 +491,7 @@ func (x *Box) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...int
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Box) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -527,7 +527,7 @@ func (x *Box) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...int
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Box) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -564,7 +564,7 @@ func (x *Box) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{})
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Box) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Box) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

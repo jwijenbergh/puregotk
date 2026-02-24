@@ -72,13 +72,13 @@ func (c *GestureClick) SetGoPointer(ptr uintptr) {
 }
 
 // Emitted whenever a button or touch press happens.
-func (x *GestureClick) ConnectPressed(cb *func(GestureClick, int, float64, float64)) uint32 {
+func (x *GestureClick) ConnectPressed(cb *func(GestureClick, int32, float64, float64)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "pressed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
+	fcb := func(clsPtr uintptr, NPressVarp int32, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -97,13 +97,13 @@ func (x *GestureClick) ConnectPressed(cb *func(GestureClick, int, float64, float
 // this event, note that [signal@Gtk.GestureClick::stopped] may
 // have been emitted between the press and its release, @n_press
 // will only start over at the next press.
-func (x *GestureClick) ConnectReleased(cb *func(GestureClick, int, float64, float64)) uint32 {
+func (x *GestureClick) ConnectReleased(cb *func(GestureClick, int32, float64, float64)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "released", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, NPressVarp int, XVarp float64, YVarp float64) {
+	fcb := func(clsPtr uintptr, NPressVarp int32, XVarp float64, YVarp float64) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -142,13 +142,13 @@ func (x *GestureClick) ConnectStopped(cb *func(GestureClick)) uint32 {
 // Due to implicit grabs, this can only happen on situations
 // where input is grabbed elsewhere mid-press or the pressed
 // widget voluntarily relinquishes its implicit grab.
-func (x *GestureClick) ConnectUnpairedRelease(cb *func(GestureClick, float64, float64, uint, uintptr)) uint32 {
+func (x *GestureClick) ConnectUnpairedRelease(cb *func(GestureClick, float64, float64, uint32, uintptr)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "unpaired-release", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64, ButtonVarp uint, SequenceVarp uintptr) {
+	fcb := func(clsPtr uintptr, XVarp float64, YVarp float64, ButtonVarp uint32, SequenceVarp uintptr) {
 		fa := GestureClick{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

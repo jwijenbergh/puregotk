@@ -144,10 +144,10 @@ func (x *Paned) GetEndChild() *Widget {
 	return cls
 }
 
-var xPanedGetPosition func(uintptr) int
+var xPanedGetPosition func(uintptr) int32
 
 // Obtains the position of the divider between the two panes.
-func (x *Paned) GetPosition() int {
+func (x *Paned) GetPosition() int32 {
 
 	cret := xPanedGetPosition(x.GoPointer())
 	return cret
@@ -226,10 +226,10 @@ func (x *Paned) SetEndChild(ChildVar *Widget) {
 
 }
 
-var xPanedSetPosition func(uintptr, int)
+var xPanedSetPosition func(uintptr, int32)
 
 // Sets the position of the divider between the two panes.
-func (x *Paned) SetPosition(PositionVar int) {
+func (x *Paned) SetPosition(PositionVar int32) {
 
 	xPanedSetPosition(x.GoPointer(), PositionVar)
 
@@ -308,10 +308,10 @@ func (c *Paned) SetGoPointer(ptr uintptr) {
 //
 // This property is derived from the size and shrinkability
 // of the widget's children.
-func (x *Paned) GetPropertyMaxPosition() int {
+func (x *Paned) GetPropertyMaxPosition() int32 {
 	var v gobject.Value
 	x.GetProperty("max-position", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyMinPosition gets the "min-position" property.
@@ -320,27 +320,27 @@ func (x *Paned) GetPropertyMaxPosition() int {
 //
 // This property is derived from the size and shrinkability
 // of the widget's children.
-func (x *Paned) GetPropertyMinPosition() int {
+func (x *Paned) GetPropertyMinPosition() int32 {
 	var v gobject.Value
 	x.GetProperty("min-position", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyPosition sets the "position" property.
 // Position of the separator in pixels, from the left/top.
-func (x *Paned) SetPropertyPosition(value int) {
+func (x *Paned) SetPropertyPosition(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("position", &v)
 }
 
 // GetPropertyPosition gets the "position" property.
 // Position of the separator in pixels, from the left/top.
-func (x *Paned) GetPropertyPosition() int {
+func (x *Paned) GetPropertyPosition() int32 {
 	var v gobject.Value
 	x.GetProperty("position", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyPositionSet sets the "position-set" property.
@@ -673,7 +673,7 @@ func (x *Paned) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Paned) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Paned) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -805,7 +805,7 @@ func (x *Paned) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Paned) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -841,7 +841,7 @@ func (x *Paned) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Paned) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -878,7 +878,7 @@ func (x *Paned) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Paned) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Paned) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

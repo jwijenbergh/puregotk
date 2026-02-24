@@ -142,24 +142,24 @@ func (x *IOStreamClass) GetCloseFn() func(*IOStream, *Cancellable) bool {
 }
 
 // OverrideCloseAsync sets the "close_async" callback function.
-func (x *IOStreamClass) OverrideCloseAsync(cb func(*IOStream, int, *Cancellable, *AsyncReadyCallback, uintptr)) {
+func (x *IOStreamClass) OverrideCloseAsync(cb func(*IOStream, int32, *Cancellable, *AsyncReadyCallback, uintptr)) {
 	if cb == nil {
 		x.xCloseAsync = 0
 	} else {
-		x.xCloseAsync = purego.NewCallback(func(StreamVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
+		x.xCloseAsync = purego.NewCallback(func(StreamVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr) {
 			cb(IOStreamNewFromInternalPtr(StreamVarp), IoPriorityVarp, CancellableNewFromInternalPtr(CancellableVarp), (*AsyncReadyCallback)(unsafe.Pointer(CallbackVarp)), UserDataVarp)
 		})
 	}
 }
 
 // GetCloseAsync gets the "close_async" callback function.
-func (x *IOStreamClass) GetCloseAsync() func(*IOStream, int, *Cancellable, *AsyncReadyCallback, uintptr) {
+func (x *IOStreamClass) GetCloseAsync() func(*IOStream, int32, *Cancellable, *AsyncReadyCallback, uintptr) {
 	if x.xCloseAsync == 0 {
 		return nil
 	}
-	var rawCallback func(StreamVarp uintptr, IoPriorityVarp int, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
+	var rawCallback func(StreamVarp uintptr, IoPriorityVarp int32, CancellableVarp uintptr, CallbackVarp uintptr, UserDataVarp uintptr)
 	purego.RegisterFunc(&rawCallback, x.xCloseAsync)
-	return func(StreamVar *IOStream, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+	return func(StreamVar *IOStream, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 		rawCallback(StreamVar.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 	}
 }
@@ -544,7 +544,7 @@ func (x *IOStream) Close(CancellableVar *Cancellable) (bool, error) {
 
 }
 
-var xIOStreamCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var xIOStreamCloseAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 
 // Requests an asynchronous close of the stream, releasing resources
 // related to it. When the operation is finished @callback will be
@@ -556,7 +556,7 @@ var xIOStreamCloseAsync func(uintptr, int, uintptr, uintptr, uintptr)
 // The asynchronous methods have a default fallback that uses threads
 // to implement asynchronicity, so they are optional for inheriting
 // classes. However, if you override one you must override all.
-func (x *IOStream) CloseAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *IOStream) CloseAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xIOStreamCloseAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -646,7 +646,7 @@ func (x *IOStream) SetPending() (bool, error) {
 
 }
 
-var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int, uintptr, uintptr, uintptr)
+var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int32, uintptr, uintptr, uintptr)
 
 // Asynchronously splice the output stream of @stream1 to the input stream of
 // @stream2, and splice the output stream of @stream2 to the input stream of
@@ -655,7 +655,7 @@ var xIOStreamSpliceAsync func(uintptr, uintptr, IOStreamSpliceFlags, int, uintpt
 // When the operation is finished @callback will be called.
 // You can then call g_io_stream_splice_finish() to get the
 // result of the operation.
-func (x *IOStream) SpliceAsync(Stream2Var *IOStream, FlagsVar IOStreamSpliceFlags, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *IOStream) SpliceAsync(Stream2Var *IOStream, FlagsVar IOStreamSpliceFlags, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xIOStreamSpliceAsync(x.GoPointer(), Stream2Var.GoPointer(), FlagsVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

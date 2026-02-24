@@ -66,10 +66,10 @@ func NewBoxLayout(OrientationVar Orientation) *BoxLayout {
 	return cls
 }
 
-var xBoxLayoutGetBaselineChild func(uintptr) int
+var xBoxLayoutGetBaselineChild func(uintptr) int32
 
 // Gets the value set by gtk_box_layout_set_baseline_child().
-func (x *BoxLayout) GetBaselineChild() int {
+func (x *BoxLayout) GetBaselineChild() int32 {
 
 	cret := xBoxLayoutGetBaselineChild(x.GoPointer())
 	return cret
@@ -93,20 +93,20 @@ func (x *BoxLayout) GetHomogeneous() bool {
 	return cret
 }
 
-var xBoxLayoutGetSpacing func(uintptr) uint
+var xBoxLayoutGetSpacing func(uintptr) uint32
 
 // Returns the space that @box_layout puts between children.
-func (x *BoxLayout) GetSpacing() uint {
+func (x *BoxLayout) GetSpacing() uint32 {
 
 	cret := xBoxLayoutGetSpacing(x.GoPointer())
 	return cret
 }
 
-var xBoxLayoutSetBaselineChild func(uintptr, int)
+var xBoxLayoutSetBaselineChild func(uintptr, int32)
 
 // Sets the index of the child that determines the baseline
 // in vertical layout.
-func (x *BoxLayout) SetBaselineChild(ChildVar int) {
+func (x *BoxLayout) SetBaselineChild(ChildVar int32) {
 
 	xBoxLayoutSetBaselineChild(x.GoPointer(), ChildVar)
 
@@ -137,10 +137,10 @@ func (x *BoxLayout) SetHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xBoxLayoutSetSpacing func(uintptr, uint)
+var xBoxLayoutSetSpacing func(uintptr, uint32)
 
 // Sets how much spacing to put between children.
-func (x *BoxLayout) SetSpacing(SpacingVar uint) {
+func (x *BoxLayout) SetSpacing(SpacingVar uint32) {
 
 	xBoxLayoutSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -164,10 +164,10 @@ func (c *BoxLayout) SetGoPointer(ptr uintptr) {
 // If the child does baseline positioning, then its baseline
 // is lined up with the baseline of the box. If it doesn't, then
 // the bottom edge of the child is used.
-func (x *BoxLayout) SetPropertyBaselineChild(value int) {
+func (x *BoxLayout) SetPropertyBaselineChild(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("baseline-child", &v)
 }
 
@@ -178,10 +178,10 @@ func (x *BoxLayout) SetPropertyBaselineChild(value int) {
 // If the child does baseline positioning, then its baseline
 // is lined up with the baseline of the box. If it doesn't, then
 // the bottom edge of the child is used.
-func (x *BoxLayout) GetPropertyBaselineChild() int {
+func (x *BoxLayout) GetPropertyBaselineChild() int32 {
 	var v gobject.Value
 	x.GetProperty("baseline-child", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyHomogeneous sets the "homogeneous" property.
@@ -205,19 +205,19 @@ func (x *BoxLayout) GetPropertyHomogeneous() bool {
 
 // SetPropertySpacing sets the "spacing" property.
 // The space to put between the children.
-func (x *BoxLayout) SetPropertySpacing(value int) {
+func (x *BoxLayout) SetPropertySpacing(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("spacing", &v)
 }
 
 // GetPropertySpacing gets the "spacing" property.
 // The space to put between the children.
-func (x *BoxLayout) GetPropertySpacing() int {
+func (x *BoxLayout) GetPropertySpacing() int32 {
 	var v gobject.Value
 	x.GetProperty("spacing", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Retrieves the orientation of the @orientable.

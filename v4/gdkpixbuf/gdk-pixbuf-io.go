@@ -32,7 +32,7 @@ type PixbufModuleFillInfoFunc func(*PixbufFormat)
 type PixbufModuleFillVtableFunc func(*PixbufModule)
 
 // Incrementally loads a buffer into the image data.
-type PixbufModuleIncrementLoadFunc func(uintptr, []byte, uint, **glib.Error) bool
+type PixbufModuleIncrementLoadFunc func(uintptr, []byte, uint32, **glib.Error) bool
 
 // Loads a file from a standard C file stream into a new `GdkPixbufAnimation`.
 //
@@ -85,7 +85,7 @@ type PixbufModuleSaveOptionSupportedFunc func(string) bool
 // this as a hint that it will be closed soon and shouldn't allocate further
 // resources. This convention is used to implement gdk_pixbuf_get_file_info()
 // efficiently.
-type PixbufModuleSizeFunc func(int, int, uintptr)
+type PixbufModuleSizeFunc func(int32, int32, uintptr)
 
 // Finalizes the image loading state.
 //
@@ -98,7 +98,7 @@ type PixbufModuleStopLoadFunc func(uintptr, **glib.Error) bool
 // #GdkPixbufLoader uses a function of this type to emit the
 // "&lt;link linkend="GdkPixbufLoader-area-updated"&gt;area_updated&lt;/link&gt;"
 // signal.
-type PixbufModuleUpdatedFunc func(uintptr, int, int, int, int, uintptr)
+type PixbufModuleUpdatedFunc func(uintptr, int32, int32, int32, int32, uintptr)
 
 // A `GdkPixbufFormat` contains information about the image format accepted
 // by a module.
@@ -483,7 +483,7 @@ type PixbufModulePattern struct {
 
 	Mask uintptr
 
-	Relevance int
+	Relevance int32
 }
 
 func (x *PixbufModulePattern) GoPointer() uintptr {

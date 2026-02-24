@@ -114,20 +114,20 @@ func (x *CicpParams) BuildColorState() (*ColorState, error) {
 
 }
 
-var xCicpParamsGetColorPrimaries func(uintptr) uint
+var xCicpParamsGetColorPrimaries func(uintptr) uint32
 
 // Returns the value of the color-primaries property
 // of @self.
-func (x *CicpParams) GetColorPrimaries() uint {
+func (x *CicpParams) GetColorPrimaries() uint32 {
 
 	cret := xCicpParamsGetColorPrimaries(x.GoPointer())
 	return cret
 }
 
-var xCicpParamsGetMatrixCoefficients func(uintptr) uint
+var xCicpParamsGetMatrixCoefficients func(uintptr) uint32
 
 // Gets the matrix-coefficients property of @self.
-func (x *CicpParams) GetMatrixCoefficients() uint {
+func (x *CicpParams) GetMatrixCoefficients() uint32 {
 
 	cret := xCicpParamsGetMatrixCoefficients(x.GoPointer())
 	return cret
@@ -142,29 +142,29 @@ func (x *CicpParams) GetRange() CicpRange {
 	return cret
 }
 
-var xCicpParamsGetTransferFunction func(uintptr) uint
+var xCicpParamsGetTransferFunction func(uintptr) uint32
 
 // Gets the transfer-function property of @self.
-func (x *CicpParams) GetTransferFunction() uint {
+func (x *CicpParams) GetTransferFunction() uint32 {
 
 	cret := xCicpParamsGetTransferFunction(x.GoPointer())
 	return cret
 }
 
-var xCicpParamsSetColorPrimaries func(uintptr, uint)
+var xCicpParamsSetColorPrimaries func(uintptr, uint32)
 
 // Sets the color-primaries property of @self.
-func (x *CicpParams) SetColorPrimaries(ColorPrimariesVar uint) {
+func (x *CicpParams) SetColorPrimaries(ColorPrimariesVar uint32) {
 
 	xCicpParamsSetColorPrimaries(x.GoPointer(), ColorPrimariesVar)
 
 }
 
-var xCicpParamsSetMatrixCoefficients func(uintptr, uint)
+var xCicpParamsSetMatrixCoefficients func(uintptr, uint32)
 
 // @self a `GdkCicpParams`
 // Sets the matrix-coefficients property of @self.
-func (x *CicpParams) SetMatrixCoefficients(MatrixCoefficientsVar uint) {
+func (x *CicpParams) SetMatrixCoefficients(MatrixCoefficientsVar uint32) {
 
 	xCicpParamsSetMatrixCoefficients(x.GoPointer(), MatrixCoefficientsVar)
 
@@ -179,10 +179,10 @@ func (x *CicpParams) SetRange(RangeVar CicpRange) {
 
 }
 
-var xCicpParamsSetTransferFunction func(uintptr, uint)
+var xCicpParamsSetTransferFunction func(uintptr, uint32)
 
 // Sets the transfer-function property of @self.
-func (x *CicpParams) SetTransferFunction(TransferFunctionVar uint) {
+func (x *CicpParams) SetTransferFunction(TransferFunctionVar uint32) {
 
 	xCicpParamsSetTransferFunction(x.GoPointer(), TransferFunctionVar)
 
@@ -210,10 +210,10 @@ func (c *CicpParams) SetGoPointer(ptr uintptr) {
 // - 6,7: BT.601 / NTSC
 // - 9: BT.2020
 // - 12: Display P3
-func (x *CicpParams) SetPropertyColorPrimaries(value uint) {
+func (x *CicpParams) SetPropertyColorPrimaries(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("color-primaries", &v)
 }
 
@@ -228,10 +228,10 @@ func (x *CicpParams) SetPropertyColorPrimaries(value uint) {
 // - 6,7: BT.601 / NTSC
 // - 9: BT.2020
 // - 12: Display P3
-func (x *CicpParams) GetPropertyColorPrimaries() uint {
+func (x *CicpParams) GetPropertyColorPrimaries() uint32 {
 	var v gobject.Value
 	x.GetProperty("color-primaries", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyMatrixCoefficients sets the "matrix-coefficients" property.
@@ -244,10 +244,10 @@ func (x *CicpParams) GetPropertyColorPrimaries() uint {
 // - 2: unspecified
 // - 5,6: BT.601
 // - 9: BT.2020
-func (x *CicpParams) SetPropertyMatrixCoefficients(value uint) {
+func (x *CicpParams) SetPropertyMatrixCoefficients(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("matrix-coefficients", &v)
 }
 
@@ -261,10 +261,10 @@ func (x *CicpParams) SetPropertyMatrixCoefficients(value uint) {
 // - 2: unspecified
 // - 5,6: BT.601
 // - 9: BT.2020
-func (x *CicpParams) GetPropertyMatrixCoefficients() uint {
+func (x *CicpParams) GetPropertyMatrixCoefficients() uint32 {
 	var v gobject.Value
 	x.GetProperty("matrix-coefficients", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyTransferFunction sets the "transfer-function" property.
@@ -280,10 +280,10 @@ func (x *CicpParams) GetPropertyMatrixCoefficients() uint {
 // - 13: sRGB
 // - 16: BT.2100 PQ
 // - 18: BT.2100 HLG
-func (x *CicpParams) SetPropertyTransferFunction(value uint) {
+func (x *CicpParams) SetPropertyTransferFunction(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("transfer-function", &v)
 }
 
@@ -300,10 +300,10 @@ func (x *CicpParams) SetPropertyTransferFunction(value uint) {
 // - 13: sRGB
 // - 16: BT.2100 PQ
 // - 18: BT.2100 HLG
-func (x *CicpParams) GetPropertyTransferFunction() uint {
+func (x *CicpParams) GetPropertyTransferFunction() uint32 {
 	var v gobject.Value
 	x.GetProperty("transfer-function", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 func init() {

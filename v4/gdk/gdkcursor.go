@@ -21,7 +21,7 @@ import (
 //
 // This function may fail and return `NULL`, in which case
 // the fallback cursor will be used.
-type CursorGetTextureCallback func(uintptr, int, float64, *int, *int, *int, *int, uintptr) uintptr
+type CursorGetTextureCallback func(uintptr, int32, float64, *int32, *int32, *int32, *int32, uintptr) uintptr
 
 // Used to create and destroy cursors.
 //
@@ -152,10 +152,10 @@ func NewCursorFromName(NameVar string, FallbackVar *Cursor) *Cursor {
 	return cls
 }
 
-var xNewCursorFromTexture func(uintptr, int, int, uintptr) uintptr
+var xNewCursorFromTexture func(uintptr, int32, int32, uintptr) uintptr
 
 // Creates a new cursor from a `GdkTexture`.
-func NewCursorFromTexture(TextureVar *Texture, HotspotXVar int, HotspotYVar int, FallbackVar *Cursor) *Cursor {
+func NewCursorFromTexture(TextureVar *Texture, HotspotXVar int32, HotspotYVar int32, FallbackVar *Cursor) *Cursor {
 	var cls *Cursor
 
 	cret := xNewCursorFromTexture(TextureVar.GoPointer(), HotspotXVar, HotspotYVar, FallbackVar.GoPointer())
@@ -191,7 +191,7 @@ func (x *Cursor) GetFallback() *Cursor {
 	return cls
 }
 
-var xCursorGetHotspotX func(uintptr) int
+var xCursorGetHotspotX func(uintptr) int32
 
 // Returns the horizontal offset of the hotspot.
 //
@@ -200,13 +200,13 @@ var xCursorGetHotspotX func(uintptr) int
 // Note that named cursors may have a nonzero hotspot, but this function
 // will only return the hotspot position for cursors created with
 // [ctor@Gdk.Cursor.new_from_texture].
-func (x *Cursor) GetHotspotX() int {
+func (x *Cursor) GetHotspotX() int32 {
 
 	cret := xCursorGetHotspotX(x.GoPointer())
 	return cret
 }
 
-var xCursorGetHotspotY func(uintptr) int
+var xCursorGetHotspotY func(uintptr) int32
 
 // Returns the vertical offset of the hotspot.
 //
@@ -215,7 +215,7 @@ var xCursorGetHotspotY func(uintptr) int
 // Note that named cursors may have a nonzero hotspot, but this function
 // will only return the hotspot position for cursors created with
 // [ctor@Gdk.Cursor.new_from_texture].
-func (x *Cursor) GetHotspotY() int {
+func (x *Cursor) GetHotspotY() int32 {
 
 	cret := xCursorGetHotspotY(x.GoPointer())
 	return cret
@@ -264,36 +264,36 @@ func (c *Cursor) SetGoPointer(ptr uintptr) {
 
 // SetPropertyHotspotX sets the "hotspot-x" property.
 // X position of the cursor hotspot in the cursor image.
-func (x *Cursor) SetPropertyHotspotX(value int) {
+func (x *Cursor) SetPropertyHotspotX(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("hotspot-x", &v)
 }
 
 // GetPropertyHotspotX gets the "hotspot-x" property.
 // X position of the cursor hotspot in the cursor image.
-func (x *Cursor) GetPropertyHotspotX() int {
+func (x *Cursor) GetPropertyHotspotX() int32 {
 	var v gobject.Value
 	x.GetProperty("hotspot-x", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyHotspotY sets the "hotspot-y" property.
 // Y position of the cursor hotspot in the cursor image.
-func (x *Cursor) SetPropertyHotspotY(value int) {
+func (x *Cursor) SetPropertyHotspotY(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("hotspot-y", &v)
 }
 
 // GetPropertyHotspotY gets the "hotspot-y" property.
 // Y position of the cursor hotspot in the cursor image.
-func (x *Cursor) GetPropertyHotspotY() int {
+func (x *Cursor) GetPropertyHotspotY() int32 {
 	var v gobject.Value
 	x.GetProperty("hotspot-y", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyName sets the "name" property.

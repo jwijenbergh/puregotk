@@ -120,12 +120,12 @@ func (x *PreferencesPage) GetDescriptionCentered() bool {
 	return cret
 }
 
-var xPreferencesPageGetGroup func(uintptr, uint) uintptr
+var xPreferencesPageGetGroup func(uintptr, uint32) uintptr
 
 // Gets the group at @index.
 //
 // Can return `NULL` if @index is larger than the number of groups in the page.
-func (x *PreferencesPage) GetGroup(IndexVar uint) *PreferencesGroup {
+func (x *PreferencesPage) GetGroup(IndexVar uint32) *PreferencesGroup {
 	var cls *PreferencesGroup
 
 	cret := xPreferencesPageGetGroup(x.GoPointer(), IndexVar)
@@ -175,13 +175,13 @@ func (x *PreferencesPage) GetUseUnderline() bool {
 	return cret
 }
 
-var xPreferencesPageInsert func(uintptr, uintptr, int)
+var xPreferencesPageInsert func(uintptr, uintptr, int32)
 
 // Inserts a preferences group to @self at @index.
 //
 // If @index is negative or larger than the number of groups, appends the group,
 // same as [method@PreferencesPage.add].
-func (x *PreferencesPage) Insert(GroupVar *PreferencesGroup, IndexVar int) {
+func (x *PreferencesPage) Insert(GroupVar *PreferencesGroup, IndexVar int32) {
 
 	xPreferencesPageInsert(x.GoPointer(), GroupVar.GoPointer(), IndexVar)
 
@@ -440,7 +440,7 @@ func (x *PreferencesPage) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *PreferencesPage) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *PreferencesPage) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -572,7 +572,7 @@ func (x *PreferencesPage) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesPage) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *PreferencesPage) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -608,7 +608,7 @@ func (x *PreferencesPage) UpdateRelation(FirstRelationVar gtk.AccessibleRelation
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesPage) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *PreferencesPage) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -645,7 +645,7 @@ func (x *PreferencesPage) UpdateState(FirstStateVar gtk.AccessibleState, varArgs
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *PreferencesPage) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *PreferencesPage) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

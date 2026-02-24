@@ -62,7 +62,7 @@ func (x *MatchInfo) ExpandReferences(StringToExpandVar string) (string, error) {
 
 }
 
-var xMatchInfoFetch func(uintptr, int) string
+var xMatchInfoFetch func(uintptr, int32) string
 
 // Retrieves the text matching the @match_num'th capturing
 // parentheses. 0 is the full text of the match, 1 is the first paren
@@ -80,7 +80,7 @@ var xMatchInfoFetch func(uintptr, int) string
 //
 // The string is fetched from the string passed to the match function,
 // so you cannot call this function after freeing the string.
-func (x *MatchInfo) Fetch(MatchNumVar int) string {
+func (x *MatchInfo) Fetch(MatchNumVar int32) string {
 
 	cret := xMatchInfoFetch(x.GoPointer(), MatchNumVar)
 	return cret
@@ -126,7 +126,7 @@ func (x *MatchInfo) FetchNamed(NameVar string) string {
 	return cret
 }
 
-var xMatchInfoFetchNamedPos func(uintptr, string, *int, *int) bool
+var xMatchInfoFetchNamedPos func(uintptr, string, *int32, *int32) bool
 
 // Retrieves the position in bytes of the capturing parentheses named @name.
 //
@@ -136,13 +136,13 @@ var xMatchInfoFetchNamedPos func(uintptr, string, *int, *int) bool
 //
 // As @end_pos is set to the byte after the final byte of the match (on success),
 // the length of the match can be calculated as `end_pos - start_pos`.
-func (x *MatchInfo) FetchNamedPos(NameVar string, StartPosVar *int, EndPosVar *int) bool {
+func (x *MatchInfo) FetchNamedPos(NameVar string, StartPosVar *int32, EndPosVar *int32) bool {
 
 	cret := xMatchInfoFetchNamedPos(x.GoPointer(), NameVar, StartPosVar, EndPosVar)
 	return cret
 }
 
-var xMatchInfoFetchPos func(uintptr, int, *int, *int) bool
+var xMatchInfoFetchPos func(uintptr, int32, *int32, *int32) bool
 
 // Returns the start and end positions (in bytes) of a successfully matching
 // capture parenthesis.
@@ -351,7 +351,7 @@ var xMatchInfoFetchPos func(uintptr, int, *int, *int) bool
 // 2         &lt;a&gt;                       1            0                  3
 // 3         N/A                       0            2147483647         2147483647
 // ```
-func (x *MatchInfo) FetchPos(MatchNumVar int, StartPosVar *int, EndPosVar *int) bool {
+func (x *MatchInfo) FetchPos(MatchNumVar int32, StartPosVar *int32, EndPosVar *int32) bool {
 
 	cret := xMatchInfoFetchPos(x.GoPointer(), MatchNumVar, StartPosVar, EndPosVar)
 	return cret
@@ -367,7 +367,7 @@ func (x *MatchInfo) Free() {
 
 }
 
-var xMatchInfoGetMatchCount func(uintptr) int
+var xMatchInfoGetMatchCount func(uintptr) int32
 
 // Retrieves the number of matched substrings (including substring 0,
 // that is the whole matched text), so 1 is returned if the pattern
@@ -377,7 +377,7 @@ var xMatchInfoGetMatchCount func(uintptr) int
 // using g_regex_match_all() or g_regex_match_all_full(), the retrieved
 // count is not that of the number of capturing parentheses but that of
 // the number of matched substrings.
-func (x *MatchInfo) GetMatchCount() int {
+func (x *MatchInfo) GetMatchCount() int32 {
 
 	cret := xMatchInfoGetMatchCount(x.GoPointer())
 	return cret
@@ -658,10 +658,10 @@ func NewRegex(PatternVar string, CompileOptionsVar RegexCompileFlags, MatchOptio
 
 }
 
-var xRegexGetCaptureCount func(uintptr) int
+var xRegexGetCaptureCount func(uintptr) int32
 
 // Returns the number of capturing subpatterns in the pattern.
-func (x *Regex) GetCaptureCount() int {
+func (x *Regex) GetCaptureCount() int32 {
 
 	cret := xRegexGetCaptureCount(x.GoPointer())
 	return cret
@@ -698,23 +698,23 @@ func (x *Regex) GetMatchFlags() RegexMatchFlags {
 	return cret
 }
 
-var xRegexGetMaxBackref func(uintptr) int
+var xRegexGetMaxBackref func(uintptr) int32
 
 // Returns the number of the highest back reference
 // in the pattern, or 0 if the pattern does not contain
 // back references.
-func (x *Regex) GetMaxBackref() int {
+func (x *Regex) GetMaxBackref() int32 {
 
 	cret := xRegexGetMaxBackref(x.GoPointer())
 	return cret
 }
 
-var xRegexGetMaxLookbehind func(uintptr) int
+var xRegexGetMaxLookbehind func(uintptr) int32
 
 // Gets the number of characters in the longest lookbehind assertion in the
 // pattern. This information is useful when doing multi-segment matching using
 // the partial matching facilities.
-func (x *Regex) GetMaxLookbehind() int {
+func (x *Regex) GetMaxLookbehind() int32 {
 
 	cret := xRegexGetMaxLookbehind(x.GoPointer())
 	return cret
@@ -730,10 +730,10 @@ func (x *Regex) GetPattern() string {
 	return cret
 }
 
-var xRegexGetStringNumber func(uintptr, string) int
+var xRegexGetStringNumber func(uintptr, string) int32
 
 // Retrieves the number of the subexpression named @name.
-func (x *Regex) GetStringNumber(NameVar string) int {
+func (x *Regex) GetStringNumber(NameVar string) int32 {
 
 	cret := xRegexGetStringNumber(x.GoPointer(), NameVar)
 	return cret
@@ -811,7 +811,7 @@ func (x *Regex) MatchAll(StringVar string, MatchOptionsVar RegexMatchFlags, Matc
 	return cret
 }
 
-var xRegexMatchAllFull func(uintptr, []string, int, int, RegexMatchFlags, **MatchInfo, **Error) bool
+var xRegexMatchAllFull func(uintptr, []string, int, int32, RegexMatchFlags, **MatchInfo, **Error) bool
 
 // Using the standard algorithm for regular expression matching only
 // the longest match in the @string is retrieved, it is not possible
@@ -851,7 +851,7 @@ var xRegexMatchAllFull func(uintptr, []string, int, int, RegexMatchFlags, **Matc
 // @string is not copied and is used in #GMatchInfo internally. If
 // you use any #GMatchInfo method (except g_match_info_free()) after
 // freeing or modifying @string then the behaviour is undefined.
-func (x *Regex) MatchAllFull(StringVar []string, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
+func (x *Regex) MatchAllFull(StringVar []string, StringLenVar int, StartPositionVar int32, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
 	var cerr *Error
 
 	cret := xRegexMatchAllFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MatchInfoVar, &cerr)
@@ -862,7 +862,7 @@ func (x *Regex) MatchAllFull(StringVar []string, StringLenVar int, StartPosition
 
 }
 
-var xRegexMatchFull func(uintptr, []string, int, int, RegexMatchFlags, **MatchInfo, **Error) bool
+var xRegexMatchFull func(uintptr, []string, int, int32, RegexMatchFlags, **MatchInfo, **Error) bool
 
 // Scans for a match in @string for the pattern in @regex.
 // The @match_options are combined with the match options specified
@@ -917,7 +917,7 @@ var xRegexMatchFull func(uintptr, []string, int, int, RegexMatchFlags, **MatchIn
 //	}
 //
 // ]|
-func (x *Regex) MatchFull(StringVar []string, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
+func (x *Regex) MatchFull(StringVar []string, StringLenVar int, StartPositionVar int32, MatchOptionsVar RegexMatchFlags, MatchInfoVar **MatchInfo) (bool, error) {
 	var cerr *Error
 
 	cret := xRegexMatchFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MatchInfoVar, &cerr)
@@ -937,7 +937,7 @@ func (x *Regex) Ref() *Regex {
 	return cret
 }
 
-var xRegexReplace func(uintptr, []string, int, int, string, RegexMatchFlags, **Error) string
+var xRegexReplace func(uintptr, []string, int, int32, string, RegexMatchFlags, **Error) string
 
 // Replaces all occurrences of the pattern in @regex with the
 // replacement text. Backreferences of the form `\number` or
@@ -965,7 +965,7 @@ var xRegexReplace func(uintptr, []string, int, int, string, RegexMatchFlags, **E
 // Setting @start_position differs from just passing over a shortened
 // string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern that
 // begins with any kind of lookbehind assertion, such as "\b".
-func (x *Regex) Replace(StringVar []string, StringLenVar int, StartPositionVar int, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
+func (x *Regex) Replace(StringVar []string, StringLenVar int, StartPositionVar int32, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
 	var cerr *Error
 
 	cret := xRegexReplace(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, ReplacementVar, MatchOptionsVar, &cerr)
@@ -976,7 +976,7 @@ func (x *Regex) Replace(StringVar []string, StringLenVar int, StartPositionVar i
 
 }
 
-var xRegexReplaceEval func(uintptr, []string, int, int, RegexMatchFlags, uintptr, uintptr, **Error) string
+var xRegexReplaceEval func(uintptr, []string, int, int32, RegexMatchFlags, uintptr, uintptr, **Error) string
 
 // Replaces occurrences of the pattern in regex with the output of
 // @eval for that occurrence.
@@ -1025,7 +1025,7 @@ var xRegexReplaceEval func(uintptr, []string, int, int, RegexMatchFlags, uintptr
 //
 // ...
 // ]|
-func (x *Regex) ReplaceEval(StringVar []string, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, EvalVar *RegexEvalCallback, UserDataVar uintptr) (string, error) {
+func (x *Regex) ReplaceEval(StringVar []string, StringLenVar int, StartPositionVar int32, MatchOptionsVar RegexMatchFlags, EvalVar *RegexEvalCallback, UserDataVar uintptr) (string, error) {
 	var cerr *Error
 
 	cret := xRegexReplaceEval(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, NewCallback(EvalVar), UserDataVar, &cerr)
@@ -1036,7 +1036,7 @@ func (x *Regex) ReplaceEval(StringVar []string, StringLenVar int, StartPositionV
 
 }
 
-var xRegexReplaceLiteral func(uintptr, []string, int, int, string, RegexMatchFlags, **Error) string
+var xRegexReplaceLiteral func(uintptr, []string, int, int32, string, RegexMatchFlags, **Error) string
 
 // Replaces all occurrences of the pattern in @regex with the
 // replacement text. @replacement is replaced literally, to
@@ -1046,7 +1046,7 @@ var xRegexReplaceLiteral func(uintptr, []string, int, int, string, RegexMatchFla
 // shortened string and setting %G_REGEX_MATCH_NOTBOL in the
 // case of a pattern that begins with any kind of lookbehind
 // assertion, such as "\b".
-func (x *Regex) ReplaceLiteral(StringVar []string, StringLenVar int, StartPositionVar int, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
+func (x *Regex) ReplaceLiteral(StringVar []string, StringLenVar int, StartPositionVar int32, ReplacementVar string, MatchOptionsVar RegexMatchFlags) (string, error) {
 	var cerr *Error
 
 	cret := xRegexReplaceLiteral(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, ReplacementVar, MatchOptionsVar, &cerr)
@@ -1082,7 +1082,7 @@ func (x *Regex) Split(StringVar string, MatchOptionsVar RegexMatchFlags) []strin
 	return cret
 }
 
-var xRegexSplitFull func(uintptr, []string, int, int, RegexMatchFlags, int, **Error) []string
+var xRegexSplitFull func(uintptr, []string, int, int32, RegexMatchFlags, int32, **Error) []string
 
 // Breaks the string on the pattern, and returns an array of the tokens.
 // If the pattern contains capturing parentheses, then the text for each
@@ -1105,7 +1105,7 @@ var xRegexSplitFull func(uintptr, []string, int, int, RegexMatchFlags, int, **Er
 // Setting @start_position differs from just passing over a shortened
 // string and setting %G_REGEX_MATCH_NOTBOL in the case of a pattern
 // that begins with any kind of lookbehind assertion, such as "\b".
-func (x *Regex) SplitFull(StringVar []string, StringLenVar int, StartPositionVar int, MatchOptionsVar RegexMatchFlags, MaxTokensVar int) ([]string, error) {
+func (x *Regex) SplitFull(StringVar []string, StringLenVar int, StartPositionVar int32, MatchOptionsVar RegexMatchFlags, MaxTokensVar int32) ([]string, error) {
 	var cerr *Error
 
 	cret := xRegexSplitFull(x.GoPointer(), StringVar, StringLenVar, StartPositionVar, MatchOptionsVar, MaxTokensVar, &cerr)
@@ -1496,20 +1496,20 @@ func RegexCheckReplacement(ReplacementVar string, HasReferencesVar *bool) (bool,
 
 }
 
-var xRegexEscapeNul func(string, int) string
+var xRegexEscapeNul func(string, int32) string
 
 // Escapes the nul characters in @string to "\x00".  It can be used
 // to compile a regex with embedded nul characters.
 //
 // For completeness, @length can be -1 for a nul-terminated string.
 // In this case the output string will be of course equal to @string.
-func RegexEscapeNul(StringVar string, LengthVar int) string {
+func RegexEscapeNul(StringVar string, LengthVar int32) string {
 
 	cret := xRegexEscapeNul(StringVar, LengthVar)
 	return cret
 }
 
-var xRegexEscapeString func(string, int) string
+var xRegexEscapeString func(string, int32) string
 
 // Escapes the special characters used for regular expressions
 // in @string, for instance "a.b*c" becomes "a\.b\*c". This
@@ -1518,7 +1518,7 @@ var xRegexEscapeString func(string, int) string
 // @string can contain nul characters that are replaced with "\0",
 // in this case remember to specify the correct length of @string
 // in @length.
-func RegexEscapeString(StringVar string, LengthVar int) string {
+func RegexEscapeString(StringVar string, LengthVar int32) string {
 
 	cret := xRegexEscapeString(StringVar, LengthVar)
 	return cret

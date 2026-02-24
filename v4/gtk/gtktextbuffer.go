@@ -45,7 +45,7 @@ import (
 // zero to denote that the delete-range has already been committed to the
 // underlying B-Tree. You may no longer retrieve the text that has been
 // deleted from the [class@Gtk.TextBuffer].
-type TextBufferCommitNotify func(uintptr, TextBufferNotifyFlags, uint, uint, uintptr)
+type TextBufferCommitNotify func(uintptr, TextBufferNotifyFlags, uint32, uint32, uintptr)
 
 // The class structure for `GtkTextBuffer`.
 type TextBufferClass struct {
@@ -98,11 +98,11 @@ func (x *TextBufferClass) GoPointer() uintptr {
 
 // OverrideInsertText sets the "insert_text" callback function.
 // The class handler for the `GtkTextBuffer::insert-text` signal.
-func (x *TextBufferClass) OverrideInsertText(cb func(*TextBuffer, *TextIter, string, int)) {
+func (x *TextBufferClass) OverrideInsertText(cb func(*TextBuffer, *TextIter, string, int32)) {
 	if cb == nil {
 		x.xInsertText = 0
 	} else {
-		x.xInsertText = purego.NewCallback(func(BufferVarp uintptr, PosVarp *TextIter, NewTextVarp string, NewTextLengthVarp int) {
+		x.xInsertText = purego.NewCallback(func(BufferVarp uintptr, PosVarp *TextIter, NewTextVarp string, NewTextLengthVarp int32) {
 			cb(TextBufferNewFromInternalPtr(BufferVarp), PosVarp, NewTextVarp, NewTextLengthVarp)
 		})
 	}
@@ -110,13 +110,13 @@ func (x *TextBufferClass) OverrideInsertText(cb func(*TextBuffer, *TextIter, str
 
 // GetInsertText gets the "insert_text" callback function.
 // The class handler for the `GtkTextBuffer::insert-text` signal.
-func (x *TextBufferClass) GetInsertText() func(*TextBuffer, *TextIter, string, int) {
+func (x *TextBufferClass) GetInsertText() func(*TextBuffer, *TextIter, string, int32) {
 	if x.xInsertText == 0 {
 		return nil
 	}
-	var rawCallback func(BufferVarp uintptr, PosVarp *TextIter, NewTextVarp string, NewTextLengthVarp int)
+	var rawCallback func(BufferVarp uintptr, PosVarp *TextIter, NewTextVarp string, NewTextLengthVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xInsertText)
-	return func(BufferVar *TextBuffer, PosVar *TextIter, NewTextVar string, NewTextLengthVar int) {
+	return func(BufferVar *TextBuffer, PosVar *TextIter, NewTextVar string, NewTextLengthVar int32) {
 		rawCallback(BufferVar.GoPointer(), PosVar, NewTextVar, NewTextLengthVar)
 	}
 }
@@ -612,7 +612,7 @@ func NewTextBuffer(TableVar *TextTagTable) *TextBuffer {
 	return cls
 }
 
-var xTextBufferAddCommitNotify func(uintptr, TextBufferNotifyFlags, uintptr, uintptr, uintptr) uint
+var xTextBufferAddCommitNotify func(uintptr, TextBufferNotifyFlags, uintptr, uintptr, uintptr) uint32
 
 // Adds a [callback@Gtk.TextBufferCommitNotify] to be called when a change
 // is to be made to the [type@Gtk.TextBuffer].
@@ -625,7 +625,7 @@ var xTextBufferAddCommitNotify func(uintptr, TextBufferNotifyFlags, uintptr, uin
 // connecting to the [signal@Gtk.TextBuffer::insert-text] or
 // [signal@Gtk.TextBuffer::delete-range] signals to avoid ordering issues with
 // other signal handlers which may further modify the [type@Gtk.TextBuffer].
-func (x *TextBuffer) AddCommitNotify(FlagsVar TextBufferNotifyFlags, CommitNotifyVar *TextBufferCommitNotify, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) uint {
+func (x *TextBuffer) AddCommitNotify(FlagsVar TextBufferNotifyFlags, CommitNotifyVar *TextBufferCommitNotify, UserDataVar uintptr, DestroyVar *glib.DestroyNotify) uint32 {
 
 	cret := xTextBufferAddCommitNotify(x.GoPointer(), FlagsVar, glib.NewCallback(CommitNotifyVar), UserDataVar, glib.NewCallback(DestroyVar))
 	return cret
@@ -993,7 +993,7 @@ func (x *TextBuffer) GetCanUndo() bool {
 	return cret
 }
 
-var xTextBufferGetCharCount func(uintptr) int
+var xTextBufferGetCharCount func(uintptr) int32
 
 // Gets the number of characters in the buffer.
 //
@@ -1002,7 +1002,7 @@ var xTextBufferGetCharCount func(uintptr) int
 // many bytes long.
 //
 // The character count is cached, so this function is very fast.
-func (x *TextBuffer) GetCharCount() int {
+func (x *TextBuffer) GetCharCount() int32 {
 
 	cret := xTextBufferGetCharCount(x.GoPointer())
 	return cret
@@ -1077,19 +1077,19 @@ func (x *TextBuffer) GetIterAtChildAnchor(IterVar *TextIter, AnchorVar *TextChil
 
 }
 
-var xTextBufferGetIterAtLine func(uintptr, *TextIter, int) bool
+var xTextBufferGetIterAtLine func(uintptr, *TextIter, int32) bool
 
 // Initializes @iter to the start of the given line.
 //
 // If @line_number is greater than or equal to the number of lines
 // in the @buffer, the end iterator is returned.
-func (x *TextBuffer) GetIterAtLine(IterVar *TextIter, LineNumberVar int) bool {
+func (x *TextBuffer) GetIterAtLine(IterVar *TextIter, LineNumberVar int32) bool {
 
 	cret := xTextBufferGetIterAtLine(x.GoPointer(), IterVar, LineNumberVar)
 	return cret
 }
 
-var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int, int) bool
+var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int32, int32) bool
 
 // Obtains an iterator pointing to @byte_index within the given line.
 //
@@ -1099,13 +1099,13 @@ var xTextBufferGetIterAtLineIndex func(uintptr, *TextIter, int, int) bool
 // If @line_number is greater than or equal to the number of lines in the @buffer,
 // the end iterator is returned. And if @byte_index is off the
 // end of the line, the iterator at the end of the line is returned.
-func (x *TextBuffer) GetIterAtLineIndex(IterVar *TextIter, LineNumberVar int, ByteIndexVar int) bool {
+func (x *TextBuffer) GetIterAtLineIndex(IterVar *TextIter, LineNumberVar int32, ByteIndexVar int32) bool {
 
 	cret := xTextBufferGetIterAtLineIndex(x.GoPointer(), IterVar, LineNumberVar, ByteIndexVar)
 	return cret
 }
 
-var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int, int) bool
+var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int32, int32) bool
 
 // Obtains an iterator pointing to @char_offset within the given line.
 //
@@ -1115,7 +1115,7 @@ var xTextBufferGetIterAtLineOffset func(uintptr, *TextIter, int, int) bool
 // If @line_number is greater than or equal to the number of lines in the @buffer,
 // the end iterator is returned. And if @char_offset is off the
 // end of the line, the iterator at the end of the line is returned.
-func (x *TextBuffer) GetIterAtLineOffset(IterVar *TextIter, LineNumberVar int, CharOffsetVar int) bool {
+func (x *TextBuffer) GetIterAtLineOffset(IterVar *TextIter, LineNumberVar int32, CharOffsetVar int32) bool {
 
 	cret := xTextBufferGetIterAtLineOffset(x.GoPointer(), IterVar, LineNumberVar, CharOffsetVar)
 	return cret
@@ -1130,7 +1130,7 @@ func (x *TextBuffer) GetIterAtMark(IterVar *TextIter, MarkVar *TextMark) {
 
 }
 
-var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int)
+var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int32)
 
 // Initializes @iter to a position @char_offset chars from the start
 // of the entire buffer.
@@ -1138,18 +1138,18 @@ var xTextBufferGetIterAtOffset func(uintptr, *TextIter, int)
 // If @char_offset is -1 or greater than the number
 // of characters in the buffer, @iter is initialized to the end iterator,
 // the iterator one past the last valid character in the buffer.
-func (x *TextBuffer) GetIterAtOffset(IterVar *TextIter, CharOffsetVar int) {
+func (x *TextBuffer) GetIterAtOffset(IterVar *TextIter, CharOffsetVar int32) {
 
 	xTextBufferGetIterAtOffset(x.GoPointer(), IterVar, CharOffsetVar)
 
 }
 
-var xTextBufferGetLineCount func(uintptr) int
+var xTextBufferGetLineCount func(uintptr) int32
 
 // Obtains the number of lines in the buffer.
 //
 // This value is cached, so the function is very fast.
-func (x *TextBuffer) GetLineCount() int {
+func (x *TextBuffer) GetLineCount() int32 {
 
 	cret := xTextBufferGetLineCount(x.GoPointer())
 	return cret
@@ -1173,14 +1173,14 @@ func (x *TextBuffer) GetMark(NameVar string) *TextMark {
 	return cls
 }
 
-var xTextBufferGetMaxUndoLevels func(uintptr) uint
+var xTextBufferGetMaxUndoLevels func(uintptr) uint32
 
 // Gets the maximum number of undo levels to perform.
 //
 // If 0, unlimited undo actions may be performed. Note that this may
 // have a memory usage impact as it requires storing an additional
 // copy of the inserted or removed text within the text buffer.
-func (x *TextBuffer) GetMaxUndoLevels() uint {
+func (x *TextBuffer) GetMaxUndoLevels() uint32 {
 
 	cret := xTextBufferGetMaxUndoLevels(x.GoPointer())
 	return cret
@@ -1324,7 +1324,7 @@ func (x *TextBuffer) GetText(StartVar *TextIter, EndVar *TextIter, IncludeHidden
 	return cret
 }
 
-var xTextBufferInsert func(uintptr, *TextIter, string, int)
+var xTextBufferInsert func(uintptr, *TextIter, string, int32)
 
 // Inserts @len bytes of @text at position @iter.
 //
@@ -1334,19 +1334,19 @@ var xTextBufferInsert func(uintptr, *TextIter, string, int)
 // insertion occurs (because the buffer contents change), but the
 // default signal handler revalidates it to point to the end of the
 // inserted text.
-func (x *TextBuffer) Insert(IterVar *TextIter, TextVar string, LenVar int) {
+func (x *TextBuffer) Insert(IterVar *TextIter, TextVar string, LenVar int32) {
 
 	xTextBufferInsert(x.GoPointer(), IterVar, TextVar, LenVar)
 
 }
 
-var xTextBufferInsertAtCursor func(uintptr, string, int)
+var xTextBufferInsertAtCursor func(uintptr, string, int32)
 
 // Inserts @text in @buffer.
 //
 // Simply calls [method@Gtk.TextBuffer.insert],
 // using the current cursor position as the insertion point.
-func (x *TextBuffer) InsertAtCursor(TextVar string, LenVar int) {
+func (x *TextBuffer) InsertAtCursor(TextVar string, LenVar int32) {
 
 	xTextBufferInsertAtCursor(x.GoPointer(), TextVar, LenVar)
 
@@ -1373,7 +1373,7 @@ func (x *TextBuffer) InsertChildAnchor(IterVar *TextIter, AnchorVar *TextChildAn
 
 }
 
-var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int, bool) bool
+var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int32, bool) bool
 
 // Inserts @text in @buffer.
 //
@@ -1385,13 +1385,13 @@ var xTextBufferInsertInteractive func(uintptr, *TextIter, string, int, bool) boo
 // @default_editable indicates the editability of text that doesn't
 // have a tag affecting editability applied to it. Typically the
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
-func (x *TextBuffer) InsertInteractive(IterVar *TextIter, TextVar string, LenVar int, DefaultEditableVar bool) bool {
+func (x *TextBuffer) InsertInteractive(IterVar *TextIter, TextVar string, LenVar int32, DefaultEditableVar bool) bool {
 
 	cret := xTextBufferInsertInteractive(x.GoPointer(), IterVar, TextVar, LenVar, DefaultEditableVar)
 	return cret
 }
 
-var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int, bool) bool
+var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int32, bool) bool
 
 // Inserts @text in @buffer.
 //
@@ -1401,13 +1401,13 @@ var xTextBufferInsertInteractiveAtCursor func(uintptr, string, int, bool) bool
 // @default_editable indicates the editability of text that doesn't
 // have a tag affecting editability applied to it. Typically the
 // result of [method@Gtk.TextView.get_editable] is appropriate here.
-func (x *TextBuffer) InsertInteractiveAtCursor(TextVar string, LenVar int, DefaultEditableVar bool) bool {
+func (x *TextBuffer) InsertInteractiveAtCursor(TextVar string, LenVar int32, DefaultEditableVar bool) bool {
 
 	cret := xTextBufferInsertInteractiveAtCursor(x.GoPointer(), TextVar, LenVar, DefaultEditableVar)
 	return cret
 }
 
-var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int)
+var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int32)
 
 // Inserts the text in @markup at position @iter.
 //
@@ -1415,7 +1415,7 @@ var xTextBufferInsertMarkup func(uintptr, *TextIter, string, int)
 // and valid UTF-8. Emits the [signal@Gtk.TextBuffer::insert-text] signal,
 // possibly multiple times; insertion actually occurs in the default handler
 // for the signal. @iter will point to the end of the inserted text on return.
-func (x *TextBuffer) InsertMarkup(IterVar *TextIter, MarkupVar string, LenVar int) {
+func (x *TextBuffer) InsertMarkup(IterVar *TextIter, MarkupVar string, LenVar int32) {
 
 	xTextBufferInsertMarkup(x.GoPointer(), IterVar, MarkupVar, LenVar)
 
@@ -1473,7 +1473,7 @@ func (x *TextBuffer) InsertRangeInteractive(IterVar *TextIter, StartVar *TextIte
 	return cret
 }
 
-var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int, uintptr, ...interface{})
+var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int32, uintptr, ...interface{})
 
 // Inserts @text into @buffer at @iter, applying the list of tags to
 // the newly-inserted text.
@@ -1482,20 +1482,20 @@ var xTextBufferInsertWithTags func(uintptr, *TextIter, string, int, uintptr, ...
 // Equivalent to calling [method@Gtk.TextBuffer.insert],
 // then [method@Gtk.TextBuffer.apply_tag] on the inserted text;
 // this is just a convenience function.
-func (x *TextBuffer) InsertWithTags(IterVar *TextIter, TextVar string, LenVar int, FirstTagVar *TextTag, varArgs ...interface{}) {
+func (x *TextBuffer) InsertWithTags(IterVar *TextIter, TextVar string, LenVar int32, FirstTagVar *TextTag, varArgs ...interface{}) {
 
 	xTextBufferInsertWithTags(x.GoPointer(), IterVar, TextVar, LenVar, FirstTagVar.GoPointer(), varArgs...)
 
 }
 
-var xTextBufferInsertWithTagsByName func(uintptr, *TextIter, string, int, string, ...interface{})
+var xTextBufferInsertWithTagsByName func(uintptr, *TextIter, string, int32, string, ...interface{})
 
 // Inserts @text into @buffer at @iter, applying the list of tags to
 // the newly-inserted text.
 //
 // Same as [method@Gtk.TextBuffer.insert_with_tags], but allows you
 // to pass in tag names instead of tag objects.
-func (x *TextBuffer) InsertWithTagsByName(IterVar *TextIter, TextVar string, LenVar int, FirstTagNameVar string, varArgs ...interface{}) {
+func (x *TextBuffer) InsertWithTagsByName(IterVar *TextIter, TextVar string, LenVar int32, FirstTagNameVar string, varArgs ...interface{}) {
 
 	xTextBufferInsertWithTagsByName(x.GoPointer(), IterVar, TextVar, LenVar, FirstTagNameVar, varArgs...)
 
@@ -1581,14 +1581,14 @@ func (x *TextBuffer) RemoveAllTags(StartVar *TextIter, EndVar *TextIter) {
 
 }
 
-var xTextBufferRemoveCommitNotify func(uintptr, uint)
+var xTextBufferRemoveCommitNotify func(uintptr, uint32)
 
 // Removes the `GtkTextBufferCommitNotify` handler previously registered
 // with [method@Gtk.TextBuffer.add_commit_notify].
 //
 // This may result in the `user_data_destroy` being called that was passed when registering
 // the commit notify functions.
-func (x *TextBuffer) RemoveCommitNotify(CommitNotifyHandlerVar uint) {
+func (x *TextBuffer) RemoveCommitNotify(CommitNotifyHandlerVar uint32) {
 
 	xTextBufferRemoveCommitNotify(x.GoPointer(), CommitNotifyHandlerVar)
 
@@ -1666,14 +1666,14 @@ func (x *TextBuffer) SetEnableUndo(EnableUndoVar bool) {
 
 }
 
-var xTextBufferSetMaxUndoLevels func(uintptr, uint)
+var xTextBufferSetMaxUndoLevels func(uintptr, uint32)
 
 // Sets the maximum number of undo levels to perform.
 //
 // If 0, unlimited undo actions may be performed. Note that this may
 // have a memory usage impact as it requires storing an additional
 // copy of the inserted or removed text within the text buffer.
-func (x *TextBuffer) SetMaxUndoLevels(MaxUndoLevelsVar uint) {
+func (x *TextBuffer) SetMaxUndoLevels(MaxUndoLevelsVar uint32) {
 
 	xTextBufferSetMaxUndoLevels(x.GoPointer(), MaxUndoLevelsVar)
 
@@ -1696,7 +1696,7 @@ func (x *TextBuffer) SetModified(SettingVar bool) {
 
 }
 
-var xTextBufferSetText func(uintptr, string, int)
+var xTextBufferSetText func(uintptr, string, int32)
 
 // Deletes current contents of @buffer, and inserts @text instead. This is
 // automatically marked as an irreversible action in the undo stack. If you
@@ -1705,7 +1705,7 @@ var xTextBufferSetText func(uintptr, string, int)
 //
 // If @len is -1, @text must be nul-terminated.
 // @text must be valid UTF-8.
-func (x *TextBuffer) SetText(TextVar string, LenVar int) {
+func (x *TextBuffer) SetText(TextVar string, LenVar int32) {
 
 	xTextBufferSetText(x.GoPointer(), TextVar, LenVar)
 
@@ -1752,10 +1752,10 @@ func (x *TextBuffer) GetPropertyCanUndo() bool {
 //
 // This is an offset from the beginning of the buffer.
 // It is useful for getting notified when the cursor moves.
-func (x *TextBuffer) GetPropertyCursorPosition() int {
+func (x *TextBuffer) GetPropertyCursorPosition() int32 {
 	var v gobject.Value
 	x.GetProperty("cursor-position", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyEnableUndo sets the "enable-undo" property.
@@ -2015,13 +2015,13 @@ func (x *TextBuffer) ConnectInsertPaintable(cb *func(TextBuffer, uintptr, uintpt
 //
 // See also: [method@Gtk.TextBuffer.insert],
 // [method@Gtk.TextBuffer.insert_range].
-func (x *TextBuffer) ConnectInsertText(cb *func(TextBuffer, uintptr, string, int)) uint32 {
+func (x *TextBuffer) ConnectInsertText(cb *func(TextBuffer, uintptr, string, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "insert-text", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, LocationVarp uintptr, TextVarp string, LenVarp int) {
+	fcb := func(clsPtr uintptr, LocationVarp uintptr, TextVarp string, LenVarp int32) {
 		fa := TextBuffer{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

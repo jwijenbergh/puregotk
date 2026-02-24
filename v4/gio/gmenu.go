@@ -111,18 +111,18 @@ func (x *Menu) Freeze() {
 
 }
 
-var xMenuInsert func(uintptr, int, string, string)
+var xMenuInsert func(uintptr, int32, string, string)
 
 // Convenience function for inserting a normal menu item into @menu.
 // Combine g_menu_item_new() and g_menu_insert_item() for a more flexible
 // alternative.
-func (x *Menu) Insert(PositionVar int, LabelVar string, DetailedActionVar string) {
+func (x *Menu) Insert(PositionVar int32, LabelVar string, DetailedActionVar string) {
 
 	xMenuInsert(x.GoPointer(), PositionVar, LabelVar, DetailedActionVar)
 
 }
 
-var xMenuInsertItem func(uintptr, int, uintptr)
+var xMenuInsertItem func(uintptr, int32, uintptr)
 
 // Inserts @item into @menu.
 //
@@ -141,29 +141,29 @@ var xMenuInsertItem func(uintptr, int, uintptr)
 // See g_menu_insert(), g_menu_insert_section() and
 // g_menu_insert_submenu() as well as "prepend" and "append" variants of
 // each of these functions.
-func (x *Menu) InsertItem(PositionVar int, ItemVar *MenuItem) {
+func (x *Menu) InsertItem(PositionVar int32, ItemVar *MenuItem) {
 
 	xMenuInsertItem(x.GoPointer(), PositionVar, ItemVar.GoPointer())
 
 }
 
-var xMenuInsertSection func(uintptr, int, string, uintptr)
+var xMenuInsertSection func(uintptr, int32, string, uintptr)
 
 // Convenience function for inserting a section menu item into @menu.
 // Combine g_menu_item_new_section() and g_menu_insert_item() for a more
 // flexible alternative.
-func (x *Menu) InsertSection(PositionVar int, LabelVar string, SectionVar *MenuModel) {
+func (x *Menu) InsertSection(PositionVar int32, LabelVar string, SectionVar *MenuModel) {
 
 	xMenuInsertSection(x.GoPointer(), PositionVar, LabelVar, SectionVar.GoPointer())
 
 }
 
-var xMenuInsertSubmenu func(uintptr, int, string, uintptr)
+var xMenuInsertSubmenu func(uintptr, int32, string, uintptr)
 
 // Convenience function for inserting a submenu menu item into @menu.
 // Combine g_menu_item_new_submenu() and g_menu_insert_item() for a more
 // flexible alternative.
-func (x *Menu) InsertSubmenu(PositionVar int, LabelVar string, SubmenuVar *MenuModel) {
+func (x *Menu) InsertSubmenu(PositionVar int32, LabelVar string, SubmenuVar *MenuModel) {
 
 	xMenuInsertSubmenu(x.GoPointer(), PositionVar, LabelVar, SubmenuVar.GoPointer())
 
@@ -213,7 +213,7 @@ func (x *Menu) PrependSubmenu(LabelVar string, SubmenuVar *MenuModel) {
 
 }
 
-var xMenuRemove func(uintptr, int)
+var xMenuRemove func(uintptr, int32)
 
 // Removes an item from the menu.
 //
@@ -225,7 +225,7 @@ var xMenuRemove func(uintptr, int)
 // It is not possible to remove items by identity since items are added
 // to the menu simply by copying their links and attributes (ie:
 // identity of the item itself is not preserved).
-func (x *Menu) Remove(PositionVar int) {
+func (x *Menu) Remove(PositionVar int32) {
 
 	xMenuRemove(x.GoPointer(), PositionVar)
 
@@ -292,14 +292,14 @@ func NewMenuItem(LabelVar string, DetailedActionVar string) *MenuItem {
 	return cls
 }
 
-var xNewMenuItemFromModel func(uintptr, int) uintptr
+var xNewMenuItemFromModel func(uintptr, int32) uintptr
 
 // Creates a #GMenuItem as an exact copy of an existing menu item in a
 // #GMenuModel.
 //
 // @item_index must be valid (ie: be sure to call
 // g_menu_model_get_n_items() first).
-func NewMenuItemFromModel(ModelVar *MenuModel, ItemIndexVar int) *MenuItem {
+func NewMenuItemFromModel(ModelVar *MenuModel, ItemIndexVar int32) *MenuItem {
 	var cls *MenuItem
 
 	cret := xNewMenuItemFromModel(ModelVar.GoPointer(), ItemIndexVar)

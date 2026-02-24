@@ -8,17 +8,17 @@ import (
 
 const (
 	// Adwaita major version component (e.g. 1 if the version is 1.2.3).
-	MAJOR_VERSION int = 1
+	MAJOR_VERSION int32 = 1
 	// Adwaita micro version component (e.g. 3 if the version is 1.2.3).
-	MICRO_VERSION int = 1
+	MICRO_VERSION int32 = 2
 	// Adwaita minor version component (e.g. 2 if the version is 1.2.3).
-	MINOR_VERSION int = 8
+	MINOR_VERSION int32 = 8
 	// Adwaita version, encoded as a string, useful for printing and
 	// concatenation.
-	VERSION_S string = "1.8.1"
+	VERSION_S string = "1.8.2"
 )
 
-var xGetMajorVersion func() uint
+var xGetMajorVersion func() uint32
 
 // Returns the major version number of the Adwaita library.
 //
@@ -28,13 +28,13 @@ var xGetMajorVersion func() uint
 // code is running against. Contrast with the [const@MAJOR_VERSION] constant,
 // which represents the major version of the libadwaita headers you have
 // included when compiling your code.
-func GetMajorVersion() uint {
+func GetMajorVersion() uint32 {
 
 	cret := xGetMajorVersion()
 	return cret
 }
 
-var xGetMicroVersion func() uint
+var xGetMicroVersion func() uint32
 
 // Returns the micro version number of the Adwaita library.
 //
@@ -44,13 +44,13 @@ var xGetMicroVersion func() uint
 // code is running against. Contrast with the [const@MAJOR_VERSION] constant,
 // which represents the micro version of the libadwaita headers you have
 // included when compiling your code.
-func GetMicroVersion() uint {
+func GetMicroVersion() uint32 {
 
 	cret := xGetMicroVersion()
 	return cret
 }
 
-var xGetMinorVersion func() uint
+var xGetMinorVersion func() uint32
 
 // Returns the minor version number of the Adwaita library.
 //
@@ -60,7 +60,7 @@ var xGetMinorVersion func() uint
 // code is running against. Contrast with the [const@MAJOR_VERSION] constant,
 // which represents the minor version of the libadwaita headers you have
 // included when compiling your code.
-func GetMinorVersion() uint {
+func GetMinorVersion() uint32 {
 
 	cret := xGetMinorVersion()
 	return cret

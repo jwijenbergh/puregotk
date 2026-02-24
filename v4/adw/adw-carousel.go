@@ -120,19 +120,19 @@ func (x *Carousel) GetInteractive() bool {
 	return cret
 }
 
-var xCarouselGetNPages func(uintptr) uint
+var xCarouselGetNPages func(uintptr) uint32
 
 // Gets the number of pages in @self.
-func (x *Carousel) GetNPages() uint {
+func (x *Carousel) GetNPages() uint32 {
 
 	cret := xCarouselGetNPages(x.GoPointer())
 	return cret
 }
 
-var xCarouselGetNthPage func(uintptr, uint) uintptr
+var xCarouselGetNthPage func(uintptr, uint32) uintptr
 
 // Gets the page at position @n.
-func (x *Carousel) GetNthPage(NVar uint) *gtk.Widget {
+func (x *Carousel) GetNthPage(NVar uint32) *gtk.Widget {
 	var cls *gtk.Widget
 
 	cret := xCarouselGetNthPage(x.GoPointer(), NVar)
@@ -157,10 +157,10 @@ func (x *Carousel) GetPosition() float64 {
 	return cret
 }
 
-var xCarouselGetRevealDuration func(uintptr) uint
+var xCarouselGetRevealDuration func(uintptr) uint32
 
 // Gets the page reveal duration, in milliseconds.
-func (x *Carousel) GetRevealDuration() uint {
+func (x *Carousel) GetRevealDuration() uint32 {
 
 	cret := xCarouselGetRevealDuration(x.GoPointer())
 	return cret
@@ -175,22 +175,22 @@ func (x *Carousel) GetScrollParams() *SpringParams {
 	return cret
 }
 
-var xCarouselGetSpacing func(uintptr) uint
+var xCarouselGetSpacing func(uintptr) uint32
 
 // Gets spacing between pages in pixels.
-func (x *Carousel) GetSpacing() uint {
+func (x *Carousel) GetSpacing() uint32 {
 
 	cret := xCarouselGetSpacing(x.GoPointer())
 	return cret
 }
 
-var xCarouselInsert func(uintptr, uintptr, int)
+var xCarouselInsert func(uintptr, uintptr, int32)
 
 // Inserts @child into @self at position @position.
 //
 // If position is -1, or larger than the number of pages,
 // @child will be appended to the end.
-func (x *Carousel) Insert(ChildVar *gtk.Widget, PositionVar int) {
+func (x *Carousel) Insert(ChildVar *gtk.Widget, PositionVar int32) {
 
 	xCarouselInsert(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -214,13 +214,13 @@ func (x *Carousel) Remove(ChildVar *gtk.Widget) {
 
 }
 
-var xCarouselReorder func(uintptr, uintptr, int)
+var xCarouselReorder func(uintptr, uintptr, int32)
 
 // Moves @child into position @position.
 //
 // If position is -1, or larger than the number of pages, @child will be moved
 // at the end.
-func (x *Carousel) Reorder(ChildVar *gtk.Widget, PositionVar int) {
+func (x *Carousel) Reorder(ChildVar *gtk.Widget, PositionVar int32) {
 
 	xCarouselReorder(x.GoPointer(), ChildVar.GoPointer(), PositionVar)
 
@@ -283,12 +283,12 @@ func (x *Carousel) SetInteractive(InteractiveVar bool) {
 
 }
 
-var xCarouselSetRevealDuration func(uintptr, uint)
+var xCarouselSetRevealDuration func(uintptr, uint32)
 
 // Sets the page reveal duration, in milliseconds.
 //
 // Reveal duration is used when animating adding or removing pages.
-func (x *Carousel) SetRevealDuration(RevealDurationVar uint) {
+func (x *Carousel) SetRevealDuration(RevealDurationVar uint32) {
 
 	xCarouselSetRevealDuration(x.GoPointer(), RevealDurationVar)
 
@@ -309,10 +309,10 @@ func (x *Carousel) SetScrollParams(ParamsVar *SpringParams) {
 
 }
 
-var xCarouselSetSpacing func(uintptr, uint)
+var xCarouselSetSpacing func(uintptr, uint32)
 
 // Sets spacing between pages in pixels.
-func (x *Carousel) SetSpacing(SpacingVar uint) {
+func (x *Carousel) SetSpacing(SpacingVar uint32) {
 
 	xCarouselSetSpacing(x.GoPointer(), SpacingVar)
 
@@ -417,10 +417,10 @@ func (x *Carousel) GetPropertyInteractive() bool {
 
 // GetPropertyNPages gets the "n-pages" property.
 // The number of pages in a `AdwCarousel`.
-func (x *Carousel) GetPropertyNPages() uint {
+func (x *Carousel) GetPropertyNPages() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-pages", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyPosition gets the "position" property.
@@ -437,10 +437,10 @@ func (x *Carousel) GetPropertyPosition() float64 {
 // Page reveal duration, in milliseconds.
 //
 // Reveal duration is used when animating adding or removing pages.
-func (x *Carousel) SetPropertyRevealDuration(value uint) {
+func (x *Carousel) SetPropertyRevealDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("reveal-duration", &v)
 }
 
@@ -448,10 +448,10 @@ func (x *Carousel) SetPropertyRevealDuration(value uint) {
 // Page reveal duration, in milliseconds.
 //
 // Reveal duration is used when animating adding or removing pages.
-func (x *Carousel) GetPropertyRevealDuration() uint {
+func (x *Carousel) GetPropertyRevealDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("reveal-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyScrollParams sets the "scroll-params" property.
@@ -485,19 +485,19 @@ func (x *Carousel) GetPropertyScrollParams() uintptr {
 
 // SetPropertySpacing sets the "spacing" property.
 // Spacing between pages in pixels.
-func (x *Carousel) SetPropertySpacing(value uint) {
+func (x *Carousel) SetPropertySpacing(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("spacing", &v)
 }
 
 // GetPropertySpacing gets the "spacing" property.
 // Spacing between pages in pixels.
-func (x *Carousel) GetPropertySpacing() uint {
+func (x *Carousel) GetPropertySpacing() uint32 {
 	var v gobject.Value
 	x.GetProperty("spacing", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // This signal is emitted after a page has been changed.
@@ -508,13 +508,13 @@ func (x *Carousel) GetPropertySpacing() uint {
 // ::: note
 //
 //	An empty carousel is indicated by `(int)index == -1`.
-func (x *Carousel) ConnectPageChanged(cb *func(Carousel, uint)) uint32 {
+func (x *Carousel) ConnectPageChanged(cb *func(Carousel, uint32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "page-changed", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, IndexVarp uint) {
+	fcb := func(clsPtr uintptr, IndexVarp uint32) {
 		fa := Carousel{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -554,7 +554,7 @@ func (x *Carousel) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *Carousel) GetSnapPoints(NSnapPointsVar *int) uintptr {
+func (x *Carousel) GetSnapPoints(NSnapPointsVar *int32) uintptr {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -632,7 +632,7 @@ func (x *Carousel) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Carousel) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Carousel) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -764,7 +764,7 @@ func (x *Carousel) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varAr
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Carousel) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -800,7 +800,7 @@ func (x *Carousel) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varAr
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Carousel) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -837,7 +837,7 @@ func (x *Carousel) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...int
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Carousel) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *Carousel) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -106,18 +106,18 @@ func (x *StringList) Append(StringVar string) {
 
 }
 
-var xStringListFind func(uintptr, string) uint
+var xStringListFind func(uintptr, string) uint32
 
 // Gets the position of the @string in @self.
 //
 // If @self does not contain @string item, `G_MAXUINT` is returned.
-func (x *StringList) Find(StringVar string) uint {
+func (x *StringList) Find(StringVar string) uint32 {
 
 	cret := xStringListFind(x.GoPointer(), StringVar)
 	return cret
 }
 
-var xStringListGetString func(uintptr, uint) string
+var xStringListGetString func(uintptr, uint32) string
 
 // Gets the string that is at @position in @self.
 //
@@ -125,25 +125,25 @@ var xStringListGetString func(uintptr, uint) string
 //
 // This function returns the const char *. To get the
 // object wrapping it, use g_list_model_get_item().
-func (x *StringList) GetString(PositionVar uint) string {
+func (x *StringList) GetString(PositionVar uint32) string {
 
 	cret := xStringListGetString(x.GoPointer(), PositionVar)
 	return cret
 }
 
-var xStringListRemove func(uintptr, uint)
+var xStringListRemove func(uintptr, uint32)
 
 // Removes the string at @position from @self.
 //
 // @position must be smaller than the current
 // length of the list.
-func (x *StringList) Remove(PositionVar uint) {
+func (x *StringList) Remove(PositionVar uint32) {
 
 	xStringListRemove(x.GoPointer(), PositionVar)
 
 }
 
-var xStringListSplice func(uintptr, uint, uint, []string)
+var xStringListSplice func(uintptr, uint32, uint32, []string)
 
 // Changes @self by removing @n_removals strings and adding @additions
 // to it.
@@ -157,7 +157,7 @@ var xStringListSplice func(uintptr, uint, uint, []string)
 // The parameters @position and @n_removals must be correct (ie:
 // @position + @n_removals must be less than or equal to the length
 // of the list at the time this function is called).
-func (x *StringList) Splice(PositionVar uint, NRemovalsVar uint, AdditionsVar []string) {
+func (x *StringList) Splice(PositionVar uint32, NRemovalsVar uint32, AdditionsVar []string) {
 
 	xStringListSplice(x.GoPointer(), PositionVar, NRemovalsVar, AdditionsVar)
 
@@ -193,10 +193,10 @@ func (c *StringList) SetGoPointer(ptr uintptr) {
 
 // GetPropertyNItems gets the "n-items" property.
 // The number of items. See [method@Gio.ListModel.get_n_items].
-func (x *StringList) GetPropertyNItems() uint {
+func (x *StringList) GetPropertyNItems() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-items", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyStrings sets the "strings" property.
@@ -217,7 +217,7 @@ func (x *StringList) SetPropertyStrings(value []string) {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *StringList) GetItem(PositionVar uint) uintptr {
+func (x *StringList) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -242,7 +242,7 @@ func (x *StringList) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *StringList) GetNItems() uint {
+func (x *StringList) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -260,7 +260,7 @@ func (x *StringList) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *StringList) GetObject(PositionVar uint) *gobject.Object {
+func (x *StringList) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -293,7 +293,7 @@ func (x *StringList) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *StringList) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *StringList) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 

@@ -75,11 +75,11 @@ func (x *LayoutManagerClass) GetGetRequestMode() func(*LayoutManager, *Widget) S
 // a virtual function, used to measure the minimum and preferred
 //
 //	sizes of the widget using the layout manager for a given orientation
-func (x *LayoutManagerClass) OverrideMeasure(cb func(*LayoutManager, *Widget, Orientation, int, *int, *int, *int, *int)) {
+func (x *LayoutManagerClass) OverrideMeasure(cb func(*LayoutManager, *Widget, Orientation, int32, *int32, *int32, *int32, *int32)) {
 	if cb == nil {
 		x.xMeasure = 0
 	} else {
-		x.xMeasure = purego.NewCallback(func(ManagerVarp uintptr, WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int, MinimumVarp *int, NaturalVarp *int, MinimumBaselineVarp *int, NaturalBaselineVarp *int) {
+		x.xMeasure = purego.NewCallback(func(ManagerVarp uintptr, WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int32, MinimumVarp *int32, NaturalVarp *int32, MinimumBaselineVarp *int32, NaturalBaselineVarp *int32) {
 			cb(LayoutManagerNewFromInternalPtr(ManagerVarp), WidgetNewFromInternalPtr(WidgetVarp), OrientationVarp, ForSizeVarp, MinimumVarp, NaturalVarp, MinimumBaselineVarp, NaturalBaselineVarp)
 		})
 	}
@@ -89,13 +89,13 @@ func (x *LayoutManagerClass) OverrideMeasure(cb func(*LayoutManager, *Widget, Or
 // a virtual function, used to measure the minimum and preferred
 //
 //	sizes of the widget using the layout manager for a given orientation
-func (x *LayoutManagerClass) GetMeasure() func(*LayoutManager, *Widget, Orientation, int, *int, *int, *int, *int) {
+func (x *LayoutManagerClass) GetMeasure() func(*LayoutManager, *Widget, Orientation, int32, *int32, *int32, *int32, *int32) {
 	if x.xMeasure == 0 {
 		return nil
 	}
-	var rawCallback func(ManagerVarp uintptr, WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int, MinimumVarp *int, NaturalVarp *int, MinimumBaselineVarp *int, NaturalBaselineVarp *int)
+	var rawCallback func(ManagerVarp uintptr, WidgetVarp uintptr, OrientationVarp Orientation, ForSizeVarp int32, MinimumVarp *int32, NaturalVarp *int32, MinimumBaselineVarp *int32, NaturalBaselineVarp *int32)
 	purego.RegisterFunc(&rawCallback, x.xMeasure)
-	return func(ManagerVar *LayoutManager, WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int, MinimumVar *int, NaturalVar *int, MinimumBaselineVar *int, NaturalBaselineVar *int) {
+	return func(ManagerVar *LayoutManager, WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int32, MinimumVar *int32, NaturalVar *int32, MinimumBaselineVar *int32, NaturalBaselineVar *int32) {
 		rawCallback(ManagerVar.GoPointer(), WidgetVar.GoPointer(), OrientationVar, ForSizeVar, MinimumVar, NaturalVar, MinimumBaselineVar, NaturalBaselineVar)
 	}
 }
@@ -104,11 +104,11 @@ func (x *LayoutManagerClass) GetMeasure() func(*LayoutManager, *Widget, Orientat
 // a virtual function, used to allocate the size of the widget
 //
 //	using the layout manager
-func (x *LayoutManagerClass) OverrideAllocate(cb func(*LayoutManager, *Widget, int, int, int)) {
+func (x *LayoutManagerClass) OverrideAllocate(cb func(*LayoutManager, *Widget, int32, int32, int32)) {
 	if cb == nil {
 		x.xAllocate = 0
 	} else {
-		x.xAllocate = purego.NewCallback(func(ManagerVarp uintptr, WidgetVarp uintptr, WidthVarp int, HeightVarp int, BaselineVarp int) {
+		x.xAllocate = purego.NewCallback(func(ManagerVarp uintptr, WidgetVarp uintptr, WidthVarp int32, HeightVarp int32, BaselineVarp int32) {
 			cb(LayoutManagerNewFromInternalPtr(ManagerVarp), WidgetNewFromInternalPtr(WidgetVarp), WidthVarp, HeightVarp, BaselineVarp)
 		})
 	}
@@ -118,13 +118,13 @@ func (x *LayoutManagerClass) OverrideAllocate(cb func(*LayoutManager, *Widget, i
 // a virtual function, used to allocate the size of the widget
 //
 //	using the layout manager
-func (x *LayoutManagerClass) GetAllocate() func(*LayoutManager, *Widget, int, int, int) {
+func (x *LayoutManagerClass) GetAllocate() func(*LayoutManager, *Widget, int32, int32, int32) {
 	if x.xAllocate == 0 {
 		return nil
 	}
-	var rawCallback func(ManagerVarp uintptr, WidgetVarp uintptr, WidthVarp int, HeightVarp int, BaselineVarp int)
+	var rawCallback func(ManagerVarp uintptr, WidgetVarp uintptr, WidthVarp int32, HeightVarp int32, BaselineVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xAllocate)
-	return func(ManagerVar *LayoutManager, WidgetVar *Widget, WidthVar int, HeightVar int, BaselineVar int) {
+	return func(ManagerVar *LayoutManager, WidgetVar *Widget, WidthVar int32, HeightVar int32, BaselineVar int32) {
 		rawCallback(ManagerVar.GoPointer(), WidgetVar.GoPointer(), WidthVar, HeightVar, BaselineVar)
 	}
 }
@@ -292,12 +292,12 @@ func LayoutManagerNewFromInternalPtr(ptr uintptr) *LayoutManager {
 	return cls
 }
 
-var xLayoutManagerAllocate func(uintptr, uintptr, int, int, int)
+var xLayoutManagerAllocate func(uintptr, uintptr, int32, int32, int32)
 
 // Assigns the given @width, @height, and @baseline to
 // a @widget, and computes the position and sizes of the children of
 // the @widget using the layout management policy of @manager.
-func (x *LayoutManager) Allocate(WidgetVar *Widget, WidthVar int, HeightVar int, BaselineVar int) {
+func (x *LayoutManager) Allocate(WidgetVar *Widget, WidthVar int32, HeightVar int32, BaselineVar int32) {
 
 	xLayoutManagerAllocate(x.GoPointer(), WidgetVar.GoPointer(), WidthVar, HeightVar, BaselineVar)
 
@@ -365,14 +365,14 @@ func (x *LayoutManager) LayoutChanged() {
 
 }
 
-var xLayoutManagerMeasure func(uintptr, uintptr, Orientation, int, *int, *int, *int, *int)
+var xLayoutManagerMeasure func(uintptr, uintptr, Orientation, int32, *int32, *int32, *int32, *int32)
 
 // Measures the size of the @widget using @manager, for the
 // given @orientation and size.
 //
 // See the [class@Gtk.Widget] documentation on layout management for
 // more details.
-func (x *LayoutManager) Measure(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int, MinimumVar *int, NaturalVar *int, MinimumBaselineVar *int, NaturalBaselineVar *int) {
+func (x *LayoutManager) Measure(WidgetVar *Widget, OrientationVar Orientation, ForSizeVar int32, MinimumVar *int32, NaturalVar *int32, MinimumBaselineVar *int32, NaturalBaselineVar *int32) {
 
 	xLayoutManagerMeasure(x.GoPointer(), WidgetVar.GoPointer(), OrientationVar, ForSizeVar, MinimumVar, NaturalVar, MinimumBaselineVar, NaturalBaselineVar)
 

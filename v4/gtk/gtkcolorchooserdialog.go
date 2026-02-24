@@ -156,7 +156,7 @@ func (x *ColorChooserDialog) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ColorChooserDialog) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ColorChooserDialog) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -288,7 +288,7 @@ func (x *ColorChooserDialog) UpdateProperty(FirstPropertyVar AccessibleProperty,
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorChooserDialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ColorChooserDialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -324,7 +324,7 @@ func (x *ColorChooserDialog) UpdateRelation(FirstRelationVar AccessibleRelation,
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorChooserDialog) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ColorChooserDialog) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -361,7 +361,7 @@ func (x *ColorChooserDialog) UpdateState(FirstStateVar AccessibleState, varArgs 
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ColorChooserDialog) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ColorChooserDialog) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -394,7 +394,7 @@ func (x *ColorChooserDialog) GetBuildableId() string {
 // of removing the default color palette from the color chooser.
 //
 // If @colors is %NULL, removes all previously added palettes.
-func (x *ColorChooserDialog) AddPalette(OrientationVar Orientation, ColorsPerLineVar int, NColorsVar int, ColorsVar []gdk.RGBA) {
+func (x *ColorChooserDialog) AddPalette(OrientationVar Orientation, ColorsPerLineVar int32, NColorsVar int32, ColorsVar []gdk.RGBA) {
 
 	XGtkColorChooserAddPalette(x.GoPointer(), OrientationVar, ColorsPerLineVar, NColorsVar, ColorsVar)
 

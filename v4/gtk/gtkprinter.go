@@ -140,10 +140,10 @@ func (x *Printer) AcceptsPs() bool {
 	return cret
 }
 
-var xPrinterCompare func(uintptr, uintptr) int
+var xPrinterCompare func(uintptr, uintptr) int32
 
 // Compares two printers.
-func (x *Printer) Compare(BVar *Printer) int {
+func (x *Printer) Compare(BVar *Printer) int32 {
 
 	cret := xPrinterCompare(x.GoPointer(), BVar.GoPointer())
 	return cret
@@ -241,10 +241,10 @@ func (x *Printer) GetIconName() string {
 	return cret
 }
 
-var xPrinterGetJobCount func(uintptr) int
+var xPrinterGetJobCount func(uintptr) int32
 
 // Gets the number of jobs currently queued on the printer.
-func (x *Printer) GetJobCount() int {
+func (x *Printer) GetJobCount() int32 {
 
 	cret := xPrinterGetJobCount(x.GoPointer())
 	return cret
@@ -444,10 +444,10 @@ func (x *Printer) GetPropertyIsVirtual() bool {
 
 // GetPropertyJobCount gets the "job-count" property.
 // Number of jobs queued in the printer.
-func (x *Printer) GetPropertyJobCount() int {
+func (x *Printer) GetPropertyJobCount() int32 {
 	var v gobject.Value
 	x.GetProperty("job-count", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // GetPropertyLocation gets the "location" property.

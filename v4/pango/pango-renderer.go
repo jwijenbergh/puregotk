@@ -67,11 +67,11 @@ func (x *RendererClass) GoPointer() uintptr {
 
 // OverrideDrawGlyphs sets the "draw_glyphs" callback function.
 // draws a `PangoGlyphString`
-func (x *RendererClass) OverrideDrawGlyphs(cb func(*Renderer, *Font, *GlyphString, int, int)) {
+func (x *RendererClass) OverrideDrawGlyphs(cb func(*Renderer, *Font, *GlyphString, int32, int32)) {
 	if cb == nil {
 		x.xDrawGlyphs = 0
 	} else {
-		x.xDrawGlyphs = purego.NewCallback(func(RendererVarp uintptr, FontVarp uintptr, GlyphsVarp *GlyphString, XVarp int, YVarp int) {
+		x.xDrawGlyphs = purego.NewCallback(func(RendererVarp uintptr, FontVarp uintptr, GlyphsVarp *GlyphString, XVarp int32, YVarp int32) {
 			cb(RendererNewFromInternalPtr(RendererVarp), FontNewFromInternalPtr(FontVarp), GlyphsVarp, XVarp, YVarp)
 		})
 	}
@@ -79,24 +79,24 @@ func (x *RendererClass) OverrideDrawGlyphs(cb func(*Renderer, *Font, *GlyphStrin
 
 // GetDrawGlyphs gets the "draw_glyphs" callback function.
 // draws a `PangoGlyphString`
-func (x *RendererClass) GetDrawGlyphs() func(*Renderer, *Font, *GlyphString, int, int) {
+func (x *RendererClass) GetDrawGlyphs() func(*Renderer, *Font, *GlyphString, int32, int32) {
 	if x.xDrawGlyphs == 0 {
 		return nil
 	}
-	var rawCallback func(RendererVarp uintptr, FontVarp uintptr, GlyphsVarp *GlyphString, XVarp int, YVarp int)
+	var rawCallback func(RendererVarp uintptr, FontVarp uintptr, GlyphsVarp *GlyphString, XVarp int32, YVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawGlyphs)
-	return func(RendererVar *Renderer, FontVar *Font, GlyphsVar *GlyphString, XVar int, YVar int) {
+	return func(RendererVar *Renderer, FontVar *Font, GlyphsVar *GlyphString, XVar int32, YVar int32) {
 		rawCallback(RendererVar.GoPointer(), FontVar.GoPointer(), GlyphsVar, XVar, YVar)
 	}
 }
 
 // OverrideDrawRectangle sets the "draw_rectangle" callback function.
 // draws a rectangle
-func (x *RendererClass) OverrideDrawRectangle(cb func(*Renderer, RenderPart, int, int, int, int)) {
+func (x *RendererClass) OverrideDrawRectangle(cb func(*Renderer, RenderPart, int32, int32, int32, int32)) {
 	if cb == nil {
 		x.xDrawRectangle = 0
 	} else {
-		x.xDrawRectangle = purego.NewCallback(func(RendererVarp uintptr, PartVarp RenderPart, XVarp int, YVarp int, WidthVarp int, HeightVarp int) {
+		x.xDrawRectangle = purego.NewCallback(func(RendererVarp uintptr, PartVarp RenderPart, XVarp int32, YVarp int32, WidthVarp int32, HeightVarp int32) {
 			cb(RendererNewFromInternalPtr(RendererVarp), PartVarp, XVarp, YVarp, WidthVarp, HeightVarp)
 		})
 	}
@@ -104,13 +104,13 @@ func (x *RendererClass) OverrideDrawRectangle(cb func(*Renderer, RenderPart, int
 
 // GetDrawRectangle gets the "draw_rectangle" callback function.
 // draws a rectangle
-func (x *RendererClass) GetDrawRectangle() func(*Renderer, RenderPart, int, int, int, int) {
+func (x *RendererClass) GetDrawRectangle() func(*Renderer, RenderPart, int32, int32, int32, int32) {
 	if x.xDrawRectangle == 0 {
 		return nil
 	}
-	var rawCallback func(RendererVarp uintptr, PartVarp RenderPart, XVarp int, YVarp int, WidthVarp int, HeightVarp int)
+	var rawCallback func(RendererVarp uintptr, PartVarp RenderPart, XVarp int32, YVarp int32, WidthVarp int32, HeightVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawRectangle)
-	return func(RendererVar *Renderer, PartVar RenderPart, XVar int, YVar int, WidthVar int, HeightVar int) {
+	return func(RendererVar *Renderer, PartVar RenderPart, XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
 		rawCallback(RendererVar.GoPointer(), PartVar, XVar, YVar, WidthVar, HeightVar)
 	}
 }
@@ -119,11 +119,11 @@ func (x *RendererClass) GetDrawRectangle() func(*Renderer, RenderPart, int, int,
 // draws a squiggly line that approximately
 // covers the given rectangle in the style of an underline used to
 // indicate a spelling error.
-func (x *RendererClass) OverrideDrawErrorUnderline(cb func(*Renderer, int, int, int, int)) {
+func (x *RendererClass) OverrideDrawErrorUnderline(cb func(*Renderer, int32, int32, int32, int32)) {
 	if cb == nil {
 		x.xDrawErrorUnderline = 0
 	} else {
-		x.xDrawErrorUnderline = purego.NewCallback(func(RendererVarp uintptr, XVarp int, YVarp int, WidthVarp int, HeightVarp int) {
+		x.xDrawErrorUnderline = purego.NewCallback(func(RendererVarp uintptr, XVarp int32, YVarp int32, WidthVarp int32, HeightVarp int32) {
 			cb(RendererNewFromInternalPtr(RendererVarp), XVarp, YVarp, WidthVarp, HeightVarp)
 		})
 	}
@@ -133,13 +133,13 @@ func (x *RendererClass) OverrideDrawErrorUnderline(cb func(*Renderer, int, int, 
 // draws a squiggly line that approximately
 // covers the given rectangle in the style of an underline used to
 // indicate a spelling error.
-func (x *RendererClass) GetDrawErrorUnderline() func(*Renderer, int, int, int, int) {
+func (x *RendererClass) GetDrawErrorUnderline() func(*Renderer, int32, int32, int32, int32) {
 	if x.xDrawErrorUnderline == 0 {
 		return nil
 	}
-	var rawCallback func(RendererVarp uintptr, XVarp int, YVarp int, WidthVarp int, HeightVarp int)
+	var rawCallback func(RendererVarp uintptr, XVarp int32, YVarp int32, WidthVarp int32, HeightVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawErrorUnderline)
-	return func(RendererVar *Renderer, XVar int, YVar int, WidthVar int, HeightVar int) {
+	return func(RendererVar *Renderer, XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
 		rawCallback(RendererVar.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	}
 }
@@ -149,11 +149,11 @@ func (x *RendererClass) GetDrawErrorUnderline() func(*Renderer, int, int, int, i
 //
 //	@x, @y are the coordinates of the left edge of the baseline,
 //	in user coordinates.
-func (x *RendererClass) OverrideDrawShape(cb func(*Renderer, *AttrShape, int, int)) {
+func (x *RendererClass) OverrideDrawShape(cb func(*Renderer, *AttrShape, int32, int32)) {
 	if cb == nil {
 		x.xDrawShape = 0
 	} else {
-		x.xDrawShape = purego.NewCallback(func(RendererVarp uintptr, AttrVarp *AttrShape, XVarp int, YVarp int) {
+		x.xDrawShape = purego.NewCallback(func(RendererVarp uintptr, AttrVarp *AttrShape, XVarp int32, YVarp int32) {
 			cb(RendererNewFromInternalPtr(RendererVarp), AttrVarp, XVarp, YVarp)
 		})
 	}
@@ -164,13 +164,13 @@ func (x *RendererClass) OverrideDrawShape(cb func(*Renderer, *AttrShape, int, in
 //
 //	@x, @y are the coordinates of the left edge of the baseline,
 //	in user coordinates.
-func (x *RendererClass) GetDrawShape() func(*Renderer, *AttrShape, int, int) {
+func (x *RendererClass) GetDrawShape() func(*Renderer, *AttrShape, int32, int32) {
 	if x.xDrawShape == 0 {
 		return nil
 	}
-	var rawCallback func(RendererVarp uintptr, AttrVarp *AttrShape, XVarp int, YVarp int)
+	var rawCallback func(RendererVarp uintptr, AttrVarp *AttrShape, XVarp int32, YVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawShape)
-	return func(RendererVar *Renderer, AttrVar *AttrShape, XVar int, YVar int) {
+	return func(RendererVar *Renderer, AttrVar *AttrShape, XVar int32, YVar int32) {
 		rawCallback(RendererVar.GoPointer(), AttrVar, XVar, YVar)
 	}
 }
@@ -331,11 +331,11 @@ func (x *RendererClass) GetPrepareRun() func(*Renderer, *LayoutRun) {
 
 // OverrideDrawGlyphItem sets the "draw_glyph_item" callback function.
 // draws a `PangoGlyphItem`
-func (x *RendererClass) OverrideDrawGlyphItem(cb func(*Renderer, string, *GlyphItem, int, int)) {
+func (x *RendererClass) OverrideDrawGlyphItem(cb func(*Renderer, string, *GlyphItem, int32, int32)) {
 	if cb == nil {
 		x.xDrawGlyphItem = 0
 	} else {
-		x.xDrawGlyphItem = purego.NewCallback(func(RendererVarp uintptr, TextVarp string, GlyphItemVarp *GlyphItem, XVarp int, YVarp int) {
+		x.xDrawGlyphItem = purego.NewCallback(func(RendererVarp uintptr, TextVarp string, GlyphItemVarp *GlyphItem, XVarp int32, YVarp int32) {
 			cb(RendererNewFromInternalPtr(RendererVarp), TextVarp, GlyphItemVarp, XVarp, YVarp)
 		})
 	}
@@ -343,13 +343,13 @@ func (x *RendererClass) OverrideDrawGlyphItem(cb func(*Renderer, string, *GlyphI
 
 // GetDrawGlyphItem gets the "draw_glyph_item" callback function.
 // draws a `PangoGlyphItem`
-func (x *RendererClass) GetDrawGlyphItem() func(*Renderer, string, *GlyphItem, int, int) {
+func (x *RendererClass) GetDrawGlyphItem() func(*Renderer, string, *GlyphItem, int32, int32) {
 	if x.xDrawGlyphItem == 0 {
 		return nil
 	}
-	var rawCallback func(RendererVarp uintptr, TextVarp string, GlyphItemVarp *GlyphItem, XVarp int, YVarp int)
+	var rawCallback func(RendererVarp uintptr, TextVarp string, GlyphItemVarp *GlyphItem, XVarp int32, YVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xDrawGlyphItem)
-	return func(RendererVar *Renderer, TextVar string, GlyphItemVar *GlyphItem, XVar int, YVar int) {
+	return func(RendererVar *Renderer, TextVar string, GlyphItemVar *GlyphItem, XVar int32, YVar int32) {
 		rawCallback(RendererVar.GoPointer(), TextVar, GlyphItemVar, XVar, YVar)
 	}
 }
@@ -505,7 +505,7 @@ func (x *Renderer) Deactivate() {
 
 }
 
-var xRendererDrawErrorUnderline func(uintptr, int, int, int, int)
+var xRendererDrawErrorUnderline func(uintptr, int32, int32, int32, int32)
 
 // Draw a squiggly line that approximately covers the given rectangle
 // in the style of an underline used to indicate a spelling error.
@@ -516,7 +516,7 @@ var xRendererDrawErrorUnderline func(uintptr, int, int, int, int)
 //
 // This should be called while @renderer is already active.
 // Use [method@Pango.Renderer.activate] to activate a renderer.
-func (x *Renderer) DrawErrorUnderline(XVar int, YVar int, WidthVar int, HeightVar int) {
+func (x *Renderer) DrawErrorUnderline(XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
 
 	xRendererDrawErrorUnderline(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 
@@ -531,7 +531,7 @@ func (x *Renderer) DrawGlyph(FontVar *Font, GlyphVar Glyph, XVar float64, YVar f
 
 }
 
-var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int, int)
+var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int32, int32)
 
 // Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
 // embedding the text associated with the glyphs in the output if the
@@ -551,54 +551,54 @@ var xRendererDrawGlyphItem func(uintptr, string, *GlyphItem, int, int)
 //
 // The default implementation of this method simply falls back to
 // [method@Pango.Renderer.draw_glyphs].
-func (x *Renderer) DrawGlyphItem(TextVar string, GlyphItemVar *GlyphItem, XVar int, YVar int) {
+func (x *Renderer) DrawGlyphItem(TextVar string, GlyphItemVar *GlyphItem, XVar int32, YVar int32) {
 
 	xRendererDrawGlyphItem(x.GoPointer(), TextVar, GlyphItemVar, XVar, YVar)
 
 }
 
-var xRendererDrawGlyphs func(uintptr, uintptr, *GlyphString, int, int)
+var xRendererDrawGlyphs func(uintptr, uintptr, *GlyphString, int32, int32)
 
 // Draws the glyphs in @glyphs with the specified `PangoRenderer`.
-func (x *Renderer) DrawGlyphs(FontVar *Font, GlyphsVar *GlyphString, XVar int, YVar int) {
+func (x *Renderer) DrawGlyphs(FontVar *Font, GlyphsVar *GlyphString, XVar int32, YVar int32) {
 
 	xRendererDrawGlyphs(x.GoPointer(), FontVar.GoPointer(), GlyphsVar, XVar, YVar)
 
 }
 
-var xRendererDrawLayout func(uintptr, uintptr, int, int)
+var xRendererDrawLayout func(uintptr, uintptr, int32, int32)
 
 // Draws @layout with the specified `PangoRenderer`.
 //
 // This is equivalent to drawing the lines of the layout, at their
 // respective positions relative to @x, @y.
-func (x *Renderer) DrawLayout(LayoutVar *Layout, XVar int, YVar int) {
+func (x *Renderer) DrawLayout(LayoutVar *Layout, XVar int32, YVar int32) {
 
 	xRendererDrawLayout(x.GoPointer(), LayoutVar.GoPointer(), XVar, YVar)
 
 }
 
-var xRendererDrawLayoutLine func(uintptr, *LayoutLine, int, int)
+var xRendererDrawLayoutLine func(uintptr, *LayoutLine, int32, int32)
 
 // Draws @line with the specified `PangoRenderer`.
 //
 // This draws the glyph items that make up the line, as well as
 // shapes, backgrounds and lines that are specified by the attributes
 // of those items.
-func (x *Renderer) DrawLayoutLine(LineVar *LayoutLine, XVar int, YVar int) {
+func (x *Renderer) DrawLayoutLine(LineVar *LayoutLine, XVar int32, YVar int32) {
 
 	xRendererDrawLayoutLine(x.GoPointer(), LineVar, XVar, YVar)
 
 }
 
-var xRendererDrawRectangle func(uintptr, RenderPart, int, int, int, int)
+var xRendererDrawRectangle func(uintptr, RenderPart, int32, int32, int32, int32)
 
 // Draws an axis-aligned rectangle in user space coordinates with the
 // specified `PangoRenderer`.
 //
 // This should be called while @renderer is already active.
 // Use [method@Pango.Renderer.activate] to activate a renderer.
-func (x *Renderer) DrawRectangle(PartVar RenderPart, XVar int, YVar int, WidthVar int, HeightVar int) {
+func (x *Renderer) DrawRectangle(PartVar RenderPart, XVar int32, YVar int32, WidthVar int32, HeightVar int32) {
 
 	xRendererDrawRectangle(x.GoPointer(), PartVar, XVar, YVar, WidthVar, HeightVar)
 

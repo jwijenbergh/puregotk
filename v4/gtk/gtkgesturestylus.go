@@ -85,7 +85,7 @@ func (x *GestureStylus) GetAxis(AxisVar gdk.AxisUse, ValueVar *float64) bool {
 	return cret
 }
 
-var xGestureStylusGetBacklog func(uintptr, *uintptr, *uint) bool
+var xGestureStylusGetBacklog func(uintptr, *uintptr, *uint32) bool
 
 // Returns the accumulated backlog of tracking information.
 //
@@ -100,7 +100,7 @@ var xGestureStylusGetBacklog func(uintptr, *uintptr, *uint) bool
 // state in motion history.
 //
 // The @backlog is provided in chronological order.
-func (x *GestureStylus) GetBacklog(BacklogVar *uintptr, NElemsVar *uint) bool {
+func (x *GestureStylus) GetBacklog(BacklogVar *uintptr, NElemsVar *uint32) bool {
 
 	cret := xGestureStylusGetBacklog(x.GoPointer(), BacklogVar, NElemsVar)
 	return cret

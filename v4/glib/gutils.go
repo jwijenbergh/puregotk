@@ -21,7 +21,7 @@ type DebugKey struct {
 
 	Key uintptr
 
-	Value uint
+	Value uint32
 }
 
 func (x *DebugKey) GoPointer() uintptr {
@@ -125,36 +125,36 @@ func Atexit(FuncVar *VoidFunc) {
 
 }
 
-var xBitNthLsf func(uint32, int) int
+var xBitNthLsf func(uint32, int32) int32
 
 // Find the position of the first bit set in @mask, searching
 // from (but not including) @nth_bit upwards. Bits are numbered
 // from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 // usually). To start searching from the 0th bit, set @nth_bit to -1.
-func BitNthLsf(MaskVar uint32, NthBitVar int) int {
+func BitNthLsf(MaskVar uint32, NthBitVar int32) int32 {
 
 	cret := xBitNthLsf(MaskVar, NthBitVar)
 	return cret
 }
 
-var xBitNthMsf func(uint32, int) int
+var xBitNthMsf func(uint32, int32) int32
 
 // Find the position of the first bit set in @mask, searching
 // from (but not including) @nth_bit downwards. Bits are numbered
 // from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 // usually). To start searching from the last bit, set @nth_bit to
 // -1 or GLIB_SIZEOF_LONG * 8.
-func BitNthMsf(MaskVar uint32, NthBitVar int) int {
+func BitNthMsf(MaskVar uint32, NthBitVar int32) int32 {
 
 	cret := xBitNthMsf(MaskVar, NthBitVar)
 	return cret
 }
 
-var xBitStorage func(uint32) uint
+var xBitStorage func(uint32) uint32
 
 // Gets the number of bits used to hold @number,
 // e.g. if @number is 4, 3 bits are needed.
-func BitStorage(NumberVar uint32) uint {
+func BitStorage(NumberVar uint32) uint32 {
 
 	cret := xBitStorage(NumberVar)
 	return cret
@@ -596,7 +596,7 @@ func NullifyPointer(NullifyLocationVar uintptr) {
 
 }
 
-var xParseDebugString func(string, []DebugKey, uint) uint
+var xParseDebugString func(string, []DebugKey, uint32) uint32
 
 // Parses a string containing debugging options
 // into a %guint containing bit flags. This is used
@@ -610,7 +610,7 @@ var xParseDebugString func(string, []DebugKey, uint) uint
 //
 // If @string is equal to "help", all the available keys in @keys
 // are printed out to standard error.
-func ParseDebugString(StringVar string, KeysVar []DebugKey, NkeysVar uint) uint {
+func ParseDebugString(StringVar string, KeysVar []DebugKey, NkeysVar uint32) uint32 {
 
 	cret := xParseDebugString(StringVar, KeysVar, NkeysVar)
 	return cret
@@ -674,7 +674,7 @@ func SetPrgname(PrgnameVar string) {
 
 }
 
-var xSnprintf func(string, uint32, string, ...interface{}) int
+var xSnprintf func(string, uint32, string, ...interface{}) int32
 
 // A safer form of the standard sprintf() function. The output is guaranteed
 // to not exceed @n characters (including the terminating nul character), so
@@ -693,13 +693,13 @@ var xSnprintf func(string, uint32, string, ...interface{}) int
 //
 // The format string may contain positional parameters, as specified in
 // the Single Unix Specification.
-func Snprintf(StringVar string, NVar uint32, FormatVar string, varArgs ...interface{}) int {
+func Snprintf(StringVar string, NVar uint32, FormatVar string, varArgs ...interface{}) int32 {
 
 	cret := xSnprintf(StringVar, NVar, FormatVar, varArgs...)
 	return cret
 }
 
-var xVsnprintf func(string, uint32, string, []interface{}) int
+var xVsnprintf func(string, uint32, string, []interface{}) int32
 
 // A safer form of the standard `vsprintf()` function. The output is guaranteed
 // to not exceed @n characters (including the terminating nul character), so
@@ -718,7 +718,7 @@ var xVsnprintf func(string, uint32, string, []interface{}) int
 //
 // The format string may contain positional parameters, as specified in
 // the Single Unix Specification.
-func Vsnprintf(StringVar string, NVar uint32, FormatVar string, ArgsVar []interface{}) int {
+func Vsnprintf(StringVar string, NVar uint32, FormatVar string, ArgsVar []interface{}) int32 {
 
 	cret := xVsnprintf(StringVar, NVar, FormatVar, ArgsVar)
 	return cret

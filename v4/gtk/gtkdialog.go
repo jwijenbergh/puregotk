@@ -32,11 +32,11 @@ func (x *DialogClass) GoPointer() uintptr {
 
 // OverrideResponse sets the "response" callback function.
 // Signal emitted when an action widget is activated.
-func (x *DialogClass) OverrideResponse(cb func(*Dialog, int)) {
+func (x *DialogClass) OverrideResponse(cb func(*Dialog, int32)) {
 	if cb == nil {
 		x.xResponse = 0
 	} else {
-		x.xResponse = purego.NewCallback(func(DialogVarp uintptr, ResponseIdVarp int) {
+		x.xResponse = purego.NewCallback(func(DialogVarp uintptr, ResponseIdVarp int32) {
 			cb(DialogNewFromInternalPtr(DialogVarp), ResponseIdVarp)
 		})
 	}
@@ -44,13 +44,13 @@ func (x *DialogClass) OverrideResponse(cb func(*Dialog, int)) {
 
 // GetResponse gets the "response" callback function.
 // Signal emitted when an action widget is activated.
-func (x *DialogClass) GetResponse() func(*Dialog, int) {
+func (x *DialogClass) GetResponse() func(*Dialog, int32) {
 	if x.xResponse == 0 {
 		return nil
 	}
-	var rawCallback func(DialogVarp uintptr, ResponseIdVarp int)
+	var rawCallback func(DialogVarp uintptr, ResponseIdVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xResponse)
-	return func(DialogVar *Dialog, ResponseIdVar int) {
+	return func(DialogVar *Dialog, ResponseIdVar int32) {
 		rawCallback(DialogVar.GoPointer(), ResponseIdVar)
 	}
 }
@@ -357,7 +357,7 @@ func NewDialogWithButtons(TitleVar string, ParentVar *Window, FlagsVar DialogFla
 	return cls
 }
 
-var xDialogAddActionWidget func(uintptr, uintptr, int)
+var xDialogAddActionWidget func(uintptr, uintptr, int32)
 
 // Adds an activatable widget to the action area of a `GtkDialog`.
 //
@@ -368,13 +368,13 @@ var xDialogAddActionWidget func(uintptr, uintptr, int)
 //
 // If you want to add a non-activatable widget, simply pack it into
 // the @action_area field of the `GtkDialog` struct.
-func (x *Dialog) AddActionWidget(ChildVar *Widget, ResponseIdVar int) {
+func (x *Dialog) AddActionWidget(ChildVar *Widget, ResponseIdVar int32) {
 
 	xDialogAddActionWidget(x.GoPointer(), ChildVar.GoPointer(), ResponseIdVar)
 
 }
 
-var xDialogAddButton func(uintptr, string, int) uintptr
+var xDialogAddButton func(uintptr, string, int32) uintptr
 
 // Adds a button with the given text.
 //
@@ -382,7 +382,7 @@ var xDialogAddButton func(uintptr, string, int) uintptr
 // [signal@Gtk.Dialog::response] signal with the given @response_id.
 // The button is appended to the end of the dialog’s action area.
 // The button widget is returned, but usually you don’t need it.
-func (x *Dialog) AddButton(ButtonTextVar string, ResponseIdVar int) *Widget {
+func (x *Dialog) AddButton(ButtonTextVar string, ResponseIdVar int32) *Widget {
 	var cls *Widget
 
 	cret := xDialogAddButton(x.GoPointer(), ButtonTextVar, ResponseIdVar)
@@ -447,21 +447,21 @@ func (x *Dialog) GetHeaderBar() *HeaderBar {
 	return cls
 }
 
-var xDialogGetResponseForWidget func(uintptr, uintptr) int
+var xDialogGetResponseForWidget func(uintptr, uintptr) int32
 
 // Gets the response id of a widget in the action area
 // of a dialog.
-func (x *Dialog) GetResponseForWidget(WidgetVar *Widget) int {
+func (x *Dialog) GetResponseForWidget(WidgetVar *Widget) int32 {
 
 	cret := xDialogGetResponseForWidget(x.GoPointer(), WidgetVar.GoPointer())
 	return cret
 }
 
-var xDialogGetWidgetForResponse func(uintptr, int) uintptr
+var xDialogGetWidgetForResponse func(uintptr, int32) uintptr
 
 // Gets the widget button that uses the given response ID in the action area
 // of a dialog.
-func (x *Dialog) GetWidgetForResponse(ResponseIdVar int) *Widget {
+func (x *Dialog) GetWidgetForResponse(ResponseIdVar int32) *Widget {
 	var cls *Widget
 
 	cret := xDialogGetWidgetForResponse(x.GoPointer(), ResponseIdVar)
@@ -475,35 +475,35 @@ func (x *Dialog) GetWidgetForResponse(ResponseIdVar int) *Widget {
 	return cls
 }
 
-var xDialogResponse func(uintptr, int)
+var xDialogResponse func(uintptr, int32)
 
 // Emits the ::response signal with the given response ID.
 //
 // Used to indicate that the user has responded to the dialog in some way.
-func (x *Dialog) Response(ResponseIdVar int) {
+func (x *Dialog) Response(ResponseIdVar int32) {
 
 	xDialogResponse(x.GoPointer(), ResponseIdVar)
 
 }
 
-var xDialogSetDefaultResponse func(uintptr, int)
+var xDialogSetDefaultResponse func(uintptr, int32)
 
 // Sets the default widget for the dialog based on the response ID.
 //
 // Pressing “Enter” normally activates the default widget.
-func (x *Dialog) SetDefaultResponse(ResponseIdVar int) {
+func (x *Dialog) SetDefaultResponse(ResponseIdVar int32) {
 
 	xDialogSetDefaultResponse(x.GoPointer(), ResponseIdVar)
 
 }
 
-var xDialogSetResponseSensitive func(uintptr, int, bool)
+var xDialogSetResponseSensitive func(uintptr, int32, bool)
 
 // A convenient way to sensitize/desensitize dialog buttons.
 //
 // Calls `gtk_widget_set_sensitive (widget, @setting)`
 // for each widget in the dialog’s action area with the given @response_id.
-func (x *Dialog) SetResponseSensitive(ResponseIdVar int, SettingVar bool) {
+func (x *Dialog) SetResponseSensitive(ResponseIdVar int32, SettingVar bool) {
 
 	xDialogSetResponseSensitive(x.GoPointer(), ResponseIdVar, SettingVar)
 
@@ -539,10 +539,10 @@ func (c *Dialog) SetGoPointer(ptr uintptr) {
 // g_object_get (settings, "gtk-dialogs-use-header", &amp;header, NULL);
 // dialog = g_object_new (GTK_TYPE_DIALOG, header, TRUE, NULL);
 // ```
-func (x *Dialog) SetPropertyUseHeaderBar(value int) {
+func (x *Dialog) SetPropertyUseHeaderBar(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("use-header-bar", &v)
 }
 
@@ -565,10 +565,10 @@ func (x *Dialog) SetPropertyUseHeaderBar(value int) {
 // g_object_get (settings, "gtk-dialogs-use-header", &amp;header, NULL);
 // dialog = g_object_new (GTK_TYPE_DIALOG, header, TRUE, NULL);
 // ```
-func (x *Dialog) GetPropertyUseHeaderBar() int {
+func (x *Dialog) GetPropertyUseHeaderBar() int32 {
 	var v gobject.Value
 	x.GetProperty("use-header-bar", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Emitted when the user uses a keybinding to close the dialog.
@@ -601,13 +601,13 @@ func (x *Dialog) ConnectClose(cb *func(Dialog)) uint32 {
 // delete event, and when [method@Gtk.Dialog.response] is called.
 // On a delete event, the response ID is %GTK_RESPONSE_DELETE_EVENT.
 // Otherwise, it depends on which action widget was clicked.
-func (x *Dialog) ConnectResponse(cb *func(Dialog, int)) uint32 {
+func (x *Dialog) ConnectResponse(cb *func(Dialog, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
+	fcb := func(clsPtr uintptr, ResponseIdVarp int32) {
 		fa := Dialog{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -677,7 +677,7 @@ func (x *Dialog) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Dialog) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Dialog) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -809,7 +809,7 @@ func (x *Dialog) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Dialog) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Dialog) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -845,7 +845,7 @@ func (x *Dialog) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Dialog) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Dialog) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -882,7 +882,7 @@ func (x *Dialog) UpdateState(FirstStateVar AccessibleState, varArgs ...interface
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Dialog) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Dialog) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

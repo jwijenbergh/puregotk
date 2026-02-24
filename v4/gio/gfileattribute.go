@@ -32,7 +32,7 @@ type FileAttributeInfoList struct {
 
 	Infos *FileAttributeInfo
 
-	NInfos int
+	NInfos int32
 }
 
 var xFileAttributeInfoListGLibType func() types.GType

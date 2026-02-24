@@ -348,13 +348,13 @@ func (x *Application) GetMenubar() *gio.MenuModel {
 	return cls
 }
 
-var xApplicationGetWindowById func(uintptr, uint) uintptr
+var xApplicationGetWindowById func(uintptr, uint32) uintptr
 
 // Returns the window with the given ID.
 //
 // The ID of a `GtkApplicationWindow` can be retrieved with
 // [method@Gtk.ApplicationWindow.get_id].
-func (x *Application) GetWindowById(IdVar uint) *Window {
+func (x *Application) GetWindowById(IdVar uint32) *Window {
 	var cls *Window
 
 	cret := xApplicationGetWindowById(x.GoPointer(), IdVar)
@@ -385,7 +385,7 @@ func (x *Application) GetWindows() *glib.List {
 	return cret
 }
 
-var xApplicationInhibit func(uintptr, uintptr, ApplicationInhibitFlags, string) uint
+var xApplicationInhibit func(uintptr, uintptr, ApplicationInhibitFlags, string) uint32
 
 // Informs the session manager that certain types of actions should be
 // inhibited.
@@ -414,7 +414,7 @@ var xApplicationInhibit func(uintptr, uintptr, ApplicationInhibitFlags, string) 
 // The cookie that is returned by this function  should be used as an
 // argument to [method@Gtk.Application.uninhibit] in order to remove
 // the request.
-func (x *Application) Inhibit(WindowVar *Window, FlagsVar ApplicationInhibitFlags, ReasonVar string) uint {
+func (x *Application) Inhibit(WindowVar *Window, FlagsVar ApplicationInhibitFlags, ReasonVar string) uint32 {
 
 	cret := xApplicationInhibit(x.GoPointer(), WindowVar.GoPointer(), FlagsVar, ReasonVar)
 	return cret
@@ -492,14 +492,14 @@ func (x *Application) SetMenubar(MenubarVar *gio.MenuModel) {
 
 }
 
-var xApplicationUninhibit func(uintptr, uint)
+var xApplicationUninhibit func(uintptr, uint32)
 
 // Removes an inhibitor that has been previously established.
 //
 // See [method@Gtk.Application.inhibit].
 //
 // Inhibitors are also cleared when the application exits.
-func (x *Application) Uninhibit(CookieVar uint) {
+func (x *Application) Uninhibit(CookieVar uint32) {
 
 	xApplicationUninhibit(x.GoPointer(), CookieVar)
 
@@ -906,7 +906,7 @@ func (x *Application) AddAction(ActionVar gio.Action) {
 //	}
 //
 // ```
-func (x *Application) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	gio.XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -963,7 +963,7 @@ func (x *Application) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *Application) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int) {
+func (x *Application) RemoveActionEntries(EntriesVar []gio.ActionEntry, NEntriesVar int32) {
 
 	gio.XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 

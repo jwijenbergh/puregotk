@@ -8,7 +8,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gobject/types"
 )
 
-var xFindParagraphBoundary func(string, int, *int, *int)
+var xFindParagraphBoundary func(string, int32, *int32, *int32)
 
 // Locates a paragraph boundary in @text.
 //
@@ -24,7 +24,7 @@ var xFindParagraphBoundary func(string, int, *int, *int)
 // If no delimiters are found, both @paragraph_delimiter_index
 // and @next_paragraph_start are filled with the length of @text
 // (an index one off the end).
-func FindParagraphBoundary(TextVar string, LengthVar int, ParagraphDelimiterIndexVar *int, NextParagraphStartVar *int) {
+func FindParagraphBoundary(TextVar string, LengthVar int32, ParagraphDelimiterIndexVar *int32, NextParagraphStartVar *int32) {
 
 	xFindParagraphBoundary(TextVar, LengthVar, ParagraphDelimiterIndexVar, NextParagraphStartVar)
 
@@ -44,7 +44,7 @@ func IsZeroWidth(ChVar uint32) bool {
 	return cret
 }
 
-var xLog2visGetEmbeddingLevels func(string, int, *Direction) uintptr
+var xLog2visGetEmbeddingLevels func(string, int32, *Direction) uintptr
 
 // Return the bidirectional embedding levels of the input paragraph.
 //
@@ -53,13 +53,13 @@ var xLog2visGetEmbeddingLevels func(string, int, *Direction) uintptr
 //
 // If the input base direction is a weak direction, the direction of the
 // characters in the text will determine the final resolved direction.
-func Log2visGetEmbeddingLevels(TextVar string, LengthVar int, PbaseDirVar *Direction) uintptr {
+func Log2visGetEmbeddingLevels(TextVar string, LengthVar int32, PbaseDirVar *Direction) uintptr {
 
 	cret := xLog2visGetEmbeddingLevels(TextVar, LengthVar, PbaseDirVar)
 	return cret
 }
 
-var xParseEnum func(types.GType, string, *int, bool, *string) bool
+var xParseEnum func(types.GType, string, *int32, bool, *string) bool
 
 // Parses an enum type and stores the result in @value.
 //
@@ -71,7 +71,7 @@ var xParseEnum func(types.GType, string, *int, bool, *string) bool
 //
 // If failed and @possible_values is not %NULL, returned string should
 // be freed using g_free().
-func ParseEnum(TypeVar types.GType, StrVar string, ValueVar *int, WarnVar bool, PossibleValuesVar *string) bool {
+func ParseEnum(TypeVar types.GType, StrVar string, ValueVar *int32, WarnVar bool, PossibleValuesVar *string) bool {
 
 	cret := xParseEnum(TypeVar, StrVar, ValueVar, WarnVar, PossibleValuesVar)
 	return cret
@@ -131,7 +131,7 @@ func ParseWeight(StrVar string, WeightVar *Weight, WarnVar bool) bool {
 	return cret
 }
 
-var xQuantizeLineGeometry func(int, int)
+var xQuantizeLineGeometry func(int32, int32)
 
 // Quantizes the thickness and position of a line to whole device pixels.
 //
@@ -141,13 +141,13 @@ var xQuantizeLineGeometry func(int, int)
 // Care is taken to make sure @thickness is at least one pixel when this
 // function returns, but returned @position may become zero as a result
 // of rounding.
-func QuantizeLineGeometry(ThicknessVar int, PositionVar int) {
+func QuantizeLineGeometry(ThicknessVar int32, PositionVar int32) {
 
 	xQuantizeLineGeometry(ThicknessVar, PositionVar)
 
 }
 
-var xReadLine func(uintptr, *glib.String) int
+var xReadLine func(uintptr, *glib.String) int32
 
 // Reads an entire line from a file into a buffer.
 //
@@ -157,18 +157,18 @@ var xReadLine func(uintptr, *glib.String) int
 // '\' proceeding a line delimiter combines adjacent lines. A '\' proceeding
 // any other character is ignored and written into the output buffer
 // unmodified.
-func ReadLine(StreamVar uintptr, StrVar *glib.String) int {
+func ReadLine(StreamVar uintptr, StrVar *glib.String) int32 {
 
 	cret := xReadLine(StreamVar, StrVar)
 	return cret
 }
 
-var xScanInt func(string, *int) bool
+var xScanInt func(string, *int32) bool
 
 // Scans an integer.
 //
 // Leading white space is skipped.
-func ScanInt(PosVar string, OutVar *int) bool {
+func ScanInt(PosVar string, OutVar *int32) bool {
 
 	cret := xScanInt(PosVar, OutVar)
 	return cret
@@ -227,20 +227,20 @@ func TrimString(StrVar string) string {
 	return cret
 }
 
-var xVersion func() int
+var xVersion func() int32
 
 // Returns the encoded version of Pango available at run-time.
 //
 // This is similar to the macro %PANGO_VERSION except that the macro
 // returns the encoded version available at compile-time. A version
 // number can be encoded into an integer using PANGO_VERSION_ENCODE().
-func Version() int {
+func Version() int32 {
 
 	cret := xVersion()
 	return cret
 }
 
-var xVersionCheck func(int, int, int) string
+var xVersionCheck func(int32, int32, int32) string
 
 // Checks that the Pango library in use is compatible with the
 // given version.
@@ -259,7 +259,7 @@ var xVersionCheck func(int, int, int) string
 // (same major version.)
 //
 // For compile-time version checking use PANGO_VERSION_CHECK().
-func VersionCheck(RequiredMajorVar int, RequiredMinorVar int, RequiredMicroVar int) string {
+func VersionCheck(RequiredMajorVar int32, RequiredMinorVar int32, RequiredMicroVar int32) string {
 
 	cret := xVersionCheck(RequiredMajorVar, RequiredMinorVar, RequiredMicroVar)
 	return cret

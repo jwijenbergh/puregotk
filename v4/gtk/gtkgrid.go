@@ -146,20 +146,20 @@ func NewGrid() *Grid {
 	return cls
 }
 
-var xGridAttach func(uintptr, uintptr, int, int, int, int)
+var xGridAttach func(uintptr, uintptr, int32, int32, int32, int32)
 
 // Adds a widget to the grid.
 //
 // The position of @child is determined by @column and @row.
 // The number of “cells” that @child will occupy is determined
 // by @width and @height.
-func (x *Grid) Attach(ChildVar *Widget, ColumnVar int, RowVar int, WidthVar int, HeightVar int) {
+func (x *Grid) Attach(ChildVar *Widget, ColumnVar int32, RowVar int32, WidthVar int32, HeightVar int32) {
 
 	xGridAttach(x.GoPointer(), ChildVar.GoPointer(), ColumnVar, RowVar, WidthVar, HeightVar)
 
 }
 
-var xGridAttachNextTo func(uintptr, uintptr, uintptr, PositionType, int, int)
+var xGridAttachNextTo func(uintptr, uintptr, uintptr, PositionType, int32, int32)
 
 // Adds a widget to the grid.
 //
@@ -170,26 +170,26 @@ var xGridAttachNextTo func(uintptr, uintptr, uintptr, PositionType, int, int)
 //
 // Attaching widgets labeled `[1]`, `[2]`, `[3]` with `@sibling == %NULL` and
 // `@side == %GTK_POS_LEFT` yields a layout of `[3][2][1]`.
-func (x *Grid) AttachNextTo(ChildVar *Widget, SiblingVar *Widget, SideVar PositionType, WidthVar int, HeightVar int) {
+func (x *Grid) AttachNextTo(ChildVar *Widget, SiblingVar *Widget, SideVar PositionType, WidthVar int32, HeightVar int32) {
 
 	xGridAttachNextTo(x.GoPointer(), ChildVar.GoPointer(), SiblingVar.GoPointer(), SideVar, WidthVar, HeightVar)
 
 }
 
-var xGridGetBaselineRow func(uintptr) int
+var xGridGetBaselineRow func(uintptr) int32
 
 // Returns which row defines the global baseline of @grid.
-func (x *Grid) GetBaselineRow() int {
+func (x *Grid) GetBaselineRow() int32 {
 
 	cret := xGridGetBaselineRow(x.GoPointer())
 	return cret
 }
 
-var xGridGetChildAt func(uintptr, int, int) uintptr
+var xGridGetChildAt func(uintptr, int32, int32) uintptr
 
 // Gets the child of @grid whose area covers the grid
 // cell at @column, @row.
-func (x *Grid) GetChildAt(ColumnVar int, RowVar int) *Widget {
+func (x *Grid) GetChildAt(ColumnVar int32, RowVar int32) *Widget {
 	var cls *Widget
 
 	cret := xGridGetChildAt(x.GoPointer(), ColumnVar, RowVar)
@@ -212,21 +212,21 @@ func (x *Grid) GetColumnHomogeneous() bool {
 	return cret
 }
 
-var xGridGetColumnSpacing func(uintptr) uint
+var xGridGetColumnSpacing func(uintptr) uint32
 
 // Returns the amount of space between the columns of @grid.
-func (x *Grid) GetColumnSpacing() uint {
+func (x *Grid) GetColumnSpacing() uint32 {
 
 	cret := xGridGetColumnSpacing(x.GoPointer())
 	return cret
 }
 
-var xGridGetRowBaselinePosition func(uintptr, int) BaselinePosition
+var xGridGetRowBaselinePosition func(uintptr, int32) BaselinePosition
 
 // Returns the baseline position of @row.
 //
 // See [method@Gtk.Grid.set_row_baseline_position].
-func (x *Grid) GetRowBaselinePosition(RowVar int) BaselinePosition {
+func (x *Grid) GetRowBaselinePosition(RowVar int32) BaselinePosition {
 
 	cret := xGridGetRowBaselinePosition(x.GoPointer(), RowVar)
 	return cret
@@ -241,23 +241,23 @@ func (x *Grid) GetRowHomogeneous() bool {
 	return cret
 }
 
-var xGridGetRowSpacing func(uintptr) uint
+var xGridGetRowSpacing func(uintptr) uint32
 
 // Returns the amount of space between the rows of @grid.
-func (x *Grid) GetRowSpacing() uint {
+func (x *Grid) GetRowSpacing() uint32 {
 
 	cret := xGridGetRowSpacing(x.GoPointer())
 	return cret
 }
 
-var xGridInsertColumn func(uintptr, int)
+var xGridInsertColumn func(uintptr, int32)
 
 // Inserts a column at the specified position.
 //
 // Children which are attached at or to the right of this position
 // are moved one column to the right. Children which span across this
 // position are grown to span the new column.
-func (x *Grid) InsertColumn(PositionVar int) {
+func (x *Grid) InsertColumn(PositionVar int32) {
 
 	xGridInsertColumn(x.GoPointer(), PositionVar)
 
@@ -277,23 +277,23 @@ func (x *Grid) InsertNextTo(SiblingVar *Widget, SideVar PositionType) {
 
 }
 
-var xGridInsertRow func(uintptr, int)
+var xGridInsertRow func(uintptr, int32)
 
 // Inserts a row at the specified position.
 //
 // Children which are attached at or below this position
 // are moved one row down. Children which span across this
 // position are grown to span the new row.
-func (x *Grid) InsertRow(PositionVar int) {
+func (x *Grid) InsertRow(PositionVar int32) {
 
 	xGridInsertRow(x.GoPointer(), PositionVar)
 
 }
 
-var xGridQueryChild func(uintptr, uintptr, *int, *int, *int, *int)
+var xGridQueryChild func(uintptr, uintptr, *int32, *int32, *int32, *int32)
 
 // Queries the attach points and spans of @child inside the given `GtkGrid`.
-func (x *Grid) QueryChild(ChildVar *Widget, ColumnVar *int, RowVar *int, WidthVar *int, HeightVar *int) {
+func (x *Grid) QueryChild(ChildVar *Widget, ColumnVar *int32, RowVar *int32, WidthVar *int32, HeightVar *int32) {
 
 	xGridQueryChild(x.GoPointer(), ChildVar.GoPointer(), ColumnVar, RowVar, WidthVar, HeightVar)
 
@@ -311,7 +311,7 @@ func (x *Grid) Remove(ChildVar *Widget) {
 
 }
 
-var xGridRemoveColumn func(uintptr, int)
+var xGridRemoveColumn func(uintptr, int32)
 
 // Removes a column from the grid.
 //
@@ -319,13 +319,13 @@ var xGridRemoveColumn func(uintptr, int)
 // spanning children that overlap this column have their
 // width reduced by one, and children after the column
 // are moved to the left.
-func (x *Grid) RemoveColumn(PositionVar int) {
+func (x *Grid) RemoveColumn(PositionVar int32) {
 
 	xGridRemoveColumn(x.GoPointer(), PositionVar)
 
 }
 
-var xGridRemoveRow func(uintptr, int)
+var xGridRemoveRow func(uintptr, int32)
 
 // Removes a row from the grid.
 //
@@ -333,20 +333,20 @@ var xGridRemoveRow func(uintptr, int)
 // spanning children that overlap this row have their
 // height reduced by one, and children below the row
 // are moved up.
-func (x *Grid) RemoveRow(PositionVar int) {
+func (x *Grid) RemoveRow(PositionVar int32) {
 
 	xGridRemoveRow(x.GoPointer(), PositionVar)
 
 }
 
-var xGridSetBaselineRow func(uintptr, int)
+var xGridSetBaselineRow func(uintptr, int32)
 
 // Sets which row defines the global baseline for the entire grid.
 //
 // Each row in the grid can have its own local baseline, but only
 // one of those is global, meaning it will be the baseline in the
 // parent of the @grid.
-func (x *Grid) SetBaselineRow(RowVar int) {
+func (x *Grid) SetBaselineRow(RowVar int32) {
 
 	xGridSetBaselineRow(x.GoPointer(), RowVar)
 
@@ -361,22 +361,22 @@ func (x *Grid) SetColumnHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xGridSetColumnSpacing func(uintptr, uint)
+var xGridSetColumnSpacing func(uintptr, uint32)
 
 // Sets the amount of space between columns of @grid.
-func (x *Grid) SetColumnSpacing(SpacingVar uint) {
+func (x *Grid) SetColumnSpacing(SpacingVar uint32) {
 
 	xGridSetColumnSpacing(x.GoPointer(), SpacingVar)
 
 }
 
-var xGridSetRowBaselinePosition func(uintptr, int, BaselinePosition)
+var xGridSetRowBaselinePosition func(uintptr, int32, BaselinePosition)
 
 // Sets how the baseline should be positioned on @row of the
 // grid, in case that row is assigned more space than is requested.
 //
 // The default baseline position is %GTK_BASELINE_POSITION_CENTER.
-func (x *Grid) SetRowBaselinePosition(RowVar int, PosVar BaselinePosition) {
+func (x *Grid) SetRowBaselinePosition(RowVar int32, PosVar BaselinePosition) {
 
 	xGridSetRowBaselinePosition(x.GoPointer(), RowVar, PosVar)
 
@@ -391,10 +391,10 @@ func (x *Grid) SetRowHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xGridSetRowSpacing func(uintptr, uint)
+var xGridSetRowSpacing func(uintptr, uint32)
 
 // Sets the amount of space between rows of @grid.
-func (x *Grid) SetRowSpacing(SpacingVar uint) {
+func (x *Grid) SetRowSpacing(SpacingVar uint32) {
 
 	xGridSetRowSpacing(x.GoPointer(), SpacingVar)
 
@@ -413,19 +413,19 @@ func (c *Grid) SetGoPointer(ptr uintptr) {
 
 // SetPropertyBaselineRow sets the "baseline-row" property.
 // The row to align to the baseline when valign is using baseline alignment.
-func (x *Grid) SetPropertyBaselineRow(value int) {
+func (x *Grid) SetPropertyBaselineRow(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("baseline-row", &v)
 }
 
 // GetPropertyBaselineRow gets the "baseline-row" property.
 // The row to align to the baseline when valign is using baseline alignment.
-func (x *Grid) GetPropertyBaselineRow() int {
+func (x *Grid) GetPropertyBaselineRow() int32 {
 	var v gobject.Value
 	x.GetProperty("baseline-row", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyColumnHomogeneous sets the "column-homogeneous" property.
@@ -447,19 +447,19 @@ func (x *Grid) GetPropertyColumnHomogeneous() bool {
 
 // SetPropertyColumnSpacing sets the "column-spacing" property.
 // The amount of space between two consecutive columns.
-func (x *Grid) SetPropertyColumnSpacing(value int) {
+func (x *Grid) SetPropertyColumnSpacing(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("column-spacing", &v)
 }
 
 // GetPropertyColumnSpacing gets the "column-spacing" property.
 // The amount of space between two consecutive columns.
-func (x *Grid) GetPropertyColumnSpacing() int {
+func (x *Grid) GetPropertyColumnSpacing() int32 {
 	var v gobject.Value
 	x.GetProperty("column-spacing", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyRowHomogeneous sets the "row-homogeneous" property.
@@ -481,19 +481,19 @@ func (x *Grid) GetPropertyRowHomogeneous() bool {
 
 // SetPropertyRowSpacing sets the "row-spacing" property.
 // The amount of space between two consecutive rows.
-func (x *Grid) SetPropertyRowSpacing(value int) {
+func (x *Grid) SetPropertyRowSpacing(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("row-spacing", &v)
 }
 
 // GetPropertyRowSpacing gets the "row-spacing" property.
 // The amount of space between two consecutive rows.
-func (x *Grid) GetPropertyRowSpacing() int {
+func (x *Grid) GetPropertyRowSpacing() int32 {
 	var v gobject.Value
 	x.GetProperty("row-spacing", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // Requests the user's screen reader to announce the given message.
@@ -553,7 +553,7 @@ func (x *Grid) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Grid) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Grid) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -685,7 +685,7 @@ func (x *Grid) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...in
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Grid) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -721,7 +721,7 @@ func (x *Grid) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...in
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Grid) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -758,7 +758,7 @@ func (x *Grid) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{}
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Grid) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Grid) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

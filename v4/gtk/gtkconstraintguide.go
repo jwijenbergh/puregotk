@@ -64,19 +64,19 @@ func NewConstraintGuide() *ConstraintGuide {
 	return cls
 }
 
-var xConstraintGuideGetMaxSize func(uintptr, *int, *int)
+var xConstraintGuideGetMaxSize func(uintptr, *int32, *int32)
 
 // Gets the maximum size of @guide.
-func (x *ConstraintGuide) GetMaxSize(WidthVar *int, HeightVar *int) {
+func (x *ConstraintGuide) GetMaxSize(WidthVar *int32, HeightVar *int32) {
 
 	xConstraintGuideGetMaxSize(x.GoPointer(), WidthVar, HeightVar)
 
 }
 
-var xConstraintGuideGetMinSize func(uintptr, *int, *int)
+var xConstraintGuideGetMinSize func(uintptr, *int32, *int32)
 
 // Gets the minimum size of @guide.
-func (x *ConstraintGuide) GetMinSize(WidthVar *int, HeightVar *int) {
+func (x *ConstraintGuide) GetMinSize(WidthVar *int32, HeightVar *int32) {
 
 	xConstraintGuideGetMinSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -91,10 +91,10 @@ func (x *ConstraintGuide) GetName() string {
 	return cret
 }
 
-var xConstraintGuideGetNatSize func(uintptr, *int, *int)
+var xConstraintGuideGetNatSize func(uintptr, *int32, *int32)
 
 // Gets the natural size of @guide.
-func (x *ConstraintGuide) GetNatSize(WidthVar *int, HeightVar *int) {
+func (x *ConstraintGuide) GetNatSize(WidthVar *int32, HeightVar *int32) {
 
 	xConstraintGuideGetNatSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -109,25 +109,25 @@ func (x *ConstraintGuide) GetStrength() ConstraintStrength {
 	return cret
 }
 
-var xConstraintGuideSetMaxSize func(uintptr, int, int)
+var xConstraintGuideSetMaxSize func(uintptr, int32, int32)
 
 // Sets the maximum size of @guide.
 //
 // If @guide is attached to a `GtkConstraintLayout`,
 // the constraints will be updated to reflect the new size.
-func (x *ConstraintGuide) SetMaxSize(WidthVar int, HeightVar int) {
+func (x *ConstraintGuide) SetMaxSize(WidthVar int32, HeightVar int32) {
 
 	xConstraintGuideSetMaxSize(x.GoPointer(), WidthVar, HeightVar)
 
 }
 
-var xConstraintGuideSetMinSize func(uintptr, int, int)
+var xConstraintGuideSetMinSize func(uintptr, int32, int32)
 
 // Sets the minimum size of @guide.
 //
 // If @guide is attached to a `GtkConstraintLayout`,
 // the constraints will be updated to reflect the new size.
-func (x *ConstraintGuide) SetMinSize(WidthVar int, HeightVar int) {
+func (x *ConstraintGuide) SetMinSize(WidthVar int32, HeightVar int32) {
 
 	xConstraintGuideSetMinSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -144,13 +144,13 @@ func (x *ConstraintGuide) SetName(NameVar string) {
 
 }
 
-var xConstraintGuideSetNatSize func(uintptr, int, int)
+var xConstraintGuideSetNatSize func(uintptr, int32, int32)
 
 // Sets the natural size of @guide.
 //
 // If @guide is attached to a `GtkConstraintLayout`,
 // the constraints will be updated to reflect the new size.
-func (x *ConstraintGuide) SetNatSize(WidthVar int, HeightVar int) {
+func (x *ConstraintGuide) SetNatSize(WidthVar int32, HeightVar int32) {
 
 	xConstraintGuideSetNatSize(x.GoPointer(), WidthVar, HeightVar)
 
@@ -179,70 +179,70 @@ func (c *ConstraintGuide) SetGoPointer(ptr uintptr) {
 
 // SetPropertyMaxHeight sets the "max-height" property.
 // The maximum height of the guide.
-func (x *ConstraintGuide) SetPropertyMaxHeight(value int) {
+func (x *ConstraintGuide) SetPropertyMaxHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("max-height", &v)
 }
 
 // GetPropertyMaxHeight gets the "max-height" property.
 // The maximum height of the guide.
-func (x *ConstraintGuide) GetPropertyMaxHeight() int {
+func (x *ConstraintGuide) GetPropertyMaxHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("max-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMaxWidth sets the "max-width" property.
 // The maximum width of the guide.
-func (x *ConstraintGuide) SetPropertyMaxWidth(value int) {
+func (x *ConstraintGuide) SetPropertyMaxWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("max-width", &v)
 }
 
 // GetPropertyMaxWidth gets the "max-width" property.
 // The maximum width of the guide.
-func (x *ConstraintGuide) GetPropertyMaxWidth() int {
+func (x *ConstraintGuide) GetPropertyMaxWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("max-width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMinHeight sets the "min-height" property.
 // The minimum height of the guide.
-func (x *ConstraintGuide) SetPropertyMinHeight(value int) {
+func (x *ConstraintGuide) SetPropertyMinHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("min-height", &v)
 }
 
 // GetPropertyMinHeight gets the "min-height" property.
 // The minimum height of the guide.
-func (x *ConstraintGuide) GetPropertyMinHeight() int {
+func (x *ConstraintGuide) GetPropertyMinHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("min-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyMinWidth sets the "min-width" property.
 // The minimum width of the guide.
-func (x *ConstraintGuide) SetPropertyMinWidth(value int) {
+func (x *ConstraintGuide) SetPropertyMinWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("min-width", &v)
 }
 
 // GetPropertyMinWidth gets the "min-width" property.
 // The minimum width of the guide.
-func (x *ConstraintGuide) GetPropertyMinWidth() int {
+func (x *ConstraintGuide) GetPropertyMinWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("min-width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyName sets the "name" property.
@@ -264,36 +264,36 @@ func (x *ConstraintGuide) GetPropertyName() string {
 
 // SetPropertyNatHeight sets the "nat-height" property.
 // The preferred, or natural, height of the guide.
-func (x *ConstraintGuide) SetPropertyNatHeight(value int) {
+func (x *ConstraintGuide) SetPropertyNatHeight(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("nat-height", &v)
 }
 
 // GetPropertyNatHeight gets the "nat-height" property.
 // The preferred, or natural, height of the guide.
-func (x *ConstraintGuide) GetPropertyNatHeight() int {
+func (x *ConstraintGuide) GetPropertyNatHeight() int32 {
 	var v gobject.Value
 	x.GetProperty("nat-height", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyNatWidth sets the "nat-width" property.
 // The preferred, or natural, width of the guide.
-func (x *ConstraintGuide) SetPropertyNatWidth(value int) {
+func (x *ConstraintGuide) SetPropertyNatWidth(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("nat-width", &v)
 }
 
 // GetPropertyNatWidth gets the "nat-width" property.
 // The preferred, or natural, width of the guide.
-func (x *ConstraintGuide) GetPropertyNatWidth() int {
+func (x *ConstraintGuide) GetPropertyNatWidth() int32 {
 	var v gobject.Value
 	x.GetProperty("nat-width", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 func init() {

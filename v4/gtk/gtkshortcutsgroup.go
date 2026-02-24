@@ -79,10 +79,10 @@ func (c *ShortcutsGroup) SetGoPointer(ptr uintptr) {
 // A rough measure for the number of lines in this group.
 //
 // This is used internally by GTK, and is not useful for applications.
-func (x *ShortcutsGroup) GetPropertyHeight() uint {
+func (x *ShortcutsGroup) GetPropertyHeight() uint32 {
 	var v gobject.Value
 	x.GetProperty("height", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyTitle sets the "title" property.
@@ -186,7 +186,7 @@ func (x *ShortcutsGroup) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ShortcutsGroup) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ShortcutsGroup) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -318,7 +318,7 @@ func (x *ShortcutsGroup) UpdateProperty(FirstPropertyVar AccessibleProperty, var
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsGroup) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ShortcutsGroup) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -354,7 +354,7 @@ func (x *ShortcutsGroup) UpdateRelation(FirstRelationVar AccessibleRelation, var
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsGroup) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ShortcutsGroup) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -391,7 +391,7 @@ func (x *ShortcutsGroup) UpdateState(FirstStateVar AccessibleState, varArgs ...i
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ShortcutsGroup) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *ShortcutsGroup) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

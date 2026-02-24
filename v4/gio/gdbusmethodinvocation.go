@@ -213,7 +213,7 @@ func (x *DBusMethodInvocation) ReturnDbusError(ErrorNameVar string, ErrorMessage
 
 }
 
-var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int, string, ...interface{})
+var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int32, string, ...interface{})
 
 // Finishes handling a D-Bus method call by returning an error.
 //
@@ -235,26 +235,26 @@ var xDBusMethodInvocationReturnError func(uintptr, glib.Quark, int, string, ...i
 // Since 2.48, if the method call requested for a reply not to be sent
 // then this call will free @invocation but otherwise do nothing (as per
 // the recommendations of the D-Bus specification).
-func (x *DBusMethodInvocation) ReturnError(DomainVar glib.Quark, CodeVar int, FormatVar string, varArgs ...interface{}) {
+func (x *DBusMethodInvocation) ReturnError(DomainVar glib.Quark, CodeVar int32, FormatVar string, varArgs ...interface{}) {
 
 	xDBusMethodInvocationReturnError(x.GoPointer(), DomainVar, CodeVar, FormatVar, varArgs...)
 
 }
 
-var xDBusMethodInvocationReturnErrorLiteral func(uintptr, glib.Quark, int, string)
+var xDBusMethodInvocationReturnErrorLiteral func(uintptr, glib.Quark, int32, string)
 
 // Like g_dbus_method_invocation_return_error() but without printf()-style formatting.
 //
 // This method will take ownership of @invocation. See
 // #GDBusInterfaceVTable for more information about the ownership of
 // @invocation.
-func (x *DBusMethodInvocation) ReturnErrorLiteral(DomainVar glib.Quark, CodeVar int, MessageVar string) {
+func (x *DBusMethodInvocation) ReturnErrorLiteral(DomainVar glib.Quark, CodeVar int32, MessageVar string) {
 
 	xDBusMethodInvocationReturnErrorLiteral(x.GoPointer(), DomainVar, CodeVar, MessageVar)
 
 }
 
-var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int, string, []interface{})
+var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int32, string, []interface{})
 
 // Like g_dbus_method_invocation_return_error() but intended for
 // language bindings.
@@ -262,7 +262,7 @@ var xDBusMethodInvocationReturnErrorValist func(uintptr, glib.Quark, int, string
 // This method will take ownership of @invocation. See
 // #GDBusInterfaceVTable for more information about the ownership of
 // @invocation.
-func (x *DBusMethodInvocation) ReturnErrorValist(DomainVar glib.Quark, CodeVar int, FormatVar string, VarArgsVar []interface{}) {
+func (x *DBusMethodInvocation) ReturnErrorValist(DomainVar glib.Quark, CodeVar int32, FormatVar string, VarArgsVar []interface{}) {
 
 	xDBusMethodInvocationReturnErrorValist(x.GoPointer(), DomainVar, CodeVar, FormatVar, VarArgsVar)
 

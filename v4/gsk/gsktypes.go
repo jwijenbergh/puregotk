@@ -36,7 +36,7 @@ func (x *ComponentTransfer) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewComponentTransferDiscrete func(uint, []float32) *ComponentTransfer
+var xNewComponentTransferDiscrete func(uint32, []float32) *ComponentTransfer
 
 // Creates a new component transfer that applies
 // a step function.
@@ -57,7 +57,7 @@ var xNewComponentTransferDiscrete func(uint, []float32) *ComponentTransfer
 //	&lt;/picture&gt;
 //
 // &lt;/figure&gt;
-func NewComponentTransferDiscrete(NVar uint, ValuesVar []float32) *ComponentTransfer {
+func NewComponentTransferDiscrete(NVar uint32, ValuesVar []float32) *ComponentTransfer {
 
 	cret := xNewComponentTransferDiscrete(NVar, ValuesVar)
 	return cret
@@ -151,7 +151,7 @@ func NewComponentTransferLinear(MVar float32, BVar float32) *ComponentTransfer {
 	return cret
 }
 
-var xNewComponentTransferTable func(uint, []float32) *ComponentTransfer
+var xNewComponentTransferTable func(uint32, []float32) *ComponentTransfer
 
 // Creates a new component transfer that applies
 // a piecewise linear function.
@@ -172,7 +172,7 @@ var xNewComponentTransferTable func(uint, []float32) *ComponentTransfer
 //	&lt;/picture&gt;
 //
 // &lt;/figure&gt;
-func NewComponentTransferTable(NVar uint, ValuesVar []float32) *ComponentTransfer {
+func NewComponentTransferTable(NVar uint32, ValuesVar []float32) *ComponentTransfer {
 
 	cret := xNewComponentTransferTable(NVar, ValuesVar)
 	return cret
@@ -916,9 +916,10 @@ var xPathBuilderToPath func(uintptr) *Path
 
 // Creates a new path from the given builder.
 //
-// The given `GskPathBuilder` is reset once this function returns;
-// you cannot call this function multiple times on the same builder
-// instance.
+// The given `GskPathBuilder` is reset to the initial state once this
+// function returns. Calling this function again on the same builder
+// instance will therefore produce an empty path, not a copy of the same
+// path.
 //
 // This function is intended primarily for language bindings.
 // C code should use [method@Gsk.PathBuilder.free_to_path].
@@ -1489,7 +1490,7 @@ var xTransformTo2dComponents func(uintptr, *float32, *float32, *float32, *float3
 //	gsk_transform_skew (
 //	    gsk_transform_scale (
 //	        gsk_transform_rotate (
-//	            gsk_transform_translate (NULL, &amp;GRAPHENE_POINT_T (dx, dy)),
+//	            gsk_transform_translate (NULL, &amp;GRAPHENE_POINT_INIT (dx, dy)),
 //	            angle),
 //	        scale_x, scale_y),
 //	    skew_x, skew_y)

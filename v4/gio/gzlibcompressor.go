@@ -40,10 +40,10 @@ func ZlibCompressorNewFromInternalPtr(ptr uintptr) *ZlibCompressor {
 	return cls
 }
 
-var xNewZlibCompressor func(ZlibCompressorFormat, int) uintptr
+var xNewZlibCompressor func(ZlibCompressorFormat, int32) uintptr
 
 // Creates a compressor.
-func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int) *ZlibCompressor {
+func NewZlibCompressor(FormatVar ZlibCompressorFormat, LevelVar int32) *ZlibCompressor {
 	var cls *ZlibCompressor
 
 	cret := xNewZlibCompressor(FormatVar, LevelVar)
@@ -73,10 +73,10 @@ func (x *ZlibCompressor) GetFileInfo() *FileInfo {
 	return cls
 }
 
-var xZlibCompressorGetOs func(uintptr) int
+var xZlibCompressorGetOs func(uintptr) int32
 
 // Gets the [property@Gio.ZlibCompressor:os] property.
-func (x *ZlibCompressor) GetOs() int {
+func (x *ZlibCompressor) GetOs() int32 {
 
 	cret := xZlibCompressorGetOs(x.GoPointer())
 	return cret
@@ -95,14 +95,14 @@ func (x *ZlibCompressor) SetFileInfo(FileInfoVar *FileInfo) {
 
 }
 
-var xZlibCompressorSetOs func(uintptr, int)
+var xZlibCompressorSetOs func(uintptr, int32)
 
 // Sets the [property@Gio.ZlibCompressor:os] property.
 //
 // Note: it is an error to call this function while a compression is in
 // progress; it may only be called immediately after creation of @compressor,
 // or after resetting it with [method@Gio.Converter.reset].
-func (x *ZlibCompressor) SetOs(OsVar int) {
+func (x *ZlibCompressor) SetOs(OsVar int32) {
 
 	xZlibCompressorSetOs(x.GoPointer(), OsVar)
 
@@ -124,10 +124,10 @@ func (c *ZlibCompressor) SetGoPointer(ptr uintptr) {
 // compression).
 //
 // `-1` for the default level.
-func (x *ZlibCompressor) SetPropertyLevel(value int) {
+func (x *ZlibCompressor) SetPropertyLevel(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("level", &v)
 }
 
@@ -136,10 +136,10 @@ func (x *ZlibCompressor) SetPropertyLevel(value int) {
 // compression).
 //
 // `-1` for the default level.
-func (x *ZlibCompressor) GetPropertyLevel() int {
+func (x *ZlibCompressor) GetPropertyLevel() int32 {
 	var v gobject.Value
 	x.GetProperty("level", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyOs sets the "os" property.
@@ -153,10 +153,10 @@ func (x *ZlibCompressor) GetPropertyLevel() int {
 // If the value is unset, zlib will set the OS code depending on the platform.
 // This may be undesirable when reproducible output is desired. In that case setting
 // the OS code to `3` (for Unix) is recommended.
-func (x *ZlibCompressor) SetPropertyOs(value int) {
+func (x *ZlibCompressor) SetPropertyOs(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("os", &v)
 }
 
@@ -171,10 +171,10 @@ func (x *ZlibCompressor) SetPropertyOs(value int) {
 // If the value is unset, zlib will set the OS code depending on the platform.
 // This may be undesirable when reproducible output is desired. In that case setting
 // the OS code to `3` (for Unix) is recommended.
-func (x *ZlibCompressor) GetPropertyOs() int {
+func (x *ZlibCompressor) GetPropertyOs() int32 {
 	var v gobject.Value
 	x.GetProperty("os", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // This is the main operation used when converting data. It is to be called

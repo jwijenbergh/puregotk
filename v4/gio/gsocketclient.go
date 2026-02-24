@@ -612,12 +612,12 @@ func (x *SocketClient) GetSocketType() SocketType {
 	return cret
 }
 
-var xSocketClientGetTimeout func(uintptr) uint
+var xSocketClientGetTimeout func(uintptr) uint32
 
 // Gets the I/O timeout time for sockets created by @client.
 //
 // See g_socket_client_set_timeout() for details.
-func (x *SocketClient) GetTimeout() uint {
+func (x *SocketClient) GetTimeout() uint32 {
 
 	cret := xSocketClientGetTimeout(x.GoPointer())
 	return cret
@@ -735,7 +735,7 @@ func (x *SocketClient) SetSocketType(TypeVar SocketType) {
 
 }
 
-var xSocketClientSetTimeout func(uintptr, uint)
+var xSocketClientSetTimeout func(uintptr, uint32)
 
 // Sets the I/O timeout for sockets created by @client. @timeout is a
 // time in seconds, or 0 for no timeout (the default).
@@ -743,7 +743,7 @@ var xSocketClientSetTimeout func(uintptr, uint)
 // The timeout value affects the initial connection attempt as well,
 // so setting this may cause calls to g_socket_client_connect(), etc,
 // to fail with %G_IO_ERROR_TIMED_OUT.
-func (x *SocketClient) SetTimeout(TimeoutVar uint) {
+func (x *SocketClient) SetTimeout(TimeoutVar uint32) {
 
 	xSocketClientSetTimeout(x.GoPointer(), TimeoutVar)
 
@@ -819,19 +819,19 @@ func (x *SocketClient) GetPropertyEnableProxy() bool {
 
 // SetPropertyTimeout sets the "timeout" property.
 // The I/O timeout for sockets, in seconds, or `0` for none.
-func (x *SocketClient) SetPropertyTimeout(value uint) {
+func (x *SocketClient) SetPropertyTimeout(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("timeout", &v)
 }
 
 // GetPropertyTimeout gets the "timeout" property.
 // The I/O timeout for sockets, in seconds, or `0` for none.
-func (x *SocketClient) GetPropertyTimeout() uint {
+func (x *SocketClient) GetPropertyTimeout() uint32 {
 	var v gobject.Value
 	x.GetProperty("timeout", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyTls sets the "tls" property.

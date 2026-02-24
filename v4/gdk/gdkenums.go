@@ -8,9 +8,9 @@ const (
 	//
 	// This can be used in [method@Gdk.Drop.status] messages when any drop
 	// can be accepted or a more specific drop method is not yet known.
-	ACTION_ALL int = 7
+	ACTION_ALL int32 = 7
 	// A mask covering all entries in `GdkModifierType`.
-	MODIFIER_MASK int = 469769999
+	MODIFIER_MASK int32 = 469769999
 )
 
 // Flags describing the current capabilities of a device/tool.

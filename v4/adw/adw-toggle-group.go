@@ -104,10 +104,10 @@ func (x *Toggle) GetIconName() string {
 	return cret
 }
 
-var xToggleGetIndex func(uintptr) uint
+var xToggleGetIndex func(uintptr) uint32
 
 // Gets the index of @self within its toggle group.
-func (x *Toggle) GetIndex() uint {
+func (x *Toggle) GetIndex() uint32 {
 
 	cret := xToggleGetIndex(x.GoPointer())
 	return cret
@@ -523,12 +523,12 @@ func (x *ToggleGroup) Add(ToggleVar *Toggle) {
 
 }
 
-var xToggleGroupGetActive func(uintptr) uint
+var xToggleGroupGetActive func(uintptr) uint32
 
 // Gets the index of the active toggle in @self.
 //
 // Returns `GTK_INVALID_LIST_POSITION` if no toggle is active.
-func (x *ToggleGroup) GetActive() uint {
+func (x *ToggleGroup) GetActive() uint32 {
 
 	cret := xToggleGroupGetActive(x.GoPointer())
 	return cret
@@ -566,19 +566,19 @@ func (x *ToggleGroup) GetHomogeneous() bool {
 	return cret
 }
 
-var xToggleGroupGetNToggles func(uintptr) uint
+var xToggleGroupGetNToggles func(uintptr) uint32
 
 // Gets the number of toggles within @self.
-func (x *ToggleGroup) GetNToggles() uint {
+func (x *ToggleGroup) GetNToggles() uint32 {
 
 	cret := xToggleGroupGetNToggles(x.GoPointer())
 	return cret
 }
 
-var xToggleGroupGetToggle func(uintptr, uint) uintptr
+var xToggleGroupGetToggle func(uintptr, uint32) uintptr
 
 // Gets the toggle with @index from @self.
-func (x *ToggleGroup) GetToggle(IndexVar uint) *Toggle {
+func (x *ToggleGroup) GetToggle(IndexVar uint32) *Toggle {
 	var cls *Toggle
 
 	cret := xToggleGroupGetToggle(x.GoPointer(), IndexVar)
@@ -647,13 +647,13 @@ func (x *ToggleGroup) RemoveAll() {
 
 }
 
-var xToggleGroupSetActive func(uintptr, uint)
+var xToggleGroupSetActive func(uintptr, uint32)
 
 // Sets the active toggle for @self.
 //
 // If the index is larger than the number of toggles in @self, unsets the
 // current active toggle.
-func (x *ToggleGroup) SetActive(ActiveVar uint) {
+func (x *ToggleGroup) SetActive(ActiveVar uint32) {
 
 	xToggleGroupSetActive(x.GoPointer(), ActiveVar)
 
@@ -714,10 +714,10 @@ func (c *ToggleGroup) SetGoPointer(ptr uintptr) {
 //
 // If no toggle is active, the property will be set to
 // [const@Gtk.INVALID_LIST_POSITION].
-func (x *ToggleGroup) SetPropertyActive(value uint) {
+func (x *ToggleGroup) SetPropertyActive(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("active", &v)
 }
 
@@ -729,10 +729,10 @@ func (x *ToggleGroup) SetPropertyActive(value uint) {
 //
 // If no toggle is active, the property will be set to
 // [const@Gtk.INVALID_LIST_POSITION].
-func (x *ToggleGroup) GetPropertyActive() uint {
+func (x *ToggleGroup) GetPropertyActive() uint32 {
 	var v gobject.Value
 	x.GetProperty("active", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyActiveName sets the "active-name" property.
@@ -806,10 +806,10 @@ func (x *ToggleGroup) GetPropertyHomogeneous() bool {
 
 // GetPropertyNToggles gets the "n-toggles" property.
 // The number of toggles within the group.
-func (x *ToggleGroup) GetPropertyNToggles() uint {
+func (x *ToggleGroup) GetPropertyNToggles() uint32 {
 	var v gobject.Value
 	x.GetProperty("n-toggles", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Requests the user's screen reader to announce the given message.
@@ -869,7 +869,7 @@ func (x *ToggleGroup) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ToggleGroup) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ToggleGroup) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1001,7 +1001,7 @@ func (x *ToggleGroup) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, va
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToggleGroup) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ToggleGroup) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1037,7 +1037,7 @@ func (x *ToggleGroup) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, va
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToggleGroup) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ToggleGroup) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1074,7 +1074,7 @@ func (x *ToggleGroup) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ToggleGroup) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *ToggleGroup) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

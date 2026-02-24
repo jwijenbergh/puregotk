@@ -351,10 +351,10 @@ func (x *Image) GetPaintable() *gdk.PaintableBase {
 	return cls
 }
 
-var xImageGetPixelSize func(uintptr) int
+var xImageGetPixelSize func(uintptr) int32
 
 // Gets the pixel size used for named icons.
-func (x *Image) GetPixelSize() int {
+func (x *Image) GetPixelSize() int32 {
 
 	cret := xImageGetPixelSize(x.GoPointer())
 	return cret
@@ -459,13 +459,13 @@ func (x *Image) SetIconSize(IconSizeVar IconSize) {
 
 }
 
-var xImageSetPixelSize func(uintptr, int)
+var xImageSetPixelSize func(uintptr, int32)
 
 // Sets the pixel size to use for named icons.
 //
 // If the pixel size is set to a value != -1, it is used instead
 // of the icon size set by [method@Gtk.Image.set_icon_size].
-func (x *Image) SetPixelSize(PixelSizeVar int) {
+func (x *Image) SetPixelSize(PixelSizeVar int32) {
 
 	xImageSetPixelSize(x.GoPointer(), PixelSizeVar)
 
@@ -526,10 +526,10 @@ func (x *Image) GetPropertyIconName() string {
 // If set to a value != -1, this property overrides the
 // [property@Gtk.Image:icon-size] property for images of type
 // `GTK_IMAGE_ICON_NAME`.
-func (x *Image) SetPropertyPixelSize(value int) {
+func (x *Image) SetPropertyPixelSize(value int32) {
 	var v gobject.Value
-	v.Init(gobject.TypeIntVal)
-	v.SetInt(value)
+	v.Init(gobject.TypeLongVal)
+	v.SetLong(value)
 	x.SetProperty("pixel-size", &v)
 }
 
@@ -539,10 +539,10 @@ func (x *Image) SetPropertyPixelSize(value int) {
 // If set to a value != -1, this property overrides the
 // [property@Gtk.Image:icon-size] property for images of type
 // `GTK_IMAGE_ICON_NAME`.
-func (x *Image) GetPropertyPixelSize() int {
+func (x *Image) GetPropertyPixelSize() int32 {
 	var v gobject.Value
 	x.GetProperty("pixel-size", &v)
-	return v.GetInt()
+	return v.GetLong()
 }
 
 // SetPropertyResource sets the "resource" property.
@@ -644,7 +644,7 @@ func (x *Image) GetAtContext() *ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Image) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Image) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -776,7 +776,7 @@ func (x *Image) UpdateProperty(FirstPropertyVar AccessibleProperty, varArgs ...i
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Image) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []AccessibleProperty, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -812,7 +812,7 @@ func (x *Image) UpdateRelation(FirstRelationVar AccessibleRelation, varArgs ...i
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdateRelationValue(NRelationsVar int, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Image) UpdateRelationValue(NRelationsVar int32, RelationsVar []AccessibleRelation, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -849,7 +849,7 @@ func (x *Image) UpdateState(FirstStateVar AccessibleState, varArgs ...interface{
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Image) UpdateStateValue(NStatesVar int, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
+func (x *Image) UpdateStateValue(NStatesVar int32, StatesVar []AccessibleState, ValuesVar []gobject.Value) {
 
 	XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

@@ -23,7 +23,7 @@ func (x *DragSurfaceInterface) GoPointer() uintptr {
 type DragSurface interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	Present(WidthVar int, HeightVar int) bool
+	Present(WidthVar int32, HeightVar int32) bool
 }
 
 var xDragSurfaceGLibType func() types.GType
@@ -48,13 +48,13 @@ func (x *DragSurfaceBase) SetGoPointer(ptr uintptr) {
 }
 
 // Present @drag_surface.
-func (x *DragSurfaceBase) Present(WidthVar int, HeightVar int) bool {
+func (x *DragSurfaceBase) Present(WidthVar int32, HeightVar int32) bool {
 
 	cret := XGdkDragSurfacePresent(x.GoPointer(), WidthVar, HeightVar)
 	return cret
 }
 
-var XGdkDragSurfacePresent func(uintptr, int, int) bool
+var XGdkDragSurfacePresent func(uintptr, int32, int32) bool
 
 func init() {
 	core.SetPackageName("GDK", "gtk4")

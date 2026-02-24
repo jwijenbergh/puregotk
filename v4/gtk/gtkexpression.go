@@ -171,14 +171,14 @@ func CClosureExpressionNewFromInternalPtr(ptr uintptr) *CClosureExpression {
 	return cls
 }
 
-var xNewCClosureExpression func(types.GType, uintptr, uint, uintptr, uintptr, uintptr, uintptr) uintptr
+var xNewCClosureExpression func(types.GType, uintptr, uint32, uintptr, uintptr, uintptr, uintptr) uintptr
 
 // Creates a `GtkExpression` that calls `callback_func` when it is evaluated.
 //
 // This function is a variant of [ctor@Gtk.ClosureExpression.new] that
 // creates a `GClosure` by calling g_cclosure_new() with the given
 // `callback_func`, `user_data` and `user_destroy`.
-func NewCClosureExpression(ValueTypeVar types.GType, MarshalVar *gobject.ClosureMarshal, NParamsVar uint, ParamsVar uintptr, CallbackFuncVar *gobject.Callback, UserDataVar uintptr, UserDestroyVar *gobject.ClosureNotify) *CClosureExpression {
+func NewCClosureExpression(ValueTypeVar types.GType, MarshalVar *gobject.ClosureMarshal, NParamsVar uint32, ParamsVar uintptr, CallbackFuncVar *gobject.Callback, UserDataVar uintptr, UserDestroyVar *gobject.ClosureNotify) *CClosureExpression {
 	var cls *CClosureExpression
 
 	cret := xNewCClosureExpression(ValueTypeVar, glib.NewCallbackNullable(MarshalVar), NParamsVar, ParamsVar, glib.NewCallback(CallbackFuncVar), UserDataVar, glib.NewCallbackNullable(UserDestroyVar))
@@ -220,13 +220,13 @@ func ClosureExpressionNewFromInternalPtr(ptr uintptr) *ClosureExpression {
 	return cls
 }
 
-var xNewClosureExpression func(types.GType, *gobject.Closure, uint, uintptr) uintptr
+var xNewClosureExpression func(types.GType, *gobject.Closure, uint32, uintptr) uintptr
 
 // Creates a `GtkExpression` that calls `closure` when it is evaluated.
 //
 // `closure` is called with the `this` object and the results of evaluating
 // the `params` expressions.
-func NewClosureExpression(ValueTypeVar types.GType, ClosureVar *gobject.Closure, NParamsVar uint, ParamsVar uintptr) *ClosureExpression {
+func NewClosureExpression(ValueTypeVar types.GType, ClosureVar *gobject.Closure, NParamsVar uint32, ParamsVar uintptr) *ClosureExpression {
 	var cls *ClosureExpression
 
 	cret := xNewClosureExpression(ValueTypeVar, ClosureVar, NParamsVar, ParamsVar)

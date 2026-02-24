@@ -91,7 +91,7 @@ func (x *BytesIcon) Equal(Icon2Var Icon) bool {
 }
 
 // Gets a hash for an icon.
-func (x *BytesIcon) Hash() uint {
+func (x *BytesIcon) Hash() uint32 {
 
 	cret := XGIconHash(x.GoPointer())
 	return cret
@@ -132,7 +132,7 @@ func (x *BytesIcon) ToString() string {
 
 // Loads a loadable icon. For the asynchronous version of this function,
 // see g_loadable_icon_load_async().
-func (x *BytesIcon) Load(SizeVar int, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error) {
+func (x *BytesIcon) Load(SizeVar int32, TypeVar *string, CancellableVar *Cancellable) (*InputStream, error) {
 	var cls *InputStream
 	var cerr *glib.Error
 
@@ -153,7 +153,7 @@ func (x *BytesIcon) Load(SizeVar int, TypeVar *string, CancellableVar *Cancellab
 // Loads an icon asynchronously. To finish this function, see
 // g_loadable_icon_load_finish(). For the synchronous, blocking
 // version of this function, see g_loadable_icon_load().
-func (x *BytesIcon) LoadAsync(SizeVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *BytesIcon) LoadAsync(SizeVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	XGLoadableIconLoadAsync(x.GoPointer(), SizeVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

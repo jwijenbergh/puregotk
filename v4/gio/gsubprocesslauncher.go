@@ -275,7 +275,7 @@ func (x *SubprocessLauncher) Spawnv(ArgvVar []string) (*Subprocess, error) {
 
 }
 
-var xSubprocessLauncherTakeFd func(uintptr, int, int)
+var xSubprocessLauncherTakeFd func(uintptr, int32, int32)
 
 // Transfer an arbitrary file descriptor from parent process to the
 // child.  This function takes ownership of the @source_fd; it will be closed
@@ -289,13 +289,13 @@ var xSubprocessLauncherTakeFd func(uintptr, int, int)
 // An example use case is GNUPG, which has a command line argument
 // `--passphrase-fd` providing a file descriptor number where it expects
 // the passphrase to be written.
-func (x *SubprocessLauncher) TakeFd(SourceFdVar int, TargetFdVar int) {
+func (x *SubprocessLauncher) TakeFd(SourceFdVar int32, TargetFdVar int32) {
 
 	xSubprocessLauncherTakeFd(x.GoPointer(), SourceFdVar, TargetFdVar)
 
 }
 
-var xSubprocessLauncherTakeStderrFd func(uintptr, int)
+var xSubprocessLauncherTakeStderrFd func(uintptr, int32)
 
 // Sets the file descriptor to use as the stderr for spawned processes.
 //
@@ -313,13 +313,13 @@ var xSubprocessLauncherTakeStderrFd func(uintptr, int)
 // if the launcher flags contain any flags directing stderr elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStderrFd(FdVar int) {
+func (x *SubprocessLauncher) TakeStderrFd(FdVar int32) {
 
 	xSubprocessLauncherTakeStderrFd(x.GoPointer(), FdVar)
 
 }
 
-var xSubprocessLauncherTakeStdinFd func(uintptr, int)
+var xSubprocessLauncherTakeStdinFd func(uintptr, int32)
 
 // Sets the file descriptor to use as the stdin for spawned processes.
 //
@@ -339,13 +339,13 @@ var xSubprocessLauncherTakeStdinFd func(uintptr, int)
 // the launcher flags contain any flags directing stdin elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStdinFd(FdVar int) {
+func (x *SubprocessLauncher) TakeStdinFd(FdVar int32) {
 
 	xSubprocessLauncherTakeStdinFd(x.GoPointer(), FdVar)
 
 }
 
-var xSubprocessLauncherTakeStdoutFd func(uintptr, int)
+var xSubprocessLauncherTakeStdoutFd func(uintptr, int32)
 
 // Sets the file descriptor to use as the stdout for spawned processes.
 //
@@ -364,7 +364,7 @@ var xSubprocessLauncherTakeStdoutFd func(uintptr, int)
 // if the launcher flags contain any flags directing stdout elsewhere.
 //
 // This feature is only available on UNIX.
-func (x *SubprocessLauncher) TakeStdoutFd(FdVar int) {
+func (x *SubprocessLauncher) TakeStdoutFd(FdVar int32) {
 
 	xSubprocessLauncherTakeStdoutFd(x.GoPointer(), FdVar)
 

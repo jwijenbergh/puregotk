@@ -138,7 +138,7 @@ func (x *OptionContext) GetSummary() string {
 	return cret
 }
 
-var xOptionContextParse func(uintptr, int, []string, **Error) bool
+var xOptionContextParse func(uintptr, int32, []string, **Error) bool
 
 // Parses the command line arguments, recognizing options
 // which have been added to @context. A side-effect of
@@ -161,7 +161,7 @@ var xOptionContextParse func(uintptr, int, []string, **Error) bool
 // Note that function depends on the
 // [current locale](running.html#locale) for automatic
 // character set conversion of string and filename arguments.
-func (x *OptionContext) Parse(ArgcVar int, ArgvVar []string) (bool, error) {
+func (x *OptionContext) Parse(ArgcVar int32, ArgvVar []string) (bool, error) {
 	var cerr *Error
 
 	cret := xOptionContextParse(x.GoPointer(), ArgcVar, ArgvVar, &cerr)

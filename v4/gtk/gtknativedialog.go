@@ -39,11 +39,11 @@ func (x *NativeDialogClass) GoPointer() uintptr {
 
 // OverrideResponse sets the "response" callback function.
 // class handler for the `GtkNativeDialog::response` signal
-func (x *NativeDialogClass) OverrideResponse(cb func(*NativeDialog, int)) {
+func (x *NativeDialogClass) OverrideResponse(cb func(*NativeDialog, int32)) {
 	if cb == nil {
 		x.xResponse = 0
 	} else {
-		x.xResponse = purego.NewCallback(func(SelfVarp uintptr, ResponseIdVarp int) {
+		x.xResponse = purego.NewCallback(func(SelfVarp uintptr, ResponseIdVarp int32) {
 			cb(NativeDialogNewFromInternalPtr(SelfVarp), ResponseIdVarp)
 		})
 	}
@@ -51,13 +51,13 @@ func (x *NativeDialogClass) OverrideResponse(cb func(*NativeDialog, int)) {
 
 // GetResponse gets the "response" callback function.
 // class handler for the `GtkNativeDialog::response` signal
-func (x *NativeDialogClass) GetResponse() func(*NativeDialog, int) {
+func (x *NativeDialogClass) GetResponse() func(*NativeDialog, int32) {
 	if x.xResponse == 0 {
 		return nil
 	}
-	var rawCallback func(SelfVarp uintptr, ResponseIdVarp int)
+	var rawCallback func(SelfVarp uintptr, ResponseIdVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xResponse)
-	return func(SelfVar *NativeDialog, ResponseIdVar int) {
+	return func(SelfVar *NativeDialog, ResponseIdVar int32) {
 		rawCallback(SelfVar.GoPointer(), ResponseIdVar)
 	}
 }
@@ -433,13 +433,13 @@ func (x *NativeDialog) GetPropertyVisible() bool {
 //
 // If you call [method@Gtk.NativeDialog.hide] before the user
 // responds to the dialog this signal will not be emitted.
-func (x *NativeDialog) ConnectResponse(cb *func(NativeDialog, int)) uint32 {
+func (x *NativeDialog) ConnectResponse(cb *func(NativeDialog, int32)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "response", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, ResponseIdVarp int) {
+	fcb := func(clsPtr uintptr, ResponseIdVarp int32) {
 		fa := NativeDialog{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

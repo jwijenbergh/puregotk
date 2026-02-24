@@ -56,7 +56,7 @@ func (x *Language) GetSampleString() string {
 	return cret
 }
 
-var xLanguageGetScripts func(uintptr, *int) uintptr
+var xLanguageGetScripts func(uintptr, *int32) uintptr
 
 // Determines the scripts used to to write @language.
 //
@@ -81,7 +81,7 @@ var xLanguageGetScripts func(uintptr, *int) uintptr
 // Note: while the return value is declared as `PangoScript`, the
 // returned values are from the `GUnicodeScript` enumeration, which
 // may have more values. Callers need to handle unknown values.
-func (x *Language) GetScripts(NumScriptsVar *int) uintptr {
+func (x *Language) GetScripts(NumScriptsVar *int32) uintptr {
 
 	cret := xLanguageGetScripts(x.GoPointer(), NumScriptsVar)
 	return cret
@@ -141,13 +141,13 @@ func (x *Language) ToString() string {
 type Rectangle struct {
 	_ structs.HostLayout
 
-	X int
+	X int32
 
-	Y int
+	Y int32
 
-	Width int
+	Width int32
 
-	Height int
+	Height int32
 }
 
 func (x *Rectangle) GoPointer() uintptr {
@@ -166,7 +166,7 @@ const (
 	//
 	// When setting font sizes, device units are always considered to be
 	// points (as in "12 point font"), rather than pixels.
-	SCALE int = 1024
+	SCALE int32 = 1024
 )
 
 var xExtentsToPixels func(*Rectangle, *Rectangle)
@@ -194,24 +194,24 @@ func ExtentsToPixels(InclusiveVar *Rectangle, NearestVar *Rectangle) {
 
 }
 
-var xUnitsFromDouble func(float64) int
+var xUnitsFromDouble func(float64) int32
 
 // Converts a floating-point number to Pango units.
 //
 // The conversion is done by multiplying @d by %PANGO_SCALE and
 // rounding the result to nearest integer.
-func UnitsFromDouble(DVar float64) int {
+func UnitsFromDouble(DVar float64) int32 {
 
 	cret := xUnitsFromDouble(DVar)
 	return cret
 }
 
-var xUnitsToDouble func(int) float64
+var xUnitsToDouble func(int32) float64
 
 // Converts a number in Pango units to floating-point.
 //
 // The conversion is done by dividing @i by %PANGO_SCALE.
-func UnitsToDouble(IVar int) float64 {
+func UnitsToDouble(IVar int32) float64 {
 
 	cret := xUnitsToDouble(IVar)
 	return cret

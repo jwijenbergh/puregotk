@@ -58,10 +58,10 @@ func (x *ComponentTransferNode) GetChild() *RenderNode {
 	return cls
 }
 
-var xComponentTransferNodeGetTransfer func(uintptr, uint) *ComponentTransfer
+var xComponentTransferNodeGetTransfer func(uintptr, uint32) *ComponentTransfer
 
 // Gets the component transfer for one of the components.
-func (x *ComponentTransferNode) GetTransfer(ComponentVar uint) *ComponentTransfer {
+func (x *ComponentTransferNode) GetTransfer(ComponentVar uint32) *ComponentTransfer {
 
 	cret := xComponentTransferNodeGetTransfer(x.GoPointer(), ComponentVar)
 	return cret

@@ -28,8 +28,8 @@ func (x *ToplevelInterface) GoPointer() uintptr {
 type Toplevel interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
-	BeginMove(DeviceVar *Device, ButtonVar int, XVar float64, YVar float64, TimestampVar uint32)
-	BeginResize(EdgeVar SurfaceEdge, DeviceVar *Device, ButtonVar int, XVar float64, YVar float64, TimestampVar uint32)
+	BeginMove(DeviceVar *Device, ButtonVar int32, XVar float64, YVar float64, TimestampVar uint32)
+	BeginResize(EdgeVar SurfaceEdge, DeviceVar *Device, ButtonVar int32, XVar float64, YVar float64, TimestampVar uint32)
 	Focus(TimestampVar uint32)
 	GetCapabilities() ToplevelCapabilities
 	GetGravity() Gravity
@@ -76,7 +76,7 @@ func (x *ToplevelBase) SetGoPointer(ptr uintptr) {
 // Begins an interactive move operation.
 //
 // You might use this function to implement draggable titlebars.
-func (x *ToplevelBase) BeginMove(DeviceVar *Device, ButtonVar int, XVar float64, YVar float64, TimestampVar uint32) {
+func (x *ToplevelBase) BeginMove(DeviceVar *Device, ButtonVar int32, XVar float64, YVar float64, TimestampVar uint32) {
 
 	XGdkToplevelBeginMove(x.GoPointer(), DeviceVar.GoPointer(), ButtonVar, XVar, YVar, TimestampVar)
 
@@ -85,7 +85,7 @@ func (x *ToplevelBase) BeginMove(DeviceVar *Device, ButtonVar int, XVar float64,
 // Begins an interactive resize operation.
 //
 // You might use this function to implement a “window resize grip.”
-func (x *ToplevelBase) BeginResize(EdgeVar SurfaceEdge, DeviceVar *Device, ButtonVar int, XVar float64, YVar float64, TimestampVar uint32) {
+func (x *ToplevelBase) BeginResize(EdgeVar SurfaceEdge, DeviceVar *Device, ButtonVar int32, XVar float64, YVar float64, TimestampVar uint32) {
 
 	XGdkToplevelBeginResize(x.GoPointer(), EdgeVar, DeviceVar.GoPointer(), ButtonVar, XVar, YVar, TimestampVar)
 
@@ -461,8 +461,8 @@ func (x *ToplevelBase) GetPropertyTitle() string {
 	return v.GetString()
 }
 
-var XGdkToplevelBeginMove func(uintptr, uintptr, int, float64, float64, uint32)
-var XGdkToplevelBeginResize func(uintptr, SurfaceEdge, uintptr, int, float64, float64, uint32)
+var XGdkToplevelBeginMove func(uintptr, uintptr, int32, float64, float64, uint32)
+var XGdkToplevelBeginResize func(uintptr, SurfaceEdge, uintptr, int32, float64, float64, uint32)
 var XGdkToplevelFocus func(uintptr, uint32)
 var XGdkToplevelGetCapabilities func(uintptr) ToplevelCapabilities
 var XGdkToplevelGetGravity func(uintptr) Gravity

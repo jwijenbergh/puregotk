@@ -107,11 +107,11 @@ func (x *ApplicationClass) GetActivate() func(*Application) {
 
 // OverrideOpen sets the "open" callback function.
 // invoked on the primary instance when there are files to open
-func (x *ApplicationClass) OverrideOpen(cb func(*Application, uintptr, int, string)) {
+func (x *ApplicationClass) OverrideOpen(cb func(*Application, uintptr, int32, string)) {
 	if cb == nil {
 		x.xOpen = 0
 	} else {
-		x.xOpen = purego.NewCallback(func(ApplicationVarp uintptr, FilesVarp uintptr, NFilesVarp int, HintVarp string) {
+		x.xOpen = purego.NewCallback(func(ApplicationVarp uintptr, FilesVarp uintptr, NFilesVarp int32, HintVarp string) {
 			cb(ApplicationNewFromInternalPtr(ApplicationVarp), FilesVarp, NFilesVarp, HintVarp)
 		})
 	}
@@ -119,13 +119,13 @@ func (x *ApplicationClass) OverrideOpen(cb func(*Application, uintptr, int, stri
 
 // GetOpen gets the "open" callback function.
 // invoked on the primary instance when there are files to open
-func (x *ApplicationClass) GetOpen() func(*Application, uintptr, int, string) {
+func (x *ApplicationClass) GetOpen() func(*Application, uintptr, int32, string) {
 	if x.xOpen == 0 {
 		return nil
 	}
-	var rawCallback func(ApplicationVarp uintptr, FilesVarp uintptr, NFilesVarp int, HintVarp string)
+	var rawCallback func(ApplicationVarp uintptr, FilesVarp uintptr, NFilesVarp int32, HintVarp string)
 	purego.RegisterFunc(&rawCallback, x.xOpen)
-	return func(ApplicationVar *Application, FilesVar uintptr, NFilesVar int, HintVar string) {
+	return func(ApplicationVar *Application, FilesVar uintptr, NFilesVar int32, HintVar string) {
 		rawCallback(ApplicationVar.GoPointer(), FilesVar, NFilesVar, HintVar)
 	}
 }
@@ -134,11 +134,11 @@ func (x *ApplicationClass) GetOpen() func(*Application, uintptr, int, string) {
 // invoked on the primary instance when a command-line is
 //
 //	not handled locally
-func (x *ApplicationClass) OverrideCommandLine(cb func(*Application, *ApplicationCommandLine) int) {
+func (x *ApplicationClass) OverrideCommandLine(cb func(*Application, *ApplicationCommandLine) int32) {
 	if cb == nil {
 		x.xCommandLine = 0
 	} else {
-		x.xCommandLine = purego.NewCallback(func(ApplicationVarp uintptr, CommandLineVarp uintptr) int {
+		x.xCommandLine = purego.NewCallback(func(ApplicationVarp uintptr, CommandLineVarp uintptr) int32 {
 			return cb(ApplicationNewFromInternalPtr(ApplicationVarp), ApplicationCommandLineNewFromInternalPtr(CommandLineVarp))
 		})
 	}
@@ -148,13 +148,13 @@ func (x *ApplicationClass) OverrideCommandLine(cb func(*Application, *Applicatio
 // invoked on the primary instance when a command-line is
 //
 //	not handled locally
-func (x *ApplicationClass) GetCommandLine() func(*Application, *ApplicationCommandLine) int {
+func (x *ApplicationClass) GetCommandLine() func(*Application, *ApplicationCommandLine) int32 {
 	if x.xCommandLine == 0 {
 		return nil
 	}
-	var rawCallback func(ApplicationVarp uintptr, CommandLineVarp uintptr) int
+	var rawCallback func(ApplicationVarp uintptr, CommandLineVarp uintptr) int32
 	purego.RegisterFunc(&rawCallback, x.xCommandLine)
-	return func(ApplicationVar *Application, CommandLineVar *ApplicationCommandLine) int {
+	return func(ApplicationVar *Application, CommandLineVar *ApplicationCommandLine) int32 {
 		return rawCallback(ApplicationVar.GoPointer(), CommandLineVar.GoPointer())
 	}
 }
@@ -166,11 +166,11 @@ func (x *ApplicationClass) GetCommandLine() func(*Application, *ApplicationComma
 //	g_application_run() for more information. Also see the
 //	#GApplication::handle-local-options signal, which is a simpler
 //	alternative to handling some commandline options locally
-func (x *ApplicationClass) OverrideLocalCommandLine(cb func(*Application, []string, *int) bool) {
+func (x *ApplicationClass) OverrideLocalCommandLine(cb func(*Application, []string, *int32) bool) {
 	if cb == nil {
 		x.xLocalCommandLine = 0
 	} else {
-		x.xLocalCommandLine = purego.NewCallback(func(ApplicationVarp uintptr, ArgumentsVarp []string, ExitStatusVarp *int) bool {
+		x.xLocalCommandLine = purego.NewCallback(func(ApplicationVarp uintptr, ArgumentsVarp []string, ExitStatusVarp *int32) bool {
 			return cb(ApplicationNewFromInternalPtr(ApplicationVarp), ArgumentsVarp, ExitStatusVarp)
 		})
 	}
@@ -183,13 +183,13 @@ func (x *ApplicationClass) OverrideLocalCommandLine(cb func(*Application, []stri
 //	g_application_run() for more information. Also see the
 //	#GApplication::handle-local-options signal, which is a simpler
 //	alternative to handling some commandline options locally
-func (x *ApplicationClass) GetLocalCommandLine() func(*Application, []string, *int) bool {
+func (x *ApplicationClass) GetLocalCommandLine() func(*Application, []string, *int32) bool {
 	if x.xLocalCommandLine == 0 {
 		return nil
 	}
-	var rawCallback func(ApplicationVarp uintptr, ArgumentsVarp []string, ExitStatusVarp *int) bool
+	var rawCallback func(ApplicationVarp uintptr, ArgumentsVarp []string, ExitStatusVarp *int32) bool
 	purego.RegisterFunc(&rawCallback, x.xLocalCommandLine)
-	return func(ApplicationVar *Application, ArgumentsVar []string, ExitStatusVar *int) bool {
+	return func(ApplicationVar *Application, ArgumentsVar []string, ExitStatusVar *int32) bool {
 		return rawCallback(ApplicationVar.GoPointer(), ArgumentsVar, ExitStatusVar)
 	}
 }
@@ -452,11 +452,11 @@ func (x *ApplicationClass) GetDbusUnregister() func(*Application, *DBusConnectio
 // invoked locally after the parsing of the commandline
 //
 //	options has occurred. Since: 2.40
-func (x *ApplicationClass) OverrideHandleLocalOptions(cb func(*Application, *glib.VariantDict) int) {
+func (x *ApplicationClass) OverrideHandleLocalOptions(cb func(*Application, *glib.VariantDict) int32) {
 	if cb == nil {
 		x.xHandleLocalOptions = 0
 	} else {
-		x.xHandleLocalOptions = purego.NewCallback(func(ApplicationVarp uintptr, OptionsVarp *glib.VariantDict) int {
+		x.xHandleLocalOptions = purego.NewCallback(func(ApplicationVarp uintptr, OptionsVarp *glib.VariantDict) int32 {
 			return cb(ApplicationNewFromInternalPtr(ApplicationVarp), OptionsVarp)
 		})
 	}
@@ -466,13 +466,13 @@ func (x *ApplicationClass) OverrideHandleLocalOptions(cb func(*Application, *gli
 // invoked locally after the parsing of the commandline
 //
 //	options has occurred. Since: 2.40
-func (x *ApplicationClass) GetHandleLocalOptions() func(*Application, *glib.VariantDict) int {
+func (x *ApplicationClass) GetHandleLocalOptions() func(*Application, *glib.VariantDict) int32 {
 	if x.xHandleLocalOptions == 0 {
 		return nil
 	}
-	var rawCallback func(ApplicationVarp uintptr, OptionsVarp *glib.VariantDict) int
+	var rawCallback func(ApplicationVarp uintptr, OptionsVarp *glib.VariantDict) int32
 	purego.RegisterFunc(&rawCallback, x.xHandleLocalOptions)
-	return func(ApplicationVar *Application, OptionsVar *glib.VariantDict) int {
+	return func(ApplicationVar *Application, OptionsVar *glib.VariantDict) int32 {
 		return rawCallback(ApplicationVar.GoPointer(), OptionsVar)
 	}
 }
@@ -888,13 +888,13 @@ func (x *Application) GetFlags() ApplicationFlags {
 	return cret
 }
 
-var xApplicationGetInactivityTimeout func(uintptr) uint
+var xApplicationGetInactivityTimeout func(uintptr) uint32
 
 // Gets the current inactivity timeout for the application.
 //
 // This is the amount of time (in milliseconds) after the last call to
 // g_application_release() before the application stops running.
-func (x *Application) GetInactivityTimeout() uint {
+func (x *Application) GetInactivityTimeout() uint32 {
 
 	cret := xApplicationGetInactivityTimeout(x.GoPointer())
 	return cret
@@ -995,7 +995,7 @@ func (x *Application) MarkBusy() {
 
 }
 
-var xApplicationOpen func(uintptr, uintptr, int, string)
+var xApplicationOpen func(uintptr, uintptr, int32, string)
 
 // Opens the given files.
 //
@@ -1011,7 +1011,7 @@ var xApplicationOpen func(uintptr, uintptr, int, string)
 //
 // The application must be registered before calling this function
 // and it must have the %G_APPLICATION_HANDLES_OPEN flag set.
-func (x *Application) Open(FilesVar uintptr, NFilesVar int, HintVar string) {
+func (x *Application) Open(FilesVar uintptr, NFilesVar int32, HintVar string) {
 
 	xApplicationOpen(x.GoPointer(), FilesVar, NFilesVar, HintVar)
 
@@ -1095,7 +1095,7 @@ func (x *Application) Release() {
 
 }
 
-var xApplicationRun func(uintptr, int, []string) int
+var xApplicationRun func(uintptr, int32, []string) int32
 
 // Runs the application.
 //
@@ -1172,7 +1172,7 @@ var xApplicationRun func(uintptr, int, []string) int
 // should not be used from applications like editors that need precise
 // control over when processes invoked via the commandline will exit and
 // what their exit status will be.
-func (x *Application) Run(ArgcVar int, ArgvVar []string) int {
+func (x *Application) Run(ArgcVar int32, ArgvVar []string) int32 {
 
 	cret := xApplicationRun(x.GoPointer(), ArgcVar, ArgvVar)
 	return cret
@@ -1268,7 +1268,7 @@ func (x *Application) SetFlags(FlagsVar ApplicationFlags) {
 
 }
 
-var xApplicationSetInactivityTimeout func(uintptr, uint)
+var xApplicationSetInactivityTimeout func(uintptr, uint32)
 
 // Sets the current inactivity timeout for the application.
 //
@@ -1278,7 +1278,7 @@ var xApplicationSetInactivityTimeout func(uintptr, uint)
 // This call has no side effects of its own.  The value set here is only
 // used for next time g_application_release() drops the use count to
 // zero.  Any timeouts currently in progress are not impacted.
-func (x *Application) SetInactivityTimeout(InactivityTimeoutVar uint) {
+func (x *Application) SetInactivityTimeout(InactivityTimeoutVar uint32) {
 
 	xApplicationSetInactivityTimeout(x.GoPointer(), InactivityTimeoutVar)
 
@@ -1451,19 +1451,19 @@ func (x *Application) GetPropertyApplicationId() string {
 
 // SetPropertyInactivityTimeout sets the "inactivity-timeout" property.
 // Time (in milliseconds) to stay alive after becoming idle.
-func (x *Application) SetPropertyInactivityTimeout(value uint) {
+func (x *Application) SetPropertyInactivityTimeout(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("inactivity-timeout", &v)
 }
 
 // GetPropertyInactivityTimeout gets the "inactivity-timeout" property.
 // Time (in milliseconds) to stay alive after becoming idle.
-func (x *Application) GetPropertyInactivityTimeout() uint {
+func (x *Application) GetPropertyInactivityTimeout() uint32 {
 	var v gobject.Value
 	x.GetProperty("inactivity-timeout", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyIsBusy gets the "is-busy" property.
@@ -1549,13 +1549,13 @@ func (x *Application) ConnectActivate(cb *func(Application)) uint32 {
 // The ::command-line signal is emitted on the primary instance when
 // a commandline is not handled locally. See g_application_run() and
 // the #GApplicationCommandLine documentation for more information.
-func (x *Application) ConnectCommandLine(cb *func(Application, uintptr) int) uint32 {
+func (x *Application) ConnectCommandLine(cb *func(Application, uintptr) int32) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "command-line", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, CommandLineVarp uintptr) int {
+	fcb := func(clsPtr uintptr, CommandLineVarp uintptr) int32 {
 		fa := Application{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1609,13 +1609,13 @@ func (x *Application) ConnectCommandLine(cb *func(Application, uintptr) int) uin
 // You can override local_command_line() if you need more powerful
 // capabilities than what is provided here, but this should not
 // normally be required.
-func (x *Application) ConnectHandleLocalOptions(cb *func(Application, uintptr) int) uint32 {
+func (x *Application) ConnectHandleLocalOptions(cb *func(Application, uintptr) int32) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "handle-local-options", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, OptionsVarp uintptr) int {
+	fcb := func(clsPtr uintptr, OptionsVarp uintptr) int32 {
 		fa := Application{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -1654,13 +1654,13 @@ func (x *Application) ConnectNameLost(cb *func(Application) bool) uint32 {
 
 // The ::open signal is emitted on the primary instance when there are
 // files to open. See g_application_open() for more information.
-func (x *Application) ConnectOpen(cb *func(Application, uintptr, int, string)) uint32 {
+func (x *Application) ConnectOpen(cb *func(Application, uintptr, int32, string)) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "open", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, FilesVarp uintptr, NFilesVarp int, HintVarp string) {
+	fcb := func(clsPtr uintptr, FilesVarp uintptr, NFilesVarp int32, HintVarp string) {
 		fa := Application{}
 		fa.Ptr = clsPtr
 		cbFn := *cb
@@ -2001,7 +2001,7 @@ func (x *Application) AddAction(ActionVar Action) {
 //	}
 //
 // ```
-func (x *Application) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *Application) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -2058,7 +2058,7 @@ func (x *Application) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *Application) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int) {
+func (x *Application) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int32) {
 
 	XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 

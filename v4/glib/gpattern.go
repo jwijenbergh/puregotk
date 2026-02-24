@@ -117,7 +117,7 @@ func (x *PatternSpec) MatchString(StringVar string) bool {
 	return cret
 }
 
-var xPatternMatch func(*PatternSpec, uint, string, string) bool
+var xPatternMatch func(*PatternSpec, uint32, string, string) bool
 
 // Matches a string against a compiled pattern.
 //
@@ -138,7 +138,7 @@ var xPatternMatch func(*PatternSpec, uint, string, string) bool
 // not be obtained by [func@GLib.strreverse]. This works only if the string
 // does not contain any multibyte characters. GLib offers the
 // [func@GLib.utf8_strreverse] function to reverse UTF-8 encoded strings.
-func PatternMatch(PspecVar *PatternSpec, StringLengthVar uint, StringVar string, StringReversedVar string) bool {
+func PatternMatch(PspecVar *PatternSpec, StringLengthVar uint32, StringVar string, StringReversedVar string) bool {
 
 	cret := xPatternMatch(PspecVar, StringLengthVar, StringVar, StringReversedVar)
 	return cret

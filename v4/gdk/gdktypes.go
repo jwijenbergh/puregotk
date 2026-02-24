@@ -146,14 +146,14 @@ func (x *ContentFormats) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xNewContentFormats func([]string, uint) *ContentFormats
+var xNewContentFormats func([]string, uint32) *ContentFormats
 
 // Creates a new `GdkContentFormats` from an array of mime types.
 //
 // The mime types must be valid and different from each other or the
 // behavior of the return value is undefined. If you cannot guarantee
 // this, use [struct@Gdk.ContentFormatsBuilder] instead.
-func NewContentFormats(MimeTypesVar []string, NMimeTypesVar uint) *ContentFormats {
+func NewContentFormats(MimeTypesVar []string, NMimeTypesVar uint32) *ContentFormats {
 
 	cret := xNewContentFormats(MimeTypesVar, NMimeTypesVar)
 	return cret
@@ -449,11 +449,11 @@ func (x *DmabufFormats) Unref() {
 type KeymapKey struct {
 	_ structs.HostLayout
 
-	Keycode uint
+	Keycode uint32
 
-	Group int
+	Group int32
 
-	Level int
+	Level int32
 }
 
 func (x *KeymapKey) GoPointer() uintptr {
@@ -478,13 +478,13 @@ func (x *KeymapKey) GoPointer() uintptr {
 type Rectangle struct {
 	_ structs.HostLayout
 
-	X int
+	X int32
 
-	Y int
+	Y int32
 
-	Width int
+	Width int32
 
-	Height int
+	Height int32
 }
 
 var xRectangleGLibType func() types.GType
@@ -497,10 +497,10 @@ func (x *Rectangle) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xRectangleContainsPoint func(uintptr, int, int) bool
+var xRectangleContainsPoint func(uintptr, int32, int32) bool
 
 // Returns %TRUE if @rect contains the point described by @x and @y.
-func (x *Rectangle) ContainsPoint(XVar int, YVar int) bool {
+func (x *Rectangle) ContainsPoint(XVar int32, YVar int32) bool {
 
 	cret := xRectangleContainsPoint(x.GoPointer(), XVar, YVar)
 	return cret
@@ -712,7 +712,7 @@ func (x *TextureDownloader) SetTexture(TextureVar *Texture) {
 
 const (
 	// Represents the current time, and can be used anywhere a time is expected.
-	CURRENT_TIME int = 0
+	CURRENT_TIME int32 = 0
 )
 
 func init() {

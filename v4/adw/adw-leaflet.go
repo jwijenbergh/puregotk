@@ -260,10 +260,10 @@ func (x *Leaflet) GetHomogeneous() bool {
 	return cret
 }
 
-var xLeafletGetModeTransitionDuration func(uintptr) uint
+var xLeafletGetModeTransitionDuration func(uintptr) uint32
 
 // Gets the mode transition animation duration for @self.
-func (x *Leaflet) GetModeTransitionDuration() uint {
+func (x *Leaflet) GetModeTransitionDuration() uint32 {
 
 	cret := xLeafletGetModeTransitionDuration(x.GoPointer())
 	return cret
@@ -514,10 +514,10 @@ func (x *Leaflet) SetHomogeneous(HomogeneousVar bool) {
 
 }
 
-var xLeafletSetModeTransitionDuration func(uintptr, uint)
+var xLeafletSetModeTransitionDuration func(uintptr, uint32)
 
 // Sets the mode transition animation duration for @self.
-func (x *Leaflet) SetModeTransitionDuration(DurationVar uint) {
+func (x *Leaflet) SetModeTransitionDuration(DurationVar uint32) {
 
 	xLeafletSetModeTransitionDuration(x.GoPointer(), DurationVar)
 
@@ -761,19 +761,19 @@ func (x *Leaflet) GetPropertyHomogeneous() bool {
 
 // SetPropertyModeTransitionDuration sets the "mode-transition-duration" property.
 // The mode transition animation duration, in milliseconds.
-func (x *Leaflet) SetPropertyModeTransitionDuration(value uint) {
+func (x *Leaflet) SetPropertyModeTransitionDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("mode-transition-duration", &v)
 }
 
 // GetPropertyModeTransitionDuration gets the "mode-transition-duration" property.
 // The mode transition animation duration, in milliseconds.
-func (x *Leaflet) GetPropertyModeTransitionDuration() uint {
+func (x *Leaflet) GetPropertyModeTransitionDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("mode-transition-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyVisibleChildName sets the "visible-child-name" property.
@@ -824,7 +824,7 @@ func (x *Leaflet) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *Leaflet) GetSnapPoints(NSnapPointsVar *int) uintptr {
+func (x *Leaflet) GetSnapPoints(NSnapPointsVar *int32) uintptr {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -902,7 +902,7 @@ func (x *Leaflet) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Leaflet) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Leaflet) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1034,7 +1034,7 @@ func (x *Leaflet) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArg
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Leaflet) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Leaflet) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1070,7 +1070,7 @@ func (x *Leaflet) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArg
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Leaflet) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Leaflet) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1107,7 +1107,7 @@ func (x *Leaflet) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...inte
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Leaflet) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *Leaflet) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

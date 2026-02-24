@@ -286,10 +286,10 @@ func (x *ViewStack) GetPages() *gtk.SelectionModelBase {
 	return cls
 }
 
-var xViewStackGetTransitionDuration func(uintptr) uint
+var xViewStackGetTransitionDuration func(uintptr) uint32
 
 // Gets the transition animation duration for @self.
-func (x *ViewStack) GetTransitionDuration() uint {
+func (x *ViewStack) GetTransitionDuration() uint32 {
 
 	cret := xViewStackGetTransitionDuration(x.GoPointer())
 	return cret
@@ -376,12 +376,12 @@ func (x *ViewStack) SetHhomogeneous(HhomogeneousVar bool) {
 
 }
 
-var xViewStackSetTransitionDuration func(uintptr, uint)
+var xViewStackSetTransitionDuration func(uintptr, uint32)
 
 // Sets the transition animation duration for @self.
 //
 // Only used when [property@ViewStack:enable-transitions] is set to `TRUE`.
-func (x *ViewStack) SetTransitionDuration(DurationVar uint) {
+func (x *ViewStack) SetTransitionDuration(DurationVar uint32) {
 
 	xViewStackSetTransitionDuration(x.GoPointer(), DurationVar)
 
@@ -491,10 +491,10 @@ func (x *ViewStack) GetPropertyHhomogeneous() bool {
 // The transition animation duration, in milliseconds.
 //
 // Only used when [property@ViewStack:enable-transitions] is set to `TRUE`.
-func (x *ViewStack) SetPropertyTransitionDuration(value uint) {
+func (x *ViewStack) SetPropertyTransitionDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("transition-duration", &v)
 }
 
@@ -502,10 +502,10 @@ func (x *ViewStack) SetPropertyTransitionDuration(value uint) {
 // The transition animation duration, in milliseconds.
 //
 // Only used when [property@ViewStack:enable-transitions] is set to `TRUE`.
-func (x *ViewStack) GetPropertyTransitionDuration() uint {
+func (x *ViewStack) GetPropertyTransitionDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("transition-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyTransitionRunning gets the "transition-running" property.
@@ -627,7 +627,7 @@ func (x *ViewStack) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ViewStack) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ViewStack) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -759,7 +759,7 @@ func (x *ViewStack) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varA
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStack) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ViewStack) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -795,7 +795,7 @@ func (x *ViewStack) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varA
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStack) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ViewStack) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -832,7 +832,7 @@ func (x *ViewStack) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...in
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStack) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *ViewStack) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -865,10 +865,10 @@ func ViewStackPageNewFromInternalPtr(ptr uintptr) *ViewStackPage {
 	return cls
 }
 
-var xViewStackPageGetBadgeNumber func(uintptr) uint
+var xViewStackPageGetBadgeNumber func(uintptr) uint32
 
 // Gets the badge number for this page.
-func (x *ViewStackPage) GetBadgeNumber() uint {
+func (x *ViewStackPage) GetBadgeNumber() uint32 {
 
 	cret := xViewStackPageGetBadgeNumber(x.GoPointer())
 	return cret
@@ -948,7 +948,7 @@ func (x *ViewStackPage) GetVisible() bool {
 	return cret
 }
 
-var xViewStackPageSetBadgeNumber func(uintptr, uint)
+var xViewStackPageSetBadgeNumber func(uintptr, uint32)
 
 // Sets the badge number for this page.
 //
@@ -956,7 +956,7 @@ var xViewStackPageSetBadgeNumber func(uintptr, uint)
 // commonly used to display a number of unread items within the page.
 //
 // It can be used together with [property@ViewStack{age}:needs-attention].
-func (x *ViewStackPage) SetBadgeNumber(BadgeNumberVar uint) {
+func (x *ViewStackPage) SetBadgeNumber(BadgeNumberVar uint32) {
 
 	xViewStackPageSetBadgeNumber(x.GoPointer(), BadgeNumberVar)
 
@@ -1039,10 +1039,10 @@ func (c *ViewStackPage) SetGoPointer(ptr uintptr) {
 // commonly used to display a number of unread items within the page.
 //
 // It can be used together with [property@ViewStack{age}:needs-attention].
-func (x *ViewStackPage) SetPropertyBadgeNumber(value uint) {
+func (x *ViewStackPage) SetPropertyBadgeNumber(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("badge-number", &v)
 }
 
@@ -1053,10 +1053,10 @@ func (x *ViewStackPage) SetPropertyBadgeNumber(value uint) {
 // commonly used to display a number of unread items within the page.
 //
 // It can be used together with [property@ViewStack{age}:needs-attention].
-func (x *ViewStackPage) GetPropertyBadgeNumber() uint {
+func (x *ViewStackPage) GetPropertyBadgeNumber() uint32 {
 	var v gobject.Value
 	x.GetProperty("badge-number", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyIconName sets the "icon-name" property.
@@ -1228,7 +1228,7 @@ func (x *ViewStackPage) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *ViewStackPage) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *ViewStackPage) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -1360,7 +1360,7 @@ func (x *ViewStackPage) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, 
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStackPage) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *ViewStackPage) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -1396,7 +1396,7 @@ func (x *ViewStackPage) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, 
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStackPage) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *ViewStackPage) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1433,7 +1433,7 @@ func (x *ViewStackPage) UpdateState(FirstStateVar gtk.AccessibleState, varArgs .
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *ViewStackPage) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *ViewStackPage) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 
@@ -1510,7 +1510,7 @@ func (c *ViewStackPages) SetGoPointer(ptr uintptr) {
 // of the list.
 //
 // See also: g_list_model_get_n_items()
-func (x *ViewStackPages) GetItem(PositionVar uint) uintptr {
+func (x *ViewStackPages) GetItem(PositionVar uint32) uintptr {
 
 	cret := gio.XGListModelGetItem(x.GoPointer(), PositionVar)
 	return cret
@@ -1535,7 +1535,7 @@ func (x *ViewStackPages) GetItemType() types.GType {
 // Depending on the model implementation, calling this function may be
 // less efficient than iterating the list with increasing values for
 // @position until g_list_model_get_item() returns %NULL.
-func (x *ViewStackPages) GetNItems() uint {
+func (x *ViewStackPages) GetNItems() uint32 {
 
 	cret := gio.XGListModelGetNItems(x.GoPointer())
 	return cret
@@ -1553,7 +1553,7 @@ func (x *ViewStackPages) GetNItems() uint {
 // of g_list_model_get_item().
 //
 // See also: g_list_model_get_n_items()
-func (x *ViewStackPages) GetObject(PositionVar uint) *gobject.Object {
+func (x *ViewStackPages) GetObject(PositionVar uint32) *gobject.Object {
 	var cls *gobject.Object
 
 	cret := gio.XGListModelGetObject(x.GoPointer(), PositionVar)
@@ -1586,7 +1586,7 @@ func (x *ViewStackPages) GetObject(PositionVar uint) *gobject.Object {
 // series of accesses to the model via the API, without returning to the
 // mainloop, and without calling other code, will continue to view the
 // same contents of the model.
-func (x *ViewStackPages) ItemsChanged(PositionVar uint, RemovedVar uint, AddedVar uint) {
+func (x *ViewStackPages) ItemsChanged(PositionVar uint32, RemovedVar uint32, AddedVar uint32) {
 
 	gio.XGListModelItemsChanged(x.GoPointer(), PositionVar, RemovedVar, AddedVar)
 
@@ -1610,14 +1610,14 @@ func (x *ViewStackPages) GetSelection() *gtk.Bitset {
 // interested in part of the model's selected state. A common use
 // case is in response to the [signal@Gtk.SelectionModel::selection-changed]
 // signal.
-func (x *ViewStackPages) GetSelectionInRange(PositionVar uint, NItemsVar uint) *gtk.Bitset {
+func (x *ViewStackPages) GetSelectionInRange(PositionVar uint32, NItemsVar uint32) *gtk.Bitset {
 
 	cret := gtk.XGtkSelectionModelGetSelectionInRange(x.GoPointer(), PositionVar, NItemsVar)
 	return cret
 }
 
 // Checks if the given item is selected.
-func (x *ViewStackPages) IsSelected(PositionVar uint) bool {
+func (x *ViewStackPages) IsSelected(PositionVar uint32) bool {
 
 	cret := gtk.XGtkSelectionModelIsSelected(x.GoPointer(), PositionVar)
 	return cret
@@ -1631,14 +1631,14 @@ func (x *ViewStackPages) SelectAll() bool {
 }
 
 // Requests to select an item in the model.
-func (x *ViewStackPages) SelectItem(PositionVar uint, UnselectRestVar bool) bool {
+func (x *ViewStackPages) SelectItem(PositionVar uint32, UnselectRestVar bool) bool {
 
 	cret := gtk.XGtkSelectionModelSelectItem(x.GoPointer(), PositionVar, UnselectRestVar)
 	return cret
 }
 
 // Requests to select a range of items in the model.
-func (x *ViewStackPages) SelectRange(PositionVar uint, NItemsVar uint, UnselectRestVar bool) bool {
+func (x *ViewStackPages) SelectRange(PositionVar uint32, NItemsVar uint32, UnselectRestVar bool) bool {
 
 	cret := gtk.XGtkSelectionModelSelectRange(x.GoPointer(), PositionVar, NItemsVar, UnselectRestVar)
 	return cret
@@ -1648,7 +1648,7 @@ func (x *ViewStackPages) SelectRange(PositionVar uint, NItemsVar uint, UnselectR
 //
 // Call this when the selection changes to emit the
 // [signal@Gtk.SelectionModel::selection-changed] signal.
-func (x *ViewStackPages) SelectionChanged(PositionVar uint, NItemsVar uint) {
+func (x *ViewStackPages) SelectionChanged(PositionVar uint32, NItemsVar uint32) {
 
 	gtk.XGtkSelectionModelSelectionChanged(x.GoPointer(), PositionVar, NItemsVar)
 
@@ -1704,14 +1704,14 @@ func (x *ViewStackPages) UnselectAll() bool {
 }
 
 // Requests to unselect an item in the model.
-func (x *ViewStackPages) UnselectItem(PositionVar uint) bool {
+func (x *ViewStackPages) UnselectItem(PositionVar uint32) bool {
 
 	cret := gtk.XGtkSelectionModelUnselectItem(x.GoPointer(), PositionVar)
 	return cret
 }
 
 // Requests to unselect a range of items in the model.
-func (x *ViewStackPages) UnselectRange(PositionVar uint, NItemsVar uint) bool {
+func (x *ViewStackPages) UnselectRange(PositionVar uint32, NItemsVar uint32) bool {
 
 	cret := gtk.XGtkSelectionModelUnselectRange(x.GoPointer(), PositionVar, NItemsVar)
 	return cret

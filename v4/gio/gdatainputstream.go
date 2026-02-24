@@ -299,7 +299,7 @@ func (x *DataInputStream) ReadLine(LengthVar *uint, CancellableVar *Cancellable)
 
 }
 
-var xDataInputStreamReadLineAsync func(uintptr, int, uintptr, uintptr, uintptr)
+var xDataInputStreamReadLineAsync func(uintptr, int32, uintptr, uintptr, uintptr)
 
 // The asynchronous version of g_data_input_stream_read_line().  It is
 // an error to have two outstanding calls to this function.
@@ -307,7 +307,7 @@ var xDataInputStreamReadLineAsync func(uintptr, int, uintptr, uintptr, uintptr)
 // When the operation is finished, @callback will be called. You
 // can then call g_data_input_stream_read_line_finish() to get
 // the result of the operation.
-func (x *DataInputStream) ReadLineAsync(IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DataInputStream) ReadLineAsync(IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDataInputStreamReadLineAsync(x.GoPointer(), IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -446,7 +446,7 @@ func (x *DataInputStream) ReadUntil(StopCharsVar string, LengthVar *uint, Cancel
 
 }
 
-var xDataInputStreamReadUntilAsync func(uintptr, string, int, uintptr, uintptr, uintptr)
+var xDataInputStreamReadUntilAsync func(uintptr, string, int32, uintptr, uintptr, uintptr)
 
 // The asynchronous version of g_data_input_stream_read_until().
 // It is an error to have two outstanding calls to this function.
@@ -463,7 +463,7 @@ var xDataInputStreamReadUntilAsync func(uintptr, string, int, uintptr, uintptr, 
 // inconsistent with g_data_input_stream_read_until().  Both functions
 // will be marked as deprecated in a future release.  Use
 // g_data_input_stream_read_upto_async() instead.
-func (x *DataInputStream) ReadUntilAsync(StopCharsVar string, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DataInputStream) ReadUntilAsync(StopCharsVar string, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDataInputStreamReadUntilAsync(x.GoPointer(), StopCharsVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 
@@ -509,7 +509,7 @@ func (x *DataInputStream) ReadUpto(StopCharsVar string, StopCharsLenVar int, Len
 
 }
 
-var xDataInputStreamReadUptoAsync func(uintptr, string, int, int, uintptr, uintptr, uintptr)
+var xDataInputStreamReadUptoAsync func(uintptr, string, int, int32, uintptr, uintptr, uintptr)
 
 // The asynchronous version of g_data_input_stream_read_upto().
 // It is an error to have two outstanding calls to this function.
@@ -525,7 +525,7 @@ var xDataInputStreamReadUptoAsync func(uintptr, string, int, int, uintptr, uintp
 // When the operation is finished, @callback will be called. You
 // can then call g_data_input_stream_read_upto_finish() to get
 // the result of the operation.
-func (x *DataInputStream) ReadUptoAsync(StopCharsVar string, StopCharsLenVar int, IoPriorityVar int, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
+func (x *DataInputStream) ReadUptoAsync(StopCharsVar string, StopCharsLenVar int, IoPriorityVar int32, CancellableVar *Cancellable, CallbackVar *AsyncReadyCallback, UserDataVar uintptr) {
 
 	xDataInputStreamReadUptoAsync(x.GoPointer(), StopCharsVar, StopCharsLenVar, IoPriorityVar, CancellableVar.GoPointer(), glib.NewCallbackNullable(CallbackVar), UserDataVar)
 

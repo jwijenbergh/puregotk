@@ -43,7 +43,7 @@ func (x *IConv) GIconv(InbufVar string, InbytesLeftVar uint, OutbufVar string, O
 	return cret
 }
 
-var xIConvClose func(uintptr) int
+var xIConvClose func(uintptr) int32
 
 // Same as the standard UNIX routine iconv_close(), but
 // may be implemented via libiconv on UNIX flavors that lack
@@ -53,7 +53,7 @@ var xIConvClose func(uintptr) int
 //
 // GLib provides g_convert() and g_locale_to_utf8() which are likely
 // more convenient than the raw iconv wrappers.
-func (x *IConv) Close() int {
+func (x *IConv) Close() int32 {
 
 	cret := xIConvClose(x.GoPointer())
 	return cret

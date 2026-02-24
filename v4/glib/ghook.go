@@ -18,7 +18,7 @@ type HookCheckMarshaller func(*Hook, uintptr) bool
 
 // Defines the type of function used to compare #GHook elements in
 // g_hook_insert_sorted().
-type HookCompareFunc func(*Hook, *Hook) int
+type HookCompareFunc func(*Hook, *Hook) int32
 
 // Defines the type of function to be called when a hook in a
 // list of hooks gets finalized.
@@ -44,11 +44,11 @@ type Hook struct {
 
 	Prev *Hook
 
-	RefCount uint
+	RefCount uint32
 
 	HookId uint32
 
-	Flags uint
+	Flags uint32
 
 	Func uintptr
 
@@ -59,11 +59,11 @@ func (x *Hook) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xHookCompareIds func(uintptr, *Hook) int
+var xHookCompareIds func(uintptr, *Hook) int32
 
 // Compares the ids of two #GHook elements, returning a negative value
 // if the second id is greater than the first.
-func (x *Hook) CompareIds(SiblingVar *Hook) int {
+func (x *Hook) CompareIds(SiblingVar *Hook) int32 {
 
 	cret := xHookCompareIds(x.GoPointer(), SiblingVar)
 	return cret
@@ -75,9 +75,9 @@ type HookList struct {
 
 	SeqId uint32
 
-	HookSize uint
+	HookSize uint32
 
-	IsSetup uint
+	IsSetup uint32
 
 	Hooks *Hook
 
@@ -101,11 +101,11 @@ func (x *HookList) Clear() {
 
 }
 
-var xHookListInit func(uintptr, uint)
+var xHookListInit func(uintptr, uint32)
 
 // Initializes a #GHookList.
 // This must be called before the #GHookList is used.
-func (x *HookList) Init(HookSizeVar uint) {
+func (x *HookList) Init(HookSizeVar uint32) {
 
 	xHookListInit(x.GoPointer(), HookSizeVar)
 
@@ -154,7 +154,7 @@ const (
 	// use be the #GHook implementation, i.e.
 	// `1 &lt;&lt; G_HOOK_FLAG_USER_SHIFT` is the first
 	// bit which can be used for application-defined flags.
-	HOOK_FLAG_USER_SHIFT int = 4
+	HOOK_FLAG_USER_SHIFT int32 = 4
 )
 
 // Flags used internally in the #GHook implementation.

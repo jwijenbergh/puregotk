@@ -207,11 +207,11 @@ func (x *IMContextClass) GetRetrieveSurrounding() func(*IMContext) bool {
 // Default handler of the
 //
 //	[signal@Gtk.IMContext::delete-surrounding] signal.
-func (x *IMContextClass) OverrideDeleteSurrounding(cb func(*IMContext, int, int) bool) {
+func (x *IMContextClass) OverrideDeleteSurrounding(cb func(*IMContext, int32, int32) bool) {
 	if cb == nil {
 		x.xDeleteSurrounding = 0
 	} else {
-		x.xDeleteSurrounding = purego.NewCallback(func(ContextVarp uintptr, OffsetVarp int, NCharsVarp int) bool {
+		x.xDeleteSurrounding = purego.NewCallback(func(ContextVarp uintptr, OffsetVarp int32, NCharsVarp int32) bool {
 			return cb(IMContextNewFromInternalPtr(ContextVarp), OffsetVarp, NCharsVarp)
 		})
 	}
@@ -221,13 +221,13 @@ func (x *IMContextClass) OverrideDeleteSurrounding(cb func(*IMContext, int, int)
 // Default handler of the
 //
 //	[signal@Gtk.IMContext::delete-surrounding] signal.
-func (x *IMContextClass) GetDeleteSurrounding() func(*IMContext, int, int) bool {
+func (x *IMContextClass) GetDeleteSurrounding() func(*IMContext, int32, int32) bool {
 	if x.xDeleteSurrounding == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, OffsetVarp int, NCharsVarp int) bool
+	var rawCallback func(ContextVarp uintptr, OffsetVarp int32, NCharsVarp int32) bool
 	purego.RegisterFunc(&rawCallback, x.xDeleteSurrounding)
-	return func(ContextVar *IMContext, OffsetVar int, NCharsVar int) bool {
+	return func(ContextVar *IMContext, OffsetVar int32, NCharsVar int32) bool {
 		return rawCallback(ContextVar.GoPointer(), OffsetVar, NCharsVar)
 	}
 }
@@ -272,11 +272,11 @@ func (x *IMContextClass) GetSetClientWidget() func(*IMContext, *Widget) {
 //	position. Any input method which composes complex characters or any
 //	other compositions from multiple sequential key presses should override
 //	this method to provide feedback.
-func (x *IMContextClass) OverrideGetPreeditString(cb func(*IMContext, *string, **pango.AttrList, *int)) {
+func (x *IMContextClass) OverrideGetPreeditString(cb func(*IMContext, *string, **pango.AttrList, *int32)) {
 	if cb == nil {
 		x.xGetPreeditString = 0
 	} else {
-		x.xGetPreeditString = purego.NewCallback(func(ContextVarp uintptr, StrVarp *string, AttrsVarp **pango.AttrList, CursorPosVarp *int) {
+		x.xGetPreeditString = purego.NewCallback(func(ContextVarp uintptr, StrVarp *string, AttrsVarp **pango.AttrList, CursorPosVarp *int32) {
 			cb(IMContextNewFromInternalPtr(ContextVarp), StrVarp, AttrsVarp, CursorPosVarp)
 		})
 	}
@@ -289,13 +289,13 @@ func (x *IMContextClass) OverrideGetPreeditString(cb func(*IMContext, *string, *
 //	position. Any input method which composes complex characters or any
 //	other compositions from multiple sequential key presses should override
 //	this method to provide feedback.
-func (x *IMContextClass) GetGetPreeditString() func(*IMContext, *string, **pango.AttrList, *int) {
+func (x *IMContextClass) GetGetPreeditString() func(*IMContext, *string, **pango.AttrList, *int32) {
 	if x.xGetPreeditString == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, StrVarp *string, AttrsVarp **pango.AttrList, CursorPosVarp *int)
+	var rawCallback func(ContextVarp uintptr, StrVarp *string, AttrsVarp **pango.AttrList, CursorPosVarp *int32)
 	purego.RegisterFunc(&rawCallback, x.xGetPreeditString)
-	return func(ContextVar *IMContext, StrVar *string, AttrsVar **pango.AttrList, CursorPosVar *int) {
+	return func(ContextVar *IMContext, StrVar *string, AttrsVar **pango.AttrList, CursorPosVar *int32) {
 		rawCallback(ContextVar.GoPointer(), StrVar, AttrsVar, CursorPosVar)
 	}
 }
@@ -506,11 +506,11 @@ func (x *IMContextClass) GetSetUsePreedit() func(*IMContext, bool) {
 //	to override this method even with input methods which implement
 //	context-dependent behavior. The base implementation is sufficient for
 //	[method@Gtk.IMContext.get_surrounding] to work.
-func (x *IMContextClass) OverrideSetSurrounding(cb func(*IMContext, string, int, int)) {
+func (x *IMContextClass) OverrideSetSurrounding(cb func(*IMContext, string, int32, int32)) {
 	if cb == nil {
 		x.xSetSurrounding = 0
 	} else {
-		x.xSetSurrounding = purego.NewCallback(func(ContextVarp uintptr, TextVarp string, LenVarp int, CursorIndexVarp int) {
+		x.xSetSurrounding = purego.NewCallback(func(ContextVarp uintptr, TextVarp string, LenVarp int32, CursorIndexVarp int32) {
 			cb(IMContextNewFromInternalPtr(ContextVarp), TextVarp, LenVarp, CursorIndexVarp)
 		})
 	}
@@ -524,13 +524,13 @@ func (x *IMContextClass) OverrideSetSurrounding(cb func(*IMContext, string, int,
 //	to override this method even with input methods which implement
 //	context-dependent behavior. The base implementation is sufficient for
 //	[method@Gtk.IMContext.get_surrounding] to work.
-func (x *IMContextClass) GetSetSurrounding() func(*IMContext, string, int, int) {
+func (x *IMContextClass) GetSetSurrounding() func(*IMContext, string, int32, int32) {
 	if x.xSetSurrounding == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, TextVarp string, LenVarp int, CursorIndexVarp int)
+	var rawCallback func(ContextVarp uintptr, TextVarp string, LenVarp int32, CursorIndexVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xSetSurrounding)
-	return func(ContextVar *IMContext, TextVar string, LenVar int, CursorIndexVar int) {
+	return func(ContextVar *IMContext, TextVar string, LenVar int32, CursorIndexVar int32) {
 		rawCallback(ContextVar.GoPointer(), TextVar, LenVar, CursorIndexVar)
 	}
 }
@@ -543,11 +543,11 @@ func (x *IMContextClass) GetSetSurrounding() func(*IMContext, string, int, int) 
 //	The base implementation emits [signal@Gtk.IMContext::retrieve-surrounding]
 //	and records the context received by the subsequent invocation of
 //	[vfunc@Gtk.IMContext.get_surrounding].
-func (x *IMContextClass) OverrideGetSurrounding(cb func(*IMContext, *string, *int) bool) {
+func (x *IMContextClass) OverrideGetSurrounding(cb func(*IMContext, *string, *int32) bool) {
 	if cb == nil {
 		x.xGetSurrounding = 0
 	} else {
-		x.xGetSurrounding = purego.NewCallback(func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int) bool {
+		x.xGetSurrounding = purego.NewCallback(func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int32) bool {
 			return cb(IMContextNewFromInternalPtr(ContextVarp), TextVarp, CursorIndexVarp)
 		})
 	}
@@ -561,13 +561,13 @@ func (x *IMContextClass) OverrideGetSurrounding(cb func(*IMContext, *string, *in
 //	The base implementation emits [signal@Gtk.IMContext::retrieve-surrounding]
 //	and records the context received by the subsequent invocation of
 //	[vfunc@Gtk.IMContext.get_surrounding].
-func (x *IMContextClass) GetGetSurrounding() func(*IMContext, *string, *int) bool {
+func (x *IMContextClass) GetGetSurrounding() func(*IMContext, *string, *int32) bool {
 	if x.xGetSurrounding == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int) bool
+	var rawCallback func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int32) bool
 	purego.RegisterFunc(&rawCallback, x.xGetSurrounding)
-	return func(ContextVar *IMContext, TextVar *string, CursorIndexVar *int) bool {
+	return func(ContextVar *IMContext, TextVar *string, CursorIndexVar *int32) bool {
 		return rawCallback(ContextVar.GoPointer(), TextVar, CursorIndexVar)
 	}
 }
@@ -581,11 +581,11 @@ func (x *IMContextClass) GetGetSurrounding() func(*IMContext, *string, *int) boo
 //	override this method even with input methods which implement
 //	context-dependent behavior. The base implementation is sufficient for
 //	[method@Gtk.IMContext.get_surrounding] to work.
-func (x *IMContextClass) OverrideSetSurroundingWithSelection(cb func(*IMContext, string, int, int, int)) {
+func (x *IMContextClass) OverrideSetSurroundingWithSelection(cb func(*IMContext, string, int32, int32, int32)) {
 	if cb == nil {
 		x.xSetSurroundingWithSelection = 0
 	} else {
-		x.xSetSurroundingWithSelection = purego.NewCallback(func(ContextVarp uintptr, TextVarp string, LenVarp int, CursorIndexVarp int, AnchorIndexVarp int) {
+		x.xSetSurroundingWithSelection = purego.NewCallback(func(ContextVarp uintptr, TextVarp string, LenVarp int32, CursorIndexVarp int32, AnchorIndexVarp int32) {
 			cb(IMContextNewFromInternalPtr(ContextVarp), TextVarp, LenVarp, CursorIndexVarp, AnchorIndexVarp)
 		})
 	}
@@ -600,13 +600,13 @@ func (x *IMContextClass) OverrideSetSurroundingWithSelection(cb func(*IMContext,
 //	override this method even with input methods which implement
 //	context-dependent behavior. The base implementation is sufficient for
 //	[method@Gtk.IMContext.get_surrounding] to work.
-func (x *IMContextClass) GetSetSurroundingWithSelection() func(*IMContext, string, int, int, int) {
+func (x *IMContextClass) GetSetSurroundingWithSelection() func(*IMContext, string, int32, int32, int32) {
 	if x.xSetSurroundingWithSelection == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, TextVarp string, LenVarp int, CursorIndexVarp int, AnchorIndexVarp int)
+	var rawCallback func(ContextVarp uintptr, TextVarp string, LenVarp int32, CursorIndexVarp int32, AnchorIndexVarp int32)
 	purego.RegisterFunc(&rawCallback, x.xSetSurroundingWithSelection)
-	return func(ContextVar *IMContext, TextVar string, LenVar int, CursorIndexVar int, AnchorIndexVar int) {
+	return func(ContextVar *IMContext, TextVar string, LenVar int32, CursorIndexVar int32, AnchorIndexVar int32) {
 		rawCallback(ContextVar.GoPointer(), TextVar, LenVar, CursorIndexVar, AnchorIndexVar)
 	}
 }
@@ -620,11 +620,11 @@ func (x *IMContextClass) GetSetSurroundingWithSelection() func(*IMContext, strin
 //	behavior. The base implementation emits
 //	[signal@Gtk.IMContext::retrieve-surrounding] and records the context
 //	received by the subsequent invocation of [vfunc@Gtk.IMContext.get_surrounding].
-func (x *IMContextClass) OverrideGetSurroundingWithSelection(cb func(*IMContext, *string, *int, *int) bool) {
+func (x *IMContextClass) OverrideGetSurroundingWithSelection(cb func(*IMContext, *string, *int32, *int32) bool) {
 	if cb == nil {
 		x.xGetSurroundingWithSelection = 0
 	} else {
-		x.xGetSurroundingWithSelection = purego.NewCallback(func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int, AnchorIndexVarp *int) bool {
+		x.xGetSurroundingWithSelection = purego.NewCallback(func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int32, AnchorIndexVarp *int32) bool {
 			return cb(IMContextNewFromInternalPtr(ContextVarp), TextVarp, CursorIndexVarp, AnchorIndexVarp)
 		})
 	}
@@ -639,13 +639,13 @@ func (x *IMContextClass) OverrideGetSurroundingWithSelection(cb func(*IMContext,
 //	behavior. The base implementation emits
 //	[signal@Gtk.IMContext::retrieve-surrounding] and records the context
 //	received by the subsequent invocation of [vfunc@Gtk.IMContext.get_surrounding].
-func (x *IMContextClass) GetGetSurroundingWithSelection() func(*IMContext, *string, *int, *int) bool {
+func (x *IMContextClass) GetGetSurroundingWithSelection() func(*IMContext, *string, *int32, *int32) bool {
 	if x.xGetSurroundingWithSelection == 0 {
 		return nil
 	}
-	var rawCallback func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int, AnchorIndexVarp *int) bool
+	var rawCallback func(ContextVarp uintptr, TextVarp *string, CursorIndexVarp *int32, AnchorIndexVarp *int32) bool
 	purego.RegisterFunc(&rawCallback, x.xGetSurroundingWithSelection)
-	return func(ContextVar *IMContext, TextVar *string, CursorIndexVar *int, AnchorIndexVar *int) bool {
+	return func(ContextVar *IMContext, TextVar *string, CursorIndexVar *int32, AnchorIndexVar *int32) bool {
 		return rawCallback(ContextVar.GoPointer(), TextVar, CursorIndexVar, AnchorIndexVar)
 	}
 }
@@ -823,7 +823,7 @@ func (x *IMContext) ActivateOsk(EventVar *gdk.Event) bool {
 	return cret
 }
 
-var xIMContextDeleteSurrounding func(uintptr, int, int) bool
+var xIMContextDeleteSurrounding func(uintptr, int32, int32) bool
 
 // Asks the widget that the input context is attached to delete
 // characters around the cursor position by emitting the
@@ -842,18 +842,18 @@ var xIMContextDeleteSurrounding func(uintptr, int, int) bool
 // This function is used by an input method that wants to make
 // substitutions in the existing text in response to new input.
 // It is not useful for applications.
-func (x *IMContext) DeleteSurrounding(OffsetVar int, NCharsVar int) bool {
+func (x *IMContext) DeleteSurrounding(OffsetVar int32, NCharsVar int32) bool {
 
 	cret := xIMContextDeleteSurrounding(x.GoPointer(), OffsetVar, NCharsVar)
 	return cret
 }
 
-var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint, gdk.ModifierType, int) bool
+var xIMContextFilterKey func(uintptr, bool, uintptr, uintptr, uint32, uint32, gdk.ModifierType, int32) bool
 
 // Allow an input method to forward key press and release events
 // to another input method without necessarily having a `GdkEvent`
 // available.
-func (x *IMContext) FilterKey(PressVar bool, SurfaceVar *gdk.Surface, DeviceVar *gdk.Device, TimeVar uint32, KeycodeVar uint, StateVar gdk.ModifierType, GroupVar int) bool {
+func (x *IMContext) FilterKey(PressVar bool, SurfaceVar *gdk.Surface, DeviceVar *gdk.Device, TimeVar uint32, KeycodeVar uint32, StateVar gdk.ModifierType, GroupVar int32) bool {
 
 	cret := xIMContextFilterKey(x.GoPointer(), PressVar, SurfaceVar.GoPointer(), DeviceVar.GoPointer(), TimeVar, KeycodeVar, StateVar, GroupVar)
 	return cret
@@ -898,19 +898,19 @@ func (x *IMContext) FocusOut() {
 
 }
 
-var xIMContextGetPreeditString func(uintptr, *string, **pango.AttrList, *int)
+var xIMContextGetPreeditString func(uintptr, *string, **pango.AttrList, *int32)
 
 // Retrieve the current preedit string for the input context,
 // and a list of attributes to apply to the string.
 //
 // This string should be displayed inserted at the insertion point.
-func (x *IMContext) GetPreeditString(StrVar *string, AttrsVar **pango.AttrList, CursorPosVar *int) {
+func (x *IMContext) GetPreeditString(StrVar *string, AttrsVar **pango.AttrList, CursorPosVar *int32) {
 
 	xIMContextGetPreeditString(x.GoPointer(), StrVar, AttrsVar, CursorPosVar)
 
 }
 
-var xIMContextGetSurrounding func(uintptr, *string, *int) bool
+var xIMContextGetSurrounding func(uintptr, *string, *int32) bool
 
 // Retrieves context around the insertion point.
 //
@@ -927,13 +927,13 @@ var xIMContextGetSurrounding func(uintptr, *string, *int) bool
 // Note that there is no obligation for a widget to respond to the
 // `::retrieve-surrounding` signal, so input methods must be prepared to
 // function without context.
-func (x *IMContext) GetSurrounding(TextVar *string, CursorIndexVar *int) bool {
+func (x *IMContext) GetSurrounding(TextVar *string, CursorIndexVar *int32) bool {
 
 	cret := xIMContextGetSurrounding(x.GoPointer(), TextVar, CursorIndexVar)
 	return cret
 }
 
-var xIMContextGetSurroundingWithSelection func(uintptr, *string, *int, *int) bool
+var xIMContextGetSurroundingWithSelection func(uintptr, *string, *int32, *int32) bool
 
 // Retrieves context around the insertion point.
 //
@@ -950,7 +950,7 @@ var xIMContextGetSurroundingWithSelection func(uintptr, *string, *int, *int) boo
 // Note that there is no obligation for a widget to respond to the
 // `::retrieve-surrounding` signal, so input methods must be prepared to
 // function without context.
-func (x *IMContext) GetSurroundingWithSelection(TextVar *string, CursorIndexVar *int, AnchorIndexVar *int) bool {
+func (x *IMContext) GetSurroundingWithSelection(TextVar *string, CursorIndexVar *int32, AnchorIndexVar *int32) bool {
 
 	cret := xIMContextGetSurroundingWithSelection(x.GoPointer(), TextVar, CursorIndexVar, AnchorIndexVar)
 	return cret
@@ -993,7 +993,7 @@ func (x *IMContext) SetCursorLocation(AreaVar *gdk.Rectangle) {
 
 }
 
-var xIMContextSetSurrounding func(uintptr, string, int, int)
+var xIMContextSetSurrounding func(uintptr, string, int32, int32)
 
 // Sets surrounding context around the insertion point and preedit
 // string.
@@ -1001,19 +1001,19 @@ var xIMContextSetSurrounding func(uintptr, string, int, int)
 // This function is expected to be called in response to the
 // [signal@Gtk.IMContext::retrieve-surrounding] signal, and will
 // likely have no effect if called at other times.
-func (x *IMContext) SetSurrounding(TextVar string, LenVar int, CursorIndexVar int) {
+func (x *IMContext) SetSurrounding(TextVar string, LenVar int32, CursorIndexVar int32) {
 
 	xIMContextSetSurrounding(x.GoPointer(), TextVar, LenVar, CursorIndexVar)
 
 }
 
-var xIMContextSetSurroundingWithSelection func(uintptr, string, int, int, int)
+var xIMContextSetSurroundingWithSelection func(uintptr, string, int32, int32, int32)
 
 // Sets surrounding context around the insertion point and preedit
 // string. This function is expected to be called in response to the
 // [signal@Gtk.IMContext::retrieve_surrounding] signal, and will likely
 // have no effect if called at other times.
-func (x *IMContext) SetSurroundingWithSelection(TextVar string, LenVar int, CursorIndexVar int, AnchorIndexVar int) {
+func (x *IMContext) SetSurroundingWithSelection(TextVar string, LenVar int32, CursorIndexVar int32, AnchorIndexVar int32) {
 
 	xIMContextSetSurroundingWithSelection(x.GoPointer(), TextVar, LenVar, CursorIndexVar, AnchorIndexVar)
 
@@ -1073,13 +1073,13 @@ func (x *IMContext) ConnectCommit(cb *func(IMContext, string)) uint32 {
 
 // The ::delete-surrounding signal is emitted when the input method
 // needs to delete all or part of the context surrounding the cursor.
-func (x *IMContext) ConnectDeleteSurrounding(cb *func(IMContext, int, int) bool) uint32 {
+func (x *IMContext) ConnectDeleteSurrounding(cb *func(IMContext, int32, int32) bool) uint32 {
 	cbPtr := uintptr(unsafe.Pointer(cb))
 	if cbRefPtr, ok := glib.GetCallback(cbPtr); ok {
 		return gobject.SignalConnect(x.GoPointer(), "delete-surrounding", cbRefPtr)
 	}
 
-	fcb := func(clsPtr uintptr, OffsetVarp int, NCharsVarp int) bool {
+	fcb := func(clsPtr uintptr, OffsetVarp int32, NCharsVarp int32) bool {
 		fa := IMContext{}
 		fa.Ptr = clsPtr
 		cbFn := *cb

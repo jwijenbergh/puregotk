@@ -239,10 +239,10 @@ type ActionMap interface {
 	GoPointer() uintptr
 	SetGoPointer(uintptr)
 	AddAction(ActionVar Action)
-	AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr)
+	AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int32, UserDataVar uintptr)
 	LookupAction(ActionNameVar string) *ActionBase
 	RemoveAction(ActionNameVar string)
-	RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int)
+	RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int32)
 }
 
 var xActionMapGLibType func() types.GType
@@ -321,7 +321,7 @@ func (x *ActionMapBase) AddAction(ActionVar Action) {
 //	}
 //
 // ```
-func (x *ActionMapBase) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int, UserDataVar uintptr) {
+func (x *ActionMapBase) AddActionEntries(EntriesVar []ActionEntry, NEntriesVar int32, UserDataVar uintptr) {
 
 	XGActionMapAddActionEntries(x.GoPointer(), EntriesVar, NEntriesVar, UserDataVar)
 
@@ -378,17 +378,17 @@ func (x *ActionMapBase) RemoveAction(ActionNameVar string) {
 //	}
 //
 // ```
-func (x *ActionMapBase) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int) {
+func (x *ActionMapBase) RemoveActionEntries(EntriesVar []ActionEntry, NEntriesVar int32) {
 
 	XGActionMapRemoveActionEntries(x.GoPointer(), EntriesVar, NEntriesVar)
 
 }
 
 var XGActionMapAddAction func(uintptr, uintptr)
-var XGActionMapAddActionEntries func(uintptr, []ActionEntry, int, uintptr)
+var XGActionMapAddActionEntries func(uintptr, []ActionEntry, int32, uintptr)
 var XGActionMapLookupAction func(uintptr, string) uintptr
 var XGActionMapRemoveAction func(uintptr, string)
-var XGActionMapRemoveActionEntries func(uintptr, []ActionEntry, int)
+var XGActionMapRemoveActionEntries func(uintptr, []ActionEntry, int32)
 
 func init() {
 	core.SetPackageName("GIO", "gio-2.0")

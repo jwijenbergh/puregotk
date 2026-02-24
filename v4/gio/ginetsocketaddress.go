@@ -66,14 +66,14 @@ func NewInetSocketAddress(AddressVar *InetAddress, PortVar uint16) *InetSocketAd
 	return cls
 }
 
-var xNewInetSocketAddressFromString func(string, uint) uintptr
+var xNewInetSocketAddressFromString func(string, uint32) uintptr
 
 // Creates a new #GInetSocketAddress for @address and @port.
 //
 // If @address is an IPv6 address, it can also contain a scope ID
 // (separated from the address by a `%`). Note that currently this
 // behavior is platform specific. This may change in a future release.
-func NewInetSocketAddressFromString(AddressVar string, PortVar uint) *InetSocketAddress {
+func NewInetSocketAddressFromString(AddressVar string, PortVar uint32) *InetSocketAddress {
 	var cls *InetSocketAddress
 
 	cret := xNewInetSocketAddressFromString(AddressVar, PortVar)
@@ -151,10 +151,10 @@ func (c *InetSocketAddress) SetGoPointer(ptr uintptr) {
 // The `sin6_flowinfo` field, for IPv6 addresses.
 //
 // If unset this property is inherited from [property@Gio.InetSocketAddress:address].
-func (x *InetSocketAddress) SetPropertyFlowinfo(value uint) {
+func (x *InetSocketAddress) SetPropertyFlowinfo(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("flowinfo", &v)
 }
 
@@ -162,37 +162,37 @@ func (x *InetSocketAddress) SetPropertyFlowinfo(value uint) {
 // The `sin6_flowinfo` field, for IPv6 addresses.
 //
 // If unset this property is inherited from [property@Gio.InetSocketAddress:address].
-func (x *InetSocketAddress) GetPropertyFlowinfo() uint {
+func (x *InetSocketAddress) GetPropertyFlowinfo() uint32 {
 	var v gobject.Value
 	x.GetProperty("flowinfo", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyPort sets the "port" property.
 // The port.
-func (x *InetSocketAddress) SetPropertyPort(value uint) {
+func (x *InetSocketAddress) SetPropertyPort(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("port", &v)
 }
 
 // GetPropertyPort gets the "port" property.
 // The port.
-func (x *InetSocketAddress) GetPropertyPort() uint {
+func (x *InetSocketAddress) GetPropertyPort() uint32 {
 	var v gobject.Value
 	x.GetProperty("port", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // SetPropertyScopeId sets the "scope-id" property.
 // The `sin6_scope_id` field, for IPv6 addresses.
 //
 // If unset this property is inherited from [property@Gio.InetSocketAddress:address].
-func (x *InetSocketAddress) SetPropertyScopeId(value uint) {
+func (x *InetSocketAddress) SetPropertyScopeId(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("scope-id", &v)
 }
 
@@ -200,10 +200,10 @@ func (x *InetSocketAddress) SetPropertyScopeId(value uint) {
 // The `sin6_scope_id` field, for IPv6 addresses.
 //
 // If unset this property is inherited from [property@Gio.InetSocketAddress:address].
-func (x *InetSocketAddress) GetPropertyScopeId() uint {
+func (x *InetSocketAddress) GetPropertyScopeId() uint32 {
 	var v gobject.Value
 	x.GetProperty("scope-id", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // Creates a #GSocketAddressEnumerator for @connectable.

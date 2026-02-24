@@ -90,15 +90,15 @@ func (x *MemChunk) Reset() {
 }
 
 const (
-	ALLOCATOR_LIST int = 1
+	ALLOCATOR_LIST int32 = 1
 
-	ALLOCATOR_NODE int = 3
+	ALLOCATOR_NODE int32 = 3
 
-	ALLOCATOR_SLIST int = 2
+	ALLOCATOR_SLIST int32 = 2
 
-	ALLOC_AND_FREE int = 2
+	ALLOC_AND_FREE int32 = 2
 
-	ALLOC_ONLY int = 1
+	ALLOC_ONLY int32 = 1
 )
 
 var xBlowChunks func()

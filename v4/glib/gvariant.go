@@ -850,7 +850,7 @@ func (x *Variant) Classify() VariantClass {
 	return cret
 }
 
-var xVariantCompare func(uintptr, uintptr) int
+var xVariantCompare func(uintptr, uintptr) int32
 
 // Compares @one and @two.
 //
@@ -871,7 +871,7 @@ var xVariantCompare func(uintptr, uintptr) int
 //
 // If you only require an equality comparison, g_variant_equal() is more
 // general.
-func (x *Variant) Compare(TwoVar uintptr) int {
+func (x *Variant) Compare(TwoVar uintptr) int32 {
 
 	cret := xVariantCompare(x.GoPointer(), TwoVar)
 	return cret
@@ -1477,7 +1477,7 @@ func (x *Variant) GetVariant() *Variant {
 	return cret
 }
 
-var xVariantHash func(uintptr) uint
+var xVariantHash func(uintptr) uint32
 
 // Generates a hash value for a #GVariant instance.
 //
@@ -1488,7 +1488,7 @@ var xVariantHash func(uintptr) uint
 //
 // The type of @value is #gconstpointer only to allow use of this
 // function with #GHashTable.  @value must be a #GVariant.
-func (x *Variant) Hash() uint {
+func (x *Variant) Hash() uint32 {
 
 	cret := xVariantHash(x.GoPointer())
 	return cret

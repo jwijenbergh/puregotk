@@ -119,7 +119,7 @@ func (x *Emblem) Equal(Icon2Var Icon) bool {
 }
 
 // Gets a hash for an icon.
-func (x *Emblem) Hash() uint {
+func (x *Emblem) Hash() uint32 {
 
 	cret := XGIconHash(x.GoPointer())
 	return cret

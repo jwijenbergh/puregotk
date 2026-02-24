@@ -208,10 +208,10 @@ func (x *Flap) GetFlapPosition() gtk.PackType {
 	return cret
 }
 
-var xFlapGetFoldDuration func(uintptr) uint
+var xFlapGetFoldDuration func(uintptr) uint32
 
 // Gets the fold transition animation duration for @self, in milliseconds.
-func (x *Flap) GetFoldDuration() uint {
+func (x *Flap) GetFoldDuration() uint32 {
 
 	cret := xFlapGetFoldDuration(x.GoPointer())
 	return cret
@@ -373,10 +373,10 @@ func (x *Flap) SetFlapPosition(PositionVar gtk.PackType) {
 
 }
 
-var xFlapSetFoldDuration func(uintptr, uint)
+var xFlapSetFoldDuration func(uintptr, uint32)
 
 // Sets the fold transition animation duration for @self, in milliseconds.
-func (x *Flap) SetFoldDuration(DurationVar uint) {
+func (x *Flap) SetFoldDuration(DurationVar uint32) {
 
 	xFlapSetFoldDuration(x.GoPointer(), DurationVar)
 
@@ -521,19 +521,19 @@ func (c *Flap) SetGoPointer(ptr uintptr) {
 
 // SetPropertyFoldDuration sets the "fold-duration" property.
 // The fold transition animation duration, in milliseconds.
-func (x *Flap) SetPropertyFoldDuration(value uint) {
+func (x *Flap) SetPropertyFoldDuration(value uint32) {
 	var v gobject.Value
-	v.Init(gobject.TypeUintVal)
-	v.SetUint(value)
+	v.Init(gobject.TypeUlongVal)
+	v.SetUlong(value)
 	x.SetProperty("fold-duration", &v)
 }
 
 // GetPropertyFoldDuration gets the "fold-duration" property.
 // The fold transition animation duration, in milliseconds.
-func (x *Flap) GetPropertyFoldDuration() uint {
+func (x *Flap) GetPropertyFoldDuration() uint32 {
 	var v gobject.Value
 	x.GetProperty("fold-duration", &v)
-	return v.GetUint()
+	return v.GetUlong()
 }
 
 // GetPropertyFolded gets the "folded" property.
@@ -727,7 +727,7 @@ func (x *Flap) GetProgress() float64 {
 //
 // Each snap point represents a progress value that is considered acceptable to
 // end the swipe on.
-func (x *Flap) GetSnapPoints(NSnapPointsVar *int) uintptr {
+func (x *Flap) GetSnapPoints(NSnapPointsVar *int32) uintptr {
 
 	cret := XAdwSwipeableGetSnapPoints(x.GoPointer(), NSnapPointsVar)
 	return cret
@@ -805,7 +805,7 @@ func (x *Flap) GetAtContext() *gtk.ATContext {
 // This functionality can be overridden by `GtkAccessible`
 // implementations, e.g. to get the bounds from an ignored
 // child widget.
-func (x *Flap) GetBounds(XVar *int, YVar *int, WidthVar *int, HeightVar *int) bool {
+func (x *Flap) GetBounds(XVar *int32, YVar *int32, WidthVar *int32, HeightVar *int32) bool {
 
 	cret := gtk.XGtkAccessibleGetBounds(x.GoPointer(), XVar, YVar, WidthVar, HeightVar)
 	return cret
@@ -937,7 +937,7 @@ func (x *Flap) UpdateProperty(FirstPropertyVar gtk.AccessibleProperty, varArgs .
 // property change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Flap) UpdatePropertyValue(NPropertiesVar int, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
+func (x *Flap) UpdatePropertyValue(NPropertiesVar int32, PropertiesVar []gtk.AccessibleProperty, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdatePropertyValue(x.GoPointer(), NPropertiesVar, PropertiesVar, ValuesVar)
 
@@ -973,7 +973,7 @@ func (x *Flap) UpdateRelation(FirstRelationVar gtk.AccessibleRelation, varArgs .
 // relation change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Flap) UpdateRelationValue(NRelationsVar int, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
+func (x *Flap) UpdateRelationValue(NRelationsVar int32, RelationsVar []gtk.AccessibleRelation, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateRelationValue(x.GoPointer(), NRelationsVar, RelationsVar, ValuesVar)
 
@@ -1010,7 +1010,7 @@ func (x *Flap) UpdateState(FirstStateVar gtk.AccessibleState, varArgs ...interfa
 // state change must be communicated to assistive technologies.
 //
 // This function is meant to be used by language bindings.
-func (x *Flap) UpdateStateValue(NStatesVar int, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
+func (x *Flap) UpdateStateValue(NStatesVar int32, StatesVar []gtk.AccessibleState, ValuesVar []gobject.Value) {
 
 	gtk.XGtkAccessibleUpdateStateValue(x.GoPointer(), NStatesVar, StatesVar, ValuesVar)
 

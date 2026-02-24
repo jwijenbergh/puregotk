@@ -20,7 +20,7 @@ func (x *AsyncQueue) GoPointer() uintptr {
 	return uintptr(unsafe.Pointer(x))
 }
 
-var xAsyncQueueLength func(uintptr) int
+var xAsyncQueueLength func(uintptr) int32
 
 // Returns the length of the queue.
 //
@@ -30,13 +30,13 @@ var xAsyncQueueLength func(uintptr) int
 // entries in the @queue. A return value of 0 could mean n entries
 // in the queue and n threads waiting. This can happen due to locking
 // of the queue or due to scheduling.
-func (x *AsyncQueue) Length() int {
+func (x *AsyncQueue) Length() int32 {
 
 	cret := xAsyncQueueLength(x.GoPointer())
 	return cret
 }
 
-var xAsyncQueueLengthUnlocked func(uintptr) int
+var xAsyncQueueLengthUnlocked func(uintptr) int32
 
 // Returns the length of the queue.
 //
@@ -48,7 +48,7 @@ var xAsyncQueueLengthUnlocked func(uintptr) int
 // of the queue or due to scheduling.
 //
 // This function must be called while holding the @queue's lock.
-func (x *AsyncQueue) LengthUnlocked() int {
+func (x *AsyncQueue) LengthUnlocked() int32 {
 
 	cret := xAsyncQueueLengthUnlocked(x.GoPointer())
 	return cret

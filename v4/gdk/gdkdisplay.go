@@ -336,7 +336,7 @@ func (x *Display) ListSeats() *glib.List {
 	return cret
 }
 
-var xDisplayMapKeycode func(uintptr, uint, *uintptr, *[]uint, *int) bool
+var xDisplayMapKeycode func(uintptr, uint32, *uintptr, *[]uint32, *int32) bool
 
 // Returns the keyvals bound to @keycode.
 //
@@ -347,13 +347,13 @@ var xDisplayMapKeycode func(uintptr, uint, *uintptr, *[]uint, *int) bool
 // keyboard group and level.
 //
 // Free the returned arrays with g_free().
-func (x *Display) MapKeycode(KeycodeVar uint, KeysVar *uintptr, KeyvalsVar *[]uint, NEntriesVar *int) bool {
+func (x *Display) MapKeycode(KeycodeVar uint32, KeysVar *uintptr, KeyvalsVar *[]uint32, NEntriesVar *int32) bool {
 
 	cret := xDisplayMapKeycode(x.GoPointer(), KeycodeVar, KeysVar, KeyvalsVar, NEntriesVar)
 	return cret
 }
 
-var xDisplayMapKeyval func(uintptr, uint, *uintptr, *int) bool
+var xDisplayMapKeyval func(uintptr, uint32, *uintptr, *int32) bool
 
 // Obtains a list of keycode/group/level combinations that will
 // generate @keyval.
@@ -370,7 +370,7 @@ var xDisplayMapKeyval func(uintptr, uint, *uintptr, *int) bool
 // keyboard group. The level is computed from the modifier mask.
 //
 // The returned array should be freed with g_free().
-func (x *Display) MapKeyval(KeyvalVar uint, KeysVar *uintptr, NKeysVar *int) bool {
+func (x *Display) MapKeyval(KeyvalVar uint32, KeysVar *uintptr, NKeysVar *int32) bool {
 
 	cret := xDisplayMapKeyval(x.GoPointer(), KeyvalVar, KeysVar, NKeysVar)
 	return cret
@@ -471,7 +471,7 @@ func (x *Display) Sync() {
 
 }
 
-var xDisplayTranslateKey func(uintptr, uint, ModifierType, int, *uint, *int, *int, *ModifierType) bool
+var xDisplayTranslateKey func(uintptr, uint32, ModifierType, int32, *uint32, *int32, *int32, *ModifierType) bool
 
 // Translates the contents of a `GdkEventKey` into a keyval, effective group,
 // and level.
@@ -492,7 +492,7 @@ var xDisplayTranslateKey func(uintptr, uint, ModifierType, int, *uint, *int, *in
 // This function should rarely be needed, since `GdkEventKey` already
 // contains the translated keyval. It is exported for the benefit of
 // virtualized test environments.
-func (x *Display) TranslateKey(KeycodeVar uint, StateVar ModifierType, GroupVar int, KeyvalVar *uint, EffectiveGroupVar *int, LevelVar *int, ConsumedVar *ModifierType) bool {
+func (x *Display) TranslateKey(KeycodeVar uint32, StateVar ModifierType, GroupVar int32, KeyvalVar *uint32, EffectiveGroupVar *int32, LevelVar *int32, ConsumedVar *ModifierType) bool {
 
 	cret := xDisplayTranslateKey(x.GoPointer(), KeycodeVar, StateVar, GroupVar, KeyvalVar, EffectiveGroupVar, LevelVar, ConsumedVar)
 	return cret

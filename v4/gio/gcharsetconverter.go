@@ -61,10 +61,10 @@ func NewCharsetConverter(ToCharsetVar string, FromCharsetVar string) (*CharsetCo
 
 }
 
-var xCharsetConverterGetNumFallbacks func(uintptr) uint
+var xCharsetConverterGetNumFallbacks func(uintptr) uint32
 
 // Gets the number of fallbacks that @converter has applied so far.
-func (x *CharsetConverter) GetNumFallbacks() uint {
+func (x *CharsetConverter) GetNumFallbacks() uint32 {
 
 	cret := xCharsetConverterGetNumFallbacks(x.GoPointer())
 	return cret
