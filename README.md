@@ -1,3 +1,9 @@
+# Moved to Codeberg
+
+This project has moved to [Codeberg](https://codeberg.org/puregotk/puregotk). This GitHub repository is no longer actively maintained.
+
+---
+
 # Puregotk
 
 > **_NOTE:_**  This library is currently expiremental and needs thorough testing. Some APIs might be incorrectly exposed
